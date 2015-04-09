@@ -27,7 +27,9 @@ int main()
     );
 
     // create the main game controller
+    // and run the application
     controllers::GameController game;
+    game.run(window);
 
     return EXIT_SUCCESS;
 }
