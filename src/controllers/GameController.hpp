@@ -14,9 +14,10 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "MainMenuController.hpp"
+
 namespace controllers
 {
-
     class GameController
     {
         public:
@@ -31,6 +32,10 @@ namespace controllers
              * @param RenderWindow window   the game main window
              */
             void run(sf::RenderWindow* window);
+
+        private:
+
+            MainMenuController *mainMenuController;
     };
 }
 

@@ -13,6 +13,7 @@ using namespace controllers;
  */
 GameController::GameController()
 {
+    mainMenuController = new MainMenuController();
 }
 
 /**
@@ -20,6 +21,7 @@ GameController::GameController()
  */
 GameController::~GameController()
 {
+    delete mainMenuController;
 }
 
 /**
