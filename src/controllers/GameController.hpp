@@ -14,7 +14,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "MainMenuController.hpp"
+#include "../screens/MainMenuScreen.hpp"
 
 namespace controllers
 {
@@ -35,7 +35,7 @@ namespace controllers
 
         private:
 
-            MainMenuController *mainMenuController;
+            screens::MainMenuScreen *mainMenuScreen;
     };
 }
 
