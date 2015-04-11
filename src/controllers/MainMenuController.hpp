@@ -10,6 +10,8 @@
 #ifndef DEF_MAIN_MENU_CONTROLLER
 #define DEF_MAIN_MENU_CONTROLLER
 
+#include <SFML/Graphics.hpp>
+
 namespace controllers 
 {
     class MainMenuController
@@ -18,6 +20,16 @@ namespace controllers
 
             MainMenuController();
             ~MainMenuController();
+
+            /**
+             * TODO: must be an abstract method
+             * inside a parent class 'Screen'
+             *
+             * @brief render the main menu
+             *
+             * @param RenderWindow window   render window
+             */
+            void render(sf::RenderWindow* window);
     };
 }
 
