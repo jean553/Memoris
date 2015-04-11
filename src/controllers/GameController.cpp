@@ -32,34 +32,12 @@ void GameController::run(sf::RenderWindow* window)
     // main program loop
     while(window->isOpen())
     {
-
-        // TODO: event catch procedure must
-        // be located inside a screen object
-        // and not directly inside the game loop
-
-        sf::Event event;
-
-        // render game and catch events
-        while(window->pollEvent(event))
-        {
-            switch(event.type)
-            {
-                // action when a key is pressed
-                case sf::Event::KeyPressed:
-                {
-                    switch(event.key.code)
-                    {
-                        // terminate the program when
-                        // escape button is pressed
-                        case sf::Keyboard::Escape:
-                        {
-                            window->close();
-                            break;
-                        }
-                    }
-                }
-            }
-        }
+        // TODO: use a parent class 'Screen'
+        // with an abstract method render()
+        // which returns another Screen type
+        // object for the next screen which
+        // must be displayed
+        mainMenuController->render(window);
 
         // clear the window in black color
         window->clear();
