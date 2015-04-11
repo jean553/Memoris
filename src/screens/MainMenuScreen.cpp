@@ -1,33 +1,31 @@
 /**
- * @file MainMenuController.cpp
- * @package controllers
+ * @file MainMenuScreen.cpp
+ * @package screens
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "MainMenuController.hpp"
+#include "MainMenuScreen.hpp"
 
-using namespace controllers;
+using namespace screens;
 
 /**
  *
  */
-MainMenuController::MainMenuController() {
+MainMenuScreen::MainMenuScreen() : Screen() {
 }
 
 /**
  *
  */
-MainMenuController::~MainMenuController() {
+MainMenuScreen::~MainMenuScreen() {
 }
 
 /**
  *
  */
-void MainMenuController::render(sf::RenderWindow* window) {
+void MainMenuScreen::render(sf::RenderWindow* window) {
 
-    // TODO: event catch procedure must
-    // be located inside a screen object
-    // and not directly inside the game loop
+    // TODO: check to refactor the event object
     sf::Event event;
 
     // render game and catch events
