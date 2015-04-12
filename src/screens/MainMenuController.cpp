@@ -1,29 +1,29 @@
 /**
- * @file MainMenuScreen.cpp
+ * @file MainMenuController.cpp
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "MainMenuScreen.hpp"
+#include "MainMenuController.hpp"
 
 using namespace controllers;
 
 /**
  *
  */
-MainMenuScreen::MainMenuScreen() : Controller() {
+MainMenuController::MainMenuController() : Controller() {
 }
 
 /**
  *
  */
-MainMenuScreen::~MainMenuScreen() {
+MainMenuController::~MainMenuController() {
 }
 
 /**
  *
  */
-void MainMenuScreen::render(sf::RenderWindow* window) {
+void MainMenuController::render(sf::RenderWindow* window) {
 
     // TODO: check to refactor the event object
     sf::Event event;
