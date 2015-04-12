@@ -12,11 +12,11 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Screen.hpp"
+#include "Controller.hpp"
 
 namespace controllers
 {
-    class MainMenuScreen : public Screen
+    class MainMenuScreen : public Controller
     {
         public:
 

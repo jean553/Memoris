@@ -1,23 +1,23 @@
 /**
- * @file Screen.hpp
+ * @file Controller.hpp
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "Screen.hpp"
+#include "Controller.hpp"
 
 using namespace controllers;
 
 /**
  *
  */
-Screen::Screen()
+Controller::Controller()
 {
 }
 
 /**
  *
  */
-Screen::~Screen()
+Controller::~Controller()
 {
 }

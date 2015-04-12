@@ -11,7 +11,7 @@ using namespace controllers;
 /**
  *
  */
-MainMenuScreen::MainMenuScreen() : Screen() {
+MainMenuScreen::MainMenuScreen() : Controller() {
 }
 
 /**
