@@ -12,7 +12,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Controller.hpp"
+#include "../utils/Controller.hpp"
 
 namespace controllers
 {

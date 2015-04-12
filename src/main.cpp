@@ -7,7 +7,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "controllers/GameController.hpp"
+#include "game/GameController.hpp"
 
 /**
  * Main function of the program, load the window
