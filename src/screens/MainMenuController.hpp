@@ -1,14 +1,14 @@
 /**
  * Main menu screen.
  *
- * @file MainMenuScreen.hpp
+ * @file MainMenuController.hpp
  * @brief main menu of the program
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_MAIN_MENU_SCREEN
-#define DEF_MAIN_MENU_SCREEN
+#ifndef DEF_MAIN_MENU_CONTROLLER
+#define DEF_MAIN_MENU_CONTROLLER
 
 #include <SFML/Graphics.hpp>
 
@@ -16,12 +16,12 @@
 
 namespace controllers
 {
-    class MainMenuScreen : public Controller
+    class MainMenuController : public Controller
     {
         public:
 
-            MainMenuScreen();
-            ~MainMenuScreen();
+            MainMenuController();
+            ~MainMenuController();
 
             /**
              * @brief render the main menu

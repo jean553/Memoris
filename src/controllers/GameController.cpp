@@ -13,7 +13,7 @@ using namespace controllers;
  */
 GameController::GameController()
 {
-    mainMenuScreen = new controllers::MainMenuScreen();
+    mainMenuController = new controllers::MainMenuController();
 }
 
 /**
@@ -21,7 +21,7 @@ GameController::GameController()
  */
 GameController::~GameController()
 {
-    delete mainMenuScreen;
+    delete mainMenuController;
 }
 
 /**
@@ -37,7 +37,7 @@ void GameController::run(sf::RenderWindow* window)
         // which returns another Screen type
         // object for the next screen which
         // must be displayed
-        mainMenuScreen->render(window);
+        mainMenuController->render(window);
 
         // clear the window in black color
         window->clear();
