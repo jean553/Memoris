@@ -1,12 +1,12 @@
 /**
  * @file Screen.hpp
- * @package screens
+ * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
 #include "Screen.hpp"
 
-using namespace screens;
+using namespace controllers;
 
 /**
  *

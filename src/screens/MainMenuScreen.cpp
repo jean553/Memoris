@@ -1,12 +1,12 @@
 /**
  * @file MainMenuScreen.cpp
- * @package screens
+ * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
 #include "MainMenuScreen.hpp"
 
-using namespace screens;
+using namespace controllers;
 
 /**
  *

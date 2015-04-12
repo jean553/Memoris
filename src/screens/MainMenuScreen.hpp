@@ -3,7 +3,7 @@
  *
  * @file MainMenuScreen.hpp
  * @brief main menu of the program
- * @package screens
+ * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
@@ -14,7 +14,7 @@
 
 #include "Screen.hpp"
 
-namespace screens
+namespace controllers
 {
     class MainMenuScreen : public Screen
     {
