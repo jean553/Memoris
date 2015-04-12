@@ -14,7 +14,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../screens/MainMenuController.hpp"
+#include "../main_menu/MainMenuController.hpp"
 
 namespace controllers
 {
