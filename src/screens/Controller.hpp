@@ -1,8 +1,6 @@
 /**
- * Parent class for Screen type.
- *
- * @file Screen.hpp
- * @brief parent class for Screen type
+ * @file Controller.hpp
+ * @brief parent class for all controllers
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -14,12 +12,12 @@
 
 namespace controllers
 {
-    class Screen
+    class Controller
     {
         public:
 
-            Screen();
-            ~Screen();
+            Controller();
+            ~Controller();
 
         protected:
 
