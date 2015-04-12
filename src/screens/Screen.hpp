@@ -3,7 +3,7 @@
  *
  * @file Screen.hpp
  * @brief parent class for Screen type
- * @package screens
+ * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
@@ -12,7 +12,7 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace screens
+namespace controllers
 {
     class Screen
     {

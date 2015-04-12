@@ -35,7 +35,7 @@ namespace controllers
 
         private:
 
-            screens::MainMenuScreen *mainMenuScreen;
+            controllers::MainMenuScreen *mainMenuScreen;
     };
 }
 

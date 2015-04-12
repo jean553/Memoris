@@ -13,7 +13,7 @@ using namespace controllers;
  */
 GameController::GameController()
 {
-    mainMenuScreen = new screens::MainMenuScreen();
+    mainMenuScreen = new controllers::MainMenuScreen();
 }
 
 /**
