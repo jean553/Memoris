@@ -10,6 +10,8 @@
 #ifndef DEF_SCREEN_FACTORY
 #define DEF_SCREEN_FACTORY
 
+#include "Controller.hpp"
+
 namespace factories
 {
     class ScreenFactory
@@ -18,6 +20,18 @@ namespace factories
 
             ScreenFactory();
             ~ScreenFactory();
+
+            /**
+             * @brief returns a new controller
+             * pointer according to the given
+             * screen id, used for screens
+             * generation and screens switching.
+             *
+             * @param char id   id of the screen
+             *
+             * @return screen controller pointer
+             */
+            controllers::Controller* getScreenById(unsigned char id);
     };
 }
 
