@@ -12,6 +12,8 @@
 
 #include "Controller.hpp"
 
+#include "../main_menu/MainMenuController.hpp"
+
 namespace factories
 {
     class ScreenFactory
@@ -29,7 +31,8 @@ namespace factories
              *
              * @param char id   id of the screen
              *
-             * @return screen controller pointer
+             * @return screen controller pointer,
+             * returns null if no screen match
              */
             controllers::Controller* getScreenById(unsigned char id);
     };
