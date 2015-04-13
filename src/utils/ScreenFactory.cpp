@@ -28,5 +28,12 @@ ScreenFactory::~ScreenFactory()
 controllers::Controller* ScreenFactory::getScreenById(
     unsigned char id
 ) {
-    return NULL;
+
+    switch(id)
+    {
+        case 1:
+            return new controllers::MainMenuController;
+        default:
+            return NULL;
+    }
 }
