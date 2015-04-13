@@ -15,6 +15,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "../main_menu/MainMenuController.hpp"
+#include "../utils/ScreenFactory.hpp"
 
 namespace controllers
 {
@@ -36,6 +37,8 @@ namespace controllers
         private:
 
             controllers::MainMenuController *mainMenuController;
+
+            factories::ScreenFactory *screenFactory;
     };
 }
 

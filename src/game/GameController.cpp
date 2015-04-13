@@ -14,6 +14,8 @@ using namespace controllers;
 GameController::GameController()
 {
     mainMenuController = new controllers::MainMenuController();
+
+    screenFactory = new factories::ScreenFactory();
 }
 
 /**
@@ -22,6 +24,8 @@ GameController::GameController()
 GameController::~GameController()
 {
     delete mainMenuController;
+
+    delete screenFactory;
 }
 
 /**
