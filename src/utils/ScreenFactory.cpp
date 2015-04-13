@@ -21,3 +21,12 @@ ScreenFactory::ScreenFactory()
 ScreenFactory::~ScreenFactory()
 {
 }
+
+/**
+ *
+ */
+controllers::Controller* ScreenFactory::getScreenById(
+    unsigned char id
+) {
+    return NULL;
+}
