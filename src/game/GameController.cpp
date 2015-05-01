@@ -13,9 +13,11 @@ using namespace controllers;
  */
 GameController::GameController()
 {
-    mainMenuController = new controllers::MainMenuController();
-
     screenFactory = new factories::ScreenFactory();
+
+    currentController = screenFactory->getScreenById(
+        MAIN_MENU_CONTROLLER_ID
+    );
 }
 
 /**
@@ -23,9 +25,9 @@ GameController::GameController()
  */
 GameController::~GameController()
 {
-    delete mainMenuController;
-
     delete screenFactory;
+
+    delete currentController;
 }
 
 /**
@@ -33,20 +35,12 @@ GameController::~GameController()
  */
 void GameController::run(sf::RenderWindow* window)
 {
-    // main program loop
     while(window->isOpen())
     {
-        // TODO: use a parent class 'Screen'
-        // with an abstract method render()
-        // which returns another Screen type
-        // object for the next screen which
-        // must be displayed
-        mainMenuController->render(window);
+        currentController->render(window);
 
-        // clear the window in black color
         window->clear();
 
-        // display the whole window content
         window->display();
     }
 }

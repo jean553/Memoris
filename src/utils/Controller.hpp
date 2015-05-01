@@ -19,8 +19,6 @@ namespace controllers
             Controller();
             ~Controller();
 
-        protected:
-
             /**
              * @brief render the screen, contains events catcher,
              *
