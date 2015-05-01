@@ -13,17 +13,24 @@ using namespace controllers;
  */
 MainMenuController::MainMenuController() : Controller()
 {
-    sf::Color colorBlue(0, 0, 225, 255);
-
     fontTitle.loadFromFile(PATH_FONT_TITLE);
+
+    colorTitle.r = COLOR_TITLE_RED_INIT;
+    colorTitle.g = COLOR_TITLE_GREEN_INIT;
+    colorTitle.b = COLOR_TITLE_BLUE_INIT;
+    colorTitle.a = COLOR_TITLE_ALPHA;
 
     title.setFont(fontTitle);
     title.setString("Memoris");
-    title.setCharacterSize(TITLE_FONT_SIZE);
-    title.setColor(colorBlue);
-    title.setPosition(600,100);
+    title.setCharacterSize(SIZE_TITLE_FONT);
+    title.setColor(colorTitle);
+    title.setPosition(POSITION_TITLE_X, POSITION_TITLE_Y);
 
     musicMainMenu.openFromFile(PATH_MUSIC_MAIN_MENU);
+
+    titleRedDirection = DIRECTION_TITLE_RED_INIT;
+    titleGreenDirection = DIRECTION_TITLE_GREEN_INIT;
+    titleBlueDirection = DIRECTION_TITLE_BLUE_INIT;
 
     //TODO: not an initialization function,
     //check if it can be moved in the rendering
@@ -43,6 +50,16 @@ MainMenuController::~MainMenuController()
  */
 void MainMenuController::render(sf::RenderWindow* window)
 {
+    // animate the items
+    if(clock.getElapsedTime().asMilliseconds() >
+        INTERVAL_ANIMATION_TITLE
+    ) {
+
+        animateTitleColor();
+
+        clock.restart();
+    }
+
     window->draw(title);
 
     // render game and catch events
@@ -66,4 +83,36 @@ void MainMenuController::render(sf::RenderWindow* window)
             }
         }
     }
+}
+
+/**
+ *
+ */
+void MainMenuController::animateTitleColor()
+{
+    // update color values
+    colorTitle.r += titleRedDirection;
+    colorTitle.g += titleGreenDirection;
+    colorTitle.b += titleBlueDirection;
+
+    // switch colors updates directions
+    if(colorTitle.r == COLOR_TITLE_RED_MAX ||
+       colorTitle.r == COLOR_TITLE_ALL_MIN
+    ) {
+        titleRedDirection = -titleRedDirection;
+    }
+
+    if(colorTitle.g == COLOR_TITLE_GREEN_MAX ||
+       colorTitle.g == COLOR_TITLE_ALL_MIN
+    ) {
+        titleGreenDirection = -titleGreenDirection;
+    }
+
+    if(colorTitle.b == COLOR_TITLE_BLUE_MAX ||
+    colorTitle.b == COLOR_TITLE_ALL_MIN
+    ) {
+        titleBlueDirection = -titleBlueDirection;
+    }
+
+    title.setColor(colorTitle);
 }
