@@ -19,6 +19,7 @@
 
 #define PATH_FONT_TITLE "res/fonts/crystal_regular.ttf"
 #define PATH_MUSIC_MAIN_MENU "res/musics/dj-xtrm-killer-symphonyX-outro.ogg"
+#define PATH_IMAGE_GITHUB "res/images/fork-me.png"
 
 #define COLOR_TITLE_RED_INIT 0
 #define COLOR_TITLE_GREEN_INIT 0
@@ -31,6 +32,8 @@
 
 #define POSITION_TITLE_X 480
 #define POSITION_TITLE_Y 100
+#define POSITION_GITHUB_X 1300
+#define POSITION_GITHUB_Y 0
 
 #define DIRECTION_TITLE_RED_INIT 1
 #define DIRECTION_TITLE_GREEN_INIT 1
@@ -61,6 +64,10 @@ namespace controllers
             sf::Color colorTitle;
 
             sf::Text title;
+
+            sf::Texture textureGithub;
+
+            sf::Sprite spriteGithub;
 
             sf::Music musicMainMenu;
 
