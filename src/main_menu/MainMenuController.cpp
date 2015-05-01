@@ -26,6 +26,14 @@ MainMenuController::MainMenuController() : Controller()
     title.setColor(colorTitle);
     title.setPosition(POSITION_TITLE_X, POSITION_TITLE_Y);
 
+    textureGithub.loadFromFile(PATH_IMAGE_GITHUB);
+
+    spriteGithub.setTexture(textureGithub, true);
+    spriteGithub.setPosition(
+        POSITION_GITHUB_X,
+        POSITION_GITHUB_Y
+    );
+
     musicMainMenu.openFromFile(PATH_MUSIC_MAIN_MENU);
 
     titleRedDirection = DIRECTION_TITLE_RED_INIT;
@@ -61,6 +69,7 @@ void MainMenuController::render(sf::RenderWindow* window)
     }
 
     window->draw(title);
+    window->draw(spriteGithub);
 
     // render game and catch events
     while(window->pollEvent(event))
