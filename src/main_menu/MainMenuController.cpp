@@ -15,13 +15,19 @@ MainMenuController::MainMenuController() : Controller()
 {
     sf::Color colorBlue(0, 0, 225, 255);
 
-    fontTitle.loadFromFile("res/fonts/designer_block.ttf");
+    fontTitle.loadFromFile(PATH_FONT_TITLE);
 
     title.setFont(fontTitle);
     title.setString("Memoris");
     title.setCharacterSize(TITLE_FONT_SIZE);
     title.setColor(colorBlue);
     title.setPosition(640,100);
+
+    musicMainMenu.openFromFile(PATH_MUSIC_MAIN_MENU);
+
+    //TODO: not an initialization function,
+    //check if it can be moved in the rendering
+    musicMainMenu.play();
 }
 
 /**
@@ -29,6 +35,7 @@ MainMenuController::MainMenuController() : Controller()
  */
 MainMenuController::~MainMenuController()
 {
+    musicMainMenu.stop();
 }
 
 /**

@@ -35,6 +35,8 @@ GameController::~GameController()
  */
 void GameController::run(sf::RenderWindow* window)
 {
+    window->setMouseCursorVisible(false);
+
     while(window->isOpen())
     {
         window->clear();
