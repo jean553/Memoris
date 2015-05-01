@@ -14,6 +14,8 @@
 
 #include "../utils/Controller.hpp"
 
+#define TITLE_FONT_SIZE 80
+
 namespace controllers
 {
     class MainMenuController : public Controller
@@ -29,6 +31,12 @@ namespace controllers
              * @param RenderWindow window   render window
              */
             void render(sf::RenderWindow* window);
+
+        private:
+
+            sf::Font fontTitle;
+
+            sf::Text title;
     };
 }
 

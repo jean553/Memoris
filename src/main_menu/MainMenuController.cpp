@@ -11,22 +11,32 @@ using namespace controllers;
 /**
  *
  */
-MainMenuController::MainMenuController() : Controller() {
+MainMenuController::MainMenuController() : Controller()
+{
+    sf::Color colorBlue(0, 0, 225, 255);
+
+    fontTitle.loadFromFile("res/fonts/designer_block.ttf");
+
+    title.setFont(fontTitle);
+    title.setString("Memoris");
+    title.setCharacterSize(TITLE_FONT_SIZE);
+    title.setColor(colorBlue);
+    title.setPosition(640,100);
 }
 
 /**
  *
  */
-MainMenuController::~MainMenuController() {
+MainMenuController::~MainMenuController()
+{
 }
 
 /**
  *
  */
-void MainMenuController::render(sf::RenderWindow* window) {
-
-    // TODO: check to refactor the event object
-    sf::Event event;
+void MainMenuController::render(sf::RenderWindow* window)
+{
+    window->draw(title);
 
     // render game and catch events
     while(window->pollEvent(event))

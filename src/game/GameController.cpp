@@ -37,9 +37,9 @@ void GameController::run(sf::RenderWindow* window)
 {
     while(window->isOpen())
     {
-        currentController->render(window);
-
         window->clear();
+
+        currentController->render(window);
 
         window->display();
     }

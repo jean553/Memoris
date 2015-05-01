@@ -25,6 +25,10 @@ namespace controllers
              * @param RenderWindow window   the game main window
              */
             virtual void render(sf::RenderWindow* window) = 0;
+
+        protected:
+
+            sf::Event event;
     };
 }
 
