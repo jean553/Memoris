@@ -21,7 +21,7 @@ MainMenuController::MainMenuController() : Controller()
     title.setString("Memoris");
     title.setCharacterSize(TITLE_FONT_SIZE);
     title.setColor(colorBlue);
-    title.setPosition(640,100);
+    title.setPosition(600,100);
 
     musicMainMenu.openFromFile(PATH_MUSIC_MAIN_MENU);
 
