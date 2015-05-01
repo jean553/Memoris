@@ -16,7 +16,7 @@
 #include "../utils/Controller.hpp"
 
 #define TITLE_FONT_SIZE 80
-#define PATH_FONT_TITLE "res/fonts/designer_block.ttf"
+#define PATH_FONT_TITLE "res/fonts/crystal_regular.ttf"
 #define PATH_MUSIC_MAIN_MENU "res/musics/dj-xtrm-killer-symphonyX-outro.ogg"
 
 namespace controllers
