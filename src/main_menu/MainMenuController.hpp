@@ -15,9 +15,28 @@
 
 #include "../utils/Controller.hpp"
 
-#define TITLE_FONT_SIZE 80
+#define SIZE_TITLE_FONT 140
+
 #define PATH_FONT_TITLE "res/fonts/crystal_regular.ttf"
 #define PATH_MUSIC_MAIN_MENU "res/musics/dj-xtrm-killer-symphonyX-outro.ogg"
+
+#define COLOR_TITLE_RED_INIT 0
+#define COLOR_TITLE_GREEN_INIT 0
+#define COLOR_TITLE_BLUE_INIT 255
+#define COLOR_TITLE_RED_MAX 255
+#define COLOR_TITLE_GREEN_MAX 180
+#define COLOR_TITLE_BLUE_MAX 255
+#define COLOR_TITLE_ALL_MIN 0
+#define COLOR_TITLE_ALPHA 255
+
+#define POSITION_TITLE_X 480
+#define POSITION_TITLE_Y 100
+
+#define DIRECTION_TITLE_RED_INIT 1
+#define DIRECTION_TITLE_GREEN_INIT 1
+#define DIRECTION_TITLE_BLUE_INIT -1
+
+#define INTERVAL_ANIMATION_TITLE 10
 
 namespace controllers
 {
@@ -39,9 +58,22 @@ namespace controllers
 
             sf::Font fontTitle;
 
+            sf::Color colorTitle;
+
             sf::Text title;
 
             sf::Music musicMainMenu;
+
+            sf::Clock clock;
+
+            char titleRedDirection;
+            char titleGreenDirection;
+            char titleBlueDirection;
+
+            /**
+             * @brief update the color of the title
+             */
+            void animateTitleColor();
     };
 }
 
