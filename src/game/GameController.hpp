@@ -14,8 +14,10 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../main_menu/MainMenuController.hpp"
 #include "../utils/ScreenFactory.hpp"
+#include "../utils/Controller.hpp"
+
+#define MAIN_MENU_CONTROLLER_ID 1
 
 namespace controllers
 {
@@ -30,13 +32,13 @@ namespace controllers
              * @brief run the game, contains
              * the main loop of the program
              *
-             * @param RenderWindow window   the game main window
+             * @param RenderWindow window   main window
              */
             void run(sf::RenderWindow* window);
 
         private:
 
-            controllers::MainMenuController *mainMenuController;
+            controllers::Controller *currentController;
 
             factories::ScreenFactory *screenFactory;
     };
