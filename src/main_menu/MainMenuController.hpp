@@ -16,8 +16,10 @@
 #include "../utils/Controller.hpp"
 
 #define SIZE_TITLE_FONT 140
+#define SIZE_ITEM_FONT 60
 
 #define PATH_FONT_TITLE "res/fonts/crystal_regular.ttf"
+#define PATH_FONT_ITEM "res/fonts/hi.otf"
 #define PATH_MUSIC_MAIN_MENU "res/musics/dj-xtrm-killer-symphonyX-outro.ogg"
 #define PATH_IMAGE_GITHUB "res/images/fork-me.png"
 
@@ -29,17 +31,38 @@
 #define COLOR_TITLE_BLUE_MAX 255
 #define COLOR_TITLE_ALL_MIN 0
 #define COLOR_TITLE_ALPHA 255
+#define COLOR_WHITE_RED 255
+#define COLOR_WHITE_GREEN 255
+#define COLOR_WHITE_BLUE 255
+#define COLOR_WHITE_ALPHA 255
 
 #define POSITION_TITLE_X 480
 #define POSITION_TITLE_Y 100
 #define POSITION_GITHUB_X 1300
 #define POSITION_GITHUB_Y 0
+#define POSITION_ITEM_NEW_GAME_X 615
+#define POSITION_ITEM_NEW_GAME_Y 300
+#define POSITION_ITEM_LOAD_GAME_X 605
+#define POSITION_ITEM_LOAD_GAME_Y 400
+#define POSITION_ITEM_EDITOR_X 685
+#define POSITION_ITEM_EDITOR_Y 500
+#define POSITION_ITEM_OPTIONS_X 660
+#define POSITION_ITEM_OPTIONS_Y 600
+#define POSITION_ITEM_EXIT_X 725
+#define POSITION_ITEM_EXIT_Y 700
 
 #define DIRECTION_TITLE_RED_INIT 1
 #define DIRECTION_TITLE_GREEN_INIT 1
 #define DIRECTION_TITLE_BLUE_INIT -1
 
 #define INTERVAL_ANIMATION_TITLE 10
+
+#define STRING_TITLE "Memoris"
+#define STRING_NEW_GAME "New game"
+#define STRING_LOAD_GAME "Load game"
+#define STRING_EDITOR "Editor"
+#define STRING_OPTIONS "Options"
+#define STRING_EXIT "Exit"
 
 namespace controllers
 {
@@ -60,10 +83,17 @@ namespace controllers
         private:
 
             sf::Font fontTitle;
+            sf::Font fontItem;
 
             sf::Color colorTitle;
+            sf::Color colorWhite;
 
             sf::Text title;
+            sf::Text itemNewGame;
+            sf::Text itemLoadGame;
+            sf::Text itemEditor;
+            sf::Text itemOptions;
+            sf::Text itemExit;
 
             sf::Texture textureGithub;
 
