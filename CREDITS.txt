@@ -1,4 +1,5 @@
 - Fonts
     - "Crystal" - http://openfontlibrary.org/en/font/crystal#CRYSTAL-Regular - Felipe Munoz - CreativeCommons 
+    - "Hi" - http://openfontlibrary.org/en/font/hi - Mew Too, Robert Jablonski - OFL (SIL Open Font License)
 - Musics
     - "SymphonX Outro" - https://www.jamendo.com/en/list/a132590/xtrm-what - Dj XtrM KilleR - CreativeCommons

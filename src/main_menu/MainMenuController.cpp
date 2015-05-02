@@ -14,17 +14,68 @@ using namespace controllers;
 MainMenuController::MainMenuController() : Controller()
 {
     fontTitle.loadFromFile(PATH_FONT_TITLE);
+    fontItem.loadFromFile(PATH_FONT_ITEM);
 
     colorTitle.r = COLOR_TITLE_RED_INIT;
     colorTitle.g = COLOR_TITLE_GREEN_INIT;
     colorTitle.b = COLOR_TITLE_BLUE_INIT;
     colorTitle.a = COLOR_TITLE_ALPHA;
 
+    colorWhite.r = COLOR_WHITE_RED;
+    colorWhite.g = COLOR_WHITE_GREEN;
+    colorWhite.b = COLOR_WHITE_BLUE;
+    colorWhite.a = COLOR_WHITE_ALPHA;
+
     title.setFont(fontTitle);
-    title.setString("Memoris");
+    title.setString(STRING_TITLE);
     title.setCharacterSize(SIZE_TITLE_FONT);
     title.setColor(colorTitle);
     title.setPosition(POSITION_TITLE_X, POSITION_TITLE_Y);
+
+    itemNewGame.setFont(fontItem);
+    itemNewGame.setString(STRING_NEW_GAME);
+    itemNewGame.setCharacterSize(SIZE_ITEM_FONT);
+    itemNewGame.setColor(colorWhite);
+    itemNewGame.setPosition(
+        POSITION_ITEM_NEW_GAME_X,
+        POSITION_ITEM_NEW_GAME_Y
+    );
+
+    itemLoadGame.setFont(fontItem);
+    itemLoadGame.setString(STRING_LOAD_GAME);
+    itemLoadGame.setCharacterSize(SIZE_ITEM_FONT);
+    itemLoadGame.setColor(colorWhite);
+    itemLoadGame.setPosition(
+        POSITION_ITEM_LOAD_GAME_X,
+        POSITION_ITEM_LOAD_GAME_Y
+    );
+
+    itemEditor.setFont(fontItem);
+    itemEditor.setString(STRING_EDITOR);
+    itemEditor.setCharacterSize(SIZE_ITEM_FONT);
+    itemEditor.setColor(colorWhite);
+    itemEditor.setPosition(
+        POSITION_ITEM_EDITOR_X,
+        POSITION_ITEM_EDITOR_Y
+    );
+
+    itemOptions.setFont(fontItem);
+    itemOptions.setString(STRING_OPTIONS);
+    itemOptions.setCharacterSize(SIZE_ITEM_FONT);
+    itemOptions.setColor(colorWhite);
+    itemOptions.setPosition(
+        POSITION_ITEM_OPTIONS_X,
+        POSITION_ITEM_OPTIONS_Y
+    );
+
+    itemExit.setFont(fontItem);
+    itemExit.setString(STRING_EXIT);
+    itemExit.setCharacterSize(SIZE_ITEM_FONT);
+    itemExit.setColor(colorWhite);
+    itemExit.setPosition(
+        POSITION_ITEM_EXIT_X,
+        POSITION_ITEM_EXIT_Y
+    );
 
     textureGithub.loadFromFile(PATH_IMAGE_GITHUB);
 
@@ -69,6 +120,11 @@ void MainMenuController::render(sf::RenderWindow* window)
     }
 
     window->draw(title);
+    window->draw(itemNewGame);
+    window->draw(itemLoadGame);
+    window->draw(itemEditor);
+    window->draw(itemOptions);
+    window->draw(itemExit);
     window->draw(spriteGithub);
 
     // render game and catch events
