@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/jean553/Memoris.svg?branch=1_create_game_controller)](https://travis-ci.org/jean553/Memoris)
 
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+License : GNU GPL v3
 
 # Memoris
 Memoris is a 2D graphical video game developped in C++ using the SFML media library. 
