@@ -88,6 +88,8 @@
 #define MENU_SELECTOR_MIN 0
 #define MENU_SELECTOR_MAX 4
 
+#define SOUND_SELECTOR_MOVE "res/sounds/001.wav"
+
 namespace controllers
 {
     class MainMenuController : public Controller
@@ -127,6 +129,10 @@ namespace controllers
             sf::Music musicMainMenu;
 
             sf::Clock clock;
+
+            sf::SoundBuffer soundBuffer;
+
+            sf::Sound soundSelectorMove;
 
             char titleRedDirection;
             char titleGreenDirection;

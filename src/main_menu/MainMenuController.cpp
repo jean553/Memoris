@@ -113,6 +113,10 @@ MainMenuController::MainMenuController() : Controller()
 
     musicMainMenu.openFromFile(PATH_MUSIC_MAIN_MENU);
 
+    soundBuffer.loadFromFile(SOUND_SELECTOR_MOVE);
+
+    soundSelectorMove.setBuffer(soundBuffer);
+
     titleRedDirection = DIRECTION_TITLE_RED_INIT;
     titleGreenDirection = DIRECTION_TITLE_GREEN_INIT;
     titleBlueDirection = DIRECTION_TITLE_BLUE_INIT;
@@ -178,12 +182,18 @@ void MainMenuController::render(sf::RenderWindow* window)
                     // move the selector
                     case sf::Keyboard::Up:
                     {
+                        soundSelectorMove.play();
+
                         selectorPosition--;
+
                         break;
                     }
                     case sf::Keyboard::Down:
                     {
+                        soundSelectorMove.play();
+
                         selectorPosition++;
+
                         break;
                     }
                 }
