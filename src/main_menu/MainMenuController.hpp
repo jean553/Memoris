@@ -41,6 +41,8 @@
 #define PATH_MUSIC_MAIN_MENU "res/musics/dj-xtrm-killer-symphonyX-outro.ogg"
 #define PATH_IMAGE_GITHUB "res/images/fork-me.png"
 
+#define COLOR_ALPHA 255
+
 #define COLOR_TITLE_RED_INIT 0
 #define COLOR_TITLE_GREEN_INIT 0
 #define COLOR_TITLE_BLUE_INIT 255
@@ -48,11 +50,12 @@
 #define COLOR_TITLE_GREEN_MAX 180
 #define COLOR_TITLE_BLUE_MAX 255
 #define COLOR_TITLE_ALL_MIN 0
-#define COLOR_TITLE_ALPHA 255
 #define COLOR_WHITE_RED 255
 #define COLOR_WHITE_GREEN 255
 #define COLOR_WHITE_BLUE 255
-#define COLOR_WHITE_ALPHA 255
+#define COLOR_RED_RED 255
+#define COLOR_RED_GREEN 0
+#define COLOR_RED_BLUE 0
 
 #define POSITION_TITLE_X 480
 #define POSITION_TITLE_Y 100
@@ -82,6 +85,9 @@
 #define STRING_OPTIONS "Options"
 #define STRING_EXIT "Exit"
 
+#define MENU_SELECTOR_MIN 0
+#define MENU_SELECTOR_MAX 4
+
 namespace controllers
 {
     class MainMenuController : public Controller
@@ -105,6 +111,7 @@ namespace controllers
 
             sf::Color colorTitle;
             sf::Color colorWhite;
+            sf::Color colorRed;
 
             sf::Text title;
             sf::Text itemNewGame;
@@ -125,10 +132,17 @@ namespace controllers
             char titleGreenDirection;
             char titleBlueDirection;
 
+            unsigned char selectorPosition;
+
             /**
              * @brief update the color of the title
              */
             void animateTitleColor();
+
+            /**
+             * @brief visually update the selector position
+             */
+            void updateSelectorPosition();
     };
 }
 

@@ -37,23 +37,31 @@ MainMenuController::MainMenuController() : Controller()
     colorTitle.r = COLOR_TITLE_RED_INIT;
     colorTitle.g = COLOR_TITLE_GREEN_INIT;
     colorTitle.b = COLOR_TITLE_BLUE_INIT;
-    colorTitle.a = COLOR_TITLE_ALPHA;
+    colorTitle.a = COLOR_ALPHA;
 
     colorWhite.r = COLOR_WHITE_RED;
     colorWhite.g = COLOR_WHITE_GREEN;
     colorWhite.b = COLOR_WHITE_BLUE;
-    colorWhite.a = COLOR_WHITE_ALPHA;
+    colorWhite.a = COLOR_ALPHA;
+
+    colorRed.r = COLOR_RED_RED;
+    colorRed.g = COLOR_RED_GREEN;
+    colorRed.b = COLOR_RED_BLUE;
+    colorRed.a = COLOR_ALPHA;
 
     title.setFont(fontTitle);
     title.setString(STRING_TITLE);
     title.setCharacterSize(SIZE_TITLE_FONT);
     title.setColor(colorTitle);
-    title.setPosition(POSITION_TITLE_X, POSITION_TITLE_Y);
+    title.setPosition(
+        POSITION_TITLE_X,
+        POSITION_TITLE_Y
+    );
 
     itemNewGame.setFont(fontItem);
     itemNewGame.setString(STRING_NEW_GAME);
     itemNewGame.setCharacterSize(SIZE_ITEM_FONT);
-    itemNewGame.setColor(colorWhite);
+    itemNewGame.setColor(colorRed);
     itemNewGame.setPosition(
         POSITION_ITEM_NEW_GAME_X,
         POSITION_ITEM_NEW_GAME_Y
@@ -109,6 +117,8 @@ MainMenuController::MainMenuController() : Controller()
     titleGreenDirection = DIRECTION_TITLE_GREEN_INIT;
     titleBlueDirection = DIRECTION_TITLE_BLUE_INIT;
 
+    selectorPosition = 0;
+
     //TODO: not an initialization function,
     //check if it can be moved in the rendering
     musicMainMenu.play();
@@ -137,6 +147,8 @@ void MainMenuController::render(sf::RenderWindow* window)
         clock.restart();
     }
 
+    updateSelectorPosition();
+
     window->draw(title);
     window->draw(itemNewGame);
     window->draw(itemLoadGame);
@@ -160,6 +172,18 @@ void MainMenuController::render(sf::RenderWindow* window)
                     case sf::Keyboard::Escape:
                     {
                         window->close();
+                        break;
+                    }
+
+                    // move the selector
+                    case sf::Keyboard::Up:
+                    {
+                        selectorPosition--;
+                        break;
+                    }
+                    case sf::Keyboard::Down:
+                    {
+                        selectorPosition++;
                         break;
                     }
                 }
@@ -198,4 +222,53 @@ void MainMenuController::animateTitleColor()
     }
 
     title.setColor(colorTitle);
+}
+
+/**
+ *
+ */
+void MainMenuController::updateSelectorPosition()
+{
+    // fix selector position
+    selectorPosition = (
+        (selectorPosition > MENU_SELECTOR_MAX) ?
+        MENU_SELECTOR_MIN :
+        selectorPosition
+    );
+
+    // switch back items colors to white
+    itemNewGame.setColor(colorWhite);
+    itemLoadGame.setColor(colorWhite);
+    itemEditor.setColor(colorWhite);
+    itemOptions.setColor(colorWhite);
+    itemExit.setColor(colorWhite);
+
+    switch(selectorPosition)
+    {
+        case 0:
+        {
+            itemNewGame.setColor(colorRed);
+            break;
+        }
+        case 1:
+        {
+            itemLoadGame.setColor(colorRed);
+            break;
+        }
+        case 2:
+        {
+            itemEditor.setColor(colorRed);
+            break;
+        }
+        case 3:
+        {
+            itemOptions.setColor(colorRed);
+            break;
+        }
+        case 4:
+        {
+            itemExit.setColor(colorRed);
+            break;
+        }
+    }
 }
