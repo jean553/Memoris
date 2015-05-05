@@ -90,6 +90,12 @@
 
 #define SOUND_SELECTOR_MOVE "res/sounds/001.wav"
 
+#define MENU_ITEM_NEW_GAME 0
+#define MENU_ITEM_LOAD_GAME 1
+#define MENU_ITEM_EDITOR 2
+#define MENU_ITEM_OPTIONS 3
+#define MENU_ITEM_EXIT 4
+
 namespace controllers
 {
     class MainMenuController : public Controller
@@ -149,6 +155,13 @@ namespace controllers
              * @brief visually update the selector position
              */
             void updateSelectorPosition();
+
+            /**
+             * @brief call action for one selected menu item
+             *
+             * @param RenderWindow window main window
+             */
+            void selectMenuItem(sf::RenderWindow* window);
     };
 }
 
