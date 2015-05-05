@@ -196,6 +196,12 @@ void MainMenuController::render(sf::RenderWindow* window)
 
                         break;
                     }
+                    case sf::Keyboard::Return:
+                    {
+                        selectMenuItem(window);
+
+                        break;
+                    }
                 }
             }
         }
@@ -255,29 +261,45 @@ void MainMenuController::updateSelectorPosition()
 
     switch(selectorPosition)
     {
-        case 0:
+        case MENU_ITEM_NEW_GAME:
         {
             itemNewGame.setColor(colorRed);
             break;
         }
-        case 1:
+        case MENU_ITEM_LOAD_GAME:
         {
             itemLoadGame.setColor(colorRed);
             break;
         }
-        case 2:
+        case MENU_ITEM_EDITOR:
         {
             itemEditor.setColor(colorRed);
             break;
         }
-        case 3:
+        case MENU_ITEM_OPTIONS:
         {
             itemOptions.setColor(colorRed);
             break;
         }
-        case 4:
+        case MENU_ITEM_EXIT:
         {
             itemExit.setColor(colorRed);
+            break;
+        }
+    }
+}
+
+/**
+ *
+ */
+void MainMenuController::selectMenuItem(sf::RenderWindow* window)
+{
+    switch(selectorPosition)
+    {
+        case MENU_ITEM_EXIT:
+        {
+            window->close();
+
             break;
         }
     }
