@@ -139,7 +139,7 @@ MainMenuController::~MainMenuController()
 /**
  *
  */
-void MainMenuController::render(sf::RenderWindow* window)
+void MainMenuController::render(utils::Context* context)
 {
     // animate the items
     if(clock.getElapsedTime().asMilliseconds() >
@@ -153,16 +153,16 @@ void MainMenuController::render(sf::RenderWindow* window)
 
     updateSelectorPosition();
 
-    window->draw(title);
-    window->draw(itemNewGame);
-    window->draw(itemLoadGame);
-    window->draw(itemEditor);
-    window->draw(itemOptions);
-    window->draw(itemExit);
-    window->draw(spriteGithub);
+    context->getWindow()->draw(title);
+    context->getWindow()->draw(itemNewGame);
+    context->getWindow()->draw(itemLoadGame);
+    context->getWindow()->draw(itemEditor);
+    context->getWindow()->draw(itemOptions);
+    context->getWindow()->draw(itemExit);
+    context->getWindow()->draw(spriteGithub);
 
     // render game and catch events
-    while(window->pollEvent(event))
+    while(context->getWindow()->pollEvent(event))
     {
         switch(event.type)
         {
@@ -175,7 +175,7 @@ void MainMenuController::render(sf::RenderWindow* window)
                     // escape button is pressed
                     case sf::Keyboard::Escape:
                     {
-                        window->close();
+                        context->getWindow()->close();
                         break;
                     }
 
@@ -198,7 +198,7 @@ void MainMenuController::render(sf::RenderWindow* window)
                     }
                     case sf::Keyboard::Return:
                     {
-                        selectMenuItem(window);
+                        selectMenuItem(context->getWindow());
 
                         break;
                     }

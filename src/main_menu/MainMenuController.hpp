@@ -32,6 +32,7 @@
 #include <SFML/Audio.hpp>
 
 #include "../utils/Controller.hpp"
+#include "../utils/Context.hpp"
 
 #define SIZE_TITLE_FONT 140
 #define SIZE_ITEM_FONT 60
@@ -108,9 +109,11 @@ namespace controllers
             /**
              * @brief render the main menu
              *
-             * @param RenderWindow window   render window
+             * @param Context context   commons items for controller
              */
-            void render(sf::RenderWindow* window);
+            void render(
+                utils::Context* context
+            );
 
         private:
 

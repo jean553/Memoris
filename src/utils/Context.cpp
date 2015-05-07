@@ -17,56 +17,73 @@
 */
 
 /**
- * @file GameController.hpp
- * @package controllers
+ * @file Context.cpp
+ * @package utils
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "GameController.hpp"
+#include "Context.hpp"
 
-using namespace controllers;
+using namespace utils;
 
 /**
  *
  */
-GameController::GameController()
+Context::Context()
 {
-    screenFactory = new factories::ScreenFactory();
-
-    currentController = screenFactory->getScreenById(
-        MAIN_MENU_CONTROLLER_ID
-    );
-
-    context = new utils::Context();
 }
 
 /**
  *
  */
-GameController::~GameController()
+Context::~Context()
 {
-    delete screenFactory;
-
-    delete currentController;
-
-    delete context;
 }
 
 /**
  *
  */
-void GameController::run(sf::RenderWindow* window)
+void Context::setWindow(sf::RenderWindow* commonWindow)
 {
-    context->setWindow(window);
+    window = commonWindow;
+}
 
-    window->setMouseCursorVisible(false);
+/**
+ *
+ */
+void Context::setMusic(sf::Music *commonMusic)
+{
+    music = commonMusic;
+}
 
-    while(window->isOpen())
-    {
-        window->clear();
+/**
+ *
+ */
+void Context::setSentMessage(std::string message)
+{
+    sentMessage = message;
+}
 
-        currentController->render(context);
+/**
+ *
+ */
+sf::RenderWindow* Context::getWindow()
+{
+    return window;
+}
 
-        window->display();
-    }
+/**
+ *
+ */
+sf::Music* Context::getMusic()
+{
+    return music;
+}
+
+/**
+ *
+ */
+std::string Context::getSentMessage()
+{
+    return sentMessage;
 }

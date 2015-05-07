@@ -17,7 +17,7 @@
 */
 
 /**
- * @file Controller.hpp
+ * @file Controller.cpp
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */

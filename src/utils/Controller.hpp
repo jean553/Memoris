@@ -28,6 +28,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "Context.hpp"
+
 namespace controllers
 {
     class Controller
@@ -40,9 +42,9 @@ namespace controllers
             /**
              * @brief render the screen, contains events catcher,
              *
-             * @param RenderWindow window   the game main window
+             * @param Context context   commons items for controller
              */
-            virtual void render(sf::RenderWindow* window) = 0;
+            virtual void render(utils::Context* context) = 0;
 
         protected:
 
