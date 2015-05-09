@@ -34,6 +34,7 @@
 
 #include "../utils/ScreenFactory.hpp"
 #include "../utils/Controller.hpp"
+#include "../utils/Context.hpp"
 
 #define MAIN_MENU_CONTROLLER_ID 1
 
@@ -59,6 +60,8 @@ namespace controllers
             controllers::Controller *currentController;
 
             factories::ScreenFactory *screenFactory;
+
+            utils::Context *context;
     };
 }
 
