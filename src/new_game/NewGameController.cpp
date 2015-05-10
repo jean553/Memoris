@@ -17,44 +17,54 @@
 */
 
 /**
- * @file Controller.hpp
- * @brief parent class for all controllers
+ * New game screen.
+ *
+ * @file NewGameController.cpp
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_SCREEN
-#define DEF_SCREEN
+#include "NewGameController.hpp"
 
-#include <SFML/Graphics.hpp>
+using namespace controllers;
 
-#include "ScreensIdentifiers.hpp"
-#include "Context.hpp"
-
-namespace controllers
+/**
+ *
+ */
+NewGameController::NewGameController() : Controller()
 {
-    class Controller
-    {
-        public:
-
-            Controller();
-            ~Controller();
-
-            /**
-             * @brief render the screen, contains events catcher,
-             *
-             * @param Context context   commons items for controller
-             *
-             * @return char   next called screen controller id
-             */
-            virtual unsigned char render(utils::Context* context) = 0;
-
-        protected:
-
-            sf::Event event;
-
-            unsigned char nextControllerId;
-    };
 }
 
-#endif
+/**
+ *
+ */
+NewGameController::~NewGameController()
+{
+}
+
+/**
+ *
+ */
+unsigned char NewGameController::render(utils::Context* context)
+{
+    while(context->getWindow()->pollEvent(event))
+    {
+        switch(event.type)
+        {
+            case sf::Event::KeyPressed:
+            {
+                switch(event.key.code)
+                {
+                    case sf::Keyboard::Escape:
+                    {
+                        nextControllerId = MAIN_MENU_CONTROLLER_ID;
+
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    return nextControllerId;
+}

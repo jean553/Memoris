@@ -31,6 +31,7 @@ using namespace utils;
  */
 Context::Context()
 {
+    music = new sf::Music();
 }
 
 /**
@@ -38,6 +39,7 @@ Context::Context()
  */
 Context::~Context()
 {
+    delete music;
 }
 
 /**
@@ -46,14 +48,6 @@ Context::~Context()
 void Context::setWindow(sf::RenderWindow* commonWindow)
 {
     window = commonWindow;
-}
-
-/**
- *
- */
-void Context::setMusic(sf::Music *commonMusic)
-{
-    music = commonMusic;
 }
 
 /**
@@ -75,15 +69,27 @@ sf::RenderWindow* Context::getWindow()
 /**
  *
  */
-sf::Music* Context::getMusic()
+std::string Context::getSentMessage()
 {
-    return music;
+    return sentMessage;
 }
 
 /**
  *
  */
-std::string Context::getSentMessage()
+void Context::changeMusic(std::string musicPath)
 {
-    return sentMessage;
+    if(musicPath.empty()) {
+        return;
+    }
+
+    // no music to stop if the function
+    // is called for the first time
+    if(music->getStatus() == sf::Sound::Playing) {
+        music->stop();
+    }
+
+    music->openFromFile(musicPath);
+
+    music->play();
 }

@@ -31,6 +31,7 @@ using namespace controllers;
  */
 Controller::Controller()
 {
+    nextControllerId = 0;
 }
 
 /**

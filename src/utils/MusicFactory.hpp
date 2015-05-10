@@ -17,43 +17,41 @@
 */
 
 /**
- * @file Controller.hpp
- * @brief parent class for all controllers
- * @package controllers
+ * Factory which generates the musics.
+ *
+ * @file MusicFactory.hpp
+ * @brief factory to generate the game musics
+ * @package factories
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_SCREEN
-#define DEF_SCREEN
+#ifndef DEF_MUSIC_FACTORY
+#define DEF_MUSIC_FACTORY
 
-#include <SFML/Graphics.hpp>
+#include <string>
 
 #include "ScreensIdentifiers.hpp"
-#include "Context.hpp"
+#include "MusicsIdentifiers.hpp"
 
-namespace controllers
+namespace factories
 {
-    class Controller
+    class MusicFactory
     {
         public:
 
-            Controller();
-            ~Controller();
+            MusicFactory();
+            ~MusicFactory();
 
             /**
-             * @brief render the screen, contains events catcher,
+             * @brief returns the music file 
+             * path according to the id
              *
-             * @param Context context   commons items for controller
+             * @param char id   id of the music
              *
-             * @return char   next called screen controller id
+             * @return string   music file path,
+             * main menu music path by default
              */
-            virtual unsigned char render(utils::Context* context) = 0;
-
-        protected:
-
-            sf::Event event;
-
-            unsigned char nextControllerId;
+            std::string getMusicPathById(unsigned char id);
     };
 }
 
