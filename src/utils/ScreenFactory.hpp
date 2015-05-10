@@ -29,8 +29,10 @@
 #define DEF_SCREEN_FACTORY
 
 #include "Controller.hpp"
+#include "ScreensIdentifiers.hpp"
 
 #include "../main_menu/MainMenuController.hpp"
+#include "../new_game/NewGameController.hpp"
 
 namespace factories
 {

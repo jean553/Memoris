@@ -17,44 +17,39 @@
 */
 
 /**
- * @file Controller.hpp
- * @brief parent class for all controllers
- * @package controllers
+ * @file MusicFactory.cpp
+ * @package factories
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_SCREEN
-#define DEF_SCREEN
+#include "MusicFactory.hpp"
 
-#include <SFML/Graphics.hpp>
+using namespace factories;
 
-#include "ScreensIdentifiers.hpp"
-#include "Context.hpp"
-
-namespace controllers
+/**
+ *
+ */
+MusicFactory::MusicFactory()
 {
-    class Controller
-    {
-        public:
-
-            Controller();
-            ~Controller();
-
-            /**
-             * @brief render the screen, contains events catcher,
-             *
-             * @param Context context   commons items for controller
-             *
-             * @return char   next called screen controller id
-             */
-            virtual unsigned char render(utils::Context* context) = 0;
-
-        protected:
-
-            sf::Event event;
-
-            unsigned char nextControllerId;
-    };
 }
 
-#endif
+/**
+ *
+ */
+MusicFactory::~MusicFactory()
+{
+}
+
+/**
+ *
+ */
+std::string MusicFactory::getMusicPathById(
+    unsigned char id
+) {
+
+    switch(id)
+    {
+        default:
+            return MAIN_MENU_MUSIC_PATH;
+    }
+}

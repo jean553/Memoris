@@ -33,10 +33,9 @@
 #include <SFML/Graphics.hpp>
 
 #include "../utils/ScreenFactory.hpp"
+#include "../utils/MusicFactory.hpp"
 #include "../utils/Controller.hpp"
 #include "../utils/Context.hpp"
-
-#define MAIN_MENU_CONTROLLER_ID 1
 
 namespace controllers
 {
@@ -60,8 +59,15 @@ namespace controllers
             controllers::Controller *currentController;
 
             factories::ScreenFactory *screenFactory;
+            factories::MusicFactory *musicFactory;
 
             utils::Context *context;
+
+            unsigned char currentControllerId;
+            unsigned char nextControllerId;
+
+            std::string currentMusicPath;
+            std::string nextMusicPath;
     };
 }
 

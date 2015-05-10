@@ -17,44 +17,14 @@
 */
 
 /**
- * @file Controller.hpp
- * @brief parent class for all controllers
- * @package controllers
+ * @file MusicsIdentifiers.hpp
+ * @brief contains identifiers of all musics
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_SCREEN
-#define DEF_SCREEN
+#ifndef DEF_MUSICS_IDENTIFIERS
+#define DEF_MUSICS_IDENTIFIERS
 
-#include <SFML/Graphics.hpp>
-
-#include "ScreensIdentifiers.hpp"
-#include "Context.hpp"
-
-namespace controllers
-{
-    class Controller
-    {
-        public:
-
-            Controller();
-            ~Controller();
-
-            /**
-             * @brief render the screen, contains events catcher,
-             *
-             * @param Context context   commons items for controller
-             *
-             * @return char   next called screen controller id
-             */
-            virtual unsigned char render(utils::Context* context) = 0;
-
-        protected:
-
-            sf::Event event;
-
-            unsigned char nextControllerId;
-    };
-}
+#define MAIN_MENU_MUSIC_PATH "res/musics/dj-xtrm-killer-symphonyX-outro.ogg"
 
 #endif

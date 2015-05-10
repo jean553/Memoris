@@ -49,8 +49,10 @@ controllers::Controller* ScreenFactory::getScreenById(
 
     switch(id)
     {
-        case 1:
+        case MAIN_MENU_CONTROLLER_ID:
             return new controllers::MainMenuController;
+        case NEW_GAME_CONTROLLER_ID:
+            return new controllers::NewGameController;
         default:
             return NULL;
     }

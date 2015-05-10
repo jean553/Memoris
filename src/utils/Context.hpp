@@ -51,13 +51,6 @@ namespace utils
             void setWindow(sf::RenderWindow* commonWindow);
 
             /**
-             * @brief common music setter
-             *
-             * @param Music commonMusic pointer to common music to use
-             */
-            void setMusic(sf::Music *commonMusic);
-
-            /**
              * @bried message setter
              *
              * @param string message to send to next called controller
@@ -72,18 +65,18 @@ namespace utils
             sf::RenderWindow* getWindow();
 
             /**
-             * @brief common music getter
-             *
-             * @return common music pointer
-             */
-            sf::Music* getMusic();
-
-            /**
              * @brief common message getter
              *
              * @return common message string
              */
             std::string getSentMessage();
+
+            /**
+             * @brief change the current played music
+             *
+             * @param string path path of the music to play
+             */
+            void changeMusic(std::string path);
 
         private:
 

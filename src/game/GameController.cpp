@@ -32,12 +32,22 @@ using namespace controllers;
 GameController::GameController()
 {
     screenFactory = new factories::ScreenFactory();
+    musicFactory = new factories::MusicFactory();
+
+    context = new utils::Context();
 
     currentController = screenFactory->getScreenById(
         MAIN_MENU_CONTROLLER_ID
     );
 
-    context = new utils::Context();
+    currentMusicPath = musicFactory->getMusicPathById(
+        MAIN_MENU_CONTROLLER_ID
+    );
+
+    nextMusicPath = "";
+
+    currentControllerId = MAIN_MENU_CONTROLLER_ID;
+    nextControllerId = 0;
 }
 
 /**
@@ -46,6 +56,7 @@ GameController::GameController()
 GameController::~GameController()
 {
     delete screenFactory;
+    delete musicFactory;
 
     delete currentController;
 
@@ -58,15 +69,36 @@ GameController::~GameController()
 void GameController::run(sf::RenderWindow* window)
 {
     context->setWindow(window);
-
     window->setMouseCursorVisible(false);
+
+    // load the first music, main menu music
+    context->changeMusic(currentMusicPath);
 
     while(window->isOpen())
     {
         window->clear();
 
-        currentController->render(context);
+        nextControllerId = currentController->render(context);
 
         window->display();
+
+        if(nextControllerId) {
+
+            // update the current music
+            nextMusicPath = musicFactory->getMusicPathById(
+                nextControllerId
+            );
+            if(currentMusicPath != nextMusicPath) {
+                context->changeMusic(nextMusicPath);
+            }
+
+            // update the current screen controller
+            delete currentController;
+            currentController = screenFactory->getScreenById(
+                nextControllerId
+            );
+
+            currentControllerId = nextControllerId;
+        }
     }
 }

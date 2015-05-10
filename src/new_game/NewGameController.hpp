@@ -17,43 +17,39 @@
 */
 
 /**
- * @file Controller.hpp
- * @brief parent class for all controllers
+ * New game screen.
+ *
+ * @file NewGameController.hpp
+ * @brief new game screen of the program
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_SCREEN
-#define DEF_SCREEN
+#ifndef DEF_NEW_GAME
+#define DEF_NEW_GAME
 
-#include <SFML/Graphics.hpp>
-
-#include "ScreensIdentifiers.hpp"
-#include "Context.hpp"
+#include "../utils/Controller.hpp"
+#include "../utils/Context.hpp"
 
 namespace controllers
 {
-    class Controller
+    class NewGameController : public Controller
     {
         public:
 
-            Controller();
-            ~Controller();
-
+            NewGameController();
+            ~NewGameController();
+            
             /**
-             * @brief render the screen, contains events catcher,
+             * @brief render the new game screen
              *
              * @param Context context   commons items for controller
              *
-             * @return char   next called screen controller id
+             * @return char   id of the next screen controller
              */
-            virtual unsigned char render(utils::Context* context) = 0;
-
-        protected:
-
-            sf::Event event;
-
-            unsigned char nextControllerId;
+            unsigned char render(
+                utils::Context* context
+            );
     };
 }
 

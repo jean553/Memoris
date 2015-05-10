@@ -39,7 +39,6 @@
 
 #define PATH_FONT_TITLE "res/fonts/crystal_regular.ttf"
 #define PATH_FONT_ITEM "res/fonts/hi.otf"
-#define PATH_MUSIC_MAIN_MENU "res/musics/dj-xtrm-killer-symphonyX-outro.ogg"
 #define PATH_IMAGE_GITHUB "res/images/fork-me.png"
 
 #define COLOR_ALPHA 255
@@ -110,8 +109,10 @@ namespace controllers
              * @brief render the main menu
              *
              * @param Context context   commons items for controller
+             *
+             * @return char   id of the next screen controller
              */
-            void render(
+            unsigned char render(
                 utils::Context* context
             );
 
@@ -134,8 +135,6 @@ namespace controllers
             sf::Texture textureGithub;
 
             sf::Sprite spriteGithub;
-
-            sf::Music musicMainMenu;
 
             sf::Clock clock;
 

@@ -111,8 +111,6 @@ MainMenuController::MainMenuController() : Controller()
         POSITION_GITHUB_Y
     );
 
-    musicMainMenu.openFromFile(PATH_MUSIC_MAIN_MENU);
-
     soundBuffer.loadFromFile(SOUND_SELECTOR_MOVE);
 
     soundSelectorMove.setBuffer(soundBuffer);
@@ -122,10 +120,6 @@ MainMenuController::MainMenuController() : Controller()
     titleBlueDirection = DIRECTION_TITLE_BLUE_INIT;
 
     selectorPosition = 0;
-
-    //TODO: not an initialization function,
-    //check if it can be moved in the rendering
-    musicMainMenu.play();
 }
 
 /**
@@ -133,13 +127,12 @@ MainMenuController::MainMenuController() : Controller()
  */
 MainMenuController::~MainMenuController()
 {
-    musicMainMenu.stop();
 }
 
 /**
  *
  */
-void MainMenuController::render(utils::Context* context)
+unsigned char MainMenuController::render(utils::Context* context)
 {
     // animate the items
     if(clock.getElapsedTime().asMilliseconds() >
@@ -206,6 +199,8 @@ void MainMenuController::render(utils::Context* context)
             }
         }
     }
+
+    return nextControllerId;
 }
 
 /**
@@ -296,6 +291,12 @@ void MainMenuController::selectMenuItem(sf::RenderWindow* window)
 {
     switch(selectorPosition)
     {
+        case MENU_ITEM_NEW_GAME:
+        {
+            nextControllerId = NEW_GAME_CONTROLLER_ID;
+
+            break;
+        }
         case MENU_ITEM_EXIT:
         {
             window->close();
