@@ -33,6 +33,36 @@ using namespace controllers;
  */
 NewGameController::NewGameController() : Controller()
 {
+    fontTitle.loadFromFile(PATH_FONT_TITLE);
+    fontExplanation.loadFromFile(PATH_FONT_TEXT);
+
+    colorTitle.r = COLOR_LIGHT_BLUE_RED;
+    colorTitle.g = COLOR_LIGHT_BLUE_GREEN;
+    colorTitle.b = COLOR_LIGHT_BLUE_BLUE;
+    colorTitle.a = COLOR_ALPHA_FULL;
+
+    colorExplanation.r = COLOR_WHITE_RED;
+    colorExplanation.g = COLOR_WHITE_GREEN;
+    colorExplanation.b = COLOR_WHITE_BLUE;
+    colorExplanation.a = COLOR_ALPHA_FULL;
+
+    title.setFont(fontTitle);
+    title.setString(STRING_NEW_GAME_TITLE);
+    title.setCharacterSize(SIZE_NEW_GAME_TITLE_FONT);
+    title.setColor(colorTitle);
+    title.setPosition(
+        POSITION_NEW_GAME_TITLE_X,
+        POSITION_NEW_GAME_TITLE_Y
+    );
+
+    explanation.setFont(fontExplanation);
+    explanation.setString(STRING_NEW_GAME_EXPLANATION);
+    explanation.setCharacterSize(SIZE_NEW_GAME_EXPLANATION_FONT);
+    explanation.setColor(colorExplanation);
+    explanation.setPosition(
+        POSITION_NEW_GAME_EXPLANATION_X,
+        POSITION_NEW_GAME_EXPLANATION_Y
+    );
 }
 
 /**
@@ -47,6 +77,9 @@ NewGameController::~NewGameController()
  */
 unsigned char NewGameController::render(utils::Context* context)
 {
+    context->getWindow()->draw(title);
+    context->getWindow()->draw(explanation);
+
     while(context->getWindow()->pollEvent(event))
     {
         switch(event.type)
