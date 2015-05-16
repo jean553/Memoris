@@ -63,6 +63,14 @@ NewGameController::NewGameController() : Controller()
         POSITION_NEW_GAME_EXPLANATION_X,
         POSITION_NEW_GAME_EXPLANATION_Y
     );
+
+    inputTextGameName = new widgets::InputTextWidget(
+        POSITION_NAME_INPUT_TEXT_X,
+        POSITION_NAME_INPUT_TEXT_Y,
+        SIZE_NAME_INPUT_TEXT,
+        STRING_NAME_DEFAULT,
+        MAX_NAME_LENGTH
+    );
 }
 
 /**
@@ -70,6 +78,7 @@ NewGameController::NewGameController() : Controller()
  */
 NewGameController::~NewGameController()
 {
+    delete inputTextGameName;
 }
 
 /**
@@ -79,6 +88,8 @@ unsigned char NewGameController::render(utils::Context* context)
 {
     context->getWindow()->draw(title);
     context->getWindow()->draw(explanation);
+
+    inputTextGameName->display(context);
 
     while(context->getWindow()->pollEvent(event))
     {
@@ -91,6 +102,12 @@ unsigned char NewGameController::render(utils::Context* context)
                     case sf::Keyboard::Escape:
                     {
                         nextControllerId = MAIN_MENU_CONTROLLER_ID;
+
+                        break;
+                    }
+                    default:
+                    {
+                        inputTextGameName->update(&event);
 
                         break;
                     }

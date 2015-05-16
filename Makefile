@@ -7,4 +7,5 @@ Memoris: src/main.cpp
 	g++ -c src/utils/ScreenFactory.cpp -o bin/ScreenFactory.o
 	g++ -c src/utils/MusicFactory.cpp -o bin/MusicFactory.o
 	g++ -c src/utils/Context.cpp -o bin/Context.o
-	g++ bin/main.o bin/GameController.o bin/MainMenuController.o bin/NewGameController.o bin/Controller.o bin/ScreenFactory.o bin/MusicFactory.o bin/Context.o -o bin/Memoris -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+	g++ -c src/widgets/InputTextWidget.cpp -o bin/InputTextWidget.o
+	g++ bin/main.o bin/GameController.o bin/MainMenuController.o bin/NewGameController.o bin/Controller.o bin/ScreenFactory.o bin/MusicFactory.o bin/Context.o bin/InputTextWidget.o -o bin/Memoris -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
