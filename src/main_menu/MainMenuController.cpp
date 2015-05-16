@@ -32,7 +32,7 @@ using namespace controllers;
 MainMenuController::MainMenuController() : Controller()
 {
     fontTitle.loadFromFile(PATH_FONT_TITLE);
-    fontItem.loadFromFile(PATH_FONT_ITEM);
+    fontItem.loadFromFile(PATH_FONT_TEXT);
 
     colorTitle.r = COLOR_TITLE_RED_INIT;
     colorTitle.g = COLOR_TITLE_GREEN_INIT;

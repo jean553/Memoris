@@ -34,11 +34,12 @@
 #include "../utils/Controller.hpp"
 #include "../utils/Context.hpp"
 
+#include "../defines/ColorsDefines.hpp"
+#include "../defines/FontsDefines.hpp"
+
 #define SIZE_TITLE_FONT 140
 #define SIZE_ITEM_FONT 60
 
-#define PATH_FONT_TITLE "res/fonts/crystal_regular.ttf"
-#define PATH_FONT_ITEM "res/fonts/hi.otf"
 #define PATH_IMAGE_GITHUB "res/images/fork-me.png"
 
 #define COLOR_ALPHA 255
@@ -50,12 +51,6 @@
 #define COLOR_TITLE_GREEN_MAX 180
 #define COLOR_TITLE_BLUE_MAX 255
 #define COLOR_TITLE_ALL_MIN 0
-#define COLOR_WHITE_RED 255
-#define COLOR_WHITE_GREEN 255
-#define COLOR_WHITE_BLUE 255
-#define COLOR_RED_RED 255
-#define COLOR_RED_GREEN 0
-#define COLOR_RED_BLUE 0
 
 #define POSITION_TITLE_X 480
 #define POSITION_TITLE_Y 100
