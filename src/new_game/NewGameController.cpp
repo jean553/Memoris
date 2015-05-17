@@ -48,7 +48,7 @@ NewGameController::NewGameController() : Controller()
 
     title.setFont(fontTitle);
     title.setString(STRING_NEW_GAME_TITLE);
-    title.setCharacterSize(SIZE_NEW_GAME_TITLE_FONT);
+    title.setCharacterSize(SIZE_SUB_TITLE_FONT);
     title.setColor(colorTitle);
     title.setPosition(
         POSITION_NEW_GAME_TITLE_X,
@@ -57,7 +57,7 @@ NewGameController::NewGameController() : Controller()
 
     explanation.setFont(fontExplanation);
     explanation.setString(STRING_NEW_GAME_EXPLANATION);
-    explanation.setCharacterSize(SIZE_NEW_GAME_EXPLANATION_FONT);
+    explanation.setCharacterSize(SIZE_TEXT_FONT);
     explanation.setColor(colorExplanation);
     explanation.setPosition(
         POSITION_NEW_GAME_EXPLANATION_X,

@@ -37,17 +37,17 @@ MainMenuController::MainMenuController() : Controller()
     colorTitle.r = COLOR_TITLE_RED_INIT;
     colorTitle.g = COLOR_TITLE_GREEN_INIT;
     colorTitle.b = COLOR_TITLE_BLUE_INIT;
-    colorTitle.a = COLOR_ALPHA;
+    colorTitle.a = COLOR_ALPHA_FULL;
 
     colorWhite.r = COLOR_WHITE_RED;
     colorWhite.g = COLOR_WHITE_GREEN;
     colorWhite.b = COLOR_WHITE_BLUE;
-    colorWhite.a = COLOR_ALPHA;
+    colorWhite.a = COLOR_ALPHA_FULL;
 
     colorRed.r = COLOR_RED_RED;
     colorRed.g = COLOR_RED_GREEN;
     colorRed.b = COLOR_RED_BLUE;
-    colorRed.a = COLOR_ALPHA;
+    colorRed.a = COLOR_ALPHA_FULL;
 
     title.setFont(fontTitle);
     title.setString(STRING_TITLE);
@@ -242,8 +242,8 @@ void MainMenuController::updateSelectorPosition()
 {
     // fix selector position
     selectorPosition = (
-        (selectorPosition > MENU_SELECTOR_MAX) ?
-        MENU_SELECTOR_MIN :
+        (selectorPosition > MAIN_MENU_SELECTOR_MAX) ?
+        MAIN_MENU_SELECTOR_MIN :
         selectorPosition
     );
 
@@ -256,27 +256,27 @@ void MainMenuController::updateSelectorPosition()
 
     switch(selectorPosition)
     {
-        case MENU_ITEM_NEW_GAME:
+        case MAIN_MENU_ITEM_NEW_GAME:
         {
             itemNewGame.setColor(colorRed);
             break;
         }
-        case MENU_ITEM_LOAD_GAME:
+        case MAIN_MENU_ITEM_LOAD_GAME:
         {
             itemLoadGame.setColor(colorRed);
             break;
         }
-        case MENU_ITEM_EDITOR:
+        case MAIN_MENU_ITEM_EDITOR:
         {
             itemEditor.setColor(colorRed);
             break;
         }
-        case MENU_ITEM_OPTIONS:
+        case MAIN_MENU_ITEM_OPTIONS:
         {
             itemOptions.setColor(colorRed);
             break;
         }
-        case MENU_ITEM_EXIT:
+        case MAIN_MENU_ITEM_EXIT:
         {
             itemExit.setColor(colorRed);
             break;
@@ -291,19 +291,19 @@ void MainMenuController::selectMenuItem(sf::RenderWindow* window)
 {
     switch(selectorPosition)
     {
-        case MENU_ITEM_NEW_GAME:
+        case MAIN_MENU_ITEM_NEW_GAME:
         {
             nextControllerId = NEW_GAME_CONTROLLER_ID;
 
             break;
         }
-        case MENU_ITEM_EDITOR:
+        case MAIN_MENU_ITEM_EDITOR:
         {
             nextControllerId = EDITOR_MAIN_MENU_CONTROLLER_ID;
 
             break;
         }
-        case MENU_ITEM_EXIT:
+        case MAIN_MENU_ITEM_EXIT:
         {
             window->close();
 
