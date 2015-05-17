@@ -17,47 +17,52 @@
 */
 
 /**
- * @file ScreenFactory.hpp
- * @package factories
+ * @file EditorNewSerieController.cpp
+ * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "ScreenFactory.hpp"
+#include "EditorNewSerieController.hpp"
 
-using namespace factories;
+using namespace controllers;
 
 /**
  *
  */
-ScreenFactory::ScreenFactory()
+EditorNewSerieController::EditorNewSerieController() : Controller()
 {
 }
 
 /**
  *
  */
-ScreenFactory::~ScreenFactory()
+EditorNewSerieController::~EditorNewSerieController()
 {
 }
 
 /**
  *
  */
-controllers::Controller* ScreenFactory::getScreenById(
-    unsigned char id
-) {
-
-    switch(id)
+unsigned char EditorNewSerieController::render(utils::Context* context)
+{
+    while(context->getWindow()->pollEvent(event))
     {
-        case MAIN_MENU_CONTROLLER_ID:
-            return new controllers::MainMenuController;
-        case NEW_GAME_CONTROLLER_ID:
-            return new controllers::NewGameController;
-        case EDITOR_MAIN_MENU_CONTROLLER_ID:
-            return new controllers::EditorMainMenuController;
-        case EDITOR_NEW_SERIE_CONTROLLER_ID:
-            return new controllers::EditorNewSerieController;
-        default:
-            return NULL;
+        switch(event.type)
+        {
+            case sf::Event::KeyPressed:
+            {
+                switch(event.key.code)
+                {
+                    case sf::Keyboard::Escape:
+                    {
+                        nextControllerId = EDITOR_MAIN_MENU_CONTROLLER_ID;
+
+                        break;
+                    }
+                }
+            }
+        }
     }
+
+    return nextControllerId;
 }
