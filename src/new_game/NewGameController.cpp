@@ -64,6 +64,10 @@ NewGameController::NewGameController() : Controller()
         POSITION_NEW_GAME_EXPLANATION_Y
     );
 
+    soundBuffer.loadFromFile(SOUND_SELECTOR_SELECT);
+
+    soundSelectorSelect.setBuffer(soundBuffer);
+
     inputTextGameName = new widgets::InputTextWidget(
         POSITION_NAME_INPUT_TEXT_X,
         POSITION_NAME_INPUT_TEXT_Y,
@@ -71,6 +75,8 @@ NewGameController::NewGameController() : Controller()
         STRING_NAME_DEFAULT,
         MAX_NAME_LENGTH
     );
+
+    soundSelectorSelect.play();
 }
 
 /**
