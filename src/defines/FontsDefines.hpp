@@ -30,4 +30,9 @@
 #define PATH_FONT_TITLE "res/fonts/crystal_regular.ttf"
 #define PATH_FONT_TEXT "res/fonts/hi.otf"
 
+#define SIZE_TITLE_FONT 140
+#define SIZE_SUB_TITLE_FONT 70
+#define SIZE_ITEM_FONT 60
+#define SIZE_TEXT_FONT 50
+
 #endif

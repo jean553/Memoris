@@ -38,12 +38,7 @@
 #include "../defines/FontsDefines.hpp"
 #include "../defines/SoundsDefines.hpp"
 
-#define SIZE_TITLE_FONT 140
-#define SIZE_ITEM_FONT 60
-
 #define PATH_IMAGE_GITHUB "res/images/fork-me.png"
-
-#define COLOR_ALPHA 255
 
 #define COLOR_TITLE_RED_INIT 0
 #define COLOR_TITLE_GREEN_INIT 0
@@ -81,14 +76,14 @@
 #define STRING_OPTIONS "Options"
 #define STRING_EXIT "Exit"
 
-#define MENU_SELECTOR_MIN 0
-#define MENU_SELECTOR_MAX 4
+#define MAIN_MENU_SELECTOR_MIN 0
+#define MAIN_MENU_SELECTOR_MAX 4
 
-#define MENU_ITEM_NEW_GAME 0
-#define MENU_ITEM_LOAD_GAME 1
-#define MENU_ITEM_EDITOR 2
-#define MENU_ITEM_OPTIONS 3
-#define MENU_ITEM_EXIT 4
+#define MAIN_MENU_ITEM_NEW_GAME 0
+#define MAIN_MENU_ITEM_LOAD_GAME 1
+#define MAIN_MENU_ITEM_EDITOR 2
+#define MAIN_MENU_ITEM_OPTIONS 3
+#define MAIN_MENU_ITEM_EXIT 4
 
 namespace controllers
 {

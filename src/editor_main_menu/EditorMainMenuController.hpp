@@ -1,4 +1,4 @@
-/**
+/*
  * Memoris
  * Copyright (C) 2015  Jean LELIEVRE
  *
@@ -34,6 +34,27 @@
 #include "../utils/Controller.hpp"
 #include "../utils/Context.hpp"
 
+#include "../defines/ColorsDefines.hpp"
+#include "../defines/FontsDefines.hpp"
+#include "../defines/SoundsDefines.hpp"
+
+#define STRING_EDITOR "Editor"
+#define STRING_NEW_SERIE "New"
+#define STRING_OPEN_SERIE "Open"
+
+#define POSITION_EDITOR_TITLE_X 690
+#define POSITION_EDITOR_TITLE_Y 200
+#define POSITION_ITEM_EDITOR_NEW_SERIE_X 720
+#define POSITION_ITEM_EDITOR_NEW_SERIE_Y 400
+#define POSITION_ITEM_EDITOR_OPEN_SERIE_X 710
+#define POSITION_ITEM_EDITOR_OPEN_SERIE_Y 500
+
+#define EDITOR_MENU_ITEM_NEW_SERIE 0
+#define EDITOR_MENU_ITEM_OPEN_SERIE 1
+
+#define EDITOR_MAIN_MENU_SELECTOR_MAX 1
+#define EDITOR_MAIN_MENU_SELECTOR_MIN 0
+
 namespace controllers
 {
     class EditorMainMenuController : public Controller
@@ -53,6 +74,30 @@ namespace controllers
             unsigned char render(
                 utils::Context* context
             );
+
+        private:
+
+            unsigned char selectorPosition;
+
+            sf::Font fontTitle;
+            sf::Font fontItem;
+
+            sf::Color colorTitle;
+            sf::Color colorWhite;
+            sf::Color colorRed;
+
+            sf::Text titleEditor;
+            sf::Text itemNewSerie;
+            sf::Text itemOpenSerie;
+
+            sf::SoundBuffer soundBuffer;
+
+            sf::Sound soundSelectorMove;
+
+            /**
+             * @brief update the menu selector position
+             */
+            void updateSelectorPosition();
     };
 }
 
