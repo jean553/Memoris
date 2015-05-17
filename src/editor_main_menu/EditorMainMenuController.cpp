@@ -137,6 +137,12 @@ unsigned char EditorMainMenuController::render(utils::Context* context)
 
                         break;
                     }
+                    case sf::Keyboard::Return:
+                    {
+                        selectMenuItem(context->getWindow());
+
+                        break;
+                    }
                 }
             }
         }
@@ -172,6 +178,22 @@ void EditorMainMenuController::updateSelectorPosition()
         case EDITOR_MENU_ITEM_OPEN_SERIE:
         {
             itemOpenSerie.setColor(colorRed);
+
+            break;
+        }
+    }
+}
+
+/**
+ *
+ */
+void EditorMainMenuController::selectMenuItem(sf::RenderWindow* window)
+{
+    switch(selectorPosition)
+    {
+        case EDITOR_MENU_ITEM_NEW_SERIE:
+        {
+            nextControllerId = EDITOR_NEW_SERIE_CONTROLLER_ID;
 
             break;
         }

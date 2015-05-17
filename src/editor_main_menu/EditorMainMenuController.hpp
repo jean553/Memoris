@@ -100,6 +100,14 @@ namespace controllers
              * @brief update the menu selector position
              */
             void updateSelectorPosition();
+
+            /**
+             * @brief execute action according to
+             * the selected menu item
+             *
+             * @param RenderWindow window main window
+             */
+            void selectMenuItem(sf::RenderWindow* window);
     };
 }
 
