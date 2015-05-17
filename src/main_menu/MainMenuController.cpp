@@ -297,6 +297,12 @@ void MainMenuController::selectMenuItem(sf::RenderWindow* window)
 
             break;
         }
+        case MENU_ITEM_EDITOR:
+        {
+            nextControllerId = EDITOR_MAIN_MENU_CONTROLLER_ID;
+
+            break;
+        }
         case MENU_ITEM_EXIT:
         {
             window->close();
