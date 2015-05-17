@@ -33,19 +33,27 @@
 #include "../utils/Controller.hpp"
 #include "../utils/Context.hpp"
 
+#include "../widgets/InputTextWidget.hpp"
+
 #include "../defines/ColorsDefines.hpp"
 #include "../defines/FontsDefines.hpp"
 
 #define STRING_NEW_GAME_TITLE "New game"
 #define STRING_NEW_GAME_EXPLANATION "Your name :"
+#define STRING_NAME_DEFAULT ""
 
 #define SIZE_NEW_GAME_TITLE_FONT 70
 #define SIZE_NEW_GAME_EXPLANATION_FONT 50
+#define SIZE_NAME_INPUT_TEXT 600
 
 #define POSITION_NEW_GAME_TITLE_X 620
 #define POSITION_NEW_GAME_TITLE_Y 200
 #define POSITION_NEW_GAME_EXPLANATION_X 645
 #define POSITION_NEW_GAME_EXPLANATION_Y 380
+#define POSITION_NAME_INPUT_TEXT_X 500
+#define POSITION_NAME_INPUT_TEXT_Y 450
+
+#define MAX_NAME_LENGTH 15
 
 namespace controllers
 {
@@ -77,6 +85,8 @@ namespace controllers
 
             sf::Text title;
             sf::Text explanation;
+
+            widgets::InputTextWidget *inputTextGameName;
     };
 }
 
