@@ -29,6 +29,7 @@
 #define DEF_NEW_GAME
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 #include "../utils/Controller.hpp"
 #include "../utils/Context.hpp"
@@ -37,6 +38,7 @@
 
 #include "../defines/ColorsDefines.hpp"
 #include "../defines/FontsDefines.hpp"
+#include "../defines/SoundsDefines.hpp"
 
 #define STRING_NEW_GAME_TITLE "New game"
 #define STRING_NEW_GAME_EXPLANATION "Your name :"
@@ -85,6 +87,10 @@ namespace controllers
 
             sf::Text title;
             sf::Text explanation;
+
+            sf::SoundBuffer soundBuffer;
+
+            sf::Sound soundSelectorSelect;
 
             widgets::InputTextWidget *inputTextGameName;
     };

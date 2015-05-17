@@ -36,6 +36,7 @@
 
 #include "../defines/ColorsDefines.hpp"
 #include "../defines/FontsDefines.hpp"
+#include "../defines/SoundsDefines.hpp"
 
 #define SIZE_TITLE_FONT 140
 #define SIZE_ITEM_FONT 60
@@ -82,8 +83,6 @@
 
 #define MENU_SELECTOR_MIN 0
 #define MENU_SELECTOR_MAX 4
-
-#define SOUND_SELECTOR_MOVE "res/sounds/001.wav"
 
 #define MENU_ITEM_NEW_GAME 0
 #define MENU_ITEM_LOAD_GAME 1
