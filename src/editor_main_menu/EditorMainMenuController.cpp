@@ -78,9 +78,13 @@ EditorMainMenuController::EditorMainMenuController() : Controller()
         POSITION_ITEM_EDITOR_OPEN_SERIE_Y
     );
 
-    soundBuffer.loadFromFile(SOUND_SELECTOR_MOVE);
+    soundBufferMove.loadFromFile(SOUND_SELECTOR_MOVE);
+    soundBufferSelect.loadFromFile(SOUND_SELECTOR_SELECT);
 
-    soundSelectorMove.setBuffer(soundBuffer);
+    soundSelectorMove.setBuffer(soundBufferMove);
+    soundSelectorSelect.setBuffer(soundBufferSelect);
+
+    soundSelectorSelect.play();
 }
 
 /**

@@ -90,9 +90,11 @@ namespace controllers
             sf::Text itemNewSerie;
             sf::Text itemOpenSerie;
 
-            sf::SoundBuffer soundBuffer;
+            sf::SoundBuffer soundBufferMove;
+            sf::SoundBuffer soundBufferSelect;
 
             sf::Sound soundSelectorMove;
+            sf::Sound soundSelectorSelect;
 
             /**
              * @brief update the menu selector position
