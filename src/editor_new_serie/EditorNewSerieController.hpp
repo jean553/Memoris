@@ -34,6 +34,14 @@
 #include "../utils/Controller.hpp"
 #include "../utils/Context.hpp"
 
+#include "../widgets/InputTextWidget.hpp"
+
+#define POSITION_NEW_SERIE_INPUT_TEXT_X 500
+#define POSITION_NEW_SERIE_INPUT_TEXT_Y 300
+#define SIZE_NEW_SERIE_INPUT_TEXT 600
+#define STRING_NEW_SERIE_DEFAULT ""
+#define MAX_NEW_SERIE_LENGTH 20
+
 namespace controllers
 {
     class EditorNewSerieController : public Controller
@@ -53,6 +61,11 @@ namespace controllers
             unsigned char render(
                 utils::Context* context
             );
+
+
+        private:
+
+            widgets::InputTextWidget *inputTextSerieName;
     };
 }
 
