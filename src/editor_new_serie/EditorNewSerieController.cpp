@@ -31,6 +31,13 @@ using namespace controllers;
  */
 EditorNewSerieController::EditorNewSerieController() : Controller()
 {
+    inputTextSerieName = new widgets::InputTextWidget(
+        POSITION_NEW_SERIE_INPUT_TEXT_X,
+        POSITION_NEW_SERIE_INPUT_TEXT_Y,
+        SIZE_NEW_SERIE_INPUT_TEXT,
+        STRING_NEW_SERIE_DEFAULT,
+        MAX_NEW_SERIE_LENGTH
+    );
 }
 
 /**
@@ -38,6 +45,7 @@ EditorNewSerieController::EditorNewSerieController() : Controller()
  */
 EditorNewSerieController::~EditorNewSerieController()
 {
+    delete inputTextSerieName;
 }
 
 /**
@@ -45,6 +53,8 @@ EditorNewSerieController::~EditorNewSerieController()
  */
 unsigned char EditorNewSerieController::render(utils::Context* context)
 {
+    inputTextSerieName->display(context);
+
     while(context->getWindow()->pollEvent(event))
     {
         switch(event.type)
@@ -56,6 +66,12 @@ unsigned char EditorNewSerieController::render(utils::Context* context)
                     case sf::Keyboard::Escape:
                     {
                         nextControllerId = EDITOR_MAIN_MENU_CONTROLLER_ID;
+
+                        break;
+                    }
+                    default:
+                    {
+                        inputTextSerieName->update(&event);
 
                         break;
                     }
