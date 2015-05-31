@@ -31,6 +31,22 @@ using namespace controllers;
  */
 EditorNewSerieController::EditorNewSerieController() : Controller()
 {
+    fontExplanation.loadFromFile(PATH_FONT_TEXT);
+
+    colorExplanation.r = COLOR_WHITE_RED;
+    colorExplanation.g = COLOR_WHITE_GREEN;
+    colorExplanation.b = COLOR_WHITE_BLUE;
+    colorExplanation.a = COLOR_ALPHA_FULL;
+
+    explanation.setFont(fontExplanation);
+    explanation.setString(STRING_NEW_SERIE_EXPLANATION);
+    explanation.setCharacterSize(SIZE_TEXT_FONT);
+    explanation.setColor(colorExplanation);
+    explanation.setPosition(
+        POSITION_NEW_SERIE_EXPLANATION_X,
+        POSITION_NEW_SERIE_EXPLANATION_Y
+    );
+
     inputTextSerieName = new widgets::InputTextWidget(
         POSITION_NEW_SERIE_INPUT_TEXT_X,
         POSITION_NEW_SERIE_INPUT_TEXT_Y,
@@ -53,6 +69,8 @@ EditorNewSerieController::~EditorNewSerieController()
  */
 unsigned char EditorNewSerieController::render(utils::Context* context)
 {
+    context->getWindow()->draw(explanation);
+
     inputTextSerieName->display(context);
 
     while(context->getWindow()->pollEvent(event))
