@@ -36,11 +36,20 @@
 
 #include "../widgets/InputTextWidget.hpp"
 
+#include "../defines/ColorsDefines.hpp"
+#include "../defines/FontsDefines.hpp"
+
 #define POSITION_NEW_SERIE_INPUT_TEXT_X 500
 #define POSITION_NEW_SERIE_INPUT_TEXT_Y 300
+#define POSITION_NEW_SERIE_EXPLANATION_X 570
+#define POSITION_NEW_SERIE_EXPLANATION_Y 200
+
 #define SIZE_NEW_SERIE_INPUT_TEXT 600
+
 #define STRING_NEW_SERIE_DEFAULT ""
-#define MAX_NEW_SERIE_LENGTH 20
+#define STRING_NEW_SERIE_EXPLANATION "New serie name"
+
+#define MAX_NEW_SERIE_LENGTH 15
 
 namespace controllers
 {
@@ -64,6 +73,12 @@ namespace controllers
 
 
         private:
+
+            sf::Font fontExplanation;
+
+            sf::Color colorExplanation;
+
+            sf::Text explanation;
 
             widgets::InputTextWidget *inputTextSerieName;
     };
