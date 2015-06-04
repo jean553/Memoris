@@ -57,6 +57,8 @@ controllers::Controller* ScreenFactory::getScreenById(
             return new controllers::EditorMainMenuController;
         case EDITOR_NEW_SERIE_CONTROLLER_ID:
             return new controllers::EditorNewSerieController;
+        case EDITOR_SERIE_CONTROLLER_ID:
+            return new controllers::EditorSerieController;
         default:
             return NULL;
     }
