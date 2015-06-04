@@ -87,6 +87,12 @@ unsigned char EditorNewSerieController::render(utils::Context* context)
 
                         break;
                     }
+                    case sf::Keyboard::Return:
+                    {
+                        nextControllerId = EDITOR_SERIE_CONTROLLER_ID;
+
+                        break;
+                    }
                     default:
                     {
                         inputTextSerieName->update(&event);
