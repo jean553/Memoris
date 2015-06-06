@@ -33,8 +33,6 @@
 
 #include "../main_menu/MainMenuController.hpp"
 #include "../new_game/NewGameController.hpp"
-#include "../editor_main_menu/EditorMainMenuController.hpp"
-#include "../editor_new_serie/EditorNewSerieController.hpp"
 #include "../editor_serie/EditorSerieController.hpp"
 
 namespace factories

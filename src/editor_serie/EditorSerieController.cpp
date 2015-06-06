@@ -31,9 +31,15 @@ using namespace controllers;
  */
 EditorSerieController::EditorSerieController() : Controller()
 {
+    soundBuffer.loadFromFile(SOUND_OPEN_SCREEN);
+
+    soundOpenScreen.setBuffer(soundBuffer);
+
     titleBar = new widgets::TitleBarWidget(
         STRING_EDITOR_SERIE_TITLE
     );
+
+    soundOpenScreen.play();
 }
 
 /**

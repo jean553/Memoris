@@ -36,6 +36,8 @@
 
 #include "../widgets/TitleBarWidget.hpp"
 
+#include "../defines/SoundsDefines.hpp"
+
 #define STRING_EDITOR_SERIE_TITLE "Serie editor"
 
 namespace controllers
@@ -61,6 +63,10 @@ namespace controllers
         private:
 
             widgets::TitleBarWidget *titleBar;
+
+            sf::SoundBuffer soundBuffer;
+
+            sf::Sound soundOpenScreen;
     };
 }
 

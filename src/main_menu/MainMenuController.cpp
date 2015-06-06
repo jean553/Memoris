@@ -164,15 +164,6 @@ unsigned char MainMenuController::render(utils::Context* context)
             {
                 switch(event.key.code)
                 {
-                    // terminate the program when
-                    // escape button is pressed
-                    case sf::Keyboard::Escape:
-                    {
-                        context->getWindow()->close();
-                        break;
-                    }
-
-                    // move the selector
                     case sf::Keyboard::Up:
                     {
                         soundSelectorMove.play();
@@ -299,7 +290,7 @@ void MainMenuController::selectMenuItem(sf::RenderWindow* window)
         }
         case MAIN_MENU_ITEM_EDITOR:
         {
-            nextControllerId = EDITOR_MAIN_MENU_CONTROLLER_ID;
+            nextControllerId = EDITOR_SERIE_CONTROLLER_ID;
 
             break;
         }

@@ -28,6 +28,6 @@
 #define DEF_SOUNDS_DEFINES
 
 #define SOUND_SELECTOR_MOVE "res/sounds/001.wav"
-#define SOUND_SELECTOR_SELECT "res/sounds/002.wav"
+#define SOUND_OPEN_SCREEN "res/sounds/002.wav"
 
 #endif

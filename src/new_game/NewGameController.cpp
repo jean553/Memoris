@@ -64,7 +64,7 @@ NewGameController::NewGameController() : Controller()
         POSITION_NEW_GAME_EXPLANATION_Y
     );
 
-    soundBuffer.loadFromFile(SOUND_SELECTOR_SELECT);
+    soundBuffer.loadFromFile(SOUND_OPEN_SCREEN);
 
     soundSelectorSelect.setBuffer(soundBuffer);
 
