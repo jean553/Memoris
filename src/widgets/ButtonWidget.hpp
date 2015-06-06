@@ -55,7 +55,7 @@ namespace widgets
             ButtonWidget(
                 unsigned int buttonHorizontalPosition,
                 unsigned int buttonVerticalPosition,
-                unsigned int width,
+                unsigned int buttonWidth,
                 std::string textLabel = ""
             );
             ~ButtonWidget();
@@ -75,7 +75,9 @@ namespace widgets
             std::string getText();
 
             /**
-             * @brief displays the button
+             * @brief displays the button and manage
+             * button colors according to the current
+             * cursor position on screen
              *
              * @param Context current context pointer
              */
@@ -83,17 +85,28 @@ namespace widgets
 
         private:
 
+            /**
+             * Returns true if the mouse is
+             * currently hover the button
+             *
+             * @return bool
+             */
+            bool isMouseHover();
+
+
             std::string text;
 
             sf::Font fontButton;
 
-            sf::Color buttonTextColor;
+            sf::Color textColor;
             sf::Color backgroundColor;
-            
+            sf::Color textMouseHoverColor;
+            sf::Color backgroundMouseHoverColor;
+
             sf::Text buttonText;
 
             sf::RectangleShape background;
-            
+
             unsigned int horizontalPosition;
             unsigned int verticalPosition;
             unsigned int width;
