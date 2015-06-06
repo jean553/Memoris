@@ -32,33 +32,43 @@ using namespace widgets;
 ButtonWidget::ButtonWidget(
     unsigned int buttonHorizontalPosition,
     unsigned int buttonVerticalPosition,
-    unsigned int width,
+    unsigned int buttonWidth,
     std::string textLabel
 ) {
 
     horizontalPosition = buttonHorizontalPosition;
     verticalPosition = buttonVerticalPosition;
+    width = buttonWidth;
 
     text = textLabel;
 
     fontButton.loadFromFile(PATH_FONT_TEXT);
 
-    buttonTextColor.r = COLOR_WHITE_RED;
-    buttonTextColor.g = COLOR_WHITE_GREEN;
-    buttonTextColor.b = COLOR_WHITE_BLUE;
-    buttonTextColor.a = COLOR_ALPHA_FULL;
+    textColor.r = COLOR_WHITE_RED;
+    textColor.g = COLOR_WHITE_GREEN;
+    textColor.b = COLOR_WHITE_BLUE;
+    textColor.a = COLOR_ALPHA_FULL;
 
     backgroundColor.r = COLOR_GRAY_RED;
     backgroundColor.g = COLOR_GRAY_GREEN;
     backgroundColor.b = COLOR_GRAY_BLUE;
     backgroundColor.a = COLOR_ALPHA_FULL;
 
+    textMouseHoverColor.r = COLOR_LIGHT_BLUE_RED;
+    textMouseHoverColor.g = COLOR_LIGHT_BLUE_GREEN;
+    textMouseHoverColor.b = COLOR_LIGHT_BLUE_BLUE;
+    textMouseHoverColor.a = COLOR_ALPHA_FULL;
+
+    backgroundMouseHoverColor.r = COLOR_DARK_GRAY_RED;
+    backgroundMouseHoverColor.g = COLOR_DARK_GRAY_GREEN;
+    backgroundMouseHoverColor.b = COLOR_DARK_GRAY_BLUE;
+    backgroundMouseHoverColor.a = COLOR_ALPHA_FULL;
+
     buttonText.setFont(fontButton);
     buttonText.setString(text);
     buttonText.setCharacterSize(SIZE_BUTTON_TEXT_FONT);
-    buttonText.setColor(buttonTextColor);
     buttonText.setPosition(
-        buttonHorizontalPosition + 
+        buttonHorizontalPosition +
         (width / 2) - (buttonText.getLocalBounds().width / 2),
         buttonVerticalPosition
     );
@@ -71,7 +81,6 @@ ButtonWidget::ButtonWidget(
         buttonHorizontalPosition,
         buttonVerticalPosition
     );
-    background.setFillColor(backgroundColor);
 }
 
 /**
@@ -102,6 +111,32 @@ std::string ButtonWidget::getText()
  */
 void ButtonWidget::display(utils::Context* context)
 {
+    buttonText.setColor(textColor);
+    background.setFillColor(backgroundColor);
+
+    if(isMouseHover()) {
+
+        buttonText.setColor(textMouseHoverColor);
+        background.setFillColor(backgroundMouseHoverColor);
+    }
+
     context->getWindow()->draw(background);
     context->getWindow()->draw(buttonText);
+}
+
+/**
+ *
+ */
+bool ButtonWidget::isMouseHover()
+{
+    if (
+        sf::Mouse::getPosition().x > horizontalPosition &&
+        sf::Mouse::getPosition().x < horizontalPosition + width &&
+        sf::Mouse::getPosition().y > verticalPosition &&
+        sf::Mouse::getPosition().y < verticalPosition + BUTTON_FIXED_HEIGHT
+    ) {
+        return true;
+    }
+
+    return false;
 }
