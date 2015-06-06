@@ -35,10 +35,26 @@
 #include "../utils/Context.hpp"
 
 #include "../widgets/TitleBarWidget.hpp"
+#include "../widgets/ButtonWidget.hpp"
 
 #include "../defines/SoundsDefines.hpp"
 
 #define STRING_EDITOR_SERIE_TITLE "Serie editor"
+
+#define EDITOR_SERIE_BUTTON_NEW_POSITION_X 10
+#define EDITOR_SERIE_BUTTON_OPEN_POSITION_X 240
+#define EDITOR_SERIE_BUTTON_SAVE_POSITION_X 470
+#define EDITOR_SERIE_BUTTON_ADD_POSITION_X 700
+#define EDITOR_SERIE_BUTTON_EXIT_POSITION_X 1390
+
+#define EDITOR_SERIE_BUTTON_NEW_TEXT "New"
+#define EDITOR_SERIE_BUTTON_OPEN_TEXT "Open"
+#define EDITOR_SERIE_BUTTON_SAVE_TEXT "Save"
+#define EDITOR_SERIE_BUTTON_ADD_TEXT "Add"
+#define EDITOR_SERIE_BUTTON_EXIT_TEXT "Exit"
+
+#define EDITOR_SERIE_BUTTONS_POSITION_Y 100
+#define EDITOR_SERIE_BUTTONS_WIDTH 200
 
 namespace controllers
 {
@@ -63,6 +79,12 @@ namespace controllers
         private:
 
             widgets::TitleBarWidget *titleBar;
+
+            widgets::ButtonWidget *buttonNew;
+            widgets::ButtonWidget *buttonOpen;
+            widgets::ButtonWidget *buttonSave;
+            widgets::ButtonWidget *buttonAdd;
+            widgets::ButtonWidget *buttonExit;
 
             sf::SoundBuffer soundBuffer;
 

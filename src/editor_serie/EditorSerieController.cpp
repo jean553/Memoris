@@ -39,6 +39,41 @@ EditorSerieController::EditorSerieController() : Controller()
         STRING_EDITOR_SERIE_TITLE
     );
 
+    buttonNew = new widgets::ButtonWidget(
+        EDITOR_SERIE_BUTTON_NEW_POSITION_X,
+        EDITOR_SERIE_BUTTONS_POSITION_Y,
+        EDITOR_SERIE_BUTTONS_WIDTH,
+        EDITOR_SERIE_BUTTON_NEW_TEXT
+    );
+
+    buttonOpen = new widgets::ButtonWidget(
+        EDITOR_SERIE_BUTTON_OPEN_POSITION_X,
+        EDITOR_SERIE_BUTTONS_POSITION_Y,
+        EDITOR_SERIE_BUTTONS_WIDTH,
+        EDITOR_SERIE_BUTTON_OPEN_TEXT
+    );
+
+    buttonSave = new widgets::ButtonWidget(
+        EDITOR_SERIE_BUTTON_SAVE_POSITION_X,
+        EDITOR_SERIE_BUTTONS_POSITION_Y,
+        EDITOR_SERIE_BUTTONS_WIDTH,
+        EDITOR_SERIE_BUTTON_SAVE_TEXT
+    );
+
+    buttonAdd = new widgets::ButtonWidget(
+        EDITOR_SERIE_BUTTON_ADD_POSITION_X,
+        EDITOR_SERIE_BUTTONS_POSITION_Y,
+        EDITOR_SERIE_BUTTONS_WIDTH,
+        EDITOR_SERIE_BUTTON_ADD_TEXT
+    );
+
+    buttonExit = new widgets::ButtonWidget(
+        EDITOR_SERIE_BUTTON_EXIT_POSITION_X,
+        EDITOR_SERIE_BUTTONS_POSITION_Y,
+        EDITOR_SERIE_BUTTONS_WIDTH,
+        EDITOR_SERIE_BUTTON_EXIT_TEXT
+    );
+
     soundOpenScreen.play();
 }
 
@@ -48,6 +83,12 @@ EditorSerieController::EditorSerieController() : Controller()
 EditorSerieController::~EditorSerieController()
 {
     delete titleBar;
+
+    delete buttonNew;
+    delete buttonOpen;
+    delete buttonSave;
+    delete buttonAdd;
+    delete buttonExit;
 }
 
 /**
@@ -56,6 +97,12 @@ EditorSerieController::~EditorSerieController()
 unsigned char EditorSerieController::render(utils::Context* context)
 {
     titleBar->display(context);
+
+    buttonNew->display(context);
+    buttonOpen->display(context);
+    buttonSave->display(context);
+    buttonAdd->display(context);
+    buttonExit->display(context);
 
     while(context->getWindow()->pollEvent(event))
     {
