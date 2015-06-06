@@ -43,6 +43,10 @@
 #define COLOR_ORANGE_GREEN 128
 #define COLOR_ORANGE_BLUE 0
 
+#define COLOR_GRAY_RED 80
+#define COLOR_GRAY_GREEN 80
+#define COLOR_GRAY_BLUE 80
+
 #define COLOR_ALPHA_FULL 255
 
 #endif
