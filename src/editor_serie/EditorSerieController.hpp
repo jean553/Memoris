@@ -36,6 +36,7 @@
 
 #include "../widgets/TitleBarWidget.hpp"
 #include "../widgets/ButtonWidget.hpp"
+#include "../widgets/CursorWidget.hpp"
 
 #include "../defines/SoundsDefines.hpp"
 
@@ -85,6 +86,8 @@ namespace controllers
             widgets::ButtonWidget *buttonSave;
             widgets::ButtonWidget *buttonAdd;
             widgets::ButtonWidget *buttonExit;
+
+            widgets::CursorWidget *cursor;
 
             sf::SoundBuffer soundBuffer;
 
