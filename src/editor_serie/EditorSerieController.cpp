@@ -74,6 +74,8 @@ EditorSerieController::EditorSerieController() : Controller()
         EDITOR_SERIE_BUTTON_EXIT_TEXT
     );
 
+    cursor = new widgets::CursorWidget();
+
     soundOpenScreen.play();
 }
 
@@ -89,6 +91,8 @@ EditorSerieController::~EditorSerieController()
     delete buttonSave;
     delete buttonAdd;
     delete buttonExit;
+
+    delete cursor;
 }
 
 /**
@@ -103,6 +107,8 @@ unsigned char EditorSerieController::render(utils::Context* context)
     buttonSave->display(context);
     buttonAdd->display(context);
     buttonExit->display(context);
+
+    cursor->display(context);
 
     while(context->getWindow()->pollEvent(event))
     {

@@ -11,4 +11,5 @@ Memoris: src/main.cpp
 	g++ -c src/widgets/InputTextWidget.cpp -o bin/InputTextWidget.o
 	g++ -c src/widgets/TitleBarWidget.cpp -o bin/TitleBarWidget.o
 	g++ -c src/widgets/ButtonWidget.cpp -o bin/ButtonWidget.o
-	g++ bin/main.o bin/GameController.o bin/MainMenuController.o bin/NewGameController.o bin/EditorSerieController.o bin/Controller.o bin/ScreenFactory.o bin/MusicFactory.o bin/Context.o bin/InputTextWidget.o bin/TitleBarWidget.o bin/ButtonWidget.o -o bin/Memoris -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+	g++ -c src/widgets/CursorWidget.cpp -o bin/CursorWidget.o
+	g++ bin/main.o bin/GameController.o bin/MainMenuController.o bin/NewGameController.o bin/EditorSerieController.o bin/Controller.o bin/ScreenFactory.o bin/MusicFactory.o bin/Context.o bin/InputTextWidget.o bin/TitleBarWidget.o bin/ButtonWidget.o bin/CursorWidget.o -o bin/Memoris -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
