@@ -74,6 +74,13 @@ EditorSerieController::EditorSerieController() : Controller()
         EDITOR_SERIE_BUTTON_EXIT_TEXT
     );
 
+    levelsList = new widgets::ItemsListWidget(
+        LEVELS_LIST_POSITION_X,
+        LEVELS_LIST_POSITION_Y,
+        LEVELS_LIST_WIDTH,
+        LEVELS_LIST_LEVELS_NUMBER
+    );
+
     cursor = new widgets::CursorWidget();
 
     soundOpenScreen.play();
@@ -92,6 +99,8 @@ EditorSerieController::~EditorSerieController()
     delete buttonAdd;
     delete buttonExit;
 
+    delete levelsList;
+
     delete cursor;
 }
 
@@ -107,6 +116,8 @@ unsigned char EditorSerieController::render(utils::Context* context)
     buttonSave->display(context);
     buttonAdd->display(context);
     buttonExit->display(context);
+
+    levelsList->display(context);
 
     cursor->display(context);
 

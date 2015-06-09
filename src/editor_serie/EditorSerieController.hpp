@@ -37,6 +37,7 @@
 #include "../widgets/TitleBarWidget.hpp"
 #include "../widgets/ButtonWidget.hpp"
 #include "../widgets/CursorWidget.hpp"
+#include "../widgets/ItemsListWidget.hpp"
 
 #include "../defines/SoundsDefines.hpp"
 
@@ -56,6 +57,11 @@
 
 #define EDITOR_SERIE_BUTTONS_POSITION_Y 100
 #define EDITOR_SERIE_BUTTONS_WIDTH 200
+
+#define LEVELS_LIST_POSITION_X 10
+#define LEVELS_LIST_POSITION_Y 250
+#define LEVELS_LIST_WIDTH 1580
+#define LEVELS_LIST_LEVELS_NUMBER 10
 
 namespace controllers
 {
@@ -88,6 +94,8 @@ namespace controllers
             widgets::ButtonWidget *buttonExit;
 
             widgets::CursorWidget *cursor;
+
+            widgets::ItemsListWidget *levelsList;
 
             sf::SoundBuffer soundBuffer;
 
