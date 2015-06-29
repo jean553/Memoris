@@ -83,8 +83,6 @@ namespace widgets
              */
             void display(utils::Context* context);
 
-        private:
-
             /**
              * Returns true if the mouse is
              * currently hover the button
@@ -93,6 +91,8 @@ namespace widgets
              */
             bool isMouseHover();
 
+
+        private:
 
             std::string text;
 

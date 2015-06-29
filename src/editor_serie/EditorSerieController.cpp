@@ -132,8 +132,19 @@ unsigned char EditorSerieController::render(utils::Context* context)
                     case sf::Keyboard::Escape:
                     {
                         nextControllerId = MAIN_MENU_CONTROLLER_ID;
+                    }
+                }
+            }
+            case sf::Event::MouseButtonPressed:
+            {
+                switch(event.mouseButton.button)
+                {
+                    case sf::Mouse::Left:
+                    {
+                        if(buttonExit->isMouseHover()) {
 
-                        break;
+                            nextControllerId = MAIN_MENU_CONTROLLER_ID;
+                        }
                     }
                 }
             }
