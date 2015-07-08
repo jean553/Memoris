@@ -35,7 +35,8 @@ InputTextWidget::InputTextWidget(
     unsigned int inputWidth,
     std::string defaultText,
     unsigned int maxCharacters
-) {
+)
+{
     displayCursor = true;
 
     horizontalPosition = inputHorizontalPosition;
@@ -62,9 +63,9 @@ InputTextWidget::InputTextWidget(
     );
 
     boxTop.setSize(sf::Vector2f(
-        width,
-        BOX_BORDER_LARGER
-    ));
+                       width,
+                       BOX_BORDER_LARGER
+                   ));
     boxTop.setPosition(
         horizontalPosition,
         verticalPosition
@@ -72,9 +73,9 @@ InputTextWidget::InputTextWidget(
     boxTop.setFillColor(inputTextColor);
 
     boxBottom.setSize(sf::Vector2f(
-        width,
-        BOX_BORDER_LARGER
-    ));
+                          width,
+                          BOX_BORDER_LARGER
+                      ));
     boxBottom.setPosition(
         horizontalPosition,
         verticalPosition + BOX_LARGER
@@ -82,9 +83,9 @@ InputTextWidget::InputTextWidget(
     boxBottom.setFillColor(inputTextColor);
 
     boxLeft.setSize(sf::Vector2f(
-        BOX_BORDER_LARGER,
-        BOX_LARGER
-    ));
+                        BOX_BORDER_LARGER,
+                        BOX_LARGER
+                    ));
     boxLeft.setPosition(
         horizontalPosition,
         verticalPosition
@@ -92,9 +93,9 @@ InputTextWidget::InputTextWidget(
     boxLeft.setFillColor(inputTextColor);
 
     boxRight.setSize(sf::Vector2f(
-        BOX_BORDER_LARGER,
-        BOX_LARGER
-    ));
+                         BOX_BORDER_LARGER,
+                         BOX_LARGER
+                     ));
     boxRight.setPosition(
         horizontalPosition + width,
         verticalPosition
@@ -102,9 +103,9 @@ InputTextWidget::InputTextWidget(
     boxRight.setFillColor(inputTextColor);
 
     cursor.setSize(sf::Vector2f(
-        CURSOR_WIDTH,
-        CURSOR_HEIGHT
-    ));
+                       CURSOR_WIDTH,
+                       CURSOR_HEIGHT
+                   ));
     cursor.setPosition(
         horizontalPosition + CURSOR_HORIZONTAL_OFFSET,
         verticalPosition + CURSOR_VERTICAL_OFFSET
@@ -146,14 +147,13 @@ void InputTextWidget::display(utils::Context* context)
     context->getWindow()->draw(boxRight);
     context->getWindow()->draw(displayedText);
 
-    if(displayCursor)
-    {
+    if(displayCursor) {
         context->getWindow()->draw(cursor);
     }
 
     if(clock.getElapsedTime().asMilliseconds() >
-        INTERVAL_ANIMATION_CURSOR
-    ) {
+            INTERVAL_ANIMATION_CURSOR
+      ) {
         displayCursor = !displayCursor;
 
         clock.restart();
@@ -167,152 +167,122 @@ void InputTextWidget::update(sf::Event* event)
 {
     std::string newText = "";
 
-    switch(event->key.code)
-    {
-        case sf::Keyboard::A:
-        {
+    switch(event->key.code) {
+        case sf::Keyboard::A: {
             newText = text + 'a';
             break;
         }
-        case sf::Keyboard::B:
-        {
+        case sf::Keyboard::B: {
             newText = text + 'b';
             break;
         }
-        case sf::Keyboard::C:
-        {
+        case sf::Keyboard::C: {
             newText = text + 'c';
             break;
         }
-        case sf::Keyboard::D:
-        {
+        case sf::Keyboard::D: {
             newText = text + 'd';
             break;
         }
-        case sf::Keyboard::E:
-        {
+        case sf::Keyboard::E: {
             newText = text + 'e';
             break;
         }
-        case sf::Keyboard::F:
-        {
+        case sf::Keyboard::F: {
             newText = text + 'f';
             break;
         }
-        case sf::Keyboard::G:
-        {
+        case sf::Keyboard::G: {
             newText = text + 'g';
             break;
         }
-        case sf::Keyboard::H:
-        {
+        case sf::Keyboard::H: {
             newText = text + 'h';
             break;
         }
-        case sf::Keyboard::I:
-        {
+        case sf::Keyboard::I: {
             newText = text + 'i';
             break;
         }
-        case sf::Keyboard::J:
-        {
+        case sf::Keyboard::J: {
             newText = text + 'j';
             break;
         }
-        case sf::Keyboard::K:
-        {
+        case sf::Keyboard::K: {
             newText = text + 'k';
             break;
         }
-        case sf::Keyboard::L:
-        {
+        case sf::Keyboard::L: {
             newText = text + 'l';
             break;
         }
-        case sf::Keyboard::M:
-        {
+        case sf::Keyboard::M: {
             newText = text + 'm';
             break;
         }
-        case sf::Keyboard::N:
-        {
+        case sf::Keyboard::N: {
             newText = text + 'n';
             break;
         }
-        case sf::Keyboard::O:
-        {
+        case sf::Keyboard::O: {
             newText = text + 'o';
             break;
         }
-        case sf::Keyboard::P:
-        {
+        case sf::Keyboard::P: {
             newText = text + 'p';
             break;
         }
-        case sf::Keyboard::Q:
-        {
+        case sf::Keyboard::Q: {
             newText = text + 'q';
             break;
         }
-        case sf::Keyboard::R:
-        {
+        case sf::Keyboard::R: {
             newText = text + 'r';
             break;
         }
-        case sf::Keyboard::S:
-        {
+        case sf::Keyboard::S: {
             newText = text + 's';
             break;
         }
-        case sf::Keyboard::T:
-        {
+        case sf::Keyboard::T: {
             newText = text + 't';
             break;
         }
-        case sf::Keyboard::U:
-        {
+        case sf::Keyboard::U: {
             newText = text + 'u';
             break;
         }
-        case sf::Keyboard::V:
-        {
+        case sf::Keyboard::V: {
             newText = text + 'v';
             break;
         }
-        case sf::Keyboard::W:
-        {
+        case sf::Keyboard::W: {
             newText = text + 'w';
             break;
         }
-        case sf::Keyboard::X:
-        {
+        case sf::Keyboard::X: {
             newText = text + 'x';
             break;
         }
-        case sf::Keyboard::Y:
-        {
+        case sf::Keyboard::Y: {
             newText = text + 'y';
             break;
         }
-        case sf::Keyboard::Z:
-        {
+        case sf::Keyboard::Z: {
             newText = text + 'z';
             break;
         }
-        case sf::Keyboard::BackSpace:
-        {
+        case sf::Keyboard::BackSpace: {
             // delete the last character of the string
             newText = text.substr(0, text.size() - 1);
             break;
         }
-        default:
-        {
+        default: {
             return;
         }
     }
 
-    if(newText.size() > maximumCharacters)
-    {
+    if(newText.size() > maximumCharacters) {
         return;
     }
 

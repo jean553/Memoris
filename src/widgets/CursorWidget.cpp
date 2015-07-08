@@ -48,7 +48,7 @@ CursorWidget::~CursorWidget()
  */
 void CursorWidget::display(utils::Context* context)
 {
-    // update the position of the cursor 
+    // update the position of the cursor
     // according to the system position
     sprite.setPosition(
         sf::Mouse::getPosition().x,

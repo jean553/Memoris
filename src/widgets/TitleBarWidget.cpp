@@ -31,7 +31,8 @@ using namespace widgets;
  */
 TitleBarWidget::TitleBarWidget(
     std::string text
-) {
+)
+{
     text = text;
 
     fontText.loadFromFile(PATH_FONT_TEXT);
@@ -56,9 +57,9 @@ TitleBarWidget::TitleBarWidget(
     );
 
     line.setSize(sf::Vector2f(
-        BAR_WIDTH,
-        BAR_BORDER_LARGER
-    ));
+                     BAR_WIDTH,
+                     BAR_BORDER_LARGER
+                 ));
     line.setPosition(
         TITLE_BAR_LINE_POSITION_X,
         TITLE_BAR_LINE_POSITION_Y

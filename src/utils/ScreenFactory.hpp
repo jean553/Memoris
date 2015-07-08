@@ -35,28 +35,26 @@
 #include "../new_game/NewGameController.hpp"
 #include "../editor_serie/EditorSerieController.hpp"
 
-namespace factories
-{
-    class ScreenFactory
-    {
-        public:
+namespace factories {
+class ScreenFactory {
+public:
 
-            ScreenFactory();
-            ~ScreenFactory();
+    ScreenFactory();
+    ~ScreenFactory();
 
-            /**
-             * @brief returns a new controller
-             * pointer according to the given
-             * screen id, used for screens
-             * generation and screens switching.
-             *
-             * @param char id   id of the screen
-             *
-             * @return screen controller pointer,
-             * returns null if no screen match
-             */
-            controllers::Controller* getScreenById(unsigned char id);
-    };
+    /**
+     * @brief returns a new controller
+     * pointer according to the given
+     * screen id, used for screens
+     * generation and screens switching.
+     *
+     * @param char id   id of the screen
+     *
+     * @return screen controller pointer,
+     * returns null if no screen match
+     */
+    controllers::Controller* getScreenById(unsigned char id);
+};
 }
 
 #endif

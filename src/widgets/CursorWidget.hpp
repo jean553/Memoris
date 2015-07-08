@@ -32,34 +32,32 @@
 
 #include "../utils/Context.hpp"
 
-#define PATH_IMAGE_CURSOR "res/images/cursor.png" 
+#define PATH_IMAGE_CURSOR "res/images/cursor.png"
 
-namespace widgets
-{
-    class CursorWidget
-    {
-        public:
+namespace widgets {
+class CursorWidget {
+public:
 
-            /**
-             * Constructor
-             */
-            CursorWidget();
-            ~CursorWidget();
+    /**
+     * Constructor
+     */
+    CursorWidget();
+    ~CursorWidget();
 
-            /**
-             * @brief displays the cursor at the same
-             * position as the system screen cursor
-             *
-             * @param Context current context pointer
-             */
-            void display(utils::Context* context);
+    /**
+     * @brief displays the cursor at the same
+     * position as the system screen cursor
+     *
+     * @param Context current context pointer
+     */
+    void display(utils::Context* context);
 
-        private:
+private:
 
-            sf::Texture picture;
+    sf::Texture picture;
 
-            sf::Sprite sprite;
-    };
+    sf::Sprite sprite;
+};
 }
 
 #endif

@@ -34,7 +34,8 @@ ButtonWidget::ButtonWidget(
     unsigned int buttonVerticalPosition,
     unsigned int buttonWidth,
     std::string textLabel
-) {
+)
+{
 
     horizontalPosition = buttonHorizontalPosition;
     verticalPosition = buttonVerticalPosition;
@@ -74,9 +75,9 @@ ButtonWidget::ButtonWidget(
     );
 
     background.setSize(sf::Vector2f(
-        width,
-        BUTTON_FIXED_HEIGHT
-    ));
+                           width,
+                           BUTTON_FIXED_HEIGHT
+                       ));
     background.setPosition(
         buttonHorizontalPosition,
         buttonVerticalPosition

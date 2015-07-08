@@ -42,54 +42,52 @@
 #define ITEMS_LIST_ITEM_HEIGHT 60
 #define ITEMS_LIST_ARROW_DIM 64
 
-namespace widgets
-{
-    class ItemsListWidget
-    {
-        public:
+namespace widgets {
+class ItemsListWidget {
+public:
 
-            /**
-             * Constructor
-             *
-             * @param integer horizontal position
-             * @param integer vertical position
-             * @param integer width
-             * @param char vertical text containers
-             */
-            ItemsListWidget(
-                int widgetHorizontalPosition,
-                int widgetVerticalPosition,
-                int widgetWidth,
-                unsigned char verticalTextContainers
-            );
-            ~ItemsListWidget();
+    /**
+     * Constructor
+     *
+     * @param integer horizontal position
+     * @param integer vertical position
+     * @param integer width
+     * @param char vertical text containers
+     */
+    ItemsListWidget(
+        int widgetHorizontalPosition,
+        int widgetVerticalPosition,
+        int widgetWidth,
+        unsigned char verticalTextContainers
+    );
+    ~ItemsListWidget();
 
-            /**
-             * @brief display the items list widget
-             *
-             * @param Context current context pointer
-             */
-            void display(utils::Context* context);
+    /**
+     * @brief display the items list widget
+     *
+     * @param Context current context pointer
+     */
+    void display(utils::Context* context);
 
-        private:
+private:
 
-            int horizontalPosition; 
-            int verticalPosition; 
-            int width; 
-            
-            sf::Color borderColor;
+    int horizontalPosition;
+    int verticalPosition;
+    int width;
 
-            sf::RectangleShape boxTop;
-            sf::RectangleShape boxBottom;
-            sf::RectangleShape boxLeft;
-            sf::RectangleShape boxRight;
+    sf::Color borderColor;
 
-            sf::Texture textureUp;
-            sf::Texture textureDown;
+    sf::RectangleShape boxTop;
+    sf::RectangleShape boxBottom;
+    sf::RectangleShape boxLeft;
+    sf::RectangleShape boxRight;
 
-            sf::Sprite spriteUp;
-            sf::Sprite spriteDown;
-    };
+    sf::Texture textureUp;
+    sf::Texture textureDown;
+
+    sf::Sprite spriteUp;
+    sf::Sprite spriteDown;
+};
 }
 
 #endif

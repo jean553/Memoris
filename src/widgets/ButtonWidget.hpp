@@ -38,79 +38,77 @@
 #define BUTTON_FIXED_HEIGHT 60
 #define SIZE_BUTTON_TEXT_FONT 40
 
-namespace widgets
-{
-    class ButtonWidget
-    {
-        public:
+namespace widgets {
+class ButtonWidget {
+public:
 
-            /**
-             * Constructor
-             *
-             * @param int button horizontal position
-             * @param int button vertical position
-             * @param int button fixed width
-             * @param string text of the button
-             */
-            ButtonWidget(
-                unsigned int buttonHorizontalPosition,
-                unsigned int buttonVerticalPosition,
-                unsigned int buttonWidth,
-                std::string textLabel = ""
-            );
-            ~ButtonWidget();
+    /**
+     * Constructor
+     *
+     * @param int button horizontal position
+     * @param int button vertical position
+     * @param int button fixed width
+     * @param string text of the button
+     */
+    ButtonWidget(
+        unsigned int buttonHorizontalPosition,
+        unsigned int buttonVerticalPosition,
+        unsigned int buttonWidth,
+        std::string textLabel = ""
+    );
+    ~ButtonWidget();
 
-            /**
-             * @brief setter for text content
-             *
-             * @param string content to set
-             */
-            void setText(std::string text);
+    /**
+     * @brief setter for text content
+     *
+     * @param string content to set
+     */
+    void setText(std::string text);
 
-            /**
-             * @brief getter for text content
-             *
-             * @return string input text content
-             */
-            std::string getText();
+    /**
+     * @brief getter for text content
+     *
+     * @return string input text content
+     */
+    std::string getText();
 
-            /**
-             * @brief displays the button and manage
-             * button colors according to the current
-             * cursor position on screen
-             *
-             * @param Context current context pointer
-             */
-            void display(utils::Context* context);
+    /**
+     * @brief displays the button and manage
+     * button colors according to the current
+     * cursor position on screen
+     *
+     * @param Context current context pointer
+     */
+    void display(utils::Context* context);
 
-            /**
-             * Returns true if the mouse is
-             * currently hover the button
-             *
-             * @return bool
-             */
-            bool isMouseHover();
+    /**
+     * Returns true if the mouse is
+     * currently hover the button
+     *
+     * @return bool
+     */
+    bool isMouseHover();
 
 
-        private:
+private:
 
-            std::string text;
+    std::string text;
 
-            sf::Font fontButton;
+    sf::Font fontButton;
 
-            sf::Color textColor;
-            sf::Color backgroundColor;
-            sf::Color textMouseHoverColor;
-            sf::Color backgroundMouseHoverColor;
+    sf::Color textColor;
+    sf::Color backgroundColor;
+    sf::Color textMouseHoverColor;
+    sf::Color backgroundMouseHoverColor;
 
-            sf::Text buttonText;
+    sf::Text buttonText;
 
-            sf::RectangleShape background;
+    sf::RectangleShape background;
 
-            unsigned int horizontalPosition;
-            unsigned int verticalPosition;
-            unsigned int width;
-    };
+    unsigned int horizontalPosition;
+    unsigned int verticalPosition;
+    unsigned int width;
+};
 }
 
 #endif

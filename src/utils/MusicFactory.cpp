@@ -45,10 +45,10 @@ MusicFactory::~MusicFactory()
  */
 std::string MusicFactory::getMusicPathById(
     unsigned char id
-) {
+)
+{
 
-    switch(id)
-    {
+    switch(id) {
         default:
             return MAIN_MENU_MUSIC_PATH;
     }

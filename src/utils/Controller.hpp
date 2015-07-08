@@ -31,30 +31,28 @@
 #include "ScreensIdentifiers.hpp"
 #include "Context.hpp"
 
-namespace controllers
-{
-    class Controller
-    {
-        public:
+namespace controllers {
+class Controller {
+public:
 
-            Controller();
-            ~Controller();
+    Controller();
+    ~Controller();
 
-            /**
-             * @brief render the screen, contains events catcher,
-             *
-             * @param Context context   commons items for controller
-             *
-             * @return char   next called screen controller id
-             */
-            virtual unsigned char render(utils::Context* context) = 0;
+    /**
+     * @brief render the screen, contains events catcher,
+     *
+     * @param Context context   commons items for controller
+     *
+     * @return char   next called screen controller id
+     */
+    virtual unsigned char render(utils::Context* context) = 0;
 
-        protected:
+protected:
 
-            sf::Event event;
+    sf::Event event;
 
-            unsigned char nextControllerId;
-    };
+    unsigned char nextControllerId;
+};
 }
 
 #endif

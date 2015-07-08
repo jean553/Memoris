@@ -136,8 +136,8 @@ unsigned char MainMenuController::render(utils::Context* context)
 {
     // animate the items
     if(clock.getElapsedTime().asMilliseconds() >
-        INTERVAL_ANIMATION_TITLE
-    ) {
+            INTERVAL_ANIMATION_TITLE
+      ) {
 
         animateTitleColor();
 
@@ -155,33 +155,26 @@ unsigned char MainMenuController::render(utils::Context* context)
     context->getWindow()->draw(spriteGithub);
 
     // render game and catch events
-    while(context->getWindow()->pollEvent(event))
-    {
-        switch(event.type)
-        {
+    while(context->getWindow()->pollEvent(event)) {
+        switch(event.type) {
             // action when a key is pressed
-            case sf::Event::KeyPressed:
-            {
-                switch(event.key.code)
-                {
-                    case sf::Keyboard::Up:
-                    {
+            case sf::Event::KeyPressed: {
+                switch(event.key.code) {
+                    case sf::Keyboard::Up: {
                         soundSelectorMove.play();
 
                         selectorPosition--;
 
                         break;
                     }
-                    case sf::Keyboard::Down:
-                    {
+                    case sf::Keyboard::Down: {
                         soundSelectorMove.play();
 
                         selectorPosition++;
 
                         break;
                     }
-                    case sf::Keyboard::Return:
-                    {
+                    case sf::Keyboard::Return: {
                         selectMenuItem(context->getWindow());
 
                         break;
@@ -206,20 +199,20 @@ void MainMenuController::animateTitleColor()
 
     // switch colors updates directions
     if(colorTitle.r == COLOR_TITLE_RED_MAX ||
-       colorTitle.r == COLOR_TITLE_ALL_MIN
-    ) {
+            colorTitle.r == COLOR_TITLE_ALL_MIN
+      ) {
         titleRedDirection = -titleRedDirection;
     }
 
     if(colorTitle.g == COLOR_TITLE_GREEN_MAX ||
-       colorTitle.g == COLOR_TITLE_ALL_MIN
-    ) {
+            colorTitle.g == COLOR_TITLE_ALL_MIN
+      ) {
         titleGreenDirection = -titleGreenDirection;
     }
 
     if(colorTitle.b == COLOR_TITLE_BLUE_MAX ||
-    colorTitle.b == COLOR_TITLE_ALL_MIN
-    ) {
+            colorTitle.b == COLOR_TITLE_ALL_MIN
+      ) {
         titleBlueDirection = -titleBlueDirection;
     }
 
@@ -233,10 +226,10 @@ void MainMenuController::updateSelectorPosition()
 {
     // fix selector position
     selectorPosition = (
-        (selectorPosition > MAIN_MENU_SELECTOR_MAX) ?
-        MAIN_MENU_SELECTOR_MIN :
-        selectorPosition
-    );
+                           (selectorPosition > MAIN_MENU_SELECTOR_MAX) ?
+                           MAIN_MENU_SELECTOR_MIN :
+                           selectorPosition
+                       );
 
     // switch back items colors to white
     itemNewGame.setColor(colorWhite);
@@ -245,30 +238,24 @@ void MainMenuController::updateSelectorPosition()
     itemOptions.setColor(colorWhite);
     itemExit.setColor(colorWhite);
 
-    switch(selectorPosition)
-    {
-        case MAIN_MENU_ITEM_NEW_GAME:
-        {
+    switch(selectorPosition) {
+        case MAIN_MENU_ITEM_NEW_GAME: {
             itemNewGame.setColor(colorRed);
             break;
         }
-        case MAIN_MENU_ITEM_LOAD_GAME:
-        {
+        case MAIN_MENU_ITEM_LOAD_GAME: {
             itemLoadGame.setColor(colorRed);
             break;
         }
-        case MAIN_MENU_ITEM_EDITOR:
-        {
+        case MAIN_MENU_ITEM_EDITOR: {
             itemEditor.setColor(colorRed);
             break;
         }
-        case MAIN_MENU_ITEM_OPTIONS:
-        {
+        case MAIN_MENU_ITEM_OPTIONS: {
             itemOptions.setColor(colorRed);
             break;
         }
-        case MAIN_MENU_ITEM_EXIT:
-        {
+        case MAIN_MENU_ITEM_EXIT: {
             itemExit.setColor(colorRed);
             break;
         }
@@ -280,22 +267,18 @@ void MainMenuController::updateSelectorPosition()
  */
 void MainMenuController::selectMenuItem(sf::RenderWindow* window)
 {
-    switch(selectorPosition)
-    {
-        case MAIN_MENU_ITEM_NEW_GAME:
-        {
+    switch(selectorPosition) {
+        case MAIN_MENU_ITEM_NEW_GAME: {
             nextControllerId = NEW_GAME_CONTROLLER_ID;
 
             break;
         }
-        case MAIN_MENU_ITEM_EDITOR:
-        {
+        case MAIN_MENU_ITEM_EDITOR: {
             nextControllerId = EDITOR_SERIE_CONTROLLER_ID;
 
             break;
         }
-        case MAIN_MENU_ITEM_EXIT:
-        {
+        case MAIN_MENU_ITEM_EXIT: {
             window->close();
 
             break;

@@ -46,56 +46,54 @@
 #define BAR_BORDER_LARGER 1
 #define BAR_WIDTH 1600
 
-namespace widgets
-{
-    class TitleBarWidget
-    {
-        public:
+namespace widgets {
+class TitleBarWidget {
+public:
 
-            /**
-             * Constructor
-             *
-             * @param string title bar text
-             */
-            TitleBarWidget(
-                std::string text = ""
-            );
-            ~TitleBarWidget();
+    /**
+     * Constructor
+     *
+     * @param string title bar text
+     */
+    TitleBarWidget(
+        std::string text = ""
+    );
+    ~TitleBarWidget();
 
-            /**
-             * @brief setter for text content
-             *
-             * @param string content to set
-             */
-            void setText(std::string text);
+    /**
+     * @brief setter for text content
+     *
+     * @param string content to set
+     */
+    void setText(std::string text);
 
-            /**
-             * @brief getter for text content
-             *
-             * @return string input text content
-             */
-            std::string getText();
+    /**
+     * @brief getter for text content
+     *
+     * @return string input text content
+     */
+    std::string getText();
 
-            /**
-             * @brief display the header title bar
-             *
-             * @param Context current context pointer
-             */
-            void display(utils::Context* context);
+    /**
+     * @brief display the header title bar
+     *
+     * @param Context current context pointer
+     */
+    void display(utils::Context* context);
 
-        private:
+private:
 
-            std::string text;
+    std::string text;
 
-            sf::Font fontText;
+    sf::Font fontText;
 
-            sf::Color textColor;
-            sf::Color lineColor;
-            
-            sf::Text displayedText;
+    sf::Color textColor;
+    sf::Color lineColor;
 
-            sf::RectangleShape line;
-    };
+    sf::Text displayedText;
+
+    sf::RectangleShape line;
+};
 }
 
 #endif

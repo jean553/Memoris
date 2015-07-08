@@ -37,38 +37,36 @@
 #include "../utils/Controller.hpp"
 #include "../utils/Context.hpp"
 
-namespace controllers
-{
-    class GameController
-    {
-        public:
+namespace controllers {
+class GameController {
+public:
 
-            GameController();
-            ~GameController();
+    GameController();
+    ~GameController();
 
-            /**
-             * @brief run the game, contains
-             * the main loop of the program
-             *
-             * @param RenderWindow window   main window
-             */
-            void run(sf::RenderWindow* window);
+    /**
+     * @brief run the game, contains
+     * the main loop of the program
+     *
+     * @param RenderWindow window   main window
+     */
+    void run(sf::RenderWindow* window);
 
-        private:
+private:
 
-            controllers::Controller *currentController;
+    controllers::Controller *currentController;
 
-            factories::ScreenFactory *screenFactory;
-            factories::MusicFactory *musicFactory;
+    factories::ScreenFactory *screenFactory;
+    factories::MusicFactory *musicFactory;
 
-            utils::Context *context;
+    utils::Context *context;
 
-            unsigned char currentControllerId;
-            unsigned char nextControllerId;
+    unsigned char currentControllerId;
+    unsigned char nextControllerId;
 
-            std::string currentMusicPath;
-            std::string nextMusicPath;
-    };
+    std::string currentMusicPath;
+    std::string nextMusicPath;
+};
 }
 
 #endif

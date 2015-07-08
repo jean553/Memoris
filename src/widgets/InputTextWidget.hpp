@@ -51,86 +51,84 @@
 #define CURSOR_VERTICAL_OFFSET 5
 #define TEXT_HORIZONTAL_OFFSET 5
 
-namespace widgets
-{
-    class InputTextWidget
-    {
-        public:
+namespace widgets {
+class InputTextWidget {
+public:
 
-            /**
-             * Constructor
-             *
-             * @param int input horizontal position
-             * @param int input vertical position
-             * @param int input width
-             * @param string input default text
-             * @param int maximum characters size
-             */
-            InputTextWidget(
-                unsigned int inputHorizontalPosition,
-                unsigned int inputVerticalPosition,
-                unsigned int inputWidth,
-                std::string defaultText = "",
-                unsigned int maxCharacters = 10
-            );
-            ~InputTextWidget();
+    /**
+     * Constructor
+     *
+     * @param int input horizontal position
+     * @param int input vertical position
+     * @param int input width
+     * @param string input default text
+     * @param int maximum characters size
+     */
+    InputTextWidget(
+        unsigned int inputHorizontalPosition,
+        unsigned int inputVerticalPosition,
+        unsigned int inputWidth,
+        std::string defaultText = "",
+        unsigned int maxCharacters = 10
+    );
+    ~InputTextWidget();
 
-            /**
-             * @brief setter for input text content
-             *
-             * @param string content to set
-             */
-            void setText(std::string inputTextData);
+    /**
+     * @brief setter for input text content
+     *
+     * @param string content to set
+     */
+    void setText(std::string inputTextData);
 
-            /**
-             * @brief getter for input text content
-             *
-             * @return string input text content
-             */
-            std::string getText();
+    /**
+     * @brief getter for input text content
+     *
+     * @return string input text content
+     */
+    std::string getText();
 
-            /**
-             * @brief display the input text
-             * with its content
-             *
-             * @param Context current context pointer
-             */
-            void display(utils::Context* context);
+    /**
+     * @brief display the input text
+     * with its content
+     *
+     * @param Context current context pointer
+     */
+    void display(utils::Context* context);
 
-            /**
-             * @brief update the input text
-             * content according to the event
-             * pointer content
-             *
-             * @param Event pointer on SFML event
-             */
-            void update(sf::Event* event);
+    /**
+     * @brief update the input text
+     * content according to the event
+     * pointer content
+     *
+     * @param Event pointer on SFML event
+     */
+    void update(sf::Event* event);
 
-        private:
+private:
 
-            bool displayCursor;
+    bool displayCursor;
 
-            unsigned int horizontalPosition;
-            unsigned int verticalPosition;
-            unsigned int width;
-            unsigned int maximumCharacters;
+    unsigned int horizontalPosition;
+    unsigned int verticalPosition;
+    unsigned int width;
+    unsigned int maximumCharacters;
 
-            std::string text;
+    std::string text;
 
-            sf::Font fontInputText;
+    sf::Font fontInputText;
 
-            sf::Color inputTextColor;
+    sf::Color inputTextColor;
 
-            sf::Text displayedText;
+    sf::Text displayedText;
 
-            sf::RectangleShape boxTop;
-            sf::RectangleShape boxBottom;
-            sf::RectangleShape boxLeft;
-            sf::RectangleShape boxRight;
-            sf::RectangleShape cursor;
+    sf::RectangleShape boxTop;
+    sf::RectangleShape boxBottom;
+    sf::RectangleShape boxLeft;
+    sf::RectangleShape boxRight;
+    sf::RectangleShape cursor;
 
-            sf::Clock clock;
-    };
+    sf::Clock clock;
+};
 }
 
 #endif

@@ -34,58 +34,56 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-namespace utils
-{
-    class Context
-    {
-        public:
+namespace utils {
+class Context {
+public:
 
-            Context();
-            ~Context();
+    Context();
+    ~Context();
 
-            /**
-             * @brief common window setter
-             *
-             * @param RenderWindow common rendering window
-             */
-            void setWindow(sf::RenderWindow* commonWindow);
+    /**
+     * @brief common window setter
+     *
+     * @param RenderWindow common rendering window
+     */
+    void setWindow(sf::RenderWindow* commonWindow);
 
-            /**
-             * @bried message setter
-             *
-             * @param string message to send to next called controller
-             */
-            void setSentMessage(std::string message);
+    /**
+     * @bried message setter
+     *
+     * @param string message to send to next called controller
+     */
+    void setSentMessage(std::string message);
 
-            /**
-             * @brief common window getter
-             *
-             * @return common window pointer
-             */
-            sf::RenderWindow* getWindow();
+    /**
+     * @brief common window getter
+     *
+     * @return common window pointer
+     */
+    sf::RenderWindow* getWindow();
 
-            /**
-             * @brief common message getter
-             *
-             * @return common message string
-             */
-            std::string getSentMessage();
+    /**
+     * @brief common message getter
+     *
+     * @return common message string
+     */
+    std::string getSentMessage();
 
-            /**
-             * @brief change the current played music
-             *
-             * @param string path path of the music to play
-             */
-            void changeMusic(std::string path);
+    /**
+     * @brief change the current played music
+     *
+     * @param string path path of the music to play
+     */
+    void changeMusic(std::string path);
 
-        private:
+private:
 
-            sf::RenderWindow *window;
+    sf::RenderWindow *window;
 
-            sf::Music *music;
+    sf::Music *music;
 
-            std::string sentMessage;
-    };
+    std::string sentMessage;
+};
 }
 
 #endif

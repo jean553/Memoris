@@ -97,22 +97,16 @@ unsigned char NewGameController::render(utils::Context* context)
 
     inputTextGameName->display(context);
 
-    while(context->getWindow()->pollEvent(event))
-    {
-        switch(event.type)
-        {
-            case sf::Event::KeyPressed:
-            {
-                switch(event.key.code)
-                {
-                    case sf::Keyboard::Escape:
-                    {
+    while(context->getWindow()->pollEvent(event)) {
+        switch(event.type) {
+            case sf::Event::KeyPressed: {
+                switch(event.key.code) {
+                    case sf::Keyboard::Escape: {
                         nextControllerId = MAIN_MENU_CONTROLLER_ID;
 
                         break;
                     }
-                    default:
-                    {
+                    default: {
                         inputTextGameName->update(&event);
 
                         break;

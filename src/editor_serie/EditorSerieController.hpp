@@ -63,44 +63,42 @@
 #define LEVELS_LIST_WIDTH 1580
 #define LEVELS_LIST_LEVELS_NUMBER 10
 
-namespace controllers
-{
-    class EditorSerieController : public Controller
-    {
-        public:
+namespace controllers {
+class EditorSerieController : public Controller {
+public:
 
-            EditorSerieController();
-            ~EditorSerieController();
+    EditorSerieController();
+    ~EditorSerieController();
 
-            /**
-             * @brief render the serie editor screen
-             *
-             * @param Context context   commons items for controller
-             *
-             * @return char   id of the next screen controller
-             */
-            unsigned char render(
-                utils::Context* context
-            );
+    /**
+     * @brief render the serie editor screen
+     *
+     * @param Context context   commons items for controller
+     *
+     * @return char   id of the next screen controller
+     */
+    unsigned char render(
+        utils::Context* context
+    );
 
-        private:
+private:
 
-            widgets::TitleBarWidget *titleBar;
+    widgets::TitleBarWidget *titleBar;
 
-            widgets::ButtonWidget *buttonNew;
-            widgets::ButtonWidget *buttonOpen;
-            widgets::ButtonWidget *buttonSave;
-            widgets::ButtonWidget *buttonAdd;
-            widgets::ButtonWidget *buttonExit;
+    widgets::ButtonWidget *buttonNew;
+    widgets::ButtonWidget *buttonOpen;
+    widgets::ButtonWidget *buttonSave;
+    widgets::ButtonWidget *buttonAdd;
+    widgets::ButtonWidget *buttonExit;
 
-            widgets::CursorWidget *cursor;
+    widgets::CursorWidget *cursor;
 
-            widgets::ItemsListWidget *levelsList;
+    widgets::ItemsListWidget *levelsList;
 
-            sf::SoundBuffer soundBuffer;
+    sf::SoundBuffer soundBuffer;
 
-            sf::Sound soundOpenScreen;
-    };
+    sf::Sound soundOpenScreen;
+};
 }
 
 #endif
