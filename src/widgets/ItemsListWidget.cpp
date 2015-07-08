@@ -34,58 +34,59 @@ ItemsListWidget::ItemsListWidget(
     int widgetVerticalPosition,
     int widgetWidth,
     unsigned char verticalTextContainers
-) {
-    
+)
+{
+
     horizontalPosition = widgetHorizontalPosition;
     verticalPosition = widgetVerticalPosition;
     width = widgetWidth;
 
-    borderColor.r = COLOR_WHITE_RED; 
+    borderColor.r = COLOR_WHITE_RED;
     borderColor.g = COLOR_WHITE_GREEN;
     borderColor.b = COLOR_WHITE_BLUE;
     borderColor.a = COLOR_ALPHA_FULL;
 
     boxTop.setSize(sf::Vector2f(
-        width,
-        ITEMS_LIST_BORDER_SIZE
-    ));
+                       width,
+                       ITEMS_LIST_BORDER_SIZE
+                   ));
     boxTop.setPosition(
         horizontalPosition,
         verticalPosition
     );
     boxTop.setFillColor(borderColor);
-    
+
     boxBottom.setSize(sf::Vector2f(
-        width,
-        ITEMS_LIST_BORDER_SIZE
-    ));
+                          width,
+                          ITEMS_LIST_BORDER_SIZE
+                      ));
     boxBottom.setPosition(
-        horizontalPosition, 
+        horizontalPosition,
         verticalPosition +
-        verticalTextContainers * 
+        verticalTextContainers *
         ITEMS_LIST_ITEM_HEIGHT
     );
     boxBottom.setFillColor(borderColor);
-    
+
     boxLeft.setSize(sf::Vector2f(
-        ITEMS_LIST_BORDER_SIZE,
-        verticalTextContainers * 
-        ITEMS_LIST_ITEM_HEIGHT
-    ));
+                        ITEMS_LIST_BORDER_SIZE,
+                        verticalTextContainers *
+                        ITEMS_LIST_ITEM_HEIGHT
+                    ));
     boxLeft.setPosition(
-        horizontalPosition, 
+        horizontalPosition,
         verticalPosition
     );
     boxLeft.setFillColor(borderColor);
-    
+
     boxRight.setSize(sf::Vector2f(
-        ITEMS_LIST_BORDER_SIZE,
-        verticalTextContainers * 
-        ITEMS_LIST_ITEM_HEIGHT
-    ));
+                         ITEMS_LIST_BORDER_SIZE,
+                         verticalTextContainers *
+                         ITEMS_LIST_ITEM_HEIGHT
+                     ));
     boxRight.setPosition(
         horizontalPosition +
-        width, 
+        width,
         verticalPosition
     );
     boxRight.setFillColor(borderColor);
@@ -100,7 +101,7 @@ ItemsListWidget::ItemsListWidget(
         ITEMS_LIST_ARROW_DIM,
         verticalPosition
     );
-    
+
     spriteDown.setTexture(textureDown, true);
     spriteDown.setPosition(
         horizontalPosition +

@@ -37,12 +37,12 @@ GameController::GameController()
     context = new utils::Context();
 
     currentController = screenFactory->getScreenById(
-        MAIN_MENU_CONTROLLER_ID
-    );
+                            MAIN_MENU_CONTROLLER_ID
+                        );
 
     currentMusicPath = musicFactory->getMusicPathById(
-        MAIN_MENU_CONTROLLER_ID
-    );
+                           MAIN_MENU_CONTROLLER_ID
+                       );
 
     nextMusicPath = "";
 
@@ -74,8 +74,7 @@ void GameController::run(sf::RenderWindow* window)
     // load the first music, main menu music
     context->changeMusic(currentMusicPath);
 
-    while(window->isOpen())
-    {
+    while(window->isOpen()) {
         window->clear();
 
         nextControllerId = currentController->render(context);
@@ -86,8 +85,8 @@ void GameController::run(sf::RenderWindow* window)
 
             // update the current music
             nextMusicPath = musicFactory->getMusicPathById(
-                nextControllerId
-            );
+                                nextControllerId
+                            );
             if(currentMusicPath != nextMusicPath) {
                 context->changeMusic(nextMusicPath);
             }
@@ -95,8 +94,8 @@ void GameController::run(sf::RenderWindow* window)
             // update the current screen controller
             delete currentController;
             currentController = screenFactory->getScreenById(
-                nextControllerId
-            );
+                                    nextControllerId
+                                );
 
             currentControllerId = nextControllerId;
         }

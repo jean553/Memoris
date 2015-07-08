@@ -85,75 +85,73 @@
 #define MAIN_MENU_ITEM_OPTIONS 3
 #define MAIN_MENU_ITEM_EXIT 4
 
-namespace controllers
-{
-    class MainMenuController : public Controller
-    {
-        public:
+namespace controllers {
+class MainMenuController : public Controller {
+public:
 
-            MainMenuController();
-            ~MainMenuController();
+    MainMenuController();
+    ~MainMenuController();
 
-            /**
-             * @brief render the main menu
-             *
-             * @param Context context   commons items for controller
-             *
-             * @return char   id of the next screen controller
-             */
-            unsigned char render(
-                utils::Context* context
-            );
+    /**
+     * @brief render the main menu
+     *
+     * @param Context context   commons items for controller
+     *
+     * @return char   id of the next screen controller
+     */
+    unsigned char render(
+        utils::Context* context
+    );
 
-        private:
+private:
 
-            sf::Font fontTitle;
-            sf::Font fontItem;
+    sf::Font fontTitle;
+    sf::Font fontItem;
 
-            sf::Color colorTitle;
-            sf::Color colorWhite;
-            sf::Color colorRed;
+    sf::Color colorTitle;
+    sf::Color colorWhite;
+    sf::Color colorRed;
 
-            sf::Text title;
-            sf::Text itemNewGame;
-            sf::Text itemLoadGame;
-            sf::Text itemEditor;
-            sf::Text itemOptions;
-            sf::Text itemExit;
+    sf::Text title;
+    sf::Text itemNewGame;
+    sf::Text itemLoadGame;
+    sf::Text itemEditor;
+    sf::Text itemOptions;
+    sf::Text itemExit;
 
-            sf::Texture textureGithub;
+    sf::Texture textureGithub;
 
-            sf::Sprite spriteGithub;
+    sf::Sprite spriteGithub;
 
-            sf::Clock clock;
+    sf::Clock clock;
 
-            sf::SoundBuffer soundBuffer;
+    sf::SoundBuffer soundBuffer;
 
-            sf::Sound soundSelectorMove;
+    sf::Sound soundSelectorMove;
 
-            char titleRedDirection;
-            char titleGreenDirection;
-            char titleBlueDirection;
+    char titleRedDirection;
+    char titleGreenDirection;
+    char titleBlueDirection;
 
-            unsigned char selectorPosition;
+    unsigned char selectorPosition;
 
-            /**
-             * @brief update the color of the title
-             */
-            void animateTitleColor();
+    /**
+     * @brief update the color of the title
+     */
+    void animateTitleColor();
 
-            /**
-             * @brief visually update the selector position
-             */
-            void updateSelectorPosition();
+    /**
+     * @brief visually update the selector position
+     */
+    void updateSelectorPosition();
 
-            /**
-             * @brief call action for one selected menu item
-             *
-             * @param RenderWindow window main window
-             */
-            void selectMenuItem(sf::RenderWindow* window);
-    };
+    /**
+     * @brief call action for one selected menu item
+     *
+     * @param RenderWindow window main window
+     */
+    void selectMenuItem(sf::RenderWindow* window);
+};
 }
 
 #endif

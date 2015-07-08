@@ -55,43 +55,41 @@
 
 #define MAX_NAME_LENGTH 15
 
-namespace controllers
-{
-    class NewGameController : public Controller
-    {
-        public:
+namespace controllers {
+class NewGameController : public Controller {
+public:
 
-            NewGameController();
-            ~NewGameController();
+    NewGameController();
+    ~NewGameController();
 
-            /**
-             * @brief render the new game screen
-             *
-             * @param Context context   commons items for controller
-             *
-             * @return char   id of the next screen controller
-             */
-            unsigned char render(
-                utils::Context* context
-            );
+    /**
+     * @brief render the new game screen
+     *
+     * @param Context context   commons items for controller
+     *
+     * @return char   id of the next screen controller
+     */
+    unsigned char render(
+        utils::Context* context
+    );
 
-        private:
+private:
 
-            sf::Font fontTitle;
-            sf::Font fontExplanation;
+    sf::Font fontTitle;
+    sf::Font fontExplanation;
 
-            sf::Color colorTitle;
-            sf::Color colorExplanation;
+    sf::Color colorTitle;
+    sf::Color colorExplanation;
 
-            sf::Text title;
-            sf::Text explanation;
+    sf::Text title;
+    sf::Text explanation;
 
-            sf::SoundBuffer soundBuffer;
+    sf::SoundBuffer soundBuffer;
 
-            sf::Sound soundSelectorSelect;
+    sf::Sound soundSelectorSelect;
 
-            widgets::InputTextWidget *inputTextGameName;
-    };
+    widgets::InputTextWidget *inputTextGameName;
+};
 }
 
 #endif
