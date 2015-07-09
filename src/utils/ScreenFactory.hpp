@@ -48,7 +48,7 @@ public:
      * screen id, used for screens
      * generation and screens switching.
      *
-     * @param char id   id of the screen
+     * @param id      screen id
      *
      * @return screen controller pointer,
      * returns null if no screen match

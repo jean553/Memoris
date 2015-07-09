@@ -95,7 +95,7 @@ public:
     /**
      * @brief render the main menu
      *
-     * @param Context context   commons items for controller
+     * @param context   commons items for controller
      *
      * @return char   id of the next screen controller
      */
@@ -148,7 +148,7 @@ private:
     /**
      * @brief call action for one selected menu item
      *
-     * @param RenderWindow window main window
+     * @param window        main window
      */
     void selectMenuItem(sf::RenderWindow* window);
 };

@@ -131,14 +131,6 @@ void InputTextWidget::setText(std::string inputTextData)
 /**
  *
  */
-std::string InputTextWidget::getText()
-{
-    return text;
-}
-
-/**
- *
- */
 void InputTextWidget::display(utils::Context* context)
 {
     context->getWindow()->draw(boxTop);

@@ -36,14 +36,14 @@ class Controller {
 public:
 
     Controller();
-    ~Controller();
+    virtual ~Controller();
 
     /**
      * @brief render the screen, contains events catcher,
      *
-     * @param Context context   commons items for controller
+     * @param context   commons items for controller
      *
-     * @return char   next called screen controller id
+     * @return char     next called screen controller id
      */
     virtual unsigned char render(utils::Context* context) = 0;
 

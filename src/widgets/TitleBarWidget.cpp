@@ -30,10 +30,10 @@ using namespace widgets;
  *
  */
 TitleBarWidget::TitleBarWidget(
-    std::string text
+    std::string barText
 )
 {
-    text = text;
+    setText(barText);
 
     fontText.loadFromFile(PATH_FONT_TEXT);
 
@@ -80,14 +80,6 @@ TitleBarWidget::~TitleBarWidget()
 void TitleBarWidget::setText(std::string inputTextData)
 {
     text = inputTextData;
-}
-
-/**
- *
- */
-std::string TitleBarWidget::getText()
-{
-    return text;
 }
 
 /**

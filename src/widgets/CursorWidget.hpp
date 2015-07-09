@@ -48,7 +48,7 @@ public:
      * @brief displays the cursor at the same
      * position as the system screen cursor
      *
-     * @param Context current context pointer
+     * @param context       current context pointer
      */
     void display(utils::Context* context);
 

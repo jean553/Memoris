@@ -29,9 +29,22 @@ using namespace utils;
 /**
  *
  */
-Context::Context()
+Context::Context(sf::RenderWindow* commonWindow)
+{
+    setWindow(commonWindow);
+    music = new sf::Music();
+    sentMessage = "";
+}
+
+/**
+ *
+ */
+Context::Context(const Context &context)
 {
     music = new sf::Music();
+    window = new sf::RenderWindow();
+
+    sentMessage = context.sentMessage;
 }
 
 /**
@@ -45,22 +58,6 @@ Context::~Context()
 /**
  *
  */
-void Context::setWindow(sf::RenderWindow* commonWindow)
-{
-    window = commonWindow;
-}
-
-/**
- *
- */
-void Context::setSentMessage(std::string message)
-{
-    sentMessage = message;
-}
-
-/**
- *
- */
 sf::RenderWindow* Context::getWindow()
 {
     return window;
@@ -69,9 +66,9 @@ sf::RenderWindow* Context::getWindow()
 /**
  *
  */
-std::string Context::getSentMessage()
+void Context::setWindow(sf::RenderWindow* commonWindow)
 {
-    return sentMessage;
+    window = commonWindow;
 }
 
 /**

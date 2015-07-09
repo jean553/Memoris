@@ -49,10 +49,10 @@ public:
     /**
      * Constructor
      *
-     * @param integer horizontal position
-     * @param integer vertical position
-     * @param integer width
-     * @param char vertical text containers
+     * @param widgetHorizontalPosition       horizontal position
+     * @param widgetVerticalPosition         integer vertical position
+     * @param widgetWidth                    width
+     * @param verticalTextContainers         vertical text containers
      */
     ItemsListWidget(
         int widgetHorizontalPosition,
@@ -65,7 +65,7 @@ public:
     /**
      * @brief display the items list widget
      *
-     * @param Context current context pointer
+     * @param context  current context pointer
      */
     void display(utils::Context* context);
 

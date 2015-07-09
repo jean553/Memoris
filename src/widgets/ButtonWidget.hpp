@@ -45,10 +45,10 @@ public:
     /**
      * Constructor
      *
-     * @param int button horizontal position
-     * @param int button vertical position
-     * @param int button fixed width
-     * @param string text of the button
+     * @param buttonHorizontalPosition  button horizontal position
+     * @param buttonVerticalPosition    button vertical position
+     * @param buttonWidth               button fixed width
+     * @param textLabel                 text of the button
      */
     ButtonWidget(
         unsigned int buttonHorizontalPosition,
@@ -61,23 +61,16 @@ public:
     /**
      * @brief setter for text content
      *
-     * @param string content to set
+     * @param text         content to set
      */
     void setText(std::string text);
-
-    /**
-     * @brief getter for text content
-     *
-     * @return string input text content
-     */
-    std::string getText();
 
     /**
      * @brief displays the button and manage
      * button colors according to the current
      * cursor position on screen
      *
-     * @param Context current context pointer
+     * @param context       current context pointer
      */
     void display(utils::Context* context);
 
@@ -87,7 +80,7 @@ public:
      *
      * @return bool
      */
-    bool isMouseHover();
+    bool isMouseHover() const;
 
 
 private:
