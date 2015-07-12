@@ -33,60 +33,56 @@
 
 #include "../utils/Controller.hpp"
 #include "../utils/Context.hpp"
+#include "../utils/ScreenFactory.hpp"
 
-#include "../defines/ColorsDefines.hpp"
-#include "../defines/FontsDefines.hpp"
-#include "../defines/SoundsDefines.hpp"
-
-#define PATH_IMAGE_GITHUB "res/images/fork-me.png"
-
-#define COLOR_TITLE_RED_INIT 0
-#define COLOR_TITLE_GREEN_INIT 0
-#define COLOR_TITLE_BLUE_INIT 255
-#define COLOR_TITLE_RED_MAX 255
-#define COLOR_TITLE_GREEN_MAX 180
-#define COLOR_TITLE_BLUE_MAX 255
-#define COLOR_TITLE_ALL_MIN 0
-
-#define POSITION_TITLE_X 480
-#define POSITION_TITLE_Y 100
-#define POSITION_GITHUB_X 1300
-#define POSITION_GITHUB_Y 0
-#define POSITION_ITEM_NEW_GAME_X 615
-#define POSITION_ITEM_NEW_GAME_Y 300
-#define POSITION_ITEM_LOAD_GAME_X 605
-#define POSITION_ITEM_LOAD_GAME_Y 400
-#define POSITION_ITEM_EDITOR_X 685
-#define POSITION_ITEM_EDITOR_Y 500
-#define POSITION_ITEM_OPTIONS_X 660
-#define POSITION_ITEM_OPTIONS_Y 600
-#define POSITION_ITEM_EXIT_X 725
-#define POSITION_ITEM_EXIT_Y 700
-
-#define DIRECTION_TITLE_RED_INIT 1
-#define DIRECTION_TITLE_GREEN_INIT 1
-#define DIRECTION_TITLE_BLUE_INIT -1
-
-#define INTERVAL_ANIMATION_TITLE 10
-
-#define STRING_TITLE "Memoris"
-#define STRING_NEW_GAME "New game"
-#define STRING_LOAD_GAME "Load game"
-#define STRING_EDITOR "Editor"
-#define STRING_OPTIONS "Options"
-#define STRING_EXIT "Exit"
-
-#define MAIN_MENU_SELECTOR_MIN 0
-#define MAIN_MENU_SELECTOR_MAX 4
-
-#define MAIN_MENU_ITEM_NEW_GAME 0
-#define MAIN_MENU_ITEM_LOAD_GAME 1
-#define MAIN_MENU_ITEM_EDITOR 2
-#define MAIN_MENU_ITEM_OPTIONS 3
-#define MAIN_MENU_ITEM_EXIT 4
+#include "../defines/Colors.hpp"
+#include "../defines/Fonts.hpp"
+#include "../defines/Sounds.hpp"
 
 namespace controllers {
 class MainMenuController : public Controller {
+
+    static const std::string PATH_IMAGE_GITHUB;
+    static const std::string STRING_TITLE;
+    static const std::string STRING_NEW_GAME;
+    static const std::string STRING_LOAD_GAME;
+    static const std::string STRING_EDITOR;
+    static const std::string STRING_OPTIONS;
+    static const std::string STRING_EXIT;
+
+    static constexpr unsigned int COLOR_TITLE_RED_INIT = 0;
+    static constexpr unsigned int COLOR_TITLE_GREEN_INIT = 0;
+    static constexpr unsigned int COLOR_TITLE_BLUE_INIT = 255;
+    static constexpr unsigned int COLOR_TITLE_RED_MAX = 255;
+    static constexpr unsigned int COLOR_TITLE_GREEN_MAX = 180;
+    static constexpr unsigned int COLOR_TITLE_BLUE_MAX = 255;
+    static constexpr unsigned int COLOR_TITLE_ALL_MIN = 0;
+    static constexpr unsigned int POSITION_TITLE_X = 480;
+    static constexpr unsigned int POSITION_TITLE_Y = 100;
+    static constexpr unsigned int POSITION_GITHUB_X = 1300;
+    static constexpr unsigned int POSITION_GITHUB_Y = 0;
+    static constexpr unsigned int POSITION_ITEM_NEW_GAME_X = 615;
+    static constexpr unsigned int POSITION_ITEM_NEW_GAME_Y = 300;
+    static constexpr unsigned int POSITION_ITEM_LOAD_GAME_X = 605;
+    static constexpr unsigned int POSITION_ITEM_LOAD_GAME_Y = 400;
+    static constexpr unsigned int POSITION_ITEM_EDITOR_X = 685;
+    static constexpr unsigned int POSITION_ITEM_EDITOR_Y = 500;
+    static constexpr unsigned int POSITION_ITEM_OPTIONS_X = 660;
+    static constexpr unsigned int POSITION_ITEM_OPTIONS_Y = 600;
+    static constexpr unsigned int POSITION_ITEM_EXIT_X = 725;
+    static constexpr unsigned int POSITION_ITEM_EXIT_Y = 700;
+    static constexpr unsigned int DIRECTION_TITLE_RED_INIT = 1;
+    static constexpr unsigned int DIRECTION_TITLE_GREEN_INIT = 1;
+    static constexpr int DIRECTION_TITLE_BLUE_INIT = -1;
+    static constexpr int INTERVAL_ANIMATION_TITLE = 10;
+    static constexpr unsigned int MAIN_MENU_SELECTOR_MIN = 0;
+    static constexpr unsigned int MAIN_MENU_SELECTOR_MAX = 4;
+    static constexpr unsigned int MAIN_MENU_ITEM_NEW_GAME = 0;
+    static constexpr unsigned int MAIN_MENU_ITEM_LOAD_GAME = 1;
+    static constexpr unsigned int MAIN_MENU_ITEM_EDITOR = 2;
+    static constexpr unsigned int MAIN_MENU_ITEM_OPTIONS = 3;
+    static constexpr unsigned int MAIN_MENU_ITEM_EXIT = 4;
+
 public:
 
     MainMenuController();

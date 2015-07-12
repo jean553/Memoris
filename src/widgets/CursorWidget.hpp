@@ -32,10 +32,11 @@
 
 #include "../utils/Context.hpp"
 
-#define PATH_IMAGE_CURSOR "res/images/cursor.png"
-
 namespace widgets {
 class CursorWidget {
+
+    static const std::string PATH_IMAGE_CURSOR;
+
 public:
 
     /**

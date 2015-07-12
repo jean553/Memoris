@@ -26,32 +26,40 @@
 
 using namespace controllers;
 
+const std::string MainMenuController::PATH_IMAGE_GITHUB = "res/images/fork-me.png";
+const std::string MainMenuController::STRING_TITLE = "Memoris";
+const std::string MainMenuController::STRING_NEW_GAME = "New game";
+const std::string MainMenuController::STRING_LOAD_GAME = "Load game";
+const std::string MainMenuController::STRING_EDITOR = "Editor";
+const std::string MainMenuController::STRING_OPTIONS = "Options";
+const std::string MainMenuController::STRING_EXIT = "Exit";
+
 /**
  *
  */
 MainMenuController::MainMenuController() : Controller()
 {
-    fontTitle.loadFromFile(PATH_FONT_TITLE);
-    fontItem.loadFromFile(PATH_FONT_TEXT);
+    fontTitle.loadFromFile(constants::Fonts::getTitleFontPath());
+    fontItem.loadFromFile(constants::Fonts::getTextFontPath());
 
     colorTitle.r = COLOR_TITLE_RED_INIT;
     colorTitle.g = COLOR_TITLE_GREEN_INIT;
     colorTitle.b = COLOR_TITLE_BLUE_INIT;
-    colorTitle.a = COLOR_ALPHA_FULL;
+    colorTitle.a = constants::Colors::COLOR_ALPHA_FULL;
 
-    colorWhite.r = COLOR_WHITE_RED;
-    colorWhite.g = COLOR_WHITE_GREEN;
-    colorWhite.b = COLOR_WHITE_BLUE;
-    colorWhite.a = COLOR_ALPHA_FULL;
+    colorWhite.r = constants::Colors::COLOR_WHITE_RED;
+    colorWhite.g = constants::Colors::COLOR_WHITE_GREEN;
+    colorWhite.b = constants::Colors::COLOR_WHITE_BLUE;
+    colorWhite.a = constants::Colors::COLOR_ALPHA_FULL;
 
-    colorRed.r = COLOR_RED_RED;
-    colorRed.g = COLOR_RED_GREEN;
-    colorRed.b = COLOR_RED_BLUE;
-    colorRed.a = COLOR_ALPHA_FULL;
+    colorRed.r = constants::Colors::COLOR_RED_RED;
+    colorRed.g = constants::Colors::COLOR_RED_GREEN;
+    colorRed.b = constants::Colors::COLOR_RED_BLUE;
+    colorRed.a = constants::Colors::COLOR_ALPHA_FULL;
 
     title.setFont(fontTitle);
     title.setString(STRING_TITLE);
-    title.setCharacterSize(SIZE_TITLE_FONT);
+    title.setCharacterSize(constants::Fonts::SIZE_TITLE_FONT);
     title.setColor(colorTitle);
     title.setPosition(
         POSITION_TITLE_X,
@@ -60,7 +68,7 @@ MainMenuController::MainMenuController() : Controller()
 
     itemNewGame.setFont(fontItem);
     itemNewGame.setString(STRING_NEW_GAME);
-    itemNewGame.setCharacterSize(SIZE_ITEM_FONT);
+    itemNewGame.setCharacterSize(constants::Fonts::SIZE_ITEM_FONT);
     itemNewGame.setColor(colorRed);
     itemNewGame.setPosition(
         POSITION_ITEM_NEW_GAME_X,
@@ -69,7 +77,7 @@ MainMenuController::MainMenuController() : Controller()
 
     itemLoadGame.setFont(fontItem);
     itemLoadGame.setString(STRING_LOAD_GAME);
-    itemLoadGame.setCharacterSize(SIZE_ITEM_FONT);
+    itemLoadGame.setCharacterSize(constants::Fonts::SIZE_ITEM_FONT);
     itemLoadGame.setColor(colorWhite);
     itemLoadGame.setPosition(
         POSITION_ITEM_LOAD_GAME_X,
@@ -78,7 +86,7 @@ MainMenuController::MainMenuController() : Controller()
 
     itemEditor.setFont(fontItem);
     itemEditor.setString(STRING_EDITOR);
-    itemEditor.setCharacterSize(SIZE_ITEM_FONT);
+    itemEditor.setCharacterSize(constants::Fonts::SIZE_ITEM_FONT);
     itemEditor.setColor(colorWhite);
     itemEditor.setPosition(
         POSITION_ITEM_EDITOR_X,
@@ -87,7 +95,7 @@ MainMenuController::MainMenuController() : Controller()
 
     itemOptions.setFont(fontItem);
     itemOptions.setString(STRING_OPTIONS);
-    itemOptions.setCharacterSize(SIZE_ITEM_FONT);
+    itemOptions.setCharacterSize(constants::Fonts::SIZE_ITEM_FONT);
     itemOptions.setColor(colorWhite);
     itemOptions.setPosition(
         POSITION_ITEM_OPTIONS_X,
@@ -96,7 +104,7 @@ MainMenuController::MainMenuController() : Controller()
 
     itemExit.setFont(fontItem);
     itemExit.setString(STRING_EXIT);
-    itemExit.setCharacterSize(SIZE_ITEM_FONT);
+    itemExit.setCharacterSize(constants::Fonts::SIZE_ITEM_FONT);
     itemExit.setColor(colorWhite);
     itemExit.setPosition(
         POSITION_ITEM_EXIT_X,
@@ -111,7 +119,7 @@ MainMenuController::MainMenuController() : Controller()
         POSITION_GITHUB_Y
     );
 
-    soundBuffer.loadFromFile(SOUND_SELECTOR_MOVE);
+    soundBuffer.loadFromFile(constants::Sounds::getMoveSelectorSoundPath());
 
     soundSelectorMove.setBuffer(soundBuffer);
 
@@ -269,12 +277,12 @@ void MainMenuController::selectMenuItem(sf::RenderWindow* window)
 {
     switch(selectorPosition) {
         case MAIN_MENU_ITEM_NEW_GAME: {
-            nextControllerId = NEW_GAME_CONTROLLER_ID;
+            nextControllerId = factories::ScreenFactory::NEW_GAME_CONTROLLER_ID;
 
             break;
         }
         case MAIN_MENU_ITEM_EDITOR: {
-            nextControllerId = EDITOR_SERIE_CONTROLLER_ID;
+            nextControllerId = factories::ScreenFactory::EDITOR_SERIE_CONTROLLER_ID;
 
             break;
         }

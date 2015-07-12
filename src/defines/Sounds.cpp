@@ -17,40 +17,29 @@
 */
 
 /**
- * Colors defines.
+ * Sounds.
  *
- * @file ColorsDefines.hpp
- * @brief properties of all the colors
+ * @file Sounds.cpp
+ * @brief path of all the sounds
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_COLORS_DEFINES
-#define DEF_COLORS_DEFINES
+#include "Sounds.hpp"
 
-#define COLOR_LIGHT_BLUE_RED 105
-#define COLOR_LIGHT_BLUE_GREEN 125
-#define COLOR_LIGHT_BLUE_BLUE 255
+using namespace constants;
 
-#define COLOR_WHITE_RED 255
-#define COLOR_WHITE_GREEN 255
-#define COLOR_WHITE_BLUE 255
+/**
+ *
+ */
+std::string Sounds::getMoveSelectorSoundPath()
+{
+    return "res/sounds/001.wav";
+}
 
-#define COLOR_RED_RED 255
-#define COLOR_RED_GREEN 0
-#define COLOR_RED_BLUE 0
-
-#define COLOR_ORANGE_RED 255
-#define COLOR_ORANGE_GREEN 128
-#define COLOR_ORANGE_BLUE 0
-
-#define COLOR_GRAY_RED 80
-#define COLOR_GRAY_GREEN 80
-#define COLOR_GRAY_BLUE 80
-
-#define COLOR_DARK_GRAY_RED 50
-#define COLOR_DARK_GRAY_GREEN 50
-#define COLOR_DARK_GRAY_BLUE 50
-
-#define COLOR_ALPHA_FULL 255
-
-#endif
+/**
+ *
+ */
+std::string Sounds::getOpenScreenSoundPath()
+{
+    return "res/sounds/002.wav";
+}

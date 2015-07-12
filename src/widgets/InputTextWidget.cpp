@@ -46,12 +46,12 @@ InputTextWidget::InputTextWidget(
 
     text = defaultText;
 
-    fontInputText.loadFromFile(PATH_FONT_TEXT);
+    fontInputText.loadFromFile(constants::Fonts::getTextFontPath());
 
-    inputTextColor.r = COLOR_LIGHT_BLUE_RED;
-    inputTextColor.g = COLOR_LIGHT_BLUE_GREEN;
-    inputTextColor.b = COLOR_LIGHT_BLUE_BLUE;
-    inputTextColor.a = COLOR_ALPHA_FULL;
+    inputTextColor.r = constants::Colors::COLOR_LIGHT_BLUE_RED;
+    inputTextColor.g = constants::Colors::COLOR_LIGHT_BLUE_GREEN;
+    inputTextColor.b = constants::Colors::COLOR_LIGHT_BLUE_BLUE;
+    inputTextColor.a = constants::Colors::COLOR_ALPHA_FULL;
 
     displayedText.setFont(fontInputText);
     displayedText.setString(defaultText);

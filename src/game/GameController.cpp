@@ -42,17 +42,17 @@ GameController::GameController()
 
     context = new utils::Context(window);
 
+    currentControllerId = factories::ScreenFactory::MAIN_MENU_CONTROLLER_ID;
+
     currentController = screenFactory->getScreenById(
-                            MAIN_MENU_CONTROLLER_ID
+                            currentControllerId
                         );
 
     currentMusicPath = musicFactory->getMusicPathById(
-                           MAIN_MENU_CONTROLLER_ID
+                           currentControllerId
                        );
 
     nextMusicPath = "";
-
-    currentControllerId = MAIN_MENU_CONTROLLER_ID;
     nextControllerId = 0;
 }
 
@@ -66,9 +66,6 @@ GameController::GameController(const GameController &gameController)
     context = new utils::Context(*gameController.context);
 
     window = context->getWindow();
-
-    *screenFactory = *gameController.screenFactory;
-    *musicFactory = *gameController.musicFactory;
 
     currentControllerId = gameController.currentControllerId;
     nextControllerId = gameController.nextControllerId;

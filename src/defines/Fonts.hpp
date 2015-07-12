@@ -17,16 +17,38 @@
 */
 
 /**
- * @file ScreensIdentifiers.hpp
- * @brief contains identifiers of all screens
+ * Fonts.
+ *
+ * @file Fonts.hpp
+ * @brief path of all the fonts
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_SCREENS_IDENTIFIERS
-#define DEF_SCREENS_IDENTIFIERS
+#ifndef DEF_FONTS
+#define DEF_FONTS
+        
+#include <string>
 
-#define MAIN_MENU_CONTROLLER_ID 1
-#define NEW_GAME_CONTROLLER_ID 2
-#define EDITOR_SERIE_CONTROLLER_ID 3
+namespace constants {
+class Fonts {
+
+    public:
+
+        static constexpr unsigned int SIZE_TITLE_FONT = 140;
+        static constexpr unsigned int SIZE_SUB_TITLE_FONT = 70;
+        static constexpr unsigned int SIZE_ITEM_FONT = 60;
+        static constexpr unsigned int SIZE_TEXT_FONT = 50;
+
+        /**
+         * @return string
+         */
+        static std::string getTitleFontPath(); 
+
+        /**
+         * @return string
+         */
+        static std::string getTextFontPath();
+};
+}
 
 #endif

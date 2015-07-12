@@ -36,27 +36,28 @@
 
 #include "../widgets/InputTextWidget.hpp"
 
-#include "../defines/ColorsDefines.hpp"
-#include "../defines/FontsDefines.hpp"
-#include "../defines/SoundsDefines.hpp"
+#include "../utils/ScreenFactory.hpp"
 
-#define STRING_NEW_GAME_TITLE "New game"
-#define STRING_NEW_GAME_EXPLANATION "Your name :"
-#define STRING_NAME_DEFAULT ""
-
-#define SIZE_NAME_INPUT_TEXT 600
-
-#define POSITION_NEW_GAME_TITLE_X 620
-#define POSITION_NEW_GAME_TITLE_Y 200
-#define POSITION_NEW_GAME_EXPLANATION_X 645
-#define POSITION_NEW_GAME_EXPLANATION_Y 380
-#define POSITION_NAME_INPUT_TEXT_X 500
-#define POSITION_NAME_INPUT_TEXT_Y 450
-
-#define MAX_NAME_LENGTH 15
+#include "../defines/Colors.hpp"
+#include "../defines/Fonts.hpp"
+#include "../defines/Sounds.hpp"
 
 namespace controllers {
 class NewGameController : public Controller {
+
+    static const std::string STRING_NEW_GAME_TITLE;
+    static const std::string STRING_NEW_GAME_EXPLANATION;
+    static const std::string STRING_NAME_DEFAULT;
+
+    static constexpr unsigned int SIZE_NAME_INPUT_TEXT = 600;
+    static constexpr unsigned int POSITION_NEW_GAME_TITLE_X = 620;
+    static constexpr unsigned int POSITION_NEW_GAME_TITLE_Y = 200;
+    static constexpr unsigned int POSITION_NEW_GAME_EXPLANATION_X = 645;
+    static constexpr unsigned int POSITION_NEW_GAME_EXPLANATION_Y = 380;
+    static constexpr unsigned int POSITION_NAME_INPUT_TEXT_X = 500;
+    static constexpr unsigned int POSITION_NAME_INPUT_TEXT_Y = 450;
+    static constexpr unsigned int MAX_NAME_LENGTH = 15;
+
 public:
 
     NewGameController();

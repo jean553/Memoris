@@ -30,11 +30,11 @@
 
 #include <string>
 
-#include "ScreensIdentifiers.hpp"
-#include "MusicsIdentifiers.hpp"
-
 namespace factories {
 class MusicFactory {
+
+    static const std::string MAIN_MENU_MUSIC_PATH;
+
 public:
 
     MusicFactory();

@@ -26,6 +26,8 @@
 
 using namespace widgets;
 
+const std::string CursorWidget::PATH_IMAGE_CURSOR = "res/images/cursor.png";
+
 /**
  *
  */

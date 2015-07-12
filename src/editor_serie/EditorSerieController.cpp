@@ -26,12 +26,21 @@
 
 using namespace controllers;
 
+const std::string EditorSerieController::STRING_EDITOR_SERIE_TITLE = "Serie editor";
+const std::string EditorSerieController::EDITOR_SERIE_BUTTON_NEW_TEXT = "New";
+const std::string EditorSerieController::EDITOR_SERIE_BUTTON_OPEN_TEXT = "Open";
+const std::string EditorSerieController::EDITOR_SERIE_BUTTON_SAVE_TEXT = "Save";
+const std::string EditorSerieController::EDITOR_SERIE_BUTTON_ADD_TEXT = "Add";
+const std::string EditorSerieController::EDITOR_SERIE_BUTTON_EXIT_TEXT = "Exit";
+
 /**
  *
  */
 EditorSerieController::EditorSerieController() : Controller()
 {
-    soundBuffer.loadFromFile(SOUND_OPEN_SCREEN);
+    soundBuffer.loadFromFile(
+        constants::Sounds::getOpenScreenSoundPath()
+    );
 
     soundOpenScreen.setBuffer(soundBuffer);
 
@@ -126,7 +135,8 @@ unsigned char EditorSerieController::render(utils::Context* context)
             case sf::Event::KeyPressed: {
                 switch(event.key.code) {
                     case sf::Keyboard::Escape: {
-                        nextControllerId = MAIN_MENU_CONTROLLER_ID;
+                        nextControllerId = factories::ScreenFactory::MAIN_MENU_CONTROLLER_ID;
+                        break;
                     }
                 }
             }
@@ -134,9 +144,9 @@ unsigned char EditorSerieController::render(utils::Context* context)
                 switch(event.mouseButton.button) {
                     case sf::Mouse::Left: {
                         if(buttonExit->isMouseHover()) {
-
-                            nextControllerId = MAIN_MENU_CONTROLLER_ID;
+                            nextControllerId = factories::ScreenFactory::MAIN_MENU_CONTROLLER_ID;
                         }
+                        break;
                     }
                 }
             }

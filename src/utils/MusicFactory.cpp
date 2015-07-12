@@ -26,6 +26,8 @@
 
 using namespace factories;
 
+const std::string MusicFactory::MAIN_MENU_MUSIC_PATH = "res/musics/dj-xtrm-killer-symphonyX-outro.ogg";
+
 /**
  *
  */
