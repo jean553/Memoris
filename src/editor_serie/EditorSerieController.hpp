@@ -73,7 +73,7 @@ public:
     /**
      * @brief render the serie editor screen
      *
-     * @param Context context   commons items for controller
+     * @param context commons items for controller
      *
      * @return char   id of the next screen controller
      */

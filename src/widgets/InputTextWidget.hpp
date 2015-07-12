@@ -58,11 +58,11 @@ public:
     /**
      * Constructor
      *
-     * @param int input horizontal position
-     * @param int input vertical position
-     * @param int input width
-     * @param string input default text
-     * @param int maximum characters size
+     * @param inputHorizontalPosition    input horizontal position
+     * @param inputVerticalPosition      input vertical position
+     * @param inputWidth                 input width
+     * @param defaultText                input default text
+     * @param maxCharacters              maximum characters size
      */
     InputTextWidget(
         unsigned int inputHorizontalPosition,
@@ -76,22 +76,15 @@ public:
     /**
      * @brief setter for input text content
      *
-     * @param string content to set
+     * @param inputTextData content to set
      */
     void setText(std::string inputTextData);
-
-    /**
-     * @brief getter for input text content
-     *
-     * @return string input text content
-     */
-    std::string getText();
 
     /**
      * @brief display the input text
      * with its content
      *
-     * @param Context current context pointer
+     * @param context       current context pointer
      */
     void display(utils::Context* context);
 
@@ -100,7 +93,7 @@ public:
      * content according to the event
      * pointer content
      *
-     * @param Event pointer on SFML event
+     * @param event         pointer on SFML event
      */
     void update(sf::Event* event);
 

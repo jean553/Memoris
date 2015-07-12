@@ -65,7 +65,7 @@ public:
     /**
      * @brief render the new game screen
      *
-     * @param Context context   commons items for controller
+     * @param context commons items for controller
      *
      * @return char   id of the next screen controller
      */

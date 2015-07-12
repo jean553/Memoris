@@ -102,14 +102,6 @@ void ButtonWidget::setText(std::string inputTextData)
 /**
  *
  */
-std::string ButtonWidget::getText()
-{
-    return text;
-}
-
-/**
- *
- */
 void ButtonWidget::display(utils::Context* context)
 {
     buttonText.setColor(textColor);
@@ -128,13 +120,13 @@ void ButtonWidget::display(utils::Context* context)
 /**
  *
  */
-bool ButtonWidget::isMouseHover()
+bool ButtonWidget::isMouseHover() const
 {
     if (
-        sf::Mouse::getPosition().x > horizontalPosition &&
-        sf::Mouse::getPosition().x < horizontalPosition + width &&
-        sf::Mouse::getPosition().y > verticalPosition &&
-        sf::Mouse::getPosition().y < verticalPosition + BUTTON_FIXED_HEIGHT
+        unsigned(sf::Mouse::getPosition().x) > horizontalPosition &&
+        unsigned(sf::Mouse::getPosition().x) < horizontalPosition + width &&
+        unsigned(sf::Mouse::getPosition().y) > verticalPosition &&
+        unsigned(sf::Mouse::getPosition().y) < verticalPosition + BUTTON_FIXED_HEIGHT
     ) {
         return true;
     }

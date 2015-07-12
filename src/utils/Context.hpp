@@ -38,22 +38,27 @@ namespace utils {
 class Context {
 public:
 
-    Context();
+    /**
+     * @param commonWindow      window to use
+     */
+    Context(sf::RenderWindow* commonWindow);
+
+    /**
+     * NOTE: The context copy constructor
+     * creates a new render window and
+     * a new music object. This feature is
+     * actually useless in the behaviour of
+     * the program, because never used, but
+     * is mandatory to keep compliance
+     * with C++ best practices ( i.e. Context
+     * class contains dynamically allocated
+     * objects ).
+     *
+     * @param context    reference to Context object
+     */
+    Context(const Context &context);
+
     ~Context();
-
-    /**
-     * @brief common window setter
-     *
-     * @param RenderWindow common rendering window
-     */
-    void setWindow(sf::RenderWindow* commonWindow);
-
-    /**
-     * @bried message setter
-     *
-     * @param string message to send to next called controller
-     */
-    void setSentMessage(std::string message);
 
     /**
      * @brief common window getter
@@ -63,16 +68,14 @@ public:
     sf::RenderWindow* getWindow();
 
     /**
-     * @brief common message getter
-     *
-     * @return common message string
+     * @brief common window setter
      */
-    std::string getSentMessage();
+    void setWindow(sf::RenderWindow* commonWindow);
 
     /**
      * @brief change the current played music
      *
-     * @param string path path of the music to play
+     * @param path              path of the music to play
      */
     void changeMusic(std::string path);
 

@@ -31,10 +31,16 @@ using namespace controllers;
  */
 GameController::GameController()
 {
+    window = new sf::RenderWindow(
+        sf::VideoMode(1600, 900, 32),
+        "SFML",
+        sf::Style::Fullscreen
+    );
+
     screenFactory = new factories::ScreenFactory();
     musicFactory = new factories::MusicFactory();
 
-    context = new utils::Context();
+    context = new utils::Context(window);
 
     currentController = screenFactory->getScreenById(
                             MAIN_MENU_CONTROLLER_ID
@@ -53,22 +59,44 @@ GameController::GameController()
 /**
  *
  */
-GameController::~GameController()
+GameController::GameController(const GameController &gameController)
 {
-    delete screenFactory;
-    delete musicFactory;
+    screenFactory = new factories::ScreenFactory();
+    musicFactory = new factories::MusicFactory();
+    context = new utils::Context(*gameController.context);
 
-    delete currentController;
+    window = context->getWindow();
 
-    delete context;
+    *screenFactory = *gameController.screenFactory;
+    *musicFactory = *gameController.musicFactory;
+
+    currentControllerId = gameController.currentControllerId;
+    nextControllerId = gameController.nextControllerId;
+    currentMusicPath = gameController.currentMusicPath;
+    nextMusicPath = gameController.nextMusicPath;
+
+    currentController = screenFactory->getScreenById(
+                            currentControllerId
+                        );
 }
 
 /**
  *
  */
-void GameController::run(sf::RenderWindow* window)
+GameController::~GameController()
 {
-    context->setWindow(window);
+    delete screenFactory;
+    delete musicFactory;
+    delete currentController;
+    delete context;
+    delete window;
+}
+
+/**
+ *
+ */
+void GameController::run()
+{
     window->setMouseCursorVisible(false);
 
     // load the first music, main menu music

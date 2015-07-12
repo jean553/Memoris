@@ -44,12 +44,12 @@ public:
      * @brief returns the music file
      * path according to the id
      *
-     * @param char id   id of the music
+     * @param id   id of the music
      *
      * @return string   music file path,
      * main menu music path by default
      */
-    std::string getMusicPathById(unsigned char id);
+    static std::string getMusicPathById(unsigned char id);
 };
 }
 

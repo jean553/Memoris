@@ -42,17 +42,35 @@ class GameController {
 public:
 
     GameController();
+
+    /**
+     * NOTE: The game controller copy constructor
+     * creates a new screen factory, a new music
+     * factory, a new context and a new window
+     * inside this context. The used window pointer
+     * for the game controller is the same as the
+     * context. This feature is actually useless in
+     * the behaviour of the program, because never
+     * used, but is mandatory to keep compliance
+     * with C++ best practices ( i.e. Context
+     * class contains dynamically allocated
+     * objects ).
+     *
+     * @param gameController    reference to game controller
+     */
+    GameController(const GameController &gameController);
+
     ~GameController();
 
     /**
      * @brief run the game, contains
      * the main loop of the program
-     *
-     * @param RenderWindow window   main window
      */
-    void run(sf::RenderWindow* window);
+    void run();
 
 private:
+
+    sf::RenderWindow *window;
 
     controllers::Controller *currentController;
 

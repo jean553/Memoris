@@ -53,31 +53,24 @@ public:
     /**
      * Constructor
      *
-     * @param string title bar text
+     * @param barText        title bar text
      */
     TitleBarWidget(
-        std::string text = ""
+        std::string barText = ""
     );
     ~TitleBarWidget();
 
     /**
      * @brief setter for text content
      *
-     * @param string content to set
+     * @param text          content to set
      */
     void setText(std::string text);
 
     /**
-     * @brief getter for text content
-     *
-     * @return string input text content
-     */
-    std::string getText();
-
-    /**
      * @brief display the header title bar
      *
-     * @param Context current context pointer
+     * @param context       current context pointer
      */
     void display(utils::Context* context);
 
