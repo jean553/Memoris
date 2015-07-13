@@ -26,23 +26,23 @@
 
 #ifndef DEF_SOUNDS
 #define DEF_SOUNDS
-        
+
 #include <string>
 
 namespace constants {
 class Sounds {
 
-    public:
+public:
 
-        /**
-         * @return string
-         */
-        static std::string getMoveSelectorSoundPath(); 
+    /**
+     * @return string
+     */
+    static std::string getMoveSelectorSoundPath();
 
-        /**
-         * @return string
-         */
-        static std::string getOpenScreenSoundPath();
+    /**
+     * @return string
+     */
+    static std::string getOpenScreenSoundPath();
 };
 }
 
