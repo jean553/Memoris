@@ -1,8 +1,8 @@
 astyle --options=config/astyle.conf src/main.cpp
 
-astyle --options=config/astyle.conf src/defines/ColorsDefines.hpp
-astyle --options=config/astyle.conf src/defines/FontsDefines.hpp
-astyle --options=config/astyle.conf src/defines/SoundsDefines.hpp
+astyle --options=config/astyle.conf src/defines/Colors.hpp
+astyle --options=config/astyle.conf src/defines/Fonts.hpp
+astyle --options=config/astyle.conf src/defines/Sounds.hpp
 
 astyle --options=config/astyle.conf src/editor_serie/EditorSerieController.hpp
 astyle --options=config/astyle.conf src/editor_serie/EditorSerieController.cpp
@@ -22,10 +22,8 @@ astyle --options=config/astyle.conf src/utils/Controller.hpp
 astyle --options=config/astyle.conf src/utils/Controller.cpp
 astyle --options=config/astyle.conf src/utils/MusicFactory.hpp
 astyle --options=config/astyle.conf src/utils/MusicFactory.cpp
-astyle --options=config/astyle.conf src/utils/MusicsIdentifiers.hpp
 astyle --options=config/astyle.conf src/utils/ScreenFactory.hpp
 astyle --options=config/astyle.conf src/utils/ScreenFactory.cpp
-astyle --options=config/astyle.conf src/utils/ScreensIdentifiers.hpp
 
 astyle --options=config/astyle.conf src/widgets/ButtonWidget.hpp
 astyle --options=config/astyle.conf src/widgets/ButtonWidget.cpp

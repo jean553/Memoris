@@ -26,28 +26,28 @@
 
 #ifndef DEF_FONTS
 #define DEF_FONTS
-        
+
 #include <string>
 
 namespace constants {
 class Fonts {
 
-    public:
+public:
 
-        static constexpr unsigned int SIZE_TITLE_FONT = 140;
-        static constexpr unsigned int SIZE_SUB_TITLE_FONT = 70;
-        static constexpr unsigned int SIZE_ITEM_FONT = 60;
-        static constexpr unsigned int SIZE_TEXT_FONT = 50;
+    static constexpr unsigned int SIZE_TITLE_FONT = 140;
+    static constexpr unsigned int SIZE_SUB_TITLE_FONT = 70;
+    static constexpr unsigned int SIZE_ITEM_FONT = 60;
+    static constexpr unsigned int SIZE_TEXT_FONT = 50;
 
-        /**
-         * @return string
-         */
-        static std::string getTitleFontPath(); 
+    /**
+     * @return string
+     */
+    static std::string getTitleFontPath();
 
-        /**
-         * @return string
-         */
-        static std::string getTextFontPath();
+    /**
+     * @return string
+     */
+    static std::string getTextFontPath();
 };
 }
 
