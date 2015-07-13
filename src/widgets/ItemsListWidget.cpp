@@ -26,6 +26,9 @@
 
 using namespace widgets;
 
+const std::string ItemsListWidget::PATH_IMAGE_ARROW_UP = "res/images/up.png";
+const std::string ItemsListWidget::PATH_IMAGE_ARROW_DOWN = "res/images/down.png";
+
 /**
  *
  */
@@ -41,10 +44,10 @@ ItemsListWidget::ItemsListWidget(
     verticalPosition = widgetVerticalPosition;
     width = widgetWidth;
 
-    borderColor.r = COLOR_WHITE_RED;
-    borderColor.g = COLOR_WHITE_GREEN;
-    borderColor.b = COLOR_WHITE_BLUE;
-    borderColor.a = COLOR_ALPHA_FULL;
+    borderColor.r = constants::Colors::COLOR_WHITE_RED;
+    borderColor.g = constants::Colors::COLOR_WHITE_GREEN;
+    borderColor.b = constants::Colors::COLOR_WHITE_BLUE;
+    borderColor.a = constants::Colors::COLOR_ALPHA_FULL;
 
     boxTop.setSize(sf::Vector2f(
                        width,

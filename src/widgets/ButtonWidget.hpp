@@ -32,14 +32,15 @@
 
 #include "../utils/Context.hpp"
 
-#include "../defines/ColorsDefines.hpp"
-#include "../defines/FontsDefines.hpp"
-
-#define BUTTON_FIXED_HEIGHT 60
-#define SIZE_BUTTON_TEXT_FONT 40
+#include "../defines/Colors.hpp"
+#include "../defines/Fonts.hpp"
 
 namespace widgets {
 class ButtonWidget {
+
+    static constexpr unsigned int BUTTON_FIXED_HEIGHT = 60;
+    static constexpr unsigned int SIZE_BUTTON_TEXT_FONT = 40;
+
 public:
 
     /**

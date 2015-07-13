@@ -32,22 +32,20 @@
 
 #include "../utils/Context.hpp"
 
-#include "../defines/ColorsDefines.hpp"
-#include "../defines/FontsDefines.hpp"
-
-#define SIZE_TITLE_BAR_TEXT_FONT 45
-
-#define TITLE_BAR_TEXT_POSITION_X 10
-#define TITLE_BAR_TEXT_POSITION_Y 10
-
-#define TITLE_BAR_LINE_POSITION_X 0
-#define TITLE_BAR_LINE_POSITION_Y 80
-
-#define BAR_BORDER_LARGER 1
-#define BAR_WIDTH 1600
+#include "../defines/Colors.hpp"
+#include "../defines/Fonts.hpp"
 
 namespace widgets {
 class TitleBarWidget {
+
+    static constexpr unsigned int SIZE_TITLE_BAR_TEXT_FONT = 45;
+    static constexpr unsigned int TITLE_BAR_TEXT_POSITION_X = 10;
+    static constexpr unsigned int TITLE_BAR_TEXT_POSITION_Y = 10;
+    static constexpr unsigned int TITLE_BAR_LINE_POSITION_X = 0;
+    static constexpr unsigned int TITLE_BAR_LINE_POSITION_Y = 80;
+    static constexpr unsigned int BAR_BORDER_LARGER = 1;
+    static constexpr unsigned int BAR_WIDTH = 1600;
+
 public:
 
     /**

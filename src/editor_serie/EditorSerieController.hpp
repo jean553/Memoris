@@ -33,38 +33,37 @@
 
 #include "../utils/Controller.hpp"
 #include "../utils/Context.hpp"
+#include "../utils/ScreenFactory.hpp"
 
 #include "../widgets/TitleBarWidget.hpp"
 #include "../widgets/ButtonWidget.hpp"
 #include "../widgets/CursorWidget.hpp"
 #include "../widgets/ItemsListWidget.hpp"
 
-#include "../defines/SoundsDefines.hpp"
-
-#define STRING_EDITOR_SERIE_TITLE "Serie editor"
-
-#define EDITOR_SERIE_BUTTON_NEW_POSITION_X 10
-#define EDITOR_SERIE_BUTTON_OPEN_POSITION_X 240
-#define EDITOR_SERIE_BUTTON_SAVE_POSITION_X 470
-#define EDITOR_SERIE_BUTTON_ADD_POSITION_X 700
-#define EDITOR_SERIE_BUTTON_EXIT_POSITION_X 1390
-
-#define EDITOR_SERIE_BUTTON_NEW_TEXT "New"
-#define EDITOR_SERIE_BUTTON_OPEN_TEXT "Open"
-#define EDITOR_SERIE_BUTTON_SAVE_TEXT "Save"
-#define EDITOR_SERIE_BUTTON_ADD_TEXT "Add"
-#define EDITOR_SERIE_BUTTON_EXIT_TEXT "Exit"
-
-#define EDITOR_SERIE_BUTTONS_POSITION_Y 100
-#define EDITOR_SERIE_BUTTONS_WIDTH 200
-
-#define LEVELS_LIST_POSITION_X 10
-#define LEVELS_LIST_POSITION_Y 250
-#define LEVELS_LIST_WIDTH 1580
-#define LEVELS_LIST_LEVELS_NUMBER 10
+#include "../defines/Sounds.hpp"
 
 namespace controllers {
 class EditorSerieController : public Controller {
+
+    static const std::string STRING_EDITOR_SERIE_TITLE;
+    static const std::string EDITOR_SERIE_BUTTON_NEW_TEXT;
+    static const std::string EDITOR_SERIE_BUTTON_OPEN_TEXT;
+    static const std::string EDITOR_SERIE_BUTTON_SAVE_TEXT;
+    static const std::string EDITOR_SERIE_BUTTON_ADD_TEXT;
+    static const std::string EDITOR_SERIE_BUTTON_EXIT_TEXT;
+
+    static constexpr unsigned int EDITOR_SERIE_BUTTON_NEW_POSITION_X = 10;
+    static constexpr unsigned int EDITOR_SERIE_BUTTON_OPEN_POSITION_X = 240;
+    static constexpr unsigned int EDITOR_SERIE_BUTTON_SAVE_POSITION_X = 470;
+    static constexpr unsigned int EDITOR_SERIE_BUTTON_ADD_POSITION_X = 700;
+    static constexpr unsigned int EDITOR_SERIE_BUTTON_EXIT_POSITION_X = 1390;
+    static constexpr unsigned int EDITOR_SERIE_BUTTONS_POSITION_Y = 100;
+    static constexpr unsigned int EDITOR_SERIE_BUTTONS_WIDTH = 200;
+    static constexpr unsigned int LEVELS_LIST_POSITION_X = 10;
+    static constexpr unsigned int LEVELS_LIST_POSITION_Y = 250;
+    static constexpr unsigned int LEVELS_LIST_WIDTH = 1580;
+    static constexpr unsigned int LEVELS_LIST_LEVELS_NUMBER = 10;
+
 public:
 
     EditorSerieController();

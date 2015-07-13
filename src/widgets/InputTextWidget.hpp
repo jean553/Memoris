@@ -34,25 +34,22 @@
 
 #include "../utils/Context.hpp"
 
-#include "../defines/ColorsDefines.hpp"
-#include "../defines/FontsDefines.hpp"
-
-#define BOX_BORDER_LARGER 1
-#define BOX_LARGER 60
-
-#define CURSOR_WIDTH 25
-#define CURSOR_HEIGHT 50
-
-#define INTERVAL_ANIMATION_CURSOR 200
-
-#define SIZE_INPUT_TEXT_FONT 45
-
-#define CURSOR_HORIZONTAL_OFFSET 5
-#define CURSOR_VERTICAL_OFFSET 5
-#define TEXT_HORIZONTAL_OFFSET 5
+#include "../defines/Colors.hpp"
+#include "../defines/Fonts.hpp"
 
 namespace widgets {
 class InputTextWidget {
+
+    static constexpr unsigned int BOX_BORDER_LARGER = 1;
+    static constexpr unsigned int BOX_LARGER = 60;
+    static constexpr unsigned int CURSOR_WIDTH = 25;
+    static constexpr unsigned int CURSOR_HEIGHT = 50;
+    static constexpr int INTERVAL_ANIMATION_CURSOR = 200;
+    static constexpr unsigned int SIZE_INPUT_TEXT_FONT = 45;
+    static constexpr unsigned int CURSOR_HORIZONTAL_OFFSET = 5;
+    static constexpr unsigned int CURSOR_VERTICAL_OFFSET = 5;
+    static constexpr unsigned int TEXT_HORIZONTAL_OFFSET = 5;
+
 public:
 
     /**

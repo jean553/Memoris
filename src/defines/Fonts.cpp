@@ -17,22 +17,29 @@
 */
 
 /**
- * Fonts defines.
+ * Fonts.
  *
- * @file FontsDefines.hpp
+ * @file Fonts.cpp
  * @brief path of all the fonts
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_FONTS_DEFINES
-#define DEF_FONTS_DEFINES
+#include "Fonts.hpp"
 
-#define PATH_FONT_TITLE "res/fonts/crystal_regular.ttf"
-#define PATH_FONT_TEXT "res/fonts/hi.otf"
+using namespace constants;
 
-#define SIZE_TITLE_FONT 140
-#define SIZE_SUB_TITLE_FONT 70
-#define SIZE_ITEM_FONT 60
-#define SIZE_TEXT_FONT 50
+/**
+ *
+ */
+std::string Fonts::getTitleFontPath()
+{
+    return "res/fonts/crystal_regular.ttf";
+}
 
-#endif
+/**
+ *
+ */
+std::string Fonts::getTextFontPath()
+{
+    return "res/fonts/hi.otf";
+}

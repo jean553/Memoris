@@ -28,27 +28,31 @@
 
 using namespace controllers;
 
+const std::string NewGameController::STRING_NEW_GAME_TITLE = "New game";
+const std::string NewGameController::STRING_NEW_GAME_EXPLANATION = "Your name :";
+const std::string NewGameController::STRING_NAME_DEFAULT = "";
+
 /**
  *
  */
 NewGameController::NewGameController() : Controller()
 {
-    fontTitle.loadFromFile(PATH_FONT_TITLE);
-    fontExplanation.loadFromFile(PATH_FONT_TEXT);
+    fontTitle.loadFromFile(constants::Fonts::getTitleFontPath());
+    fontExplanation.loadFromFile(constants::Fonts::getTextFontPath());
 
-    colorTitle.r = COLOR_LIGHT_BLUE_RED;
-    colorTitle.g = COLOR_LIGHT_BLUE_GREEN;
-    colorTitle.b = COLOR_LIGHT_BLUE_BLUE;
-    colorTitle.a = COLOR_ALPHA_FULL;
+    colorTitle.r = constants::Colors::COLOR_LIGHT_BLUE_RED;
+    colorTitle.g = constants::Colors::COLOR_LIGHT_BLUE_GREEN;
+    colorTitle.b = constants::Colors::COLOR_LIGHT_BLUE_BLUE;
+    colorTitle.a = constants::Colors::COLOR_ALPHA_FULL;
 
-    colorExplanation.r = COLOR_WHITE_RED;
-    colorExplanation.g = COLOR_WHITE_GREEN;
-    colorExplanation.b = COLOR_WHITE_BLUE;
-    colorExplanation.a = COLOR_ALPHA_FULL;
+    colorExplanation.r = constants::Colors::COLOR_WHITE_RED;
+    colorExplanation.g = constants::Colors::COLOR_WHITE_GREEN;
+    colorExplanation.b = constants::Colors::COLOR_WHITE_BLUE;
+    colorExplanation.a = constants::Colors::COLOR_ALPHA_FULL;
 
     title.setFont(fontTitle);
     title.setString(STRING_NEW_GAME_TITLE);
-    title.setCharacterSize(SIZE_SUB_TITLE_FONT);
+    title.setCharacterSize(constants::Fonts::SIZE_SUB_TITLE_FONT);
     title.setColor(colorTitle);
     title.setPosition(
         POSITION_NEW_GAME_TITLE_X,
@@ -57,14 +61,14 @@ NewGameController::NewGameController() : Controller()
 
     explanation.setFont(fontExplanation);
     explanation.setString(STRING_NEW_GAME_EXPLANATION);
-    explanation.setCharacterSize(SIZE_TEXT_FONT);
+    explanation.setCharacterSize(constants::Fonts::SIZE_TEXT_FONT);
     explanation.setColor(colorExplanation);
     explanation.setPosition(
         POSITION_NEW_GAME_EXPLANATION_X,
         POSITION_NEW_GAME_EXPLANATION_Y
     );
 
-    soundBuffer.loadFromFile(SOUND_OPEN_SCREEN);
+    soundBuffer.loadFromFile(constants::Sounds::getOpenScreenSoundPath());
 
     soundSelectorSelect.setBuffer(soundBuffer);
 
@@ -102,7 +106,7 @@ unsigned char NewGameController::render(utils::Context* context)
             case sf::Event::KeyPressed: {
                 switch(event.key.code) {
                     case sf::Keyboard::Escape: {
-                        nextControllerId = MAIN_MENU_CONTROLLER_ID;
+                        nextControllerId = factories::ScreenFactory::MAIN_MENU_CONTROLLER_ID;
 
                         break;
                     }

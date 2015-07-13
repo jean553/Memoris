@@ -17,14 +17,33 @@
 */
 
 /**
- * @file MusicsIdentifiers.hpp
- * @brief contains identifiers of all musics
+ * Sounds.
+ *
+ * @file Sounds.hpp
+ * @brief path of all the sounds
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_MUSICS_IDENTIFIERS
-#define DEF_MUSICS_IDENTIFIERS
+#ifndef DEF_SOUNDS
+#define DEF_SOUNDS
+        
+#include <string>
 
-#define MAIN_MENU_MUSIC_PATH "res/musics/dj-xtrm-killer-symphonyX-outro.ogg"
+namespace constants {
+class Sounds {
+
+    public:
+
+        /**
+         * @return string
+         */
+        static std::string getMoveSelectorSoundPath(); 
+
+        /**
+         * @return string
+         */
+        static std::string getOpenScreenSoundPath();
+};
+}
 
 #endif

@@ -33,17 +33,18 @@
 
 #include "../utils/Context.hpp"
 
-#include "../defines/ColorsDefines.hpp"
-
-#define PATH_IMAGE_ARROW_UP "res/images/up.png"
-#define PATH_IMAGE_ARROW_DOWN "res/images/down.png"
-
-#define ITEMS_LIST_BORDER_SIZE 1
-#define ITEMS_LIST_ITEM_HEIGHT 60
-#define ITEMS_LIST_ARROW_DIM 64
+#include "../defines/Colors.hpp"
 
 namespace widgets {
 class ItemsListWidget {
+
+    static const std::string PATH_IMAGE_ARROW_UP;
+    static const std::string PATH_IMAGE_ARROW_DOWN;
+
+    static constexpr int ITEMS_LIST_BORDER_SIZE = 1;
+    static constexpr int ITEMS_LIST_ITEM_HEIGHT = 60;
+    static constexpr int ITEMS_LIST_ARROW_DIM = 64;
+
 public:
 
     /**

@@ -35,17 +35,17 @@ TitleBarWidget::TitleBarWidget(
 {
     setText(barText);
 
-    fontText.loadFromFile(PATH_FONT_TEXT);
+    fontText.loadFromFile(constants::Fonts::getTextFontPath());
 
-    textColor.r = COLOR_ORANGE_RED;
-    textColor.g = COLOR_ORANGE_GREEN;
-    textColor.b = COLOR_ORANGE_BLUE;
-    textColor.a = COLOR_ALPHA_FULL;
+    textColor.r = constants::Colors::COLOR_ORANGE_RED;
+    textColor.g = constants::Colors::COLOR_ORANGE_GREEN;
+    textColor.b = constants::Colors::COLOR_ORANGE_BLUE;
+    textColor.a = constants::Colors::COLOR_ALPHA_FULL;
 
-    lineColor.r = COLOR_WHITE_RED;
-    lineColor.g = COLOR_WHITE_GREEN;
-    lineColor.b = COLOR_WHITE_BLUE;
-    lineColor.a = COLOR_ALPHA_FULL;
+    lineColor.r = constants::Colors::COLOR_WHITE_RED;
+    lineColor.g = constants::Colors::COLOR_WHITE_GREEN;
+    lineColor.b = constants::Colors::COLOR_WHITE_BLUE;
+    lineColor.a = constants::Colors::COLOR_ALPHA_FULL;
 
     displayedText.setFont(fontText);
     displayedText.setString(text);

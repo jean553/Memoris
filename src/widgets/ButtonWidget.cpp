@@ -43,27 +43,27 @@ ButtonWidget::ButtonWidget(
 
     text = textLabel;
 
-    fontButton.loadFromFile(PATH_FONT_TEXT);
+    fontButton.loadFromFile(constants::Fonts::getTextFontPath());
 
-    textColor.r = COLOR_WHITE_RED;
-    textColor.g = COLOR_WHITE_GREEN;
-    textColor.b = COLOR_WHITE_BLUE;
-    textColor.a = COLOR_ALPHA_FULL;
+    textColor.r = constants::Colors::COLOR_WHITE_RED;
+    textColor.g = constants::Colors::COLOR_WHITE_GREEN;
+    textColor.b = constants::Colors::COLOR_WHITE_BLUE;
+    textColor.a = constants::Colors::COLOR_ALPHA_FULL;
 
-    backgroundColor.r = COLOR_GRAY_RED;
-    backgroundColor.g = COLOR_GRAY_GREEN;
-    backgroundColor.b = COLOR_GRAY_BLUE;
-    backgroundColor.a = COLOR_ALPHA_FULL;
+    backgroundColor.r = constants::Colors::COLOR_GRAY_RED;
+    backgroundColor.g = constants::Colors::COLOR_GRAY_GREEN;
+    backgroundColor.b = constants::Colors::COLOR_GRAY_BLUE;
+    backgroundColor.a = constants::Colors::COLOR_ALPHA_FULL;
 
-    textMouseHoverColor.r = COLOR_LIGHT_BLUE_RED;
-    textMouseHoverColor.g = COLOR_LIGHT_BLUE_GREEN;
-    textMouseHoverColor.b = COLOR_LIGHT_BLUE_BLUE;
-    textMouseHoverColor.a = COLOR_ALPHA_FULL;
+    textMouseHoverColor.r = constants::Colors::COLOR_LIGHT_BLUE_RED;
+    textMouseHoverColor.g = constants::Colors::COLOR_LIGHT_BLUE_GREEN;
+    textMouseHoverColor.b = constants::Colors::COLOR_LIGHT_BLUE_BLUE;
+    textMouseHoverColor.a = constants::Colors::COLOR_ALPHA_FULL;
 
-    backgroundMouseHoverColor.r = COLOR_DARK_GRAY_RED;
-    backgroundMouseHoverColor.g = COLOR_DARK_GRAY_GREEN;
-    backgroundMouseHoverColor.b = COLOR_DARK_GRAY_BLUE;
-    backgroundMouseHoverColor.a = COLOR_ALPHA_FULL;
+    backgroundMouseHoverColor.r = constants::Colors::COLOR_DARK_GRAY_RED;
+    backgroundMouseHoverColor.g = constants::Colors::COLOR_DARK_GRAY_GREEN;
+    backgroundMouseHoverColor.b = constants::Colors::COLOR_DARK_GRAY_BLUE;
+    backgroundMouseHoverColor.a = constants::Colors::COLOR_ALPHA_FULL;
 
     buttonText.setFont(fontButton);
     buttonText.setString(text);
