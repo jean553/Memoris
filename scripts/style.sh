@@ -1,8 +1,11 @@
 astyle --options=config/astyle.conf src/main.cpp
 
 astyle --options=config/astyle.conf src/defines/Colors.hpp
+astyle --options=config/astyle.conf src/defines/Colors.cpp
 astyle --options=config/astyle.conf src/defines/Fonts.hpp
+astyle --options=config/astyle.conf src/defines/Fonts.cpp
 astyle --options=config/astyle.conf src/defines/Sounds.hpp
+astyle --options=config/astyle.conf src/defines/Sounds.cpp
 
 astyle --options=config/astyle.conf src/editor_serie/EditorSerieController.hpp
 astyle --options=config/astyle.conf src/editor_serie/EditorSerieController.cpp
