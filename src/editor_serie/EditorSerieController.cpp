@@ -32,6 +32,7 @@ const std::string EditorSerieController::EDITOR_SERIE_BUTTON_OPEN_TEXT = "Open";
 const std::string EditorSerieController::EDITOR_SERIE_BUTTON_SAVE_TEXT = "Save";
 const std::string EditorSerieController::EDITOR_SERIE_BUTTON_ADD_TEXT = "Add";
 const std::string EditorSerieController::EDITOR_SERIE_BUTTON_EXIT_TEXT = "Exit";
+const char* EditorSerieController::SERIES_DIRECTORY = "data/series";
 
 /**
  *
@@ -91,6 +92,10 @@ EditorSerieController::EditorSerieController() : Controller()
     );
 
     cursor = new widgets::CursorWidget();
+
+    levelsList->setStringsList(
+        seriesDirectory.getAllFiles(SERIES_DIRECTORY)
+    );
 
     soundOpenScreen.play();
 }

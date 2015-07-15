@@ -70,6 +70,11 @@ public:
      */
     void display(utils::Context* context);
 
+    /**
+     * @param list       list of strings to display
+     */
+    void setStringsList(std::vector<std::string> list);
+
 private:
 
     int horizontalPosition;
@@ -88,6 +93,8 @@ private:
 
     sf::Sprite spriteUp;
     sf::Sprite spriteDown;
+
+    std::vector<std::string> stringsList;
 };
 }
 

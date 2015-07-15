@@ -27,6 +27,8 @@ astyle --options=config/astyle.conf src/utils/MusicFactory.hpp
 astyle --options=config/astyle.conf src/utils/MusicFactory.cpp
 astyle --options=config/astyle.conf src/utils/ScreenFactory.hpp
 astyle --options=config/astyle.conf src/utils/ScreenFactory.cpp
+astyle --options=config/astyle.conf src/utils/DirReader.hpp
+astyle --options=config/astyle.conf src/utils/DirReader.cpp
 
 astyle --options=config/astyle.conf src/widgets/ButtonWidget.hpp
 astyle --options=config/astyle.conf src/widgets/ButtonWidget.cpp
