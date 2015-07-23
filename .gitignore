@@ -2,3 +2,4 @@ bin/
 build/
 *.orig
 errors.log
+data/

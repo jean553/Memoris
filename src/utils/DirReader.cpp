@@ -17,40 +17,36 @@
 */
 
 /**
- * @file Controller.hpp
- * @brief parent class for all controllers
- * @package controllers
+ * @file DirReader.cpp
+ * @package utils
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_SCREEN
-#define DEF_SCREEN
+#include "DirReader.hpp"
 
-#include "Context.hpp"
+using namespace utils;
 
-namespace controllers {
-class Controller {
+/**
+ *
+ */
+std::vector<std::string> DirReader::getAllFiles(const char* directory)
+{
+    DIR *dir;
+    struct dirent *file;
+    std::vector<std::string> list;
 
-public:
+    dir = opendir(directory);
 
-    Controller();
-    virtual ~Controller();
+    // returns an empty array if error
+    if (dir == NULL) {
+        return list;
+    }
 
-    /**
-     * @brief render the screen, contains events catcher,
-     *
-     * @param context   commons items for controller
-     *
-     * @return char     next called screen controller id
-     */
-    virtual unsigned char render(utils::Context* context) = 0;
+    while((file = readdir(dir)) != NULL) {
+        std::string name(file->d_name);
+        list.push_back(name);
+    }
 
-protected:
-
-    sf::Event event;
-
-    unsigned char nextControllerId;
-};
+    closedir(dir);
+    return list;
 }
-
-#endif

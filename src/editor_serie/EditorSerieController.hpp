@@ -34,6 +34,7 @@
 #include "../utils/Controller.hpp"
 #include "../utils/Context.hpp"
 #include "../utils/ScreenFactory.hpp"
+#include "../utils/DirReader.hpp"
 
 #include "../widgets/TitleBarWidget.hpp"
 #include "../widgets/ButtonWidget.hpp"
@@ -51,6 +52,7 @@ class EditorSerieController : public Controller {
     static const std::string EDITOR_SERIE_BUTTON_SAVE_TEXT;
     static const std::string EDITOR_SERIE_BUTTON_ADD_TEXT;
     static const std::string EDITOR_SERIE_BUTTON_EXIT_TEXT;
+    static const char* SERIES_DIRECTORY;
 
     static constexpr unsigned int EDITOR_SERIE_BUTTON_NEW_POSITION_X = 10;
     static constexpr unsigned int EDITOR_SERIE_BUTTON_OPEN_POSITION_X = 240;
@@ -97,6 +99,8 @@ private:
     sf::SoundBuffer soundBuffer;
 
     sf::Sound soundOpenScreen;
+
+    utils::DirReader seriesDirectory;
 };
 }
 

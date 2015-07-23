@@ -35,7 +35,8 @@ Controller::Controller()
 }
 
 /**
- *
+ * NOTE: empty destructor necessary for virtual
+ * methods used in children of Controller type
  */
 Controller::~Controller()
 {
