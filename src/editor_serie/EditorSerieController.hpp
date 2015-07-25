@@ -95,8 +95,6 @@ private:
     widgets::CursorWidget *cursor;
 
     widgets::ItemsListWidget *levelsList;
-
-    utils::DirReader seriesDirectory;
 };
 }
 

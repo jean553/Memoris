@@ -39,6 +39,8 @@ const char* EditorSerieController::SERIES_DIRECTORY = "data/series";
  */
 EditorSerieController::EditorSerieController() : Controller()
 {
+    utils::DirReader seriesDirectory;
+
     titleBar = new widgets::TitleBarWidget(
         STRING_EDITOR_SERIE_TITLE
     );
@@ -98,16 +100,13 @@ EditorSerieController::EditorSerieController() : Controller()
 EditorSerieController::~EditorSerieController()
 {
     delete titleBar;
-
     delete buttonNew;
     delete buttonOpen;
     delete buttonSave;
     delete buttonAdd;
     delete buttonExit;
-
-    delete levelsList;
-
     delete cursor;
+    delete levelsList;
 }
 
 /**
@@ -116,16 +115,13 @@ EditorSerieController::~EditorSerieController()
 unsigned char EditorSerieController::render(utils::Context* context)
 {
     titleBar->display(context);
-
     buttonNew->display(context);
     buttonOpen->display(context);
     buttonSave->display(context);
     buttonAdd->display(context);
     buttonExit->display(context);
-
-    levelsList->display(context);
-
     cursor->display(context);
+    levelsList->display(context);
 
     while(context->getWindow()->pollEvent(event)) {
         switch(event.type) {
