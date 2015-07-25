@@ -96,10 +96,6 @@ private:
 
     widgets::ItemsListWidget *levelsList;
 
-    sf::SoundBuffer soundBuffer;
-
-    sf::Sound soundOpenScreen;
-
     utils::DirReader seriesDirectory;
 };
 }

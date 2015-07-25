@@ -35,11 +35,3 @@ std::string Sounds::getMoveSelectorSoundPath()
 {
     return "res/sounds/001.wav";
 }
-
-/**
- *
- */
-std::string Sounds::getOpenScreenSoundPath()
-{
-    return "res/sounds/002.wav";
-}

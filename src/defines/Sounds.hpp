@@ -38,11 +38,6 @@ public:
      * @return string
      */
     static std::string getMoveSelectorSoundPath();
-
-    /**
-     * @return string
-     */
-    static std::string getOpenScreenSoundPath();
 };
 }
 

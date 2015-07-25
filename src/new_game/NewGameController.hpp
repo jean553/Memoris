@@ -85,10 +85,6 @@ private:
     sf::Text title;
     sf::Text explanation;
 
-    sf::SoundBuffer soundBuffer;
-
-    sf::Sound soundSelectorSelect;
-
     widgets::InputTextWidget *inputTextGameName;
 };
 }
