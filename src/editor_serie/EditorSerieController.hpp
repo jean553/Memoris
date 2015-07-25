@@ -29,7 +29,6 @@
 #define DEF_EDITOR_SERIE_CONTROLLER
 
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 
 #include "../utils/Controller.hpp"
 #include "../utils/Context.hpp"
@@ -40,8 +39,6 @@
 #include "../widgets/ButtonWidget.hpp"
 #include "../widgets/CursorWidget.hpp"
 #include "../widgets/ItemsListWidget.hpp"
-
-#include "../defines/Sounds.hpp"
 
 namespace controllers {
 class EditorSerieController : public Controller {
