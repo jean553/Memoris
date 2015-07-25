@@ -39,12 +39,6 @@ const char* EditorSerieController::SERIES_DIRECTORY = "data/series";
  */
 EditorSerieController::EditorSerieController() : Controller()
 {
-    soundBuffer.loadFromFile(
-        constants::Sounds::getOpenScreenSoundPath()
-    );
-
-    soundOpenScreen.setBuffer(soundBuffer);
-
     titleBar = new widgets::TitleBarWidget(
         STRING_EDITOR_SERIE_TITLE
     );
@@ -96,8 +90,6 @@ EditorSerieController::EditorSerieController() : Controller()
     levelsList->setStringsList(
         seriesDirectory.getAllFiles(SERIES_DIRECTORY)
     );
-
-    soundOpenScreen.play();
 }
 
 /**
