@@ -29,7 +29,6 @@
 #define DEF_NEW_GAME
 
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 
 #include "../utils/Controller.hpp"
 #include "../utils/Context.hpp"
@@ -40,7 +39,6 @@
 
 #include "../defines/Colors.hpp"
 #include "../defines/Fonts.hpp"
-#include "../defines/Sounds.hpp"
 
 namespace controllers {
 class NewGameController : public Controller {
