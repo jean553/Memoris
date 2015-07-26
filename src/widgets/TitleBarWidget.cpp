@@ -70,8 +70,10 @@ TitleBarWidget::TitleBarWidget(
 /**
  *
  */
-TitleBarWidget::~TitleBarWidget()
+void TitleBarWidget::setDisplayedText(std::string inputTextData)
 {
+    setText(inputTextData);
+    displayedText.setString(inputTextData);
 }
 
 /**

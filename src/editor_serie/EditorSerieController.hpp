@@ -81,7 +81,7 @@ public:
 
 private:
 
-    widgets::TitleBarWidget *titleBar;
+    widgets::TitleBarWidget titleBar;
 
     widgets::ButtonWidget *buttonNew;
     widgets::ButtonWidget *buttonOpen;

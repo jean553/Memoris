@@ -49,21 +49,23 @@ class TitleBarWidget {
 public:
 
     /**
-     * Constructor
-     *
-     * @param barText        title bar text
+     * @param barText                content of the text bar
      */
-    TitleBarWidget(
-        std::string barText = ""
-    );
-    ~TitleBarWidget();
+    TitleBarWidget(std::string barText = "");
 
     /**
-     * @brief setter for text content
+     * @brief update the displayed text content
      *
-     * @param text          content to set
+     * @param inputTextData          content to set
      */
-    void setText(std::string text);
+    void setDisplayedText(std::string inputTextData);
+
+    /**
+     * @brief setter for the text
+     *
+     * @param inputTextData          content to set
+     */
+    void setText(std::string inputTextData);
 
     /**
      * @brief display the header title bar

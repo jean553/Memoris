@@ -41,7 +41,7 @@ EditorSerieController::EditorSerieController() : Controller()
 {
     utils::DirReader seriesDirectory;
 
-    titleBar = new widgets::TitleBarWidget(
+    titleBar.setDisplayedText(
         STRING_EDITOR_SERIE_TITLE
     );
 
@@ -99,7 +99,6 @@ EditorSerieController::EditorSerieController() : Controller()
  */
 EditorSerieController::~EditorSerieController()
 {
-    delete titleBar;
     delete buttonNew;
     delete buttonOpen;
     delete buttonSave;
@@ -114,7 +113,7 @@ EditorSerieController::~EditorSerieController()
  */
 unsigned char EditorSerieController::render(utils::Context* context)
 {
-    titleBar->display(context);
+    titleBar.display(context);
     buttonNew->display(context);
     buttonOpen->display(context);
     buttonSave->display(context);
