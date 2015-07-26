@@ -39,15 +39,10 @@ class CursorWidget {
 
 public:
 
-    /**
-     * Constructor
-     */
     CursorWidget();
-    ~CursorWidget();
 
     /**
-     * @brief displays the cursor at the same
-     * position as the system screen cursor
+     * @brief displays the cursor at the same position as the system screen cursor
      *
      * @param context       current context pointer
      */

@@ -89,7 +89,7 @@ private:
     widgets::ButtonWidget *buttonAdd;
     widgets::ButtonWidget *buttonExit;
 
-    widgets::CursorWidget *cursor;
+    widgets::CursorWidget cursor;
 
     widgets::ItemsListWidget levelsList;
 };
