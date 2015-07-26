@@ -68,22 +68,21 @@ NewGameController::NewGameController() : Controller()
         POSITION_NEW_GAME_EXPLANATION_Y
     );
 
-    inputTextGameName = new widgets::InputTextWidget(
+    inputTextGameName.setLayout(
         POSITION_NAME_INPUT_TEXT_X,
         POSITION_NAME_INPUT_TEXT_Y,
-        SIZE_NAME_INPUT_TEXT,
-        STRING_NAME_DEFAULT,
+        SIZE_NAME_INPUT_TEXT
+    );
+
+    inputTextGameName.setMaximumCharacters(
         MAX_NAME_LENGTH
+    );
+
+    inputTextGameName.setDisplayedText(
+        STRING_NAME_DEFAULT
     );
 }
 
-/**
- *
- */
-NewGameController::~NewGameController()
-{
-    delete inputTextGameName;
-}
 
 /**
  *
@@ -93,7 +92,7 @@ unsigned char NewGameController::render(utils::Context* context)
     context->getWindow()->draw(title);
     context->getWindow()->draw(explanation);
 
-    inputTextGameName->display(context);
+    inputTextGameName.display(context);
 
     while(context->getWindow()->pollEvent(event)) {
         switch(event.type) {
@@ -105,7 +104,7 @@ unsigned char NewGameController::render(utils::Context* context)
                         break;
                     }
                     default: {
-                        inputTextGameName->update(&event);
+                        inputTextGameName.update(&event);
 
                         break;
                     }

@@ -29,22 +29,10 @@ using namespace widgets;
 /**
  *
  */
-InputTextWidget::InputTextWidget(
-    unsigned int inputHorizontalPosition,
-    unsigned int inputVerticalPosition,
-    unsigned int inputWidth,
-    std::string defaultText,
-    unsigned int maxCharacters
-)
+InputTextWidget::InputTextWidget()
 {
     displayCursor = true;
-
-    horizontalPosition = inputHorizontalPosition;
-    verticalPosition = inputVerticalPosition;
-    width = inputWidth;
-    maximumCharacters = maxCharacters;
-
-    text = defaultText;
+    setMaximumCharacters(DEFAULT_MAXIMUM_CHARACTERS);
 
     fontInputText.loadFromFile(constants::Fonts::getTextFontPath());
 
@@ -54,11 +42,51 @@ InputTextWidget::InputTextWidget(
     inputTextColor.a = constants::Colors::COLOR_ALPHA_FULL;
 
     displayedText.setFont(fontInputText);
-    displayedText.setString(defaultText);
     displayedText.setCharacterSize(SIZE_INPUT_TEXT_FONT);
     displayedText.setColor(inputTextColor);
+
+    cursor.setFillColor(inputTextColor);
+}
+
+/**
+ *
+ */
+void InputTextWidget::setMaximumCharacters(unsigned int maxCharacters)
+{
+    maximumCharacters = maxCharacters;
+}
+
+/**
+ *
+ */
+void InputTextWidget::setLayout(
+    unsigned int inputHorizontalPosition,
+    unsigned int inputVerticalPosition,
+    unsigned int inputWidth
+)
+{
+    horizontalPosition = inputHorizontalPosition;
+    verticalPosition = inputVerticalPosition;
+    width = inputWidth;
+
     displayedText.setPosition(
         horizontalPosition + TEXT_HORIZONTAL_OFFSET,
+        verticalPosition
+    );
+    boxTop.setPosition(
+        horizontalPosition,
+        verticalPosition
+    );
+    boxBottom.setPosition(
+        horizontalPosition,
+        verticalPosition + BOX_LARGER
+    );
+    boxLeft.setPosition(
+        horizontalPosition,
+        verticalPosition
+    );
+    boxRight.setPosition(
+        horizontalPosition + width,
         verticalPosition
     );
 
@@ -66,58 +94,42 @@ InputTextWidget::InputTextWidget(
                        width,
                        BOX_BORDER_LARGER
                    ));
-    boxTop.setPosition(
-        horizontalPosition,
-        verticalPosition
-    );
-    boxTop.setFillColor(inputTextColor);
-
     boxBottom.setSize(sf::Vector2f(
                           width,
                           BOX_BORDER_LARGER
                       ));
-    boxBottom.setPosition(
-        horizontalPosition,
-        verticalPosition + BOX_LARGER
-    );
-    boxBottom.setFillColor(inputTextColor);
-
     boxLeft.setSize(sf::Vector2f(
                         BOX_BORDER_LARGER,
                         BOX_LARGER
                     ));
-    boxLeft.setPosition(
-        horizontalPosition,
-        verticalPosition
-    );
-    boxLeft.setFillColor(inputTextColor);
-
     boxRight.setSize(sf::Vector2f(
                          BOX_BORDER_LARGER,
                          BOX_LARGER
                      ));
-    boxRight.setPosition(
-        horizontalPosition + width,
-        verticalPosition
-    );
+
     boxRight.setFillColor(inputTextColor);
+    boxTop.setFillColor(inputTextColor);
+    boxBottom.setFillColor(inputTextColor);
+    boxLeft.setFillColor(inputTextColor);
+
+    cursor.setPosition(
+        horizontalPosition + CURSOR_HORIZONTAL_OFFSET,
+        verticalPosition + CURSOR_VERTICAL_OFFSET
+    );
 
     cursor.setSize(sf::Vector2f(
                        CURSOR_WIDTH,
                        CURSOR_HEIGHT
                    ));
-    cursor.setPosition(
-        horizontalPosition + CURSOR_HORIZONTAL_OFFSET,
-        verticalPosition + CURSOR_VERTICAL_OFFSET
-    );
-    cursor.setFillColor(inputTextColor);
 }
 
 /**
  *
  */
-InputTextWidget::~InputTextWidget()
+void InputTextWidget::setDisplayedText(std::string inputTextData)
 {
+    setText(inputTextData);
+    displayedText.setString(inputTextData);
 }
 
 /**
@@ -147,7 +159,6 @@ void InputTextWidget::display(utils::Context* context)
             INTERVAL_ANIMATION_CURSOR
       ) {
         displayCursor = !displayCursor;
-
         clock.restart();
     }
 }
@@ -265,7 +276,6 @@ void InputTextWidget::update(sf::Event* event)
             break;
         }
         case sf::Keyboard::BackSpace: {
-            // delete the last character of the string
             newText = text.substr(0, text.size() - 1);
             break;
         }

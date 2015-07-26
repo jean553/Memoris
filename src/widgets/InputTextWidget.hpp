@@ -49,26 +49,36 @@ class InputTextWidget {
     static constexpr unsigned int CURSOR_HORIZONTAL_OFFSET = 5;
     static constexpr unsigned int CURSOR_VERTICAL_OFFSET = 5;
     static constexpr unsigned int TEXT_HORIZONTAL_OFFSET = 5;
+    static constexpr unsigned int DEFAULT_MAXIMUM_CHARACTERS = 10;
 
 public:
 
+    InputTextWidget();
+
     /**
-     * Constructor
+     * @brief set the size and the position of the widget
      *
      * @param inputHorizontalPosition    input horizontal position
      * @param inputVerticalPosition      input vertical position
      * @param inputWidth                 input width
-     * @param defaultText                input default text
-     * @param maxCharacters              maximum characters size
      */
-    InputTextWidget(
+    void setLayout(
         unsigned int inputHorizontalPosition,
         unsigned int inputVerticalPosition,
-        unsigned int inputWidth,
-        std::string defaultText = "",
-        unsigned int maxCharacters = 10
+        unsigned int inputWidth
     );
-    ~InputTextWidget();
+
+    /**
+     * @param maxCharacters     setter value
+     */
+    void setMaximumCharacters(unsigned int maxCharacters);
+
+    /**
+     * @brief set the displayed text
+     *
+     * @param inputTextData content to set
+     */
+    void setDisplayedText(std::string inputTextData);
 
     /**
      * @brief setter for input text content

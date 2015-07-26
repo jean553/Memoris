@@ -59,7 +59,6 @@ class NewGameController : public Controller {
 public:
 
     NewGameController();
-    ~NewGameController();
 
     /**
      * @brief render the new game screen
@@ -83,7 +82,7 @@ private:
     sf::Text title;
     sf::Text explanation;
 
-    widgets::InputTextWidget *inputTextGameName;
+    widgets::InputTextWidget inputTextGameName;
 };
 }
 
