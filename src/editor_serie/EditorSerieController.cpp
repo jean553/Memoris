@@ -90,8 +90,6 @@ EditorSerieController::EditorSerieController() : Controller()
     levelsList.setStringsList(
         seriesDirectory.getAllFiles(SERIES_DIRECTORY)
     );
-
-    cursor = new widgets::CursorWidget();
 }
 
 /**
@@ -104,7 +102,6 @@ EditorSerieController::~EditorSerieController()
     delete buttonSave;
     delete buttonAdd;
     delete buttonExit;
-    delete cursor;
 }
 
 /**
@@ -118,7 +115,7 @@ unsigned char EditorSerieController::render(utils::Context* context)
     buttonSave->display(context);
     buttonAdd->display(context);
     buttonExit->display(context);
-    cursor->display(context);
+    cursor.display(context);
     levelsList.display(context);
 
     while(context->getWindow()->pollEvent(event)) {

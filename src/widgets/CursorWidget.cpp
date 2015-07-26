@@ -34,15 +34,7 @@ const std::string CursorWidget::PATH_IMAGE_CURSOR = "res/images/cursor.png";
 CursorWidget::CursorWidget()
 {
     picture.loadFromFile(PATH_IMAGE_CURSOR);
-
     sprite.setTexture(picture);
-}
-
-/**
- *
- */
-CursorWidget::~CursorWidget()
-{
 }
 
 /**
@@ -50,8 +42,6 @@ CursorWidget::~CursorWidget()
  */
 void CursorWidget::display(utils::Context* context)
 {
-    // update the position of the cursor
-    // according to the system position
     sprite.setPosition(
         sf::Mouse::getPosition().x,
         sf::Mouse::getPosition().y
