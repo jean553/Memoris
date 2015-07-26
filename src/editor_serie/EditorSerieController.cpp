@@ -80,18 +80,18 @@ EditorSerieController::EditorSerieController() : Controller()
         EDITOR_SERIE_BUTTON_EXIT_TEXT
     );
 
-    levelsList = new widgets::ItemsListWidget(
+    levelsList.setLayout(
         LEVELS_LIST_POSITION_X,
         LEVELS_LIST_POSITION_Y,
         LEVELS_LIST_WIDTH,
         LEVELS_LIST_LEVELS_NUMBER
     );
 
-    cursor = new widgets::CursorWidget();
-
-    levelsList->setStringsList(
+    levelsList.setStringsList(
         seriesDirectory.getAllFiles(SERIES_DIRECTORY)
     );
+
+    cursor = new widgets::CursorWidget();
 }
 
 /**
@@ -105,7 +105,6 @@ EditorSerieController::~EditorSerieController()
     delete buttonAdd;
     delete buttonExit;
     delete cursor;
-    delete levelsList;
 }
 
 /**
@@ -120,7 +119,7 @@ unsigned char EditorSerieController::render(utils::Context* context)
     buttonAdd->display(context);
     buttonExit->display(context);
     cursor->display(context);
-    levelsList->display(context);
+    levelsList.display(context);
 
     while(context->getWindow()->pollEvent(event)) {
         switch(event.type) {
