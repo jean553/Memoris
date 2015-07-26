@@ -32,72 +32,63 @@ const std::string ItemsListWidget::PATH_IMAGE_ARROW_DOWN = "res/images/down.png"
 /**
  *
  */
-ItemsListWidget::ItemsListWidget(
+ItemsListWidget::ItemsListWidget()
+{
+    borderColor.r = constants::Colors::COLOR_WHITE_RED;
+    borderColor.g = constants::Colors::COLOR_WHITE_GREEN;
+    borderColor.b = constants::Colors::COLOR_WHITE_BLUE;
+    borderColor.a = constants::Colors::COLOR_ALPHA_FULL;
+
+    boxTop.setFillColor(borderColor);
+    boxBottom.setFillColor(borderColor);
+    boxLeft.setFillColor(borderColor);
+    boxRight.setFillColor(borderColor);
+
+    textureUp.loadFromFile(PATH_IMAGE_ARROW_UP);
+    spriteUp.setTexture(textureUp, true);
+
+    textureDown.loadFromFile(PATH_IMAGE_ARROW_DOWN);
+    spriteDown.setTexture(textureDown, true);
+}
+
+/**
+ *
+ */
+void ItemsListWidget::setLayout(
     int widgetHorizontalPosition,
     int widgetVerticalPosition,
     int widgetWidth,
     unsigned char verticalTextContainers
 )
 {
-
     horizontalPosition = widgetHorizontalPosition;
     verticalPosition = widgetVerticalPosition;
     width = widgetWidth;
+    verticalContainers = verticalTextContainers;
 
-    borderColor.r = constants::Colors::COLOR_WHITE_RED;
-    borderColor.g = constants::Colors::COLOR_WHITE_GREEN;
-    borderColor.b = constants::Colors::COLOR_WHITE_BLUE;
-    borderColor.a = constants::Colors::COLOR_ALPHA_FULL;
-
-    boxTop.setSize(sf::Vector2f(
-                       width,
-                       ITEMS_LIST_BORDER_SIZE
-                   ));
     boxTop.setPosition(
         horizontalPosition,
         verticalPosition
     );
-    boxTop.setFillColor(borderColor);
 
-    boxBottom.setSize(sf::Vector2f(
-                          width,
-                          ITEMS_LIST_BORDER_SIZE
-                      ));
     boxBottom.setPosition(
         horizontalPosition,
         verticalPosition +
-        verticalTextContainers *
+        verticalContainers *
         ITEMS_LIST_ITEM_HEIGHT
     );
-    boxBottom.setFillColor(borderColor);
 
-    boxLeft.setSize(sf::Vector2f(
-                        ITEMS_LIST_BORDER_SIZE,
-                        verticalTextContainers *
-                        ITEMS_LIST_ITEM_HEIGHT
-                    ));
     boxLeft.setPosition(
         horizontalPosition,
         verticalPosition
     );
-    boxLeft.setFillColor(borderColor);
 
-    boxRight.setSize(sf::Vector2f(
-                         ITEMS_LIST_BORDER_SIZE,
-                         verticalTextContainers *
-                         ITEMS_LIST_ITEM_HEIGHT
-                     ));
     boxRight.setPosition(
         horizontalPosition +
         width,
         verticalPosition
     );
-    boxRight.setFillColor(borderColor);
 
-    textureUp.loadFromFile(PATH_IMAGE_ARROW_UP);
-    textureDown.loadFromFile(PATH_IMAGE_ARROW_DOWN);
-
-    spriteUp.setTexture(textureUp, true);
     spriteUp.setPosition(
         horizontalPosition +
         width -
@@ -105,23 +96,37 @@ ItemsListWidget::ItemsListWidget(
         verticalPosition
     );
 
-    spriteDown.setTexture(textureDown, true);
     spriteDown.setPosition(
         horizontalPosition +
         width -
         ITEMS_LIST_ARROW_DIM,
         verticalPosition +
-        verticalTextContainers *
+        verticalContainers *
         ITEMS_LIST_ITEM_HEIGHT -
         ITEMS_LIST_ARROW_DIM
     );
-}
 
-/**
- *
- */
-ItemsListWidget::~ItemsListWidget()
-{
+    boxTop.setSize(sf::Vector2f(
+                       width,
+                       ITEMS_LIST_BORDER_SIZE
+                   ));
+
+    boxBottom.setSize(sf::Vector2f(
+                          width,
+                          ITEMS_LIST_BORDER_SIZE
+                      ));
+
+    boxLeft.setSize(sf::Vector2f(
+                        ITEMS_LIST_BORDER_SIZE,
+                        verticalContainers *
+                        ITEMS_LIST_ITEM_HEIGHT
+                    ));
+
+    boxRight.setSize(sf::Vector2f(
+                         ITEMS_LIST_BORDER_SIZE,
+                         verticalContainers *
+                         ITEMS_LIST_ITEM_HEIGHT
+                     ));
 }
 
 /**

@@ -47,21 +47,22 @@ class ItemsListWidget {
 
 public:
 
+    ItemsListWidget();
+
     /**
-     * Constructor
+     * @brief set the size and position of the widget
      *
      * @param widgetHorizontalPosition       horizontal position
      * @param widgetVerticalPosition         integer vertical position
      * @param widgetWidth                    width
      * @param verticalTextContainers         vertical text containers
      */
-    ItemsListWidget(
+    void setLayout(
         int widgetHorizontalPosition,
         int widgetVerticalPosition,
         int widgetWidth,
         unsigned char verticalTextContainers
     );
-    ~ItemsListWidget();
 
     /**
      * @brief display the items list widget
@@ -80,6 +81,7 @@ private:
     int horizontalPosition;
     int verticalPosition;
     int width;
+    unsigned char verticalContainers;
 
     sf::Color borderColor;
 

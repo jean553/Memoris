@@ -91,7 +91,7 @@ private:
 
     widgets::CursorWidget *cursor;
 
-    widgets::ItemsListWidget *levelsList;
+    widgets::ItemsListWidget levelsList;
 };
 }
 
