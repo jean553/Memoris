@@ -86,7 +86,6 @@ class MainMenuController : public Controller {
 public:
 
     MainMenuController();
-    ~MainMenuController();
 
     /**
      * @brief render the main menu

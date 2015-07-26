@@ -133,22 +133,12 @@ MainMenuController::MainMenuController() : Controller()
 /**
  *
  */
-MainMenuController::~MainMenuController()
-{
-}
-
-/**
- *
- */
 unsigned char MainMenuController::render(utils::Context* context)
 {
-    // animate the items
     if(clock.getElapsedTime().asMilliseconds() >
             INTERVAL_ANIMATION_TITLE
       ) {
-
         animateTitleColor();
-
         clock.restart();
     }
 
@@ -162,10 +152,8 @@ unsigned char MainMenuController::render(utils::Context* context)
     context->getWindow()->draw(itemExit);
     context->getWindow()->draw(spriteGithub);
 
-    // render game and catch events
     while(context->getWindow()->pollEvent(event)) {
         switch(event.type) {
-            // action when a key is pressed
             case sf::Event::KeyPressed: {
                 switch(event.key.code) {
                     case sf::Keyboard::Up: {
@@ -200,12 +188,10 @@ unsigned char MainMenuController::render(utils::Context* context)
  */
 void MainMenuController::animateTitleColor()
 {
-    // update color values
     colorTitle.r += titleRedDirection;
     colorTitle.g += titleGreenDirection;
     colorTitle.b += titleBlueDirection;
 
-    // switch colors updates directions
     if(colorTitle.r == COLOR_TITLE_RED_MAX ||
             colorTitle.r == COLOR_TITLE_ALL_MIN
       ) {
@@ -232,14 +218,12 @@ void MainMenuController::animateTitleColor()
  */
 void MainMenuController::updateSelectorPosition()
 {
-    // fix selector position
     selectorPosition = (
                            (selectorPosition > MAIN_MENU_SELECTOR_MAX) ?
                            MAIN_MENU_SELECTOR_MIN :
                            selectorPosition
                        );
 
-    // switch back items colors to white
     itemNewGame.setColor(colorWhite);
     itemLoadGame.setColor(colorWhite);
     itemEditor.setColor(colorWhite);
