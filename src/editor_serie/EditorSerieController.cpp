@@ -39,8 +39,6 @@ const char* EditorSerieController::SERIES_DIRECTORY = "data/series";
  */
 EditorSerieController::EditorSerieController() : Controller()
 {
-    utils::DirReader seriesDirectory;
-
     titleBar.setDisplayedText(
         STRING_EDITOR_SERIE_TITLE
     );
@@ -89,7 +87,7 @@ EditorSerieController::EditorSerieController() : Controller()
     );
 
     levelsList.setStringsList(
-        seriesDirectory.getAllFiles(SERIES_DIRECTORY)
+        utils::DirReader::getAllFiles(SERIES_DIRECTORY)
     );
 }
 
