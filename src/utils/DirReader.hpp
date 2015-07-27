@@ -42,7 +42,7 @@ public:
      *
      * @return vector<string>
      */
-    std::vector<std::string> getAllFiles(const char* directory);
+    static std::vector<std::string> getAllFiles(const char* directory);
 };
 }
 
