@@ -100,6 +100,29 @@ public:
 
 private:
 
+    /**
+     * @brief update the color of the title
+     */
+    void animateTitleColor();
+
+    /**
+     * @brief visually update the selector position
+     */
+    void updateSelectorPosition();
+
+    /**
+     * @brief call action for one selected menu item
+     *
+     * @param window        main window
+     */
+    void selectMenuItem(sf::RenderWindow* window);
+
+    char titleRedDirection;
+    char titleGreenDirection;
+    char titleBlueDirection;
+
+    unsigned char selectorPosition;
+
     sf::Font fontTitle;
     sf::Font fontItem;
 
@@ -123,29 +146,6 @@ private:
     sf::SoundBuffer soundBuffer;
 
     sf::Sound soundSelectorMove;
-
-    char titleRedDirection;
-    char titleGreenDirection;
-    char titleBlueDirection;
-
-    unsigned char selectorPosition;
-
-    /**
-     * @brief update the color of the title
-     */
-    void animateTitleColor();
-
-    /**
-     * @brief visually update the selector position
-     */
-    void updateSelectorPosition();
-
-    /**
-     * @brief call action for one selected menu item
-     *
-     * @param window        main window
-     */
-    void selectMenuItem(sf::RenderWindow* window);
 };
 }
 

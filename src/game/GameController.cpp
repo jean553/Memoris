@@ -37,14 +37,13 @@ GameController::GameController()
         sf::Style::Fullscreen
     );
 
-    screenFactory = new factories::ScreenFactory();
     musicFactory = new factories::MusicFactory();
 
     context = new utils::Context(window);
 
     currentControllerId = factories::ScreenFactory::MAIN_MENU_CONTROLLER_ID;
 
-    currentController = screenFactory->getScreenById(
+    currentController = screenFactory.getScreenById(
                             currentControllerId
                         );
 
@@ -61,7 +60,6 @@ GameController::GameController()
  */
 GameController::GameController(const GameController &gameController)
 {
-    screenFactory = new factories::ScreenFactory();
     musicFactory = new factories::MusicFactory();
     context = new utils::Context(*gameController.context);
 
@@ -72,7 +70,7 @@ GameController::GameController(const GameController &gameController)
     currentMusicPath = gameController.currentMusicPath;
     nextMusicPath = gameController.nextMusicPath;
 
-    currentController = screenFactory->getScreenById(
+    currentController = screenFactory.getScreenById(
                             currentControllerId
                         );
 }
@@ -82,7 +80,6 @@ GameController::GameController(const GameController &gameController)
  */
 GameController::~GameController()
 {
-    delete screenFactory;
     delete musicFactory;
     delete currentController;
     delete context;
@@ -118,7 +115,7 @@ void GameController::run()
 
             // update the current screen controller
             delete currentController;
-            currentController = screenFactory->getScreenById(
+            currentController = screenFactory.getScreenById(
                                     nextControllerId
                                 );
 

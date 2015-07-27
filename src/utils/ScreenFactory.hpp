@@ -43,9 +43,6 @@ public:
     static constexpr unsigned int NEW_GAME_CONTROLLER_ID = 2;
     static constexpr unsigned int EDITOR_SERIE_CONTROLLER_ID = 3;
 
-    ScreenFactory();
-    ~ScreenFactory();
-
     /**
      * @brief returns a new controller
      * pointer according to the given
