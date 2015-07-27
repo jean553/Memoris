@@ -45,39 +45,40 @@ EditorSerieController::EditorSerieController() : Controller()
         STRING_EDITOR_SERIE_TITLE
     );
 
-    buttonNew = new widgets::ButtonWidget(
+    buttonNew.setLabel(EDITOR_SERIE_BUTTON_NEW_TEXT);
+    buttonOpen.setLabel(EDITOR_SERIE_BUTTON_OPEN_TEXT);
+    buttonSave.setLabel(EDITOR_SERIE_BUTTON_SAVE_TEXT);
+    buttonAdd.setLabel(EDITOR_SERIE_BUTTON_ADD_TEXT);
+    buttonExit.setLabel(EDITOR_SERIE_BUTTON_EXIT_TEXT);
+
+    buttonNew.setLayout(
         EDITOR_SERIE_BUTTON_NEW_POSITION_X,
         EDITOR_SERIE_BUTTONS_POSITION_Y,
-        EDITOR_SERIE_BUTTONS_WIDTH,
-        EDITOR_SERIE_BUTTON_NEW_TEXT
+        EDITOR_SERIE_BUTTONS_WIDTH
     );
 
-    buttonOpen = new widgets::ButtonWidget(
+    buttonOpen.setLayout(
         EDITOR_SERIE_BUTTON_OPEN_POSITION_X,
         EDITOR_SERIE_BUTTONS_POSITION_Y,
-        EDITOR_SERIE_BUTTONS_WIDTH,
-        EDITOR_SERIE_BUTTON_OPEN_TEXT
+        EDITOR_SERIE_BUTTONS_WIDTH
     );
 
-    buttonSave = new widgets::ButtonWidget(
+    buttonSave.setLayout(
         EDITOR_SERIE_BUTTON_SAVE_POSITION_X,
         EDITOR_SERIE_BUTTONS_POSITION_Y,
-        EDITOR_SERIE_BUTTONS_WIDTH,
-        EDITOR_SERIE_BUTTON_SAVE_TEXT
+        EDITOR_SERIE_BUTTONS_WIDTH
     );
 
-    buttonAdd = new widgets::ButtonWidget(
+    buttonAdd.setLayout(
         EDITOR_SERIE_BUTTON_ADD_POSITION_X,
         EDITOR_SERIE_BUTTONS_POSITION_Y,
-        EDITOR_SERIE_BUTTONS_WIDTH,
-        EDITOR_SERIE_BUTTON_ADD_TEXT
+        EDITOR_SERIE_BUTTONS_WIDTH
     );
 
-    buttonExit = new widgets::ButtonWidget(
+    buttonExit.setLayout(
         EDITOR_SERIE_BUTTON_EXIT_POSITION_X,
         EDITOR_SERIE_BUTTONS_POSITION_Y,
-        EDITOR_SERIE_BUTTONS_WIDTH,
-        EDITOR_SERIE_BUTTON_EXIT_TEXT
+        EDITOR_SERIE_BUTTONS_WIDTH
     );
 
     levelsList.setLayout(
@@ -95,26 +96,14 @@ EditorSerieController::EditorSerieController() : Controller()
 /**
  *
  */
-EditorSerieController::~EditorSerieController()
-{
-    delete buttonNew;
-    delete buttonOpen;
-    delete buttonSave;
-    delete buttonAdd;
-    delete buttonExit;
-}
-
-/**
- *
- */
 unsigned char EditorSerieController::render(utils::Context* context)
 {
     titleBar.display(context);
-    buttonNew->display(context);
-    buttonOpen->display(context);
-    buttonSave->display(context);
-    buttonAdd->display(context);
-    buttonExit->display(context);
+    buttonNew.display(context);
+    buttonOpen.display(context);
+    buttonSave.display(context);
+    buttonAdd.display(context);
+    buttonExit.display(context);
     cursor.display(context);
     levelsList.display(context);
 
@@ -131,7 +120,7 @@ unsigned char EditorSerieController::render(utils::Context* context)
             case sf::Event::MouseButtonPressed: {
                 switch(event.mouseButton.button) {
                     case sf::Mouse::Left: {
-                        if(buttonExit->isMouseHover()) {
+                        if(buttonExit.isMouseHover()) {
                             nextControllerId = factories::ScreenFactory::MAIN_MENU_CONTROLLER_ID;
                         }
                         break;

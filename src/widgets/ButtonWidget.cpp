@@ -29,20 +29,8 @@ using namespace widgets;
 /**
  *
  */
-ButtonWidget::ButtonWidget(
-    unsigned int buttonHorizontalPosition,
-    unsigned int buttonVerticalPosition,
-    unsigned int buttonWidth,
-    std::string textLabel
-)
+ButtonWidget::ButtonWidget()
 {
-
-    horizontalPosition = buttonHorizontalPosition;
-    verticalPosition = buttonVerticalPosition;
-    width = buttonWidth;
-
-    text = textLabel;
-
     fontButton.loadFromFile(constants::Fonts::getTextFontPath());
 
     textColor.r = constants::Colors::COLOR_WHITE_RED;
@@ -64,9 +52,31 @@ ButtonWidget::ButtonWidget(
     backgroundMouseHoverColor.g = constants::Colors::COLOR_DARK_GRAY_GREEN;
     backgroundMouseHoverColor.b = constants::Colors::COLOR_DARK_GRAY_BLUE;
     backgroundMouseHoverColor.a = constants::Colors::COLOR_ALPHA_FULL;
+}
+
+/**
+ *
+ */
+void ButtonWidget::setLabel(std::string textLabel)
+{
+    setText(textLabel);
+    buttonText.setString(text);
+}
+
+/**
+ *
+ */
+void ButtonWidget::setLayout(
+    unsigned int buttonHorizontalPosition,
+    unsigned int buttonVerticalPosition,
+    unsigned int buttonWidth
+)
+{
+    horizontalPosition = buttonHorizontalPosition;
+    verticalPosition = buttonVerticalPosition;
+    width = buttonWidth;
 
     buttonText.setFont(fontButton);
-    buttonText.setString(text);
     buttonText.setCharacterSize(SIZE_BUTTON_TEXT_FONT);
     buttonText.setPosition(
         buttonHorizontalPosition +
@@ -78,17 +88,11 @@ ButtonWidget::ButtonWidget(
                            width,
                            BUTTON_FIXED_HEIGHT
                        ));
+
     background.setPosition(
         buttonHorizontalPosition,
         buttonVerticalPosition
     );
-}
-
-/**
- *
- */
-ButtonWidget::~ButtonWidget()
-{
 }
 
 /**

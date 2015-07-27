@@ -43,21 +43,30 @@ class ButtonWidget {
 
 public:
 
+    ButtonWidget();
+
     /**
-     * Constructor
+     * @brief set the current displayed text
+     *
+     * @param textLabel                 text of the button
+     */
+    void setLabel(std::string textLabel);
+
+    /**
+     * @brief set the size and the position of the button
+     *
+     * NOTE: the method setText() must be called before
+     * to calculate the real required size of text in button
      *
      * @param buttonHorizontalPosition  button horizontal position
      * @param buttonVerticalPosition    button vertical position
      * @param buttonWidth               button fixed width
-     * @param textLabel                 text of the button
      */
-    ButtonWidget(
+    void setLayout(
         unsigned int buttonHorizontalPosition,
         unsigned int buttonVerticalPosition,
-        unsigned int buttonWidth,
-        std::string textLabel = ""
+        unsigned int buttonWidth
     );
-    ~ButtonWidget();
 
     /**
      * @brief setter for text content
