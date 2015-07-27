@@ -37,17 +37,15 @@ GameController::GameController()
         sf::Style::Fullscreen
     );
 
-    musicFactory = new factories::MusicFactory();
-
     context = new utils::Context(window);
 
     currentControllerId = factories::ScreenFactory::MAIN_MENU_CONTROLLER_ID;
 
-    currentController = screenFactory.getScreenById(
+    currentController = factories::ScreenFactory::getScreenById(
                             currentControllerId
                         );
 
-    currentMusicPath = musicFactory->getMusicPathById(
+    currentMusicPath = factories::MusicFactory::getMusicPathById(
                            currentControllerId
                        );
 
@@ -60,7 +58,6 @@ GameController::GameController()
  */
 GameController::GameController(const GameController &gameController)
 {
-    musicFactory = new factories::MusicFactory();
     context = new utils::Context(*gameController.context);
 
     window = context->getWindow();
@@ -70,7 +67,7 @@ GameController::GameController(const GameController &gameController)
     currentMusicPath = gameController.currentMusicPath;
     nextMusicPath = gameController.nextMusicPath;
 
-    currentController = screenFactory.getScreenById(
+    currentController = factories::ScreenFactory::getScreenById(
                             currentControllerId
                         );
 }
@@ -80,7 +77,6 @@ GameController::GameController(const GameController &gameController)
  */
 GameController::~GameController()
 {
-    delete musicFactory;
     delete currentController;
     delete context;
     delete window;
@@ -106,7 +102,7 @@ void GameController::run()
         if(nextControllerId) {
 
             // update the current music
-            nextMusicPath = musicFactory->getMusicPathById(
+            nextMusicPath = factories::MusicFactory::getMusicPathById(
                                 nextControllerId
                             );
             if(currentMusicPath != nextMusicPath) {
@@ -115,7 +111,7 @@ void GameController::run()
 
             // update the current screen controller
             delete currentController;
-            currentController = screenFactory.getScreenById(
+            currentController = factories::ScreenFactory::getScreenById(
                                     nextControllerId
                                 );
 

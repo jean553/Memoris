@@ -54,7 +54,7 @@ public:
      * @return screen controller pointer,
      * returns null if no screen match
      */
-    controllers::Controller* getScreenById(unsigned char id);
+    static controllers::Controller* getScreenById(unsigned char id);
 };
 }
 
