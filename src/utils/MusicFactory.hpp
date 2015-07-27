@@ -37,9 +37,6 @@ class MusicFactory {
 
 public:
 
-    MusicFactory();
-    ~MusicFactory();
-
     /**
      * @brief returns the music file
      * path according to the id

@@ -74,9 +74,6 @@ private:
 
     controllers::Controller *currentController;
 
-    factories::ScreenFactory screenFactory;
-    factories::MusicFactory *musicFactory;
-
     utils::Context *context;
 
     unsigned char currentControllerId;

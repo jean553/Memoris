@@ -31,20 +31,6 @@ const std::string MusicFactory::MAIN_MENU_MUSIC_PATH = "res/musics/dj-xtrm-kille
 /**
  *
  */
-MusicFactory::MusicFactory()
-{
-}
-
-/**
- *
- */
-MusicFactory::~MusicFactory()
-{
-}
-
-/**
- *
- */
 std::string MusicFactory::getMusicPathById(
     unsigned char id
 )
