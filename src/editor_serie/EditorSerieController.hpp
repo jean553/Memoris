@@ -66,7 +66,6 @@ class EditorSerieController : public Controller {
 public:
 
     EditorSerieController();
-    ~EditorSerieController();
 
     /**
      * @brief render the serie editor screen
@@ -83,11 +82,11 @@ private:
 
     widgets::TitleBarWidget titleBar;
 
-    widgets::ButtonWidget *buttonNew;
-    widgets::ButtonWidget *buttonOpen;
-    widgets::ButtonWidget *buttonSave;
-    widgets::ButtonWidget *buttonAdd;
-    widgets::ButtonWidget *buttonExit;
+    widgets::ButtonWidget buttonNew;
+    widgets::ButtonWidget buttonOpen;
+    widgets::ButtonWidget buttonSave;
+    widgets::ButtonWidget buttonAdd;
+    widgets::ButtonWidget buttonExit;
 
     widgets::CursorWidget cursor;
 
