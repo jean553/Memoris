@@ -74,7 +74,7 @@ private:
 
     controllers::Controller *currentController;
 
-    factories::ScreenFactory *screenFactory;
+    factories::ScreenFactory screenFactory;
     factories::MusicFactory *musicFactory;
 
     utils::Context *context;
