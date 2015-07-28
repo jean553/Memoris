@@ -39,7 +39,7 @@ public:
     /**
      * @brief render the screen, contains events catcher,
      *
-     * @param context   commons items for controller
+     * @param context   common context pointer for controller
      *
      * @return char     next called screen controller id
      */

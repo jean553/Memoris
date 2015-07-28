@@ -39,28 +39,6 @@ class Context {
 public:
 
     /**
-     * @param commonWindow      window to use
-     */
-    Context(sf::RenderWindow* commonWindow);
-
-    /**
-     * NOTE: The context copy constructor
-     * creates a new render window and
-     * a new music object. This feature is
-     * actually useless in the behaviour of
-     * the program, because never used, but
-     * is mandatory to keep compliance
-     * with C++ best practices ( i.e. Context
-     * class contains dynamically allocated
-     * objects ).
-     *
-     * @param context    reference to Context object
-     */
-    Context(const Context &context);
-
-    ~Context();
-
-    /**
      * @brief common window getter
      *
      * @return common window pointer
@@ -68,7 +46,7 @@ public:
     sf::RenderWindow* getWindow();
 
     /**
-     * @brief common window setter
+     * @brief common window pointer setter
      */
     void setWindow(sf::RenderWindow* commonWindow);
 
@@ -83,9 +61,7 @@ private:
 
     sf::RenderWindow *window;
 
-    sf::Music *music;
-
-    std::string sentMessage;
+    sf::Music music;
 };
 }
 
