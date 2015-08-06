@@ -29,35 +29,6 @@ using namespace utils;
 /**
  *
  */
-Context::Context(sf::RenderWindow* commonWindow)
-{
-    setWindow(commonWindow);
-    music = new sf::Music();
-    sentMessage = "";
-}
-
-/**
- *
- */
-Context::Context(const Context &context)
-{
-    music = new sf::Music();
-    window = new sf::RenderWindow();
-
-    sentMessage = context.sentMessage;
-}
-
-/**
- *
- */
-Context::~Context()
-{
-    delete music;
-}
-
-/**
- *
- */
 sf::RenderWindow* Context::getWindow()
 {
     return window;
@@ -80,13 +51,11 @@ void Context::changeMusic(std::string musicPath)
         return;
     }
 
-    // no music to stop if the function
-    // is called for the first time
-    if(music->getStatus() == sf::Sound::Playing) {
-        music->stop();
+    // no music to stop if the function is called for the first time
+    if(music.getStatus() == sf::Sound::Playing) {
+        music.stop();
     }
 
-    music->openFromFile(musicPath);
-
-    music->play();
+    music.openFromFile(musicPath);
+    music.play();
 }
