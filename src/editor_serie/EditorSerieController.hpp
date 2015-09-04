@@ -97,7 +97,8 @@ private:
     enum EditorSerieStatus {
         MAIN_MENU,
         NEW_SERIE,
-        EDIT_SERIE
+        EDIT_SERIE,
+        NEW_LEVEL
     };
 
     EditorSerieStatus status;
@@ -109,20 +110,32 @@ private:
     widgets::ButtonWidget buttonSave;
     widgets::ButtonWidget buttonAdd;
     widgets::ButtonWidget buttonExit;
-    widgets::ButtonWidget buttonNewSerieOk;
-    widgets::ButtonWidget buttonNewSerieCancel;
+    widgets::ButtonWidget buttonNewOk;
+    widgets::ButtonWidget buttonNewCancel;
 
     widgets::CursorWidget cursor;
 
     widgets::ItemsListWidget levelsList;
 
-    widgets::InputTextWidget inputTextNewSerie;
+    widgets::InputTextWidget inputTextNew;
 
     sf::Font serieNameLabelFont;
 
     sf::Color serieNameLabelColor;
 
     sf::Text serieNameLabel;
+
+    /**
+     * @brief enable/disable all the series editor main menu buttons
+     *
+     * @param areEnabled true to enable, false to disable
+     */
+    void switchMainMenuButtons(bool areEnabled);
+
+    /**
+     * @brief initialize the main menu buttons
+     */
+    void initializeMainMenuButtons();
 };
 }
 
