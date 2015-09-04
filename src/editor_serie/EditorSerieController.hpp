@@ -71,7 +71,7 @@ class EditorSerieController : public Controller {
     static constexpr unsigned int LEVELS_LIST_POSITION_X = 10;
     static constexpr unsigned int LEVELS_LIST_POSITION_Y = 250;
     static constexpr unsigned int LEVELS_LIST_WIDTH = 1580;
-    static constexpr unsigned int LEVELS_LIST_LEVELS_NUMBER = 10;
+    static constexpr unsigned int LEVELS_LIST_LEVELS_NUMBER = 15;
     static constexpr unsigned int POSITION_NEW_SERIE_INPUT_TEXT_X = 10;
     static constexpr unsigned int POSITION_NEW_SERIE_INPUT_TEXT_Y = 175;
     static constexpr unsigned int SIZE_NEW_SERIE_TEXT = 350;

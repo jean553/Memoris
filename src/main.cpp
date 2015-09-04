@@ -62,6 +62,7 @@ int main()
         sf::Style::Fullscreen
     );
     window.setMouseCursorVisible(false);
+    window.setKeyRepeatEnabled(false);
 
     utils::Context context;
     context.setWindow(&window);
