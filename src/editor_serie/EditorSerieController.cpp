@@ -54,8 +54,8 @@ EditorSerieController::EditorSerieController() : Controller()
     buttonSave.setLabel(EDITOR_SERIE_BUTTON_SAVE_TEXT);
     buttonAdd.setLabel(EDITOR_SERIE_BUTTON_ADD_TEXT);
     buttonExit.setLabel(EDITOR_SERIE_BUTTON_EXIT_TEXT);
-    buttonNewSerieOk.setLabel(STRING_OK);
-    buttonNewSerieCancel.setLabel(STRING_CANCEL);
+    buttonNewOk.setLabel(STRING_OK);
+    buttonNewCancel.setLabel(STRING_CANCEL);
 
     buttonNew.setLayout(
         EDITOR_SERIE_BUTTON_NEW_POSITION_X,
@@ -87,13 +87,13 @@ EditorSerieController::EditorSerieController() : Controller()
         EDITOR_SERIE_BUTTONS_WIDTH
     );
 
-    buttonNewSerieOk.setLayout(
+    buttonNewOk.setLayout(
         EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_X,
         EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_Y,
         EDITOR_SERIE_BUTTONS_WIDTH
     );
 
-    buttonNewSerieCancel.setLayout(
+    buttonNewCancel.setLayout(
         EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_X,
         EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_Y,
         EDITOR_SERIE_BUTTONS_WIDTH
@@ -110,7 +110,7 @@ EditorSerieController::EditorSerieController() : Controller()
         utils::DirReader::getAllFiles(SERIES_DIRECTORY)
     );
 
-    inputTextNewSerie.setLayout(
+    inputTextNew.setLayout(
         POSITION_NEW_SERIE_INPUT_TEXT_X,
         POSITION_NEW_SERIE_INPUT_TEXT_Y,
         SIZE_NEW_SERIE_TEXT
@@ -127,8 +127,7 @@ EditorSerieController::EditorSerieController() : Controller()
     serieNameLabel.setCharacterSize(constants::Fonts::SIZE_SUB_TITLE_FONT);
     serieNameLabel.setColor(serieNameLabelColor);
 
-    buttonSave.setEnable(false);
-    buttonAdd.setEnable(false);
+    initializeMainMenuButtons();
 }
 
 /**
@@ -144,18 +143,16 @@ unsigned char EditorSerieController::render(utils::Context* context)
     buttonExit.display(context);
     levelsList.display(context);
 
-    // display some GUI elements according to the current controller status
-    switch(status) {
-        case NEW_SERIE: {
-            buttonNewSerieOk.display(context);
-            buttonNewSerieCancel.display(context);
-            inputTextNewSerie.display(context);
-            break;
-        }
-        case EDIT_SERIE: {
-            context->getWindow()->draw(serieNameLabel);
-            break;
-        }
+    // displays form when user creates a new serie or a new level
+    if (status == NEW_SERIE || status == NEW_LEVEL) {
+        buttonNewOk.display(context);
+        buttonNewCancel.display(context);
+        inputTextNew.display(context);
+    }
+
+    // displays the serie name if a serie is loaded
+    if (status != MAIN_MENU) {
+        context->getWindow()->draw(serieNameLabel);
     }
 
     cursor.display(context);
@@ -169,12 +166,11 @@ unsigned char EditorSerieController::render(utils::Context* context)
                         break;
                     }
                     default: {
-                        switch(status) {
-                            case NEW_SERIE:
-                                inputTextNewSerie.update(&event);
-                                break;
+
+                        // edit the new serie/level input text content if a new serie/level is creating
+                        if(status == NEW_SERIE || status == NEW_LEVEL) {
+                            inputTextNew.update(&event);
                         }
-                        break;
                     }
                 }
             }
@@ -189,21 +185,17 @@ unsigned char EditorSerieController::render(utils::Context* context)
                             case MAIN_MENU:
                                 if(buttonNew.isMouseHover()) {
 
-                                    buttonNew.setEnable(false);
-                                    buttonOpen.setEnable(false);
+                                    switchMainMenuButtons(false);
 
                                     status = NEW_SERIE;
                                 }
                                 break;
                             case NEW_SERIE:
-                                if(buttonNewSerieOk.isMouseHover()) {
+                                if(buttonNewOk.isMouseHover()) {
 
-                                    buttonNew.setEnable(true);
-                                    buttonOpen.setEnable(true);
-                                    buttonSave.setEnable(true);
-                                    buttonAdd.setEnable(true);
+                                    switchMainMenuButtons(true);
 
-                                    serieNameLabel.setString(inputTextNewSerie.getText());
+                                    serieNameLabel.setString(inputTextNew.getText());
                                     serieNameLabel.setPosition(
                                         constants::Dimensions::SCREEN_WIDTH -
                                         serieNameLabel.getLocalBounds().width,
@@ -212,16 +204,35 @@ unsigned char EditorSerieController::render(utils::Context* context)
 
                                     status = EDIT_SERIE;
                                 }
-                                if(buttonNewSerieCancel.isMouseHover()) {
+                                if(buttonNewCancel.isMouseHover()) {
 
                                     buttonNew.setEnable(true);
                                     buttonOpen.setEnable(true);
 
                                     status = MAIN_MENU;
 
-                                    inputTextNewSerie.clear();
+                                    inputTextNew.clear();
                                 }
                                 break;
+                            case EDIT_SERIE:
+                                if(buttonAdd.isMouseHover()) {
+
+                                    switchMainMenuButtons(false);
+
+                                    status = NEW_LEVEL;
+
+                                    inputTextNew.clear();
+                                }
+                            case NEW_LEVEL:
+                                if(buttonNewCancel.isMouseHover()) {
+
+                                    switchMainMenuButtons(true);
+
+                                    status = EDIT_SERIE;
+
+                                    inputTextNew.clear();
+                                }
+
                         }
                         break;
                     }
@@ -231,4 +242,26 @@ unsigned char EditorSerieController::render(utils::Context* context)
     }
 
     return nextControllerId;
+}
+
+/**
+ *
+ */
+void EditorSerieController::switchMainMenuButtons(bool areEnabled)
+{
+    buttonNew.setEnable(areEnabled);
+    buttonOpen.setEnable(areEnabled);
+    buttonSave.setEnable(areEnabled);
+    buttonAdd.setEnable(areEnabled);
+}
+
+/**
+ *
+ */
+void EditorSerieController::initializeMainMenuButtons()
+{
+    buttonNew.setEnable(true);
+    buttonOpen.setEnable(true);
+    buttonSave.setEnable(false);
+    buttonAdd.setEnable(false);
 }
