@@ -104,6 +104,11 @@ public:
      */
     void update(sf::Event* event);
 
+    /**
+     * @brief reset the input text
+     */
+    void clear();
+
 private:
 
     bool displayCursor;
@@ -128,6 +133,14 @@ private:
     sf::RectangleShape cursor;
 
     sf::Clock clock;
+
+    /**
+     * @brief initialize the cursor position on the left side of the input
+     *
+     * NOTE: must be called AFTER the cursor object creation, the horizontal
+     * and vertical positions of the input text must be defined
+     */
+    void initCursorPosition();
 };
 }
 

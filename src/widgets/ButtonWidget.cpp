@@ -43,6 +43,16 @@ ButtonWidget::ButtonWidget()
     backgroundColor.b = constants::Colors::COLOR_GRAY_BLUE;
     backgroundColor.a = constants::Colors::COLOR_ALPHA_FULL;
 
+    textColorDisable.r = constants::Colors::COLOR_WHITE_RED;
+    textColorDisable.g = constants::Colors::COLOR_WHITE_GREEN;
+    textColorDisable.b = constants::Colors::COLOR_WHITE_BLUE;
+    textColorDisable.a = constants::Colors::COLOR_ALPHA_PARTIAL;
+
+    backgroundColorDisable.r = constants::Colors::COLOR_GRAY_RED;
+    backgroundColorDisable.g = constants::Colors::COLOR_GRAY_GREEN;
+    backgroundColorDisable.b = constants::Colors::COLOR_GRAY_BLUE;
+    backgroundColorDisable.a = constants::Colors::COLOR_ALPHA_PARTIAL;
+
     textMouseHoverColor.r = constants::Colors::COLOR_LIGHT_BLUE_RED;
     textMouseHoverColor.g = constants::Colors::COLOR_LIGHT_BLUE_GREEN;
     textMouseHoverColor.b = constants::Colors::COLOR_LIGHT_BLUE_BLUE;
@@ -52,6 +62,8 @@ ButtonWidget::ButtonWidget()
     backgroundMouseHoverColor.g = constants::Colors::COLOR_DARK_GRAY_GREEN;
     backgroundMouseHoverColor.b = constants::Colors::COLOR_DARK_GRAY_BLUE;
     backgroundMouseHoverColor.a = constants::Colors::COLOR_ALPHA_FULL;
+
+    enable = true;
 }
 
 /**
@@ -108,13 +120,20 @@ void ButtonWidget::setText(std::string inputTextData)
  */
 void ButtonWidget::display(utils::Context* context)
 {
-    buttonText.setColor(textColor);
-    background.setFillColor(backgroundColor);
+    if(enable) {
 
-    if(isMouseHover()) {
+        buttonText.setColor(textColor);
+        background.setFillColor(backgroundColor);
 
-        buttonText.setColor(textMouseHoverColor);
-        background.setFillColor(backgroundMouseHoverColor);
+        if(isMouseHover()) {
+
+            buttonText.setColor(textMouseHoverColor);
+            background.setFillColor(backgroundMouseHoverColor);
+        }
+    } else {
+
+        buttonText.setColor(textColorDisable);
+        background.setFillColor(backgroundColorDisable);
     }
 
     context->getWindow()->draw(background);
@@ -130,10 +149,19 @@ bool ButtonWidget::isMouseHover() const
         unsigned(sf::Mouse::getPosition().x) > horizontalPosition &&
         unsigned(sf::Mouse::getPosition().x) < horizontalPosition + width &&
         unsigned(sf::Mouse::getPosition().y) > verticalPosition &&
-        unsigned(sf::Mouse::getPosition().y) < verticalPosition + BUTTON_FIXED_HEIGHT
+        unsigned(sf::Mouse::getPosition().y) < verticalPosition + BUTTON_FIXED_HEIGHT &&
+        enable
     ) {
         return true;
     }
 
     return false;
+}
+
+/**
+ *
+ */
+void ButtonWidget::setEnable(bool isEnable)
+{
+    enable = isEnable;
 }

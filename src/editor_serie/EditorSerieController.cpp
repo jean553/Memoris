@@ -32,6 +32,8 @@ const std::string EditorSerieController::EDITOR_SERIE_BUTTON_OPEN_TEXT = "Open";
 const std::string EditorSerieController::EDITOR_SERIE_BUTTON_SAVE_TEXT = "Save";
 const std::string EditorSerieController::EDITOR_SERIE_BUTTON_ADD_TEXT = "Add";
 const std::string EditorSerieController::EDITOR_SERIE_BUTTON_EXIT_TEXT = "Exit";
+const std::string EditorSerieController::STRING_OK = "OK";
+const std::string EditorSerieController::STRING_CANCEL = "Cancel";
 const char* EditorSerieController::SERIES_DIRECTORY = "data/series";
 
 /**
@@ -39,6 +41,8 @@ const char* EditorSerieController::SERIES_DIRECTORY = "data/series";
  */
 EditorSerieController::EditorSerieController() : Controller()
 {
+    status = MAIN_MENU;
+
     titleBar.setDisplayedText(
         STRING_EDITOR_SERIE_TITLE
     );
@@ -48,6 +52,8 @@ EditorSerieController::EditorSerieController() : Controller()
     buttonSave.setLabel(EDITOR_SERIE_BUTTON_SAVE_TEXT);
     buttonAdd.setLabel(EDITOR_SERIE_BUTTON_ADD_TEXT);
     buttonExit.setLabel(EDITOR_SERIE_BUTTON_EXIT_TEXT);
+    buttonNewSerieOk.setLabel(STRING_OK);
+    buttonNewSerieCancel.setLabel(STRING_CANCEL);
 
     buttonNew.setLayout(
         EDITOR_SERIE_BUTTON_NEW_POSITION_X,
@@ -79,6 +85,18 @@ EditorSerieController::EditorSerieController() : Controller()
         EDITOR_SERIE_BUTTONS_WIDTH
     );
 
+    buttonNewSerieOk.setLayout(
+        EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_X,
+        EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_Y,
+        EDITOR_SERIE_BUTTONS_WIDTH
+    );
+
+    buttonNewSerieCancel.setLayout(
+        EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_X,
+        EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_Y,
+        EDITOR_SERIE_BUTTONS_WIDTH
+    );
+
     levelsList.setLayout(
         LEVELS_LIST_POSITION_X,
         LEVELS_LIST_POSITION_Y,
@@ -89,6 +107,15 @@ EditorSerieController::EditorSerieController() : Controller()
     levelsList.setStringsList(
         utils::DirReader::getAllFiles(SERIES_DIRECTORY)
     );
+
+    inputTextNewSerie.setLayout(
+        POSITION_NEW_SERIE_INPUT_TEXT_X,
+        POSITION_NEW_SERIE_INPUT_TEXT_Y,
+        SIZE_NEW_SERIE_TEXT
+    );
+
+    buttonSave.setEnable(false);
+    buttonAdd.setEnable(false);
 }
 
 /**
@@ -102,8 +129,19 @@ unsigned char EditorSerieController::render(utils::Context* context)
     buttonSave.display(context);
     buttonAdd.display(context);
     buttonExit.display(context);
-    cursor.display(context);
     levelsList.display(context);
+
+    // display some GUI elements according to the current controller status
+    switch(status) {
+        case NEW_SERIE: {
+            buttonNewSerieOk.display(context);
+            buttonNewSerieCancel.display(context);
+            inputTextNewSerie.display(context);
+            break;
+        }
+    }
+
+    cursor.display(context);
 
     while(context->getWindow()->pollEvent(event)) {
         switch(event.type) {
@@ -113,6 +151,14 @@ unsigned char EditorSerieController::render(utils::Context* context)
                         nextControllerId = factories::ScreenFactory::MAIN_MENU_CONTROLLER_ID;
                         break;
                     }
+                    default: {
+                        switch(status) {
+                            case NEW_SERIE:
+                                inputTextNewSerie.update(&event);
+                                break;
+                        }
+                        break;
+                    }
                 }
             }
             case sf::Event::MouseButtonPressed: {
@@ -120,6 +166,24 @@ unsigned char EditorSerieController::render(utils::Context* context)
                     case sf::Mouse::Left: {
                         if(buttonExit.isMouseHover()) {
                             nextControllerId = factories::ScreenFactory::MAIN_MENU_CONTROLLER_ID;
+                        }
+                        // check buttons click according to current status
+                        switch(status) {
+                            case MAIN_MENU:
+                                if(buttonNew.isMouseHover()) {
+                                    buttonNew.setEnable(false);
+                                    buttonOpen.setEnable(false);
+                                    status = NEW_SERIE;
+                                }
+                                break;
+                            case NEW_SERIE:
+                                if(buttonNewSerieCancel.isMouseHover()) {
+                                    buttonNew.setEnable(true);
+                                    buttonOpen.setEnable(true);
+                                    status = MAIN_MENU;
+                                    inputTextNewSerie.clear();
+                                }
+                                break;
                         }
                         break;
                     }
