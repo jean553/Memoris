@@ -59,6 +59,7 @@ public:
     static constexpr unsigned int COLOR_DARK_GRAY_BLUE = 50;
 
     static constexpr unsigned int COLOR_ALPHA_FULL = 255;
+    static constexpr unsigned int COLOR_ALPHA_PARTIAL = 128;
 };
 }
 

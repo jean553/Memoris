@@ -35,10 +35,14 @@
 #include "../utils/ScreenFactory.hpp"
 #include "../utils/DirReader.hpp"
 
+#include "../defines/Fonts.hpp"
+#include "../defines/Colors.hpp"
+
 #include "../widgets/TitleBarWidget.hpp"
 #include "../widgets/ButtonWidget.hpp"
 #include "../widgets/CursorWidget.hpp"
 #include "../widgets/ItemsListWidget.hpp"
+#include "../widgets/InputTextWidget.hpp"
 
 namespace controllers {
 class EditorSerieController : public Controller {
@@ -49,6 +53,8 @@ class EditorSerieController : public Controller {
     static const std::string EDITOR_SERIE_BUTTON_SAVE_TEXT;
     static const std::string EDITOR_SERIE_BUTTON_ADD_TEXT;
     static const std::string EDITOR_SERIE_BUTTON_EXIT_TEXT;
+    static const std::string STRING_OK;
+    static const std::string STRING_CANCEL;
     static const char* SERIES_DIRECTORY;
 
     static constexpr unsigned int EDITOR_SERIE_BUTTON_NEW_POSITION_X = 10;
@@ -57,11 +63,18 @@ class EditorSerieController : public Controller {
     static constexpr unsigned int EDITOR_SERIE_BUTTON_ADD_POSITION_X = 700;
     static constexpr unsigned int EDITOR_SERIE_BUTTON_EXIT_POSITION_X = 1390;
     static constexpr unsigned int EDITOR_SERIE_BUTTONS_POSITION_Y = 100;
+    static constexpr unsigned int EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_X = 600;
+    static constexpr unsigned int EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_Y = 175;
+    static constexpr unsigned int EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_X = 810;
+    static constexpr unsigned int EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_Y = 175;
     static constexpr unsigned int EDITOR_SERIE_BUTTONS_WIDTH = 200;
     static constexpr unsigned int LEVELS_LIST_POSITION_X = 10;
     static constexpr unsigned int LEVELS_LIST_POSITION_Y = 250;
     static constexpr unsigned int LEVELS_LIST_WIDTH = 1580;
     static constexpr unsigned int LEVELS_LIST_LEVELS_NUMBER = 10;
+    static constexpr unsigned int POSITION_NEW_SERIE_INPUT_TEXT_X = 10;
+    static constexpr unsigned int POSITION_NEW_SERIE_INPUT_TEXT_Y = 175;
+    static constexpr unsigned int SIZE_NEW_SERIE_TEXT = 350;
 
 public:
 
@@ -80,6 +93,13 @@ public:
 
 private:
 
+    enum EditorSerieStatus {
+        MAIN_MENU,
+        NEW_SERIE
+    };
+
+    EditorSerieStatus status;
+
     widgets::TitleBarWidget titleBar;
 
     widgets::ButtonWidget buttonNew;
@@ -87,10 +107,14 @@ private:
     widgets::ButtonWidget buttonSave;
     widgets::ButtonWidget buttonAdd;
     widgets::ButtonWidget buttonExit;
+    widgets::ButtonWidget buttonNewSerieOk;
+    widgets::ButtonWidget buttonNewSerieCancel;
 
     widgets::CursorWidget cursor;
 
     widgets::ItemsListWidget levelsList;
+
+    widgets::InputTextWidget inputTextNewSerie;
 };
 }
 

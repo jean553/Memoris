@@ -112,10 +112,7 @@ void InputTextWidget::setLayout(
     boxBottom.setFillColor(inputTextColor);
     boxLeft.setFillColor(inputTextColor);
 
-    cursor.setPosition(
-        horizontalPosition + CURSOR_HORIZONTAL_OFFSET,
-        verticalPosition + CURSOR_VERTICAL_OFFSET
-    );
+    initCursorPosition();
 
     cursor.setSize(sf::Vector2f(
                        CURSOR_WIDTH,
@@ -297,5 +294,25 @@ void InputTextWidget::update(sf::Event* event)
         displayedText.getLocalBounds().width,
         verticalPosition +
         CURSOR_VERTICAL_OFFSET
+    );
+}
+
+/**
+ *
+ */
+void InputTextWidget::clear()
+{
+    setDisplayedText("");
+    initCursorPosition();
+}
+
+/**
+ *
+ */
+void InputTextWidget::initCursorPosition()
+{
+    cursor.setPosition(
+        horizontalPosition + CURSOR_HORIZONTAL_OFFSET,
+        verticalPosition + CURSOR_VERTICAL_OFFSET
     );
 }

@@ -88,10 +88,18 @@ public:
      * Returns true if the mouse is
      * currently hover the button
      *
+     * NOTE: returns false if the button
+     * is disabled, even if the mouse is
+     * hover the button
+     *
      * @return bool
      */
     bool isMouseHover() const;
 
+    /**
+     * @param isEnable      value of enable attribute
+     */
+    void setEnable(bool isEnable);
 
 private:
 
@@ -101,6 +109,8 @@ private:
 
     sf::Color textColor;
     sf::Color backgroundColor;
+    sf::Color textColorDisable;
+    sf::Color backgroundColorDisable;
     sf::Color textMouseHoverColor;
     sf::Color backgroundMouseHoverColor;
 
@@ -111,6 +121,8 @@ private:
     unsigned int horizontalPosition;
     unsigned int verticalPosition;
     unsigned int width;
+
+    bool enable;
 };
 }
 
