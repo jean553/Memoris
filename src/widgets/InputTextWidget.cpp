@@ -316,3 +316,11 @@ void InputTextWidget::initCursorPosition()
         verticalPosition + CURSOR_VERTICAL_OFFSET
     );
 }
+
+/**
+ *
+ */
+std::string InputTextWidget::getText()
+{
+    return text;
+}

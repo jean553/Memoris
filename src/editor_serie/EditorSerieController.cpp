@@ -24,6 +24,8 @@
 
 #include "EditorSerieController.hpp"
 
+#include "../defines/Dimensions.hpp"
+
 using namespace controllers;
 
 const std::string EditorSerieController::STRING_EDITOR_SERIE_TITLE = "Serie editor";
@@ -114,6 +116,17 @@ EditorSerieController::EditorSerieController() : Controller()
         SIZE_NEW_SERIE_TEXT
     );
 
+    serieNameLabelColor.r = constants::Colors::COLOR_WHITE_RED;
+    serieNameLabelColor.g = constants::Colors::COLOR_WHITE_GREEN;
+    serieNameLabelColor.b = constants::Colors::COLOR_WHITE_BLUE;
+    serieNameLabelColor.a = constants::Colors::COLOR_ALPHA_FULL;
+
+    serieNameLabelFont.loadFromFile(constants::Fonts::getTextFontPath());
+
+    serieNameLabel.setFont(serieNameLabelFont);
+    serieNameLabel.setCharacterSize(constants::Fonts::SIZE_SUB_TITLE_FONT);
+    serieNameLabel.setColor(serieNameLabelColor);
+
     buttonSave.setEnable(false);
     buttonAdd.setEnable(false);
 }
@@ -137,6 +150,10 @@ unsigned char EditorSerieController::render(utils::Context* context)
             buttonNewSerieOk.display(context);
             buttonNewSerieCancel.display(context);
             inputTextNewSerie.display(context);
+            break;
+        }
+        case EDIT_SERIE: {
+            context->getWindow()->draw(serieNameLabel);
             break;
         }
     }
@@ -171,16 +188,37 @@ unsigned char EditorSerieController::render(utils::Context* context)
                         switch(status) {
                             case MAIN_MENU:
                                 if(buttonNew.isMouseHover()) {
+
                                     buttonNew.setEnable(false);
                                     buttonOpen.setEnable(false);
+
                                     status = NEW_SERIE;
                                 }
                                 break;
                             case NEW_SERIE:
-                                if(buttonNewSerieCancel.isMouseHover()) {
+                                if(buttonNewSerieOk.isMouseHover()) {
+
                                     buttonNew.setEnable(true);
                                     buttonOpen.setEnable(true);
+                                    buttonSave.setEnable(true);
+                                    buttonAdd.setEnable(true);
+
+                                    serieNameLabel.setString(inputTextNewSerie.getText());
+                                    serieNameLabel.setPosition(
+                                        constants::Dimensions::SCREEN_WIDTH -
+                                        serieNameLabel.getLocalBounds().width,
+                                        POSITION_SERIE_NAME_LABEL_Y
+                                    );
+
+                                    status = EDIT_SERIE;
+                                }
+                                if(buttonNewSerieCancel.isMouseHover()) {
+
+                                    buttonNew.setEnable(true);
+                                    buttonOpen.setEnable(true);
+
                                     status = MAIN_MENU;
+
                                     inputTextNewSerie.clear();
                                 }
                                 break;

@@ -109,6 +109,13 @@ public:
      */
     void clear();
 
+    /**
+     * @brief return the current displayed text
+     *
+     * @return string
+     */
+    std::string getText();
+
 private:
 
     bool displayCursor;
