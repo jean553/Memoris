@@ -75,6 +75,7 @@ class EditorSerieController : public Controller {
     static constexpr unsigned int POSITION_NEW_SERIE_INPUT_TEXT_X = 10;
     static constexpr unsigned int POSITION_NEW_SERIE_INPUT_TEXT_Y = 175;
     static constexpr unsigned int SIZE_NEW_SERIE_TEXT = 350;
+    static constexpr unsigned int POSITION_SERIE_NAME_LABEL_Y = 0;
 
 public:
 
@@ -95,7 +96,8 @@ private:
 
     enum EditorSerieStatus {
         MAIN_MENU,
-        NEW_SERIE
+        NEW_SERIE,
+        EDIT_SERIE
     };
 
     EditorSerieStatus status;
@@ -115,6 +117,12 @@ private:
     widgets::ItemsListWidget levelsList;
 
     widgets::InputTextWidget inputTextNewSerie;
+
+    sf::Font serieNameLabelFont;
+
+    sf::Color serieNameLabelColor;
+
+    sf::Text serieNameLabel;
 };
 }
 

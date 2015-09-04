@@ -30,6 +30,8 @@
 #include "utils/Controller.hpp"
 #include "utils/Context.hpp"
 
+#include "defines/Dimensions.hpp"
+
 /**
  * @return EXIT_SUCCESS when the program correctly finish
  */
@@ -51,7 +53,11 @@ int main()
         );
 
     sf::RenderWindow window(
-        sf::VideoMode(1600, 900, 32),
+        sf::VideoMode(
+            constants::Dimensions::SCREEN_WIDTH,
+            constants::Dimensions::SCREEN_HEIGHT,
+            32
+        ),
         "Memoris",
         sf::Style::Fullscreen
     );
