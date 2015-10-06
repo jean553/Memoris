@@ -24,6 +24,8 @@
 
 #include "ItemsListWidget.hpp"
 
+#include "../defines/Fonts.hpp"
+
 using namespace widgets;
 
 const std::string ItemsListWidget::PATH_IMAGE_ARROW_UP = "res/images/up.png";
@@ -34,21 +36,33 @@ const std::string ItemsListWidget::PATH_IMAGE_ARROW_DOWN = "res/images/down.png"
  */
 ItemsListWidget::ItemsListWidget()
 {
-    borderColor.r = constants::Colors::COLOR_WHITE_RED;
-    borderColor.g = constants::Colors::COLOR_WHITE_GREEN;
-    borderColor.b = constants::Colors::COLOR_WHITE_BLUE;
-    borderColor.a = constants::Colors::COLOR_ALPHA_FULL;
+    textItemFont.loadFromFile(constants::Fonts::getTextFontPath());
 
-    boxTop.setFillColor(borderColor);
-    boxBottom.setFillColor(borderColor);
-    boxLeft.setFillColor(borderColor);
-    boxRight.setFillColor(borderColor);
+    color.r = constants::Colors::COLOR_WHITE_RED;
+    color.g = constants::Colors::COLOR_WHITE_GREEN;
+    color.b = constants::Colors::COLOR_WHITE_BLUE;
+    color.a = constants::Colors::COLOR_ALPHA_FULL;
+
+    boxTop.setFillColor(color);
+    boxBottom.setFillColor(color);
+    boxLeft.setFillColor(color);
+    boxRight.setFillColor(color);
 
     textureUp.loadFromFile(PATH_IMAGE_ARROW_UP);
     spriteUp.setTexture(textureUp, true);
 
     textureDown.loadFromFile(PATH_IMAGE_ARROW_DOWN);
     spriteDown.setTexture(textureDown, true);
+}
+
+/**
+ *
+ */
+ItemsListWidget::~ItemsListWidget()
+{
+    for(sf::Text* item : textItemsList) {
+        delete item;
+    }
 }
 
 /**
@@ -140,6 +154,10 @@ void ItemsListWidget::display(utils::Context* context)
     context->getWindow()->draw(boxRight);
     context->getWindow()->draw(spriteUp);
     context->getWindow()->draw(spriteDown);
+
+    for(sf::Text* item : textItemsList) {
+        context->getWindow()->draw(*item);
+    }
 }
 
 /**
@@ -148,4 +166,27 @@ void ItemsListWidget::display(utils::Context* context)
 void ItemsListWidget::setStringsList(std::vector<std::string> list)
 {
     stringsList = list;
+}
+
+/**
+ *
+ */
+void ItemsListWidget::addTextItem(std::string textItem)
+{
+    stringsList.push_back(textItem);
+
+    sf::Text *pItem = new sf::Text();
+
+    pItem->setFont(textItemFont);
+    pItem->setCharacterSize(ITEMS_LIST_ITEM_HEIGHT);
+    pItem->setColor(color);
+    pItem->setString(textItem);
+    pItem->setPosition(
+        horizontalPosition,
+        verticalPosition +
+        (static_cast<int> (textItemsList.size())) *
+        ITEMS_LIST_ITEM_HEIGHT
+    );
+
+    textItemsList.push_back(pItem);
 }

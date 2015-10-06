@@ -42,12 +42,13 @@ class ItemsListWidget {
     static const std::string PATH_IMAGE_ARROW_DOWN;
 
     static constexpr int ITEMS_LIST_BORDER_SIZE = 1;
-    static constexpr int ITEMS_LIST_ITEM_HEIGHT = 60;
+    static constexpr int ITEMS_LIST_ITEM_HEIGHT = 40;
     static constexpr int ITEMS_LIST_ARROW_DIM = 64;
 
 public:
 
     ItemsListWidget();
+    ~ItemsListWidget();
 
     /**
      * @brief set the size and position of the widget
@@ -76,6 +77,11 @@ public:
      */
     void setStringsList(std::vector<std::string> list);
 
+    /**
+     * @param textItem   add text item to display in the list
+     */
+    void addTextItem(std::string textItem);
+
 private:
 
     int horizontalPosition;
@@ -83,7 +89,9 @@ private:
     int width;
     unsigned char verticalContainers;
 
-    sf::Color borderColor;
+    sf::Font textItemFont;
+
+    sf::Color color;
 
     sf::RectangleShape boxTop;
     sf::RectangleShape boxBottom;
@@ -97,6 +105,8 @@ private:
     sf::Sprite spriteDown;
 
     std::vector<std::string> stringsList;
+
+    std::vector<sf::Text*> textItemsList;
 };
 }
 

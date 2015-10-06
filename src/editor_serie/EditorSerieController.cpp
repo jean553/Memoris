@@ -232,6 +232,16 @@ unsigned char EditorSerieController::render(utils::Context* context)
 
                                     inputTextNew.clear();
                                 }
+                                if(buttonNewOk.isMouseHover()) {
+
+                                    switchMainMenuButtons(true);
+
+                                    status = EDIT_SERIE;
+
+                                    levelsList.addTextItem(inputTextNew.getText());
+
+                                    inputTextNew.clear();
+                                }
 
                         }
                         break;
