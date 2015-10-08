@@ -30,6 +30,8 @@ using namespace widgets;
 
 const std::string ItemsListWidget::PATH_IMAGE_ARROW_UP = "res/images/up.png";
 const std::string ItemsListWidget::PATH_IMAGE_ARROW_DOWN = "res/images/down.png";
+const std::string ItemsListWidget::PATH_IMAGE_EDIT = "res/images/edit.png";
+const std::string ItemsListWidget::PATH_IMAGE_DELETE = "res/images/delete.png";
 
 /**
  *
@@ -53,16 +55,6 @@ ItemsListWidget::ItemsListWidget()
 
     textureDown.loadFromFile(PATH_IMAGE_ARROW_DOWN);
     spriteDown.setTexture(textureDown, true);
-}
-
-/**
- *
- */
-ItemsListWidget::~ItemsListWidget()
-{
-    for(sf::Text* item : textItemsList) {
-        delete item;
-    }
 }
 
 /**
@@ -155,8 +147,45 @@ void ItemsListWidget::display(utils::Context* context)
     context->getWindow()->draw(spriteUp);
     context->getWindow()->draw(spriteDown);
 
-    for(sf::Text* item : textItemsList) {
-        context->getWindow()->draw(*item);
+    for(std::vector<std::string>::iterator textItem = stringsList.begin();
+            textItem != stringsList.end(); ++textItem) {
+
+        int itemsCommonVerticalPosition = verticalPosition +
+                                          (static_cast<int> (std::distance(stringsList.begin(), textItem))) *
+                                          ITEMS_LIST_ITEM_HEIGHT;
+
+        sf::Text item;
+        sf::Texture textureEdit, textureDelete;
+        sf::Sprite spriteEdit, spriteDelete;
+
+        item.setFont(textItemFont);
+        item.setCharacterSize(ITEMS_LIST_ITEM_HEIGHT);
+        item.setColor(color);
+        item.setString(*textItem);
+        item.setPosition(
+            horizontalPosition,
+            itemsCommonVerticalPosition
+        );
+
+        textureEdit.loadFromFile(PATH_IMAGE_EDIT);
+
+        textureDelete.loadFromFile(PATH_IMAGE_DELETE);
+
+        spriteEdit.setTexture(textureEdit, false);
+        spriteEdit.setPosition(
+            horizontalPosition + width - (width / 4),
+            itemsCommonVerticalPosition
+        );
+
+        spriteDelete.setTexture(textureDelete, false);
+        spriteDelete.setPosition(
+            horizontalPosition + width - (width / 4) + 50,
+            itemsCommonVerticalPosition
+        );
+
+        context->getWindow()->draw(item);
+        context->getWindow()->draw(spriteEdit);
+        context->getWindow()->draw(spriteDelete);
     }
 }
 
@@ -174,19 +203,4 @@ void ItemsListWidget::setStringsList(std::vector<std::string> list)
 void ItemsListWidget::addTextItem(std::string textItem)
 {
     stringsList.push_back(textItem);
-
-    sf::Text *pItem = new sf::Text();
-
-    pItem->setFont(textItemFont);
-    pItem->setCharacterSize(ITEMS_LIST_ITEM_HEIGHT);
-    pItem->setColor(color);
-    pItem->setString(textItem);
-    pItem->setPosition(
-        horizontalPosition,
-        verticalPosition +
-        (static_cast<int> (textItemsList.size())) *
-        ITEMS_LIST_ITEM_HEIGHT
-    );
-
-    textItemsList.push_back(pItem);
 }

@@ -44,6 +44,12 @@ std::vector<std::string> DirReader::getAllFiles(const char* directory)
 
     while((file = readdir(dir)) != NULL) {
         std::string name(file->d_name);
+
+        // exclude Linux parent and current folder
+        if(name == ".." || name == ".") {
+            continue;
+        }
+
         list.push_back(name);
     }
 
