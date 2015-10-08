@@ -40,6 +40,8 @@ class ItemsListWidget {
 
     static const std::string PATH_IMAGE_ARROW_UP;
     static const std::string PATH_IMAGE_ARROW_DOWN;
+    static const std::string PATH_IMAGE_EDIT;
+    static const std::string PATH_IMAGE_DELETE;
 
     static constexpr int ITEMS_LIST_BORDER_SIZE = 1;
     static constexpr int ITEMS_LIST_ITEM_HEIGHT = 40;
@@ -48,7 +50,6 @@ class ItemsListWidget {
 public:
 
     ItemsListWidget();
-    ~ItemsListWidget();
 
     /**
      * @brief set the size and position of the widget
@@ -105,8 +106,6 @@ private:
     sf::Sprite spriteDown;
 
     std::vector<std::string> stringsList;
-
-    std::vector<sf::Text*> textItemsList;
 };
 }
 
