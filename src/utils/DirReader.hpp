@@ -25,9 +25,12 @@
 #ifndef DEF_DIRREADER
 #define DEF_DIRREADER
 
+#define FILENAME_SIZE 50
+
 #include <string>
 #include <vector>
 #include <dirent.h>
+#include <cstring>
 
 namespace utils {
 class DirReader {
@@ -39,10 +42,14 @@ public:
      * returns an empty array if an error occured
      *
      * @param directory     characters pointer, directory to open
+     * @param extension     extension of the files to list
      *
      * @return vector<string>
      */
-    static std::vector<std::string> getAllFiles(const char* directory);
+    static std::vector<std::string> getAllFiles(
+        const char* directory,
+        const char* extension
+    );
 };
 }
 

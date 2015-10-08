@@ -29,7 +29,10 @@ using namespace utils;
 /**
  *
  */
-std::vector<std::string> DirReader::getAllFiles(const char* directory)
+std::vector<std::string> DirReader::getAllFiles(
+    const char* directory,
+    const char* extension
+)
 {
     DIR *dir;
     struct dirent *file;
@@ -43,13 +46,25 @@ std::vector<std::string> DirReader::getAllFiles(const char* directory)
     }
 
     while((file = readdir(dir)) != NULL) {
-        std::string name(file->d_name);
 
-        // exclude Linux parent and current folder
-        if(name == ".." || name == ".") {
+        size_t length = strlen(file->d_name);
+        size_t extensionLength = strlen(extension);
+        char fileName[FILENAME_SIZE] = "";
+
+        // exclude Linux parent folder, current folder and files with incorrect extension
+        if(
+            strcmp(file->d_name, "..") == 0 ||
+            strcmp(file->d_name, ".") == 0 ||
+            length <= extensionLength ||
+            strcmp(file->d_name + length - extensionLength, extension) != 0
+        ) {
             continue;
         }
 
+        strncpy(fileName, file->d_name, length - extensionLength);
+        fileName[length-extensionLength] = '\0';
+
+        std::string name(fileName);
         list.push_back(name);
     }
 
