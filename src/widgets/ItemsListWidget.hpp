@@ -74,11 +74,6 @@ public:
     void display(utils::Context* context);
 
     /**
-     * @param list       list of strings to display
-     */
-    void setStringsList(std::vector<std::string> list);
-
-    /**
      * @param textItem   add text item to display in the list
      */
     void addTextItem(std::string textItem);

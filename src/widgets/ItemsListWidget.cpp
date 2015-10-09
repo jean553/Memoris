@@ -192,14 +192,6 @@ void ItemsListWidget::display(utils::Context* context)
 /**
  *
  */
-void ItemsListWidget::setStringsList(std::vector<std::string> list)
-{
-    stringsList = list;
-}
-
-/**
- *
- */
 void ItemsListWidget::addTextItem(std::string textItem)
 {
     stringsList.push_back(textItem);
