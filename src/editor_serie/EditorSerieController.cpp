@@ -184,6 +184,10 @@ unsigned char EditorSerieController::render(utils::Context* context)
 
                                     status = NEW_SERIE;
                                 }
+                                if(buttonOpen.isMouseHover()) {
+                                    nextControllerId =
+                                        factories::ScreenFactory::OPEN_SERIE_CONTROLLER_ID;
+                                }
                                 break;
                             case NEW_SERIE:
                                 if(buttonNewOk.isMouseHover()) {
@@ -237,7 +241,6 @@ unsigned char EditorSerieController::render(utils::Context* context)
 
                                     inputTextNew.clear();
                                 }
-
                         }
                         break;
                     }

@@ -10,6 +10,9 @@ astyle --options=config/astyle.conf src/defines/Sounds.cpp
 astyle --options=config/astyle.conf src/editor_serie/EditorSerieController.hpp
 astyle --options=config/astyle.conf src/editor_serie/EditorSerieController.cpp
 
+astyle --options=config/astyle.conf src/editor_serie/OpenSerieController.hpp
+astyle --options=config/astyle.conf src/editor_serie/OpenSerieController.cpp
+
 astyle --options=config/astyle.conf src/game/GameController.hpp
 astyle --options=config/astyle.conf src/game/GameController.cpp
 
