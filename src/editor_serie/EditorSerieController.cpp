@@ -36,8 +36,6 @@ const std::string EditorSerieController::EDITOR_SERIE_BUTTON_ADD_TEXT = "Add";
 const std::string EditorSerieController::EDITOR_SERIE_BUTTON_EXIT_TEXT = "Exit";
 const std::string EditorSerieController::STRING_OK = "OK";
 const std::string EditorSerieController::STRING_CANCEL = "Cancel";
-const char* EditorSerieController::SERIES_DIRECTORY = "data/series";
-const char* EditorSerieController::SERIE_EXTENSION = ".serie";
 
 /**
  *
@@ -105,13 +103,6 @@ EditorSerieController::EditorSerieController() : Controller()
         LEVELS_LIST_POSITION_Y,
         LEVELS_LIST_WIDTH,
         LEVELS_LIST_LEVELS_NUMBER
-    );
-
-    levelsList.setStringsList(
-        utils::DirReader::getAllFiles(
-            SERIES_DIRECTORY,
-            SERIE_EXTENSION
-        )
     );
 
     inputTextNew.setLayout(

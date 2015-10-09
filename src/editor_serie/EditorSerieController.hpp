@@ -55,8 +55,6 @@ class EditorSerieController : public Controller {
     static const std::string EDITOR_SERIE_BUTTON_EXIT_TEXT;
     static const std::string STRING_OK;
     static const std::string STRING_CANCEL;
-    static const char* SERIES_DIRECTORY;
-    static const char* SERIE_EXTENSION;
 
     static constexpr unsigned int EDITOR_SERIE_BUTTON_NEW_POSITION_X = 10;
     static constexpr unsigned int EDITOR_SERIE_BUTTON_OPEN_POSITION_X = 240;
