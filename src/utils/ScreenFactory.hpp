@@ -33,6 +33,7 @@
 #include "../main_menu/MainMenuController.hpp"
 #include "../new_game/NewGameController.hpp"
 #include "../editor_serie/EditorSerieController.hpp"
+#include "../open_serie/OpenSerieController.hpp"
 
 namespace factories {
 class ScreenFactory {
@@ -42,6 +43,7 @@ public:
     static constexpr unsigned int MAIN_MENU_CONTROLLER_ID = 1;
     static constexpr unsigned int NEW_GAME_CONTROLLER_ID = 2;
     static constexpr unsigned int EDITOR_SERIE_CONTROLLER_ID = 3;
+    static constexpr unsigned int OPEN_SERIE_CONTROLLER_ID = 4;
 
     /**
      * @brief returns a new controller

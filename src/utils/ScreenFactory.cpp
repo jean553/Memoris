@@ -41,6 +41,8 @@ controllers::Controller* ScreenFactory::getScreenById(
             return new controllers::NewGameController;
         case EDITOR_SERIE_CONTROLLER_ID:
             return new controllers::EditorSerieController;
+        case OPEN_SERIE_CONTROLLER_ID:
+            return new controllers::OpenSerieController;
         default:
             return NULL;
     }
