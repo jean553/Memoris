@@ -155,8 +155,8 @@ void ItemsListWidget::display(utils::Context* context)
                                           ITEMS_LIST_ITEM_HEIGHT;
 
         sf::Text item;
-        sf::Texture textureEdit, textureDelete;
-        sf::Sprite spriteEdit, spriteDelete;
+        sf::Texture textureEdit, textureDelete, textureOrderUp, textureOrderDown;
+        sf::Sprite spriteEdit, spriteDelete, spriteOrderUp, spriteOrderDown;
 
         item.setFont(textItemFont);
         item.setCharacterSize(ITEMS_LIST_ITEM_HEIGHT);
@@ -168,8 +168,9 @@ void ItemsListWidget::display(utils::Context* context)
         );
 
         textureEdit.loadFromFile(PATH_IMAGE_EDIT);
-
         textureDelete.loadFromFile(PATH_IMAGE_DELETE);
+        textureOrderUp.loadFromFile(PATH_IMAGE_ARROW_UP);
+        textureOrderDown.loadFromFile(PATH_IMAGE_ARROW_DOWN);
 
         spriteEdit.setTexture(textureEdit, false);
         spriteEdit.setPosition(
@@ -183,9 +184,23 @@ void ItemsListWidget::display(utils::Context* context)
             itemsCommonVerticalPosition
         );
 
+        spriteOrderUp.setTexture(textureOrderUp, false);
+        spriteOrderUp.setPosition(
+            horizontalPosition + width - (width / 4) + 100,
+            itemsCommonVerticalPosition
+        );
+
+        spriteOrderDown.setTexture(textureOrderDown, false);
+        spriteOrderDown.setPosition(
+            horizontalPosition + width - (width / 4) + 150,
+            itemsCommonVerticalPosition
+        );
+
         context->getWindow()->draw(item);
         context->getWindow()->draw(spriteEdit);
         context->getWindow()->draw(spriteDelete);
+        context->getWindow()->draw(spriteOrderUp);
+        context->getWindow()->draw(spriteOrderDown);
     }
 }
 
