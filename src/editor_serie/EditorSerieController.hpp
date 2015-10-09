@@ -132,6 +132,11 @@ private:
     void switchMainMenuButtons(bool areEnabled);
 
     /**
+     * @brief enable the add and save buttons, disable the new and open button
+     */
+    void switchMainMenuButtonsToEditSerieStatus();
+
+    /**
      * @brief initialize the main menu buttons
      */
     void initializeMainMenuButtons();

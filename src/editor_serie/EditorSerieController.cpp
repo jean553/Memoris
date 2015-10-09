@@ -188,14 +188,14 @@ unsigned char EditorSerieController::render(utils::Context* context)
                             case NEW_SERIE:
                                 if(buttonNewOk.isMouseHover()) {
 
-                                    switchMainMenuButtons(true);
-
                                     serieNameLabel.setString(inputTextNew.getText());
                                     serieNameLabel.setPosition(
                                         constants::Dimensions::SCREEN_WIDTH -
                                         serieNameLabel.getLocalBounds().width,
                                         POSITION_SERIE_NAME_LABEL_Y
                                     );
+
+                                    switchMainMenuButtonsToEditSerieStatus();
 
                                     status = EDIT_SERIE;
                                 }
@@ -221,17 +221,17 @@ unsigned char EditorSerieController::render(utils::Context* context)
                             case NEW_LEVEL:
                                 if(buttonNewCancel.isMouseHover()) {
 
-                                    switchMainMenuButtons(true);
-
                                     status = EDIT_SERIE;
+
+                                    switchMainMenuButtonsToEditSerieStatus();
 
                                     inputTextNew.clear();
                                 }
                                 if(buttonNewOk.isMouseHover()) {
 
-                                    switchMainMenuButtons(true);
-
                                     status = EDIT_SERIE;
+
+                                    switchMainMenuButtonsToEditSerieStatus();
 
                                     levelsList.addTextItem(inputTextNew.getText());
 
@@ -258,6 +258,17 @@ void EditorSerieController::switchMainMenuButtons(bool areEnabled)
     buttonOpen.setEnable(areEnabled);
     buttonSave.setEnable(areEnabled);
     buttonAdd.setEnable(areEnabled);
+}
+
+/**
+ *
+ */
+void EditorSerieController::switchMainMenuButtonsToEditSerieStatus()
+{
+    buttonNew.setEnable(false);
+    buttonOpen.setEnable(false);
+    buttonSave.setEnable(true);
+    buttonAdd.setEnable(true);
 }
 
 /**
