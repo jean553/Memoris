@@ -27,6 +27,7 @@
 using namespace controllers;
 
 const std::string OpenSerieController::STRING_OPEN_SERIE_TITLE = "Open serie";
+const std::string OpenSerieController::OPEN_SERIE_BUTTON_EXIT = "Exit";
 
 /**
  *
@@ -35,6 +36,14 @@ OpenSerieController::OpenSerieController() : Controller()
 {
     titleBar.setDisplayedText(
         STRING_OPEN_SERIE_TITLE
+    );
+
+    buttonExit.setLabel(OPEN_SERIE_BUTTON_EXIT);
+
+    buttonExit.setLayout(
+        OPEN_SERIE_BUTTON_EXIT_POSITION_X,
+        OPEN_SERIE_BUTTON_EXIT_POSITION_Y,
+        OPEN_SERIE_BUTTONS_WIDTH
     );
 }
 
@@ -45,12 +54,25 @@ unsigned char OpenSerieController::render(utils::Context* context)
 {
     titleBar.display(context);
 
+    buttonExit.display(context);
+
+    cursor.display(context);
+
     while(context->getWindow()->pollEvent(event)) {
         switch(event.type) {
             case sf::Event::KeyPressed: {
                 switch(event.key.code) {
                     case sf::Keyboard::Escape: {
                         nextControllerId = factories::ScreenFactory::EDITOR_SERIE_CONTROLLER_ID;                        
+                    }
+                }
+            }
+            case sf::Event::MouseButtonPressed: {
+                switch(event.mouseButton.button) {
+                    case sf::Mouse::Left: {
+                        if(buttonExit.isMouseHover()) {
+                            nextControllerId = factories::ScreenFactory::EDITOR_SERIE_CONTROLLER_ID;
+                        }
                     }
                 }
             }
