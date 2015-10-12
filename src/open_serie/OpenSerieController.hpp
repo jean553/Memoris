@@ -33,11 +33,18 @@
 #include "../utils/ScreenFactory.hpp"
 
 #include "../widgets/TitleBarWidget.hpp"
+#include "../widgets/ButtonWidget.hpp"
+#include "../widgets/CursorWidget.hpp"
 
 namespace controllers {
 class OpenSerieController : public Controller {
 
     static const std::string STRING_OPEN_SERIE_TITLE;
+    static const std::string OPEN_SERIE_BUTTON_EXIT;
+
+    static constexpr unsigned int OPEN_SERIE_BUTTON_EXIT_POSITION_X = 1400;
+    static constexpr unsigned int OPEN_SERIE_BUTTON_EXIT_POSITION_Y = 10;
+    static constexpr unsigned int OPEN_SERIE_BUTTONS_WIDTH = 200;
 
 public:
 
@@ -57,6 +64,10 @@ public:
 private:
 
     widgets::TitleBarWidget titleBar;
+
+    widgets::ButtonWidget buttonExit;
+
+    widgets::CursorWidget cursor;
 };
 }
 
