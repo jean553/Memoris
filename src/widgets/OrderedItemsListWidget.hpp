@@ -17,10 +17,11 @@
 */
 
 /**
- * Items list widget, list which displays many
- * textual items, one can be selected
+ * Ordered items list widget, list which displays many
+ * textual items, one can be selected, they can be
+ * ordered using arrows on each item
  *
- * @file ItemsListWidget.hpp
+ * @file OrderedItemsListWidget.hpp
  * @brief list of textual items, one can be selected
  * @package widgets
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
@@ -36,7 +37,7 @@
 #include "../defines/Colors.hpp"
 
 namespace widgets {
-class ItemsListWidget {
+class OrderedItemsListWidget {
 
     static const std::string PATH_IMAGE_ARROW_UP;
     static const std::string PATH_IMAGE_ARROW_DOWN;
@@ -49,7 +50,7 @@ class ItemsListWidget {
 
 public:
 
-    ItemsListWidget();
+    OrderedItemsListWidget();
 
     /**
      * @brief set the size and position of the widget

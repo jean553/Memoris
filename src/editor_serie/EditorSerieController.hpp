@@ -41,7 +41,7 @@
 #include "../widgets/TitleBarWidget.hpp"
 #include "../widgets/ButtonWidget.hpp"
 #include "../widgets/CursorWidget.hpp"
-#include "../widgets/ItemsListWidget.hpp"
+#include "../widgets/OrderedItemsListWidget.hpp"
 #include "../widgets/InputTextWidget.hpp"
 
 namespace controllers {
@@ -114,7 +114,7 @@ private:
 
     widgets::CursorWidget cursor;
 
-    widgets::ItemsListWidget levelsList;
+    widgets::OrderedItemsListWidget levelsList;
 
     widgets::InputTextWidget inputTextNew;
 

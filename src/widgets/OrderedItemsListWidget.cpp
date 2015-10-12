@@ -17,26 +17,26 @@
 */
 
 /**
- * @file ItemsListWidget.cpp
+ * @file OrderedItemsListWidget.cpp
  * @package widgets
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "ItemsListWidget.hpp"
+#include "OrderedItemsListWidget.hpp"
 
 #include "../defines/Fonts.hpp"
 
 using namespace widgets;
 
-const std::string ItemsListWidget::PATH_IMAGE_ARROW_UP = "res/images/up.png";
-const std::string ItemsListWidget::PATH_IMAGE_ARROW_DOWN = "res/images/down.png";
-const std::string ItemsListWidget::PATH_IMAGE_EDIT = "res/images/edit.png";
-const std::string ItemsListWidget::PATH_IMAGE_DELETE = "res/images/delete.png";
+const std::string OrderedItemsListWidget::PATH_IMAGE_ARROW_UP = "res/images/up.png";
+const std::string OrderedItemsListWidget::PATH_IMAGE_ARROW_DOWN = "res/images/down.png";
+const std::string OrderedItemsListWidget::PATH_IMAGE_EDIT = "res/images/edit.png";
+const std::string OrderedItemsListWidget::PATH_IMAGE_DELETE = "res/images/delete.png";
 
 /**
  *
  */
-ItemsListWidget::ItemsListWidget()
+OrderedItemsListWidget::OrderedItemsListWidget()
 {
     textItemFont.loadFromFile(constants::Fonts::getTextFontPath());
 
@@ -60,7 +60,7 @@ ItemsListWidget::ItemsListWidget()
 /**
  *
  */
-void ItemsListWidget::setLayout(
+void OrderedItemsListWidget::setLayout(
     int widgetHorizontalPosition,
     int widgetVerticalPosition,
     int widgetWidth,
@@ -138,7 +138,7 @@ void ItemsListWidget::setLayout(
 /**
  *
  */
-void ItemsListWidget::display(utils::Context* context)
+void OrderedItemsListWidget::display(utils::Context* context)
 {
     context->getWindow()->draw(boxTop);
     context->getWindow()->draw(boxBottom);
@@ -207,7 +207,7 @@ void ItemsListWidget::display(utils::Context* context)
 /**
  *
  */
-void ItemsListWidget::addTextItem(std::string textItem)
+void OrderedItemsListWidget::addTextItem(std::string textItem)
 {
     stringsList.push_back(textItem);
 }
