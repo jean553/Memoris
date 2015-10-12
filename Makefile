@@ -1,6 +1,6 @@
 CC = clang++
 CFLAGS = -std=c++11 -Weverything -Wno-switch -Wno-switch-enum -Wno-c++98-compat -Werror -Wno-padded -Wno-global-constructors -Wno-exit-time-destructors -Wno-implicit-fallthrough -ferror-limit=0 
-OBJS = bin/main.o bin/MainMenuController.o bin/NewGameController.o bin/EditorSerieController.o bin/OpenSerieController.o bin/Controller.o bin/ScreenFactory.o bin/MusicFactory.o bin/Context.o bin/InputTextWidget.o bin/TitleBarWidget.o bin/ButtonWidget.o bin/CursorWidget.o bin/ItemsListWidget.o bin/Fonts.o bin/Sounds.o bin/DirReader.o 
+OBJS = bin/main.o bin/MainMenuController.o bin/NewGameController.o bin/EditorSerieController.o bin/OpenSerieController.o bin/Controller.o bin/ScreenFactory.o bin/MusicFactory.o bin/Context.o bin/InputTextWidget.o bin/TitleBarWidget.o bin/ButtonWidget.o bin/CursorWidget.o bin/OrderedItemsListWidget.o bin/Fonts.o bin/Sounds.o bin/DirReader.o 
 DEPS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 Memoris: $(OBJS)
@@ -47,8 +47,8 @@ bin/ButtonWidget.o: src/widgets/ButtonWidget.cpp
 bin/CursorWidget.o: src/widgets/CursorWidget.cpp
 	$(CC) $(CFLAGS) -c src/widgets/CursorWidget.cpp -o bin/CursorWidget.o
 
-bin/ItemsListWidget.o: src/widgets/ItemsListWidget.cpp
-	$(CC) $(CFLAGS) -c src/widgets/ItemsListWidget.cpp -o bin/ItemsListWidget.o
+bin/OrderedItemsListWidget.o: src/widgets/OrderedItemsListWidget.cpp
+	$(CC) $(CFLAGS) -c src/widgets/OrderedItemsListWidget.cpp -o bin/OrderedItemsListWidget.o
 
 bin/Fonts.o: src/defines/Fonts.cpp
 	$(CC) $(CFLAGS) -c src/defines/Fonts.cpp -o bin/Fonts.o
