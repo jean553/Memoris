@@ -194,3 +194,11 @@ void ItemsListWidget::display(utils::Context* context)
         context->getWindow()->draw(spriteOrderDown);
     }
 }
+
+/**
+ *
+ */
+void ItemsListWidget::setStringsList(std::vector<std::string> list)
+{
+    stringsList = list;
+}

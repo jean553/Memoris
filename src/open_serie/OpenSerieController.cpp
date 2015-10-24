@@ -24,6 +24,8 @@
 
 #include "OpenSerieController.hpp"
 
+#include "../utils/DirReader.hpp"
+
 using namespace controllers;
 
 const std::string OpenSerieController::STRING_OPEN_SERIE_TITLE = "Open serie";
@@ -51,6 +53,13 @@ OpenSerieController::OpenSerieController() : Controller()
         SERIES_LIST_POSITION_Y,
         SERIES_LIST_WIDTH,
         SERIES_LIST_SERIES_NUMBER
+    );
+
+    seriesList.setStringsList(
+        utils::DirReader::getAllFiles(
+            "data/series",
+            ".serie"
+        )
     );
 }
 

@@ -68,6 +68,13 @@ public:
      */
     void display(utils::Context* context);
 
+    /**
+     * @brief setter for the items list widget strings list
+     *
+     * @param list array of strings to display
+     */
+    void setStringsList(std::vector<std::string> list);
+
 protected:
 
     static const std::string PATH_IMAGE_ARROW_UP;
