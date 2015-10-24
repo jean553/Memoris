@@ -1,6 +1,6 @@
 CC = clang++
 CFLAGS = -std=c++11 -Weverything -Wno-switch -Wno-switch-enum -Wno-c++98-compat -Werror -Wno-padded -Wno-global-constructors -Wno-exit-time-destructors -Wno-implicit-fallthrough -ferror-limit=0 
-OBJS = bin/main.o bin/MainMenuController.o bin/NewGameController.o bin/EditorSerieController.o bin/OpenSerieController.o bin/Controller.o bin/ScreenFactory.o bin/MusicFactory.o bin/Context.o bin/InputTextWidget.o bin/TitleBarWidget.o bin/ButtonWidget.o bin/CursorWidget.o bin/ItemsListWidget.o bin/OrderedItemsListWidget.o bin/Fonts.o bin/Sounds.o bin/DirReader.o 
+OBJS = bin/main.o bin/MainMenuController.o bin/NewGameController.o bin/EditorSerieController.o bin/OpenSerieController.o bin/Controller.o bin/ScreenFactory.o bin/MusicFactory.o bin/Context.o bin/InputTextWidget.o bin/TitleBarWidget.o bin/ButtonWidget.o bin/CursorWidget.o bin/ItemsListWidget.o bin/OrderedItemsListWidget.o bin/Fonts.o bin/Sounds.o bin/DirReader.o bin/FileWriter.o
 DEPS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 Memoris: $(OBJS)
@@ -34,6 +34,9 @@ bin/MusicFactory.o: src/utils/MusicFactory.cpp
 
 bin/Context.o: src/utils/Context.cpp
 	$(CC) $(CFLAGS) -c src/utils/Context.cpp -o bin/Context.o
+
+bin/FileWriter.o: src/utils/FileWriter.cpp
+	$(CC) $(CFLAGS) -c src/utils/FileWriter.cpp -o bin/FileWriter.o
 
 bin/InputTextWidget.o: src/widgets/InputTextWidget.cpp
 	$(CC) $(CFLAGS) -c src/widgets/InputTextWidget.cpp -o bin/InputTextWidget.o
