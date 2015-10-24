@@ -27,45 +27,26 @@
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_ITEMS_LIST_WIDGET
-#define DEF_ITEMS_LIST_WIDGET
+#ifndef DEF_ORDERED_ITEMS_LIST_WIDGET
+#define DEF_ORDERED_ITEMS_LIST_WIDGET
 
 #include <SFML/Graphics.hpp>
 
 #include "../utils/Context.hpp"
 
+#include "ItemsListWidget.hpp"
+
 #include "../defines/Colors.hpp"
 
 namespace widgets {
-class OrderedItemsListWidget {
+class OrderedItemsListWidget : public ItemsListWidget {
 
-    static const std::string PATH_IMAGE_ARROW_UP;
-    static const std::string PATH_IMAGE_ARROW_DOWN;
     static const std::string PATH_IMAGE_EDIT;
     static const std::string PATH_IMAGE_DELETE;
-
-    static constexpr int ITEMS_LIST_BORDER_SIZE = 1;
-    static constexpr int ITEMS_LIST_ITEM_HEIGHT = 40;
-    static constexpr int ITEMS_LIST_ARROW_DIM = 40;
 
 public:
 
     OrderedItemsListWidget();
-
-    /**
-     * @brief set the size and position of the widget
-     *
-     * @param widgetHorizontalPosition       horizontal position
-     * @param widgetVerticalPosition         integer vertical position
-     * @param widgetWidth                    width
-     * @param verticalTextContainers         vertical text containers
-     */
-    void setLayout(
-        int widgetHorizontalPosition,
-        int widgetVerticalPosition,
-        int widgetWidth,
-        unsigned char verticalTextContainers
-    );
 
     /**
      * @brief display the items list widget
@@ -73,35 +54,6 @@ public:
      * @param context  current context pointer
      */
     void display(utils::Context* context);
-
-    /**
-     * @param textItem   add text item to display in the list
-     */
-    void addTextItem(std::string textItem);
-
-private:
-
-    int horizontalPosition;
-    int verticalPosition;
-    int width;
-    unsigned char verticalContainers;
-
-    sf::Font textItemFont;
-
-    sf::Color color;
-
-    sf::RectangleShape boxTop;
-    sf::RectangleShape boxBottom;
-    sf::RectangleShape boxLeft;
-    sf::RectangleShape boxRight;
-
-    sf::Texture textureUp;
-    sf::Texture textureDown;
-
-    sf::Sprite spriteUp;
-    sf::Sprite spriteDown;
-
-    std::vector<std::string> stringsList;
 };
 }
 

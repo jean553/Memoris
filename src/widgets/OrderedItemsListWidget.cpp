@@ -24,115 +24,16 @@
 
 #include "OrderedItemsListWidget.hpp"
 
-#include "../defines/Fonts.hpp"
-
 using namespace widgets;
 
-const std::string OrderedItemsListWidget::PATH_IMAGE_ARROW_UP = "res/images/up.png";
-const std::string OrderedItemsListWidget::PATH_IMAGE_ARROW_DOWN = "res/images/down.png";
 const std::string OrderedItemsListWidget::PATH_IMAGE_EDIT = "res/images/edit.png";
 const std::string OrderedItemsListWidget::PATH_IMAGE_DELETE = "res/images/delete.png";
 
 /**
  *
  */
-OrderedItemsListWidget::OrderedItemsListWidget()
+OrderedItemsListWidget::OrderedItemsListWidget() : ItemsListWidget()
 {
-    textItemFont.loadFromFile(constants::Fonts::getTextFontPath());
-
-    color.r = constants::Colors::COLOR_WHITE_RED;
-    color.g = constants::Colors::COLOR_WHITE_GREEN;
-    color.b = constants::Colors::COLOR_WHITE_BLUE;
-    color.a = constants::Colors::COLOR_ALPHA_FULL;
-
-    boxTop.setFillColor(color);
-    boxBottom.setFillColor(color);
-    boxLeft.setFillColor(color);
-    boxRight.setFillColor(color);
-
-    textureUp.loadFromFile(PATH_IMAGE_ARROW_UP);
-    spriteUp.setTexture(textureUp, true);
-
-    textureDown.loadFromFile(PATH_IMAGE_ARROW_DOWN);
-    spriteDown.setTexture(textureDown, true);
-}
-
-/**
- *
- */
-void OrderedItemsListWidget::setLayout(
-    int widgetHorizontalPosition,
-    int widgetVerticalPosition,
-    int widgetWidth,
-    unsigned char verticalTextContainers
-)
-{
-    horizontalPosition = widgetHorizontalPosition;
-    verticalPosition = widgetVerticalPosition;
-    width = widgetWidth;
-    verticalContainers = verticalTextContainers;
-
-    boxTop.setPosition(
-        horizontalPosition,
-        verticalPosition
-    );
-
-    boxBottom.setPosition(
-        horizontalPosition,
-        verticalPosition +
-        verticalContainers *
-        ITEMS_LIST_ITEM_HEIGHT
-    );
-
-    boxLeft.setPosition(
-        horizontalPosition,
-        verticalPosition
-    );
-
-    boxRight.setPosition(
-        horizontalPosition +
-        width,
-        verticalPosition
-    );
-
-    spriteUp.setPosition(
-        horizontalPosition +
-        width -
-        ITEMS_LIST_ARROW_DIM,
-        verticalPosition
-    );
-
-    spriteDown.setPosition(
-        horizontalPosition +
-        width -
-        ITEMS_LIST_ARROW_DIM,
-        verticalPosition +
-        verticalContainers *
-        ITEMS_LIST_ITEM_HEIGHT -
-        ITEMS_LIST_ARROW_DIM
-    );
-
-    boxTop.setSize(sf::Vector2f(
-                       width,
-                       ITEMS_LIST_BORDER_SIZE
-                   ));
-
-    boxBottom.setSize(sf::Vector2f(
-                          width,
-                          ITEMS_LIST_BORDER_SIZE
-                      ));
-
-    boxLeft.setSize(sf::Vector2f(
-                        ITEMS_LIST_BORDER_SIZE,
-                        verticalContainers *
-                        ITEMS_LIST_ITEM_HEIGHT
-                    ));
-
-    boxRight.setSize(sf::Vector2f(
-                         ITEMS_LIST_BORDER_SIZE,
-                         verticalContainers *
-                         ITEMS_LIST_ITEM_HEIGHT
-                     ));
 }
 
 /**
@@ -140,12 +41,7 @@ void OrderedItemsListWidget::setLayout(
  */
 void OrderedItemsListWidget::display(utils::Context* context)
 {
-    context->getWindow()->draw(boxTop);
-    context->getWindow()->draw(boxBottom);
-    context->getWindow()->draw(boxLeft);
-    context->getWindow()->draw(boxRight);
-    context->getWindow()->draw(spriteUp);
-    context->getWindow()->draw(spriteDown);
+    ItemsListWidget::display(context);
 
     for(std::vector<std::string>::iterator textItem = stringsList.begin();
             textItem != stringsList.end(); ++textItem) {
@@ -154,23 +50,11 @@ void OrderedItemsListWidget::display(utils::Context* context)
                                           (static_cast<int> (std::distance(stringsList.begin(), textItem))) *
                                           ITEMS_LIST_ITEM_HEIGHT;
 
-        sf::Text item;
-        sf::Texture textureEdit, textureDelete, textureOrderUp, textureOrderDown;
-        sf::Sprite spriteEdit, spriteDelete, spriteOrderUp, spriteOrderDown;
-
-        item.setFont(textItemFont);
-        item.setCharacterSize(ITEMS_LIST_ITEM_HEIGHT);
-        item.setColor(color);
-        item.setString(*textItem);
-        item.setPosition(
-            horizontalPosition,
-            itemsCommonVerticalPosition
-        );
+        sf::Texture textureEdit, textureDelete;
+        sf::Sprite spriteEdit, spriteDelete;
 
         textureEdit.loadFromFile(PATH_IMAGE_EDIT);
         textureDelete.loadFromFile(PATH_IMAGE_DELETE);
-        textureOrderUp.loadFromFile(PATH_IMAGE_ARROW_UP);
-        textureOrderDown.loadFromFile(PATH_IMAGE_ARROW_DOWN);
 
         spriteEdit.setTexture(textureEdit, false);
         spriteEdit.setPosition(
@@ -184,30 +68,7 @@ void OrderedItemsListWidget::display(utils::Context* context)
             itemsCommonVerticalPosition
         );
 
-        spriteOrderUp.setTexture(textureOrderUp, false);
-        spriteOrderUp.setPosition(
-            horizontalPosition + width - (width / 4) + 100,
-            itemsCommonVerticalPosition
-        );
-
-        spriteOrderDown.setTexture(textureOrderDown, false);
-        spriteOrderDown.setPosition(
-            horizontalPosition + width - (width / 4) + 150,
-            itemsCommonVerticalPosition
-        );
-
-        context->getWindow()->draw(item);
         context->getWindow()->draw(spriteEdit);
         context->getWindow()->draw(spriteDelete);
-        context->getWindow()->draw(spriteOrderUp);
-        context->getWindow()->draw(spriteOrderDown);
     }
-}
-
-/**
- *
- */
-void OrderedItemsListWidget::addTextItem(std::string textItem)
-{
-    stringsList.push_back(textItem);
 }

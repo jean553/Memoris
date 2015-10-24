@@ -41,5 +41,7 @@ astyle --options=config/astyle.conf src/widgets/InputTextWidget.hpp
 astyle --options=config/astyle.conf src/widgets/InputTextWidget.cpp
 astyle --options=config/astyle.conf src/widgets/OrderedItemsListWidget.hpp
 astyle --options=config/astyle.conf src/widgets/OrderedItemsListWidget.cpp
+astyle --options=config/astyle.conf src/widgets/ItemsListWidget.hpp
+astyle --options=config/astyle.conf src/widgets/ItemsListWidget.cpp
 astyle --options=config/astyle.conf src/widgets/TitleBarWidget.hpp
 astyle --options=config/astyle.conf src/widgets/TitleBarWidget.cpp
