@@ -45,6 +45,13 @@ OpenSerieController::OpenSerieController() : Controller()
         OPEN_SERIE_BUTTON_EXIT_POSITION_Y,
         OPEN_SERIE_BUTTONS_WIDTH
     );
+
+    seriesList.setLayout(
+        SERIES_LIST_POSITION_X,
+        SERIES_LIST_POSITION_Y,
+        SERIES_LIST_WIDTH,
+        SERIES_LIST_SERIES_NUMBER
+    );
 }
 
 /**
@@ -53,9 +60,8 @@ OpenSerieController::OpenSerieController() : Controller()
 unsigned char OpenSerieController::render(utils::Context* context)
 {
     titleBar.display(context);
-
     buttonExit.display(context);
-
+    seriesList.display(context);
     cursor.display(context);
 
     while(context->getWindow()->pollEvent(event)) {

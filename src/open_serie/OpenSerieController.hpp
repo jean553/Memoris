@@ -35,6 +35,7 @@
 #include "../widgets/TitleBarWidget.hpp"
 #include "../widgets/ButtonWidget.hpp"
 #include "../widgets/CursorWidget.hpp"
+#include "../widgets/ItemsListWidget.hpp"
 
 namespace controllers {
 class OpenSerieController : public Controller {
@@ -45,6 +46,10 @@ class OpenSerieController : public Controller {
     static constexpr unsigned int OPEN_SERIE_BUTTON_EXIT_POSITION_X = 1400;
     static constexpr unsigned int OPEN_SERIE_BUTTON_EXIT_POSITION_Y = 10;
     static constexpr unsigned int OPEN_SERIE_BUTTONS_WIDTH = 200;
+    static constexpr unsigned int SERIES_LIST_POSITION_X = 10;
+    static constexpr unsigned int SERIES_LIST_POSITION_Y = 130;
+    static constexpr unsigned int SERIES_LIST_WIDTH = 1580;
+    static constexpr unsigned int SERIES_LIST_SERIES_NUMBER = 18;
 
 public:
 
@@ -68,6 +73,8 @@ private:
     widgets::ButtonWidget buttonExit;
 
     widgets::CursorWidget cursor;
+
+    widgets::ItemsListWidget seriesList;
 };
 }
 
