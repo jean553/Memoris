@@ -38,6 +38,7 @@ public:
     static constexpr unsigned int SIZE_SUB_TITLE_FONT = 70;
     static constexpr unsigned int SIZE_ITEM_FONT = 60;
     static constexpr unsigned int SIZE_TEXT_FONT = 50;
+    static constexpr unsigned int SIZE_MESSAGE_FONT = 30;
 
     /**
      * @return string

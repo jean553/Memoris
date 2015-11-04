@@ -26,6 +26,8 @@
 
 #include "../defines/Dimensions.hpp"
 
+#include "../utils/DirReader.hpp"
+
 using namespace controllers;
 
 const std::string EditorSerieController::STRING_EDITOR_SERIE_TITLE = "Serie editor";
@@ -36,12 +38,15 @@ const std::string EditorSerieController::EDITOR_SERIE_BUTTON_ADD_TEXT = "Add";
 const std::string EditorSerieController::EDITOR_SERIE_BUTTON_EXIT_TEXT = "Exit";
 const std::string EditorSerieController::STRING_OK = "OK";
 const std::string EditorSerieController::STRING_CANCEL = "Cancel";
+const std::string EditorSerieController::STRING_NEW_SERIE_ERROR = "Cannot create the new serie...";
 
 /**
  *
  */
 EditorSerieController::EditorSerieController() : Controller()
 {
+    errorNewSerie = false;
+
     status = MAIN_MENU;
 
     titleBar.setDisplayedText(
@@ -116,11 +121,25 @@ EditorSerieController::EditorSerieController() : Controller()
     serieNameLabelColor.b = constants::Colors::COLOR_WHITE_BLUE;
     serieNameLabelColor.a = constants::Colors::COLOR_ALPHA_FULL;
 
+    errorLabelColor.r = constants::Colors::COLOR_RED_RED;
+    errorLabelColor.g = constants::Colors::COLOR_RED_GREEN;
+    errorLabelColor.b = constants::Colors::COLOR_RED_BLUE;
+    errorLabelColor.a = constants::Colors::COLOR_ALPHA_FULL;
+
     serieNameLabelFont.loadFromFile(constants::Fonts::getTextFontPath());
 
     serieNameLabel.setFont(serieNameLabelFont);
     serieNameLabel.setCharacterSize(constants::Fonts::SIZE_SUB_TITLE_FONT);
     serieNameLabel.setColor(serieNameLabelColor);
+
+    errorLabel.setFont(serieNameLabelFont);
+    errorLabel.setCharacterSize(constants::Fonts::SIZE_MESSAGE_FONT);
+    errorLabel.setColor(errorLabelColor);
+    errorLabel.setString(STRING_NEW_SERIE_ERROR);
+    errorLabel.setPosition(
+        ERROR_NEW_SERIE_POSITION_X,
+        ERROR_NEW_SERIE_POSITION_Y
+    );
 
     initializeMainMenuButtons();
 }
@@ -148,6 +167,11 @@ unsigned char EditorSerieController::render(utils::Context* context)
     // displays the serie name if a serie is loaded
     if (status != MAIN_MENU) {
         context->getWindow()->draw(serieNameLabel);
+    }
+
+    // displays the serie error message if an error just occured
+    if (errorNewSerie) {
+        context->getWindow()->draw(errorLabel);
     }
 
     cursor.display(context);
@@ -192,6 +216,13 @@ unsigned char EditorSerieController::render(utils::Context* context)
                             case NEW_SERIE:
                                 if(buttonNewOk.isMouseHover()) {
 
+                                    if (serieExists(inputTextNew.getText())) {
+                                        errorNewSerie = true;
+                                        continue;
+                                    }
+
+                                    errorNewSerie = false;
+
                                     serieNameLabel.setString(inputTextNew.getText());
                                     serieNameLabel.setPosition(
                                         constants::Dimensions::SCREEN_WIDTH -
@@ -207,6 +238,8 @@ unsigned char EditorSerieController::render(utils::Context* context)
 
                                     buttonNew.setEnable(true);
                                     buttonOpen.setEnable(true);
+
+                                    errorNewSerie = false;
 
                                     status = MAIN_MENU;
 
@@ -283,4 +316,17 @@ void EditorSerieController::initializeMainMenuButtons()
     buttonOpen.setEnable(true);
     buttonSave.setEnable(false);
     buttonAdd.setEnable(false);
+}
+
+/**
+ *
+ */
+bool EditorSerieController::serieExists(std::string serieName)
+{
+    std::vector<std::string> seriesNames = utils::DirReader::getAllFiles(
+            "data/series",
+            ".serie"
+                                           );
+
+    return std::find(seriesNames.begin(), seriesNames.end(), serieName) != seriesNames.end();
 }
