@@ -121,6 +121,11 @@ EditorSerieController::EditorSerieController() : Controller()
     serieNameLabelColor.b = constants::Colors::COLOR_WHITE_BLUE;
     serieNameLabelColor.a = constants::Colors::COLOR_ALPHA_FULL;
 
+    serieNameLabelUnsavedColor.r = constants::Colors::COLOR_GREY_RED;
+    serieNameLabelUnsavedColor.g = constants::Colors::COLOR_GREY_GREEN;
+    serieNameLabelUnsavedColor.b = constants::Colors::COLOR_GREY_BLUE;
+    serieNameLabelUnsavedColor.a = constants::Colors::COLOR_ALPHA_FULL;
+
     errorLabelColor.r = constants::Colors::COLOR_RED_RED;
     errorLabelColor.g = constants::Colors::COLOR_RED_GREEN;
     errorLabelColor.b = constants::Colors::COLOR_RED_BLUE;
@@ -130,7 +135,7 @@ EditorSerieController::EditorSerieController() : Controller()
 
     serieNameLabel.setFont(serieNameLabelFont);
     serieNameLabel.setCharacterSize(constants::Fonts::SIZE_SUB_TITLE_FONT);
-    serieNameLabel.setColor(serieNameLabelColor);
+    serieNameLabel.setColor(serieNameLabelUnsavedColor);
 
     errorLabel.setFont(serieNameLabelFont);
     errorLabel.setCharacterSize(constants::Fonts::SIZE_MESSAGE_FONT);
@@ -255,6 +260,12 @@ unsigned char EditorSerieController::render(utils::Context* context)
 
                                     inputTextNew.clear();
                                 }
+                                if(buttonSave.isMouseHover()) {
+
+                                    //TODO: write file content
+
+                                    displaySavedSerieName(true);
+                                }
                             case NEW_LEVEL:
                                 if(buttonNewCancel.isMouseHover()) {
 
@@ -263,6 +274,9 @@ unsigned char EditorSerieController::render(utils::Context* context)
                                     switchMainMenuButtonsToEditSerieStatus();
 
                                     inputTextNew.clear();
+
+                                    buttonAdd.setEnable(true);
+                                    buttonSave.setEnable(false);
                                 }
                                 if(buttonNewOk.isMouseHover()) {
 
@@ -273,6 +287,8 @@ unsigned char EditorSerieController::render(utils::Context* context)
                                     levelsList.addTextItem(inputTextNew.getText());
 
                                     inputTextNew.clear();
+
+                                    displaySavedSerieName(false);
                                 }
                         }
                         break;
@@ -316,6 +332,20 @@ void EditorSerieController::initializeMainMenuButtons()
     buttonOpen.setEnable(true);
     buttonSave.setEnable(false);
     buttonAdd.setEnable(false);
+}
+
+/**
+ *
+ */
+void EditorSerieController::displaySavedSerieName(bool saved)
+{
+    if (saved) {
+        serieNameLabel.setColor(serieNameLabelColor);
+    } else {
+        serieNameLabel.setColor(serieNameLabelUnsavedColor);
+    }
+
+    buttonSave.setEnable(!saved);
 }
 
 /**

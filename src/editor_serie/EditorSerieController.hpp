@@ -63,9 +63,9 @@ class EditorSerieController : public Controller {
     static constexpr unsigned int EDITOR_SERIE_BUTTON_ADD_POSITION_X = 700;
     static constexpr unsigned int EDITOR_SERIE_BUTTON_EXIT_POSITION_X = 1390;
     static constexpr unsigned int EDITOR_SERIE_BUTTONS_POSITION_Y = 100;
-    static constexpr unsigned int EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_X = 380;
+    static constexpr unsigned int EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_X = 600;
     static constexpr unsigned int EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_Y = 175;
-    static constexpr unsigned int EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_X = 590;
+    static constexpr unsigned int EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_X = 810;
     static constexpr unsigned int EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_Y = 175;
     static constexpr unsigned int EDITOR_SERIE_BUTTONS_WIDTH = 200;
     static constexpr unsigned int LEVELS_LIST_POSITION_X = 10;
@@ -126,6 +126,7 @@ private:
     sf::Font serieNameLabelFont;
 
     sf::Color serieNameLabelColor;
+    sf::Color serieNameLabelUnsavedColor;
     sf::Color errorLabelColor;
 
     sf::Text serieNameLabel;
@@ -156,6 +157,15 @@ private:
      * @return boolean
      */
     bool serieExists(std::string serieName);
+
+    /**
+     * @brief changes the color of the displayed serie
+     * name, according if the latest version of
+     * the serie has been persisted
+     *
+     * @param saved true if saved, false if unsaved
+     */
+    void displaySavedSerieName(bool saved);
 };
 }
 
