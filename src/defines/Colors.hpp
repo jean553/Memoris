@@ -42,6 +42,10 @@ public:
     static constexpr unsigned int COLOR_WHITE_GREEN = 255;
     static constexpr unsigned int COLOR_WHITE_BLUE = 255;
 
+    static constexpr unsigned int COLOR_GREY_RED = 169;
+    static constexpr unsigned int COLOR_GREY_GREEN = 169;
+    static constexpr unsigned int COLOR_GREY_BLUE = 169;
+
     static constexpr unsigned int COLOR_RED_RED = 255;
     static constexpr unsigned int COLOR_RED_GREEN = 0;
     static constexpr unsigned int COLOR_RED_BLUE = 0;
