@@ -34,6 +34,8 @@ astyle --options=config/astyle.conf src/utils/DirReader.hpp
 astyle --options=config/astyle.conf src/utils/DirReader.cpp
 astyle --options=config/astyle.conf src/utils/FileWriter.hpp
 astyle --options=config/astyle.conf src/utils/FileWriter.cpp
+astyle --options=config/astyle.conf src/utils/StringsListsUtils.hpp
+astyle --options=config/astyle.conf src/utils/StringsListsUtils.cpp
 
 astyle --options=config/astyle.conf src/widgets/ButtonWidget.hpp
 astyle --options=config/astyle.conf src/widgets/ButtonWidget.cpp

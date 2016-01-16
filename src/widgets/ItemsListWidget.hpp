@@ -75,6 +75,13 @@ public:
      */
     void setStringsList(std::vector<std::string> list);
 
+    /**
+     * @brief getter for the items list widget strings list
+     *
+     * @return list array of strings to display
+     */
+    std::vector<std::string> getStringsList();
+
 protected:
 
     static const std::string PATH_IMAGE_ARROW_UP;

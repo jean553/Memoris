@@ -27,6 +27,7 @@
 #include "../defines/Dimensions.hpp"
 
 #include "../utils/DirReader.hpp"
+#include "../utils/StringsListsUtils.hpp"
 
 using namespace controllers;
 
@@ -279,6 +280,14 @@ unsigned char EditorSerieController::render(utils::Context* context)
                                     buttonSave.setEnable(false);
                                 }
                                 if(buttonNewOk.isMouseHover()) {
+
+                                    // do not add the level if already in the loaded serie
+                                    if (utils::StringsListsUtils::stringsListContainsString(
+                                                levelsList.getStringsList(),
+                                                inputTextNew.getText()
+                                            )) {
+                                        continue;
+                                    }
 
                                     status = EDIT_SERIE;
 
