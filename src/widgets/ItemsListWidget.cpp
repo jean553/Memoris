@@ -202,3 +202,11 @@ void ItemsListWidget::setStringsList(std::vector<std::string> list)
 {
     stringsList = list;
 }
+
+/**
+ *
+ */
+std::vector<std::string> ItemsListWidget::getStringsList()
+{
+    return stringsList;
+}
