@@ -385,5 +385,5 @@ bool EditorSerieController::serieExists(std::string serieName)
             ".serie"
                                            );
 
-    return std::find(seriesNames.begin(), seriesNames.end(), serieName) != seriesNames.end();
+    return utils::StringsListsUtils::stringsListContainsString(seriesNames, serieName);
 }
