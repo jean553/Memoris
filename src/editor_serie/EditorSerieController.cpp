@@ -40,6 +40,7 @@ const std::string EditorSerieController::EDITOR_SERIE_BUTTON_EXIT_TEXT = "Exit";
 const std::string EditorSerieController::STRING_OK = "OK";
 const std::string EditorSerieController::STRING_CANCEL = "Cancel";
 const std::string EditorSerieController::STRING_NEW_SERIE_ERROR = "Cannot create the new serie...";
+const std::string EditorSerieController::STRING_NEW_LEVEL_ERROR = "The level already exists !";
 
 /**
  *
@@ -47,6 +48,7 @@ const std::string EditorSerieController::STRING_NEW_SERIE_ERROR = "Cannot create
 EditorSerieController::EditorSerieController() : Controller()
 {
     errorNewSerie = false;
+    errorNewLevel = false;
 
     status = MAIN_MENU;
 
@@ -143,8 +145,17 @@ EditorSerieController::EditorSerieController() : Controller()
     errorLabel.setColor(errorLabelColor);
     errorLabel.setString(STRING_NEW_SERIE_ERROR);
     errorLabel.setPosition(
-        ERROR_NEW_SERIE_POSITION_X,
-        ERROR_NEW_SERIE_POSITION_Y
+        ERROR_MESSAGE_POSITION_X,
+        ERROR_MESSAGE_POSITION_Y
+    );
+
+    levelErrorLabel.setFont(serieNameLabelFont);
+    levelErrorLabel.setCharacterSize(constants::Fonts::SIZE_MESSAGE_FONT);
+    levelErrorLabel.setColor(errorLabelColor);
+    levelErrorLabel.setString(STRING_NEW_LEVEL_ERROR);
+    levelErrorLabel.setPosition(
+        ERROR_MESSAGE_POSITION_X,
+        ERROR_MESSAGE_POSITION_Y
     );
 
     initializeMainMenuButtons();
@@ -175,9 +186,11 @@ unsigned char EditorSerieController::render(utils::Context* context)
         context->getWindow()->draw(serieNameLabel);
     }
 
-    // displays the serie error message if an error just occured
+    // displays the error message if an error just occured
     if (errorNewSerie) {
         context->getWindow()->draw(errorLabel);
+    } else if (errorNewLevel) {
+        context->getWindow()->draw(levelErrorLabel);
     }
 
     cursor.display(context);
@@ -270,6 +283,8 @@ unsigned char EditorSerieController::render(utils::Context* context)
                             case NEW_LEVEL:
                                 if(buttonNewCancel.isMouseHover()) {
 
+                                    errorNewLevel = false;
+
                                     status = EDIT_SERIE;
 
                                     switchMainMenuButtonsToEditSerieStatus();
@@ -286,8 +301,11 @@ unsigned char EditorSerieController::render(utils::Context* context)
                                                 levelsList.getStringsList(),
                                                 inputTextNew.getText()
                                             )) {
+                                        errorNewLevel = true;
                                         continue;
                                     }
+
+                                    errorNewLevel = false;
 
                                     status = EDIT_SERIE;
 

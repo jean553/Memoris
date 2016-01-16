@@ -56,6 +56,7 @@ class EditorSerieController : public Controller {
     static const std::string STRING_OK;
     static const std::string STRING_CANCEL;
     static const std::string STRING_NEW_SERIE_ERROR;
+    static const std::string STRING_NEW_LEVEL_ERROR;
 
     static constexpr unsigned int EDITOR_SERIE_BUTTON_NEW_POSITION_X = 10;
     static constexpr unsigned int EDITOR_SERIE_BUTTON_OPEN_POSITION_X = 240;
@@ -63,9 +64,9 @@ class EditorSerieController : public Controller {
     static constexpr unsigned int EDITOR_SERIE_BUTTON_ADD_POSITION_X = 700;
     static constexpr unsigned int EDITOR_SERIE_BUTTON_EXIT_POSITION_X = 1390;
     static constexpr unsigned int EDITOR_SERIE_BUTTONS_POSITION_Y = 100;
-    static constexpr unsigned int EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_X = 600;
+    static constexpr unsigned int EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_X = 380;
     static constexpr unsigned int EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_Y = 175;
-    static constexpr unsigned int EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_X = 810;
+    static constexpr unsigned int EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_X = 590;
     static constexpr unsigned int EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_Y = 175;
     static constexpr unsigned int EDITOR_SERIE_BUTTONS_WIDTH = 200;
     static constexpr unsigned int LEVELS_LIST_POSITION_X = 10;
@@ -76,8 +77,8 @@ class EditorSerieController : public Controller {
     static constexpr unsigned int POSITION_NEW_SERIE_INPUT_TEXT_Y = 175;
     static constexpr unsigned int SIZE_NEW_SERIE_TEXT = 350;
     static constexpr unsigned int POSITION_SERIE_NAME_LABEL_Y = 0;
-    static constexpr unsigned int ERROR_NEW_SERIE_POSITION_X = 800;
-    static constexpr unsigned int ERROR_NEW_SERIE_POSITION_Y = 200;
+    static constexpr unsigned int ERROR_MESSAGE_POSITION_X = 800;
+    static constexpr unsigned int ERROR_MESSAGE_POSITION_Y = 200;
 
 public:
 
@@ -97,6 +98,7 @@ public:
 private:
 
     bool errorNewSerie;
+    bool errorNewLevel;
 
     enum EditorSerieStatus {
         MAIN_MENU,
@@ -131,6 +133,7 @@ private:
 
     sf::Text serieNameLabel;
     sf::Text errorLabel;
+    sf::Text levelErrorLabel;
 
     /**
      * @brief enable/disable all the series editor main menu buttons
