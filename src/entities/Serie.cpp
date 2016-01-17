@@ -17,36 +17,27 @@
 */
 
 /**
- * @file FileWriter.cpp
- * @package utils
+ * @file Serie.cpp
+ * @package entities
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "FileWriter.hpp"
+#include "Serie.hpp"
 
-#include <fstream>
-
-using namespace utils;
+using namespace entities;
 
 /**
  *
  */
-void FileWriter::writeStringsListIntoFile()
+void Serie::setName(std::string serieName)
 {
+    name = serieName;
 }
 
 /**
  *
  */
-bool FileWriter::createFile(std::string fileName)
+std::string Serie::getName()
 {
-    std::ofstream file(fileName, std::ofstream::out);
-
-    if (!file.is_open()) {
-        return false;
-    }
-
-    file.close();
-
-    return true;
+    return name;
 }

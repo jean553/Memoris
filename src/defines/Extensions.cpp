@@ -17,36 +17,16 @@
 */
 
 /**
- * @file FileWriter.cpp
- * @package utils
+ * @file Extensions.cpp
+ * @brief files extensions
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "FileWriter.hpp"
+#include "Extensions.hpp"
 
-#include <fstream>
+using namespace constants;
 
-using namespace utils;
-
-/**
- *
- */
-void FileWriter::writeStringsListIntoFile()
+std::string Extensions::getSeriesExtension()
 {
-}
-
-/**
- *
- */
-bool FileWriter::createFile(std::string fileName)
-{
-    std::ofstream file(fileName, std::ofstream::out);
-
-    if (!file.is_open()) {
-        return false;
-    }
-
-    file.close();
-
-    return true;
+    return ".serie";
 }

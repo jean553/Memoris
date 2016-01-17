@@ -1,4 +1,4 @@
-/**
+/*
  * Memoris
  * Copyright (C) 2015  Jean LELIEVRE
  *
@@ -17,36 +17,40 @@
 */
 
 /**
- * @file FileWriter.cpp
- * @package utils
+ * @file Serie.hpp
+ * @brief serie entity
+ * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "FileWriter.hpp"
+#ifndef DEF_SERIE
+#define DEF_SERIE
 
-#include <fstream>
+#include <string>
 
-using namespace utils;
+namespace entities {
+class Serie {
 
-/**
- *
- */
-void FileWriter::writeStringsListIntoFile()
-{
+public:
+
+    /**
+     * @brief name setter
+     *
+     * @param serieName name of the serie
+     */
+    void setName(std::string serieName);
+
+    /**
+     * @brief name getter
+     *
+     * @return string
+     */
+    std::string getName();
+
+private:
+
+    std::string name;
+};
 }
 
-/**
- *
- */
-bool FileWriter::createFile(std::string fileName)
-{
-    std::ofstream file(fileName, std::ofstream::out);
-
-    if (!file.is_open()) {
-        return false;
-    }
-
-    file.close();
-
-    return true;
-}
+#endif
