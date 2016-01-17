@@ -25,9 +25,12 @@
 #include "EditorSerieController.hpp"
 
 #include "../defines/Dimensions.hpp"
+#include "../defines/Directories.hpp"
+#include "../defines/Extensions.hpp"
 
 #include "../utils/DirReader.hpp"
 #include "../utils/StringsListsUtils.hpp"
+#include "../utils/FileWriter.hpp"
 
 using namespace controllers;
 
@@ -240,6 +243,8 @@ unsigned char EditorSerieController::render(utils::Context* context)
                                         continue;
                                     }
 
+                                    serie.setName(inputTextNew.getText());
+
                                     errorNewSerie = false;
 
                                     serieNameLabel.setString(inputTextNew.getText());
@@ -276,7 +281,15 @@ unsigned char EditorSerieController::render(utils::Context* context)
                                 }
                                 if(buttonSave.isMouseHover()) {
 
-                                    //TODO: write file content
+                                    if (!serieExists(serie.getName())) {
+                                        utils::FileWriter::createFile(
+                                            constants::Directories::getSeriesDirectoryPath() +
+                                            serie.getName() +
+                                            constants::Extensions::getSeriesExtension()
+                                        );
+                                    }
+
+                                    //TODO: rewrite serie file content
 
                                     displaySavedSerieName(true);
                                 }
@@ -380,9 +393,12 @@ void EditorSerieController::displaySavedSerieName(bool saved)
  */
 bool EditorSerieController::serieExists(std::string serieName)
 {
+    std::string seriesDirectory(constants::Directories::getSeriesDirectoryPath());
+    std::string seriesExtension(constants::Extensions::getSeriesExtension());
+
     std::vector<std::string> seriesNames = utils::DirReader::getAllFiles(
-            "data/series",
-            ".serie"
+            seriesDirectory.c_str(),
+            seriesExtension.c_str()
                                            );
 
     return utils::StringsListsUtils::stringsListContainsString(seriesNames, serieName);

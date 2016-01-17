@@ -1,6 +1,6 @@
 CC = clang++
 CFLAGS = -std=c++11 -Weverything -Wno-switch -Wno-switch-enum -Wno-c++98-compat -Werror -Wno-padded -Wno-global-constructors -Wno-exit-time-destructors -Wno-implicit-fallthrough -ferror-limit=0 
-OBJS = bin/main.o bin/MainMenuController.o bin/NewGameController.o bin/EditorSerieController.o bin/OpenSerieController.o bin/Controller.o bin/ScreenFactory.o bin/MusicFactory.o bin/Context.o bin/InputTextWidget.o bin/TitleBarWidget.o bin/ButtonWidget.o bin/CursorWidget.o bin/ItemsListWidget.o bin/OrderedItemsListWidget.o bin/Fonts.o bin/Sounds.o bin/DirReader.o bin/FileWriter.o bin/StringsListsUtils.o
+OBJS = bin/main.o bin/MainMenuController.o bin/NewGameController.o bin/EditorSerieController.o bin/OpenSerieController.o bin/Controller.o bin/ScreenFactory.o bin/MusicFactory.o bin/Context.o bin/InputTextWidget.o bin/TitleBarWidget.o bin/ButtonWidget.o bin/CursorWidget.o bin/ItemsListWidget.o bin/OrderedItemsListWidget.o bin/Fonts.o bin/Sounds.o bin/DirReader.o bin/FileWriter.o bin/StringsListsUtils.o bin/Serie.o bin/Directories.o bin/Extensions.o
 DEPS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 Memoris: $(OBJS)
@@ -62,9 +62,17 @@ bin/Fonts.o: src/defines/Fonts.cpp
 bin/Sounds.o: src/defines/Sounds.cpp
 	$(CC) $(CFLAGS) -c src/defines/Sounds.cpp -o bin/Sounds.o
 
+bin/Directories.o: src/defines/Directories.cpp
+	$(CC) $(CFLAGS) -c src/defines/Directories.cpp -o bin/Directories.o
+
+bin/Extensions.o: src/defines/Extensions.cpp
+	$(CC) $(CFLAGS) -c src/defines/Extensions.cpp -o bin/Extensions.o
+
 bin/DirReader.o: src/utils/DirReader.cpp
 	$(CC) $(CFLAGS) -c src/utils/DirReader.cpp -o bin/DirReader.o
 
 bin/StringsListsUtils.o: src/utils/StringsListsUtils.cpp
 	$(CC) $(CFLAGS) -c src/utils/StringsListsUtils.cpp -o bin/StringsListsUtils.o
 
+bin/Serie.o: src/entities/Serie.cpp
+	$(CC) $(CFLAGS) -c src/entities/Serie.cpp -o bin/Serie.o

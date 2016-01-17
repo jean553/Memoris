@@ -17,36 +17,28 @@
 */
 
 /**
- * @file FileWriter.cpp
- * @package utils
+ * Directories
+ *
+ * @file Directories.hpp
+ * @brief path of all data directories
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "FileWriter.hpp"
+#ifndef DEF_DIRECTORIES
+#define DEF_DIRECTORIES
 
-#include <fstream>
+#include <string>
 
-using namespace utils;
+namespace constants {
+class Directories {
 
-/**
- *
- */
-void FileWriter::writeStringsListIntoFile()
-{
+public:
+
+    /**
+     * @return string
+     */
+    static std::string getSeriesDirectoryPath();
+};
 }
 
-/**
- *
- */
-bool FileWriter::createFile(std::string fileName)
-{
-    std::ofstream file(fileName, std::ofstream::out);
-
-    if (!file.is_open()) {
-        return false;
-    }
-
-    file.close();
-
-    return true;
-}
+#endif

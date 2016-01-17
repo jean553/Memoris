@@ -33,7 +33,8 @@
 #include "../utils/Controller.hpp"
 #include "../utils/Context.hpp"
 #include "../utils/ScreenFactory.hpp"
-#include "../utils/DirReader.hpp"
+
+#include "../entities/Serie.hpp"
 
 #include "../defines/Fonts.hpp"
 #include "../defines/Colors.hpp"
@@ -134,6 +135,8 @@ private:
     sf::Text serieNameLabel;
     sf::Text errorLabel;
     sf::Text levelErrorLabel;
+
+    entities::Serie serie;
 
     /**
      * @brief enable/disable all the series editor main menu buttons
