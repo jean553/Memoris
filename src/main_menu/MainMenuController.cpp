@@ -266,7 +266,7 @@ void MainMenuController::selectMenuItem(sf::RenderWindow* window)
             break;
         }
         case MAIN_MENU_ITEM_EDITOR: {
-            nextControllerId = factories::ScreenFactory::EDITOR_SERIE_CONTROLLER_ID;
+            nextControllerId = factories::ScreenFactory::EDITOR_MENU_CONTROLLER_ID;
 
             break;
         }
