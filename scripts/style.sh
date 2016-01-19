@@ -26,6 +26,9 @@ astyle --options=config/astyle.conf src/main_menu/MainMenuController.cpp
 astyle --options=config/astyle.conf src/new_game/NewGameController.hpp
 astyle --options=config/astyle.conf src/new_game/NewGameController.cpp
 
+astyle --options=config/astyle.conf src/editor_menu/EditorMenuController.hpp
+astyle --options=config/astyle.conf src/editor_menu/EditorMenuController.cpp
+
 astyle --options=config/astyle.conf src/utils/Context.hpp
 astyle --options=config/astyle.conf src/utils/Context.cpp
 astyle --options=config/astyle.conf src/utils/Controller.hpp
