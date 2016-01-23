@@ -10,6 +10,8 @@ astyle --options=config/astyle.conf src/defines/Extensions.hpp
 astyle --options=config/astyle.conf src/defines/Extensions.cpp
 astyle --options=config/astyle.conf src/defines/Directories.hpp
 astyle --options=config/astyle.conf src/defines/Directories.cpp
+astyle --options=config/astyle.conf src/defines/Dimensions.hpp
+astyle --options=config/astyle.conf src/defines/Positions.hpp
 
 astyle --options=config/astyle.conf src/editor_serie/EditorSerieController.hpp
 astyle --options=config/astyle.conf src/editor_serie/EditorSerieController.cpp

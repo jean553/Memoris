@@ -31,7 +31,7 @@ namespace constants {
 class Dimensions {
 
 public:
-    
+
     static constexpr unsigned int SCREEN_WIDTH = 1600;
     static constexpr unsigned int SCREEN_HEIGHT = 900;
 
