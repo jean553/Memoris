@@ -165,8 +165,11 @@ void EditorMenuController::updateSelectorPosition()
  */
 void EditorMenuController::selectMenuItem()
 {
-    //TODO: add the case for the levels editor item
     switch(selectorPosition) {
+        case EDITOR_MENU_ITEM_LEVELS_EDITOR: {
+            nextControllerId = factories::ScreenFactory::EDITOR_LEVEL_CONTROLLER_ID;
+            break;
+        }
         case EDITOR_MENU_ITEM_SERIES_EDITOR: {
             nextControllerId = factories::ScreenFactory::EDITOR_SERIE_CONTROLLER_ID;
             break;
