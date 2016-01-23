@@ -27,23 +27,46 @@
 
 #include "EditorLevelController.hpp"
 
+#include "../defines/Positions.hpp"
+#include "../defines/Dimensions.hpp"
+
 using namespace controllers;
+
+const std::string EditorLevelController::EDITOR_LEVEL_BUTTON_EXIT_TEXT = "Exit";
+
+/**
+ *
+ */
+EditorLevelController::EditorLevelController() : Controller()
+{
+    buttonExit.setLabel(EDITOR_LEVEL_BUTTON_EXIT_TEXT);
+
+    buttonExit.setLayout(
+        constants::Positions::EDITOR_BUTTONS_EXIT_POSITION_X,
+        constants::Positions::EDITOR_BUTTONS_POSITION_Y,
+        constants::Dimensions::EDITOR_BUTTONS_WIDTH
+    );
+}
 
 /**
  *
  */
 unsigned char EditorLevelController::render(utils::Context* context)
 {
+    buttonExit.display(context);
+
+    cursor.display(context);
+
     while(context->getWindow()->pollEvent(event)) {
         switch(event.type) {
-            case sf::Event::KeyPressed: {
-                switch(event.key.code) {
-                    case sf::Keyboard::Escape: {
-                        nextControllerId = factories::ScreenFactory::MAIN_MENU_CONTROLLER_ID;
-                        break;
+            case sf::Event::MouseButtonPressed: {
+                switch(event.mouseButton.button) {
+                    case sf::Mouse::Left: {
+                        if(buttonExit.isMouseHover()) {
+                            nextControllerId = factories::ScreenFactory::MAIN_MENU_CONTROLLER_ID;
+                        }
                     }
                 }
-                break;
             }
         }
     }

@@ -17,25 +17,23 @@
 */
 
 /**
- * Dimensions.
+ * Positions.
  *
- * @file Dimensions.hpp
- * @brief contains defined and fixed dimensions
+ * @file Positions.hpp
+ * @brief contains defined and fixed positions
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_DIMENSIONS
-#define DEF_DIMENSIONS
+#ifndef DEF_POSITIONS
+#define DEF_POSITIONS
 
 namespace constants {
-class Dimensions {
+class Positions {
 
 public:
-    
-    static constexpr unsigned int SCREEN_WIDTH = 1600;
-    static constexpr unsigned int SCREEN_HEIGHT = 900;
 
-    static const unsigned int EDITOR_BUTTONS_WIDTH = 200;
+    static const unsigned int EDITOR_BUTTONS_EXIT_POSITION_X = 1390;
+    static const unsigned int EDITOR_BUTTONS_POSITION_Y = 100;
 };
 }
 
