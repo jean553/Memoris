@@ -34,10 +34,17 @@
 #include "../utils/Context.hpp"
 #include "../utils/ScreenFactory.hpp"
 
+#include "../widgets/ButtonWidget.hpp"
+#include "../widgets/CursorWidget.hpp"
+
 namespace controllers {
 class EditorLevelController : public Controller {
 
+    static const std::string EDITOR_LEVEL_BUTTON_EXIT_TEXT;
+
 public:
+
+    EditorLevelController();
 
     /**
      * @brief renders the level editor screen
@@ -47,6 +54,12 @@ public:
      * @return char    id of the new screen controller
      */
     unsigned char render(utils::Context* context);
+
+private:
+
+    widgets::ButtonWidget buttonExit;
+
+    widgets::CursorWidget cursor;
 };
 }
 

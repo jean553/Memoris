@@ -25,6 +25,7 @@
 #include "EditorSerieController.hpp"
 
 #include "../defines/Dimensions.hpp"
+#include "../defines/Positions.hpp"
 #include "../defines/Directories.hpp"
 #include "../defines/Extensions.hpp"
 
@@ -69,44 +70,44 @@ EditorSerieController::EditorSerieController() : Controller()
 
     buttonNew.setLayout(
         EDITOR_SERIE_BUTTON_NEW_POSITION_X,
-        EDITOR_SERIE_BUTTONS_POSITION_Y,
-        EDITOR_SERIE_BUTTONS_WIDTH
+        constants::Positions::EDITOR_BUTTONS_POSITION_Y,
+        constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonOpen.setLayout(
         EDITOR_SERIE_BUTTON_OPEN_POSITION_X,
-        EDITOR_SERIE_BUTTONS_POSITION_Y,
-        EDITOR_SERIE_BUTTONS_WIDTH
+        constants::Positions::EDITOR_BUTTONS_POSITION_Y,
+        constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonSave.setLayout(
         EDITOR_SERIE_BUTTON_SAVE_POSITION_X,
-        EDITOR_SERIE_BUTTONS_POSITION_Y,
-        EDITOR_SERIE_BUTTONS_WIDTH
+        constants::Positions::EDITOR_BUTTONS_POSITION_Y,
+        constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonAdd.setLayout(
         EDITOR_SERIE_BUTTON_ADD_POSITION_X,
-        EDITOR_SERIE_BUTTONS_POSITION_Y,
-        EDITOR_SERIE_BUTTONS_WIDTH
+        constants::Positions::EDITOR_BUTTONS_POSITION_Y,
+        constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonExit.setLayout(
-        EDITOR_SERIE_BUTTON_EXIT_POSITION_X,
-        EDITOR_SERIE_BUTTONS_POSITION_Y,
-        EDITOR_SERIE_BUTTONS_WIDTH
+        constants::Positions::EDITOR_BUTTONS_EXIT_POSITION_X,
+        constants::Positions::EDITOR_BUTTONS_POSITION_Y,
+        constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonNewOk.setLayout(
         EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_X,
         EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_Y,
-        EDITOR_SERIE_BUTTONS_WIDTH
+        constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonNewCancel.setLayout(
         EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_X,
         EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_Y,
-        EDITOR_SERIE_BUTTONS_WIDTH
+        constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     levelsList.setLayout(

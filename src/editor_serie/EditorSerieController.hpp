@@ -38,6 +38,8 @@
 
 #include "../defines/Fonts.hpp"
 #include "../defines/Colors.hpp"
+#include "../defines/Positions.hpp"
+#include "../defines/Dimensions.hpp"
 
 #include "../widgets/TitleBarWidget.hpp"
 #include "../widgets/ButtonWidget.hpp"
@@ -63,13 +65,10 @@ class EditorSerieController : public Controller {
     static constexpr unsigned int EDITOR_SERIE_BUTTON_OPEN_POSITION_X = 240;
     static constexpr unsigned int EDITOR_SERIE_BUTTON_SAVE_POSITION_X = 470;
     static constexpr unsigned int EDITOR_SERIE_BUTTON_ADD_POSITION_X = 700;
-    static constexpr unsigned int EDITOR_SERIE_BUTTON_EXIT_POSITION_X = 1390;
-    static constexpr unsigned int EDITOR_SERIE_BUTTONS_POSITION_Y = 100;
     static constexpr unsigned int EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_X = 380;
     static constexpr unsigned int EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_Y = 175;
     static constexpr unsigned int EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_X = 590;
     static constexpr unsigned int EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_Y = 175;
-    static constexpr unsigned int EDITOR_SERIE_BUTTONS_WIDTH = 200;
     static constexpr unsigned int LEVELS_LIST_POSITION_X = 10;
     static constexpr unsigned int LEVELS_LIST_POSITION_Y = 250;
     static constexpr unsigned int LEVELS_LIST_WIDTH = 1580;
