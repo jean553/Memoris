@@ -36,11 +36,13 @@
 
 #include "../widgets/ButtonWidget.hpp"
 #include "../widgets/CursorWidget.hpp"
+#include "../widgets/TitleBarWidget.hpp"
 
 namespace controllers {
 class EditorLevelController : public Controller {
 
     static const std::string EDITOR_LEVEL_BUTTON_EXIT_TEXT;
+    static const std::string STRING_EDITOR_LEVEL_TITLE;
 
 public:
 
@@ -60,6 +62,8 @@ private:
     widgets::ButtonWidget buttonExit;
 
     widgets::CursorWidget cursor;
+
+    widgets::TitleBarWidget titleBar;
 };
 }
 
