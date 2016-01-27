@@ -47,14 +47,14 @@ class NewGameController : public Controller {
     static const std::string STRING_NEW_GAME_EXPLANATION;
     static const std::string STRING_NAME_DEFAULT;
 
-    static constexpr unsigned int SIZE_NAME_INPUT_TEXT = 600;
-    static constexpr unsigned int POSITION_NEW_GAME_TITLE_X = 620;
-    static constexpr unsigned int POSITION_NEW_GAME_TITLE_Y = 200;
-    static constexpr unsigned int POSITION_NEW_GAME_EXPLANATION_X = 645;
-    static constexpr unsigned int POSITION_NEW_GAME_EXPLANATION_Y = 380;
-    static constexpr unsigned int POSITION_NAME_INPUT_TEXT_X = 500;
-    static constexpr unsigned int POSITION_NAME_INPUT_TEXT_Y = 450;
-    static constexpr unsigned int MAX_NAME_LENGTH = 15;
+    static const unsigned int SIZE_NAME_INPUT_TEXT = 600;
+    static const unsigned int POSITION_NEW_GAME_TITLE_X = 620;
+    static const unsigned int POSITION_NEW_GAME_TITLE_Y = 200;
+    static const unsigned int POSITION_NEW_GAME_EXPLANATION_X = 645;
+    static const unsigned int POSITION_NEW_GAME_EXPLANATION_Y = 380;
+    static const unsigned int POSITION_NAME_INPUT_TEXT_X = 500;
+    static const unsigned int POSITION_NAME_INPUT_TEXT_Y = 450;
+    static const unsigned int MAX_NAME_LENGTH = 15;
 
 public:
 

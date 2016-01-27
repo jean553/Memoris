@@ -34,36 +34,36 @@ class Colors {
 
 public:
 
-    static constexpr unsigned int COLOR_LIGHT_BLUE_RED = 105;
-    static constexpr unsigned int COLOR_LIGHT_BLUE_GREEN = 125;
-    static constexpr unsigned int COLOR_LIGHT_BLUE_BLUE = 255;
+    static const unsigned int COLOR_LIGHT_BLUE_RED = 105;
+    static const unsigned int COLOR_LIGHT_BLUE_GREEN = 125;
+    static const unsigned int COLOR_LIGHT_BLUE_BLUE = 255;
 
-    static constexpr unsigned int COLOR_WHITE_RED = 255;
-    static constexpr unsigned int COLOR_WHITE_GREEN = 255;
-    static constexpr unsigned int COLOR_WHITE_BLUE = 255;
+    static const unsigned int COLOR_WHITE_RED = 255;
+    static const unsigned int COLOR_WHITE_GREEN = 255;
+    static const unsigned int COLOR_WHITE_BLUE = 255;
 
-    static constexpr unsigned int COLOR_GREY_RED = 169;
-    static constexpr unsigned int COLOR_GREY_GREEN = 169;
-    static constexpr unsigned int COLOR_GREY_BLUE = 169;
+    static const unsigned int COLOR_GREY_RED = 169;
+    static const unsigned int COLOR_GREY_GREEN = 169;
+    static const unsigned int COLOR_GREY_BLUE = 169;
 
-    static constexpr unsigned int COLOR_RED_RED = 255;
-    static constexpr unsigned int COLOR_RED_GREEN = 0;
-    static constexpr unsigned int COLOR_RED_BLUE = 0;
+    static const unsigned int COLOR_RED_RED = 255;
+    static const unsigned int COLOR_RED_GREEN = 0;
+    static const unsigned int COLOR_RED_BLUE = 0;
 
-    static constexpr unsigned int COLOR_ORANGE_RED = 255;
-    static constexpr unsigned int COLOR_ORANGE_GREEN = 128;
-    static constexpr unsigned int COLOR_ORANGE_BLUE = 0;
+    static const unsigned int COLOR_ORANGE_RED = 255;
+    static const unsigned int COLOR_ORANGE_GREEN = 128;
+    static const unsigned int COLOR_ORANGE_BLUE = 0;
 
-    static constexpr unsigned int COLOR_GRAY_RED = 80;
-    static constexpr unsigned int COLOR_GRAY_GREEN = 80;
-    static constexpr unsigned int COLOR_GRAY_BLUE = 80;
+    static const unsigned int COLOR_GRAY_RED = 80;
+    static const unsigned int COLOR_GRAY_GREEN = 80;
+    static const unsigned int COLOR_GRAY_BLUE = 80;
 
-    static constexpr unsigned int COLOR_DARK_GRAY_RED = 50;
-    static constexpr unsigned int COLOR_DARK_GRAY_GREEN = 50;
-    static constexpr unsigned int COLOR_DARK_GRAY_BLUE = 50;
+    static const unsigned int COLOR_DARK_GRAY_RED = 50;
+    static const unsigned int COLOR_DARK_GRAY_GREEN = 50;
+    static const unsigned int COLOR_DARK_GRAY_BLUE = 50;
 
-    static constexpr unsigned int COLOR_ALPHA_FULL = 255;
-    static constexpr unsigned int COLOR_ALPHA_PARTIAL = 128;
+    static const unsigned int COLOR_ALPHA_FULL = 255;
+    static const unsigned int COLOR_ALPHA_PARTIAL = 128;
 };
 }
 
