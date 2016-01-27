@@ -26,6 +26,11 @@
 
 #include "NewGameController.hpp"
 
+#include "../utils/ScreenFactory.hpp"
+
+#include "../defines/Colors.hpp"
+#include "../defines/Fonts.hpp"
+
 using namespace controllers;
 
 const std::string NewGameController::STRING_NEW_GAME_TITLE = "New game";

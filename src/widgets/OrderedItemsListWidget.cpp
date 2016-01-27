@@ -24,6 +24,8 @@
 
 #include "OrderedItemsListWidget.hpp"
 
+#include "../defines/Colors.hpp"
+
 using namespace widgets;
 
 const std::string OrderedItemsListWidget::PATH_IMAGE_EDIT = "res/images/edit.png";

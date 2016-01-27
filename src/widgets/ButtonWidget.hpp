@@ -28,15 +28,10 @@
 #ifndef DEF_BUTTON_WIDGET
 #define DEF_BUTTON_WIDGET
 
-#include <SFML/Graphics.hpp>
-
-#include "../utils/Context.hpp"
-
-#include "../defines/Colors.hpp"
-#include "../defines/Fonts.hpp"
+#include "Widget.hpp"
 
 namespace widgets {
-class ButtonWidget {
+class ButtonWidget : public Widget {
 
     static const unsigned int BUTTON_FIXED_HEIGHT = 60;
     static const unsigned int SIZE_BUTTON_TEXT_FONT = 40;

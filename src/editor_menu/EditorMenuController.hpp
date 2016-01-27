@@ -32,7 +32,6 @@
 #include <SFML/Audio.hpp>
 
 #include "../utils/Controller.hpp"
-#include "../utils/Context.hpp"
 
 namespace controllers {
 class EditorMenuController : public Controller {

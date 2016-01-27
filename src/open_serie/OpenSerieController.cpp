@@ -26,6 +26,8 @@
 
 #include "../utils/DirReader.hpp"
 
+#include "../utils/ScreenFactory.hpp"
+
 using namespace controllers;
 
 const std::string OpenSerieController::STRING_OPEN_SERIE_TITLE = "Open serie";

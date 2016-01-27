@@ -24,6 +24,9 @@
 
 #include "TitleBarWidget.hpp"
 
+#include "../defines/Colors.hpp"
+#include "../defines/Fonts.hpp"
+
 using namespace widgets;
 
 /**

@@ -30,6 +30,8 @@
 #include "../defines/Positions.hpp"
 #include "../defines/Dimensions.hpp"
 
+#include "../utils/ScreenFactory.hpp"
+
 using namespace controllers;
 
 const std::string EditorLevelController::EDITOR_LEVEL_BUTTON_EXIT_TEXT = "Exit";

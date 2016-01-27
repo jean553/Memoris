@@ -28,10 +28,14 @@
 #include "../defines/Positions.hpp"
 #include "../defines/Directories.hpp"
 #include "../defines/Extensions.hpp"
+#include "../defines/Fonts.hpp"
+#include "../defines/Colors.hpp"
 
 #include "../utils/DirReader.hpp"
 #include "../utils/StringsListsUtils.hpp"
 #include "../utils/FileWriter.hpp"
+
+#include "../utils/ScreenFactory.hpp"
 
 using namespace controllers;
 

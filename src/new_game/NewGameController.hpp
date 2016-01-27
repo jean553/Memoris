@@ -31,14 +31,8 @@
 #include <SFML/Graphics.hpp>
 
 #include "../utils/Controller.hpp"
-#include "../utils/Context.hpp"
 
 #include "../widgets/InputTextWidget.hpp"
-
-#include "../utils/ScreenFactory.hpp"
-
-#include "../defines/Colors.hpp"
-#include "../defines/Fonts.hpp"
 
 namespace controllers {
 class NewGameController : public Controller {

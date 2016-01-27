@@ -30,15 +30,10 @@
 
 #include <string>
 
-#include <SFML/Graphics.hpp>
-
-#include "../utils/Context.hpp"
-
-#include "../defines/Colors.hpp"
-#include "../defines/Fonts.hpp"
+#include "Widget.hpp"
 
 namespace widgets {
-class InputTextWidget {
+class InputTextWidget : public Widget {
 
     static const unsigned int BOX_BORDER_LARGER = 1;
     static const unsigned int BOX_LARGER = 60;

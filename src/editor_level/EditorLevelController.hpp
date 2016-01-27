@@ -31,8 +31,6 @@
 #include <SFML/Graphics.hpp>
 
 #include "../utils/Controller.hpp"
-#include "../utils/Context.hpp"
-#include "../utils/ScreenFactory.hpp"
 
 #include "../widgets/ButtonWidget.hpp"
 #include "../widgets/CursorWidget.hpp"

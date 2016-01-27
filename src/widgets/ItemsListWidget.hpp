@@ -26,12 +26,10 @@
 #ifndef DEF_ITEMS_LIST_WIDGET
 #define DEF_ITEMS_LIST_WIDGET
 
-#include <SFML/Graphics.hpp>
-
-#include "../utils/Context.hpp"
+#include "Widget.hpp"
 
 namespace widgets {
-class ItemsListWidget {
+class ItemsListWidget : public Widget {
 
 public:
 
