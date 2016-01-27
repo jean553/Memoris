@@ -32,8 +32,8 @@ class Dimensions {
 
 public:
 
-    static constexpr unsigned int SCREEN_WIDTH = 1600;
-    static constexpr unsigned int SCREEN_HEIGHT = 900;
+    static const unsigned int SCREEN_WIDTH = 1600;
+    static const unsigned int SCREEN_HEIGHT = 900;
 
     static const unsigned int EDITOR_BUTTONS_WIDTH = 200;
 };

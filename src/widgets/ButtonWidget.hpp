@@ -38,8 +38,8 @@
 namespace widgets {
 class ButtonWidget {
 
-    static constexpr unsigned int BUTTON_FIXED_HEIGHT = 60;
-    static constexpr unsigned int SIZE_BUTTON_TEXT_FONT = 40;
+    static const unsigned int BUTTON_FIXED_HEIGHT = 60;
+    static const unsigned int SIZE_BUTTON_TEXT_FONT = 40;
 
 public:
 

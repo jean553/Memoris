@@ -40,16 +40,16 @@
 namespace widgets {
 class InputTextWidget {
 
-    static constexpr unsigned int BOX_BORDER_LARGER = 1;
-    static constexpr unsigned int BOX_LARGER = 60;
-    static constexpr unsigned int CURSOR_WIDTH = 25;
-    static constexpr unsigned int CURSOR_HEIGHT = 50;
-    static constexpr int INTERVAL_ANIMATION_CURSOR = 200;
-    static constexpr unsigned int SIZE_INPUT_TEXT_FONT = 45;
-    static constexpr unsigned int CURSOR_HORIZONTAL_OFFSET = 5;
-    static constexpr unsigned int CURSOR_VERTICAL_OFFSET = 5;
-    static constexpr unsigned int TEXT_HORIZONTAL_OFFSET = 5;
-    static constexpr unsigned int DEFAULT_MAXIMUM_CHARACTERS = 10;
+    static const unsigned int BOX_BORDER_LARGER = 1;
+    static const unsigned int BOX_LARGER = 60;
+    static const unsigned int CURSOR_WIDTH = 25;
+    static const unsigned int CURSOR_HEIGHT = 50;
+    static const int INTERVAL_ANIMATION_CURSOR = 200;
+    static const unsigned int SIZE_INPUT_TEXT_FONT = 45;
+    static const unsigned int CURSOR_HORIZONTAL_OFFSET = 5;
+    static const unsigned int CURSOR_VERTICAL_OFFSET = 5;
+    static const unsigned int TEXT_HORIZONTAL_OFFSET = 5;
+    static const unsigned int DEFAULT_MAXIMUM_CHARACTERS = 10;
 
 public:
 
