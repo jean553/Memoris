@@ -42,7 +42,10 @@ namespace controllers {
 class EditorLevelController : public Controller {
 
     static const std::string EDITOR_LEVEL_BUTTON_EXIT_TEXT;
+    static const std::string EDITOR_LEVEL_BUTTON_NEW_TEXT;
     static const std::string STRING_EDITOR_LEVEL_TITLE;
+
+    static const int LEVEL_EDITOR_BUTTON_NEW_POSITION_Y = 170;
 
 public:
 
@@ -60,6 +63,7 @@ public:
 private:
 
     widgets::ButtonWidget buttonExit;
+    widgets::ButtonWidget buttonNew;
 
     widgets::CursorWidget cursor;
 

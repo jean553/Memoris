@@ -33,6 +33,7 @@
 using namespace controllers;
 
 const std::string EditorLevelController::EDITOR_LEVEL_BUTTON_EXIT_TEXT = "Exit";
+const std::string EditorLevelController::EDITOR_LEVEL_BUTTON_NEW_TEXT = "New";
 const std::string EditorLevelController::STRING_EDITOR_LEVEL_TITLE = "Level editor";
 
 /**
@@ -45,10 +46,17 @@ EditorLevelController::EditorLevelController() : Controller()
     );
 
     buttonExit.setLabel(EDITOR_LEVEL_BUTTON_EXIT_TEXT);
+    buttonNew.setLabel(EDITOR_LEVEL_BUTTON_NEW_TEXT);
 
     buttonExit.setLayout(
         constants::Positions::EDITOR_BUTTONS_EXIT_POSITION_X,
         constants::Positions::EDITOR_BUTTONS_POSITION_Y,
+        constants::Dimensions::EDITOR_BUTTONS_WIDTH
+    );
+
+    buttonNew.setLayout(
+        constants::Positions::EDITOR_BUTTONS_EXIT_POSITION_X,
+        LEVEL_EDITOR_BUTTON_NEW_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 }
@@ -60,6 +68,7 @@ unsigned char EditorLevelController::render(utils::Context* context)
 {
     titleBar.display(context);
     buttonExit.display(context);
+    buttonNew.display(context);
 
     cursor.display(context);
 
