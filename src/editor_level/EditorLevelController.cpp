@@ -34,6 +34,8 @@ using namespace controllers;
 
 const std::string EditorLevelController::EDITOR_LEVEL_BUTTON_EXIT_TEXT = "Exit";
 const std::string EditorLevelController::EDITOR_LEVEL_BUTTON_NEW_TEXT = "New";
+const std::string EditorLevelController::EDITOR_LEVEL_BUTTON_OPEN_TEXT = "Open";
+const std::string EditorLevelController::EDITOR_LEVEL_BUTTON_SAVE_TEXT = "Save";
 const std::string EditorLevelController::STRING_EDITOR_LEVEL_TITLE = "Level editor";
 
 /**
@@ -47,6 +49,8 @@ EditorLevelController::EditorLevelController() : Controller()
 
     buttonExit.setLabel(EDITOR_LEVEL_BUTTON_EXIT_TEXT);
     buttonNew.setLabel(EDITOR_LEVEL_BUTTON_NEW_TEXT);
+    buttonOpen.setLabel(EDITOR_LEVEL_BUTTON_OPEN_TEXT);
+    buttonSave.setLabel(EDITOR_LEVEL_BUTTON_SAVE_TEXT);
 
     buttonExit.setLayout(
         constants::Positions::EDITOR_BUTTONS_EXIT_POSITION_X,
@@ -59,6 +63,18 @@ EditorLevelController::EditorLevelController() : Controller()
         LEVEL_EDITOR_BUTTON_NEW_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
+
+    buttonOpen.setLayout(
+        constants::Positions::EDITOR_BUTTONS_EXIT_POSITION_X,
+        LEVEL_EDITOR_BUTTON_OPEN_POSITION_Y,
+        constants::Dimensions::EDITOR_BUTTONS_WIDTH
+    );
+
+    buttonSave.setLayout(
+        constants::Positions::EDITOR_BUTTONS_EXIT_POSITION_X,
+        LEVEL_EDITOR_BUTTON_SAVE_POSITION_Y,
+        constants::Dimensions::EDITOR_BUTTONS_WIDTH
+    );
 }
 
 /**
@@ -69,6 +85,8 @@ unsigned char EditorLevelController::render(utils::Context* context)
     titleBar.display(context);
     buttonExit.display(context);
     buttonNew.display(context);
+    buttonOpen.display(context);
+    buttonSave.display(context);
 
     cursor.display(context);
 
