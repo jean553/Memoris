@@ -29,8 +29,6 @@
 #define DEF_OPEN_SERIE_CONTROLLER
 
 #include "../utils/Controller.hpp"
-#include "../utils/Context.hpp"
-#include "../utils/ScreenFactory.hpp"
 
 #include "../widgets/TitleBarWidget.hpp"
 #include "../widgets/ButtonWidget.hpp"

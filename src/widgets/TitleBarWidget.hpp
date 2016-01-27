@@ -28,12 +28,7 @@
 #ifndef DEF_TITLE_BAR_WIDGET
 #define DEF_TITLE_BAR_WIDGET
 
-#include <SFML/Graphics.hpp>
-
-#include "../utils/Context.hpp"
-
-#include "../defines/Colors.hpp"
-#include "../defines/Fonts.hpp"
+#include "Widget.hpp"
 
 namespace widgets {
 class TitleBarWidget {

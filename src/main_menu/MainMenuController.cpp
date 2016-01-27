@@ -24,6 +24,12 @@
 
 #include "MainMenuController.hpp"
 
+#include "../utils/ScreenFactory.hpp"
+
+#include "../defines/Colors.hpp"
+#include "../defines/Fonts.hpp"
+#include "../defines/Sounds.hpp"
+
 using namespace controllers;
 
 const std::string MainMenuController::PATH_IMAGE_GITHUB = "res/images/fork-me.png";

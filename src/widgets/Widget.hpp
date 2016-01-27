@@ -17,40 +17,39 @@
 */
 
 /**
- * Cursor widget
- *
- * @file CursorWidget.hpp
- * @brief screen cursor
+ * @file Widget.hpp
+ * @brief widget parent class
  * @package widgets
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_CURSOR_WIDGET
-#define DEF_CURSOR_WIDGET
+#ifndef DEF_WIDGET
+#define DEF_WIDGET
 
-#include "Widget.hpp"
+#include <SFML/Graphics.hpp>
+
+#include "../utils/Context.hpp"
 
 namespace widgets {
-class CursorWidget : public Widget {
+class Widget {
 
-    static const std::string PATH_IMAGE_CURSOR;
-
-public:
-
-    CursorWidget();
+protected:
 
     /**
-     * @brief displays the cursor at the same position as the system screen cursor
-     *
-     * @param context       current context pointer
+     * Virtual destructor, better to declare as
+     * the class is an abstract class, fix security
+     * problems that could be caused by polymorphism,
+     * whatever happens, we are sure to call both
+     * of the child and parent destructor
      */
-    void display(utils::Context* context);
+    virtual ~Widget();
 
-private:
-
-    sf::Texture picture;
-
-    sf::Sprite sprite;
+    /**
+     * @brief common method to display the widget
+     *
+     * @param context    current context pointer
+     */
+    virtual void display(utils::Context* context) = 0;
 };
 }
 

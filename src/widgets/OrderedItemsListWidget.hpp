@@ -30,13 +30,7 @@
 #ifndef DEF_ORDERED_ITEMS_LIST_WIDGET
 #define DEF_ORDERED_ITEMS_LIST_WIDGET
 
-#include <SFML/Graphics.hpp>
-
-#include "../utils/Context.hpp"
-
 #include "ItemsListWidget.hpp"
-
-#include "../defines/Colors.hpp"
 
 namespace widgets {
 class OrderedItemsListWidget : public ItemsListWidget {

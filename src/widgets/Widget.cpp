@@ -17,41 +17,14 @@
 */
 
 /**
- * Cursor widget
- *
- * @file CursorWidget.hpp
- * @brief screen cursor
+ * @file Widget.cpp
+ * @brief widget parent class
  * @package widgets
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_CURSOR_WIDGET
-#define DEF_CURSOR_WIDGET
-
 #include "Widget.hpp"
 
-namespace widgets {
-class CursorWidget : public Widget {
-
-    static const std::string PATH_IMAGE_CURSOR;
-
-public:
-
-    CursorWidget();
-
-    /**
-     * @brief displays the cursor at the same position as the system screen cursor
-     *
-     * @param context       current context pointer
-     */
-    void display(utils::Context* context);
-
-private:
-
-    sf::Texture picture;
-
-    sf::Sprite sprite;
-};
+widgets::Widget::~Widget()
+{
 }
-
-#endif

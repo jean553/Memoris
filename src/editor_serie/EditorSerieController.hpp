@@ -32,14 +32,8 @@
 
 #include "../utils/Controller.hpp"
 #include "../utils/Context.hpp"
-#include "../utils/ScreenFactory.hpp"
 
 #include "../entities/Serie.hpp"
-
-#include "../defines/Fonts.hpp"
-#include "../defines/Colors.hpp"
-#include "../defines/Positions.hpp"
-#include "../defines/Dimensions.hpp"
 
 #include "../widgets/TitleBarWidget.hpp"
 #include "../widgets/ButtonWidget.hpp"

@@ -32,12 +32,6 @@
 #include <SFML/Audio.hpp>
 
 #include "../utils/Controller.hpp"
-#include "../utils/Context.hpp"
-#include "../utils/ScreenFactory.hpp"
-
-#include "../defines/Colors.hpp"
-#include "../defines/Fonts.hpp"
-#include "../defines/Sounds.hpp"
 
 namespace controllers {
 class MainMenuController : public Controller {
