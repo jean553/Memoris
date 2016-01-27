@@ -61,6 +61,7 @@ class EditorSerieController : public Controller {
     static const std::string STRING_NEW_SERIE_ERROR;
     static const std::string STRING_NEW_LEVEL_ERROR;
 
+    static constexpr unsigned int EDITOR_SERIE_BUTTON_EXIT_POSITION_X = 1390;
     static constexpr unsigned int EDITOR_SERIE_BUTTON_NEW_POSITION_X = 10;
     static constexpr unsigned int EDITOR_SERIE_BUTTON_OPEN_POSITION_X = 240;
     static constexpr unsigned int EDITOR_SERIE_BUTTON_SAVE_POSITION_X = 470;

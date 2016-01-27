@@ -47,6 +47,7 @@ class EditorLevelController : public Controller {
     static const std::string EDITOR_LEVEL_BUTTON_SAVE_TEXT;
     static const std::string STRING_EDITOR_LEVEL_TITLE;
 
+    static const int LEVEL_EDITOR_BUTTONS_POSITION_X = 1390;
     static const int LEVEL_EDITOR_BUTTON_NEW_POSITION_Y = 170;
     static const int LEVEL_EDITOR_BUTTON_OPEN_POSITION_Y = 240;
     static const int LEVEL_EDITOR_BUTTON_SAVE_POSITION_Y = 310;

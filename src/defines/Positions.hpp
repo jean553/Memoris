@@ -32,7 +32,6 @@ class Positions {
 
 public:
 
-    static const unsigned int EDITOR_BUTTONS_EXIT_POSITION_X = 1390;
     static const unsigned int EDITOR_BUTTONS_POSITION_Y = 100;
 };
 }
