@@ -53,25 +53,25 @@ EditorLevelController::EditorLevelController() : Controller()
     buttonSave.setLabel(EDITOR_LEVEL_BUTTON_SAVE_TEXT);
 
     buttonExit.setLayout(
-        constants::Positions::EDITOR_BUTTONS_EXIT_POSITION_X,
+        LEVEL_EDITOR_BUTTONS_POSITION_X,
         constants::Positions::EDITOR_BUTTONS_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonNew.setLayout(
-        constants::Positions::EDITOR_BUTTONS_EXIT_POSITION_X,
+        LEVEL_EDITOR_BUTTONS_POSITION_X,
         LEVEL_EDITOR_BUTTON_NEW_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonOpen.setLayout(
-        constants::Positions::EDITOR_BUTTONS_EXIT_POSITION_X,
+        LEVEL_EDITOR_BUTTONS_POSITION_X,
         LEVEL_EDITOR_BUTTON_OPEN_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonSave.setLayout(
-        constants::Positions::EDITOR_BUTTONS_EXIT_POSITION_X,
+        LEVEL_EDITOR_BUTTONS_POSITION_X,
         LEVEL_EDITOR_BUTTON_SAVE_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );

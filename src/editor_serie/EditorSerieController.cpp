@@ -93,7 +93,7 @@ EditorSerieController::EditorSerieController() : Controller()
     );
 
     buttonExit.setLayout(
-        constants::Positions::EDITOR_BUTTONS_EXIT_POSITION_X,
+        EDITOR_SERIE_BUTTON_EXIT_POSITION_X,
         constants::Positions::EDITOR_BUTTONS_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
