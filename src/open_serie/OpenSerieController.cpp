@@ -80,7 +80,7 @@ unsigned char OpenSerieController::render(utils::Context* context)
             case sf::Event::KeyPressed: {
                 switch(event.key.code) {
                     case sf::Keyboard::Escape: {
-                        nextControllerId = factories::ScreenFactory::EDITOR_SERIE_CONTROLLER_ID;                        
+                        nextControllerId = factories::ScreenFactory::EDITOR_SERIE_CONTROLLER_ID;
                     }
                 }
             }

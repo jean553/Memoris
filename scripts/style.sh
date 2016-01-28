@@ -1,7 +1,6 @@
 astyle --options=config/astyle.conf src/main.cpp
 
 astyle --options=config/astyle.conf src/defines/Colors.hpp
-astyle --options=config/astyle.conf src/defines/Colors.cpp
 astyle --options=config/astyle.conf src/defines/Fonts.hpp
 astyle --options=config/astyle.conf src/defines/Fonts.cpp
 astyle --options=config/astyle.conf src/defines/Sounds.hpp
@@ -15,14 +14,12 @@ astyle --options=config/astyle.conf src/defines/Positions.hpp
 
 astyle --options=config/astyle.conf src/editor_serie/EditorSerieController.hpp
 astyle --options=config/astyle.conf src/editor_serie/EditorSerieController.cpp
+
 astyle --options=config/astyle.conf src/editor_level/EditorLevelController.hpp
 astyle --options=config/astyle.conf src/editor_level/EditorLevelController.cpp
 
-astyle --options=config/astyle.conf src/editor_serie/OpenSerieController.hpp
-astyle --options=config/astyle.conf src/editor_serie/OpenSerieController.cpp
-
-astyle --options=config/astyle.conf src/game/GameController.hpp
-astyle --options=config/astyle.conf src/game/GameController.cpp
+astyle --options=config/astyle.conf src/open_serie/OpenSerieController.hpp
+astyle --options=config/astyle.conf src/open_serie/OpenSerieController.cpp
 
 astyle --options=config/astyle.conf src/main_menu/MainMenuController.hpp
 astyle --options=config/astyle.conf src/main_menu/MainMenuController.cpp
