@@ -52,7 +52,7 @@ class OpenSerieController : public Controller {
 public:
 
     OpenSerieController();
-    
+
     /**
      * @brief render the open serie screen
      *
