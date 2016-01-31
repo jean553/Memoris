@@ -36,6 +36,8 @@
 #include "../widgets/CursorWidget.hpp"
 #include "../widgets/TitleBarWidget.hpp"
 
+#include "../entities/Level.hpp"
+
 namespace controllers {
 class EditorLevelController : public Controller {
 
@@ -73,6 +75,8 @@ private:
     widgets::CursorWidget cursor;
 
     widgets::TitleBarWidget titleBar;
+
+    entities::Level level;
 };
 }
 
