@@ -90,15 +90,15 @@ EditorMenuController::EditorMenuController() : Controller()
 /**
  *
  */
-unsigned char EditorMenuController::render(utils::Context* context)
+unsigned char EditorMenuController::render(utils::Context* pContext)
 {
     updateSelectorPosition();
 
-    context->getWindow()->draw(itemLevelsEditor);
-    context->getWindow()->draw(itemSeriesEditor);
-    context->getWindow()->draw(itemBack);
+    pContext->getWindow()->draw(itemLevelsEditor);
+    pContext->getWindow()->draw(itemSeriesEditor);
+    pContext->getWindow()->draw(itemBack);
 
-    while (context->getWindow()->pollEvent(event)) {
+    while (pContext->getWindow()->pollEvent(event)) {
         switch(event.type) {
             case sf::Event::KeyPressed: {
                 switch (event.key.code) {

@@ -172,38 +172,38 @@ EditorSerieController::EditorSerieController() : Controller()
 /**
  *
  */
-unsigned char EditorSerieController::render(utils::Context* context)
+unsigned char EditorSerieController::render(utils::Context* pContext)
 {
-    titleBar.display(context);
-    buttonNew.display(context);
-    buttonOpen.display(context);
-    buttonSave.display(context);
-    buttonAdd.display(context);
-    buttonExit.display(context);
-    levelsList.display(context);
+    titleBar.display(pContext);
+    buttonNew.display(pContext);
+    buttonOpen.display(pContext);
+    buttonSave.display(pContext);
+    buttonAdd.display(pContext);
+    buttonExit.display(pContext);
+    levelsList.display(pContext);
 
     // displays form when user creates a new serie or a new level
     if (status == NEW_SERIE || status == NEW_LEVEL) {
-        buttonNewOk.display(context);
-        buttonNewCancel.display(context);
-        inputTextNew.display(context);
+        buttonNewOk.display(pContext);
+        buttonNewCancel.display(pContext);
+        inputTextNew.display(pContext);
     }
 
     // displays the serie name if a serie is loaded
     if (status != MAIN_MENU) {
-        context->getWindow()->draw(serieNameLabel);
+        pContext->getWindow()->draw(serieNameLabel);
     }
 
     // displays the error message if an error just occured
     if (errorNewSerie) {
-        context->getWindow()->draw(errorLabel);
+        pContext->getWindow()->draw(errorLabel);
     } else if (errorNewLevel) {
-        context->getWindow()->draw(levelErrorLabel);
+        pContext->getWindow()->draw(levelErrorLabel);
     }
 
-    cursor.display(context);
+    cursor.display(pContext);
 
-    while(context->getWindow()->pollEvent(event)) {
+    while(pContext->getWindow()->pollEvent(event)) {
         switch(event.type) {
             case sf::Event::KeyPressed: {
                 switch(event.key.code) {

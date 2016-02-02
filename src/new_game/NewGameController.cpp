@@ -92,14 +92,14 @@ NewGameController::NewGameController() : Controller()
 /**
  *
  */
-unsigned char NewGameController::render(utils::Context* context)
+unsigned char NewGameController::render(utils::Context* pContext)
 {
-    context->getWindow()->draw(title);
-    context->getWindow()->draw(explanation);
+    pContext->getWindow()->draw(title);
+    pContext->getWindow()->draw(explanation);
 
-    inputTextGameName.display(context);
+    inputTextGameName.display(pContext);
 
-    while(context->getWindow()->pollEvent(event)) {
+    while(pContext->getWindow()->pollEvent(event)) {
         switch(event.type) {
             case sf::Event::KeyPressed: {
                 switch(event.key.code) {

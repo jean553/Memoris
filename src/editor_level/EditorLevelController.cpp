@@ -82,17 +82,17 @@ EditorLevelController::EditorLevelController() : Controller()
 /**
  *
  */
-unsigned char EditorLevelController::render(utils::Context* context)
+unsigned char EditorLevelController::render(utils::Context* pContext)
 {
-    titleBar.display(context);
-    buttonExit.display(context);
-    buttonNew.display(context);
-    buttonOpen.display(context);
-    buttonSave.display(context);
+    titleBar.display(pContext);
+    buttonExit.display(pContext);
+    buttonNew.display(pContext);
+    buttonOpen.display(pContext);
+    buttonSave.display(pContext);
 
-    cursor.display(context);
+    cursor.display(pContext);
 
-    while(context->getWindow()->pollEvent(event)) {
+    while(pContext->getWindow()->pollEvent(event)) {
         switch(event.type) {
             case sf::Event::MouseButtonPressed: {
                 switch(event.mouseButton.button) {

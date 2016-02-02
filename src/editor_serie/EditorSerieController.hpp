@@ -82,12 +82,12 @@ public:
     /**
      * @brief render the serie editor screen
      *
-     * @param context commons items for controller
+     * @param pContext commons items for controller
      *
      * @return char   id of the next screen controller
      */
     unsigned char render(
-        utils::Context* context
+        utils::Context* pContext
     );
 
 private:
