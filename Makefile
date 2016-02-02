@@ -3,7 +3,7 @@ CC = clang++
 CFLAGS = -std=c++11 -Weverything -Wno-switch -Wno-switch-enum -Wno-c++98-compat -Werror -Wno-padded -Wno-global-constructors -Wno-exit-time-destructors -Wno-implicit-fallthrough -ferror-limit=0 
 DEPS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
-OBJS = bin/main.o bin/MusicFactory.o bin/ScreenFactory.o bin/Context.o bin/Controller.o bin/DirReader.o bin/FileWriter.o bin/StringsListsUtils.o bin/Directories.o bin/Extensions.o bin/Fonts.o bin/Sounds.o bin/Serie.o bin/ButtonWidget.o bin/CursorWidget.o bin/InputTextWidget.o bin/ItemsListWidget.o bin/OrderedItemsListWidget.o bin/TitleBarWidget.o bin/Widget.o bin/MainMenuController.o bin/NewGameController.o bin/EditorMenuController.o bin/EditorLevelController.o bin/EditorSerieController.o bin/OpenSerieController.o
+OBJS = bin/main.o bin/MusicFactory.o bin/ScreenFactory.o bin/Context.o bin/Controller.o bin/DirReader.o bin/FileWriter.o bin/StringsListsUtils.o bin/Directories.o bin/Extensions.o bin/Fonts.o bin/Sounds.o bin/Serie.o bin/ButtonWidget.o bin/CursorWidget.o bin/InputTextWidget.o bin/ItemsListWidget.o bin/OrderedItemsListWidget.o bin/TitleBarWidget.o bin/Widget.o bin/MainMenuController.o bin/NewGameController.o bin/EditorMenuController.o bin/EditorLevelController.o bin/EditorSerieController.o bin/OpenSerieController.o bin/Level.o
 
 all: $(OBJS)
 	$(CC) $(OBJS) -o bin/Memoris $(DEPS)
@@ -51,6 +51,12 @@ bin/Sounds.o: src/defines/Sounds.cpp
 # entities
 
 bin/Serie.o: src/entities/Serie.cpp
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+bin/Cell.o: src/entities/Cell.cpp
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+bin/Level.o: src/entities/Level.cpp
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 # widgets

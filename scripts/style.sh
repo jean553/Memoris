@@ -60,3 +60,7 @@ astyle --options=config/astyle.conf src/widgets/TitleBarWidget.cpp
 
 astyle --options=config/astyle.conf src/entities/Serie.cpp
 astyle --options=config/astyle.conf src/entities/Serie.hpp
+astyle --options=config/astyle.conf src/entities/Level.cpp
+astyle --options=config/astyle.conf src/entities/Level.hpp
+astyle --options=config/astyle.conf src/entities/Cell.cpp
+astyle --options=config/astyle.conf src/entities/Cell.hpp
