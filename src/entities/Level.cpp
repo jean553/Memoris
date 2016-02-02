@@ -33,7 +33,7 @@ using namespace entities;
 Level::Level()
 {
     cells.resize(HEIGHT_CELLS_AMOUNT);
-    for (std::vector<Cell> line : cells) {
+    for (std::vector<EmptyCell> line : cells) {
         line.resize(WIDTH_CELLS_AMOUNT);
     }
 }

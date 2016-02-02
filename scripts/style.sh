@@ -64,3 +64,5 @@ astyle --options=config/astyle.conf src/entities/Level.cpp
 astyle --options=config/astyle.conf src/entities/Level.hpp
 astyle --options=config/astyle.conf src/entities/Cell.cpp
 astyle --options=config/astyle.conf src/entities/Cell.hpp
+astyle --options=config/astyle.conf src/entities/EmptyCell.cpp
+astyle --options=config/astyle.conf src/entities/EmptyCell.hpp

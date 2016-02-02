@@ -17,33 +17,19 @@
 */
 
 /**
- * @file Level.hpp
- * @brief level entity
+ * @file EmptyCell.hpp
+ * @brief empty cell entity
  * @package entities
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_LEVEL
-#define DEF_LEVEL
+#ifndef DEF_EMPTY_CELL
+#define DEF_EMPTY_CELL
 
-#include <iostream>
-#include <vector>
-
-#include "EmptyCell.hpp"
+#include "Cell.hpp"
 
 namespace entities {
-class Level {
-
-    static const unsigned int HEIGHT_CELLS_AMOUNT = 15;
-    static const unsigned int WIDTH_CELLS_AMOUNT = 20;
-
-public:
-
-    Level();
-
-private:
-
-    std::vector<std::vector<EmptyCell>> cells;
+class EmptyCell : public Cell {
 };
 }
 
