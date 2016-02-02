@@ -25,6 +25,8 @@
 
 #include "Widget.hpp"
 
-widgets::Widget::~Widget()
+using namespace widgets;
+
+Widget::~Widget()
 {
 }

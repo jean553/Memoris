@@ -47,9 +47,9 @@ protected:
     /**
      * @brief common method to display the widget
      *
-     * @param context    current context pointer
+     * @param pContext    current context pointer
      */
-    virtual void display(utils::Context* context) = 0;
+    virtual void display(utils::Context* pContext) = 0;
 };
 }
 

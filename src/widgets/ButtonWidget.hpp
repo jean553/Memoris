@@ -75,9 +75,9 @@ public:
      * button colors according to the current
      * cursor position on screen
      *
-     * @param context       current context pointer
+     * @param pContext       current pContext pointer
      */
-    void display(utils::Context* context);
+    void display(utils::Context* pContext);
 
     /**
      * Returns true if the mouse is

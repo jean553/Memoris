@@ -41,9 +41,9 @@ OrderedItemsListWidget::OrderedItemsListWidget() : ItemsListWidget()
 /**
  *
  */
-void OrderedItemsListWidget::display(utils::Context* context)
+void OrderedItemsListWidget::display(utils::Context* pContext)
 {
-    ItemsListWidget::display(context);
+    ItemsListWidget::display(pContext);
 
     for(std::vector<std::string>::iterator textItem = stringsList.begin();
             textItem != stringsList.end(); ++textItem) {
@@ -70,7 +70,7 @@ void OrderedItemsListWidget::display(utils::Context* context)
             itemsCommonVerticalPosition
         );
 
-        context->getWindow()->draw(spriteEdit);
-        context->getWindow()->draw(spriteDelete);
+        pContext->getWindow()->draw(spriteEdit);
+        pContext->getWindow()->draw(spriteDelete);
     }
 }

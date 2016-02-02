@@ -121,7 +121,7 @@ void ButtonWidget::setText(std::string inputTextData)
 /**
  *
  */
-void ButtonWidget::display(utils::Context* context)
+void ButtonWidget::display(utils::Context* pContext)
 {
     if(enable) {
 
@@ -139,8 +139,8 @@ void ButtonWidget::display(utils::Context* context)
         background.setFillColor(backgroundColorDisable);
     }
 
-    context->getWindow()->draw(background);
-    context->getWindow()->draw(buttonText);
+    pContext->getWindow()->draw(background);
+    pContext->getWindow()->draw(buttonText);
 }
 
 /**
