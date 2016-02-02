@@ -39,11 +39,11 @@ public:
     /**
      * @brief render the screen, contains events catcher,
      *
-     * @param context   common context pointer for controller
+     * @param pContext   common context pointer for controller
      *
      * @return char     next called screen controller id
      */
-    virtual unsigned char render(utils::Context* context) = 0;
+    virtual unsigned char render(utils::Context* pContext) = 0;
 
 protected:
 

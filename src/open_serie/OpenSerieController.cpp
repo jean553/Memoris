@@ -68,14 +68,14 @@ OpenSerieController::OpenSerieController() : Controller()
 /**
  *
  */
-unsigned char OpenSerieController::render(utils::Context* context)
+unsigned char OpenSerieController::render(utils::Context* pContext)
 {
-    titleBar.display(context);
-    buttonExit.display(context);
-    seriesList.display(context);
-    cursor.display(context);
+    titleBar.display(pContext);
+    buttonExit.display(pContext);
+    seriesList.display(pContext);
+    cursor.display(pContext);
 
-    while(context->getWindow()->pollEvent(event)) {
+    while(pContext->getWindow()->pollEvent(event)) {
         switch(event.type) {
             case sf::Event::KeyPressed: {
                 switch(event.key.code) {

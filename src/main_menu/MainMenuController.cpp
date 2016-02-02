@@ -139,7 +139,7 @@ MainMenuController::MainMenuController() : Controller()
 /**
  *
  */
-unsigned char MainMenuController::render(utils::Context* context)
+unsigned char MainMenuController::render(utils::Context* pContext)
 {
     if(clock.getElapsedTime().asMilliseconds() >
             INTERVAL_ANIMATION_TITLE
@@ -150,15 +150,15 @@ unsigned char MainMenuController::render(utils::Context* context)
 
     updateSelectorPosition();
 
-    context->getWindow()->draw(title);
-    context->getWindow()->draw(itemNewGame);
-    context->getWindow()->draw(itemLoadGame);
-    context->getWindow()->draw(itemEditor);
-    context->getWindow()->draw(itemOptions);
-    context->getWindow()->draw(itemExit);
-    context->getWindow()->draw(spriteGithub);
+    pContext->getWindow()->draw(title);
+    pContext->getWindow()->draw(itemNewGame);
+    pContext->getWindow()->draw(itemLoadGame);
+    pContext->getWindow()->draw(itemEditor);
+    pContext->getWindow()->draw(itemOptions);
+    pContext->getWindow()->draw(itemExit);
+    pContext->getWindow()->draw(spriteGithub);
 
-    while(context->getWindow()->pollEvent(event)) {
+    while(pContext->getWindow()->pollEvent(event)) {
         switch(event.type) {
             case sf::Event::KeyPressed: {
                 switch(event.key.code) {
@@ -177,7 +177,7 @@ unsigned char MainMenuController::render(utils::Context* context)
                         break;
                     }
                     case sf::Keyboard::Return: {
-                        selectMenuItem(context->getWindow());
+                        selectMenuItem(pContext->getWindow());
 
                         break;
                     }
