@@ -42,9 +42,9 @@ public:
     /**
      * @brief displays the cursor at the same position as the system screen cursor
      *
-     * @param context       current context pointer
+     * @param pContext       current pContext pointer
      */
-    void display(utils::Context* context);
+    void display(utils::Context* pContext);
 
 private:
 

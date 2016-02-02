@@ -65,9 +65,9 @@ public:
     /**
      * @brief display the header title bar
      *
-     * @param context       current context pointer
+     * @param pContext       current pContext pointer
      */
-    void display(utils::Context* context);
+    void display(utils::Context* pContext);
 
 private:
 

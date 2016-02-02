@@ -90,8 +90,8 @@ void TitleBarWidget::setText(std::string inputTextData)
 /**
  *
  */
-void TitleBarWidget::display(utils::Context* context)
+void TitleBarWidget::display(utils::Context* pContext)
 {
-    context->getWindow()->draw(displayedText);
-    context->getWindow()->draw(line);
+    pContext->getWindow()->draw(displayedText);
+    pContext->getWindow()->draw(line);
 }

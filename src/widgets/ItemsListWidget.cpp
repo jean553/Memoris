@@ -145,14 +145,14 @@ void ItemsListWidget::addTextItem(std::string textItem)
 /**
  *
  */
-void ItemsListWidget::display(utils::Context* context)
+void ItemsListWidget::display(utils::Context* pContext)
 {
-    context->getWindow()->draw(boxTop);
-    context->getWindow()->draw(boxBottom);
-    context->getWindow()->draw(boxLeft);
-    context->getWindow()->draw(boxRight);
-    context->getWindow()->draw(spriteUp);
-    context->getWindow()->draw(spriteDown);
+    pContext->getWindow()->draw(boxTop);
+    pContext->getWindow()->draw(boxBottom);
+    pContext->getWindow()->draw(boxLeft);
+    pContext->getWindow()->draw(boxRight);
+    pContext->getWindow()->draw(spriteUp);
+    pContext->getWindow()->draw(spriteDown);
 
     for(std::vector<std::string>::iterator textItem = stringsList.begin();
             textItem != stringsList.end(); ++textItem) {
@@ -189,9 +189,9 @@ void ItemsListWidget::display(utils::Context* context)
             itemsCommonVerticalPosition
         );
 
-        context->getWindow()->draw(item);
-        context->getWindow()->draw(spriteOrderUp);
-        context->getWindow()->draw(spriteOrderDown);
+        pContext->getWindow()->draw(item);
+        pContext->getWindow()->draw(spriteOrderUp);
+        pContext->getWindow()->draw(spriteOrderDown);
     }
 }
 

@@ -86,9 +86,9 @@ public:
      * @brief display the input text
      * with its content
      *
-     * @param context       current context pointer
+     * @param pContext       current pContext pointer
      */
-    void display(utils::Context* context);
+    void display(utils::Context* pContext);
 
     /**
      * @brief update the input text

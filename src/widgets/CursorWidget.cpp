@@ -40,12 +40,12 @@ CursorWidget::CursorWidget()
 /**
  *
  */
-void CursorWidget::display(utils::Context* context)
+void CursorWidget::display(utils::Context* pContext)
 {
     sprite.setPosition(
         sf::Mouse::getPosition().x,
         sf::Mouse::getPosition().y
     );
 
-    context->getWindow()->draw(sprite);
+    pContext->getWindow()->draw(sprite);
 }
