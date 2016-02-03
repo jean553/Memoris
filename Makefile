@@ -53,9 +53,6 @@ bin/Sounds.o: src/defines/Sounds.cpp
 bin/Serie.o: src/entities/Serie.cpp
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-bin/Cell.o: src/entities/Cell.cpp
-	$(CC) $(CFLAGS) -c -o $@ $<
-
 bin/Level.o: src/entities/Level.cpp
 	$(CC) $(CFLAGS) -c -o $@ $<
 

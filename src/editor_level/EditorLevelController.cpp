@@ -43,7 +43,7 @@ const std::string EditorLevelController::STRING_EDITOR_LEVEL_TITLE = "Level edit
 /**
  *
  */
-EditorLevelController::EditorLevelController() : Controller()
+EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSITION_X, LEVEL_POSITION_Y)
 {
     titleBar.setDisplayedText(
         STRING_EDITOR_LEVEL_TITLE
