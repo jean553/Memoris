@@ -30,10 +30,8 @@ using namespace entities;
 /**
  *
  */
-Level::Level()
+Level::Level(int hPosition, int vPosition)
 {
-    cells.resize(HEIGHT_CELLS_AMOUNT);
-    for (std::vector<EmptyCell> line : cells) {
-        line.resize(WIDTH_CELLS_AMOUNT);
-    }
+    horizontalPosition = hPosition;
+    verticalPosition = vPosition;
 }

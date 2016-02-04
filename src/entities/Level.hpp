@@ -26,24 +26,23 @@
 #ifndef DEF_LEVEL
 #define DEF_LEVEL
 
-#include <iostream>
-#include <vector>
-
-#include "EmptyCell.hpp"
-
 namespace entities {
 class Level {
 
-    static const unsigned int HEIGHT_CELLS_AMOUNT = 15;
-    static const unsigned int WIDTH_CELLS_AMOUNT = 20;
-
 public:
 
-    Level();
+    /**
+     * @brief position setter function
+     *
+     * @param hPosition horizontal position
+     * @param vPosition vertical position
+     */
+    Level(int hPosition, int vPosition);
 
 private:
 
-    std::vector<std::vector<EmptyCell>> cells;
+    int horizontalPosition;
+    int verticalPosition;
 };
 }
 
