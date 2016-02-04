@@ -17,40 +17,29 @@
 */
 
 /**
- * @file Level.hpp
- * @brief level entity
+ * @file Cell.hpp
+ * @brief cell entity
  * @package entities
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_LEVEL
-#define DEF_LEVEL
-
-#include <vector>
-
-#include "Cell.hpp"
+#ifndef DEF_CELL
+#define DEF_CELL
 
 namespace entities {
-class Level {
-
-    static const int LEVEL_CELLS_HEIGHT = 15;
-    static const int LEVEL_CELLS_WIDTH = 20;
-    static const int CELL_PIXELS_DIMENSIONS = 49;
-    static const int CELLS_PIXELS_SEPARATION = 1;
+class Cell {
 
 public:
 
     /**
-     * @brief position setter function
+     * @brief setter for the position
      *
      * @param hPosition horizontal position
      * @param vPosition vertical position
      */
-    Level(int hPosition, int vPosition);
+    void setPosition(int hPosition, int vPosition);
 
 private:
-
-    std::vector<std::vector<Cell>> cells;
 
     int horizontalPosition;
     int verticalPosition;
