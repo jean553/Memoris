@@ -26,10 +26,27 @@
 #ifndef DEF_CELL
 #define DEF_CELL
 
+#include <SFML/Graphics.hpp>
+
+#include <string>
+
 namespace entities {
 class Cell {
 
 public:
+
+    Cell();
+
+    /**
+     * @brief destructor, mandatory as the class is abstract
+     */
+    virtual ~Cell();
+
+    /**
+     * @brief abstract method that defines the action
+     * to perform when the cell is triggered
+     */
+    virtual void performAction() = 0;
 
     /**
      * @brief setter for the position
@@ -39,10 +56,21 @@ public:
      */
     void setPosition(int hPosition, int vPosition);
 
+    /**
+     * @brief set the picture
+     *
+     * @param path image path
+     */
+    void setPicturePath(std::string path);
+
 private:
 
     int horizontalPosition;
     int verticalPosition;
+
+    sf::Texture texture;
+
+    sf::Sprite sprite;
 };
 }
 

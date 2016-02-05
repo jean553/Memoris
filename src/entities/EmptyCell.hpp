@@ -17,48 +17,27 @@
 */
 
 /**
- * @file Level.hpp
- * @brief level entity
+ * @file EmptyCell.hpp
+ * @brief empty cell entity
  * @package entities
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_LEVEL
-#define DEF_LEVEL
-
-#include <vector>
+#ifndef DEF_EMPTY_CELL
+#define DEF_EMPTY_CELL
 
 #include "Cell.hpp"
 
 namespace entities {
-class Level {
-
-    static const int LEVEL_CELLS_HEIGHT = 15;
-    static const int LEVEL_CELLS_WIDTH = 20;
-    static const int CELL_PIXELS_DIMENSIONS = 49;
-    static const int CELLS_PIXELS_SEPARATION = 1;
+class EmptyCell : public Cell {
 
 public:
 
     /**
-     * @brief position setter function
-     *
-     * @param hPosition horizontal position
-     * @param vPosition vertical position
+     * @brief definition of the action to
+     * perform when the cell is triggered
      */
-    Level(int hPosition, int vPosition);
-
-    /**
-     * @brief used to destroy the cells pointers array
-     */
-    ~Level();
-
-private:
-
-    std::vector<std::vector<Cell*>> cells;
-
-    int horizontalPosition;
-    int verticalPosition;
+    void performAction();
 };
 }
 
