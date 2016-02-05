@@ -34,4 +34,24 @@ Level::Level(int hPosition, int vPosition)
 {
     horizontalPosition = hPosition;
     verticalPosition = vPosition;
+
+    cells.resize(LEVEL_CELLS_HEIGHT);
+    for (std::vector<std::vector<Cell>>::iterator line = cells.begin();
+            line != cells.end(); ++line) {
+
+        line->resize(LEVEL_CELLS_WIDTH);
+
+        for (std::vector<Cell>::iterator cell = line->begin();
+                cell != line->end(); ++cell) {
+
+            cell->setPosition(
+                horizontalPosition +
+                static_cast<int>(std::distance(cells.begin(), line)) *
+                (CELL_PIXELS_DIMENSIONS + CELLS_PIXELS_SEPARATION),
+                verticalPosition +
+                static_cast<int>(std::distance(line->begin(), cell)) *
+                (CELL_PIXELS_DIMENSIONS + CELLS_PIXELS_SEPARATION)
+            );
+        }
+    }
 }
