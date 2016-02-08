@@ -30,10 +30,12 @@
 
 #include "Cell.hpp"
 
+#include "../utils/Context.hpp"
+
 namespace entities {
 class Level {
 
-    static const int LEVEL_CELLS_HEIGHT = 15;
+    static const int LEVEL_CELLS_HEIGHT = 16;
     static const int LEVEL_CELLS_WIDTH = 20;
     static const int CELL_PIXELS_DIMENSIONS = 49;
     static const int CELLS_PIXELS_SEPARATION = 1;
@@ -52,6 +54,13 @@ public:
      * @brief used to destroy the cells pointers array
      */
     ~Level();
+
+    /**
+     * @brief display the level in a given context
+     *
+     * @param pContext pointer to a context
+     */
+    void displayAllCells(utils::Context* pContext);
 
 private:
 

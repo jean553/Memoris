@@ -27,6 +27,16 @@
 
 using namespace entities;
 
+const std::string EmptyCell::EMPTY_CELL_PICTURE_PATH = "res/cells/empty.png";
+
+/**
+ *
+ */
+EmptyCell::EmptyCell()
+{
+    setPicturePath(EMPTY_CELL_PICTURE_PATH);
+}
+
 /**
  *
  */

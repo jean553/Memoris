@@ -90,6 +90,8 @@ unsigned char EditorLevelController::render(utils::Context* pContext)
     buttonOpen.display(pContext);
     buttonSave.display(pContext);
 
+    level.displayAllCells(pContext);
+
     cursor.display(pContext);
 
     while(pContext->getWindow()->pollEvent(event)) {

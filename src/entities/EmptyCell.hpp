@@ -28,10 +28,16 @@
 
 #include "Cell.hpp"
 
+#include <string>
+
 namespace entities {
 class EmptyCell : public Cell {
 
+    static const std::string EMPTY_CELL_PICTURE_PATH;
+
 public:
+
+    EmptyCell();
 
     /**
      * @brief definition of the action to
