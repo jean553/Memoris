@@ -50,6 +50,11 @@ void Cell::setPosition(int hPosition, int vPosition)
 {
     horizontalPosition = hPosition;
     verticalPosition = vPosition;
+
+    sprite.setPosition(
+        horizontalPosition,
+        verticalPosition
+    );
 }
 
 /**
@@ -60,8 +65,12 @@ void Cell::setPicturePath(std::string path)
     texture.loadFromFile(path);
 
     sprite.setTexture(texture, true);
-    sprite.setPosition(
-        horizontalPosition,
-        verticalPosition
-    );
+}
+
+/**
+ *
+ */
+sf::Sprite Cell::getSprite()
+{
+    return sprite;
 }

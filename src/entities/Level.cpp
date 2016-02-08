@@ -36,11 +36,11 @@ Level::Level(int hPosition, int vPosition)
     horizontalPosition = hPosition;
     verticalPosition = vPosition;
 
-    cells.resize(LEVEL_CELLS_HEIGHT);
+    cells.resize(LEVEL_CELLS_WIDTH);
     for (std::vector<std::vector<Cell*>>::iterator line = cells.begin();
             line != cells.end(); ++line) {
 
-        line->resize(LEVEL_CELLS_WIDTH);
+        line->resize(LEVEL_CELLS_HEIGHT);
 
         for (std::vector<Cell*>::iterator cell = line->begin();
                 cell != line->end(); ++cell) {
@@ -69,6 +69,20 @@ Level::~Level()
         for (std::vector<Cell*>::iterator cell = line->begin();
                 cell != line->end(); ++cell) {
             delete (*cell);
+        }
+    }
+}
+
+/**
+ *
+ */
+void Level::displayAllCells(utils::Context* pContext)
+{
+    for (std::vector<std::vector<Cell*>>::iterator line = cells.begin();
+            line != cells.end(); ++line) {
+        for (std::vector<Cell*>::iterator cell = line->begin();
+                cell != line->end(); ++cell) {
+            pContext->getWindow()->draw((*cell)->getSprite());
         }
     }
 }

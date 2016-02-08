@@ -63,6 +63,11 @@ public:
      */
     void setPicturePath(std::string path);
 
+    /**
+     * @brief getter for cell sprit
+     */
+    sf::Sprite getSprite();
+
 private:
 
     int horizontalPosition;

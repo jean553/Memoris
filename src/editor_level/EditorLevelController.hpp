@@ -51,8 +51,8 @@ class EditorLevelController : public Controller {
     static const int LEVEL_EDITOR_BUTTON_NEW_POSITION_Y = 170;
     static const int LEVEL_EDITOR_BUTTON_OPEN_POSITION_Y = 240;
     static const int LEVEL_EDITOR_BUTTON_SAVE_POSITION_Y = 310;
-    static const int LEVEL_POSITION_X = 10;
-    static const int LEVEL_POSITION_Y = 10;
+    static const int LEVEL_POSITION_X = 5;
+    static const int LEVEL_POSITION_Y = 90;
 
 public:
 
