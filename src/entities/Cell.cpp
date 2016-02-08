@@ -30,8 +30,38 @@ using namespace entities;
 /**
  *
  */
+Cell::Cell()
+{
+    horizontalPosition = 0;
+    verticalPosition = 0;
+}
+
+/**
+ *
+ */
+Cell::~Cell()
+{
+}
+
+/**
+ *
+ */
 void Cell::setPosition(int hPosition, int vPosition)
 {
     horizontalPosition = hPosition;
     verticalPosition = vPosition;
+}
+
+/**
+ *
+ */
+void Cell::setPicturePath(std::string path)
+{
+    texture.loadFromFile(path);
+
+    sprite.setTexture(texture, true);
+    sprite.setPosition(
+        horizontalPosition,
+        verticalPosition
+    );
 }

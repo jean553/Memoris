@@ -24,6 +24,7 @@
  */
 
 #include "Level.hpp"
+#include "EmptyCell.hpp"
 
 using namespace entities;
 
@@ -36,15 +37,17 @@ Level::Level(int hPosition, int vPosition)
     verticalPosition = vPosition;
 
     cells.resize(LEVEL_CELLS_HEIGHT);
-    for (std::vector<std::vector<Cell>>::iterator line = cells.begin();
+    for (std::vector<std::vector<Cell*>>::iterator line = cells.begin();
             line != cells.end(); ++line) {
 
         line->resize(LEVEL_CELLS_WIDTH);
 
-        for (std::vector<Cell>::iterator cell = line->begin();
+        for (std::vector<Cell*>::iterator cell = line->begin();
                 cell != line->end(); ++cell) {
 
-            cell->setPosition(
+            (*cell) = new EmptyCell();
+
+            (*cell)->setPosition(
                 horizontalPosition +
                 static_cast<int>(std::distance(cells.begin(), line)) *
                 (CELL_PIXELS_DIMENSIONS + CELLS_PIXELS_SEPARATION),
@@ -52,6 +55,20 @@ Level::Level(int hPosition, int vPosition)
                 static_cast<int>(std::distance(line->begin(), cell)) *
                 (CELL_PIXELS_DIMENSIONS + CELLS_PIXELS_SEPARATION)
             );
+        }
+    }
+}
+
+/**
+ *
+ */
+Level::~Level()
+{
+    for (std::vector<std::vector<Cell*>>::iterator line = cells.begin();
+            line != cells.end(); ++line) {
+        for (std::vector<Cell*>::iterator cell = line->begin();
+                cell != line->end(); ++cell) {
+            delete (*cell);
         }
     }
 }
