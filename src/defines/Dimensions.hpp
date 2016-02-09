@@ -36,6 +36,11 @@ public:
     static const unsigned int SCREEN_HEIGHT = 900;
 
     static const unsigned int EDITOR_BUTTONS_WIDTH = 200;
+
+    static const int LEVEL_CELLS_HEIGHT = 16;
+    static const int LEVEL_CELLS_WIDTH = 20;
+    static const int CELL_PIXELS_DIMENSIONS = 49;
+    static const int CELLS_PIXELS_SEPARATION = 1;
 };
 }
 

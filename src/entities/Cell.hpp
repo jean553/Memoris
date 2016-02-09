@@ -30,6 +30,8 @@
 
 #include <string>
 
+#include "../utils/Context.hpp"
+
 namespace entities {
 class Cell {
 
@@ -64,11 +66,20 @@ public:
     void setPicturePath(std::string path);
 
     /**
-     * @brief getter for cell sprit
+     * @brief displays the cell according to the context
+     *
+     * @param pContext context pointer
      */
-    sf::Sprite getSprite();
+    void display(utils::Context* pContext);
 
 private:
+
+    /**
+     * @brief check if the mouse is hover the cell
+     *
+     * @return bool
+     */
+    bool isMouseHover() const;
 
     int horizontalPosition;
     int verticalPosition;
@@ -76,6 +87,9 @@ private:
     sf::Texture texture;
 
     sf::Sprite sprite;
+
+    sf::Color transparentWhiteColor;
+    sf::Color whiteColor;
 };
 }
 

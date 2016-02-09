@@ -26,6 +26,8 @@
 #include "Level.hpp"
 #include "EmptyCell.hpp"
 
+#include "../defines/Dimensions.hpp"
+
 using namespace entities;
 
 /**
@@ -36,11 +38,11 @@ Level::Level(int hPosition, int vPosition)
     horizontalPosition = hPosition;
     verticalPosition = vPosition;
 
-    cells.resize(LEVEL_CELLS_WIDTH);
+    cells.resize(constants::Dimensions::LEVEL_CELLS_WIDTH);
     for (std::vector<std::vector<Cell*>>::iterator line = cells.begin();
             line != cells.end(); ++line) {
 
-        line->resize(LEVEL_CELLS_HEIGHT);
+        line->resize(constants::Dimensions::LEVEL_CELLS_HEIGHT);
 
         for (std::vector<Cell*>::iterator cell = line->begin();
                 cell != line->end(); ++cell) {
@@ -50,10 +52,10 @@ Level::Level(int hPosition, int vPosition)
             (*cell)->setPosition(
                 horizontalPosition +
                 static_cast<int>(std::distance(cells.begin(), line)) *
-                (CELL_PIXELS_DIMENSIONS + CELLS_PIXELS_SEPARATION),
+                (constants::Dimensions::CELL_PIXELS_DIMENSIONS + constants::Dimensions::CELLS_PIXELS_SEPARATION),
                 verticalPosition +
                 static_cast<int>(std::distance(line->begin(), cell)) *
-                (CELL_PIXELS_DIMENSIONS + CELLS_PIXELS_SEPARATION)
+                (constants::Dimensions::CELL_PIXELS_DIMENSIONS + constants::Dimensions::CELLS_PIXELS_SEPARATION)
             );
         }
     }
@@ -82,7 +84,7 @@ void Level::displayAllCells(utils::Context* pContext)
             line != cells.end(); ++line) {
         for (std::vector<Cell*>::iterator cell = line->begin();
                 cell != line->end(); ++cell) {
-            pContext->getWindow()->draw((*cell)->getSprite());
+            (*cell)->display(pContext);
         }
     }
 }
