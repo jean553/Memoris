@@ -25,6 +25,9 @@
 
 #include "Cell.hpp"
 
+#include "../defines/Dimensions.hpp"
+#include "../defines/Colors.hpp"
+
 using namespace entities;
 
 /**
@@ -34,6 +37,16 @@ Cell::Cell()
 {
     horizontalPosition = 0;
     verticalPosition = 0;
+
+    transparentWhiteColor.r = constants::Colors::COLOR_WHITE_RED;
+    transparentWhiteColor.g = constants::Colors::COLOR_WHITE_GREEN;
+    transparentWhiteColor.b = constants::Colors::COLOR_WHITE_BLUE;
+    transparentWhiteColor.a = constants::Colors::COLOR_ALPHA_PARTIAL;
+
+    whiteColor.r = constants::Colors::COLOR_WHITE_RED;
+    whiteColor.g = constants::Colors::COLOR_WHITE_GREEN;
+    whiteColor.b = constants::Colors::COLOR_WHITE_BLUE;
+    whiteColor.a = constants::Colors::COLOR_ALPHA_FULL;
 }
 
 /**
@@ -70,7 +83,30 @@ void Cell::setPicturePath(std::string path)
 /**
  *
  */
-sf::Sprite Cell::getSprite()
+void Cell::display(utils::Context* pContext)
 {
-    return sprite;
+    if (isMouseHover()) {
+        sprite.setColor(transparentWhiteColor);
+    } else {
+        sprite.setColor(whiteColor);
+    }
+
+    pContext->getWindow()->draw(sprite);
+}
+
+/**
+ *
+ */
+bool Cell::isMouseHover() const
+{
+    if (
+        sf::Mouse::getPosition().x > horizontalPosition &&
+        sf::Mouse::getPosition().x < horizontalPosition + constants::Dimensions::CELL_PIXELS_DIMENSIONS &&
+        sf::Mouse::getPosition().y > verticalPosition &&
+        sf::Mouse::getPosition().y < verticalPosition + constants::Dimensions::CELL_PIXELS_DIMENSIONS
+    ) {
+        return true;
+    }
+
+    return false;
 }

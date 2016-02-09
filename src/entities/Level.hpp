@@ -35,11 +35,6 @@
 namespace entities {
 class Level {
 
-    static const int LEVEL_CELLS_HEIGHT = 16;
-    static const int LEVEL_CELLS_WIDTH = 20;
-    static const int CELL_PIXELS_DIMENSIONS = 49;
-    static const int CELLS_PIXELS_SEPARATION = 1;
-
 public:
 
     /**
