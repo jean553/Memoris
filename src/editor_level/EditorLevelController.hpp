@@ -46,6 +46,7 @@ class EditorLevelController : public Controller {
     static const std::string EDITOR_LEVEL_BUTTON_OPEN_TEXT;
     static const std::string EDITOR_LEVEL_BUTTON_SAVE_TEXT;
     static const std::string STRING_EDITOR_LEVEL_TITLE;
+    static const std::string DEFAULT_LEVEL_NAME;
 
     static const int LEVEL_EDITOR_BUTTONS_POSITION_X = 1390;
     static const int LEVEL_EDITOR_BUTTON_NEW_POSITION_Y = 170;
@@ -79,6 +80,12 @@ private:
     widgets::TitleBarWidget titleBar;
 
     entities::Level level;
+
+    sf::Font levelNameLabelFont;
+
+    sf::Color levelNameLabelColor;
+
+    sf::Text levelNameLabel;
 };
 }
 

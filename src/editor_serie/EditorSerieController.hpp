@@ -71,7 +71,6 @@ class EditorSerieController : public Controller {
     static const unsigned int POSITION_NEW_SERIE_INPUT_TEXT_X = 10;
     static const unsigned int POSITION_NEW_SERIE_INPUT_TEXT_Y = 175;
     static const unsigned int SIZE_NEW_SERIE_TEXT = 350;
-    static const unsigned int POSITION_SERIE_NAME_LABEL_Y = 0;
     static const unsigned int ERROR_MESSAGE_POSITION_X = 800;
     static const unsigned int ERROR_MESSAGE_POSITION_Y = 200;
 

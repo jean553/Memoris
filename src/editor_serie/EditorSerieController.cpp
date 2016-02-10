@@ -256,7 +256,7 @@ unsigned char EditorSerieController::render(utils::Context* pContext)
                                     serieNameLabel.setPosition(
                                         constants::Dimensions::SCREEN_WIDTH -
                                         serieNameLabel.getLocalBounds().width,
-                                        POSITION_SERIE_NAME_LABEL_Y
+                                        constants::Dimensions::POSITION_NAME_LABEL_Y
                                     );
 
                                     switchMainMenuButtonsToEditSerieStatus();
