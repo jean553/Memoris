@@ -29,6 +29,8 @@
 
 #include "../defines/Positions.hpp"
 #include "../defines/Dimensions.hpp"
+#include "../defines/Colors.hpp"
+#include "../defines/Fonts.hpp"
 
 #include "../utils/ScreenFactory.hpp"
 
@@ -39,6 +41,7 @@ const std::string EditorLevelController::EDITOR_LEVEL_BUTTON_NEW_TEXT = "New";
 const std::string EditorLevelController::EDITOR_LEVEL_BUTTON_OPEN_TEXT = "Open";
 const std::string EditorLevelController::EDITOR_LEVEL_BUTTON_SAVE_TEXT = "Save";
 const std::string EditorLevelController::STRING_EDITOR_LEVEL_TITLE = "Level editor";
+const std::string EditorLevelController::DEFAULT_LEVEL_NAME = "untitled";
 
 /**
  *
@@ -77,6 +80,23 @@ EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSIT
         LEVEL_EDITOR_BUTTON_SAVE_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
+
+    levelNameLabelColor.r = constants::Colors::COLOR_WHITE_RED;
+    levelNameLabelColor.g = constants::Colors::COLOR_WHITE_GREEN;
+    levelNameLabelColor.b = constants::Colors::COLOR_WHITE_BLUE;
+    levelNameLabelColor.a = constants::Colors::COLOR_ALPHA_FULL;
+
+    levelNameLabelFont.loadFromFile(constants::Fonts::getTextFontPath());
+
+    levelNameLabel.setFont(levelNameLabelFont);
+    levelNameLabel.setCharacterSize(constants::Fonts::SIZE_SUB_TITLE_FONT);
+    levelNameLabel.setColor(levelNameLabelColor);
+    levelNameLabel.setString(DEFAULT_LEVEL_NAME);
+    levelNameLabel.setPosition(
+        constants::Dimensions::SCREEN_WIDTH -
+        levelNameLabel.getLocalBounds().width,
+        constants::Dimensions::POSITION_NAME_LABEL_Y
+    );
 }
 
 /**
@@ -91,6 +111,9 @@ unsigned char EditorLevelController::render(utils::Context* pContext)
     buttonSave.display(pContext);
 
     level.displayAllCells(pContext);
+
+    //TODO: displays only the level name when a level is loaded
+    pContext->getWindow()->draw(levelNameLabel);
 
     cursor.display(pContext);
 

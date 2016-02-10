@@ -41,6 +41,7 @@ public:
     static const int LEVEL_CELLS_WIDTH = 20;
     static const int CELL_PIXELS_DIMENSIONS = 49;
     static const int CELLS_PIXELS_SEPARATION = 1;
+    static const int POSITION_NAME_LABEL_Y = 0;
 };
 }
 
