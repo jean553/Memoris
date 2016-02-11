@@ -108,10 +108,8 @@ private:
 
     /**
      * @brief call action for one selected menu item
-     *
-     * @param window        main window
      */
-    void selectMenuItem(sf::RenderWindow* window);
+    void selectMenuItem();
 
     unsigned short titleRedDirection;
     unsigned short titleGreenDirection;

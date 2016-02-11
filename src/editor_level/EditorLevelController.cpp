@@ -29,6 +29,7 @@
 
 #include "../defines/Positions.hpp"
 #include "../defines/Dimensions.hpp"
+#include "../defines/Window.hpp"
 #include "../defines/Colors.hpp"
 #include "../defines/Fonts.hpp"
 
@@ -93,7 +94,7 @@ EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSIT
     levelNameLabel.setColor(levelNameLabelColor);
     levelNameLabel.setString(DEFAULT_LEVEL_NAME);
     levelNameLabel.setPosition(
-        constants::Dimensions::SCREEN_WIDTH -
+        constants::Window::WIDTH -
         levelNameLabel.getLocalBounds().width,
         constants::Dimensions::POSITION_NAME_LABEL_Y
     );
