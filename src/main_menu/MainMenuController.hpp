@@ -44,38 +44,40 @@ class MainMenuController : public Controller {
     static const std::string STRING_OPTIONS;
     static const std::string STRING_EXIT;
 
-    static const unsigned int COLOR_TITLE_RED_INIT = 0;
-    static const unsigned int COLOR_TITLE_GREEN_INIT = 0;
-    static const unsigned int COLOR_TITLE_BLUE_INIT = 255;
-    static const unsigned int COLOR_TITLE_RED_MAX = 255;
-    static const unsigned int COLOR_TITLE_GREEN_MAX = 180;
-    static const unsigned int COLOR_TITLE_BLUE_MAX = 255;
-    static const unsigned int COLOR_TITLE_ALL_MIN = 0;
-    static const unsigned int POSITION_TITLE_X = 480;
-    static const unsigned int POSITION_TITLE_Y = 100;
-    static const unsigned int POSITION_GITHUB_X = 1300;
-    static const unsigned int POSITION_GITHUB_Y = 0;
-    static const unsigned int POSITION_ITEM_NEW_GAME_X = 615;
-    static const unsigned int POSITION_ITEM_NEW_GAME_Y = 300;
-    static const unsigned int POSITION_ITEM_LOAD_GAME_X = 605;
-    static const unsigned int POSITION_ITEM_LOAD_GAME_Y = 400;
-    static const unsigned int POSITION_ITEM_EDITOR_X = 685;
-    static const unsigned int POSITION_ITEM_EDITOR_Y = 500;
-    static const unsigned int POSITION_ITEM_OPTIONS_X = 660;
-    static const unsigned int POSITION_ITEM_OPTIONS_Y = 600;
-    static const unsigned int POSITION_ITEM_EXIT_X = 725;
-    static const unsigned int POSITION_ITEM_EXIT_Y = 700;
-    static const unsigned int DIRECTION_TITLE_RED_INIT = 1;
-    static const unsigned int DIRECTION_TITLE_GREEN_INIT = 1;
-    static const int DIRECTION_TITLE_BLUE_INIT = -1;
+    static const unsigned short COLOR_TITLE_RED_INIT = 0;
+    static const unsigned short COLOR_TITLE_GREEN_INIT = 0;
+    static const unsigned short COLOR_TITLE_BLUE_INIT = 255;
+    static const unsigned short COLOR_TITLE_RED_MAX = 255;
+    static const unsigned short COLOR_TITLE_GREEN_MAX = 180;
+    static const unsigned short COLOR_TITLE_BLUE_MAX = 255;
+    static const unsigned short COLOR_TITLE_ALL_MIN = 0;
+    static const unsigned short POSITION_TITLE_X = 480;
+    static const unsigned short POSITION_TITLE_Y = 100;
+    static const unsigned short POSITION_GITHUB_X = 1300;
+    static const unsigned short POSITION_GITHUB_Y = 0;
+    static const unsigned short POSITION_ITEM_NEW_GAME_X = 615;
+    static const unsigned short POSITION_ITEM_NEW_GAME_Y = 300;
+    static const unsigned short POSITION_ITEM_LOAD_GAME_X = 605;
+    static const unsigned short POSITION_ITEM_LOAD_GAME_Y = 400;
+    static const unsigned short POSITION_ITEM_EDITOR_X = 685;
+    static const unsigned short POSITION_ITEM_EDITOR_Y = 500;
+    static const unsigned short POSITION_ITEM_OPTIONS_X = 660;
+    static const unsigned short POSITION_ITEM_OPTIONS_Y = 600;
+    static const unsigned short POSITION_ITEM_EXIT_X = 725;
+    static const unsigned short POSITION_ITEM_EXIT_Y = 700;
+    static const unsigned short DIRECTION_TITLE_RED_INIT = 1;
+    static const unsigned short DIRECTION_TITLE_GREEN_INIT = 1;
+    static const unsigned short MAIN_MENU_SELECTOR_MIN = 0;
+    static const unsigned short MAIN_MENU_SELECTOR_MAX = 4;
+    static const unsigned short MAIN_MENU_ITEM_NEW_GAME = 0;
+    static const unsigned short MAIN_MENU_ITEM_LOAD_GAME = 1;
+    static const unsigned short MAIN_MENU_ITEM_EDITOR = 2;
+    static const unsigned short MAIN_MENU_ITEM_OPTIONS = 3;
+    static const unsigned short MAIN_MENU_ITEM_EXIT = 4;
+
+    static const short DIRECTION_TITLE_BLUE_INIT = -1;
+
     static const int INTERVAL_ANIMATION_TITLE = 10;
-    static const unsigned int MAIN_MENU_SELECTOR_MIN = 0;
-    static const unsigned int MAIN_MENU_SELECTOR_MAX = 4;
-    static const unsigned int MAIN_MENU_ITEM_NEW_GAME = 0;
-    static const unsigned int MAIN_MENU_ITEM_LOAD_GAME = 1;
-    static const unsigned int MAIN_MENU_ITEM_EDITOR = 2;
-    static const unsigned int MAIN_MENU_ITEM_OPTIONS = 3;
-    static const unsigned int MAIN_MENU_ITEM_EXIT = 4;
 
 public:
 
@@ -86,9 +88,9 @@ public:
      *
      * @param pContext   commons items for controller
      *
-     * @return char   id of the next screen controller
+     * @return short   id of the next screen controller
      */
-    unsigned char render(
+    unsigned short render(
         utils::Context* pContext
     );
 
@@ -111,11 +113,10 @@ private:
      */
     void selectMenuItem(sf::RenderWindow* window);
 
-    char titleRedDirection;
-    char titleGreenDirection;
-    char titleBlueDirection;
-
-    unsigned char selectorPosition;
+    unsigned short titleRedDirection;
+    unsigned short titleGreenDirection;
+    short titleBlueDirection;
+    unsigned short selectorPosition;
 
     sf::Font fontTitle;
     sf::Font fontItem;

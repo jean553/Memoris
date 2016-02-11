@@ -43,7 +43,10 @@ public:
      * @param hPosition horizontal position
      * @param vPosition vertical position
      */
-    Level(int hPosition, int vPosition);
+    Level(
+        float hPosition,
+        float vPosition
+    );
 
     /**
      * @brief used to destroy the cells pointers array
@@ -61,8 +64,8 @@ private:
 
     std::vector<std::vector<Cell*>> cells;
 
-    int horizontalPosition;
-    int verticalPosition;
+    float horizontalPosition;
+    float verticalPosition;
 };
 }
 

@@ -32,7 +32,7 @@ class Positions {
 
 public:
 
-    static const unsigned int EDITOR_BUTTONS_POSITION_Y = 100;
+    static const unsigned short EDITOR_BUTTONS_POSITION_Y = 100;
 };
 }
 

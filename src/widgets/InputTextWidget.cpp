@@ -54,7 +54,7 @@ InputTextWidget::InputTextWidget()
 /**
  *
  */
-void InputTextWidget::setMaximumCharacters(unsigned int maxCharacters)
+void InputTextWidget::setMaximumCharacters(unsigned short maxCharacters)
 {
     maximumCharacters = maxCharacters;
 }
@@ -63,9 +63,9 @@ void InputTextWidget::setMaximumCharacters(unsigned int maxCharacters)
  *
  */
 void InputTextWidget::setLayout(
-    unsigned int inputHorizontalPosition,
-    unsigned int inputVerticalPosition,
-    unsigned int inputWidth
+    float inputHorizontalPosition,
+    float inputVerticalPosition,
+    float inputWidth
 )
 {
     horizontalPosition = inputHorizontalPosition;

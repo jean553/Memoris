@@ -32,10 +32,9 @@ const std::string MusicFactory::MAIN_MENU_MUSIC_PATH = "res/musics/dj-xtrm-kille
  *
  */
 std::string MusicFactory::getMusicPathById(
-    unsigned char id
+    unsigned short id
 )
 {
-
     switch(id) {
         default:
             return MAIN_MENU_MUSIC_PATH;

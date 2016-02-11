@@ -40,17 +40,17 @@ class EditorMenuController : public Controller {
     static const std::string STRING_SERIES_EDITOR;
     static const std::string STRING_BACK;
 
-    static const unsigned int POSITION_ITEM_LEVELS_EDITOR_X = 680;
-    static const unsigned int POSITION_ITEM_LEVELS_EDITOR_Y = 200;
-    static const unsigned int POSITION_ITEM_SERIES_EDITOR_X = 690;
-    static const unsigned int POSITION_ITEM_SERIES_EDITOR_Y = 350;
-    static const unsigned int POSITION_ITEM_BACK_X = 715;
-    static const unsigned int POSITION_ITEM_BACK_Y = 600;
-    static const unsigned int EDITOR_MENU_SELECTOR_MAX = 2;
-    static const unsigned int EDITOR_MENU_SELECTOR_MIN = 0;
-    static const unsigned int EDITOR_MENU_ITEM_LEVELS_EDITOR = 0;
-    static const unsigned int EDITOR_MENU_ITEM_SERIES_EDITOR = 1;
-    static const unsigned int EDITOR_MENU_ITEM_BACK = 2;
+    static const unsigned short POSITION_ITEM_LEVELS_EDITOR_X = 680;
+    static const unsigned short POSITION_ITEM_LEVELS_EDITOR_Y = 200;
+    static const unsigned short POSITION_ITEM_SERIES_EDITOR_X = 690;
+    static const unsigned short POSITION_ITEM_SERIES_EDITOR_Y = 350;
+    static const unsigned short POSITION_ITEM_BACK_X = 715;
+    static const unsigned short POSITION_ITEM_BACK_Y = 600;
+    static const unsigned short EDITOR_MENU_SELECTOR_MAX = 2;
+    static const unsigned short EDITOR_MENU_SELECTOR_MIN = 0;
+    static const unsigned short EDITOR_MENU_ITEM_LEVELS_EDITOR = 0;
+    static const unsigned short EDITOR_MENU_ITEM_SERIES_EDITOR = 1;
+    static const unsigned short EDITOR_MENU_ITEM_BACK = 2;
 
 public:
 
@@ -61,9 +61,9 @@ public:
      *
      * @param pContext commons items for controller
      *
-     * @return char   id of the next screen controller
+     * @return short   id of the next screen controller
      */
-    unsigned char render(
+    unsigned short render(
         utils::Context* pContext
     );
 
@@ -79,7 +79,7 @@ public:
 
 private:
 
-    unsigned char selectorPosition;
+    unsigned short selectorPosition;
 
     sf::Font fontItem;
 

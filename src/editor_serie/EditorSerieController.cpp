@@ -172,7 +172,7 @@ EditorSerieController::EditorSerieController() : Controller()
 /**
  *
  */
-unsigned char EditorSerieController::render(utils::Context* pContext)
+unsigned short EditorSerieController::render(utils::Context* pContext)
 {
     titleBar.display(pContext);
     buttonNew.display(pContext);

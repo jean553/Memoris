@@ -102,7 +102,7 @@ EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSIT
 /**
  *
  */
-unsigned char EditorLevelController::render(utils::Context* pContext)
+unsigned short EditorLevelController::render(utils::Context* pContext)
 {
     titleBar.display(pContext);
     buttonExit.display(pContext);

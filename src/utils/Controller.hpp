@@ -43,13 +43,13 @@ public:
      *
      * @return char     next called screen controller id
      */
-    virtual unsigned char render(utils::Context* pContext) = 0;
+    virtual unsigned short render(utils::Context* pContext) = 0;
 
 protected:
 
     sf::Event event;
 
-    unsigned char nextControllerId;
+    unsigned short nextControllerId;
 };
 }
 

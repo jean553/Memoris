@@ -92,7 +92,7 @@ NewGameController::NewGameController() : Controller()
 /**
  *
  */
-unsigned char NewGameController::render(utils::Context* pContext)
+unsigned short NewGameController::render(utils::Context* pContext)
 {
     pContext->getWindow()->draw(title);
     pContext->getWindow()->draw(explanation);

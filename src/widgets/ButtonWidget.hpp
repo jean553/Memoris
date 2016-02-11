@@ -33,7 +33,7 @@
 namespace widgets {
 class ButtonWidget : public Widget {
 
-    static const unsigned int BUTTON_FIXED_HEIGHT = 60;
+    static constexpr float BUTTON_FIXED_HEIGHT = 60;
     static const unsigned int SIZE_BUTTON_TEXT_FONT = 40;
 
 public:
@@ -58,9 +58,9 @@ public:
      * @param buttonWidth               button fixed width
      */
     void setLayout(
-        unsigned int buttonHorizontalPosition,
-        unsigned int buttonVerticalPosition,
-        unsigned int buttonWidth
+        float buttonHorizontalPosition,
+        float buttonVerticalPosition,
+        float buttonWidth
     );
 
     /**
@@ -113,9 +113,9 @@ private:
 
     sf::RectangleShape background;
 
-    unsigned int horizontalPosition;
-    unsigned int verticalPosition;
-    unsigned int width;
+    float horizontalPosition;
+    float verticalPosition;
+    float width;
 
     bool enable;
 };

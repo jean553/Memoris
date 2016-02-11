@@ -48,9 +48,9 @@ void OrderedItemsListWidget::display(utils::Context* pContext)
     for(std::vector<std::string>::iterator textItem = stringsList.begin();
             textItem != stringsList.end(); ++textItem) {
 
-        int itemsCommonVerticalPosition = verticalPosition +
-                                          (static_cast<int> (std::distance(stringsList.begin(), textItem))) *
-                                          ITEMS_LIST_ITEM_HEIGHT;
+        float itemsCommonVerticalPosition = verticalPosition +
+                (static_cast<float> (std::distance(stringsList.begin(), textItem))) *
+                ITEMS_LIST_ITEM_HEIGHT;
 
         sf::Texture textureEdit, textureDelete;
         sf::Sprite spriteEdit, spriteDelete;
