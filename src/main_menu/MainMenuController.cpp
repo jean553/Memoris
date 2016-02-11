@@ -139,7 +139,7 @@ MainMenuController::MainMenuController() : Controller()
 /**
  *
  */
-unsigned char MainMenuController::render(utils::Context* pContext)
+unsigned short MainMenuController::render(utils::Context* pContext)
 {
     if(clock.getElapsedTime().asMilliseconds() >
             INTERVAL_ANIMATION_TITLE

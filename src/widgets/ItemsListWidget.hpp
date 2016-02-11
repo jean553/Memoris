@@ -33,9 +33,9 @@ class ItemsListWidget : public Widget {
 
 public:
 
-    static const int ITEMS_LIST_BORDER_SIZE = 1;
-    static const int ITEMS_LIST_ITEM_HEIGHT = 40;
-    static const int ITEMS_LIST_ARROW_DIM = 40;
+    static constexpr float ITEMS_LIST_BORDER_SIZE = 1;
+    static constexpr float ITEMS_LIST_ARROW_DIM = 40;
+    static const unsigned int ITEMS_LIST_ITEM_HEIGHT = 40;
 
     ItemsListWidget();
 
@@ -48,10 +48,10 @@ public:
      * @param verticalTextContainers         vertical text containers
      */
     void setLayout(
-        int widgetHorizontalPosition,
-        int widgetVerticalPosition,
-        int widgetWidth,
-        unsigned char verticalTextContainers
+        float widgetHorizontalPosition,
+        float widgetVerticalPosition,
+        float widgetWidth,
+        unsigned short verticalTextContainers
     );
 
     /**
@@ -100,10 +100,11 @@ protected:
     sf::Sprite spriteUp;
     sf::Sprite spriteDown;
 
-    int horizontalPosition;
-    int verticalPosition;
-    int width;
-    unsigned char verticalContainers;
+    float horizontalPosition;
+    float verticalPosition;
+    float width;
+
+    unsigned short verticalContainers;
 
     std::vector<std::string> stringsList;
 };

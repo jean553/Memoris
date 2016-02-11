@@ -46,7 +46,7 @@ public:
      * @return string   music file path,
      * main menu music path by default
      */
-    static std::string getMusicPathById(unsigned char id);
+    static std::string getMusicPathById(unsigned short id);
 };
 }
 

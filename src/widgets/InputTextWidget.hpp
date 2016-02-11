@@ -35,16 +35,17 @@
 namespace widgets {
 class InputTextWidget : public Widget {
 
-    static const unsigned int BOX_BORDER_LARGER = 1;
-    static const unsigned int BOX_LARGER = 60;
-    static const unsigned int CURSOR_WIDTH = 25;
-    static const unsigned int CURSOR_HEIGHT = 50;
-    static const int INTERVAL_ANIMATION_CURSOR = 200;
-    static const unsigned int SIZE_INPUT_TEXT_FONT = 45;
-    static const unsigned int CURSOR_HORIZONTAL_OFFSET = 5;
-    static const unsigned int CURSOR_VERTICAL_OFFSET = 5;
-    static const unsigned int TEXT_HORIZONTAL_OFFSET = 5;
-    static const unsigned int DEFAULT_MAXIMUM_CHARACTERS = 10;
+    static const unsigned short BOX_BORDER_LARGER = 1;
+    static const unsigned short BOX_LARGER = 60;
+    static const unsigned short CURSOR_WIDTH = 25;
+    static const unsigned short CURSOR_HEIGHT = 50;
+    static const unsigned short SIZE_INPUT_TEXT_FONT = 45;
+    static const unsigned short CURSOR_HORIZONTAL_OFFSET = 5;
+    static const unsigned short CURSOR_VERTICAL_OFFSET = 5;
+    static const unsigned short TEXT_HORIZONTAL_OFFSET = 5;
+    static const unsigned short DEFAULT_MAXIMUM_CHARACTERS = 10;
+
+    static const short INTERVAL_ANIMATION_CURSOR = 200;
 
 public:
 
@@ -58,15 +59,15 @@ public:
      * @param inputWidth                 input width
      */
     void setLayout(
-        unsigned int inputHorizontalPosition,
-        unsigned int inputVerticalPosition,
-        unsigned int inputWidth
+        float inputHorizontalPosition,
+        float inputVerticalPosition,
+        float inputWidth
     );
 
     /**
      * @param maxCharacters     setter value
      */
-    void setMaximumCharacters(unsigned int maxCharacters);
+    void setMaximumCharacters(unsigned short maxCharacters);
 
     /**
      * @brief set the displayed text
@@ -115,10 +116,10 @@ private:
 
     bool displayCursor;
 
-    unsigned int horizontalPosition;
-    unsigned int verticalPosition;
-    unsigned int width;
-    unsigned int maximumCharacters;
+    float horizontalPosition;
+    float verticalPosition;
+    float width;
+    unsigned short maximumCharacters;
 
     std::string text;
 

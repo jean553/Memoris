@@ -41,14 +41,14 @@ class NewGameController : public Controller {
     static const std::string STRING_NEW_GAME_EXPLANATION;
     static const std::string STRING_NAME_DEFAULT;
 
-    static const unsigned int SIZE_NAME_INPUT_TEXT = 600;
-    static const unsigned int POSITION_NEW_GAME_TITLE_X = 620;
-    static const unsigned int POSITION_NEW_GAME_TITLE_Y = 200;
-    static const unsigned int POSITION_NEW_GAME_EXPLANATION_X = 645;
-    static const unsigned int POSITION_NEW_GAME_EXPLANATION_Y = 380;
-    static const unsigned int POSITION_NAME_INPUT_TEXT_X = 500;
-    static const unsigned int POSITION_NAME_INPUT_TEXT_Y = 450;
-    static const unsigned int MAX_NAME_LENGTH = 15;
+    static const unsigned short SIZE_NAME_INPUT_TEXT = 600;
+    static const unsigned short POSITION_NEW_GAME_TITLE_X = 620;
+    static const unsigned short POSITION_NEW_GAME_TITLE_Y = 200;
+    static const unsigned short POSITION_NEW_GAME_EXPLANATION_X = 645;
+    static const unsigned short POSITION_NEW_GAME_EXPLANATION_Y = 380;
+    static const unsigned short POSITION_NAME_INPUT_TEXT_X = 500;
+    static const unsigned short POSITION_NAME_INPUT_TEXT_Y = 450;
+    static const unsigned short MAX_NAME_LENGTH = 15;
 
 public:
 
@@ -59,9 +59,9 @@ public:
      *
      * @param pContext commons items for controller
      *
-     * @return char   id of the next screen controller
+     * @return short   id of the next screen controller
      */
-    unsigned char render(
+    unsigned short render(
         utils::Context* pContext
     );
 

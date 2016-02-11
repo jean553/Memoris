@@ -60,10 +60,10 @@ ItemsListWidget::ItemsListWidget()
  *
  */
 void ItemsListWidget::setLayout(
-    int widgetHorizontalPosition,
-    int widgetVerticalPosition,
-    int widgetWidth,
-    unsigned char verticalTextContainers
+    float widgetHorizontalPosition,
+    float widgetVerticalPosition,
+    float widgetWidth,
+    unsigned short verticalTextContainers
 )
 {
     horizontalPosition = widgetHorizontalPosition;
@@ -157,8 +157,8 @@ void ItemsListWidget::display(utils::Context* pContext)
     for(std::vector<std::string>::iterator textItem = stringsList.begin();
             textItem != stringsList.end(); ++textItem) {
 
-        int itemsCommonVerticalPosition = verticalPosition +
-                                          (static_cast<int> (std::distance(stringsList.begin(), textItem))) *
+        float itemsCommonVerticalPosition = verticalPosition +
+                                          (static_cast<float> (std::distance(stringsList.begin(), textItem))) *
                                           ITEMS_LIST_ITEM_HEIGHT;
 
         sf::Text item;

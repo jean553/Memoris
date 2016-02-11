@@ -82,9 +82,9 @@ void ButtonWidget::setLabel(std::string textLabel)
  *
  */
 void ButtonWidget::setLayout(
-    unsigned int buttonHorizontalPosition,
-    unsigned int buttonVerticalPosition,
-    unsigned int buttonWidth
+    float buttonHorizontalPosition,
+    float buttonVerticalPosition,
+    float buttonWidth
 )
 {
     horizontalPosition = buttonHorizontalPosition;

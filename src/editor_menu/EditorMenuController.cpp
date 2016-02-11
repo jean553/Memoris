@@ -90,7 +90,7 @@ EditorMenuController::EditorMenuController() : Controller()
 /**
  *
  */
-unsigned char EditorMenuController::render(utils::Context* pContext)
+unsigned short EditorMenuController::render(utils::Context* pContext)
 {
     updateSelectorPosition();
 

@@ -56,7 +56,10 @@ public:
      * @param hPosition horizontal position
      * @param vPosition vertical position
      */
-    void setPosition(int hPosition, int vPosition);
+    void setPosition(
+        float hPosition,
+        float vPosition
+    );
 
     /**
      * @brief set the picture
@@ -81,8 +84,8 @@ private:
      */
     bool isMouseHover() const;
 
-    int horizontalPosition;
-    int verticalPosition;
+    float horizontalPosition;
+    float verticalPosition;
 
     sf::Texture texture;
 

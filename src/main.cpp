@@ -37,9 +37,9 @@
  */
 int main()
 {
-    unsigned char currentControllerId =
+    unsigned short currentControllerId =
         factories::ScreenFactory::MAIN_MENU_CONTROLLER_ID;
-    unsigned char nextControllerId = 0;
+    unsigned short nextControllerId = 0;
 
     std::string currentMusicPath =
         factories::MusicFactory::getMusicPathById(

@@ -33,7 +33,10 @@ using namespace entities;
 /**
  *
  */
-Level::Level(int hPosition, int vPosition)
+Level::Level(
+    float hPosition,
+    float vPosition
+)
 {
     horizontalPosition = hPosition;
     verticalPosition = vPosition;
@@ -51,10 +54,10 @@ Level::Level(int hPosition, int vPosition)
 
             (*cell)->setPosition(
                 horizontalPosition +
-                static_cast<int>(std::distance(cells.begin(), line)) *
+                static_cast<float>(std::distance(cells.begin(), line)) *
                 (constants::Dimensions::CELL_PIXELS_DIMENSIONS + constants::Dimensions::CELLS_PIXELS_SEPARATION),
                 verticalPosition +
-                static_cast<int>(std::distance(line->begin(), cell)) *
+                static_cast<float>(std::distance(line->begin(), cell)) *
                 (constants::Dimensions::CELL_PIXELS_DIMENSIONS + constants::Dimensions::CELLS_PIXELS_SEPARATION)
             );
         }

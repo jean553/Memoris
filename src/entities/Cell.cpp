@@ -59,7 +59,10 @@ Cell::~Cell()
 /**
  *
  */
-void Cell::setPosition(int hPosition, int vPosition)
+void Cell::setPosition(
+    float hPosition,
+    float vPosition
+)
 {
     horizontalPosition = hPosition;
     verticalPosition = vPosition;

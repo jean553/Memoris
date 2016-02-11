@@ -37,10 +37,9 @@ using namespace factories;
  *
  */
 controllers::Controller* ScreenFactory::getScreenById(
-    unsigned char id
+    unsigned short id
 )
 {
-
     switch(id) {
         case MAIN_MENU_CONTROLLER_ID:
             return new controllers::MainMenuController;

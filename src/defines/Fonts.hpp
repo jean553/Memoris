@@ -34,11 +34,11 @@ class Fonts {
 
 public:
 
-    static const unsigned int SIZE_TITLE_FONT = 140;
-    static const unsigned int SIZE_SUB_TITLE_FONT = 70;
-    static const unsigned int SIZE_ITEM_FONT = 60;
-    static const unsigned int SIZE_TEXT_FONT = 50;
-    static const unsigned int SIZE_MESSAGE_FONT = 30;
+    static const unsigned short SIZE_TITLE_FONT = 140;
+    static const unsigned short SIZE_SUB_TITLE_FONT = 70;
+    static const unsigned short SIZE_ITEM_FONT = 60;
+    static const unsigned short SIZE_TEXT_FONT = 50;
+    static const unsigned short SIZE_MESSAGE_FONT = 30;
 
     /**
      * @return string
