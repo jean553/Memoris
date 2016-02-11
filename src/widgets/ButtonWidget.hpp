@@ -104,6 +104,7 @@ private:
 
     sf::Color textColor;
     sf::Color backgroundColor;
+    sf::Color linesColor;
     sf::Color textColorDisable;
     sf::Color backgroundColorDisable;
     sf::Color textMouseHoverColor;
@@ -112,6 +113,10 @@ private:
     sf::Text buttonText;
 
     sf::RectangleShape background;
+    sf::RectangleShape leftLine;
+    sf::RectangleShape rightLine;
+    sf::RectangleShape topLine;
+    sf::RectangleShape bottomLine;
 
     float horizontalPosition;
     float verticalPosition;
