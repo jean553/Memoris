@@ -51,11 +51,18 @@ void Context::changeMusic(std::string musicPath)
         return;
     }
 
-    // no music to stop if the function is called for the first time
-    if(music.getStatus() == sf::Sound::Playing) {
-        music.stop();
-    }
+    stopMusic();
 
     music.openFromFile(musicPath);
     music.play();
+}
+
+/**
+ *
+ */
+void Context::stopMusic()
+{
+    if(music.getStatus() == sf::Sound::Playing) {
+        music.stop();
+    }
 }

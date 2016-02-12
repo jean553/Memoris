@@ -25,6 +25,7 @@
 #include "EditorSerieController.hpp"
 
 #include "../defines/Dimensions.hpp"
+#include "../defines/Window.hpp"
 #include "../defines/Positions.hpp"
 #include "../defines/Directories.hpp"
 #include "../defines/Extensions.hpp"
@@ -254,7 +255,7 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
 
                                     serieNameLabel.setString(inputTextNew.getText());
                                     serieNameLabel.setPosition(
-                                        constants::Dimensions::SCREEN_WIDTH -
+                                        constants::Window::WIDTH -
                                         serieNameLabel.getLocalBounds().width,
                                         constants::Dimensions::POSITION_NAME_LABEL_Y
                                     );

@@ -177,7 +177,7 @@ unsigned short MainMenuController::render(utils::Context* pContext)
                         break;
                     }
                     case sf::Keyboard::Return: {
-                        selectMenuItem(pContext->getWindow());
+                        selectMenuItem();
 
                         break;
                     }
@@ -263,7 +263,7 @@ void MainMenuController::updateSelectorPosition()
 /**
  *
  */
-void MainMenuController::selectMenuItem(sf::RenderWindow* window)
+void MainMenuController::selectMenuItem()
 {
     switch(selectorPosition) {
         case MAIN_MENU_ITEM_NEW_GAME: {
@@ -277,7 +277,7 @@ void MainMenuController::selectMenuItem(sf::RenderWindow* window)
             break;
         }
         case MAIN_MENU_ITEM_EXIT: {
-            window->close();
+            nextControllerId = factories::ScreenFactory::EXIT;
 
             break;
         }

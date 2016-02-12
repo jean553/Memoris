@@ -30,10 +30,10 @@
 #include "utils/Controller.hpp"
 #include "utils/Context.hpp"
 
-#include "defines/Dimensions.hpp"
+#include "defines/Window.hpp"
 
 /**
- * @return EXIT_SUCCESS when the program correctly finish
+ *
  */
 int main()
 {
@@ -47,18 +47,18 @@ int main()
         );
     std::string nextMusicPath = "";
 
-    controllers::Controller *currentController =
+    controllers::Controller* pCurrentController =
         factories::ScreenFactory::getScreenById(
             currentControllerId
         );
 
     sf::RenderWindow window(
         sf::VideoMode(
-            constants::Dimensions::SCREEN_WIDTH,
-            constants::Dimensions::SCREEN_HEIGHT,
-            32
+            constants::Window::WIDTH,
+            constants::Window::HEIGHT,
+            constants::Window::RESOLUTION
         ),
-        "Memoris",
+        constants::Window::TITLE,
         sf::Style::Fullscreen
     );
     window.setMouseCursorVisible(false);
@@ -68,13 +68,19 @@ int main()
     context.setWindow(&window);
     context.changeMusic(currentMusicPath);
 
-    while(window.isOpen()) {
+    do {
 
         window.clear();
-        nextControllerId = currentController->render(&context);
+        nextControllerId = pCurrentController->render(&context);
         window.display();
 
         if(nextControllerId) {
+
+            delete pCurrentController;
+
+            pCurrentController = factories::ScreenFactory::getScreenById(
+                                     nextControllerId
+                                 );
 
             nextMusicPath = factories::MusicFactory::getMusicPathById(
                                 nextControllerId
@@ -84,14 +90,14 @@ int main()
                 context.changeMusic(nextMusicPath);
             }
 
-            delete currentController;
-            currentController = factories::ScreenFactory::getScreenById(
-                                    nextControllerId
-                                );
-
             currentControllerId = nextControllerId;
+
+            if (currentControllerId == factories::ScreenFactory::EXIT) {
+                context.stopMusic();
+                window.close();
+            }
         }
-    }
+    } while (window.isOpen());
 
     return EXIT_SUCCESS;
 }

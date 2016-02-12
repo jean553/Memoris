@@ -57,6 +57,11 @@ public:
      */
     void changeMusic(std::string path);
 
+    /**
+     * @brief stop music if playing
+     */
+    void stopMusic();
+
 private:
 
     sf::RenderWindow *window;

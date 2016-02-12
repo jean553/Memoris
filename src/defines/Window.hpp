@@ -17,28 +17,28 @@
 */
 
 /**
- * Dimensions.
+ * Window properties.
  *
- * @file Dimensions.hpp
- * @brief contains defined and fixed dimensions
+ * @file Window.hpp
+ * @brief main window properties
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_DIMENSIONS
-#define DEF_DIMENSIONS
+#ifndef DEF_WINDOW
+#define DEF_WINDOW
+
+#include <string>
 
 namespace constants {
-class Dimensions {
+class Window {
 
 public:
 
-    static const unsigned short EDITOR_BUTTONS_WIDTH = 200;
-    static const unsigned short LEVEL_CELLS_HEIGHT = 16;
-    static const unsigned short LEVEL_CELLS_WIDTH = 20;
-    static const unsigned short POSITION_NAME_LABEL_Y = 0;
+    static const unsigned short WIDTH; 
+    static const unsigned short HEIGHT; 
+    static const unsigned short RESOLUTION; 
 
-    static constexpr float CELL_PIXELS_DIMENSIONS = 49;
-    static constexpr float CELLS_PIXELS_SEPARATION = 1;
+    static const std::string TITLE;
 };
 }
 
