@@ -24,16 +24,8 @@
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_POSITIONS
-#define DEF_POSITIONS
+#include "Positions.hpp"
 
-namespace constants {
-class Positions {
+using namespace constants;
 
-public:
-
-    static const unsigned short EDITOR_BUTTONS_POSITION_Y;
-};
-}
-
-#endif
+const unsigned short Positions::EDITOR_BUTTONS_POSITION_Y = 100;

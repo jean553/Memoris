@@ -36,6 +36,18 @@ const std::string EditorMenuController::STRING_LEVELS_EDITOR = "Levels";
 const std::string EditorMenuController::STRING_SERIES_EDITOR = "Series";
 const std::string EditorMenuController::STRING_BACK = "Back";
 
+const unsigned short EditorMenuController::POSITION_ITEM_LEVELS_EDITOR_X = 680;
+const unsigned short EditorMenuController::POSITION_ITEM_LEVELS_EDITOR_Y = 200;
+const unsigned short EditorMenuController::POSITION_ITEM_SERIES_EDITOR_X = 690;
+const unsigned short EditorMenuController::POSITION_ITEM_SERIES_EDITOR_Y = 350;
+const unsigned short EditorMenuController::POSITION_ITEM_BACK_X = 715;
+const unsigned short EditorMenuController::POSITION_ITEM_BACK_Y = 600;
+const unsigned short EditorMenuController::EDITOR_MENU_SELECTOR_MAX = 2;
+const unsigned short EditorMenuController::EDITOR_MENU_SELECTOR_MIN = 0;
+const unsigned short EditorMenuController::EDITOR_MENU_ITEM_LEVELS_EDITOR = 0;
+const unsigned short EditorMenuController::EDITOR_MENU_ITEM_SERIES_EDITOR = 1;
+const unsigned short EditorMenuController::EDITOR_MENU_ITEM_BACK = 2;
+
 /**
  *
  */

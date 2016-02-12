@@ -32,13 +32,13 @@ class Dimensions {
 
 public:
 
-    static const unsigned short EDITOR_BUTTONS_WIDTH = 200;
-    static const unsigned short LEVEL_CELLS_HEIGHT = 16;
-    static const unsigned short LEVEL_CELLS_WIDTH = 20;
-    static const unsigned short POSITION_NAME_LABEL_Y = 0;
+    static const unsigned short EDITOR_BUTTONS_WIDTH;
+    static const unsigned short LEVEL_CELLS_HEIGHT;
+    static const unsigned short LEVEL_CELLS_WIDTH;
+    static const unsigned short POSITION_NAME_LABEL_Y;
 
-    static constexpr float CELL_PIXELS_DIMENSIONS = 49;
-    static constexpr float CELLS_PIXELS_SEPARATION = 1;
+    static const float CELL_PIXELS_DIMENSIONS;
+    static const float CELLS_PIXELS_SEPARATION;
 };
 }
 

@@ -35,13 +35,13 @@ class ScreenFactory {
 
 public:
 
-    static const unsigned short EXIT = 1;
-    static const unsigned short MAIN_MENU_CONTROLLER_ID = 2;
-    static const unsigned short NEW_GAME_CONTROLLER_ID = 3;
-    static const unsigned short EDITOR_MENU_CONTROLLER_ID = 4;
-    static const unsigned short EDITOR_SERIE_CONTROLLER_ID = 5;
-    static const unsigned short OPEN_SERIE_CONTROLLER_ID = 6;
-    static const unsigned short EDITOR_LEVEL_CONTROLLER_ID = 7;
+    static const unsigned short EXIT;
+    static const unsigned short MAIN_MENU_CONTROLLER_ID;
+    static const unsigned short NEW_GAME_CONTROLLER_ID;
+    static const unsigned short EDITOR_MENU_CONTROLLER_ID;
+    static const unsigned short EDITOR_SERIE_CONTROLLER_ID;
+    static const unsigned short OPEN_SERIE_CONTROLLER_ID;
+    static const unsigned short EDITOR_LEVEL_CONTROLLER_ID;
 
     /**
      * @brief returns a new controller

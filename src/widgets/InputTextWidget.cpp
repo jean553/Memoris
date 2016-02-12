@@ -29,6 +29,18 @@
 
 using namespace widgets;
 
+const unsigned short InputTextWidget::BOX_BORDER_LARGER = 1;
+const unsigned short InputTextWidget::BOX_LARGER = 60;
+const unsigned short InputTextWidget::CURSOR_WIDTH = 25;
+const unsigned short InputTextWidget::CURSOR_HEIGHT = 50;
+const unsigned short InputTextWidget::SIZE_INPUT_TEXT_FONT = 45;
+const unsigned short InputTextWidget::CURSOR_HORIZONTAL_OFFSET = 5;
+const unsigned short InputTextWidget::CURSOR_VERTICAL_OFFSET = 5;
+const unsigned short InputTextWidget::TEXT_HORIZONTAL_OFFSET = 5;
+const unsigned short InputTextWidget::DEFAULT_MAXIMUM_CHARACTERS = 10;
+
+const short InputTextWidget::INTERVAL_ANIMATION_CURSOR = 200;
+
 /**
  *
  */

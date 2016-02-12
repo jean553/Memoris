@@ -40,17 +40,17 @@ class EditorMenuController : public Controller {
     static const std::string STRING_SERIES_EDITOR;
     static const std::string STRING_BACK;
 
-    static const unsigned short POSITION_ITEM_LEVELS_EDITOR_X = 680;
-    static const unsigned short POSITION_ITEM_LEVELS_EDITOR_Y = 200;
-    static const unsigned short POSITION_ITEM_SERIES_EDITOR_X = 690;
-    static const unsigned short POSITION_ITEM_SERIES_EDITOR_Y = 350;
-    static const unsigned short POSITION_ITEM_BACK_X = 715;
-    static const unsigned short POSITION_ITEM_BACK_Y = 600;
-    static const unsigned short EDITOR_MENU_SELECTOR_MAX = 2;
-    static const unsigned short EDITOR_MENU_SELECTOR_MIN = 0;
-    static const unsigned short EDITOR_MENU_ITEM_LEVELS_EDITOR = 0;
-    static const unsigned short EDITOR_MENU_ITEM_SERIES_EDITOR = 1;
-    static const unsigned short EDITOR_MENU_ITEM_BACK = 2;
+    static const unsigned short POSITION_ITEM_LEVELS_EDITOR_X;
+    static const unsigned short POSITION_ITEM_LEVELS_EDITOR_Y;
+    static const unsigned short POSITION_ITEM_SERIES_EDITOR_X;
+    static const unsigned short POSITION_ITEM_SERIES_EDITOR_Y;
+    static const unsigned short POSITION_ITEM_BACK_X;
+    static const unsigned short POSITION_ITEM_BACK_Y;
+    static const unsigned short EDITOR_MENU_SELECTOR_MAX;
+    static const unsigned short EDITOR_MENU_SELECTOR_MIN;
+    static const unsigned short EDITOR_MENU_ITEM_LEVELS_EDITOR;
+    static const unsigned short EDITOR_MENU_ITEM_SERIES_EDITOR;
+    static const unsigned short EDITOR_MENU_ITEM_BACK;
 
 public:
 

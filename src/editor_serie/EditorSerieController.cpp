@@ -51,6 +51,25 @@ const std::string EditorSerieController::STRING_CANCEL = "Cancel";
 const std::string EditorSerieController::STRING_NEW_SERIE_ERROR = "Cannot create the new serie...";
 const std::string EditorSerieController::STRING_NEW_LEVEL_ERROR = "The level already exists !";
 
+const unsigned short EditorSerieController::EDITOR_SERIE_BUTTON_EXIT_POSITION_X = 1390;
+const unsigned short EditorSerieController::EDITOR_SERIE_BUTTON_NEW_POSITION_X = 10;
+const unsigned short EditorSerieController::EDITOR_SERIE_BUTTON_OPEN_POSITION_X = 240;
+const unsigned short EditorSerieController::EDITOR_SERIE_BUTTON_SAVE_POSITION_X = 470;
+const unsigned short EditorSerieController::EDITOR_SERIE_BUTTON_ADD_POSITION_X = 700;
+const unsigned short EditorSerieController::EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_X = 380;
+const unsigned short EditorSerieController::EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_Y = 175;
+const unsigned short EditorSerieController::EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_X = 590;
+const unsigned short EditorSerieController::EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_Y = 175;
+const unsigned short EditorSerieController::LEVELS_LIST_POSITION_X = 10;
+const unsigned short EditorSerieController::LEVELS_LIST_POSITION_Y = 250;
+const unsigned short EditorSerieController::LEVELS_LIST_WIDTH = 1580;
+const unsigned short EditorSerieController::LEVELS_LIST_LEVELS_NUMBER = 15;
+const unsigned short EditorSerieController::POSITION_NEW_SERIE_INPUT_TEXT_X = 10;
+const unsigned short EditorSerieController::POSITION_NEW_SERIE_INPUT_TEXT_Y = 175;
+const unsigned short EditorSerieController::SIZE_NEW_SERIE_TEXT = 350;
+const unsigned short EditorSerieController::ERROR_MESSAGE_POSITION_X = 800;
+const unsigned short EditorSerieController::ERROR_MESSAGE_POSITION_Y = 200;
+
 /**
  *
  */

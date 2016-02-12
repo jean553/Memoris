@@ -32,6 +32,10 @@ using namespace widgets;
 const std::string ItemsListWidget::PATH_IMAGE_ARROW_UP = "res/images/up.png";
 const std::string ItemsListWidget::PATH_IMAGE_ARROW_DOWN = "res/images/down.png";
 
+const float ItemsListWidget::ITEMS_LIST_BORDER_SIZE = 1;
+const float ItemsListWidget::ITEMS_LIST_ARROW_DIM = 40;
+const unsigned int ItemsListWidget::ITEMS_LIST_ITEM_HEIGHT = 40;
+
 /**
  *
  */

@@ -41,13 +41,13 @@ class OpenSerieController : public Controller {
     static const std::string STRING_OPEN_SERIE_TITLE;
     static const std::string OPEN_SERIE_BUTTON_EXIT;
 
-    static const unsigned short OPEN_SERIE_BUTTON_EXIT_POSITION_X = 1400;
-    static const unsigned short OPEN_SERIE_BUTTON_EXIT_POSITION_Y = 10;
-    static const unsigned short OPEN_SERIE_BUTTONS_WIDTH = 200;
-    static const unsigned short SERIES_LIST_POSITION_X = 10;
-    static const unsigned short SERIES_LIST_POSITION_Y = 130;
-    static const unsigned short SERIES_LIST_WIDTH = 1580;
-    static const unsigned short SERIES_LIST_SERIES_NUMBER = 18;
+    static const unsigned short OPEN_SERIE_BUTTON_EXIT_POSITION_X;
+    static const unsigned short OPEN_SERIE_BUTTON_EXIT_POSITION_Y;
+    static const unsigned short OPEN_SERIE_BUTTONS_WIDTH;
+    static const unsigned short SERIES_LIST_POSITION_X;
+    static const unsigned short SERIES_LIST_POSITION_Y;
+    static const unsigned short SERIES_LIST_WIDTH;
+    static const unsigned short SERIES_LIST_SERIES_NUMBER;
 
 public:
 
