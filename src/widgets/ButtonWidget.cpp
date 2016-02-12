@@ -46,6 +46,11 @@ ButtonWidget::ButtonWidget()
     backgroundColor.b = constants::Colors::COLOR_GRAY_BLUE;
     backgroundColor.a = constants::Colors::COLOR_ALPHA_FULL;
 
+    linesColor.r = constants::Colors::COLOR_WHITE_RED;
+    linesColor.g = constants::Colors::COLOR_WHITE_GREEN;
+    linesColor.b = constants::Colors::COLOR_WHITE_BLUE;
+    linesColor.a = constants::Colors::COLOR_ALPHA_FULL;
+
     textColorDisable.r = constants::Colors::COLOR_WHITE_RED;
     textColorDisable.g = constants::Colors::COLOR_WHITE_GREEN;
     textColorDisable.b = constants::Colors::COLOR_WHITE_BLUE;
@@ -108,6 +113,41 @@ void ButtonWidget::setLayout(
         buttonHorizontalPosition,
         buttonVerticalPosition
     );
+
+    topLine.setSize(
+        sf::Vector2f(width, 1)
+    );
+    bottomLine.setSize(
+        sf::Vector2f(width, 1)
+    );
+    leftLine.setSize(
+        sf::Vector2f(1, BUTTON_FIXED_HEIGHT)
+    );
+    rightLine.setSize(
+        sf::Vector2f(1, BUTTON_FIXED_HEIGHT)
+    );
+
+    topLine.setPosition(
+        buttonHorizontalPosition,
+        buttonVerticalPosition
+    );
+    bottomLine.setPosition(
+        buttonHorizontalPosition,
+        buttonVerticalPosition + BUTTON_FIXED_HEIGHT
+    );
+    leftLine.setPosition(
+        buttonHorizontalPosition,
+        buttonVerticalPosition
+    );
+    rightLine.setPosition(
+        buttonHorizontalPosition + width,
+        buttonVerticalPosition
+    );
+
+    topLine.setFillColor(linesColor);
+    bottomLine.setFillColor(linesColor);
+    leftLine.setFillColor(linesColor);
+    rightLine.setFillColor(linesColor);
 }
 
 /**
@@ -140,6 +180,10 @@ void ButtonWidget::display(utils::Context* pContext)
     }
 
     pContext->getWindow()->draw(background);
+    pContext->getWindow()->draw(topLine);
+    pContext->getWindow()->draw(bottomLine);
+    pContext->getWindow()->draw(leftLine);
+    pContext->getWindow()->draw(rightLine);
     pContext->getWindow()->draw(buttonText);
 }
 
