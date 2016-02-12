@@ -4,19 +4,28 @@ License : GNU GPL v3
 
 # Memoris
 Memoris is a 2D graphical video game developped in C++ using the SFML media library. 
-The objective is to move a pin from one departure to a destination on an invisible map. 
-This map is only visualized by the player a few instant before the game start. 
-The gameplay has to be rich in action, bonus, malus, time constraint... etc...
-
-The game must contains music, be original, the actions and events must be complex and funny enough to make the game a little bit crazy. :)
+The objective is to move a pin from one departure to a destination on an invisible map. The player can only see the map a few seconds before the game starts. 
+The gameplay has to be rich in actions, bonus, malus, time constraint... etc...
 
 ## Compilation
 
-Make sure you install the SFML development library ( available in Debian/Ubuntu repositories ).
+SFML version 2.1 is required :
 
 ```
-sudo apt-get install libsfml-dev
+wget http://www.sfml-dev.org/files/SFML-2.1-linux-gcc-64bits.tar.bz2 --no-check-certificate -O /tmp/sfml.tar.bz2
+tar -xjvf /tmp/sfml.tar.bz2
+sudo cp -r SFML-2.1/* /usr/
 ```
+
+Some additional packages are required :
+
+```
+sudo apt-get update
+sudo apt-get install -y libjpeg62-dev libsndfile1-dev libglew1.5 libglew1.5-dev libfreetype6 libjpeg-turbo8 libjpeg8 libopenal-data libopenal1  libxrandr2 libxrender1 libsoil1 astyle cppcheck
+```
+
+Compile the application :
+
 ```
 make
 ```
