@@ -43,10 +43,13 @@ class OpenSerieController : public Controller {
 
     static const unsigned short OPEN_SERIE_BUTTON_EXIT_POSITION_X;
     static const unsigned short OPEN_SERIE_BUTTON_EXIT_POSITION_Y;
+
     static const unsigned short OPEN_SERIE_BUTTONS_WIDTH;
+    static const unsigned short SERIES_LIST_WIDTH;
+
     static const unsigned short SERIES_LIST_POSITION_X;
     static const unsigned short SERIES_LIST_POSITION_Y;
-    static const unsigned short SERIES_LIST_WIDTH;
+
     static const unsigned short SERIES_LIST_SERIES_NUMBER;
 
 public:
