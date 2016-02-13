@@ -45,7 +45,7 @@ int main()
         factories::MusicFactory::getMusicPathById(
             currentControllerId
         );
-    std::string nextMusicPath = "";
+    std::string nextMusicPath;
 
     controllers::Controller* pCurrentController =
         factories::ScreenFactory::getScreenById(
@@ -78,13 +78,15 @@ int main()
 
             delete pCurrentController;
 
-            pCurrentController = factories::ScreenFactory::getScreenById(
-                                     nextControllerId
-                                 );
+            pCurrentController =
+                factories::ScreenFactory::getScreenById(
+                    nextControllerId
+                );
 
-            nextMusicPath = factories::MusicFactory::getMusicPathById(
-                                nextControllerId
-                            );
+            nextMusicPath =
+                factories::MusicFactory::getMusicPathById(
+                    nextControllerId
+                );
 
             if(currentMusicPath != nextMusicPath) {
                 context.changeMusic(nextMusicPath);
