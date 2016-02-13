@@ -42,12 +42,16 @@ class NewGameController : public Controller {
     static const std::string STRING_NAME_DEFAULT;
 
     static const unsigned short SIZE_NAME_INPUT_TEXT;
+
     static const unsigned short POSITION_NEW_GAME_TITLE_X;
     static const unsigned short POSITION_NEW_GAME_TITLE_Y;
+
     static const unsigned short POSITION_NEW_GAME_EXPLANATION_X;
     static const unsigned short POSITION_NEW_GAME_EXPLANATION_Y;
+
     static const unsigned short POSITION_NAME_INPUT_TEXT_X;
     static const unsigned short POSITION_NAME_INPUT_TEXT_Y;
+
     static const unsigned short MAX_NAME_LENGTH;
 
 public:
