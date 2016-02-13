@@ -35,6 +35,7 @@
 #include "ButtonWidget.hpp"
 #include "CursorWidget.hpp"
 #include "TitleBarWidget.hpp"
+#include "InputTextWidget.hpp"
 
 #include "Level.hpp"
 
@@ -58,6 +59,11 @@ class EditorLevelController : public Controller {
     static const unsigned short LEVEL_POSITION_X;
     static const unsigned short LEVEL_POSITION_Y;
 
+    static const unsigned short POSITION_NEW_LEVEL_INPUT_TEXT_X;
+    static const unsigned short POSITION_NEW_LEVEL_INPUT_TEXT_Y;
+
+    static const unsigned short SIZE_NEW_LEVEL_TEXT;
+
 public:
 
     EditorLevelController();
@@ -73,6 +79,14 @@ public:
 
 private:
 
+    enum EditorLevelStatus {
+        MAIN_MENU,
+        NEW_LEVEL,
+        EDIT_LEVEL
+    };
+
+    EditorLevelStatus status;
+
     widgets::ButtonWidget buttonExit;
     widgets::ButtonWidget buttonNew;
     widgets::ButtonWidget buttonOpen;
@@ -81,6 +95,8 @@ private:
     widgets::CursorWidget cursor;
 
     widgets::TitleBarWidget titleBar;
+
+    widgets::InputTextWidget inputTextNew;
 
     entities::Level level;
 
