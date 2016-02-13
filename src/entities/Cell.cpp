@@ -25,8 +25,8 @@
 
 #include "Cell.hpp"
 
-#include "../defines/Dimensions.hpp"
-#include "../defines/Colors.hpp"
+#include "Dimensions.hpp"
+#include "Colors.hpp"
 
 using namespace entities;
 

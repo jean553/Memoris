@@ -26,10 +26,10 @@
 
 #include "NewGameController.hpp"
 
-#include "../utils/ControllerFactory.hpp"
+#include "ControllerFactory.hpp"
 
-#include "../defines/Colors.hpp"
-#include "../defines/Fonts.hpp"
+#include "Colors.hpp"
+#include "Fonts.hpp"
 
 using namespace controllers;
 

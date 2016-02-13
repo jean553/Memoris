@@ -25,12 +25,12 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "utils/ControllerFactory.hpp"
-#include "utils/MusicFactory.hpp"
-#include "utils/Controller.hpp"
-#include "utils/Context.hpp"
+#include "ControllerFactory.hpp"
+#include "MusicFactory.hpp"
+#include "Controller.hpp"
+#include "Context.hpp"
 
-#include "defines/Window.hpp"
+#include "Window.hpp"
 
 /**
  *

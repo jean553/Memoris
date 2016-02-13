@@ -30,13 +30,13 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../utils/Controller.hpp"
+#include "Controller.hpp"
 
-#include "../widgets/ButtonWidget.hpp"
-#include "../widgets/CursorWidget.hpp"
-#include "../widgets/TitleBarWidget.hpp"
+#include "ButtonWidget.hpp"
+#include "CursorWidget.hpp"
+#include "TitleBarWidget.hpp"
 
-#include "../entities/Level.hpp"
+#include "Level.hpp"
 
 namespace controllers {
 class EditorLevelController : public Controller {

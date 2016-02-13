@@ -24,11 +24,11 @@
 
 #include "MainMenuController.hpp"
 
-#include "../utils/ControllerFactory.hpp"
+#include "ControllerFactory.hpp"
 
-#include "../defines/Colors.hpp"
-#include "../defines/Fonts.hpp"
-#include "../defines/Sounds.hpp"
+#include "Colors.hpp"
+#include "Fonts.hpp"
+#include "Sounds.hpp"
 
 using namespace controllers;
 

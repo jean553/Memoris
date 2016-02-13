@@ -24,12 +24,12 @@
 
 #include "ControllerFactory.hpp"
 
-#include "../main_menu/MainMenuController.hpp"
-#include "../new_game/NewGameController.hpp"
-#include "../editor_menu/EditorMenuController.hpp"
-#include "../editor_serie/EditorSerieController.hpp"
-#include "../open_serie/OpenSerieController.hpp"
-#include "../editor_level/EditorLevelController.hpp"
+#include "MainMenuController.hpp"
+#include "NewGameController.hpp"
+#include "EditorMenuController.hpp"
+#include "EditorSerieController.hpp"
+#include "OpenSerieController.hpp"
+#include "EditorLevelController.hpp"
 
 using namespace factories;
 

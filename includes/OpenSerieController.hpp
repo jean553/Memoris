@@ -28,12 +28,12 @@
 #ifndef DEF_OPEN_SERIE_CONTROLLER
 #define DEF_OPEN_SERIE_CONTROLLER
 
-#include "../utils/Controller.hpp"
+#include "Controller.hpp"
 
-#include "../widgets/TitleBarWidget.hpp"
-#include "../widgets/ButtonWidget.hpp"
-#include "../widgets/CursorWidget.hpp"
-#include "../widgets/ItemsListWidget.hpp"
+#include "TitleBarWidget.hpp"
+#include "ButtonWidget.hpp"
+#include "CursorWidget.hpp"
+#include "ItemsListWidget.hpp"
 
 namespace controllers {
 class OpenSerieController : public Controller {

@@ -30,9 +30,9 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../utils/Controller.hpp"
+#include "Controller.hpp"
 
-#include "../widgets/InputTextWidget.hpp"
+#include "InputTextWidget.hpp"
 
 namespace controllers {
 class NewGameController : public Controller {

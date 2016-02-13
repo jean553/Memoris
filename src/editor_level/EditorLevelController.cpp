@@ -27,13 +27,13 @@
 
 #include "EditorLevelController.hpp"
 
-#include "../defines/Positions.hpp"
-#include "../defines/Dimensions.hpp"
-#include "../defines/Window.hpp"
-#include "../defines/Colors.hpp"
-#include "../defines/Fonts.hpp"
+#include "Positions.hpp"
+#include "Dimensions.hpp"
+#include "Window.hpp"
+#include "Colors.hpp"
+#include "Fonts.hpp"
 
-#include "../utils/ControllerFactory.hpp"
+#include "ControllerFactory.hpp"
 
 using namespace controllers;
 

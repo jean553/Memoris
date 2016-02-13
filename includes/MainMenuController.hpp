@@ -31,7 +31,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-#include "../utils/Controller.hpp"
+#include "Controller.hpp"
 
 namespace controllers {
 class MainMenuController : public Controller {
