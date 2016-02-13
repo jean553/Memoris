@@ -17,23 +17,21 @@
 */
 
 /**
- * Positions.
+ * Dimensions.
  *
- * @file Positions.hpp
- * @brief contains defined and fixed positions
+ * @file Dimensions.cpp
+ * @brief contains defined and fixed dimensions
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_POSITIONS
-#define DEF_POSITIONS
+#include "Dimensions.hpp"
 
-namespace constants {
-class Positions {
+using namespace constants;
 
-public:
+const unsigned short Dimensions::EDITOR_BUTTONS_WIDTH = 200;
+const unsigned short Dimensions::LEVEL_CELLS_HEIGHT = 16;
+const unsigned short Dimensions::LEVEL_CELLS_WIDTH = 20;
+const unsigned short Dimensions::POSITION_NAME_LABEL_Y = 0;
 
-    static const unsigned short EDITOR_BUTTONS_POSITION_Y;
-};
-}
-
-#endif
+const float Dimensions::CELL_PIXELS_DIMENSIONS = 49;
+const float Dimensions::CELLS_PIXELS_SEPARATION = 1;

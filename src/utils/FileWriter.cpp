@@ -31,13 +31,6 @@ using namespace utils;
 /**
  *
  */
-void FileWriter::writeStringsListIntoFile()
-{
-}
-
-/**
- *
- */
 bool FileWriter::createFile(std::string fileName)
 {
     std::ofstream file(fileName, std::ofstream::out);

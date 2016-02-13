@@ -34,14 +34,6 @@ class FileWriter {
 public:
 
     /**
-     * @brief write a strings list into a file and separate
-     * each strings by a break line into the file
-     *
-     * TODO: #162 - define the content of the method
-     */
-    static void writeStringsListIntoFile();
-
-    /**
      * @brief create a new file with the given name
      *
      * @param fileName path and name of the file starting from data directory

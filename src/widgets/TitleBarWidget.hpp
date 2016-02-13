@@ -33,14 +33,14 @@
 namespace widgets {
 class TitleBarWidget {
 
-    static const unsigned int SIZE_TITLE_BAR_TEXT_FONT = 45;
+    static const unsigned int SIZE_TITLE_BAR_TEXT_FONT;
 
-    static constexpr float TITLE_BAR_TEXT_POSITION_X = 10;
-    static constexpr float TITLE_BAR_TEXT_POSITION_Y = 10;
-    static constexpr float TITLE_BAR_LINE_POSITION_X = 0;
-    static constexpr float TITLE_BAR_LINE_POSITION_Y = 80;
-    static constexpr float BAR_BORDER_LARGER = 1;
-    static constexpr float BAR_WIDTH = 1600;
+    static const float TITLE_BAR_TEXT_POSITION_X;
+    static const float TITLE_BAR_TEXT_POSITION_Y;
+    static const float TITLE_BAR_LINE_POSITION_X;
+    static const float TITLE_BAR_LINE_POSITION_Y;
+    static const float BAR_BORDER_LARGER;
+    static const float BAR_WIDTH;
 
 public:
 

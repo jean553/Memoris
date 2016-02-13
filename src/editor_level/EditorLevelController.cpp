@@ -44,6 +44,13 @@ const std::string EditorLevelController::EDITOR_LEVEL_BUTTON_SAVE_TEXT = "Save";
 const std::string EditorLevelController::STRING_EDITOR_LEVEL_TITLE = "Level editor";
 const std::string EditorLevelController::DEFAULT_LEVEL_NAME = "untitled";
 
+const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTONS_POSITION_X = 1390;
+const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTON_NEW_POSITION_Y = 170;
+const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTON_OPEN_POSITION_Y = 240;
+const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTON_SAVE_POSITION_Y = 310;
+const unsigned short EditorLevelController::LEVEL_POSITION_X = 5;
+const unsigned short EditorLevelController::LEVEL_POSITION_Y = 90;
+
 /**
  *
  */

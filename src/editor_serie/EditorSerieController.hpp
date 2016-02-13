@@ -55,24 +55,24 @@ class EditorSerieController : public Controller {
     static const std::string STRING_NEW_SERIE_ERROR;
     static const std::string STRING_NEW_LEVEL_ERROR;
 
-    static const unsigned short EDITOR_SERIE_BUTTON_EXIT_POSITION_X = 1390;
-    static const unsigned short EDITOR_SERIE_BUTTON_NEW_POSITION_X = 10;
-    static const unsigned short EDITOR_SERIE_BUTTON_OPEN_POSITION_X = 240;
-    static const unsigned short EDITOR_SERIE_BUTTON_SAVE_POSITION_X = 470;
-    static const unsigned short EDITOR_SERIE_BUTTON_ADD_POSITION_X = 700;
-    static const unsigned short EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_X = 380;
-    static const unsigned short EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_Y = 175;
-    static const unsigned short EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_X = 590;
-    static const unsigned short EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_Y = 175;
-    static const unsigned short LEVELS_LIST_POSITION_X = 10;
-    static const unsigned short LEVELS_LIST_POSITION_Y = 250;
-    static const unsigned short LEVELS_LIST_WIDTH = 1580;
-    static const unsigned short LEVELS_LIST_LEVELS_NUMBER = 15;
-    static const unsigned short POSITION_NEW_SERIE_INPUT_TEXT_X = 10;
-    static const unsigned short POSITION_NEW_SERIE_INPUT_TEXT_Y = 175;
-    static const unsigned short SIZE_NEW_SERIE_TEXT = 350;
-    static const unsigned short ERROR_MESSAGE_POSITION_X = 800;
-    static const unsigned short ERROR_MESSAGE_POSITION_Y = 200;
+    static const unsigned short EDITOR_SERIE_BUTTON_EXIT_POSITION_X;
+    static const unsigned short EDITOR_SERIE_BUTTON_NEW_POSITION_X;
+    static const unsigned short EDITOR_SERIE_BUTTON_OPEN_POSITION_X;
+    static const unsigned short EDITOR_SERIE_BUTTON_SAVE_POSITION_X;
+    static const unsigned short EDITOR_SERIE_BUTTON_ADD_POSITION_X;
+    static const unsigned short EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_X;
+    static const unsigned short EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_Y;
+    static const unsigned short EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_X;
+    static const unsigned short EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_Y;
+    static const unsigned short LEVELS_LIST_POSITION_X;
+    static const unsigned short LEVELS_LIST_POSITION_Y;
+    static const unsigned short LEVELS_LIST_WIDTH;
+    static const unsigned short LEVELS_LIST_LEVELS_NUMBER;
+    static const unsigned short POSITION_NEW_SERIE_INPUT_TEXT_X;
+    static const unsigned short POSITION_NEW_SERIE_INPUT_TEXT_Y;
+    static const unsigned short SIZE_NEW_SERIE_TEXT;
+    static const unsigned short ERROR_MESSAGE_POSITION_X;
+    static const unsigned short ERROR_MESSAGE_POSITION_Y;
 
 public:
 

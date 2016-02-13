@@ -33,9 +33,10 @@ class ItemsListWidget : public Widget {
 
 public:
 
-    static constexpr float ITEMS_LIST_BORDER_SIZE = 1;
-    static constexpr float ITEMS_LIST_ARROW_DIM = 40;
-    static const unsigned int ITEMS_LIST_ITEM_HEIGHT = 40;
+    static const float ITEMS_LIST_BORDER_SIZE;
+    static const float ITEMS_LIST_ARROW_DIM;
+
+    static const unsigned int ITEMS_LIST_ITEM_HEIGHT;
 
     ItemsListWidget();
 

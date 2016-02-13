@@ -28,6 +28,12 @@
 
 using namespace constants;
 
+const unsigned short Fonts::SIZE_TITLE_FONT = 140;
+const unsigned short Fonts::SIZE_SUB_TITLE_FONT = 70;
+const unsigned short Fonts::SIZE_ITEM_FONT = 60;
+const unsigned short Fonts::SIZE_TEXT_FONT = 50;
+const unsigned short Fonts::SIZE_MESSAGE_FONT = 30;
+
 /**
  *
  */

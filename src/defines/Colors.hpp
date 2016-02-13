@@ -27,43 +27,43 @@
 #ifndef DEF_COLORS
 #define DEF_COLORS
 
-#include <string>
+#include <SFML/Config.hpp>
 
 namespace constants {
 class Colors {
 
 public:
 
-    static const unsigned short COLOR_LIGHT_BLUE_RED = 105;
-    static const unsigned short COLOR_LIGHT_BLUE_GREEN = 125;
-    static const unsigned short COLOR_LIGHT_BLUE_BLUE = 255;
+    static const sf::Uint8 COLOR_LIGHT_BLUE_RED;
+    static const sf::Uint8 COLOR_LIGHT_BLUE_GREEN;
+    static const sf::Uint8 COLOR_LIGHT_BLUE_BLUE;
 
-    static const unsigned short COLOR_WHITE_RED = 255;
-    static const unsigned short COLOR_WHITE_GREEN = 255;
-    static const unsigned short COLOR_WHITE_BLUE = 255;
+    static const sf::Uint8 COLOR_WHITE_RED;
+    static const sf::Uint8 COLOR_WHITE_GREEN;
+    static const sf::Uint8 COLOR_WHITE_BLUE;
 
-    static const unsigned short COLOR_GREY_RED = 169;
-    static const unsigned short COLOR_GREY_GREEN = 169;
-    static const unsigned short COLOR_GREY_BLUE = 169;
+    static const sf::Uint8 COLOR_GREY_RED;
+    static const sf::Uint8 COLOR_GREY_GREEN;
+    static const sf::Uint8 COLOR_GREY_BLUE;
 
-    static const unsigned short COLOR_RED_RED = 255;
-    static const unsigned short COLOR_RED_GREEN = 0;
-    static const unsigned short COLOR_RED_BLUE = 0;
+    static const sf::Uint8 COLOR_RED_RED;
+    static const sf::Uint8 COLOR_RED_GREEN;
+    static const sf::Uint8 COLOR_RED_BLUE;
 
-    static const unsigned short COLOR_ORANGE_RED = 255;
-    static const unsigned short COLOR_ORANGE_GREEN = 128;
-    static const unsigned short COLOR_ORANGE_BLUE = 0;
+    static const sf::Uint8 COLOR_ORANGE_RED;
+    static const sf::Uint8 COLOR_ORANGE_GREEN;
+    static const sf::Uint8 COLOR_ORANGE_BLUE;
 
-    static const unsigned short COLOR_GRAY_RED = 80;
-    static const unsigned short COLOR_GRAY_GREEN = 80;
-    static const unsigned short COLOR_GRAY_BLUE = 80;
+    static const sf::Uint8 COLOR_GRAY_RED;
+    static const sf::Uint8 COLOR_GRAY_GREEN;
+    static const sf::Uint8 COLOR_GRAY_BLUE;
 
-    static const unsigned short COLOR_DARK_GRAY_RED = 50;
-    static const unsigned short COLOR_DARK_GRAY_GREEN = 50;
-    static const unsigned short COLOR_DARK_GRAY_BLUE = 50;
+    static const sf::Uint8 COLOR_DARK_GRAY_RED;
+    static const sf::Uint8 COLOR_DARK_GRAY_GREEN;
+    static const sf::Uint8 COLOR_DARK_GRAY_BLUE;
 
-    static const unsigned short COLOR_ALPHA_FULL = 255;
-    static const unsigned short COLOR_ALPHA_PARTIAL = 128;
+    static const sf::Uint8 COLOR_ALPHA_FULL;
+    static const sf::Uint8 COLOR_ALPHA_PARTIAL;
 };
 }
 

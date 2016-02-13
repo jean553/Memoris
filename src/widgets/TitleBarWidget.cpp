@@ -29,6 +29,15 @@
 
 using namespace widgets;
 
+const unsigned int TitleBarWidget::SIZE_TITLE_BAR_TEXT_FONT = 45;
+
+const float TitleBarWidget::TITLE_BAR_TEXT_POSITION_X = 10;
+const float TitleBarWidget::TITLE_BAR_TEXT_POSITION_Y = 10;
+const float TitleBarWidget::TITLE_BAR_LINE_POSITION_X = 0;
+const float TitleBarWidget::TITLE_BAR_LINE_POSITION_Y = 80;
+const float TitleBarWidget::BAR_BORDER_LARGER = 1;
+const float TitleBarWidget::BAR_WIDTH = 1600;
+
 /**
  *
  */

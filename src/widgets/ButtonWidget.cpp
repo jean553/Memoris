@@ -29,6 +29,10 @@
 
 using namespace widgets;
 
+const float ButtonWidget::BUTTON_FIXED_HEIGHT = 60;
+
+const unsigned int ButtonWidget::SIZE_BUTTON_TEXT_FONT = 40;
+
 /**
  *
  */

@@ -35,17 +35,17 @@
 namespace widgets {
 class InputTextWidget : public Widget {
 
-    static const unsigned short BOX_BORDER_LARGER = 1;
-    static const unsigned short BOX_LARGER = 60;
-    static const unsigned short CURSOR_WIDTH = 25;
-    static const unsigned short CURSOR_HEIGHT = 50;
-    static const unsigned short SIZE_INPUT_TEXT_FONT = 45;
-    static const unsigned short CURSOR_HORIZONTAL_OFFSET = 5;
-    static const unsigned short CURSOR_VERTICAL_OFFSET = 5;
-    static const unsigned short TEXT_HORIZONTAL_OFFSET = 5;
-    static const unsigned short DEFAULT_MAXIMUM_CHARACTERS = 10;
+    static const unsigned short BOX_BORDER_LARGER;
+    static const unsigned short BOX_LARGER;
+    static const unsigned short CURSOR_WIDTH;
+    static const unsigned short CURSOR_HEIGHT;
+    static const unsigned short SIZE_INPUT_TEXT_FONT;
+    static const unsigned short CURSOR_HORIZONTAL_OFFSET;
+    static const unsigned short CURSOR_VERTICAL_OFFSET;
+    static const unsigned short TEXT_HORIZONTAL_OFFSET;
+    static const unsigned short DEFAULT_MAXIMUM_CHARACTERS;
 
-    static const short INTERVAL_ANIMATION_CURSOR = 200;
+    static const short INTERVAL_ANIMATION_CURSOR;
 
 public:
 

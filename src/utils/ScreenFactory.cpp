@@ -33,6 +33,14 @@
 
 using namespace factories;
 
+const unsigned short ScreenFactory::EXIT = 1;
+const unsigned short ScreenFactory::MAIN_MENU_CONTROLLER_ID = 2;
+const unsigned short ScreenFactory::NEW_GAME_CONTROLLER_ID = 3;
+const unsigned short ScreenFactory::EDITOR_MENU_CONTROLLER_ID = 4;
+const unsigned short ScreenFactory::EDITOR_SERIE_CONTROLLER_ID = 5;
+const unsigned short ScreenFactory::OPEN_SERIE_CONTROLLER_ID = 6;
+const unsigned short ScreenFactory::EDITOR_LEVEL_CONTROLLER_ID = 7;
+
 /**
  *
  */
