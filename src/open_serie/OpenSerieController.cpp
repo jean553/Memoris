@@ -35,10 +35,13 @@ const std::string OpenSerieController::OPEN_SERIE_BUTTON_EXIT = "Exit";
 
 const unsigned short OpenSerieController::OPEN_SERIE_BUTTON_EXIT_POSITION_X = 1400;
 const unsigned short OpenSerieController::OPEN_SERIE_BUTTON_EXIT_POSITION_Y = 10;
+
 const unsigned short OpenSerieController::OPEN_SERIE_BUTTONS_WIDTH = 200;
+const unsigned short OpenSerieController::SERIES_LIST_WIDTH = 1580;
+
 const unsigned short OpenSerieController::SERIES_LIST_POSITION_X = 10;
 const unsigned short OpenSerieController::SERIES_LIST_POSITION_Y = 130;
-const unsigned short OpenSerieController::SERIES_LIST_WIDTH = 1580;
+
 const unsigned short OpenSerieController::SERIES_LIST_SERIES_NUMBER = 18;
 
 /**
@@ -88,7 +91,8 @@ unsigned short OpenSerieController::render(utils::Context* pContext)
             case sf::Event::KeyPressed: {
                 switch(event.key.code) {
                     case sf::Keyboard::Escape: {
-                        nextControllerId = factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID;
+                        nextControllerId =
+                            factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID;
                     }
                 }
             }
@@ -96,7 +100,8 @@ unsigned short OpenSerieController::render(utils::Context* pContext)
                 switch(event.mouseButton.button) {
                     case sf::Mouse::Left: {
                         if(buttonExit.isMouseHover()) {
-                            nextControllerId = factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID;
+                            nextControllerId =
+                                factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID;
                         }
                     }
                 }
