@@ -30,16 +30,16 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../utils/Controller.hpp"
-#include "../utils/Context.hpp"
+#include "Controller.hpp"
+#include "Context.hpp"
 
-#include "../entities/Serie.hpp"
+#include "Serie.hpp"
 
-#include "../widgets/TitleBarWidget.hpp"
-#include "../widgets/ButtonWidget.hpp"
-#include "../widgets/CursorWidget.hpp"
-#include "../widgets/OrderedItemsListWidget.hpp"
-#include "../widgets/InputTextWidget.hpp"
+#include "TitleBarWidget.hpp"
+#include "ButtonWidget.hpp"
+#include "CursorWidget.hpp"
+#include "OrderedItemsListWidget.hpp"
+#include "InputTextWidget.hpp"
 
 namespace controllers {
 class EditorSerieController : public Controller {

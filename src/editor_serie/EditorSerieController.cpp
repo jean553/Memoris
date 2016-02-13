@@ -24,19 +24,19 @@
 
 #include "EditorSerieController.hpp"
 
-#include "../defines/Dimensions.hpp"
-#include "../defines/Window.hpp"
-#include "../defines/Positions.hpp"
-#include "../defines/Directories.hpp"
-#include "../defines/Extensions.hpp"
-#include "../defines/Fonts.hpp"
-#include "../defines/Colors.hpp"
+#include "Dimensions.hpp"
+#include "Window.hpp"
+#include "Positions.hpp"
+#include "Directories.hpp"
+#include "Extensions.hpp"
+#include "Fonts.hpp"
+#include "Colors.hpp"
 
-#include "../utils/DirReader.hpp"
-#include "../utils/StringsListsUtils.hpp"
-#include "../utils/FileWriter.hpp"
+#include "DirReader.hpp"
+#include "StringsListsUtils.hpp"
+#include "FileWriter.hpp"
 
-#include "../utils/ControllerFactory.hpp"
+#include "ControllerFactory.hpp"
 
 using namespace controllers;
 

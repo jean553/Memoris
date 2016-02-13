@@ -24,9 +24,9 @@
 
 #include "OpenSerieController.hpp"
 
-#include "../utils/DirReader.hpp"
+#include "DirReader.hpp"
 
-#include "../utils/ControllerFactory.hpp"
+#include "ControllerFactory.hpp"
 
 using namespace controllers;
 

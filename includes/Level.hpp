@@ -17,82 +17,55 @@
 */
 
 /**
- * @file Cell.hpp
- * @brief cell entity
+ * @file Level.hpp
+ * @brief level entity
  * @package entities
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_CELL
-#define DEF_CELL
+#ifndef DEF_LEVEL
+#define DEF_LEVEL
 
-#include <SFML/Graphics.hpp>
+#include <vector>
 
-#include <string>
+#include "Cell.hpp"
 
-#include "../utils/Context.hpp"
+#include "Context.hpp"
 
 namespace entities {
-class Cell {
+class Level {
 
 public:
 
-    Cell();
-
     /**
-     * @brief destructor, mandatory as the class is abstract
-     */
-    virtual ~Cell();
-
-    /**
-     * @brief abstract method that defines the action
-     * to perform when the cell is triggered
-     */
-    virtual void performAction() = 0;
-
-    /**
-     * @brief setter for the position
+     * @brief position setter function
      *
      * @param hPosition horizontal position
      * @param vPosition vertical position
      */
-    void setPosition(
+    Level(
         float hPosition,
         float vPosition
     );
 
     /**
-     * @brief set the picture
-     *
-     * @param path image path
+     * @brief used to destroy the cells pointers array
      */
-    void setPicturePath(std::string path);
+    ~Level();
 
     /**
-     * @brief displays the cell according to the context
+     * @brief display the level in a given context
      *
-     * @param pContext context pointer
+     * @param pContext pointer to a context
      */
-    void display(utils::Context* pContext);
+    void displayAllCells(utils::Context* pContext);
 
 private:
 
-    /**
-     * @brief check if the mouse is hover the cell
-     *
-     * @return bool
-     */
-    bool isMouseHover() const;
+    std::vector<std::vector<Cell*>> cells;
 
     float horizontalPosition;
     float verticalPosition;
-
-    sf::Texture texture;
-
-    sf::Sprite sprite;
-
-    sf::Color transparentWhiteColor;
-    sf::Color whiteColor;
 };
 }
 

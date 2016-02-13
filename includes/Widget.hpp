@@ -28,7 +28,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../utils/Context.hpp"
+#include "Context.hpp"
 
 namespace widgets {
 class Widget {

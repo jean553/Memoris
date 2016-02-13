@@ -24,8 +24,8 @@
 
 #include "ItemsListWidget.hpp"
 
-#include "../defines/Fonts.hpp"
-#include "../defines/Colors.hpp"
+#include "Fonts.hpp"
+#include "Colors.hpp"
 
 using namespace widgets;
 

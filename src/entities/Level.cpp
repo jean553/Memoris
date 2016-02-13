@@ -26,7 +26,7 @@
 #include "Level.hpp"
 #include "EmptyCell.hpp"
 
-#include "../defines/Dimensions.hpp"
+#include "Dimensions.hpp"
 
 using namespace entities;
 

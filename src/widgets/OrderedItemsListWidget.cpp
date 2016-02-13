@@ -24,7 +24,7 @@
 
 #include "OrderedItemsListWidget.hpp"
 
-#include "../defines/Colors.hpp"
+#include "Colors.hpp"
 
 using namespace widgets;
 
