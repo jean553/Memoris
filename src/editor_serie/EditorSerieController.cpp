@@ -48,6 +48,7 @@ const std::string EditorSerieController::EDITOR_SERIE_BUTTON_ADD_TEXT = "Add";
 const std::string EditorSerieController::EDITOR_SERIE_BUTTON_EXIT_TEXT = "Exit";
 const std::string EditorSerieController::STRING_OK = "OK";
 const std::string EditorSerieController::STRING_CANCEL = "Cancel";
+
 const std::string EditorSerieController::STRING_NEW_SERIE_ERROR = "Cannot create the new serie...";
 const std::string EditorSerieController::STRING_NEW_LEVEL_ERROR = "The level already exists !";
 
@@ -56,17 +57,25 @@ const unsigned short EditorSerieController::EDITOR_SERIE_BUTTON_NEW_POSITION_X =
 const unsigned short EditorSerieController::EDITOR_SERIE_BUTTON_OPEN_POSITION_X = 240;
 const unsigned short EditorSerieController::EDITOR_SERIE_BUTTON_SAVE_POSITION_X = 470;
 const unsigned short EditorSerieController::EDITOR_SERIE_BUTTON_ADD_POSITION_X = 700;
+
 const unsigned short EditorSerieController::EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_X = 380;
 const unsigned short EditorSerieController::EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_Y = 175;
+
 const unsigned short EditorSerieController::EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_X = 590;
 const unsigned short EditorSerieController::EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_Y = 175;
+
 const unsigned short EditorSerieController::LEVELS_LIST_POSITION_X = 10;
 const unsigned short EditorSerieController::LEVELS_LIST_POSITION_Y = 250;
+
 const unsigned short EditorSerieController::LEVELS_LIST_WIDTH = 1580;
+
 const unsigned short EditorSerieController::LEVELS_LIST_LEVELS_NUMBER = 15;
+
 const unsigned short EditorSerieController::POSITION_NEW_SERIE_INPUT_TEXT_X = 10;
 const unsigned short EditorSerieController::POSITION_NEW_SERIE_INPUT_TEXT_Y = 175;
+
 const unsigned short EditorSerieController::SIZE_NEW_SERIE_TEXT = 350;
+
 const unsigned short EditorSerieController::ERROR_MESSAGE_POSITION_X = 800;
 const unsigned short EditorSerieController::ERROR_MESSAGE_POSITION_Y = 200;
 
@@ -228,7 +237,10 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
             case sf::Event::KeyPressed: {
                 switch(event.key.code) {
                     case sf::Keyboard::Escape: {
-                        nextControllerId = factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
+
+                        nextControllerId =
+                            factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
+
                         break;
                     }
                     default: {
@@ -243,8 +255,10 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
             case sf::Event::MouseButtonPressed: {
                 switch(event.mouseButton.button) {
                     case sf::Mouse::Left: {
+
                         if(buttonExit.isMouseHover()) {
-                            nextControllerId = factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
+                            nextControllerId =
+                                factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
                         }
                         // check buttons click according to current status
                         switch(status) {
@@ -335,10 +349,12 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
                                 if(buttonNewOk.isMouseHover()) {
 
                                     // do not add the level if already in the loaded serie
-                                    if (utils::StringsListsUtils::stringsListContainsString(
-                                                levelsList.getStringsList(),
-                                                inputTextNew.getText()
-                                            )) {
+                                    if(
+                                        utils::StringsListsUtils::stringsListContainsString(
+                                            levelsList.getStringsList(),
+                                            inputTextNew.getText()
+                                        )
+                                    ) {
                                         errorNewLevel = true;
                                         continue;
                                     }
@@ -418,13 +434,22 @@ void EditorSerieController::displaySavedSerieName(bool saved)
  */
 bool EditorSerieController::serieExists(std::string serieName)
 {
-    std::string seriesDirectory(constants::Directories::getSeriesDirectoryPath());
-    std::string seriesExtension(constants::Extensions::getSeriesExtension());
+    std::string seriesDirectory(
+        constants::Directories::getSeriesDirectoryPath()
+    );
 
-    std::vector<std::string> seriesNames = utils::DirReader::getAllFiles(
+    std::string seriesExtension(
+        constants::Extensions::getSeriesExtension()
+    );
+
+    std::vector<std::string> seriesNames =
+        utils::DirReader::getAllFiles(
             seriesDirectory.c_str(),
             seriesExtension.c_str()
-                                           );
+        );
 
-    return utils::StringsListsUtils::stringsListContainsString(seriesNames, serieName);
+    return utils::StringsListsUtils::stringsListContainsString(
+               seriesNames,
+               serieName
+           );
 }
