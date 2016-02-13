@@ -17,12 +17,12 @@
 */
 
 /**
- * @file ScreenFactory.hpp
+ * @file ControllerFactory.hpp
  * @package factories
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "ScreenFactory.hpp"
+#include "ControllerFactory.hpp"
 
 #include "../main_menu/MainMenuController.hpp"
 #include "../new_game/NewGameController.hpp"
@@ -33,18 +33,18 @@
 
 using namespace factories;
 
-const unsigned short ScreenFactory::EXIT = 1;
-const unsigned short ScreenFactory::MAIN_MENU_CONTROLLER_ID = 2;
-const unsigned short ScreenFactory::NEW_GAME_CONTROLLER_ID = 3;
-const unsigned short ScreenFactory::EDITOR_MENU_CONTROLLER_ID = 4;
-const unsigned short ScreenFactory::EDITOR_SERIE_CONTROLLER_ID = 5;
-const unsigned short ScreenFactory::OPEN_SERIE_CONTROLLER_ID = 6;
-const unsigned short ScreenFactory::EDITOR_LEVEL_CONTROLLER_ID = 7;
+const unsigned short ControllerFactory::EXIT = 1;
+const unsigned short ControllerFactory::MAIN_MENU_CONTROLLER_ID = 2;
+const unsigned short ControllerFactory::NEW_GAME_CONTROLLER_ID = 3;
+const unsigned short ControllerFactory::EDITOR_MENU_CONTROLLER_ID = 4;
+const unsigned short ControllerFactory::EDITOR_SERIE_CONTROLLER_ID = 5;
+const unsigned short ControllerFactory::OPEN_SERIE_CONTROLLER_ID = 6;
+const unsigned short ControllerFactory::EDITOR_LEVEL_CONTROLLER_ID = 7;
 
 /**
  *
  */
-controllers::Controller* ScreenFactory::getScreenById(
+controllers::Controller* ControllerFactory::getControllerById(
     unsigned short id
 )
 {

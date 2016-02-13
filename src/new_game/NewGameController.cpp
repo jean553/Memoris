@@ -26,7 +26,7 @@
 
 #include "NewGameController.hpp"
 
-#include "../utils/ScreenFactory.hpp"
+#include "../utils/ControllerFactory.hpp"
 
 #include "../defines/Colors.hpp"
 #include "../defines/Fonts.hpp"
@@ -113,7 +113,7 @@ unsigned short NewGameController::render(utils::Context* pContext)
             case sf::Event::KeyPressed: {
                 switch(event.key.code) {
                     case sf::Keyboard::Escape: {
-                        nextControllerId = factories::ScreenFactory::MAIN_MENU_CONTROLLER_ID;
+                        nextControllerId = factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
 
                         break;
                     }

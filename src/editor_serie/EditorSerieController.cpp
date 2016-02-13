@@ -36,7 +36,7 @@
 #include "../utils/StringsListsUtils.hpp"
 #include "../utils/FileWriter.hpp"
 
-#include "../utils/ScreenFactory.hpp"
+#include "../utils/ControllerFactory.hpp"
 
 using namespace controllers;
 
@@ -228,7 +228,7 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
             case sf::Event::KeyPressed: {
                 switch(event.key.code) {
                     case sf::Keyboard::Escape: {
-                        nextControllerId = factories::ScreenFactory::MAIN_MENU_CONTROLLER_ID;
+                        nextControllerId = factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
                         break;
                     }
                     default: {
@@ -244,7 +244,7 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
                 switch(event.mouseButton.button) {
                     case sf::Mouse::Left: {
                         if(buttonExit.isMouseHover()) {
-                            nextControllerId = factories::ScreenFactory::MAIN_MENU_CONTROLLER_ID;
+                            nextControllerId = factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
                         }
                         // check buttons click according to current status
                         switch(status) {
@@ -257,7 +257,7 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
                                 }
                                 if(buttonOpen.isMouseHover()) {
                                     nextControllerId =
-                                        factories::ScreenFactory::OPEN_SERIE_CONTROLLER_ID;
+                                        factories::ControllerFactory::OPEN_SERIE_CONTROLLER_ID;
                                 }
                                 break;
                             case NEW_SERIE:

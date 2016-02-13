@@ -24,7 +24,7 @@
 
 #include "EditorMenuController.hpp"
 
-#include "../utils/ScreenFactory.hpp"
+#include "../utils/ControllerFactory.hpp"
 
 #include "../defines/Colors.hpp"
 #include "../defines/Fonts.hpp"
@@ -179,15 +179,15 @@ void EditorMenuController::selectMenuItem()
 {
     switch(selectorPosition) {
         case EDITOR_MENU_ITEM_LEVELS_EDITOR: {
-            nextControllerId = factories::ScreenFactory::EDITOR_LEVEL_CONTROLLER_ID;
+            nextControllerId = factories::ControllerFactory::EDITOR_LEVEL_CONTROLLER_ID;
             break;
         }
         case EDITOR_MENU_ITEM_SERIES_EDITOR: {
-            nextControllerId = factories::ScreenFactory::EDITOR_SERIE_CONTROLLER_ID;
+            nextControllerId = factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID;
             break;
         }
         case EDITOR_MENU_ITEM_BACK: {
-            nextControllerId = factories::ScreenFactory::MAIN_MENU_CONTROLLER_ID;
+            nextControllerId = factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
             break;
         }
     }

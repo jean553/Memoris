@@ -19,8 +19,8 @@
 /**
  * Factory which generates the screens.
  *
- * @file ScreenFactory.hpp
- * @brief factory to generate the game screens
+ * @file ControllerFactory.hpp
+ * @brief factory to generate the game screens controllers
  * @package factories
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -31,7 +31,7 @@
 #include "Controller.hpp"
 
 namespace factories {
-class ScreenFactory {
+class ControllerFactory {
 
 public:
 
@@ -54,7 +54,7 @@ public:
      * @return screen controller pointer,
      * returns null if no screen match
      */
-    static controllers::Controller* getScreenById(unsigned short id);
+    static controllers::Controller* getControllerById(unsigned short id);
 };
 }
 
