@@ -54,6 +54,11 @@ const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTON_SAVE_POSITION_Y 
 const unsigned short EditorLevelController::LEVEL_POSITION_X = 5;
 const unsigned short EditorLevelController::LEVEL_POSITION_Y = 90;
 
+const unsigned short EditorLevelController::POSITION_NEW_LEVEL_INPUT_TEXT_X = 1230;
+const unsigned short EditorLevelController::POSITION_NEW_LEVEL_INPUT_TEXT_Y = 10;
+
+const unsigned short EditorLevelController::SIZE_NEW_LEVEL_TEXT = 350;
+
 /**
  *
  */
@@ -108,6 +113,14 @@ EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSIT
         levelNameLabel.getLocalBounds().width,
         constants::Dimensions::POSITION_NAME_LABEL_Y
     );
+
+    inputTextNew.setLayout(
+        POSITION_NEW_LEVEL_INPUT_TEXT_X,
+        POSITION_NEW_LEVEL_INPUT_TEXT_Y,
+        SIZE_NEW_LEVEL_TEXT
+    );
+
+    status = MAIN_MENU;
 }
 
 /**
@@ -123,13 +136,37 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
 
     level.displayAllCells(pContext);
 
-    //TODO: displays only the level name when a level is loaded
-    pContext->getWindow()->draw(levelNameLabel);
+    // displays the input text line for new level
+    if (status == NEW_LEVEL) {
+        inputTextNew.display(pContext);
+    }
+
+    // displays the name of the level if one level is being edited
+    else if (status == EDIT_LEVEL) {
+        pContext->getWindow()->draw(levelNameLabel);
+    }
 
     cursor.display(pContext);
 
     while(pContext->getWindow()->pollEvent(event)) {
         switch(event.type) {
+            case sf::Event::KeyPressed: {
+                switch(event.key.code) {
+                    case sf::Keyboard::Return: {
+
+                        if (status == NEW_LEVEL) {
+                            //TODO: save the level
+                            status = EDIT_LEVEL;
+                        }
+                    }
+                    default: {
+
+                        if (status == NEW_LEVEL) {
+                            inputTextNew.update(&event);
+                        }
+                    }
+                }
+            }
             case sf::Event::MouseButtonPressed: {
                 switch(event.mouseButton.button) {
                     case sf::Mouse::Left: {
@@ -137,6 +174,10 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
                             nextControllerId =
                                 factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
                         }
+                        else if(buttonNew.isMouseHover()) {
+                            status = NEW_LEVEL;
+                        }
+                        break;
                     }
                 }
             }
