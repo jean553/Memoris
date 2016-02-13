@@ -42,12 +42,16 @@ class EditorMenuController : public Controller {
 
     static const unsigned short POSITION_ITEM_LEVELS_EDITOR_X;
     static const unsigned short POSITION_ITEM_LEVELS_EDITOR_Y;
+
     static const unsigned short POSITION_ITEM_SERIES_EDITOR_X;
     static const unsigned short POSITION_ITEM_SERIES_EDITOR_Y;
+
     static const unsigned short POSITION_ITEM_BACK_X;
     static const unsigned short POSITION_ITEM_BACK_Y;
+
     static const unsigned short EDITOR_MENU_SELECTOR_MAX;
     static const unsigned short EDITOR_MENU_SELECTOR_MIN;
+
     static const unsigned short EDITOR_MENU_ITEM_LEVELS_EDITOR;
     static const unsigned short EDITOR_MENU_ITEM_SERIES_EDITOR;
     static const unsigned short EDITOR_MENU_ITEM_BACK;

@@ -38,12 +38,16 @@ const std::string EditorMenuController::STRING_BACK = "Back";
 
 const unsigned short EditorMenuController::POSITION_ITEM_LEVELS_EDITOR_X = 680;
 const unsigned short EditorMenuController::POSITION_ITEM_LEVELS_EDITOR_Y = 200;
+
 const unsigned short EditorMenuController::POSITION_ITEM_SERIES_EDITOR_X = 690;
 const unsigned short EditorMenuController::POSITION_ITEM_SERIES_EDITOR_Y = 350;
+
 const unsigned short EditorMenuController::POSITION_ITEM_BACK_X = 715;
 const unsigned short EditorMenuController::POSITION_ITEM_BACK_Y = 600;
+
 const unsigned short EditorMenuController::EDITOR_MENU_SELECTOR_MAX = 2;
 const unsigned short EditorMenuController::EDITOR_MENU_SELECTOR_MIN = 0;
+
 const unsigned short EditorMenuController::EDITOR_MENU_ITEM_LEVELS_EDITOR = 0;
 const unsigned short EditorMenuController::EDITOR_MENU_ITEM_SERIES_EDITOR = 1;
 const unsigned short EditorMenuController::EDITOR_MENU_ITEM_BACK = 2;
@@ -94,7 +98,9 @@ EditorMenuController::EditorMenuController() : Controller()
         POSITION_ITEM_BACK_Y
     );
 
-    soundBuffer.loadFromFile(constants::Sounds::getMoveSelectorSoundPath());
+    soundBuffer.loadFromFile(
+        constants::Sounds::getMoveSelectorSoundPath()
+    );
 
     soundSelectorMove.setBuffer(soundBuffer);
 }
@@ -179,15 +185,24 @@ void EditorMenuController::selectMenuItem()
 {
     switch(selectorPosition) {
         case EDITOR_MENU_ITEM_LEVELS_EDITOR: {
-            nextControllerId = factories::ControllerFactory::EDITOR_LEVEL_CONTROLLER_ID;
+
+            nextControllerId =
+                factories::ControllerFactory::EDITOR_LEVEL_CONTROLLER_ID;
+
             break;
         }
         case EDITOR_MENU_ITEM_SERIES_EDITOR: {
-            nextControllerId = factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID;
+
+            nextControllerId =
+                factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID;
+
             break;
         }
         case EDITOR_MENU_ITEM_BACK: {
-            nextControllerId = factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
+
+            nextControllerId =
+                factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
+
             break;
         }
     }
