@@ -25,7 +25,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "utils/ScreenFactory.hpp"
+#include "utils/ControllerFactory.hpp"
 #include "utils/MusicFactory.hpp"
 #include "utils/Controller.hpp"
 #include "utils/Context.hpp"
@@ -38,7 +38,7 @@
 int main()
 {
     unsigned short currentControllerId =
-        factories::ScreenFactory::MAIN_MENU_CONTROLLER_ID;
+        factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
     unsigned short nextControllerId = 0;
 
     std::string currentMusicPath =
@@ -48,7 +48,7 @@ int main()
     std::string nextMusicPath;
 
     controllers::Controller* pCurrentController =
-        factories::ScreenFactory::getScreenById(
+        factories::ControllerFactory::getControllerById(
             currentControllerId
         );
 
@@ -79,7 +79,7 @@ int main()
             delete pCurrentController;
 
             pCurrentController =
-                factories::ScreenFactory::getScreenById(
+                factories::ControllerFactory::getControllerById(
                     nextControllerId
                 );
 
@@ -94,7 +94,7 @@ int main()
 
             currentControllerId = nextControllerId;
 
-            if (currentControllerId == factories::ScreenFactory::EXIT) {
+            if (currentControllerId == factories::ControllerFactory::EXIT) {
                 context.stopMusic();
                 window.close();
             }

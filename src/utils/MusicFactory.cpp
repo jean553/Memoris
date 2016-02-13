@@ -35,6 +35,7 @@ std::string MusicFactory::getMusicPathById(
     unsigned short id
 )
 {
+    //TODO: useless for now as the factory only returns one music path
     switch(id) {
         default:
             return MAIN_MENU_MUSIC_PATH;

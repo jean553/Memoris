@@ -26,7 +26,7 @@
 
 #include "../utils/DirReader.hpp"
 
-#include "../utils/ScreenFactory.hpp"
+#include "../utils/ControllerFactory.hpp"
 
 using namespace controllers;
 
@@ -88,7 +88,7 @@ unsigned short OpenSerieController::render(utils::Context* pContext)
             case sf::Event::KeyPressed: {
                 switch(event.key.code) {
                     case sf::Keyboard::Escape: {
-                        nextControllerId = factories::ScreenFactory::EDITOR_SERIE_CONTROLLER_ID;
+                        nextControllerId = factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID;
                     }
                 }
             }
@@ -96,7 +96,7 @@ unsigned short OpenSerieController::render(utils::Context* pContext)
                 switch(event.mouseButton.button) {
                     case sf::Mouse::Left: {
                         if(buttonExit.isMouseHover()) {
-                            nextControllerId = factories::ScreenFactory::EDITOR_SERIE_CONTROLLER_ID;
+                            nextControllerId = factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID;
                         }
                     }
                 }

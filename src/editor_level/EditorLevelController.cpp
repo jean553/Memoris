@@ -33,7 +33,7 @@
 #include "../defines/Colors.hpp"
 #include "../defines/Fonts.hpp"
 
-#include "../utils/ScreenFactory.hpp"
+#include "../utils/ControllerFactory.hpp"
 
 using namespace controllers;
 
@@ -131,7 +131,7 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
                 switch(event.mouseButton.button) {
                     case sf::Mouse::Left: {
                         if(buttonExit.isMouseHover()) {
-                            nextControllerId = factories::ScreenFactory::MAIN_MENU_CONTROLLER_ID;
+                            nextControllerId = factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
                         }
                     }
                 }

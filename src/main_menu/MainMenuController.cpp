@@ -24,7 +24,7 @@
 
 #include "MainMenuController.hpp"
 
-#include "../utils/ScreenFactory.hpp"
+#include "../utils/ControllerFactory.hpp"
 
 #include "../defines/Colors.hpp"
 #include "../defines/Fonts.hpp"
@@ -302,17 +302,17 @@ void MainMenuController::selectMenuItem()
 {
     switch(selectorPosition) {
         case MAIN_MENU_ITEM_NEW_GAME: {
-            nextControllerId = factories::ScreenFactory::NEW_GAME_CONTROLLER_ID;
+            nextControllerId = factories::ControllerFactory::NEW_GAME_CONTROLLER_ID;
 
             break;
         }
         case MAIN_MENU_ITEM_EDITOR: {
-            nextControllerId = factories::ScreenFactory::EDITOR_MENU_CONTROLLER_ID;
+            nextControllerId = factories::ControllerFactory::EDITOR_MENU_CONTROLLER_ID;
 
             break;
         }
         case MAIN_MENU_ITEM_EXIT: {
-            nextControllerId = factories::ScreenFactory::EXIT;
+            nextControllerId = factories::ControllerFactory::EXIT;
 
             break;
         }
