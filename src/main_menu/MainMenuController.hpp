@@ -37,6 +37,7 @@ namespace controllers {
 class MainMenuController : public Controller {
 
     static const std::string PATH_IMAGE_GITHUB;
+
     static const std::string STRING_TITLE;
     static const std::string STRING_NEW_GAME;
     static const std::string STRING_LOAD_GAME;
@@ -47,28 +48,40 @@ class MainMenuController : public Controller {
     static const unsigned short COLOR_TITLE_RED_INIT;
     static const unsigned short COLOR_TITLE_GREEN_INIT;
     static const unsigned short COLOR_TITLE_BLUE_INIT;
+
     static const unsigned short COLOR_TITLE_RED_MAX;
     static const unsigned short COLOR_TITLE_GREEN_MAX;
     static const unsigned short COLOR_TITLE_BLUE_MAX;
+
     static const unsigned short COLOR_TITLE_ALL_MIN;
+
     static const unsigned short POSITION_TITLE_X;
     static const unsigned short POSITION_TITLE_Y;
+
     static const unsigned short POSITION_GITHUB_X;
     static const unsigned short POSITION_GITHUB_Y;
+
     static const unsigned short POSITION_ITEM_NEW_GAME_X;
     static const unsigned short POSITION_ITEM_NEW_GAME_Y;
+
     static const unsigned short POSITION_ITEM_LOAD_GAME_X;
     static const unsigned short POSITION_ITEM_LOAD_GAME_Y;
+
     static const unsigned short POSITION_ITEM_EDITOR_X;
     static const unsigned short POSITION_ITEM_EDITOR_Y;
+
     static const unsigned short POSITION_ITEM_OPTIONS_X;
     static const unsigned short POSITION_ITEM_OPTIONS_Y;
+
     static const unsigned short POSITION_ITEM_EXIT_X;
     static const unsigned short POSITION_ITEM_EXIT_Y;
+
     static const unsigned short DIRECTION_TITLE_RED_INIT;
     static const unsigned short DIRECTION_TITLE_GREEN_INIT;
+
     static const unsigned short MAIN_MENU_SELECTOR_MIN;
     static const unsigned short MAIN_MENU_SELECTOR_MAX;
+
     static const unsigned short MAIN_MENU_ITEM_NEW_GAME;
     static const unsigned short MAIN_MENU_ITEM_LOAD_GAME;
     static const unsigned short MAIN_MENU_ITEM_EDITOR;
@@ -113,8 +126,9 @@ private:
 
     unsigned short titleRedDirection;
     unsigned short titleGreenDirection;
-    short titleBlueDirection;
     unsigned short selectorPosition;
+
+    short titleBlueDirection;
 
     sf::Font fontTitle;
     sf::Font fontItem;
