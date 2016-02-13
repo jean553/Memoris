@@ -45,13 +45,16 @@ class EditorLevelController : public Controller {
     static const std::string EDITOR_LEVEL_BUTTON_NEW_TEXT;
     static const std::string EDITOR_LEVEL_BUTTON_OPEN_TEXT;
     static const std::string EDITOR_LEVEL_BUTTON_SAVE_TEXT;
+
     static const std::string STRING_EDITOR_LEVEL_TITLE;
+
     static const std::string DEFAULT_LEVEL_NAME;
 
     static const unsigned short LEVEL_EDITOR_BUTTONS_POSITION_X;
     static const unsigned short LEVEL_EDITOR_BUTTON_NEW_POSITION_Y;
     static const unsigned short LEVEL_EDITOR_BUTTON_OPEN_POSITION_Y;
     static const unsigned short LEVEL_EDITOR_BUTTON_SAVE_POSITION_Y;
+
     static const unsigned short LEVEL_POSITION_X;
     static const unsigned short LEVEL_POSITION_Y;
 
