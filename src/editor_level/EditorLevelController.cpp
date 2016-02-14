@@ -155,7 +155,18 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
                     case sf::Keyboard::Return: {
 
                         if (status == NEW_LEVEL) {
+
                             //TODO: save the level
+
+                            levelNameLabel.setString(
+                                inputTextNew.getText()
+                            );
+                            levelNameLabel.setPosition(
+                                constants::Window::WIDTH -
+                                levelNameLabel.getLocalBounds().width,
+                                constants::Dimensions::POSITION_NAME_LABEL_Y
+                            );
+
                             status = EDIT_LEVEL;
                         }
                     }
