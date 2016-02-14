@@ -90,6 +90,7 @@ int main()
 
             if(currentMusicPath != nextMusicPath) {
                 context.changeMusic(nextMusicPath);
+                currentMusicPath = nextMusicPath;
             }
 
             currentControllerId = nextControllerId;
