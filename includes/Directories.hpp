@@ -34,10 +34,8 @@ class Directories {
 
 public:
 
-    /**
-     * @return string
-     */
-    static std::string getSeriesDirectoryPath();
+    static const std::string LEVELS_DIRECTORY_PATH;
+    static const std::string SERIES_DIRECTORY_PATH;
 };
 }
 

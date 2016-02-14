@@ -49,8 +49,6 @@ class EditorLevelController : public Controller {
 
     static const std::string STRING_EDITOR_LEVEL_TITLE;
 
-    static const std::string DEFAULT_LEVEL_NAME;
-
     static const unsigned short LEVEL_EDITOR_BUTTONS_POSITION_X;
     static const unsigned short LEVEL_EDITOR_BUTTON_NEW_POSITION_Y;
     static const unsigned short LEVEL_EDITOR_BUTTON_OPEN_POSITION_Y;
@@ -103,8 +101,26 @@ private:
     sf::Font levelNameLabelFont;
 
     sf::Color levelNameLabelColor;
+    sf::Color levelNameLabelUnsavedColor;
 
     sf::Text levelNameLabel;
+
+    /**
+     * @brief check if a level name already exists
+     *
+     * @param levelName name of the level
+     *
+     * @return boolean
+     */
+    bool levelExists(std::string levelName);
+
+    /**
+     * @brief change the color of the level name
+     * according if the file is saved or not
+     *
+     * @param saved boolean of the value to display
+     */
+    void displaySavedLevelName(bool saved);
 };
 }
 

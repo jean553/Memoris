@@ -26,7 +26,5 @@
 
 using namespace constants;
 
-std::string Directories::getSeriesDirectoryPath()
-{
-    return "data/series/";
-}
+const std::string Directories::LEVELS_DIRECTORY_PATH = "data/levels/";
+const std::string Directories::SERIES_DIRECTORY_PATH = "data/series/";
