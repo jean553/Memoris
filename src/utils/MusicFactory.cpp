@@ -24,9 +24,12 @@
 
 #include "MusicFactory.hpp"
 
+#include "ControllerFactory.hpp"
+
 using namespace factories;
 
 const std::string MusicFactory::MAIN_MENU_MUSIC_PATH = "res/musics/dj-xtrm-killer-symphonyX-outro.ogg";
+const std::string MusicFactory::EDITOR_MUSIC_PATH = "res/musics/dj-hiddeminside-electronik.ogg";
 
 /**
  *
@@ -35,9 +38,17 @@ std::string MusicFactory::getMusicPathById(
     unsigned short id
 )
 {
-    //TODO: useless for now as the factory only returns one music path
-    switch(id) {
-        default:
-            return MAIN_MENU_MUSIC_PATH;
+    /**
+     * NOTE: I could use a switch/case here instead of if/else, but the
+     * constants are not constant expressions ( case only accept constant
+     * expressions ),as they are declared as const at the ControllerFactory
+     * class level. I might declare them as constexpr but I will have to
+     * initialize them in the header, and I prefer to initialize them in
+     * the source for compilation purposes.
+     */
+    if (id == ControllerFactory::EDITOR_LEVEL_CONTROLLER_ID) {
+        return EDITOR_MUSIC_PATH;
+    } else {
+        return MAIN_MENU_MUSIC_PATH;
     }
 }
