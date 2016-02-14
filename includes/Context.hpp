@@ -38,6 +38,8 @@ namespace utils {
 class Context {
 public:
 
+    Context();
+
     /**
      * @brief common window getter
      *
@@ -62,11 +64,20 @@ public:
      */
     void stopMusic();
 
+    /**
+     * @brief plays the screen transition sound
+     */
+    void playScreenTransitionCommonSound();
+
 private:
 
-    sf::RenderWindow *window;
+    sf::RenderWindow* pWindow;
 
     sf::Music music;
+
+    sf::SoundBuffer soundScreenTransitionBuffer;
+
+    sf::Sound soundScreenTransition;
 };
 }
 

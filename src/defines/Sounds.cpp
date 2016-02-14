@@ -28,10 +28,5 @@
 
 using namespace constants;
 
-/**
- *
- */
-std::string Sounds::getMoveSelectorSoundPath()
-{
-    return "res/sounds/001.wav";
-}
+const std::string Sounds::MOVE_SELECTOR_SOUND_PATH = "res/sounds/001.wav";
+const std::string Sounds::SCREEN_TRANSITION_SOUND_PATH = "res/sounds/002.wav";

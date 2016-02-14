@@ -98,9 +98,7 @@ EditorMenuController::EditorMenuController() : Controller()
         POSITION_ITEM_BACK_Y
     );
 
-    soundBuffer.loadFromFile(
-        constants::Sounds::getMoveSelectorSoundPath()
-    );
+    soundBuffer.loadFromFile(constants::Sounds::MOVE_SELECTOR_SOUND_PATH);
 
     soundSelectorMove.setBuffer(soundBuffer);
 }
