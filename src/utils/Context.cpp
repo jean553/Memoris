@@ -23,15 +23,30 @@
  */
 
 #include "Context.hpp"
+#include "Sounds.hpp"
 
 using namespace utils;
 
 /**
  *
  */
+Context::Context()
+{
+    soundScreenTransitionBuffer.loadFromFile(
+        constants::Sounds::SCREEN_TRANSITION_SOUND_PATH
+    );
+
+    soundScreenTransition.setBuffer(
+        soundScreenTransitionBuffer
+    );
+}
+
+/**
+ *
+ */
 sf::RenderWindow* Context::getWindow()
 {
-    return window;
+    return pWindow;
 }
 
 /**
@@ -39,7 +54,7 @@ sf::RenderWindow* Context::getWindow()
  */
 void Context::setWindow(sf::RenderWindow* commonWindow)
 {
-    window = commonWindow;
+    pWindow = commonWindow;
 }
 
 /**
@@ -65,4 +80,12 @@ void Context::stopMusic()
     if(music.getStatus() == sf::Sound::Playing) {
         music.stop();
     }
+}
+
+/**
+ *
+ */
+void Context::playScreenTransitionCommonSound()
+{
+    soundScreenTransition.play();
 }

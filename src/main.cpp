@@ -97,6 +97,8 @@ int main()
             if (currentControllerId == factories::ControllerFactory::EXIT) {
                 context.stopMusic();
                 window.close();
+            } else {
+                context.playScreenTransitionCommonSound();
             }
         }
     } while (window.isOpen());

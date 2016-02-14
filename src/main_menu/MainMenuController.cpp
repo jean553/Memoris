@@ -173,7 +173,7 @@ MainMenuController::MainMenuController() : Controller()
         POSITION_GITHUB_Y
     );
 
-    soundBuffer.loadFromFile(constants::Sounds::getMoveSelectorSoundPath());
+    soundBuffer.loadFromFile(constants::Sounds::MOVE_SELECTOR_SOUND_PATH);
 
     soundSelectorMove.setBuffer(soundBuffer);
 
