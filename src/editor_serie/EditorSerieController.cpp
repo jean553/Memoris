@@ -322,9 +322,9 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
 
                                     if (!serieExists(serie.getName())) {
                                         utils::FileWriter::createFile(
-                                            constants::Directories::getSeriesDirectoryPath() +
+                                            constants::Directories::SERIES_DIRECTORY_PATH +
                                             serie.getName() +
-                                            constants::Extensions::getSeriesExtension()
+                                            constants::Extensions::SERIES_EXTENSION
                                         );
                                     }
 
@@ -434,13 +434,11 @@ void EditorSerieController::displaySavedSerieName(bool saved)
  */
 bool EditorSerieController::serieExists(std::string serieName)
 {
-    std::string seriesDirectory(
-        constants::Directories::getSeriesDirectoryPath()
-    );
+    std::string seriesDirectory =
+        constants::Directories::SERIES_DIRECTORY_PATH;
 
-    std::string seriesExtension(
-        constants::Extensions::getSeriesExtension()
-    );
+    std::string seriesExtension =
+        constants::Extensions::SERIES_EXTENSION;
 
     std::vector<std::string> seriesNames =
         utils::DirReader::getAllFiles(
@@ -449,7 +447,7 @@ bool EditorSerieController::serieExists(std::string serieName)
         );
 
     return utils::StringsListsUtils::stringsListContainsString(
-               seriesNames,
-               serieName
-           );
+        seriesNames,
+        serieName
+    );
 }

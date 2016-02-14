@@ -34,10 +34,8 @@ class Extensions {
 
 public:
 
-    /**
-     * @return string
-     */
-    static std::string getSeriesExtension();
+    static const std::string LEVELS_EXTENSION;
+    static const std::string SERIES_EXTENSION;
 };
 }
 

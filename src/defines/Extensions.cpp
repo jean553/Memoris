@@ -26,7 +26,5 @@
 
 using namespace constants;
 
-std::string Extensions::getSeriesExtension()
-{
-    return ".serie";
-}
+const std::string Extensions::SERIES_EXTENSION = ".serie";
+const std::string Extensions::LEVELS_EXTENSION = ".level";

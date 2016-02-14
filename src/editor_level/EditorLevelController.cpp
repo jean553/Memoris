@@ -32,7 +32,11 @@
 #include "Window.hpp"
 #include "Colors.hpp"
 #include "Fonts.hpp"
-
+#include "Directories.hpp"
+#include "Extensions.hpp"
+#include "DirReader.hpp"
+#include "StringsListsUtils.hpp"
+#include "FileWriter.hpp"
 #include "ControllerFactory.hpp"
 
 using namespace controllers;
@@ -43,8 +47,6 @@ const std::string EditorLevelController::EDITOR_LEVEL_BUTTON_OPEN_TEXT = "Open";
 const std::string EditorLevelController::EDITOR_LEVEL_BUTTON_SAVE_TEXT = "Save";
 
 const std::string EditorLevelController::STRING_EDITOR_LEVEL_TITLE = "Level editor";
-
-const std::string EditorLevelController::DEFAULT_LEVEL_NAME = "untitled";
 
 const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTONS_POSITION_X = 1390;
 const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTON_NEW_POSITION_Y = 170;
@@ -102,17 +104,16 @@ EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSIT
     levelNameLabelColor.b = constants::Colors::COLOR_WHITE_BLUE;
     levelNameLabelColor.a = constants::Colors::COLOR_ALPHA_FULL;
 
+    levelNameLabelUnsavedColor.r = constants::Colors::COLOR_GREY_RED;
+    levelNameLabelUnsavedColor.g = constants::Colors::COLOR_GREY_GREEN;
+    levelNameLabelUnsavedColor.b = constants::Colors::COLOR_GREY_BLUE;
+    levelNameLabelUnsavedColor.a = constants::Colors::COLOR_ALPHA_FULL;
+
     levelNameLabelFont.loadFromFile(constants::Fonts::getTextFontPath());
 
     levelNameLabel.setFont(levelNameLabelFont);
     levelNameLabel.setCharacterSize(constants::Fonts::SIZE_SUB_TITLE_FONT);
-    levelNameLabel.setColor(levelNameLabelColor);
-    levelNameLabel.setString(DEFAULT_LEVEL_NAME);
-    levelNameLabel.setPosition(
-        constants::Window::WIDTH -
-        levelNameLabel.getLocalBounds().width,
-        constants::Dimensions::POSITION_NAME_LABEL_Y
-    );
+    levelNameLabel.setColor(levelNameLabelUnsavedColor);
 
     inputTextNew.setLayout(
         POSITION_NEW_LEVEL_INPUT_TEXT_X,
@@ -121,6 +122,8 @@ EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSIT
     );
 
     status = MAIN_MENU;
+
+    buttonSave.setEnable(false);
 }
 
 /**
@@ -156,7 +159,9 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
 
                         if (status == NEW_LEVEL) {
 
-                            //TODO: save the level
+                            if (levelExists(inputTextNew.getText())) {
+                                continue;
+                            }
 
                             levelNameLabel.setString(
                                 inputTextNew.getText()
@@ -166,6 +171,10 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
                                 levelNameLabel.getLocalBounds().width,
                                 constants::Dimensions::POSITION_NAME_LABEL_Y
                             );
+
+                            level.setName(inputTextNew.getText());
+
+                            buttonSave.setEnable(true);
 
                             status = EDIT_LEVEL;
                         }
@@ -181,14 +190,36 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
             case sf::Event::MouseButtonPressed: {
                 switch(event.mouseButton.button) {
                     case sf::Mouse::Left: {
-                        if(buttonExit.isMouseHover()) {
-                            nextControllerId =
-                                factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
-                        }
-                        else if(buttonNew.isMouseHover()) {
-                            status = NEW_LEVEL;
-                        }
+                        switch(status) {
+                            case EDIT_LEVEL: {
+
+                                if(buttonSave.isMouseHover()) {
+                                    if (!levelExists(inputTextNew.getText())) {
+                                        utils::FileWriter::createFile(
+                                            constants::Directories::LEVELS_DIRECTORY_PATH +
+                                            level.getName() +
+                                            constants::Extensions::LEVELS_EXTENSION
+                                        );
+                                    }
+
+                                    //TODO: rewrite file content
+
+                                    displaySavedLevelName(true);
+
+                                    buttonSave.setEnable(false);
+                                }
+                            }
+                            default: {
+                                if(buttonExit.isMouseHover()) {
+                                    nextControllerId =
+                                        factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
+                                }
+                                else if(buttonNew.isMouseHover()) {
+                                    status = NEW_LEVEL;
+                                }
+                            }
                         break;
+                        }
                     }
                 }
             }
@@ -196,4 +227,39 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
     }
 
     return nextControllerId;
+}
+
+/**
+ *
+ */
+void EditorLevelController::displaySavedLevelName(bool saved)
+{
+    if (saved) {
+        levelNameLabel.setColor(levelNameLabelColor);
+    } else {
+        levelNameLabel.setColor(levelNameLabelUnsavedColor);
+    }
+}
+
+/**
+ *
+ */
+bool EditorLevelController::levelExists(std::string levelName)
+{
+    std::string levelsDirectory =
+        constants::Directories::LEVELS_DIRECTORY_PATH;
+
+    std::string levelsExtension =
+        constants::Extensions::LEVELS_EXTENSION;
+
+    std::vector<std::string> levelsName =
+        utils::DirReader::getAllFiles(
+            levelsDirectory.c_str(),
+            levelsExtension.c_str()
+        );
+
+    return utils::StringsListsUtils::stringsListContainsString(
+        levelsName,
+        levelName
+    );
 }

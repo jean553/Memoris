@@ -91,3 +91,19 @@ void Level::displayAllCells(utils::Context* pContext)
         }
     }
 }
+
+/**
+ *
+ */
+void Level::setName(std::string levelName)
+{
+    name = levelName;
+}
+
+/**
+ *
+ */
+std::string Level::getName()
+{
+    return name;
+}

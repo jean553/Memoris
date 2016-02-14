@@ -27,6 +27,7 @@
 #define DEF_LEVEL
 
 #include <vector>
+#include <string>
 
 #include "Cell.hpp"
 
@@ -60,12 +61,28 @@ public:
      */
     void displayAllCells(utils::Context* pContext);
 
+    /**
+     * @brief name setter
+     *
+     * @param levelName name of the level
+     */
+    void setName(std::string levelName);
+
+    /**
+     * @brief name getter
+     *
+     * @return string
+     */
+    std::string getName();
+
 private:
 
     std::vector<std::vector<Cell*>> cells;
 
     float horizontalPosition;
     float verticalPosition;
+
+    std::string name;
 };
 }
 
