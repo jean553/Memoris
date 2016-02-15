@@ -58,3 +58,19 @@ Check for conclusive and inconclusive errors, warnings, performance weaknesses a
 ```
 ./scripts/cppcheck.sh
 ```
+
+## Credits
+
+### Fonts
+
+"Crystal" - http://openfontlibrary.org/en/font/crystal#CRYSTAL-Regular - Felipe Munoz - CreativeCommons BY 3.0 ( https://creativecommons.org/licenses/by/3.0/ )
+
+"Hi" - http://openfontlibrary.org/en/font/hi - Mew Too, Robert Jablonski - SIL Open Font License ( http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL )
+
+### Musics
+
+"BigManBoo" - Back to the 90s - Nostalgia - CreativeCommons 3.0 BY-NC (https://www.jamendo.com/track/1317970/back-to-the-90s-nostalgia) ( https://creativecommons.org/licenses/by-nc/3.0/ )
+
+"Pokki DJ" - Made in Italy - CreativeCommons 3.0 BY (https://www.jamendo.com/track/1206274/made-in-italy) ( https://creativecommons.org/licenses/by/3.0/ )
+
+Music files have been converted from MP3 to OGG format. This is the only modification.

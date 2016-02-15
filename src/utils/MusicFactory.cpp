@@ -28,8 +28,8 @@
 
 using namespace factories;
 
-const std::string MusicFactory::MAIN_MENU_MUSIC_PATH = "res/musics/dj-xtrm-killer-symphonyX-outro.ogg";
-const std::string MusicFactory::EDITOR_MUSIC_PATH = "res/musics/dj-hiddeminside-electronik.ogg";
+const std::string MusicFactory::MAIN_MENU_MUSIC_PATH = "res/musics/pokki-dj-made-in-italy.ogg";
+const std::string MusicFactory::EDITOR_MUSIC_PATH = "res/musics/bigmanboo-back-to-the-90s-nostalgia.ogg";
 
 /**
  *

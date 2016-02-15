@@ -1,6 +1,6 @@
 - Fonts
-    - "Crystal" - http://openfontlibrary.org/en/font/crystal#CRYSTAL-Regular - Felipe Munoz - CreativeCommons 
+    - "Crystal" - http://openfontlibrary.org/en/font/crystal#CRYSTAL-Regular - Felipe Munoz - CreativeCommons - CreativeCommons 3.0 BY 
     - "Hi" - http://openfontlibrary.org/en/font/hi - Mew Too, Robert Jablonski - OFL (SIL Open Font License)
 - Musics
-    - "SymphonX Outro" - https://www.jamendo.com/en/list/a132590/xtrm-what - Dj XtrM KilleR - CreativeCommons
-    - "Electronik" - https://www.jamendo.com/album/62792/electronik - Hiddeminside - CreativeCommons
+    - "BigManBoo" - Back to the 90s - Nostalgia - CreativeCommons 3.0 BY-NC (https://www.jamendo.com/track/1317970/back-to-the-90s-nostalgia) 
+    - "Pokki DJ" - Made in Italy - CreativeCommons 3.0 BY (https://www.jamendo.com/track/1206274/made-in-italy) 
