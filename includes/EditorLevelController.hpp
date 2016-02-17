@@ -48,6 +48,7 @@ class EditorLevelController : public Controller {
     static const std::string EDITOR_LEVEL_BUTTON_SAVE_TEXT;
 
     static const std::string STRING_EDITOR_LEVEL_TITLE;
+    static const std::string STRING_NEW_LEVEL_ERROR;
 
     static const unsigned short LEVEL_EDITOR_BUTTONS_POSITION_X;
     static const unsigned short LEVEL_EDITOR_BUTTON_NEW_POSITION_Y;
@@ -56,6 +57,9 @@ class EditorLevelController : public Controller {
 
     static const unsigned short LEVEL_POSITION_X;
     static const unsigned short LEVEL_POSITION_Y;
+
+    static const unsigned short ERROR_MESSAGE_POSITION_X;
+    static const unsigned short ERROR_MESSAGE_POSITION_Y;
 
     static const unsigned short POSITION_NEW_LEVEL_INPUT_TEXT_X;
     static const unsigned short POSITION_NEW_LEVEL_INPUT_TEXT_Y;
@@ -102,8 +106,12 @@ private:
 
     sf::Color levelNameLabelColor;
     sf::Color levelNameLabelUnsavedColor;
+    sf::Color errorLabelColor;
 
     sf::Text levelNameLabel;
+    sf::Text errorLabel;
+
+    bool levelAlreadyExists;
 
     /**
      * @brief check if a level name already exists
