@@ -86,7 +86,11 @@ const unsigned short MainMenuController::MAIN_MENU_ITEM_EXIT = 4;
 
 const short MainMenuController::DIRECTION_TITLE_BLUE_INIT = -1;
 
-const int MainMenuController::INTERVAL_ANIMATION_TITLE = 10;
+const int MainMenuController::INTERVAL_ANIMATION = 10;
+
+const short MainMenuController::SELECTOR_COLOR_INCREMENTATION_STEP = 15;
+const short MainMenuController::SELECTOR_COLOR_MINIMUM = 0;
+const short MainMenuController::SELECTOR_COLOR_MAXIMUM = 255;
 
 /**
  *
@@ -106,10 +110,10 @@ MainMenuController::MainMenuController() : Controller()
     colorWhite.b = constants::Colors::COLOR_WHITE_BLUE;
     colorWhite.a = constants::Colors::COLOR_ALPHA_FULL;
 
-    colorRed.r = constants::Colors::COLOR_RED_RED;
-    colorRed.g = constants::Colors::COLOR_RED_GREEN;
-    colorRed.b = constants::Colors::COLOR_RED_BLUE;
-    colorRed.a = constants::Colors::COLOR_ALPHA_FULL;
+    colorSelector.r = constants::Colors::COLOR_RED_RED;
+    colorSelector.g = constants::Colors::COLOR_RED_GREEN;
+    colorSelector.b = constants::Colors::COLOR_RED_BLUE;
+    colorSelector.a = constants::Colors::COLOR_ALPHA_FULL;
 
     title.setFont(fontTitle);
     title.setString(STRING_TITLE);
@@ -123,7 +127,7 @@ MainMenuController::MainMenuController() : Controller()
     itemNewGame.setFont(fontItem);
     itemNewGame.setString(STRING_NEW_GAME);
     itemNewGame.setCharacterSize(constants::Fonts::SIZE_ITEM_FONT);
-    itemNewGame.setColor(colorRed);
+    itemNewGame.setColor(colorSelector);
     itemNewGame.setPosition(
         POSITION_ITEM_NEW_GAME_X,
         POSITION_ITEM_NEW_GAME_Y
@@ -182,6 +186,8 @@ MainMenuController::MainMenuController() : Controller()
     titleBlueDirection = DIRECTION_TITLE_BLUE_INIT;
 
     selectorPosition = 0;
+
+    selectorDirection = 1;
 }
 
 /**
@@ -189,11 +195,18 @@ MainMenuController::MainMenuController() : Controller()
  */
 unsigned short MainMenuController::render(utils::Context* pContext)
 {
-    if(clock.getElapsedTime().asMilliseconds() >
-            INTERVAL_ANIMATION_TITLE
+    if(clockTitle.getElapsedTime().asMilliseconds() >
+            INTERVAL_ANIMATION
       ) {
         animateTitleColor();
-        clock.restart();
+        clockTitle.restart();
+    }
+
+    if(clockSelector.getElapsedTime().asMilliseconds() >
+            INTERVAL_ANIMATION
+      ) {
+        animateSelectorColor();
+        clockSelector.restart();
     }
 
     updateSelectorPosition();
@@ -273,6 +286,21 @@ void MainMenuController::animateTitleColor()
 /**
  *
  */
+void MainMenuController::animateSelectorColor()
+{
+    colorSelector.g +=
+        SELECTOR_COLOR_INCREMENTATION_STEP * selectorDirection;
+    colorSelector.b +=
+        SELECTOR_COLOR_INCREMENTATION_STEP * selectorDirection;
+
+    if (colorSelector.g == 0 || colorSelector.g == 255) {
+        selectorDirection *= -1;
+    }
+}
+
+/**
+ *
+ */
 void MainMenuController::updateSelectorPosition()
 {
     selectorPosition = (
@@ -289,23 +317,23 @@ void MainMenuController::updateSelectorPosition()
 
     switch(selectorPosition) {
         case MAIN_MENU_ITEM_NEW_GAME: {
-            itemNewGame.setColor(colorRed);
+            itemNewGame.setColor(colorSelector);
             break;
         }
         case MAIN_MENU_ITEM_LOAD_GAME: {
-            itemLoadGame.setColor(colorRed);
+            itemLoadGame.setColor(colorSelector);
             break;
         }
         case MAIN_MENU_ITEM_EDITOR: {
-            itemEditor.setColor(colorRed);
+            itemEditor.setColor(colorSelector);
             break;
         }
         case MAIN_MENU_ITEM_OPTIONS: {
-            itemOptions.setColor(colorRed);
+            itemOptions.setColor(colorSelector);
             break;
         }
         case MAIN_MENU_ITEM_EXIT: {
-            itemExit.setColor(colorRed);
+            itemExit.setColor(colorSelector);
             break;
         }
     }
