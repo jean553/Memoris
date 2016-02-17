@@ -48,6 +48,8 @@ const std::string EditorLevelController::EDITOR_LEVEL_BUTTON_SAVE_TEXT = "Save";
 
 const std::string EditorLevelController::STRING_EDITOR_LEVEL_TITLE = "Level editor";
 
+const std::string EditorLevelController::STRING_NEW_LEVEL_ERROR = "The level already exists !";
+
 const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTONS_POSITION_X = 1390;
 const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTON_NEW_POSITION_Y = 170;
 const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTON_OPEN_POSITION_Y = 240;
@@ -55,6 +57,9 @@ const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTON_SAVE_POSITION_Y 
 
 const unsigned short EditorLevelController::LEVEL_POSITION_X = 5;
 const unsigned short EditorLevelController::LEVEL_POSITION_Y = 90;
+
+const unsigned short EditorLevelController::ERROR_MESSAGE_POSITION_X = 780;
+const unsigned short EditorLevelController::ERROR_MESSAGE_POSITION_Y = 30;
 
 const unsigned short EditorLevelController::POSITION_NEW_LEVEL_INPUT_TEXT_X = 1230;
 const unsigned short EditorLevelController::POSITION_NEW_LEVEL_INPUT_TEXT_Y = 10;
@@ -109,11 +114,25 @@ EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSIT
     levelNameLabelUnsavedColor.b = constants::Colors::COLOR_GREY_BLUE;
     levelNameLabelUnsavedColor.a = constants::Colors::COLOR_ALPHA_FULL;
 
+    errorLabelColor.r = constants::Colors::COLOR_RED_RED;
+    errorLabelColor.g = constants::Colors::COLOR_RED_GREEN;
+    errorLabelColor.b = constants::Colors::COLOR_RED_BLUE;
+    errorLabelColor.a = constants::Colors::COLOR_ALPHA_FULL;
+
     levelNameLabelFont.loadFromFile(constants::Fonts::getTextFontPath());
 
     levelNameLabel.setFont(levelNameLabelFont);
     levelNameLabel.setCharacterSize(constants::Fonts::SIZE_SUB_TITLE_FONT);
     levelNameLabel.setColor(levelNameLabelUnsavedColor);
+
+    errorLabel.setFont(levelNameLabelFont);
+    errorLabel.setCharacterSize(constants::Fonts::SIZE_MESSAGE_FONT);
+    errorLabel.setColor(errorLabelColor);
+    errorLabel.setString(STRING_NEW_LEVEL_ERROR);
+    errorLabel.setPosition(
+        ERROR_MESSAGE_POSITION_X,
+        ERROR_MESSAGE_POSITION_Y
+    );
 
     inputTextNew.setLayout(
         POSITION_NEW_LEVEL_INPUT_TEXT_X,
@@ -122,6 +141,8 @@ EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSIT
     );
 
     status = MAIN_MENU;
+
+    levelAlreadyExists = false;
 
     buttonSave.setEnable(false);
 }
@@ -149,6 +170,11 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
         pContext->getWindow()->draw(levelNameLabel);
     }
 
+    // displays the error message if the level name is being edited and an error occured
+    if (levelAlreadyExists) {
+        pContext->getWindow()->draw(errorLabel);
+    }
+
     cursor.display(pContext);
 
     while(pContext->getWindow()->pollEvent(event)) {
@@ -160,6 +186,7 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
                         if (status == NEW_LEVEL) {
 
                             if (levelExists(inputTextNew.getText())) {
+                                levelAlreadyExists = true;
                                 continue;
                             }
 
@@ -176,6 +203,7 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
 
                             buttonSave.setEnable(true);
 
+                            levelAlreadyExists = false;
                             status = EDIT_LEVEL;
                         }
                     }
