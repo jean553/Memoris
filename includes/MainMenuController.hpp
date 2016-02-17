@@ -90,7 +90,11 @@ class MainMenuController : public Controller {
 
     static const short DIRECTION_TITLE_BLUE_INIT;
 
-    static const int INTERVAL_ANIMATION_TITLE;
+    static const short SELECTOR_COLOR_INCREMENTATION_STEP;
+    static const short SELECTOR_COLOR_MINIMUM;
+    static const short SELECTOR_COLOR_MAXIMUM;
+
+    static const int INTERVAL_ANIMATION;
 
 public:
 
@@ -115,6 +119,11 @@ private:
     void animateTitleColor();
 
     /**
+     * @brief update the color of the selector
+     */
+    void animateSelectorColor();
+
+    /**
      * @brief visually update the selector position
      */
     void updateSelectorPosition();
@@ -129,13 +138,14 @@ private:
     unsigned short selectorPosition;
 
     short titleBlueDirection;
+    short selectorDirection;
 
     sf::Font fontTitle;
     sf::Font fontItem;
 
     sf::Color colorTitle;
     sf::Color colorWhite;
-    sf::Color colorRed;
+    sf::Color colorSelector;
 
     sf::Text title;
     sf::Text itemNewGame;
@@ -148,7 +158,8 @@ private:
 
     sf::Sprite spriteGithub;
 
-    sf::Clock clock;
+    sf::Clock clockTitle;
+    sf::Clock clockSelector;
 
     sf::SoundBuffer soundBuffer;
 
