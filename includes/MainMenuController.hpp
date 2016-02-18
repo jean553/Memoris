@@ -33,8 +33,11 @@
 
 #include "Controller.hpp"
 
+#include "HasMenuSelectorAnimation.hpp"
+
 namespace controllers {
 class MainMenuController : public Controller {
+    friend class policies::HasMenuSelectorAnimation;
 
     static const std::string PATH_IMAGE_GITHUB;
 
@@ -90,11 +93,8 @@ class MainMenuController : public Controller {
 
     static const short DIRECTION_TITLE_BLUE_INIT;
 
-    static const short SELECTOR_COLOR_INCREMENTATION_STEP;
     static const short SELECTOR_COLOR_MINIMUM;
     static const short SELECTOR_COLOR_MAXIMUM;
-
-    static const int INTERVAL_ANIMATION;
 
 public:
 
@@ -117,11 +117,6 @@ private:
      * @brief update the color of the title
      */
     void animateTitleColor();
-
-    /**
-     * @brief update the color of the selector
-     */
-    void animateSelectorColor();
 
     /**
      * @brief visually update the selector position
@@ -159,7 +154,6 @@ private:
     sf::Sprite spriteGithub;
 
     sf::Clock clockTitle;
-    sf::Clock clockSelector;
 
     sf::SoundBuffer soundBuffer;
 

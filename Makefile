@@ -3,7 +3,7 @@ CC = clang++
 CFLAGS = -std=c++11 -Weverything -Wno-switch -Wno-switch-enum -Wno-c++98-compat -Werror -Wno-padded -Wno-global-constructors -Wno-exit-time-destructors -Wno-implicit-fallthrough -ferror-limit=0 
 DEPS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
-OBJS = build/main.o build/MusicFactory.o build/ControllerFactory.o build/Context.o build/Controller.o build/DirReader.o build/FileWriter.o build/StringsListsUtils.o build/Directories.o build/Extensions.o build/Fonts.o build/Sounds.o build/Colors.o build/Window.o build/Dimensions.o build/Positions.o build/Serie.o build/ButtonWidget.o build/CursorWidget.o build/InputTextWidget.o build/ItemsListWidget.o build/OrderedItemsListWidget.o build/TitleBarWidget.o build/Widget.o build/MainMenuController.o build/NewGameController.o build/EditorMenuController.o build/EditorLevelController.o build/EditorSerieController.o build/OpenSerieController.o build/Level.o build/Cell.o build/EmptyCell.o
+OBJS = build/main.o build/MusicFactory.o build/ControllerFactory.o build/Context.o build/Controller.o build/DirReader.o build/FileWriter.o build/StringsListsUtils.o build/Directories.o build/Extensions.o build/Fonts.o build/Sounds.o build/Colors.o build/Window.o build/Dimensions.o build/Positions.o build/Serie.o build/ButtonWidget.o build/CursorWidget.o build/InputTextWidget.o build/ItemsListWidget.o build/OrderedItemsListWidget.o build/TitleBarWidget.o build/Widget.o build/MainMenuController.o build/NewGameController.o build/EditorMenuController.o build/EditorLevelController.o build/EditorSerieController.o build/OpenSerieController.o build/Level.o build/Cell.o build/EmptyCell.o build/HasMenuSelectorAnimation.o
 
 INC = -I includes
 
@@ -119,4 +119,9 @@ build/EditorSerieController.o: src/editor_serie/EditorSerieController.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/OpenSerieController.o: src/open_serie/OpenSerieController.cpp
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+
+# policies
+
+build/HasMenuSelectorAnimation.o: src/policies/HasMenuSelectorAnimation.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<

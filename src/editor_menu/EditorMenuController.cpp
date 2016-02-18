@@ -66,15 +66,15 @@ EditorMenuController::EditorMenuController() : Controller()
     colorWhite.b = constants::Colors::COLOR_WHITE_BLUE;
     colorWhite.a = constants::Colors::COLOR_ALPHA_FULL;
 
-    colorRed.r = constants::Colors::COLOR_RED_RED;
-    colorRed.g = constants::Colors::COLOR_RED_GREEN;
-    colorRed.b = constants::Colors::COLOR_RED_BLUE;
-    colorRed.a = constants::Colors::COLOR_ALPHA_FULL;
+    colorSelector.r = constants::Colors::COLOR_RED_RED;
+    colorSelector.g = constants::Colors::COLOR_RED_GREEN;
+    colorSelector.b = constants::Colors::COLOR_RED_BLUE;
+    colorSelector.a = constants::Colors::COLOR_ALPHA_FULL;
 
     itemLevelsEditor.setFont(fontItem);
     itemLevelsEditor.setString(STRING_LEVELS_EDITOR);
     itemLevelsEditor.setCharacterSize(constants::Fonts::SIZE_ITEM_FONT);
-    itemLevelsEditor.setColor(colorRed);
+    itemLevelsEditor.setColor(colorSelector);
     itemLevelsEditor.setPosition(
         POSITION_ITEM_LEVELS_EDITOR_X,
         POSITION_ITEM_LEVELS_EDITOR_Y
@@ -101,6 +101,8 @@ EditorMenuController::EditorMenuController() : Controller()
     soundBuffer.loadFromFile(constants::Sounds::MOVE_SELECTOR_SOUND_PATH);
 
     soundSelectorMove.setBuffer(soundBuffer);
+
+    selectorDirection = 1;
 }
 
 /**
@@ -108,6 +110,8 @@ EditorMenuController::EditorMenuController() : Controller()
  */
 unsigned short EditorMenuController::render(utils::Context* pContext)
 {
+    policies::HasMenuSelectorAnimation::animateMenuSelector<EditorMenuController>(this);
+
     updateSelectorPosition();
 
     pContext->getWindow()->draw(itemLevelsEditor);
@@ -162,15 +166,15 @@ void EditorMenuController::updateSelectorPosition()
 
     switch (selectorPosition) {
         case EDITOR_MENU_ITEM_LEVELS_EDITOR: {
-            itemLevelsEditor.setColor(colorRed);
+            itemLevelsEditor.setColor(colorSelector);
             break;
         }
         case EDITOR_MENU_ITEM_SERIES_EDITOR: {
-            itemSeriesEditor.setColor(colorRed);
+            itemSeriesEditor.setColor(colorSelector);
             break;
         }
         case EDITOR_MENU_ITEM_BACK: {
-            itemBack.setColor(colorRed);
+            itemBack.setColor(colorSelector);
             break;
         }
     }
