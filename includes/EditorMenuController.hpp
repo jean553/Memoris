@@ -33,8 +33,11 @@
 
 #include "Controller.hpp"
 
+#include "HasMenuSelectorAnimation.hpp"
+
 namespace controllers {
 class EditorMenuController : public Controller {
+    friend class policies::HasMenuSelectorAnimation;
 
     static const std::string STRING_LEVELS_EDITOR;
     static const std::string STRING_SERIES_EDITOR;
@@ -85,10 +88,12 @@ private:
 
     unsigned short selectorPosition;
 
+    short selectorDirection;
+
     sf::Font fontItem;
 
     sf::Color colorWhite;
-    sf::Color colorRed;
+    sf::Color colorSelector;
 
     sf::Text itemLevelsEditor;
     sf::Text itemSeriesEditor;

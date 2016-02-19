@@ -30,6 +30,8 @@
 #include "Fonts.hpp"
 #include "Sounds.hpp"
 
+#include "HasMenuSelectorAnimation.hpp"
+
 using namespace controllers;
 
 const std::string MainMenuController::PATH_IMAGE_GITHUB = "res/images/fork-me.png";
@@ -86,9 +88,6 @@ const unsigned short MainMenuController::MAIN_MENU_ITEM_EXIT = 4;
 
 const short MainMenuController::DIRECTION_TITLE_BLUE_INIT = -1;
 
-const int MainMenuController::INTERVAL_ANIMATION = 10;
-
-const short MainMenuController::SELECTOR_COLOR_INCREMENTATION_STEP = 15;
 const short MainMenuController::SELECTOR_COLOR_MINIMUM = 0;
 const short MainMenuController::SELECTOR_COLOR_MAXIMUM = 255;
 
@@ -196,18 +195,13 @@ MainMenuController::MainMenuController() : Controller()
 unsigned short MainMenuController::render(utils::Context* pContext)
 {
     if(clockTitle.getElapsedTime().asMilliseconds() >
-            INTERVAL_ANIMATION
+            policies::HasMenuSelectorAnimation::INTERVAL_ANIMATION
       ) {
         animateTitleColor();
         clockTitle.restart();
     }
 
-    if(clockSelector.getElapsedTime().asMilliseconds() >
-            INTERVAL_ANIMATION
-      ) {
-        animateSelectorColor();
-        clockSelector.restart();
-    }
+    policies::HasMenuSelectorAnimation::animateMenuSelector<MainMenuController>(this);
 
     updateSelectorPosition();
 
@@ -281,21 +275,6 @@ void MainMenuController::animateTitleColor()
     }
 
     title.setColor(colorTitle);
-}
-
-/**
- *
- */
-void MainMenuController::animateSelectorColor()
-{
-    colorSelector.g +=
-        SELECTOR_COLOR_INCREMENTATION_STEP * selectorDirection;
-    colorSelector.b +=
-        SELECTOR_COLOR_INCREMENTATION_STEP * selectorDirection;
-
-    if (colorSelector.g == 0 || colorSelector.g == 255) {
-        selectorDirection *= -1;
-    }
 }
 
 /**
