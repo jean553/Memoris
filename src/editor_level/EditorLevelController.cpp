@@ -58,6 +58,9 @@ const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTON_SAVE_POSITION_Y 
 const unsigned short EditorLevelController::LEVEL_POSITION_X = 5;
 const unsigned short EditorLevelController::LEVEL_POSITION_Y = 90;
 
+const unsigned short EditorLevelController::CELL_SELECTOR_POSITION_X = 1050;
+const unsigned short EditorLevelController::CELL_SELECTOR_POSITION_Y = 90;
+
 const unsigned short EditorLevelController::ERROR_MESSAGE_POSITION_X = 780;
 const unsigned short EditorLevelController::ERROR_MESSAGE_POSITION_Y = 30;
 
@@ -140,6 +143,11 @@ EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSIT
         SIZE_NEW_LEVEL_TEXT
     );
 
+    cellSelector.setPosition(
+        CELL_SELECTOR_POSITION_X,
+        CELL_SELECTOR_POSITION_Y
+    );
+
     status = MAIN_MENU;
 
     levelAlreadyExists = false;
@@ -159,6 +167,7 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
     buttonSave.display(pContext);
 
     level.displayAllCells(pContext);
+    cellSelector.display(pContext);
 
     // displays the input text line for new level
     if (status == NEW_LEVEL) {

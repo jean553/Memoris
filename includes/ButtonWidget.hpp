@@ -76,7 +76,7 @@ public:
      * button colors according to the current
      * cursor position on screen
      *
-     * @param pContext       current pContext pointer
+     * @param pContext       current context pointer
      */
     void display(utils::Context* pContext);
 

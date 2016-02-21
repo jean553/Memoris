@@ -36,6 +36,7 @@
 #include "CursorWidget.hpp"
 #include "TitleBarWidget.hpp"
 #include "InputTextWidget.hpp"
+#include "CellSelectorWidget.hpp"
 
 #include "Level.hpp"
 
@@ -57,6 +58,9 @@ class EditorLevelController : public Controller {
 
     static const unsigned short LEVEL_POSITION_X;
     static const unsigned short LEVEL_POSITION_Y;
+
+    static const unsigned short CELL_SELECTOR_POSITION_X;
+    static const unsigned short CELL_SELECTOR_POSITION_Y;
 
     static const unsigned short ERROR_MESSAGE_POSITION_X;
     static const unsigned short ERROR_MESSAGE_POSITION_Y;
@@ -99,6 +103,8 @@ private:
     widgets::TitleBarWidget titleBar;
 
     widgets::InputTextWidget inputTextNew;
+
+    widgets::CellSelectorWidget cellSelector;
 
     entities::Level level;
 
