@@ -17,57 +17,48 @@
 */
 
 /**
- * @file Widget.hpp
- * @brief widget parent class
+ * Cells selector widget
+ *
+ * @file CellSelectorWidget.hpp
+ * @brief button widget
  * @package widgets
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_WIDGET
-#define DEF_WIDGET
+#ifndef DEF_CELL_SELECTOR_WIDGET
+#define DEF_CELL_SELECTOR_WIDGET
 
-#include <SFML/Graphics.hpp>
+#include "Widget.hpp"
 
-#include "Context.hpp"
+#include "EmptyCell.hpp"
 
 namespace widgets {
-class Widget {
+class CellSelectorWidget : public Widget {
 
 public:
 
     /**
-     * @brief position setter
+     * @brief displays all the cells for selection
+     *
+     * @param pContext current context pointer
+     */
+    void display(utils::Context* pContext);
+
+    /**
+     * @brief redefinition of the position setter,
+     * as it is necessary to set all the cells position
      *
      * @param hPosition widget horizontal position
      * @param vPosition widget vertical position
      */
-    virtual void setPosition(
+    void setPosition(
         float hPosition,
         float vPosition
     );
 
-protected:
+private:
 
-    Widget();
-
-    /**
-     * Virtual destructor, better to declare as
-     * the class is an abstract class, fix security
-     * problems that could be caused by polymorphism,
-     * whatever happens, we are sure to call both
-     * of the child and parent destructor
-     */
-    virtual ~Widget();
-
-    /**
-     * @brief common method to display the widget
-     *
-     * @param pContext    current context pointer
-     */
-    virtual void display(utils::Context* pContext) = 0;
-
-    float horizontalPosition;
-    float verticalPosition;
+    entities::EmptyCell emptyCell;
 };
 }
 
