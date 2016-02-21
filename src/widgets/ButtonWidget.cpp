@@ -96,9 +96,12 @@ void ButtonWidget::setLayout(
     float buttonWidth
 )
 {
-    horizontalPosition = buttonHorizontalPosition;
-    verticalPosition = buttonVerticalPosition;
     width = buttonWidth;
+
+    setPosition(
+        buttonHorizontalPosition,
+        buttonVerticalPosition
+    );
 
     buttonText.setFont(fontButton);
     buttonText.setCharacterSize(SIZE_BUTTON_TEXT_FONT);

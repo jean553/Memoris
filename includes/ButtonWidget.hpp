@@ -119,8 +119,6 @@ private:
     sf::RectangleShape topLine;
     sf::RectangleShape bottomLine;
 
-    float horizontalPosition;
-    float verticalPosition;
     float width;
 
     bool enable;
