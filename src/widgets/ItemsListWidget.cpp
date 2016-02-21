@@ -70,10 +70,13 @@ void ItemsListWidget::setLayout(
     unsigned short verticalTextContainers
 )
 {
-    horizontalPosition = widgetHorizontalPosition;
-    verticalPosition = widgetVerticalPosition;
     width = widgetWidth;
     verticalContainers = verticalTextContainers;
+
+    setPosition(
+        widgetHorizontalPosition,
+        widgetVerticalPosition
+    );
 
     boxTop.setPosition(
         horizontalPosition,

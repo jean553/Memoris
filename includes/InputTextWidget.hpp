@@ -116,8 +116,6 @@ private:
 
     bool displayCursor;
 
-    float horizontalPosition;
-    float verticalPosition;
     float width;
     unsigned short maximumCharacters;
 

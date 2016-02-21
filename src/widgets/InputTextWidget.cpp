@@ -80,9 +80,12 @@ void InputTextWidget::setLayout(
     float inputWidth
 )
 {
-    horizontalPosition = inputHorizontalPosition;
-    verticalPosition = inputVerticalPosition;
     width = inputWidth;
+
+    setPosition(
+        inputHorizontalPosition,
+        inputVerticalPosition
+    );
 
     displayedText.setPosition(
         horizontalPosition + TEXT_HORIZONTAL_OFFSET,

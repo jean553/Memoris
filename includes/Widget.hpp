@@ -33,7 +33,22 @@
 namespace widgets {
 class Widget {
 
+public:
+
+    /**
+     * @brief position setter
+     *
+     * @param hPosition widget horizontal position
+     * @param vPosition widget vertical position
+     */
+    void setPosition(
+        float hPosition,
+        float vPosition
+    );
+
 protected:
+
+    Widget();
 
     /**
      * Virtual destructor, better to declare as
@@ -50,6 +65,9 @@ protected:
      * @param pContext    current context pointer
      */
     virtual void display(utils::Context* pContext) = 0;
+
+    float horizontalPosition;
+    float verticalPosition;
 };
 }
 

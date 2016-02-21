@@ -101,8 +101,6 @@ protected:
     sf::Sprite spriteUp;
     sf::Sprite spriteDown;
 
-    float horizontalPosition;
-    float verticalPosition;
     float width;
 
     unsigned short verticalContainers;
