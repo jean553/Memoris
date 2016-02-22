@@ -17,47 +17,34 @@
 */
 
 /**
- * Editor of levels.
- *
- * @file EditorLevelController.cpp
- * @brief levels editor
- * @package controllers
+ * @file DepartureCell.hpp
+ * @brief departure cell entity
+ * @package entities
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "CellSelectorWidget.hpp"
+#ifndef DEF_DEPARTURE_CELL
+#define DEF_DEPARTURE_CELL
 
-#include "Dimensions.hpp"
+#include "Cell.hpp"
 
-using namespace widgets;
+#include <string>
 
-/**
- *
- */
-void CellSelectorWidget::setPosition(
-    float hPosition,
-    float vPosition
-) {
+namespace entities {
+class DepartureCell : public Cell {
 
-    horizontalPosition = hPosition;
-    verticalPosition = vPosition;
+    static const std::string DEPARTURE_CELL_PICTURE_PATH;
 
-    emptyCell.setPosition(
-        hPosition,
-        vPosition
-    );
+public:
 
-    departureCell.setPosition(
-        hPosition + constants::Dimensions::CELL_PIXELS_DIMENSIONS,
-        vPosition
-    );
+    DepartureCell();
+
+    /**
+     * @brief definition of the action to
+     * perform when the cell is triggered
+     */
+    void performAction();
+};
 }
 
-/**
- *
- */
-void CellSelectorWidget::display(utils::Context* pContext)
-{
-    emptyCell.display(pContext);
-    departureCell.display(pContext);
-}
+#endif

@@ -31,6 +31,7 @@
 #include "Widget.hpp"
 
 #include "EmptyCell.hpp"
+#include "DepartureCell.hpp"
 
 namespace widgets {
 class CellSelectorWidget : public Widget {
@@ -59,6 +60,7 @@ public:
 private:
 
     entities::EmptyCell emptyCell;
+    entities::DepartureCell departureCell;
 };
 }
 
