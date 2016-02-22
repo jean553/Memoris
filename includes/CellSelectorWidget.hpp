@@ -33,6 +33,7 @@
 #include "EmptyCell.hpp"
 #include "DepartureCell.hpp"
 #include "ArrivalCell.hpp"
+#include "StarCell.hpp"
 
 namespace widgets {
 class CellSelectorWidget : public Widget {
@@ -63,6 +64,7 @@ private:
     entities::EmptyCell emptyCell;
     entities::DepartureCell departureCell;
     entities::ArrivalCell arrivalCell;
+    entities::StarCell starCell;
 };
 }
 
