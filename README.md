@@ -7,6 +7,10 @@ Memoris is a 2D graphical video game developped in C++ using the SFML media libr
 The objective is to move a pin from one departure to a destination on an invisible map. The player can only see the map a few seconds before the game starts. 
 The gameplay has to be rich in actions, bonus, malus, time constraint... etc...
 
+## Compatibility
+
+Memoris can be compiled and ran on Debian 8.
+
 ## Compilation
 
 SFML version 2.1 is required :

@@ -39,6 +39,7 @@ public:
 
     static const float CELL_PIXELS_DIMENSIONS;
     static const float CELLS_PIXELS_SEPARATION;
+    static const float SELECTOR_CELLS_PIXELS_SEPARATION;
 };
 }
 
