@@ -51,6 +51,11 @@ void CellSelectorWidget::setPosition(
         hPosition + constants::Dimensions::CELL_PIXELS_DIMENSIONS,
         vPosition
     );
+
+    arrivalCell.setPosition(
+        hPosition + constants::Dimensions::CELL_PIXELS_DIMENSIONS * 2,
+        vPosition
+    );
 }
 
 /**
@@ -60,4 +65,5 @@ void CellSelectorWidget::display(utils::Context* pContext)
 {
     emptyCell.display(pContext);
     departureCell.display(pContext);
+    arrivalCell.display(pContext);
 }
