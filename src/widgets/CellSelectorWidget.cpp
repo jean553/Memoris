@@ -48,17 +48,26 @@ void CellSelectorWidget::setPosition(
     );
 
     departureCell.setPosition(
-        hPosition + constants::Dimensions::CELL_PIXELS_DIMENSIONS,
+        hPosition + constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+        constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION,
         vPosition
     );
 
     arrivalCell.setPosition(
-        hPosition + constants::Dimensions::CELL_PIXELS_DIMENSIONS * 2,
+        hPosition +
+        (
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
+        ) * 2,
         vPosition
     );
 
     starCell.setPosition(
-        hPosition + constants::Dimensions::CELL_PIXELS_DIMENSIONS * 3,
+        hPosition +
+        (
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
+        ) * 3,
         vPosition
     );
 }
