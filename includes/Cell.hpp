@@ -75,7 +75,11 @@ public:
      */
     void display(utils::Context* pContext);
 
-private:
+    /**
+     * @brief set the cell as selected, used to display
+     * the selection frame around the cell
+     */
+    void setSelected(bool selected);
 
     /**
      * @brief check if the mouse is hover the cell
@@ -84,6 +88,10 @@ private:
      */
     bool isMouseHover() const;
 
+private:
+
+    bool isSelected;
+
     float horizontalPosition;
     float verticalPosition;
 
@@ -91,8 +99,14 @@ private:
 
     sf::Sprite sprite;
 
+    sf::RectangleShape topSelectionBar;
+    sf::RectangleShape bottomSelectionBar;
+    sf::RectangleShape leftSelectionBar;
+    sf::RectangleShape rightSelectionBar;
+
     sf::Color transparentWhiteColor;
     sf::Color whiteColor;
+    sf::Color selectorColor;
 };
 }
 

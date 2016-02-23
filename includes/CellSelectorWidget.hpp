@@ -28,6 +28,8 @@
 #ifndef DEF_CELL_SELECTOR_WIDGET
 #define DEF_CELL_SELECTOR_WIDGET
 
+#include <SFML/Audio.hpp>
+
 #include "Widget.hpp"
 
 #include "EmptyCell.hpp"
@@ -39,6 +41,10 @@ namespace widgets {
 class CellSelectorWidget : public Widget {
 
 public:
+
+    static const short COLUMNS_AMOUNT;
+
+    CellSelectorWidget();
 
     /**
      * @brief displays all the cells for selection
@@ -59,12 +65,34 @@ public:
         float vPosition
     );
 
+    /**
+     * @brief select a cell on click, should be used
+     * in the controller loop after a click event
+     */
+    void selectCellOnClick();
+
+    /**
+     * @brief detects if the mouse is hover the widget
+     *
+     * @return true if the mouse is hover
+     */
+    bool isMouseHover() const;
+
 private:
+
+    /**
+     * @brief unselect all the cells of the selector
+     */
+    void unselectAllCells();
 
     entities::EmptyCell emptyCell;
     entities::DepartureCell departureCell;
     entities::ArrivalCell arrivalCell;
     entities::StarCell starCell;
+
+    sf::SoundBuffer soundCellSelectionBuffer;
+
+    sf::Sound soundCellSelection;
 };
 }
 

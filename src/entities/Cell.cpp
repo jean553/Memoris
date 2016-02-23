@@ -35,6 +35,8 @@ using namespace entities;
  */
 Cell::Cell()
 {
+    isSelected = false;
+
     horizontalPosition = 0;
     verticalPosition = 0;
 
@@ -47,6 +49,44 @@ Cell::Cell()
     whiteColor.g = constants::Colors::COLOR_WHITE_GREEN;
     whiteColor.b = constants::Colors::COLOR_WHITE_BLUE;
     whiteColor.a = constants::Colors::COLOR_ALPHA_FULL;
+
+    selectorColor.r = constants::Colors::COLOR_RED_RED;
+    selectorColor.g = constants::Colors::COLOR_RED_GREEN;
+    selectorColor.b = constants::Colors::COLOR_RED_BLUE;
+    selectorColor.a = constants::Colors::COLOR_ALPHA_FULL;
+
+    topSelectionBar.setSize(
+        sf::Vector2f(
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS,
+            constants::Dimensions::SELECTED_CELLS_BORDER_WIDTH
+        )
+    );
+
+    bottomSelectionBar.setSize(
+        sf::Vector2f(
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS,
+            constants::Dimensions::SELECTED_CELLS_BORDER_WIDTH
+        )
+    );
+
+    leftSelectionBar.setSize(
+        sf::Vector2f(
+            constants::Dimensions::SELECTED_CELLS_BORDER_WIDTH,
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS
+        )
+    );
+
+    rightSelectionBar.setSize(
+        sf::Vector2f(
+            constants::Dimensions::SELECTED_CELLS_BORDER_WIDTH,
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS
+        )
+    );
+
+    topSelectionBar.setFillColor(selectorColor);
+    bottomSelectionBar.setFillColor(selectorColor);
+    leftSelectionBar.setFillColor(selectorColor);
+    rightSelectionBar.setFillColor(selectorColor);
 }
 
 /**
@@ -69,6 +109,28 @@ void Cell::setPosition(
 
     sprite.setPosition(
         horizontalPosition,
+        verticalPosition
+    );
+
+    topSelectionBar.setPosition(
+        horizontalPosition,
+        verticalPosition
+    );
+
+    bottomSelectionBar.setPosition(
+        horizontalPosition,
+        verticalPosition +
+        constants::Dimensions::CELL_PIXELS_DIMENSIONS -
+        constants::Dimensions::SELECTED_CELLS_BORDER_WIDTH
+    );
+
+    leftSelectionBar.setPosition(
+        horizontalPosition,
+        verticalPosition
+    );
+
+    rightSelectionBar.setPosition(
+        horizontalPosition + constants::Dimensions::CELL_PIXELS_DIMENSIONS,
         verticalPosition
     );
 }
@@ -95,6 +157,13 @@ void Cell::display(utils::Context* pContext)
     }
 
     pContext->getWindow()->draw(sprite);
+
+    if (isSelected) {
+        pContext->getWindow()->draw(topSelectionBar);
+        pContext->getWindow()->draw(bottomSelectionBar);
+        pContext->getWindow()->draw(leftSelectionBar);
+        pContext->getWindow()->draw(rightSelectionBar);
+    }
 }
 
 /**
@@ -112,4 +181,12 @@ bool Cell::isMouseHover() const
     }
 
     return false;
+}
+
+/**
+ *
+ */
+void Cell::setSelected(bool selected)
+{
+    isSelected = selected;
 }

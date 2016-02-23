@@ -28,8 +28,25 @@
 #include "CellSelectorWidget.hpp"
 
 #include "Dimensions.hpp"
+#include "Sounds.hpp"
 
 using namespace widgets;
+
+const short CellSelectorWidget::COLUMNS_AMOUNT = 4;
+
+/**
+ *
+ */
+CellSelectorWidget::CellSelectorWidget()
+{
+    soundCellSelectionBuffer.loadFromFile(
+        constants::Sounds::CELL_SELECTOR_SELECTION_SOUND_PATH
+    );
+
+    soundCellSelection.setBuffer(
+        soundCellSelectionBuffer
+    );
+}
 
 /**
  *
@@ -81,4 +98,63 @@ void CellSelectorWidget::display(utils::Context* pContext)
     departureCell.display(pContext);
     arrivalCell.display(pContext);
     starCell.display(pContext);
+}
+
+/**
+ *
+ */
+void CellSelectorWidget::selectCellOnClick()
+{
+    unselectAllCells();
+
+    if (emptyCell.isMouseHover()) {
+        emptyCell.setSelected(true);
+    }
+    else if (departureCell.isMouseHover()) {
+        departureCell.setSelected(true);
+    }
+    else if (arrivalCell.isMouseHover()) {
+        arrivalCell.setSelected(true);
+    }
+    else if (starCell.isMouseHover()) {
+        starCell.setSelected(true);
+    }
+
+    soundCellSelection.play();
+}
+
+/**
+ *
+ */
+void CellSelectorWidget::unselectAllCells()
+{
+    emptyCell.setSelected(false);
+    departureCell.setSelected(false);
+    arrivalCell.setSelected(false);
+    starCell.setSelected(false);
+}
+
+/**
+ *
+ */
+bool CellSelectorWidget::isMouseHover() const
+{
+    if (
+        sf::Mouse::getPosition().x > horizontalPosition &&
+        sf::Mouse::getPosition().x < horizontalPosition +
+        (
+            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION +
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS
+        ) * COLUMNS_AMOUNT &&
+        sf::Mouse::getPosition().y > verticalPosition &&
+        sf::Mouse::getPosition().y <
+        (
+            verticalPosition +
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS
+        )
+    ) {
+        return true;
+    }
+
+    return false;
 }
