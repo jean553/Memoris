@@ -36,6 +36,7 @@ public:
 
     static const std::string MOVE_SELECTOR_SOUND_PATH;
     static const std::string SCREEN_TRANSITION_SOUND_PATH;
+    static const std::string CELL_SELECTOR_SELECTION_SOUND_PATH;
 };
 }
 

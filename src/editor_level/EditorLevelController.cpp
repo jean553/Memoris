@@ -254,6 +254,9 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
                                 else if(buttonNew.isMouseHover()) {
                                     status = NEW_LEVEL;
                                 }
+                                else if(cellSelector.isMouseHover()) {
+                                    cellSelector.selectCellOnClick();
+                                }
                             }
                         break;
                         }

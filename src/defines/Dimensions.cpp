@@ -35,4 +35,5 @@ const unsigned short Dimensions::POSITION_NAME_LABEL_Y = 0;
 
 const float Dimensions::CELL_PIXELS_DIMENSIONS = 49;
 const float Dimensions::CELLS_PIXELS_SEPARATION = 1;
+const float Dimensions::SELECTED_CELLS_BORDER_WIDTH = 3;
 const float Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION = 5;
