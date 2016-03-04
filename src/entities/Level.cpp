@@ -60,8 +60,15 @@ Level::Level(
                 static_cast<float>(std::distance(line->begin(), cell)) *
                 (constants::Dimensions::CELL_PIXELS_DIMENSIONS + constants::Dimensions::CELLS_PIXELS_SEPARATION)
             );
+
+            (*cell)->setLevelAddresses(
+                static_cast<short>(std::distance(cells.begin(), line)),
+                static_cast<short>(std::distance(line->begin(), cell))
+            );
         }
     }
+
+    pSelectedCell = NULL;
 }
 
 /**
@@ -106,4 +113,31 @@ void Level::setName(std::string levelName)
 std::string Level::getName()
 {
     return name;
+}
+
+/**
+ *
+ */
+bool Level::isMouseHover()
+{
+    for (std::vector<std::vector<Cell*>>::iterator line = cells.begin();
+            line != cells.end(); ++line) {
+        for (std::vector<Cell*>::iterator cell = line->begin();
+                cell != line->end(); ++cell) {
+            if((*cell)->isMouseHover()) {
+                pSelectedCell = (*cell);
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+/**
+ *
+ */
+entities::Cell* Level::getSelectedCellPointer()
+{
+    return pSelectedCell;
 }

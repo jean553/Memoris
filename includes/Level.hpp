@@ -75,14 +75,31 @@ public:
      */
     std::string getName();
 
-private:
+    /**
+     * @brief check if the mouse is hover one of the level cells
+     *
+     * @return bool returns true if the mouse is hover the level area
+     */
+    bool isMouseHover();
 
+    /**
+     * @brief returns a pointer to the current selected cell
+     *
+     * @return pointer to the current selected cell
+     */
+    entities::Cell* getSelectedCellPointer();
+
+    //TODO: temporary added here for tests, should be private...
     std::vector<std::vector<Cell*>> cells;
+
+private:
 
     float horizontalPosition;
     float verticalPosition;
 
     std::string name;
+
+    entities::Cell* pSelectedCell;
 };
 }
 

@@ -158,3 +158,23 @@ bool CellSelectorWidget::isMouseHover() const
 
     return false;
 }
+
+/**
+ *
+ */
+entities::Cell* CellSelectorWidget::getSelectedNewCellPointer()
+{
+    if (departureCell.getIsSelected()) {
+        return new entities::DepartureCell();
+    }
+    else if (arrivalCell.getIsSelected()) {
+        return new entities::ArrivalCell();
+    }
+    else if (starCell.getIsSelected()) {
+        return new entities::StarCell();
+    } else {
+        return new entities::EmptyCell();
+    }
+
+    return NULL;
+}
