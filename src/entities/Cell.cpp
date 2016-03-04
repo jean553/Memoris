@@ -40,6 +40,9 @@ Cell::Cell()
     horizontalPosition = 0;
     verticalPosition = 0;
 
+    horizontalAddress = 0;
+    verticalAddress = 0;
+
     transparentWhiteColor.r = constants::Colors::COLOR_WHITE_RED;
     transparentWhiteColor.g = constants::Colors::COLOR_WHITE_GREEN;
     transparentWhiteColor.b = constants::Colors::COLOR_WHITE_BLUE;
@@ -189,4 +192,55 @@ bool Cell::isMouseHover() const
 void Cell::setSelected(bool selected)
 {
     isSelected = selected;
+}
+
+/**
+ *
+ */
+float Cell::getHorizontalPosition()
+{
+    return horizontalPosition;
+}
+
+/**
+ *
+ */
+float Cell::getVerticalPosition()
+{
+    return verticalPosition;
+}
+
+/**
+ *
+ */
+void Cell::setLevelAddresses(
+    short hAddress,
+    short vAddress
+) {
+    horizontalAddress = hAddress;
+    verticalAddress = vAddress;
+}
+
+/**
+ *
+ */
+short Cell::getHorizontalAddress()
+{
+    return horizontalAddress;
+}
+
+/**
+ *
+ */
+short Cell::getVerticalAddress()
+{
+    return verticalAddress;
+}
+
+/**
+ *
+ */
+bool Cell::getIsSelected()
+{
+    return isSelected;
 }

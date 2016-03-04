@@ -257,6 +257,38 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
                                 else if(cellSelector.isMouseHover()) {
                                     cellSelector.selectCellOnClick();
                                 }
+                                else if(level.isMouseHover()) {
+
+                                    entities::Cell* pSelectedCell =
+                                        level.getSelectedCellPointer();
+
+                                    if (
+                                        pSelectedCell == NULL ||
+                                        cellSelector.getSelectedNewCellPointer() == NULL
+                                    ) {
+                                        continue;
+                                    }
+
+                                    float horizontalPosition = pSelectedCell->getHorizontalPosition();
+                                    float verticalPosition = pSelectedCell->getVerticalPosition();
+
+                                    unsigned int horizontalAddress =
+                                        static_cast<unsigned int>(pSelectedCell->getHorizontalAddress());
+                                    unsigned int verticalAddress =
+                                        static_cast<unsigned int>(pSelectedCell->getVerticalAddress());
+
+                                    delete level.cells[horizontalAddress][verticalAddress];
+
+                                    level.cells[horizontalAddress][verticalAddress] = cellSelector.getSelectedNewCellPointer();
+                                    level.cells[horizontalAddress][verticalAddress]->setPosition(
+                                        horizontalPosition,
+                                        verticalPosition
+                                    );
+                                    level.cells[horizontalAddress][verticalAddress]->setLevelAddresses(
+                                        static_cast<short>(horizontalAddress),
+                                        static_cast<short>(verticalAddress)
+                                    );
+                                }
                             }
                         break;
                         }
@@ -265,7 +297,6 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
             }
         }
     }
-
     return nextControllerId;
 }
 

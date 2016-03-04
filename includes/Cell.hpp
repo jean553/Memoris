@@ -76,10 +76,21 @@ public:
     void display(utils::Context* pContext);
 
     /**
+     * TODO: this parameter has two different uses: set the selected cell in the selector widget
+     * but also update manually when the user clicks on one cell of the level grid. Each use
+     * should be separated, should create a new parameter... ?
+     *
      * @brief set the cell as selected, used to display
      * the selection frame around the cell
      */
     void setSelected(bool selected);
+
+    /**
+     * @brief getter for cell selection parameter
+     *
+     * @return bool
+     */
+    bool getIsSelected();
 
     /**
      * @brief check if the mouse is hover the cell
@@ -88,12 +99,54 @@ public:
      */
     bool isMouseHover() const;
 
+    /**
+     * @brief getter for the horizontal position of the cell on the screen
+     *
+     * @return float
+     */
+    float getHorizontalPosition();
+
+    /**
+     * @brief getter for the vertical position of the cell on the screen
+     *
+     * @return float
+     */
+    float getVerticalPosition();
+
+    /**
+     * @brief setter for the horizontal and vertical address of the cell on a level grid
+     *
+     * @param hAddress horizontal address
+     * @param vAddress vertical address
+     */
+    void setLevelAddresses(
+        short hAddress,
+        short vAddress
+    );
+
+    /**
+     * @brief getter for the horizontal address of the cell on a level grid
+     *
+     * @return short
+     */
+    short getHorizontalAddress();
+
+    /**
+     * @brief getter for the vertical address of the cell on a level grid
+     *
+     * @return short
+     */
+    short getVerticalAddress();
+
 private:
 
     bool isSelected;
 
     float horizontalPosition;
     float verticalPosition;
+
+    short horizontalAddress;
+    short verticalAddress;
 
     sf::Texture texture;
 
