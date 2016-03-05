@@ -37,6 +37,7 @@
 #include "ArrivalCell.hpp"
 #include "StarCell.hpp"
 #include "LifeCell.hpp"
+#include "DamageCell.hpp"
 
 namespace widgets {
 class CellSelectorWidget : public Widget {
@@ -99,6 +100,7 @@ private:
     entities::ArrivalCell arrivalCell;
     entities::StarCell starCell;
     entities::LifeCell lifeCell;
+    entities::DamageCell damageCell;
 
     sf::SoundBuffer soundCellSelectionBuffer;
 

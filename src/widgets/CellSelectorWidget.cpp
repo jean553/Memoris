@@ -97,6 +97,16 @@ void CellSelectorWidget::setPosition(
             constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
         )
     );
+
+    damageCell.setPosition(
+        hPosition + constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+        constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION,
+        vPosition +
+        (
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
+        )
+    );
 }
 
 /**
@@ -109,6 +119,7 @@ void CellSelectorWidget::display(utils::Context* pContext)
     arrivalCell.display(pContext);
     starCell.display(pContext);
     lifeCell.display(pContext);
+    damageCell.display(pContext);
 }
 
 /**
@@ -133,6 +144,9 @@ void CellSelectorWidget::selectCellOnClick()
     else if (lifeCell.isMouseHover()) {
         lifeCell.setSelected(true);
     }
+    else if (damageCell.isMouseHover()) {
+        damageCell.setSelected(true);
+    }
 
     //TODO: should not be played when no cell is selected,
     //I keep it here for now as the selector is a cells rectangle
@@ -150,6 +164,7 @@ void CellSelectorWidget::unselectAllCells()
     arrivalCell.setSelected(false);
     starCell.setSelected(false);
     lifeCell.setSelected(false);
+    damageCell.setSelected(false);
 }
 
 /**
@@ -193,6 +208,9 @@ entities::Cell* CellSelectorWidget::getSelectedNewCellPointer()
     }
     else if (lifeCell.getIsSelected()) {
         return new entities::LifeCell();
+    }
+    else if (damageCell.getIsSelected()) {
+        return new entities::DamageCell();
     } else {
         return new entities::EmptyCell();
     }
