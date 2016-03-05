@@ -9,23 +9,18 @@ The gameplay has to be rich in actions, bonus, malus, time constraint... etc...
 
 ## Compatibility
 
-Memoris can be compiled and ran on Debian 8.
+Memoris has been compiled and executed successfully on :
+- Debian 8
+- Ubuntu 14.04 LTS
+- Ubuntu 15.04
 
 ## Compilation
 
-SFML version 2.1 is required :
-
-```
-wget http://www.sfml-dev.org/files/SFML-2.1-linux-gcc-64bits.tar.bz2 --no-check-certificate -O /tmp/sfml.tar.bz2
-tar -xjvf /tmp/sfml.tar.bz2
-sudo cp -r SFML-2.1/* /usr/
-```
-
-Some additional packages are required :
+Memoris uses the version 2.1 of the SFML library.
 
 ```
 sudo apt-get update
-sudo apt-get install -y libjpeg62-dev libsndfile1-dev libglew1.5 libglew1.5-dev libfreetype6 libjpeg-turbo8 libjpeg8 libopenal-data libopenal1  libxrandr2 libxrender1 libsoil1
+sudo apt-get install -y libsfml-dev
 ```
 
 Compile the application :
