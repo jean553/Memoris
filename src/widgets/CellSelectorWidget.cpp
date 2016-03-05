@@ -33,6 +33,7 @@
 using namespace widgets;
 
 const short CellSelectorWidget::COLUMNS_AMOUNT = 4;
+const short CellSelectorWidget::ROWS_AMOUNT = 2;
 
 /**
  *
@@ -87,6 +88,15 @@ void CellSelectorWidget::setPosition(
         ) * 3,
         vPosition
     );
+
+    lifeCell.setPosition(
+        hPosition,
+        vPosition +
+        (
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
+        )
+    );
 }
 
 /**
@@ -98,6 +108,7 @@ void CellSelectorWidget::display(utils::Context* pContext)
     departureCell.display(pContext);
     arrivalCell.display(pContext);
     starCell.display(pContext);
+    lifeCell.display(pContext);
 }
 
 /**
@@ -119,7 +130,13 @@ void CellSelectorWidget::selectCellOnClick()
     else if (starCell.isMouseHover()) {
         starCell.setSelected(true);
     }
+    else if (lifeCell.isMouseHover()) {
+        lifeCell.setSelected(true);
+    }
 
+    //TODO: should not be played when no cell is selected,
+    //I keep it here for now as the selector is a cells rectangle
+    //and this problem is not supposed to happen in the future
     soundCellSelection.play();
 }
 
@@ -132,6 +149,7 @@ void CellSelectorWidget::unselectAllCells()
     departureCell.setSelected(false);
     arrivalCell.setSelected(false);
     starCell.setSelected(false);
+    lifeCell.setSelected(false);
 }
 
 /**
@@ -147,11 +165,11 @@ bool CellSelectorWidget::isMouseHover() const
             constants::Dimensions::CELL_PIXELS_DIMENSIONS
         ) * COLUMNS_AMOUNT &&
         sf::Mouse::getPosition().y > verticalPosition &&
-        sf::Mouse::getPosition().y <
+        sf::Mouse::getPosition().y < verticalPosition +
         (
-            verticalPosition +
+            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION +
             constants::Dimensions::CELL_PIXELS_DIMENSIONS
-        )
+        ) * ROWS_AMOUNT
     ) {
         return true;
     }
@@ -172,6 +190,9 @@ entities::Cell* CellSelectorWidget::getSelectedNewCellPointer()
     }
     else if (starCell.getIsSelected()) {
         return new entities::StarCell();
+    }
+    else if (lifeCell.getIsSelected()) {
+        return new entities::LifeCell();
     } else {
         return new entities::EmptyCell();
     }

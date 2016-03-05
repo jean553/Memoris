@@ -36,6 +36,7 @@
 #include "DepartureCell.hpp"
 #include "ArrivalCell.hpp"
 #include "StarCell.hpp"
+#include "LifeCell.hpp"
 
 namespace widgets {
 class CellSelectorWidget : public Widget {
@@ -43,6 +44,7 @@ class CellSelectorWidget : public Widget {
 public:
 
     static const short COLUMNS_AMOUNT;
+    static const short ROWS_AMOUNT;
 
     CellSelectorWidget();
 
@@ -96,6 +98,7 @@ private:
     entities::DepartureCell departureCell;
     entities::ArrivalCell arrivalCell;
     entities::StarCell starCell;
+    entities::LifeCell lifeCell;
 
     sf::SoundBuffer soundCellSelectionBuffer;
 
