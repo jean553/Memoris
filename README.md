@@ -73,3 +73,9 @@ Check for conclusive and inconclusive errors, warnings, performance weaknesses a
 "Pokki DJ" - Made in Italy - CreativeCommons 3.0 BY (https://www.jamendo.com/track/1206274/made-in-italy) ( https://creativecommons.org/licenses/by/3.0/ )
 
 Music files have been converted from MP3 to OGG format. This is the only modification.
+
+### Icons
+
+https://www.iconfinder.com/recepkutuk - Free for commercial use
+
+http://www.icons-gallery.com - GNU GPL / GNU LGPL
