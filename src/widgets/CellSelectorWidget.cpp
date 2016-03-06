@@ -33,7 +33,7 @@
 using namespace widgets;
 
 const short CellSelectorWidget::COLUMNS_AMOUNT = 4;
-const short CellSelectorWidget::ROWS_AMOUNT = 3;
+const short CellSelectorWidget::ROWS_AMOUNT = 4;
 
 /**
  *
@@ -155,6 +155,41 @@ void CellSelectorWidget::setPosition(
             constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
         ) * 2
     );
+
+    elevatorUpCell.setPosition(
+        hPosition +
+        (
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
+        ) * 2,
+        vPosition +
+        (
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
+        ) * 2
+    );
+
+    elevatorDownCell.setPosition(
+        hPosition +
+        (
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
+        ) * 3,
+        vPosition +
+        (
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
+        ) * 2
+    );
+
+    wallCell.setPosition(
+        hPosition,
+        vPosition +
+        (
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
+        ) * 3
+    );
 }
 
 /**
@@ -172,6 +207,9 @@ void CellSelectorWidget::display(utils::Context* pContext)
     lessTimeCell.display(pContext);
     floorUpCell.display(pContext);
     floorDownCell.display(pContext);
+    elevatorUpCell.display(pContext);
+    elevatorDownCell.display(pContext);
+    wallCell.display(pContext);
 }
 
 /**
@@ -211,6 +249,15 @@ void CellSelectorWidget::selectCellOnClick()
     else if (floorDownCell.isMouseHover()) {
         floorDownCell.setSelected(true);
     }
+    else if (elevatorUpCell.isMouseHover()) {
+        elevatorUpCell.setSelected(true);
+    }
+    else if (elevatorDownCell.isMouseHover()) {
+        elevatorDownCell.setSelected(true);
+    }
+    else if (wallCell.isMouseHover()) {
+        wallCell.setSelected(true);
+    }
 
     //TODO: should not be played when no cell is selected,
     //I keep it here for now as the selector is a cells rectangle
@@ -233,6 +280,9 @@ void CellSelectorWidget::unselectAllCells()
     lessTimeCell.setSelected(false);
     floorUpCell.setSelected(false);
     floorDownCell.setSelected(false);
+    elevatorUpCell.setSelected(false);
+    elevatorDownCell.setSelected(false);
+    wallCell.setSelected(false);
 }
 
 /**
@@ -291,6 +341,15 @@ entities::Cell* CellSelectorWidget::getSelectedNewCellPointer()
     }
     else if (floorDownCell.getIsSelected()) {
         return new entities::FloorDownCell();
+    }
+    else if (elevatorUpCell.getIsSelected()) {
+        return new entities::ElevatorUpCell();
+    }
+    else if (elevatorDownCell.getIsSelected()) {
+        return new entities::ElevatorDownCell();
+    }
+    else if (wallCell.getIsSelected()) {
+        return new entities::WallCell();
     } else {
         return new entities::EmptyCell();
     }
