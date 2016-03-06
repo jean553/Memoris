@@ -71,3 +71,5 @@ http://www.webdesignerdepot.com/2009/03/200-free-exclusive-icons-siena/ - Free f
 http://www.danilodemarco.com/100-pictograms-icons/ - Free for commercial use with link to author website
 
 http://www.icons-gallery.com - GNU GPL / GNU LGPL
+
+https://www.iconfinder.com/snipicons - CreativeCommons - BY-NC 3.0 - http://creativecommons.org/licenses/by-nc/3.0/ ( images have been resized and integrated in others )

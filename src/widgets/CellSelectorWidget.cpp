@@ -190,6 +190,45 @@ void CellSelectorWidget::setPosition(
             constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
         ) * 3
     );
+
+    quarterLeftRotateCell.setPosition(
+        hPosition +
+        (
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
+        ),
+        vPosition +
+        (
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
+        ) * 3
+    );
+
+    quarterRightRotateCell.setPosition(
+        hPosition +
+        (
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
+        ) * 2,
+        vPosition +
+        (
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
+        ) * 3
+    );
+
+    quarterHalfRotateCell.setPosition(
+        hPosition +
+        (
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
+        ) * 3,
+        vPosition +
+        (
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
+        ) * 3
+    );
 }
 
 /**
@@ -210,6 +249,9 @@ void CellSelectorWidget::display(utils::Context* pContext)
     elevatorUpCell.display(pContext);
     elevatorDownCell.display(pContext);
     wallCell.display(pContext);
+    quarterLeftRotateCell.display(pContext);
+    quarterRightRotateCell.display(pContext);
+    quarterHalfRotateCell.display(pContext);
 }
 
 /**
@@ -255,6 +297,15 @@ void CellSelectorWidget::selectCellOnClick()
     else if (elevatorDownCell.isMouseHover()) {
         elevatorDownCell.setSelected(true);
     }
+    else if (quarterLeftRotateCell.isMouseHover()) {
+        quarterLeftRotateCell.setSelected(true);
+    }
+    else if (quarterRightRotateCell.isMouseHover()) {
+        quarterRightRotateCell.setSelected(true);
+    }
+    else if (quarterHalfRotateCell.isMouseHover()) {
+        quarterHalfRotateCell.setSelected(true);
+    }
     else if (wallCell.isMouseHover()) {
         wallCell.setSelected(true);
     }
@@ -283,6 +334,9 @@ void CellSelectorWidget::unselectAllCells()
     elevatorUpCell.setSelected(false);
     elevatorDownCell.setSelected(false);
     wallCell.setSelected(false);
+    quarterLeftRotateCell.setSelected(false);
+    quarterRightRotateCell.setSelected(false);
+    quarterHalfRotateCell.setSelected(false);
 }
 
 /**
@@ -347,6 +401,15 @@ entities::Cell* CellSelectorWidget::getSelectedNewCellPointer()
     }
     else if (elevatorDownCell.getIsSelected()) {
         return new entities::ElevatorDownCell();
+    }
+    else if (quarterLeftRotateCell.getIsSelected()) {
+        return new entities::QuarterLeftRotateCell();
+    }
+    else if (quarterRightRotateCell.getIsSelected()) {
+        return new entities::QuarterRightRotateCell();
+    }
+    else if (quarterHalfRotateCell.getIsSelected()) {
+        return new entities::QuarterHalfRotateCell();
     }
     else if (wallCell.getIsSelected()) {
         return new entities::WallCell();

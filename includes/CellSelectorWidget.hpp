@@ -45,6 +45,9 @@
 #include "ElevatorUpCell.hpp"
 #include "ElevatorDownCell.hpp"
 #include "WallCell.hpp"
+#include "QuarterLeftRotateCell.hpp"
+#include "QuarterRightRotateCell.hpp"
+#include "QuarterHalfRotateCell.hpp"
 
 namespace widgets {
 class CellSelectorWidget : public Widget {
@@ -115,6 +118,9 @@ private:
     entities::ElevatorUpCell elevatorUpCell;
     entities::ElevatorDownCell elevatorDownCell;
     entities::WallCell wallCell;
+    entities::QuarterLeftRotateCell quarterLeftRotateCell;
+    entities::QuarterRightRotateCell quarterRightRotateCell;
+    entities::QuarterHalfRotateCell quarterHalfRotateCell;
 
     sf::SoundBuffer soundCellSelectionBuffer;
 
