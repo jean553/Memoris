@@ -107,6 +107,32 @@ void CellSelectorWidget::setPosition(
             constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
         )
     );
+
+    moreTimeCell.setPosition(
+        hPosition +
+        (
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
+        ) * 2,
+        vPosition +
+        (
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
+        )
+    );
+
+    lessTimeCell.setPosition(
+        hPosition +
+        (
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
+        ) * 3,
+        vPosition +
+        (
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
+        )
+    );
 }
 
 /**
@@ -120,6 +146,8 @@ void CellSelectorWidget::display(utils::Context* pContext)
     starCell.display(pContext);
     lifeCell.display(pContext);
     damageCell.display(pContext);
+    moreTimeCell.display(pContext);
+    lessTimeCell.display(pContext);
 }
 
 /**
@@ -147,6 +175,12 @@ void CellSelectorWidget::selectCellOnClick()
     else if (damageCell.isMouseHover()) {
         damageCell.setSelected(true);
     }
+    else if (moreTimeCell.isMouseHover()) {
+        moreTimeCell.setSelected(true);
+    }
+    else if (lessTimeCell.isMouseHover()) {
+        lessTimeCell.setSelected(true);
+    }
 
     //TODO: should not be played when no cell is selected,
     //I keep it here for now as the selector is a cells rectangle
@@ -165,6 +199,8 @@ void CellSelectorWidget::unselectAllCells()
     starCell.setSelected(false);
     lifeCell.setSelected(false);
     damageCell.setSelected(false);
+    moreTimeCell.setSelected(false);
+    lessTimeCell.setSelected(false);
 }
 
 /**
@@ -211,6 +247,12 @@ entities::Cell* CellSelectorWidget::getSelectedNewCellPointer()
     }
     else if (damageCell.getIsSelected()) {
         return new entities::DamageCell();
+    }
+    else if (moreTimeCell.getIsSelected()) {
+        return new entities::MoreTimeCell();
+    }
+    else if (lessTimeCell.getIsSelected()) {
+        return new entities::LessTimeCell();
     } else {
         return new entities::EmptyCell();
     }
