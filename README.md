@@ -44,20 +44,6 @@ sudo apt-get install doxygen
 doxygen config/Doxyfile
 ```
 
-## Scripts
-
-Code style :
-
-```
-./scripts/style.sh
-```
-
-Check for conclusive and inconclusive errors, warnings, performance weaknesses and style mistakes :
-
-```
-./scripts/cppcheck.sh
-```
-
 ## Credits
 
 ### Fonts
