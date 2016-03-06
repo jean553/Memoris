@@ -38,6 +38,8 @@
 #include "StarCell.hpp"
 #include "LifeCell.hpp"
 #include "DamageCell.hpp"
+#include "MoreTimeCell.hpp"
+#include "LessTimeCell.hpp"
 
 namespace widgets {
 class CellSelectorWidget : public Widget {
@@ -101,6 +103,8 @@ private:
     entities::StarCell starCell;
     entities::LifeCell lifeCell;
     entities::DamageCell damageCell;
+    entities::MoreTimeCell moreTimeCell;
+    entities::LessTimeCell lessTimeCell;
 
     sf::SoundBuffer soundCellSelectionBuffer;
 
