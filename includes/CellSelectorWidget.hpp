@@ -42,6 +42,9 @@
 #include "LessTimeCell.hpp"
 #include "FloorUpCell.hpp"
 #include "FloorDownCell.hpp"
+#include "ElevatorUpCell.hpp"
+#include "ElevatorDownCell.hpp"
+#include "WallCell.hpp"
 
 namespace widgets {
 class CellSelectorWidget : public Widget {
@@ -109,6 +112,9 @@ private:
     entities::LessTimeCell lessTimeCell;
     entities::FloorUpCell floorUpCell;
     entities::FloorDownCell floorDownCell;
+    entities::ElevatorUpCell elevatorUpCell;
+    entities::ElevatorDownCell elevatorDownCell;
+    entities::WallCell wallCell;
 
     sf::SoundBuffer soundCellSelectionBuffer;
 
