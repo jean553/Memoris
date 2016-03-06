@@ -33,7 +33,7 @@
 using namespace widgets;
 
 const short CellSelectorWidget::COLUMNS_AMOUNT = 4;
-const short CellSelectorWidget::ROWS_AMOUNT = 2;
+const short CellSelectorWidget::ROWS_AMOUNT = 3;
 
 /**
  *
@@ -133,6 +133,28 @@ void CellSelectorWidget::setPosition(
             constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
         )
     );
+
+    floorUpCell.setPosition(
+        hPosition,
+        vPosition +
+        (
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
+        ) * 2
+    );
+
+    floorDownCell.setPosition(
+        hPosition +
+        (
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
+        ),
+        vPosition +
+        (
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
+        ) * 2
+    );
 }
 
 /**
@@ -148,6 +170,8 @@ void CellSelectorWidget::display(utils::Context* pContext)
     damageCell.display(pContext);
     moreTimeCell.display(pContext);
     lessTimeCell.display(pContext);
+    floorUpCell.display(pContext);
+    floorDownCell.display(pContext);
 }
 
 /**
@@ -181,6 +205,12 @@ void CellSelectorWidget::selectCellOnClick()
     else if (lessTimeCell.isMouseHover()) {
         lessTimeCell.setSelected(true);
     }
+    else if (floorUpCell.isMouseHover()) {
+        floorUpCell.setSelected(true);
+    }
+    else if (floorDownCell.isMouseHover()) {
+        floorDownCell.setSelected(true);
+    }
 
     //TODO: should not be played when no cell is selected,
     //I keep it here for now as the selector is a cells rectangle
@@ -201,6 +231,8 @@ void CellSelectorWidget::unselectAllCells()
     damageCell.setSelected(false);
     moreTimeCell.setSelected(false);
     lessTimeCell.setSelected(false);
+    floorUpCell.setSelected(false);
+    floorDownCell.setSelected(false);
 }
 
 /**
@@ -253,6 +285,12 @@ entities::Cell* CellSelectorWidget::getSelectedNewCellPointer()
     }
     else if (lessTimeCell.getIsSelected()) {
         return new entities::LessTimeCell();
+    }
+    else if (floorUpCell.getIsSelected()) {
+        return new entities::FloorUpCell();
+    }
+    else if (floorDownCell.getIsSelected()) {
+        return new entities::FloorDownCell();
     } else {
         return new entities::EmptyCell();
     }

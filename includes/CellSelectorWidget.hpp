@@ -40,6 +40,8 @@
 #include "DamageCell.hpp"
 #include "MoreTimeCell.hpp"
 #include "LessTimeCell.hpp"
+#include "FloorUpCell.hpp"
+#include "FloorDownCell.hpp"
 
 namespace widgets {
 class CellSelectorWidget : public Widget {
@@ -105,6 +107,8 @@ private:
     entities::DamageCell damageCell;
     entities::MoreTimeCell moreTimeCell;
     entities::LessTimeCell lessTimeCell;
+    entities::FloorUpCell floorUpCell;
+    entities::FloorDownCell floorDownCell;
 
     sf::SoundBuffer soundCellSelectionBuffer;
 
