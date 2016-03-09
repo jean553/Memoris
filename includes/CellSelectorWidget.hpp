@@ -48,6 +48,8 @@
 #include "QuarterLeftRotateCell.hpp"
 #include "QuarterRightRotateCell.hpp"
 #include "QuarterHalfRotateCell.hpp"
+#include "VerticalMirrorCell.hpp"
+#include "HorizontalMirrorCell.hpp"
 
 namespace widgets {
 class CellSelectorWidget : public Widget {
@@ -121,6 +123,8 @@ private:
     entities::QuarterLeftRotateCell quarterLeftRotateCell;
     entities::QuarterRightRotateCell quarterRightRotateCell;
     entities::QuarterHalfRotateCell quarterHalfRotateCell;
+    entities::VerticalMirrorCell verticalMirrorCell;
+    entities::HorizontalMirrorCell horizontalMirrorCell;
 
     sf::SoundBuffer soundCellSelectionBuffer;
 
