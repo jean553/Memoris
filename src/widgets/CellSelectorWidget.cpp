@@ -56,6 +56,9 @@ void CellSelectorWidget::setPosition(
     float hPosition,
     float vPosition
 ) {
+    const float cellsDimensions =
+        constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+        constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION;
 
     horizontalPosition = hPosition;
     verticalPosition = vPosition;
@@ -66,168 +69,78 @@ void CellSelectorWidget::setPosition(
     );
 
     departureCell.setPosition(
-        hPosition + constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-        constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION,
+        hPosition + cellsDimensions,
         vPosition
     );
 
     arrivalCell.setPosition(
-        hPosition +
-        (
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
-        ) * 2,
+        hPosition + cellsDimensions * 2,
         vPosition
     );
 
     starCell.setPosition(
-        hPosition +
-        (
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
-        ) * 3,
+        hPosition + cellsDimensions * 3,
         vPosition
     );
 
     lifeCell.setPosition(
         hPosition,
-        vPosition +
-        (
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
-        )
+        vPosition + cellsDimensions
     );
 
     damageCell.setPosition(
-        hPosition + constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-        constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION,
-        vPosition +
-        (
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
-        )
+        hPosition + cellsDimensions,
+        vPosition + cellsDimensions
     );
 
     moreTimeCell.setPosition(
-        hPosition +
-        (
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
-        ) * 2,
-        vPosition +
-        (
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
-        )
+        hPosition + cellsDimensions * 2,
+        vPosition + cellsDimensions
     );
 
     lessTimeCell.setPosition(
-        hPosition +
-        (
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
-        ) * 3,
-        vPosition +
-        (
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
-        )
+        hPosition + cellsDimensions * 3,
+        vPosition + cellsDimensions
     );
 
     floorUpCell.setPosition(
         hPosition,
-        vPosition +
-        (
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
-        ) * 2
+        vPosition + cellsDimensions * 2
     );
 
     floorDownCell.setPosition(
-        hPosition +
-        (
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
-        ),
-        vPosition +
-        (
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
-        ) * 2
+        hPosition + cellsDimensions,
+        vPosition + cellsDimensions * 2
     );
 
     elevatorUpCell.setPosition(
-        hPosition +
-        (
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
-        ) * 2,
-        vPosition +
-        (
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
-        ) * 2
+        hPosition + cellsDimensions * 2,
+        vPosition + cellsDimensions * 2
     );
 
     elevatorDownCell.setPosition(
-        hPosition +
-        (
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
-        ) * 3,
-        vPosition +
-        (
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
-        ) * 2
+        hPosition + cellsDimensions * 3,
+        vPosition + cellsDimensions * 2
     );
 
     wallCell.setPosition(
         hPosition,
-        vPosition +
-        (
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
-        ) * 3
+        vPosition + cellsDimensions * 3
     );
 
     quarterLeftRotateCell.setPosition(
-        hPosition +
-        (
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
-        ),
-        vPosition +
-        (
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
-        ) * 3
+        hPosition + cellsDimensions,
+        vPosition + cellsDimensions * 3
     );
 
     quarterRightRotateCell.setPosition(
-        hPosition +
-        (
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
-        ) * 2,
-        vPosition +
-        (
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
-        ) * 3
+        hPosition + cellsDimensions * 2,
+        vPosition + cellsDimensions * 3
     );
 
     quarterHalfRotateCell.setPosition(
-        hPosition +
-        (
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
-        ) * 3,
-        vPosition +
-        (
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION
-        ) * 3
+        hPosition + cellsDimensions * 3,
+        vPosition + cellsDimensions * 3
     );
 }
 
