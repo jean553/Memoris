@@ -33,7 +33,7 @@
 using namespace widgets;
 
 const short CellSelectorWidget::COLUMNS_AMOUNT = 4;
-const short CellSelectorWidget::ROWS_AMOUNT = 4;
+const short CellSelectorWidget::ROWS_AMOUNT = 5;
 
 /**
  *
@@ -142,6 +142,16 @@ void CellSelectorWidget::setPosition(
         hPosition + cellsDimensions * 3,
         vPosition + cellsDimensions * 3
     );
+
+    verticalMirrorCell.setPosition(
+        hPosition,
+        vPosition + cellsDimensions * 4
+    );
+
+    horizontalMirrorCell.setPosition(
+        hPosition + cellsDimensions,
+        vPosition + cellsDimensions * 4
+    );
 }
 
 /**
@@ -165,6 +175,8 @@ void CellSelectorWidget::display(utils::Context* pContext)
     quarterLeftRotateCell.display(pContext);
     quarterRightRotateCell.display(pContext);
     quarterHalfRotateCell.display(pContext);
+    verticalMirrorCell.display(pContext);
+    horizontalMirrorCell.display(pContext);
 }
 
 /**
@@ -219,6 +231,12 @@ void CellSelectorWidget::selectCellOnClick()
     else if (quarterHalfRotateCell.isMouseHover()) {
         quarterHalfRotateCell.setSelected(true);
     }
+    else if (verticalMirrorCell.isMouseHover()) {
+        verticalMirrorCell.setSelected(true);
+    }
+    else if (horizontalMirrorCell.isMouseHover()) {
+        horizontalMirrorCell.setSelected(true);
+    }
     else if (wallCell.isMouseHover()) {
         wallCell.setSelected(true);
     }
@@ -250,6 +268,8 @@ void CellSelectorWidget::unselectAllCells()
     quarterLeftRotateCell.setSelected(false);
     quarterRightRotateCell.setSelected(false);
     quarterHalfRotateCell.setSelected(false);
+    verticalMirrorCell.setSelected(false);
+    horizontalMirrorCell.setSelected(false);
 }
 
 /**
@@ -323,6 +343,12 @@ entities::Cell* CellSelectorWidget::getSelectedNewCellPointer()
     }
     else if (quarterHalfRotateCell.getIsSelected()) {
         return new entities::QuarterHalfRotateCell();
+    }
+    else if (verticalMirrorCell.getIsSelected()) {
+        return new entities::VerticalMirrorCell();
+    }
+    else if (horizontalMirrorCell.getIsSelected()) {
+        return new entities::HorizontalMirrorCell();
     }
     else if (wallCell.getIsSelected()) {
         return new entities::WallCell();
