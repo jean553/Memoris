@@ -135,6 +135,17 @@ private:
      * @param saved boolean of the value to display
      */
     void displaySavedLevelName(bool saved);
+
+    /**
+     * @brief update one cell of the level grid
+     *
+     * @param pSelectedCell pointer to the selected cell to update
+     * @param pCellsSelectorCell pointer to the selected cell from selector to use
+     */
+    void updateOneCell(
+        entities::Cell* pSelectedCell,
+        entities::Cell* pCellsSelectorCell
+    );
 };
 }
 

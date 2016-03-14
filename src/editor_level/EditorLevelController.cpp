@@ -256,37 +256,12 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
                                 }
                                 else if(cellSelector.isMouseHover()) {
                                     cellSelector.selectCellOnClick();
+                                    status = EDIT_LEVEL;
                                 }
                                 else if(level.isMouseHover()) {
-
-                                    entities::Cell* pSelectedCell =
-                                        level.getSelectedCellPointer();
-
-                                    if (
-                                        pSelectedCell == NULL ||
-                                        cellSelector.getSelectedNewCellPointer() == NULL
-                                    ) {
-                                        continue;
-                                    }
-
-                                    float horizontalPosition = pSelectedCell->getHorizontalPosition();
-                                    float verticalPosition = pSelectedCell->getVerticalPosition();
-
-                                    unsigned int horizontalAddress =
-                                        static_cast<unsigned int>(pSelectedCell->getHorizontalAddress());
-                                    unsigned int verticalAddress =
-                                        static_cast<unsigned int>(pSelectedCell->getVerticalAddress());
-
-                                    delete level.cells[horizontalAddress][verticalAddress];
-
-                                    level.cells[horizontalAddress][verticalAddress] = cellSelector.getSelectedNewCellPointer();
-                                    level.cells[horizontalAddress][verticalAddress]->setPosition(
-                                        horizontalPosition,
-                                        verticalPosition
-                                    );
-                                    level.cells[horizontalAddress][verticalAddress]->setLevelAddresses(
-                                        static_cast<short>(horizontalAddress),
-                                        static_cast<short>(verticalAddress)
+                                    updateOneCell(
+                                        level.getSelectedCellPointer(),
+                                        cellSelector.getSelectedNewCellPointer()
                                     );
                                 }
                             }
@@ -332,5 +307,40 @@ bool EditorLevelController::levelExists(std::string levelName)
     return utils::StringsListsUtils::stringsListContainsString(
         levelsName,
         levelName
+    );
+}
+
+/**
+ *
+ */
+void EditorLevelController::updateOneCell(
+    entities::Cell* pSelectedCell,
+    entities::Cell* pCellsSelectorCell
+) {
+    if (
+        pSelectedCell == NULL ||
+        pCellsSelectorCell == NULL
+    ) {
+        return;
+    }
+
+    float horizontalPosition = pSelectedCell->getHorizontalPosition();
+    float verticalPosition = pSelectedCell->getVerticalPosition();
+
+    unsigned int horizontalAddress =
+        static_cast<unsigned int>(pSelectedCell->getHorizontalAddress());
+    unsigned int verticalAddress =
+        static_cast<unsigned int>(pSelectedCell->getVerticalAddress());
+
+    delete level.cells[horizontalAddress][verticalAddress];
+
+    level.cells[horizontalAddress][verticalAddress] = cellSelector.getSelectedNewCellPointer();
+    level.cells[horizontalAddress][verticalAddress]->setPosition(
+        horizontalPosition,
+        verticalPosition
+    );
+    level.cells[horizontalAddress][verticalAddress]->setLevelAddresses(
+        static_cast<short>(horizontalAddress),
+        static_cast<short>(verticalAddress)
     );
 }
