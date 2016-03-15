@@ -254,11 +254,11 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
                                 else if(buttonNew.isMouseHover()) {
                                     status = NEW_LEVEL;
                                 }
-                                else if(cellSelector.isMouseHover()) {
+                                else if(cellSelector.isMouseHover() && status != MAIN_MENU) {
                                     cellSelector.selectCellOnClick();
                                     status = EDIT_LEVEL;
                                 }
-                                else if(level.isMouseHover()) {
+                                else if(level.isMouseHover() && status != MAIN_MENU) {
                                     updateOneCell(
                                         level.getSelectedCellPointer(),
                                         cellSelector.getSelectedNewCellPointer()
