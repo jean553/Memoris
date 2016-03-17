@@ -32,7 +32,7 @@ const std::string HorizontalMirrorCell::HORIZONTAL_MIRROR_CELL_PICTURE_PATH = "r
 /**
  *
  */
-HorizontalMirrorCell::HorizontalMirrorCell()
+HorizontalMirrorCell::HorizontalMirrorCell() : Cell("HM")
 {
     setPicturePath(HORIZONTAL_MIRROR_CELL_PICTURE_PATH);
 }

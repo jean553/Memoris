@@ -32,7 +32,7 @@ const std::string FloorDownCell::FLOOR_DOWN_CELL_PICTURE_PATH = "res/cells/floor
 /**
  *
  */
-FloorDownCell::FloorDownCell()
+FloorDownCell::FloorDownCell() : Cell("FD")
 {
     setPicturePath(FLOOR_DOWN_CELL_PICTURE_PATH);
 }

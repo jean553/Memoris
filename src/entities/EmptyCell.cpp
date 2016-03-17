@@ -32,7 +32,7 @@ const std::string EmptyCell::EMPTY_CELL_PICTURE_PATH = "res/cells/empty.png";
 /**
  *
  */
-EmptyCell::EmptyCell()
+EmptyCell::EmptyCell() : Cell("EC")
 {
     setPicturePath(EMPTY_CELL_PICTURE_PATH);
 }

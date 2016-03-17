@@ -32,7 +32,7 @@ const std::string WallCell::WALL_CELL_PICTURE_PATH = "res/cells/wall.png";
 /**
  *
  */
-WallCell::WallCell()
+WallCell::WallCell() : Cell("WC")
 {
     setPicturePath(WALL_CELL_PICTURE_PATH);
 }

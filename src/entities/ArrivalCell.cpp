@@ -32,7 +32,7 @@ const std::string ArrivalCell::ARRIVAL_CELL_PICTURE_PATH = "res/cells/arrival.pn
 /**
  *
  */
-ArrivalCell::ArrivalCell()
+ArrivalCell::ArrivalCell() : Cell("AC")
 {
     setPicturePath(ARRIVAL_CELL_PICTURE_PATH);
 }

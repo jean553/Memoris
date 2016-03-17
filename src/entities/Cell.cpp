@@ -33,7 +33,7 @@ using namespace entities;
 /**
  *
  */
-Cell::Cell()
+Cell::Cell(std::string fileValue) : IN_FILE_REPRESENTATION(fileValue)
 {
     isSelected = false;
 

@@ -35,9 +35,9 @@
 namespace entities {
 class Cell {
 
-public:
+    const std::string IN_FILE_REPRESENTATION;
 
-    Cell();
+public:
 
     /**
      * @brief destructor, mandatory as the class is abstract
@@ -137,6 +137,13 @@ public:
      * @return short
      */
     short getVerticalAddress();
+
+protected:
+
+    /**
+     * @brief constructor
+     */
+    Cell(std::string fileRepresentation);
 
 private:
 
