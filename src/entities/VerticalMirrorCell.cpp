@@ -32,7 +32,7 @@ const std::string VerticalMirrorCell::VERTICAL_MIRROR_CELL_PICTURE_PATH = "res/c
 /**
  *
  */
-VerticalMirrorCell::VerticalMirrorCell()
+VerticalMirrorCell::VerticalMirrorCell() : Cell("VM")
 {
     setPicturePath(VERTICAL_MIRROR_CELL_PICTURE_PATH);
 }

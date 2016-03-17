@@ -32,7 +32,7 @@ const std::string LessTimeCell::LESS_TIME_CELL_PICTURE_PATH = "res/cells/less_ti
 /**
  *
  */
-LessTimeCell::LessTimeCell()
+LessTimeCell::LessTimeCell() : Cell("LT")
 {
     setPicturePath(LESS_TIME_CELL_PICTURE_PATH);
 }

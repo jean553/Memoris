@@ -32,7 +32,7 @@ const std::string ElevatorUpCell::ELEVATOR_UP_CELL_PICTURE_PATH = "res/cells/ele
 /**
  *
  */
-ElevatorUpCell::ElevatorUpCell()
+ElevatorUpCell::ElevatorUpCell() : Cell("EU")
 {
     setPicturePath(ELEVATOR_UP_CELL_PICTURE_PATH);
 }

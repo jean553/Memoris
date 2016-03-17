@@ -32,7 +32,7 @@ const std::string DamageCell::DAMAGE_CELL_PICTURE_PATH = "res/cells/damage.png";
 /**
  *
  */
-DamageCell::DamageCell()
+DamageCell::DamageCell() : Cell("DC")
 {
     setPicturePath(DAMAGE_CELL_PICTURE_PATH);
 }

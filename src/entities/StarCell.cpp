@@ -32,7 +32,7 @@ const std::string StarCell::STAR_CELL_PICTURE_PATH = "res/cells/star.png";
 /**
  *
  */
-StarCell::StarCell()
+StarCell::StarCell() : Cell("SC")
 {
     setPicturePath(STAR_CELL_PICTURE_PATH);
 }

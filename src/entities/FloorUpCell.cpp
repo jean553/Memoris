@@ -32,7 +32,7 @@ const std::string FloorUpCell::FLOOR_UP_CELL_PICTURE_PATH = "res/cells/floor_up.
 /**
  *
  */
-FloorUpCell::FloorUpCell()
+FloorUpCell::FloorUpCell() : Cell("FU")
 {
     setPicturePath(FLOOR_UP_CELL_PICTURE_PATH);
 }

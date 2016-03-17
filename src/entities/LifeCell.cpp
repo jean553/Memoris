@@ -32,7 +32,7 @@ const std::string LifeCell::LIFE_CELL_PICTURE_PATH = "res/cells/life.png";
 /**
  *
  */
-LifeCell::LifeCell()
+LifeCell::LifeCell() : Cell("LC")
 {
     setPicturePath(LIFE_CELL_PICTURE_PATH);
 }

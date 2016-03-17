@@ -32,7 +32,7 @@ const std::string QuarterHalfRotateCell::QUARTER_HALF_ROTATE_CELL_PICTURE_PATH =
 /**
  *
  */
-QuarterHalfRotateCell::QuarterHalfRotateCell()
+QuarterHalfRotateCell::QuarterHalfRotateCell() : Cell("QH")
 {
     setPicturePath(QUARTER_HALF_ROTATE_CELL_PICTURE_PATH);
 }

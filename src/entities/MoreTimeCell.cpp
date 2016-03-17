@@ -32,7 +32,7 @@ const std::string MoreTimeCell::MORE_TIME_CELL_PICTURE_PATH = "res/cells/more_ti
 /**
  *
  */
-MoreTimeCell::MoreTimeCell()
+MoreTimeCell::MoreTimeCell() : Cell("MT")
 {
     setPicturePath(MORE_TIME_CELL_PICTURE_PATH);
 }

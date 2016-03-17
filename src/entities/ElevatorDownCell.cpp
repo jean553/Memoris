@@ -32,7 +32,7 @@ const std::string ElevatorDownCell::ELEVATOR_DOWN_CELL_PICTURE_PATH = "res/cells
 /**
  *
  */
-ElevatorDownCell::ElevatorDownCell()
+ElevatorDownCell::ElevatorDownCell() : Cell("ED")
 {
     setPicturePath(ELEVATOR_DOWN_CELL_PICTURE_PATH);
 }

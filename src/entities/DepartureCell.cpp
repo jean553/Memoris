@@ -32,7 +32,7 @@ const std::string DepartureCell::DEPARTURE_CELL_PICTURE_PATH = "res/cells/depart
 /**
  *
  */
-DepartureCell::DepartureCell()
+DepartureCell::DepartureCell() : Cell("DP")
 {
     setPicturePath(DEPARTURE_CELL_PICTURE_PATH);
 }
