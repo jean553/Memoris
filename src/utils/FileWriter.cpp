@@ -23,6 +23,7 @@
  */
 
 #include "FileWriter.hpp"
+#include "Cell.hpp"
 
 #include <fstream>
 
@@ -37,6 +38,30 @@ bool FileWriter::createFile(std::string fileName)
 
     if (!file.is_open()) {
         return false;
+    }
+
+    file.close();
+
+    return true;
+}
+
+/**
+ *
+ */
+bool FileWriter::writeLevelFile(
+    std::string fileName,
+    entities::Level level
+) {
+    std::ofstream file(fileName, std::ofstream::out);
+
+    //TODO: check if the file is opened correctly
+
+    for (std::vector<std::vector<entities::Cell*>>::iterator line = level.cells.begin();
+            line != level.cells.end(); ++line) {
+        for (std::vector<entities::Cell*>::iterator cell = line->begin();
+                cell != line->end(); ++cell) {
+            file << (*cell)->IN_FILE_REPRESENTATION;
+        }
     }
 
     file.close();

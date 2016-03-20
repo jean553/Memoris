@@ -35,9 +35,9 @@
 namespace entities {
 class Cell {
 
-    const std::string IN_FILE_REPRESENTATION;
-
 public:
+
+    const std::string IN_FILE_REPRESENTATION;
 
     /**
      * @brief destructor, mandatory as the class is abstract
