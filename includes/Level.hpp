@@ -50,6 +50,13 @@ public:
     );
 
     /**
+     * @brief copy constructor
+     *
+     * TODO: the cells are not copied for now, all the cells are created as Empty Cells
+     */
+    Level(const Level &level);
+
+    /**
      * @brief used to destroy the cells pointers array
      */
     ~Level();
@@ -100,6 +107,11 @@ private:
     std::string name;
 
     entities::Cell* pSelectedCell;
+
+    /**
+     * @brief initialize the level cells to empty cell
+     */
+    void initializeWithEmptyCells();
 };
 }
 

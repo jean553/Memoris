@@ -237,12 +237,18 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
                                             level.getName() +
                                             constants::Extensions::LEVELS_EXTENSION
                                         );
+                                    } else {
+                                        utils::FileWriter::writeLevelFile(
+                                            constants::Directories::LEVELS_DIRECTORY_PATH +
+                                            level.getName() +
+                                            constants::Extensions::LEVELS_EXTENSION,
+                                            level
+                                        );
                                     }
 
                                     //TODO: rewrite file content
 
                                     displaySavedLevelName(true);
-
                                     buttonSave.setEnable(false);
                                 }
                             }
@@ -263,6 +269,9 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
                                         level.getSelectedCellPointer(),
                                         cellSelector.getSelectedNewCellPointer()
                                     );
+
+                                    displaySavedLevelName(false);
+                                    buttonSave.setEnable(true);
                                 }
                             }
                         break;

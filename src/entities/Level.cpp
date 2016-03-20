@@ -41,34 +41,23 @@ Level::Level(
     horizontalPosition = hPosition;
     verticalPosition = vPosition;
 
-    cells.resize(constants::Dimensions::LEVEL_CELLS_WIDTH);
-    for (std::vector<std::vector<Cell*>>::iterator line = cells.begin();
-            line != cells.end(); ++line) {
-
-        line->resize(constants::Dimensions::LEVEL_CELLS_HEIGHT);
-
-        for (std::vector<Cell*>::iterator cell = line->begin();
-                cell != line->end(); ++cell) {
-
-            (*cell) = new EmptyCell();
-
-            (*cell)->setPosition(
-                horizontalPosition +
-                static_cast<float>(std::distance(cells.begin(), line)) *
-                (constants::Dimensions::CELL_PIXELS_DIMENSIONS + constants::Dimensions::CELLS_PIXELS_SEPARATION),
-                verticalPosition +
-                static_cast<float>(std::distance(line->begin(), cell)) *
-                (constants::Dimensions::CELL_PIXELS_DIMENSIONS + constants::Dimensions::CELLS_PIXELS_SEPARATION)
-            );
-
-            (*cell)->setLevelAddresses(
-                static_cast<short>(std::distance(cells.begin(), line)),
-                static_cast<short>(std::distance(line->begin(), cell))
-            );
-        }
-    }
+    initializeWithEmptyCells();
 
     pSelectedCell = NULL;
+}
+
+/**
+ *
+ */
+Level::Level(const Level &level)
+{
+    name = level.name;
+
+    //TODO: should not be empty cells but given level cells
+    initializeWithEmptyCells();
+
+    horizontalPosition = level.horizontalPosition;
+    verticalPosition = level.verticalPosition;
 }
 
 /**
@@ -140,4 +129,37 @@ bool Level::isMouseHover()
 entities::Cell* Level::getSelectedCellPointer()
 {
     return pSelectedCell;
+}
+
+/**
+ *
+ */
+void entities::Level::initializeWithEmptyCells()
+{
+    cells.resize(constants::Dimensions::LEVEL_CELLS_WIDTH);
+    for (std::vector<std::vector<Cell*>>::iterator line = cells.begin();
+            line != cells.end(); ++line) {
+
+        line->resize(constants::Dimensions::LEVEL_CELLS_HEIGHT);
+
+        for (std::vector<Cell*>::iterator cell = line->begin();
+                cell != line->end(); ++cell) {
+
+            (*cell) = new EmptyCell();
+
+            (*cell)->setPosition(
+                horizontalPosition +
+                static_cast<float>(std::distance(cells.begin(), line)) *
+                (constants::Dimensions::CELL_PIXELS_DIMENSIONS + constants::Dimensions::CELLS_PIXELS_SEPARATION),
+                verticalPosition +
+                static_cast<float>(std::distance(line->begin(), cell)) *
+                (constants::Dimensions::CELL_PIXELS_DIMENSIONS + constants::Dimensions::CELLS_PIXELS_SEPARATION)
+            );
+
+            (*cell)->setLevelAddresses(
+                static_cast<short>(std::distance(cells.begin(), line)),
+                static_cast<short>(std::distance(line->begin(), cell))
+            );
+        }
+    }
 }
