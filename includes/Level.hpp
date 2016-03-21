@@ -96,8 +96,12 @@ public:
      */
     entities::Cell* getSelectedCellPointer();
 
-    //TODO: temporary added here for tests, should be private...
-    std::vector<std::vector<Cell*>> cells;
+    /**
+     * @brief returns cells array pointer
+     *
+     * @return double dimension vector pointer containing cells objects pointers
+     */
+    std::vector<std::vector<Cell*>>* getPointerCells();
 
 private:
 
@@ -107,6 +111,8 @@ private:
     std::string name;
 
     entities::Cell* pSelectedCell;
+
+    std::vector<std::vector<Cell*>> cells;
 
     /**
      * @brief initialize the level cells to empty cell

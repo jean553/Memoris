@@ -56,8 +56,8 @@ bool FileWriter::writeLevelFile(
 
     //TODO: check if the file is opened correctly
 
-    for (std::vector<std::vector<entities::Cell*>>::iterator line = level.cells.begin();
-            line != level.cells.end(); ++line) {
+    for (std::vector<std::vector<entities::Cell*>>::iterator line = level.getPointerCells()->begin();
+            line != level.getPointerCells()->end(); ++line) {
         for (std::vector<entities::Cell*>::iterator cell = line->begin();
                 cell != line->end(); ++cell) {
             file << (*cell)->IN_FILE_REPRESENTATION;
