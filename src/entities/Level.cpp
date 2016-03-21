@@ -134,7 +134,7 @@ entities::Cell* Level::getSelectedCellPointer()
 /**
  *
  */
-void entities::Level::initializeWithEmptyCells()
+void Level::initializeWithEmptyCells()
 {
     cells.resize(constants::Dimensions::LEVEL_CELLS_WIDTH);
     for (std::vector<std::vector<Cell*>>::iterator line = cells.begin();
@@ -162,4 +162,12 @@ void entities::Level::initializeWithEmptyCells()
             );
         }
     }
+}
+
+/**
+ *
+ */
+std::vector<std::vector<Cell*>>* Level::getPointerCells()
+{
+    return &cells;
 }

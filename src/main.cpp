@@ -58,8 +58,7 @@ int main()
             constants::Window::HEIGHT,
             constants::Window::RESOLUTION
         ),
-        constants::Window::TITLE,
-        sf::Style::Fullscreen
+        constants::Window::TITLE
     );
     window.setMouseCursorVisible(false);
     window.setKeyRepeatEnabled(false);

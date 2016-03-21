@@ -341,14 +341,14 @@ void EditorLevelController::updateOneCell(
     unsigned int verticalAddress =
         static_cast<unsigned int>(pSelectedCell->getVerticalAddress());
 
-    delete level.cells[horizontalAddress][verticalAddress];
+    delete (*level.getPointerCells())[horizontalAddress][verticalAddress];
 
-    level.cells[horizontalAddress][verticalAddress] = cellSelector.getSelectedNewCellPointer();
-    level.cells[horizontalAddress][verticalAddress]->setPosition(
+    (*level.getPointerCells())[horizontalAddress][verticalAddress] = cellSelector.getSelectedNewCellPointer();
+    (*level.getPointerCells())[horizontalAddress][verticalAddress]->setPosition(
         horizontalPosition,
         verticalPosition
     );
-    level.cells[horizontalAddress][verticalAddress]->setLevelAddresses(
+    (*level.getPointerCells())[horizontalAddress][verticalAddress]->setLevelAddresses(
         static_cast<short>(horizontalAddress),
         static_cast<short>(verticalAddress)
     );
