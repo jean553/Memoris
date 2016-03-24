@@ -54,7 +54,9 @@ bool FileWriter::writeLevelFile(
 ) {
     std::ofstream file(fileName, std::ofstream::out);
 
-    //TODO: check if the file is opened correctly
+    if (!file.is_open()) {
+        return false;
+    }
 
     for (std::vector<std::vector<entities::Cell*>>::iterator line = level.getPointerCells()->begin();
             line != level.getPointerCells()->end(); ++line) {

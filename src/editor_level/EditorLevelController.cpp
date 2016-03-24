@@ -49,6 +49,7 @@ const std::string EditorLevelController::EDITOR_LEVEL_BUTTON_SAVE_TEXT = "Save";
 const std::string EditorLevelController::STRING_EDITOR_LEVEL_TITLE = "Level editor";
 
 const std::string EditorLevelController::STRING_NEW_LEVEL_ERROR = "The level already exists !";
+const std::string EditorLevelController::STRING_SAVE_LEVEL_ERROR = "The level cannot be saved !";
 
 const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTONS_POSITION_X = 1390;
 const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTON_NEW_POSITION_Y = 170;
@@ -151,6 +152,7 @@ EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSIT
     status = MAIN_MENU;
 
     levelAlreadyExists = false;
+    saveLevelError = false;
 
     buttonSave.setEnable(false);
 }
@@ -181,6 +183,15 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
 
     // displays the error message if the level name is being edited and an error occured
     if (levelAlreadyExists) {
+        errorLabel.setString(STRING_NEW_LEVEL_ERROR);
+    }
+
+    // displays an error message if the file cannot be saved
+    if (saveLevelError) {
+        errorLabel.setString(STRING_SAVE_LEVEL_ERROR);
+    }
+
+    if (levelAlreadyExists || saveLevelError) {
         pContext->getWindow()->draw(errorLabel);
     }
 
@@ -232,21 +243,19 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
 
                                 if(buttonSave.isMouseHover()) {
                                     if (!levelExists(inputTextNew.getText())) {
-                                        utils::FileWriter::createFile(
+                                        saveLevelError = !utils::FileWriter::createFile(
                                             constants::Directories::LEVELS_DIRECTORY_PATH +
                                             level.getName() +
                                             constants::Extensions::LEVELS_EXTENSION
                                         );
                                     } else {
-                                        utils::FileWriter::writeLevelFile(
+                                        saveLevelError = !utils::FileWriter::writeLevelFile(
                                             constants::Directories::LEVELS_DIRECTORY_PATH +
                                             level.getName() +
                                             constants::Extensions::LEVELS_EXTENSION,
                                             level
                                         );
                                     }
-
-                                    //TODO: rewrite file content
 
                                     displaySavedLevelName(true);
                                     buttonSave.setEnable(false);
