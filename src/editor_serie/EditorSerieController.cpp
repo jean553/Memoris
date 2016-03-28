@@ -321,7 +321,7 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
                                 if(buttonSave.isMouseHover()) {
 
                                     if (!serieExists(serie.getName())) {
-                                        utils::FileWriter::createFile(
+                                        utils::FileWriter::writeFile(
                                             constants::Directories::SERIES_DIRECTORY_PATH +
                                             serie.getName() +
                                             constants::Extensions::SERIES_EXTENSION

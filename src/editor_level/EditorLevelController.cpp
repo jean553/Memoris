@@ -240,22 +240,13 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
                     case sf::Mouse::Left: {
                         switch(status) {
                             case EDIT_LEVEL: {
-
                                 if(buttonSave.isMouseHover()) {
-                                    if (!levelExists(inputTextNew.getText())) {
-                                        saveLevelError = !utils::FileWriter::createFile(
-                                            constants::Directories::LEVELS_DIRECTORY_PATH +
-                                            level.getName() +
-                                            constants::Extensions::LEVELS_EXTENSION
-                                        );
-                                    } else {
-                                        saveLevelError = !utils::FileWriter::writeFile(
-                                            constants::Directories::LEVELS_DIRECTORY_PATH +
-                                            level.getName() +
-                                            constants::Extensions::LEVELS_EXTENSION,
-                                            level.getCellsAsString()
-                                        );
-                                    }
+                                    saveLevelError = !utils::FileWriter::writeFile(
+                                        constants::Directories::LEVELS_DIRECTORY_PATH +
+                                        level.getName() +
+                                        constants::Extensions::LEVELS_EXTENSION,
+                                        level.getCellsAsString()
+                                    );
 
                                     displaySavedLevelName(true);
                                     buttonSave.setEnable(false);
