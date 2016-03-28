@@ -90,7 +90,7 @@ public:
      *
      * @return bool
      */
-    bool getIsSelected();
+    bool getIsSelected() const;
 
     /**
      * @brief check if the mouse is hover the cell
