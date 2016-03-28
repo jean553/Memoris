@@ -99,7 +99,7 @@ void Level::setName(std::string levelName)
 /**
  *
  */
-std::string Level::getName()
+std::string Level::getName() const
 {
     return name;
 }
@@ -126,7 +126,7 @@ bool Level::isMouseHover()
 /**
  *
  */
-entities::Cell* Level::getSelectedCellPointer()
+entities::Cell* Level::getSelectedCellPointer() const
 {
     return pSelectedCell;
 }
