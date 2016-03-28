@@ -249,11 +249,11 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
                                             constants::Extensions::LEVELS_EXTENSION
                                         );
                                     } else {
-                                        saveLevelError = !utils::FileWriter::writeLevelFile(
+                                        saveLevelError = !utils::FileWriter::writeFile(
                                             constants::Directories::LEVELS_DIRECTORY_PATH +
                                             level.getName() +
                                             constants::Extensions::LEVELS_EXTENSION,
-                                            level
+                                            level.getCellsAsString()
                                         );
                                     }
 

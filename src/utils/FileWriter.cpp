@@ -48,9 +48,9 @@ bool FileWriter::createFile(std::string fileName)
 /**
  *
  */
-bool FileWriter::writeLevelFile(
+bool FileWriter::writeFile(
     std::string fileName,
-    entities::Level level
+    std::string content
 ) {
     std::ofstream file(fileName, std::ofstream::out);
 
@@ -58,13 +58,7 @@ bool FileWriter::writeLevelFile(
         return false;
     }
 
-    for (std::vector<std::vector<entities::Cell*>>::iterator line = level.getPointerCells()->begin();
-            line != level.getPointerCells()->end(); ++line) {
-        for (std::vector<entities::Cell*>::iterator cell = line->begin();
-                cell != line->end(); ++cell) {
-            file << (*cell)->IN_FILE_REPRESENTATION;
-        }
-    }
+    file << content;
 
     file.close();
 
