@@ -103,6 +103,13 @@ public:
      */
     std::vector<std::vector<Cell*>>* getPointerCells();
 
+    /**
+     * @brief returns all the level cells as string
+     *
+     * @return string all cells IN_FILE_REPRESENTATION values
+     */
+    std::string getCellsAsString();
+
 private:
 
     float horizontalPosition;

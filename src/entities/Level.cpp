@@ -171,3 +171,21 @@ std::vector<std::vector<Cell*>>* Level::getPointerCells()
 {
     return &cells;
 }
+
+/**
+ *
+ */
+std::string Level::getCellsAsString()
+{
+    std::string cellsAsString;
+
+    for (std::vector<std::vector<Cell*>>::iterator line = cells.begin();
+            line != cells.end(); ++line) {
+        for (std::vector<Cell*>::iterator cell = line->begin();
+                cell != line->end(); ++cell) {
+            cellsAsString += (*cell)->IN_FILE_REPRESENTATION;
+        }
+    }
+
+    return cellsAsString;
+}

@@ -45,14 +45,14 @@ public:
     static bool createFile(std::string fileName);
 
     /**
-     * @brief copy the content of a level object inside a given file
+     * @brief copy a string in a given file
      *
      * @param fileName path and name of the file
-     * @param level level to copy
+     * @param content string to write
      */
-    static bool writeLevelFile(
+    static bool writeFile(
         std::string fileName,
-        entities::Level level
+        std::string content
     );
 };
 }
