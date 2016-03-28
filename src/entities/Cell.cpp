@@ -197,7 +197,7 @@ void Cell::setSelected(bool selected)
 /**
  *
  */
-float Cell::getHorizontalPosition()
+float Cell::getHorizontalPosition() const
 {
     return horizontalPosition;
 }
@@ -205,7 +205,7 @@ float Cell::getHorizontalPosition()
 /**
  *
  */
-float Cell::getVerticalPosition()
+float Cell::getVerticalPosition() const
 {
     return verticalPosition;
 }
@@ -224,7 +224,7 @@ void Cell::setLevelAddresses(
 /**
  *
  */
-short Cell::getHorizontalAddress()
+short Cell::getHorizontalAddress() const
 {
     return horizontalAddress;
 }
@@ -232,7 +232,7 @@ short Cell::getHorizontalAddress()
 /**
  *
  */
-short Cell::getVerticalAddress()
+short Cell::getVerticalAddress() const
 {
     return verticalAddress;
 }
@@ -240,7 +240,7 @@ short Cell::getVerticalAddress()
 /**
  *
  */
-bool Cell::getIsSelected()
+bool Cell::getIsSelected() const
 {
     return isSelected;
 }

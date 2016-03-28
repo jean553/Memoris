@@ -80,7 +80,7 @@ public:
      *
      * @return string
      */
-    std::string getName();
+    std::string getName() const;
 
     /**
      * @brief check if the mouse is hover one of the level cells
@@ -94,7 +94,7 @@ public:
      *
      * @return pointer to the current selected cell
      */
-    entities::Cell* getSelectedCellPointer();
+    entities::Cell* getSelectedCellPointer() const;
 
     /**
      * @brief returns cells array pointer

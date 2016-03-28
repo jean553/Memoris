@@ -104,14 +104,14 @@ public:
      *
      * @return float
      */
-    float getHorizontalPosition();
+    float getHorizontalPosition() const;
 
     /**
      * @brief getter for the vertical position of the cell on the screen
      *
      * @return float
      */
-    float getVerticalPosition();
+    float getVerticalPosition() const;
 
     /**
      * @brief setter for the horizontal and vertical address of the cell on a level grid
@@ -129,14 +129,14 @@ public:
      *
      * @return short
      */
-    short getHorizontalAddress();
+    short getHorizontalAddress() const;
 
     /**
      * @brief getter for the vertical address of the cell on a level grid
      *
      * @return short
      */
-    short getVerticalAddress();
+    short getVerticalAddress() const;
 
 protected:
 
