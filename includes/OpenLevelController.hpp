@@ -30,11 +30,18 @@
 
 #include "Controller.hpp"
 #include "TitleBarWidget.hpp"
+#include "ItemsListWidget.hpp"
+#include "CursorWidget.hpp"
 
 namespace controllers {
 class OpenLevelController : public Controller {
 
     static const std::string STRING_OPEN_LEVEL_TITLE;
+
+    static const unsigned short LEVELS_LIST_WIDTH;
+    static const unsigned short LEVELS_LIST_POSITION_X;
+    static const unsigned short LEVELS_LIST_POSITION_Y;
+    static const unsigned short LEVELS_LIST_LEVELS_NUMBER;
 
 public:
     OpenLevelController();
@@ -53,6 +60,10 @@ public:
 private:
 
     widgets::TitleBarWidget titleBar;
+
+    widgets::ItemsListWidget levelsList;
+
+    widgets::CursorWidget cursor;
 };
 }
 

@@ -23,12 +23,17 @@
  */
 
 #include "OpenLevelController.hpp"
-
 #include "ControllerFactory.hpp"
+#include "DirReader.hpp"
 
 using namespace controllers;
 
 const std::string OpenLevelController::STRING_OPEN_LEVEL_TITLE = "Open level";
+
+const unsigned short OpenLevelController::LEVELS_LIST_WIDTH = 1580;
+const unsigned short OpenLevelController::LEVELS_LIST_POSITION_X = 10;
+const unsigned short OpenLevelController::LEVELS_LIST_POSITION_Y = 130;
+const unsigned short OpenLevelController::LEVELS_LIST_LEVELS_NUMBER = 18;
 
 /**
  *
@@ -38,6 +43,20 @@ OpenLevelController::OpenLevelController() : Controller()
     titleBar.setDisplayedText(
         STRING_OPEN_LEVEL_TITLE
     );
+
+    levelsList.setLayout(
+        LEVELS_LIST_POSITION_X,
+        LEVELS_LIST_POSITION_Y,
+        LEVELS_LIST_WIDTH,
+        LEVELS_LIST_LEVELS_NUMBER
+    );
+
+    levelsList.setStringsList(
+        utils::DirReader::getAllFiles(
+            "data/levels",
+            ".level"
+        )
+    );
 }
 
 /**
@@ -46,6 +65,8 @@ OpenLevelController::OpenLevelController() : Controller()
 unsigned short OpenLevelController::render(utils::Context* pContext)
 {
     titleBar.display(pContext);
+    levelsList.display(pContext);
+    cursor.display(pContext);
 
     while(pContext->getWindow()->pollEvent(event)) {
         switch(event.type) {
