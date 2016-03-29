@@ -30,6 +30,7 @@
 #include "EditorSerieController.hpp"
 #include "OpenSerieController.hpp"
 #include "EditorLevelController.hpp"
+#include "OpenLevelController.hpp"
 
 using namespace factories;
 
@@ -40,6 +41,7 @@ const unsigned short ControllerFactory::EDITOR_MENU_CONTROLLER_ID = 4;
 const unsigned short ControllerFactory::EDITOR_SERIE_CONTROLLER_ID = 5;
 const unsigned short ControllerFactory::OPEN_SERIE_CONTROLLER_ID = 6;
 const unsigned short ControllerFactory::EDITOR_LEVEL_CONTROLLER_ID = 7;
+const unsigned short ControllerFactory::OPEN_LEVEL_CONTROLLER_ID = 8;
 
 /**
  *
@@ -61,6 +63,8 @@ controllers::Controller* ControllerFactory::getControllerById(
             return new controllers::OpenSerieController;
         case EDITOR_LEVEL_CONTROLLER_ID:
             return new controllers::EditorLevelController;
+        case OPEN_LEVEL_CONTROLLER_ID:
+            return new controllers::OpenLevelController;
         default:
             return NULL;
     }
