@@ -35,6 +35,7 @@ public:
 
     static const float ITEMS_LIST_BORDER_SIZE;
     static const float ITEMS_LIST_ARROW_DIM;
+    static const float ITEMS_LIST_TEXT_OFFSET;
 
     static const unsigned int ITEMS_LIST_ITEM_HEIGHT;
 
@@ -81,7 +82,19 @@ public:
      */
     std::vector<std::string> getStringsList();
 
+    /**
+     * @brief checks if the cursor is hover the widget
+     *
+     * @return true if hover
+     */
+    bool isMouseHover() const;
+
 protected:
+
+    /**
+     * @brief highlight the current selected item of the list
+     */
+    void highlightCurrentItem(utils::Context* pContext);
 
     static const std::string PATH_IMAGE_ARROW_UP;
     static const std::string PATH_IMAGE_ARROW_DOWN;
@@ -89,11 +102,13 @@ protected:
     sf::Font textItemFont;
 
     sf::Color color;
+    sf::Color selectorColor;
 
     sf::RectangleShape boxTop;
     sf::RectangleShape boxBottom;
     sf::RectangleShape boxLeft;
     sf::RectangleShape boxRight;
+    sf::RectangleShape selector;
 
     sf::Texture textureUp;
     sf::Texture textureDown;
