@@ -106,8 +106,7 @@ private:
     enum EditorSerieStatus {
         MAIN_MENU,
         NEW_SERIE,
-        EDIT_SERIE,
-        NEW_LEVEL
+        EDIT_SERIE
     };
 
     EditorSerieStatus status;

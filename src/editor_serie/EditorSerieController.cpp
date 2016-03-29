@@ -211,19 +211,16 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
     buttonExit.display(pContext);
     levelsList.display(pContext);
 
-    // displays form when user creates a new serie or a new level
-    if (status == NEW_SERIE || status == NEW_LEVEL) {
+    if (status == NEW_SERIE) {
         buttonNewOk.display(pContext);
         buttonNewCancel.display(pContext);
         inputTextNew.display(pContext);
     }
 
-    // displays the serie name if a serie is loaded
     if (status != MAIN_MENU) {
         pContext->getWindow()->draw(serieNameLabel);
     }
 
-    // displays the error message if an error just occured
     if (errorNewSerie) {
         pContext->getWindow()->draw(errorLabel);
     } else if (errorNewLevel) {
@@ -245,8 +242,7 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
                     }
                     default: {
 
-                        // edit the new serie/level input text content if a new serie/level is creating
-                        if(status == NEW_SERIE || status == NEW_LEVEL) {
+                        if(status == NEW_SERIE) {
                             inputTextNew.update(&event);
                         }
                     }
@@ -310,14 +306,6 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
                                 }
                                 break;
                             case EDIT_SERIE:
-                                if(buttonAdd.isMouseHover()) {
-
-                                    switchMainMenuButtons(false);
-
-                                    status = NEW_LEVEL;
-
-                                    inputTextNew.clear();
-                                }
                                 if(buttonSave.isMouseHover()) {
 
                                     if (!serieExists(serie.getName())) {
@@ -331,45 +319,6 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
                                     //TODO: rewrite serie file content
 
                                     displaySavedSerieName(true);
-                                }
-                            case NEW_LEVEL:
-                                if(buttonNewCancel.isMouseHover()) {
-
-                                    errorNewLevel = false;
-
-                                    status = EDIT_SERIE;
-
-                                    switchMainMenuButtonsToEditSerieStatus();
-
-                                    inputTextNew.clear();
-
-                                    buttonAdd.setEnable(true);
-                                    buttonSave.setEnable(false);
-                                }
-                                if(buttonNewOk.isMouseHover()) {
-
-                                    // do not add the level if already in the loaded serie
-                                    if(
-                                        utils::StringsListsUtils::stringsListContainsString(
-                                            levelsList.getStringsList(),
-                                            inputTextNew.getText()
-                                        )
-                                    ) {
-                                        errorNewLevel = true;
-                                        continue;
-                                    }
-
-                                    errorNewLevel = false;
-
-                                    status = EDIT_SERIE;
-
-                                    switchMainMenuButtonsToEditSerieStatus();
-
-                                    levelsList.addTextItem(inputTextNew.getText());
-
-                                    inputTextNew.clear();
-
-                                    displaySavedSerieName(false);
                                 }
                         }
                         break;
