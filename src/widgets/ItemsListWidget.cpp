@@ -34,6 +34,7 @@ const std::string ItemsListWidget::PATH_IMAGE_ARROW_DOWN = "res/images/down.png"
 
 const float ItemsListWidget::ITEMS_LIST_BORDER_SIZE = 1;
 const float ItemsListWidget::ITEMS_LIST_ARROW_DIM = 40;
+const float ItemsListWidget::ITEMS_LIST_TEXT_OFFSET = 5;
 const unsigned int ItemsListWidget::ITEMS_LIST_ITEM_HEIGHT = 40;
 
 /**
@@ -48,10 +49,16 @@ ItemsListWidget::ItemsListWidget()
     color.b = constants::Colors::COLOR_WHITE_BLUE;
     color.a = constants::Colors::COLOR_ALPHA_FULL;
 
+    selectorColor.r = constants::Colors::COLOR_LIGHT_BLUE_RED;
+    selectorColor.g = constants::Colors::COLOR_LIGHT_BLUE_GREEN;
+    selectorColor.b = constants::Colors::COLOR_LIGHT_BLUE_BLUE;
+    selectorColor.a = constants::Colors::COLOR_ALPHA_FULL;
+
     boxTop.setFillColor(color);
     boxBottom.setFillColor(color);
     boxLeft.setFillColor(color);
     boxRight.setFillColor(color);
+    selector.setFillColor(selectorColor);
 
     textureUp.loadFromFile(PATH_IMAGE_ARROW_UP);
     spriteUp.setTexture(textureUp, true);
@@ -101,6 +108,11 @@ void ItemsListWidget::setLayout(
         verticalPosition
     );
 
+    selector.setPosition(
+        horizontalPosition + ITEMS_LIST_BORDER_SIZE,
+        verticalPosition
+    );
+
     spriteUp.setPosition(
         horizontalPosition +
         width -
@@ -139,6 +151,11 @@ void ItemsListWidget::setLayout(
                          verticalContainers *
                          ITEMS_LIST_ITEM_HEIGHT
                      ));
+
+    selector.setSize(sf::Vector2f(
+        width - ITEMS_LIST_ARROW_DIM,
+        ITEMS_LIST_ITEM_HEIGHT
+    ));
 }
 
 /**
@@ -158,6 +175,11 @@ void ItemsListWidget::display(utils::Context* pContext)
     pContext->getWindow()->draw(boxBottom);
     pContext->getWindow()->draw(boxLeft);
     pContext->getWindow()->draw(boxRight);
+
+    if (isMouseHover()) {
+        highlightCurrentItem(pContext);
+    }
+
     pContext->getWindow()->draw(spriteUp);
     pContext->getWindow()->draw(spriteDown);
 
@@ -178,12 +200,14 @@ void ItemsListWidget::display(utils::Context* pContext)
         item.setString(*textItem);
         item.setPosition(
             horizontalPosition,
-            itemsCommonVerticalPosition
+            itemsCommonVerticalPosition - ITEMS_LIST_TEXT_OFFSET
         );
 
         textureOrderUp.loadFromFile(PATH_IMAGE_ARROW_UP);
         textureOrderDown.loadFromFile(PATH_IMAGE_ARROW_DOWN);
 
+        //NOTE: I keep literal expressions as I am supposed to move these arrows anyway,
+        //check todo line 225
         spriteOrderUp.setTexture(textureOrderUp, false);
         spriteOrderUp.setPosition(
             horizontalPosition + width - (width / 4) + 100,
@@ -197,6 +221,9 @@ void ItemsListWidget::display(utils::Context* pContext)
         );
 
         pContext->getWindow()->draw(item);
+
+        //TODO: this list is not supposed to be an orderable one.
+        //Create a new type of list items without arrow...
         pContext->getWindow()->draw(spriteOrderUp);
         pContext->getWindow()->draw(spriteOrderDown);
     }
@@ -216,4 +243,40 @@ void ItemsListWidget::setStringsList(std::vector<std::string> list)
 std::vector<std::string> ItemsListWidget::getStringsList()
 {
     return stringsList;
+}
+
+/**
+ *
+ */
+bool ItemsListWidget::isMouseHover() const
+{
+    if (
+        sf::Mouse::getPosition().x > horizontalPosition &&
+        sf::Mouse::getPosition().x < horizontalPosition + width &&
+        sf::Mouse::getPosition().y > verticalPosition &&
+        sf::Mouse::getPosition().y < verticalPosition + ITEMS_LIST_ITEM_HEIGHT * verticalContainers
+    ) {
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ *
+ */
+void ItemsListWidget::highlightCurrentItem(utils::Context* pContext)
+{
+    unsigned short cursorInternalHorizontalPosition =
+        static_cast<unsigned short>(sf::Mouse::getPosition().y - verticalPosition);
+
+    unsigned short selectedItemId =
+        cursorInternalHorizontalPosition / ITEMS_LIST_ITEM_HEIGHT;
+
+    selector.setPosition(
+        horizontalPosition + ITEMS_LIST_BORDER_SIZE,
+        verticalPosition + selectedItemId * ITEMS_LIST_ITEM_HEIGHT + ITEMS_LIST_BORDER_SIZE
+    );
+
+    pContext->getWindow()->draw(selector);
 }
