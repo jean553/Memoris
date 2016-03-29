@@ -36,23 +36,16 @@ class FileWriter {
 public:
 
     /**
-     * @brief create a new file with the given name
-     *
-     * @param fileName path and name of the file starting from data directory
-     *
-     * @return bool
-     */
-    static bool createFile(std::string fileName);
-
-    /**
      * @brief copy a string in a given file
      *
      * @param fileName path and name of the file
      * @param content string to write
+     *
+     * @return bool
      */
     static bool writeFile(
         std::string fileName,
-        std::string content
+        std::string content = ""
     );
 };
 }

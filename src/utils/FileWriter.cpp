@@ -32,22 +32,6 @@ using namespace utils;
 /**
  *
  */
-bool FileWriter::createFile(std::string fileName)
-{
-    std::ofstream file(fileName, std::ofstream::out);
-
-    if (!file.is_open()) {
-        return false;
-    }
-
-    file.close();
-
-    return true;
-}
-
-/**
- *
- */
 bool FileWriter::writeFile(
     std::string fileName,
     std::string content
