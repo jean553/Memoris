@@ -28,11 +28,16 @@
 
 using namespace controllers;
 
+const std::string OpenLevelController::STRING_OPEN_LEVEL_TITLE = "Open level";
+
 /**
  *
  */
 OpenLevelController::OpenLevelController() : Controller()
 {
+    titleBar.setDisplayedText(
+        STRING_OPEN_LEVEL_TITLE
+    );
 }
 
 /**
@@ -40,6 +45,8 @@ OpenLevelController::OpenLevelController() : Controller()
  */
 unsigned short OpenLevelController::render(utils::Context* pContext)
 {
+    titleBar.display(pContext);
+
     while(pContext->getWindow()->pollEvent(event)) {
         switch(event.type) {
             case sf::Event::KeyPressed: {

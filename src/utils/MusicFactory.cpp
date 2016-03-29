@@ -46,9 +46,12 @@ std::string MusicFactory::getMusicPathById(
      * initialize them in the header, and I prefer to initialize them in
      * the source for compilation purposes.
      */
-    if (id == ControllerFactory::EDITOR_LEVEL_CONTROLLER_ID) {
+    if (
+        id == ControllerFactory::EDITOR_LEVEL_CONTROLLER_ID || 
+        id == ControllerFactory::OPEN_LEVEL_CONTROLLER_ID
+    ) {
         return EDITOR_MUSIC_PATH;
-    } else {
-        return MAIN_MENU_MUSIC_PATH;
     }
+
+    return MAIN_MENU_MUSIC_PATH;
 }

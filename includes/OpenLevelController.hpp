@@ -29,9 +29,12 @@
 #define DEF_OPEN_LEVEL_CONTROLLER
 
 #include "Controller.hpp"
+#include "TitleBarWidget.hpp"
 
 namespace controllers {
 class OpenLevelController : public Controller {
+
+    static const std::string STRING_OPEN_LEVEL_TITLE;
 
 public:
     OpenLevelController();
@@ -46,6 +49,10 @@ public:
     unsigned short render(
         utils::Context* pContext
     );
+
+private:
+
+    widgets::TitleBarWidget titleBar;
 };
 }
 
