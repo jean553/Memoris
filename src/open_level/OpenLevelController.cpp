@@ -25,6 +25,7 @@
 #include "OpenLevelController.hpp"
 #include "ControllerFactory.hpp"
 #include "DirReader.hpp"
+#include "Screens.hpp"
 
 using namespace controllers;
 
@@ -73,7 +74,10 @@ unsigned short OpenLevelController::render(utils::Context* pContext)
             case sf::Event::KeyPressed: {
                 switch(event.key.code) {
                     case sf::Keyboard::Escape: {
-                        nextControllerId =
+
+                        // the next controller id depends of the previous controller ( serie editor or level editor )
+                        nextControllerId = pContext->getPreviousControllerName() == constants::Screens::SERIE_EDITOR_SCREEN_NAME ?
+                            factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID :
                             factories::ControllerFactory::EDITOR_LEVEL_CONTROLLER_ID;
                     }
                 }

@@ -89,3 +89,19 @@ void Context::playScreenTransitionCommonSound()
 {
     soundScreenTransition.play();
 }
+
+/**
+ *
+ */
+void Context::setPreviousControllerName(std::string previousControllerNameValue)
+{
+    previousControllerName = previousControllerNameValue;
+}
+
+/**
+ *
+ */
+std::string Context::getPreviousControllerName()
+{
+    return previousControllerName;
+}
