@@ -273,9 +273,18 @@ void ItemsListWidget::highlightCurrentItem(utils::Context* pContext)
     unsigned short selectedItemId =
         cursorInternalHorizontalPosition / ITEMS_LIST_ITEM_HEIGHT;
 
+    // do not highlight items if no item
+    if (
+        selectedItemId > stringsList.size() - 1 ||
+        !stringsList.size()
+    ) {
+        return;
+    }
+
     selector.setPosition(
         horizontalPosition + ITEMS_LIST_BORDER_SIZE,
-        verticalPosition + selectedItemId * ITEMS_LIST_ITEM_HEIGHT + ITEMS_LIST_BORDER_SIZE
+        verticalPosition + selectedItemId *
+        ITEMS_LIST_ITEM_HEIGHT + ITEMS_LIST_BORDER_SIZE
     );
 
     pContext->getWindow()->draw(selector);
