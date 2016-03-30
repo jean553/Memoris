@@ -38,6 +38,7 @@
 #include "StringsListsUtils.hpp"
 #include "FileWriter.hpp"
 #include "ControllerFactory.hpp"
+#include "Screens.hpp"
 
 using namespace controllers;
 
@@ -261,6 +262,11 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
                                     status = NEW_LEVEL;
                                 }
                                 else if(buttonOpen.isMouseHover()) {
+
+                                    pContext->setPreviousControllerName(
+                                        constants::Screens::LEVEL_EDITOR_SCREEN_NAME
+                                    );
+
                                     nextControllerId =
                                         factories::ControllerFactory::OPEN_LEVEL_CONTROLLER_ID;
                                 }

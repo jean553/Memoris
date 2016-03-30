@@ -23,7 +23,6 @@
  */
 
 #include "EditorSerieController.hpp"
-
 #include "Dimensions.hpp"
 #include "Window.hpp"
 #include "Positions.hpp"
@@ -31,12 +30,11 @@
 #include "Extensions.hpp"
 #include "Fonts.hpp"
 #include "Colors.hpp"
-
 #include "DirReader.hpp"
 #include "StringsListsUtils.hpp"
 #include "FileWriter.hpp"
-
 #include "ControllerFactory.hpp"
+#include "Screens.hpp"
 
 using namespace controllers;
 
@@ -319,6 +317,15 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
                                     //TODO: rewrite serie file content
 
                                     displaySavedSerieName(true);
+                                }
+                                if(buttonAdd.isMouseHover()) {
+
+                                    pContext->setPreviousControllerName(
+                                        constants::Screens::SERIE_EDITOR_SCREEN_NAME
+                                    );
+
+                                    nextControllerId =
+                                        factories::ControllerFactory::OPEN_LEVEL_CONTROLLER_ID;
                                 }
                         }
                         break;

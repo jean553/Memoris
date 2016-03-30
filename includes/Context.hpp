@@ -69,6 +69,20 @@ public:
      */
     void playScreenTransitionCommonSound();
 
+    /**
+     * @brief setter for the previous controller name
+     *
+     * @param previousControllerNameValue textual name of the previous controller
+     */
+    void setPreviousControllerName(std::string previousControllerNameValue);
+
+    /**
+     * @brief getter for the previous controller name
+     *
+     * @return string
+     */
+    std::string getPreviousControllerName();
+
 private:
 
     sf::RenderWindow* pWindow;
@@ -78,6 +92,8 @@ private:
     sf::SoundBuffer soundScreenTransitionBuffer;
 
     sf::Sound soundScreenTransition;
+
+    std::string previousControllerName;
 };
 }
 
