@@ -186,6 +186,14 @@ void ItemsListWidget::display(utils::Context* pContext)
     for(std::vector<std::string>::iterator textItem = stringsList.begin();
             textItem != stringsList.end(); ++textItem) {
 
+        // do not display if the text is outside of the widget
+        if (
+            static_cast<unsigned long>(std::distance(stringsList.begin(), textItem)) >=
+            verticalContainers
+        ) {
+            return;
+        }
+
         float itemsCommonVerticalPosition = verticalPosition +
                                             (static_cast<float> (std::distance(stringsList.begin(), textItem))) *
                                             ITEMS_LIST_ITEM_HEIGHT;
