@@ -191,8 +191,6 @@ void ItemsListWidget::display(utils::Context* pContext)
                                             ITEMS_LIST_ITEM_HEIGHT;
 
         sf::Text item;
-        sf::Texture textureOrderUp, textureOrderDown;
-        sf::Sprite spriteOrderUp, spriteOrderDown;
 
         item.setFont(textItemFont);
         item.setCharacterSize(ITEMS_LIST_ITEM_HEIGHT);
@@ -203,29 +201,7 @@ void ItemsListWidget::display(utils::Context* pContext)
             itemsCommonVerticalPosition - ITEMS_LIST_TEXT_OFFSET
         );
 
-        textureOrderUp.loadFromFile(PATH_IMAGE_ARROW_UP);
-        textureOrderDown.loadFromFile(PATH_IMAGE_ARROW_DOWN);
-
-        //NOTE: I keep literal expressions as I am supposed to move these arrows anyway,
-        //check todo line 225
-        spriteOrderUp.setTexture(textureOrderUp, false);
-        spriteOrderUp.setPosition(
-            horizontalPosition + width - (width / 4) + 100,
-            itemsCommonVerticalPosition
-        );
-
-        spriteOrderDown.setTexture(textureOrderDown, false);
-        spriteOrderDown.setPosition(
-            horizontalPosition + width - (width / 4) + 150,
-            itemsCommonVerticalPosition
-        );
-
         pContext->getWindow()->draw(item);
-
-        //TODO: this list is not supposed to be an orderable one.
-        //Create a new type of list items without arrow...
-        pContext->getWindow()->draw(spriteOrderUp);
-        pContext->getWindow()->draw(spriteOrderDown);
     }
 }
 
