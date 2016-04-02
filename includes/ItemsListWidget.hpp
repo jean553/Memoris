@@ -91,6 +91,12 @@ public:
      */
     bool isMouseHover() const;
 
+    /**
+     * @brief manage the clicks on the arrows and scrolls the widget list,
+     * must be called when a click is done, manage maximum scrolling values
+     */
+    void scroll();
+
 protected:
 
     /**
@@ -132,8 +138,25 @@ protected:
     float width;
 
     unsigned short verticalContainers;
+    unsigned short startingItem;
 
     std::vector<std::string> stringsList;
+
+private:
+
+    /**
+     * @brief checks if the mouse is hover the up arrow
+     *
+     * @return true if hover
+     */
+    bool isMouseHoverArrowUp() const;
+
+    /**
+     * @brief checks if the mouse is hover the down arrow
+     *
+     * @return true if hover
+     */
+    bool isMouseHoverArrowDown() const;
 };
 }
 
