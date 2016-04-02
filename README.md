@@ -44,6 +44,12 @@ sudo apt-get install doxygen
 doxygen config/Doxyfile
 ```
 
+## Apply Allman coding style
+
+```
+./style.sh
+```
+
 ## Credits
 
 ### Fonts
