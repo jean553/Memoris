@@ -30,8 +30,10 @@
 
 #include <string>
 
-namespace entities {
-class HorizontalMirrorCell : public Cell {
+namespace entities
+{
+class HorizontalMirrorCell : public Cell
+{
 
     static const std::string HORIZONTAL_MIRROR_CELL_PICTURE_PATH;
 

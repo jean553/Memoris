@@ -35,8 +35,10 @@
 #include "CursorWidget.hpp"
 #include "ItemsListWidget.hpp"
 
-namespace controllers {
-class OpenSerieController : public Controller {
+namespace controllers
+{
+class OpenSerieController : public Controller
+{
 
     static const std::string STRING_OPEN_SERIE_TITLE;
     static const std::string OPEN_SERIE_BUTTON_EXIT;

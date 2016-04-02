@@ -30,8 +30,10 @@
 
 #include <string>
 
-namespace entities {
-class QuarterLeftRotateCell : public Cell {
+namespace entities
+{
+class QuarterLeftRotateCell : public Cell
+{
 
     static const std::string QUARTER_LEFT_ROTATE_CELL_PICTURE_PATH;
 

@@ -32,8 +32,10 @@
 
 #include "ItemsListWidget.hpp"
 
-namespace widgets {
-class OrderedItemsListWidget : public ItemsListWidget {
+namespace widgets
+{
+class OrderedItemsListWidget : public ItemsListWidget
+{
 
     static const std::string PATH_IMAGE_EDIT;
     static const std::string PATH_IMAGE_DELETE;

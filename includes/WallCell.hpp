@@ -30,8 +30,10 @@
 
 #include <string>
 
-namespace entities {
-class WallCell : public Cell {
+namespace entities
+{
+class WallCell : public Cell
+{
 
     static const std::string WALL_CELL_PICTURE_PATH;
 

@@ -29,8 +29,10 @@
 
 #include <string>
 
-namespace constants {
-class Sounds {
+namespace constants
+{
+class Sounds
+{
 
 public:
 

@@ -118,31 +118,38 @@ unsigned short EditorMenuController::render(utils::Context* pContext)
     pContext->getWindow()->draw(itemSeriesEditor);
     pContext->getWindow()->draw(itemBack);
 
-    while (pContext->getWindow()->pollEvent(event)) {
-        switch(event.type) {
-            case sf::Event::KeyPressed: {
-                switch (event.key.code) {
-                    case sf::Keyboard::Up: {
-                        soundSelectorMove.play();
+    while (pContext->getWindow()->pollEvent(event))
+    {
+        switch(event.type)
+        {
+        case sf::Event::KeyPressed:
+        {
+            switch (event.key.code)
+            {
+            case sf::Keyboard::Up:
+            {
+                soundSelectorMove.play();
 
-                        selectorPosition--;
+                selectorPosition--;
 
-                        break;
-                    }
-                    case sf::Keyboard::Down: {
-                        soundSelectorMove.play();
-
-                        selectorPosition++;
-
-                        break;
-                    }
-                    case sf::Keyboard::Return: {
-                        selectMenuItem();
-
-                        break;
-                    }
-                }
+                break;
             }
+            case sf::Keyboard::Down:
+            {
+                soundSelectorMove.play();
+
+                selectorPosition++;
+
+                break;
+            }
+            case sf::Keyboard::Return:
+            {
+                selectMenuItem();
+
+                break;
+            }
+            }
+        }
         }
     }
 
@@ -164,19 +171,23 @@ void EditorMenuController::updateSelectorPosition()
     itemSeriesEditor.setColor(colorWhite);
     itemBack.setColor(colorWhite);
 
-    switch (selectorPosition) {
-        case EDITOR_MENU_ITEM_LEVELS_EDITOR: {
-            itemLevelsEditor.setColor(colorSelector);
-            break;
-        }
-        case EDITOR_MENU_ITEM_SERIES_EDITOR: {
-            itemSeriesEditor.setColor(colorSelector);
-            break;
-        }
-        case EDITOR_MENU_ITEM_BACK: {
-            itemBack.setColor(colorSelector);
-            break;
-        }
+    switch (selectorPosition)
+    {
+    case EDITOR_MENU_ITEM_LEVELS_EDITOR:
+    {
+        itemLevelsEditor.setColor(colorSelector);
+        break;
+    }
+    case EDITOR_MENU_ITEM_SERIES_EDITOR:
+    {
+        itemSeriesEditor.setColor(colorSelector);
+        break;
+    }
+    case EDITOR_MENU_ITEM_BACK:
+    {
+        itemBack.setColor(colorSelector);
+        break;
+    }
     }
 }
 
@@ -185,27 +196,31 @@ void EditorMenuController::updateSelectorPosition()
  */
 void EditorMenuController::selectMenuItem()
 {
-    switch(selectorPosition) {
-        case EDITOR_MENU_ITEM_LEVELS_EDITOR: {
+    switch(selectorPosition)
+    {
+    case EDITOR_MENU_ITEM_LEVELS_EDITOR:
+    {
 
-            nextControllerId =
-                factories::ControllerFactory::EDITOR_LEVEL_CONTROLLER_ID;
+        nextControllerId =
+            factories::ControllerFactory::EDITOR_LEVEL_CONTROLLER_ID;
 
-            break;
-        }
-        case EDITOR_MENU_ITEM_SERIES_EDITOR: {
+        break;
+    }
+    case EDITOR_MENU_ITEM_SERIES_EDITOR:
+    {
 
-            nextControllerId =
-                factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID;
+        nextControllerId =
+            factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID;
 
-            break;
-        }
-        case EDITOR_MENU_ITEM_BACK: {
+        break;
+    }
+    case EDITOR_MENU_ITEM_BACK:
+    {
 
-            nextControllerId =
-                factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
+        nextControllerId =
+            factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
 
-            break;
-        }
+        break;
+    }
     }
 }

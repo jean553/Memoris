@@ -30,8 +30,10 @@
 
 #include "Widget.hpp"
 
-namespace widgets {
-class ButtonWidget : public Widget {
+namespace widgets
+{
+class ButtonWidget : public Widget
+{
 
     static const float BUTTON_FIXED_HEIGHT;
 

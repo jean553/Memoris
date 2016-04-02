@@ -166,13 +166,15 @@ void InputTextWidget::display(utils::Context* pContext)
     pContext->getWindow()->draw(boxRight);
     pContext->getWindow()->draw(displayedText);
 
-    if(displayCursor) {
+    if(displayCursor)
+    {
         pContext->getWindow()->draw(cursor);
     }
 
     if(clock.getElapsedTime().asMilliseconds() >
             INTERVAL_ANIMATION_CURSOR
-      ) {
+      )
+    {
         displayCursor = !displayCursor;
         clock.restart();
     }
@@ -185,121 +187,151 @@ void InputTextWidget::update(sf::Event* event)
 {
     std::string newText = "";
 
-    switch(event->key.code) {
-        case sf::Keyboard::A: {
-            newText = text + 'a';
-            break;
-        }
-        case sf::Keyboard::B: {
-            newText = text + 'b';
-            break;
-        }
-        case sf::Keyboard::C: {
-            newText = text + 'c';
-            break;
-        }
-        case sf::Keyboard::D: {
-            newText = text + 'd';
-            break;
-        }
-        case sf::Keyboard::E: {
-            newText = text + 'e';
-            break;
-        }
-        case sf::Keyboard::F: {
-            newText = text + 'f';
-            break;
-        }
-        case sf::Keyboard::G: {
-            newText = text + 'g';
-            break;
-        }
-        case sf::Keyboard::H: {
-            newText = text + 'h';
-            break;
-        }
-        case sf::Keyboard::I: {
-            newText = text + 'i';
-            break;
-        }
-        case sf::Keyboard::J: {
-            newText = text + 'j';
-            break;
-        }
-        case sf::Keyboard::K: {
-            newText = text + 'k';
-            break;
-        }
-        case sf::Keyboard::L: {
-            newText = text + 'l';
-            break;
-        }
-        case sf::Keyboard::M: {
-            newText = text + 'm';
-            break;
-        }
-        case sf::Keyboard::N: {
-            newText = text + 'n';
-            break;
-        }
-        case sf::Keyboard::O: {
-            newText = text + 'o';
-            break;
-        }
-        case sf::Keyboard::P: {
-            newText = text + 'p';
-            break;
-        }
-        case sf::Keyboard::Q: {
-            newText = text + 'q';
-            break;
-        }
-        case sf::Keyboard::R: {
-            newText = text + 'r';
-            break;
-        }
-        case sf::Keyboard::S: {
-            newText = text + 's';
-            break;
-        }
-        case sf::Keyboard::T: {
-            newText = text + 't';
-            break;
-        }
-        case sf::Keyboard::U: {
-            newText = text + 'u';
-            break;
-        }
-        case sf::Keyboard::V: {
-            newText = text + 'v';
-            break;
-        }
-        case sf::Keyboard::W: {
-            newText = text + 'w';
-            break;
-        }
-        case sf::Keyboard::X: {
-            newText = text + 'x';
-            break;
-        }
-        case sf::Keyboard::Y: {
-            newText = text + 'y';
-            break;
-        }
-        case sf::Keyboard::Z: {
-            newText = text + 'z';
-            break;
-        }
-        case sf::Keyboard::BackSpace: {
-            newText = text.substr(0, text.size() - 1);
-            break;
-        }
-        default: {
-            return;
-        }
+    switch(event->key.code)
+    {
+    case sf::Keyboard::A:
+    {
+        newText = text + 'a';
+        break;
+    }
+    case sf::Keyboard::B:
+    {
+        newText = text + 'b';
+        break;
+    }
+    case sf::Keyboard::C:
+    {
+        newText = text + 'c';
+        break;
+    }
+    case sf::Keyboard::D:
+    {
+        newText = text + 'd';
+        break;
+    }
+    case sf::Keyboard::E:
+    {
+        newText = text + 'e';
+        break;
+    }
+    case sf::Keyboard::F:
+    {
+        newText = text + 'f';
+        break;
+    }
+    case sf::Keyboard::G:
+    {
+        newText = text + 'g';
+        break;
+    }
+    case sf::Keyboard::H:
+    {
+        newText = text + 'h';
+        break;
+    }
+    case sf::Keyboard::I:
+    {
+        newText = text + 'i';
+        break;
+    }
+    case sf::Keyboard::J:
+    {
+        newText = text + 'j';
+        break;
+    }
+    case sf::Keyboard::K:
+    {
+        newText = text + 'k';
+        break;
+    }
+    case sf::Keyboard::L:
+    {
+        newText = text + 'l';
+        break;
+    }
+    case sf::Keyboard::M:
+    {
+        newText = text + 'm';
+        break;
+    }
+    case sf::Keyboard::N:
+    {
+        newText = text + 'n';
+        break;
+    }
+    case sf::Keyboard::O:
+    {
+        newText = text + 'o';
+        break;
+    }
+    case sf::Keyboard::P:
+    {
+        newText = text + 'p';
+        break;
+    }
+    case sf::Keyboard::Q:
+    {
+        newText = text + 'q';
+        break;
+    }
+    case sf::Keyboard::R:
+    {
+        newText = text + 'r';
+        break;
+    }
+    case sf::Keyboard::S:
+    {
+        newText = text + 's';
+        break;
+    }
+    case sf::Keyboard::T:
+    {
+        newText = text + 't';
+        break;
+    }
+    case sf::Keyboard::U:
+    {
+        newText = text + 'u';
+        break;
+    }
+    case sf::Keyboard::V:
+    {
+        newText = text + 'v';
+        break;
+    }
+    case sf::Keyboard::W:
+    {
+        newText = text + 'w';
+        break;
+    }
+    case sf::Keyboard::X:
+    {
+        newText = text + 'x';
+        break;
+    }
+    case sf::Keyboard::Y:
+    {
+        newText = text + 'y';
+        break;
+    }
+    case sf::Keyboard::Z:
+    {
+        newText = text + 'z';
+        break;
+    }
+    case sf::Keyboard::BackSpace:
+    {
+        newText = text.substr(0, text.size() - 1);
+        break;
+    }
+    default:
+    {
+        return;
+    }
     }
 
-    if(newText.size() > maximumCharacters) {
+    if(newText.size() > maximumCharacters)
+    {
         return;
     }
 

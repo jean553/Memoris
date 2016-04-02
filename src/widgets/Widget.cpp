@@ -49,7 +49,8 @@ Widget::~Widget()
 void Widget::setPosition(
     float hPosition,
     float vPosition
-) {
+)
+{
     horizontalPosition = hPosition;
     verticalPosition = vPosition;
 }

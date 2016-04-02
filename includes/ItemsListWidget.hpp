@@ -28,8 +28,10 @@
 
 #include "Widget.hpp"
 
-namespace widgets {
-class ItemsListWidget : public Widget {
+namespace widgets
+{
+class ItemsListWidget : public Widget
+{
 
 public:
 

@@ -34,8 +34,10 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-namespace utils {
-class Context {
+namespace utils
+{
+class Context
+{
 public:
 
     Context();

@@ -196,7 +196,8 @@ unsigned short MainMenuController::render(utils::Context* pContext)
 {
     if(clockTitle.getElapsedTime().asMilliseconds() >
             policies::HasMenuSelectorAnimation::INTERVAL_ANIMATION
-      ) {
+      )
+    {
         animateTitleColor();
         clockTitle.restart();
     }
@@ -213,31 +214,38 @@ unsigned short MainMenuController::render(utils::Context* pContext)
     pContext->getWindow()->draw(itemExit);
     pContext->getWindow()->draw(spriteGithub);
 
-    while(pContext->getWindow()->pollEvent(event)) {
-        switch(event.type) {
-            case sf::Event::KeyPressed: {
-                switch(event.key.code) {
-                    case sf::Keyboard::Up: {
-                        soundSelectorMove.play();
+    while(pContext->getWindow()->pollEvent(event))
+    {
+        switch(event.type)
+        {
+        case sf::Event::KeyPressed:
+        {
+            switch(event.key.code)
+            {
+            case sf::Keyboard::Up:
+            {
+                soundSelectorMove.play();
 
-                        selectorPosition--;
+                selectorPosition--;
 
-                        break;
-                    }
-                    case sf::Keyboard::Down: {
-                        soundSelectorMove.play();
-
-                        selectorPosition++;
-
-                        break;
-                    }
-                    case sf::Keyboard::Return: {
-                        selectMenuItem();
-
-                        break;
-                    }
-                }
+                break;
             }
+            case sf::Keyboard::Down:
+            {
+                soundSelectorMove.play();
+
+                selectorPosition++;
+
+                break;
+            }
+            case sf::Keyboard::Return:
+            {
+                selectMenuItem();
+
+                break;
+            }
+            }
+        }
         }
     }
 
@@ -256,21 +264,24 @@ void MainMenuController::animateTitleColor()
     if(
         colorTitle.r == COLOR_TITLE_RED_MAX ||
         colorTitle.r == COLOR_TITLE_ALL_MIN
-    ) {
+    )
+    {
         titleRedDirection = -titleRedDirection;
     }
 
     if(
         colorTitle.g == COLOR_TITLE_GREEN_MAX ||
         colorTitle.g == COLOR_TITLE_ALL_MIN
-    ) {
+    )
+    {
         titleGreenDirection = -titleGreenDirection;
     }
 
     if(
         colorTitle.b == COLOR_TITLE_BLUE_MAX ||
         colorTitle.b == COLOR_TITLE_ALL_MIN
-    ) {
+    )
+    {
         titleBlueDirection = -titleBlueDirection;
     }
 
@@ -294,27 +305,33 @@ void MainMenuController::updateSelectorPosition()
     itemOptions.setColor(colorWhite);
     itemExit.setColor(colorWhite);
 
-    switch(selectorPosition) {
-        case MAIN_MENU_ITEM_NEW_GAME: {
-            itemNewGame.setColor(colorSelector);
-            break;
-        }
-        case MAIN_MENU_ITEM_LOAD_GAME: {
-            itemLoadGame.setColor(colorSelector);
-            break;
-        }
-        case MAIN_MENU_ITEM_EDITOR: {
-            itemEditor.setColor(colorSelector);
-            break;
-        }
-        case MAIN_MENU_ITEM_OPTIONS: {
-            itemOptions.setColor(colorSelector);
-            break;
-        }
-        case MAIN_MENU_ITEM_EXIT: {
-            itemExit.setColor(colorSelector);
-            break;
-        }
+    switch(selectorPosition)
+    {
+    case MAIN_MENU_ITEM_NEW_GAME:
+    {
+        itemNewGame.setColor(colorSelector);
+        break;
+    }
+    case MAIN_MENU_ITEM_LOAD_GAME:
+    {
+        itemLoadGame.setColor(colorSelector);
+        break;
+    }
+    case MAIN_MENU_ITEM_EDITOR:
+    {
+        itemEditor.setColor(colorSelector);
+        break;
+    }
+    case MAIN_MENU_ITEM_OPTIONS:
+    {
+        itemOptions.setColor(colorSelector);
+        break;
+    }
+    case MAIN_MENU_ITEM_EXIT:
+    {
+        itemExit.setColor(colorSelector);
+        break;
+    }
     }
 }
 
@@ -323,27 +340,31 @@ void MainMenuController::updateSelectorPosition()
  */
 void MainMenuController::selectMenuItem()
 {
-    switch(selectorPosition) {
-        case MAIN_MENU_ITEM_NEW_GAME: {
+    switch(selectorPosition)
+    {
+    case MAIN_MENU_ITEM_NEW_GAME:
+    {
 
-            nextControllerId =
-                factories::ControllerFactory::NEW_GAME_CONTROLLER_ID;
+        nextControllerId =
+            factories::ControllerFactory::NEW_GAME_CONTROLLER_ID;
 
-            break;
-        }
-        case MAIN_MENU_ITEM_EDITOR: {
+        break;
+    }
+    case MAIN_MENU_ITEM_EDITOR:
+    {
 
-            nextControllerId =
-                factories::ControllerFactory::EDITOR_MENU_CONTROLLER_ID;
+        nextControllerId =
+            factories::ControllerFactory::EDITOR_MENU_CONTROLLER_ID;
 
-            break;
-        }
-        case MAIN_MENU_ITEM_EXIT: {
+        break;
+    }
+    case MAIN_MENU_ITEM_EXIT:
+    {
 
-            nextControllerId =
-                factories::ControllerFactory::EXIT;
+        nextControllerId =
+            factories::ControllerFactory::EXIT;
 
-            break;
-        }
+        break;
+    }
     }
 }

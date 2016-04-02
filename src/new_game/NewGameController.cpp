@@ -112,25 +112,31 @@ unsigned short NewGameController::render(utils::Context* pContext)
 
     inputTextGameName.display(pContext);
 
-    while(pContext->getWindow()->pollEvent(event)) {
-        switch(event.type) {
-            case sf::Event::KeyPressed: {
-                switch(event.key.code) {
-                    case sf::Keyboard::Escape: {
+    while(pContext->getWindow()->pollEvent(event))
+    {
+        switch(event.type)
+        {
+        case sf::Event::KeyPressed:
+        {
+            switch(event.key.code)
+            {
+            case sf::Keyboard::Escape:
+            {
 
-                        nextControllerId =
-                            factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
+                nextControllerId =
+                    factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
 
-                        break;
-                    }
-                    default: {
-
-                        inputTextGameName.update(&event);
-
-                        break;
-                    }
-                }
+                break;
             }
+            default:
+            {
+
+                inputTextGameName.update(&event);
+
+                break;
+            }
+            }
+        }
         }
     }
 

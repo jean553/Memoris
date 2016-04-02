@@ -30,8 +30,10 @@
 
 #include "Context.hpp"
 
-namespace widgets {
-class Widget {
+namespace widgets
+{
+class Widget
+{
 
 public:
 

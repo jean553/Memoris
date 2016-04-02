@@ -29,8 +29,10 @@
 
 #include <SFML/Config.hpp>
 
-namespace constants {
-class Colors {
+namespace constants
+{
+class Colors
+{
 
 public:
 

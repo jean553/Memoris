@@ -35,8 +35,10 @@
 
 #include "HasMenuSelectorAnimation.hpp"
 
-namespace controllers {
-class EditorMenuController : public Controller {
+namespace controllers
+{
+class EditorMenuController : public Controller
+{
     friend class policies::HasMenuSelectorAnimation;
 
     static const std::string STRING_LEVELS_EDITOR;

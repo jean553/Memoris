@@ -30,8 +30,10 @@
 #include <string>
 #include <vector>
 
-namespace utils {
-class FileWriter {
+namespace utils
+{
+class FileWriter
+{
 
 public:
 

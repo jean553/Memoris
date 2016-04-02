@@ -32,8 +32,10 @@
 
 #include "Context.hpp"
 
-namespace entities {
-class Cell {
+namespace entities
+{
+class Cell
+{
 
 public:
 

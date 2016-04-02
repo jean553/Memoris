@@ -69,19 +69,24 @@ unsigned short OpenLevelController::render(utils::Context* pContext)
     levelsList.display(pContext);
     cursor.display(pContext);
 
-    while(pContext->getWindow()->pollEvent(event)) {
-        switch(event.type) {
-            case sf::Event::KeyPressed: {
-                switch(event.key.code) {
-                    case sf::Keyboard::Escape: {
+    while(pContext->getWindow()->pollEvent(event))
+    {
+        switch(event.type)
+        {
+        case sf::Event::KeyPressed:
+        {
+            switch(event.key.code)
+            {
+            case sf::Keyboard::Escape:
+            {
 
-                        // the next controller id depends of the previous controller ( serie editor or level editor )
-                        nextControllerId = pContext->getPreviousControllerName() == constants::Screens::SERIE_EDITOR_SCREEN_NAME ?
-                            factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID :
-                            factories::ControllerFactory::EDITOR_LEVEL_CONTROLLER_ID;
-                    }
-                }
+                // the next controller id depends of the previous controller ( serie editor or level editor )
+                nextControllerId = pContext->getPreviousControllerName() == constants::Screens::SERIE_EDITOR_SCREEN_NAME ?
+                                   factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID :
+                                   factories::ControllerFactory::EDITOR_LEVEL_CONTROLLER_ID;
             }
+            }
+        }
         }
     }
 

@@ -209,129 +209,154 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
     buttonExit.display(pContext);
     levelsList.display(pContext);
 
-    if (status == NEW_SERIE) {
+    if (status == NEW_SERIE)
+    {
         buttonNewOk.display(pContext);
         buttonNewCancel.display(pContext);
         inputTextNew.display(pContext);
     }
 
-    if (status != MAIN_MENU) {
+    if (status != MAIN_MENU)
+    {
         pContext->getWindow()->draw(serieNameLabel);
     }
 
-    if (errorNewSerie) {
+    if (errorNewSerie)
+    {
         pContext->getWindow()->draw(errorLabel);
-    } else if (errorNewLevel) {
+    }
+    else if (errorNewLevel)
+    {
         pContext->getWindow()->draw(levelErrorLabel);
     }
 
     cursor.display(pContext);
 
-    while(pContext->getWindow()->pollEvent(event)) {
-        switch(event.type) {
-            case sf::Event::KeyPressed: {
-                switch(event.key.code) {
-                    case sf::Keyboard::Escape: {
+    while(pContext->getWindow()->pollEvent(event))
+    {
+        switch(event.type)
+        {
+        case sf::Event::KeyPressed:
+        {
+            switch(event.key.code)
+            {
+            case sf::Keyboard::Escape:
+            {
+
+                nextControllerId =
+                    factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
+
+                break;
+            }
+            default:
+            {
+
+                if(status == NEW_SERIE)
+                {
+                    inputTextNew.update(&event);
+                }
+            }
+            }
+        }
+        case sf::Event::MouseButtonPressed:
+        {
+            switch(event.mouseButton.button)
+            {
+            case sf::Mouse::Left:
+            {
+
+                if(buttonExit.isMouseHover())
+                {
+                    nextControllerId =
+                        factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
+                }
+                // check buttons click according to current status
+                switch(status)
+                {
+                case MAIN_MENU:
+                    if(buttonNew.isMouseHover())
+                    {
+
+                        switchMainMenuButtons(false);
+
+                        status = NEW_SERIE;
+                    }
+                    if(buttonOpen.isMouseHover())
+                    {
+                        nextControllerId =
+                            factories::ControllerFactory::OPEN_SERIE_CONTROLLER_ID;
+                    }
+                    break;
+                case NEW_SERIE:
+                    if(buttonNewOk.isMouseHover())
+                    {
+
+                        if (serieExists(inputTextNew.getText()))
+                        {
+                            errorNewSerie = true;
+                            continue;
+                        }
+
+                        serie.setName(inputTextNew.getText());
+
+                        errorNewSerie = false;
+
+                        serieNameLabel.setString(inputTextNew.getText());
+                        serieNameLabel.setPosition(
+                            constants::Window::WIDTH -
+                            serieNameLabel.getLocalBounds().width,
+                            constants::Dimensions::POSITION_NAME_LABEL_Y
+                        );
+
+                        switchMainMenuButtonsToEditSerieStatus();
+
+                        status = EDIT_SERIE;
+                    }
+                    if(buttonNewCancel.isMouseHover())
+                    {
+
+                        buttonNew.setEnable(true);
+                        buttonOpen.setEnable(true);
+
+                        errorNewSerie = false;
+
+                        status = MAIN_MENU;
+
+                        inputTextNew.clear();
+                    }
+                    break;
+                case EDIT_SERIE:
+                    if(buttonSave.isMouseHover())
+                    {
+
+                        if (!serieExists(serie.getName()))
+                        {
+                            utils::FileWriter::writeFile(
+                                constants::Directories::SERIES_DIRECTORY_PATH +
+                                serie.getName() +
+                                constants::Extensions::SERIES_EXTENSION
+                            );
+                        }
+
+                        //TODO: rewrite serie file content
+
+                        displaySavedSerieName(true);
+                    }
+                    if(buttonAdd.isMouseHover())
+                    {
+
+                        pContext->setPreviousControllerName(
+                            constants::Screens::SERIE_EDITOR_SCREEN_NAME
+                        );
 
                         nextControllerId =
-                            factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
-
-                        break;
-                    }
-                    default: {
-
-                        if(status == NEW_SERIE) {
-                            inputTextNew.update(&event);
-                        }
+                            factories::ControllerFactory::OPEN_LEVEL_CONTROLLER_ID;
                     }
                 }
+                break;
             }
-            case sf::Event::MouseButtonPressed: {
-                switch(event.mouseButton.button) {
-                    case sf::Mouse::Left: {
-
-                        if(buttonExit.isMouseHover()) {
-                            nextControllerId =
-                                factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
-                        }
-                        // check buttons click according to current status
-                        switch(status) {
-                            case MAIN_MENU:
-                                if(buttonNew.isMouseHover()) {
-
-                                    switchMainMenuButtons(false);
-
-                                    status = NEW_SERIE;
-                                }
-                                if(buttonOpen.isMouseHover()) {
-                                    nextControllerId =
-                                        factories::ControllerFactory::OPEN_SERIE_CONTROLLER_ID;
-                                }
-                                break;
-                            case NEW_SERIE:
-                                if(buttonNewOk.isMouseHover()) {
-
-                                    if (serieExists(inputTextNew.getText())) {
-                                        errorNewSerie = true;
-                                        continue;
-                                    }
-
-                                    serie.setName(inputTextNew.getText());
-
-                                    errorNewSerie = false;
-
-                                    serieNameLabel.setString(inputTextNew.getText());
-                                    serieNameLabel.setPosition(
-                                        constants::Window::WIDTH -
-                                        serieNameLabel.getLocalBounds().width,
-                                        constants::Dimensions::POSITION_NAME_LABEL_Y
-                                    );
-
-                                    switchMainMenuButtonsToEditSerieStatus();
-
-                                    status = EDIT_SERIE;
-                                }
-                                if(buttonNewCancel.isMouseHover()) {
-
-                                    buttonNew.setEnable(true);
-                                    buttonOpen.setEnable(true);
-
-                                    errorNewSerie = false;
-
-                                    status = MAIN_MENU;
-
-                                    inputTextNew.clear();
-                                }
-                                break;
-                            case EDIT_SERIE:
-                                if(buttonSave.isMouseHover()) {
-
-                                    if (!serieExists(serie.getName())) {
-                                        utils::FileWriter::writeFile(
-                                            constants::Directories::SERIES_DIRECTORY_PATH +
-                                            serie.getName() +
-                                            constants::Extensions::SERIES_EXTENSION
-                                        );
-                                    }
-
-                                    //TODO: rewrite serie file content
-
-                                    displaySavedSerieName(true);
-                                }
-                                if(buttonAdd.isMouseHover()) {
-
-                                    pContext->setPreviousControllerName(
-                                        constants::Screens::SERIE_EDITOR_SCREEN_NAME
-                                    );
-
-                                    nextControllerId =
-                                        factories::ControllerFactory::OPEN_LEVEL_CONTROLLER_ID;
-                                }
-                        }
-                        break;
-                    }
-                }
             }
+        }
         }
     }
 
@@ -376,9 +401,12 @@ void EditorSerieController::initializeMainMenuButtons()
  */
 void EditorSerieController::displaySavedSerieName(bool saved)
 {
-    if (saved) {
+    if (saved)
+    {
         serieNameLabel.setColor(serieNameLabelColor);
-    } else {
+    }
+    else
+    {
         serieNameLabel.setColor(serieNameLabelUnsavedColor);
     }
 
@@ -403,7 +431,7 @@ bool EditorSerieController::serieExists(std::string serieName)
         );
 
     return utils::StringsListsUtils::stringsListContainsString(
-        seriesNames,
-        serieName
-    );
+               seriesNames,
+               serieName
+           );
 }

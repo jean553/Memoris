@@ -30,8 +30,10 @@
 
 #include <string>
 
-namespace entities {
-class MoreTimeCell : public Cell {
+namespace entities
+{
+class MoreTimeCell : public Cell
+{
 
     static const std::string MORE_TIME_CELL_PICTURE_PATH;
 

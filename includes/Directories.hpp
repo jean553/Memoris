@@ -29,8 +29,10 @@
 
 #include <string>
 
-namespace constants {
-class Directories {
+namespace constants
+{
+class Directories
+{
 
 public:
 

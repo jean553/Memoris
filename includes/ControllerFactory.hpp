@@ -30,8 +30,10 @@
 
 #include "Controller.hpp"
 
-namespace factories {
-class ControllerFactory {
+namespace factories
+{
+class ControllerFactory
+{
 
 public:
 

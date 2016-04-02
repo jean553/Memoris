@@ -41,8 +41,10 @@
 #include "OrderedItemsListWidget.hpp"
 #include "InputTextWidget.hpp"
 
-namespace controllers {
-class EditorSerieController : public Controller {
+namespace controllers
+{
+class EditorSerieController : public Controller
+{
 
     static const std::string STRING_EDITOR_SERIE_TITLE;
     static const std::string EDITOR_SERIE_BUTTON_NEW_TEXT;
@@ -103,7 +105,8 @@ private:
     bool errorNewSerie;
     bool errorNewLevel;
 
-    enum EditorSerieStatus {
+    enum EditorSerieStatus
+    {
         MAIN_MENU,
         NEW_SERIE,
         EDIT_SERIE

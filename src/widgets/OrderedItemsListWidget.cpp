@@ -46,7 +46,8 @@ void OrderedItemsListWidget::display(utils::Context* pContext)
     ItemsListWidget::display(pContext);
 
     for(std::vector<std::string>::iterator textItem = stringsList.begin();
-            textItem != stringsList.end(); ++textItem) {
+            textItem != stringsList.end(); ++textItem)
+    {
 
         float itemsCommonVerticalPosition = verticalPosition +
                                             (static_cast<float> (std::distance(stringsList.begin(), textItem))) *

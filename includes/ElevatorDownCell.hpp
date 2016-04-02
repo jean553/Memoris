@@ -30,8 +30,10 @@
 
 #include <string>
 
-namespace entities {
-class ElevatorDownCell : public Cell {
+namespace entities
+{
+class ElevatorDownCell : public Cell
+{
 
     static const std::string ELEVATOR_DOWN_CELL_PICTURE_PATH;
 

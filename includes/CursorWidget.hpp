@@ -30,8 +30,10 @@
 
 #include "Widget.hpp"
 
-namespace widgets {
-class CursorWidget : public Widget {
+namespace widgets
+{
+class CursorWidget : public Widget
+{
 
     static const std::string PATH_IMAGE_CURSOR;
 

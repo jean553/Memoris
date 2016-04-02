@@ -30,8 +30,10 @@
 
 #include <string>
 
-namespace entities {
-class DamageCell : public Cell {
+namespace entities
+{
+class DamageCell : public Cell
+{
 
     static const std::string DAMAGE_CELL_PICTURE_PATH;
 

@@ -29,8 +29,10 @@
 
 #include <string>
 
-namespace constants {
-class Screens {
+namespace constants
+{
+class Screens
+{
 
 public:
 

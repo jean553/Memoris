@@ -33,8 +33,10 @@
 #include "ItemsListWidget.hpp"
 #include "CursorWidget.hpp"
 
-namespace controllers {
-class OpenLevelController : public Controller {
+namespace controllers
+{
+class OpenLevelController : public Controller
+{
 
     static const std::string STRING_OPEN_LEVEL_TITLE;
 

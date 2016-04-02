@@ -30,8 +30,10 @@
 
 #include <string>
 
-namespace entities {
-class VerticalMirrorCell : public Cell {
+namespace entities
+{
+class VerticalMirrorCell : public Cell
+{
 
     static const std::string VERTICAL_MIRROR_CELL_PICTURE_PATH;
 

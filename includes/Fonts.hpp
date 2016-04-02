@@ -29,8 +29,10 @@
 
 #include <string>
 
-namespace constants {
-class Fonts {
+namespace constants
+{
+class Fonts
+{
 
 public:
 

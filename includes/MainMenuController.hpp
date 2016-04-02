@@ -35,8 +35,10 @@
 
 #include "HasMenuSelectorAnimation.hpp"
 
-namespace controllers {
-class MainMenuController : public Controller {
+namespace controllers
+{
+class MainMenuController : public Controller
+{
     friend class policies::HasMenuSelectorAnimation;
 
     static const std::string PATH_IMAGE_GITHUB;
