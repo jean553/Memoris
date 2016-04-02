@@ -28,8 +28,10 @@
 
 #include <string>
 
-namespace entities {
-class Serie {
+namespace entities
+{
+class Serie
+{
 
 public:
 

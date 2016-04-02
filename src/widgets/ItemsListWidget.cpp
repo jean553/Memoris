@@ -175,9 +175,9 @@ void ItemsListWidget::setLayout(
     ));
 
     selector.setSize(sf::Vector2f(
-        width - ITEMS_LIST_ARROW_DIM,
-        ITEMS_LIST_ITEM_HEIGHT
-    ));
+                         width - ITEMS_LIST_ARROW_DIM,
+                         ITEMS_LIST_ITEM_HEIGHT
+                     ));
 }
 
 /**
@@ -198,7 +198,8 @@ void ItemsListWidget::display(utils::Context* pContext)
     pContext->getWindow()->draw(boxLeft);
     pContext->getWindow()->draw(boxRight);
 
-    if (isMouseHover()) {
+    if (isMouseHover())
+    {
         highlightCurrentItem(pContext);
     }
 
@@ -208,13 +209,15 @@ void ItemsListWidget::display(utils::Context* pContext)
     pContext->getWindow()->draw(spriteDown);
 
     for(std::vector<std::string>::iterator textItem = stringsList.begin();
-            textItem != stringsList.end(); ++textItem) {
+            textItem != stringsList.end(); ++textItem)
+    {
 
         // do not display if the text is outside of the widget
         if (
             static_cast<unsigned long>(std::distance(stringsList.begin(), textItem)) >=
             verticalContainers
-        ) {
+        )
+        {
             return;
         }
 
@@ -263,7 +266,8 @@ bool ItemsListWidget::isMouseHover() const
         sf::Mouse::getPosition().x < horizontalPosition + width - ITEMS_LIST_ARROW_DIM &&
         sf::Mouse::getPosition().y > verticalPosition &&
         sf::Mouse::getPosition().y < verticalPosition + ITEMS_LIST_ITEM_HEIGHT * verticalContainers
-    ) {
+    )
+    {
         return true;
     }
 
@@ -285,7 +289,8 @@ void ItemsListWidget::highlightCurrentItem(utils::Context* pContext)
     if (
         selectedItemId > stringsList.size() - 1 ||
         !stringsList.size()
-    ) {
+    )
+    {
         return;
     }
 

@@ -170,17 +170,21 @@ void ButtonWidget::setText(std::string inputTextData)
  */
 void ButtonWidget::display(utils::Context* pContext)
 {
-    if(enable) {
+    if(enable)
+    {
 
         buttonText.setColor(textColor);
         background.setFillColor(backgroundColor);
 
-        if(isMouseHover()) {
+        if(isMouseHover())
+        {
 
             buttonText.setColor(textMouseHoverColor);
             background.setFillColor(backgroundMouseHoverColor);
         }
-    } else {
+    }
+    else
+    {
 
         buttonText.setColor(textColorDisable);
         background.setFillColor(backgroundColorDisable);
@@ -205,7 +209,8 @@ bool ButtonWidget::isMouseHover() const
         unsigned(sf::Mouse::getPosition().y) > verticalPosition &&
         unsigned(sf::Mouse::getPosition().y) < verticalPosition + BUTTON_FIXED_HEIGHT &&
         enable
-    ) {
+    )
+    {
         return true;
     }
 

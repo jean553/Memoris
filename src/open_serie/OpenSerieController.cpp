@@ -83,26 +83,35 @@ unsigned short OpenSerieController::render(utils::Context* pContext)
     seriesList.display(pContext);
     cursor.display(pContext);
 
-    while(pContext->getWindow()->pollEvent(event)) {
-        switch(event.type) {
-            case sf::Event::KeyPressed: {
-                switch(event.key.code) {
-                    case sf::Keyboard::Escape: {
-                        nextControllerId =
-                            factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID;
-                    }
+    while(pContext->getWindow()->pollEvent(event))
+    {
+        switch(event.type)
+        {
+        case sf::Event::KeyPressed:
+        {
+            switch(event.key.code)
+            {
+            case sf::Keyboard::Escape:
+            {
+                nextControllerId =
+                    factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID;
+            }
+            }
+        }
+        case sf::Event::MouseButtonPressed:
+        {
+            switch(event.mouseButton.button)
+            {
+            case sf::Mouse::Left:
+            {
+                if(buttonExit.isMouseHover())
+                {
+                    nextControllerId =
+                        factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID;
                 }
             }
-            case sf::Event::MouseButtonPressed: {
-                switch(event.mouseButton.button) {
-                    case sf::Mouse::Left: {
-                        if(buttonExit.isMouseHover()) {
-                            nextControllerId =
-                                factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID;
-                        }
-                    }
-                }
             }
+        }
         }
     }
 

@@ -153,15 +153,19 @@ void Cell::setPicturePath(std::string path)
  */
 void Cell::display(utils::Context* pContext)
 {
-    if (isMouseHover()) {
+    if (isMouseHover())
+    {
         sprite.setColor(transparentWhiteColor);
-    } else {
+    }
+    else
+    {
         sprite.setColor(whiteColor);
     }
 
     pContext->getWindow()->draw(sprite);
 
-    if (isSelected) {
+    if (isSelected)
+    {
         pContext->getWindow()->draw(topSelectionBar);
         pContext->getWindow()->draw(bottomSelectionBar);
         pContext->getWindow()->draw(leftSelectionBar);
@@ -179,7 +183,8 @@ bool Cell::isMouseHover() const
         sf::Mouse::getPosition().x < horizontalPosition + constants::Dimensions::CELL_PIXELS_DIMENSIONS &&
         sf::Mouse::getPosition().y > verticalPosition &&
         sf::Mouse::getPosition().y < verticalPosition + constants::Dimensions::CELL_PIXELS_DIMENSIONS
-    ) {
+    )
+    {
         return true;
     }
 
@@ -216,7 +221,8 @@ float Cell::getVerticalPosition() const
 void Cell::setLevelAddresses(
     short hAddress,
     short vAddress
-) {
+)
+{
     horizontalAddress = hAddress;
     verticalAddress = vAddress;
 }

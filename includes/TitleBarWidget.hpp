@@ -30,8 +30,10 @@
 
 #include "Widget.hpp"
 
-namespace widgets {
-class TitleBarWidget {
+namespace widgets
+{
+class TitleBarWidget
+{
 
     static const unsigned int SIZE_TITLE_BAR_TEXT_FONT;
 

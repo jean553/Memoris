@@ -66,9 +66,11 @@ Level::Level(const Level &level)
 Level::~Level()
 {
     for (std::vector<std::vector<Cell*>>::iterator line = cells.begin();
-            line != cells.end(); ++line) {
+            line != cells.end(); ++line)
+    {
         for (std::vector<Cell*>::iterator cell = line->begin();
-                cell != line->end(); ++cell) {
+                cell != line->end(); ++cell)
+        {
             delete (*cell);
         }
     }
@@ -80,9 +82,11 @@ Level::~Level()
 void Level::displayAllCells(utils::Context* pContext)
 {
     for (std::vector<std::vector<Cell*>>::iterator line = cells.begin();
-            line != cells.end(); ++line) {
+            line != cells.end(); ++line)
+    {
         for (std::vector<Cell*>::iterator cell = line->begin();
-                cell != line->end(); ++cell) {
+                cell != line->end(); ++cell)
+        {
             (*cell)->display(pContext);
         }
     }
@@ -110,10 +114,13 @@ std::string Level::getName() const
 bool Level::isMouseHover()
 {
     for (std::vector<std::vector<Cell*>>::iterator line = cells.begin();
-            line != cells.end(); ++line) {
+            line != cells.end(); ++line)
+    {
         for (std::vector<Cell*>::iterator cell = line->begin();
-                cell != line->end(); ++cell) {
-            if((*cell)->isMouseHover()) {
+                cell != line->end(); ++cell)
+        {
+            if((*cell)->isMouseHover())
+            {
                 pSelectedCell = (*cell);
                 return true;
             }
@@ -138,12 +145,14 @@ void Level::initializeWithEmptyCells()
 {
     cells.resize(constants::Dimensions::LEVEL_CELLS_WIDTH);
     for (std::vector<std::vector<Cell*>>::iterator line = cells.begin();
-            line != cells.end(); ++line) {
+            line != cells.end(); ++line)
+    {
 
         line->resize(constants::Dimensions::LEVEL_CELLS_HEIGHT);
 
         for (std::vector<Cell*>::iterator cell = line->begin();
-                cell != line->end(); ++cell) {
+                cell != line->end(); ++cell)
+        {
 
             (*cell) = new EmptyCell();
 
@@ -180,9 +189,11 @@ std::string Level::getCellsAsString()
     std::string cellsAsString;
 
     for (std::vector<std::vector<Cell*>>::iterator line = cells.begin();
-            line != cells.end(); ++line) {
+            line != cells.end(); ++line)
+    {
         for (std::vector<Cell*>::iterator cell = line->begin();
-                cell != line->end(); ++cell) {
+                cell != line->end(); ++cell)
+        {
             cellsAsString += (*cell)->IN_FILE_REPRESENTATION;
         }
     }

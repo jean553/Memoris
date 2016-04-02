@@ -41,7 +41,8 @@ sf::Clock HasMenuSelectorAnimation::clock;
 template<typename T>
 void HasMenuSelectorAnimation::animateMenuSelector(T* pMenuController)
 {
-    if(clock.getElapsedTime().asMilliseconds() <= INTERVAL_ANIMATION) {
+    if(clock.getElapsedTime().asMilliseconds() <= INTERVAL_ANIMATION)
+    {
         return;
     }
 
@@ -55,7 +56,8 @@ void HasMenuSelectorAnimation::animateMenuSelector(T* pMenuController)
     if (
         pMenuController->colorSelector.g == MINIMUM_RED_COLOR_AMOUNT ||
         pMenuController->colorSelector.g == MAXIMUM_RED_COLOR_AMOUNT
-    ) {
+    )
+    {
         pMenuController->selectorDirection *= -1;
     }
 

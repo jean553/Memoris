@@ -34,8 +34,10 @@
 
 #include "InputTextWidget.hpp"
 
-namespace controllers {
-class NewGameController : public Controller {
+namespace controllers
+{
+class NewGameController : public Controller
+{
 
     static const std::string STRING_NEW_GAME_TITLE;
     static const std::string STRING_NEW_GAME_EXPLANATION;

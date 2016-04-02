@@ -41,11 +41,13 @@ std::vector<std::string> DirReader::getAllFiles(
     dir = opendir(directory);
 
     // returns an empty array if error
-    if (dir == NULL) {
+    if (dir == NULL)
+    {
         return list;
     }
 
-    while((file = readdir(dir)) != NULL) {
+    while((file = readdir(dir)) != NULL)
+    {
 
         size_t length = strlen(file->d_name);
         size_t extensionLength = strlen(extension);
@@ -57,7 +59,8 @@ std::vector<std::string> DirReader::getAllFiles(
             strcmp(file->d_name, ".") == 0 ||
             length <= extensionLength ||
             strcmp(file->d_name + length - extensionLength, extension) != 0
-        ) {
+        )
+        {
             continue;
         }
 

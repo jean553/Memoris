@@ -35,10 +35,12 @@ using namespace utils;
 bool FileWriter::writeFile(
     std::string fileName,
     std::string content
-) {
+)
+{
     std::ofstream file(fileName, std::ofstream::out);
 
-    if (!file.is_open()) {
+    if (!file.is_open())
+    {
         return false;
     }
 

@@ -28,8 +28,10 @@
 
 #include "Context.hpp"
 
-namespace controllers {
-class Controller {
+namespace controllers
+{
+class Controller
+{
 
 public:
 

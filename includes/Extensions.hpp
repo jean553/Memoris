@@ -29,8 +29,10 @@
 
 #include <string>
 
-namespace constants {
-class Extensions {
+namespace constants
+{
+class Extensions
+{
 
 public:
 

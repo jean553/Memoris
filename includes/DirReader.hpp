@@ -32,8 +32,10 @@
 #include <dirent.h>
 #include <cstring>
 
-namespace utils {
-class DirReader {
+namespace utils
+{
+class DirReader
+{
 
 public:
 

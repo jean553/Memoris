@@ -55,7 +55,8 @@ CellSelectorWidget::CellSelectorWidget()
 void CellSelectorWidget::setPosition(
     float hPosition,
     float vPosition
-) {
+)
+{
     const float cellsDimensions =
         constants::Dimensions::CELL_PIXELS_DIMENSIONS +
         constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION;
@@ -186,58 +187,76 @@ void CellSelectorWidget::selectCellOnClick()
 {
     unselectAllCells();
 
-    if (emptyCell.isMouseHover()) {
+    if (emptyCell.isMouseHover())
+    {
         emptyCell.setSelected(true);
     }
-    else if (departureCell.isMouseHover()) {
+    else if (departureCell.isMouseHover())
+    {
         departureCell.setSelected(true);
     }
-    else if (arrivalCell.isMouseHover()) {
+    else if (arrivalCell.isMouseHover())
+    {
         arrivalCell.setSelected(true);
     }
-    else if (starCell.isMouseHover()) {
+    else if (starCell.isMouseHover())
+    {
         starCell.setSelected(true);
     }
-    else if (lifeCell.isMouseHover()) {
+    else if (lifeCell.isMouseHover())
+    {
         lifeCell.setSelected(true);
     }
-    else if (damageCell.isMouseHover()) {
+    else if (damageCell.isMouseHover())
+    {
         damageCell.setSelected(true);
     }
-    else if (moreTimeCell.isMouseHover()) {
+    else if (moreTimeCell.isMouseHover())
+    {
         moreTimeCell.setSelected(true);
     }
-    else if (lessTimeCell.isMouseHover()) {
+    else if (lessTimeCell.isMouseHover())
+    {
         lessTimeCell.setSelected(true);
     }
-    else if (floorUpCell.isMouseHover()) {
+    else if (floorUpCell.isMouseHover())
+    {
         floorUpCell.setSelected(true);
     }
-    else if (floorDownCell.isMouseHover()) {
+    else if (floorDownCell.isMouseHover())
+    {
         floorDownCell.setSelected(true);
     }
-    else if (elevatorUpCell.isMouseHover()) {
+    else if (elevatorUpCell.isMouseHover())
+    {
         elevatorUpCell.setSelected(true);
     }
-    else if (elevatorDownCell.isMouseHover()) {
+    else if (elevatorDownCell.isMouseHover())
+    {
         elevatorDownCell.setSelected(true);
     }
-    else if (quarterLeftRotateCell.isMouseHover()) {
+    else if (quarterLeftRotateCell.isMouseHover())
+    {
         quarterLeftRotateCell.setSelected(true);
     }
-    else if (quarterRightRotateCell.isMouseHover()) {
+    else if (quarterRightRotateCell.isMouseHover())
+    {
         quarterRightRotateCell.setSelected(true);
     }
-    else if (quarterHalfRotateCell.isMouseHover()) {
+    else if (quarterHalfRotateCell.isMouseHover())
+    {
         quarterHalfRotateCell.setSelected(true);
     }
-    else if (verticalMirrorCell.isMouseHover()) {
+    else if (verticalMirrorCell.isMouseHover())
+    {
         verticalMirrorCell.setSelected(true);
     }
-    else if (horizontalMirrorCell.isMouseHover()) {
+    else if (horizontalMirrorCell.isMouseHover())
+    {
         horizontalMirrorCell.setSelected(true);
     }
-    else if (wallCell.isMouseHover()) {
+    else if (wallCell.isMouseHover())
+    {
         wallCell.setSelected(true);
     }
 
@@ -290,7 +309,8 @@ bool CellSelectorWidget::isMouseHover() const
             constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION +
             constants::Dimensions::CELL_PIXELS_DIMENSIONS
         ) * ROWS_AMOUNT
-    ) {
+    )
+    {
         return true;
     }
 
@@ -302,57 +322,76 @@ bool CellSelectorWidget::isMouseHover() const
  */
 entities::Cell* CellSelectorWidget::getSelectedNewCellPointer()
 {
-    if (departureCell.getIsSelected()) {
+    if (departureCell.getIsSelected())
+    {
         return new entities::DepartureCell();
     }
-    else if (arrivalCell.getIsSelected()) {
+    else if (arrivalCell.getIsSelected())
+    {
         return new entities::ArrivalCell();
     }
-    else if (starCell.getIsSelected()) {
+    else if (starCell.getIsSelected())
+    {
         return new entities::StarCell();
     }
-    else if (lifeCell.getIsSelected()) {
+    else if (lifeCell.getIsSelected())
+    {
         return new entities::LifeCell();
     }
-    else if (damageCell.getIsSelected()) {
+    else if (damageCell.getIsSelected())
+    {
         return new entities::DamageCell();
     }
-    else if (moreTimeCell.getIsSelected()) {
+    else if (moreTimeCell.getIsSelected())
+    {
         return new entities::MoreTimeCell();
     }
-    else if (lessTimeCell.getIsSelected()) {
+    else if (lessTimeCell.getIsSelected())
+    {
         return new entities::LessTimeCell();
     }
-    else if (floorUpCell.getIsSelected()) {
+    else if (floorUpCell.getIsSelected())
+    {
         return new entities::FloorUpCell();
     }
-    else if (floorDownCell.getIsSelected()) {
+    else if (floorDownCell.getIsSelected())
+    {
         return new entities::FloorDownCell();
     }
-    else if (elevatorUpCell.getIsSelected()) {
+    else if (elevatorUpCell.getIsSelected())
+    {
         return new entities::ElevatorUpCell();
     }
-    else if (elevatorDownCell.getIsSelected()) {
+    else if (elevatorDownCell.getIsSelected())
+    {
         return new entities::ElevatorDownCell();
     }
-    else if (quarterLeftRotateCell.getIsSelected()) {
+    else if (quarterLeftRotateCell.getIsSelected())
+    {
         return new entities::QuarterLeftRotateCell();
     }
-    else if (quarterRightRotateCell.getIsSelected()) {
+    else if (quarterRightRotateCell.getIsSelected())
+    {
         return new entities::QuarterRightRotateCell();
     }
-    else if (quarterHalfRotateCell.getIsSelected()) {
+    else if (quarterHalfRotateCell.getIsSelected())
+    {
         return new entities::QuarterHalfRotateCell();
     }
-    else if (verticalMirrorCell.getIsSelected()) {
+    else if (verticalMirrorCell.getIsSelected())
+    {
         return new entities::VerticalMirrorCell();
     }
-    else if (horizontalMirrorCell.getIsSelected()) {
+    else if (horizontalMirrorCell.getIsSelected())
+    {
         return new entities::HorizontalMirrorCell();
     }
-    else if (wallCell.getIsSelected()) {
+    else if (wallCell.getIsSelected())
+    {
         return new entities::WallCell();
-    } else {
+    }
+    else
+    {
         return new entities::EmptyCell();
     }
 

@@ -173,122 +173,148 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
     cellSelector.display(pContext);
 
     // displays the input text line for new level
-    if (status == NEW_LEVEL) {
+    if (status == NEW_LEVEL)
+    {
         inputTextNew.display(pContext);
     }
 
     // displays the name of the level if one level is being edited
-    else if (status == EDIT_LEVEL) {
+    else if (status == EDIT_LEVEL)
+    {
         pContext->getWindow()->draw(levelNameLabel);
     }
 
     // displays the error message if the level name is being edited and an error occured
-    if (levelAlreadyExists) {
+    if (levelAlreadyExists)
+    {
         errorLabel.setString(STRING_NEW_LEVEL_ERROR);
     }
 
     // displays an error message if the file cannot be saved
-    if (saveLevelError) {
+    if (saveLevelError)
+    {
         errorLabel.setString(STRING_SAVE_LEVEL_ERROR);
     }
 
-    if (levelAlreadyExists || saveLevelError) {
+    if (levelAlreadyExists || saveLevelError)
+    {
         pContext->getWindow()->draw(errorLabel);
     }
 
     cursor.display(pContext);
 
-    while(pContext->getWindow()->pollEvent(event)) {
-        switch(event.type) {
-            case sf::Event::KeyPressed: {
-                switch(event.key.code) {
-                    case sf::Keyboard::Return: {
+    while(pContext->getWindow()->pollEvent(event))
+    {
+        switch(event.type)
+        {
+        case sf::Event::KeyPressed:
+        {
+            switch(event.key.code)
+            {
+            case sf::Keyboard::Return:
+            {
 
-                        if (status == NEW_LEVEL) {
+                if (status == NEW_LEVEL)
+                {
 
-                            if (levelExists(inputTextNew.getText())) {
-                                levelAlreadyExists = true;
-                                continue;
-                            }
-
-                            levelNameLabel.setString(
-                                inputTextNew.getText()
-                            );
-                            levelNameLabel.setPosition(
-                                constants::Window::WIDTH -
-                                levelNameLabel.getLocalBounds().width,
-                                constants::Dimensions::POSITION_NAME_LABEL_Y
-                            );
-
-                            level.setName(inputTextNew.getText());
-
-                            buttonSave.setEnable(true);
-
-                            levelAlreadyExists = false;
-                            status = EDIT_LEVEL;
-                        }
+                    if (levelExists(inputTextNew.getText()))
+                    {
+                        levelAlreadyExists = true;
+                        continue;
                     }
-                    default: {
 
-                        if (status == NEW_LEVEL) {
-                            inputTextNew.update(&event);
-                        }
-                    }
+                    levelNameLabel.setString(
+                        inputTextNew.getText()
+                    );
+                    levelNameLabel.setPosition(
+                        constants::Window::WIDTH -
+                        levelNameLabel.getLocalBounds().width,
+                        constants::Dimensions::POSITION_NAME_LABEL_Y
+                    );
+
+                    level.setName(inputTextNew.getText());
+
+                    buttonSave.setEnable(true);
+
+                    levelAlreadyExists = false;
+                    status = EDIT_LEVEL;
                 }
             }
-            case sf::Event::MouseButtonPressed: {
-                switch(event.mouseButton.button) {
-                    case sf::Mouse::Left: {
-                        switch(status) {
-                            case EDIT_LEVEL: {
-                                if(buttonSave.isMouseHover()) {
-                                    saveLevelError = !utils::FileWriter::writeFile(
-                                        constants::Directories::LEVELS_DIRECTORY_PATH +
-                                        level.getName() +
-                                        constants::Extensions::LEVELS_EXTENSION,
-                                        level.getCellsAsString()
-                                    );
+            default:
+            {
 
-                                    displaySavedLevelName(true);
-                                    buttonSave.setEnable(false);
-                                }
-                            }
-                            default: {
-                                if(buttonExit.isMouseHover()) {
-                                    nextControllerId =
-                                        factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
-                                }
-                                else if(buttonNew.isMouseHover()) {
-                                    status = NEW_LEVEL;
-                                }
-                                else if(buttonOpen.isMouseHover()) {
-
-                                    pContext->setPreviousControllerName(
-                                        constants::Screens::LEVEL_EDITOR_SCREEN_NAME
-                                    );
-
-                                    nextControllerId =
-                                        factories::ControllerFactory::OPEN_LEVEL_CONTROLLER_ID;
-                                }
-                                else if(cellSelector.isMouseHover() && status != MAIN_MENU) {
-                                    cellSelector.selectCellOnClick();
-                                    status = EDIT_LEVEL;
-                                }
-                                else if(level.isMouseHover() && status != MAIN_MENU) {
-                                    updateOneCell(
-                                        level.getSelectedCellPointer(),
-                                        cellSelector.getSelectedNewCellPointer()
-                                    );
-
-                                    displaySavedLevelName(false);
-                                    buttonSave.setEnable(true);
-                                }
-                            }
-                        break;
-                        }
-                    }
+                if (status == NEW_LEVEL)
+                {
+                    inputTextNew.update(&event);
                 }
             }
+            }
+        }
+        case sf::Event::MouseButtonPressed:
+        {
+            switch(event.mouseButton.button)
+            {
+            case sf::Mouse::Left:
+            {
+                switch(status)
+                {
+                case EDIT_LEVEL:
+                {
+                    if(buttonSave.isMouseHover())
+                    {
+                        saveLevelError = !utils::FileWriter::writeFile(
+                                             constants::Directories::LEVELS_DIRECTORY_PATH +
+                                             level.getName() +
+                                             constants::Extensions::LEVELS_EXTENSION,
+                                             level.getCellsAsString()
+                                         );
+
+                        displaySavedLevelName(true);
+                        buttonSave.setEnable(false);
+                    }
+                }
+                default:
+                {
+                    if(buttonExit.isMouseHover())
+                    {
+                        nextControllerId =
+                            factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
+                    }
+                    else if(buttonNew.isMouseHover())
+                    {
+                        status = NEW_LEVEL;
+                    }
+                    else if(buttonOpen.isMouseHover())
+                    {
+
+                        pContext->setPreviousControllerName(
+                            constants::Screens::LEVEL_EDITOR_SCREEN_NAME
+                        );
+
+                        nextControllerId =
+                            factories::ControllerFactory::OPEN_LEVEL_CONTROLLER_ID;
+                    }
+                    else if(cellSelector.isMouseHover() && status != MAIN_MENU)
+                    {
+                        cellSelector.selectCellOnClick();
+                        status = EDIT_LEVEL;
+                    }
+                    else if(level.isMouseHover() && status != MAIN_MENU)
+                    {
+                        updateOneCell(
+                            level.getSelectedCellPointer(),
+                            cellSelector.getSelectedNewCellPointer()
+                        );
+
+                        displaySavedLevelName(false);
+                        buttonSave.setEnable(true);
+                    }
+                }
+                break;
+                }
+            }
+            }
+        }
         }
     }
     return nextControllerId;
@@ -299,9 +325,12 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
  */
 void EditorLevelController::displaySavedLevelName(bool saved)
 {
-    if (saved) {
+    if (saved)
+    {
         levelNameLabel.setColor(levelNameLabelColor);
-    } else {
+    }
+    else
+    {
         levelNameLabel.setColor(levelNameLabelUnsavedColor);
     }
 }
@@ -324,9 +353,9 @@ bool EditorLevelController::levelExists(std::string levelName)
         );
 
     return utils::StringsListsUtils::stringsListContainsString(
-        levelsName,
-        levelName
-    );
+               levelsName,
+               levelName
+           );
 }
 
 /**
@@ -335,11 +364,13 @@ bool EditorLevelController::levelExists(std::string levelName)
 void EditorLevelController::updateOneCell(
     entities::Cell* pSelectedCell,
     entities::Cell* pCellsSelectorCell
-) {
+)
+{
     if (
         pSelectedCell == NULL ||
         pCellsSelectorCell == NULL
-    ) {
+    )
+    {
         return;
     }
 

@@ -27,8 +27,10 @@
 #ifndef DEF_POSITIONS
 #define DEF_POSITIONS
 
-namespace constants {
-class Positions {
+namespace constants
+{
+class Positions
+{
 
 public:
 

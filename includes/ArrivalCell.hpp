@@ -30,8 +30,10 @@
 
 #include <string>
 
-namespace entities {
-class ArrivalCell : public Cell {
+namespace entities
+{
+class ArrivalCell : public Cell
+{
 
     static const std::string ARRIVAL_CELL_PICTURE_PATH;
 

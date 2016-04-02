@@ -30,8 +30,10 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace policies {
-class HasMenuSelectorAnimation {
+namespace policies
+{
+class HasMenuSelectorAnimation
+{
 
 public:
 

@@ -32,8 +32,10 @@
 
 #include "Widget.hpp"
 
-namespace widgets {
-class InputTextWidget : public Widget {
+namespace widgets
+{
+class InputTextWidget : public Widget
+{
 
     static const unsigned short BOX_BORDER_LARGER;
     static const unsigned short BOX_LARGER;

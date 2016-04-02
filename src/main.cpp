@@ -67,13 +67,15 @@ int main()
     context.setWindow(&window);
     context.changeMusic(currentMusicPath);
 
-    do {
+    do
+    {
 
         window.clear();
         nextControllerId = pCurrentController->render(&context);
         window.display();
 
-        if(nextControllerId) {
+        if(nextControllerId)
+        {
 
             delete pCurrentController;
 
@@ -87,21 +89,26 @@ int main()
                     nextControllerId
                 );
 
-            if(currentMusicPath != nextMusicPath) {
+            if(currentMusicPath != nextMusicPath)
+            {
                 context.changeMusic(nextMusicPath);
                 currentMusicPath = nextMusicPath;
             }
 
             currentControllerId = nextControllerId;
 
-            if (currentControllerId == factories::ControllerFactory::EXIT) {
+            if (currentControllerId == factories::ControllerFactory::EXIT)
+            {
                 context.stopMusic();
                 window.close();
-            } else {
+            }
+            else
+            {
                 context.playScreenTransitionCommonSound();
             }
         }
-    } while (window.isOpen());
+    }
+    while (window.isOpen());
 
     return EXIT_SUCCESS;
 }

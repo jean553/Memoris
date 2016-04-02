@@ -30,8 +30,10 @@
 
 #include <string>
 
-namespace entities {
-class FloorDownCell : public Cell {
+namespace entities
+{
+class FloorDownCell : public Cell
+{
 
     static const std::string FLOOR_DOWN_CELL_PICTURE_PATH;
 

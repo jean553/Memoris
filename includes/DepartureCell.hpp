@@ -30,8 +30,10 @@
 
 #include <string>
 
-namespace entities {
-class DepartureCell : public Cell {
+namespace entities
+{
+class DepartureCell : public Cell
+{
 
     static const std::string DEPARTURE_CELL_PICTURE_PATH;
 

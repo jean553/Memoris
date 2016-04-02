@@ -33,8 +33,10 @@
 
 #include "Context.hpp"
 
-namespace entities {
-class Level {
+namespace entities
+{
+class Level
+{
 
 public:
 

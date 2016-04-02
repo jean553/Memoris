@@ -29,14 +29,16 @@
 
 #include <string>
 
-namespace constants {
-class Window {
+namespace constants
+{
+class Window
+{
 
 public:
 
-    static const unsigned short WIDTH; 
-    static const unsigned short HEIGHT; 
-    static const unsigned short RESOLUTION; 
+    static const unsigned short WIDTH;
+    static const unsigned short HEIGHT;
+    static const unsigned short RESOLUTION;
 
     static const std::string TITLE;
 };

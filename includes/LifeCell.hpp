@@ -30,8 +30,10 @@
 
 #include <string>
 
-namespace entities {
-class LifeCell : public Cell {
+namespace entities
+{
+class LifeCell : public Cell
+{
 
     static const std::string LIFE_CELL_PICTURE_PATH;
 

@@ -27,8 +27,10 @@
 #ifndef DEF_DIMENSIONS
 #define DEF_DIMENSIONS
 
-namespace constants {
-class Dimensions {
+namespace constants
+{
+class Dimensions
+{
 
 public:
 

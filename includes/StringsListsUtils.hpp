@@ -29,8 +29,10 @@
 #include <vector>
 #include <string>
 
-namespace utils {
-class StringsListsUtils {
+namespace utils
+{
+class StringsListsUtils
+{
 
 public:
 

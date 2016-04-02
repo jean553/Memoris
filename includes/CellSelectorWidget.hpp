@@ -51,8 +51,10 @@
 #include "VerticalMirrorCell.hpp"
 #include "HorizontalMirrorCell.hpp"
 
-namespace widgets {
-class CellSelectorWidget : public Widget {
+namespace widgets
+{
+class CellSelectorWidget : public Widget
+{
 
 public:
 

@@ -31,7 +31,8 @@ using namespace utils;
 
 bool StringsListsUtils::stringsListContainsString(std::vector<std::string> list, std::string value)
 {
-    if (find(list.begin(), list.end(), value) != list.end()) {
+    if (find(list.begin(), list.end(), value) != list.end())
+    {
         return true;
     }
 

@@ -50,22 +50,23 @@ controllers::Controller* ControllerFactory::getControllerById(
     unsigned short id
 )
 {
-    switch(id) {
-        case MAIN_MENU_CONTROLLER_ID:
-            return new controllers::MainMenuController;
-        case NEW_GAME_CONTROLLER_ID:
-            return new controllers::NewGameController;
-        case EDITOR_MENU_CONTROLLER_ID:
-            return new controllers::EditorMenuController;
-        case EDITOR_SERIE_CONTROLLER_ID:
-            return new controllers::EditorSerieController;
-        case OPEN_SERIE_CONTROLLER_ID:
-            return new controllers::OpenSerieController;
-        case EDITOR_LEVEL_CONTROLLER_ID:
-            return new controllers::EditorLevelController;
-        case OPEN_LEVEL_CONTROLLER_ID:
-            return new controllers::OpenLevelController;
-        default:
-            return NULL;
+    switch(id)
+    {
+    case MAIN_MENU_CONTROLLER_ID:
+        return new controllers::MainMenuController;
+    case NEW_GAME_CONTROLLER_ID:
+        return new controllers::NewGameController;
+    case EDITOR_MENU_CONTROLLER_ID:
+        return new controllers::EditorMenuController;
+    case EDITOR_SERIE_CONTROLLER_ID:
+        return new controllers::EditorSerieController;
+    case OPEN_SERIE_CONTROLLER_ID:
+        return new controllers::OpenSerieController;
+    case EDITOR_LEVEL_CONTROLLER_ID:
+        return new controllers::EditorLevelController;
+    case OPEN_LEVEL_CONTROLLER_ID:
+        return new controllers::OpenLevelController;
+    default:
+        return NULL;
     }
 }

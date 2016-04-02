@@ -28,8 +28,8 @@
 
 using namespace constants;
 
-const unsigned short Window::WIDTH = 1600; 
-const unsigned short Window::HEIGHT = 900; 
-const unsigned short Window::RESOLUTION = 32; 
+const unsigned short Window::WIDTH = 1600;
+const unsigned short Window::HEIGHT = 900;
+const unsigned short Window::RESOLUTION = 32;
 
 const std::string Window::TITLE = "Memoris";

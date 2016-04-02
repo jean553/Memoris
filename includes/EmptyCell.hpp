@@ -30,8 +30,10 @@
 
 #include <string>
 
-namespace entities {
-class EmptyCell : public Cell {
+namespace entities
+{
+class EmptyCell : public Cell
+{
 
     static const std::string EMPTY_CELL_PICTURE_PATH;
 

@@ -40,8 +40,10 @@
 
 #include "Level.hpp"
 
-namespace controllers {
-class EditorLevelController : public Controller {
+namespace controllers
+{
+class EditorLevelController : public Controller
+{
 
     static const std::string EDITOR_LEVEL_BUTTON_EXIT_TEXT;
     static const std::string EDITOR_LEVEL_BUTTON_NEW_TEXT;
@@ -86,7 +88,8 @@ public:
 
 private:
 
-    enum EditorLevelStatus {
+    enum EditorLevelStatus
+    {
         MAIN_MENU,
         NEW_LEVEL,
         EDIT_LEVEL

@@ -62,7 +62,8 @@ void Context::setWindow(sf::RenderWindow* commonWindow)
  */
 void Context::changeMusic(std::string musicPath)
 {
-    if(musicPath.empty()) {
+    if(musicPath.empty())
+    {
         return;
     }
 
@@ -77,7 +78,8 @@ void Context::changeMusic(std::string musicPath)
  */
 void Context::stopMusic()
 {
-    if(music.getStatus() == sf::Sound::Playing) {
+    if(music.getStatus() == sf::Sound::Playing)
+    {
         music.stop();
     }
 }
