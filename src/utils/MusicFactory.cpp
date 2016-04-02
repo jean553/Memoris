@@ -49,7 +49,8 @@ std::string MusicFactory::getMusicPathById(
     if (
         id == ControllerFactory::EDITOR_LEVEL_CONTROLLER_ID || 
         id == ControllerFactory::EDITOR_SERIE_CONTROLLER_ID ||
-        id == ControllerFactory::OPEN_LEVEL_CONTROLLER_ID
+        id == ControllerFactory::OPEN_LEVEL_CONTROLLER_ID ||
+        id == ControllerFactory::OPEN_SERIE_CONTROLLER_ID
     ) {
         return EDITOR_MUSIC_PATH;
     }
