@@ -67,6 +67,8 @@ ItemsListWidget::ItemsListWidget()
 
     textureDown.loadFromFile(PATH_IMAGE_ARROW_DOWN);
     spriteDown.setTexture(textureDown, true);
+
+    startingItem = 0;
 }
 
 /**
@@ -165,14 +167,14 @@ void ItemsListWidget::setLayout(
                      ));
 
     arrowUpSelector.setSize(sf::Vector2f(
-        ITEMS_LIST_ARROW_DIM,
-        ITEMS_LIST_ARROW_DIM
-    ));
+                                ITEMS_LIST_ARROW_DIM,
+                                ITEMS_LIST_ARROW_DIM
+                            ));
 
     arrowDownSelector.setSize(sf::Vector2f(
-        ITEMS_LIST_ARROW_DIM,
-        ITEMS_LIST_ARROW_DIM
-    ));
+                                  ITEMS_LIST_ARROW_DIM,
+                                  ITEMS_LIST_ARROW_DIM
+                              ));
 
     selector.setSize(sf::Vector2f(
                          width - ITEMS_LIST_ARROW_DIM,
@@ -211,19 +213,24 @@ void ItemsListWidget::display(utils::Context* pContext)
     for(std::vector<std::string>::iterator textItem = stringsList.begin();
             textItem != stringsList.end(); ++textItem)
     {
+        unsigned long index =
+            static_cast<unsigned long>(std::distance(stringsList.begin(), textItem));
 
-        // do not display if the text is outside of the widget
+        // do not display items that are out of the box
         if (
-            static_cast<unsigned long>(std::distance(stringsList.begin(), textItem)) >=
-            verticalContainers
+            index < startingItem ||
+            index >= verticalContainers + startingItem
         )
         {
-            return;
+            continue;
         }
 
-        float itemsCommonVerticalPosition = verticalPosition +
-                                            (static_cast<float> (std::distance(stringsList.begin(), textItem))) *
-                                            ITEMS_LIST_ITEM_HEIGHT;
+        float itemsCommonVerticalPosition =
+            verticalPosition +
+            (static_cast<float>(index)) *
+            ITEMS_LIST_ITEM_HEIGHT -
+            startingItem *
+            ITEMS_LIST_ITEM_HEIGHT;
 
         sf::Text item;
 
@@ -263,9 +270,15 @@ bool ItemsListWidget::isMouseHover() const
 {
     if (
         sf::Mouse::getPosition().x > horizontalPosition &&
-        sf::Mouse::getPosition().x < horizontalPosition + width - ITEMS_LIST_ARROW_DIM &&
+        sf::Mouse::getPosition().x <
+        horizontalPosition +
+        width -
+        ITEMS_LIST_ARROW_DIM &&
         sf::Mouse::getPosition().y > verticalPosition &&
-        sf::Mouse::getPosition().y < verticalPosition + ITEMS_LIST_ITEM_HEIGHT * verticalContainers
+        sf::Mouse::getPosition().y <
+        verticalPosition +
+        ITEMS_LIST_ITEM_HEIGHT *
+        verticalContainers
     )
     {
         return true;
@@ -308,38 +321,86 @@ void ItemsListWidget::highlightCurrentItem(utils::Context* pContext)
  */
 void ItemsListWidget::highlightArrows(utils::Context* pContext)
 {
+    if (isMouseHoverArrowUp())
+    {
+        pContext->getWindow()->draw(arrowUpSelector);
+    }
+    else if (isMouseHoverArrowDown())
+    {
+        pContext->getWindow()->draw(arrowDownSelector);
+    }
+}
+
+/**
+ *
+ */
+bool ItemsListWidget::isMouseHoverArrowDown() const
+{
     if (
         sf::Mouse::getPosition().x >
-            horizontalPosition +
-            width -
-            ITEMS_LIST_ARROW_DIM &&
+        horizontalPosition +
+        width -
+        ITEMS_LIST_ARROW_DIM &&
         sf::Mouse::getPosition().x <
-            horizontalPosition +
-            width &&
+        horizontalPosition +
+        width &&
+        sf::Mouse::getPosition().y >
+        verticalPosition +
+        verticalContainers *
+        ITEMS_LIST_ITEM_HEIGHT -
+        ITEMS_LIST_ARROW_DIM &&
+        sf::Mouse::getPosition().y <
+        verticalPosition +
+        verticalContainers *
+        ITEMS_LIST_ITEM_HEIGHT
+    )
+    {
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ *
+ */
+bool ItemsListWidget::isMouseHoverArrowUp() const
+{
+    if (
+        sf::Mouse::getPosition().x >
+        horizontalPosition +
+        width -
+        ITEMS_LIST_ARROW_DIM &&
+        sf::Mouse::getPosition().x <
+        horizontalPosition +
+        width &&
         sf::Mouse::getPosition().y > verticalPosition &&
         sf::Mouse::getPosition().y <
-            verticalPosition +
-            ITEMS_LIST_ARROW_DIM
-    ) {
-        pContext->getWindow()->draw(arrowUpSelector);
-    } else if (
-        sf::Mouse::getPosition().x >
-            horizontalPosition +
-            width -
-            ITEMS_LIST_ARROW_DIM &&
-        sf::Mouse::getPosition().x <
-            horizontalPosition +
-            width &&
-        sf::Mouse::getPosition().y >
-            verticalPosition +
-            verticalContainers *
-            ITEMS_LIST_ITEM_HEIGHT -
-            ITEMS_LIST_ARROW_DIM &&
-        sf::Mouse::getPosition().y <
-            verticalPosition +
-            verticalContainers *
-            ITEMS_LIST_ITEM_HEIGHT
-    ) {
-        pContext->getWindow()->draw(arrowDownSelector);
+        verticalPosition +
+        ITEMS_LIST_ARROW_DIM
+    )
+    {
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ *
+ */
+void ItemsListWidget::scroll()
+{
+    if (
+        isMouseHoverArrowDown() &&
+        stringsList.size() - startingItem != verticalContainers &&
+        stringsList.size() > verticalContainers
+    )
+    {
+        startingItem++;
+    }
+    else if (isMouseHoverArrowUp() && startingItem)
+    {
+        startingItem--;
     }
 }

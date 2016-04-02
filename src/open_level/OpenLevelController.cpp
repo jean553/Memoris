@@ -87,6 +87,16 @@ unsigned short OpenLevelController::render(utils::Context* pContext)
             }
             }
         }
+        case sf::Event::MouseButtonPressed:
+        {
+            switch(event.mouseButton.button)
+            {
+            case sf::Mouse::Left:
+            {
+                levelsList.scroll();
+            }
+            }
+        }
         }
     }
 

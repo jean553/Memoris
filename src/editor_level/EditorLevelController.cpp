@@ -213,10 +213,8 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
             {
             case sf::Keyboard::Return:
             {
-
                 if (status == NEW_LEVEL)
                 {
-
                     if (levelExists(inputTextNew.getText()))
                     {
                         levelAlreadyExists = true;
