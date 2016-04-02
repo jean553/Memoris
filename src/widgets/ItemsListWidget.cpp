@@ -59,6 +59,8 @@ ItemsListWidget::ItemsListWidget()
     boxLeft.setFillColor(color);
     boxRight.setFillColor(color);
     selector.setFillColor(selectorColor);
+    arrowUpSelector.setFillColor(selectorColor);
+    arrowDownSelector.setFillColor(selectorColor);
 
     textureUp.loadFromFile(PATH_IMAGE_ARROW_UP);
     spriteUp.setTexture(textureUp, true);
@@ -113,6 +115,16 @@ void ItemsListWidget::setLayout(
         verticalPosition
     );
 
+    arrowUpSelector.setPosition(
+        horizontalPosition + width - ITEMS_LIST_ARROW_DIM,
+        verticalPosition
+    );
+
+    arrowDownSelector.setPosition(
+        horizontalPosition + width - ITEMS_LIST_ARROW_DIM,
+        verticalPosition + ITEMS_LIST_ITEM_HEIGHT * verticalContainers - ITEMS_LIST_ARROW_DIM
+    );
+
     spriteUp.setPosition(
         horizontalPosition +
         width -
@@ -152,6 +164,16 @@ void ItemsListWidget::setLayout(
                          ITEMS_LIST_ITEM_HEIGHT
                      ));
 
+    arrowUpSelector.setSize(sf::Vector2f(
+        ITEMS_LIST_ARROW_DIM,
+        ITEMS_LIST_ARROW_DIM
+    ));
+
+    arrowDownSelector.setSize(sf::Vector2f(
+        ITEMS_LIST_ARROW_DIM,
+        ITEMS_LIST_ARROW_DIM
+    ));
+
     selector.setSize(sf::Vector2f(
         width - ITEMS_LIST_ARROW_DIM,
         ITEMS_LIST_ITEM_HEIGHT
@@ -179,6 +201,8 @@ void ItemsListWidget::display(utils::Context* pContext)
     if (isMouseHover()) {
         highlightCurrentItem(pContext);
     }
+
+    highlightArrows(pContext);
 
     pContext->getWindow()->draw(spriteUp);
     pContext->getWindow()->draw(spriteDown);
@@ -236,7 +260,7 @@ bool ItemsListWidget::isMouseHover() const
 {
     if (
         sf::Mouse::getPosition().x > horizontalPosition &&
-        sf::Mouse::getPosition().x < horizontalPosition + width &&
+        sf::Mouse::getPosition().x < horizontalPosition + width - ITEMS_LIST_ARROW_DIM &&
         sf::Mouse::getPosition().y > verticalPosition &&
         sf::Mouse::getPosition().y < verticalPosition + ITEMS_LIST_ITEM_HEIGHT * verticalContainers
     ) {
@@ -272,4 +296,45 @@ void ItemsListWidget::highlightCurrentItem(utils::Context* pContext)
     );
 
     pContext->getWindow()->draw(selector);
+}
+
+/**
+ *
+ */
+void ItemsListWidget::highlightArrows(utils::Context* pContext)
+{
+    if (
+        sf::Mouse::getPosition().x >
+            horizontalPosition +
+            width -
+            ITEMS_LIST_ARROW_DIM &&
+        sf::Mouse::getPosition().x <
+            horizontalPosition +
+            width &&
+        sf::Mouse::getPosition().y > verticalPosition &&
+        sf::Mouse::getPosition().y <
+            verticalPosition +
+            ITEMS_LIST_ARROW_DIM
+    ) {
+        pContext->getWindow()->draw(arrowUpSelector);
+    } else if (
+        sf::Mouse::getPosition().x >
+            horizontalPosition +
+            width -
+            ITEMS_LIST_ARROW_DIM &&
+        sf::Mouse::getPosition().x <
+            horizontalPosition +
+            width &&
+        sf::Mouse::getPosition().y >
+            verticalPosition +
+            verticalContainers *
+            ITEMS_LIST_ITEM_HEIGHT -
+            ITEMS_LIST_ARROW_DIM &&
+        sf::Mouse::getPosition().y <
+            verticalPosition +
+            verticalContainers *
+            ITEMS_LIST_ITEM_HEIGHT
+    ) {
+        pContext->getWindow()->draw(arrowDownSelector);
+    }
 }

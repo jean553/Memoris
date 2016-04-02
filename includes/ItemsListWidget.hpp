@@ -93,8 +93,17 @@ protected:
 
     /**
      * @brief highlight the current selected item of the list
+     *
+     * @param pContext  current pContext pointer
      */
     void highlightCurrentItem(utils::Context* pContext);
+
+    /**
+     * @brief highlight the widget arrows if mouse is hover
+     *
+     * @param pContext  current pContext pointer
+     */
+    void highlightArrows(utils::Context* pContext);
 
     static const std::string PATH_IMAGE_ARROW_UP;
     static const std::string PATH_IMAGE_ARROW_DOWN;
@@ -109,6 +118,8 @@ protected:
     sf::RectangleShape boxLeft;
     sf::RectangleShape boxRight;
     sf::RectangleShape selector;
+    sf::RectangleShape arrowUpSelector;
+    sf::RectangleShape arrowDownSelector;
 
     sf::Texture textureUp;
     sf::Texture textureDown;
