@@ -85,6 +85,20 @@ public:
      */
     std::string getPreviousControllerName();
 
+    /**
+     * @brief setter for the context message
+     *
+     * @param messageValue a message sent from the current container to the next container
+     */
+    void setMessage(std::string messageValue);
+
+    /**
+     * @brief getter for the context message
+     *
+     * @return string
+     */
+    std::string getMessage();
+
 private:
 
     sf::RenderWindow* pWindow;
@@ -96,6 +110,7 @@ private:
     sf::Sound soundScreenTransition;
 
     std::string previousControllerName;
+    std::string message;
 };
 }
 

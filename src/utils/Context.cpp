@@ -107,3 +107,19 @@ std::string Context::getPreviousControllerName()
 {
     return previousControllerName;
 }
+
+/**
+ *
+ */
+void Context::setMessage(std::string messageValue)
+{
+    message = messageValue;
+}
+
+/**
+ *
+ */
+std::string Context::getMessage()
+{
+    return message;
+}
