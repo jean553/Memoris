@@ -69,6 +69,7 @@ ItemsListWidget::ItemsListWidget()
     spriteDown.setTexture(textureDown, true);
 
     startingItem = 0;
+    selectedItem = 0;
 }
 
 /**
@@ -314,6 +315,10 @@ void ItemsListWidget::highlightCurrentItem(utils::Context* pContext)
     );
 
     pContext->getWindow()->draw(selector);
+
+    // TODO: use the same variable, should be refactored,
+    // use a second separated variable to avoid all casting problems
+    selectedItem = selectedItemId;
 }
 
 /**
@@ -403,4 +408,12 @@ void ItemsListWidget::scroll()
     {
         startingItem--;
     }
+}
+
+/**
+ *
+ */
+std::string ItemsListWidget::getSelectedItemValue()
+{
+    return stringsList[selectedItem];
 }

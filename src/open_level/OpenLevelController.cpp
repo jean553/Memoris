@@ -79,11 +79,7 @@ unsigned short OpenLevelController::render(utils::Context* pContext)
             {
             case sf::Keyboard::Escape:
             {
-
-                // the next controller id depends of the previous controller ( serie editor or level editor )
-                nextControllerId = pContext->getPreviousControllerName() == constants::Screens::SERIE_EDITOR_SCREEN_NAME ?
-                                   factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID :
-                                   factories::ControllerFactory::EDITOR_LEVEL_CONTROLLER_ID;
+                changeNextControllerId(pContext);
             }
             }
         }
@@ -93,6 +89,10 @@ unsigned short OpenLevelController::render(utils::Context* pContext)
             {
             case sf::Mouse::Left:
             {
+                if (levelsList.isMouseHover()) {
+                    pContext->setMessage(levelsList.getSelectedItemValue());
+                    changeNextControllerId(pContext);
+                }
                 levelsList.scroll();
             }
             }
@@ -101,4 +101,14 @@ unsigned short OpenLevelController::render(utils::Context* pContext)
     }
 
     return nextControllerId;
+}
+
+/**
+ *
+ */
+void OpenLevelController::changeNextControllerId(utils::Context* pContext)
+{
+    nextControllerId = pContext->getPreviousControllerName() == constants::Screens::SERIE_EDITOR_SCREEN_NAME ?
+                       factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID :
+                       factories::ControllerFactory::EDITOR_LEVEL_CONTROLLER_ID;
 }

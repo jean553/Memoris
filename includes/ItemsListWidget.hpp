@@ -97,6 +97,13 @@ public:
      */
     void scroll();
 
+    /**
+     * @brief returns the string of the current selected item
+     *
+     * @return selected item string
+     */
+    std::string getSelectedItemValue();
+
 protected:
 
     /**
@@ -139,6 +146,7 @@ protected:
 
     unsigned short verticalContainers;
     unsigned short startingItem;
+    unsigned short selectedItem;
 
     std::vector<std::string> stringsList;
 
