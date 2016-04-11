@@ -89,7 +89,8 @@ unsigned short OpenLevelController::render(utils::Context* pContext)
             {
             case sf::Mouse::Left:
             {
-                if (levelsList.isMouseHover()) {
+                if (levelsList.isMouseHover())
+                {
                     pContext->setMessage(levelsList.getSelectedItemValue());
                     changeNextControllerId(pContext);
                 }
