@@ -55,11 +55,17 @@ public:
      *
      * @return short   id of the next screen controller
      */
-    unsigned short render(
-        utils::Context* pContext
-    );
+    unsigned short render(utils::Context* pContext);
 
 private:
+
+    /**
+     * @brief modifies the value of the next controller according of
+     * the controller that called the current one
+     *
+     * @param pContext current context pointer
+     */
+    void changeNextControllerId(utils::Context* pContext);
 
     widgets::TitleBarWidget titleBar;
 
