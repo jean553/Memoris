@@ -29,3 +29,4 @@
 using namespace constants;
 
 const std::string Messages::SELECTED_LEVEL_MESSAGE = "selected-level";
+const std::string Messages::OPEN_SERIE_MESSAGE = "open-serie";
