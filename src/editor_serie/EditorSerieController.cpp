@@ -35,6 +35,7 @@
 #include "FileWriter.hpp"
 #include "ControllerFactory.hpp"
 #include "Screens.hpp"
+#include "Messages.hpp"
 
 using namespace controllers;
 
@@ -347,6 +348,11 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
 
                         pContext->setPreviousControllerName(
                             constants::Screens::SERIE_EDITOR_SCREEN_NAME
+                        );
+
+                        pContext->addMessageByName(
+                            constants::Messages::OPEN_SERIE_MESSAGE,
+                            serie.getName()
                         );
 
                         nextControllerId =

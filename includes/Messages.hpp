@@ -36,6 +36,7 @@ class Messages
 public:
 
     static const std::string SELECTED_LEVEL_MESSAGE;
+    static const std::string OPEN_SERIE_MESSAGE;
 };
 }
 
