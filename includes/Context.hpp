@@ -30,6 +30,7 @@
 #define DEF_CONTEXT
 
 #include <string>
+#include <map>
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -86,18 +87,24 @@ public:
     std::string getPreviousControllerName();
 
     /**
-     * @brief setter for the context message
+     * @brief add a message into the context
      *
+     * @param messageName name of the message
      * @param messageValue a message sent from the current container to the next container
      */
-    void setMessage(std::string messageValue);
+    void addMessageByName(
+        std::string messageName,
+        std::string messageValue
+    );
 
     /**
-     * @brief getter for the context message
+     * @brief returns a message by name
+     *
+     * @param messageName name of the message to return
      *
      * @return string
      */
-    std::string getMessage();
+    std::string getMessageByName(std::string messageName);
 
 private:
 
@@ -110,7 +117,8 @@ private:
     sf::Sound soundScreenTransition;
 
     std::string previousControllerName;
-    std::string message;
+
+    std::map<std::string, std::string> messages;
 };
 }
 

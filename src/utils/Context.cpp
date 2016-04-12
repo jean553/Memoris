@@ -111,15 +111,21 @@ std::string Context::getPreviousControllerName()
 /**
  *
  */
-void Context::setMessage(std::string messageValue)
+void Context::addMessageByName(
+    std::string messageName,
+    std::string messageValue
+)
 {
-    message = messageValue;
+    messages.insert(std::pair<std::string, std::string>(
+                        messageName,
+                        messageValue
+                    ));
 }
 
 /**
  *
  */
-std::string Context::getMessage()
+std::string Context::getMessageByName(std::string messageName)
 {
-    return message;
+    return messages.at(messageName);
 }
