@@ -26,6 +26,7 @@
 #include "ControllerFactory.hpp"
 #include "DirReader.hpp"
 #include "Screens.hpp"
+#include "Messages.hpp"
 
 using namespace controllers;
 
@@ -91,7 +92,10 @@ unsigned short OpenLevelController::render(utils::Context* pContext)
             {
                 if (levelsList.isMouseHover())
                 {
-                    pContext->setMessage(levelsList.getSelectedItemValue());
+                    pContext->addMessageByName(
+                        constants::Messages::SELECTED_LEVEL_MESSAGE,
+                        levelsList.getSelectedItemValue()
+                    );
                     changeNextControllerId(pContext);
                 }
                 levelsList.scroll();
