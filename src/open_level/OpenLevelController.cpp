@@ -113,7 +113,7 @@ unsigned short OpenLevelController::render(utils::Context* pContext)
  */
 void OpenLevelController::changeNextControllerId(utils::Context* pContext)
 {
-    nextControllerId = pContext->getPreviousControllerName() == constants::Screens::SERIE_EDITOR_SCREEN_NAME ?
+    nextControllerId = pContext->getMessageByName(constants::Messages::PREVIOUS_CONTROLLER_MESSAGE) == constants::Screens::SERIE_EDITOR_SCREEN_NAME ?
                        factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID :
                        factories::ControllerFactory::EDITOR_LEVEL_CONTROLLER_ID;
 }

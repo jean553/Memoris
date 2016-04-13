@@ -26,7 +26,6 @@
  */
 
 #include "EditorLevelController.hpp"
-
 #include "Positions.hpp"
 #include "Dimensions.hpp"
 #include "Window.hpp"
@@ -39,6 +38,7 @@
 #include "FileWriter.hpp"
 #include "ControllerFactory.hpp"
 #include "Screens.hpp"
+#include "Messages.hpp"
 
 using namespace controllers;
 
@@ -285,7 +285,8 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
                     else if(buttonOpen.isMouseHover())
                     {
 
-                        pContext->setPreviousControllerName(
+                        pContext->addMessageByName(
+                            constants::Messages::PREVIOUS_CONTROLLER_MESSAGE,
                             constants::Screens::LEVEL_EDITOR_SCREEN_NAME
                         );
 
