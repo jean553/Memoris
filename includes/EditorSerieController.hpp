@@ -32,9 +32,7 @@
 
 #include "Controller.hpp"
 #include "Context.hpp"
-
 #include "Serie.hpp"
-
 #include "TitleBarWidget.hpp"
 #include "ButtonWidget.hpp"
 #include "CursorWidget.hpp"
@@ -54,7 +52,6 @@ class EditorSerieController : public Controller
     static const std::string EDITOR_SERIE_BUTTON_EXIT_TEXT;
     static const std::string STRING_OK;
     static const std::string STRING_CANCEL;
-
     static const std::string STRING_NEW_SERIE_ERROR;
     static const std::string STRING_NEW_LEVEL_ERROR;
 
@@ -63,35 +60,26 @@ class EditorSerieController : public Controller
     static const unsigned short EDITOR_SERIE_BUTTON_OPEN_POSITION_X;
     static const unsigned short EDITOR_SERIE_BUTTON_SAVE_POSITION_X;
     static const unsigned short EDITOR_SERIE_BUTTON_ADD_POSITION_X;
-
     static const unsigned short EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_X;
     static const unsigned short EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_Y;
-
     static const unsigned short EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_X;
     static const unsigned short EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_Y;
-
     static const unsigned short LEVELS_LIST_POSITION_X;
     static const unsigned short LEVELS_LIST_POSITION_Y;
-
     static const unsigned short LEVELS_LIST_WIDTH;
-
     static const unsigned short LEVELS_LIST_LEVELS_NUMBER;
-
     static const unsigned short POSITION_NEW_SERIE_INPUT_TEXT_X;
     static const unsigned short POSITION_NEW_SERIE_INPUT_TEXT_Y;
-
     static const unsigned short SIZE_NEW_SERIE_TEXT;
-
     static const unsigned short ERROR_MESSAGE_POSITION_X;
     static const unsigned short ERROR_MESSAGE_POSITION_Y;
 
 public:
 
     /**
-     * @param serieName name of the serie to open,
-     * use a blank serie if the serie name is empty
+     * @param pContext pointer to the current context
      */
-    EditorSerieController(std::string serieName = "");
+    EditorSerieController(utils::Context* pContext);
 
     /**
      * @brief render the serie editor screen
@@ -100,9 +88,7 @@ public:
      *
      * @return short   id of the next screen controller
      */
-    unsigned short render(
-        utils::Context* pContext
-    );
+    unsigned short render(utils::Context* pContext);
 
 private:
 
@@ -185,6 +171,18 @@ private:
      * @brief update the position of the serie name label
      */
     void updateSerieNameLabelPosition();
+
+    /**
+     * @brief initialize the serie editor if one serie is already opened,
+     * only used if the controller has been called after the OpenLevel one
+     */
+    void initializeOpenedSerie(utils::Context* pContext);
+
+    /**
+     * @brief add a new level automatically inside the levels list,
+     * only used if the controller has been called after the OpenLevel one
+     */
+    void addSelectedLevel(utils::Context* pContext);
 };
 }
 
