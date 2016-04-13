@@ -275,6 +275,8 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
                 {
                     if(buttonExit.isMouseHover())
                     {
+                        pContext->removeAllMessages();
+
                         nextControllerId =
                             factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
                     }

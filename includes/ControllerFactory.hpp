@@ -29,6 +29,7 @@
 #define DEF_SCREEN_FACTORY
 
 #include "Controller.hpp"
+#include "Context.hpp"
 
 namespace factories
 {
@@ -53,11 +54,15 @@ public:
      * generation and screens switching.
      *
      * @param id      screen id
+     * @param pContext current context
      *
      * @return screen controller pointer,
      * returns null if no screen match
      */
-    static controllers::Controller* getControllerById(unsigned short id);
+    static controllers::Controller* getControllerById(
+        unsigned short id,
+        utils::Context* pContext
+    );
 };
 }
 

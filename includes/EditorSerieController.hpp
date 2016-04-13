@@ -87,7 +87,11 @@ class EditorSerieController : public Controller
 
 public:
 
-    EditorSerieController();
+    /**
+     * @param serieName name of the serie to open,
+     * use a blank serie if the serie name is empty
+     */
+    EditorSerieController(std::string serieName = "");
 
     /**
      * @brief render the serie editor screen
@@ -176,6 +180,11 @@ private:
      * @param saved true if saved, false if unsaved
      */
     void displaySavedSerieName(bool saved);
+
+    /**
+     * @brief update the position of the serie name label
+     */
+    void updateSerieNameLabelPosition();
 };
 }
 

@@ -29,7 +29,6 @@
 #include "MusicFactory.hpp"
 #include "Controller.hpp"
 #include "Context.hpp"
-
 #include "Window.hpp"
 
 /**
@@ -47,11 +46,6 @@ int main()
         );
     std::string nextMusicPath;
 
-    controllers::Controller* pCurrentController =
-        factories::ControllerFactory::getControllerById(
-            currentControllerId
-        );
-
     sf::RenderWindow window(
         sf::VideoMode(
             constants::Window::WIDTH,
@@ -68,6 +62,12 @@ int main()
     context.setWindow(&window);
     context.changeMusic(currentMusicPath);
 
+    controllers::Controller* pCurrentController =
+        factories::ControllerFactory::getControllerById(
+            currentControllerId,
+            &context
+        );
+
     do
     {
 
@@ -82,7 +82,8 @@ int main()
 
             pCurrentController =
                 factories::ControllerFactory::getControllerById(
-                    nextControllerId
+                    nextControllerId,
+                    &context
                 );
 
             nextMusicPath =
