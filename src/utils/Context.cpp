@@ -95,22 +95,6 @@ void Context::playScreenTransitionCommonSound()
 /**
  *
  */
-void Context::setPreviousControllerName(std::string previousControllerNameValue)
-{
-    previousControllerName = previousControllerNameValue;
-}
-
-/**
- *
- */
-std::string Context::getPreviousControllerName()
-{
-    return previousControllerName;
-}
-
-/**
- *
- */
 void Context::addMessageByName(
     std::string messageName,
     std::string messageValue

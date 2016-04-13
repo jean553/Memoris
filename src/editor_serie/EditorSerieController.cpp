@@ -345,8 +345,8 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
                     }
                     if(buttonAdd.isMouseHover())
                     {
-
-                        pContext->setPreviousControllerName(
+                        pContext->addMessageByName(
+                            constants::Messages::PREVIOUS_CONTROLLER_MESSAGE,
                             constants::Screens::SERIE_EDITOR_SCREEN_NAME
                         );
 
