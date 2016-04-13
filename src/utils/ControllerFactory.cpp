@@ -60,9 +60,7 @@ controllers::Controller* ControllerFactory::getControllerById(
     case EDITOR_MENU_CONTROLLER_ID:
         return new controllers::EditorMenuController;
     case EDITOR_SERIE_CONTROLLER_ID:
-        return new controllers::EditorSerieController(
-                   pContext->getMessageByName(constants::Messages::OPEN_SERIE_MESSAGE)
-               );
+        return new controllers::EditorSerieController(pContext);
     case OPEN_SERIE_CONTROLLER_ID:
         return new controllers::OpenSerieController;
     case EDITOR_LEVEL_CONTROLLER_ID:

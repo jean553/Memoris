@@ -72,7 +72,7 @@ const unsigned short EditorSerieController::ERROR_MESSAGE_POSITION_Y = 200;
 /**
  *
  */
-EditorSerieController::EditorSerieController(std::string serieName) : Controller()
+EditorSerieController::EditorSerieController(utils::Context* pContext) : Controller()
 {
     errorNewSerie = false;
     errorNewLevel = false;
@@ -161,7 +161,6 @@ EditorSerieController::EditorSerieController(std::string serieName) : Controller
 
     serieNameLabelFont.loadFromFile(constants::Fonts::getTextFontPath());
 
-    serieNameLabel.setString(serieName);
     serieNameLabel.setFont(serieNameLabelFont);
     serieNameLabel.setCharacterSize(constants::Fonts::SIZE_SUB_TITLE_FONT);
     serieNameLabel.setColor(serieNameLabelUnsavedColor);
@@ -184,19 +183,8 @@ EditorSerieController::EditorSerieController(std::string serieName) : Controller
         ERROR_MESSAGE_POSITION_Y
     );
 
-
-    if (serieName.empty())
-    {
-        initializeMainMenuButtons();
-        status = MAIN_MENU;
-    }
-    else
-    {
-        serie.setName(serieName);
-        updateSerieNameLabelPosition();
-        switchMainMenuButtonsToEditSerieStatus();
-        status = EDIT_SERIE;
-    }
+    initializeOpenedSerie(pContext);
+    addSelectedLevel(pContext);
 }
 
 /**
@@ -357,6 +345,7 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
 
                         nextControllerId =
                             factories::ControllerFactory::OPEN_LEVEL_CONTROLLER_ID;
+
                     }
                 }
                 break;
@@ -452,4 +441,43 @@ void EditorSerieController::updateSerieNameLabelPosition()
         serieNameLabel.getLocalBounds().width,
         constants::Dimensions::POSITION_NAME_LABEL_Y
     );
+}
+
+/**
+ *
+ */
+void EditorSerieController::initializeOpenedSerie(utils::Context* pContext)
+{
+    std::string openedSerie =
+        pContext->getMessageByName(constants::Messages::OPEN_SERIE_MESSAGE);
+
+    if (openedSerie.empty())
+    {
+        initializeMainMenuButtons();
+        status = MAIN_MENU;
+
+        return;
+    }
+
+    serie.setName(openedSerie);
+
+    serieNameLabel.setString(openedSerie);
+    status = EDIT_SERIE;
+
+    updateSerieNameLabelPosition();
+    switchMainMenuButtonsToEditSerieStatus();
+}
+
+/**
+ *
+ */
+void EditorSerieController::addSelectedLevel(utils::Context* pContext)
+{
+    std::string selectedLevel =
+        pContext->getMessageByName(constants::Messages::SELECTED_LEVEL_MESSAGE);
+
+    if (!selectedLevel.empty())
+    {
+        levelsList.addTextItem(selectedLevel);
+    }
 }
