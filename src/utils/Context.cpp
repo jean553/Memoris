@@ -100,10 +100,7 @@ void Context::addMessageByName(
     std::string messageValue
 )
 {
-    messages.insert(std::pair<std::string, std::string>(
-                        messageName,
-                        messageValue
-                    ));
+    messages[messageName] = messageValue;
 }
 
 /**
@@ -111,5 +108,19 @@ void Context::addMessageByName(
  */
 std::string Context::getMessageByName(std::string messageName)
 {
+    // check if the given message name exists
+    if (messages.find(messageName) == messages.end())
+    {
+        return "";
+    }
+
     return messages.at(messageName);
+}
+
+/**
+ *
+ */
+void Context::removeAllMessages()
+{
+    messages.clear();
 }

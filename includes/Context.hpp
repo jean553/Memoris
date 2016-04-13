@@ -88,9 +88,14 @@ public:
      *
      * @param messageName name of the message to return
      *
-     * @return string
+     * @return string message or empty message if the message name does not exist
      */
     std::string getMessageByName(std::string messageName);
+
+    /**
+     * @brief removes all the messages
+     */
+    void removeAllMessages();
 
 private:
 

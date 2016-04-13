@@ -23,7 +23,6 @@
  */
 
 #include "ControllerFactory.hpp"
-
 #include "MainMenuController.hpp"
 #include "NewGameController.hpp"
 #include "EditorMenuController.hpp"
@@ -31,6 +30,7 @@
 #include "OpenSerieController.hpp"
 #include "EditorLevelController.hpp"
 #include "OpenLevelController.hpp"
+#include "Messages.hpp"
 
 using namespace factories;
 
@@ -47,7 +47,8 @@ const unsigned short ControllerFactory::OPEN_LEVEL_CONTROLLER_ID = 8;
  *
  */
 controllers::Controller* ControllerFactory::getControllerById(
-    unsigned short id
+    unsigned short id,
+    utils::Context* pContext
 )
 {
     switch(id)
@@ -59,7 +60,9 @@ controllers::Controller* ControllerFactory::getControllerById(
     case EDITOR_MENU_CONTROLLER_ID:
         return new controllers::EditorMenuController;
     case EDITOR_SERIE_CONTROLLER_ID:
-        return new controllers::EditorSerieController;
+        return new controllers::EditorSerieController(
+                   pContext->getMessageByName(constants::Messages::OPEN_SERIE_MESSAGE)
+               );
     case OPEN_SERIE_CONTROLLER_ID:
         return new controllers::OpenSerieController;
     case EDITOR_LEVEL_CONTROLLER_ID:
