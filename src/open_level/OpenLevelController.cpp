@@ -92,10 +92,18 @@ unsigned short OpenLevelController::render(utils::Context* pContext)
             {
                 if (levelsList.isMouseHover())
                 {
-                    pContext->addMessageByName(
-                        constants::Messages::SELECTED_LEVEL_MESSAGE,
-                        levelsList.getSelectedItemValue()
-                    );
+                    std::vector<std::string> stringsList = pContext->getStringsList();
+
+                    // do not add the level if already in the list
+                    // TODO: #289 - add error message
+                    // TODO: could be refactored if addStringIntoStringsList return a boolean...
+                    if (std::find(stringsList.begin(), stringsList.end(), levelsList.getSelectedItemValue()) != stringsList.end())
+                    {
+                        continue;
+                    }
+
+                    pContext->addStringIntoStringsList(levelsList.getSelectedItemValue());
+
                     changeNextControllerId(pContext);
                 }
                 levelsList.scroll();
