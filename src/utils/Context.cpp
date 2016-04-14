@@ -124,3 +124,19 @@ void Context::removeAllMessages()
 {
     messages.clear();
 }
+
+/**
+ *
+ */
+void Context::setStringsList(std::vector<std::string> stringsListToSave)
+{
+    stringsList = stringsListToSave;
+}
+
+/**
+ *
+ */
+std::vector<std::string> Context::getStringsList()
+{
+    return stringsList;
+}
