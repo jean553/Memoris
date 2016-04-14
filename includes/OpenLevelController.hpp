@@ -28,6 +28,8 @@
 #ifndef DEF_OPEN_LEVEL_CONTROLLER
 #define DEF_OPEN_LEVEL_CONTROLLER
 
+#include <SFML/Graphics.hpp>
+
 #include "Controller.hpp"
 #include "TitleBarWidget.hpp"
 #include "ItemsListWidget.hpp"
@@ -39,11 +41,15 @@ class OpenLevelController : public Controller
 {
 
     static const std::string STRING_OPEN_LEVEL_TITLE;
+    static const std::string STRING_ALREADY_ADDED_ERROR_MESSAGE;
 
     static const unsigned short LEVELS_LIST_WIDTH;
     static const unsigned short LEVELS_LIST_POSITION_X;
     static const unsigned short LEVELS_LIST_POSITION_Y;
     static const unsigned short LEVELS_LIST_LEVELS_NUMBER;
+
+    static const float ERROR_MESSAGE_POSITION_X;
+    static const float ERROR_MESSAGE_POSITION_Y;
 
 public:
     OpenLevelController();
@@ -59,6 +65,8 @@ public:
 
 private:
 
+    bool errorAlreadyAddedLevel;
+
     /**
      * @brief modifies the value of the next controller according of
      * the controller that called the current one
@@ -72,6 +80,12 @@ private:
     widgets::ItemsListWidget levelsList;
 
     widgets::CursorWidget cursor;
+
+    sf::Color errorLabelColor;
+
+    sf::Text errorLabel;
+
+    sf::Font errorLabelFont;
 };
 }
 
