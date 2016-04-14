@@ -27,21 +27,29 @@
 #include "DirReader.hpp"
 #include "Screens.hpp"
 #include "Messages.hpp"
+#include "Fonts.hpp"
+#include "Colors.hpp"
 
 using namespace controllers;
 
 const std::string OpenLevelController::STRING_OPEN_LEVEL_TITLE = "Open level";
+const std::string OpenLevelController::STRING_ALREADY_ADDED_ERROR_MESSAGE = "Already added !";
 
 const unsigned short OpenLevelController::LEVELS_LIST_WIDTH = 1580;
 const unsigned short OpenLevelController::LEVELS_LIST_POSITION_X = 10;
 const unsigned short OpenLevelController::LEVELS_LIST_POSITION_Y = 130;
 const unsigned short OpenLevelController::LEVELS_LIST_LEVELS_NUMBER = 18;
 
+const float OpenLevelController::ERROR_MESSAGE_POSITION_X = 1300;
+const float OpenLevelController::ERROR_MESSAGE_POSITION_Y = 40;
+
 /**
  *
  */
 OpenLevelController::OpenLevelController() : Controller()
 {
+    errorAlreadyAddedLevel = false;
+
     titleBar.setDisplayedText(
         STRING_OPEN_LEVEL_TITLE
     );
@@ -59,6 +67,22 @@ OpenLevelController::OpenLevelController() : Controller()
             ".level"
         )
     );
+
+    errorLabelFont.loadFromFile(constants::Fonts::getTextFontPath());
+
+    errorLabelColor.r = constants::Colors::COLOR_RED_RED;
+    errorLabelColor.g = constants::Colors::COLOR_RED_GREEN;
+    errorLabelColor.b = constants::Colors::COLOR_RED_BLUE;
+    errorLabelColor.a = constants::Colors::COLOR_ALPHA_FULL;
+
+    errorLabel.setFont(errorLabelFont);
+    errorLabel.setCharacterSize(constants::Fonts::SIZE_MESSAGE_FONT);
+    errorLabel.setColor(errorLabelColor);
+    errorLabel.setString(STRING_ALREADY_ADDED_ERROR_MESSAGE);
+    errorLabel.setPosition(
+        ERROR_MESSAGE_POSITION_X,
+        ERROR_MESSAGE_POSITION_Y
+    );
 }
 
 /**
@@ -69,6 +93,11 @@ unsigned short OpenLevelController::render(utils::Context* pContext)
     titleBar.display(pContext);
     levelsList.display(pContext);
     cursor.display(pContext);
+
+    if (errorAlreadyAddedLevel)
+    {
+        pContext->getWindow()->draw(errorLabel);
+    }
 
     while(pContext->getWindow()->pollEvent(event))
     {
@@ -99,6 +128,8 @@ unsigned short OpenLevelController::render(utils::Context* pContext)
                     // TODO: could be refactored if addStringIntoStringsList return a boolean...
                     if (std::find(stringsList.begin(), stringsList.end(), levelsList.getSelectedItemValue()) != stringsList.end())
                     {
+                        errorAlreadyAddedLevel = true;
+
                         continue;
                     }
 
