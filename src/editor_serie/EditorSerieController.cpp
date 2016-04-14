@@ -184,7 +184,6 @@ EditorSerieController::EditorSerieController(utils::Context* pContext) : Control
     );
 
     initializeOpenedSerie(pContext);
-    addSelectedLevel(pContext);
 }
 
 /**
@@ -470,18 +469,4 @@ void EditorSerieController::initializeOpenedSerie(utils::Context* pContext)
     switchMainMenuButtonsToEditSerieStatus();
 
     levelsList.setStringsList(pContext->getStringsList());
-}
-
-/**
- *
- */
-void EditorSerieController::addSelectedLevel(utils::Context* pContext)
-{
-    std::string selectedLevel =
-        pContext->getMessageByName(constants::Messages::SELECTED_LEVEL_MESSAGE);
-
-    if (!selectedLevel.empty())
-    {
-        levelsList.addTextItem(selectedLevel);
-    }
 }

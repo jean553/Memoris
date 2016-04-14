@@ -177,12 +177,6 @@ private:
      * only used if the controller has been called after the OpenLevel one
      */
     void initializeOpenedSerie(utils::Context* pContext);
-
-    /**
-     * @brief add a new level automatically inside the levels list,
-     * only used if the controller has been called after the OpenLevel one
-     */
-    void addSelectedLevel(utils::Context* pContext);
 };
 }
 

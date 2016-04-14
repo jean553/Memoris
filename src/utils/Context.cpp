@@ -140,3 +140,11 @@ std::vector<std::string> Context::getStringsList()
 {
     return stringsList;
 }
+
+/**
+ *
+ */
+void Context::addStringIntoStringsList(std::string newString)
+{
+    stringsList.push_back(newString);
+}

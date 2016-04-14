@@ -111,6 +111,13 @@ public:
      */
     std::vector<std::string> getStringsList();
 
+    /**
+     * @brief add one string inside the strings list
+     *
+     * @param newString string to add
+     */
+    void addStringIntoStringsList(std::string newString);
+
 private:
 
     sf::RenderWindow* pWindow;
