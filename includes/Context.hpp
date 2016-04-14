@@ -97,6 +97,20 @@ public:
      */
     void removeAllMessages();
 
+    /**
+     * @brief strings list setter
+     *
+     * @param stringsListToSave strings vector to save
+     */
+    void setStringsList(std::vector<std::string> stringsListToSave);
+
+    /**
+     * @brief strings list getter
+     *
+     * @return list of strings
+     */
+    std::vector<std::string> getStringsList();
+
 private:
 
     sf::RenderWindow* pWindow;
@@ -108,6 +122,8 @@ private:
     sf::Sound soundScreenTransition;
 
     std::map<std::string, std::string> messages;
+
+    std::vector<std::string> stringsList;
 };
 }
 

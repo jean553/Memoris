@@ -343,6 +343,8 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
                             serie.getName()
                         );
 
+                        pContext->setStringsList(levelsList.getStringsList());
+
                         nextControllerId =
                             factories::ControllerFactory::OPEN_LEVEL_CONTROLLER_ID;
 
@@ -466,6 +468,8 @@ void EditorSerieController::initializeOpenedSerie(utils::Context* pContext)
 
     updateSerieNameLabelPosition();
     switchMainMenuButtonsToEditSerieStatus();
+
+    levelsList.setStringsList(pContext->getStringsList());
 }
 
 /**
