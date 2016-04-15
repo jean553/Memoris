@@ -31,13 +31,11 @@
 #include <SFML/Graphics.hpp>
 
 #include "Controller.hpp"
-
 #include "ButtonWidget.hpp"
 #include "CursorWidget.hpp"
 #include "TitleBarWidget.hpp"
 #include "InputTextWidget.hpp"
 #include "CellSelectorWidget.hpp"
-
 #include "Level.hpp"
 
 namespace controllers
@@ -49,7 +47,7 @@ class EditorLevelController : public Controller
     static const std::string EDITOR_LEVEL_BUTTON_NEW_TEXT;
     static const std::string EDITOR_LEVEL_BUTTON_OPEN_TEXT;
     static const std::string EDITOR_LEVEL_BUTTON_SAVE_TEXT;
-
+    static const std::string EDITOR_LEVEL_BUTTON_NEXT_FLOOR_TEXT;
     static const std::string STRING_EDITOR_LEVEL_TITLE;
     static const std::string STRING_NEW_LEVEL_ERROR;
     static const std::string STRING_SAVE_LEVEL_ERROR;
@@ -58,19 +56,15 @@ class EditorLevelController : public Controller
     static const unsigned short LEVEL_EDITOR_BUTTON_NEW_POSITION_Y;
     static const unsigned short LEVEL_EDITOR_BUTTON_OPEN_POSITION_Y;
     static const unsigned short LEVEL_EDITOR_BUTTON_SAVE_POSITION_Y;
-
+    static const unsigned short LEVEL_EDITOR_BUTTON_LEVEL_UP_POSITION_X;
     static const unsigned short LEVEL_POSITION_X;
     static const unsigned short LEVEL_POSITION_Y;
-
     static const unsigned short CELL_SELECTOR_POSITION_X;
     static const unsigned short CELL_SELECTOR_POSITION_Y;
-
     static const unsigned short ERROR_MESSAGE_POSITION_X;
     static const unsigned short ERROR_MESSAGE_POSITION_Y;
-
     static const unsigned short POSITION_NEW_LEVEL_INPUT_TEXT_X;
     static const unsigned short POSITION_NEW_LEVEL_INPUT_TEXT_Y;
-
     static const unsigned short SIZE_NEW_LEVEL_TEXT;
 
 public:
@@ -101,6 +95,7 @@ private:
     widgets::ButtonWidget buttonNew;
     widgets::ButtonWidget buttonOpen;
     widgets::ButtonWidget buttonSave;
+    widgets::ButtonWidget buttonNextFloor;
 
     widgets::CursorWidget cursor;
 
