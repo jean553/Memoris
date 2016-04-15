@@ -47,6 +47,7 @@ const std::string EditorLevelController::EDITOR_LEVEL_BUTTON_NEW_TEXT = "New";
 const std::string EditorLevelController::EDITOR_LEVEL_BUTTON_OPEN_TEXT = "Open";
 const std::string EditorLevelController::EDITOR_LEVEL_BUTTON_SAVE_TEXT = "Save";
 const std::string EditorLevelController::EDITOR_LEVEL_BUTTON_NEXT_FLOOR_TEXT = "Up";
+const std::string EditorLevelController::EDITOR_LEVEL_BUTTON_PREVIOUS_FLOOR_TEXT = "Down";
 const std::string EditorLevelController::STRING_EDITOR_LEVEL_TITLE = "Level editor";
 const std::string EditorLevelController::STRING_NEW_LEVEL_ERROR = "The level already exists !";
 const std::string EditorLevelController::STRING_SAVE_LEVEL_ERROR = "The level cannot be saved !";
@@ -55,7 +56,8 @@ const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTONS_POSITION_X = 13
 const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTON_NEW_POSITION_Y = 170;
 const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTON_OPEN_POSITION_Y = 240;
 const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTON_SAVE_POSITION_Y = 310;
-const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTON_LEVEL_UP_POSITION_X = 750;
+const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTON_LEVEL_UP_POSITION_Y = 750;
+const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTON_LEVEL_DOWN_POSITION_Y = 830;
 const unsigned short EditorLevelController::LEVEL_POSITION_X = 5;
 const unsigned short EditorLevelController::LEVEL_POSITION_Y = 90;
 const unsigned short EditorLevelController::CELL_SELECTOR_POSITION_X = 1050;
@@ -80,6 +82,7 @@ EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSIT
     buttonOpen.setLabel(EDITOR_LEVEL_BUTTON_OPEN_TEXT);
     buttonSave.setLabel(EDITOR_LEVEL_BUTTON_SAVE_TEXT);
     buttonNextFloor.setLabel(EDITOR_LEVEL_BUTTON_NEXT_FLOOR_TEXT);
+    buttonPreviousFloor.setLabel(EDITOR_LEVEL_BUTTON_PREVIOUS_FLOOR_TEXT);
 
     buttonExit.setLayout(
         LEVEL_EDITOR_BUTTONS_POSITION_X,
@@ -107,7 +110,13 @@ EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSIT
 
     buttonNextFloor.setLayout(
         LEVEL_EDITOR_BUTTONS_POSITION_X,
-        LEVEL_EDITOR_BUTTON_LEVEL_UP_POSITION_X,
+        LEVEL_EDITOR_BUTTON_LEVEL_UP_POSITION_Y,
+        constants::Dimensions::EDITOR_BUTTONS_WIDTH
+    );
+
+    buttonPreviousFloor.setLayout(
+        LEVEL_EDITOR_BUTTONS_POSITION_X,
+        LEVEL_EDITOR_BUTTON_LEVEL_DOWN_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
@@ -171,6 +180,7 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
     buttonOpen.display(pContext);
     buttonSave.display(pContext);
     buttonNextFloor.display(pContext);
+    buttonPreviousFloor.display(pContext);
 
     level.displayAllCells(pContext);
     cellSelector.display(pContext);
