@@ -124,7 +124,6 @@ unsigned short OpenLevelController::render(utils::Context* pContext)
                     std::vector<std::string> stringsList = pContext->getStringsList();
 
                     // do not add the level if already in the list
-                    // TODO: #289 - add error message
                     // TODO: could be refactored if addStringIntoStringsList return a boolean...
                     if (std::find(stringsList.begin(), stringsList.end(), levelsList.getSelectedItemValue()) != stringsList.end())
                     {

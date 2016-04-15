@@ -23,9 +23,7 @@
  */
 
 #include "OpenSerieController.hpp"
-
 #include "DirReader.hpp"
-
 #include "ControllerFactory.hpp"
 
 using namespace controllers;
@@ -109,6 +107,8 @@ unsigned short OpenSerieController::render(utils::Context* pContext)
                     nextControllerId =
                         factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID;
                 }
+
+                seriesList.scroll();
             }
             }
         }
