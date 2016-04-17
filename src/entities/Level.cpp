@@ -78,29 +78,18 @@ Level::~Level()
 /**
  *
  */
-void Level::displayAllCells(utils::Context* pContext)
+void Level::displayAllCellsByFloor(
+    utils::Context* pContext,
+    short floor
+)
 {
-    //TODO: HACK: should not use a counter to display
-    //only the first floor of the level, the user
-    //should be able to select the level to display
-    //and the displayed content should be updated
-    //according to this selection.
-    //#296: the user can browse the level floors
-    unsigned short iteration = 0;
+    // cast as the index of a vector is always unsigned long
+    std::vector<Cell*> line = cells[static_cast<unsigned long>(floor)];
 
-    for (std::vector<std::vector<Cell*>>::iterator line = cells.begin();
-            line != cells.end(); ++line)
+    for (std::vector<Cell*>::iterator cell = line.begin();
+            cell != line.end(); ++cell)
     {
-        for (std::vector<Cell*>::iterator cell = line->begin();
-                cell != line->end(); ++cell)
-        {
-            if (iteration < 320)
-            {
-                (*cell)->display(pContext);
-            }
-
-            iteration++;
-        }
+        (*cell)->display(pContext);
     }
 }
 

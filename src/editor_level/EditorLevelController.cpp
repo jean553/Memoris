@@ -228,7 +228,11 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
     buttonNextFloor.display(pContext);
     buttonPreviousFloor.display(pContext);
 
-    level.displayAllCells(pContext);
+    level.displayAllCellsByFloor(
+        pContext,
+        currentFloor
+    );
+
     cellSelector.display(pContext);
     floorSelectionFrame.display(pContext);
 

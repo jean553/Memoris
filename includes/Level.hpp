@@ -64,11 +64,15 @@ public:
     ~Level();
 
     /**
-     * @brief display the level in a given context
+     * @brief display all the cells of one floor
      *
      * @param pContext pointer to a context
+     * @param floor number
      */
-    void displayAllCells(utils::Context* pContext);
+    void displayAllCellsByFloor(
+        utils::Context* pContext,
+        short floor = 0
+    );
 
     /**
      * @brief name setter
