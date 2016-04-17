@@ -192,6 +192,9 @@ void Level::initializeWithEmptyCells()
                 currentColumn++;
             }
         }
+
+        currentColumn = 0;
+        currentLine = 0;
     }
 }
 
