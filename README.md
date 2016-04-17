@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/jean553/Memoris.svg?branch=1_create_game_controller)](https://travis-ci.org/jean553/Memoris)
+[![Build Status](https://travis-ci.org/jean553/Memoris.svg?branch=master)](https://travis-ci.org/jean553/Memoris)
 
 License : GNU GPL v3
 
