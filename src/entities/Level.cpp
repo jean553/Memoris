@@ -25,7 +25,6 @@
 
 #include "Level.hpp"
 #include "EmptyCell.hpp"
-
 #include "Dimensions.hpp"
 
 using namespace entities;
@@ -81,13 +80,26 @@ Level::~Level()
  */
 void Level::displayAllCells(utils::Context* pContext)
 {
+    //TODO: HACK: should not use a counter to display
+    //only the first floor of the level, the user
+    //should be able to select the level to display
+    //and the displayed content should be updated
+    //according to this selection.
+    //#296: the user can browse the level floors
+    unsigned short iteration = 0;
+
     for (std::vector<std::vector<Cell*>>::iterator line = cells.begin();
             line != cells.end(); ++line)
     {
         for (std::vector<Cell*>::iterator cell = line->begin();
                 cell != line->end(); ++cell)
         {
-            (*cell)->display(pContext);
+            if (iteration < 320)
+            {
+                (*cell)->display(pContext);
+            }
+
+            iteration++;
         }
     }
 }
@@ -143,12 +155,14 @@ entities::Cell* Level::getSelectedCellPointer() const
  */
 void Level::initializeWithEmptyCells()
 {
-    cells.resize(constants::Dimensions::LEVEL_CELLS_WIDTH);
+    float currentColumn = 0, currentLine = 0;
+
+    cells.resize(constants::Dimensions::LEVEL_FLOORS);
     for (std::vector<std::vector<Cell*>>::iterator line = cells.begin();
             line != cells.end(); ++line)
     {
 
-        line->resize(constants::Dimensions::LEVEL_CELLS_HEIGHT);
+        line->resize(constants::Dimensions::LEVEL_CELLS_PER_FLOOR);
 
         for (std::vector<Cell*>::iterator cell = line->begin();
                 cell != line->end(); ++cell)
@@ -158,10 +172,10 @@ void Level::initializeWithEmptyCells()
 
             (*cell)->setPosition(
                 horizontalPosition +
-                static_cast<float>(std::distance(cells.begin(), line)) *
+                currentColumn *
                 (constants::Dimensions::CELL_PIXELS_DIMENSIONS + constants::Dimensions::CELLS_PIXELS_SEPARATION),
                 verticalPosition +
-                static_cast<float>(std::distance(line->begin(), cell)) *
+                currentLine *
                 (constants::Dimensions::CELL_PIXELS_DIMENSIONS + constants::Dimensions::CELLS_PIXELS_SEPARATION)
             );
 
@@ -169,6 +183,14 @@ void Level::initializeWithEmptyCells()
                 static_cast<short>(std::distance(cells.begin(), line)),
                 static_cast<short>(std::distance(line->begin(), cell))
             );
+
+            currentLine++;
+
+            if (currentLine >= constants::Dimensions::CELLS_PER_COLUMN)
+            {
+                currentLine = 0;
+                currentColumn++;
+            }
         }
     }
 }

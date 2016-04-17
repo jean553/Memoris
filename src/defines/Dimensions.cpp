@@ -29,8 +29,9 @@
 using namespace constants;
 
 const unsigned short Dimensions::EDITOR_BUTTONS_WIDTH = 200;
-const unsigned short Dimensions::LEVEL_CELLS_HEIGHT = 16;
-const unsigned short Dimensions::LEVEL_CELLS_WIDTH = 20;
+const unsigned short Dimensions::LEVEL_CELLS_PER_FLOOR = 320;
+const unsigned short Dimensions::CELLS_PER_COLUMN = 16;
+const unsigned short Dimensions::LEVEL_FLOORS = 10;
 const unsigned short Dimensions::POSITION_NAME_LABEL_Y = 0;
 
 const float Dimensions::CELL_PIXELS_DIMENSIONS = 49;
