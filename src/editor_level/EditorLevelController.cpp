@@ -228,7 +228,11 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
     buttonNextFloor.display(pContext);
     buttonPreviousFloor.display(pContext);
 
-    level.displayAllCells(pContext);
+    level.displayAllCellsByFloor(
+        pContext,
+        currentFloor
+    );
+
     cellSelector.display(pContext);
     floorSelectionFrame.display(pContext);
 
@@ -374,7 +378,7 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
                         cellSelector.selectCellOnClick();
                         status = EDIT_LEVEL;
                     }
-                    else if(level.isMouseHover() && status != MAIN_MENU)
+                    else if(level.isMouseHover(currentFloor) && status != MAIN_MENU)
                     {
                         updateOneCell(
                             level.getSelectedCellPointer(),

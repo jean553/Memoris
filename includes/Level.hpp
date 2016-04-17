@@ -64,11 +64,15 @@ public:
     ~Level();
 
     /**
-     * @brief display the level in a given context
+     * @brief display all the cells of one floor
      *
      * @param pContext pointer to a context
+     * @param floor number
      */
-    void displayAllCells(utils::Context* pContext);
+    void displayAllCellsByFloor(
+        utils::Context* pContext,
+        short floor = 0
+    );
 
     /**
      * @brief name setter
@@ -87,9 +91,11 @@ public:
     /**
      * @brief check if the mouse is hover one of the level cells
      *
+     * @param floor number
+     *
      * @return bool returns true if the mouse is hover the level area
      */
-    bool isMouseHover();
+    bool isMouseHover(short floor);
 
     /**
      * @brief returns a pointer to the current selected cell
