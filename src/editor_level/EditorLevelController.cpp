@@ -67,6 +67,10 @@ const unsigned short EditorLevelController::ERROR_MESSAGE_POSITION_Y = 30;
 const unsigned short EditorLevelController::POSITION_NEW_LEVEL_INPUT_TEXT_X = 1230;
 const unsigned short EditorLevelController::POSITION_NEW_LEVEL_INPUT_TEXT_Y = 10;
 const unsigned short EditorLevelController::SIZE_NEW_LEVEL_TEXT = 350;
+const float EditorLevelController::FLOOR_SELECTION_FRAME_HORIZONTAL_SIZE = 210;
+const float EditorLevelController::FLOOR_SELECTION_FRAME_VERTICAL_SIZE = 245;
+const float EditorLevelController::FLOOR_SELECTION_FRAME_HORIZONTAL_POSITION = 1385;
+const float EditorLevelController::FLOOR_SELECTION_FRAME_VERTICAL_POSITION = 650;
 
 /**
  *
@@ -161,6 +165,20 @@ EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSIT
         CELL_SELECTOR_POSITION_Y
     );
 
+    floorSelectionFrame.setColor(
+        constants::Colors::COLOR_WHITE_RED,
+        constants::Colors::COLOR_WHITE_GREEN,
+        constants::Colors::COLOR_WHITE_BLUE
+    );
+    floorSelectionFrame.setSize(
+        FLOOR_SELECTION_FRAME_HORIZONTAL_SIZE,
+        FLOOR_SELECTION_FRAME_VERTICAL_SIZE
+    );
+    floorSelectionFrame.setPosition(
+        FLOOR_SELECTION_FRAME_HORIZONTAL_POSITION,
+        FLOOR_SELECTION_FRAME_VERTICAL_POSITION
+    );
+
     status = MAIN_MENU;
 
     levelAlreadyExists = false;
@@ -184,6 +202,7 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
 
     level.displayAllCells(pContext);
     cellSelector.display(pContext);
+    floorSelectionFrame.display(pContext);
 
     // displays the input text line for new level
     if (status == NEW_LEVEL)
