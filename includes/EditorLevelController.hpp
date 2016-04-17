@@ -37,6 +37,7 @@
 #include "InputTextWidget.hpp"
 #include "CellSelectorWidget.hpp"
 #include "Level.hpp"
+#include "FrameWidget.hpp"
 
 namespace controllers
 {
@@ -68,6 +69,10 @@ class EditorLevelController : public Controller
     static const unsigned short POSITION_NEW_LEVEL_INPUT_TEXT_X;
     static const unsigned short POSITION_NEW_LEVEL_INPUT_TEXT_Y;
     static const unsigned short SIZE_NEW_LEVEL_TEXT;
+    static const float FLOOR_SELECTION_FRAME_HORIZONTAL_SIZE;
+    static const float FLOOR_SELECTION_FRAME_VERTICAL_SIZE;
+    static const float FLOOR_SELECTION_FRAME_HORIZONTAL_POSITION;
+    static const float FLOOR_SELECTION_FRAME_VERTICAL_POSITION;
 
 public:
 
@@ -99,6 +104,8 @@ private:
     widgets::ButtonWidget buttonSave;
     widgets::ButtonWidget buttonNextFloor;
     widgets::ButtonWidget buttonPreviousFloor;
+
+    widgets::FrameWidget floorSelectionFrame;
 
     widgets::CursorWidget cursor;
 
