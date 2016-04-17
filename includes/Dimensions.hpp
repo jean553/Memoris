@@ -39,6 +39,7 @@ public:
     static const unsigned short CELLS_PER_COLUMN;
     static const unsigned short LEVEL_FLOORS;
     static const unsigned short POSITION_NAME_LABEL_Y;
+    static const unsigned short LEVEL_MAX_FLOOR_NUMBER;
 
     static const float CELL_PIXELS_DIMENSIONS;
     static const float CELLS_PIXELS_SEPARATION;
