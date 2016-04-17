@@ -35,8 +35,9 @@ class Dimensions
 public:
 
     static const unsigned short EDITOR_BUTTONS_WIDTH;
-    static const unsigned short LEVEL_CELLS_HEIGHT;
-    static const unsigned short LEVEL_CELLS_WIDTH;
+    static const unsigned short LEVEL_CELLS_PER_FLOOR;
+    static const unsigned short CELLS_PER_COLUMN;
+    static const unsigned short LEVEL_FLOORS;
     static const unsigned short POSITION_NAME_LABEL_Y;
 
     static const float CELL_PIXELS_DIMENSIONS;
