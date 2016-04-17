@@ -174,7 +174,7 @@ EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSIT
     floorLabel.setFont(levelNameLabelFont);
     floorLabel.setCharacterSize(constants::Fonts::SIZE_SUB_TITLE_FONT);
     floorLabel.setColor(levelNameLabelColor);
-    floorLabel.setString(std::to_string(currentFloor));
+    floorLabel.setString(std::to_string(currentFloor + 1));
     floorLabel.setPosition(
         FLOOR_LABEL_HORIZONTAL_POSITION,
         FLOOR_LABEL_VERTICAL_POSITION
@@ -211,6 +211,8 @@ EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSIT
     saveLevelError = false;
 
     buttonSave.setEnable(false);
+    buttonNextFloor.setEnable(false);
+    buttonPreviousFloor.setEnable(false);
 }
 
 /**
@@ -329,7 +331,18 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
                                          );
 
                         displaySavedLevelName(true);
+
                         buttonSave.setEnable(false);
+                        buttonNextFloor.setEnable(true);
+                        buttonPreviousFloor.setEnable(true);
+                    }
+                    else if (buttonNextFloor.isMouseHover())
+                    {
+                        updateFloorNumber(1);
+                    }
+                    else if (buttonPreviousFloor.isMouseHover())
+                    {
+                        updateFloorNumber(-1);
                     }
                 }
                 default:
@@ -455,4 +468,26 @@ void EditorLevelController::updateOneCell(
         static_cast<short>(horizontalAddress),
         static_cast<short>(verticalAddress)
     );
+}
+
+/**
+ *
+ */
+void EditorLevelController::updateFloorNumber(short updateValue)
+{
+    // use a if(), got some troubles with the ternary condition...
+    if (
+        (currentFloor ==
+         constants::Dimensions::LEVEL_MAX_FLOOR_NUMBER &&
+         updateValue > 0) ||
+        (currentFloor == 0 && updateValue < 0)
+    )
+    {
+        return;
+    }
+
+    currentFloor += updateValue;
+
+    // add one to be more user friendly
+    floorLabel.setString(std::to_string(currentFloor + 1));
 }

@@ -94,7 +94,7 @@ public:
 
 private:
 
-    unsigned short currentFloor;
+    short currentFloor;
 
     enum EditorLevelStatus
     {
@@ -165,6 +165,14 @@ private:
         entities::Cell* pSelectedCell,
         entities::Cell* pCellsSelectorCell
     );
+
+    /**
+     * @brief update the current floor level according to the
+     * given updateValue ( 1 or -1 ), 0 by default
+     *
+     * @param updateValue update to apply on the current floor
+     */
+    void updateFloorNumber(short updateValue);
 };
 }
 
