@@ -76,6 +76,8 @@ class EditorLevelController : public Controller
     static const float FLOOR_SELECTION_FRAME_VERTICAL_POSITION;
     static const float FLOOR_PREFIX_LABEL_HORIZONTAL_POSITION;
     static const float FLOOR_PREFIX_LABEL_VERTICAL_POSITION;
+    static const float FLOOR_LABEL_HORIZONTAL_POSITION;
+    static const float FLOOR_LABEL_VERTICAL_POSITION;
 
 public:
 
@@ -91,6 +93,8 @@ public:
     unsigned short render(utils::Context* pContext);
 
 private:
+
+    unsigned short currentFloor;
 
     enum EditorLevelStatus
     {
@@ -129,6 +133,7 @@ private:
     sf::Text levelNameLabel;
     sf::Text errorLabel;
     sf::Text floorPrefixLabel;
+    sf::Text floorLabel;
 
     bool levelAlreadyExists;
     bool saveLevelError;

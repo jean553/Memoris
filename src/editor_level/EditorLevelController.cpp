@@ -74,12 +74,16 @@ const float EditorLevelController::FLOOR_SELECTION_FRAME_HORIZONTAL_POSITION = 1
 const float EditorLevelController::FLOOR_SELECTION_FRAME_VERTICAL_POSITION = 650;
 const float EditorLevelController::FLOOR_PREFIX_LABEL_HORIZONTAL_POSITION = 1440;
 const float EditorLevelController::FLOOR_PREFIX_LABEL_VERTICAL_POSITION = 650;
+const float EditorLevelController::FLOOR_LABEL_HORIZONTAL_POSITION = 1465;
+const float EditorLevelController::FLOOR_LABEL_VERTICAL_POSITION = 670;
 
 /**
  *
  */
 EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSITION_X, LEVEL_POSITION_Y)
 {
+    currentFloor = 0;
+
     titleBar.setDisplayedText(
         STRING_EDITOR_LEVEL_TITLE
     );
@@ -166,6 +170,15 @@ EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSIT
         FLOOR_PREFIX_LABEL_VERTICAL_POSITION
     );
 
+    floorLabel.setFont(levelNameLabelFont);
+    floorLabel.setCharacterSize(constants::Fonts::SIZE_SUB_TITLE_FONT);
+    floorLabel.setColor(levelNameLabelColor);
+    floorLabel.setString(std::to_string(currentFloor));
+    floorLabel.setPosition(
+        FLOOR_LABEL_HORIZONTAL_POSITION,
+        FLOOR_LABEL_VERTICAL_POSITION
+    );
+
     inputTextNew.setLayout(
         POSITION_NEW_LEVEL_INPUT_TEXT_X,
         POSITION_NEW_LEVEL_INPUT_TEXT_Y,
@@ -217,6 +230,7 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
     floorSelectionFrame.display(pContext);
 
     pContext->getWindow()->draw(floorPrefixLabel);
+    pContext->getWindow()->draw(floorLabel);
 
     // displays the input text line for new level
     if (status == NEW_LEVEL)
