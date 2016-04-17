@@ -51,12 +51,13 @@ const std::string EditorLevelController::EDITOR_LEVEL_BUTTON_PREVIOUS_FLOOR_TEXT
 const std::string EditorLevelController::STRING_EDITOR_LEVEL_TITLE = "Level editor";
 const std::string EditorLevelController::STRING_NEW_LEVEL_ERROR = "The level already exists !";
 const std::string EditorLevelController::STRING_SAVE_LEVEL_ERROR = "The level cannot be saved !";
+const std::string EditorLevelController::STRING_FLOOR_PREFIX_LABEL = "Floor";
 
 const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTONS_POSITION_X = 1390;
 const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTON_NEW_POSITION_Y = 170;
 const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTON_OPEN_POSITION_Y = 240;
 const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTON_SAVE_POSITION_Y = 310;
-const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTON_LEVEL_UP_POSITION_Y = 750;
+const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTON_LEVEL_UP_POSITION_Y = 760;
 const unsigned short EditorLevelController::LEVEL_EDITOR_BUTTON_LEVEL_DOWN_POSITION_Y = 830;
 const unsigned short EditorLevelController::LEVEL_POSITION_X = 5;
 const unsigned short EditorLevelController::LEVEL_POSITION_Y = 90;
@@ -71,6 +72,8 @@ const float EditorLevelController::FLOOR_SELECTION_FRAME_HORIZONTAL_SIZE = 210;
 const float EditorLevelController::FLOOR_SELECTION_FRAME_VERTICAL_SIZE = 245;
 const float EditorLevelController::FLOOR_SELECTION_FRAME_HORIZONTAL_POSITION = 1385;
 const float EditorLevelController::FLOOR_SELECTION_FRAME_VERTICAL_POSITION = 650;
+const float EditorLevelController::FLOOR_PREFIX_LABEL_HORIZONTAL_POSITION = 1440;
+const float EditorLevelController::FLOOR_PREFIX_LABEL_VERTICAL_POSITION = 650;
 
 /**
  *
@@ -154,6 +157,15 @@ EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSIT
         ERROR_MESSAGE_POSITION_Y
     );
 
+    floorPrefixLabel.setFont(levelNameLabelFont);
+    floorPrefixLabel.setCharacterSize(constants::Fonts::SIZE_MESSAGE_FONT);
+    floorPrefixLabel.setColor(levelNameLabelColor);
+    floorPrefixLabel.setString(STRING_FLOOR_PREFIX_LABEL);
+    floorPrefixLabel.setPosition(
+        FLOOR_PREFIX_LABEL_HORIZONTAL_POSITION,
+        FLOOR_PREFIX_LABEL_VERTICAL_POSITION
+    );
+
     inputTextNew.setLayout(
         POSITION_NEW_LEVEL_INPUT_TEXT_X,
         POSITION_NEW_LEVEL_INPUT_TEXT_Y,
@@ -203,6 +215,8 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
     level.displayAllCells(pContext);
     cellSelector.display(pContext);
     floorSelectionFrame.display(pContext);
+
+    pContext->getWindow()->draw(floorPrefixLabel);
 
     // displays the input text line for new level
     if (status == NEW_LEVEL)
