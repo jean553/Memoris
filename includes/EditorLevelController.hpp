@@ -53,6 +53,7 @@ class EditorLevelController : public Controller
     static const std::string STRING_EDITOR_LEVEL_TITLE;
     static const std::string STRING_NEW_LEVEL_ERROR;
     static const std::string STRING_SAVE_LEVEL_ERROR;
+    static const std::string STRING_FLOOR_PREFIX_LABEL;
 
     static const unsigned short LEVEL_EDITOR_BUTTONS_POSITION_X;
     static const unsigned short LEVEL_EDITOR_BUTTON_NEW_POSITION_Y;
@@ -73,6 +74,8 @@ class EditorLevelController : public Controller
     static const float FLOOR_SELECTION_FRAME_VERTICAL_SIZE;
     static const float FLOOR_SELECTION_FRAME_HORIZONTAL_POSITION;
     static const float FLOOR_SELECTION_FRAME_VERTICAL_POSITION;
+    static const float FLOOR_PREFIX_LABEL_HORIZONTAL_POSITION;
+    static const float FLOOR_PREFIX_LABEL_VERTICAL_POSITION;
 
 public:
 
@@ -125,6 +128,7 @@ private:
 
     sf::Text levelNameLabel;
     sf::Text errorLabel;
+    sf::Text floorPrefixLabel;
 
     bool levelAlreadyExists;
     bool saveLevelError;
