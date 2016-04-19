@@ -78,29 +78,18 @@ Level::~Level()
 /**
  *
  */
-void Level::displayAllCells(utils::Context* pContext)
+void Level::displayAllCellsByFloor(
+    utils::Context* pContext,
+    short floor
+)
 {
-    //TODO: HACK: should not use a counter to display
-    //only the first floor of the level, the user
-    //should be able to select the level to display
-    //and the displayed content should be updated
-    //according to this selection.
-    //#296: the user can browse the level floors
-    unsigned short iteration = 0;
+    // cast as the index of a vector is always unsigned long
+    std::vector<Cell*> line = cells[static_cast<unsigned long>(floor)];
 
-    for (std::vector<std::vector<Cell*>>::iterator line = cells.begin();
-            line != cells.end(); ++line)
+    for (std::vector<Cell*>::iterator cell = line.begin();
+            cell != line.end(); ++cell)
     {
-        for (std::vector<Cell*>::iterator cell = line->begin();
-                cell != line->end(); ++cell)
-        {
-            if (iteration < 320)
-            {
-                (*cell)->display(pContext);
-            }
-
-            iteration++;
-        }
+        (*cell)->display(pContext);
     }
 }
 
@@ -123,19 +112,18 @@ std::string Level::getName() const
 /**
  *
  */
-bool Level::isMouseHover()
+bool Level::isMouseHover(short floor)
 {
-    for (std::vector<std::vector<Cell*>>::iterator line = cells.begin();
-            line != cells.end(); ++line)
+    // cast as the index of a vector is always unsigned long
+    std::vector<Cell*> line = cells[static_cast<unsigned long>(floor)];
+
+    for (std::vector<Cell*>::iterator cell = line.begin();
+            cell != line.end(); ++cell)
     {
-        for (std::vector<Cell*>::iterator cell = line->begin();
-                cell != line->end(); ++cell)
+        if((*cell)->isMouseHover())
         {
-            if((*cell)->isMouseHover())
-            {
-                pSelectedCell = (*cell);
-                return true;
-            }
+            pSelectedCell = (*cell);
+            return true;
         }
     }
 
@@ -156,6 +144,7 @@ entities::Cell* Level::getSelectedCellPointer() const
 void Level::initializeWithEmptyCells()
 {
     float currentColumn = 0, currentLine = 0;
+    short floorAddress = 0, cellAddress = 0;
 
     cells.resize(constants::Dimensions::LEVEL_FLOORS);
     for (std::vector<std::vector<Cell*>>::iterator line = cells.begin();
@@ -180,8 +169,8 @@ void Level::initializeWithEmptyCells()
             );
 
             (*cell)->setLevelAddresses(
-                static_cast<short>(std::distance(cells.begin(), line)),
-                static_cast<short>(std::distance(line->begin(), cell))
+                floorAddress,
+                cellAddress
             );
 
             currentLine++;
@@ -191,7 +180,12 @@ void Level::initializeWithEmptyCells()
                 currentLine = 0;
                 currentColumn++;
             }
+
+            cellAddress++;
         }
+
+        floorAddress++;
+        cellAddress = 0;
 
         currentColumn = 0;
         currentLine = 0;
