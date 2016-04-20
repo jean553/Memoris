@@ -270,6 +270,8 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
 
     cursor.display(pContext);
 
+    nextControllerId = animateScreenTransition(pContext);
+
     while(pContext->getWindow()->pollEvent(event))
     {
         switch(event.type)
@@ -355,7 +357,7 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
                     {
                         pContext->removeAllMessages();
 
-                        nextControllerId =
+                        expectedControllerId =
                             factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
                     }
                     else if(buttonNew.isMouseHover())
@@ -370,7 +372,7 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
                             constants::Screens::LEVEL_EDITOR_SCREEN_NAME
                         );
 
-                        nextControllerId =
+                        expectedControllerId =
                             factories::ControllerFactory::OPEN_LEVEL_CONTROLLER_ID;
                     }
                     else if(cellSelector.isMouseHover() && status != MAIN_MENU)

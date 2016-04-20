@@ -23,9 +23,7 @@
  */
 
 #include "EditorMenuController.hpp"
-
 #include "ControllerFactory.hpp"
-
 #include "Colors.hpp"
 #include "Fonts.hpp"
 #include "Sounds.hpp"
@@ -38,16 +36,12 @@ const std::string EditorMenuController::STRING_BACK = "Back";
 
 const unsigned short EditorMenuController::POSITION_ITEM_LEVELS_EDITOR_X = 680;
 const unsigned short EditorMenuController::POSITION_ITEM_LEVELS_EDITOR_Y = 200;
-
 const unsigned short EditorMenuController::POSITION_ITEM_SERIES_EDITOR_X = 690;
 const unsigned short EditorMenuController::POSITION_ITEM_SERIES_EDITOR_Y = 350;
-
 const unsigned short EditorMenuController::POSITION_ITEM_BACK_X = 715;
 const unsigned short EditorMenuController::POSITION_ITEM_BACK_Y = 600;
-
 const unsigned short EditorMenuController::EDITOR_MENU_SELECTOR_MAX = 2;
 const unsigned short EditorMenuController::EDITOR_MENU_SELECTOR_MIN = 0;
-
 const unsigned short EditorMenuController::EDITOR_MENU_ITEM_LEVELS_EDITOR = 0;
 const unsigned short EditorMenuController::EDITOR_MENU_ITEM_SERIES_EDITOR = 1;
 const unsigned short EditorMenuController::EDITOR_MENU_ITEM_BACK = 2;
@@ -117,6 +111,8 @@ unsigned short EditorMenuController::render(utils::Context* pContext)
     pContext->getWindow()->draw(itemLevelsEditor);
     pContext->getWindow()->draw(itemSeriesEditor);
     pContext->getWindow()->draw(itemBack);
+
+    nextControllerId = animateScreenTransition(pContext);
 
     while (pContext->getWindow()->pollEvent(event))
     {
@@ -201,7 +197,7 @@ void EditorMenuController::selectMenuItem()
     case EDITOR_MENU_ITEM_LEVELS_EDITOR:
     {
 
-        nextControllerId =
+        expectedControllerId =
             factories::ControllerFactory::EDITOR_LEVEL_CONTROLLER_ID;
 
         break;
@@ -209,7 +205,7 @@ void EditorMenuController::selectMenuItem()
     case EDITOR_MENU_ITEM_SERIES_EDITOR:
     {
 
-        nextControllerId =
+        expectedControllerId =
             factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID;
 
         break;
@@ -217,7 +213,7 @@ void EditorMenuController::selectMenuItem()
     case EDITOR_MENU_ITEM_BACK:
     {
 
-        nextControllerId =
+        expectedControllerId =
             factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
 
         break;
