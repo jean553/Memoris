@@ -41,8 +41,6 @@ Controller::Controller()
     expectedControllerId = 0;
     transitionTime = 0;
 
-    closeScreen = false;
-
     transitionSurfaceColor.r = constants::Colors::COLOR_BLACK_RED;
     transitionSurfaceColor.g = constants::Colors::COLOR_BLACK_GREEN;
     transitionSurfaceColor.b = constants::Colors::COLOR_BLACK_BLUE;
@@ -71,22 +69,24 @@ Controller::~Controller()
 /**
  *
  */
-unsigned short Controller::closeScreenTransition(
-    utils::Context* pContext,
-    unsigned short destinationControllerId
-)
+unsigned short Controller::closeScreenTransition(utils::Context* pContext)
 {
-    if (!closeScreen)
+    if (!expectedControllerId)
     {
         return 0;
     }
 
-    transitionSurfaceColor.a = static_cast<sf::Uint8>(transitionTime * TRANSITION_ALPHA_INTERVAL);
+    transitionSurfaceColor.a = static_cast<sf::Uint8>(
+                                   transitionTime * TRANSITION_ALPHA_INTERVAL
+                               );
     transitionSurface.setFillColor(transitionSurfaceColor);
 
     pContext->getWindow()->draw(transitionSurface);
 
-    if (screenTransitionClock.getElapsedTime().asMilliseconds() > TRANSITION_MILLISECONDS_INTERVAL)
+    if (
+        screenTransitionClock.getElapsedTime().asMilliseconds() >
+        TRANSITION_MILLISECONDS_INTERVAL
+    )
     {
         screenTransitionClock.restart();
         transitionTime++;
@@ -94,7 +94,7 @@ unsigned short Controller::closeScreenTransition(
 
     if (transitionTime > TRANSITION_TIME_MAX)
     {
-        return destinationControllerId;
+        return expectedControllerId;
     }
 
     return 0;

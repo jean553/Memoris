@@ -197,10 +197,7 @@ unsigned short MainMenuController::render(utils::Context* pContext)
     pContext->getWindow()->draw(itemExit);
     pContext->getWindow()->draw(spriteGithub);
 
-    nextControllerId = closeScreenTransition(
-                           pContext,
-                           expectedControllerId
-                       );
+    nextControllerId = closeScreenTransition(pContext);
 
     while(pContext->getWindow()->pollEvent(event))
     {
@@ -335,7 +332,6 @@ void MainMenuController::selectMenuItem()
 
         expectedControllerId =
             factories::ControllerFactory::NEW_GAME_CONTROLLER_ID;
-        closeScreen = true;
 
         break;
     }
@@ -344,7 +340,6 @@ void MainMenuController::selectMenuItem()
 
         expectedControllerId =
             factories::ControllerFactory::EDITOR_MENU_CONTROLLER_ID;
-        closeScreen = true;
 
         break;
     }
