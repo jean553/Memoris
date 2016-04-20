@@ -56,5 +56,9 @@ const sf::Uint8 Colors::COLOR_DARK_GRAY_RED = 50;
 const sf::Uint8 Colors::COLOR_DARK_GRAY_GREEN = 50;
 const sf::Uint8 Colors::COLOR_DARK_GRAY_BLUE = 50;
 
+const sf::Uint8 Colors::COLOR_BLACK_RED = 0;
+const sf::Uint8 Colors::COLOR_BLACK_GREEN = 0;
+const sf::Uint8 Colors::COLOR_BLACK_BLUE = 0;
+
 const sf::Uint8 Colors::COLOR_ALPHA_FULL = 255;
 const sf::Uint8 Colors::COLOR_ALPHA_PARTIAL = 128;
