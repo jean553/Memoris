@@ -222,6 +222,8 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
 
     cursor.display(pContext);
 
+    nextControllerId = animateScreenTransition(pContext);
+
     while(pContext->getWindow()->pollEvent(event))
     {
         switch(event.type)
@@ -233,7 +235,7 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
             case sf::Keyboard::Escape:
             {
 
-                nextControllerId =
+                expectedControllerId =
                     factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
 
                 break;
@@ -259,7 +261,7 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
                 {
                     pContext->removeAllMessages();
 
-                    nextControllerId =
+                    expectedControllerId =
                         factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
                 }
                 // check buttons click according to current status
@@ -275,7 +277,7 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
                     }
                     if(buttonOpen.isMouseHover())
                     {
-                        nextControllerId =
+                        expectedControllerId =
                             factories::ControllerFactory::OPEN_SERIE_CONTROLLER_ID;
                     }
                     break;
@@ -344,7 +346,7 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
 
                         pContext->setStringsList(levelsList.getStringsList());
 
-                        nextControllerId =
+                        expectedControllerId =
                             factories::ControllerFactory::OPEN_LEVEL_CONTROLLER_ID;
 
                     }
