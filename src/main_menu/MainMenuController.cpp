@@ -197,7 +197,7 @@ unsigned short MainMenuController::render(utils::Context* pContext)
     pContext->getWindow()->draw(itemExit);
     pContext->getWindow()->draw(spriteGithub);
 
-    nextControllerId = closeScreenTransition(pContext);
+    nextControllerId = animateScreenTransition(pContext);
 
     while(pContext->getWindow()->pollEvent(event))
     {

@@ -25,9 +25,7 @@
  */
 
 #include "NewGameController.hpp"
-
 #include "ControllerFactory.hpp"
-
 #include "Colors.hpp"
 #include "Fonts.hpp"
 
@@ -38,16 +36,12 @@ const std::string NewGameController::STRING_NEW_GAME_EXPLANATION = "Your name :"
 const std::string NewGameController::STRING_NAME_DEFAULT = "";
 
 const unsigned short NewGameController::SIZE_NAME_INPUT_TEXT = 600;
-
 const unsigned short NewGameController::POSITION_NEW_GAME_TITLE_X = 620;
 const unsigned short NewGameController::POSITION_NEW_GAME_TITLE_Y = 200;
-
 const unsigned short NewGameController::POSITION_NEW_GAME_EXPLANATION_X = 645;
 const unsigned short NewGameController::POSITION_NEW_GAME_EXPLANATION_Y = 380;
-
 const unsigned short NewGameController::POSITION_NAME_INPUT_TEXT_X = 500;
 const unsigned short NewGameController::POSITION_NAME_INPUT_TEXT_Y = 450;
-
 const unsigned short NewGameController::MAX_NAME_LENGTH = 15;
 
 /**
@@ -111,6 +105,8 @@ unsigned short NewGameController::render(utils::Context* pContext)
     pContext->getWindow()->draw(explanation);
 
     inputTextGameName.display(pContext);
+
+    nextControllerId = animateScreenTransition(pContext);
 
     while(pContext->getWindow()->pollEvent(event))
     {
