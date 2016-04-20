@@ -53,6 +53,13 @@ public:
     virtual void performAction() = 0;
 
     /**
+     * @brief action to execute when the cell is added
+     * inside the level, used with the level editor,
+     * the parent definition does nothing
+     */
+    virtual void onAddAction();
+
+    /**
      * @brief setter for the position
      *
      * @param hPosition horizontal position

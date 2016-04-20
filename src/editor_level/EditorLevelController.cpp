@@ -474,6 +474,8 @@ void EditorLevelController::updateOneCell(
         static_cast<short>(horizontalAddress),
         static_cast<short>(verticalAddress)
     );
+
+    (*level.getPointerCells())[horizontalAddress][verticalAddress]->onAddAction();
 }
 
 /**

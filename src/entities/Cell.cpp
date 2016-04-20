@@ -102,6 +102,13 @@ Cell::~Cell()
 /**
  *
  */
+void Cell::onAddAction()
+{
+}
+
+/**
+ *
+ */
 void Cell::setPosition(
     float hPosition,
     float vPosition
