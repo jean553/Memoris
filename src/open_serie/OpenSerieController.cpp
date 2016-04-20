@@ -81,6 +81,8 @@ unsigned short OpenSerieController::render(utils::Context* pContext)
     seriesList.display(pContext);
     cursor.display(pContext);
 
+    nextControllerId = animateScreenTransition(pContext);
+
     while(pContext->getWindow()->pollEvent(event))
     {
         switch(event.type)
@@ -91,7 +93,7 @@ unsigned short OpenSerieController::render(utils::Context* pContext)
             {
             case sf::Keyboard::Escape:
             {
-                nextControllerId =
+                expectedControllerId =
                     factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID;
             }
             }
@@ -104,7 +106,7 @@ unsigned short OpenSerieController::render(utils::Context* pContext)
             {
                 if(buttonExit.isMouseHover())
                 {
-                    nextControllerId =
+                    expectedControllerId =
                         factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID;
                 }
 
