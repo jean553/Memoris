@@ -33,6 +33,10 @@ namespace controllers
 class Controller
 {
 
+    static const unsigned short TRANSITION_ALPHA_INTERVAL;
+    static const unsigned short TRANSITION_MILLISECONDS_INTERVAL;
+    static const unsigned short TRANSITION_TIME_MAX;
+
 public:
 
     Controller();
@@ -52,6 +56,36 @@ protected:
     sf::Event event;
 
     unsigned short nextControllerId;
+    unsigned short expectedControllerId;
+
+    bool closeScreen;
+
+    /**
+     * @brief close the screen with an animation
+     * if the closeScreen boolean is true, returns
+     * the destinationControllerId when the animation
+     * is finished
+     *
+     * @param pContext current context pointer
+     * @param destinationControllerId value to return when the animation is finished,
+     * used to be set as the value of nextControllerId
+     *
+     * @return unsigned short destinationControllerId when the animation is finished
+     */
+    unsigned short closeScreenTransition(
+        utils::Context* pContext,
+        unsigned short destinationControllerId
+    );
+
+private:
+
+    unsigned short transitionTime;
+
+    sf::RectangleShape transitionSurface;
+
+    sf::Color transitionSurfaceColor;
+
+    sf::Clock screenTransitionClock;
 };
 }
 

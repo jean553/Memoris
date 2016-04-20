@@ -23,8 +23,14 @@
  */
 
 #include "Controller.hpp"
+#include "Window.hpp"
+#include "Colors.hpp"
 
 using namespace controllers;
+
+const unsigned short Controller::TRANSITION_ALPHA_INTERVAL = 51;
+const unsigned short Controller::TRANSITION_MILLISECONDS_INTERVAL = 25;
+const unsigned short Controller::TRANSITION_TIME_MAX = 5;
 
 /**
  *
@@ -32,6 +38,26 @@ using namespace controllers;
 Controller::Controller()
 {
     nextControllerId = 0;
+    expectedControllerId = 0;
+    transitionTime = 0;
+
+    closeScreen = false;
+
+    transitionSurfaceColor.r = constants::Colors::COLOR_BLACK_RED;
+    transitionSurfaceColor.g = constants::Colors::COLOR_BLACK_GREEN;
+    transitionSurfaceColor.b = constants::Colors::COLOR_BLACK_BLUE;
+    transitionSurfaceColor.a = constants::Colors::COLOR_ALPHA_FULL;
+
+    transitionSurface.setSize(
+        sf::Vector2f(
+            constants::Window::WIDTH,
+            constants::Window::HEIGHT
+        )
+    );
+
+    transitionSurface.setPosition(0, 0);
+
+    transitionSurface.setFillColor(transitionSurfaceColor);
 }
 
 /**
@@ -40,4 +66,36 @@ Controller::Controller()
  */
 Controller::~Controller()
 {
+}
+
+/**
+ *
+ */
+unsigned short Controller::closeScreenTransition(
+    utils::Context* pContext,
+    unsigned short destinationControllerId
+)
+{
+    if (!closeScreen)
+    {
+        return 0;
+    }
+
+    transitionSurfaceColor.a = static_cast<sf::Uint8>(transitionTime * TRANSITION_ALPHA_INTERVAL);
+    transitionSurface.setFillColor(transitionSurfaceColor);
+
+    pContext->getWindow()->draw(transitionSurface);
+
+    if (screenTransitionClock.getElapsedTime().asMilliseconds() > TRANSITION_MILLISECONDS_INTERVAL)
+    {
+        screenTransitionClock.restart();
+        transitionTime++;
+    }
+
+    if (transitionTime > TRANSITION_TIME_MAX)
+    {
+        return destinationControllerId;
+    }
+
+    return 0;
 }

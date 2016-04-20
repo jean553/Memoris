@@ -23,19 +23,15 @@
  */
 
 #include "MainMenuController.hpp"
-
 #include "ControllerFactory.hpp"
-
 #include "Colors.hpp"
 #include "Fonts.hpp"
 #include "Sounds.hpp"
-
 #include "HasMenuSelectorAnimation.hpp"
 
 using namespace controllers;
 
 const std::string MainMenuController::PATH_IMAGE_GITHUB = "res/images/fork-me.png";
-
 const std::string MainMenuController::STRING_TITLE = "Memoris";
 const std::string MainMenuController::STRING_NEW_GAME = "New game";
 const std::string MainMenuController::STRING_LOAD_GAME = "Load game";
@@ -46,40 +42,28 @@ const std::string MainMenuController::STRING_EXIT = "Exit";
 const unsigned short MainMenuController::COLOR_TITLE_RED_INIT = 0;
 const unsigned short MainMenuController::COLOR_TITLE_GREEN_INIT = 0;
 const unsigned short MainMenuController::COLOR_TITLE_BLUE_INIT = 255;
-
 const unsigned short MainMenuController::COLOR_TITLE_RED_MAX = 255;
 const unsigned short MainMenuController::COLOR_TITLE_GREEN_MAX = 180;
 const unsigned short MainMenuController::COLOR_TITLE_BLUE_MAX = 255;
-
 const unsigned short MainMenuController::COLOR_TITLE_ALL_MIN = 0;
-
 const unsigned short MainMenuController::POSITION_TITLE_X = 480;
 const unsigned short MainMenuController::POSITION_TITLE_Y = 100;
-
 const unsigned short MainMenuController::POSITION_GITHUB_X = 1300;
 const unsigned short MainMenuController::POSITION_GITHUB_Y = 0;
-
 const unsigned short MainMenuController::POSITION_ITEM_NEW_GAME_X = 615;
 const unsigned short MainMenuController::POSITION_ITEM_NEW_GAME_Y = 300;
-
 const unsigned short MainMenuController::POSITION_ITEM_LOAD_GAME_X = 605;
 const unsigned short MainMenuController::POSITION_ITEM_LOAD_GAME_Y = 400;
-
 const unsigned short MainMenuController::POSITION_ITEM_EDITOR_X = 685;
 const unsigned short MainMenuController::POSITION_ITEM_EDITOR_Y = 500;
-
 const unsigned short MainMenuController::POSITION_ITEM_OPTIONS_X = 660;
 const unsigned short MainMenuController::POSITION_ITEM_OPTIONS_Y = 600;
-
 const unsigned short MainMenuController::POSITION_ITEM_EXIT_X = 725;
 const unsigned short MainMenuController::POSITION_ITEM_EXIT_Y = 700;
-
 const unsigned short MainMenuController::DIRECTION_TITLE_RED_INIT = 1;
 const unsigned short MainMenuController::DIRECTION_TITLE_GREEN_INIT = 1;
-
 const unsigned short MainMenuController::MAIN_MENU_SELECTOR_MIN = 0;
 const unsigned short MainMenuController::MAIN_MENU_SELECTOR_MAX = 4;
-
 const unsigned short MainMenuController::MAIN_MENU_ITEM_NEW_GAME = 0;
 const unsigned short MainMenuController::MAIN_MENU_ITEM_LOAD_GAME = 1;
 const unsigned short MainMenuController::MAIN_MENU_ITEM_EDITOR = 2;
@@ -87,7 +71,6 @@ const unsigned short MainMenuController::MAIN_MENU_ITEM_OPTIONS = 3;
 const unsigned short MainMenuController::MAIN_MENU_ITEM_EXIT = 4;
 
 const short MainMenuController::DIRECTION_TITLE_BLUE_INIT = -1;
-
 const short MainMenuController::SELECTOR_COLOR_MINIMUM = 0;
 const short MainMenuController::SELECTOR_COLOR_MAXIMUM = 255;
 
@@ -213,6 +196,11 @@ unsigned short MainMenuController::render(utils::Context* pContext)
     pContext->getWindow()->draw(itemOptions);
     pContext->getWindow()->draw(itemExit);
     pContext->getWindow()->draw(spriteGithub);
+
+    nextControllerId = closeScreenTransition(
+                           pContext,
+                           expectedControllerId
+                       );
 
     while(pContext->getWindow()->pollEvent(event))
     {
@@ -345,16 +333,18 @@ void MainMenuController::selectMenuItem()
     case MAIN_MENU_ITEM_NEW_GAME:
     {
 
-        nextControllerId =
+        expectedControllerId =
             factories::ControllerFactory::NEW_GAME_CONTROLLER_ID;
+        closeScreen = true;
 
         break;
     }
     case MAIN_MENU_ITEM_EDITOR:
     {
 
-        nextControllerId =
+        expectedControllerId =
             factories::ControllerFactory::EDITOR_MENU_CONTROLLER_ID;
+        closeScreen = true;
 
         break;
     }

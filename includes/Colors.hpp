@@ -64,6 +64,10 @@ public:
     static const sf::Uint8 COLOR_DARK_GRAY_GREEN;
     static const sf::Uint8 COLOR_DARK_GRAY_BLUE;
 
+    static const sf::Uint8 COLOR_BLACK_RED;
+    static const sf::Uint8 COLOR_BLACK_GREEN;
+    static const sf::Uint8 COLOR_BLACK_BLUE;
+
     static const sf::Uint8 COLOR_ALPHA_FULL;
     static const sf::Uint8 COLOR_ALPHA_PARTIAL;
 };
