@@ -39,7 +39,9 @@ Controller::Controller()
 {
     nextControllerId = 0;
     expectedControllerId = 0;
-    transitionTime = 0;
+    transitionTime = 5;
+
+    openScreen = true;
 
     transitionSurfaceColor.r = constants::Colors::COLOR_BLACK_RED;
     transitionSurfaceColor.g = constants::Colors::COLOR_BLACK_GREEN;
@@ -69,9 +71,9 @@ Controller::~Controller()
 /**
  *
  */
-unsigned short Controller::closeScreenTransition(utils::Context* pContext)
+unsigned short Controller::animateScreenTransition(utils::Context* pContext)
 {
-    if (!expectedControllerId)
+    if (!expectedControllerId && !openScreen)
     {
         return 0;
     }
@@ -89,12 +91,25 @@ unsigned short Controller::closeScreenTransition(utils::Context* pContext)
     )
     {
         screenTransitionClock.restart();
-        transitionTime++;
+
+        if (openScreen)
+        {
+            transitionTime--;
+        }
+        else
+        {
+            transitionTime++;
+        }
     }
 
     if (transitionTime > TRANSITION_TIME_MAX)
     {
         return expectedControllerId;
+    }
+
+    if (transitionTime <= 0)
+    {
+        openScreen = false;
     }
 
     return 0;

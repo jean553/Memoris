@@ -58,17 +58,20 @@ protected:
     unsigned short nextControllerId;
     unsigned short expectedControllerId;
 
+    bool openScreen;
+
     /**
      * @brief close the screen with an animation
      * if the closeScreen boolean is true, returns
-     * the destinationControllerId when the animation
+     * the expectedControllerId when the animation
      * is finished
      *
      * @param pContext current context pointer
      *
-     * @return unsigned short destinationControllerId when the animation is finished
+     * @return unsigned short expectedControllerId
+     * when the animation is finished
      */
-    unsigned short closeScreenTransition(utils::Context* pContext);
+    unsigned short animateScreenTransition(utils::Context* pContext);
 
 private:
 
