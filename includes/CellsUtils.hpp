@@ -17,39 +17,38 @@
 */
 
 /**
- * @file DepartureCell.cpp
- * @brief departure cell entity
- * @package entities
+ * @file CellsUtils.hpp
+ * @brief utils methods for cells management
+ * @package utils
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "DepartureCell.hpp"
-#include "StringsListsUtils.hpp"
-#include "CellsUtils.hpp"
+#ifndef DEF_CELLS_UTILS
+#define DEF_CELLS_UTILS
 
-using namespace entities;
+#include <string>
 
-const std::string DepartureCell::DEPARTURE_CELL_PICTURE_PATH = "res/cells/departure.png";
-
-/**
- *
- */
-DepartureCell::DepartureCell() : Cell("DP")
+namespace utils
 {
-    setPicturePath(DEPARTURE_CELL_PICTURE_PATH);
+class CellsUtils
+{
+public:
+
+    /**
+     * @brief checks if the given cell string is
+     * already inside the level cells string
+     *
+     * @param cells level cells string
+     * @param cell cell string
+     *
+     * @return true if the cell is already
+     * inside the cells of the level
+     */
+    static bool isCellAlreadyInLevel(
+        std::string cells,
+        std::string cell
+    );
+};
 }
 
-/**
- *
- */
-void DepartureCell::performAction()
-{
-}
-
-/**
- *
- */
-bool DepartureCell::authorizeAddAction(std::string stringLevel)
-{
-    return !utils::CellsUtils::isCellAlreadyInLevel(stringLevel, IN_FILE_REPRESENTATION);
-}
+#endif

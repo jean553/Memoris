@@ -46,6 +46,16 @@ public:
      * perform when the cell is triggered
      */
     void performAction();
+
+    /**
+     * @brief check if an arrival cell already exists
+     * inside the given cells string
+     *
+     * @param stringLevel cells string representation of a level
+     *
+     * @return true if one arrival cell already exists
+     */
+    bool authorizeAddAction(std::string stringLevel);
 };
 }
 

@@ -24,6 +24,7 @@
  */
 
 #include "ArrivalCell.hpp"
+#include "CellsUtils.hpp"
 
 using namespace entities;
 
@@ -42,4 +43,12 @@ ArrivalCell::ArrivalCell() : Cell("AC")
  */
 void ArrivalCell::performAction()
 {
+}
+
+/**
+ *
+ */
+bool ArrivalCell::authorizeAddAction(std::string stringLevel)
+{
+    return !utils::CellsUtils::isCellAlreadyInLevel(stringLevel, IN_FILE_REPRESENTATION);
 }
