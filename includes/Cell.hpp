@@ -58,7 +58,7 @@ public:
      * @return true if the cell can be added,
      * true by default
      */
-    virtual bool authorizeAddAction();
+    virtual bool authorizeAddAction(std::string);
 
     /**
      * @brief setter for the position

@@ -50,6 +50,19 @@ public:
         std::vector<std::string> list,
         std::string value
     );
+
+    /**
+     * @brief returns the amount of sub string inside a parent string
+     *
+     * @param mainString parent string
+     * @param subString sub-string to find in the parent one
+     *
+     * @return amount of sub-string inside parent string
+     */
+    static unsigned int getSubStringAmountInString(
+        std::string mainString,
+        std::string subString
+    );
 };
 }
 

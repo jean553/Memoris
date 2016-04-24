@@ -24,6 +24,7 @@
  */
 
 #include "DepartureCell.hpp"
+#include "StringsListsUtils.hpp"
 
 using namespace entities;
 
@@ -42,4 +43,17 @@ DepartureCell::DepartureCell() : Cell("DP")
  */
 void DepartureCell::performAction()
 {
+}
+
+/**
+ *
+ */
+bool DepartureCell::authorizeAddAction(std::string stringLevel)
+{
+    if (utils::StringsListsUtils::getSubStringAmountInString(stringLevel, IN_FILE_REPRESENTATION))
+    {
+        return false;
+    }
+
+    return true;
 }
