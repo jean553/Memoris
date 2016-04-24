@@ -17,39 +17,29 @@
 */
 
 /**
- * @file DepartureCell.cpp
- * @brief departure cell entity
- * @package entities
+ * @file CellsUtils.cpp
+ * @brief utils functions for cells
+ * @package utils
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "DepartureCell.hpp"
-#include "StringsListsUtils.hpp"
 #include "CellsUtils.hpp"
+#include "StringsListsUtils.hpp"
 
-using namespace entities;
-
-const std::string DepartureCell::DEPARTURE_CELL_PICTURE_PATH = "res/cells/departure.png";
-
-/**
- *
- */
-DepartureCell::DepartureCell() : Cell("DP")
-{
-    setPicturePath(DEPARTURE_CELL_PICTURE_PATH);
-}
+using namespace utils;
 
 /**
  *
  */
-void DepartureCell::performAction()
+bool CellsUtils::isCellAlreadyInLevel(
+    std::string cells,
+    std::string cell
+)
 {
-}
+    if (StringsListsUtils::getSubStringAmountInString(cells, cell))
+    {
+        return true;
+    }
 
-/**
- *
- */
-bool DepartureCell::authorizeAddAction(std::string stringLevel)
-{
-    return !utils::CellsUtils::isCellAlreadyInLevel(stringLevel, IN_FILE_REPRESENTATION);
+    return false;
 }
