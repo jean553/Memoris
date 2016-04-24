@@ -27,7 +27,6 @@
 #define DEF_CELL
 
 #include <SFML/Graphics.hpp>
-
 #include <string>
 
 #include "Context.hpp"
@@ -53,11 +52,13 @@ public:
     virtual void performAction() = 0;
 
     /**
-     * @brief action to execute when the cell is added
-     * inside the level, used with the level editor,
-     * the parent definition does nothing
+     * @brief check if the cell can be added inside
+     * the given level cells array
+     *
+     * @return true if the cell can be added,
+     * true by default
      */
-    virtual void onAddAction();
+    virtual bool authorizeAddAction();
 
     /**
      * @brief setter for the position

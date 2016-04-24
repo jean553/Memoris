@@ -455,6 +455,12 @@ void EditorLevelController::updateOneCell(
         return;
     }
 
+    //TODO: add error message, not tested in the previous
+    //condition as pSelectedCell has to exist...
+    if (!pSelectedCell->authorizeAddAction()) {
+        return;
+    }
+
     float horizontalPosition = pSelectedCell->getHorizontalPosition();
     float verticalPosition = pSelectedCell->getVerticalPosition();
 
@@ -474,8 +480,6 @@ void EditorLevelController::updateOneCell(
         static_cast<short>(horizontalAddress),
         static_cast<short>(verticalAddress)
     );
-
-    (*level.getPointerCells())[horizontalAddress][verticalAddress]->onAddAction();
 }
 
 /**
