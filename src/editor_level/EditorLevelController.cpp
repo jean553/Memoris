@@ -457,7 +457,8 @@ void EditorLevelController::updateOneCell(
 
     //TODO: add error message, not tested in the previous
     //condition as pSelectedCell has to exist...
-    if (!pSelectedCell->authorizeAddAction()) {
+    if (!pCellsSelectorCell->authorizeAddAction(level.getCellsAsString()))
+    {
         return;
     }
 

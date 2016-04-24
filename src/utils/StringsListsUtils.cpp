@@ -29,6 +29,9 @@
 
 using namespace utils;
 
+/**
+ *
+ */
 bool StringsListsUtils::stringsListContainsString(std::vector<std::string> list, std::string value)
 {
     if (find(list.begin(), list.end(), value) != list.end())
@@ -37,4 +40,25 @@ bool StringsListsUtils::stringsListContainsString(std::vector<std::string> list,
     }
 
     return false;
+}
+
+/**
+ *
+ */
+unsigned int StringsListsUtils::getSubStringAmountInString(
+    std::string mainString,
+    std::string subString
+)
+{
+    const size_t step = subString.size();
+    size_t currentPosition = 0;
+    unsigned int counter = 0;
+
+    while ((currentPosition = mainString.find(subString, currentPosition)) != std::string::npos)
+    {
+        currentPosition += step;
+        ++counter;
+    }
+
+    return counter;
 }
