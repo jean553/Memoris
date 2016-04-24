@@ -24,7 +24,6 @@
  */
 
 #include "Cell.hpp"
-
 #include "Dimensions.hpp"
 #include "Colors.hpp"
 
@@ -102,8 +101,9 @@ Cell::~Cell()
 /**
  *
  */
-void Cell::onAddAction()
+bool Cell::authorizeAddAction()
 {
+    return true;
 }
 
 /**
