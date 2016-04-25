@@ -45,11 +45,3 @@ DepartureCell::DepartureCell() : Cell("DP")
 void DepartureCell::performAction()
 {
 }
-
-/**
- *
- */
-bool DepartureCell::authorizeAddAction(std::string stringLevel)
-{
-    return !utils::CellsUtils::isCellAlreadyInLevel(stringLevel, IN_FILE_REPRESENTATION);
-}

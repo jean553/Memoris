@@ -39,6 +39,7 @@
 #include "ControllerFactory.hpp"
 #include "Screens.hpp"
 #include "Messages.hpp"
+#include "CellsFilter.hpp"
 
 using namespace controllers;
 
@@ -455,9 +456,13 @@ void EditorLevelController::updateOneCell(
         return;
     }
 
-    //TODO: add error message, not tested in the previous
-    //condition as pSelectedCell has to exist...
-    if (!pCellsSelectorCell->authorizeAddAction(level.getCellsAsString()))
+    //TODO: use a true value for the first floor boolean...
+    if (
+        !utils::CellsFilter::canBeAdded(
+            level.getCellsAsString(),
+            pCellsSelectorCell->IN_FILE_REPRESENTATION
+        )
+    )
     {
         return;
     }

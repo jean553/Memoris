@@ -52,15 +52,6 @@ public:
     virtual void performAction() = 0;
 
     /**
-     * @brief check if the cell can be added inside
-     * the given level cells array
-     *
-     * @return true if the cell can be added,
-     * true by default
-     */
-    virtual bool authorizeAddAction(std::string);
-
-    /**
      * @brief setter for the position
      *
      * @param hPosition horizontal position
