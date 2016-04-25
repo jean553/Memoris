@@ -30,9 +30,11 @@ using namespace utils;
 
 bool CellsFilter::canBeAdded(
     std::string levelCellsString,
-    std::string cellStringRepresentation
+    std::string cellStringRepresentation,
+    bool isOnFirstFloor
 )
 {
+    // only one departure and arrival cell
     if (
         cellStringRepresentation == "DP" ||
         cellStringRepresentation == "AC"
@@ -42,6 +44,14 @@ bool CellsFilter::canBeAdded(
                    levelCellsString,
                    cellStringRepresentation
                );
+    }
+
+    // the floor down cell is not allowed on the first floor
+    if (
+        cellStringRepresentation == "FD"
+    )
+    {
+        return !isOnFirstFloor;
     }
 
     return true;

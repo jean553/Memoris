@@ -35,9 +35,20 @@ class CellsFilter
 
 public:
 
+    /**
+     * @brief certifies if a given cell can be
+     * added on a given level according to properties
+     *
+     * @param levelCellsString string representation of the level
+     * @param cellStringRepresentation string representation of the cell to add
+     * @param isOnFirstFloor true if the cell has to be added on the first floor
+     *
+     * @return true if the cell can be added
+     */
     static bool canBeAdded(
         std::string levelCellsString,
-        std::string cellStringRepresentation
+        std::string cellStringRepresentation,
+        bool isOnFirstFloor
     );
 };
 }
