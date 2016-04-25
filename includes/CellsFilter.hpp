@@ -17,35 +17,28 @@
 */
 
 /**
- * @file DepartureCell.hpp
- * @brief departure cell entity
- * @package entities
+ * @file CellsFilter.hpp
+ * @brief filter the cells when added
+ * @package utils
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_DEPARTURE_CELL
-#define DEF_DEPARTURE_CELL
-
-#include "Cell.hpp"
+#ifndef DEF_CELLS_FILTER
+#define DEF_CELLS_FILTER
 
 #include <string>
 
-namespace entities
+namespace utils
 {
-class DepartureCell : public Cell
+class CellsFilter
 {
-
-    static const std::string DEPARTURE_CELL_PICTURE_PATH;
 
 public:
 
-    DepartureCell();
-
-    /**
-     * @brief definition of the action to
-     * perform when the cell is triggered
-     */
-    void performAction();
+    static bool canBeAdded(
+        std::string levelCellsString,
+        std::string cellStringRepresentation
+    );
 };
 }
 

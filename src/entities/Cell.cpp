@@ -101,14 +101,6 @@ Cell::~Cell()
 /**
  *
  */
-bool Cell::authorizeAddAction(std::string)
-{
-    return true;
-}
-
-/**
- *
- */
 void Cell::setPosition(
     float hPosition,
     float vPosition
