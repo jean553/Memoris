@@ -119,8 +119,16 @@ unsigned short NewGameController::render(utils::Context* pContext)
             case sf::Keyboard::Escape:
             {
 
-                nextControllerId =
+                expectedControllerId =
                     factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
+
+                break;
+            }
+            case sf::Keyboard::Return:
+            {
+
+                expectedControllerId =
+                    factories::ControllerFactory::GAME_CONTROLLER_ID;
 
                 break;
             }
