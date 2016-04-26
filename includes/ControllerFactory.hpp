@@ -46,6 +46,7 @@ public:
     static const unsigned short OPEN_SERIE_CONTROLLER_ID;
     static const unsigned short EDITOR_LEVEL_CONTROLLER_ID;
     static const unsigned short OPEN_LEVEL_CONTROLLER_ID;
+    static const unsigned short GAME_CONTROLLER_ID;
 
     /**
      * @brief returns a new controller
