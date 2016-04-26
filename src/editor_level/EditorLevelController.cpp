@@ -456,11 +456,11 @@ void EditorLevelController::updateOneCell(
         return;
     }
 
-    //TODO: use a true value for the first floor boolean...
     if (
         !utils::CellsFilter::canBeAdded(
             level.getCellsAsString(),
-            pCellsSelectorCell->IN_FILE_REPRESENTATION
+            pCellsSelectorCell->IN_FILE_REPRESENTATION,
+            pSelectedCell->getHorizontalAddress() == 0
         )
     )
     {
