@@ -49,6 +49,15 @@ public:
         std::string fileName,
         std::string content = ""
     );
+
+    /**
+     * @brief get file content into one string ( one shot )
+     *
+     * @param fileName name of the file to read
+     *
+     * @return string file content
+     */
+    static std::string readFile(const std::string& fileName);
 };
 }
 

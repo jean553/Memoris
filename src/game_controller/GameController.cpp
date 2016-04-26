@@ -27,14 +27,19 @@
 
 #include "GameController.hpp"
 #include "ControllerFactory.hpp"
+#include "FileWriter.hpp"
 
 using namespace controllers;
+
+const std::string GameController::TEMPORARY_DEFAULT_LEVEL = "data/levels/1.level";
 
 /**
  *
  */
-GameController::GameController() : Controller()
+GameController::GameController() : Controller(), level(0, 0)
 {
+    /* TODO: use a constant level name for now... */
+    level.loadCells(utils::FileWriter::readFile("data/levels/1.level"));
 }
 
 /**
@@ -42,6 +47,12 @@ GameController::GameController() : Controller()
  */
 unsigned short GameController::render(utils::Context* pContext)
 {
+    /* TODO: only displays the first floor, default value of
+     * the second parameter is 0, should be able to switch */
+    level.displayAllCellsByFloor(pContext);
+
+    cursor.display(pContext);
+
     nextControllerId = animateScreenTransition(pContext);
 
     while(pContext->getWindow()->pollEvent(event))

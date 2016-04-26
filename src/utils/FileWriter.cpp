@@ -50,3 +50,21 @@ bool FileWriter::writeFile(
 
     return true;
 }
+
+/**
+ *
+ */
+std::string FileWriter::readFile(const std::string& fileName)
+{
+    /* TODO: check if the file has been opened correctly */
+    std::ifstream file(fileName);
+
+    std::string cellsString(
+        (std::istreambuf_iterator<char>(file)),
+        (std::istreambuf_iterator<char>())
+    );
+
+    file.close();
+
+    return cellsString;
+}

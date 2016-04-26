@@ -37,6 +37,7 @@ namespace entities
 {
 class Level
 {
+    static const unsigned short CELLS_STRING_STEP;
 
 public:
 
@@ -118,6 +119,14 @@ public:
      */
     std::string getCellsAsString();
 
+    /**
+     * @brief set level cells from given string, load empty
+     * cells level if no string are specified
+     *
+     * @param levelString string representation of the level
+     */
+    void loadCells(const std::string& levelString = "");
+
 private:
 
     float horizontalPosition;
@@ -128,11 +137,6 @@ private:
     entities::Cell* pSelectedCell;
 
     std::vector<std::vector<Cell*>> cells;
-
-    /**
-     * @brief initialize the level cells to empty cell
-     */
-    void initializeWithEmptyCells();
 };
 }
 
