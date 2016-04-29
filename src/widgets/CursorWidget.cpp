@@ -42,9 +42,9 @@ CursorWidget::CursorWidget()
  */
 void CursorWidget::display(utils::Context* pContext)
 {
-    // NOTE: this is useless, as the CursorWidget attributes are never get,
-    // instead, we directly get the sf::Cursor position. Despite this, we
-    // still manually update the widget position to guarantee logic.
+    /* NOTE: this is useless, as the CursorWidget attributes are never get,
+       instead, we directly get the sf::Cursor position. Despite this, we
+       still manually update the widget position to guarantee logic. */
     setPosition(
         sf::Mouse::getPosition().x,
         sf::Mouse::getPosition().y
