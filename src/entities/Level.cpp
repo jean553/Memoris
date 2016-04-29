@@ -26,8 +26,11 @@
 #include "Level.hpp"
 #include "EmptyCell.hpp"
 #include "Dimensions.hpp"
+#include "CellFactory.hpp"
 
 using namespace entities;
+
+const unsigned short Level::CELLS_STRING_STEP = 2;
 
 /**
  *
@@ -40,7 +43,7 @@ Level::Level(
     horizontalPosition = hPosition;
     verticalPosition = vPosition;
 
-    initializeWithEmptyCells();
+    loadCells();
 
     pSelectedCell = NULL;
 }
@@ -52,8 +55,11 @@ Level::Level(const Level &level)
 {
     name = level.name;
 
-    //TODO: should not be empty cells but given level cells
-    initializeWithEmptyCells();
+    //TODO: the copy constructor does not copy the cells array,
+    //I need to investigate how to do it properly. By the way,
+    //I think I will change from a multi-dimensional array to
+    //a one-dimension array...
+    loadCells();
 
     horizontalPosition = level.horizontalPosition;
     verticalPosition = level.verticalPosition;
@@ -64,11 +70,17 @@ Level::Level(const Level &level)
  */
 Level::~Level()
 {
-    for (std::vector<std::vector<Cell*>>::iterator line = cells.begin();
-            line != cells.end(); ++line)
+    for (
+        std::vector<std::vector<Cell*>>::iterator line = cells.begin();
+        line != cells.end();
+        ++line
+    )
     {
-        for (std::vector<Cell*>::iterator cell = line->begin();
-                cell != line->end(); ++cell)
+        for (
+            std::vector<Cell*>::iterator cell = line->begin();
+            cell != line->end();
+            ++cell
+        )
         {
             delete (*cell);
         }
@@ -83,11 +95,14 @@ void Level::displayAllCellsByFloor(
     short floor
 )
 {
-    // cast as the index of a vector is always unsigned long
+    /* cast as the index of a vector is always unsigned long */
     std::vector<Cell*> line = cells[static_cast<unsigned long>(floor)];
 
-    for (std::vector<Cell*>::iterator cell = line.begin();
-            cell != line.end(); ++cell)
+    for (
+        std::vector<Cell*>::iterator cell = line.begin();
+        cell != line.end();
+        ++cell
+    )
     {
         (*cell)->display(pContext);
     }
@@ -114,11 +129,14 @@ std::string Level::getName() const
  */
 bool Level::isMouseHover(short floor)
 {
-    // cast as the index of a vector is always unsigned long
+    /* cast as the index of a vector is always unsigned long */
     std::vector<Cell*> line = cells[static_cast<unsigned long>(floor)];
 
-    for (std::vector<Cell*>::iterator cell = line.begin();
-            cell != line.end(); ++cell)
+    for (
+        std::vector<Cell*>::iterator cell = line.begin();
+        cell != line.end();
+        ++cell
+    )
     {
         if((*cell)->isMouseHover())
         {
@@ -141,31 +159,86 @@ entities::Cell* Level::getSelectedCellPointer() const
 /**
  *
  */
-void Level::initializeWithEmptyCells()
+std::vector<std::vector<Cell*>>* Level::getPointerCells()
+{
+    return &cells;
+}
+
+/**
+ *
+ */
+std::string Level::getCellsAsString()
+{
+    std::string cellsAsString;
+
+    for (
+        std::vector<std::vector<Cell*>>::iterator line = cells.begin();
+        line != cells.end();
+        ++line
+    )
+    {
+        for (
+            std::vector<Cell*>::iterator cell = line->begin();
+            cell != line->end();
+            ++cell
+        )
+        {
+            cellsAsString += (*cell)->IN_FILE_REPRESENTATION;
+        }
+    }
+
+    return cellsAsString;
+}
+
+/**
+ *
+ */
+void Level::loadCells(const std::string& levelString)
 {
     float currentColumn = 0, currentLine = 0;
     short floorAddress = 0, cellAddress = 0;
+    short cellNumber = 0;
 
     cells.resize(constants::Dimensions::LEVEL_FLOORS);
-    for (std::vector<std::vector<Cell*>>::iterator line = cells.begin();
-            line != cells.end(); ++line)
+    for (
+        std::vector<std::vector<Cell*>>::iterator line = cells.begin();
+        line != cells.end();
+        ++line
+    )
     {
 
         line->resize(constants::Dimensions::LEVEL_CELLS_PER_FLOOR);
 
-        for (std::vector<Cell*>::iterator cell = line->begin();
-                cell != line->end(); ++cell)
+        for (
+            std::vector<Cell*>::iterator cell = line->begin();
+            cell != line->end();
+            ++cell
+        )
         {
-
-            (*cell) = new EmptyCell();
+            if (levelString.empty())
+            {
+                (*cell) = new EmptyCell();
+            }
+            else
+            {
+                (*cell) = factories::CellFactory::getCellPointerByStringName(
+                              levelString.substr(static_cast<size_t>(cellNumber), 2)
+                          );
+            }
 
             (*cell)->setPosition(
                 horizontalPosition +
                 currentColumn *
-                (constants::Dimensions::CELL_PIXELS_DIMENSIONS + constants::Dimensions::CELLS_PIXELS_SEPARATION),
+                (
+                    constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+                    constants::Dimensions::CELLS_PIXELS_SEPARATION
+                ),
                 verticalPosition +
                 currentLine *
-                (constants::Dimensions::CELL_PIXELS_DIMENSIONS + constants::Dimensions::CELLS_PIXELS_SEPARATION)
+                (
+                    constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+                    constants::Dimensions::CELLS_PIXELS_SEPARATION
+                )
             );
 
             (*cell)->setLevelAddresses(
@@ -182,6 +255,7 @@ void Level::initializeWithEmptyCells()
             }
 
             cellAddress++;
+            cellNumber += CELLS_STRING_STEP;
         }
 
         floorAddress++;
@@ -190,32 +264,4 @@ void Level::initializeWithEmptyCells()
         currentColumn = 0;
         currentLine = 0;
     }
-}
-
-/**
- *
- */
-std::vector<std::vector<Cell*>>* Level::getPointerCells()
-{
-    return &cells;
-}
-
-/**
- *
- */
-std::string Level::getCellsAsString()
-{
-    std::string cellsAsString;
-
-    for (std::vector<std::vector<Cell*>>::iterator line = cells.begin();
-            line != cells.end(); ++line)
-    {
-        for (std::vector<Cell*>::iterator cell = line->begin();
-                cell != line->end(); ++cell)
-        {
-            cellsAsString += (*cell)->IN_FILE_REPRESENTATION;
-        }
-    }
-
-    return cellsAsString;
 }

@@ -1,4 +1,4 @@
-/*
+/**
  * Memoris
  * Copyright (C) 2015  Jean LELIEVRE
  *
@@ -17,47 +17,36 @@
 */
 
 /**
- * Game interface.
+ * Factory that generates the cells.
  *
- * @file GameController.hpp
- * @brief main controller for the game
- * @package controllers
+ * @file CellFactory.hpp
+ * @brief factory that generates the cells
+ * @package factories
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_GAME_CONTROLLER
-#define DEF_GAME_CONTROLLER
+#ifndef DEF_CELL_FACTORY
+#define DEF_CELL_FACTORY
 
-#include <SFML/Graphics.hpp>
+#include "Cell.hpp"
 
-#include "Controller.hpp"
-#include "Level.hpp"
-#include "CursorWidget.hpp"
-
-namespace controllers
+namespace factories
 {
-class GameController : public Controller
+class CellFactory
 {
-    static const std::string TEMPORARY_DEFAULT_LEVEL;
 
 public:
 
-    GameController();
-
     /**
-     * @brief renders the game main screen
+     * @brief returns a new cell
+     * pointer according to the given
+     * cell string
      *
-     * @param pContext commons items for controller
+     * @param stringCell       cell string representation
      *
-     * @return short    id of the new screen controller
+     * @return cell pointer
      */
-    unsigned short render(utils::Context* pContext);
-
-private:
-
-    entities::Level level;
-
-    widgets::CursorWidget cursor;
+    static entities::Cell* getCellPointerByStringName(const std::string& stringCell);
 };
 }
 
