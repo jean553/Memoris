@@ -240,25 +240,25 @@ unsigned short EditorLevelController::render(utils::Context* pContext)
     pContext->getWindow()->draw(floorPrefixLabel);
     pContext->getWindow()->draw(floorLabel);
 
-    // displays the input text line for new level
+    /* displays the input text line for new level */
     if (status == NEW_LEVEL)
     {
         inputTextNew.display(pContext);
     }
 
-    // displays the name of the level if one level is being edited
+    /* displays the name of the level if one level is being edited */
     else if (status == EDIT_LEVEL)
     {
         pContext->getWindow()->draw(levelNameLabel);
     }
 
-    // displays the error message if the level name is being edited and an error occured
+    /* displays the error message if the level name is being edited and an error occured */
     if (levelAlreadyExists)
     {
         errorLabel.setString(STRING_NEW_LEVEL_ERROR);
     }
 
-    // displays an error message if the file cannot be saved
+    /* displays an error message if the file cannot be saved */
     if (saveLevelError)
     {
         errorLabel.setString(STRING_SAVE_LEVEL_ERROR);
@@ -493,7 +493,7 @@ void EditorLevelController::updateOneCell(
  */
 void EditorLevelController::updateFloorNumber(short updateValue)
 {
-    // use a if(), got some troubles with the ternary condition...
+    /* use a if(), got some troubles with the ternary condition... */
     if (
         (currentFloor ==
          constants::Dimensions::LEVEL_MAX_FLOOR_NUMBER &&
@@ -506,6 +506,6 @@ void EditorLevelController::updateFloorNumber(short updateValue)
 
     currentFloor += updateValue;
 
-    // add one to be more user friendly
+    /* add one to be more user friendly */
     floorLabel.setString(std::to_string(currentFloor + 1));
 }

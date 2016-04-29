@@ -55,10 +55,10 @@ Level::Level(const Level &level)
 {
     name = level.name;
 
-    //TODO: the copy constructor does not copy the cells array,
-    //I need to investigate how to do it properly. By the way,
-    //I think I will change from a multi-dimensional array to
-    //a one-dimension array...
+    /* TODO: the copy constructor does not copy the cells array,
+    I need to investigate how to do it properly. By the way,
+    I think I will change from a multi-dimensional array to
+    a one-dimension array... */
     loadCells();
 
     horizontalPosition = level.horizontalPosition;

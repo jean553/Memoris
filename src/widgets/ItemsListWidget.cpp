@@ -217,7 +217,7 @@ void ItemsListWidget::display(utils::Context* pContext)
         unsigned long index =
             static_cast<unsigned long>(std::distance(stringsList.begin(), textItem));
 
-        // do not display items that are out of the box
+        /* do not display items that are out of the box */
         if (
             index < startingItem ||
             index >= verticalContainers + startingItem
@@ -299,7 +299,7 @@ void ItemsListWidget::highlightCurrentItem(utils::Context* pContext)
     unsigned short selectedItemId =
         cursorInternalHorizontalPosition / ITEMS_LIST_ITEM_HEIGHT;
 
-    // do not highlight items if no item
+    /* do not highlight items if no item */
     if (
         selectedItemId > stringsList.size() - 1 ||
         !stringsList.size()
@@ -316,8 +316,8 @@ void ItemsListWidget::highlightCurrentItem(utils::Context* pContext)
 
     pContext->getWindow()->draw(selector);
 
-    // TODO: use the same variable, should be refactored,
-    // use a second separated variable to avoid all casting problems
+    /* TODO: use the same variable, should be refactored,
+       use a second separated variable to avoid all casting problems */
     selectedItem = selectedItemId;
 }
 

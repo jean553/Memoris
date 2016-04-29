@@ -264,7 +264,7 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
                     expectedControllerId =
                         factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
                 }
-                // check buttons click according to current status
+                /* check buttons click according to current status */
                 switch(status)
                 {
                 case MAIN_MENU:
@@ -328,7 +328,7 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
                             );
                         }
 
-                        //TODO: rewrite serie file content
+                        /* TODO: rewrite serie file content */
 
                         displaySavedSerieName(true);
                     }

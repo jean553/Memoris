@@ -46,8 +46,8 @@ void HasMenuSelectorAnimation::animateMenuSelector(T* pMenuController)
         return;
     }
 
-    // TODO: operation between a short and an Uint8 type,
-    // should have an adapted cast somewhere I guess...
+    /* TODO: operation between a short and an Uint8 type,
+       should have an adapted cast somewhere I guess... */
     pMenuController->colorSelector.g +=
         SELECTOR_COLOR_INCREMENTATION_STEP * pMenuController->selectorDirection;
     pMenuController->colorSelector.b +=

@@ -26,7 +26,7 @@ sudo apt-get install -y libsfml-dev
 Compile the application :
 
 ```
-make
+make -j
 ```
 
 ## Execution

@@ -260,9 +260,9 @@ void CellSelectorWidget::selectCellOnClick()
         wallCell.setSelected(true);
     }
 
-    //TODO: should not be played when no cell is selected,
-    //I keep it here for now as the selector is a cells rectangle
-    //and this problem is not supposed to happen in the future
+    /* TODO: should not be played when no cell is selected,
+       I keep it here for now as the selector is a cells rectangle
+       and this problem is not supposed to happen in the future */
     soundCellSelection.play();
 }
 
@@ -394,6 +394,4 @@ entities::Cell* CellSelectorWidget::getSelectedNewCellPointer()
     {
         return new entities::EmptyCell();
     }
-
-    return NULL;
 }
