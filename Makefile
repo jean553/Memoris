@@ -77,189 +77,189 @@ build/main.o: src/main.cpp
 
 # utils
 
-build/MusicFactory.o: src/utils/MusicFactory.cpp
+build/MusicFactory.o: src/MusicFactory.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/ControllerFactory.o: src/utils/ControllerFactory.cpp
+build/ControllerFactory.o: src/ControllerFactory.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/CellFactory.o: src/utils/CellFactory.cpp
+build/CellFactory.o: src/CellFactory.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/Context.o: src/utils/Context.cpp
+build/Context.o: src/Context.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/Controller.o: src/utils/Controller.cpp
+build/Controller.o: src/Controller.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/DirReader.o: src/utils/DirReader.cpp
+build/DirReader.o: src/DirReader.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/FileWriter.o: src/utils/FileWriter.cpp
+build/FileWriter.o: src/FileWriter.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/StringsListsUtils.o: src/utils/StringsListsUtils.cpp
+build/StringsListsUtils.o: src/StringsListsUtils.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/CellsUtils.o: src/utils/CellsUtils.cpp
+build/CellsUtils.o: src/CellsUtils.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/CellsFilter.o: src/utils/CellsFilter.cpp
+build/CellsFilter.o: src/CellsFilter.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 # defines
 
-build/Colors.o: src/defines/Colors.cpp
+build/Colors.o: src/Colors.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/Window.o: src/defines/Window.cpp
+build/Window.o: src/Window.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/Dimensions.o: src/defines/Dimensions.cpp
+build/Dimensions.o: src/Dimensions.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/Positions.o: src/defines/Positions.cpp
+build/Positions.o: src/Positions.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/Directories.o: src/defines/Directories.cpp
+build/Directories.o: src/Directories.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/Extensions.o: src/defines/Extensions.cpp
+build/Extensions.o: src/Extensions.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/Fonts.o: src/defines/Fonts.cpp
+build/Fonts.o: src/Fonts.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/Sounds.o: src/defines/Sounds.cpp
+build/Sounds.o: src/Sounds.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/Screens.o: src/defines/Screens.cpp
+build/Screens.o: src/Screens.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/Messages.o: src/defines/Messages.cpp
+build/Messages.o: src/Messages.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 # entities
 
-build/Serie.o: src/entities/Serie.cpp
+build/Serie.o: src/Serie.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/Level.o: src/entities/Level.cpp
+build/Level.o: src/Level.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/Cell.o: src/entities/Cell.cpp
+build/Cell.o: src/Cell.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/EmptyCell.o: src/entities/EmptyCell.cpp
+build/EmptyCell.o: src/EmptyCell.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/DepartureCell.o: src/entities/DepartureCell.cpp
+build/DepartureCell.o: src/DepartureCell.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/ArrivalCell.o: src/entities/ArrivalCell.cpp
+build/ArrivalCell.o: src/ArrivalCell.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/StarCell.o: src/entities/StarCell.cpp
+build/StarCell.o: src/StarCell.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/LifeCell.o: src/entities/LifeCell.cpp
+build/LifeCell.o: src/LifeCell.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/DamageCell.o: src/entities/DamageCell.cpp
+build/DamageCell.o: src/DamageCell.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/MoreTimeCell.o: src/entities/MoreTimeCell.cpp
+build/MoreTimeCell.o: src/MoreTimeCell.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/LessTimeCell.o: src/entities/LessTimeCell.cpp
+build/LessTimeCell.o: src/LessTimeCell.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/FloorUpCell.o: src/entities/FloorUpCell.cpp
+build/FloorUpCell.o: src/FloorUpCell.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/FloorDownCell.o: src/entities/FloorDownCell.cpp
+build/FloorDownCell.o: src/FloorDownCell.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/ElevatorUpCell.o: src/entities/ElevatorUpCell.cpp
+build/ElevatorUpCell.o: src/ElevatorUpCell.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/ElevatorDownCell.o: src/entities/ElevatorDownCell.cpp
+build/ElevatorDownCell.o: src/ElevatorDownCell.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/WallCell.o: src/entities/WallCell.cpp
+build/WallCell.o: src/WallCell.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/QuarterLeftRotateCell.o: src/entities/QuarterLeftRotateCell.cpp
+build/QuarterLeftRotateCell.o: src/QuarterLeftRotateCell.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/QuarterRightRotateCell.o: src/entities/QuarterRightRotateCell.cpp
+build/QuarterRightRotateCell.o: src/QuarterRightRotateCell.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/QuarterHalfRotateCell.o: src/entities/QuarterHalfRotateCell.cpp
+build/QuarterHalfRotateCell.o: src/QuarterHalfRotateCell.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/VerticalMirrorCell.o: src/entities/VerticalMirrorCell.cpp
+build/VerticalMirrorCell.o: src/VerticalMirrorCell.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/HorizontalMirrorCell.o: src/entities/HorizontalMirrorCell.cpp
+build/HorizontalMirrorCell.o: src/HorizontalMirrorCell.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 # widgets
 
-build/ButtonWidget.o: src/widgets/ButtonWidget.cpp
+build/ButtonWidget.o: src/ButtonWidget.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/CursorWidget.o: src/widgets/CursorWidget.cpp
+build/CursorWidget.o: src/CursorWidget.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/InputTextWidget.o: src/widgets/InputTextWidget.cpp
+build/InputTextWidget.o: src/InputTextWidget.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/ItemsListWidget.o: src/widgets/ItemsListWidget.cpp
+build/ItemsListWidget.o: src/ItemsListWidget.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/OrderedItemsListWidget.o: src/widgets/OrderedItemsListWidget.cpp
+build/OrderedItemsListWidget.o: src/OrderedItemsListWidget.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/TitleBarWidget.o: src/widgets/TitleBarWidget.cpp
+build/TitleBarWidget.o: src/TitleBarWidget.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/CellSelectorWidget.o: src/widgets/CellSelectorWidget.cpp
+build/CellSelectorWidget.o: src/CellSelectorWidget.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/FrameWidget.o: src/widgets/FrameWidget.cpp
+build/FrameWidget.o: src/FrameWidget.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/Widget.o: src/widgets/Widget.cpp
+build/Widget.o: src/Widget.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 # controllers
 
-build/MainMenuController.o: src/main_menu/MainMenuController.cpp
+build/MainMenuController.o: src/MainMenuController.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/NewGameController.o: src/new_game/NewGameController.cpp
+build/NewGameController.o: src/NewGameController.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/EditorMenuController.o: src/editor_menu/EditorMenuController.cpp
+build/EditorMenuController.o: src/EditorMenuController.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/EditorLevelController.o: src/editor_level/EditorLevelController.cpp
+build/EditorLevelController.o: src/EditorLevelController.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/EditorSerieController.o: src/editor_serie/EditorSerieController.cpp
+build/EditorSerieController.o: src/EditorSerieController.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/OpenSerieController.o: src/open_serie/OpenSerieController.cpp
+build/OpenSerieController.o: src/OpenSerieController.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/OpenLevelController.o: src/open_level/OpenLevelController.cpp
+build/OpenLevelController.o: src/OpenLevelController.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/GameController.o: src/game_controller/GameController.cpp
+build/GameController.o: src/GameController.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 # policies
 
-build/HasMenuSelectorAnimation.o: src/policies/HasMenuSelectorAnimation.cpp
+build/HasMenuSelectorAnimation.o: src/HasMenuSelectorAnimation.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
