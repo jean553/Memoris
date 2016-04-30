@@ -16,20 +16,30 @@ Memoris has been compiled and executed successfully on :
 
 ## Compilation
 
-Memoris uses the version 2.1 of the SFML library.
+Memoris uses the version 2.1 of the SFML library and CMake.
 
 ```
 sudo apt-get update
-sudo apt-get install -y libsfml-dev
+sudo apt-get install -y libsfml-dev cmake
 ```
 
-Compile the application :
+Compile the application with CMake ( Debian 8 only ) :
+
+```
+mkdir build && cd build/
+cmake ..
+make -j
+```
+
+Compile the application ( all distributions ) :
 
 ```
 make -j
 ```
 
 ## Execution
+
+Execute the game from the root directory :
 
 ```
 ./bin/Memoris
