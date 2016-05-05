@@ -460,7 +460,7 @@ void EditorLevelController::updateOneCell(
         !utils::CellsFilter::canBeAdded(
             level.getCellsAsString(),
             pCellsSelectorCell->IN_FILE_REPRESENTATION,
-            pSelectedCell->getHorizontalAddress() == 0
+            pSelectedCell->getAddress() == 0
         )
     )
     {
@@ -470,22 +470,16 @@ void EditorLevelController::updateOneCell(
     float horizontalPosition = pSelectedCell->getHorizontalPosition();
     float verticalPosition = pSelectedCell->getVerticalPosition();
 
-    unsigned int horizontalAddress =
-        static_cast<unsigned int>(pSelectedCell->getHorizontalAddress());
-    unsigned int verticalAddress =
-        static_cast<unsigned int>(pSelectedCell->getVerticalAddress());
+    uint16_t address = static_cast<uint16_t>(pSelectedCell->getAddress());
 
-    delete (*level.getPointerCells())[horizontalAddress][verticalAddress];
+    delete (*level.getPointerCells())[address];
 
-    (*level.getPointerCells())[horizontalAddress][verticalAddress] = cellSelector.getSelectedNewCellPointer();
-    (*level.getPointerCells())[horizontalAddress][verticalAddress]->setPosition(
+    (*level.getPointerCells())[address] = cellSelector.getSelectedNewCellPointer();
+    (*level.getPointerCells())[address]->setPosition(
         horizontalPosition,
         verticalPosition
     );
-    (*level.getPointerCells())[horizontalAddress][verticalAddress]->setLevelAddresses(
-        static_cast<short>(horizontalAddress),
-        static_cast<short>(verticalAddress)
-    );
+    (*level.getPointerCells())[address]->setLevelAddresses(address);
 }
 
 /**

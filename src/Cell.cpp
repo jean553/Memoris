@@ -38,9 +38,7 @@ Cell::Cell(std::string fileValue) : IN_FILE_REPRESENTATION(fileValue)
 
     horizontalPosition = 0;
     verticalPosition = 0;
-
-    horizontalAddress = 0;
-    verticalAddress = 0;
+    address = 0;
 
     transparentWhiteColor.r = constants::Colors::COLOR_WHITE_RED;
     transparentWhiteColor.g = constants::Colors::COLOR_WHITE_GREEN;
@@ -217,29 +215,17 @@ float Cell::getVerticalPosition() const
 /**
  *
  */
-void Cell::setLevelAddresses(
-    short hAddress,
-    short vAddress
-)
+void Cell::setLevelAddresses(const uint16_t& cellAddress)
 {
-    horizontalAddress = hAddress;
-    verticalAddress = vAddress;
+    address = cellAddress;
 }
 
 /**
  *
  */
-short Cell::getHorizontalAddress() const
+uint16_t Cell::getAddress() const
 {
-    return horizontalAddress;
-}
-
-/**
- *
- */
-short Cell::getVerticalAddress() const
-{
-    return verticalAddress;
+    return address;
 }
 
 /**

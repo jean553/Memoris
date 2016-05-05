@@ -71,19 +71,12 @@ Level::Level(const Level &level)
 Level::~Level()
 {
     for (
-        std::vector<std::vector<Cell*>>::iterator line = cells.begin();
-        line != cells.end();
-        ++line
+        std::vector<Cell*>::iterator cell = cells.begin();
+        cell != cells.end();
+        ++cell
     )
     {
-        for (
-            std::vector<Cell*>::iterator cell = line->begin();
-            cell != line->end();
-            ++cell
-        )
-        {
-            delete (*cell);
-        }
+        delete (*cell);
     }
 }
 
@@ -95,15 +88,19 @@ void Level::displayAllCellsByFloor(
     short floor
 )
 {
-    /* cast as the index of a vector is always unsigned long */
-    std::vector<Cell*> line = cells[static_cast<unsigned long>(floor)];
-
     for (
-        std::vector<Cell*>::iterator cell = line.begin();
-        cell != line.end();
+        std::vector<Cell*>::iterator cell = cells.begin();
+        cell != cells.end();
         ++cell
     )
     {
+        /* TODO: useless check, just to avoid to change the function signature,
+         * the floors are not browsed anymore, I have to check what later...*/
+        if (floor > 10)
+        {
+            continue;
+        }
+
         (*cell)->display(pContext);
     }
 }
@@ -129,15 +126,19 @@ std::string Level::getName() const
  */
 bool Level::isMouseHover(short floor)
 {
-    /* cast as the index of a vector is always unsigned long */
-    std::vector<Cell*> line = cells[static_cast<unsigned long>(floor)];
-
     for (
-        std::vector<Cell*>::iterator cell = line.begin();
-        cell != line.end();
+        std::vector<Cell*>::iterator cell = cells.begin();
+        cell != cells.end();
         ++cell
     )
     {
+        /* TODO: use a fixed value for now, should be set according
+         * to the current selected floor... */
+        if (std::distance(cells.begin(), cell) >= 320 * (floor + 1))
+        {
+            continue;
+        }
+
         if((*cell)->isMouseHover())
         {
             pSelectedCell = (*cell);
@@ -159,7 +160,7 @@ entities::Cell* Level::getSelectedCellPointer() const
 /**
  *
  */
-std::vector<std::vector<Cell*>>* Level::getPointerCells()
+std::vector<Cell*>* Level::getPointerCells()
 {
     return &cells;
 }
@@ -172,19 +173,12 @@ std::string Level::getCellsAsString()
     std::string cellsAsString;
 
     for (
-        std::vector<std::vector<Cell*>>::iterator line = cells.begin();
-        line != cells.end();
-        ++line
+        std::vector<Cell*>::iterator cell = cells.begin();
+        cell != cells.end();
+        ++cell
     )
     {
-        for (
-            std::vector<Cell*>::iterator cell = line->begin();
-            cell != line->end();
-            ++cell
-        )
-        {
-            cellsAsString += (*cell)->IN_FILE_REPRESENTATION;
-        }
+        cellsAsString += (*cell)->IN_FILE_REPRESENTATION;
     }
 
     return cellsAsString;
@@ -196,72 +190,51 @@ std::string Level::getCellsAsString()
 void Level::loadCells(const std::string& levelString)
 {
     float currentColumn = 0, currentLine = 0;
-    short floorAddress = 0, cellAddress = 0;
     short cellNumber = 0;
+    uint16_t cellAddress = 0;
 
-    cells.resize(constants::Dimensions::LEVEL_FLOORS);
-    for (
-        std::vector<std::vector<Cell*>>::iterator line = cells.begin();
-        line != cells.end();
-        ++line
-    )
+    for (uint16_t i = 0; i < constants::Dimensions::LEVEL_CELLS_PER_FLOOR; i++)
     {
+        Cell* pNewCell = NULL;
 
-        line->resize(constants::Dimensions::LEVEL_CELLS_PER_FLOOR);
-
-        for (
-            std::vector<Cell*>::iterator cell = line->begin();
-            cell != line->end();
-            ++cell
-        )
+        if (levelString.empty())
         {
-            if (levelString.empty())
-            {
-                (*cell) = new EmptyCell();
-            }
-            else
-            {
-                (*cell) = factories::CellFactory::getCellPointerByStringName(
-                              levelString.substr(static_cast<size_t>(cellNumber), 2)
-                          );
-            }
-
-            (*cell)->setPosition(
-                horizontalPosition +
-                currentColumn *
-                (
-                    constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-                    constants::Dimensions::CELLS_PIXELS_SEPARATION
-                ),
-                verticalPosition +
-                currentLine *
-                (
-                    constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-                    constants::Dimensions::CELLS_PIXELS_SEPARATION
-                )
-            );
-
-            (*cell)->setLevelAddresses(
-                floorAddress,
-                cellAddress
-            );
-
-            currentLine++;
-
-            if (currentLine >= constants::Dimensions::CELLS_PER_COLUMN)
-            {
-                currentLine = 0;
-                currentColumn++;
-            }
-
-            cellAddress++;
-            cellNumber += CELLS_STRING_STEP;
+            pNewCell = new EmptyCell();
+        }
+        else
+        {
+            pNewCell = factories::CellFactory::getCellPointerByStringName(
+                           levelString.substr(static_cast<size_t>(cellNumber), 2)
+                       );
         }
 
-        floorAddress++;
-        cellAddress = 0;
+        pNewCell->setPosition(
+            horizontalPosition +
+            currentColumn *
+            (
+                constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+                constants::Dimensions::CELLS_PIXELS_SEPARATION
+            ),
+            verticalPosition +
+            currentLine *
+            (
+                constants::Dimensions::CELL_PIXELS_DIMENSIONS +
+                constants::Dimensions::CELLS_PIXELS_SEPARATION
+            )
+        );
 
-        currentColumn = 0;
-        currentLine = 0;
+        pNewCell->setLevelAddresses(cellAddress);
+        cellAddress++;
+
+        cells.push_back(pNewCell);
+
+        currentLine++;
+        if (currentLine >= constants::Dimensions::CELLS_PER_COLUMN)
+        {
+            currentLine = 0;
+            currentColumn++;
+        }
+
+        cellNumber += CELLS_STRING_STEP;
     }
 }
