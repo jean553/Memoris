@@ -108,9 +108,9 @@ public:
     /**
      * @brief returns cells array pointer
      *
-     * @return double dimension vector pointer containing cells objects pointers
+     * @return vector pointer containing cells objects pointers
      */
-    std::vector<std::vector<Cell*>>* getPointerCells();
+    std::vector<Cell*>* getPointerCells();
 
     /**
      * @brief returns all the level cells as string
@@ -134,9 +134,9 @@ private:
 
     std::string name;
 
-    entities::Cell* pSelectedCell;
+    Cell* pSelectedCell;
 
-    std::vector<std::vector<Cell*>> cells;
+    std::vector<Cell*> cells;
 };
 }
 

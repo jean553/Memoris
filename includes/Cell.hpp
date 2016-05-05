@@ -117,27 +117,19 @@ public:
     /**
      * @brief setter for the horizontal and vertical address of the cell on a level grid
      *
-     * @param hAddress horizontal address
-     * @param vAddress vertical address
+     * @param cellAddress address of the cell inside the array
+     *
+     * TODO: should be deleted, check if a vector function exists
+     * to get the current index of an item in the array...
      */
-    void setLevelAddresses(
-        short hAddress,
-        short vAddress
-    );
+    void setLevelAddresses(const uint16_t& cellAddress);
 
     /**
      * @brief getter for the horizontal address of the cell on a level grid
      *
-     * @return short
+     * @return uint16_t
      */
-    short getHorizontalAddress() const;
-
-    /**
-     * @brief getter for the vertical address of the cell on a level grid
-     *
-     * @return short
-     */
-    short getVerticalAddress() const;
+    uint16_t getAddress() const;
 
 protected:
 
@@ -153,8 +145,7 @@ private:
     float horizontalPosition;
     float verticalPosition;
 
-    short horizontalAddress;
-    short verticalAddress;
+    uint16_t address;
 
     sf::Texture texture;
 
