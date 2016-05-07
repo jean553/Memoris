@@ -33,13 +33,17 @@ using namespace controllers;
 
 const std::string GameController::TEMPORARY_DEFAULT_LEVEL = "data/levels/1.level";
 
+int32_t GameController::DEFAULT_WATCHING_TIME = 5000;
+
 /**
  *
  */
 GameController::GameController() : Controller(), level(0, 0)
 {
     /* TODO: use a constant level name for now... */
-    level.loadCells(utils::FileWriter::readFile("data/levels/1.level"));
+    level.loadCells(utils::FileWriter::readFile(TEMPORARY_DEFAULT_LEVEL));
+
+    status = WATCHING;
 }
 
 /**
@@ -50,6 +54,17 @@ unsigned short GameController::render(utils::Context* pContext)
     /* TODO: only displays the first floor, default value of
      * the second parameter is 0, should be able to switch */
     level.displayAllCellsByFloor(pContext);
+
+    if (
+        status == WATCHING &&
+        clock.getElapsedTime().asMilliseconds() >
+        DEFAULT_WATCHING_TIME
+    )
+    {
+        level.hideAllCells();
+        status = PLAYING;
+        clock.restart();
+    }
 
     cursor.display(pContext);
 

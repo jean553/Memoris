@@ -30,6 +30,7 @@
 #include <string>
 
 #include "Context.hpp"
+#include "HiddenCellPicture.hpp"
 
 namespace entities
 {
@@ -131,6 +132,20 @@ public:
      */
     uint16_t getAddress() const;
 
+    /**
+     * @brief setter for hidden parameter
+     *
+     * @param hidden true if the cell is hidden
+     */
+    void setHidden(const bool& hidden);
+
+    /**
+     * @brief getter for the hidden parameter
+     *
+     * @return bool
+     */
+    bool getIsHidden() const;
+
 protected:
 
     /**
@@ -141,6 +156,7 @@ protected:
 private:
 
     bool isSelected;
+    bool isHidden;
 
     float horizontalPosition;
     float verticalPosition;
@@ -159,6 +175,9 @@ private:
     sf::Color transparentWhiteColor;
     sf::Color whiteColor;
     sf::Color selectorColor;
+
+    /* TODO: should be refactored, for now we create one hidden cell per cell... */
+    utils::HiddenCellPicture hiddenCellPtr;
 };
 }
 

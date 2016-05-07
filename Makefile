@@ -63,7 +63,8 @@ OBJS = \
 	   build/QuarterHalfRotateCell.o \
 	   build/VerticalMirrorCell.o \
 	   build/HorizontalMirrorCell.o \
-	   build/HasMenuSelectorAnimation.o
+	   build/HasMenuSelectorAnimation.o \
+	   build/HiddenCellPicture.o
 
 INC = -I includes
 
@@ -105,6 +106,9 @@ build/CellsUtils.o: src/CellsUtils.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/CellsFilter.o: src/CellsFilter.cpp
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+
+build/HiddenCellPicture.o: src/HiddenCellPicture.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 # defines
