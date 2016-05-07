@@ -27,6 +27,8 @@
 #ifndef DEF_DIMENSIONS
 #define DEF_DIMENSIONS
 
+#include <iostream>
+
 namespace constants
 {
 class Dimensions
@@ -36,10 +38,13 @@ public:
 
     static const unsigned short EDITOR_BUTTONS_WIDTH;
     static const unsigned short LEVEL_CELLS_PER_FLOOR;
-    static const unsigned short CELLS_PER_COLUMN;
     static const unsigned short LEVEL_FLOORS;
     static const unsigned short POSITION_NAME_LABEL_Y;
     static const unsigned short LEVEL_MAX_FLOOR_NUMBER;
+
+    static const uint16_t CELLS_PER_LEVEL;
+    static const uint16_t CELLS_PER_COLUMN;
+    static const uint16_t CELLS_PER_LINE;
 
     static const float CELL_PIXELS_DIMENSIONS;
     static const float CELLS_PIXELS_SEPARATION;

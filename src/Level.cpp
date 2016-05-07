@@ -94,14 +94,16 @@ void Level::displayAllCellsByFloor(
         ++cell
     )
     {
-        /* TODO: useless check, just to avoid to change the function signature,
-         * the floors are not browsed anymore, I have to check what later...*/
-        if (floor > 10)
+        if (
+            std::distance(cells.begin(), cell) >=
+            floor * constants::Dimensions::LEVEL_CELLS_PER_FLOOR &&
+            std::distance(cells.begin(), cell) <
+            floor * constants::Dimensions::LEVEL_CELLS_PER_FLOOR +
+            constants::Dimensions::LEVEL_CELLS_PER_FLOOR
+        )
         {
-            continue;
+            (*cell)->display(pContext);
         }
-
-        (*cell)->display(pContext);
     }
 }
 
@@ -132,17 +134,19 @@ bool Level::isMouseHover(short floor)
         ++cell
     )
     {
-        /* TODO: use a fixed value for now, should be set according
-         * to the current selected floor... */
-        if (std::distance(cells.begin(), cell) >= 320 * (floor + 1))
+        if (
+            std::distance(cells.begin(), cell) >=
+            floor * constants::Dimensions::LEVEL_CELLS_PER_FLOOR &&
+            std::distance(cells.begin(), cell) <
+            floor * constants::Dimensions::LEVEL_CELLS_PER_FLOOR +
+            constants::Dimensions::LEVEL_CELLS_PER_FLOOR
+        )
         {
-            continue;
-        }
-
-        if((*cell)->isMouseHover())
-        {
-            pSelectedCell = (*cell);
-            return true;
+            if((*cell)->isMouseHover())
+            {
+                pSelectedCell = (*cell);
+                return true;
+            }
         }
     }
 
@@ -189,11 +193,10 @@ std::string Level::getCellsAsString()
  */
 void Level::loadCells(const std::string& levelString)
 {
-    float currentColumn = 0, currentLine = 0;
     short cellNumber = 0;
-    uint16_t cellAddress = 0;
+    uint16_t cellAddress = 0, currentLine = 0, currentColumn = 0;
 
-    for (uint16_t i = 0; i < constants::Dimensions::LEVEL_CELLS_PER_FLOOR; i++)
+    for (uint16_t i = 0; i < constants::Dimensions::CELLS_PER_LEVEL; i++)
     {
         Cell* pNewCell = NULL;
 
@@ -232,7 +235,12 @@ void Level::loadCells(const std::string& levelString)
         if (currentLine >= constants::Dimensions::CELLS_PER_COLUMN)
         {
             currentLine = 0;
+
             currentColumn++;
+            if (currentColumn >= constants::Dimensions::CELLS_PER_LINE)
+            {
+                currentColumn = 0;
+            }
         }
 
         cellNumber += CELLS_STRING_STEP;

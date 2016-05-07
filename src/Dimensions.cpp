@@ -30,10 +30,13 @@ using namespace constants;
 
 const unsigned short Dimensions::EDITOR_BUTTONS_WIDTH = 200;
 const unsigned short Dimensions::LEVEL_CELLS_PER_FLOOR = 320;
-const unsigned short Dimensions::CELLS_PER_COLUMN = 16;
 const unsigned short Dimensions::LEVEL_FLOORS = 10;
 const unsigned short Dimensions::POSITION_NAME_LABEL_Y = 0;
 const unsigned short Dimensions::LEVEL_MAX_FLOOR_NUMBER = 9;
+
+const uint16_t Dimensions::CELLS_PER_LEVEL = 3200;
+const uint16_t Dimensions::CELLS_PER_COLUMN = 16;
+const uint16_t Dimensions::CELLS_PER_LINE = 20;
 
 const float Dimensions::CELL_PIXELS_DIMENSIONS = 49;
 const float Dimensions::CELLS_PIXELS_SEPARATION = 1;
