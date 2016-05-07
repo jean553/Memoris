@@ -31,6 +31,7 @@
 
 #include "Cell.hpp"
 #include "Context.hpp"
+#include "HiddenCellPicture.hpp"
 
 namespace entities
 {
@@ -129,6 +130,11 @@ public:
      * @param levelString string representation of the level
      */
     void loadCells(const std::string& levelString = "");
+
+    /**
+     * @brief hide all the cells of the level
+     */
+    void hideAllCells();
 
 private:
 

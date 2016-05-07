@@ -244,3 +244,18 @@ void Level::loadCells(const std::string& levelString)
         cellNumber += CELLS_STRING_STEP;
     }
 }
+
+/**
+ *
+ */
+void Level::hideAllCells()
+{
+    for (
+        std::vector<Cell*>::iterator cell = cells.begin();
+        cell != cells.end();
+        ++cell
+    )
+    {
+        (*cell)->setHidden(true);
+    }
+}

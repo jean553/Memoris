@@ -35,6 +35,7 @@ using namespace entities;
 Cell::Cell(std::string fileValue) : IN_FILE_REPRESENTATION(fileValue)
 {
     isSelected = false;
+    isHidden = false;
 
     horizontalPosition = 0;
     verticalPosition = 0;
@@ -112,6 +113,11 @@ void Cell::setPosition(
         verticalPosition
     );
 
+    hiddenCellPtr.setSpritePosition(
+        horizontalPosition,
+        verticalPosition
+    );
+
     topSelectionBar.setPosition(
         horizontalPosition,
         verticalPosition
@@ -150,6 +156,13 @@ void Cell::setPicturePath(std::string path)
  */
 void Cell::display(utils::Context* pContext)
 {
+
+    if (getIsHidden())
+    {
+        pContext->getWindow()->draw(hiddenCellPtr.getSprite());
+        return;
+    }
+
     if (isMouseHover())
     {
         sprite.setColor(transparentWhiteColor);
@@ -234,4 +247,20 @@ uint16_t Cell::getAddress() const
 bool Cell::getIsSelected() const
 {
     return isSelected;
+}
+
+/**
+ *
+ */
+void Cell::setHidden(const bool& hidden)
+{
+    isHidden = hidden;
+}
+
+/**
+ *
+ */
+bool Cell::getIsHidden() const
+{
+    return isHidden;
 }

@@ -38,8 +38,6 @@ namespace controllers
 {
 class GameController : public Controller
 {
-    static const std::string TEMPORARY_DEFAULT_LEVEL;
-
 public:
 
     GameController();
@@ -55,9 +53,29 @@ public:
 
 private:
 
+    /* do not use a const for casting problems with getElapsedTime().asMilliseconds() */
+    static int32_t DEFAULT_WATCHING_TIME;
+
+    static const std::string TEMPORARY_DEFAULT_LEVEL;
+
+    /**
+     * @enum GameController::GameStatus
+     *
+     * @brief gives information about the current status of the game
+     */
+    enum GameStatus
+    {
+        WATCHING, /* < the player is watching the level before playing */
+        PLAYING /* < the player is playing the level and moving over the cells */
+    };
+
+    GameStatus status;
+
     entities::Level level;
 
     widgets::CursorWidget cursor;
+
+    sf::Clock clock;
 };
 }
 
