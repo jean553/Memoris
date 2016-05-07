@@ -43,8 +43,6 @@ Level::Level(
     horizontalPosition = hPosition;
     verticalPosition = vPosition;
 
-    loadCells();
-
     pSelectedCell = NULL;
 }
 

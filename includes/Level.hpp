@@ -30,7 +30,6 @@
 #include <string>
 
 #include "Cell.hpp"
-
 #include "Context.hpp"
 
 namespace entities
@@ -46,6 +45,10 @@ public:
      *
      * @param hPosition horizontal position
      * @param vPosition vertical position
+     *
+     * NOTE: the cells are not initialized inside
+     * the constructor, the caller controller has
+     * to call the loadCells method
      */
     Level(
         float hPosition,

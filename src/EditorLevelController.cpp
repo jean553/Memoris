@@ -214,6 +214,8 @@ EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSIT
     buttonSave.setEnable(false);
     buttonNextFloor.setEnable(false);
     buttonPreviousFloor.setEnable(false);
+
+    level.loadCells();
 }
 
 /**
