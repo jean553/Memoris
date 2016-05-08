@@ -33,6 +33,9 @@ using namespace controllers;
 
 const std::string GameController::TEMPORARY_DEFAULT_LEVEL = "data/levels/1.level";
 
+const float_t GameController::LEVEL_HORIZONTAL_POSITION = 320;
+const float_t GameController::LEVEL_VERTICAL_POSITION = 50;
+
 int32_t GameController::DEFAULT_WATCHING_TIME = 5000;
 
 /**
@@ -40,8 +43,15 @@ int32_t GameController::DEFAULT_WATCHING_TIME = 5000;
  */
 GameController::GameController() : Controller(), level(0, 0)
 {
+    level.setPosition(
+        LEVEL_HORIZONTAL_POSITION,
+        LEVEL_VERTICAL_POSITION
+    );
+
     /* TODO: use a constant level name for now... */
     level.loadCells(utils::FileWriter::readFile(TEMPORARY_DEFAULT_LEVEL));
+
+    level.setCellsCursorSensitivity(false);
 
     status = WATCHING;
 }
@@ -62,11 +72,11 @@ unsigned short GameController::render(utils::Context* pContext)
     )
     {
         level.hideAllCells();
+        level.setDepartureCellAsEnabled();
+
         status = PLAYING;
         clock.restart();
     }
-
-    cursor.display(pContext);
 
     nextControllerId = animateScreenTransition(pContext);
 
@@ -82,6 +92,30 @@ unsigned short GameController::render(utils::Context* pContext)
             {
                 expectedControllerId =
                     factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
+
+                break;
+            }
+            case sf::Keyboard::Up:
+            {
+                level.movePlayer(UP);
+
+                break;
+            }
+            case sf::Keyboard::Down:
+            {
+                level.movePlayer(DOWN);
+
+                break;
+            }
+            case sf::Keyboard::Left:
+            {
+                level.movePlayer(LEFT);
+
+                break;
+            }
+            case sf::Keyboard::Right:
+            {
+                level.movePlayer(RIGHT);
 
                 break;
             }

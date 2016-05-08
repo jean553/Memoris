@@ -30,8 +30,17 @@
 #include <string>
 
 #include "Cell.hpp"
+#include "DepartureCell.hpp"
 #include "Context.hpp"
 #include "HiddenCellPicture.hpp"
+
+enum PlayerDirection
+{
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
+};
 
 namespace entities
 {
@@ -136,6 +145,57 @@ public:
      */
     void hideAllCells();
 
+    /**
+     * @brief set the cursor sensitivity of all the level's cells
+     *
+     * @param sensitivity true if the level's cells are sensible to the cursor
+     */
+    void setCellsCursorSensitivity(const bool& sensitivity);
+
+    /**
+     * @brief setter for the level position
+     *
+     * @param vPosition horizontal position
+     * @param hPosition vertical position
+     */
+    void setPosition(
+        const float_t& hPosition,
+        const float_t& vPosition
+    );
+
+    /**
+     * @brief set the departure cell as enabled,
+     * should be used when the level is hidden
+     */
+    void setDepartureCellAsEnabled();
+
+    /**
+     * @brief change the position of the player cell,
+     * according to the given array index
+     *
+     * @param index current position in the cells array
+     */
+    void setPlayerCellIndex(const uint16_t& index);
+
+    /**
+     * @brief mode down player position
+     */
+    void movePlayer(const PlayerDirection& direction);
+
+    /**
+     * @brief check if the move of the player is possible
+     * according to its current location and the given direction
+     *
+     * @param direction specified direction
+     * @param currentIndex current position of the player
+     *
+     * @return bool
+     */
+    bool playerIsMovable(
+        const PlayerDirection& direction,
+        const uint16_t& currentIndex
+    );
+
 private:
 
     float horizontalPosition;
@@ -144,6 +204,12 @@ private:
     std::string name;
 
     Cell* pSelectedCell;
+
+    /* pointer to unique the departure cell of the level */
+    DepartureCell* pDepartureCell;
+
+    /* pointer to the current player position cell */
+    Cell* pPlayerCell;
 
     std::vector<Cell*> cells;
 };

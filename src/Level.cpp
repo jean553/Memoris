@@ -40,6 +40,9 @@ Level::Level(
     float vPosition
 )
 {
+    pDepartureCell = NULL;
+    pPlayerCell = NULL;
+
     horizontalPosition = hPosition;
     verticalPosition = vPosition;
 
@@ -51,6 +54,9 @@ Level::Level(
  */
 Level::Level(const Level &level)
 {
+    pDepartureCell = NULL;
+    pPlayerCell = NULL;
+
     name = level.name;
 
     /* TODO: the copy constructor does not copy the cells array,
@@ -209,6 +215,12 @@ void Level::loadCells(const std::string& levelString)
                        );
         }
 
+        /* save the departure cell */
+        if (pNewCell->IN_FILE_REPRESENTATION == "DP")
+        {
+            pDepartureCell = static_cast<DepartureCell*>(pNewCell);
+        }
+
         pNewCell->setPosition(
             horizontalPosition +
             currentColumn *
@@ -258,4 +270,154 @@ void Level::hideAllCells()
     {
         (*cell)->setHidden(true);
     }
+}
+
+/**
+ *
+ */
+void Level::setCellsCursorSensitivity(const bool& sensitivity)
+{
+    for (
+        std::vector<Cell*>::iterator cell = cells.begin();
+        cell != cells.end();
+        ++cell
+    )
+    {
+        (*cell)->setCursorSensitivity(sensitivity);
+    }
+}
+
+/**
+ *
+ */
+void Level::setPosition(
+    const float_t& hPosition,
+    const float_t& vPosition
+)
+{
+    horizontalPosition = hPosition;
+    verticalPosition = vPosition;
+}
+
+/**
+ *
+ */
+void Level::setDepartureCellAsEnabled()
+{
+    /* the player cell position is the same as the departure one */
+    setPlayerCellIndex(pDepartureCell->getAddress());
+}
+
+/**
+ *
+ */
+void Level::setPlayerCellIndex(const uint16_t& index)
+{
+    /* the player cell pointer is null the first
+     * time the method is called */
+    if (pPlayerCell != NULL)
+    {
+        pPlayerCell->setSelected(false);
+    }
+
+    /* the player cell is now at the new array position */
+    pPlayerCell = cells[index];
+
+    /* the player cell is selected and not hidden */
+    pPlayerCell->setSelected(true);
+    pPlayerCell->setHidden(false);
+}
+
+/**
+ *
+ */
+void Level::movePlayer(const PlayerDirection& direction)
+{
+    const uint16_t currentIndex =
+        pPlayerCell->getAddress();
+    uint16_t newIndex = 0;
+
+    /* do not move the player if the player is not movable */
+    if (!playerIsMovable(direction, currentIndex))
+    {
+        return;
+    }
+
+    /* change the position of the player according
+     * to the selected direction */
+    if (direction == DOWN)
+    {
+        newIndex = currentIndex + 1;
+    }
+    else if (direction == UP)
+    {
+        newIndex = currentIndex - 1;
+    }
+    else if (direction == LEFT)
+    {
+        newIndex = currentIndex -
+                   constants::Dimensions::CELLS_PER_COLUMN;
+    }
+    else
+    {
+        newIndex = currentIndex +
+                   constants::Dimensions::CELLS_PER_COLUMN;
+    }
+
+    setPlayerCellIndex(newIndex);
+}
+
+/**
+ *
+ */
+bool Level::playerIsMovable(
+    const PlayerDirection& direction,
+    const uint16_t& currentIndex
+)
+{
+    /* The conditions are not refactored, I'm gonna
+     * to change this part anyway when I will integrate
+     * the multi-floor feature... */
+
+    /* check if the player can go on the left */
+    if (
+        direction == LEFT &&
+        currentIndex < constants::Dimensions::CELLS_PER_LINE
+    )
+    {
+        return false;
+    }
+
+    /* check if the player can go on the right */
+    if (
+        direction == RIGHT &&
+        currentIndex >=
+        constants::Dimensions::LEVEL_CELLS_PER_FLOOR -
+        constants::Dimensions::CELLS_PER_COLUMN &&
+        currentIndex < constants::Dimensions::LEVEL_CELLS_PER_FLOOR
+    )
+    {
+        return false;
+    }
+
+    /* check if the player can go up */
+    if (
+        direction == UP &&
+        currentIndex % constants::Dimensions::CELLS_PER_COLUMN == 0
+    )
+    {
+        return false;
+    }
+
+    /* check if the player can go down */
+    if (
+        direction == DOWN &&
+        currentIndex % constants::Dimensions::CELLS_PER_COLUMN ==
+        constants::Dimensions::CELLS_PER_COLUMN - 1
+    )
+    {
+        return false;
+    }
+
+    return true;
 }
