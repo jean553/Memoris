@@ -32,7 +32,6 @@
 
 #include "Controller.hpp"
 #include "Level.hpp"
-#include "CursorWidget.hpp"
 
 namespace controllers
 {
@@ -58,6 +57,9 @@ private:
 
     static const std::string TEMPORARY_DEFAULT_LEVEL;
 
+    static const float_t LEVEL_HORIZONTAL_POSITION;
+    static const float_t LEVEL_VERTICAL_POSITION;
+
     /**
      * @enum GameController::GameStatus
      *
@@ -72,8 +74,6 @@ private:
     GameStatus status;
 
     entities::Level level;
-
-    widgets::CursorWidget cursor;
 
     sf::Clock clock;
 };

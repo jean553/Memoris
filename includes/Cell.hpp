@@ -146,6 +146,15 @@ public:
      */
     bool getIsHidden() const;
 
+    /**
+     * @brief setter for the cursor sensitivity of the cell,
+     * if sensitive, the cell's color changes when the cursor
+     * is overring it
+     *
+     * @param sensitivity true if the cell is sensitive
+     */
+    void setCursorSensitivity(const bool& sensitivity);
+
 protected:
 
     /**
@@ -157,6 +166,7 @@ private:
 
     bool isSelected;
     bool isHidden;
+    bool isCursorSensitive;
 
     float horizontalPosition;
     float verticalPosition;
@@ -176,7 +186,8 @@ private:
     sf::Color whiteColor;
     sf::Color selectorColor;
 
-    /* TODO: should be refactored, for now we create one hidden cell per cell... */
+    /* TODO: should be refactored, for now
+     * we create one hidden cell per cell... */
     utils::HiddenCellPicture hiddenCellPtr;
 };
 }

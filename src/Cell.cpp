@@ -36,6 +36,7 @@ Cell::Cell(std::string fileValue) : IN_FILE_REPRESENTATION(fileValue)
 {
     isSelected = false;
     isHidden = false;
+    isCursorSensitive = true;
 
     horizontalPosition = 0;
     verticalPosition = 0;
@@ -136,7 +137,9 @@ void Cell::setPosition(
     );
 
     rightSelectionBar.setPosition(
-        horizontalPosition + constants::Dimensions::CELL_PIXELS_DIMENSIONS,
+        horizontalPosition +
+        constants::Dimensions::CELL_PIXELS_DIMENSIONS -
+        constants::Dimensions::SELECTED_CELLS_BORDER_WIDTH,
         verticalPosition
     );
 }
@@ -156,23 +159,27 @@ void Cell::setPicturePath(std::string path)
  */
 void Cell::display(utils::Context* pContext)
 {
+    sf::Sprite sprToDspl;
 
     if (getIsHidden())
     {
-        pContext->getWindow()->draw(hiddenCellPtr.getSprite());
-        return;
-    }
-
-    if (isMouseHover())
-    {
-        sprite.setColor(transparentWhiteColor);
+        sprToDspl = hiddenCellPtr.getSprite();
     }
     else
     {
-        sprite.setColor(whiteColor);
+        sprToDspl = sprite;
     }
 
-    pContext->getWindow()->draw(sprite);
+    if (isMouseHover() && isCursorSensitive)
+    {
+        sprToDspl.setColor(transparentWhiteColor);
+    }
+    else
+    {
+        sprToDspl.setColor(whiteColor);
+    }
+
+    pContext->getWindow()->draw(sprToDspl);
 
     if (isSelected)
     {
@@ -263,4 +270,12 @@ void Cell::setHidden(const bool& hidden)
 bool Cell::getIsHidden() const
 {
     return isHidden;
+}
+
+/**
+ *
+ */
+void Cell::setCursorSensitivity(const bool& sensitivity)
+{
+    isCursorSensitive = sensitivity;
 }
