@@ -32,6 +32,7 @@
 
 #include "Controller.hpp"
 #include "Level.hpp"
+#include "GameContext.hpp"
 
 namespace controllers
 {
@@ -76,6 +77,9 @@ private:
     entities::Level level;
 
     sf::Clock clock;
+
+    /* context shared between the level, the game and the cells actions */
+    utils::GameContext gameContext;
 };
 }
 

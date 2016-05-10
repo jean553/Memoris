@@ -41,6 +41,8 @@ ArrivalCell::ArrivalCell() : Cell("AC")
 /**
  *
  */
-void ArrivalCell::performAction()
+void ArrivalCell::performAction(utils::GameContext* pGameContext)
 {
+    /* finish the game */
+    pGameContext->setTerminateGame(true);
 }

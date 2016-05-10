@@ -40,6 +40,6 @@ QuarterHalfRotateCell::QuarterHalfRotateCell() : Cell("QH")
 /**
  *
  */
-void QuarterHalfRotateCell::performAction()
+void QuarterHalfRotateCell::performAction(utils::GameContext* pGameContext)
 {
 }

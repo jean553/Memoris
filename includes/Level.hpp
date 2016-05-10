@@ -196,6 +196,20 @@ public:
         const uint16_t& currentIndex
     );
 
+    /**
+     * @brief setter of the game context pointer
+     *
+     * @param ptrGameContext pointer to the game context
+     */
+    void setGameContextPointer(utils::GameContext* ptrGameContext);
+
+    /**
+     * @brief getter of the game context pointer
+     *
+     * @return GameContext*
+     */
+    utils::GameContext* getGameContextPointer();
+
 private:
 
     float horizontalPosition;
@@ -212,6 +226,10 @@ private:
     Cell* pPlayerCell;
 
     std::vector<Cell*> cells;
+
+    /* pointer to the game context shared between game controller,
+     * level and cells actions */
+    utils::GameContext* pGameContext;
 };
 }
 

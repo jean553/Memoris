@@ -52,6 +52,7 @@ GameController::GameController() : Controller(), level(0, 0)
     level.loadCells(utils::FileWriter::readFile(TEMPORARY_DEFAULT_LEVEL));
 
     level.setCellsCursorSensitivity(false);
+    level.setGameContextPointer(&gameContext);
 
     status = WATCHING;
 }
@@ -122,6 +123,13 @@ unsigned short GameController::render(utils::Context* pContext)
             }
         }
         }
+    }
+
+    /* check if the game has to be finished according to the context */
+    if (gameContext.getTerminateGame())
+    {
+        nextControllerId =
+            factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
     }
 
     return nextControllerId;

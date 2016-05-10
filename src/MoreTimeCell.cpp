@@ -40,6 +40,6 @@ MoreTimeCell::MoreTimeCell() : Cell("MT")
 /**
  *
  */
-void MoreTimeCell::performAction()
+void MoreTimeCell::performAction(utils::GameContext* pGameContext)
 {
 }

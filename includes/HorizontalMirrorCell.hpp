@@ -45,7 +45,7 @@ public:
      * @brief definition of the action to
      * perform when the cell is triggered
      */
-    void performAction();
+    void performAction(utils::GameContext* pGameContext);
 };
 }
 

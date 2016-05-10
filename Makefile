@@ -1,6 +1,6 @@
 CC = clang++
 
-CFLAGS = -std=c++11 -Weverything -Wno-switch -Wno-switch-enum -Wno-c++98-compat -Werror -Wno-padded -Wno-global-constructors -Wno-exit-time-destructors -Wno-implicit-fallthrough -ferror-limit=0 
+CFLAGS = -std=c++11 -Wno-switch -Wno-switch-enum -Wno-c++98-compat -Werror -Wno-padded -Wno-global-constructors -Wno-exit-time-destructors -Wno-implicit-fallthrough -ferror-limit=0 
 DEPS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 OBJS = \
@@ -64,7 +64,8 @@ OBJS = \
 	   build/VerticalMirrorCell.o \
 	   build/HorizontalMirrorCell.o \
 	   build/HasMenuSelectorAnimation.o \
-	   build/HiddenCellPicture.o
+	   build/HiddenCellPicture.o \
+	   build/GameContext.o
 
 INC = -I includes
 
@@ -88,6 +89,9 @@ build/CellFactory.o: src/CellFactory.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/Context.o: src/Context.cpp
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+
+build/GameContext.o: src/GameContext.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/Controller.o: src/Controller.cpp
