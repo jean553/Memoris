@@ -31,6 +31,7 @@
 
 #include "Context.hpp"
 #include "HiddenCellPicture.hpp"
+#include "GameContext.hpp"
 
 namespace entities
 {
@@ -49,8 +50,10 @@ public:
     /**
      * @brief abstract method that defines the action
      * to perform when the cell is triggered
+     *
+     * @param pGameContext pointer to the game context
      */
-    virtual void performAction() = 0;
+    virtual void performAction(utils::GameContext* pGameContext) = 0;
 
     /**
      * @brief setter for the position

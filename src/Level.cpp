@@ -326,6 +326,9 @@ void Level::setPlayerCellIndex(const uint16_t& index)
     /* the player cell is selected and not hidden */
     pPlayerCell->setSelected(true);
     pPlayerCell->setHidden(false);
+
+    /* execute the cell action */
+    pPlayerCell->performAction(pGameContext);
 }
 
 /**
@@ -420,4 +423,20 @@ bool Level::playerIsMovable(
     }
 
     return true;
+}
+
+/**
+ *
+ */
+void Level::setGameContextPointer(utils::GameContext* ptrGameContext)
+{
+    pGameContext = ptrGameContext;
+}
+
+/**
+ *
+ */
+utils::GameContext* Level::getGameContextPointer()
+{
+    return pGameContext;
 }

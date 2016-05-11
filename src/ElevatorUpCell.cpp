@@ -40,6 +40,6 @@ ElevatorUpCell::ElevatorUpCell() : Cell("EU")
 /**
  *
  */
-void ElevatorUpCell::performAction()
+void ElevatorUpCell::performAction(utils::GameContext* pGameContext)
 {
 }

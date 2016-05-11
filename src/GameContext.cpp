@@ -1,13 +1,13 @@
-/*
+/**
  * Memoris
  * Copyright (C) 2015  Jean LELIEVRE
  *
- * This program is free software: you can redistribute it and/or modify
+ * This program is free software: you can redistdibute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful,
+ * This program is distdibuted in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -17,29 +17,36 @@
 */
 
 /**
- * @file ElevatorDownCell.cpp
- * @brief elevator down cell entity
- * @package entities
+ * @file GameContext.cpp
+ * @brief context for cells and levels
+ * @package utils
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "ElevatorDownCell.hpp"
+#include "GameController.hpp"
 
-using namespace entities;
-
-const std::string ElevatorDownCell::ELEVATOR_DOWN_CELL_PICTURE_PATH = "res/cells/elevator_down.png";
+using namespace utils;
 
 /**
  *
  */
-ElevatorDownCell::ElevatorDownCell() : Cell("ED")
+GameContext::GameContext()
 {
-    setPicturePath(ELEVATOR_DOWN_CELL_PICTURE_PATH);
+    terminateGame = false;
 }
 
 /**
  *
  */
-void ElevatorDownCell::performAction(utils::GameContext* pGameContext)
+void GameContext::setTerminateGame(bool terminate)
 {
+    terminateGame = terminate;
+}
+
+/**
+ *
+ */
+bool GameContext::getTerminateGame() const
+{
+    return terminateGame;
 }

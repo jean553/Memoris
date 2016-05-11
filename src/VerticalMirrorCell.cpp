@@ -40,6 +40,6 @@ VerticalMirrorCell::VerticalMirrorCell() : Cell("VM")
 /**
  *
  */
-void VerticalMirrorCell::performAction()
+void VerticalMirrorCell::performAction(utils::GameContext* pGameContext)
 {
 }

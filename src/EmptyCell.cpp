@@ -40,6 +40,6 @@ EmptyCell::EmptyCell() : Cell("EC")
 /**
  *
  */
-void EmptyCell::performAction()
+void EmptyCell::performAction(utils::GameContext* pGameContext)
 {
 }

@@ -40,6 +40,6 @@ WallCell::WallCell() : Cell("WC")
 /**
  *
  */
-void WallCell::performAction()
+void WallCell::performAction(utils::GameContext* pGameContext)
 {
 }

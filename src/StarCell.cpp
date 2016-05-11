@@ -40,6 +40,6 @@ StarCell::StarCell() : Cell("SC")
 /**
  *
  */
-void StarCell::performAction()
+void StarCell::performAction(utils::GameContext* pGameContext)
 {
 }
