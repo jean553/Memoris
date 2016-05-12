@@ -142,8 +142,10 @@ public:
 
     /**
      * @brief hide all the cells of the level
+     *
+     * @param hidden true if the cells are hidden
      */
-    void hideAllCells();
+    void setAllCellsVisibility(const bool& hidden);
 
     /**
      * @brief set the cursor sensitivity of all the level's cells

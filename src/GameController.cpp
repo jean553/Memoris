@@ -72,7 +72,8 @@ unsigned short GameController::render(utils::Context* pContext)
         DEFAULT_WATCHING_TIME
     )
     {
-        level.hideAllCells();
+        /* hide all the cells except departure */
+        level.setAllCellsVisibility(true);
         level.setDepartureCellAsEnabled();
 
         status = PLAYING;
@@ -120,6 +121,12 @@ unsigned short GameController::render(utils::Context* pContext)
 
                 break;
             }
+            case sf::Keyboard::V:
+            {
+                level.setAllCellsVisibility(false);
+
+                break;
+            }
             }
         }
         }
@@ -141,7 +148,8 @@ unsigned short GameController::render(utils::Context* pContext)
 void GameController::movePlayer(PlayerDirection direction)
 {
     /* try to move the player only if the current status is playing */
-    if (status != PLAYING) {
+    if (status != PLAYING)
+    {
         return;
     }
 

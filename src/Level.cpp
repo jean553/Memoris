@@ -260,7 +260,7 @@ void Level::loadCells(const std::string& levelString)
 /**
  *
  */
-void Level::hideAllCells()
+void Level::setAllCellsVisibility(const bool& hidden)
 {
     for (
         std::vector<Cell*>::iterator cell = cells.begin();
@@ -268,7 +268,7 @@ void Level::hideAllCells()
         ++cell
     )
     {
-        (*cell)->setHidden(true);
+        (*cell)->setHidden(hidden);
     }
 }
 
