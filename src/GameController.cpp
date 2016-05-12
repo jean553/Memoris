@@ -98,25 +98,25 @@ unsigned short GameController::render(utils::Context* pContext)
             }
             case sf::Keyboard::Up:
             {
-                level.movePlayer(UP);
+                movePlayer(UP);
 
                 break;
             }
             case sf::Keyboard::Down:
             {
-                level.movePlayer(DOWN);
+                movePlayer(DOWN);
 
                 break;
             }
             case sf::Keyboard::Left:
             {
-                level.movePlayer(LEFT);
+                movePlayer(LEFT);
 
                 break;
             }
             case sf::Keyboard::Right:
             {
-                level.movePlayer(RIGHT);
+                movePlayer(RIGHT);
 
                 break;
             }
@@ -133,4 +133,17 @@ unsigned short GameController::render(utils::Context* pContext)
     }
 
     return nextControllerId;
+}
+
+/**
+ *
+ */
+void GameController::movePlayer(PlayerDirection direction)
+{
+    /* try to move the player only if the current status is playing */
+    if (status != PLAYING) {
+        return;
+    }
+
+    level.movePlayer(direction);
 }

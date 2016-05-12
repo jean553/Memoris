@@ -53,6 +53,14 @@ public:
 
 private:
 
+    /**
+     * @brief tries to move the player in the given direction
+     * only if the status of the game is playing
+     *
+     * @param direction specific direction
+     */
+    void movePlayer(PlayerDirection direction);
+
     /* do not use a const for casting problems with getElapsedTime().asMilliseconds() */
     static int32_t DEFAULT_WATCHING_TIME;
 
