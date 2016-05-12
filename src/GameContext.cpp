@@ -33,6 +33,9 @@ using namespace utils;
 GameContext::GameContext()
 {
     terminateGame = false;
+
+    starCellsAmount = 0;
+    foundStarCellsAmount = 0;
 }
 
 /**
@@ -49,4 +52,36 @@ void GameContext::setTerminateGame(bool terminate)
 bool GameContext::getTerminateGame() const
 {
     return terminateGame;
+}
+
+/**
+ *
+ */
+void GameContext::setStarCellsAmount(const uint16_t& amount)
+{
+    starCellsAmount = amount;
+}
+
+/**
+ *
+ */
+uint16_t GameContext::getStarCellsAmount() const
+{
+    return starCellsAmount;
+}
+
+/**
+ *
+ */
+void GameContext::addFoundStarCell()
+{
+    foundStarCellsAmount += 1;
+}
+
+/**
+ *
+ */
+uint16_t GameContext::getFoundStarCellsAmount() const
+{
+    return foundStarCellsAmount;
 }

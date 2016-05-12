@@ -55,6 +55,8 @@ GameController::GameController() : Controller(), level(0, 0)
     level.setGameContextPointer(&gameContext);
 
     status = WATCHING;
+
+    gameContext.setStarCellsAmount(level.getStarCellsAmount());
 }
 
 /**
@@ -72,7 +74,8 @@ unsigned short GameController::render(utils::Context* pContext)
         DEFAULT_WATCHING_TIME
     )
     {
-        level.hideAllCells();
+        /* hide all the cells except departure */
+        level.setAllCellsVisibility(true);
         level.setDepartureCellAsEnabled();
 
         status = PLAYING;
@@ -98,25 +101,31 @@ unsigned short GameController::render(utils::Context* pContext)
             }
             case sf::Keyboard::Up:
             {
-                level.movePlayer(UP);
+                movePlayer(UP);
 
                 break;
             }
             case sf::Keyboard::Down:
             {
-                level.movePlayer(DOWN);
+                movePlayer(DOWN);
 
                 break;
             }
             case sf::Keyboard::Left:
             {
-                level.movePlayer(LEFT);
+                movePlayer(LEFT);
 
                 break;
             }
             case sf::Keyboard::Right:
             {
-                level.movePlayer(RIGHT);
+                movePlayer(RIGHT);
+
+                break;
+            }
+            case sf::Keyboard::V:
+            {
+                level.setAllCellsVisibility(false);
 
                 break;
             }
@@ -133,4 +142,18 @@ unsigned short GameController::render(utils::Context* pContext)
     }
 
     return nextControllerId;
+}
+
+/**
+ *
+ */
+void GameController::movePlayer(PlayerDirection direction)
+{
+    /* try to move the player only if the current status is playing */
+    if (status != PLAYING)
+    {
+        return;
+    }
+
+    level.movePlayer(direction);
 }

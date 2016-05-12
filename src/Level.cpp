@@ -260,7 +260,7 @@ void Level::loadCells(const std::string& levelString)
 /**
  *
  */
-void Level::hideAllCells()
+void Level::setAllCellsVisibility(const bool& hidden)
 {
     for (
         std::vector<Cell*>::iterator cell = cells.begin();
@@ -268,7 +268,7 @@ void Level::hideAllCells()
         ++cell
     )
     {
-        (*cell)->setHidden(true);
+        (*cell)->setHidden(hidden);
     }
 }
 
@@ -385,7 +385,7 @@ bool Level::playerIsMovable(
     /* check if the player can go on the left */
     if (
         direction == LEFT &&
-        currentIndex < constants::Dimensions::CELLS_PER_LINE
+        currentIndex < constants::Dimensions::CELLS_PER_COLUMN
     )
     {
         return false;
@@ -439,4 +439,27 @@ void Level::setGameContextPointer(utils::GameContext* ptrGameContext)
 utils::GameContext* Level::getGameContextPointer()
 {
     return pGameContext;
+}
+
+/**
+ *
+ */
+uint16_t Level::getStarCellsAmount()
+{
+    uint16_t starCellsAmount = 0;
+
+    /* TODO: maybe is there a better solution than iterate the array... ? */
+    for (
+        std::vector<Cell*>::iterator cell = cells.begin();
+        cell != cells.end();
+        ++cell
+    )
+    {
+        if ((*cell)->IN_FILE_REPRESENTATION == "SC")
+        {
+            starCellsAmount++;
+        }
+    }
+
+    return starCellsAmount;
 }

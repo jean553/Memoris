@@ -51,10 +51,39 @@ public:
      */
     bool getTerminateGame() const;
 
+    /**
+     * @brief setter for the star cells amount
+     *
+     * @param amount star cells quantity
+     */
+    void setStarCellsAmount(const uint16_t& amount);
+
+    /**
+     * @brief getter for the star cells amount
+     *
+     * @return uint16_t
+     */
+    uint16_t getStarCellsAmount() const;
+
+    /**
+     * @brief increment the amount of found star cells amount
+     */
+    void addFoundStarCell();
+
+    /**
+     * @brief getter for the found star cells amount
+     *
+     * @return uint16_t
+     */
+    uint16_t getFoundStarCellsAmount() const;
+
 private:
 
     /* get by the game controller to stop the game, false by default */
     bool terminateGame;
+
+    uint16_t starCellsAmount;
+    uint16_t foundStarCellsAmount;
 };
 }
 
