@@ -42,4 +42,6 @@ StarCell::StarCell() : Cell("SC")
  */
 void StarCell::performAction(utils::GameContext* pGameContext)
 {
+    /* increment the amount of found star cells */
+    pGameContext->addFoundStarCell();
 }

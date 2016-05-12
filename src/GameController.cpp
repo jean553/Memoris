@@ -55,6 +55,8 @@ GameController::GameController() : Controller(), level(0, 0)
     level.setGameContextPointer(&gameContext);
 
     status = WATCHING;
+
+    gameContext.setStarCellsAmount(level.getStarCellsAmount());
 }
 
 /**

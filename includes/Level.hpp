@@ -212,6 +212,13 @@ public:
      */
     utils::GameContext* getGameContextPointer();
 
+    /**
+     * @brief returns the amount of star cells
+     *
+     * @return uint16_t
+     */
+    uint16_t getStarCellsAmount();
+
 private:
 
     float horizontalPosition;
