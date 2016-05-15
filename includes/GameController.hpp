@@ -85,6 +85,7 @@ private:
     };
 
     uint16_t starCellsAmount;
+    uint16_t foundStarCellsAmount;
 
     bool terminateGame;
 

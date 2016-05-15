@@ -56,6 +56,7 @@ GameController::GameController() : Controller(), level(0, 0)
     status = WATCHING;
 
     starCellsAmount = level.getStarCellsAmount();
+    foundStarCellsAmount = 0;
 
     terminateGame = false;
 }
@@ -168,7 +169,17 @@ void GameController::movePlayer(PlayerDirection direction)
 void GameController::executeCellAction()
 {
     /* terminates the game if the player is on the arrival cell */
-    if (level.pPlayerCell->IN_FILE_REPRESENTATION == "AC") {
+    if (
+        level.pPlayerCell->IN_FILE_REPRESENTATION == "AC" &&
+        foundStarCellsAmount == starCellsAmount
+    )
+    {
         terminateGame = true;
+    }
+
+    /* increment the amount of found stars if a star is found */
+    if (level.pPlayerCell->IN_FILE_REPRESENTATION == "SC")
+    {
+        foundStarCellsAmount++;
     }
 }
