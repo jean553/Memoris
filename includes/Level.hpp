@@ -29,7 +29,6 @@
 #include <vector>
 #include <string>
 
-#include "Cell.hpp"
 #include "DepartureCell.hpp"
 #include "Context.hpp"
 #include "HiddenCellPicture.hpp"
@@ -205,6 +204,9 @@ public:
      */
     uint16_t getStarCellsAmount();
 
+    /* pointer to the current player position cell */
+    Cell* pPlayerCell;
+
 private:
 
     float horizontalPosition;
@@ -216,9 +218,6 @@ private:
 
     /* pointer to unique the departure cell of the level */
     DepartureCell* pDepartureCell;
-
-    /* pointer to the current player position cell */
-    Cell* pPlayerCell;
 
     std::vector<Cell*> cells;
 };
