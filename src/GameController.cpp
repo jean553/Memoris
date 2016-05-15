@@ -157,4 +157,18 @@ void GameController::movePlayer(PlayerDirection direction)
     }
 
     level.movePlayer(direction);
+
+    /* execute the action of the new cell */
+    executeCellAction();
+}
+
+/**
+ *
+ */
+void GameController::executeCellAction()
+{
+    /* terminates the game if the player is on the arrival cell */
+    if (level.pPlayerCell->IN_FILE_REPRESENTATION == "AC") {
+        terminateGame = true;
+    }
 }

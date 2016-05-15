@@ -60,6 +60,11 @@ private:
      */
     void movePlayer(PlayerDirection direction);
 
+    /**
+     * @brief checks the new player cell, trigger event according to this cell
+     */
+    void executeCellAction();
+
     /* do not use a const for casting problems with getElapsedTime().asMilliseconds() */
     static int32_t DEFAULT_WATCHING_TIME;
 
