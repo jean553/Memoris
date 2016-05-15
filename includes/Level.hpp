@@ -216,8 +216,7 @@ private:
 
     Cell* pSelectedCell;
 
-    /* pointer to unique the departure cell of the level */
-    DepartureCell* pDepartureCell;
+    uint16_t departureCellIndex;
 
     std::vector<Cell*> cells;
 };
