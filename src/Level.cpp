@@ -40,7 +40,7 @@ Level::Level(
     float vPosition
 )
 {
-    pDepartureCell = NULL;
+    departureCellIndex = 0;
     pPlayerCell = NULL;
 
     horizontalPosition = hPosition;
@@ -54,7 +54,7 @@ Level::Level(
  */
 Level::Level(const Level &level)
 {
-    pDepartureCell = NULL;
+    departureCellIndex = 0;
     pPlayerCell = NULL;
 
     name = level.name;
@@ -215,12 +215,6 @@ void Level::loadCells(const std::string& levelString)
                        );
         }
 
-        /* save the departure cell */
-        if (pNewCell->IN_FILE_REPRESENTATION == "DP")
-        {
-            pDepartureCell = static_cast<DepartureCell*>(pNewCell);
-        }
-
         pNewCell->setPosition(
             horizontalPosition +
             currentColumn *
@@ -237,6 +231,13 @@ void Level::loadCells(const std::string& levelString)
         );
 
         pNewCell->setLevelAddresses(cellAddress);
+
+        /* save the departure cell */
+        if (pNewCell->IN_FILE_REPRESENTATION == "DP")
+        {
+            departureCellIndex = cellAddress;
+        }
+
         cellAddress++;
 
         cells.push_back(pNewCell);
@@ -305,7 +306,7 @@ void Level::setPosition(
 void Level::setDepartureCellAsEnabled()
 {
     /* the player cell position is the same as the departure one */
-    setPlayerCellIndex(pDepartureCell->getAddress());
+    setPlayerCellIndex(departureCellIndex);
 }
 
 /**
