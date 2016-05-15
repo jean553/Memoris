@@ -204,10 +204,26 @@ public:
      */
     uint16_t getStarCellsAmount();
 
-    /* pointer to the current player position cell */
-    Cell* pPlayerCell;
+    /**
+     * @brief setter for the current player position cell
+     *
+     * @param Cell* pointer to a cell
+     */
+    void setPlayerCellPtr(entities::Cell* ptrPlayerCell);
+
+    /**
+     * @brief getter for the player cell pointer
+     *
+     * @return Cell*
+     */
+    entities::Cell* getPlayerCellPtr() const;
 
 private:
+
+    /**
+     * @brief initialize basic attributes
+     */
+    void initializeSomeCommonCells();
 
     float horizontalPosition;
     float verticalPosition;
@@ -219,6 +235,9 @@ private:
     uint16_t departureCellIndex;
 
     std::vector<Cell*> cells;
+
+    /* pointer to the current player position cell */
+    Cell* pPlayerCell;
 };
 }
 
