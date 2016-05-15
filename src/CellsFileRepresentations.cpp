@@ -17,29 +17,17 @@
 */
 
 /**
- * @file LessTimeCell.cpp
- * @brief less time cell entity
- * @package entities
+ * @file CellsFileRepresentations.cpp
+ * @brief string representation of the cells
+ * @package constants
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "LessTimeCell.hpp"
+#include "CellsFileRepresentations.hpp"
 
-using namespace entities;
+using namespace constants;
 
-const std::string LessTimeCell::LESS_TIME_CELL_PICTURE_PATH = "res/cells/less_time.png";
-
-/**
- *
- */
-LessTimeCell::LessTimeCell() : Cell("LT")
-{
-    setPicturePath(LESS_TIME_CELL_PICTURE_PATH);
-}
-
-/**
- *
- */
-void LessTimeCell::performAction()
-{
-}
+const std::string CellsFileRepresentations::DEPARTURE_CELL = "DP";
+const std::string CellsFileRepresentations::ARRIVAL_CELL = "AC";
+const std::string CellsFileRepresentations::STAR_CELL = "SC";
+const std::string CellsFileRepresentations::EMPTY_CELL = "EC";

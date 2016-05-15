@@ -45,26 +45,9 @@ OBJS = \
 	   build/GameController.o \
 	   build/Level.o \
 	   build/Cell.o \
-	   build/EmptyCell.o \
-	   build/DepartureCell.o \
-	   build/ArrivalCell.o \
-	   build/StarCell.o \
-	   build/LifeCell.o \
-	   build/DamageCell.o \
-	   build/MoreTimeCell.o \
-	   build/LessTimeCell.o \
-	   build/FloorUpCell.o \
-	   build/FloorDownCell.o \
-	   build/WallCell.o \
-	   build/ElevatorUpCell.o \
-	   build/ElevatorDownCell.o \
-	   build/QuarterLeftRotateCell.o \
-	   build/QuarterRightRotateCell.o \
-	   build/QuarterHalfRotateCell.o \
-	   build/VerticalMirrorCell.o \
-	   build/HorizontalMirrorCell.o \
 	   build/HasMenuSelectorAnimation.o \
-	   build/HiddenCellPicture.o
+	   build/HiddenCellPicture.o \
+	   build/CellsFileRepresentations.o
 
 INC = -I includes
 
@@ -143,6 +126,9 @@ build/Screens.o: src/Screens.cpp
 build/Messages.o: src/Messages.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
+build/CellsFileRepresentations.o: src/CellsFileRepresentations.cpp
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+
 # entities
 
 build/Serie.o: src/Serie.cpp
@@ -152,60 +138,6 @@ build/Level.o: src/Level.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/Cell.o: src/Cell.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/EmptyCell.o: src/EmptyCell.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/DepartureCell.o: src/DepartureCell.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/ArrivalCell.o: src/ArrivalCell.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/StarCell.o: src/StarCell.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/LifeCell.o: src/LifeCell.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/DamageCell.o: src/DamageCell.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/MoreTimeCell.o: src/MoreTimeCell.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/LessTimeCell.o: src/LessTimeCell.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/FloorUpCell.o: src/FloorUpCell.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/FloorDownCell.o: src/FloorDownCell.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/ElevatorUpCell.o: src/ElevatorUpCell.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/ElevatorDownCell.o: src/ElevatorDownCell.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/WallCell.o: src/WallCell.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/QuarterLeftRotateCell.o: src/QuarterLeftRotateCell.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/QuarterRightRotateCell.o: src/QuarterRightRotateCell.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/QuarterHalfRotateCell.o: src/QuarterHalfRotateCell.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/VerticalMirrorCell.o: src/VerticalMirrorCell.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/HorizontalMirrorCell.o: src/HorizontalMirrorCell.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 # widgets

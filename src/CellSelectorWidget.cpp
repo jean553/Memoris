@@ -26,9 +26,10 @@
  */
 
 #include "CellSelectorWidget.hpp"
-
 #include "Dimensions.hpp"
 #include "Sounds.hpp"
+#include "CellsFileRepresentations.hpp"
+#include "CellFactory.hpp"
 
 using namespace widgets;
 
@@ -47,6 +48,16 @@ CellSelectorWidget::CellSelectorWidget()
     soundCellSelection.setBuffer(
         soundCellSelectionBuffer
     );
+
+    /* TODO: to refactor... */
+    emptyCell.IN_FILE_REPRESENTATION = constants::CellsFileRepresentations::EMPTY_CELL;
+    departureCell.IN_FILE_REPRESENTATION = constants::CellsFileRepresentations::DEPARTURE_CELL;
+    arrivalCell.IN_FILE_REPRESENTATION = constants::CellsFileRepresentations::ARRIVAL_CELL;
+    starCell.IN_FILE_REPRESENTATION = constants::CellsFileRepresentations::STAR_CELL;
+    emptyCell.setPicturePath(factories::CellFactory::EMPTY_CELL_PICTURE_PATH);
+    departureCell.setPicturePath(factories::CellFactory::DEPARTURE_CELL_PICTURE_PATH);
+    arrivalCell.setPicturePath(factories::CellFactory::ARRIVAL_CELL_PICTURE_PATH);
+    starCell.setPicturePath(factories::CellFactory::STAR_CELL_PICTURE_PATH);
 }
 
 /**
@@ -83,76 +94,6 @@ void CellSelectorWidget::setPosition(
         hPosition + cellsDimensions * 3,
         vPosition
     );
-
-    lifeCell.setPosition(
-        hPosition,
-        vPosition + cellsDimensions
-    );
-
-    damageCell.setPosition(
-        hPosition + cellsDimensions,
-        vPosition + cellsDimensions
-    );
-
-    moreTimeCell.setPosition(
-        hPosition + cellsDimensions * 2,
-        vPosition + cellsDimensions
-    );
-
-    lessTimeCell.setPosition(
-        hPosition + cellsDimensions * 3,
-        vPosition + cellsDimensions
-    );
-
-    floorUpCell.setPosition(
-        hPosition,
-        vPosition + cellsDimensions * 2
-    );
-
-    floorDownCell.setPosition(
-        hPosition + cellsDimensions,
-        vPosition + cellsDimensions * 2
-    );
-
-    elevatorUpCell.setPosition(
-        hPosition + cellsDimensions * 2,
-        vPosition + cellsDimensions * 2
-    );
-
-    elevatorDownCell.setPosition(
-        hPosition + cellsDimensions * 3,
-        vPosition + cellsDimensions * 2
-    );
-
-    wallCell.setPosition(
-        hPosition,
-        vPosition + cellsDimensions * 3
-    );
-
-    quarterLeftRotateCell.setPosition(
-        hPosition + cellsDimensions,
-        vPosition + cellsDimensions * 3
-    );
-
-    quarterRightRotateCell.setPosition(
-        hPosition + cellsDimensions * 2,
-        vPosition + cellsDimensions * 3
-    );
-
-    quarterHalfRotateCell.setPosition(
-        hPosition + cellsDimensions * 3,
-        vPosition + cellsDimensions * 3
-    );
-
-    verticalMirrorCell.setPosition(
-        hPosition,
-        vPosition + cellsDimensions * 4
-    );
-
-    horizontalMirrorCell.setPosition(
-        hPosition + cellsDimensions,
-        vPosition + cellsDimensions * 4
-    );
 }
 
 /**
@@ -164,20 +105,6 @@ void CellSelectorWidget::display(utils::Context* pContext)
     departureCell.display(pContext);
     arrivalCell.display(pContext);
     starCell.display(pContext);
-    lifeCell.display(pContext);
-    damageCell.display(pContext);
-    moreTimeCell.display(pContext);
-    lessTimeCell.display(pContext);
-    floorUpCell.display(pContext);
-    floorDownCell.display(pContext);
-    elevatorUpCell.display(pContext);
-    elevatorDownCell.display(pContext);
-    wallCell.display(pContext);
-    quarterLeftRotateCell.display(pContext);
-    quarterRightRotateCell.display(pContext);
-    quarterHalfRotateCell.display(pContext);
-    verticalMirrorCell.display(pContext);
-    horizontalMirrorCell.display(pContext);
 }
 
 /**
@@ -203,62 +130,6 @@ void CellSelectorWidget::selectCellOnClick()
     {
         starCell.setSelected(true);
     }
-    else if (lifeCell.isMouseHover())
-    {
-        lifeCell.setSelected(true);
-    }
-    else if (damageCell.isMouseHover())
-    {
-        damageCell.setSelected(true);
-    }
-    else if (moreTimeCell.isMouseHover())
-    {
-        moreTimeCell.setSelected(true);
-    }
-    else if (lessTimeCell.isMouseHover())
-    {
-        lessTimeCell.setSelected(true);
-    }
-    else if (floorUpCell.isMouseHover())
-    {
-        floorUpCell.setSelected(true);
-    }
-    else if (floorDownCell.isMouseHover())
-    {
-        floorDownCell.setSelected(true);
-    }
-    else if (elevatorUpCell.isMouseHover())
-    {
-        elevatorUpCell.setSelected(true);
-    }
-    else if (elevatorDownCell.isMouseHover())
-    {
-        elevatorDownCell.setSelected(true);
-    }
-    else if (quarterLeftRotateCell.isMouseHover())
-    {
-        quarterLeftRotateCell.setSelected(true);
-    }
-    else if (quarterRightRotateCell.isMouseHover())
-    {
-        quarterRightRotateCell.setSelected(true);
-    }
-    else if (quarterHalfRotateCell.isMouseHover())
-    {
-        quarterHalfRotateCell.setSelected(true);
-    }
-    else if (verticalMirrorCell.isMouseHover())
-    {
-        verticalMirrorCell.setSelected(true);
-    }
-    else if (horizontalMirrorCell.isMouseHover())
-    {
-        horizontalMirrorCell.setSelected(true);
-    }
-    else if (wallCell.isMouseHover())
-    {
-        wallCell.setSelected(true);
-    }
 
     /* TODO: should not be played when no cell is selected,
        I keep it here for now as the selector is a cells rectangle
@@ -275,20 +146,6 @@ void CellSelectorWidget::unselectAllCells()
     departureCell.setSelected(false);
     arrivalCell.setSelected(false);
     starCell.setSelected(false);
-    lifeCell.setSelected(false);
-    damageCell.setSelected(false);
-    moreTimeCell.setSelected(false);
-    lessTimeCell.setSelected(false);
-    floorUpCell.setSelected(false);
-    floorDownCell.setSelected(false);
-    elevatorUpCell.setSelected(false);
-    elevatorDownCell.setSelected(false);
-    wallCell.setSelected(false);
-    quarterLeftRotateCell.setSelected(false);
-    quarterRightRotateCell.setSelected(false);
-    quarterHalfRotateCell.setSelected(false);
-    verticalMirrorCell.setSelected(false);
-    horizontalMirrorCell.setSelected(false);
 }
 
 /**
@@ -322,76 +179,24 @@ bool CellSelectorWidget::isMouseHover() const
  */
 entities::Cell* CellSelectorWidget::getSelectedNewCellPointer()
 {
+    entities::Cell* pCell = NULL;
+
     if (departureCell.getIsSelected())
     {
-        return new entities::DepartureCell();
+        pCell = factories::CellFactory::getCellPointerByStringName(constants::CellsFileRepresentations::DEPARTURE_CELL);
     }
     else if (arrivalCell.getIsSelected())
     {
-        return new entities::ArrivalCell();
+        pCell = factories::CellFactory::getCellPointerByStringName(constants::CellsFileRepresentations::ARRIVAL_CELL);
     }
     else if (starCell.getIsSelected())
     {
-        return new entities::StarCell();
-    }
-    else if (lifeCell.getIsSelected())
-    {
-        return new entities::LifeCell();
-    }
-    else if (damageCell.getIsSelected())
-    {
-        return new entities::DamageCell();
-    }
-    else if (moreTimeCell.getIsSelected())
-    {
-        return new entities::MoreTimeCell();
-    }
-    else if (lessTimeCell.getIsSelected())
-    {
-        return new entities::LessTimeCell();
-    }
-    else if (floorUpCell.getIsSelected())
-    {
-        return new entities::FloorUpCell();
-    }
-    else if (floorDownCell.getIsSelected())
-    {
-        return new entities::FloorDownCell();
-    }
-    else if (elevatorUpCell.getIsSelected())
-    {
-        return new entities::ElevatorUpCell();
-    }
-    else if (elevatorDownCell.getIsSelected())
-    {
-        return new entities::ElevatorDownCell();
-    }
-    else if (quarterLeftRotateCell.getIsSelected())
-    {
-        return new entities::QuarterLeftRotateCell();
-    }
-    else if (quarterRightRotateCell.getIsSelected())
-    {
-        return new entities::QuarterRightRotateCell();
-    }
-    else if (quarterHalfRotateCell.getIsSelected())
-    {
-        return new entities::QuarterHalfRotateCell();
-    }
-    else if (verticalMirrorCell.getIsSelected())
-    {
-        return new entities::VerticalMirrorCell();
-    }
-    else if (horizontalMirrorCell.getIsSelected())
-    {
-        return new entities::HorizontalMirrorCell();
-    }
-    else if (wallCell.getIsSelected())
-    {
-        return new entities::WallCell();
+        pCell = factories::CellFactory::getCellPointerByStringName(constants::CellsFileRepresentations::STAR_CELL);
     }
     else
     {
-        return new entities::EmptyCell();
+        pCell = factories::CellFactory::getCellPointerByStringName(constants::CellsFileRepresentations::EMPTY_CELL);
     }
+
+    return pCell;
 }

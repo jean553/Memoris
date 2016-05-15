@@ -26,101 +26,41 @@
  */
 
 #include "CellFactory.hpp"
-#include "EmptyCell.hpp"
-#include "DepartureCell.hpp"
-#include "ArrivalCell.hpp"
-#include "LifeCell.hpp"
-#include "DamageCell.hpp"
-#include "ElevatorDownCell.hpp"
-#include "ElevatorUpCell.hpp"
-#include "FloorDownCell.hpp"
-#include "FloorUpCell.hpp"
-#include "HorizontalMirrorCell.hpp"
-#include "VerticalMirrorCell.hpp"
-#include "LessTimeCell.hpp"
-#include "MoreTimeCell.hpp"
-#include "WallCell.hpp"
-#include "StarCell.hpp"
-#include "QuarterHalfRotateCell.hpp"
-#include "QuarterLeftRotateCell.hpp"
-#include "QuarterRightRotateCell.hpp"
-#include "StarCell.hpp"
+#include "CellsFileRepresentations.hpp"
 
 using namespace factories;
 
+const std::string CellFactory::DEPARTURE_CELL_PICTURE_PATH = "res/cells/departure.png";
+const std::string CellFactory::ARRIVAL_CELL_PICTURE_PATH = "res/cells/arrival.png";
+const std::string CellFactory::STAR_CELL_PICTURE_PATH = "res/cells/star.png";
+const std::string CellFactory::EMPTY_CELL_PICTURE_PATH = "res/cells/empty.png";
+
 entities::Cell* CellFactory::getCellPointerByStringName(const std::string& stringCell)
 {
-    /* TODO: should use constant strings instead of string literals... */
-    if (stringCell == "DP")
+    /* TODO: very bad, but the pointer will be refactored anyway... */
+    entities::Cell* pCell = new entities::Cell(stringCell);
+    pCell->IN_FILE_REPRESENTATION = stringCell;
+
+    if (stringCell == constants::CellsFileRepresentations::DEPARTURE_CELL)
     {
-        return new entities::DepartureCell();
+        pCell->setPicturePath(DEPARTURE_CELL_PICTURE_PATH);
     }
-    else if (stringCell == "AC")
+    else if (stringCell == constants::CellsFileRepresentations::ARRIVAL_CELL)
     {
-        return new entities::ArrivalCell();
+        pCell->setPicturePath(ARRIVAL_CELL_PICTURE_PATH);
     }
-    else if (stringCell == "LC")
+    else if (stringCell == constants::CellsFileRepresentations::STAR_CELL)
     {
-        return new entities::LifeCell();
-    }
-    else if (stringCell == "ED")
-    {
-        return new entities::ElevatorDownCell();
-    }
-    else if (stringCell == "EU")
-    {
-        return new entities::ElevatorUpCell();
-    }
-    else if (stringCell == "FD")
-    {
-        return new entities::FloorDownCell();
-    }
-    else if (stringCell == "FU")
-    {
-        return new entities::FloorUpCell();
-    }
-    else if (stringCell == "HM")
-    {
-        return new entities::HorizontalMirrorCell();
-    }
-    else if (stringCell == "LT")
-    {
-        return new entities::LessTimeCell();
-    }
-    else if (stringCell == "MT")
-    {
-        return new entities::MoreTimeCell();
-    }
-    else if (stringCell == "QH")
-    {
-        return new entities::QuarterHalfRotateCell();
-    }
-    else if (stringCell == "QL")
-    {
-        return new entities::QuarterLeftRotateCell();
-    }
-    else if (stringCell == "QR")
-    {
-        return new entities::QuarterRightRotateCell();
-    }
-    else if (stringCell == "VM")
-    {
-        return new entities::VerticalMirrorCell();
-    }
-    else if (stringCell == "WC")
-    {
-        return new entities::WallCell();
-    }
-    else if (stringCell == "SC")
-    {
-        return new entities::StarCell();
-    }
-    else if (stringCell == "DC")
-    {
-        return new entities::DamageCell();
+        pCell->setPicturePath(STAR_CELL_PICTURE_PATH);
     }
     else
     {
-        return new entities::EmptyCell();
+
+        /* force the cell as an empty cell */
+        pCell->IN_FILE_REPRESENTATION = "EC";
+
+        pCell->setPicturePath(EMPTY_CELL_PICTURE_PATH);
     }
+
+    return pCell;
 }

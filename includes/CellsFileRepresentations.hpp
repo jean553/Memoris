@@ -17,35 +17,26 @@
 */
 
 /**
- * @file LifeCell.hpp
- * @brief life cell entity
- * @package entities
+ * @file CellsFileRepresentations.hpp
+ * @brief string representation of the cells
+ * @package constants
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_LIFE_CELL
-#define DEF_LIFE_CELL
-
-#include "Cell.hpp"
+#ifndef DEF_CELLS_FILE_REPRESENTATIONS
+#define DEF_CELLS_FILE_REPRESENTATIONS
 
 #include <string>
 
-namespace entities
+namespace constants
 {
-class LifeCell : public Cell
+class CellsFileRepresentations
 {
-
-    static const std::string LIFE_CELL_PICTURE_PATH;
-
 public:
-
-    LifeCell();
-
-    /**
-     * @brief definition of the action to
-     * perform when the cell is triggered
-     */
-    void performAction();
+    static const std::string DEPARTURE_CELL;
+    static const std::string ARRIVAL_CELL;
+    static const std::string STAR_CELL;
+    static const std::string EMPTY_CELL;
 };
 }
 

@@ -39,7 +39,17 @@ class Cell
 
 public:
 
-    const std::string IN_FILE_REPRESENTATION;
+    std::string IN_FILE_REPRESENTATION;
+
+    /**
+     * @brief default constructor
+     */
+    Cell();
+
+    /**
+     * @brief constructor
+     */
+    Cell(std::string fileRepresentation);
 
     /**
      * @brief destructor, mandatory as the class is abstract
@@ -50,7 +60,7 @@ public:
      * @brief abstract method that defines the action
      * to perform when the cell is triggered
      */
-    virtual void performAction() = 0;
+    virtual void performAction();
 
     /**
      * @brief setter for the position
@@ -155,14 +165,12 @@ public:
      */
     void setCursorSensitivity(const bool& sensitivity);
 
-protected:
+private:
 
     /**
-     * @brief constructor
+     * @brief common initializer for all constructors
      */
-    Cell(std::string fileRepresentation);
-
-private:
+    void initializeCommonAttributes();
 
     bool isSelected;
     bool isHidden;
