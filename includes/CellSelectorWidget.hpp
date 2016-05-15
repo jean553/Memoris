@@ -31,25 +31,7 @@
 #include <SFML/Audio.hpp>
 
 #include "Widget.hpp"
-
-#include "EmptyCell.hpp"
-#include "DepartureCell.hpp"
-#include "ArrivalCell.hpp"
-#include "StarCell.hpp"
-#include "LifeCell.hpp"
-#include "DamageCell.hpp"
-#include "MoreTimeCell.hpp"
-#include "LessTimeCell.hpp"
-#include "FloorUpCell.hpp"
-#include "FloorDownCell.hpp"
-#include "ElevatorUpCell.hpp"
-#include "ElevatorDownCell.hpp"
-#include "WallCell.hpp"
-#include "QuarterLeftRotateCell.hpp"
-#include "QuarterRightRotateCell.hpp"
-#include "QuarterHalfRotateCell.hpp"
-#include "VerticalMirrorCell.hpp"
-#include "HorizontalMirrorCell.hpp"
+#include "Cell.hpp"
 
 namespace widgets
 {
@@ -109,24 +91,10 @@ private:
      */
     void unselectAllCells();
 
-    entities::EmptyCell emptyCell;
-    entities::DepartureCell departureCell;
-    entities::ArrivalCell arrivalCell;
-    entities::StarCell starCell;
-    entities::LifeCell lifeCell;
-    entities::DamageCell damageCell;
-    entities::MoreTimeCell moreTimeCell;
-    entities::LessTimeCell lessTimeCell;
-    entities::FloorUpCell floorUpCell;
-    entities::FloorDownCell floorDownCell;
-    entities::ElevatorUpCell elevatorUpCell;
-    entities::ElevatorDownCell elevatorDownCell;
-    entities::WallCell wallCell;
-    entities::QuarterLeftRotateCell quarterLeftRotateCell;
-    entities::QuarterRightRotateCell quarterRightRotateCell;
-    entities::QuarterHalfRotateCell quarterHalfRotateCell;
-    entities::VerticalMirrorCell verticalMirrorCell;
-    entities::HorizontalMirrorCell horizontalMirrorCell;
+    entities::Cell emptyCell;
+    entities::Cell departureCell;
+    entities::Cell arrivalCell;
+    entities::Cell starCell;
 
     sf::SoundBuffer soundCellSelectionBuffer;
 

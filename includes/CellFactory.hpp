@@ -34,8 +34,12 @@ namespace factories
 {
 class CellFactory
 {
-
 public:
+
+    static const std::string DEPARTURE_CELL_PICTURE_PATH;
+    static const std::string ARRIVAL_CELL_PICTURE_PATH;
+    static const std::string STAR_CELL_PICTURE_PATH;
+    static const std::string EMPTY_CELL_PICTURE_PATH;
 
     /**
      * @brief returns a new cell

@@ -32,69 +32,30 @@ using namespace entities;
 /**
  *
  */
+Cell::Cell()
+{
+    initializeCommonAttributes();
+}
+
+/**
+ *
+ */
 Cell::Cell(std::string fileValue) : IN_FILE_REPRESENTATION(fileValue)
 {
-    isSelected = false;
-    isHidden = false;
-    isCursorSensitive = true;
-
-    horizontalPosition = 0;
-    verticalPosition = 0;
-    address = 0;
-
-    transparentWhiteColor.r = constants::Colors::COLOR_WHITE_RED;
-    transparentWhiteColor.g = constants::Colors::COLOR_WHITE_GREEN;
-    transparentWhiteColor.b = constants::Colors::COLOR_WHITE_BLUE;
-    transparentWhiteColor.a = constants::Colors::COLOR_ALPHA_PARTIAL;
-
-    whiteColor.r = constants::Colors::COLOR_WHITE_RED;
-    whiteColor.g = constants::Colors::COLOR_WHITE_GREEN;
-    whiteColor.b = constants::Colors::COLOR_WHITE_BLUE;
-    whiteColor.a = constants::Colors::COLOR_ALPHA_FULL;
-
-    selectorColor.r = constants::Colors::COLOR_RED_RED;
-    selectorColor.g = constants::Colors::COLOR_RED_GREEN;
-    selectorColor.b = constants::Colors::COLOR_RED_BLUE;
-    selectorColor.a = constants::Colors::COLOR_ALPHA_FULL;
-
-    topSelectionBar.setSize(
-        sf::Vector2f(
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS,
-            constants::Dimensions::SELECTED_CELLS_BORDER_WIDTH
-        )
-    );
-
-    bottomSelectionBar.setSize(
-        sf::Vector2f(
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS,
-            constants::Dimensions::SELECTED_CELLS_BORDER_WIDTH
-        )
-    );
-
-    leftSelectionBar.setSize(
-        sf::Vector2f(
-            constants::Dimensions::SELECTED_CELLS_BORDER_WIDTH,
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS
-        )
-    );
-
-    rightSelectionBar.setSize(
-        sf::Vector2f(
-            constants::Dimensions::SELECTED_CELLS_BORDER_WIDTH,
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS
-        )
-    );
-
-    topSelectionBar.setFillColor(selectorColor);
-    bottomSelectionBar.setFillColor(selectorColor);
-    leftSelectionBar.setFillColor(selectorColor);
-    rightSelectionBar.setFillColor(selectorColor);
+    initializeCommonAttributes();
 }
 
 /**
  *
  */
 Cell::~Cell()
+{
+}
+
+/**
+ *
+ */
+void Cell::performAction()
 {
 }
 
@@ -278,4 +239,66 @@ bool Cell::getIsHidden() const
 void Cell::setCursorSensitivity(const bool& sensitivity)
 {
     isCursorSensitive = sensitivity;
+}
+
+/**
+ *
+ */
+void Cell::initializeCommonAttributes()
+{
+    isSelected = false;
+    isHidden = false;
+    isCursorSensitive = true;
+
+    horizontalPosition = 0;
+    verticalPosition = 0;
+    address = 0;
+
+    transparentWhiteColor.r = constants::Colors::COLOR_WHITE_RED;
+    transparentWhiteColor.g = constants::Colors::COLOR_WHITE_GREEN;
+    transparentWhiteColor.b = constants::Colors::COLOR_WHITE_BLUE;
+    transparentWhiteColor.a = constants::Colors::COLOR_ALPHA_PARTIAL;
+
+    whiteColor.r = constants::Colors::COLOR_WHITE_RED;
+    whiteColor.g = constants::Colors::COLOR_WHITE_GREEN;
+    whiteColor.b = constants::Colors::COLOR_WHITE_BLUE;
+    whiteColor.a = constants::Colors::COLOR_ALPHA_FULL;
+
+    selectorColor.r = constants::Colors::COLOR_RED_RED;
+    selectorColor.g = constants::Colors::COLOR_RED_GREEN;
+    selectorColor.b = constants::Colors::COLOR_RED_BLUE;
+    selectorColor.a = constants::Colors::COLOR_ALPHA_FULL;
+
+    topSelectionBar.setSize(
+        sf::Vector2f(
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS,
+            constants::Dimensions::SELECTED_CELLS_BORDER_WIDTH
+        )
+    );
+
+    bottomSelectionBar.setSize(
+        sf::Vector2f(
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS,
+            constants::Dimensions::SELECTED_CELLS_BORDER_WIDTH
+        )
+    );
+
+    leftSelectionBar.setSize(
+        sf::Vector2f(
+            constants::Dimensions::SELECTED_CELLS_BORDER_WIDTH,
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS
+        )
+    );
+
+    rightSelectionBar.setSize(
+        sf::Vector2f(
+            constants::Dimensions::SELECTED_CELLS_BORDER_WIDTH,
+            constants::Dimensions::CELL_PIXELS_DIMENSIONS
+        )
+    );
+
+    topSelectionBar.setFillColor(selectorColor);
+    bottomSelectionBar.setFillColor(selectorColor);
+    leftSelectionBar.setFillColor(selectorColor);
+    rightSelectionBar.setFillColor(selectorColor);
 }

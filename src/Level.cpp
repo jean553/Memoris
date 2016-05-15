@@ -27,6 +27,7 @@
 #include "EmptyCell.hpp"
 #include "Dimensions.hpp"
 #include "CellFactory.hpp"
+#include "CellsFileRepresentations.hpp"
 
 using namespace entities;
 
@@ -40,6 +41,8 @@ Level::Level(
     float vPosition
 )
 {
+    initializeSomeCommonCells();
+
     horizontalPosition = hPosition;
     verticalPosition = vPosition;
 }
@@ -49,6 +52,8 @@ Level::Level(
  */
 Level::Level(const Level &level)
 {
+    initializeSomeCommonCells();
+
     name = level.name;
 
     /* TODO: the copy constructor does not copy the cells array,
@@ -208,7 +213,9 @@ void Level::loadCells(const std::string& levelString)
 
         if (levelString.empty())
         {
-            pNewCell = new EmptyCell();
+            /* TODO: should be refactored... */
+            pNewCell = new Cell(constants::CellsFileRepresentations::EMPTY_CELL);
+            pNewCell->setPicturePath(factories::CellFactory::EMPTY_CELL_PICTURE_PATH);
         }
         else
         {
@@ -235,7 +242,10 @@ void Level::loadCells(const std::string& levelString)
         pNewCell->setLevelAddresses(cellAddress);
 
         /* save the departure cell */
-        if (pNewCell->IN_FILE_REPRESENTATION == "DP")
+        if (
+            pNewCell->IN_FILE_REPRESENTATION ==
+            constants::CellsFileRepresentations::DEPARTURE_CELL
+        )
         {
             departureCellIndex = cellAddress;
         }
@@ -329,9 +339,6 @@ void Level::setPlayerCellIndex(const uint16_t& index)
     /* the player cell is selected and not hidden */
     pPlayerCell->setSelected(true);
     pPlayerCell->setHidden(false);
-
-    /* execute the cell action */
-    //pPlayerCell->performAction(pGameContext);
 }
 
 /**
