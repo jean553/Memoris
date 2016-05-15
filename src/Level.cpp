@@ -40,13 +40,8 @@ Level::Level(
     float vPosition
 )
 {
-    departureCellIndex = 0;
-    pPlayerCell = NULL;
-
     horizontalPosition = hPosition;
     verticalPosition = vPosition;
-
-    pSelectedCell = NULL;
 }
 
 /**
@@ -54,9 +49,6 @@ Level::Level(
  */
 Level::Level(const Level &level)
 {
-    departureCellIndex = 0;
-    pPlayerCell = NULL;
-
     name = level.name;
 
     /* TODO: the copy constructor does not copy the cells array,
@@ -67,6 +59,16 @@ Level::Level(const Level &level)
 
     horizontalPosition = level.horizontalPosition;
     verticalPosition = level.verticalPosition;
+}
+
+/**
+ *
+ */
+void Level::initializeSomeCommonCells()
+{
+    departureCellIndex = 0;
+    pPlayerCell = NULL;
+    pSelectedCell = NULL;
 }
 
 /**
@@ -447,4 +449,20 @@ uint16_t Level::getStarCellsAmount()
     }
 
     return starCellsAmount;
+}
+
+/**
+ *
+ */
+void Level::setPlayerCellPtr(entities::Cell* ptrPlayerCell)
+{
+    pPlayerCell = ptrPlayerCell;
+}
+
+/**
+ *
+ */
+entities::Cell* Level::getPlayerCellPtr() const
+{
+    return pPlayerCell;
 }
