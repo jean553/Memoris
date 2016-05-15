@@ -40,6 +40,6 @@ QuarterRightRotateCell::QuarterRightRotateCell() : Cell("QR")
 /**
  *
  */
-void QuarterRightRotateCell::performAction(utils::GameContext* pGameContext)
+void QuarterRightRotateCell::performAction()
 {
 }

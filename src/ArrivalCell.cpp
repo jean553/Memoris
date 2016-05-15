@@ -41,11 +41,6 @@ ArrivalCell::ArrivalCell() : Cell("AC")
 /**
  *
  */
-void ArrivalCell::performAction(utils::GameContext* pGameContext)
+void ArrivalCell::performAction()
 {
-    /* finish the game if all the stars are found */
-    if (pGameContext->getFoundStarCellsAmount() == pGameContext->getStarCellsAmount())
-    {
-        pGameContext->setTerminateGame(true);
-    }
 }

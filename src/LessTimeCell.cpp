@@ -40,6 +40,6 @@ LessTimeCell::LessTimeCell() : Cell("LT")
 /**
  *
  */
-void LessTimeCell::performAction(utils::GameContext* pGameContext)
+void LessTimeCell::performAction()
 {
 }

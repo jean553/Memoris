@@ -32,7 +32,6 @@
 
 #include "Controller.hpp"
 #include "Level.hpp"
-#include "GameContext.hpp"
 
 namespace controllers
 {
@@ -80,14 +79,15 @@ private:
         PLAYING /* < the player is playing the level and moving over the cells */
     };
 
+    uint16_t starCellsAmount;
+
+    bool terminateGame;
+
     GameStatus status;
 
     entities::Level level;
 
     sf::Clock clock;
-
-    /* context shared between the level, the game and the cells actions */
-    utils::GameContext gameContext;
 };
 }
 

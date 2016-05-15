@@ -40,6 +40,6 @@ HorizontalMirrorCell::HorizontalMirrorCell() : Cell("HM")
 /**
  *
  */
-void HorizontalMirrorCell::performAction(utils::GameContext* pGameContext)
+void HorizontalMirrorCell::performAction()
 {
 }

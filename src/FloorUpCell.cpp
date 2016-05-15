@@ -40,6 +40,6 @@ FloorUpCell::FloorUpCell() : Cell("FU")
 /**
  *
  */
-void FloorUpCell::performAction(utils::GameContext* pGameContext)
+void FloorUpCell::performAction()
 {
 }

@@ -40,6 +40,6 @@ FloorDownCell::FloorDownCell() : Cell("FD")
 /**
  *
  */
-void FloorDownCell::performAction(utils::GameContext* pGameContext)
+void FloorDownCell::performAction()
 {
 }
