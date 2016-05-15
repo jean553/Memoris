@@ -64,8 +64,7 @@ OBJS = \
 	   build/VerticalMirrorCell.o \
 	   build/HorizontalMirrorCell.o \
 	   build/HasMenuSelectorAnimation.o \
-	   build/HiddenCellPicture.o \
-	   build/GameContext.o
+	   build/HiddenCellPicture.o
 
 INC = -I includes
 
@@ -89,9 +88,6 @@ build/CellFactory.o: src/CellFactory.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/Context.o: src/Context.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/GameContext.o: src/GameContext.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/Controller.o: src/Controller.cpp

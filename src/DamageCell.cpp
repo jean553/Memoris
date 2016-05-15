@@ -40,6 +40,6 @@ DamageCell::DamageCell() : Cell("DC")
 /**
  *
  */
-void DamageCell::performAction(utils::GameContext* pGameContext)
+void DamageCell::performAction()
 {
 }

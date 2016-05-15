@@ -42,6 +42,6 @@ DepartureCell::DepartureCell() : Cell("DP")
 /**
  *
  */
-void DepartureCell::performAction(utils::GameContext* pGameContext)
+void DepartureCell::performAction()
 {
 }

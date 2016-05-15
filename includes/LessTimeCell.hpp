@@ -44,10 +44,8 @@ public:
     /**
      * @brief definition of the action to
      * perform when the cell is triggered
-     *
-     * @param pGameContext pointer to the current game controller
      */
-    void performAction(utils::GameContext* pGameContext);
+    void performAction();
 };
 }
 

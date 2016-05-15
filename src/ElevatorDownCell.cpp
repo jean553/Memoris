@@ -40,6 +40,6 @@ ElevatorDownCell::ElevatorDownCell() : Cell("ED")
 /**
  *
  */
-void ElevatorDownCell::performAction(utils::GameContext* pGameContext)
+void ElevatorDownCell::performAction()
 {
 }

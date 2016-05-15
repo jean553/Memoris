@@ -40,6 +40,6 @@ LifeCell::LifeCell() : Cell("LC")
 /**
  *
  */
-void LifeCell::performAction(utils::GameContext* pGameContext)
+void LifeCell::performAction()
 {
 }
