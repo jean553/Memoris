@@ -170,7 +170,7 @@ void GameController::executeCellAction()
 {
     /* terminates the game if the player is on the arrival cell */
     if (
-        level.getPlayerCellPtr()->IN_FILE_REPRESENTATION == "AC" &&
+        level.getPlayerCellPtr()->getStringRepresentation() == "AC" &&
         foundStarCellsAmount == starCellsAmount
     )
     {
@@ -178,7 +178,7 @@ void GameController::executeCellAction()
     }
 
     /* increment the amount of found stars if a star is found */
-    if (level.getPlayerCellPtr()->IN_FILE_REPRESENTATION == "SC")
+    if (level.getPlayerCellPtr()->getStringRepresentation() == "SC")
     {
         foundStarCellsAmount++;
     }

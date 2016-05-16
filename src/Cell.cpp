@@ -53,13 +53,13 @@ Cell::Cell(const Cell& cell)
 
     setLevelAddresses(cell.getAddress());
 
-    IN_FILE_REPRESENTATION = cell.IN_FILE_REPRESENTATION;
+    setStringRepresentation(cell.getStringRepresentation());
 }
 
 /**
  *
  */
-Cell::Cell(std::string fileValue) : IN_FILE_REPRESENTATION(fileValue)
+Cell::Cell(std::string fileValue) : stringRepresentation(fileValue)
 {
     initializeCommonAttributes();
 }
@@ -329,4 +329,20 @@ void Cell::initializeCommonAttributes()
     bottomSelectionBar.setFillColor(selectorColor);
     leftSelectionBar.setFillColor(selectorColor);
     rightSelectionBar.setFillColor(selectorColor);
+}
+
+/**
+ *
+ */
+void Cell::setStringRepresentation(const std::string& representation)
+{
+    stringRepresentation = representation;
+}
+
+/**
+ *
+ */
+std::string Cell::getStringRepresentation() const
+{
+    return stringRepresentation;
 }

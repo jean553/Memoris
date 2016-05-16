@@ -186,7 +186,7 @@ std::string Level::getCellsAsString()
         ++cell
     )
     {
-        cellsAsString += cell->IN_FILE_REPRESENTATION;
+        cellsAsString += cell->getStringRepresentation();
     }
 
     return cellsAsString;
@@ -207,7 +207,7 @@ void Level::loadCells(const std::string& levelString)
         if (levelString.empty())
         {
             /* TODO: should be refactored... */
-            newCell.IN_FILE_REPRESENTATION = constants::CellsFileRepresentations::EMPTY_CELL;
+            newCell.setStringRepresentation(constants::CellsFileRepresentations::EMPTY_CELL);
             newCell.setPicturePath(factories::CellFactory::EMPTY_CELL_PICTURE_PATH);
         }
         else
@@ -236,7 +236,7 @@ void Level::loadCells(const std::string& levelString)
 
         /* save the departure cell */
         if (
-            newCell.IN_FILE_REPRESENTATION ==
+            newCell.getStringRepresentation() ==
             constants::CellsFileRepresentations::DEPARTURE_CELL
         )
         {
@@ -443,7 +443,7 @@ uint16_t Level::getStarCellsAmount()
     )
     {
         if (
-            cell->IN_FILE_REPRESENTATION ==
+            cell->getStringRepresentation() ==
             constants::CellsFileRepresentations::STAR_CELL
         )
         {
