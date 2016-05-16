@@ -40,7 +40,7 @@ const std::string CellFactory::EMPTY_CELL_PICTURE_PATH = "res/cells/empty.png";
 entities::Cell CellFactory::getCellPointerByStringName(const std::string& stringCell)
 {
     entities::Cell cell;
-    cell.IN_FILE_REPRESENTATION = stringCell;
+    cell.setStringRepresentation(stringCell);
 
     if (stringCell == constants::CellsFileRepresentations::DEPARTURE_CELL)
     {
@@ -58,8 +58,9 @@ entities::Cell CellFactory::getCellPointerByStringName(const std::string& string
     {
 
         /* force the cell as an empty cell */
-        cell.IN_FILE_REPRESENTATION =
-            constants::CellsFileRepresentations::EMPTY_CELL;
+        cell.setStringRepresentation(
+            constants::CellsFileRepresentations::EMPTY_CELL
+        );
 
         cell.setPicturePath(EMPTY_CELL_PICTURE_PATH);
     }

@@ -39,8 +39,6 @@ class Cell
 
 public:
 
-    std::string IN_FILE_REPRESENTATION;
-
     /**
      * @brief default constructor
      */
@@ -179,6 +177,20 @@ public:
      */
     void setCursorSensitivity(const bool& sensitivity);
 
+    /**
+     * @brief setter for the string representation
+     *
+     * @param representation string representation
+     */
+    void setStringRepresentation(const std::string& representation);
+
+    /**
+     * @brief getter for the string representation
+     *
+     * @return string
+     */
+    std::string getStringRepresentation() const;
+
 private:
 
     /**
@@ -213,6 +225,7 @@ private:
     utils::HiddenCellPicture hiddenCellPtr;
 
     std::string picturePath;
+    std::string stringRepresentation;
 };
 }
 

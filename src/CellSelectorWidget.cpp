@@ -50,10 +50,11 @@ CellSelectorWidget::CellSelectorWidget()
     );
 
     /* TODO: to refactor... */
-    emptyCell.IN_FILE_REPRESENTATION = constants::CellsFileRepresentations::EMPTY_CELL;
-    departureCell.IN_FILE_REPRESENTATION = constants::CellsFileRepresentations::DEPARTURE_CELL;
-    arrivalCell.IN_FILE_REPRESENTATION = constants::CellsFileRepresentations::ARRIVAL_CELL;
-    starCell.IN_FILE_REPRESENTATION = constants::CellsFileRepresentations::STAR_CELL;
+    emptyCell.setStringRepresentation(constants::CellsFileRepresentations::EMPTY_CELL);
+    departureCell.setStringRepresentation(constants::CellsFileRepresentations::DEPARTURE_CELL);
+    arrivalCell.setStringRepresentation(constants::CellsFileRepresentations::ARRIVAL_CELL);
+    starCell.setStringRepresentation(constants::CellsFileRepresentations::STAR_CELL);
+
     emptyCell.setPicturePath(factories::CellFactory::EMPTY_CELL_PICTURE_PATH);
     departureCell.setPicturePath(factories::CellFactory::DEPARTURE_CELL_PICTURE_PATH);
     arrivalCell.setPicturePath(factories::CellFactory::ARRIVAL_CELL_PICTURE_PATH);

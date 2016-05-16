@@ -461,7 +461,7 @@ void EditorLevelController::updateOneCell(
     if (
         !utils::CellsFilter::canBeAdded(
             level.getCellsAsString(),
-            pCellsSelectorCell->IN_FILE_REPRESENTATION,
+            pCellsSelectorCell->getStringRepresentation(),
             pSelectedCell->getAddress() == 0
         )
     )
@@ -476,7 +476,7 @@ void EditorLevelController::updateOneCell(
 
     std::vector<entities::Cell>* pCells = level.getPointerCells();
 
-    ((*pCells)[address]).IN_FILE_REPRESENTATION = pCellsSelectorCell->IN_FILE_REPRESENTATION;
+    ((*pCells)[address]).setStringRepresentation(pCellsSelectorCell->getStringRepresentation());
     ((*pCells)[address]).setPicturePath(pCellsSelectorCell->getPicturePath());
     ((*pCells)[address]).setPosition(
         horizontalPosition,
