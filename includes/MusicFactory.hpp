@@ -37,6 +37,7 @@ class MusicFactory
 
     static const std::string MAIN_MENU_MUSIC_PATH;
     static const std::string EDITOR_MUSIC_PATH;
+    static const std::string GAME_MUSIC_PATH;
 
 public:
 

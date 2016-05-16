@@ -74,6 +74,8 @@ doxygen config/Doxyfile
 
 "Pokki DJ" - Made in Italy - CreativeCommons 3.0 BY (https://www.jamendo.com/track/1206274/made-in-italy) ( https://creativecommons.org/licenses/by/3.0/ )
 
+"J.O.R.B.Y" - Another Day - Dancing of the Night - CreativeCommons 3.0 BY (https://www.jamendo.com/track/1341169/2-dancing-of-the-night) (http://creativecommons.org/licenses/by/3.0/)
+
 Music files have been converted from MP3 to OGG format. This is the only modification.
 
 ### Icons
