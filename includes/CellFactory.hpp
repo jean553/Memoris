@@ -48,9 +48,9 @@ public:
      *
      * @param stringCell       cell string representation
      *
-     * @return cell pointer
+     * @return Cell
      */
-    static entities::Cell* getCellPointerByStringName(const std::string& stringCell);
+    static entities::Cell getCellPointerByStringName(const std::string& stringCell);
 };
 }
 

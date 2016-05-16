@@ -474,14 +474,14 @@ void EditorLevelController::updateOneCell(
 
     uint16_t address = static_cast<uint16_t>(pSelectedCell->getAddress());
 
-    delete (*level.getPointerCells())[address];
+    std::vector<entities::Cell>* pCells = level.getPointerCells();
 
-    (*level.getPointerCells())[address] = cellSelector.getSelectedNewCellPointer();
-    (*level.getPointerCells())[address]->setPosition(
+    ((*pCells)[address]).IN_FILE_REPRESENTATION = pCellsSelectorCell->IN_FILE_REPRESENTATION;
+    ((*pCells)[address]).setPicturePath(pCellsSelectorCell->getPicturePath());
+    ((*pCells)[address]).setPosition(
         horizontalPosition,
         verticalPosition
     );
-    (*level.getPointerCells())[address]->setLevelAddresses(address);
 }
 
 /**

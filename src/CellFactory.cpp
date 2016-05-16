@@ -28,6 +28,8 @@
 #include "CellFactory.hpp"
 #include "CellsFileRepresentations.hpp"
 
+#include <iostream>
+
 using namespace factories;
 
 const std::string CellFactory::DEPARTURE_CELL_PICTURE_PATH = "res/cells/departure.png";
@@ -35,32 +37,32 @@ const std::string CellFactory::ARRIVAL_CELL_PICTURE_PATH = "res/cells/arrival.pn
 const std::string CellFactory::STAR_CELL_PICTURE_PATH = "res/cells/star.png";
 const std::string CellFactory::EMPTY_CELL_PICTURE_PATH = "res/cells/empty.png";
 
-entities::Cell* CellFactory::getCellPointerByStringName(const std::string& stringCell)
+entities::Cell CellFactory::getCellPointerByStringName(const std::string& stringCell)
 {
-    /* TODO: very bad, but the pointer will be refactored anyway... */
-    entities::Cell* pCell = new entities::Cell(stringCell);
-    pCell->IN_FILE_REPRESENTATION = stringCell;
+    entities::Cell cell;
+    cell.IN_FILE_REPRESENTATION = stringCell;
 
     if (stringCell == constants::CellsFileRepresentations::DEPARTURE_CELL)
     {
-        pCell->setPicturePath(DEPARTURE_CELL_PICTURE_PATH);
+        cell.setPicturePath(DEPARTURE_CELL_PICTURE_PATH);
     }
     else if (stringCell == constants::CellsFileRepresentations::ARRIVAL_CELL)
     {
-        pCell->setPicturePath(ARRIVAL_CELL_PICTURE_PATH);
+        cell.setPicturePath(ARRIVAL_CELL_PICTURE_PATH);
     }
     else if (stringCell == constants::CellsFileRepresentations::STAR_CELL)
     {
-        pCell->setPicturePath(STAR_CELL_PICTURE_PATH);
+        cell.setPicturePath(STAR_CELL_PICTURE_PATH);
     }
     else
     {
 
         /* force the cell as an empty cell */
-        pCell->IN_FILE_REPRESENTATION = "EC";
+        cell.IN_FILE_REPRESENTATION =
+            constants::CellsFileRepresentations::EMPTY_CELL;
 
-        pCell->setPicturePath(EMPTY_CELL_PICTURE_PATH);
+        cell.setPicturePath(EMPTY_CELL_PICTURE_PATH);
     }
 
-    return pCell;
+    return cell;
 }

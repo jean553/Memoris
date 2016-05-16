@@ -81,14 +81,6 @@ void Level::initializeSomeCommonCells()
  */
 Level::~Level()
 {
-    for (
-        std::vector<Cell*>::iterator cell = cells.begin();
-        cell != cells.end();
-        ++cell
-    )
-    {
-        delete (*cell);
-    }
 }
 
 /**
@@ -100,7 +92,7 @@ void Level::displayAllCellsByFloor(
 )
 {
     for (
-        std::vector<Cell*>::iterator cell = cells.begin();
+        std::vector<Cell>::iterator cell = cells.begin();
         cell != cells.end();
         ++cell
     )
@@ -113,7 +105,7 @@ void Level::displayAllCellsByFloor(
             constants::Dimensions::LEVEL_CELLS_PER_FLOOR
         )
         {
-            (*cell)->display(pContext);
+            cell->display(pContext);
         }
     }
 }
@@ -140,7 +132,7 @@ std::string Level::getName() const
 bool Level::isMouseHover(short floor)
 {
     for (
-        std::vector<Cell*>::iterator cell = cells.begin();
+        std::vector<Cell>::iterator cell = cells.begin();
         cell != cells.end();
         ++cell
     )
@@ -153,9 +145,10 @@ bool Level::isMouseHover(short floor)
             constants::Dimensions::LEVEL_CELLS_PER_FLOOR
         )
         {
-            if((*cell)->isMouseHover())
+            if(cell->isMouseHover())
             {
-                pSelectedCell = (*cell);
+                /* yeah... we want the address of the cell pointed by the cell iterator... */
+                pSelectedCell = &*cell;
                 return true;
             }
         }
@@ -175,7 +168,7 @@ entities::Cell* Level::getSelectedCellPointer() const
 /**
  *
  */
-std::vector<Cell*>* Level::getPointerCells()
+std::vector<Cell>* Level::getPointerCells()
 {
     return &cells;
 }
@@ -188,12 +181,12 @@ std::string Level::getCellsAsString()
     std::string cellsAsString;
 
     for (
-        std::vector<Cell*>::iterator cell = cells.begin();
+        std::vector<Cell>::iterator cell = cells.begin();
         cell != cells.end();
         ++cell
     )
     {
-        cellsAsString += (*cell)->IN_FILE_REPRESENTATION;
+        cellsAsString += cell->IN_FILE_REPRESENTATION;
     }
 
     return cellsAsString;
@@ -209,22 +202,22 @@ void Level::loadCells(const std::string& levelString)
 
     for (uint16_t i = 0; i < constants::Dimensions::CELLS_PER_LEVEL; i++)
     {
-        Cell* pNewCell = NULL;
+        Cell newCell;
 
         if (levelString.empty())
         {
             /* TODO: should be refactored... */
-            pNewCell = new Cell(constants::CellsFileRepresentations::EMPTY_CELL);
-            pNewCell->setPicturePath(factories::CellFactory::EMPTY_CELL_PICTURE_PATH);
+            newCell.IN_FILE_REPRESENTATION = constants::CellsFileRepresentations::EMPTY_CELL;
+            newCell.setPicturePath(factories::CellFactory::EMPTY_CELL_PICTURE_PATH);
         }
         else
         {
-            pNewCell = factories::CellFactory::getCellPointerByStringName(
-                           levelString.substr(static_cast<size_t>(cellNumber), 2)
-                       );
+            newCell = factories::CellFactory::getCellPointerByStringName(
+                          levelString.substr(static_cast<size_t>(cellNumber), 2)
+                      );
         }
 
-        pNewCell->setPosition(
+        newCell.setPosition(
             horizontalPosition +
             currentColumn *
             (
@@ -239,11 +232,11 @@ void Level::loadCells(const std::string& levelString)
             )
         );
 
-        pNewCell->setLevelAddresses(cellAddress);
+        newCell.setLevelAddresses(cellAddress);
 
         /* save the departure cell */
         if (
-            pNewCell->IN_FILE_REPRESENTATION ==
+            newCell.IN_FILE_REPRESENTATION ==
             constants::CellsFileRepresentations::DEPARTURE_CELL
         )
         {
@@ -252,7 +245,7 @@ void Level::loadCells(const std::string& levelString)
 
         cellAddress++;
 
-        cells.push_back(pNewCell);
+        cells.push_back(newCell);
 
         currentLine++;
         if (currentLine >= constants::Dimensions::CELLS_PER_COLUMN)
@@ -276,12 +269,12 @@ void Level::loadCells(const std::string& levelString)
 void Level::setAllCellsVisibility(const bool& hidden)
 {
     for (
-        std::vector<Cell*>::iterator cell = cells.begin();
+        std::vector<Cell>::iterator cell = cells.begin();
         cell != cells.end();
         ++cell
     )
     {
-        (*cell)->setHidden(hidden);
+        cell->setHidden(hidden);
     }
 }
 
@@ -291,12 +284,12 @@ void Level::setAllCellsVisibility(const bool& hidden)
 void Level::setCellsCursorSensitivity(const bool& sensitivity)
 {
     for (
-        std::vector<Cell*>::iterator cell = cells.begin();
+        std::vector<Cell>::iterator cell = cells.begin();
         cell != cells.end();
         ++cell
     )
     {
-        (*cell)->setCursorSensitivity(sensitivity);
+        cell->setCursorSensitivity(sensitivity);
     }
 }
 
@@ -334,7 +327,7 @@ void Level::setPlayerCellIndex(const uint16_t& index)
     }
 
     /* the player cell is now at the new array position */
-    pPlayerCell = cells[index];
+    pPlayerCell = &cells[index];
 
     /* the player cell is selected and not hidden */
     pPlayerCell->setSelected(true);
@@ -444,12 +437,15 @@ uint16_t Level::getStarCellsAmount()
 
     /* TODO: maybe is there a better solution than iterate the array... ? */
     for (
-        std::vector<Cell*>::iterator cell = cells.begin();
+        std::vector<Cell>::iterator cell = cells.begin();
         cell != cells.end();
         ++cell
     )
     {
-        if ((*cell)->IN_FILE_REPRESENTATION == "SC")
+        if (
+            cell->IN_FILE_REPRESENTATION ==
+            constants::CellsFileRepresentations::STAR_CELL
+        )
         {
             starCellsAmount++;
         }
