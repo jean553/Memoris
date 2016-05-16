@@ -30,6 +30,7 @@ using namespace factories;
 
 const std::string MusicFactory::MAIN_MENU_MUSIC_PATH = "res/musics/pokki-dj-made-in-italy.ogg";
 const std::string MusicFactory::EDITOR_MUSIC_PATH = "res/musics/bigmanboo-back-to-the-90s-nostalgia.ogg";
+const std::string MusicFactory::GAME_MUSIC_PATH = "res/musics/J.O.R.B.I_-_2.Dancing_of_the_Night.ogg";
 
 /**
  *
@@ -54,6 +55,10 @@ std::string MusicFactory::getMusicPathById(
     )
     {
         return EDITOR_MUSIC_PATH;
+    }
+    else if (id == ControllerFactory::GAME_CONTROLLER_ID)
+    {
+        return GAME_MUSIC_PATH;
     }
 
     return MAIN_MENU_MUSIC_PATH;
