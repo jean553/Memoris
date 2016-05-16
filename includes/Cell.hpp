@@ -47,6 +47,13 @@ public:
     Cell();
 
     /**
+     * @brief copy constructor
+     *
+     * @param Cell reference to a cell to copy
+     */
+    Cell(const Cell& cell);
+
+    /**
      * @brief constructor
      */
     Cell(std::string fileRepresentation);
@@ -79,6 +86,13 @@ public:
      * @param path image path
      */
     void setPicturePath(std::string path);
+
+    /**
+     * @brief get the picture path
+     *
+     * @return string
+     */
+    std::string getPicturePath() const;
 
     /**
      * @brief displays the cell according to the context
@@ -197,6 +211,8 @@ private:
     /* TODO: should be refactored, for now
      * we create one hidden cell per cell... */
     utils::HiddenCellPicture hiddenCellPtr;
+
+    std::string picturePath;
 };
 }
 

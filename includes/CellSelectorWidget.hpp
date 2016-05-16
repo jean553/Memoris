@@ -80,7 +80,7 @@ public:
     /**
      * @brief return a pointer to a new cell, the same type as the selected cell
      *
-     * @return pointer to the new created cell
+     * @return Cell
      */
     entities::Cell* getSelectedNewCellPointer();
 

@@ -122,7 +122,7 @@ public:
      *
      * @return vector pointer containing cells objects pointers
      */
-    std::vector<Cell*>* getPointerCells();
+    std::vector<Cell>* getPointerCells();
 
     /**
      * @brief returns all the level cells as string
@@ -234,7 +234,7 @@ private:
 
     uint16_t departureCellIndex;
 
-    std::vector<Cell*> cells;
+    std::vector<Cell> cells;
 
     /* pointer to the current player position cell */
     Cell* pPlayerCell;

@@ -179,24 +179,20 @@ bool CellSelectorWidget::isMouseHover() const
  */
 entities::Cell* CellSelectorWidget::getSelectedNewCellPointer()
 {
-    entities::Cell* pCell = NULL;
-
     if (departureCell.getIsSelected())
     {
-        pCell = factories::CellFactory::getCellPointerByStringName(constants::CellsFileRepresentations::DEPARTURE_CELL);
+        return &departureCell;
     }
     else if (arrivalCell.getIsSelected())
     {
-        pCell = factories::CellFactory::getCellPointerByStringName(constants::CellsFileRepresentations::ARRIVAL_CELL);
+        return &arrivalCell;
     }
     else if (starCell.getIsSelected())
     {
-        pCell = factories::CellFactory::getCellPointerByStringName(constants::CellsFileRepresentations::STAR_CELL);
+        return &starCell;
     }
     else
     {
-        pCell = factories::CellFactory::getCellPointerByStringName(constants::CellsFileRepresentations::EMPTY_CELL);
+        return &emptyCell;
     }
-
-    return pCell;
 }

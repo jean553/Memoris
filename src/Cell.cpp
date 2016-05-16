@@ -40,6 +40,25 @@ Cell::Cell()
 /**
  *
  */
+Cell::Cell(const Cell& cell)
+{
+    initializeCommonAttributes();
+
+    setPicturePath(cell.getPicturePath());
+
+    setPosition(
+        cell.getHorizontalPosition(),
+        cell.getVerticalPosition()
+    );
+
+    setLevelAddresses(cell.getAddress());
+
+    IN_FILE_REPRESENTATION = cell.IN_FILE_REPRESENTATION;
+}
+
+/**
+ *
+ */
 Cell::Cell(std::string fileValue) : IN_FILE_REPRESENTATION(fileValue)
 {
     initializeCommonAttributes();
@@ -111,8 +130,17 @@ void Cell::setPosition(
 void Cell::setPicturePath(std::string path)
 {
     texture.loadFromFile(path);
-
     sprite.setTexture(texture, true);
+
+    picturePath = path;
+}
+
+/**
+ *
+ */
+std::string Cell::getPicturePath() const
+{
+    return picturePath;
 }
 
 /**
