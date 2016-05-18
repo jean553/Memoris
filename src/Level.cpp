@@ -24,7 +24,6 @@
  */
 
 #include "Level.hpp"
-#include "EmptyCell.hpp"
 #include "Dimensions.hpp"
 #include "CellFactory.hpp"
 #include "CellsFileRepresentations.hpp"
