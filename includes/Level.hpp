@@ -29,7 +29,7 @@
 #include <vector>
 #include <string>
 
-#include "DepartureCell.hpp"
+#include "Cell.hpp"
 #include "Context.hpp"
 #include "HiddenCellPicture.hpp"
 
