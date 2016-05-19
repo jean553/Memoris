@@ -73,6 +73,7 @@ void Level::initializeSomeCommonCells()
     departureCellIndex = 0;
     pPlayerCell = NULL;
     pSelectedCell = NULL;
+    pPreviousPlayerCell = NULL;
 }
 
 /**
@@ -323,6 +324,9 @@ void Level::setPlayerCellIndex(const uint16_t& index)
     if (pPlayerCell != NULL)
     {
         pPlayerCell->setSelected(false);
+
+        /* set the previous player cell only if cell is not null */
+        pPreviousPlayerCell = pPlayerCell;
     }
 
     /* the player cell is now at the new array position */
@@ -468,4 +472,12 @@ void Level::setPlayerCellPtr(entities::Cell* ptrPlayerCell)
 entities::Cell* Level::getPlayerCellPtr() const
 {
     return pPlayerCell;
+}
+
+/**
+ *
+ */
+entities::Cell* Level::getPreviousPlayerCellPtr() const
+{
+    return pPreviousPlayerCell;
 }
