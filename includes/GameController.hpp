@@ -29,6 +29,7 @@
 #define DEF_GAME_CONTROLLER
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 #include "Controller.hpp"
 #include "Level.hpp"
@@ -94,6 +95,10 @@ private:
     entities::Level level;
 
     sf::Clock clock;
+
+    sf::SoundBuffer soundBuffer;
+
+    sf::Sound soundHideLevel;
 };
 }
 

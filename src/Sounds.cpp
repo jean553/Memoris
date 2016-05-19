@@ -31,3 +31,4 @@ using namespace constants;
 const std::string Sounds::MOVE_SELECTOR_SOUND_PATH = "res/sounds/001.wav";
 const std::string Sounds::SCREEN_TRANSITION_SOUND_PATH = "res/sounds/002.wav";
 const std::string Sounds::CELL_SELECTOR_SELECTION_SOUND_PATH = "res/sounds/003.wav";
+const std::string Sounds::HIDE_LEVEL_SOUND_PATH = "res/sounds/004.wav";
