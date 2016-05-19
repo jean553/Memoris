@@ -37,6 +37,8 @@
 using namespace controllers;
 
 const std::string GameController::TEMPORARY_DEFAULT_LEVEL = "data/levels/1.level";
+const std::string GameController::STAR_IMG_PATH = "res/images/star.png";
+const std::string GameController::LIFE_IMG_PATH = "res/images/life.png";
 
 const float_t GameController::LEVEL_HORIZONTAL_POSITION = 300;
 const float_t GameController::LEVEL_VERTICAL_POSITION = 100;
@@ -47,6 +49,14 @@ const uint8_t GameController::TIMER_ITRVL = 10;
 
 const uint16_t GameController::TIMER_HRTL_PSTN = 295;
 const uint16_t GameController::TIMER_VRTL_PSTN = 10;
+const uint16_t GameController::STAR_HRTL_PSTN = 1250;
+const uint16_t GameController::STAR_VRTL_PSTN = 0;
+const uint16_t GameController::LIFE_HRTL_PSTN = 1250;
+const uint16_t GameController::LIFE_VRTL_PSTN = 50;
+const uint16_t GameController::FOUND_STAR_CELLS_HRTL_PSTN = 1200;
+const int16_t GameController::FOUND_STAR_CELLS_VRTL_PSTN = -10;
+const uint16_t GameController::LIFES_HRTL_PSTN = 1200;
+const uint16_t GameController::LIFES_VRTL_PSTN = 35;
 
 /**
  *
@@ -56,21 +66,43 @@ GameController::GameController() : Controller(), level(0, 0)
     timeMilli = 0;
     timeSec = 0;
     timeMin = 0;
+    lifesAmnt = 0;
 
     fontTime.loadFromFile(constants::Fonts::getTextFontPath());
 
-    colorTime.r = constants::Colors::COLOR_WHITE_RED;
-    colorTime.g = constants::Colors::COLOR_WHITE_GREEN;
-    colorTime.b = constants::Colors::COLOR_WHITE_BLUE;
-    colorTime.a = constants::Colors::COLOR_ALPHA_FULL;
+    colorItems.r = constants::Colors::COLOR_WHITE_RED;
+    colorItems.g = constants::Colors::COLOR_WHITE_GREEN;
+    colorItems.b = constants::Colors::COLOR_WHITE_BLUE;
+    colorItems.a = constants::Colors::COLOR_ALPHA_FULL;
 
     time.setFont(fontTime);
-    time.setString("00 : 00 : 00");
     time.setCharacterSize(constants::Fonts::SIZE_ITEM_FONT);
-    time.setColor(colorTime);
+    time.setColor(colorItems);
     time.setPosition(
         TIMER_HRTL_PSTN,
         TIMER_VRTL_PSTN
+    );
+
+    /* TODO: set a constant string for now, should change
+     * according to the found stars... */
+    foundStarsAmntStr.setFont(fontTime);
+    foundStarsAmntStr.setString("0");
+    foundStarsAmntStr.setCharacterSize(constants::Fonts::SIZE_TEXT_FONT);
+    foundStarsAmntStr.setColor(colorItems);
+    foundStarsAmntStr.setPosition(
+        FOUND_STAR_CELLS_HRTL_PSTN,
+        FOUND_STAR_CELLS_VRTL_PSTN
+    );
+
+    /* TODO: set a constant string for now, should change
+     * according to the amount of lifes */
+    lifesAmntStr.setFont(fontTime);
+    lifesAmntStr.setString("0");
+    lifesAmntStr.setCharacterSize(constants::Fonts::SIZE_TEXT_FONT);
+    lifesAmntStr.setColor(colorItems);
+    lifesAmntStr.setPosition(
+        LIFES_HRTL_PSTN,
+        LIFES_VRTL_PSTN
     );
 
     level.setPosition(
@@ -92,6 +124,21 @@ GameController::GameController() : Controller(), level(0, 0)
 
     soundBuffer.loadFromFile(constants::Sounds::HIDE_LEVEL_SOUND_PATH);
     soundHideLevel.setBuffer(soundBuffer);
+
+    textureStar.loadFromFile(STAR_IMG_PATH);
+    textureLife.loadFromFile(LIFE_IMG_PATH);
+
+    spriteStar.setTexture(textureStar, true);
+    spriteStar.setPosition(
+        STAR_HRTL_PSTN,
+        STAR_VRTL_PSTN
+    );
+
+    spriteLife.setTexture(textureLife, true);
+    spriteLife.setPosition(
+        LIFE_HRTL_PSTN,
+        LIFE_VRTL_PSTN
+    );
 }
 
 /**
@@ -103,7 +150,13 @@ unsigned short GameController::render(utils::Context* pContext)
      * the second parameter is 0, should be able to switch */
     level.displayAllCellsByFloor(pContext);
 
+    /* update and display the timer */
     displayTime(pContext);
+
+    pContext->getWindow()->draw(spriteStar);
+    pContext->getWindow()->draw(spriteLife);
+    pContext->getWindow()->draw(foundStarsAmntStr);
+    pContext->getWindow()->draw(lifesAmntStr);
 
     if (
         status == WATCHING &&
