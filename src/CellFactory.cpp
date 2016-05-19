@@ -28,8 +28,6 @@
 #include "CellFactory.hpp"
 #include "CellsFileRepresentations.hpp"
 
-#include <iostream>
-
 using namespace factories;
 
 const std::string CellFactory::DEPARTURE_CELL_PICTURE_PATH = "res/cells/departure.png";

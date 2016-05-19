@@ -29,6 +29,8 @@
 #include "ControllerFactory.hpp"
 #include "FileWriter.hpp"
 #include "Sounds.hpp"
+#include "CellsFileRepresentations.hpp"
+#include "CellFactory.hpp"
 
 using namespace controllers;
 
@@ -174,9 +176,19 @@ void GameController::movePlayer(PlayerDirection direction)
  */
 void GameController::executeCellAction()
 {
+    entities::Cell* prevCell = level.getPreviousPlayerCellPtr();
+    entities::Cell* currCell = level.getPlayerCellPtr();
+
+    if (prevCell == NULL || currCell == NULL)
+    {
+        return;
+    }
+
+    std::string currCellStrRep = currCell->getStringRepresentation();
+
     /* terminates the game if the player is on the arrival cell */
     if (
-        level.getPlayerCellPtr()->getStringRepresentation() == "AC" &&
+        currCellStrRep == constants::CellsFileRepresentations::ARRIVAL_CELL &&
         foundStarCellsAmount == starCellsAmount
     )
     {
@@ -184,8 +196,20 @@ void GameController::executeCellAction()
     }
 
     /* increment the amount of found stars if a star is found */
-    if (level.getPlayerCellPtr()->getStringRepresentation() == "SC")
+    if (currCellStrRep == constants::CellsFileRepresentations::STAR_CELL)
     {
         foundStarCellsAmount++;
+    }
+
+    /* delete the star if the previous cell was a star */
+    if (prevCell->getStringRepresentation() ==
+            constants::CellsFileRepresentations::STAR_CELL)
+    {
+        prevCell->setStringRepresentation(
+            constants::CellsFileRepresentations::EMPTY_CELL
+        );
+        prevCell->setPicturePath(
+            factories::CellFactory::EMPTY_CELL_PICTURE_PATH
+        );
     }
 }

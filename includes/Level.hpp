@@ -218,6 +218,13 @@ public:
      */
     entities::Cell* getPlayerCellPtr() const;
 
+    /**
+     * @brief getter for the previous player cell pointer
+     *
+     * @return Cell*
+     */
+    entities::Cell* getPreviousPlayerCellPtr() const;
+
 private:
 
     /**
@@ -238,6 +245,11 @@ private:
 
     /* pointer to the current player position cell */
     Cell* pPlayerCell;
+
+    /* pointer to the previous cell where was the player,
+     * useful when the content of the cell has to disapeared
+     * after found */
+    Cell* pPreviousPlayerCell;
 };
 }
 
