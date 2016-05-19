@@ -66,13 +66,32 @@ private:
      */
     void executeCellAction();
 
+    /**
+     * @brief display the game time
+     *
+     * @param pContext pointer to the current context
+     */
+    void displayTime(utils::Context* ctx);
+
+    /**
+     *
+     */
+    std::string updateTimeStr();
+
     /* do not use a const for casting problems with getElapsedTime().asMilliseconds() */
+    /* TODO: should be const ? */
     static int32_t DEFAULT_WATCHING_TIME;
+
+    /* interval to wait before changing the game time value */
+    static const uint8_t TIMER_ITRVL;
 
     static const std::string TEMPORARY_DEFAULT_LEVEL;
 
     static const float_t LEVEL_HORIZONTAL_POSITION;
     static const float_t LEVEL_VERTICAL_POSITION;
+
+    static const uint16_t TIMER_HRTL_PSTN;
+    static const uint16_t TIMER_VRTL_PSTN;
 
     /**
      * @enum GameController::GameStatus
@@ -88,6 +107,10 @@ private:
     uint16_t starCellsAmount;
     uint16_t foundStarCellsAmount;
 
+    uint8_t timeMilli;
+    uint8_t timeSec;
+    uint8_t timeMin;
+
     bool terminateGame;
 
     GameStatus status;
@@ -95,10 +118,17 @@ private:
     entities::Level level;
 
     sf::Clock clock;
+    sf::Clock timeClck;
 
     sf::SoundBuffer soundBuffer;
 
     sf::Sound soundHideLevel;
+
+    sf::Text time;
+
+    sf::Font fontTime;
+
+    sf::Color colorTime;
 };
 }
 
