@@ -28,6 +28,7 @@
 #include "GameController.hpp"
 #include "ControllerFactory.hpp"
 #include "FileWriter.hpp"
+#include "Sounds.hpp"
 
 using namespace controllers;
 
@@ -59,6 +60,9 @@ GameController::GameController() : Controller(), level(0, 0)
     foundStarCellsAmount = 0;
 
     terminateGame = false;
+
+    soundBuffer.loadFromFile(constants::Sounds::HIDE_LEVEL_SOUND_PATH);
+    soundHideLevel.setBuffer(soundBuffer);
 }
 
 /**
@@ -79,6 +83,8 @@ unsigned short GameController::render(utils::Context* pContext)
         /* hide all the cells except departure */
         level.setAllCellsVisibility(true);
         level.setDepartureCellAsEnabled();
+
+        soundHideLevel.play();
 
         status = PLAYING;
         clock.restart();
