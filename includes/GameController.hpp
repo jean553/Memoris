@@ -86,12 +86,22 @@ private:
     static const uint8_t TIMER_ITRVL;
 
     static const std::string TEMPORARY_DEFAULT_LEVEL;
+    static const std::string STAR_IMG_PATH;
+    static const std::string LIFE_IMG_PATH;
 
     static const float_t LEVEL_HORIZONTAL_POSITION;
     static const float_t LEVEL_VERTICAL_POSITION;
 
     static const uint16_t TIMER_HRTL_PSTN;
     static const uint16_t TIMER_VRTL_PSTN;
+    static const uint16_t STAR_HRTL_PSTN;
+    static const uint16_t STAR_VRTL_PSTN;
+    static const uint16_t LIFE_HRTL_PSTN;
+    static const uint16_t LIFE_VRTL_PSTN;
+    static const uint16_t FOUND_STAR_CELLS_HRTL_PSTN;
+    static const int16_t FOUND_STAR_CELLS_VRTL_PSTN;
+    static const uint16_t LIFES_HRTL_PSTN;
+    static const uint16_t LIFES_VRTL_PSTN;
 
     /**
      * @enum GameController::GameStatus
@@ -106,10 +116,12 @@ private:
 
     uint16_t starCellsAmount;
     uint16_t foundStarCellsAmount;
+    uint16_t lifesAmount;
 
     uint8_t timeMilli;
     uint8_t timeSec;
     uint8_t timeMin;
+    uint8_t lifesAmnt;
 
     bool terminateGame;
 
@@ -125,10 +137,19 @@ private:
     sf::Sound soundHideLevel;
 
     sf::Text time;
+    sf::Text foundStarsAmntStr;
+    sf::Text lifesAmntStr;
 
     sf::Font fontTime;
+    sf::Font fontItems;
 
-    sf::Color colorTime;
+    sf::Color colorItems;
+
+    sf::Texture textureStar;
+    sf::Texture textureLife;
+
+    sf::Sprite spriteStar;
+    sf::Sprite spriteLife;
 };
 }
 
