@@ -29,6 +29,11 @@
 
 using namespace entities;
 
+const uint8_t Cell::INTERVAL_ANIMATION = 10;
+const uint8_t Cell::SELECTOR_COLOR_INCREMENTATION_STEP = 15;
+const uint16_t Cell::MAXIMUM_RED_COLOR_AMOUNT = 255;
+const uint16_t Cell::MINIMUM_RED_COLOR_AMOUNT = 0;
+
 /**
  *
  */
@@ -172,6 +177,11 @@ void Cell::display(utils::Context* pContext)
 
     if (isSelected)
     {
+        if (isAnimated)
+        {
+            animateCell();
+        }
+
         pContext->getWindow()->draw(topSelectionBar);
         pContext->getWindow()->draw(bottomSelectionBar);
         pContext->getWindow()->draw(leftSelectionBar);
@@ -277,10 +287,12 @@ void Cell::initializeCommonAttributes()
     isSelected = false;
     isHidden = false;
     isCursorSensitive = true;
+    isAnimated = false;
 
     horizontalPosition = 0;
     verticalPosition = 0;
     address = 0;
+    selectorDirection = -1;
 
     transparentWhiteColor.r = constants::Colors::COLOR_WHITE_RED;
     transparentWhiteColor.g = constants::Colors::COLOR_WHITE_GREEN;
@@ -345,4 +357,43 @@ void Cell::setStringRepresentation(const std::string& representation)
 std::string Cell::getStringRepresentation() const
 {
     return stringRepresentation;
+}
+
+/**
+ *
+ */
+void Cell::setIsAnimated(const bool& animate)
+{
+    isAnimated = animate;
+}
+
+/**
+ *
+ */
+void Cell::animateCell()
+{
+    if(clock.getElapsedTime().asMilliseconds() <= INTERVAL_ANIMATION)
+    {
+        return;
+    }
+
+    selectorColor.g +=
+        SELECTOR_COLOR_INCREMENTATION_STEP * selectorDirection;
+    selectorColor.b +=
+        SELECTOR_COLOR_INCREMENTATION_STEP * selectorDirection;
+
+    topSelectionBar.setFillColor(selectorColor);
+    bottomSelectionBar.setFillColor(selectorColor);
+    leftSelectionBar.setFillColor(selectorColor);
+    rightSelectionBar.setFillColor(selectorColor);
+
+    if (
+        selectorColor.g == MINIMUM_RED_COLOR_AMOUNT ||
+        selectorColor.g == MAXIMUM_RED_COLOR_AMOUNT
+    )
+    {
+        selectorDirection *= -1;
+    }
+
+    clock.restart();
 }

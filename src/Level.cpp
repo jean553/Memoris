@@ -331,6 +331,7 @@ void Level::setPlayerCellIndex(const uint16_t& index)
     /* the player cell is selected and not hidden */
     pPlayerCell->setSelected(true);
     pPlayerCell->setHidden(false);
+    pPlayerCell->setIsAnimated(true);
 }
 
 /**

@@ -191,25 +191,48 @@ public:
      */
     std::string getStringRepresentation() const;
 
+    /**
+     * @brief setter for the animation boolean
+     *
+     * @param animate boolean for the animation
+     */
+    void setIsAnimated(const bool& animate);
+
 private:
+
+    static const uint8_t INTERVAL_ANIMATION;
+    static const uint8_t SELECTOR_COLOR_INCREMENTATION_STEP;
+
+    static const uint16_t MINIMUM_RED_COLOR_AMOUNT;
+    static const uint16_t MAXIMUM_RED_COLOR_AMOUNT;
 
     /**
      * @brief common initializer for all constructors
      */
     void initializeCommonAttributes();
 
+    /**
+     * @brief animate the cell selector
+     */
+    void animateCell();
+
     bool isSelected;
     bool isHidden;
     bool isCursorSensitive;
+    bool isAnimated;
 
     float horizontalPosition;
     float verticalPosition;
 
     uint16_t address;
 
+    int8_t selectorDirection;
+
     sf::Texture texture;
 
     sf::Sprite sprite;
+
+    sf::Clock clock;
 
     sf::RectangleShape topSelectionBar;
     sf::RectangleShape bottomSelectionBar;
