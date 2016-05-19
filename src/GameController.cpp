@@ -31,21 +31,48 @@
 #include "Sounds.hpp"
 #include "CellsFileRepresentations.hpp"
 #include "CellFactory.hpp"
+#include "Fonts.hpp"
+#include "Colors.hpp"
 
 using namespace controllers;
 
 const std::string GameController::TEMPORARY_DEFAULT_LEVEL = "data/levels/1.level";
 
-const float_t GameController::LEVEL_HORIZONTAL_POSITION = 320;
-const float_t GameController::LEVEL_VERTICAL_POSITION = 50;
+const float_t GameController::LEVEL_HORIZONTAL_POSITION = 300;
+const float_t GameController::LEVEL_VERTICAL_POSITION = 100;
 
 int32_t GameController::DEFAULT_WATCHING_TIME = 5000;
+
+const uint8_t GameController::TIMER_ITRVL = 10;
+
+const uint16_t GameController::TIMER_HRTL_PSTN = 295;
+const uint16_t GameController::TIMER_VRTL_PSTN = 10;
 
 /**
  *
  */
 GameController::GameController() : Controller(), level(0, 0)
 {
+    timeMilli = 0;
+    timeSec = 0;
+    timeMin = 0;
+
+    fontTime.loadFromFile(constants::Fonts::getTextFontPath());
+
+    colorTime.r = constants::Colors::COLOR_WHITE_RED;
+    colorTime.g = constants::Colors::COLOR_WHITE_GREEN;
+    colorTime.b = constants::Colors::COLOR_WHITE_BLUE;
+    colorTime.a = constants::Colors::COLOR_ALPHA_FULL;
+
+    time.setFont(fontTime);
+    time.setString("00 : 00 : 00");
+    time.setCharacterSize(constants::Fonts::SIZE_ITEM_FONT);
+    time.setColor(colorTime);
+    time.setPosition(
+        TIMER_HRTL_PSTN,
+        TIMER_VRTL_PSTN
+    );
+
     level.setPosition(
         LEVEL_HORIZONTAL_POSITION,
         LEVEL_VERTICAL_POSITION
@@ -75,6 +102,8 @@ unsigned short GameController::render(utils::Context* pContext)
     /* TODO: only displays the first floor, default value of
      * the second parameter is 0, should be able to switch */
     level.displayAllCellsByFloor(pContext);
+
+    displayTime(pContext);
 
     if (
         status == WATCHING &&
@@ -212,4 +241,73 @@ void GameController::executeCellAction()
             factories::CellFactory::EMPTY_CELL_PICTURE_PATH
         );
     }
+}
+
+/**
+ *
+ */
+void GameController::displayTime(utils::Context* ctx)
+{
+    /* update the time every 10 milliseconds, keep number
+     * directly inside the code because they never change
+     * according to the purposes of the function */
+    if(timeClck.getElapsedTime().asMilliseconds() >= TIMER_ITRVL)
+    {
+
+        timeMilli++;
+        if (timeMilli == 100)
+        {
+            timeMilli = 0;
+            timeSec++;
+            if (timeSec == 60)
+            {
+                timeSec = 0;
+                timeMin++;
+            }
+        }
+
+        time.setString(updateTimeStr());
+        timeClck.restart();
+    }
+
+    ctx->getWindow()->draw(time);
+}
+
+/**
+ *
+ */
+std::string GameController::updateTimeStr()
+{
+    std::string milliStr, minStr, secStr;
+
+    /* directly use the number 10 as this value never
+     * changes according to the purposes of the function */
+    if (timeMilli < 10)
+    {
+        milliStr = "0" + std::to_string(timeMilli);
+    }
+    else
+    {
+        milliStr = std::to_string(timeMilli);
+    }
+
+    if (timeSec < 10)
+    {
+        secStr = "0" + std::to_string(timeSec);
+    }
+    else
+    {
+        secStr = std::to_string(timeSec);
+    }
+
+    if (timeMin < 10)
+    {
+        minStr = "0" + std::to_string(timeMin);
+    }
+    else
+    {
+        minStr = std::to_string(timeMin);
+    }
+
+    return minStr + " : " + secStr + " : " + milliStr;
 }
