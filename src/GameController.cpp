@@ -39,6 +39,7 @@ using namespace controllers;
 const std::string GameController::TEMPORARY_DEFAULT_LEVEL = "data/levels/1.level";
 const std::string GameController::STAR_IMG_PATH = "res/images/star.png";
 const std::string GameController::LIFE_IMG_PATH = "res/images/life.png";
+const std::string GameController::TOTAL_STARS_IMG_PATH = "res/images/target.png";
 
 const float_t GameController::LEVEL_HORIZONTAL_POSITION = 300;
 const float_t GameController::LEVEL_VERTICAL_POSITION = 100;
@@ -58,6 +59,11 @@ const int16_t GameController::FOUND_STAR_CELLS_VRTL_PSTN = -10;
 const uint16_t GameController::LIFES_HRTL_PSTN = 1200;
 const uint16_t GameController::LIFES_VRTL_PSTN = 35;
 
+const float_t GameController::TOTAL_STARS_HRTL_PSTN = 1050;
+const float_t GameController::TOTAL_STARS_VRTL_PSTN = -10;
+const float_t GameController::TARGET_HRTL_PSTN = 1100;
+const float_t GameController::TARGET_VRTL_PSTN = 0;
+
 /**
  *
  */
@@ -67,6 +73,15 @@ GameController::GameController() : Controller(), level(0, 0)
     timeSec = 0;
     timeMin = 0;
     lifesAmnt = 0;
+
+    level.setPosition(
+        LEVEL_HORIZONTAL_POSITION,
+        LEVEL_VERTICAL_POSITION
+    );
+
+    /* TODO: use a constant level name for now... */
+    level.loadCells(utils::FileWriter::readFile(TEMPORARY_DEFAULT_LEVEL));
+    level.setCellsCursorSensitivity(false);
 
     fontTime.loadFromFile(constants::Fonts::getTextFontPath());
 
@@ -105,19 +120,19 @@ GameController::GameController() : Controller(), level(0, 0)
         LIFES_VRTL_PSTN
     );
 
-    level.setPosition(
-        LEVEL_HORIZONTAL_POSITION,
-        LEVEL_VERTICAL_POSITION
+    starCellsAmount = level.getStarCellsAmount();
+
+    targetStr.setFont(fontTime);
+    targetStr.setString(std::to_string(starCellsAmount));
+    targetStr.setCharacterSize(constants::Fonts::SIZE_TEXT_FONT);
+    targetStr.setColor(colorItems);
+    targetStr.setPosition(
+        TOTAL_STARS_HRTL_PSTN,
+        TOTAL_STARS_VRTL_PSTN
     );
-
-    /* TODO: use a constant level name for now... */
-    level.loadCells(utils::FileWriter::readFile(TEMPORARY_DEFAULT_LEVEL));
-
-    level.setCellsCursorSensitivity(false);
 
     status = WATCHING;
 
-    starCellsAmount = level.getStarCellsAmount();
     foundStarCellsAmount = 0;
 
     terminateGame = false;
@@ -127,6 +142,7 @@ GameController::GameController() : Controller(), level(0, 0)
 
     textureStar.loadFromFile(STAR_IMG_PATH);
     textureLife.loadFromFile(LIFE_IMG_PATH);
+    textureTarget.loadFromFile(TOTAL_STARS_IMG_PATH);
 
     spriteStar.setTexture(textureStar, true);
     spriteStar.setPosition(
@@ -138,6 +154,12 @@ GameController::GameController() : Controller(), level(0, 0)
     spriteLife.setPosition(
         LIFE_HRTL_PSTN,
         LIFE_VRTL_PSTN
+    );
+
+    spriteTarget.setTexture(textureTarget, true);
+    spriteTarget.setPosition(
+        TARGET_HRTL_PSTN,
+        TARGET_VRTL_PSTN
     );
 }
 
@@ -155,8 +177,10 @@ unsigned short GameController::render(utils::Context* pContext)
 
     pContext->getWindow()->draw(spriteStar);
     pContext->getWindow()->draw(spriteLife);
+    pContext->getWindow()->draw(spriteTarget);
     pContext->getWindow()->draw(foundStarsAmntStr);
     pContext->getWindow()->draw(lifesAmntStr);
+    pContext->getWindow()->draw(targetStr);
 
     if (
         status == WATCHING &&
@@ -281,6 +305,7 @@ void GameController::executeCellAction()
     if (currCellStrRep == constants::CellsFileRepresentations::STAR_CELL)
     {
         foundStarCellsAmount++;
+        updateStarCntStr();
     }
 
     /* delete the star if the previous cell was a star */
@@ -363,4 +388,12 @@ std::string GameController::updateTimeStr()
     }
 
     return minStr + " : " + secStr + " : " + milliStr;
+}
+
+/**
+ *
+ */
+void GameController::updateStarCntStr()
+{
+    foundStarsAmntStr.setString(std::to_string(foundStarCellsAmount));
 }
