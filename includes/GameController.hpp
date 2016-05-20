@@ -79,9 +79,14 @@ private:
     void updateStarCntStr();
 
     /**
-     *
+     * @brief update the time string according to the current time
      */
     std::string updateTimeStr();
+
+    /**
+     * @brief update the lifes string according to the lifes amount
+     */
+    void updateLifesCntStr();
 
     /* do not use a const for casting problems with getElapsedTime().asMilliseconds() */
     /* TODO: should be const ? */
