@@ -40,6 +40,8 @@ public:
     static const std::string ARRIVAL_CELL_PICTURE_PATH;
     static const std::string STAR_CELL_PICTURE_PATH;
     static const std::string EMPTY_CELL_PICTURE_PATH;
+    static const std::string LIFE_CELL_PICTURE_PATH;
+    static const std::string DAMAGE_CELL_PICTURE_PATH;
 
     /**
      * @brief returns a new cell

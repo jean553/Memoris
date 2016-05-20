@@ -333,9 +333,29 @@ void GameController::executeCellAction()
         updateStarCntStr();
     }
 
+    /* increment the amount of life cells if a life cell is found */
+    if (currCellStrRep == constants::CellsFileRepresentations::LIFE_CELL)
+    {
+        lifesAmount++;
+        updateLifesCntStr();
+    }
+
+    /* decrement the amount of life cells if a life cell is found */
+    if (currCellStrRep == constants::CellsFileRepresentations::DAMAGE_CELL)
+    {
+        lifesAmount--;
+        updateLifesCntStr();
+    }
+
     /* delete the star if the previous cell was a star */
-    if (prevCell->getStringRepresentation() ==
-            constants::CellsFileRepresentations::STAR_CELL)
+    if (
+        prevCell->getStringRepresentation() ==
+        constants::CellsFileRepresentations::STAR_CELL ||
+        prevCell->getStringRepresentation() ==
+        constants::CellsFileRepresentations::LIFE_CELL ||
+        prevCell->getStringRepresentation() ==
+        constants::CellsFileRepresentations::DAMAGE_CELL
+    )
     {
         prevCell->setStringRepresentation(
             constants::CellsFileRepresentations::EMPTY_CELL
@@ -421,4 +441,12 @@ std::string GameController::updateTimeStr()
 void GameController::updateStarCntStr()
 {
     foundStarsAmntStr.setString(std::to_string(foundStarCellsAmount));
+}
+
+/**
+ *
+ */
+void GameController::updateLifesCntStr()
+{
+    lifesAmntStr.setString(std::to_string(lifesAmount));
 }
