@@ -40,6 +40,7 @@ const std::string GameController::TEMPORARY_DEFAULT_LEVEL = "data/levels/1.level
 const std::string GameController::STAR_IMG_PATH = "res/images/star.png";
 const std::string GameController::LIFE_IMG_PATH = "res/images/life.png";
 const std::string GameController::TOTAL_STARS_IMG_PATH = "res/images/target.png";
+const std::string GameController::TIME_IMG_PATH = "res/images/timer.png";
 
 const float_t GameController::LEVEL_HORIZONTAL_POSITION = 300;
 const float_t GameController::LEVEL_VERTICAL_POSITION = 100;
@@ -63,6 +64,10 @@ const float_t GameController::TOTAL_STARS_HRTL_PSTN = 1050;
 const float_t GameController::TOTAL_STARS_VRTL_PSTN = -10;
 const float_t GameController::TARGET_HRTL_PSTN = 1100;
 const float_t GameController::TARGET_VRTL_PSTN = 0;
+const float_t GameController::TIME_HRTL_PSTN = 1050;
+const float_t GameController::TIME_VRTL_PSTN = 35;
+const float_t GameController::TIME_IMG_HRTL_PSTN = 1100;
+const float_t GameController::TIME_IMG_VRTL_PSTN = 50;
 
 /**
  *
@@ -120,6 +125,17 @@ GameController::GameController() : Controller(), level(0, 0)
         LIFES_VRTL_PSTN
     );
 
+    /* TODO: set a constant string for now, should change
+     * according to the allowed waiting time amount */
+    timeStr.setFont(fontTime);
+    timeStr.setString("0");
+    timeStr.setCharacterSize(constants::Fonts::SIZE_TEXT_FONT);
+    timeStr.setColor(colorItems);
+    timeStr.setPosition(
+        TIME_HRTL_PSTN,
+        TIME_VRTL_PSTN
+    );
+
     starCellsAmount = level.getStarCellsAmount();
 
     targetStr.setFont(fontTime);
@@ -143,6 +159,7 @@ GameController::GameController() : Controller(), level(0, 0)
     textureStar.loadFromFile(STAR_IMG_PATH);
     textureLife.loadFromFile(LIFE_IMG_PATH);
     textureTarget.loadFromFile(TOTAL_STARS_IMG_PATH);
+    textureTime.loadFromFile(TIME_IMG_PATH);
 
     spriteStar.setTexture(textureStar, true);
     spriteStar.setPosition(
@@ -161,6 +178,12 @@ GameController::GameController() : Controller(), level(0, 0)
         TARGET_HRTL_PSTN,
         TARGET_VRTL_PSTN
     );
+
+    spriteTime.setTexture(textureTime, true);
+    spriteTime.setPosition(
+        TIME_IMG_HRTL_PSTN,
+        TIME_IMG_VRTL_PSTN
+    );
 }
 
 /**
@@ -178,9 +201,11 @@ unsigned short GameController::render(utils::Context* pContext)
     pContext->getWindow()->draw(spriteStar);
     pContext->getWindow()->draw(spriteLife);
     pContext->getWindow()->draw(spriteTarget);
+    pContext->getWindow()->draw(spriteTime);
     pContext->getWindow()->draw(foundStarsAmntStr);
     pContext->getWindow()->draw(lifesAmntStr);
     pContext->getWindow()->draw(targetStr);
+    pContext->getWindow()->draw(timeStr);
 
     if (
         status == WATCHING &&

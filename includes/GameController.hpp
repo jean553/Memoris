@@ -94,6 +94,7 @@ private:
     static const std::string STAR_IMG_PATH;
     static const std::string LIFE_IMG_PATH;
     static const std::string TOTAL_STARS_IMG_PATH;
+    static const std::string TIME_IMG_PATH;
 
     static const float_t LEVEL_HORIZONTAL_POSITION;
     static const float_t LEVEL_VERTICAL_POSITION;
@@ -113,6 +114,10 @@ private:
     static const float_t TOTAL_STARS_VRTL_PSTN;
     static const float_t TARGET_HRTL_PSTN;
     static const float_t TARGET_VRTL_PSTN;
+    static const float_t TIME_HRTL_PSTN;
+    static const float_t TIME_VRTL_PSTN;
+    static const float_t TIME_IMG_HRTL_PSTN;
+    static const float_t TIME_IMG_VRTL_PSTN;
 
     /**
      * @enum GameController::GameStatus
@@ -151,6 +156,7 @@ private:
     sf::Text foundStarsAmntStr;
     sf::Text lifesAmntStr;
     sf::Text targetStr;
+    sf::Text timeStr;
 
     sf::Font fontTime;
     sf::Font fontItems;
@@ -160,10 +166,12 @@ private:
     sf::Texture textureStar;
     sf::Texture textureLife;
     sf::Texture textureTarget;
+    sf::Texture textureTime;
 
     sf::Sprite spriteStar;
     sf::Sprite spriteLife;
     sf::Sprite spriteTarget;
+    sf::Sprite spriteTime;
 };
 }
 
