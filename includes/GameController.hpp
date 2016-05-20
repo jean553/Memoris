@@ -74,6 +74,11 @@ private:
     void displayTime(utils::Context* ctx);
 
     /**
+     * @brief set and increment the displayed value of the star counter
+     */
+    void updateStarCntStr();
+
+    /**
      *
      */
     std::string updateTimeStr();

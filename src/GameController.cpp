@@ -281,6 +281,7 @@ void GameController::executeCellAction()
     if (currCellStrRep == constants::CellsFileRepresentations::STAR_CELL)
     {
         foundStarCellsAmount++;
+        updateStarCntStr();
     }
 
     /* delete the star if the previous cell was a star */
@@ -363,4 +364,12 @@ std::string GameController::updateTimeStr()
     }
 
     return minStr + " : " + secStr + " : " + milliStr;
+}
+
+/**
+ *
+ */
+void GameController::updateStarCntStr()
+{
+    foundStarsAmntStr.setString(std::to_string(foundStarCellsAmount));
 }
