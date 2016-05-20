@@ -38,6 +38,7 @@ public:
     static const std::string STAR_CELL;
     static const std::string EMPTY_CELL;
     static const std::string LIFE_CELL;
+    static const std::string DAMAGE_CELL;
 };
 }
 

@@ -32,3 +32,4 @@ const std::string CellsFileRepresentations::ARRIVAL_CELL = "AC";
 const std::string CellsFileRepresentations::STAR_CELL = "SC";
 const std::string CellsFileRepresentations::EMPTY_CELL = "EC";
 const std::string CellsFileRepresentations::LIFE_CELL = "LC";
+const std::string CellsFileRepresentations::DAMAGE_CELL = "DC";
