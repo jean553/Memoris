@@ -177,6 +177,12 @@ MainMenuController::MainMenuController() : Controller()
  */
 unsigned short MainMenuController::render(utils::Context* pContext)
 {
+    /* display the background animation */
+    background.animate(pContext);
+
+    /* apply the menu sub-surface */
+    menuGradient.display(pContext);
+
     if(clockTitle.getElapsedTime().asMilliseconds() >
             policies::HasMenuSelectorAnimation::INTERVAL_ANIMATION
       )

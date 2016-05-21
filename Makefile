@@ -47,6 +47,8 @@ OBJS = \
 	   build/Cell.o \
 	   build/HasMenuSelectorAnimation.o \
 	   build/HiddenCellPicture.o \
+	   build/AnimatedBackground.o \
+	   build/MenuGradient.o \
 	   build/CellsFileRepresentations.o
 
 INC = -I includes
@@ -92,6 +94,12 @@ build/CellsFilter.o: src/CellsFilter.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/HiddenCellPicture.o: src/HiddenCellPicture.cpp
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+
+build/AnimatedBackground.o: src/AnimatedBackground.cpp
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+
+build/MenuGradient.o: src/MenuGradient.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 # defines
