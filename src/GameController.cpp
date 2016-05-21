@@ -33,6 +33,7 @@
 #include "CellFactory.hpp"
 #include "Fonts.hpp"
 #include "Colors.hpp"
+#include "Window.hpp"
 
 using namespace controllers;
 
@@ -68,6 +69,8 @@ const float_t GameController::TIME_HRTL_PSTN = 1050;
 const float_t GameController::TIME_VRTL_PSTN = 35;
 const float_t GameController::TIME_IMG_HRTL_PSTN = 1100;
 const float_t GameController::TIME_IMG_VRTL_PSTN = 50;
+const float_t GameController::LEFT_SEPARATOR_PSTN = 290;
+const float_t GameController::RIGHT_SEPARATOR_PSTN = 1308;
 
 /**
  *
@@ -184,6 +187,33 @@ GameController::GameController() : Controller(), level(0, 0)
         TIME_IMG_HRTL_PSTN,
         TIME_IMG_VRTL_PSTN
     );
+
+    leftSeparator.setSize(
+        sf::Vector2f(
+            1,
+            constants::Window::HEIGHT
+        )
+    );
+
+    rightSeparator.setSize(
+        sf::Vector2f(
+            1,
+            constants::Window::HEIGHT
+        )
+    );
+
+    leftSeparator.setPosition(
+        LEFT_SEPARATOR_PSTN,
+        0
+    );
+
+    rightSeparator.setPosition(
+        RIGHT_SEPARATOR_PSTN,
+        0
+    );
+
+    leftSeparator.setFillColor(colorItems);
+    rightSeparator.setFillColor(colorItems);
 }
 
 /**
@@ -206,6 +236,8 @@ unsigned short GameController::render(utils::Context* pContext)
     pContext->getWindow()->draw(lifesAmntStr);
     pContext->getWindow()->draw(targetStr);
     pContext->getWindow()->draw(timeStr);
+    pContext->getWindow()->draw(leftSeparator);
+    pContext->getWindow()->draw(rightSeparator);
 
     if (
         status == WATCHING &&
