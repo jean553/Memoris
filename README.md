@@ -84,7 +84,7 @@ https://www.iconfinder.com/recepkutuk - Free for commercial use
 
 https://www.iconfinder.com/iconsets/aiga-symbol-signs - Public domain
 
-https://www.iconfinder.com/DOTonPAPER - Free for commercial use with link to author website
+https://www.iconfinder.com/andromina - CreativeCommons 3.0 BY http://creativecommons.org/licenses/by/3.0/ - No changes have been made
 
 http://www.webdesignerdepot.com/2009/03/200-free-exclusive-icons-siena/ - Free for commercial use with link to author website
 
