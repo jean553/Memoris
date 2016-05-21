@@ -43,6 +43,7 @@ public:
     static const std::string LIFE_CELL_PICTURE_PATH;
     static const std::string DAMAGE_CELL_PICTURE_PATH;
     static const std::string WALL_CELL_PICTURE_PATH;
+    static const std::string NULL_CELL_PICTURE_PATH;
 
     /**
      * @brief returns a new cell

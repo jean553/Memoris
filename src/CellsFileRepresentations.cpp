@@ -34,3 +34,4 @@ const std::string CellsFileRepresentations::EMPTY_CELL = "EC";
 const std::string CellsFileRepresentations::LIFE_CELL = "LC";
 const std::string CellsFileRepresentations::DAMAGE_CELL = "DC";
 const std::string CellsFileRepresentations::WALL_CELL = "WC";
+const std::string CellsFileRepresentations::NULL_CELL = "NC";

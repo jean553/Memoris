@@ -32,8 +32,9 @@
 #include <SFML/Audio.hpp>
 
 #include "Controller.hpp"
-
 #include "HasMenuSelectorAnimation.hpp"
+#include "AnimatedBackground.hpp"
+#include "MenuGradient.hpp"
 
 namespace controllers
 {
@@ -160,6 +161,10 @@ private:
     sf::SoundBuffer soundBuffer;
 
     sf::Sound soundSelectorMove;
+
+    utils::AnimatedBackground background;
+
+    utils::MenuGradient menuGradient;
 };
 }
 

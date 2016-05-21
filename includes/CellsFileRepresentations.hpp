@@ -40,6 +40,7 @@ public:
     static const std::string LIFE_CELL;
     static const std::string DAMAGE_CELL;
     static const std::string WALL_CELL;
+    static const std::string NULL_CELL;
 };
 }
 
