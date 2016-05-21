@@ -405,6 +405,20 @@ void GameController::executeCellAction()
         updateLifesCntStr();
     }
 
+    /* put back the player on the previous cell if the cell is a wall */
+    if (currCellStrRep == constants::CellsFileRepresentations::WALL_CELL)
+    {
+        level.setPlayerCellPtr(prevCell);
+
+        /* force the animation to stop on wall cell */
+        currCell->setIsAnimated(false);
+        currCell->setSelected(false);
+
+        /* force animation on the previous cell */
+        prevCell->setIsAnimated(true);
+        prevCell->setSelected(true);
+    }
+
     /* delete the star if the previous cell was a star */
     if (
         prevCell->getStringRepresentation() ==

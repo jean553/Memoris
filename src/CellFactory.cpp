@@ -36,6 +36,7 @@ const std::string CellFactory::STAR_CELL_PICTURE_PATH = "res/cells/star.png";
 const std::string CellFactory::EMPTY_CELL_PICTURE_PATH = "res/cells/empty.png";
 const std::string CellFactory::LIFE_CELL_PICTURE_PATH = "res/cells/life.png";
 const std::string CellFactory::DAMAGE_CELL_PICTURE_PATH = "res/cells/damage.png";
+const std::string CellFactory::WALL_CELL_PICTURE_PATH = "res/cells/wall.png";
 
 entities::Cell CellFactory::getCellPointerByStringName(const std::string& stringCell)
 {
@@ -61,6 +62,10 @@ entities::Cell CellFactory::getCellPointerByStringName(const std::string& string
     else if (stringCell == constants::CellsFileRepresentations::DAMAGE_CELL)
     {
         cell.setPicturePath(DAMAGE_CELL_PICTURE_PATH);
+    }
+    else if (stringCell == constants::CellsFileRepresentations::WALL_CELL)
+    {
+        cell.setPicturePath(WALL_CELL_PICTURE_PATH);
     }
     else
     {
