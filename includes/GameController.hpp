@@ -100,6 +100,7 @@ private:
     static const std::string LIFE_IMG_PATH;
     static const std::string TOTAL_STARS_IMG_PATH;
     static const std::string TIME_IMG_PATH;
+    static const std::string FLOOR_IMG_PATH;
 
     static const float_t LEVEL_HORIZONTAL_POSITION;
     static const float_t LEVEL_VERTICAL_POSITION;
@@ -125,6 +126,10 @@ private:
     static const float_t TIME_IMG_VRTL_PSTN;
     static const float_t LEFT_SEPARATOR_PSTN;
     static const float_t RIGHT_SEPARATOR_PSTN;
+    static const float_t FLOOR_HRTL_PSTN;
+    static const float_t FLOOR_VRTL_PSTN;
+    static const float_t FLOOR_IMG_HRTL_PSTN;
+    static const float_t FLOOR_IMG_VRTL_PSTN;
 
     /**
      * @enum GameController::GameStatus
@@ -144,7 +149,7 @@ private:
     uint8_t timeMilli;
     uint8_t timeSec;
     uint8_t timeMin;
-    uint8_t lifesAmnt;
+    uint8_t floor;
 
     bool terminateGame;
 
@@ -164,6 +169,7 @@ private:
     sf::Text lifesAmntStr;
     sf::Text targetStr;
     sf::Text timeStr;
+    sf::Text floorStr;
 
     sf::Font fontTime;
     sf::Font fontItems;
@@ -174,11 +180,13 @@ private:
     sf::Texture textureLife;
     sf::Texture textureTarget;
     sf::Texture textureTime;
+    sf::Texture textureFloor;
 
     sf::Sprite spriteStar;
     sf::Sprite spriteLife;
     sf::Sprite spriteTarget;
     sf::Sprite spriteTime;
+    sf::Sprite spriteFloor;
 
     sf::RectangleShape leftSeparator;
     sf::RectangleShape rightSeparator;
