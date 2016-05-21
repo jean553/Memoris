@@ -42,6 +42,7 @@ const std::string GameController::STAR_IMG_PATH = "res/images/star.png";
 const std::string GameController::LIFE_IMG_PATH = "res/images/life.png";
 const std::string GameController::TOTAL_STARS_IMG_PATH = "res/images/target.png";
 const std::string GameController::TIME_IMG_PATH = "res/images/timer.png";
+const std::string GameController::FLOOR_IMG_PATH = "res/images/floor.png";
 
 const float_t GameController::LEVEL_HORIZONTAL_POSITION = 300;
 const float_t GameController::LEVEL_VERTICAL_POSITION = 100;
@@ -71,16 +72,28 @@ const float_t GameController::TIME_IMG_HRTL_PSTN = 1100;
 const float_t GameController::TIME_IMG_VRTL_PSTN = 50;
 const float_t GameController::LEFT_SEPARATOR_PSTN = 290;
 const float_t GameController::RIGHT_SEPARATOR_PSTN = 1308;
+const float_t GameController::FLOOR_HRTL_PSTN = 900;
+const float_t GameController::FLOOR_VRTL_PSTN = -10;
+const float_t GameController::FLOOR_IMG_HRTL_PSTN = 950;
+const float_t GameController::FLOOR_IMG_VRTL_PSTN = 0;
 
 /**
  *
  */
 GameController::GameController() : Controller(), level(0, 0)
 {
+    starCellsAmount = 0;
+    lifesAmount = 0;
+    foundStarCellsAmount = 0;
+
+    terminateGame = false;
+
     timeMilli = 0;
     timeSec = 0;
     timeMin = 0;
-    lifesAmnt = 0;
+    floor = 0;
+
+    status = WATCHING;
 
     level.setPosition(
         LEVEL_HORIZONTAL_POSITION,
@@ -120,7 +133,7 @@ GameController::GameController() : Controller(), level(0, 0)
     /* TODO: set a constant string for now, should change
      * according to the amount of lifes */
     lifesAmntStr.setFont(fontTime);
-    lifesAmntStr.setString("0");
+    lifesAmntStr.setString(std::to_string(lifesAmount));
     lifesAmntStr.setCharacterSize(constants::Fonts::SIZE_TEXT_FONT);
     lifesAmntStr.setColor(colorItems);
     lifesAmntStr.setPosition(
@@ -139,6 +152,16 @@ GameController::GameController() : Controller(), level(0, 0)
         TIME_VRTL_PSTN
     );
 
+    /* TODO: static string for now... */
+    floorStr.setFont(fontTime);
+    floorStr.setString(std::to_string(floor));
+    floorStr.setCharacterSize(constants::Fonts::SIZE_TEXT_FONT);
+    floorStr.setColor(colorItems);
+    floorStr.setPosition(
+        FLOOR_HRTL_PSTN,
+        FLOOR_VRTL_PSTN
+    );
+
     starCellsAmount = level.getStarCellsAmount();
 
     targetStr.setFont(fontTime);
@@ -150,12 +173,6 @@ GameController::GameController() : Controller(), level(0, 0)
         TOTAL_STARS_VRTL_PSTN
     );
 
-    status = WATCHING;
-
-    foundStarCellsAmount = 0;
-
-    terminateGame = false;
-
     soundBuffer.loadFromFile(constants::Sounds::HIDE_LEVEL_SOUND_PATH);
     soundHideLevel.setBuffer(soundBuffer);
 
@@ -163,11 +180,18 @@ GameController::GameController() : Controller(), level(0, 0)
     textureLife.loadFromFile(LIFE_IMG_PATH);
     textureTarget.loadFromFile(TOTAL_STARS_IMG_PATH);
     textureTime.loadFromFile(TIME_IMG_PATH);
+    textureFloor.loadFromFile(FLOOR_IMG_PATH);
 
     spriteStar.setTexture(textureStar, true);
     spriteStar.setPosition(
         STAR_HRTL_PSTN,
         STAR_VRTL_PSTN
+    );
+
+    spriteFloor.setTexture(textureFloor, true);
+    spriteFloor.setPosition(
+        FLOOR_IMG_HRTL_PSTN,
+        FLOOR_IMG_VRTL_PSTN
     );
 
     spriteLife.setTexture(textureLife, true);
@@ -232,10 +256,12 @@ unsigned short GameController::render(utils::Context* pContext)
     pContext->getWindow()->draw(spriteLife);
     pContext->getWindow()->draw(spriteTarget);
     pContext->getWindow()->draw(spriteTime);
+    pContext->getWindow()->draw(spriteFloor);
     pContext->getWindow()->draw(foundStarsAmntStr);
     pContext->getWindow()->draw(lifesAmntStr);
     pContext->getWindow()->draw(targetStr);
     pContext->getWindow()->draw(timeStr);
+    pContext->getWindow()->draw(floorStr);
     pContext->getWindow()->draw(leftSeparator);
     pContext->getWindow()->draw(rightSeparator);
 
