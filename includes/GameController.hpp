@@ -123,6 +123,8 @@ private:
     static const float_t TIME_VRTL_PSTN;
     static const float_t TIME_IMG_HRTL_PSTN;
     static const float_t TIME_IMG_VRTL_PSTN;
+    static const float_t LEFT_SEPARATOR_PSTN;
+    static const float_t RIGHT_SEPARATOR_PSTN;
 
     /**
      * @enum GameController::GameStatus
@@ -177,6 +179,9 @@ private:
     sf::Sprite spriteLife;
     sf::Sprite spriteTarget;
     sf::Sprite spriteTime;
+
+    sf::RectangleShape leftSeparator;
+    sf::RectangleShape rightSeparator;
 };
 }
 
