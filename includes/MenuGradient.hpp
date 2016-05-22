@@ -48,8 +48,8 @@ public:
 
 private:
 
-    static const float_t MAIN_SURFACE_WIDTH; 
-    static const float_t MAIN_SURFACE_HRTL_PSTN; 
+    static const float_t MAIN_SURFACE_WIDTH;
+    static const float_t MAIN_SURFACE_HRTL_PSTN;
 
     static const uint16_t SIDE_RECTANGLES_AMNT;
 

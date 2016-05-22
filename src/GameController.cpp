@@ -401,6 +401,13 @@ void GameController::executeCellAction()
     /* decrement the amount of life cells if a life cell is found */
     if (currCellStrRep == constants::CellsFileRepresentations::DAMAGE_CELL)
     {
+        /* stop the game if the user has no life anymore */
+        if (!lifesAmount)
+        {
+            terminateGame = true;
+            return;
+        }
+
         lifesAmount--;
         updateLifesCntStr();
     }
