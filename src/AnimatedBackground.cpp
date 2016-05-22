@@ -173,6 +173,8 @@ void AnimatedBackground::initializeCellsLib()
         constants::CellsFileRepresentations::LIFE_CELL,
         constants::CellsFileRepresentations::DAMAGE_CELL,
         constants::CellsFileRepresentations::WALL_CELL,
-        constants::CellsFileRepresentations::NULL_CELL
+        constants::CellsFileRepresentations::MORE_TIME_CELL,
+        constants::CellsFileRepresentations::LESS_TIME_CELL,
+        constants::CellsFileRepresentations::NULL_CELL,
     };
 }
