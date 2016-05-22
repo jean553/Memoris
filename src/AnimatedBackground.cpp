@@ -33,7 +33,7 @@
 
 using namespace utils;
 
-const uint16_t AnimatedBackground::TOTAL_CELLS_AMNT = 576; 
+const uint16_t AnimatedBackground::TOTAL_CELLS_AMNT = 576;
 
 const uint8_t AnimatedBackground::RANDOM_MAX = 16;
 const uint8_t AnimatedBackground::LINES_AMNT = 18;
@@ -79,17 +79,17 @@ void AnimatedBackground::initializeCells()
     /* initialize random seed for random numbers */
     srand(time(NULL));
 
-    for (uint16_t i = 0; i < TOTAL_CELLS_AMNT; i++) 
+    for (uint16_t i = 0; i < TOTAL_CELLS_AMNT; i++)
     {
         entities::Cell cell;
 
         /* select a cell randomly */
-        rdm = rand() % RANDOM_MAX; 
+        rdm = rand() % RANDOM_MAX;
 
         /* adapt the cell to display */
         rdm = ( rdm >= cellsLib.size() ? cellsLib.size() - 1 : rdm );
 
-        cell = 
+        cell =
             factories::CellFactory::getCellPointerByStringName(cellsLib[rdm]);
 
         cell.setPosition(
@@ -148,7 +148,7 @@ void AnimatedBackground::changeCellsPosition()
         hrtlPstn += 1;
 
         /* put back the cell at the beginning if the cell is out of the screen */
-        if (hrtlPstn > constants::Window::WIDTH) 
+        if (hrtlPstn > constants::Window::WIDTH)
         {
             hrtlPstn = CELL_ORIGINAL_HRTL_PSTN;
         }
@@ -164,7 +164,8 @@ void AnimatedBackground::changeCellsPosition()
  */
 void AnimatedBackground::initializeCellsLib()
 {
-    cellsLib = {
+    cellsLib =
+    {
         constants::CellsFileRepresentations::DEPARTURE_CELL,
         constants::CellsFileRepresentations::ARRIVAL_CELL,
         constants::CellsFileRepresentations::STAR_CELL,
@@ -172,6 +173,8 @@ void AnimatedBackground::initializeCellsLib()
         constants::CellsFileRepresentations::LIFE_CELL,
         constants::CellsFileRepresentations::DAMAGE_CELL,
         constants::CellsFileRepresentations::WALL_CELL,
-        constants::CellsFileRepresentations::NULL_CELL
+        constants::CellsFileRepresentations::MORE_TIME_CELL,
+        constants::CellsFileRepresentations::LESS_TIME_CELL,
+        constants::CellsFileRepresentations::NULL_CELL,
     };
 }

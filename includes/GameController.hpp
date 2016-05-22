@@ -88,12 +88,19 @@ private:
      */
     void updateLifesCntStr();
 
+    /**
+     * @brief set and increment the displayed value of the watching time counter
+     */
+    void updateWatchingTimeStr();
+
     /* do not use a const for casting problems with getElapsedTime().asMilliseconds() */
     /* TODO: should be const ? */
     static int32_t DEFAULT_WATCHING_TIME;
 
     /* interval to wait before changing the game time value */
     static const uint8_t TIMER_ITRVL;
+    static const uint8_t WATCH_TIME_INCREMENTATION;
+    static const uint8_t DEFAULT_WATCH_TIME;
 
     static const std::string TEMPORARY_DEFAULT_LEVEL;
     static const std::string STAR_IMG_PATH;
@@ -150,6 +157,7 @@ private:
     uint8_t timeSec;
     uint8_t timeMin;
     uint8_t floor;
+    uint8_t watchTime;
 
     bool terminateGame;
 

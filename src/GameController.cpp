@@ -50,6 +50,8 @@ const float_t GameController::LEVEL_VERTICAL_POSITION = 100;
 int32_t GameController::DEFAULT_WATCHING_TIME = 5000;
 
 const uint8_t GameController::TIMER_ITRVL = 10;
+const uint8_t GameController::WATCH_TIME_INCREMENTATION = 3;
+const uint8_t GameController::DEFAULT_WATCH_TIME = 6;
 
 const uint16_t GameController::TIMER_HRTL_PSTN = 295;
 const uint16_t GameController::TIMER_VRTL_PSTN = 10;
@@ -92,6 +94,9 @@ GameController::GameController() : Controller(), level(0, 0)
     timeSec = 0;
     timeMin = 0;
     floor = 0;
+
+    /* TODO: depends of previous levels */
+    watchTime = DEFAULT_WATCH_TIME;
 
     status = WATCHING;
 
@@ -141,10 +146,7 @@ GameController::GameController() : Controller(), level(0, 0)
         LIFES_VRTL_PSTN
     );
 
-    /* TODO: set a constant string for now, should change
-     * according to the allowed waiting time amount */
     timeStr.setFont(fontTime);
-    timeStr.setString("0");
     timeStr.setCharacterSize(constants::Fonts::SIZE_TEXT_FONT);
     timeStr.setColor(colorItems);
     timeStr.setPosition(
@@ -238,6 +240,8 @@ GameController::GameController() : Controller(), level(0, 0)
 
     leftSeparator.setFillColor(colorItems);
     rightSeparator.setFillColor(colorItems);
+
+    updateWatchingTimeStr();
 }
 
 /**
@@ -401,8 +405,34 @@ void GameController::executeCellAction()
     /* decrement the amount of life cells if a life cell is found */
     if (currCellStrRep == constants::CellsFileRepresentations::DAMAGE_CELL)
     {
+        /* stop the game if the user has no life anymore */
+        if (!lifesAmount)
+        {
+            terminateGame = true;
+            return;
+        }
+
         lifesAmount--;
         updateLifesCntStr();
+    }
+
+    /* add three seconds if the cell is a time bonus */
+    if (currCellStrRep == constants::CellsFileRepresentations::MORE_TIME_CELL)
+    {
+        watchTime += WATCH_TIME_INCREMENTATION;
+        updateWatchingTimeStr();
+    }
+
+    /* delete three seconds if the cell is a time malus */
+    if (currCellStrRep == constants::CellsFileRepresentations::LESS_TIME_CELL)
+    {
+        watchTime -= WATCH_TIME_INCREMENTATION;
+
+        /* the watch time cannot be less than 3 */
+        watchTime =
+            watchTime < WATCH_TIME_INCREMENTATION ? WATCH_TIME_INCREMENTATION : watchTime;
+
+        updateWatchingTimeStr();
     }
 
     /* put back the player on the previous cell if the cell is a wall */
@@ -426,7 +456,11 @@ void GameController::executeCellAction()
         prevCell->getStringRepresentation() ==
         constants::CellsFileRepresentations::LIFE_CELL ||
         prevCell->getStringRepresentation() ==
-        constants::CellsFileRepresentations::DAMAGE_CELL
+        constants::CellsFileRepresentations::DAMAGE_CELL ||
+        prevCell->getStringRepresentation() ==
+        constants::CellsFileRepresentations::MORE_TIME_CELL ||
+        prevCell->getStringRepresentation() ==
+        constants::CellsFileRepresentations::LESS_TIME_CELL
     )
     {
         prevCell->setStringRepresentation(
@@ -521,4 +555,12 @@ void GameController::updateStarCntStr()
 void GameController::updateLifesCntStr()
 {
     lifesAmntStr.setString(std::to_string(lifesAmount));
+}
+
+/**
+ *
+ */
+void GameController::updateWatchingTimeStr()
+{
+    timeStr.setString(std::to_string(watchTime));
 }

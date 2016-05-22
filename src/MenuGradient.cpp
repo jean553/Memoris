@@ -44,7 +44,7 @@ MenuGradient::MenuGradient()
     gradientColor.b = constants::Colors::COLOR_BLACK_BLUE;
     gradientColor.a = constants::Colors::COLOR_ALPHA_FULL;
 
-    /* the height is the screen height, 
+    /* the height is the screen height,
      * the width is less than the window width */
     main.setSize(
         sf::Vector2f(
@@ -122,7 +122,7 @@ void MenuGradient::initializeGradientRectangles()
         rtgl.setFillColor(effectColor);
 
         hrtlPstn--;
-        if (i % 2 == 0) 
+        if (i % 2 == 0)
         {
             alpha--;
         }
