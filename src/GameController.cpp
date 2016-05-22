@@ -50,6 +50,7 @@ const float_t GameController::LEVEL_VERTICAL_POSITION = 100;
 int32_t GameController::DEFAULT_WATCHING_TIME = 5000;
 
 const uint8_t GameController::TIMER_ITRVL = 10;
+const uint8_t GameController::WATCH_TIME_INCREMENTATION = 3;
 
 const uint16_t GameController::TIMER_HRTL_PSTN = 295;
 const uint16_t GameController::TIMER_VRTL_PSTN = 10;
@@ -92,6 +93,9 @@ GameController::GameController() : Controller(), level(0, 0)
     timeSec = 0;
     timeMin = 0;
     floor = 0;
+
+    /* TODO: depends of previous levels */
+    watchTime = 5;
 
     status = WATCHING;
 
@@ -141,10 +145,7 @@ GameController::GameController() : Controller(), level(0, 0)
         LIFES_VRTL_PSTN
     );
 
-    /* TODO: set a constant string for now, should change
-     * according to the allowed waiting time amount */
     timeStr.setFont(fontTime);
-    timeStr.setString("0");
     timeStr.setCharacterSize(constants::Fonts::SIZE_TEXT_FONT);
     timeStr.setColor(colorItems);
     timeStr.setPosition(
@@ -238,6 +239,8 @@ GameController::GameController() : Controller(), level(0, 0)
 
     leftSeparator.setFillColor(colorItems);
     rightSeparator.setFillColor(colorItems);
+
+    updateWatchingTimeStr();
 }
 
 /**
@@ -412,6 +415,13 @@ void GameController::executeCellAction()
         updateLifesCntStr();
     }
 
+    /* add three seconds if the cell is a time bonus */
+    if (currCellStrRep == constants::CellsFileRepresentations::MORE_TIME_CELL)
+    {
+        watchTime += WATCH_TIME_INCREMENTATION;
+        updateWatchingTimeStr();
+    }
+
     /* put back the player on the previous cell if the cell is a wall */
     if (currCellStrRep == constants::CellsFileRepresentations::WALL_CELL)
     {
@@ -433,7 +443,9 @@ void GameController::executeCellAction()
         prevCell->getStringRepresentation() ==
         constants::CellsFileRepresentations::LIFE_CELL ||
         prevCell->getStringRepresentation() ==
-        constants::CellsFileRepresentations::DAMAGE_CELL
+        constants::CellsFileRepresentations::DAMAGE_CELL ||
+        prevCell->getStringRepresentation() ==
+        constants::CellsFileRepresentations::MORE_TIME_CELL
     )
     {
         prevCell->setStringRepresentation(
@@ -528,4 +540,12 @@ void GameController::updateStarCntStr()
 void GameController::updateLifesCntStr()
 {
     lifesAmntStr.setString(std::to_string(lifesAmount));
+}
+
+/**
+ *
+ */
+void GameController::updateWatchingTimeStr()
+{
+    timeStr.setString(std::to_string(watchTime));
 }

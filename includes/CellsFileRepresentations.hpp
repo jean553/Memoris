@@ -41,6 +41,7 @@ public:
     static const std::string DAMAGE_CELL;
     static const std::string WALL_CELL;
     static const std::string NULL_CELL;
+    static const std::string MORE_TIME_CELL;
 };
 }
 
