@@ -51,6 +51,7 @@ int32_t GameController::DEFAULT_WATCHING_TIME = 5000;
 
 const uint8_t GameController::TIMER_ITRVL = 10;
 const uint8_t GameController::WATCH_TIME_INCREMENTATION = 3;
+const uint8_t GameController::DEFAULT_WATCH_TIME = 6;
 
 const uint16_t GameController::TIMER_HRTL_PSTN = 295;
 const uint16_t GameController::TIMER_VRTL_PSTN = 10;
@@ -95,7 +96,7 @@ GameController::GameController() : Controller(), level(0, 0)
     floor = 0;
 
     /* TODO: depends of previous levels */
-    watchTime = 5;
+    watchTime = DEFAULT_WATCH_TIME;
 
     status = WATCHING;
 
@@ -422,6 +423,18 @@ void GameController::executeCellAction()
         updateWatchingTimeStr();
     }
 
+    /* delete three seconds if the cell is a time malus */
+    if (currCellStrRep == constants::CellsFileRepresentations::LESS_TIME_CELL)
+    {
+        watchTime -= WATCH_TIME_INCREMENTATION;
+
+        /* the watch time cannot be less than 3 */
+        watchTime =
+            watchTime < WATCH_TIME_INCREMENTATION ? WATCH_TIME_INCREMENTATION : watchTime;
+
+        updateWatchingTimeStr();
+    }
+
     /* put back the player on the previous cell if the cell is a wall */
     if (currCellStrRep == constants::CellsFileRepresentations::WALL_CELL)
     {
@@ -445,7 +458,9 @@ void GameController::executeCellAction()
         prevCell->getStringRepresentation() ==
         constants::CellsFileRepresentations::DAMAGE_CELL ||
         prevCell->getStringRepresentation() ==
-        constants::CellsFileRepresentations::MORE_TIME_CELL
+        constants::CellsFileRepresentations::MORE_TIME_CELL ||
+        prevCell->getStringRepresentation() ==
+        constants::CellsFileRepresentations::LESS_TIME_CELL
     )
     {
         prevCell->setStringRepresentation(

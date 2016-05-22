@@ -100,6 +100,7 @@ private:
     /* interval to wait before changing the game time value */
     static const uint8_t TIMER_ITRVL;
     static const uint8_t WATCH_TIME_INCREMENTATION;
+    static const uint8_t DEFAULT_WATCH_TIME;
 
     static const std::string TEMPORARY_DEFAULT_LEVEL;
     static const std::string STAR_IMG_PATH;
