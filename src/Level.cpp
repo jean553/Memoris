@@ -481,3 +481,11 @@ entities::Cell* Level::getPreviousPlayerCellPtr() const
 {
     return pPreviousPlayerCell;
 }
+
+/**
+ *
+ */
+void Level::setPlayerCellAsEnabled()
+{
+    pPlayerCell->setHidden(false);
+}
