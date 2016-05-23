@@ -270,14 +270,20 @@ unsigned short GameController::render(utils::Context* pContext)
     pContext->getWindow()->draw(rightSeparator);
 
     if (
-        status == WATCHING &&
+        (status == WATCHING || status == PLAYING_AND_WATCHING) &&
         clock.getElapsedTime().asMilliseconds() >
         DEFAULT_WATCHING_TIME
     )
     {
         /* hide all the cells except departure */
         level.setAllCellsVisibility(true);
-        level.setDepartureCellAsEnabled();
+
+        /* set the player position on the departure only if
+         * the game starts */
+        if (status == WATCHING)
+        {
+            level.setDepartureCellAsEnabled();
+        }
 
         soundHideLevel.play();
 
@@ -353,7 +359,10 @@ unsigned short GameController::render(utils::Context* pContext)
 void GameController::movePlayer(PlayerDirection direction)
 {
     /* try to move the player only if the current status is playing */
-    if (status != PLAYING)
+    if (
+        status != PLAYING &&
+        status != PLAYING_AND_WATCHING
+    )
     {
         return;
     }
@@ -449,6 +458,17 @@ void GameController::executeCellAction()
         prevCell->setSelected(true);
     }
 
+    /* make the game visible during five seconds */
+    if (currCellStrRep == constants::CellsFileRepresentations::LIGHT_CELL)
+    {
+        level.setAllCellsVisibility(false);
+
+        status = PLAYING_AND_WATCHING;
+
+        /* force the clock to restart */
+        clock.restart();
+    }
+
     /* delete the star if the previous cell was a star */
     if (
         prevCell->getStringRepresentation() ==
@@ -460,7 +480,9 @@ void GameController::executeCellAction()
         prevCell->getStringRepresentation() ==
         constants::CellsFileRepresentations::MORE_TIME_CELL ||
         prevCell->getStringRepresentation() ==
-        constants::CellsFileRepresentations::LESS_TIME_CELL
+        constants::CellsFileRepresentations::LESS_TIME_CELL ||
+        prevCell->getStringRepresentation() ==
+        constants::CellsFileRepresentations::LIGHT_CELL
     )
     {
         prevCell->setStringRepresentation(
