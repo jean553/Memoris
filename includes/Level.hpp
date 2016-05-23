@@ -225,6 +225,11 @@ public:
      */
     entities::Cell* getPreviousPlayerCellPtr() const;
 
+    /**
+     * @brief set the current player cell as enabled
+     */
+    void setPlayerCellAsEnabled();
+
 private:
 
     /**

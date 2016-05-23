@@ -284,6 +284,10 @@ unsigned short GameController::render(utils::Context* pContext)
         {
             level.setDepartureCellAsEnabled();
         }
+        else
+        {
+            level.setPlayerCellAsEnabled();
+        }
 
         soundHideLevel.play();
 
