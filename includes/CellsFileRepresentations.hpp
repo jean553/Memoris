@@ -43,6 +43,7 @@ public:
     static const std::string NULL_CELL;
     static const std::string MORE_TIME_CELL;
     static const std::string LESS_TIME_CELL;
+    static const std::string LIGHT_CELL;
 };
 }
 

@@ -37,3 +37,4 @@ const std::string CellsFileRepresentations::WALL_CELL = "WC";
 const std::string CellsFileRepresentations::NULL_CELL = "NC";
 const std::string CellsFileRepresentations::MORE_TIME_CELL = "MT";
 const std::string CellsFileRepresentations::LESS_TIME_CELL = "LT";
+const std::string CellsFileRepresentations::LIGHT_CELL = "LI";

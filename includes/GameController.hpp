@@ -146,7 +146,8 @@ private:
     enum GameStatus
     {
         WATCHING, /* < the player is watching the level before playing */
-        PLAYING /* < the player is playing the level and moving over the cells */
+        PLAYING, /* < the player is playing the level and moving over the cells */
+        PLAYING_AND_WATCHING /* < the player just took a light bonus, he can move and watch */
     };
 
     uint16_t starCellsAmount;
