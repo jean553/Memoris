@@ -92,6 +92,8 @@ public:
 
 private:
 
+    static const std::string LEVELS_SPRT;
+
     bool errorNewSerie;
     bool errorNewLevel;
 
@@ -177,6 +179,12 @@ private:
      * only used if the controller has been called after the OpenLevel one
      */
     void initializeOpenedSerie(utils::Context* pContext);
+
+    /**
+     * @brief write the levels into the serie file, the content
+     * of the file is deleted before
+     */
+    void writeLevelsIntoSerie();
 };
 }
 

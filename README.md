@@ -5,7 +5,6 @@ License : GNU GPL v3
 # Memoris
 
 ![Image 1](github/readme.png)
-Format: ![Alt Text](url)
 
 Memoris is a 2D graphical video game developped in C++ using the SFML media library. 
 The objective is to move a pin from one departure to a destination on an invisible map. The player can only see the map a few seconds before the game starts. 
