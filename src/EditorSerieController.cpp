@@ -49,6 +49,7 @@ const std::string EditorSerieController::STRING_OK = "OK";
 const std::string EditorSerieController::STRING_CANCEL = "Cancel";
 const std::string EditorSerieController::STRING_NEW_SERIE_ERROR = "Cannot create the new serie...";
 const std::string EditorSerieController::STRING_NEW_LEVEL_ERROR = "The level already exists !";
+const std::string EditorSerieController::LEVELS_SPRT = "|";
 
 const unsigned short EditorSerieController::EDITOR_SERIE_BUTTON_EXIT_POSITION_X = 1390;
 const unsigned short EditorSerieController::EDITOR_SERIE_BUTTON_NEW_POSITION_X = 10;
@@ -328,7 +329,7 @@ unsigned short EditorSerieController::render(utils::Context* pContext)
                             );
                         }
 
-                        /* TODO: rewrite serie file content */
+                        writeLevelsIntoSerie();
 
                         displaySavedSerieName(true);
                     }
@@ -471,4 +472,35 @@ void EditorSerieController::initializeOpenedSerie(utils::Context* pContext)
     switchMainMenuButtonsToEditSerieStatus();
 
     levelsList.setStringsList(pContext->getStringsList());
+}
+
+/**
+ *
+ */
+void EditorSerieController::writeLevelsIntoSerie()
+{
+    std::vector<std::string> strList = levelsList.getStringsList();
+    std::string strToWrt;
+
+    for (
+        std::vector<std::string>::iterator i = strList.begin();
+        i != strList.end();
+        ++i
+    )
+    {
+        strToWrt = strToWrt + (*i);
+
+        /* do not add the separator if the level is the last one */
+        if (std::distance(strList.begin(), i) != strList.size() - 1)
+        {
+            strToWrt = strToWrt + LEVELS_SPRT;
+        }
+    }
+
+    utils::FileWriter::writeFile(
+        constants::Directories::SERIES_DIRECTORY_PATH +
+        serie.getName() +
+        constants::Extensions::SERIES_EXTENSION,
+        strToWrt
+    );
 }
