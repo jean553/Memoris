@@ -54,11 +54,13 @@ CellSelectorWidget::CellSelectorWidget()
     departureCell.setStringRepresentation(constants::CellsFileRepresentations::DEPARTURE_CELL);
     arrivalCell.setStringRepresentation(constants::CellsFileRepresentations::ARRIVAL_CELL);
     starCell.setStringRepresentation(constants::CellsFileRepresentations::STAR_CELL);
+    lifeCell.setStringRepresentation(constants::CellsFileRepresentations::LIFE_CELL);
 
     emptyCell.setPicturePath(factories::CellFactory::EMPTY_CELL_PICTURE_PATH);
     departureCell.setPicturePath(factories::CellFactory::DEPARTURE_CELL_PICTURE_PATH);
     arrivalCell.setPicturePath(factories::CellFactory::ARRIVAL_CELL_PICTURE_PATH);
     starCell.setPicturePath(factories::CellFactory::STAR_CELL_PICTURE_PATH);
+    lifeCell.setPicturePath(factories::CellFactory::LIFE_CELL_PICTURE_PATH);
 }
 
 /**
@@ -95,6 +97,11 @@ void CellSelectorWidget::setPosition(
         hPosition + cellsDimensions * 3,
         vPosition
     );
+
+    lifeCell.setPosition(
+        hPosition,
+        vPosition + cellsDimensions
+    );
 }
 
 /**
@@ -106,6 +113,7 @@ void CellSelectorWidget::display(utils::Context* pContext)
     departureCell.display(pContext);
     arrivalCell.display(pContext);
     starCell.display(pContext);
+    lifeCell.display(pContext);
 }
 
 /**
@@ -130,6 +138,10 @@ void CellSelectorWidget::selectCellOnClick()
     else if (starCell.isMouseHover())
     {
         starCell.setSelected(true);
+    }
+    else if (lifeCell.isMouseHover())
+    {
+        lifeCell.setSelected(true);
     }
 
     /* TODO: should not be played when no cell is selected,
@@ -191,6 +203,10 @@ entities::Cell* CellSelectorWidget::getSelectedNewCellPointer()
     else if (starCell.getIsSelected())
     {
         return &starCell;
+    }
+    else if (lifeCell.getIsSelected())
+    {
+        return &lifeCell;
     }
     else
     {
