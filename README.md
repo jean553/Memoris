@@ -18,7 +18,7 @@ The game is divided into series, each serie contains different level. Levels are
 
 **Any developer, musician or designer is welcome to participate in the Memoris project !** 
 
-Just keep in mind that the project is free and open source. There is no reward... only two things : learning and have fun ! :) Anyone is invited to open issues, provide functionnalities, test the game, bring ideas, refactor code ( yeah... I'm sorry... :( ), create musics, create fonts, create pictures and more !
+Just keep in mind that the project is free and open source. There is no reward... only two things : learning and having fun ! :) Anyone is invited to open issues, provide functionnalities, test the game, bring ideas, refactor code ( yeah... I'm sorry... :( ), create musics, create fonts, create pictures and more !
 
 ### License and credits
 
