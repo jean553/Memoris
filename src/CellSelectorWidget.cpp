@@ -55,12 +55,18 @@ CellSelectorWidget::CellSelectorWidget()
     arrivalCell.setStringRepresentation(constants::CellsFileRepresentations::ARRIVAL_CELL);
     starCell.setStringRepresentation(constants::CellsFileRepresentations::STAR_CELL);
     lifeCell.setStringRepresentation(constants::CellsFileRepresentations::LIFE_CELL);
+    malusCell.setStringRepresentation(constants::CellsFileRepresentations::DAMAGE_CELL);
+    moreTimeCell.setStringRepresentation(constants::CellsFileRepresentations::MORE_TIME_CELL);
+    lessTimeCell.setStringRepresentation(constants::CellsFileRepresentations::LESS_TIME_CELL);
 
     emptyCell.setPicturePath(factories::CellFactory::EMPTY_CELL_PICTURE_PATH);
     departureCell.setPicturePath(factories::CellFactory::DEPARTURE_CELL_PICTURE_PATH);
     arrivalCell.setPicturePath(factories::CellFactory::ARRIVAL_CELL_PICTURE_PATH);
     starCell.setPicturePath(factories::CellFactory::STAR_CELL_PICTURE_PATH);
     lifeCell.setPicturePath(factories::CellFactory::LIFE_CELL_PICTURE_PATH);
+    malusCell.setPicturePath(factories::CellFactory::DAMAGE_CELL_PICTURE_PATH);
+    moreTimeCell.setPicturePath(factories::CellFactory::MORE_TIME_CELL_PICTURE_PATH);
+    lessTimeCell.setPicturePath(factories::CellFactory::LESS_TIME_CELL_PICTURE_PATH);
 }
 
 /**
@@ -102,6 +108,21 @@ void CellSelectorWidget::setPosition(
         hPosition,
         vPosition + cellsDimensions
     );
+
+    malusCell.setPosition(
+        hPosition + cellsDimensions,
+        vPosition + cellsDimensions
+    );
+
+    moreTimeCell.setPosition(
+        hPosition + cellsDimensions * 2,
+        vPosition + cellsDimensions
+    );
+
+    lessTimeCell.setPosition(
+        hPosition + cellsDimensions * 3,
+        vPosition + cellsDimensions
+    );
 }
 
 /**
@@ -114,6 +135,9 @@ void CellSelectorWidget::display(utils::Context* pContext)
     arrivalCell.display(pContext);
     starCell.display(pContext);
     lifeCell.display(pContext);
+    malusCell.display(pContext);
+    moreTimeCell.display(pContext);
+    lessTimeCell.display(pContext);
 }
 
 /**
@@ -143,6 +167,18 @@ void CellSelectorWidget::selectCellOnClick()
     {
         lifeCell.setSelected(true);
     }
+    else if (malusCell.isMouseHover())
+    {
+        malusCell.setSelected(true);
+    }
+    else if (moreTimeCell.isMouseHover())
+    {
+        moreTimeCell.setSelected(true);
+    }
+    else if (lessTimeCell.isMouseHover())
+    {
+        lessTimeCell.setSelected(true);
+    }
 
     /* TODO: should not be played when no cell is selected,
        I keep it here for now as the selector is a cells rectangle
@@ -159,6 +195,10 @@ void CellSelectorWidget::unselectAllCells()
     departureCell.setSelected(false);
     arrivalCell.setSelected(false);
     starCell.setSelected(false);
+    lifeCell.setSelected(false);
+    malusCell.setSelected(false);
+    moreTimeCell.setSelected(false);
+    lessTimeCell.setSelected(false);
 }
 
 /**
@@ -207,6 +247,18 @@ entities::Cell* CellSelectorWidget::getSelectedNewCellPointer()
     else if (lifeCell.getIsSelected())
     {
         return &lifeCell;
+    }
+    else if (malusCell.getIsSelected())
+    {
+        return &malusCell;
+    }
+    else if (moreTimeCell.getIsSelected())
+    {
+        return &moreTimeCell;
+    }
+    else if (lessTimeCell.getIsSelected())
+    {
+        return &lessTimeCell;
     }
     else
     {
