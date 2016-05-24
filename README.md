@@ -14,9 +14,15 @@ The game is divided into series, each serie contains different level. Levels are
 
 **NOTE: this work is in progress. Some features are not implemented yet, some of them are partially implemented.**
 
+### Participate in the project
+
+**Any developer, musician or designer is welcome to participate in the Memoris project !** 
+
+Just keep in mind that the project is free and open source. There is no reward... only two things : learning and have fun ! :) Anyone is invited to open issues, provide functionnalities, test the game, bring ideas, refactor code ( yeah... I'm sorry... :( ), create musics, create fonts, create pictures and more !
+
 ### License and credits
 
-The program is open-source, distributed under the GNU General Public License. The game uses many assets ( musics, sounds, pictures... etc... ), all of them are distributed under various licenses ( CreativeCommons, GNU GPL/LGPL... etc... ). 
+The program is open-source, distributed under the GNU General Public License. The game uses many assets ( musics, sounds, pictures, fonts... etc... ), all of them are distributed under various licenses ( CreativeCommons, GNU GPL/LGPL... etc... ). 
 
 After individual verification of each asset license, all of them can be integrated in the project. Each asset source is recorded in the "Credits" section of the README.md file. 
 
@@ -112,3 +118,4 @@ http://www.icons-gallery.com - GNU GPL / GNU LGPL
 https://www.iconfinder.com/snipicons - CreativeCommons - BY-NC 3.0 - http://creativecommons.org/licenses/by-nc/3.0/ ( images have been resized and integrated in others )
 
 http://appercuts.blogspot.fr/ - Free for commercial use with link to author website
+
