@@ -96,6 +96,9 @@ private:
     entities::Cell arrivalCell;
     entities::Cell starCell;
     entities::Cell lifeCell;
+    entities::Cell malusCell;
+    entities::Cell moreTimeCell;
+    entities::Cell lessTimeCell;
 
     sf::SoundBuffer soundCellSelectionBuffer;
 
