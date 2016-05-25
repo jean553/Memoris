@@ -80,9 +80,17 @@ public:
     /**
      * @brief return a pointer to a new cell, the same type as the selected cell
      *
-     * @return Cell
+     * @return entities::Cell*
      */
     entities::Cell* getSelectedNewCellPointer();
+
+    /**
+     * @brief return a pointer to the down floor cell, used
+     * to automatically add this down cell when the up one is added
+     *
+     * @return entities::Cell*
+     */
+    entities::Cell* getFloorDownCell();
 
 private:
 

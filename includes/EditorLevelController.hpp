@@ -94,7 +94,7 @@ public:
 
 private:
 
-    short currentFloor;
+    uint8_t currentFloor;
 
     enum EditorLevelStatus
     {
@@ -173,6 +173,25 @@ private:
      * @param updateValue update to apply on the current floor
      */
     void updateFloorNumber(short updateValue);
+
+    /**
+     * @brief update the level according to the new added cell
+     *
+     * @param pSelectedCell pointer to the selected cell to update
+     * @param pCellsSelectorCell pointer to the selected cell from selector to use
+     */
+    void updtLevelForSpecCells(
+        entities::Cell* pSelectedCell,
+        entities::Cell* pCellsSelectorCell
+    );
+
+    /**
+     * @brief returns true if the current cell selector widget cell
+     * can be added at the given location
+     *
+     * @return boolean
+     */
+    bool currEditIsAllowed();
 };
 }
 
