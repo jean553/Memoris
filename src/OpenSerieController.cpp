@@ -74,7 +74,7 @@ OpenSerieController::OpenSerieController() : Controller()
 /**
  *
  */
-unsigned short OpenSerieController::render(utils::Context* pContext)
+uint8_t OpenSerieController::render(utils::Context* pContext)
 {
     titleBar.display(pContext);
     buttonExit.display(pContext);

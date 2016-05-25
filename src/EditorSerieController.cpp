@@ -190,7 +190,7 @@ EditorSerieController::EditorSerieController(utils::Context* pContext) : Control
 /**
  *
  */
-unsigned short EditorSerieController::render(utils::Context* pContext)
+uint8_t EditorSerieController::render(utils::Context* pContext)
 {
     titleBar.display(pContext);
     buttonNew.display(pContext);

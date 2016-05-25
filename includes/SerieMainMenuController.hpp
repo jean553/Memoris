@@ -1,0 +1,104 @@
+/**
+ * Memoris
+ * Copyright (C) 2015  Jean LELIEVRE
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/**
+ * Serie main menu screen.
+ *
+ * @file SerieMainMenuController.hpp
+ * @brief main menu for the serie selection
+ * @package controllers
+ * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
+ */
+
+#ifndef DEF_SERIE_MAIN_MENU_CONTROLLER
+#define DEF_SERIE_MAIN_MENU_CONTROLLER
+
+#include "Controller.hpp"
+#include "Context.hpp"
+#include "HasMenuSelectorAnimation.hpp"
+
+namespace controllers
+{
+class SerieMainMenuController : public Controller
+{
+    friend class policies::HasMenuSelectorAnimation;
+
+public:
+
+    SerieMainMenuController();
+
+    /**
+     * @brief render the serie editor screen
+     *
+     * @param ctx commons items for controller
+     *
+     * @return uint8_t   id of the next screen controller
+     */
+    uint8_t render(
+        utils::Context* pContext
+    );
+
+private:
+
+    static const std::string OFFICIAL_STR;
+    static const std::string PERSONAL_STR;
+    static const std::string BACK_STR;
+
+    static const float_t OFFICIAL_HRTL_PSTN;
+    static const float_t OFFICIAL_VRTL_PSTN;
+    static const float_t PERSONAL_HRTL_PSTN;
+    static const float_t PERSONAL_VRTL_PSTN;
+    static const float_t BACK_HRTL_PSTN;
+    static const float_t BACK_VRTL_PSTN;
+
+    static const uint8_t SERIE_MAIN_MENU_SELECTOR_MAX;
+    static const uint8_t SERIE_MAIN_MENU_SELECTOR_MIN;
+    static const uint8_t SERIE_MAIN_MENU_OFFICIAL_ITEM;
+    static const uint8_t SERIE_MAIN_MENU_PERSONAL_ITEM;
+    static const uint8_t SERIE_MAIN_MENU_BACK_ITEM;
+
+    uint8_t selectorPosition;
+
+    int8_t selectorDirection;
+
+    sf::Font fontItem;
+
+    sf::Color colorWhite;
+    sf::Color colorSelector;
+
+    sf::Text itemOfficialSeries;
+    sf::Text itemPersonalSeries;
+    sf::Text itemBack;
+
+    sf::SoundBuffer soundBfr;
+
+    sf::Sound selectorMoveSnd;
+
+    /**
+     * @brief update the position of the selector
+     */
+    void updateSelectorPosition();
+
+    /**
+     * @brief execute an action according to the current menu selection
+     */
+    void selectMenuItem();
+};
+}
+
+#endif

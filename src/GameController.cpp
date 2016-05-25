@@ -247,7 +247,7 @@ GameController::GameController() : Controller(), level(0, 0)
 /**
  *
  */
-unsigned short GameController::render(utils::Context* pContext)
+uint8_t GameController::render(utils::Context* pContext)
 {
     /* TODO: only displays the first floor, default value of
      * the second parameter is 0, should be able to switch */

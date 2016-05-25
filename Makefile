@@ -49,7 +49,8 @@ OBJS = \
 	   build/HiddenCellPicture.o \
 	   build/AnimatedBackground.o \
 	   build/MenuGradient.o \
-	   build/CellsFileRepresentations.o
+	   build/CellsFileRepresentations.o \
+	   build/SerieMainMenuController.o
 
 INC = -I includes
 
@@ -201,6 +202,9 @@ build/OpenLevelController.o: src/OpenLevelController.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/GameController.o: src/GameController.cpp
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+
+build/SerieMainMenuController.o: src/SerieMainMenuController.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 # policies

@@ -31,6 +31,7 @@
 #include "EditorLevelController.hpp"
 #include "OpenLevelController.hpp"
 #include "GameController.hpp"
+#include "SerieMainMenuController.hpp"
 #include "Messages.hpp"
 
 using namespace factories;
@@ -44,6 +45,8 @@ const unsigned short ControllerFactory::OPEN_SERIE_CONTROLLER_ID = 6;
 const unsigned short ControllerFactory::EDITOR_LEVEL_CONTROLLER_ID = 7;
 const unsigned short ControllerFactory::OPEN_LEVEL_CONTROLLER_ID = 8;
 const unsigned short ControllerFactory::GAME_CONTROLLER_ID = 9;
+
+const uint8_t ControllerFactory::SERIE_MAIN_MENU_CONTROLLER_ID = 10;
 
 /**
  *
@@ -71,6 +74,8 @@ controllers::Controller* ControllerFactory::getControllerById(
         return new controllers::OpenLevelController;
     case GAME_CONTROLLER_ID:
         return new controllers::GameController;
+    case SERIE_MAIN_MENU_CONTROLLER_ID:
+        return new controllers::SerieMainMenuController;
     default:
         return NULL;
     }

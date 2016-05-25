@@ -63,9 +63,9 @@ public:
      *
      * @param pContext commons items for controller
      *
-     * @return short   id of the next screen controller
+     * @return uint8_t   id of the next screen controller
      */
-    unsigned short render(
+    uint8_t render(
         utils::Context* pContext
     );
 

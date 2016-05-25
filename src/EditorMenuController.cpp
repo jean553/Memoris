@@ -102,7 +102,7 @@ EditorMenuController::EditorMenuController() : Controller()
 /**
  *
  */
-unsigned short EditorMenuController::render(utils::Context* pContext)
+uint8_t EditorMenuController::render(utils::Context* pContext)
 {
     policies::HasMenuSelectorAnimation::animateMenuSelector<EditorMenuController>(this);
 

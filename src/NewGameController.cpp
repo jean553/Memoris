@@ -99,7 +99,7 @@ NewGameController::NewGameController() : Controller()
 /**
  *
  */
-unsigned short NewGameController::render(utils::Context* pContext)
+uint8_t NewGameController::render(utils::Context* pContext)
 {
     pContext->getWindow()->draw(title);
     pContext->getWindow()->draw(explanation);
@@ -128,7 +128,7 @@ unsigned short NewGameController::render(utils::Context* pContext)
             {
 
                 expectedControllerId =
-                    factories::ControllerFactory::GAME_CONTROLLER_ID;
+                    factories::ControllerFactory::SERIE_MAIN_MENU_CONTROLLER_ID;
 
                 break;
             }

@@ -88,7 +88,7 @@ OpenLevelController::OpenLevelController() : Controller()
 /**
  *
  */
-unsigned short OpenLevelController::render(utils::Context* pContext)
+uint8_t OpenLevelController::render(utils::Context* pContext)
 {
     titleBar.display(pContext);
     levelsList.display(pContext);
