@@ -175,7 +175,7 @@ MainMenuController::MainMenuController() : Controller()
 /**
  *
  */
-unsigned short MainMenuController::render(utils::Context* pContext)
+uint8_t MainMenuController::render(utils::Context* pContext)
 {
     /* display the background animation */
     background.animate(pContext);

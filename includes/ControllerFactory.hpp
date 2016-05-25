@@ -38,6 +38,7 @@ class ControllerFactory
 
 public:
 
+    /* TODO: should be converted into uint8_t */
     static const unsigned short EXIT;
     static const unsigned short MAIN_MENU_CONTROLLER_ID;
     static const unsigned short NEW_GAME_CONTROLLER_ID;
@@ -47,6 +48,8 @@ public:
     static const unsigned short EDITOR_LEVEL_CONTROLLER_ID;
     static const unsigned short OPEN_LEVEL_CONTROLLER_ID;
     static const unsigned short GAME_CONTROLLER_ID;
+
+    static const uint8_t SERIE_MAIN_MENU_CONTROLLER_ID;
 
     /**
      * @brief returns a new controller
