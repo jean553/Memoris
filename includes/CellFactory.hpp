@@ -47,6 +47,8 @@ public:
     static const std::string MORE_TIME_CELL_PICTURE_PATH;
     static const std::string LESS_TIME_CELL_PICTURE_PATH;
     static const std::string LIGHT_CELL_PICTURE_PATH;
+    static const std::string FLOOR_UP_CELL_PICTURE_PATH;
+    static const std::string FLOOR_DOWN_CELL_PICTURE_PATH;
 
     /**
      * @brief returns a new cell

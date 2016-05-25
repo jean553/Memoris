@@ -101,6 +101,8 @@ private:
     entities::Cell lessTimeCell;
     entities::Cell wallCell;
     entities::Cell lightCell;
+    entities::Cell floorUpCell;
+    entities::Cell floorDownCell;
 
     sf::SoundBuffer soundCellSelectionBuffer;
 

@@ -2,4 +2,6 @@ bin/
 build/
 *.orig
 errors.log
-data/
+data/levels/*
+data/series/*
+!data/levels/1.level
