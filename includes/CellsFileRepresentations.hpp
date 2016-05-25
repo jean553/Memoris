@@ -44,6 +44,8 @@ public:
     static const std::string MORE_TIME_CELL;
     static const std::string LESS_TIME_CELL;
     static const std::string LIGHT_CELL;
+    static const std::string FLOOR_UP_CELL;
+    static const std::string FLOOR_DOWN_CELL;
 };
 }
 

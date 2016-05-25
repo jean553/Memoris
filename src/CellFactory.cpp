@@ -41,6 +41,8 @@ const std::string CellFactory::NULL_CELL_PICTURE_PATH = "res/cells/null.png";
 const std::string CellFactory::MORE_TIME_CELL_PICTURE_PATH = "res/cells/more_time.png";
 const std::string CellFactory::LESS_TIME_CELL_PICTURE_PATH = "res/cells/less_time.png";
 const std::string CellFactory::LIGHT_CELL_PICTURE_PATH = "res/cells/light.png";
+const std::string CellFactory::FLOOR_UP_CELL_PICTURE_PATH = "res/cells/floor_up.png";
+const std::string CellFactory::FLOOR_DOWN_CELL_PICTURE_PATH = "res/cells/floor_down.png";
 
 entities::Cell CellFactory::getCellPointerByStringName(const std::string& stringCell)
 {
@@ -86,6 +88,14 @@ entities::Cell CellFactory::getCellPointerByStringName(const std::string& string
     else if (stringCell == constants::CellsFileRepresentations::LIGHT_CELL)
     {
         cell.setPicturePath(LIGHT_CELL_PICTURE_PATH);
+    }
+    else if (stringCell == constants::CellsFileRepresentations::FLOOR_UP_CELL)
+    {
+        cell.setPicturePath(FLOOR_UP_CELL_PICTURE_PATH);
+    }
+    else if (stringCell == constants::CellsFileRepresentations::FLOOR_DOWN_CELL)
+    {
+        cell.setPicturePath(FLOOR_DOWN_CELL_PICTURE_PATH);
     }
     else
     {
