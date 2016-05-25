@@ -58,6 +58,8 @@ CellSelectorWidget::CellSelectorWidget()
     malusCell.setStringRepresentation(constants::CellsFileRepresentations::DAMAGE_CELL);
     moreTimeCell.setStringRepresentation(constants::CellsFileRepresentations::MORE_TIME_CELL);
     lessTimeCell.setStringRepresentation(constants::CellsFileRepresentations::LESS_TIME_CELL);
+    wallCell.setStringRepresentation(constants::CellsFileRepresentations::WALL_CELL);
+    lightCell.setStringRepresentation(constants::CellsFileRepresentations::LIGHT_CELL);
 
     emptyCell.setPicturePath(factories::CellFactory::EMPTY_CELL_PICTURE_PATH);
     departureCell.setPicturePath(factories::CellFactory::DEPARTURE_CELL_PICTURE_PATH);
@@ -67,6 +69,8 @@ CellSelectorWidget::CellSelectorWidget()
     malusCell.setPicturePath(factories::CellFactory::DAMAGE_CELL_PICTURE_PATH);
     moreTimeCell.setPicturePath(factories::CellFactory::MORE_TIME_CELL_PICTURE_PATH);
     lessTimeCell.setPicturePath(factories::CellFactory::LESS_TIME_CELL_PICTURE_PATH);
+    wallCell.setPicturePath(factories::CellFactory::WALL_CELL_PICTURE_PATH);
+    lightCell.setPicturePath(factories::CellFactory::LIGHT_CELL_PICTURE_PATH);
 }
 
 /**
@@ -123,6 +127,16 @@ void CellSelectorWidget::setPosition(
         hPosition + cellsDimensions * 3,
         vPosition + cellsDimensions
     );
+
+    wallCell.setPosition(
+        hPosition,
+        vPosition + cellsDimensions * 2
+    );
+
+    lightCell.setPosition(
+        hPosition + cellsDimensions,
+        vPosition + cellsDimensions * 2
+    );
 }
 
 /**
@@ -138,6 +152,8 @@ void CellSelectorWidget::display(utils::Context* pContext)
     malusCell.display(pContext);
     moreTimeCell.display(pContext);
     lessTimeCell.display(pContext);
+    wallCell.display(pContext);
+    lightCell.display(pContext);
 }
 
 /**
@@ -179,6 +195,14 @@ void CellSelectorWidget::selectCellOnClick()
     {
         lessTimeCell.setSelected(true);
     }
+    else if (wallCell.isMouseHover())
+    {
+        wallCell.setSelected(true);
+    }
+    else if (lightCell.isMouseHover())
+    {
+        lightCell.setSelected(true);
+    }
 
     /* TODO: should not be played when no cell is selected,
        I keep it here for now as the selector is a cells rectangle
@@ -199,6 +223,8 @@ void CellSelectorWidget::unselectAllCells()
     malusCell.setSelected(false);
     moreTimeCell.setSelected(false);
     lessTimeCell.setSelected(false);
+    wallCell.setSelected(false);
+    lightCell.setSelected(false);
 }
 
 /**
@@ -259,6 +285,14 @@ entities::Cell* CellSelectorWidget::getSelectedNewCellPointer()
     else if (lessTimeCell.getIsSelected())
     {
         return &lessTimeCell;
+    }
+    else if (wallCell.getIsSelected())
+    {
+        return &wallCell;
+    }
+    else if (lightCell.getIsSelected())
+    {
+        return &lightCell;
     }
     else
     {

@@ -99,6 +99,8 @@ private:
     entities::Cell malusCell;
     entities::Cell moreTimeCell;
     entities::Cell lessTimeCell;
+    entities::Cell wallCell;
+    entities::Cell lightCell;
 
     sf::SoundBuffer soundCellSelectionBuffer;
 
