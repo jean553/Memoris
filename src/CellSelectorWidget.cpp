@@ -326,10 +326,18 @@ entities::Cell* CellSelectorWidget::getSelectedNewCellPointer()
     }
     else if (floorDownCell.getIsSelected())
     {
-        return &floorDownCell;
+        return getFloorDownCell();
     }
     else
     {
         return &emptyCell;
     }
+}
+
+/**
+ *
+ */
+entities::Cell* CellSelectorWidget::getFloorDownCell()
+{
+    return &floorDownCell;
 }

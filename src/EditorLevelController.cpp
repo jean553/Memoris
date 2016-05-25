@@ -40,6 +40,7 @@
 #include "Screens.hpp"
 #include "Messages.hpp"
 #include "CellsFilter.hpp"
+#include "CellsFileRepresentations.hpp"
 
 using namespace controllers;
 
@@ -385,7 +386,19 @@ uint8_t EditorLevelController::render(utils::Context* pContext)
                     }
                     else if(level.isMouseHover(currentFloor) && status != MAIN_MENU)
                     {
+                        /* check if the cell can be added at the given location */
+                        if (!currEditIsAllowed())
+                        {
+                            continue;
+                        }
+
                         updateOneCell(
+                            level.getSelectedCellPointer(),
+                            cellSelector.getSelectedNewCellPointer()
+                        );
+
+                        /* for some new cells, other cells have to be updated */
+                        updtLevelForSpecCells(
                             level.getSelectedCellPointer(),
                             cellSelector.getSelectedNewCellPointer()
                         );
@@ -504,4 +517,103 @@ void EditorLevelController::updateFloorNumber(short updateValue)
 
     /* add one to be more user friendly */
     floorLabel.setString(std::to_string(currentFloor + 1));
+}
+
+/**
+ *
+ */
+void EditorLevelController::updtLevelForSpecCells(
+    entities::Cell* pSelectedCell,
+    entities::Cell* pCellsSelectorCell
+)
+{
+    std::vector<entities::Cell>* cells = level.getPointerCells();
+
+    /* floor down has to be added if the cell is floor up */
+    if (
+        pCellsSelectorCell->getStringRepresentation() ==
+        constants::CellsFileRepresentations::FLOOR_UP_CELL
+    )
+    {
+        uint16_t addr = pSelectedCell->getAddress() + constants::Dimensions::LEVEL_CELLS_PER_FLOOR;
+        entities::Cell* otrCell = &(*cells)[addr];
+        entities::Cell* downCell = cellSelector.getFloorDownCell();
+
+        updateOneCell(otrCell, downCell);
+    }
+}
+
+/**
+ *
+ */
+bool EditorLevelController::currEditIsAllowed()
+{
+    std::vector<entities::Cell>* cells = level.getPointerCells();
+
+    entities::Cell* cell = cellSelector.getSelectedNewCellPointer();
+    entities::Cell* levCell = level.getSelectedCellPointer();
+
+    /* preliminary check for floor cells */
+    uint16_t addr = levCell->getAddress();
+    entities::Cell *cellPrevFloor = NULL, *cellNextFloor = NULL;
+
+    if (addr - constants::Dimensions::LEVEL_CELLS_PER_FLOOR >= 0)
+    {
+        cellPrevFloor = &(*cells)[addr - constants::Dimensions::LEVEL_CELLS_PER_FLOOR];
+    }
+    if (addr + constants::Dimensions::LEVEL_CELLS_PER_FLOOR < constants::Dimensions::CELLS_PER_LEVEL)
+    {
+        cellNextFloor = &(*cells)[addr + constants::Dimensions::LEVEL_CELLS_PER_FLOOR];
+    }
+
+    /* cannot add floor up on the last floor, cannot add floor down on the first floor */
+    if (
+        (
+            cell->getStringRepresentation() ==
+            constants::CellsFileRepresentations::FLOOR_UP_CELL &&
+            currentFloor == constants::Dimensions::LEVEL_FLOORS - 1
+        ) ||
+        (
+            cell->getStringRepresentation() ==
+            constants::CellsFileRepresentations::FLOOR_DOWN_CELL &&
+            currentFloor == 0
+        )
+    )
+    {
+        return false;
+    }
+
+    /* cannot have two floor up cells one after the other */
+    if (
+        cell->getStringRepresentation() ==
+        constants::CellsFileRepresentations::FLOOR_UP_CELL &&
+        cellNextFloor != NULL
+    )
+    {
+        if (
+            cellNextFloor->getStringRepresentation() ==
+            constants::CellsFileRepresentations::FLOOR_UP_CELL
+        )
+        {
+            return false;
+        }
+    }
+
+    /* cannot have two floor down cells one after the other */
+    if (
+        cell->getStringRepresentation() ==
+        constants::CellsFileRepresentations::FLOOR_DOWN_CELL &&
+        cellPrevFloor != NULL
+    )
+    {
+        if (
+            cellPrevFloor->getStringRepresentation() ==
+            constants::CellsFileRepresentations::FLOOR_DOWN_CELL
+        )
+        {
+            return false;
+        }
+    }
+
+    return true;
 }
