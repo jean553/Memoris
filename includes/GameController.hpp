@@ -93,6 +93,19 @@ private:
      */
     void updateWatchingTimeStr();
 
+    /**
+     * @brief force the level to be updated according to a recent update
+     * of the player position : the current cell is not animated anymore
+     * but a new cell given as parameter is animated, selected and shown
+     *
+     * @param currCell pointer to the current cell to animate
+     * @param newCell pointer to a new cell to animate
+     */
+    void selectNewCell(
+        entities::Cell* currCell,
+        entities::Cell* newCell
+    );
+
     /* do not use a const for casting problems with getElapsedTime().asMilliseconds() */
     /* TODO: should be const ? */
     static int32_t DEFAULT_WATCHING_TIME;
