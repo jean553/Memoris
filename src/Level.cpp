@@ -88,7 +88,7 @@ Level::~Level()
  */
 void Level::displayAllCellsByFloor(
     utils::Context* pContext,
-    short floor
+    const uint8_t& floor
 )
 {
     for (

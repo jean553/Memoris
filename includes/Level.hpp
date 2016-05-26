@@ -84,7 +84,7 @@ public:
      */
     void displayAllCellsByFloor(
         utils::Context* pContext,
-        short floor = 0
+        const uint8_t& floor = 0
     );
 
     /**
