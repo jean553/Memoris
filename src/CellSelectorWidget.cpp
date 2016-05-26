@@ -341,3 +341,19 @@ entities::Cell* CellSelectorWidget::getFloorDownCell()
 {
     return &floorDownCell;
 }
+
+/**
+ *
+ */
+entities::Cell* CellSelectorWidget::getFloorUpCell()
+{
+    return &floorUpCell;
+}
+
+/**
+ *
+ */
+entities::Cell* CellSelectorWidget::getEmptyCell()
+{
+    return &emptyCell;
+}

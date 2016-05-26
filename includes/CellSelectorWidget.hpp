@@ -92,6 +92,23 @@ public:
      */
     entities::Cell* getFloorDownCell();
 
+    /**
+     * @brief return a pointer to the up floor cell, used
+     * to automatically add this up cell when the down one is added
+     *
+     * @return entities::Cell*
+     */
+    entities::Cell* getFloorUpCell();
+
+    /**
+     * @brief return a pointer to the empty cell, used
+     * to automatically update the level according to
+     * the current selected cell
+     *
+     * @return entities::Cell*
+     */
+    entities::Cell* getEmptyCell();
+
 private:
 
     /**

@@ -392,6 +392,9 @@ uint8_t EditorLevelController::render(utils::Context* pContext)
                             continue;
                         }
 
+                        /* save the value of the previous cell at this position */
+                        std::string prevCellStr = (level.getSelectedCellPointer())->getStringRepresentation();
+
                         updateOneCell(
                             level.getSelectedCellPointer(),
                             cellSelector.getSelectedNewCellPointer()
@@ -400,7 +403,8 @@ uint8_t EditorLevelController::render(utils::Context* pContext)
                         /* for some new cells, other cells have to be updated */
                         updtLevelForSpecCells(
                             level.getSelectedCellPointer(),
-                            cellSelector.getSelectedNewCellPointer()
+                            cellSelector.getSelectedNewCellPointer(),
+                            prevCellStr
                         );
 
                         displaySavedLevelName(false);
@@ -524,7 +528,8 @@ void EditorLevelController::updateFloorNumber(short updateValue)
  */
 void EditorLevelController::updtLevelForSpecCells(
     entities::Cell* pSelectedCell,
-    entities::Cell* pCellsSelectorCell
+    entities::Cell* pCellsSelectorCell,
+    std::string prevCellStr
 )
 {
     std::vector<entities::Cell>* cells = level.getPointerCells();
@@ -535,11 +540,60 @@ void EditorLevelController::updtLevelForSpecCells(
         constants::CellsFileRepresentations::FLOOR_UP_CELL
     )
     {
-        uint16_t addr = pSelectedCell->getAddress() + constants::Dimensions::LEVEL_CELLS_PER_FLOOR;
+        uint16_t addr = pSelectedCell->getAddress() +
+                        constants::Dimensions::LEVEL_CELLS_PER_FLOOR;
+
         entities::Cell* otrCell = &(*cells)[addr];
         entities::Cell* downCell = cellSelector.getFloorDownCell();
 
         updateOneCell(otrCell, downCell);
+    }
+
+    /* floor up has to be added if the cell is floor down */
+    if (
+        pCellsSelectorCell->getStringRepresentation() ==
+        constants::CellsFileRepresentations::FLOOR_DOWN_CELL
+    )
+    {
+        uint16_t addr = pSelectedCell->getAddress() -
+                        constants::Dimensions::LEVEL_CELLS_PER_FLOOR;
+
+        entities::Cell* otrCell = &(*cells)[addr];
+        entities::Cell* downCell = cellSelector.getFloorUpCell();
+
+        updateOneCell(otrCell, downCell);
+    }
+
+    /* the cell to delete is a floor up cell, the floor down must be deleted too */
+    if (
+        pCellsSelectorCell->getStringRepresentation() !=
+        constants::CellsFileRepresentations::FLOOR_UP_CELL &&
+        prevCellStr == constants::CellsFileRepresentations::FLOOR_UP_CELL
+    )
+    {
+        uint16_t addr = pSelectedCell->getAddress() +
+                        constants::Dimensions::LEVEL_CELLS_PER_FLOOR;
+
+        entities::Cell* otrCell = &(*cells)[addr];
+        entities::Cell* emptyCell = cellSelector.getEmptyCell();
+
+        updateOneCell(otrCell, emptyCell);
+    }
+
+    /* the cell to delete is a floor down cell, the floor up must be deleted too */
+    if (
+        pCellsSelectorCell->getStringRepresentation() !=
+        constants::CellsFileRepresentations::FLOOR_DOWN_CELL &&
+        prevCellStr == constants::CellsFileRepresentations::FLOOR_DOWN_CELL
+    )
+    {
+        uint16_t addr = pSelectedCell->getAddress() -
+                        constants::Dimensions::LEVEL_CELLS_PER_FLOOR;
+
+        entities::Cell* otrCell = &(*cells)[addr];
+        entities::Cell* emptyCell = cellSelector.getEmptyCell();
+
+        updateOneCell(otrCell, emptyCell);
     }
 }
 

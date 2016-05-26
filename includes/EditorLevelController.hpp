@@ -179,10 +179,12 @@ private:
      *
      * @param pSelectedCell pointer to the selected cell to update
      * @param pCellsSelectorCell pointer to the selected cell from selector to use
+     * @param prevCellStr string representation of the previous cell at the same position
      */
     void updtLevelForSpecCells(
         entities::Cell* pSelectedCell,
-        entities::Cell* pCellsSelectorCell
+        entities::Cell* pCellsSelectorCell,
+        std::string prevCellStr
     );
 
     /**
