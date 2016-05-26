@@ -34,12 +34,12 @@ const std::string SerieMainMenuController::OFFICIAL_STR = "Official series";
 const std::string SerieMainMenuController::PERSONAL_STR = "Personal series";
 const std::string SerieMainMenuController::BACK_STR = "Back";
 
-const float_t SerieMainMenuController::OFFICIAL_HRTL_PSTN = 300.f;
+const float_t SerieMainMenuController::OFFICIAL_HRTL_PSTN = 550.f;
 const float_t SerieMainMenuController::OFFICIAL_VRTL_PSTN = 100.f;
-const float_t SerieMainMenuController::PERSONAL_HRTL_PSTN = 300.f;
+const float_t SerieMainMenuController::PERSONAL_HRTL_PSTN = 520.f;
 const float_t SerieMainMenuController::PERSONAL_VRTL_PSTN = 300.f;
-const float_t SerieMainMenuController::BACK_HRTL_PSTN = 300.f;
-const float_t SerieMainMenuController::BACK_VRTL_PSTN = 500.f;
+const float_t SerieMainMenuController::BACK_HRTL_PSTN = 720.f;
+const float_t SerieMainMenuController::BACK_VRTL_PSTN = 700.f;
 
 const uint8_t SerieMainMenuController::SERIE_MAIN_MENU_SELECTOR_MAX = 2;
 const uint8_t SerieMainMenuController::SERIE_MAIN_MENU_SELECTOR_MIN = 0;
