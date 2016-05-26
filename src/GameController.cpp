@@ -249,9 +249,10 @@ GameController::GameController() : Controller(), level(0, 0)
  */
 uint8_t GameController::render(utils::Context* pContext)
 {
-    /* TODO: only displays the first floor, default value of
-     * the second parameter is 0, should be able to switch */
-    level.displayAllCellsByFloor(pContext);
+    level.displayAllCellsByFloor(
+        pContext,
+        floor
+    );
 
     /* update and display the timer */
     displayTime(pContext);
@@ -471,6 +472,43 @@ void GameController::executeCellAction()
 
         /* force the clock to restart */
         clock.restart();
+    }
+
+    /* update the current display floor and player position if the cell is a stair cell */
+    if (currCellStrRep == constants::CellsFileRepresentations::FLOOR_UP_CELL)
+    {
+        floor++;
+
+        std::vector<entities::Cell>* cells = level.getPointerCells();
+        uint16_t addr = (level.getPlayerCellPtr())->getAddress();
+        entities::Cell* newCell = &(*cells)[addr + 320];
+        level.setPlayerCellPtr(newCell);
+
+        /* force the animation to stop on wall cell */
+        currCell->setIsAnimated(false);
+        currCell->setSelected(false);
+
+        newCell->setIsAnimated(true);
+        newCell->setSelected(true);
+        newCell->setHidden(false);
+    }
+
+    if (currCellStrRep == constants::CellsFileRepresentations::FLOOR_DOWN_CELL)
+    {
+        floor--;
+
+        std::vector<entities::Cell>* cells = level.getPointerCells();
+        uint16_t addr = (level.getPlayerCellPtr())->getAddress();
+        entities::Cell* newCell = &(*cells)[addr - 320];
+        level.setPlayerCellPtr(newCell);
+
+        /* force the animation to stop on wall cell */
+        currCell->setIsAnimated(false);
+        currCell->setSelected(false);
+
+        newCell->setIsAnimated(true);
+        newCell->setSelected(true);
+        newCell->setHidden(false);
     }
 
     /* delete the star if the previous cell was a star */
