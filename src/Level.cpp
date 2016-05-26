@@ -206,9 +206,7 @@ void Level::loadCells(const std::string& levelString)
 
         if (levelString.empty())
         {
-            /* TODO: should be refactored... */
             newCell.setStringRepresentation(constants::CellsFileRepresentations::EMPTY_CELL);
-            newCell.setPicturePath(factories::CellFactory::EMPTY_CELL_PICTURE_PATH);
         }
         else
         {

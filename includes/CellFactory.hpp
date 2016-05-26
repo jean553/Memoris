@@ -36,20 +36,6 @@ class CellFactory
 {
 public:
 
-    static const std::string DEPARTURE_CELL_PICTURE_PATH;
-    static const std::string ARRIVAL_CELL_PICTURE_PATH;
-    static const std::string STAR_CELL_PICTURE_PATH;
-    static const std::string EMPTY_CELL_PICTURE_PATH;
-    static const std::string LIFE_CELL_PICTURE_PATH;
-    static const std::string DAMAGE_CELL_PICTURE_PATH;
-    static const std::string WALL_CELL_PICTURE_PATH;
-    static const std::string NULL_CELL_PICTURE_PATH;
-    static const std::string MORE_TIME_CELL_PICTURE_PATH;
-    static const std::string LESS_TIME_CELL_PICTURE_PATH;
-    static const std::string LIGHT_CELL_PICTURE_PATH;
-    static const std::string FLOOR_UP_CELL_PICTURE_PATH;
-    static const std::string FLOOR_DOWN_CELL_PICTURE_PATH;
-
     /**
      * @brief returns a new cell
      * pointer according to the given

@@ -135,8 +135,6 @@ GameController::GameController() : Controller(), level(0, 0)
         FOUND_STAR_CELLS_VRTL_PSTN
     );
 
-    /* TODO: set a constant string for now, should change
-     * according to the amount of lifes */
     lifesAmntStr.setFont(fontTime);
     lifesAmntStr.setString(std::to_string(lifesAmount));
     lifesAmntStr.setCharacterSize(constants::Fonts::SIZE_TEXT_FONT);
@@ -383,8 +381,11 @@ void GameController::movePlayer(PlayerDirection direction)
  */
 void GameController::executeCellAction()
 {
-    entities::Cell* prevCell = level.getPreviousPlayerCellPtr();
-    entities::Cell* currCell = level.getPlayerCellPtr();
+    entities::Cell *prevCell = level.getPreviousPlayerCellPtr(),
+                    *currCell = level.getPlayerCellPtr();
+    std::vector<entities::Cell>* cells = level.getPointerCells();
+    uint16_t addr = (level.getPlayerCellPtr())->getAddress();
+    int8_t floorMvt = 0;
 
     if (prevCell == NULL || currCell == NULL)
     {
@@ -477,38 +478,22 @@ void GameController::executeCellAction()
     /* update the current display floor and player position if the cell is a stair cell */
     if (currCellStrRep == constants::CellsFileRepresentations::FLOOR_UP_CELL)
     {
-        floor++;
-
-        std::vector<entities::Cell>* cells = level.getPointerCells();
-        uint16_t addr = (level.getPlayerCellPtr())->getAddress();
-        entities::Cell* newCell = &(*cells)[addr + 320];
-        level.setPlayerCellPtr(newCell);
-
-        /* force the animation to stop on wall cell */
-        currCell->setIsAnimated(false);
-        currCell->setSelected(false);
-
-        newCell->setIsAnimated(true);
-        newCell->setSelected(true);
-        newCell->setHidden(false);
+        floorMvt = 1;
     }
 
     if (currCellStrRep == constants::CellsFileRepresentations::FLOOR_DOWN_CELL)
     {
-        floor--;
+        floorMvt = -1;
+    }
 
-        std::vector<entities::Cell>* cells = level.getPointerCells();
-        uint16_t addr = (level.getPlayerCellPtr())->getAddress();
-        entities::Cell* newCell = &(*cells)[addr - 320];
-        level.setPlayerCellPtr(newCell);
+    if (floorMvt != 0)
+    {
+        floor += floorMvt;
 
-        /* force the animation to stop on wall cell */
-        currCell->setIsAnimated(false);
-        currCell->setSelected(false);
-
-        newCell->setIsAnimated(true);
-        newCell->setSelected(true);
-        newCell->setHidden(false);
+        selectNewCell(
+            currCell,
+            &(*cells)[addr + 320 * floorMvt]
+        );
     }
 
     /* delete the star if the previous cell was a star */
@@ -529,9 +514,6 @@ void GameController::executeCellAction()
     {
         prevCell->setStringRepresentation(
             constants::CellsFileRepresentations::EMPTY_CELL
-        );
-        prevCell->setPicturePath(
-            factories::CellFactory::EMPTY_CELL_PICTURE_PATH
         );
     }
 }
@@ -627,4 +609,22 @@ void GameController::updateLifesCntStr()
 void GameController::updateWatchingTimeStr()
 {
     timeStr.setString(std::to_string(watchTime));
+}
+
+/**
+ *
+ */
+void GameController::selectNewCell(
+    entities::Cell* currCell,
+    entities::Cell* newCell
+)
+{
+    level.setPlayerCellPtr(newCell);
+
+    currCell->setIsAnimated(false);
+    currCell->setSelected(false);
+
+    newCell->setIsAnimated(true);
+    newCell->setSelected(true);
+    newCell->setHidden(false);
 }

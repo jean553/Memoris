@@ -30,82 +30,10 @@
 
 using namespace factories;
 
-const std::string CellFactory::DEPARTURE_CELL_PICTURE_PATH = "res/cells/departure.png";
-const std::string CellFactory::ARRIVAL_CELL_PICTURE_PATH = "res/cells/arrival.png";
-const std::string CellFactory::STAR_CELL_PICTURE_PATH = "res/cells/star.png";
-const std::string CellFactory::EMPTY_CELL_PICTURE_PATH = "res/cells/empty.png";
-const std::string CellFactory::LIFE_CELL_PICTURE_PATH = "res/cells/life.png";
-const std::string CellFactory::DAMAGE_CELL_PICTURE_PATH = "res/cells/damage.png";
-const std::string CellFactory::WALL_CELL_PICTURE_PATH = "res/cells/wall.png";
-const std::string CellFactory::NULL_CELL_PICTURE_PATH = "res/cells/null.png";
-const std::string CellFactory::MORE_TIME_CELL_PICTURE_PATH = "res/cells/more_time.png";
-const std::string CellFactory::LESS_TIME_CELL_PICTURE_PATH = "res/cells/less_time.png";
-const std::string CellFactory::LIGHT_CELL_PICTURE_PATH = "res/cells/light.png";
-const std::string CellFactory::FLOOR_UP_CELL_PICTURE_PATH = "res/cells/floor_up.png";
-const std::string CellFactory::FLOOR_DOWN_CELL_PICTURE_PATH = "res/cells/floor_down.png";
-
 entities::Cell CellFactory::getCellPointerByStringName(const std::string& stringCell)
 {
     entities::Cell cell;
     cell.setStringRepresentation(stringCell);
-
-    if (stringCell == constants::CellsFileRepresentations::DEPARTURE_CELL)
-    {
-        cell.setPicturePath(DEPARTURE_CELL_PICTURE_PATH);
-    }
-    else if (stringCell == constants::CellsFileRepresentations::ARRIVAL_CELL)
-    {
-        cell.setPicturePath(ARRIVAL_CELL_PICTURE_PATH);
-    }
-    else if (stringCell == constants::CellsFileRepresentations::STAR_CELL)
-    {
-        cell.setPicturePath(STAR_CELL_PICTURE_PATH);
-    }
-    else if (stringCell == constants::CellsFileRepresentations::LIFE_CELL)
-    {
-        cell.setPicturePath(LIFE_CELL_PICTURE_PATH);
-    }
-    else if (stringCell == constants::CellsFileRepresentations::DAMAGE_CELL)
-    {
-        cell.setPicturePath(DAMAGE_CELL_PICTURE_PATH);
-    }
-    else if (stringCell == constants::CellsFileRepresentations::WALL_CELL)
-    {
-        cell.setPicturePath(WALL_CELL_PICTURE_PATH);
-    }
-    else if (stringCell == constants::CellsFileRepresentations::NULL_CELL)
-    {
-        cell.setPicturePath(NULL_CELL_PICTURE_PATH);
-    }
-    else if (stringCell == constants::CellsFileRepresentations::MORE_TIME_CELL)
-    {
-        cell.setPicturePath(MORE_TIME_CELL_PICTURE_PATH);
-    }
-    else if (stringCell == constants::CellsFileRepresentations::LESS_TIME_CELL)
-    {
-        cell.setPicturePath(LESS_TIME_CELL_PICTURE_PATH);
-    }
-    else if (stringCell == constants::CellsFileRepresentations::LIGHT_CELL)
-    {
-        cell.setPicturePath(LIGHT_CELL_PICTURE_PATH);
-    }
-    else if (stringCell == constants::CellsFileRepresentations::FLOOR_UP_CELL)
-    {
-        cell.setPicturePath(FLOOR_UP_CELL_PICTURE_PATH);
-    }
-    else if (stringCell == constants::CellsFileRepresentations::FLOOR_DOWN_CELL)
-    {
-        cell.setPicturePath(FLOOR_DOWN_CELL_PICTURE_PATH);
-    }
-    else
-    {
-        /* force the cell as an empty cell */
-        cell.setStringRepresentation(
-            constants::CellsFileRepresentations::EMPTY_CELL
-        );
-
-        cell.setPicturePath(EMPTY_CELL_PICTURE_PATH);
-    }
-
+    cell.setPicturePath("res/cells/" + stringCell + ".png");
     return cell;
 }
