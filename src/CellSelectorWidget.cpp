@@ -62,19 +62,6 @@ CellSelectorWidget::CellSelectorWidget()
     lightCell.setStringRepresentation(constants::CellsFileRepresentations::LIGHT_CELL);
     floorUpCell.setStringRepresentation(constants::CellsFileRepresentations::FLOOR_UP_CELL);
     floorDownCell.setStringRepresentation(constants::CellsFileRepresentations::FLOOR_DOWN_CELL);
-
-    emptyCell.setPicturePath(factories::CellFactory::EMPTY_CELL_PICTURE_PATH);
-    departureCell.setPicturePath(factories::CellFactory::DEPARTURE_CELL_PICTURE_PATH);
-    arrivalCell.setPicturePath(factories::CellFactory::ARRIVAL_CELL_PICTURE_PATH);
-    starCell.setPicturePath(factories::CellFactory::STAR_CELL_PICTURE_PATH);
-    lifeCell.setPicturePath(factories::CellFactory::LIFE_CELL_PICTURE_PATH);
-    malusCell.setPicturePath(factories::CellFactory::DAMAGE_CELL_PICTURE_PATH);
-    moreTimeCell.setPicturePath(factories::CellFactory::MORE_TIME_CELL_PICTURE_PATH);
-    lessTimeCell.setPicturePath(factories::CellFactory::LESS_TIME_CELL_PICTURE_PATH);
-    wallCell.setPicturePath(factories::CellFactory::WALL_CELL_PICTURE_PATH);
-    lightCell.setPicturePath(factories::CellFactory::LIGHT_CELL_PICTURE_PATH);
-    floorUpCell.setPicturePath(factories::CellFactory::FLOOR_UP_CELL_PICTURE_PATH);
-    floorDownCell.setPicturePath(factories::CellFactory::FLOOR_DOWN_CELL_PICTURE_PATH);
 }
 
 /**

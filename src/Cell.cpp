@@ -349,6 +349,9 @@ void Cell::initializeCommonAttributes()
 void Cell::setStringRepresentation(const std::string& representation)
 {
     stringRepresentation = representation;
+
+    /* force the update of the picture path */
+    setPicturePath("res/cells/" + representation + ".png");
 }
 
 /**

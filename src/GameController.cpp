@@ -515,9 +515,6 @@ void GameController::executeCellAction()
         prevCell->setStringRepresentation(
             constants::CellsFileRepresentations::EMPTY_CELL
         );
-        prevCell->setPicturePath(
-            factories::CellFactory::EMPTY_CELL_PICTURE_PATH
-        );
     }
 }
 
