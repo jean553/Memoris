@@ -33,13 +33,16 @@ using namespace controllers;
 const std::string SerieMainMenuController::OFFICIAL_STR = "Official series";
 const std::string SerieMainMenuController::PERSONAL_STR = "Personal series";
 const std::string SerieMainMenuController::BACK_STR = "Back";
+const std::string SerieMainMenuController::TITLE_STR = "Series";
 
 const float_t SerieMainMenuController::OFFICIAL_HRTL_PSTN = 550.f;
-const float_t SerieMainMenuController::OFFICIAL_VRTL_PSTN = 100.f;
+const float_t SerieMainMenuController::OFFICIAL_VRTL_PSTN = 250.f;
 const float_t SerieMainMenuController::PERSONAL_HRTL_PSTN = 520.f;
-const float_t SerieMainMenuController::PERSONAL_VRTL_PSTN = 300.f;
+const float_t SerieMainMenuController::PERSONAL_VRTL_PSTN = 400.f;
 const float_t SerieMainMenuController::BACK_HRTL_PSTN = 720.f;
-const float_t SerieMainMenuController::BACK_VRTL_PSTN = 700.f;
+const float_t SerieMainMenuController::BACK_VRTL_PSTN = 800.f;
+const float_t SerieMainMenuController::TITLE_HRTL_PSTN = 700.f;
+const float_t SerieMainMenuController::TITLE_VRTL_PSTN = 50.f;
 
 const uint8_t SerieMainMenuController::SERIE_MAIN_MENU_SELECTOR_MAX = 2;
 const uint8_t SerieMainMenuController::SERIE_MAIN_MENU_SELECTOR_MIN = 0;
@@ -52,6 +55,7 @@ const uint8_t SerieMainMenuController::SERIE_MAIN_MENU_BACK_ITEM = 2;
  */
 SerieMainMenuController::SerieMainMenuController()
 {
+    fontTitle.loadFromFile(constants::Fonts::getTitleFontPath());
     fontItem.loadFromFile(constants::Fonts::getTextFontPath());
 
     colorWhite.r = constants::Colors::COLOR_WHITE_RED;
@@ -63,6 +67,20 @@ SerieMainMenuController::SerieMainMenuController()
     colorSelector.g = constants::Colors::COLOR_RED_GREEN;
     colorSelector.b = constants::Colors::COLOR_RED_BLUE;
     colorSelector.a = constants::Colors::COLOR_ALPHA_FULL;
+
+    colorTitle.r = constants::Colors::COLOR_LIGHT_BLUE_RED;
+    colorTitle.g = constants::Colors::COLOR_LIGHT_BLUE_GREEN;
+    colorTitle.b = constants::Colors::COLOR_LIGHT_BLUE_BLUE;
+    colorTitle.a = constants::Colors::COLOR_ALPHA_FULL;
+
+    title.setFont(fontTitle);
+    title.setString(TITLE_STR);
+    title.setCharacterSize(constants::Fonts::SIZE_SUB_TITLE_FONT);
+    title.setColor(colorTitle);
+    title.setPosition(
+        TITLE_HRTL_PSTN,
+        TITLE_VRTL_PSTN
+    );
 
     itemOfficialSeries.setFont(fontItem);
     itemOfficialSeries.setString(OFFICIAL_STR);
@@ -108,6 +126,7 @@ uint8_t SerieMainMenuController::render(utils::Context* ctx)
 
     updateSelectorPosition();
 
+    ctx->getWindow()->draw(title);
     ctx->getWindow()->draw(itemOfficialSeries);
     ctx->getWindow()->draw(itemPersonalSeries);
     ctx->getWindow()->draw(itemBack);
