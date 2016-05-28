@@ -29,6 +29,7 @@
 
 using namespace controllers;
 
+const std::string OfficialSeriesSelectorController::OFF_SER_TITLE = "Official series";
 const std::string OfficialSeriesSelectorController::TUTORIAL = "1. Tutorial";
 const std::string OfficialSeriesSelectorController::FIRST_SERIE = "2. First serie";
 const std::string OfficialSeriesSelectorController::SECOND_SERIE = "3. First serie";
@@ -38,22 +39,24 @@ const std::string OfficialSeriesSelectorController::FIFTH_SERIE = "6. First seri
 const std::string OfficialSeriesSelectorController::SIXTH_SERIE = "7. First serie";
 const std::string OfficialSeriesSelectorController::SEVENTH_SERIE = "8. First serie";
 
-const float_t OfficialSeriesSelectorController::TUTORIAL_HRTL_PSTN = 0.f;
+const float_t OfficialSeriesSelectorController::TUTORIAL_HRTL_PSTN = 20.f;
 const float_t OfficialSeriesSelectorController::TUTORIAL_VRTL_PSTN = 200.f;
-const float_t OfficialSeriesSelectorController::FIRST_SERIE_HRTL_PSTN = 0.f;
+const float_t OfficialSeriesSelectorController::FIRST_SERIE_HRTL_PSTN = 20.f;
 const float_t OfficialSeriesSelectorController::FIRST_SERIE_VRTL_PSTN = 280.f;
-const float_t OfficialSeriesSelectorController::SECOND_SERIE_HRTL_PSTN = 0.f;
+const float_t OfficialSeriesSelectorController::SECOND_SERIE_HRTL_PSTN = 20.f;
 const float_t OfficialSeriesSelectorController::SECOND_SERIE_VRTL_PSTN = 360.f;
-const float_t OfficialSeriesSelectorController::THIRD_SERIE_HRTL_PSTN = 0.f;
+const float_t OfficialSeriesSelectorController::THIRD_SERIE_HRTL_PSTN = 20.f;
 const float_t OfficialSeriesSelectorController::THIRD_SERIE_VRTL_PSTN = 440.f;
-const float_t OfficialSeriesSelectorController::FOURTH_SERIE_HRTL_PSTN = 0.f;
+const float_t OfficialSeriesSelectorController::FOURTH_SERIE_HRTL_PSTN = 20.f;
 const float_t OfficialSeriesSelectorController::FOURTH_SERIE_VRTL_PSTN = 520.f;
-const float_t OfficialSeriesSelectorController::FIFTH_SERIE_HRTL_PSTN = 0.f;
+const float_t OfficialSeriesSelectorController::FIFTH_SERIE_HRTL_PSTN = 20.f;
 const float_t OfficialSeriesSelectorController::FIFTH_SERIE_VRTL_PSTN = 600.f;
-const float_t OfficialSeriesSelectorController::SIXTH_SERIE_HRTL_PSTN = 0.f;
+const float_t OfficialSeriesSelectorController::SIXTH_SERIE_HRTL_PSTN = 20.f;
 const float_t OfficialSeriesSelectorController::SIXTH_SERIE_VRTL_PSTN = 680.f;
-const float_t OfficialSeriesSelectorController::SEVENTH_SERIE_HRTL_PSTN = 0.f;
+const float_t OfficialSeriesSelectorController::SEVENTH_SERIE_HRTL_PSTN = 20.f;
 const float_t OfficialSeriesSelectorController::SEVENTH_SERIE_VRTL_PSTN = 760.f;
+const float_t OfficialSeriesSelectorController::OFF_SER_TITLE_HRTL_PSTN = 550.f;
+const float_t OfficialSeriesSelectorController::OFF_SER_TITLE_VRTL_PSTN = 50.f;
 
 /**
  *
@@ -61,6 +64,7 @@ const float_t OfficialSeriesSelectorController::SEVENTH_SERIE_VRTL_PSTN = 760.f;
 OfficialSeriesSelectorController::OfficialSeriesSelectorController()
 {
     fontItem.loadFromFile(constants::Fonts::getTextFontPath());
+    fontTitle.loadFromFile(constants::Fonts::getTitleFontPath());
 
     colorWhite.r = constants::Colors::COLOR_WHITE_RED;
     colorWhite.g = constants::Colors::COLOR_WHITE_GREEN;
@@ -71,6 +75,20 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController()
     colorSelector.g = constants::Colors::COLOR_RED_GREEN;
     colorSelector.b = constants::Colors::COLOR_RED_BLUE;
     colorSelector.a = constants::Colors::COLOR_ALPHA_FULL;
+
+    colorTitle.r = constants::Colors::COLOR_LIGHT_BLUE_RED;
+    colorTitle.g = constants::Colors::COLOR_LIGHT_BLUE_GREEN;
+    colorTitle.b = constants::Colors::COLOR_LIGHT_BLUE_BLUE;
+    colorTitle.a = constants::Colors::COLOR_ALPHA_FULL;
+
+    offSerTitle.setFont(fontTitle);
+    offSerTitle.setString(OFF_SER_TITLE);
+    offSerTitle.setCharacterSize(constants::Fonts::SIZE_SUB_TITLE_FONT);
+    offSerTitle.setColor(colorTitle);
+    offSerTitle.setPosition(
+        OFF_SER_TITLE_HRTL_PSTN,
+        OFF_SER_TITLE_VRTL_PSTN
+    );
 
     itemTutorial.setFont(fontItem);
     itemTutorial.setString(TUTORIAL);
@@ -159,6 +177,7 @@ uint8_t OfficialSeriesSelectorController::render(utils::Context* ctx)
 
     updtSltrPstn();
 
+    ctx->getWindow()->draw(offSerTitle);
     ctx->getWindow()->draw(itemTutorial);
     ctx->getWindow()->draw(itemFirstSerie);
     ctx->getWindow()->draw(itemSecondSerie);

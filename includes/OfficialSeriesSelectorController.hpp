@@ -20,7 +20,7 @@
  * Official series selector menu
  *
  * @file OfficialSeriesSelectorController.hpp
- * @brief official series menu 
+ * @brief official series menu
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -65,6 +65,7 @@ private:
     static const std::string FIFTH_SERIE;
     static const std::string SIXTH_SERIE;
     static const std::string SEVENTH_SERIE;
+    static const std::string OFF_SER_TITLE;
 
     static const float_t TUTORIAL_HRTL_PSTN;
     static const float_t TUTORIAL_VRTL_PSTN;
@@ -82,6 +83,8 @@ private:
     static const float_t SIXTH_SERIE_VRTL_PSTN;
     static const float_t SEVENTH_SERIE_HRTL_PSTN;
     static const float_t SEVENTH_SERIE_VRTL_PSTN;
+    static const float_t OFF_SER_TITLE_HRTL_PSTN;
+    static const float_t OFF_SER_TITLE_VRTL_PSTN;
 
     int8_t selectorDirection;
 
@@ -89,8 +92,10 @@ private:
 
     sf::Color colorWhite;
     sf::Color colorSelector;
+    sf::Color colorTitle;
 
     sf::Font fontItem;
+    sf::Font fontTitle;
 
     /* TODO: except the tutorial item, all the other items
      * are not used and just displayed to show the expected
@@ -103,6 +108,8 @@ private:
     sf::Text itemFifthSerie;
     sf::Text itemSixthSerie;
     sf::Text itemSeventhSerie;
+
+    sf::Text offSerTitle;
 };
 }
 
