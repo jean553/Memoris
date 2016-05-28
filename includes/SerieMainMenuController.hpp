@@ -58,6 +58,7 @@ private:
     static const std::string OFFICIAL_STR;
     static const std::string PERSONAL_STR;
     static const std::string BACK_STR;
+    static const std::string TITLE_STR;
 
     static const float_t OFFICIAL_HRTL_PSTN;
     static const float_t OFFICIAL_VRTL_PSTN;
@@ -65,6 +66,8 @@ private:
     static const float_t PERSONAL_VRTL_PSTN;
     static const float_t BACK_HRTL_PSTN;
     static const float_t BACK_VRTL_PSTN;
+    static const float_t TITLE_HRTL_PSTN;
+    static const float_t TITLE_VRTL_PSTN;
 
     static const uint8_t SERIE_MAIN_MENU_SELECTOR_MAX;
     static const uint8_t SERIE_MAIN_MENU_SELECTOR_MIN;
@@ -77,13 +80,16 @@ private:
     int8_t selectorDirection;
 
     sf::Font fontItem;
+    sf::Font fontTitle;
 
     sf::Color colorWhite;
     sf::Color colorSelector;
+    sf::Color colorTitle;
 
     sf::Text itemOfficialSeries;
     sf::Text itemPersonalSeries;
     sf::Text itemBack;
+    sf::Text title;
 
     sf::SoundBuffer soundBfr;
 

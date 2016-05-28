@@ -50,7 +50,8 @@ OBJS = \
 	   build/AnimatedBackground.o \
 	   build/MenuGradient.o \
 	   build/CellsFileRepresentations.o \
-	   build/SerieMainMenuController.o
+	   build/SerieMainMenuController.o \
+	   build/OfficialSeriesSelectorController.o
 
 INC = -I includes
 
@@ -205,6 +206,9 @@ build/GameController.o: src/GameController.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/SerieMainMenuController.o: src/SerieMainMenuController.cpp
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+
+build/OfficialSeriesSelectorController.o: src/OfficialSeriesSelectorController.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 # policies

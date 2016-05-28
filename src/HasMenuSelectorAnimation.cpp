@@ -29,6 +29,7 @@
 #include "MainMenuController.hpp"
 #include "EditorMenuController.hpp"
 #include "SerieMainMenuController.hpp"
+#include "OfficialSeriesSelectorController.hpp"
 
 using namespace policies;
 
@@ -68,3 +69,4 @@ void HasMenuSelectorAnimation::animateMenuSelector(T* pMenuController)
 template void HasMenuSelectorAnimation::animateMenuSelector<controllers::MainMenuController>(controllers::MainMenuController* pMenuController);
 template void HasMenuSelectorAnimation::animateMenuSelector<controllers::EditorMenuController>(controllers::EditorMenuController* pMenuController);
 template void HasMenuSelectorAnimation::animateMenuSelector<controllers::SerieMainMenuController>(controllers::SerieMainMenuController* pMenuController);
+template void HasMenuSelectorAnimation::animateMenuSelector<controllers::OfficialSeriesSelectorController>(controllers::OfficialSeriesSelectorController* pMenuController);
