@@ -203,9 +203,8 @@ void SerieMainMenuController::selectMenuItem()
     {
     case SERIE_MAIN_MENU_OFFICIAL_ITEM:
     {
-        /* TODO: temporary solution, should redirect to another menu */
         expectedControllerId =
-            factories::ControllerFactory::GAME_CONTROLLER_ID;
+            factories::ControllerFactory::OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID;
 
         break;
     }

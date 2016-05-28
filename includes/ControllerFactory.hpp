@@ -50,6 +50,7 @@ public:
     static const unsigned short GAME_CONTROLLER_ID;
 
     static const uint8_t SERIE_MAIN_MENU_CONTROLLER_ID;
+    static const uint8_t OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID;
 
     /**
      * @brief returns a new controller
