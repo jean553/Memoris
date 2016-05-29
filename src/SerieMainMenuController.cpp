@@ -34,15 +34,21 @@ const std::string SerieMainMenuController::OFFICIAL_STR = "Official series";
 const std::string SerieMainMenuController::PERSONAL_STR = "Personal series";
 const std::string SerieMainMenuController::BACK_STR = "Back";
 const std::string SerieMainMenuController::TITLE_STR = "Series";
+const std::string SerieMainMenuController::CUP_IMG_PATH = "res/images/cup.png";
+const std::string SerieMainMenuController::GAME_IMG_PATH = "res/images/game.png";
 
 const float_t SerieMainMenuController::OFFICIAL_HRTL_PSTN = 550.f;
 const float_t SerieMainMenuController::OFFICIAL_VRTL_PSTN = 250.f;
 const float_t SerieMainMenuController::PERSONAL_HRTL_PSTN = 520.f;
-const float_t SerieMainMenuController::PERSONAL_VRTL_PSTN = 400.f;
+const float_t SerieMainMenuController::PERSONAL_VRTL_PSTN = 470.f;
 const float_t SerieMainMenuController::BACK_HRTL_PSTN = 720.f;
 const float_t SerieMainMenuController::BACK_VRTL_PSTN = 800.f;
 const float_t SerieMainMenuController::TITLE_HRTL_PSTN = 700.f;
 const float_t SerieMainMenuController::TITLE_VRTL_PSTN = 50.f;
+const float_t SerieMainMenuController::TRLST_COMMON_HRTL_PSTN = 740.f;
+const float_t SerieMainMenuController::TRLST_COMMON_HRTL_SIZE = 200.f;
+const float_t SerieMainMenuController::CUP_TRLST_VRTL_PSTN = 230.f;
+const float_t SerieMainMenuController::GAME_TRLST_VRTL_PSTN = 450.f;
 
 const uint8_t SerieMainMenuController::SERIE_MAIN_MENU_SELECTOR_MAX = 2;
 const uint8_t SerieMainMenuController::SERIE_MAIN_MENU_SELECTOR_MIN = 0;
@@ -53,7 +59,17 @@ const uint8_t SerieMainMenuController::SERIE_MAIN_MENU_BACK_ITEM = 2;
 /**
  *
  */
-SerieMainMenuController::SerieMainMenuController()
+SerieMainMenuController::SerieMainMenuController() :
+    cupTrslt(
+        TRLST_COMMON_HRTL_PSTN,
+        CUP_TRLST_VRTL_PSTN,
+        TRLST_COMMON_HRTL_SIZE
+    ),
+    gameTrslt(
+        TRLST_COMMON_HRTL_PSTN,
+        GAME_TRLST_VRTL_PSTN,
+        TRLST_COMMON_HRTL_SIZE
+    )
 {
     fontTitle.loadFromFile(constants::Fonts::getTitleFontPath());
     fontItem.loadFromFile(constants::Fonts::getTextFontPath());
@@ -109,12 +125,21 @@ SerieMainMenuController::SerieMainMenuController()
         BACK_VRTL_PSTN
     );
 
+    cup.loadFromFile(CUP_IMG_PATH);
+    game.loadFromFile(GAME_IMG_PATH);
+
+    cupSprt.setTexture(cup, true);
+    gameSprt.setTexture(game, true);
+
     soundBfr.loadFromFile(constants::Sounds::MOVE_SELECTOR_SOUND_PATH);
 
     selectorMoveSnd.setBuffer(soundBfr);
 
     selectorDirection = 1;
     selectorPosition = 0;
+
+    animCup = true;
+    animGame = false;
 }
 
 /**
@@ -125,6 +150,18 @@ uint8_t SerieMainMenuController::render(utils::Context* ctx)
     policies::HasMenuSelectorAnimation::animateMenuSelector<SerieMainMenuController>(this);
 
     updateSelectorPosition();
+
+    cupTrslt.display(
+        ctx,
+        cupSprt,
+        animCup
+    );
+
+    gameTrslt.display(
+        ctx,
+        gameSprt,
+        animGame
+    );
 
     ctx->getWindow()->draw(title);
     ctx->getWindow()->draw(itemOfficialSeries);
@@ -193,16 +230,21 @@ void SerieMainMenuController::updateSelectorPosition()
     itemPersonalSeries.setColor(colorWhite);
     itemBack.setColor(colorWhite);
 
+    animCup = false;
+    animGame = false;
+
     switch (selectorPosition)
     {
     case SERIE_MAIN_MENU_OFFICIAL_ITEM:
     {
         itemOfficialSeries.setColor(colorSelector);
+        animCup = true;
         break;
     }
     case SERIE_MAIN_MENU_PERSONAL_ITEM:
     {
         itemPersonalSeries.setColor(colorSelector);
+        animGame = true;
         break;
     }
     case SERIE_MAIN_MENU_BACK_ITEM:

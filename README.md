@@ -119,3 +119,6 @@ https://www.iconfinder.com/snipicons - CreativeCommons - BY-NC 3.0 - http://crea
 
 http://appercuts.blogspot.fr/ - Free for commercial use with link to author website
 
+https://www.iconfinder.com/Squid.ink / http://thesquid.ink/flat-icons/ - CreativeCommons - BY 3.0 - http://creativecommons.org/licenses/by/3.0/
+
+https://www.iconfinder.com/icons/1055053/controller_game_controller_video_game_icon#size=128 / http://www.elegantthemes.com/ - GNU GPL
