@@ -31,6 +31,7 @@
 #include "Controller.hpp"
 #include "Context.hpp"
 #include "HasMenuSelectorAnimation.hpp"
+#include "SprtTransition.hpp"
 
 namespace controllers
 {
@@ -59,6 +60,8 @@ private:
     static const std::string PERSONAL_STR;
     static const std::string BACK_STR;
     static const std::string TITLE_STR;
+    static const std::string CUP_IMG_PATH;
+    static const std::string GAME_IMG_PATH;
 
     static const float_t OFFICIAL_HRTL_PSTN;
     static const float_t OFFICIAL_VRTL_PSTN;
@@ -68,6 +71,10 @@ private:
     static const float_t BACK_VRTL_PSTN;
     static const float_t TITLE_HRTL_PSTN;
     static const float_t TITLE_VRTL_PSTN;
+    static const float_t TRLST_COMMON_HRTL_PSTN;
+    static const float_t TRLST_COMMON_HRTL_SIZE;
+    static const float_t CUP_TRLST_VRTL_PSTN;
+    static const float_t GAME_TRLST_VRTL_PSTN;
 
     static const uint8_t SERIE_MAIN_MENU_SELECTOR_MAX;
     static const uint8_t SERIE_MAIN_MENU_SELECTOR_MIN;
@@ -94,6 +101,18 @@ private:
     sf::SoundBuffer soundBfr;
 
     sf::Sound selectorMoveSnd;
+
+    sf::Texture cup;
+    sf::Texture game;
+
+    sf::Sprite cupSprt;
+    sf::Sprite gameSprt;
+
+    utils::SprtTransition cupTrslt;
+    utils::SprtTransition gameTrslt;
+
+    bool animCup;
+    bool animGame;
 
     /**
      * @brief update the position of the selector
