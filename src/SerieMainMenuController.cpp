@@ -180,7 +180,7 @@ uint8_t SerieMainMenuController::render(utils::Context* ctx)
             {
             case sf::Keyboard::Escape:
             {
-                nextControllerId =
+                expectedControllerId =
                     factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
 
                 break;
