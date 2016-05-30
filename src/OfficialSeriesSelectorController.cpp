@@ -171,8 +171,6 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController()
  */
 uint8_t OfficialSeriesSelectorController::render(utils::Context* ctx)
 {
-    nextControllerId = animateScreenTransition(ctx);
-
     policies::HasMenuSelectorAnimation::animateMenuSelector<OfficialSeriesSelectorController>(this);
 
     updtSltrPstn();
@@ -186,6 +184,8 @@ uint8_t OfficialSeriesSelectorController::render(utils::Context* ctx)
     ctx->getWindow()->draw(itemFifthSerie);
     ctx->getWindow()->draw(itemSixthSerie);
     ctx->getWindow()->draw(itemSeventhSerie);
+
+    nextControllerId = animateScreenTransition(ctx);
 
     while(ctx->getWindow()->pollEvent(event))
     {
