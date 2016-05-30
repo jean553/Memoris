@@ -39,6 +39,17 @@ const std::string OfficialSeriesSelectorController::FIFTH_SERIE = "6. First seri
 const std::string OfficialSeriesSelectorController::SIXTH_SERIE = "7. First serie";
 const std::string OfficialSeriesSelectorController::SEVENTH_SERIE = "8. First serie";
 
+const uint8_t OfficialSeriesSelectorController::TUTORIAL_ITEM = 0;
+const uint8_t OfficialSeriesSelectorController::FIRST_SERIE_ITEM = 1;
+const uint8_t OfficialSeriesSelectorController::SECOND_SERIE_ITEM = 2;
+const uint8_t OfficialSeriesSelectorController::THIRD_SERIE_ITEM = 3;
+const uint8_t OfficialSeriesSelectorController::FOURTH_SERIE_ITEM = 4;
+const uint8_t OfficialSeriesSelectorController::FIFTH_SERIE_ITEM = 5;
+const uint8_t OfficialSeriesSelectorController::SIXTH_SERIE_ITEM = 6;
+const uint8_t OfficialSeriesSelectorController::SEVENTH_SERIE_ITEM = 7;
+const uint8_t OfficialSeriesSelectorController::SLTR_MAX = 7;
+const uint8_t OfficialSeriesSelectorController::SLTR_MIN = 0;
+
 const float_t OfficialSeriesSelectorController::TUTORIAL_HRTL_PSTN = 20.f;
 const float_t OfficialSeriesSelectorController::TUTORIAL_VRTL_PSTN = 200.f;
 const float_t OfficialSeriesSelectorController::FIRST_SERIE_HRTL_PSTN = 20.f;
@@ -163,7 +174,7 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController()
     );
 
     selectorDirection = 1;
-    selectorPosition = 0;
+    sltrPstn = 0;
 }
 
 /**
@@ -210,6 +221,18 @@ uint8_t OfficialSeriesSelectorController::render(utils::Context* ctx)
 
                 break;
             }
+            case sf::Keyboard::Up:
+            {
+                sltrPstn--;
+
+                break;
+            }
+            case sf::Keyboard::Down:
+            {
+                sltrPstn++;
+
+                break;
+            }
             }
         }
         }
@@ -223,6 +246,62 @@ uint8_t OfficialSeriesSelectorController::render(utils::Context* ctx)
  */
 void OfficialSeriesSelectorController::updtSltrPstn()
 {
-    /* TODO: for now, the position is fixed. Only the first item is selected. */
-    itemTutorial.setColor(colorSelector);
+    sltrPstn = (
+                   (sltrPstn > SLTR_MAX) ?
+                   SLTR_MIN :
+                   sltrPstn
+               );
+
+    itemTutorial.setColor(colorWhite);
+    itemFirstSerie.setColor(colorWhite);
+    itemSecondSerie.setColor(colorWhite);
+    itemThirdSerie.setColor(colorWhite);
+    itemFourthSerie.setColor(colorWhite);
+    itemFifthSerie.setColor(colorWhite);
+    itemSixthSerie.setColor(colorWhite);
+    itemSeventhSerie.setColor(colorWhite);
+
+    switch(sltrPstn)
+    {
+    case TUTORIAL_ITEM:
+    {
+        itemTutorial.setColor(colorSelector);
+        break;
+    }
+    case FIRST_SERIE_ITEM:
+    {
+        itemFirstSerie.setColor(colorSelector);
+        break;
+    }
+    case SECOND_SERIE_ITEM:
+    {
+        itemSecondSerie.setColor(colorSelector);
+        break;
+    }
+    case THIRD_SERIE_ITEM:
+    {
+        itemThirdSerie.setColor(colorSelector);
+        break;
+    }
+    case FOURTH_SERIE_ITEM:
+    {
+        itemFourthSerie.setColor(colorSelector);
+        break;
+    }
+    case FIFTH_SERIE_ITEM:
+    {
+        itemFifthSerie.setColor(colorSelector);
+        break;
+    }
+    case SIXTH_SERIE_ITEM:
+    {
+        itemSixthSerie.setColor(colorSelector);
+        break;
+    }
+    case SEVENTH_SERIE_ITEM:
+    {
+        itemSeventhSerie.setColor(colorSelector);
+        break;
+    }
+    }
 }
