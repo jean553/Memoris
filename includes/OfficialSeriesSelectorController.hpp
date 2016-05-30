@@ -67,6 +67,17 @@ private:
     static const std::string SEVENTH_SERIE;
     static const std::string OFF_SER_TITLE;
 
+    static const uint8_t TUTORIAL_ITEM;
+    static const uint8_t FIRST_SERIE_ITEM;
+    static const uint8_t SECOND_SERIE_ITEM;
+    static const uint8_t THIRD_SERIE_ITEM;
+    static const uint8_t FOURTH_SERIE_ITEM;
+    static const uint8_t FIFTH_SERIE_ITEM;
+    static const uint8_t SIXTH_SERIE_ITEM;
+    static const uint8_t SEVENTH_SERIE_ITEM;
+    static const uint8_t SLTR_MAX;
+    static const uint8_t SLTR_MIN;
+
     static const float_t TUTORIAL_HRTL_PSTN;
     static const float_t TUTORIAL_VRTL_PSTN;
     static const float_t FIRST_SERIE_HRTL_PSTN;
@@ -88,7 +99,7 @@ private:
 
     int8_t selectorDirection;
 
-    uint8_t selectorPosition;
+    uint8_t sltrPstn;
 
     sf::Color colorWhite;
     sf::Color colorSelector;
