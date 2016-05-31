@@ -30,6 +30,7 @@
 
 #include "Controller.hpp"
 #include "Context.hpp"
+#include "ErrController.hpp"
 
 namespace factories
 {
@@ -68,6 +69,17 @@ public:
         unsigned short id,
         utils::Context* pContext
     );
+
+private:
+
+    /**
+     * @brief returns a pointer to error controller
+     *
+     * @param msg error message to display in the error controller
+     *
+     * @return controllers::ErrController*
+     */
+    static controllers::ErrController* getErrCtrl(const std::string& msg);
 };
 }
 

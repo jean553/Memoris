@@ -52,7 +52,8 @@ OBJS = \
 	   build/CellsFileRepresentations.o \
 	   build/SerieMainMenuController.o \
 	   build/OfficialSeriesSelectorController.o \
-	   build/SprtTransition.o
+	   build/SprtTransition.o \
+	   build/ErrController.o
 
 INC = -I includes
 
@@ -213,6 +214,9 @@ build/SerieMainMenuController.o: src/SerieMainMenuController.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/OfficialSeriesSelectorController.o: src/OfficialSeriesSelectorController.cpp
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+
+build/ErrController.o: src/ErrController.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 # policies
