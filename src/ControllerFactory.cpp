@@ -35,6 +35,8 @@
 #include "OfficialSeriesSelectorController.hpp"
 #include "Messages.hpp"
 
+#include <iostream>
+
 using namespace factories;
 
 const unsigned short ControllerFactory::EXIT = 1;
@@ -75,7 +77,14 @@ controllers::Controller* ControllerFactory::getControllerById(
     case OPEN_LEVEL_CONTROLLER_ID:
         return new controllers::OpenLevelController;
     case GAME_CONTROLLER_ID:
-        return new controllers::GameController;
+        try
+        {
+            return new controllers::GameController;
+        }
+        catch(const std::invalid_argument& e)
+        {
+            return getErrCtrl(e.what());
+        }
     case SERIE_MAIN_MENU_CONTROLLER_ID:
         return new controllers::SerieMainMenuController;
     case OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID:
@@ -83,4 +92,12 @@ controllers::Controller* ControllerFactory::getControllerById(
     default:
         return NULL;
     }
+}
+
+/**
+ *
+ */
+controllers::ErrController* ControllerFactory::getErrCtrl(const std::string& msg)
+{
+    return new controllers::ErrController(msg);
 }

@@ -26,6 +26,8 @@
 #include "Cell.hpp"
 
 #include <fstream>
+#include <iostream>
+#include <stdexcept>
 
 using namespace utils;
 
@@ -56,15 +58,26 @@ bool FileWriter::writeFile(
  */
 std::string FileWriter::readFile(const std::string& fileName)
 {
-    /* TODO: check if the file has been opened correctly */
-    std::ifstream file(fileName);
+    std::ifstream file;
+    std::string cellsString;
 
-    std::string cellsString(
-        (std::istreambuf_iterator<char>(file)),
-        (std::istreambuf_iterator<char>())
-    );
+    file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 
-    file.close();
+    try
+    {
+        file.open(fileName);
+
+        cellsString.assign(
+            (std::istreambuf_iterator<char>(file)),
+            (std::istreambuf_iterator<char>())
+        );
+
+        file.close();
+    }
+    catch (const std::ifstream::failure& f)
+    {
+        throw std::invalid_argument("Cannot open the level " + fileName);
+    }
 
     return cellsString;
 }
