@@ -79,7 +79,9 @@ controllers::Controller* ControllerFactory::getControllerById(
     case GAME_CONTROLLER_ID:
         try
         {
-            return new controllers::GameController;
+            return new controllers::GameController(
+                       pContext->getNxtLvlStrPath()
+                   );
         }
         catch(const std::invalid_argument& e)
         {

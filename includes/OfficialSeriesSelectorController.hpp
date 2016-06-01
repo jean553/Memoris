@@ -66,6 +66,7 @@ private:
     static const std::string SIXTH_SERIE;
     static const std::string SEVENTH_SERIE;
     static const std::string OFF_SER_TITLE;
+    static const std::string TEMPORARY_DEFAULT_LEVEL;
 
     static const uint8_t TUTORIAL_ITEM;
     static const uint8_t FIRST_SERIE_ITEM;

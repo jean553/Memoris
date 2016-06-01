@@ -40,7 +40,10 @@ class GameController : public Controller
 {
 public:
 
-    GameController();
+    /**
+     * @param lvlFilePath path of the level to load
+     */
+    GameController(const std::string& lvlFilePath);
 
     /**
      * @brief renders the game main screen
@@ -115,7 +118,6 @@ private:
     static const uint8_t WATCH_TIME_INCREMENTATION;
     static const uint8_t DEFAULT_WATCH_TIME;
 
-    static const std::string TEMPORARY_DEFAULT_LEVEL;
     static const std::string STAR_IMG_PATH;
     static const std::string LIFE_IMG_PATH;
     static const std::string TOTAL_STARS_IMG_PATH;

@@ -38,6 +38,7 @@ const std::string OfficialSeriesSelectorController::FOURTH_SERIE = "5. First ser
 const std::string OfficialSeriesSelectorController::FIFTH_SERIE = "6. First serie";
 const std::string OfficialSeriesSelectorController::SIXTH_SERIE = "7. First serie";
 const std::string OfficialSeriesSelectorController::SEVENTH_SERIE = "8. First serie";
+const std::string OfficialSeriesSelectorController::TEMPORARY_DEFAULT_LEVEL = "data/levels/1.level";
 
 const uint8_t OfficialSeriesSelectorController::TUTORIAL_ITEM = 0;
 const uint8_t OfficialSeriesSelectorController::FIRST_SERIE_ITEM = 1;
@@ -216,6 +217,9 @@ uint8_t OfficialSeriesSelectorController::render(utils::Context* ctx)
             /* TODO: temporary solution, should be deleted */
             case sf::Keyboard::Return:
             {
+                /* TODO: the level should be specified according to the selected serie */
+                ctx->setNxtLvlStrPath(TEMPORARY_DEFAULT_LEVEL);
+
                 expectedControllerId =
                     factories::ControllerFactory::GAME_CONTROLLER_ID;
 

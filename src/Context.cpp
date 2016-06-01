@@ -148,3 +148,19 @@ void Context::addStringIntoStringsList(std::string newString)
 {
     stringsList.push_back(newString);
 }
+
+/**
+ *
+ */
+std::string Context::getNxtLvlStrPath() const
+{
+    return nxtLvlStrPath;
+}
+
+/**
+ *
+ */
+void Context::setNxtLvlStrPath(const std::string& path)
+{
+    nxtLvlStrPath = path;
+}
