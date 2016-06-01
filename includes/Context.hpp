@@ -118,6 +118,22 @@ public:
      */
     void addStringIntoStringsList(std::string newString);
 
+    /**
+     * @brief return the string of the path of the next level,
+     * used when call the game controller to specify the level
+     *
+     * @return std::string
+     */
+    std::string getNxtLvlStrPath() const;
+
+    /**
+     * @brief set the string of the path of the next level,
+     * used when call the game controller to specify the level
+     *
+     * @param path string of the level file path
+     */
+    void setNxtLvlStrPath(const std::string& path);
+
 private:
 
     sf::RenderWindow* pWindow;
@@ -131,6 +147,8 @@ private:
     std::map<std::string, std::string> messages;
 
     std::vector<std::string> stringsList;
+
+    std::string nxtLvlStrPath;
 };
 }
 

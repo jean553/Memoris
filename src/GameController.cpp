@@ -37,7 +37,6 @@
 
 using namespace controllers;
 
-const std::string GameController::TEMPORARY_DEFAULT_LEVEL = "data/levels/1.level";
 const std::string GameController::STAR_IMG_PATH = "res/images/star.png";
 const std::string GameController::LIFE_IMG_PATH = "res/images/life.png";
 const std::string GameController::TOTAL_STARS_IMG_PATH = "res/images/target.png";
@@ -82,7 +81,7 @@ const float_t GameController::FLOOR_IMG_VRTL_PSTN = 0;
 /**
  *
  */
-GameController::GameController() : Controller(), level(0, 0)
+GameController::GameController(const std::string& lvlFilePath) : Controller(), level(0, 0)
 {
     starCellsAmount = 0;
     lifesAmount = 0;
@@ -106,7 +105,7 @@ GameController::GameController() : Controller(), level(0, 0)
     );
 
     /* TODO: use a constant level name for now... */
-    level.loadCells(utils::FileWriter::readFile(TEMPORARY_DEFAULT_LEVEL));
+    level.loadCells(utils::FileWriter::readFile(lvlFilePath));
     level.setCellsCursorSensitivity(false);
 
     fontTime.loadFromFile(constants::Fonts::getTextFontPath());
