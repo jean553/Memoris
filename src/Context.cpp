@@ -164,3 +164,11 @@ void Context::setNxtLvlStrPath(const std::string& path)
 {
     nxtLvlStrPath = path;
 }
+
+/**
+ *
+ */
+void Context::removeAllStrings()
+{
+    stringsList.clear();
+}

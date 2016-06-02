@@ -134,6 +134,11 @@ public:
      */
     void setNxtLvlStrPath(const std::string& path);
 
+    /**
+     * @brief remove all the strings from the strings list
+     */
+    void removeAllStrings();
+
 private:
 
     sf::RenderWindow* pWindow;

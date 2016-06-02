@@ -63,6 +63,24 @@ public:
         std::string mainString,
         std::string subString
     );
+
+    /**
+     * @brief split string according to the given sperator
+     *
+     * @param strToSplt string to split
+     * @param sprt string separator
+     *
+     * @return std::vector<std::string>
+     */
+    static std::vector<std::string> splitString(
+        std::string strToSplt,
+        const char& sprt
+    );
+
+private:
+
+    static const std::string LVLS_DIR;
+    static const std::string LVLS_EXT;
 };
 }
 
