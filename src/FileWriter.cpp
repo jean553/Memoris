@@ -24,6 +24,7 @@
 
 #include "FileWriter.hpp"
 #include "Cell.hpp"
+#include "StringsListsUtils.hpp"
 
 #include <fstream>
 #include <iostream>
@@ -80,4 +81,15 @@ std::string FileWriter::readFile(const std::string& fileName)
     }
 
     return cellsString;
+}
+
+/**
+ *
+ */
+std::vector<std::string> FileWriter::readFileWithSprt(const std::string& filePath)
+{
+    return utils::StringsListsUtils::splitString(
+               readFile(filePath),
+               '|'
+           );
 }

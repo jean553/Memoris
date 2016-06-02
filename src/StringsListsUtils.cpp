@@ -26,8 +26,13 @@
 #include "StringsListsUtils.hpp"
 
 #include <algorithm>
+#include <sstream>
+#include <string>
 
 using namespace utils;
+
+const std::string StringsListsUtils::LVLS_DIR = "data/levels/";
+const std::string StringsListsUtils::LVLS_EXT = ".level";
 
 /**
  *
@@ -61,4 +66,36 @@ unsigned int StringsListsUtils::getSubStringAmountInString(
     }
 
     return counter;
+}
+
+/**
+ *
+ */
+std::vector<std::string> StringsListsUtils::splitString(
+    std::string strToSplt,
+    const char& sprt
+)
+{
+    std::vector<std::string> arr;
+
+    /* replace separator by blank spaces */
+    for (uint8_t i = 0; i < strToSplt.length(); i++)
+    {
+        if (strToSplt[i] == sprt)
+        {
+            strToSplt[i] = ' ';
+        }
+    }
+
+    /* stringstream can 'see' the strings separated by blank space */
+    std::stringstream stream(strToSplt);
+    std::string tmp;
+
+    /* each string can now be accessed by iterating the string stream */
+    while (stream >> tmp)
+    {
+        arr.push_back(LVLS_DIR + tmp + LVLS_EXT);
+    }
+
+    return arr;
 }
