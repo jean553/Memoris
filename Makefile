@@ -53,7 +53,8 @@ OBJS = \
 	   build/SerieMainMenuController.o \
 	   build/OfficialSeriesSelectorController.o \
 	   build/SprtTransition.o \
-	   build/ErrController.o
+	   build/ErrController.o \
+	   build/ScrollableListWidget.o
 
 INC = -I includes
 
@@ -182,6 +183,9 @@ build/FrameWidget.o: src/FrameWidget.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/Widget.o: src/Widget.cpp
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+
+build/ScrollableListWidget.o: src/ScrollableListWidget.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 # controllers
