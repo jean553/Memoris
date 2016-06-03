@@ -6,11 +6,11 @@ License : GNU GPL v3
 
 ![Image 1](github/readme.png)
 
-Memoris is a video game developed in C++ using the SFML library. During the game, the player moves a pin on a 2D map. The map contains floors. Each floor contains cells. The player can move the pin from one cell to another. The goal is to move the pin from the departure to the arrival, find all the stars on the map, take the bonus ( life, time... etc... ), avoid the malus ( life manus one, less time... etc... )... etc... The map contains different kind of events that change the cells dispositions ( horizontal/vertical symmetry, rotation, translation, move from one floor to another... etc... ).
+Memoris is a video game developed in C++ using the SFML library. During the game, the player moves a pin on a 2D map. The map contains floors. Each floor contains cells. The player can move the pin from one cell to another. The goal is to move the pin from the departure to the arrival, find all the stars on the map, take the bonus ( life, time... etc... ), avoid the malus ( life minus one, less time... etc... )... etc... The map contains different kind of events that change the cells dispositions ( horizontal/vertical symmetry, rotation, translation, move from one floor to another... etc... ).
 
 Before each level, the player can see all the cells of the level during a limited time ( a few seconds... ). After this period, all the cells of the level are hidden and the pin can move.
 
-The game is divided into series, each serie contains different level. Levels are integrated into the game. The player can also create his own series and levels.
+The game is divided into series, each series contain different level. Levels are integrated into the game. The player can also create his own series and levels.
 
 **NOTE: this work is in progress. Some features are not implemented yet, some of them are partially implemented.**
 
@@ -18,7 +18,7 @@ The game is divided into series, each serie contains different level. Levels are
 
 **Any developer, musician or designer is welcome to participate in the Memoris project !** 
 
-Just keep in mind that the project is free and open source. There is no reward... only two things : learning and having fun ! :) Anyone is invited to open issues, provide functionnalities, test the game, bring ideas, refactor code ( yeah... I'm sorry... :( ), create musics, create fonts, create pictures and more !
+Just keep in mind that the project is free and open source. There is no reward... only two things : learning and having fun ! :) Anyone is invited to open issues, provide functionality, test the game, bring ideas, refactor code ( yeah... I'm sorry... :( ), compose musics, create fonts, create pictures and more !
 
 ### License and credits
 
