@@ -1,4 +1,4 @@
-/**
+/*
  * Memoris
  * Copyright (C) 2015  Jean LELIEVRE
  *
@@ -17,27 +17,12 @@
 */
 
 /**
- * Keyboard scrollable strings list
- *
- * @file ScrollableListWidget.hpp
- * @brief a scrollable strings list with animated arrows
+ * @file ScrollableListWidgetItem.cpp
+ * @brief scrollable list item
  * @package widgets
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_SCROLLABLE_LIST_WIDGET
-#define DEF_SCROLLABLE_LIST_WIDGET
-
-#include "Widget.hpp"
 #include "ScrollableListWidgetItem.hpp"
 
-namespace widgets
-{
-class ScrollableListWidget : public Widget
-{
-private:
-    std::vector<widgets::ScrollableListWidgetItem> itemsList;
-};
-}
-
-#endif
+using namespace widgets;

@@ -17,26 +17,30 @@
 */
 
 /**
- * Keyboard scrollable strings list
+ * Keyboard scrollable strings list item
  *
- * @file ScrollableListWidget.hpp
- * @brief a scrollable strings list with animated arrows
+ * @file ScrollableListWidgetItem.hpp
+ * @brief a scrollable strings list item with animated arrows
  * @package widgets
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_SCROLLABLE_LIST_WIDGET
-#define DEF_SCROLLABLE_LIST_WIDGET
+#ifndef DEF_SCROLLABLE_LIST_WIDGET_ITEM
+#define DEF_SCROLLABLE_LIST_WIDGET_ITEM
 
-#include "Widget.hpp"
-#include "ScrollableListWidgetItem.hpp"
+#include <SFML/Graphics.hpp>
+#include <string>
+#include <vector>
 
 namespace widgets
 {
-class ScrollableListWidget : public Widget
+class ScrollableListWidgetItem
 {
 private:
-    std::vector<widgets::ScrollableListWidgetItem> itemsList;
+
+    std::vector<std::string> strList;
+
+    std::vector<sf::Text> txtList;
 };
 }
 
