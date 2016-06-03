@@ -41,6 +41,9 @@ const std::string OfficialSeriesSelectorController::SIXTH_SERIE = "7. First seri
 const std::string OfficialSeriesSelectorController::SEVENTH_SERIE = "8. First serie";
 const std::string OfficialSeriesSelectorController::TEMPORARY_DEFAULT_SERIE = "data/series/1.serie";
 
+/* TODO: should be another kind of arrow, keep this one for now... */
+const std::string OfficialSeriesSelectorController::ARR_DOWN_IMG_PATH = "res/images/down.png";
+
 const uint8_t OfficialSeriesSelectorController::TUTORIAL_ITEM = 0;
 const uint8_t OfficialSeriesSelectorController::FIRST_SERIE_ITEM = 1;
 const uint8_t OfficialSeriesSelectorController::SECOND_SERIE_ITEM = 2;
@@ -70,6 +73,8 @@ const float_t OfficialSeriesSelectorController::SEVENTH_SERIE_HRTL_PSTN = 20.f;
 const float_t OfficialSeriesSelectorController::SEVENTH_SERIE_VRTL_PSTN = 760.f;
 const float_t OfficialSeriesSelectorController::OFF_SER_TITLE_HRTL_PSTN = 550.f;
 const float_t OfficialSeriesSelectorController::OFF_SER_TITLE_VRTL_PSTN = 50.f;
+const float_t OfficialSeriesSelectorController::ARR_DOWN_HRTL_PSTN = 790.f;
+const float_t OfficialSeriesSelectorController::ARR_DOWN_VRTL_PSTN = 850.f;
 
 /**
  *
@@ -175,6 +180,14 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController()
         SEVENTH_SERIE_VRTL_PSTN
     );
 
+    arrDownTxt.loadFromFile(ARR_DOWN_IMG_PATH);
+
+    arrDownSprt.setTexture(arrDownTxt);
+    arrDownSprt.setPosition(
+        ARR_DOWN_HRTL_PSTN,
+        ARR_DOWN_VRTL_PSTN
+    );
+
     selectorDirection = 1;
     sltrPstn = 0;
 }
@@ -197,6 +210,7 @@ uint8_t OfficialSeriesSelectorController::render(utils::Context* ctx)
     ctx->getWindow()->draw(itemFifthSerie);
     ctx->getWindow()->draw(itemSixthSerie);
     ctx->getWindow()->draw(itemSeventhSerie);
+    ctx->getWindow()->draw(arrDownSprt);
 
     nextControllerId = animateScreenTransition(ctx);
 

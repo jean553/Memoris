@@ -67,6 +67,7 @@ private:
     static const std::string SEVENTH_SERIE;
     static const std::string OFF_SER_TITLE;
     static const std::string TEMPORARY_DEFAULT_SERIE;
+    static const std::string ARR_DOWN_IMG_PATH;
 
     static const uint8_t TUTORIAL_ITEM;
     static const uint8_t FIRST_SERIE_ITEM;
@@ -97,6 +98,8 @@ private:
     static const float_t SEVENTH_SERIE_VRTL_PSTN;
     static const float_t OFF_SER_TITLE_HRTL_PSTN;
     static const float_t OFF_SER_TITLE_VRTL_PSTN;
+    static const float_t ARR_DOWN_HRTL_PSTN;
+    static const float_t ARR_DOWN_VRTL_PSTN;
 
     int8_t selectorDirection;
 
@@ -120,8 +123,11 @@ private:
     sf::Text itemFifthSerie;
     sf::Text itemSixthSerie;
     sf::Text itemSeventhSerie;
-
     sf::Text offSerTitle;
+
+    sf::Texture arrDownTxt;
+
+    sf::Sprite arrDownSprt;
 };
 }
 
