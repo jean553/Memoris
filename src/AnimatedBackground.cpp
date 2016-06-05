@@ -56,8 +56,6 @@ AnimatedBackground::AnimatedBackground()
  */
 void AnimatedBackground::animate(utils::Context* ctx)
 {
-    changeCellsPosition();
-
     for (
         std::vector<entities::Cell>::iterator cell = cells.begin();
         cell != cells.end();
@@ -122,41 +120,6 @@ void AnimatedBackground::initializeCells()
             }
         }
     }
-}
-
-/**
- *
- */
-void AnimatedBackground::changeCellsPosition()
-{
-    if(clock.getElapsedTime().asMilliseconds() <= ANIMATION_INTERVAL)
-    {
-        return;
-    }
-
-    float_t hrtlPstn = 0, vrtlPstn = 0;
-
-    for (
-        std::vector<entities::Cell>::iterator cell = cells.begin();
-        cell != cells.end();
-        ++cell
-    )
-    {
-        hrtlPstn = cell->getHorizontalPosition();
-        vrtlPstn = cell->getVerticalPosition();
-
-        hrtlPstn += 1;
-
-        /* put back the cell at the beginning if the cell is out of the screen */
-        if (hrtlPstn > constants::Window::WIDTH)
-        {
-            hrtlPstn = CELL_ORIGINAL_HRTL_PSTN;
-        }
-
-        cell->setPosition(hrtlPstn, vrtlPstn);
-    }
-
-    clock.restart();
 }
 
 /**

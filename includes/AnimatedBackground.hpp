@@ -64,11 +64,6 @@ private:
     void initializeCells();
 
     /**
-     * @brief update the position of the cells
-     */
-    void changeCellsPosition();
-
-    /**
      * @brief initialize the cells lib array
      */
     void initializeCellsLib();
