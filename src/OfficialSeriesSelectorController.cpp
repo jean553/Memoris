@@ -32,49 +32,20 @@ using namespace controllers;
 
 const std::string OfficialSeriesSelectorController::OFF_SER_TITLE = "Official series";
 const std::string OfficialSeriesSelectorController::TUTORIAL = "1. Tutorial";
-const std::string OfficialSeriesSelectorController::FIRST_SERIE = "2. First serie";
-const std::string OfficialSeriesSelectorController::SECOND_SERIE = "3. First serie";
-const std::string OfficialSeriesSelectorController::THIRD_SERIE = "4. First serie";
-const std::string OfficialSeriesSelectorController::FOURTH_SERIE = "5. First serie";
-const std::string OfficialSeriesSelectorController::FIFTH_SERIE = "6. First serie";
-const std::string OfficialSeriesSelectorController::SIXTH_SERIE = "7. First serie";
-const std::string OfficialSeriesSelectorController::SEVENTH_SERIE = "8. First serie";
 const std::string OfficialSeriesSelectorController::TEMPORARY_DEFAULT_SERIE = "data/series/1.serie";
 
 /* TODO: should be another kind of arrow, keep this one for now... */
 const std::string OfficialSeriesSelectorController::ARR_DOWN_IMG_PATH = "res/images/down.png";
 
-const uint8_t OfficialSeriesSelectorController::TUTORIAL_ITEM = 0;
-const uint8_t OfficialSeriesSelectorController::FIRST_SERIE_ITEM = 1;
-const uint8_t OfficialSeriesSelectorController::SECOND_SERIE_ITEM = 2;
-const uint8_t OfficialSeriesSelectorController::THIRD_SERIE_ITEM = 3;
-const uint8_t OfficialSeriesSelectorController::FOURTH_SERIE_ITEM = 4;
-const uint8_t OfficialSeriesSelectorController::FIFTH_SERIE_ITEM = 5;
-const uint8_t OfficialSeriesSelectorController::SIXTH_SERIE_ITEM = 6;
-const uint8_t OfficialSeriesSelectorController::SEVENTH_SERIE_ITEM = 7;
-const uint8_t OfficialSeriesSelectorController::SLTR_MAX = 7;
-const uint8_t OfficialSeriesSelectorController::SLTR_MIN = 0;
+const uint8_t OfficialSeriesSelectorController::ITEMS_AMNT = 8;
 
-const float_t OfficialSeriesSelectorController::TUTORIAL_HRTL_PSTN = 20.f;
-const float_t OfficialSeriesSelectorController::TUTORIAL_VRTL_PSTN = 200.f;
-const float_t OfficialSeriesSelectorController::FIRST_SERIE_HRTL_PSTN = 20.f;
-const float_t OfficialSeriesSelectorController::FIRST_SERIE_VRTL_PSTN = 280.f;
-const float_t OfficialSeriesSelectorController::SECOND_SERIE_HRTL_PSTN = 20.f;
-const float_t OfficialSeriesSelectorController::SECOND_SERIE_VRTL_PSTN = 360.f;
-const float_t OfficialSeriesSelectorController::THIRD_SERIE_HRTL_PSTN = 20.f;
-const float_t OfficialSeriesSelectorController::THIRD_SERIE_VRTL_PSTN = 440.f;
-const float_t OfficialSeriesSelectorController::FOURTH_SERIE_HRTL_PSTN = 20.f;
-const float_t OfficialSeriesSelectorController::FOURTH_SERIE_VRTL_PSTN = 520.f;
-const float_t OfficialSeriesSelectorController::FIFTH_SERIE_HRTL_PSTN = 20.f;
-const float_t OfficialSeriesSelectorController::FIFTH_SERIE_VRTL_PSTN = 600.f;
-const float_t OfficialSeriesSelectorController::SIXTH_SERIE_HRTL_PSTN = 20.f;
-const float_t OfficialSeriesSelectorController::SIXTH_SERIE_VRTL_PSTN = 680.f;
-const float_t OfficialSeriesSelectorController::SEVENTH_SERIE_HRTL_PSTN = 20.f;
-const float_t OfficialSeriesSelectorController::SEVENTH_SERIE_VRTL_PSTN = 760.f;
 const float_t OfficialSeriesSelectorController::OFF_SER_TITLE_HRTL_PSTN = 550.f;
 const float_t OfficialSeriesSelectorController::OFF_SER_TITLE_VRTL_PSTN = 50.f;
 const float_t OfficialSeriesSelectorController::ARR_DOWN_HRTL_PSTN = 790.f;
 const float_t OfficialSeriesSelectorController::ARR_DOWN_VRTL_PSTN = 850.f;
+const float_t OfficialSeriesSelectorController::SLTR_HRTL_PSTN = 20.f;
+const float_t OfficialSeriesSelectorController::SLTR_VRTL_PSTN = 200.f;
+const float_t OfficialSeriesSelectorController::SLTR_VRTL_SPRT = 80.f;
 
 /**
  *
@@ -108,78 +79,6 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController()
         OFF_SER_TITLE_VRTL_PSTN
     );
 
-    itemTutorial.setFont(fontItem);
-    itemTutorial.setString(TUTORIAL);
-    itemTutorial.setCharacterSize(constants::Fonts::SIZE_ITEM_FONT);
-    itemTutorial.setColor(colorSelector);
-    itemTutorial.setPosition(
-        TUTORIAL_HRTL_PSTN,
-        TUTORIAL_VRTL_PSTN
-    );
-
-    itemFirstSerie.setFont(fontItem);
-    itemFirstSerie.setString(FIRST_SERIE);
-    itemFirstSerie.setCharacterSize(constants::Fonts::SIZE_ITEM_FONT);
-    itemFirstSerie.setColor(colorWhite);
-    itemFirstSerie.setPosition(
-        FIRST_SERIE_HRTL_PSTN,
-        FIRST_SERIE_VRTL_PSTN
-    );
-
-    itemSecondSerie.setFont(fontItem);
-    itemSecondSerie.setString(SECOND_SERIE);
-    itemSecondSerie.setCharacterSize(constants::Fonts::SIZE_ITEM_FONT);
-    itemSecondSerie.setColor(colorWhite);
-    itemSecondSerie.setPosition(
-        SECOND_SERIE_HRTL_PSTN,
-        SECOND_SERIE_VRTL_PSTN
-    );
-
-    itemThirdSerie.setFont(fontItem);
-    itemThirdSerie.setString(THIRD_SERIE);
-    itemThirdSerie.setCharacterSize(constants::Fonts::SIZE_ITEM_FONT);
-    itemThirdSerie.setColor(colorWhite);
-    itemThirdSerie.setPosition(
-        THIRD_SERIE_HRTL_PSTN,
-        THIRD_SERIE_VRTL_PSTN
-    );
-
-    itemFourthSerie.setFont(fontItem);
-    itemFourthSerie.setString(FOURTH_SERIE);
-    itemFourthSerie.setCharacterSize(constants::Fonts::SIZE_ITEM_FONT);
-    itemFourthSerie.setColor(colorWhite);
-    itemFourthSerie.setPosition(
-        FOURTH_SERIE_HRTL_PSTN,
-        FOURTH_SERIE_VRTL_PSTN
-    );
-
-    itemFifthSerie.setFont(fontItem);
-    itemFifthSerie.setString(FIFTH_SERIE);
-    itemFifthSerie.setCharacterSize(constants::Fonts::SIZE_ITEM_FONT);
-    itemFifthSerie.setColor(colorWhite);
-    itemFifthSerie.setPosition(
-        FIFTH_SERIE_HRTL_PSTN,
-        FIFTH_SERIE_VRTL_PSTN
-    );
-
-    itemSixthSerie.setFont(fontItem);
-    itemSixthSerie.setString(SIXTH_SERIE);
-    itemSixthSerie.setCharacterSize(constants::Fonts::SIZE_ITEM_FONT);
-    itemSixthSerie.setColor(colorWhite);
-    itemSixthSerie.setPosition(
-        SIXTH_SERIE_HRTL_PSTN,
-        SIXTH_SERIE_VRTL_PSTN
-    );
-
-    itemSeventhSerie.setFont(fontItem);
-    itemSeventhSerie.setString(SEVENTH_SERIE);
-    itemSeventhSerie.setCharacterSize(constants::Fonts::SIZE_ITEM_FONT);
-    itemSeventhSerie.setColor(colorWhite);
-    itemSeventhSerie.setPosition(
-        SEVENTH_SERIE_HRTL_PSTN,
-        SEVENTH_SERIE_VRTL_PSTN
-    );
-
     arrDownTxt.loadFromFile(ARR_DOWN_IMG_PATH);
 
     arrDownSprt.setTexture(arrDownTxt);
@@ -190,6 +89,9 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController()
 
     selectorDirection = 1;
     sltrPstn = 0;
+
+    /* generate the series names list */
+    createItems();
 }
 
 /**
@@ -202,15 +104,12 @@ uint8_t OfficialSeriesSelectorController::render(utils::Context* ctx)
     updtSltrPstn();
 
     ctx->getWindow()->draw(offSerTitle);
-    ctx->getWindow()->draw(itemTutorial);
-    ctx->getWindow()->draw(itemFirstSerie);
-    ctx->getWindow()->draw(itemSecondSerie);
-    ctx->getWindow()->draw(itemThirdSerie);
-    ctx->getWindow()->draw(itemFourthSerie);
-    ctx->getWindow()->draw(itemFifthSerie);
-    ctx->getWindow()->draw(itemSixthSerie);
-    ctx->getWindow()->draw(itemSeventhSerie);
     ctx->getWindow()->draw(arrDownSprt);
+
+    for (sf::Text& item : txtItems)
+    {
+        ctx->getWindow()->draw(item);
+    }
 
     nextControllerId = animateScreenTransition(ctx);
 
@@ -268,62 +167,34 @@ uint8_t OfficialSeriesSelectorController::render(utils::Context* ctx)
  */
 void OfficialSeriesSelectorController::updtSltrPstn()
 {
-    sltrPstn = (
-                   (sltrPstn > SLTR_MAX) ?
-                   SLTR_MIN :
-                   sltrPstn
-               );
+    sltrPstn = ((sltrPstn > ITEMS_AMNT - 1) ? 0 : sltrPstn);
 
-    itemTutorial.setColor(colorWhite);
-    itemFirstSerie.setColor(colorWhite);
-    itemSecondSerie.setColor(colorWhite);
-    itemThirdSerie.setColor(colorWhite);
-    itemFourthSerie.setColor(colorWhite);
-    itemFifthSerie.setColor(colorWhite);
-    itemSixthSerie.setColor(colorWhite);
-    itemSeventhSerie.setColor(colorWhite);
+    for (sf::Text& item : txtItems)
+    {
+        item.setColor(colorWhite);
+    }
 
-    switch(sltrPstn)
+    txtItems[sltrPstn].setColor(colorSelector);
+}
+
+/**
+ *
+ */
+void OfficialSeriesSelectorController::createItems()
+{
+    for (uint8_t i = 0; i < ITEMS_AMNT; i++)
     {
-    case TUTORIAL_ITEM:
-    {
-        itemTutorial.setColor(colorSelector);
-        break;
-    }
-    case FIRST_SERIE_ITEM:
-    {
-        itemFirstSerie.setColor(colorSelector);
-        break;
-    }
-    case SECOND_SERIE_ITEM:
-    {
-        itemSecondSerie.setColor(colorSelector);
-        break;
-    }
-    case THIRD_SERIE_ITEM:
-    {
-        itemThirdSerie.setColor(colorSelector);
-        break;
-    }
-    case FOURTH_SERIE_ITEM:
-    {
-        itemFourthSerie.setColor(colorSelector);
-        break;
-    }
-    case FIFTH_SERIE_ITEM:
-    {
-        itemFifthSerie.setColor(colorSelector);
-        break;
-    }
-    case SIXTH_SERIE_ITEM:
-    {
-        itemSixthSerie.setColor(colorSelector);
-        break;
-    }
-    case SEVENTH_SERIE_ITEM:
-    {
-        itemSeventhSerie.setColor(colorSelector);
-        break;
-    }
+        sf::Text txt;
+
+        txt.setFont(fontItem);
+        txt.setString(TUTORIAL);
+        txt.setCharacterSize(constants::Fonts::SIZE_ITEM_FONT);
+        txt.setColor(colorSelector);
+        txt.setPosition(
+            SLTR_HRTL_PSTN,
+            SLTR_VRTL_PSTN + SLTR_VRTL_SPRT * i
+        );
+
+        txtItems.push_back(txt);
     }
 }

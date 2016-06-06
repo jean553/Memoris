@@ -57,49 +57,25 @@ private:
      */
     void updtSltrPstn();
 
+    /**
+     * @brief create the items
+     */
+    void createItems();
+
     static const std::string TUTORIAL;
-    static const std::string FIRST_SERIE;
-    static const std::string SECOND_SERIE;
-    static const std::string THIRD_SERIE;
-    static const std::string FOURTH_SERIE;
-    static const std::string FIFTH_SERIE;
-    static const std::string SIXTH_SERIE;
-    static const std::string SEVENTH_SERIE;
     static const std::string OFF_SER_TITLE;
     static const std::string TEMPORARY_DEFAULT_SERIE;
     static const std::string ARR_DOWN_IMG_PATH;
 
-    static const uint8_t TUTORIAL_ITEM;
-    static const uint8_t FIRST_SERIE_ITEM;
-    static const uint8_t SECOND_SERIE_ITEM;
-    static const uint8_t THIRD_SERIE_ITEM;
-    static const uint8_t FOURTH_SERIE_ITEM;
-    static const uint8_t FIFTH_SERIE_ITEM;
-    static const uint8_t SIXTH_SERIE_ITEM;
-    static const uint8_t SEVENTH_SERIE_ITEM;
-    static const uint8_t SLTR_MAX;
-    static const uint8_t SLTR_MIN;
+    static const uint8_t ITEMS_AMNT;
 
-    static const float_t TUTORIAL_HRTL_PSTN;
-    static const float_t TUTORIAL_VRTL_PSTN;
-    static const float_t FIRST_SERIE_HRTL_PSTN;
-    static const float_t FIRST_SERIE_VRTL_PSTN;
-    static const float_t SECOND_SERIE_HRTL_PSTN;
-    static const float_t SECOND_SERIE_VRTL_PSTN;
-    static const float_t THIRD_SERIE_HRTL_PSTN;
-    static const float_t THIRD_SERIE_VRTL_PSTN;
-    static const float_t FOURTH_SERIE_HRTL_PSTN;
-    static const float_t FOURTH_SERIE_VRTL_PSTN;
-    static const float_t FIFTH_SERIE_HRTL_PSTN;
-    static const float_t FIFTH_SERIE_VRTL_PSTN;
-    static const float_t SIXTH_SERIE_HRTL_PSTN;
-    static const float_t SIXTH_SERIE_VRTL_PSTN;
-    static const float_t SEVENTH_SERIE_HRTL_PSTN;
-    static const float_t SEVENTH_SERIE_VRTL_PSTN;
     static const float_t OFF_SER_TITLE_HRTL_PSTN;
     static const float_t OFF_SER_TITLE_VRTL_PSTN;
     static const float_t ARR_DOWN_HRTL_PSTN;
     static const float_t ARR_DOWN_VRTL_PSTN;
+    static const float_t SLTR_HRTL_PSTN;
+    static const float_t SLTR_VRTL_PSTN;
+    static const float_t SLTR_VRTL_SPRT;
 
     int8_t selectorDirection;
 
@@ -112,18 +88,9 @@ private:
     sf::Font fontItem;
     sf::Font fontTitle;
 
-    /* TODO: except the tutorial item, all the other items
-     * are not used and just displayed to show the expected
-     * final result */
-    sf::Text itemTutorial;
-    sf::Text itemFirstSerie;
-    sf::Text itemSecondSerie;
-    sf::Text itemThirdSerie;
-    sf::Text itemFourthSerie;
-    sf::Text itemFifthSerie;
-    sf::Text itemSixthSerie;
-    sf::Text itemSeventhSerie;
     sf::Text offSerTitle;
+
+    std::vector<sf::Text> txtItems;
 
     sf::Texture arrDownTxt;
 
