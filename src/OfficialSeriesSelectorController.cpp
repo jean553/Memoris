@@ -31,39 +31,22 @@
 using namespace controllers;
 
 const std::string OfficialSeriesSelectorController::OFF_SER_TITLE = "Official series";
-const std::string OfficialSeriesSelectorController::TUTORIAL = "1. Tutorial";
 const std::string OfficialSeriesSelectorController::TEMPORARY_DEFAULT_SERIE = "data/series/1.serie";
 
 /* TODO: should be another kind of arrow, keep this one for now... */
 const std::string OfficialSeriesSelectorController::ARR_DOWN_IMG_PATH = "res/images/down.png";
 
-const uint8_t OfficialSeriesSelectorController::ITEMS_AMNT = 8;
-
 const float_t OfficialSeriesSelectorController::OFF_SER_TITLE_HRTL_PSTN = 550.f;
 const float_t OfficialSeriesSelectorController::OFF_SER_TITLE_VRTL_PSTN = 50.f;
 const float_t OfficialSeriesSelectorController::ARR_DOWN_HRTL_PSTN = 790.f;
 const float_t OfficialSeriesSelectorController::ARR_DOWN_VRTL_PSTN = 850.f;
-const float_t OfficialSeriesSelectorController::SLTR_HRTL_PSTN = 20.f;
-const float_t OfficialSeriesSelectorController::SLTR_VRTL_PSTN = 200.f;
-const float_t OfficialSeriesSelectorController::SLTR_VRTL_SPRT = 80.f;
 
 /**
  *
  */
 OfficialSeriesSelectorController::OfficialSeriesSelectorController()
 {
-    fontItem.loadFromFile(constants::Fonts::getTextFontPath());
     fontTitle.loadFromFile(constants::Fonts::getTitleFontPath());
-
-    colorWhite.r = constants::Colors::COLOR_WHITE_RED;
-    colorWhite.g = constants::Colors::COLOR_WHITE_GREEN;
-    colorWhite.b = constants::Colors::COLOR_WHITE_BLUE;
-    colorWhite.a = constants::Colors::COLOR_ALPHA_FULL;
-
-    colorSelector.r = constants::Colors::COLOR_RED_RED;
-    colorSelector.g = constants::Colors::COLOR_RED_GREEN;
-    colorSelector.b = constants::Colors::COLOR_RED_BLUE;
-    colorSelector.a = constants::Colors::COLOR_ALPHA_FULL;
 
     colorTitle.r = constants::Colors::COLOR_LIGHT_BLUE_RED;
     colorTitle.g = constants::Colors::COLOR_LIGHT_BLUE_GREEN;
@@ -87,9 +70,6 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController()
         ARR_DOWN_VRTL_PSTN
     );
 
-    selectorDirection = 1;
-    sltrPstn = 0;
-
     /* generate the series names list */
     createItems();
 }
@@ -99,17 +79,12 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController()
  */
 uint8_t OfficialSeriesSelectorController::render(utils::Context* ctx)
 {
-    policies::HasMenuSelectorAnimation::animateMenuSelector<OfficialSeriesSelectorController>(this);
-
-    updtSltrPstn();
+    scrlList.updtSltrPstn();
 
     ctx->getWindow()->draw(offSerTitle);
     ctx->getWindow()->draw(arrDownSprt);
 
-    for (sf::Text& item : txtItems)
-    {
-        ctx->getWindow()->draw(item);
-    }
+    scrlList.display(ctx);
 
     nextControllerId = animateScreenTransition(ctx);
 
@@ -144,13 +119,13 @@ uint8_t OfficialSeriesSelectorController::render(utils::Context* ctx)
             }
             case sf::Keyboard::Up:
             {
-                sltrPstn--;
+                scrlList.decSltrPstn();
 
                 break;
             }
             case sf::Keyboard::Down:
             {
-                sltrPstn++;
+                scrlList.incSltrPstn();
 
                 break;
             }
@@ -165,36 +140,23 @@ uint8_t OfficialSeriesSelectorController::render(utils::Context* ctx)
 /**
  *
  */
-void OfficialSeriesSelectorController::updtSltrPstn()
-{
-    sltrPstn = ((sltrPstn > ITEMS_AMNT - 1) ? 0 : sltrPstn);
-
-    for (sf::Text& item : txtItems)
-    {
-        item.setColor(colorWhite);
-    }
-
-    txtItems[sltrPstn].setColor(colorSelector);
-}
-
-/**
- *
- */
 void OfficialSeriesSelectorController::createItems()
 {
-    for (uint8_t i = 0; i < ITEMS_AMNT; i++)
+    /* TODO: the list is generated here for
+     * official series... maybe it should be
+     * in a better place... */
+    std::vector<std::string> strList =
     {
-        sf::Text txt;
+        "1. tutorial",
+        "2. a serie",
+        "3. another serie",
+        "4. another serie",
+        "5. another serie",
+        "6. another serie",
+        "7. another serie",
+        "8. another serie",
+        "9. another serie"
+    };
 
-        txt.setFont(fontItem);
-        txt.setString(TUTORIAL);
-        txt.setCharacterSize(constants::Fonts::SIZE_ITEM_FONT);
-        txt.setColor(colorSelector);
-        txt.setPosition(
-            SLTR_HRTL_PSTN,
-            SLTR_VRTL_PSTN + SLTR_VRTL_SPRT * i
-        );
-
-        txtItems.push_back(txt);
-    }
+    scrlList.initFromStrArr(strList);
 }

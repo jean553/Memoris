@@ -29,14 +29,12 @@
 #define DEF_OFFICIAL_SERIES_SELECTOR_MENU
 
 #include "Controller.hpp"
-#include "HasMenuSelectorAnimation.hpp"
+#include "ScrollableListWidget.hpp"
 
 namespace controllers
 {
 class OfficialSeriesSelectorController : public Controller
 {
-    friend class policies::HasMenuSelectorAnimation;
-
 public:
 
     OfficialSeriesSelectorController();
@@ -53,48 +51,30 @@ public:
 private:
 
     /**
-     * @brief update the color and the position of the menu selector
-     */
-    void updtSltrPstn();
-
-    /**
      * @brief create the items
      */
     void createItems();
 
-    static const std::string TUTORIAL;
     static const std::string OFF_SER_TITLE;
     static const std::string TEMPORARY_DEFAULT_SERIE;
     static const std::string ARR_DOWN_IMG_PATH;
-
-    static const uint8_t ITEMS_AMNT;
 
     static const float_t OFF_SER_TITLE_HRTL_PSTN;
     static const float_t OFF_SER_TITLE_VRTL_PSTN;
     static const float_t ARR_DOWN_HRTL_PSTN;
     static const float_t ARR_DOWN_VRTL_PSTN;
-    static const float_t SLTR_HRTL_PSTN;
-    static const float_t SLTR_VRTL_PSTN;
-    static const float_t SLTR_VRTL_SPRT;
 
-    int8_t selectorDirection;
-
-    uint8_t sltrPstn;
-
-    sf::Color colorWhite;
-    sf::Color colorSelector;
     sf::Color colorTitle;
 
-    sf::Font fontItem;
     sf::Font fontTitle;
 
     sf::Text offSerTitle;
 
-    std::vector<sf::Text> txtItems;
-
     sf::Texture arrDownTxt;
 
     sf::Sprite arrDownSprt;
+
+    widgets::ScrollableListWidget scrlList;
 };
 }
 

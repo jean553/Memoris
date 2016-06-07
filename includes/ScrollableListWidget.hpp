@@ -29,14 +29,61 @@
 #define DEF_SCROLLABLE_LIST_WIDGET
 
 #include "Widget.hpp"
-#include "ScrollableListWidgetItem.hpp"
 
 namespace widgets
 {
 class ScrollableListWidget : public Widget
 {
+public:
+
+    /**
+     * @brief constructor
+     */
+    ScrollableListWidget();
+
+    /**
+     * @brief display the scrollable list widget
+     *
+     * @param ctx current context pointer
+     */
+    void display(utils::Context* ctx);
+
+    /**
+     * TODO
+     */
+    void initFromStrArr(const std::vector<std::string>& arr);
+
+    /**
+     * @brief increment the position of the selector
+     */
+    void incSltrPstn();
+
+    /**
+     * @brief decrement the position of the selector
+     */
+    void decSltrPstn();
+
+    /**
+     * @brief update the color and the position of the menu selector
+     */
+    void updtSltrPstn();
+
 private:
-    std::vector<widgets::ScrollableListWidgetItem> itemsList;
+
+    static constexpr float_t SLTR_HRTL_PSTN = 20.f;
+    static constexpr float_t SLTR_VRTL_PSTN = 200.f;
+    static constexpr float_t SLTR_VRTL_SPRT = 80.f;
+
+    static constexpr uint8_t ITEMS_AMNT = 8;
+
+    uint8_t sltrPstn;
+
+    std::vector<sf::Text> txtItems;
+
+    sf::Font font;
+
+    sf::Color colorSltr;
+    sf::Color colorWhite;
 };
 }
 
