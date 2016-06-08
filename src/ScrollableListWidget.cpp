@@ -57,7 +57,21 @@ void ScrollableListWidget::display(utils::Context* ctx)
     /* iterate like that as we copy the reference in the for loop */
     uint8_t it = 0;
 
+    /* display prefixes */
     for (sf::Text& txt : txtItems)
+    {
+        /* TODO: temporary solution to do not diplay the text
+         * that overflows. Should be scrollable */
+        if (it >= ITEMS_AMNT)
+            continue;
+
+        ctx->getWindow()->draw(txt);
+        it++;
+    }
+
+    /* display suffixes */
+    it = 0;
+    for (sf::Text& txt : txtSfx)
     {
         /* TODO: temporary solution to do not diplay the text
          * that overflows. Should be scrollable */
@@ -72,13 +86,27 @@ void ScrollableListWidget::display(utils::Context* ctx)
 /**
  *
  */
-void ScrollableListWidget::initFromStrArr(const std::vector<std::string>& arr)
+void ScrollableListWidget::initFromStrArr(
+    const std::vector<std::string>& arr,
+    const bool& isPrefix
+)
 {
     uint8_t it = 0;
+    float_t hrtlPstnSide = 0.f;
 
     /* TODO: use short as it is declared inside the
      * Fonts class, but should be changed... */
     const short size = constants::Fonts::SIZE_ITEM_FONT;
+
+    /* select the position according to the side */
+    if (isPrefix)
+    {
+        hrtlPstnSide = SLTR_HRTL_PSTN;
+    }
+    else
+    {
+        hrtlPstnSide = SLTR_HRTL_PSTN_SUFFIX;
+    }
 
     for(std::string str : arr)
     {
@@ -89,11 +117,15 @@ void ScrollableListWidget::initFromStrArr(const std::vector<std::string>& arr)
         txt.setCharacterSize(size);
         txt.setColor(colorWhite);
         txt.setPosition(
-            SLTR_HRTL_PSTN,
+            hrtlPstnSide,
             SLTR_VRTL_PSTN + SLTR_VRTL_SPRT * it
         );
 
-        txtItems.push_back(txt);
+        if (isPrefix)
+            txtItems.push_back(txt);
+        else
+            txtSfx.push_back(txt);
+
         it++;
     }
 }

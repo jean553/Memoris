@@ -158,5 +158,27 @@ void OfficialSeriesSelectorController::createItems()
         "9. another serie"
     };
 
+    /* TODO: should display the amount of levels inside
+     * each serie */
+    std::vector<std::string> strListSfx =
+    {
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9"
+    };
+
+    /* display the prefix strings */
     scrlList.initFromStrArr(strList);
+
+    /* display the suffix strings */
+    scrlList.initFromStrArr(
+        strListSfx,
+        false
+    );
 }

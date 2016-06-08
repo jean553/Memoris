@@ -49,9 +49,15 @@ public:
     void display(utils::Context* ctx);
 
     /**
-     * TODO
+     * @brief initialize the strings list from a string vector
+     *
+     * @param arr array of strings
+     * @param side side where the strings have to be displayed
      */
-    void initFromStrArr(const std::vector<std::string>& arr);
+    void initFromStrArr(
+        const std::vector<std::string>& arr,
+        const bool& isPrefix = true
+    );
 
     /**
      * @brief increment the position of the selector
@@ -71,6 +77,7 @@ public:
 private:
 
     static constexpr float_t SLTR_HRTL_PSTN = 20.f;
+    static constexpr float_t SLTR_HRTL_PSTN_SUFFIX = 1500.f;
     static constexpr float_t SLTR_VRTL_PSTN = 200.f;
     static constexpr float_t SLTR_VRTL_SPRT = 80.f;
 
@@ -79,6 +86,7 @@ private:
     uint8_t sltrPstn;
 
     std::vector<sf::Text> txtItems;
+    std::vector<sf::Text> txtSfx;
 
     sf::Font font;
 
