@@ -83,6 +83,11 @@ private:
 
     static constexpr uint8_t ITEMS_AMNT = 8;
 
+    static constexpr float_t ARR_DOWN_HRTL_PSTN = 790.f;
+    static constexpr float_t ARR_DOWN_VRTL_PSTN = 850.f;
+
+    static const std::string ARR_DOWN_IMG_PATH;
+
     uint8_t sltrPstn;
 
     std::vector<sf::Text> txtItems;
@@ -92,6 +97,10 @@ private:
 
     sf::Color colorSltr;
     sf::Color colorWhite;
+
+    sf::Texture arrDownTxt;
+
+    sf::Sprite arrDownSprt;
 };
 }
 

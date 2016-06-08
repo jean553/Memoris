@@ -29,6 +29,8 @@
 
 using namespace widgets;
 
+const std::string ScrollableListWidget::ARR_DOWN_IMG_PATH = "res/images/down.png";
+
 /**
  *
  */
@@ -45,6 +47,14 @@ ScrollableListWidget::ScrollableListWidget()
     colorWhite.g = constants::Colors::COLOR_WHITE_GREEN;
     colorWhite.b = constants::Colors::COLOR_WHITE_BLUE;
     colorWhite.a = constants::Colors::COLOR_ALPHA_FULL;
+
+    arrDownTxt.loadFromFile(ARR_DOWN_IMG_PATH);
+
+    arrDownSprt.setTexture(arrDownTxt);
+    arrDownSprt.setPosition(
+        ARR_DOWN_HRTL_PSTN,
+        ARR_DOWN_VRTL_PSTN
+    );
 
     sltrPstn = 0;
 }
@@ -81,6 +91,8 @@ void ScrollableListWidget::display(utils::Context* ctx)
         ctx->getWindow()->draw(txt);
         it++;
     }
+
+    ctx->getWindow()->draw(arrDownSprt);
 }
 
 /**
