@@ -33,13 +33,8 @@ using namespace controllers;
 const std::string OfficialSeriesSelectorController::OFF_SER_TITLE = "Official series";
 const std::string OfficialSeriesSelectorController::TEMPORARY_DEFAULT_SERIE = "data/series/1.serie";
 
-/* TODO: should be another kind of arrow, keep this one for now... */
-const std::string OfficialSeriesSelectorController::ARR_DOWN_IMG_PATH = "res/images/down.png";
-
 const float_t OfficialSeriesSelectorController::OFF_SER_TITLE_HRTL_PSTN = 550.f;
 const float_t OfficialSeriesSelectorController::OFF_SER_TITLE_VRTL_PSTN = 50.f;
-const float_t OfficialSeriesSelectorController::ARR_DOWN_HRTL_PSTN = 790.f;
-const float_t OfficialSeriesSelectorController::ARR_DOWN_VRTL_PSTN = 850.f;
 
 /**
  *
@@ -62,14 +57,6 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController()
         OFF_SER_TITLE_VRTL_PSTN
     );
 
-    arrDownTxt.loadFromFile(ARR_DOWN_IMG_PATH);
-
-    arrDownSprt.setTexture(arrDownTxt);
-    arrDownSprt.setPosition(
-        ARR_DOWN_HRTL_PSTN,
-        ARR_DOWN_VRTL_PSTN
-    );
-
     /* generate the series names list */
     createItems();
 }
@@ -82,7 +69,6 @@ uint8_t OfficialSeriesSelectorController::render(utils::Context* ctx)
     scrlList.updtSltrPstn();
 
     ctx->getWindow()->draw(offSerTitle);
-    ctx->getWindow()->draw(arrDownSprt);
 
     scrlList.display(ctx);
 

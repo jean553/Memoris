@@ -57,22 +57,15 @@ private:
 
     static const std::string OFF_SER_TITLE;
     static const std::string TEMPORARY_DEFAULT_SERIE;
-    static const std::string ARR_DOWN_IMG_PATH;
 
     static const float_t OFF_SER_TITLE_HRTL_PSTN;
     static const float_t OFF_SER_TITLE_VRTL_PSTN;
-    static const float_t ARR_DOWN_HRTL_PSTN;
-    static const float_t ARR_DOWN_VRTL_PSTN;
 
     sf::Color colorTitle;
 
     sf::Font fontTitle;
 
     sf::Text offSerTitle;
-
-    sf::Texture arrDownTxt;
-
-    sf::Sprite arrDownSprt;
 
     widgets::ScrollableListWidget scrlList;
 };
