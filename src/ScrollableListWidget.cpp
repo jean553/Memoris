@@ -48,6 +48,11 @@ ScrollableListWidget::ScrollableListWidget()
     colorWhite.b = constants::Colors::COLOR_WHITE_BLUE;
     colorWhite.a = constants::Colors::COLOR_ALPHA_FULL;
 
+    colorArrow.r = constants::Colors::COLOR_WHITE_RED;
+    colorArrow.g = constants::Colors::COLOR_WHITE_GREEN;
+    colorArrow.b = constants::Colors::COLOR_WHITE_BLUE;
+    colorArrow.a = constants::Colors::COLOR_ALPHA_FULL;
+
     arrDownTxt.loadFromFile(ARR_DOWN_IMG_PATH);
 
     arrDownSprt.setTexture(arrDownTxt);
@@ -57,6 +62,7 @@ ScrollableListWidget::ScrollableListWidget()
     );
 
     sltrPstn = 0;
+    animDirection = 1;
 }
 
 /**
@@ -92,7 +98,7 @@ void ScrollableListWidget::display(utils::Context* ctx)
         it++;
     }
 
-    ctx->getWindow()->draw(arrDownSprt);
+    displayArrDown(ctx);
 }
 
 /**
@@ -171,4 +177,29 @@ void ScrollableListWidget::incSltrPstn()
 void ScrollableListWidget::decSltrPstn()
 {
     sltrPstn--;
+}
+
+/**
+ *
+ */
+void ScrollableListWidget::displayArrDown(utils::Context* ctx)
+{
+    if (clk.getElapsedTime().asMilliseconds() > TIME_ITRVL)
+    {
+        if (
+            colorArrow.a <= 0 ||
+            colorArrow.a >= constants::Colors::COLOR_ALPHA_FULL
+        )
+        {
+            animDirection *= -1;
+        }
+
+        colorArrow.a += animDirection * COLOR_ITRVL;
+
+        arrDownSprt.setColor(colorArrow);
+
+        clk.restart();
+    }
+
+    ctx->getWindow()->draw(arrDownSprt);
 }
