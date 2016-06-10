@@ -93,3 +93,16 @@ std::vector<std::string> FileWriter::readFileWithSprt(const std::string& filePat
                '|'
            );
 }
+
+/**
+ *
+ */
+uint8_t FileWriter::getItemsAmnt(const std::string& filePath)
+{
+    /* read the file content */
+    std::string fileContent = readFile(filePath);
+
+    /* count the amount of separators and add one ( we return the amount
+     * of items, not the amount of separators ) */
+    return (std::count(fileContent.begin(), fileContent.end(), '|') + 1);
+}
