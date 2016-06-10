@@ -29,7 +29,7 @@
 
 using namespace widgets;
 
-const std::string ScrollableListWidget::ARR_DOWN_IMG_PATH = "res/images/down.png";
+const std::string ScrollableListWidget::ARR_DOWN_IMG_PATH = "res/images/scroll_down.png";
 
 /**
  *
@@ -155,12 +155,19 @@ void ScrollableListWidget::updtSltrPstn()
 {
     sltrPstn = ((sltrPstn > ITEMS_AMNT - 1) ? 0 : sltrPstn);
 
+    /* TODO: could be refactored in a loop with iterator... */
     for (sf::Text& item : txtItems)
     {
         item.setColor(colorWhite);
     }
 
+    for (sf::Text& sfx : txtSfx)
+    {
+        sfx.setColor(colorWhite);
+    }
+
     txtItems[sltrPstn].setColor(colorSltr);
+    txtSfx[sltrPstn].setColor(colorSltr);
 }
 
 /**
