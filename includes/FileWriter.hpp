@@ -68,6 +68,17 @@ public:
      * @return std::vector<std::string>
      */
     static std::vector<std::string> readFileWithSprt(const std::string& filePath);
+
+    /**
+     * @brief returns the amount of pipes inside a file, used to calculate
+     * the amount of levels inside one serie
+     *
+     * @param filePath path of the file to open
+     *
+     * @return uint8_t
+     */
+    static uint8_t getItemsAmnt(const std::string& filePath);
+
 };
 }
 

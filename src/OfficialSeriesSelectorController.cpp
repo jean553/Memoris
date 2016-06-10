@@ -57,6 +57,9 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController()
         OFF_SER_TITLE_VRTL_PSTN
     );
 
+    /* TODO: load all the levels of the serie, should be adapted according to the selected serie */
+    levels = utils::FileWriter::readFileWithSprt(TEMPORARY_DEFAULT_SERIE);
+
     /* generate the series names list */
     createItems();
 }
@@ -92,9 +95,6 @@ uint8_t OfficialSeriesSelectorController::render(utils::Context* ctx)
             /* TODO: temporary solution, should be deleted */
             case sf::Keyboard::Return:
             {
-                /* TODO: load all the levels of the serie, should be adapted according to the selected serie */
-                std::vector<std::string> levels = utils::FileWriter::readFileWithSprt(TEMPORARY_DEFAULT_SERIE);
-
                 /* TODO: the level should be specified according to the selected serie */
                 ctx->setNxtLvlStrPath(levels[0]);
 
@@ -148,7 +148,8 @@ void OfficialSeriesSelectorController::createItems()
      * each serie */
     std::vector<std::string> strListSfx =
     {
-        "1",
+        /* TODO: temporary solution, only returns the amount of levels in the first serie */
+        std::to_string(utils::FileWriter::getItemsAmnt(TEMPORARY_DEFAULT_SERIE)),
         "2",
         "3",
         "4",
