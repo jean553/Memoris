@@ -23,10 +23,11 @@
  */
 
 #include "Controller.hpp"
-#include "Window.hpp"
 #include "Colors.hpp"
+#include "window.hpp"
 
 using namespace controllers;
+using namespace memoris;
 
 const unsigned short Controller::TRANSITION_ALPHA_INTERVAL = 51;
 const unsigned short Controller::TRANSITION_MILLISECONDS_INTERVAL = 25;
@@ -50,8 +51,8 @@ Controller::Controller()
 
     transitionSurface.setSize(
         sf::Vector2f(
-            constants::Window::WIDTH,
-            constants::Window::HEIGHT
+            window::WIDTH,
+            window::HEIGHT
         )
     );
 

@@ -17,31 +17,32 @@
 */
 
 /**
- * Window properties.
- *
- * @file Window.hpp
- * @brief main window properties
+ * @file window.hpp
+ * @brief namespace for SFML window dimensions, resolution and title
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_WINDOW
-#define DEF_WINDOW
+#ifndef MEMORIS_WINDOW_H_
+#define MEMORIS_WINDOW_H_
 
 #include <string>
 
-namespace constants
+namespace memoris
 {
-class Window
+namespace window
 {
+    /* width of the SFML window */
+    const unsigned short WIDTH = 1600;
 
-public:
+    /* height of the SFML window */
+    const unsigned short HEIGHT = 900;
 
-    static const unsigned short WIDTH;
-    static const unsigned short HEIGHT;
-    static const unsigned short RESOLUTION;
+    /* resolution of the SFML window */
+    const unsigned short RESOLUTION = 32;
 
-    static const std::string TITLE;
-};
+    /* title of the displayed window */
+    const std::string TITLE = "Memoris";
+}
 }
 
 #endif

@@ -29,7 +29,9 @@
 #include "MusicFactory.hpp"
 #include "Controller.hpp"
 #include "Context.hpp"
-#include "Window.hpp"
+#include "window.hpp"
+
+using namespace memoris;
 
 /**
  *
@@ -48,11 +50,11 @@ int main()
 
     sf::RenderWindow window(
         sf::VideoMode(
-            constants::Window::WIDTH,
-            constants::Window::HEIGHT,
-            constants::Window::RESOLUTION
+            window::WIDTH,
+            window::HEIGHT,
+            window::RESOLUTION
         ),
-        constants::Window::TITLE,
+        window::TITLE,
         sf::Style::Fullscreen
     );
     window.setMouseCursorVisible(false);
