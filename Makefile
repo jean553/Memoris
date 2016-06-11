@@ -22,7 +22,6 @@ OBJS = \
 	   build/Sounds.o \
 	   build/Colors.o \
 	   build/Screens.o \
-	   build/Window.o \
 	   build/Dimensions.o \
 	   build/Positions.o \
 	   build/Serie.o \
@@ -113,9 +112,6 @@ build/SprtTransition.o: src/SprtTransition.cpp
 # defines
 
 build/Colors.o: src/Colors.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/Window.o: src/Window.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/Dimensions.o: src/Dimensions.cpp

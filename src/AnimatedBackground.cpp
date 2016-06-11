@@ -29,7 +29,6 @@
 #include "Dimensions.hpp"
 #include "CellFactory.hpp"
 #include "CellsFileRepresentations.hpp"
-#include "Window.hpp"
 
 using namespace utils;
 

@@ -28,7 +28,6 @@
 #include "EditorLevelController.hpp"
 #include "Positions.hpp"
 #include "Dimensions.hpp"
-#include "Window.hpp"
 #include "Colors.hpp"
 #include "Fonts.hpp"
 #include "Directories.hpp"
@@ -41,8 +40,10 @@
 #include "Messages.hpp"
 #include "CellsFilter.hpp"
 #include "CellsFileRepresentations.hpp"
+#include "window.hpp"
 
 using namespace controllers;
+using namespace memoris;
 
 const std::string EditorLevelController::EDITOR_LEVEL_BUTTON_EXIT_TEXT = "Exit";
 const std::string EditorLevelController::EDITOR_LEVEL_BUTTON_NEW_TEXT = "New";
@@ -298,7 +299,7 @@ uint8_t EditorLevelController::render(utils::Context* pContext)
                         inputTextNew.getText()
                     );
                     levelNameLabel.setPosition(
-                        constants::Window::WIDTH -
+                        window::WIDTH -
                         levelNameLabel.getLocalBounds().width,
                         constants::Dimensions::POSITION_NAME_LABEL_Y
                     );

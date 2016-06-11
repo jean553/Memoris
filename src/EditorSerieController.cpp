@@ -24,7 +24,6 @@
 
 #include "EditorSerieController.hpp"
 #include "Dimensions.hpp"
-#include "Window.hpp"
 #include "Positions.hpp"
 #include "Directories.hpp"
 #include "Extensions.hpp"
@@ -36,8 +35,10 @@
 #include "ControllerFactory.hpp"
 #include "Screens.hpp"
 #include "Messages.hpp"
+#include "window.hpp"
 
 using namespace controllers;
+using namespace memoris;
 
 const std::string EditorSerieController::STRING_EDITOR_SERIE_TITLE = "Serie editor";
 const std::string EditorSerieController::EDITOR_SERIE_BUTTON_NEW_TEXT = "New";
@@ -441,7 +442,7 @@ bool EditorSerieController::serieExists(std::string serieName)
 void EditorSerieController::updateSerieNameLabelPosition()
 {
     serieNameLabel.setPosition(
-        constants::Window::WIDTH -
+        window::WIDTH -
         serieNameLabel.getLocalBounds().width,
         constants::Dimensions::POSITION_NAME_LABEL_Y
     );

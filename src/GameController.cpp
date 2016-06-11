@@ -33,9 +33,10 @@
 #include "CellFactory.hpp"
 #include "Fonts.hpp"
 #include "Colors.hpp"
-#include "Window.hpp"
+#include "window.hpp"
 
 using namespace controllers;
+using namespace memoris;
 
 const std::string GameController::STAR_IMG_PATH = "res/images/star.png";
 const std::string GameController::LIFE_IMG_PATH = "res/images/life.png";
@@ -214,14 +215,14 @@ GameController::GameController(const std::string& lvlFilePath) : Controller(), l
     leftSeparator.setSize(
         sf::Vector2f(
             1,
-            constants::Window::HEIGHT
+            window::HEIGHT
         )
     );
 
     rightSeparator.setSize(
         sf::Vector2f(
             1,
-            constants::Window::HEIGHT
+            window::HEIGHT
         )
     );
 

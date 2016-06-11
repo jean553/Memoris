@@ -25,9 +25,10 @@
 
 #include "MenuGradient.hpp"
 #include "Colors.hpp"
-#include "Window.hpp"
+#include "window.hpp"
 
 using namespace utils;
+using namespace memoris;
 
 const float_t MenuGradient::MAIN_SURFACE_WIDTH = 620.f;
 const float_t MenuGradient::MAIN_SURFACE_HRTL_PSTN = 480.f;
@@ -49,7 +50,7 @@ MenuGradient::MenuGradient()
     main.setSize(
         sf::Vector2f(
             MAIN_SURFACE_WIDTH,
-            constants::Window::HEIGHT
+            window::HEIGHT
         )
     );
 
@@ -115,7 +116,7 @@ void MenuGradient::initializeGradientRectangles()
         rtgl.setSize(
             sf::Vector2f(
                 1,
-                constants::Window::HEIGHT
+                window::HEIGHT
             )
         );
 
@@ -149,7 +150,7 @@ void MenuGradient::initializeGradientRectangles()
         rtgl.setSize(
             sf::Vector2f(
                 1,
-                constants::Window::HEIGHT
+                window::HEIGHT
             )
         );
 
