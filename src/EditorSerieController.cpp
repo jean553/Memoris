@@ -74,7 +74,7 @@ const unsigned short EditorSerieController::ERROR_MESSAGE_POSITION_Y = 200;
 /**
  *
  */
-EditorSerieController::EditorSerieController(utils::Context* pContext) : Controller()
+EditorSerieController::EditorSerieController(utils::Context& context) : Controller()
 {
     errorNewSerie = false;
     errorNewLevel = false;
@@ -185,48 +185,48 @@ EditorSerieController::EditorSerieController(utils::Context* pContext) : Control
         ERROR_MESSAGE_POSITION_Y
     );
 
-    initializeOpenedSerie(pContext);
+    initializeOpenedSerie(context);
 }
 
 /**
  *
  */
-uint8_t EditorSerieController::render(utils::Context* pContext)
+uint8_t EditorSerieController::render(utils::Context& context)
 {
-    titleBar.display(pContext);
-    buttonNew.display(pContext);
-    buttonOpen.display(pContext);
-    buttonSave.display(pContext);
-    buttonAdd.display(pContext);
-    buttonExit.display(pContext);
-    levelsList.display(pContext);
+    titleBar.display(context);
+    buttonNew.display(context);
+    buttonOpen.display(context);
+    buttonSave.display(context);
+    buttonAdd.display(context);
+    buttonExit.display(context);
+    levelsList.display(context);
 
     if (status == NEW_SERIE)
     {
-        buttonNewOk.display(pContext);
-        buttonNewCancel.display(pContext);
-        inputTextNew.display(pContext);
+        buttonNewOk.display(context);
+        buttonNewCancel.display(context);
+        inputTextNew.display(context);
     }
 
     if (status != MAIN_MENU)
     {
-        pContext->getSfmlWindow().draw(serieNameLabel);
+        context.getSfmlWindow().draw(serieNameLabel);
     }
 
     if (errorNewSerie)
     {
-        pContext->getSfmlWindow().draw(errorLabel);
+        context.getSfmlWindow().draw(errorLabel);
     }
     else if (errorNewLevel)
     {
-        pContext->getSfmlWindow().draw(levelErrorLabel);
+        context.getSfmlWindow().draw(levelErrorLabel);
     }
 
-    cursor.display(pContext);
+    cursor.display(context);
 
-    nextControllerId = animateScreenTransition(pContext);
+    nextControllerId = animateScreenTransition(context);
 
-    while(pContext->getSfmlWindow().pollEvent(event))
+    while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {
@@ -261,7 +261,7 @@ uint8_t EditorSerieController::render(utils::Context* pContext)
 
                 if(buttonExit.isMouseHover())
                 {
-                    pContext->removeAllMessages();
+                    context.removeAllMessages();
 
                     expectedControllerId =
                         factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
@@ -336,17 +336,17 @@ uint8_t EditorSerieController::render(utils::Context* pContext)
                     }
                     if(buttonAdd.isMouseHover())
                     {
-                        pContext->addMessageByName(
+                        context.addMessageByName(
                             constants::Messages::PREVIOUS_CONTROLLER_MESSAGE,
                             constants::Screens::SERIE_EDITOR_SCREEN_NAME
                         );
 
-                        pContext->addMessageByName(
+                        context.addMessageByName(
                             constants::Messages::OPEN_SERIE_MESSAGE,
                             serie.getName()
                         );
 
-                        pContext->setStringsList(levelsList.getStringsList());
+                        context.setStringsList(levelsList.getStringsList());
 
                         expectedControllerId =
                             factories::ControllerFactory::OPEN_LEVEL_CONTROLLER_ID;
@@ -451,10 +451,10 @@ void EditorSerieController::updateSerieNameLabelPosition()
 /**
  *
  */
-void EditorSerieController::initializeOpenedSerie(utils::Context* pContext)
+void EditorSerieController::initializeOpenedSerie(utils::Context& context)
 {
     std::string openedSerie =
-        pContext->getMessageByName(constants::Messages::OPEN_SERIE_MESSAGE);
+        context.getMessageByName(constants::Messages::OPEN_SERIE_MESSAGE);
 
     if (openedSerie.empty())
     {
@@ -472,7 +472,7 @@ void EditorSerieController::initializeOpenedSerie(utils::Context* pContext)
     updateSerieNameLabelPosition();
     switchMainMenuButtonsToEditSerieStatus();
 
-    levelsList.setStringsList(pContext->getStringsList());
+    levelsList.setStringsList(context.getStringsList());
 }
 
 /**

@@ -88,20 +88,20 @@ OpenLevelController::OpenLevelController() : Controller()
 /**
  *
  */
-uint8_t OpenLevelController::render(utils::Context* pContext)
+uint8_t OpenLevelController::render(utils::Context& context)
 {
-    titleBar.display(pContext);
-    levelsList.display(pContext);
-    cursor.display(pContext);
+    titleBar.display(context);
+    levelsList.display(context);
+    cursor.display(context);
 
     if (errorAlreadyAddedLevel)
     {
-        pContext->getSfmlWindow().draw(errorLabel);
+        context.getSfmlWindow().draw(errorLabel);
     }
 
-    nextControllerId = animateScreenTransition(pContext);
+    nextControllerId = animateScreenTransition(context);
 
-    while(pContext->getSfmlWindow().pollEvent(event))
+    while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {
@@ -111,7 +111,7 @@ uint8_t OpenLevelController::render(utils::Context* pContext)
             {
             case sf::Keyboard::Escape:
             {
-                changeNextControllerId(pContext);
+                changeNextControllerId(context);
             }
             }
         }
@@ -123,7 +123,7 @@ uint8_t OpenLevelController::render(utils::Context* pContext)
             {
                 if (levelsList.isMouseHover())
                 {
-                    std::vector<std::string> stringsList = pContext->getStringsList();
+                    std::vector<std::string> stringsList = context.getStringsList();
 
                     /* do not add the level if already in the list
                        TODO: could be refactored if addStringIntoStringsList return a boolean... */
@@ -134,9 +134,9 @@ uint8_t OpenLevelController::render(utils::Context* pContext)
                         continue;
                     }
 
-                    pContext->addStringIntoStringsList(levelsList.getSelectedItemValue());
+                    context.addStringIntoStringsList(levelsList.getSelectedItemValue());
 
-                    changeNextControllerId(pContext);
+                    changeNextControllerId(context);
                 }
                 levelsList.scroll();
             }
@@ -151,9 +151,9 @@ uint8_t OpenLevelController::render(utils::Context* pContext)
 /**
  *
  */
-void OpenLevelController::changeNextControllerId(utils::Context* pContext)
+void OpenLevelController::changeNextControllerId(utils::Context& context)
 {
-    expectedControllerId = pContext->getMessageByName(constants::Messages::PREVIOUS_CONTROLLER_MESSAGE) == constants::Screens::SERIE_EDITOR_SCREEN_NAME ?
+    expectedControllerId = context.getMessageByName(constants::Messages::PREVIOUS_CONTROLLER_MESSAGE) == constants::Screens::SERIE_EDITOR_SCREEN_NAME ?
                            factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID :
                            factories::ControllerFactory::EDITOR_LEVEL_CONTROLLER_ID;
 }

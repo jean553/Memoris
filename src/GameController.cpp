@@ -245,28 +245,28 @@ GameController::GameController(const std::string& lvlFilePath) : Controller(), l
 /**
  *
  */
-uint8_t GameController::render(utils::Context* pContext)
+uint8_t GameController::render(utils::Context& context)
 {
     level.displayAllCellsByFloor(
-        pContext,
+        context,
         floor
     );
 
     /* update and display the timer */
-    displayTime(pContext);
+    displayTime(context);
 
-    pContext->getSfmlWindow().draw(spriteStar);
-    pContext->getSfmlWindow().draw(spriteLife);
-    pContext->getSfmlWindow().draw(spriteTarget);
-    pContext->getSfmlWindow().draw(spriteTime);
-    pContext->getSfmlWindow().draw(spriteFloor);
-    pContext->getSfmlWindow().draw(foundStarsAmntStr);
-    pContext->getSfmlWindow().draw(lifesAmntStr);
-    pContext->getSfmlWindow().draw(targetStr);
-    pContext->getSfmlWindow().draw(timeStr);
-    pContext->getSfmlWindow().draw(floorStr);
-    pContext->getSfmlWindow().draw(leftSeparator);
-    pContext->getSfmlWindow().draw(rightSeparator);
+    context.getSfmlWindow().draw(spriteStar);
+    context.getSfmlWindow().draw(spriteLife);
+    context.getSfmlWindow().draw(spriteTarget);
+    context.getSfmlWindow().draw(spriteTime);
+    context.getSfmlWindow().draw(spriteFloor);
+    context.getSfmlWindow().draw(foundStarsAmntStr);
+    context.getSfmlWindow().draw(lifesAmntStr);
+    context.getSfmlWindow().draw(targetStr);
+    context.getSfmlWindow().draw(timeStr);
+    context.getSfmlWindow().draw(floorStr);
+    context.getSfmlWindow().draw(leftSeparator);
+    context.getSfmlWindow().draw(rightSeparator);
 
     if (
         (status == WATCHING || status == PLAYING_AND_WATCHING) &&
@@ -294,9 +294,9 @@ uint8_t GameController::render(utils::Context* pContext)
         clock.restart();
     }
 
-    nextControllerId = animateScreenTransition(pContext);
+    nextControllerId = animateScreenTransition(context);
 
-    while(pContext->getSfmlWindow().pollEvent(event))
+    while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {
@@ -521,7 +521,7 @@ void GameController::executeCellAction()
 /**
  *
  */
-void GameController::displayTime(utils::Context* ctx)
+void GameController::displayTime(utils::Context& context)
 {
     /* update the time every 10 milliseconds, keep number
      * directly inside the code because they never change
@@ -545,7 +545,7 @@ void GameController::displayTime(utils::Context* ctx)
         timeClck.restart();
     }
 
-    ctx->getSfmlWindow().draw(time);
+    context.getSfmlWindow().draw(time);
 }
 
 /**

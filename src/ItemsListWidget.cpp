@@ -194,22 +194,22 @@ void ItemsListWidget::addTextItem(std::string textItem)
 /**
  *
  */
-void ItemsListWidget::display(utils::Context* pContext)
+void ItemsListWidget::display(utils::Context& context)
 {
-    pContext->getSfmlWindow().draw(boxTop);
-    pContext->getSfmlWindow().draw(boxBottom);
-    pContext->getSfmlWindow().draw(boxLeft);
-    pContext->getSfmlWindow().draw(boxRight);
+    context.getSfmlWindow().draw(boxTop);
+    context.getSfmlWindow().draw(boxBottom);
+    context.getSfmlWindow().draw(boxLeft);
+    context.getSfmlWindow().draw(boxRight);
 
     if (isMouseHover())
     {
-        highlightCurrentItem(pContext);
+        highlightCurrentItem(context);
     }
 
-    highlightArrows(pContext);
+    highlightArrows(context);
 
-    pContext->getSfmlWindow().draw(spriteUp);
-    pContext->getSfmlWindow().draw(spriteDown);
+    context.getSfmlWindow().draw(spriteUp);
+    context.getSfmlWindow().draw(spriteDown);
 
     for(std::vector<std::string>::iterator textItem = stringsList.begin();
             textItem != stringsList.end(); ++textItem)
@@ -244,7 +244,7 @@ void ItemsListWidget::display(utils::Context* pContext)
             itemsCommonVerticalPosition - ITEMS_LIST_TEXT_OFFSET
         );
 
-        pContext->getSfmlWindow().draw(item);
+        context.getSfmlWindow().draw(item);
     }
 }
 
@@ -291,7 +291,7 @@ bool ItemsListWidget::isMouseHover() const
 /**
  *
  */
-void ItemsListWidget::highlightCurrentItem(utils::Context* pContext)
+void ItemsListWidget::highlightCurrentItem(utils::Context& context)
 {
     unsigned short cursorInternalHorizontalPosition =
         static_cast<unsigned short>(sf::Mouse::getPosition().y - verticalPosition);
@@ -314,7 +314,7 @@ void ItemsListWidget::highlightCurrentItem(utils::Context* pContext)
         ITEMS_LIST_ITEM_HEIGHT + ITEMS_LIST_BORDER_SIZE
     );
 
-    pContext->getSfmlWindow().draw(selector);
+    context.getSfmlWindow().draw(selector);
 
     /* TODO: use the same variable, should be refactored,
        use a second separated variable to avoid all casting problems */
@@ -324,15 +324,15 @@ void ItemsListWidget::highlightCurrentItem(utils::Context* pContext)
 /**
  *
  */
-void ItemsListWidget::highlightArrows(utils::Context* pContext)
+void ItemsListWidget::highlightArrows(utils::Context& context)
 {
     if (isMouseHoverArrowUp())
     {
-        pContext->getSfmlWindow().draw(arrowUpSelector);
+        context.getSfmlWindow().draw(arrowUpSelector);
     }
     else if (isMouseHoverArrowDown())
     {
-        pContext->getSfmlWindow().draw(arrowDownSelector);
+        context.getSfmlWindow().draw(arrowDownSelector);
     }
 }
 

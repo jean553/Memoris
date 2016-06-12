@@ -45,11 +45,11 @@ public:
     /**
      * @brief render the screen, contains events catcher,
      *
-     * @param pContext   common context pointer for controller
+     * @param context   common context pointer for controller
      *
      * @return uint8_t     next called screen controller id
      */
-    virtual uint8_t render(utils::Context* pContext) = 0;
+    virtual uint8_t render(utils::Context& context) = 0;
 
 protected:
 
@@ -66,12 +66,12 @@ protected:
      * the expectedControllerId when the animation
      * is finished
      *
-     * @param pContext current context pointer
+     * @param context current context pointer
      *
      * @return unsigned short expectedControllerId
      * when the animation is finished
      */
-    unsigned short animateScreenTransition(utils::Context* pContext);
+    unsigned short animateScreenTransition(utils::Context& context);
 
 private:
 

@@ -81,7 +81,7 @@ int main()
         controllers::Controller* pCurrentController =
             factories::ControllerFactory::getControllerById(
                 currentControllerId,
-                &context
+                context
             );
 
         /* main program loop: loads, renders and modifies controllers;
@@ -92,9 +92,7 @@ int main()
             context.getSfmlWindow().clear();
 
             /* continually render the current controller scene */
-            /* FIXME: #407 do not use context pointers
-               at all, only use reference */
-            nextControllerId = pCurrentController->render(&context);
+            nextControllerId = pCurrentController->render(context);
 
             /* continually display the loaded content */
             context.getSfmlWindow().display();

@@ -66,9 +66,9 @@ public:
     /**
      * @brief display the items list widget
      *
-     * @param pContext  current pContext pointer
+     * @param context  current context pointer
      */
-    void display(utils::Context* pContext);
+    void display(utils::Context& context);
 
     /**
      * @brief setter for the items list widget strings list
@@ -109,16 +109,16 @@ protected:
     /**
      * @brief highlight the current selected item of the list
      *
-     * @param pContext  current pContext pointer
+     * @param context  current context pointer
      */
-    void highlightCurrentItem(utils::Context* pContext);
+    void highlightCurrentItem(utils::Context& context);
 
     /**
      * @brief highlight the widget arrows if mouse is hover
      *
-     * @param pContext  current pContext pointer
+     * @param context  current context pointer
      */
-    void highlightArrows(utils::Context* pContext);
+    void highlightArrows(utils::Context& context);
 
     static const std::string PATH_IMAGE_ARROW_UP;
     static const std::string PATH_IMAGE_ARROW_DOWN;

@@ -143,20 +143,20 @@ void CellSelectorWidget::setPosition(
 /**
  *
  */
-void CellSelectorWidget::display(utils::Context* pContext)
+void CellSelectorWidget::display(utils::Context& context)
 {
-    emptyCell.display(pContext);
-    departureCell.display(pContext);
-    arrivalCell.display(pContext);
-    starCell.display(pContext);
-    lifeCell.display(pContext);
-    malusCell.display(pContext);
-    moreTimeCell.display(pContext);
-    lessTimeCell.display(pContext);
-    wallCell.display(pContext);
-    lightCell.display(pContext);
-    floorUpCell.display(pContext);
-    floorDownCell.display(pContext);
+    emptyCell.display(context);
+    departureCell.display(context);
+    arrivalCell.display(context);
+    starCell.display(context);
+    lifeCell.display(context);
+    malusCell.display(context);
+    moreTimeCell.display(context);
+    lessTimeCell.display(context);
+    wallCell.display(context);
+    lightCell.display(context);
+    floorUpCell.display(context);
+    floorDownCell.display(context);
 }
 
 /**

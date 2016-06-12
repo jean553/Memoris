@@ -44,9 +44,9 @@ public:
     /**
      * @brief display the scrollable list widget
      *
-     * @param ctx current context pointer
+     * @param context current context pointer
      */
-    void display(utils::Context* ctx);
+    void display(utils::Context& context);
 
     /**
      * @brief initialize the strings list from a string vector
@@ -79,9 +79,9 @@ private:
     /**
      * @brief displays the arrow down and animate it
      *
-     * @param ctx pointer to the current context object
+     * @param context pointer to the current context object
      */
-    void displayArrDown(utils::Context* ctx);
+    void displayArrDown(utils::Context& context);
 
     static constexpr float_t SLTR_HRTL_PSTN = 20.f;
     static constexpr float_t SLTR_HRTL_PSTN_SUFFIX = 1500.f;

@@ -95,9 +95,9 @@ public:
     /**
      * @brief displays the cell according to the context
      *
-     * @param pContext context pointer
+     * @param context context pointer
      */
-    void display(utils::Context* pContext);
+    void display(utils::Context& context);
 
     /**
      * TODO: this parameter has two different uses: set the selected cell in the selector widget

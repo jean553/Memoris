@@ -175,13 +175,13 @@ MainMenuController::MainMenuController() : Controller()
 /**
  *
  */
-uint8_t MainMenuController::render(utils::Context* pContext)
+uint8_t MainMenuController::render(utils::Context& context)
 {
     /* display the background animation */
-    background.animate(pContext);
+    background.animate(context);
 
     /* apply the menu sub-surface */
-    menuGradient.display(pContext);
+    menuGradient.display(context);
 
     if(clockTitle.getElapsedTime().asMilliseconds() >
             policies::HasMenuSelectorAnimation::INTERVAL_ANIMATION
@@ -195,17 +195,17 @@ uint8_t MainMenuController::render(utils::Context* pContext)
 
     updateSelectorPosition();
 
-    pContext->getSfmlWindow().draw(title);
-    pContext->getSfmlWindow().draw(itemNewGame);
-    pContext->getSfmlWindow().draw(itemLoadGame);
-    pContext->getSfmlWindow().draw(itemEditor);
-    pContext->getSfmlWindow().draw(itemOptions);
-    pContext->getSfmlWindow().draw(itemExit);
-    pContext->getSfmlWindow().draw(spriteGithub);
+    context.getSfmlWindow().draw(title);
+    context.getSfmlWindow().draw(itemNewGame);
+    context.getSfmlWindow().draw(itemLoadGame);
+    context.getSfmlWindow().draw(itemEditor);
+    context.getSfmlWindow().draw(itemOptions);
+    context.getSfmlWindow().draw(itemExit);
+    context.getSfmlWindow().draw(spriteGithub);
 
-    nextControllerId = animateScreenTransition(pContext);
+    nextControllerId = animateScreenTransition(context);
 
-    while(pContext->getSfmlWindow().pollEvent(event))
+    while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

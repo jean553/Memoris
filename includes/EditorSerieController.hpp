@@ -77,18 +77,18 @@ class EditorSerieController : public Controller
 public:
 
     /**
-     * @param pContext pointer to the current context
+     * @param context pointer to the current context
      */
-    EditorSerieController(utils::Context* pContext);
+    EditorSerieController(utils::Context& context);
 
     /**
      * @brief render the serie editor screen
      *
-     * @param pContext commons items for controller
+     * @param context commons items for controller
      *
      * @return uint8_t   id of the next screen controller
      */
-    uint8_t render(utils::Context* pContext);
+    uint8_t render(utils::Context& context);
 
 private:
 
@@ -178,7 +178,7 @@ private:
      * @brief initialize the serie editor if one serie is already opened,
      * only used if the controller has been called after the OpenLevel one
      */
-    void initializeOpenedSerie(utils::Context* pContext);
+    void initializeOpenedSerie(utils::Context& context);
 
     /**
      * @brief write the levels into the serie file, the content

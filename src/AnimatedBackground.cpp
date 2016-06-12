@@ -53,7 +53,7 @@ AnimatedBackground::AnimatedBackground()
 /**
  *
  */
-void AnimatedBackground::animate(utils::Context* ctx)
+void AnimatedBackground::animate(utils::Context& context)
 {
     for (
         std::vector<entities::Cell>::iterator cell = cells.begin();
@@ -61,7 +61,7 @@ void AnimatedBackground::animate(utils::Context* ctx)
         ++cell
     )
     {
-        cell->display(ctx);
+        cell->display(context);
     }
 }
 

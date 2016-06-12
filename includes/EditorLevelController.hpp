@@ -86,11 +86,11 @@ public:
     /**
      * @brief renders the level editor screen
      *
-     * @param pContext commons items for controller
+     * @param context commons items for controller
      *
      * @return uint8_t    id of the new screen controller
      */
-    uint8_t render(utils::Context* pContext);
+    uint8_t render(utils::Context& context);
 
 private:
 

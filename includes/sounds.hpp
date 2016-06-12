@@ -34,7 +34,7 @@ namespace sounds
 /* NOTE: the strings cannot be declared as constant expressions */
 
 /* sound to play when the controllers are switched */
-static const std::string SCREEN_TRANSITION_SOUND = "res/sounds/002.wav";
+const std::string SCREEN_TRANSITION_SOUND = "res/sounds/002.wav";
 }
 }
 

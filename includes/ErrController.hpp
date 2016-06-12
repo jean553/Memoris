@@ -49,11 +49,11 @@ public:
     /**
      * @brief renders the error message screen
      *
-     * @param ctx commons items for controller
+     * @param context commons items for controller
      *
      * @return uint8_t    id of the new screen controller
      */
-    uint8_t render(utils::Context* ctx);
+    uint8_t render(utils::Context& context);
 
 private:
 

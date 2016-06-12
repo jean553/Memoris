@@ -40,12 +40,12 @@ FrameWidget::FrameWidget()
 /**
  *
  */
-void FrameWidget::display(utils::Context* pContext)
+void FrameWidget::display(utils::Context& context)
 {
-    pContext->getSfmlWindow().draw(leftLine);
-    pContext->getSfmlWindow().draw(rightLine);
-    pContext->getSfmlWindow().draw(topLine);
-    pContext->getSfmlWindow().draw(bottomLine);
+    context.getSfmlWindow().draw(leftLine);
+    context.getSfmlWindow().draw(rightLine);
+    context.getSfmlWindow().draw(topLine);
+    context.getSfmlWindow().draw(bottomLine);
 }
 
 /**

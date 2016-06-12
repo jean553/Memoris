@@ -87,7 +87,7 @@ Level::~Level()
  *
  */
 void Level::displayAllCellsByFloor(
-    utils::Context* pContext,
+    utils::Context& context,
     const uint8_t& floor
 )
 {
@@ -105,7 +105,7 @@ void Level::displayAllCellsByFloor(
             constants::Dimensions::LEVEL_CELLS_PER_FLOOR
         )
         {
-            cell->display(pContext);
+            cell->display(context);
         }
     }
 }

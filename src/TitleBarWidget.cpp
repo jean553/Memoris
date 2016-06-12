@@ -99,8 +99,8 @@ void TitleBarWidget::setText(std::string inputTextData)
 /**
  *
  */
-void TitleBarWidget::display(utils::Context* pContext)
+void TitleBarWidget::display(utils::Context& context)
 {
-    pContext->getSfmlWindow().draw(displayedText);
-    pContext->getSfmlWindow().draw(line);
+    context.getSfmlWindow().draw(displayedText);
+    context.getSfmlWindow().draw(line);
 }

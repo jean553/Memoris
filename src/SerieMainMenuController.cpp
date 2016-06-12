@@ -145,32 +145,32 @@ SerieMainMenuController::SerieMainMenuController() :
 /**
  *
  */
-uint8_t SerieMainMenuController::render(utils::Context* ctx)
+uint8_t SerieMainMenuController::render(utils::Context& context)
 {
     policies::HasMenuSelectorAnimation::animateMenuSelector<SerieMainMenuController>(this);
 
     updateSelectorPosition();
 
     cupTrslt.display(
-        ctx,
+        context,
         cupSprt,
         animCup
     );
 
     gameTrslt.display(
-        ctx,
+        context,
         gameSprt,
         animGame
     );
 
-    ctx->getSfmlWindow().draw(title);
-    ctx->getSfmlWindow().draw(itemOfficialSeries);
-    ctx->getSfmlWindow().draw(itemPersonalSeries);
-    ctx->getSfmlWindow().draw(itemBack);
+    context.getSfmlWindow().draw(title);
+    context.getSfmlWindow().draw(itemOfficialSeries);
+    context.getSfmlWindow().draw(itemPersonalSeries);
+    context.getSfmlWindow().draw(itemBack);
 
-    nextControllerId = animateScreenTransition(ctx);
+    nextControllerId = animateScreenTransition(context);
 
-    while (ctx->getSfmlWindow().pollEvent(event))
+    while (context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

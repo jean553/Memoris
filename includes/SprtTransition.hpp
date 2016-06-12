@@ -45,11 +45,11 @@ public:
     /**
      * @brief displays the sprite translation
      *
-     * @param ctx context pointer
+     * @param context context pointer
      * @param sprt sprite to display
      */
     void display(
-        utils::Context* ctx,
+        utils::Context& context,
         sf::Sprite& sprt,
         const bool& animate
     );

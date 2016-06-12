@@ -151,7 +151,7 @@ std::string Cell::getPicturePath() const
 /**
  *
  */
-void Cell::display(utils::Context* pContext)
+void Cell::display(utils::Context& context)
 {
     sf::Sprite sprToDspl;
 
@@ -173,7 +173,7 @@ void Cell::display(utils::Context* pContext)
         sprToDspl.setColor(whiteColor);
     }
 
-    pContext->getSfmlWindow().draw(sprToDspl);
+    context.getSfmlWindow().draw(sprToDspl);
 
     if (isSelected)
     {
@@ -182,10 +182,10 @@ void Cell::display(utils::Context* pContext)
             animateCell();
         }
 
-        pContext->getSfmlWindow().draw(topSelectionBar);
-        pContext->getSfmlWindow().draw(bottomSelectionBar);
-        pContext->getSfmlWindow().draw(leftSelectionBar);
-        pContext->getSfmlWindow().draw(rightSelectionBar);
+        context.getSfmlWindow().draw(topSelectionBar);
+        context.getSfmlWindow().draw(bottomSelectionBar);
+        context.getSfmlWindow().draw(leftSelectionBar);
+        context.getSfmlWindow().draw(rightSelectionBar);
     }
 }
 

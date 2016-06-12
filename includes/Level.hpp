@@ -79,11 +79,11 @@ public:
     /**
      * @brief display all the cells of one floor
      *
-     * @param pContext pointer to a context
+     * @param context pointer to a context
      * @param floor number
      */
     void displayAllCellsByFloor(
-        utils::Context* pContext,
+        utils::Context& context,
         const uint8_t& floor = 0
     );
 

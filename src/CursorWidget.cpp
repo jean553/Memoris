@@ -40,7 +40,7 @@ CursorWidget::CursorWidget()
 /**
  *
  */
-void CursorWidget::display(utils::Context* pContext)
+void CursorWidget::display(utils::Context& context)
 {
     /* NOTE: this is useless, as the CursorWidget attributes are never get,
        instead, we directly get the sf::Cursor position. Despite this, we
@@ -55,5 +55,5 @@ void CursorWidget::display(utils::Context* pContext)
         verticalPosition
     );
 
-    pContext->getSfmlWindow().draw(sprite);
+    context.getSfmlWindow().draw(sprite);
 }

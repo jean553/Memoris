@@ -47,9 +47,9 @@ public:
      * button colors according to the current
      * cursor position on screen
      *
-     * @param pContext       current context pointer
+     * @param context       current context pointer
      */
-    void display(utils::Context* pContext);
+    void display(utils::Context& context);
 
     /**
      * @brief update the size of the frame
