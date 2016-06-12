@@ -71,7 +71,7 @@ void OrderedItemsListWidget::display(utils::Context* pContext)
             itemsCommonVerticalPosition
         );
 
-        pContext->getWindow()->draw(spriteEdit);
-        pContext->getWindow()->draw(spriteDelete);
+        pContext->getSfmlWin().draw(spriteEdit);
+        pContext->getSfmlWin().draw(spriteDelete);
     }
 }

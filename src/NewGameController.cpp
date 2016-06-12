@@ -101,14 +101,14 @@ NewGameController::NewGameController() : Controller()
  */
 uint8_t NewGameController::render(utils::Context* pContext)
 {
-    pContext->getWindow()->draw(title);
-    pContext->getWindow()->draw(explanation);
+    pContext->getSfmlWin().draw(title);
+    pContext->getSfmlWin().draw(explanation);
 
     inputTextGameName.display(pContext);
 
     nextControllerId = animateScreenTransition(pContext);
 
-    while(pContext->getWindow()->pollEvent(event))
+    while(pContext->getSfmlWin().pollEvent(event))
     {
         switch(event.type)
         {

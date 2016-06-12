@@ -195,17 +195,17 @@ uint8_t MainMenuController::render(utils::Context* pContext)
 
     updateSelectorPosition();
 
-    pContext->getWindow()->draw(title);
-    pContext->getWindow()->draw(itemNewGame);
-    pContext->getWindow()->draw(itemLoadGame);
-    pContext->getWindow()->draw(itemEditor);
-    pContext->getWindow()->draw(itemOptions);
-    pContext->getWindow()->draw(itemExit);
-    pContext->getWindow()->draw(spriteGithub);
+    pContext->getSfmlWin().draw(title);
+    pContext->getSfmlWin().draw(itemNewGame);
+    pContext->getSfmlWin().draw(itemLoadGame);
+    pContext->getSfmlWin().draw(itemEditor);
+    pContext->getSfmlWin().draw(itemOptions);
+    pContext->getSfmlWin().draw(itemExit);
+    pContext->getSfmlWin().draw(spriteGithub);
 
     nextControllerId = animateScreenTransition(pContext);
 
-    while(pContext->getWindow()->pollEvent(event))
+    while(pContext->getSfmlWin().pollEvent(event))
     {
         switch(event.type)
         {

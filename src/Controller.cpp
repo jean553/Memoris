@@ -84,7 +84,7 @@ unsigned short Controller::animateScreenTransition(utils::Context* pContext)
                                );
     transitionSurface.setFillColor(transitionSurfaceColor);
 
-    pContext->getWindow()->draw(transitionSurface);
+    pContext->getSfmlWin().draw(transitionSurface);
 
     if (
         screenTransitionClock.getElapsedTime().asMilliseconds() >

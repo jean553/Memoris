@@ -71,13 +71,13 @@ uint8_t OfficialSeriesSelectorController::render(utils::Context* ctx)
 {
     scrlList.updtSltrPstn();
 
-    ctx->getWindow()->draw(offSerTitle);
+    ctx->getSfmlWin().draw(offSerTitle);
 
     scrlList.display(ctx);
 
     nextControllerId = animateScreenTransition(ctx);
 
-    while(ctx->getWindow()->pollEvent(event))
+    while(ctx->getSfmlWin().pollEvent(event))
     {
         switch(event.type)
         {

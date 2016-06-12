@@ -241,8 +241,8 @@ uint8_t EditorLevelController::render(utils::Context* pContext)
     cellSelector.display(pContext);
     floorSelectionFrame.display(pContext);
 
-    pContext->getWindow()->draw(floorPrefixLabel);
-    pContext->getWindow()->draw(floorLabel);
+    pContext->getSfmlWin().draw(floorPrefixLabel);
+    pContext->getSfmlWin().draw(floorLabel);
 
     /* displays the input text line for new level */
     if (status == NEW_LEVEL)
@@ -253,7 +253,7 @@ uint8_t EditorLevelController::render(utils::Context* pContext)
     /* displays the name of the level if one level is being edited */
     else if (status == EDIT_LEVEL)
     {
-        pContext->getWindow()->draw(levelNameLabel);
+        pContext->getSfmlWin().draw(levelNameLabel);
     }
 
     /* displays the error message if the level name is being edited and an error occured */
@@ -270,14 +270,14 @@ uint8_t EditorLevelController::render(utils::Context* pContext)
 
     if (levelAlreadyExists || saveLevelError)
     {
-        pContext->getWindow()->draw(errorLabel);
+        pContext->getSfmlWin().draw(errorLabel);
     }
 
     cursor.display(pContext);
 
     nextControllerId = animateScreenTransition(pContext);
 
-    while(pContext->getWindow()->pollEvent(event))
+    while(pContext->getSfmlWin().pollEvent(event))
     {
         switch(event.type)
         {

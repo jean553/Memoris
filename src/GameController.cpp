@@ -255,18 +255,18 @@ uint8_t GameController::render(utils::Context* pContext)
     /* update and display the timer */
     displayTime(pContext);
 
-    pContext->getWindow()->draw(spriteStar);
-    pContext->getWindow()->draw(spriteLife);
-    pContext->getWindow()->draw(spriteTarget);
-    pContext->getWindow()->draw(spriteTime);
-    pContext->getWindow()->draw(spriteFloor);
-    pContext->getWindow()->draw(foundStarsAmntStr);
-    pContext->getWindow()->draw(lifesAmntStr);
-    pContext->getWindow()->draw(targetStr);
-    pContext->getWindow()->draw(timeStr);
-    pContext->getWindow()->draw(floorStr);
-    pContext->getWindow()->draw(leftSeparator);
-    pContext->getWindow()->draw(rightSeparator);
+    pContext->getSfmlWin().draw(spriteStar);
+    pContext->getSfmlWin().draw(spriteLife);
+    pContext->getSfmlWin().draw(spriteTarget);
+    pContext->getSfmlWin().draw(spriteTime);
+    pContext->getSfmlWin().draw(spriteFloor);
+    pContext->getSfmlWin().draw(foundStarsAmntStr);
+    pContext->getSfmlWin().draw(lifesAmntStr);
+    pContext->getSfmlWin().draw(targetStr);
+    pContext->getSfmlWin().draw(timeStr);
+    pContext->getSfmlWin().draw(floorStr);
+    pContext->getSfmlWin().draw(leftSeparator);
+    pContext->getSfmlWin().draw(rightSeparator);
 
     if (
         (status == WATCHING || status == PLAYING_AND_WATCHING) &&
@@ -296,7 +296,7 @@ uint8_t GameController::render(utils::Context* pContext)
 
     nextControllerId = animateScreenTransition(pContext);
 
-    while(pContext->getWindow()->pollEvent(event))
+    while(pContext->getSfmlWin().pollEvent(event))
     {
         switch(event.type)
         {
@@ -545,7 +545,7 @@ void GameController::displayTime(utils::Context* ctx)
         timeClck.restart();
     }
 
-    ctx->getWindow()->draw(time);
+    ctx->getSfmlWin().draw(time);
 }
 
 /**
