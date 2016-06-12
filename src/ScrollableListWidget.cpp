@@ -81,7 +81,7 @@ void ScrollableListWidget::display(utils::Context* ctx)
         if (it >= ITEMS_AMNT)
             continue;
 
-        ctx->getWindow()->draw(txt);
+        ctx->getSfmlWin().draw(txt);
         it++;
     }
 
@@ -94,7 +94,7 @@ void ScrollableListWidget::display(utils::Context* ctx)
         if (it >= ITEMS_AMNT)
             continue;
 
-        ctx->getWindow()->draw(txt);
+        ctx->getSfmlWin().draw(txt);
         it++;
     }
 
@@ -208,5 +208,5 @@ void ScrollableListWidget::displayArrDown(utils::Context* ctx)
         clk.restart();
     }
 
-    ctx->getWindow()->draw(arrDownSprt);
+    ctx->getSfmlWin().draw(arrDownSprt);
 }

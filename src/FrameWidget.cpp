@@ -42,10 +42,10 @@ FrameWidget::FrameWidget()
  */
 void FrameWidget::display(utils::Context* pContext)
 {
-    pContext->getWindow()->draw(leftLine);
-    pContext->getWindow()->draw(rightLine);
-    pContext->getWindow()->draw(topLine);
-    pContext->getWindow()->draw(bottomLine);
+    pContext->getSfmlWin().draw(leftLine);
+    pContext->getSfmlWin().draw(rightLine);
+    pContext->getSfmlWin().draw(topLine);
+    pContext->getSfmlWin().draw(bottomLine);
 }
 
 /**

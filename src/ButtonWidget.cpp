@@ -190,12 +190,12 @@ void ButtonWidget::display(utils::Context* pContext)
         background.setFillColor(backgroundColorDisable);
     }
 
-    pContext->getWindow()->draw(background);
-    pContext->getWindow()->draw(topLine);
-    pContext->getWindow()->draw(bottomLine);
-    pContext->getWindow()->draw(leftLine);
-    pContext->getWindow()->draw(rightLine);
-    pContext->getWindow()->draw(buttonText);
+    pContext->getSfmlWin().draw(background);
+    pContext->getSfmlWin().draw(topLine);
+    pContext->getSfmlWin().draw(bottomLine);
+    pContext->getSfmlWin().draw(leftLine);
+    pContext->getSfmlWin().draw(rightLine);
+    pContext->getSfmlWin().draw(buttonText);
 }
 
 /**

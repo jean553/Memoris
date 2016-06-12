@@ -210,23 +210,23 @@ uint8_t EditorSerieController::render(utils::Context* pContext)
 
     if (status != MAIN_MENU)
     {
-        pContext->getWindow()->draw(serieNameLabel);
+        pContext->getSfmlWin().draw(serieNameLabel);
     }
 
     if (errorNewSerie)
     {
-        pContext->getWindow()->draw(errorLabel);
+        pContext->getSfmlWin().draw(errorLabel);
     }
     else if (errorNewLevel)
     {
-        pContext->getWindow()->draw(levelErrorLabel);
+        pContext->getSfmlWin().draw(levelErrorLabel);
     }
 
     cursor.display(pContext);
 
     nextControllerId = animateScreenTransition(pContext);
 
-    while(pContext->getWindow()->pollEvent(event))
+    while(pContext->getSfmlWin().pollEvent(event))
     {
         switch(event.type)
         {

@@ -29,9 +29,6 @@
 #include "MusicFactory.hpp"
 #include "Controller.hpp"
 #include "Context.hpp"
-#include "window.hpp"
-
-using namespace memoris;
 
 /**
  *
@@ -48,20 +45,7 @@ int main()
         );
     std::string nextMusicPath;
 
-    sf::RenderWindow window(
-        sf::VideoMode(
-            window::WIDTH,
-            window::HEIGHT,
-            window::RESOLUTION
-        ),
-        window::TITLE,
-        sf::Style::Fullscreen
-    );
-    window.setMouseCursorVisible(false);
-    window.setKeyRepeatEnabled(false);
-
     utils::Context context;
-    context.setWindow(&window);
     context.changeMusic(currentMusicPath);
 
     controllers::Controller* pCurrentController =
@@ -73,9 +57,9 @@ int main()
     do
     {
 
-        window.clear();
+        context.getSfmlWin().clear();
         nextControllerId = pCurrentController->render(&context);
-        window.display();
+        context.getSfmlWin().display();
 
         if(nextControllerId)
         {
@@ -104,7 +88,7 @@ int main()
             if (currentControllerId == factories::ControllerFactory::EXIT)
             {
                 context.stopMusic();
-                window.close();
+                context.getSfmlWin().close();
             }
             else
             {
@@ -112,7 +96,7 @@ int main()
             }
         }
     }
-    while (window.isOpen());
+    while (context.getSfmlWin().isOpen());
 
     return EXIT_SUCCESS;
 }

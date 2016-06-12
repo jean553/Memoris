@@ -83,7 +83,7 @@ uint8_t OpenSerieController::render(utils::Context* pContext)
 
     nextControllerId = animateScreenTransition(pContext);
 
-    while(pContext->getWindow()->pollEvent(event))
+    while(pContext->getSfmlWin().pollEvent(event))
     {
         switch(event.type)
         {

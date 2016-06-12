@@ -55,5 +55,5 @@ void CursorWidget::display(utils::Context* pContext)
         verticalPosition
     );
 
-    pContext->getWindow()->draw(sprite);
+    pContext->getSfmlWin().draw(sprite);
 }

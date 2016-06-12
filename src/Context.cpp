@@ -24,14 +24,31 @@
 
 #include "Context.hpp"
 #include "Sounds.hpp"
+#include "window.hpp"
 
+using namespace memoris;
 using namespace utils;
 
 /**
- *
+ * The constructor initializes the SFML window object: the dimensions,
+ * the resolution, the title and the mode ( fullscreen ) are set
  */
-Context::Context()
-{
+Context::Context() : sfmlWin(
+    sf::VideoMode(
+        window::WIDTH,
+        window::HEIGHT,
+        window::RESOLUTION
+    ),
+    window::TITLE,
+    sf::Style::Fullscreen
+) {
+    /* when the window is opened, the default SFML cursor is not displayed */
+    sfmlWin.setMouseCursorVisible(false);
+
+    /* prevent the user to keep a key pressed down: the events are only
+       triggered one time during the first press down and not continually */
+    sfmlWin.setKeyRepeatEnabled(false);
+
     soundScreenTransitionBuffer.loadFromFile(
         constants::Sounds::SCREEN_TRANSITION_SOUND_PATH
     );
@@ -44,17 +61,9 @@ Context::Context()
 /**
  *
  */
-sf::RenderWindow* Context::getWindow()
+sf::RenderWindow& Context::getSfmlWin()
 {
-    return pWindow;
-}
-
-/**
- *
- */
-void Context::setWindow(sf::RenderWindow* commonWindow)
-{
-    pWindow = commonWindow;
+    return sfmlWin;
 }
 
 /**

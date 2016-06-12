@@ -44,16 +44,11 @@ public:
     Context();
 
     /**
-     * @brief common window getter
+     * @brief getter on the SFML window object
      *
-     * @return common window pointer
+     * @return reference to the SFML window object
      */
-    sf::RenderWindow* getWindow();
-
-    /**
-     * @brief common window pointer setter
-     */
-    void setWindow(sf::RenderWindow* commonWindow);
+    sf::RenderWindow& getSfmlWin();
 
     /**
      * @brief change the current played music
@@ -141,7 +136,10 @@ public:
 
 private:
 
-    sf::RenderWindow* pWindow;
+    /**
+     * the main SFML window object
+     */
+    sf::RenderWindow sfmlWin;
 
     sf::Music music;
 
