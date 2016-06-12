@@ -53,13 +53,6 @@ int main()
     /* load and play the main menu music when the program starts */
     context.loadMusicFile(currentMusicPath);
 
-    /* FIXME: #406 do not use a controller pointer anymore */
-    controllers::Controller* pCurrentController =
-        factories::ControllerFactory::getControllerById(
-            currentControllerId,
-            &context
-        );
-
     /* the next controller id contains the id of the new controller to
        initialize. After generation of a controller, the current controller id
        is equal to the next controller id, the next controller id is equal
@@ -77,35 +70,43 @@ int main()
        music will be loaded using the nxtMusicPath */
     std::string nextMusicPath;
 
-    /* main program loop: loads, renders and modifies controllers;
-       the loop stops when the SFML window is closed */
+    /* first loop, calls the render loop and create each controller
+       when necessary */
     do
     {
-        /* continually clear the whole SFML window content */
-        context.getSfmlWindow().clear();
+        /* create a pointer to the current controller, pointing to the
+           controller to render; we use a pointer as there are different
+           children classes of controllers, all children of the Controller
+           class. */
+        controllers::Controller* pCurrentController =
+            factories::ControllerFactory::getControllerById(
+                currentControllerId,
+                &context
+            );
 
-        /* continually render the current controller scene */
-        /* FIXME: #407 do not use context pointers
-           at all, only use reference */
-        nextControllerId = pCurrentController->render(&context);
-
-        /* continually display the loaded content */
-        context.getSfmlWindow().display();
-
-        /* if the next controller id is not equal to 0, that means a new
-           controller has to be generated, or the program has ot be
-           terminated */
-        if(nextControllerId)
+        /* main program loop: loads, renders and modifies controllers;
+           the loop stops when the SFML window is closed */
+        do
         {
-            /* FIXME: #407 */
-            delete pCurrentController;
+            /* continually clear the whole SFML window content */
+            context.getSfmlWindow().clear();
 
-            pCurrentController =
-                factories::ControllerFactory::getControllerById(
-                    nextControllerId,
-                    &context
-                );
+            /* continually render the current controller scene */
+            /* FIXME: #407 do not use context pointers
+               at all, only use reference */
+            nextControllerId = pCurrentController->render(&context);
 
+            /* continually display the loaded content */
+            context.getSfmlWindow().display();
+        }
+        while (!nextControllerId);
+
+        /* delete the controller pointed by the current controller pointer */
+        delete pCurrentController;
+
+        /* check if the program is supposed to be terminated */
+        if (currentControllerId != factories::ControllerFactory::EXIT)
+        {
             /* get the path of the new music to load according to the next
                controller to load; sometimes, the music path is the same as
                the current controller music path */
@@ -126,25 +127,18 @@ int main()
 
             currentControllerId = nextControllerId;
 
-            /* check if the called id is the one supposed to terminate the
-               program; the EXIT id is not pointing to any controller */
-            if (currentControllerId == factories::ControllerFactory::EXIT)
-            {
-                context.stopMusic();
-
-                /* close the SFML window */
-                context.getSfmlWindow().close();
-            }
-            else
-            {
-                /* if the program is not supposed to be terminated, the screen
-                   content is updated: a common sound is played during the
-                   visual switch */
-                context.playScreenTransitionSound();
-            }
+            /* if the program is not supposed to be terminated, the screen
+               content is updated: a common sound is played during the
+               visual switch */
+            context.playScreenTransitionSound();
         }
     }
-    while (context.getSfmlWindow().isOpen());
+    while (currentControllerId != factories::ControllerFactory::EXIT);
+
+    context.stopMusic();
+
+    /* close the SFML window */
+    context.getSfmlWindow().close();
 
     return EXIT_SUCCESS;
 }
