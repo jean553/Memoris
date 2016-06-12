@@ -36,28 +36,28 @@ int main()
     /* the current controller id variable contains the id of the currently
        rendered controller; when the program starts, the first controller
        to display is the main menu controller. */
-    unsigned short currCtrlId =
+    unsigned short currentControllerId =
         factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
 
     /* the current music path string contains the file system path of the
        music currently played by the current controller; when the program
        starts, the played music is the menu music */
-    std::string currMscPath =
-        factories::MusicFactory::getMusicPathById(currCtrlId);
+    std::string currentMusicPath =
+        factories::MusicFactory::getMusicPathById(currentControllerId);
 
     /* the context is an unique object that is transfered from one controller
        to another during controllers switch; it contains data to exchange
        between controller, it also contains the SFML window */
-    utils::Context ctx;
+    utils::Context context;
 
     /* load and play the main menu music when the program starts */
-    ctx.loadMscFile(currMscPath);
+    context.loadMusicFile(currentMusicPath);
 
     /* FIXME: #406 do not use a controller pointer anymore */
     controllers::Controller* pCurrentController =
         factories::ControllerFactory::getControllerById(
-            currCtrlId,
-            &ctx
+            currentControllerId,
+            &context
         );
 
     /* the next controller id contains the id of the new controller to
@@ -65,85 +65,86 @@ int main()
        is equal to the next controller id, the next controller id is equal
        to 0. When a controller calls a new controller, the next controller id
        variable is updated. If the next controller id and the current
-       controller id are different, the controller with the nxtCtrlId value
-       is generated.*/
-    unsigned short nxtCtrlId = 0;
+       controller id are different, the controller with the nextControllerId
+       value is generated.*/
+    unsigned short nextControllerId = 0;
 
     /* the next music path string contains the path of the next music to
        load and play during the next controller generation. Sometimes, from
-       one controller to another, the currMscPath and the nxtMusicPath are the
-       sames, there is no interupt and modification of the playing music; if
-       they are different during the generation of a new controller, a new
+       one controller to another, the currentMusicPath and the nxtMusicPath are
+       the sames, there is no interupt and modification of the playing music;
+       if they are different during the generation of a new controller, a new
        music will be loaded using the nxtMusicPath */
-    std::string nxtMscPath;
+    std::string nextMusicPath;
 
     /* main program loop: loads, renders and modifies controllers;
        the loop stops when the SFML window is closed */
     do
     {
         /* continually clear the whole SFML window content */
-        ctx.getSfmlWin().clear();
+        context.getSfmlWindow().clear();
 
         /* continually render the current controller scene */
         /* FIXME: #407 do not use context pointers
            at all, only use reference */
-        nxtCtrlId = pCurrentController->render(&ctx);
+        nextControllerId = pCurrentController->render(&context);
 
         /* continually display the loaded content */
-        ctx.getSfmlWin().display();
+        context.getSfmlWindow().display();
 
         /* if the next controller id is not equal to 0, that means a new
            controller has to be generated, or the program has ot be
            terminated */
-        if(nxtCtrlId)
+        if(nextControllerId)
         {
             /* FIXME: #407 */
             delete pCurrentController;
 
             pCurrentController =
                 factories::ControllerFactory::getControllerById(
-                    nxtCtrlId,
-                    &ctx
+                    nextControllerId,
+                    &context
                 );
 
             /* get the path of the new music to load according to the next
                controller to load; sometimes, the music path is the same as
                the current controller music path */
-            nxtMscPath = factories::MusicFactory::getMusicPathById(nxtCtrlId);
+            nextMusicPath =
+                factories::MusicFactory::getMusicPathById(nextControllerId);
 
             /* check if the current music path and the next music path are
                different; if they are different, a new music has to be
                loaded */
-            if(currMscPath != nxtMscPath)
+            if(currentMusicPath != nextMusicPath)
             {
                 /* if the current music path and the next music path are
                    different, load and play the new music according to the
                    next music path */
-                ctx.loadMscFile(nxtMscPath);
-                currMscPath = nxtMscPath;
+                context.loadMusicFile(nextMusicPath);
+                currentMusicPath = nextMusicPath;
             }
 
-            currCtrlId = nxtCtrlId;
+            currentControllerId = nextControllerId;
 
             /* check if the called id is the one supposed to terminate the
                program; the EXIT id is not pointing to any controller */
-            if (currCtrlId == factories::ControllerFactory::EXIT)
+            if (currentControllerId == factories::ControllerFactory::EXIT)
             {
-                ctx.stopMsc();
+                context.stopMusic();
 
                 /* close the SFML window */
-                ctx.getSfmlWin().close();
+                context.getSfmlWindow().close();
             }
             else
             {
                 /* if the program is not supposed to be terminated, the screen
                    content is updated: a common sound is played during the
                    visual switch */
-                ctx.playScrnTrstnSnd();
+                context.playScreenTransitionSound();
             }
         }
     }
-    while (ctx.getSfmlWin().isOpen());
+    while (context.getSfmlWindow().isOpen());
 
     return EXIT_SUCCESS;
 }

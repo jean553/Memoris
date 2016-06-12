@@ -163,14 +163,14 @@ uint8_t SerieMainMenuController::render(utils::Context* ctx)
         animGame
     );
 
-    ctx->getSfmlWin().draw(title);
-    ctx->getSfmlWin().draw(itemOfficialSeries);
-    ctx->getSfmlWin().draw(itemPersonalSeries);
-    ctx->getSfmlWin().draw(itemBack);
+    ctx->getSfmlWindow().draw(title);
+    ctx->getSfmlWindow().draw(itemOfficialSeries);
+    ctx->getSfmlWindow().draw(itemPersonalSeries);
+    ctx->getSfmlWindow().draw(itemBack);
 
     nextControllerId = animateScreenTransition(ctx);
 
-    while (ctx->getSfmlWin().pollEvent(event))
+    while (ctx->getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

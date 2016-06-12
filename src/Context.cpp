@@ -33,50 +33,51 @@ using namespace utils;
  * The constructor initializes the SFML window object: the dimensions,
  * the resolution, the title and the mode ( fullscreen ) are set
  */
-Context::Context() : sfmlWin(
-    sf::VideoMode(
-        window::WIDTH,
-        window::HEIGHT,
-        window::RESOLUTION
-    ),
-    window::TITLE,
-    sf::Style::Fullscreen
-) {
+Context::Context() : sfmlWindow(
+        sf::VideoMode(
+            window::WIDTH,
+            window::HEIGHT,
+            window::RESOLUTION
+        ),
+        window::TITLE,
+        sf::Style::Fullscreen
+    )
+{
     /* when the window is opened, the default SFML cursor is not displayed */
-    sfmlWin.setMouseCursorVisible(false);
+    sfmlWindow.setMouseCursorVisible(false);
 
     /* prevent the user to keep a key pressed down: the events are only
        triggered one time during the first press down and not continually */
-    sfmlWin.setKeyRepeatEnabled(false);
+    sfmlWindow.setKeyRepeatEnabled(false);
 
     /* load the screen transition sound */
-    loadScrnTrstnSnd();
+    loadScreenTransitionSound();
 }
 
 /**
  *
  */
-sf::RenderWindow& Context::getSfmlWin()
+sf::RenderWindow& Context::getSfmlWindow()
 {
-    return sfmlWin;
+    return sfmlWindow;
 }
 
 /**
  *
  */
-void Context::loadMscFile(const std::string& pth)
+void Context::loadMusicFile(const std::string& path)
 {
     /* ends the function immediately if the path is empty */
-    if(pth.empty())
+    if(path.empty())
     {
         return;
     }
 
     /* stop the playing music before loading the new one */
-    stopMsc();
+    stopMusic();
 
     /* open the new music from the given file */
-    if(music.openFromFile(pth))
+    if(music.openFromFile(path))
     {
         /* the music is played only if the file can be opened, if no, the
            program continues but the music is not played; this is not a problem
@@ -88,7 +89,7 @@ void Context::loadMscFile(const std::string& pth)
 /**
  *
  */
-void Context::stopMsc()
+void Context::stopMusic()
 {
     /* check if the music object is playing a music */
     if(music.getStatus() == sf::Sound::Playing)
@@ -101,13 +102,13 @@ void Context::stopMsc()
 /**
  *
  */
-void Context::playScrnTrstnSnd()
+void Context::playScreenTransitionSound()
 {
     /* check if the sound exists and has been
        loaded correctly before playing */
-    if (sndScrnTrstn != NULL)
+    if (screenTransitionSound != NULL)
     {
-        sndScrnTrstn->play();
+        screenTransitionSound->play();
     }
 }
 
@@ -195,19 +196,23 @@ void Context::removeAllStrings()
 /**
  *
  */
-void Context::loadScrnTrstnSnd()
+void Context::loadScreenTransitionSound()
 {
     /* by default, the pointer is NULL; this is used for error management */
-    sndScrnTrstn = NULL;
+    screenTransitionSound = NULL;
 
     /* load the SFML buffer and the sound to play when the
        screen is switched from one controller to another one */
-    if(sndScrnTrstnBfr.loadFromFile(sounds::SCRN_TRSTN_SND_PTH))
+    if(
+        screenTransitionSoundBuffer.loadFromFile(
+            sounds::SCREEN_TRANSITION_SOUND
+        )
+    )
     {
         /* reset the NULL pointer with a pointed SFML sound object value,
            the sound object is generated at this moment, only if the file is
            opened successfully */
-        sndScrnTrstn.reset(new sf::Sound());
-        sndScrnTrstn->setBuffer(sndScrnTrstnBfr);
+        screenTransitionSound.reset(new sf::Sound());
+        screenTransitionSound->setBuffer(screenTransitionSoundBuffer);
     }
 }

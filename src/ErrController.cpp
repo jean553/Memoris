@@ -61,9 +61,9 @@ uint8_t ErrController::render(utils::Context* ctx)
 {
     nextControllerId = animateScreenTransition(ctx);
 
-    ctx->getSfmlWin().draw(error);
+    ctx->getSfmlWindow().draw(error);
 
-    while(ctx->getSfmlWin().pollEvent(event))
+    while(ctx->getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

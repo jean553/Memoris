@@ -108,13 +108,13 @@ uint8_t EditorMenuController::render(utils::Context* pContext)
 
     updateSelectorPosition();
 
-    pContext->getSfmlWin().draw(itemLevelsEditor);
-    pContext->getSfmlWin().draw(itemSeriesEditor);
-    pContext->getSfmlWin().draw(itemBack);
+    pContext->getSfmlWindow().draw(itemLevelsEditor);
+    pContext->getSfmlWindow().draw(itemSeriesEditor);
+    pContext->getSfmlWindow().draw(itemBack);
 
     nextControllerId = animateScreenTransition(pContext);
 
-    while (pContext->getSfmlWin().pollEvent(event))
+    while (pContext->getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {
