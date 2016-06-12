@@ -47,26 +47,26 @@ public:
      *
      * @return reference to the SFML window object
      */
-    sf::RenderWindow& getSfmlWin();
+    sf::RenderWindow& getSfmlWindow();
 
     /**
      * @brief load a new music file and play it,
      * silently fails if the music cannot be loaded
      *
-     * @param pth file path of the music to play
+     * @param path file path of the music to play
      */
-    void loadMscFile(const std::string& pth);
+    void loadMusicFile(const std::string& path);
 
     /**
      * @brief check if a music is playing, if yes, stop it
      */
-    void stopMsc();
+    void stopMusic();
 
     /**
      * @brief plays the screen transition sound, this sound is played each
      * time the screen (controller) is switched from one to another one
      */
-    void playScrnTrstnSnd();
+    void playScreenTransitionSound();
 
     /**
      * @brief add a message into the context
@@ -140,22 +140,22 @@ private:
     /**
      * @brief loads the screen transition sound
      */
-    void loadScrnTrstnSnd();
+    void loadScreenTransitionSound();
 
     /* the main SFML window object */
-    sf::RenderWindow sfmlWin;
+    sf::RenderWindow sfmlWindow;
 
     /* the SFML music to play */
     sf::Music music;
 
     /* SFML sound buffer for the unique transition sound */
-    sf::SoundBuffer sndScrnTrstnBfr;
+    sf::SoundBuffer screenTransitionSoundBuffer;
 
     /* unique pointer for the SFML screen transition sound; we use an
        unique pointer because it is never copied (only called here), it
        is NULL if the loading process of the sound failed, it is automatically
        destroyed */
-    std::unique_ptr<sf::Sound> sndScrnTrstn;
+    std::unique_ptr<sf::Sound> screenTransitionSound;
 
     std::map<std::string, std::string> messages;
 

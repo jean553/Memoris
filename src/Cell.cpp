@@ -173,7 +173,7 @@ void Cell::display(utils::Context* pContext)
         sprToDspl.setColor(whiteColor);
     }
 
-    pContext->getSfmlWin().draw(sprToDspl);
+    pContext->getSfmlWindow().draw(sprToDspl);
 
     if (isSelected)
     {
@@ -182,10 +182,10 @@ void Cell::display(utils::Context* pContext)
             animateCell();
         }
 
-        pContext->getSfmlWin().draw(topSelectionBar);
-        pContext->getSfmlWin().draw(bottomSelectionBar);
-        pContext->getSfmlWin().draw(leftSelectionBar);
-        pContext->getSfmlWin().draw(rightSelectionBar);
+        pContext->getSfmlWindow().draw(topSelectionBar);
+        pContext->getSfmlWindow().draw(bottomSelectionBar);
+        pContext->getSfmlWindow().draw(leftSelectionBar);
+        pContext->getSfmlWindow().draw(rightSelectionBar);
     }
 }
 

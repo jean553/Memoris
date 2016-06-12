@@ -96,12 +96,12 @@ uint8_t OpenLevelController::render(utils::Context* pContext)
 
     if (errorAlreadyAddedLevel)
     {
-        pContext->getSfmlWin().draw(errorLabel);
+        pContext->getSfmlWindow().draw(errorLabel);
     }
 
     nextControllerId = animateScreenTransition(pContext);
 
-    while(pContext->getSfmlWin().pollEvent(event))
+    while(pContext->getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

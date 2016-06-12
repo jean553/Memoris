@@ -58,7 +58,7 @@ void SprtTransition::display(
     const bool& animate
 )
 {
-    ctx->getSfmlWin().draw(sprt);
+    ctx->getSfmlWindow().draw(sprt);
 
     if (!animate)
     {

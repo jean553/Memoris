@@ -31,17 +31,17 @@ namespace memoris
 {
 namespace window
 {
-    /* width of the SFML window */
-    const unsigned short WIDTH = 1600;
+/* width of the SFML window */
+const unsigned short WIDTH = 1600;
 
-    /* height of the SFML window */
-    const unsigned short HEIGHT = 900;
+/* height of the SFML window */
+const unsigned short HEIGHT = 900;
 
-    /* resolution of the SFML window */
-    const unsigned short RESOLUTION = 32;
+/* resolution of the SFML window */
+const unsigned short RESOLUTION = 32;
 
-    /* title of the displayed window */
-    const std::string TITLE = "Memoris";
+/* title of the displayed window */
+const std::string TITLE = "Memoris";
 }
 }
 

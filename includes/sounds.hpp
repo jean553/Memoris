@@ -31,10 +31,10 @@ namespace memoris
 {
 namespace sounds
 {
-    /* NOTE: the strings cannot be declared as constant expressions */
+/* NOTE: the strings cannot be declared as constant expressions */
 
-    /* sound to play when the controllers are switched */
-    static const std::string SCRN_TRSTN_SND_PTH = "res/sounds/002.wav";
+/* sound to play when the controllers are switched */
+static const std::string SCREEN_TRANSITION_SOUND = "res/sounds/002.wav";
 }
 }
 

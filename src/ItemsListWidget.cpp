@@ -196,10 +196,10 @@ void ItemsListWidget::addTextItem(std::string textItem)
  */
 void ItemsListWidget::display(utils::Context* pContext)
 {
-    pContext->getSfmlWin().draw(boxTop);
-    pContext->getSfmlWin().draw(boxBottom);
-    pContext->getSfmlWin().draw(boxLeft);
-    pContext->getSfmlWin().draw(boxRight);
+    pContext->getSfmlWindow().draw(boxTop);
+    pContext->getSfmlWindow().draw(boxBottom);
+    pContext->getSfmlWindow().draw(boxLeft);
+    pContext->getSfmlWindow().draw(boxRight);
 
     if (isMouseHover())
     {
@@ -208,8 +208,8 @@ void ItemsListWidget::display(utils::Context* pContext)
 
     highlightArrows(pContext);
 
-    pContext->getSfmlWin().draw(spriteUp);
-    pContext->getSfmlWin().draw(spriteDown);
+    pContext->getSfmlWindow().draw(spriteUp);
+    pContext->getSfmlWindow().draw(spriteDown);
 
     for(std::vector<std::string>::iterator textItem = stringsList.begin();
             textItem != stringsList.end(); ++textItem)
@@ -244,7 +244,7 @@ void ItemsListWidget::display(utils::Context* pContext)
             itemsCommonVerticalPosition - ITEMS_LIST_TEXT_OFFSET
         );
 
-        pContext->getSfmlWin().draw(item);
+        pContext->getSfmlWindow().draw(item);
     }
 }
 
@@ -314,7 +314,7 @@ void ItemsListWidget::highlightCurrentItem(utils::Context* pContext)
         ITEMS_LIST_ITEM_HEIGHT + ITEMS_LIST_BORDER_SIZE
     );
 
-    pContext->getSfmlWin().draw(selector);
+    pContext->getSfmlWindow().draw(selector);
 
     /* TODO: use the same variable, should be refactored,
        use a second separated variable to avoid all casting problems */
@@ -328,11 +328,11 @@ void ItemsListWidget::highlightArrows(utils::Context* pContext)
 {
     if (isMouseHoverArrowUp())
     {
-        pContext->getSfmlWin().draw(arrowUpSelector);
+        pContext->getSfmlWindow().draw(arrowUpSelector);
     }
     else if (isMouseHoverArrowDown())
     {
-        pContext->getSfmlWin().draw(arrowDownSelector);
+        pContext->getSfmlWindow().draw(arrowDownSelector);
     }
 }
 
