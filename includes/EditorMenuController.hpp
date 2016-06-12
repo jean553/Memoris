@@ -68,12 +68,12 @@ public:
     /**
      * @brief render the serie editor screen
      *
-     * @param pContext commons items for controller
+     * @param context commons items for controller
      *
      * @return uint8_t   id of the next screen controller
      */
     uint8_t render(
-        utils::Context* pContext
+        utils::Context& context
     );
 
     /**

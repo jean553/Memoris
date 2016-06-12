@@ -57,11 +57,11 @@ public:
     /**
      * @brief render the open serie screen
      *
-     * @param pContext commons items for controller
+     * @param context commons items for controller
      *
      * @return uint8_t   id of the next screen controller
      */
-    uint8_t render(utils::Context* pContext);
+    uint8_t render(utils::Context& context);
 
 private:
 
@@ -71,9 +71,9 @@ private:
      * @brief modifies the value of the next controller according of
      * the controller that called the current one
      *
-     * @param pContext current context pointer
+     * @param context current context pointer
      */
-    void changeNextControllerId(utils::Context* pContext);
+    void changeNextControllerId(utils::Context& context);
 
     widgets::TitleBarWidget titleBar;
 

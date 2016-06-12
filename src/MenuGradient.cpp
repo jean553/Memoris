@@ -64,9 +64,9 @@ MenuGradient::MenuGradient()
 /**
  *
  */
-void MenuGradient::display(utils::Context* ctx)
+void MenuGradient::display(utils::Context& context)
 {
-    ctx->getSfmlWindow().draw(main);
+    context.getSfmlWindow().draw(main);
 
     /* display the left gradient */
     for (
@@ -75,7 +75,7 @@ void MenuGradient::display(utils::Context* ctx)
         ++rtgl
     )
     {
-        ctx->getSfmlWindow().draw(*rtgl);
+        context.getSfmlWindow().draw(*rtgl);
     }
 
     /* display the right gradient */
@@ -85,7 +85,7 @@ void MenuGradient::display(utils::Context* ctx)
         ++rtgl
     )
     {
-        ctx->getSfmlWindow().draw(*rtgl);
+        context.getSfmlWindow().draw(*rtgl);
     }
 }
 

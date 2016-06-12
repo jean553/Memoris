@@ -48,9 +48,9 @@ public:
     /**
      * @brief displays all the cells for selection
      *
-     * @param pContext current context pointer
+     * @param context current context pointer
      */
-    void display(utils::Context* pContext);
+    void display(utils::Context& context);
 
     /**
      * @brief redefinition of the position setter,

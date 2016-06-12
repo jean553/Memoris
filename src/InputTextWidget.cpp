@@ -158,17 +158,17 @@ void InputTextWidget::setText(std::string inputTextData)
 /**
  *
  */
-void InputTextWidget::display(utils::Context* pContext)
+void InputTextWidget::display(utils::Context& context)
 {
-    pContext->getSfmlWindow().draw(boxTop);
-    pContext->getSfmlWindow().draw(boxBottom);
-    pContext->getSfmlWindow().draw(boxLeft);
-    pContext->getSfmlWindow().draw(boxRight);
-    pContext->getSfmlWindow().draw(displayedText);
+    context.getSfmlWindow().draw(boxTop);
+    context.getSfmlWindow().draw(boxBottom);
+    context.getSfmlWindow().draw(boxLeft);
+    context.getSfmlWindow().draw(boxRight);
+    context.getSfmlWindow().draw(displayedText);
 
     if(displayCursor)
     {
-        pContext->getSfmlWindow().draw(cursor);
+        context.getSfmlWindow().draw(cursor);
     }
 
     if(clock.getElapsedTime().asMilliseconds() >

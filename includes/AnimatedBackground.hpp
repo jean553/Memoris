@@ -43,9 +43,9 @@ public:
     /**
      * @brief animate the background
      *
-     * @param ctx pointer to the current context
+     * @param context pointer to the current context
      */
-    void animate(utils::Context* ctx);
+    void animate(utils::Context& context);
 
 private:
 

@@ -64,9 +64,9 @@ protected:
     /**
      * @brief common method to display the widget
      *
-     * @param pContext    current context pointer
+     * @param context    current context pointer
      */
-    virtual void display(utils::Context* pContext) = 0;
+    virtual void display(utils::Context& context) = 0;
 
     float horizontalPosition;
     float verticalPosition;

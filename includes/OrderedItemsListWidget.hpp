@@ -47,9 +47,9 @@ public:
     /**
      * @brief display the items list widget
      *
-     * @param pContext  current pContext pointer
+     * @param context  current context pointer
      */
-    void display(utils::Context* pContext);
+    void display(utils::Context& context);
 };
 }
 

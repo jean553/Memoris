@@ -57,7 +57,7 @@ const uint8_t ControllerFactory::OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID = 11;
  */
 controllers::Controller* ControllerFactory::getControllerById(
     unsigned short id,
-    utils::Context* pContext
+    utils::Context& context
 )
 {
     switch(id)
@@ -69,7 +69,7 @@ controllers::Controller* ControllerFactory::getControllerById(
     case EDITOR_MENU_CONTROLLER_ID:
         return new controllers::EditorMenuController;
     case EDITOR_SERIE_CONTROLLER_ID:
-        return new controllers::EditorSerieController(pContext);
+        return new controllers::EditorSerieController(context);
     case OPEN_SERIE_CONTROLLER_ID:
         return new controllers::OpenSerieController;
     case EDITOR_LEVEL_CONTROLLER_ID:
@@ -80,7 +80,7 @@ controllers::Controller* ControllerFactory::getControllerById(
         try
         {
             return new controllers::GameController(
-                       pContext->getNxtLvlStrPath()
+                       context.getNxtLvlStrPath()
                    );
         }
         catch(const std::invalid_argument& e)

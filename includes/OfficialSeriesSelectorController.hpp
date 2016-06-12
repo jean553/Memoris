@@ -42,11 +42,11 @@ public:
     /**
      * @brief rendering method
      *
-     * @param ctx current context
+     * @param context current context
      *
      * @return uint8_t id of the next screen
      */
-    uint8_t render(utils::Context* ctx);
+    uint8_t render(utils::Context& context);
 
 private:
 

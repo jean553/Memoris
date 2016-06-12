@@ -223,37 +223,37 @@ EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSIT
 /**
  *
  */
-uint8_t EditorLevelController::render(utils::Context* pContext)
+uint8_t EditorLevelController::render(utils::Context& context)
 {
-    titleBar.display(pContext);
-    buttonExit.display(pContext);
-    buttonNew.display(pContext);
-    buttonOpen.display(pContext);
-    buttonSave.display(pContext);
-    buttonNextFloor.display(pContext);
-    buttonPreviousFloor.display(pContext);
+    titleBar.display(context);
+    buttonExit.display(context);
+    buttonNew.display(context);
+    buttonOpen.display(context);
+    buttonSave.display(context);
+    buttonNextFloor.display(context);
+    buttonPreviousFloor.display(context);
 
     level.displayAllCellsByFloor(
-        pContext,
+        context,
         currentFloor
     );
 
-    cellSelector.display(pContext);
-    floorSelectionFrame.display(pContext);
+    cellSelector.display(context);
+    floorSelectionFrame.display(context);
 
-    pContext->getSfmlWindow().draw(floorPrefixLabel);
-    pContext->getSfmlWindow().draw(floorLabel);
+    context.getSfmlWindow().draw(floorPrefixLabel);
+    context.getSfmlWindow().draw(floorLabel);
 
     /* displays the input text line for new level */
     if (status == NEW_LEVEL)
     {
-        inputTextNew.display(pContext);
+        inputTextNew.display(context);
     }
 
     /* displays the name of the level if one level is being edited */
     else if (status == EDIT_LEVEL)
     {
-        pContext->getSfmlWindow().draw(levelNameLabel);
+        context.getSfmlWindow().draw(levelNameLabel);
     }
 
     /* displays the error message if the level name is being edited and an error occured */
@@ -270,14 +270,14 @@ uint8_t EditorLevelController::render(utils::Context* pContext)
 
     if (levelAlreadyExists || saveLevelError)
     {
-        pContext->getSfmlWindow().draw(errorLabel);
+        context.getSfmlWindow().draw(errorLabel);
     }
 
-    cursor.display(pContext);
+    cursor.display(context);
 
-    nextControllerId = animateScreenTransition(pContext);
+    nextControllerId = animateScreenTransition(context);
 
-    while(pContext->getSfmlWindow().pollEvent(event))
+    while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {
@@ -360,7 +360,7 @@ uint8_t EditorLevelController::render(utils::Context* pContext)
                 {
                     if(buttonExit.isMouseHover())
                     {
-                        pContext->removeAllMessages();
+                        context.removeAllMessages();
 
                         expectedControllerId =
                             factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
@@ -372,7 +372,7 @@ uint8_t EditorLevelController::render(utils::Context* pContext)
                     else if(buttonOpen.isMouseHover())
                     {
 
-                        pContext->addMessageByName(
+                        context.addMessageByName(
                             constants::Messages::PREVIOUS_CONTROLLER_MESSAGE,
                             constants::Screens::LEVEL_EDITOR_SCREEN_NAME
                         );

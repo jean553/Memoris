@@ -74,16 +74,16 @@ OpenSerieController::OpenSerieController() : Controller()
 /**
  *
  */
-uint8_t OpenSerieController::render(utils::Context* pContext)
+uint8_t OpenSerieController::render(utils::Context& context)
 {
-    titleBar.display(pContext);
-    buttonExit.display(pContext);
-    seriesList.display(pContext);
-    cursor.display(pContext);
+    titleBar.display(context);
+    buttonExit.display(context);
+    seriesList.display(context);
+    cursor.display(context);
 
-    nextControllerId = animateScreenTransition(pContext);
+    nextControllerId = animateScreenTransition(context);
 
-    while(pContext->getSfmlWindow().pollEvent(event))
+    while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

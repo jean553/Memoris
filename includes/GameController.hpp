@@ -48,11 +48,11 @@ public:
     /**
      * @brief renders the game main screen
      *
-     * @param pContext commons items for controller
+     * @param context commons items for controller
      *
      * @return uint8_t    id of the new screen controller
      */
-    uint8_t render(utils::Context* pContext);
+    uint8_t render(utils::Context& context);
 
 private:
 
@@ -72,9 +72,9 @@ private:
     /**
      * @brief display the game time
      *
-     * @param pContext pointer to the current context
+     * @param context pointer to the current context
      */
-    void displayTime(utils::Context* ctx);
+    void displayTime(utils::Context& context);
 
     /**
      * @brief set and increment the displayed value of the star counter

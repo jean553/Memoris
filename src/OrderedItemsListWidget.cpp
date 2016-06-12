@@ -41,9 +41,9 @@ OrderedItemsListWidget::OrderedItemsListWidget() : ItemsListWidget()
 /**
  *
  */
-void OrderedItemsListWidget::display(utils::Context* pContext)
+void OrderedItemsListWidget::display(utils::Context& context)
 {
-    ItemsListWidget::display(pContext);
+    ItemsListWidget::display(context);
 
     for(std::vector<std::string>::iterator textItem = stringsList.begin();
             textItem != stringsList.end(); ++textItem)
@@ -71,7 +71,7 @@ void OrderedItemsListWidget::display(utils::Context* pContext)
             itemsCommonVerticalPosition
         );
 
-        pContext->getSfmlWindow().draw(spriteEdit);
-        pContext->getSfmlWindow().draw(spriteDelete);
+        context.getSfmlWindow().draw(spriteEdit);
+        context.getSfmlWindow().draw(spriteDelete);
     }
 }

@@ -68,7 +68,7 @@ ScrollableListWidget::ScrollableListWidget()
 /**
  *
  */
-void ScrollableListWidget::display(utils::Context* ctx)
+void ScrollableListWidget::display(utils::Context& context)
 {
     /* iterate like that as we copy the reference in the for loop */
     uint8_t it = 0;
@@ -81,7 +81,7 @@ void ScrollableListWidget::display(utils::Context* ctx)
         if (it >= ITEMS_AMNT)
             continue;
 
-        ctx->getSfmlWindow().draw(txt);
+        context.getSfmlWindow().draw(txt);
         it++;
     }
 
@@ -94,11 +94,11 @@ void ScrollableListWidget::display(utils::Context* ctx)
         if (it >= ITEMS_AMNT)
             continue;
 
-        ctx->getSfmlWindow().draw(txt);
+        context.getSfmlWindow().draw(txt);
         it++;
     }
 
-    displayArrDown(ctx);
+    displayArrDown(context);
 }
 
 /**
@@ -189,7 +189,7 @@ void ScrollableListWidget::decSltrPstn()
 /**
  *
  */
-void ScrollableListWidget::displayArrDown(utils::Context* ctx)
+void ScrollableListWidget::displayArrDown(utils::Context& context)
 {
     if (clk.getElapsedTime().asMilliseconds() > TIME_ITRVL)
     {
@@ -208,5 +208,5 @@ void ScrollableListWidget::displayArrDown(utils::Context* ctx)
         clk.restart();
     }
 
-    ctx->getSfmlWindow().draw(arrDownSprt);
+    context.getSfmlWindow().draw(arrDownSprt);
 }

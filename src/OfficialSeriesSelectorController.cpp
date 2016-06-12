@@ -67,17 +67,17 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController()
 /**
  *
  */
-uint8_t OfficialSeriesSelectorController::render(utils::Context* ctx)
+uint8_t OfficialSeriesSelectorController::render(utils::Context& context)
 {
     scrlList.updtSltrPstn();
 
-    ctx->getSfmlWindow().draw(offSerTitle);
+    context.getSfmlWindow().draw(offSerTitle);
 
-    scrlList.display(ctx);
+    scrlList.display(context);
 
-    nextControllerId = animateScreenTransition(ctx);
+    nextControllerId = animateScreenTransition(context);
 
-    while(ctx->getSfmlWindow().pollEvent(event))
+    while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {
@@ -96,7 +96,7 @@ uint8_t OfficialSeriesSelectorController::render(utils::Context* ctx)
             case sf::Keyboard::Return:
             {
                 /* TODO: the level should be specified according to the selected serie */
-                ctx->setNxtLvlStrPath(levels[0]);
+                context.setNxtLvlStrPath(levels[0]);
 
                 expectedControllerId =
                     factories::ControllerFactory::GAME_CONTROLLER_ID;

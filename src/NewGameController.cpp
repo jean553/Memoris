@@ -99,16 +99,16 @@ NewGameController::NewGameController() : Controller()
 /**
  *
  */
-uint8_t NewGameController::render(utils::Context* pContext)
+uint8_t NewGameController::render(utils::Context& context)
 {
-    pContext->getSfmlWindow().draw(title);
-    pContext->getSfmlWindow().draw(explanation);
+    context.getSfmlWindow().draw(title);
+    context.getSfmlWindow().draw(explanation);
 
-    inputTextGameName.display(pContext);
+    inputTextGameName.display(context);
 
-    nextControllerId = animateScreenTransition(pContext);
+    nextControllerId = animateScreenTransition(context);
 
-    while(pContext->getSfmlWindow().pollEvent(event))
+    while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

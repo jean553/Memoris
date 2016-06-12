@@ -53,12 +53,12 @@ SprtTransition::SprtTransition(
  *
  */
 void SprtTransition::display(
-    utils::Context* ctx,
+    utils::Context& context,
     sf::Sprite& sprt,
     const bool& animate
 )
 {
-    ctx->getSfmlWindow().draw(sprt);
+    context.getSfmlWindow().draw(sprt);
 
     if (!animate)
     {

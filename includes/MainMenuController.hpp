@@ -106,12 +106,12 @@ public:
     /**
      * @brief render the main menu
      *
-     * @param pContext   commons items for controller
+     * @param context   commons items for controller
      *
      * @return uint8_t   id of the next screen controller
      */
     uint8_t render(
-        utils::Context* pContext
+        utils::Context& context
     );
 
 private:

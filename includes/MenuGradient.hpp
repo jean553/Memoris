@@ -42,9 +42,9 @@ public:
     /**
      * @brief display the gradient area
      *
-     * @param ctx pointer to the current context
+     * @param context pointer to the current context
      */
-    void display(utils::Context* ctx);
+    void display(utils::Context& context);
 
 private:
 

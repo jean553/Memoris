@@ -57,13 +57,13 @@ ErrController::ErrController(const std::string& msg) : Controller()
 /**
  *
  */
-uint8_t ErrController::render(utils::Context* ctx)
+uint8_t ErrController::render(utils::Context& context)
 {
-    nextControllerId = animateScreenTransition(ctx);
+    nextControllerId = animateScreenTransition(context);
 
-    ctx->getSfmlWindow().draw(error);
+    context.getSfmlWindow().draw(error);
 
-    while(ctx->getSfmlWindow().pollEvent(event))
+    while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

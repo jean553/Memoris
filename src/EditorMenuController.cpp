@@ -102,19 +102,19 @@ EditorMenuController::EditorMenuController() : Controller()
 /**
  *
  */
-uint8_t EditorMenuController::render(utils::Context* pContext)
+uint8_t EditorMenuController::render(utils::Context& context)
 {
     policies::HasMenuSelectorAnimation::animateMenuSelector<EditorMenuController>(this);
 
     updateSelectorPosition();
 
-    pContext->getSfmlWindow().draw(itemLevelsEditor);
-    pContext->getSfmlWindow().draw(itemSeriesEditor);
-    pContext->getSfmlWindow().draw(itemBack);
+    context.getSfmlWindow().draw(itemLevelsEditor);
+    context.getSfmlWindow().draw(itemSeriesEditor);
+    context.getSfmlWindow().draw(itemBack);
 
-    nextControllerId = animateScreenTransition(pContext);
+    nextControllerId = animateScreenTransition(context);
 
-    while (pContext->getSfmlWindow().pollEvent(event))
+    while (context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

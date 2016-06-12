@@ -168,7 +168,7 @@ void ButtonWidget::setText(std::string inputTextData)
 /**
  *
  */
-void ButtonWidget::display(utils::Context* pContext)
+void ButtonWidget::display(utils::Context& context)
 {
     if(enable)
     {
@@ -190,12 +190,12 @@ void ButtonWidget::display(utils::Context* pContext)
         background.setFillColor(backgroundColorDisable);
     }
 
-    pContext->getSfmlWindow().draw(background);
-    pContext->getSfmlWindow().draw(topLine);
-    pContext->getSfmlWindow().draw(bottomLine);
-    pContext->getSfmlWindow().draw(leftLine);
-    pContext->getSfmlWindow().draw(rightLine);
-    pContext->getSfmlWindow().draw(buttonText);
+    context.getSfmlWindow().draw(background);
+    context.getSfmlWindow().draw(topLine);
+    context.getSfmlWindow().draw(bottomLine);
+    context.getSfmlWindow().draw(leftLine);
+    context.getSfmlWindow().draw(rightLine);
+    context.getSfmlWindow().draw(buttonText);
 }
 
 /**

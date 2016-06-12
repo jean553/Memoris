@@ -60,14 +60,14 @@ public:
      * generation and screens switching.
      *
      * @param id      screen id
-     * @param pContext current context
+     * @param context current context
      *
      * @return screen controller pointer,
      * returns null if no screen match
      */
     static controllers::Controller* getControllerById(
         unsigned short id,
-        utils::Context* pContext
+        utils::Context& context
     );
 
 private:
