@@ -17,17 +17,15 @@
 */
 
 /**
- * Common contents which can be
- * passed from one screen to another.
- *
  * @file Context.hpp
- * @brief common contents to be passed to controller
+ * @brief class for the unique context object of the program, contains data
+ * supposed to be transfered from one controller to another
  * @package utils
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_CONTEXT
-#define DEF_CONTEXT
+#ifndef MEMORIS_CONTEXT_H_
+#define MEMORIS_CONTEXT_H_
 
 #include <string>
 #include <map>
@@ -51,21 +49,23 @@ public:
     sf::RenderWindow& getSfmlWin();
 
     /**
-     * @brief change the current played music
+     * @brief load a new music file and play it,
+     * silently fails if the music cannot be loaded
      *
-     * @param path              path of the music to play
+     * @param pth file path of the music to play
      */
-    void changeMusic(std::string path);
+    void loadMscFile(const std::string& pth);
 
     /**
-     * @brief stop music if playing
+     * @brief check if a music is playing, if yes, stop it
      */
-    void stopMusic();
+    void stopMsc();
 
     /**
-     * @brief plays the screen transition sound
+     * @brief plays the screen transition sound, this sound is played each
+     * time the screen (controller) is switched from one to another one
      */
-    void playScreenTransitionCommonSound();
+    void playScrnTrstnSnd();
 
     /**
      * @brief add a message into the context
@@ -136,16 +136,16 @@ public:
 
 private:
 
-    /**
-     * the main SFML window object
-     */
+    /* the main SFML window object */
     sf::RenderWindow sfmlWin;
 
+    /* the SFML music to play */
     sf::Music music;
 
-    sf::SoundBuffer soundScreenTransitionBuffer;
-
-    sf::Sound soundScreenTransition;
+    /* SFML buffer and SFML sound objects
+       for the screen transition sound */
+    sf::SoundBuffer sndScrnTrstnBfr;
+    sf::Sound sndScrnTrstn;
 
     std::map<std::string, std::string> messages;
 

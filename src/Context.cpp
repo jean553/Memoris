@@ -25,6 +25,7 @@
 #include "Context.hpp"
 #include "Sounds.hpp"
 #include "window.hpp"
+#include "sounds.hpp"
 
 using namespace memoris;
 using namespace utils;
@@ -49,13 +50,11 @@ Context::Context() : sfmlWin(
        triggered one time during the first press down and not continually */
     sfmlWin.setKeyRepeatEnabled(false);
 
-    soundScreenTransitionBuffer.loadFromFile(
-        constants::Sounds::SCREEN_TRANSITION_SOUND_PATH
-    );
-
-    soundScreenTransition.setBuffer(
-        soundScreenTransitionBuffer
-    );
+    /* load the SFML buffer and the sound to play when the
+       screen is switched from one controller to another one */
+    /* FIXME: #408 no error management */
+    sndScrnTrstnBfr.loadFromFile(sounds::SCRN_TRSTN_SND_PTH);
+    sndScrnTrstn.setBuffer(sndScrnTrstnBfr);
 }
 
 /**
@@ -69,26 +68,36 @@ sf::RenderWindow& Context::getSfmlWin()
 /**
  *
  */
-void Context::changeMusic(std::string musicPath)
+void Context::loadMscFile(const std::string& pth)
 {
-    if(musicPath.empty())
+    /* ends the function immediately if the path is empty */
+    if(pth.empty())
     {
         return;
     }
 
-    stopMusic();
+    /* stop the playing music before loading the new one */
+    stopMsc();
 
-    music.openFromFile(musicPath);
-    music.play();
+    /* open the new music from the given file */
+    if(music.openFromFile(pth))
+    {
+        /* the music is played only if the file can be opened, if no, the
+           program continues but the music is not played; this is not a problem
+           as the context check if the music is playing before stopping it */
+        music.play();
+    }
 }
 
 /**
  *
  */
-void Context::stopMusic()
+void Context::stopMsc()
 {
+    /* check if the music object is playing a music */
     if(music.getStatus() == sf::Sound::Playing)
     {
+        /* stop the SFML music */
         music.stop();
     }
 }
@@ -96,9 +105,10 @@ void Context::stopMusic()
 /**
  *
  */
-void Context::playScreenTransitionCommonSound()
+void Context::playScrnTrstnSnd()
 {
-    soundScreenTransition.play();
+    /* FIXME: #408 */
+    sndScrnTrstn.play();
 }
 
 /**
