@@ -23,7 +23,6 @@
  */
 
 #include "Context.hpp"
-#include "Sounds.hpp"
 #include "window.hpp"
 #include "sounds.hpp"
 
@@ -50,11 +49,8 @@ Context::Context() : sfmlWin(
        triggered one time during the first press down and not continually */
     sfmlWin.setKeyRepeatEnabled(false);
 
-    /* load the SFML buffer and the sound to play when the
-       screen is switched from one controller to another one */
-    /* FIXME: #408 no error management */
-    sndScrnTrstnBfr.loadFromFile(sounds::SCRN_TRSTN_SND_PTH);
-    sndScrnTrstn.setBuffer(sndScrnTrstnBfr);
+    /* load the screen transition sound */
+    loadScrnTrstnSnd();
 }
 
 /**
@@ -107,8 +103,12 @@ void Context::stopMsc()
  */
 void Context::playScrnTrstnSnd()
 {
-    /* FIXME: #408 */
-    sndScrnTrstn.play();
+    /* check if the sound exists and has been
+       loaded correctly before playing */
+    if (sndScrnTrstn != NULL)
+    {
+        sndScrnTrstn->play();
+    }
 }
 
 /**
@@ -190,4 +190,24 @@ void Context::setNxtLvlStrPath(const std::string& path)
 void Context::removeAllStrings()
 {
     stringsList.clear();
+}
+
+/**
+ *
+ */
+void Context::loadScrnTrstnSnd()
+{
+    /* by default, the pointer is NULL; this is used for error management */
+    sndScrnTrstn = NULL;
+
+    /* load the SFML buffer and the sound to play when the
+       screen is switched from one controller to another one */
+    if(sndScrnTrstnBfr.loadFromFile(sounds::SCRN_TRSTN_SND_PTH))
+    {
+        /* reset the NULL pointer with a pointed SFML sound object value,
+           the sound object is generated at this moment, only if the file is
+           opened successfully */
+        sndScrnTrstn.reset(new sf::Sound());
+        sndScrnTrstn->setBuffer(sndScrnTrstnBfr);
+    }
 }

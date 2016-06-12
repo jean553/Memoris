@@ -29,6 +29,7 @@
 
 #include <string>
 #include <map>
+#include <memory>
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -136,16 +137,25 @@ public:
 
 private:
 
+    /**
+     * @brief loads the screen transition sound
+     */
+    void loadScrnTrstnSnd();
+
     /* the main SFML window object */
     sf::RenderWindow sfmlWin;
 
     /* the SFML music to play */
     sf::Music music;
 
-    /* SFML buffer and SFML sound objects
-       for the screen transition sound */
+    /* SFML sound buffer for the unique transition sound */
     sf::SoundBuffer sndScrnTrstnBfr;
-    sf::Sound sndScrnTrstn;
+
+    /* unique pointer for the SFML screen transition sound; we use an
+       unique pointer because it is never copied (only called here), it
+       is NULL if the loading process of the sound failed, it is automatically
+       destroyed */
+    std::unique_ptr<sf::Sound> sndScrnTrstn;
 
     std::map<std::string, std::string> messages;
 
