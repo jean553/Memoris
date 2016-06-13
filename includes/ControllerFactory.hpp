@@ -39,19 +39,17 @@ class ControllerFactory
 
 public:
 
-    /* TODO: should be converted into uint8_t */
-    static const unsigned short EXIT;
-    static const unsigned short MAIN_MENU_CONTROLLER_ID;
-    static const unsigned short NEW_GAME_CONTROLLER_ID;
-    static const unsigned short EDITOR_MENU_CONTROLLER_ID;
-    static const unsigned short EDITOR_SERIE_CONTROLLER_ID;
-    static const unsigned short OPEN_SERIE_CONTROLLER_ID;
-    static const unsigned short EDITOR_LEVEL_CONTROLLER_ID;
-    static const unsigned short OPEN_LEVEL_CONTROLLER_ID;
-    static const unsigned short GAME_CONTROLLER_ID;
-
-    static const uint8_t SERIE_MAIN_MENU_CONTROLLER_ID;
-    static const uint8_t OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID;
+    static constexpr unsigned short EXIT = 1;
+    static constexpr unsigned short MAIN_MENU_CONTROLLER_ID = 2;
+    static constexpr unsigned short NEW_GAME_CONTROLLER_ID = 3;
+    static constexpr unsigned short EDITOR_MENU_CONTROLLER_ID = 4;
+    static constexpr unsigned short EDITOR_SERIE_CONTROLLER_ID = 5;
+    static constexpr unsigned short OPEN_SERIE_CONTROLLER_ID = 6;
+    static constexpr unsigned short EDITOR_LEVEL_CONTROLLER_ID = 7;
+    static constexpr unsigned short OPEN_LEVEL_CONTROLLER_ID = 8;
+    static constexpr unsigned short GAME_CONTROLLER_ID = 9;
+    static constexpr unsigned short SERIE_MAIN_MENU_CONTROLLER_ID = 10;
+    static constexpr unsigned short OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID = 11;
 
     /**
      * @brief returns a new controller

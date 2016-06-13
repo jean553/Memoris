@@ -17,43 +17,43 @@
 */
 
 /**
- * Factory which generates the musics.
- *
- * @file MusicFactory.hpp
- * @brief factory to generate the game musics
- * @package factories
+ * @file musics.cpp
+ * @package musics
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_MUSIC_FACTORY
-#define DEF_MUSIC_FACTORY
+#include "musics.hpp"
+#include "ControllerFactory.hpp"
 
-#include <string>
+using namespace factories;
 
-namespace factories
+namespace memoris
 {
-class MusicFactory
+namespace musics
 {
 
-    static const std::string MAIN_MENU_MUSIC_PATH;
-    static const std::string EDITOR_MUSIC_PATH;
-    static const std::string GAME_MUSIC_PATH;
+/**
+ *
+ */
+std::string getMusicPathById(const unsigned short& id)
+{
+    switch(id)
+    {
+    case ControllerFactory::EDITOR_LEVEL_CONTROLLER_ID:
+    case ControllerFactory::EDITOR_SERIE_CONTROLLER_ID:
+    case ControllerFactory::OPEN_LEVEL_CONTROLLER_ID:
+    case ControllerFactory::OPEN_SERIE_CONTROLLER_ID:
+    {
+        return EDITOR_MUSIC;
+    }
+    case ControllerFactory::GAME_CONTROLLER_ID:
+    {
+        return GAME_MUSIC;
+    }
+    }
 
-public:
-
-    /**
-     * @brief returns the music file
-     * path according to the id
-     *
-     * @param id   id of the music
-     *
-     * @return string   music file path,
-     * main menu music path by default
-     *
-     * TODO: only returns one music path for now
-     */
-    static std::string getMusicPathById(unsigned short id);
-};
+    return MAIN_MENU_MUSIC;
 }
 
-#endif
+}
+}

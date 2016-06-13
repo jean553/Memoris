@@ -39,19 +39,6 @@
 
 using namespace factories;
 
-const unsigned short ControllerFactory::EXIT = 1;
-const unsigned short ControllerFactory::MAIN_MENU_CONTROLLER_ID = 2;
-const unsigned short ControllerFactory::NEW_GAME_CONTROLLER_ID = 3;
-const unsigned short ControllerFactory::EDITOR_MENU_CONTROLLER_ID = 4;
-const unsigned short ControllerFactory::EDITOR_SERIE_CONTROLLER_ID = 5;
-const unsigned short ControllerFactory::OPEN_SERIE_CONTROLLER_ID = 6;
-const unsigned short ControllerFactory::EDITOR_LEVEL_CONTROLLER_ID = 7;
-const unsigned short ControllerFactory::OPEN_LEVEL_CONTROLLER_ID = 8;
-const unsigned short ControllerFactory::GAME_CONTROLLER_ID = 9;
-
-const uint8_t ControllerFactory::SERIE_MAIN_MENU_CONTROLLER_ID = 10;
-const uint8_t ControllerFactory::OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID = 11;
-
 /**
  *
  */
