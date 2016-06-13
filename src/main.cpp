@@ -21,12 +21,12 @@
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include <SFML/Graphics.hpp>
-
 #include "ControllerFactory.hpp"
-#include "MusicFactory.hpp"
 #include "Controller.hpp"
 #include "Context.hpp"
+#include "musics.hpp"
+
+using namespace memoris;
 
 /**
  *
@@ -43,7 +43,7 @@ int main()
        music currently played by the current controller; when the program
        starts, the played music is the menu music */
     std::string currentMusicPath =
-        factories::MusicFactory::getMusicPathById(currentControllerId);
+        musics::getMusicPathById(currentControllerId);
 
     /* the context is an unique object that is transfered from one controller
        to another during controllers switch; it contains data to exchange
@@ -109,7 +109,7 @@ int main()
                controller to load; sometimes, the music path is the same as
                the current controller music path */
             nextMusicPath =
-                factories::MusicFactory::getMusicPathById(nextControllerId);
+                musics::getMusicPathById(nextControllerId);
 
             /* check if the current music path and the next music path are
                different; if they are different, a new music has to be
