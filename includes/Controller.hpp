@@ -28,6 +28,8 @@
 
 #include "Context.hpp"
 
+namespace memoris
+{
 namespace controllers
 {
 class Controller
@@ -83,6 +85,7 @@ private:
 
     sf::Clock screenTransitionClock;
 };
+}
 }
 
 #endif

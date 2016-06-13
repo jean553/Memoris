@@ -31,6 +31,8 @@
 #include "Controller.hpp"
 #include "ScrollableListWidget.hpp"
 
+namespace memoris
+{
 namespace controllers
 {
 class OfficialSeriesSelectorController : public Controller
@@ -71,6 +73,7 @@ private:
 
     std::vector<std::string> levels;
 };
+}
 }
 
 #endif

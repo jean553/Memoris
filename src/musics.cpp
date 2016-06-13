@@ -18,14 +18,11 @@
 
 /**
  * @file musics.cpp
- * @package musics
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
 #include "musics.hpp"
-#include "ControllerFactory.hpp"
-
-using namespace factories;
+#include "controllers.hpp"
 
 namespace memoris
 {
@@ -39,20 +36,28 @@ std::string getMusicPathById(const unsigned short& id)
 {
     switch(id)
     {
-    case ControllerFactory::EDITOR_LEVEL_CONTROLLER_ID:
-    case ControllerFactory::EDITOR_SERIE_CONTROLLER_ID:
-    case ControllerFactory::OPEN_LEVEL_CONTROLLER_ID:
-    case ControllerFactory::OPEN_SERIE_CONTROLLER_ID:
+    case controllers::EDITOR_LEVEL_CONTROLLER_ID:
+    case controllers::EDITOR_SERIE_CONTROLLER_ID:
+    case controllers::OPEN_LEVEL_CONTROLLER_ID:
+    case controllers::OPEN_SERIE_CONTROLLER_ID:
     {
         return EDITOR_MUSIC;
     }
-    case ControllerFactory::GAME_CONTROLLER_ID:
+    break;
+    case controllers::GAME_CONTROLLER_ID:
     {
         return GAME_MUSIC;
     }
+    break;
+    /* by default, if the controller id does not exist, the main
+       menu music is played; it avoids mistakes in screens transitions;
+       NOTE: the controllers factory also returns the main menu controller
+       if an incorrect controller id is specified */
+    default:
+    {
+        return MAIN_MENU_MUSIC;
     }
-
-    return MAIN_MENU_MUSIC;
+    }
 }
 
 }

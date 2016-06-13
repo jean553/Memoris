@@ -30,6 +30,7 @@
 #include "EditorMenuController.hpp"
 #include "SerieMainMenuController.hpp"
 
+using namespace memoris;
 using namespace policies;
 
 const sf::Uint8 HasMenuSelectorAnimation::MAXIMUM_RED_COLOR_AMOUNT = 255;

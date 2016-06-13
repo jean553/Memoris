@@ -33,8 +33,11 @@
 #include "HasMenuSelectorAnimation.hpp"
 #include "SprtTransition.hpp"
 
+namespace memoris
+{
 namespace controllers
 {
+
 class SerieMainMenuController : public Controller
 {
     friend class policies::HasMenuSelectorAnimation;
@@ -124,6 +127,8 @@ private:
      */
     void selectMenuItem();
 };
+
+}
 }
 
 #endif

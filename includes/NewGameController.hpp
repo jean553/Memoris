@@ -34,8 +34,11 @@
 
 #include "InputTextWidget.hpp"
 
+namespace memoris
+{
 namespace controllers
 {
+
 class NewGameController : public Controller
 {
 
@@ -84,6 +87,8 @@ private:
 
     widgets::InputTextWidget inputTextGameName;
 };
+
+}
 }
 
 #endif

@@ -35,8 +35,11 @@
 #include "CursorWidget.hpp"
 #include "ItemsListWidget.hpp"
 
+namespace memoris
+{
 namespace controllers
 {
+
 class OpenSerieController : public Controller
 {
 
@@ -79,6 +82,7 @@ private:
 
     widgets::ItemsListWidget seriesList;
 };
+}
 }
 
 #endif

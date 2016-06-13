@@ -26,8 +26,10 @@
 #include "Colors.hpp"
 #include "window.hpp"
 
-using namespace controllers;
-using namespace memoris;
+namespace memoris
+{
+namespace controllers
+{
 
 const unsigned short Controller::TRANSITION_ALPHA_INTERVAL = 51;
 const unsigned short Controller::TRANSITION_MILLISECONDS_INTERVAL = 25;
@@ -114,4 +116,7 @@ unsigned short Controller::animateScreenTransition(utils::Context& context)
     }
 
     return 0;
+}
+
+}
 }

@@ -35,8 +35,11 @@
 #include "ItemsListWidget.hpp"
 #include "CursorWidget.hpp"
 
+namespace memoris
+{
 namespace controllers
 {
+
 class OpenLevelController : public Controller
 {
 
@@ -87,6 +90,8 @@ private:
 
     sf::Font errorLabelFont;
 };
+
+}
 }
 
 #endif

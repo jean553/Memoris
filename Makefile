@@ -6,7 +6,7 @@ DEPS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 OBJS = \
 	   build/main.o \
 	   build/musics.o \
-	   build/ControllerFactory.o \
+	   build/controllers.o \
 	   build/CellFactory.o \
 	   build/Context.o \
 	   build/Controller.o \
@@ -70,7 +70,7 @@ build/main.o: src/main.cpp
 build/musics.o: src/musics.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/ControllerFactory.o: src/ControllerFactory.cpp
+build/controllers.o: src/controllers.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/CellFactory.o: src/CellFactory.cpp

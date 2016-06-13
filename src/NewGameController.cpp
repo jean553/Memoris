@@ -25,11 +25,14 @@
  */
 
 #include "NewGameController.hpp"
-#include "ControllerFactory.hpp"
 #include "Colors.hpp"
 #include "Fonts.hpp"
+#include "controllers.hpp"
 
-using namespace controllers;
+namespace memoris
+{
+namespace controllers
+{
 
 const std::string NewGameController::STRING_NEW_GAME_TITLE = "New game";
 const std::string NewGameController::STRING_NEW_GAME_EXPLANATION = "Your name :";
@@ -120,7 +123,7 @@ uint8_t NewGameController::render(utils::Context& context)
             {
 
                 expectedControllerId =
-                    factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
+                    MAIN_MENU_CONTROLLER_ID;
 
                 break;
             }
@@ -128,7 +131,7 @@ uint8_t NewGameController::render(utils::Context& context)
             {
 
                 expectedControllerId =
-                    factories::ControllerFactory::SERIE_MAIN_MENU_CONTROLLER_ID;
+                    SERIE_MAIN_MENU_CONTROLLER_ID;
 
                 break;
             }
@@ -145,4 +148,7 @@ uint8_t NewGameController::render(utils::Context& context)
     }
 
     return nextControllerId;
+}
+
+}
 }

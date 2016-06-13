@@ -23,17 +23,21 @@
  */
 
 #include "OpenLevelController.hpp"
-#include "ControllerFactory.hpp"
 #include "DirReader.hpp"
 #include "Screens.hpp"
 #include "Messages.hpp"
 #include "Fonts.hpp"
 #include "Colors.hpp"
+#include "controllers.hpp"
 
-using namespace controllers;
+namespace memoris
+{
+namespace controllers
+{
 
 const std::string OpenLevelController::STRING_OPEN_LEVEL_TITLE = "Open level";
-const std::string OpenLevelController::STRING_ALREADY_ADDED_ERROR_MESSAGE = "Already added !";
+const std::string OpenLevelController::STRING_ALREADY_ADDED_ERROR_MESSAGE =
+    "Already added !";
 
 const unsigned short OpenLevelController::LEVELS_LIST_WIDTH = 1580;
 const unsigned short OpenLevelController::LEVELS_LIST_POSITION_X = 10;
@@ -123,18 +127,28 @@ uint8_t OpenLevelController::render(utils::Context& context)
             {
                 if (levelsList.isMouseHover())
                 {
-                    std::vector<std::string> stringsList = context.getStringsList();
+                    std::vector<std::string> stringsList =
+                        context.getStringsList();
 
                     /* do not add the level if already in the list
-                       TODO: could be refactored if addStringIntoStringsList return a boolean... */
-                    if (std::find(stringsList.begin(), stringsList.end(), levelsList.getSelectedItemValue()) != stringsList.end())
+                       TODO: could be refactored if addStringIntoStringsList
+                       return a boolean... */
+                    if (
+                        std::find(
+                            stringsList.begin(),
+                            stringsList.end(),
+                            levelsList.getSelectedItemValue()) !=
+                        stringsList.end()
+                    )
                     {
                         errorAlreadyAddedLevel = true;
 
                         continue;
                     }
 
-                    context.addStringIntoStringsList(levelsList.getSelectedItemValue());
+                    context.addStringIntoStringsList(
+                        levelsList.getSelectedItemValue()
+                    );
 
                     changeNextControllerId(context);
                 }
@@ -153,7 +167,13 @@ uint8_t OpenLevelController::render(utils::Context& context)
  */
 void OpenLevelController::changeNextControllerId(utils::Context& context)
 {
-    expectedControllerId = context.getMessageByName(constants::Messages::PREVIOUS_CONTROLLER_MESSAGE) == constants::Screens::SERIE_EDITOR_SCREEN_NAME ?
-                           factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID :
-                           factories::ControllerFactory::EDITOR_LEVEL_CONTROLLER_ID;
+    expectedControllerId =
+        context.getMessageByName(
+            constants::Messages::PREVIOUS_CONTROLLER_MESSAGE
+        ) == constants::Screens::SERIE_EDITOR_SCREEN_NAME ?
+        EDITOR_SERIE_CONTROLLER_ID :
+        EDITOR_LEVEL_CONTROLLER_ID;
+}
+
+}
 }

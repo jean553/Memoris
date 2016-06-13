@@ -32,13 +32,15 @@
 #include "DirReader.hpp"
 #include "StringsListsUtils.hpp"
 #include "FileWriter.hpp"
-#include "ControllerFactory.hpp"
 #include "Screens.hpp"
 #include "Messages.hpp"
 #include "window.hpp"
+#include "controllers.hpp"
 
-using namespace controllers;
-using namespace memoris;
+namespace memoris
+{
+namespace controllers
+{
 
 const std::string EditorSerieController::STRING_EDITOR_SERIE_TITLE = "Serie editor";
 const std::string EditorSerieController::EDITOR_SERIE_BUTTON_NEW_TEXT = "New";
@@ -238,7 +240,7 @@ uint8_t EditorSerieController::render(utils::Context& context)
             {
 
                 expectedControllerId =
-                    factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
+                    MAIN_MENU_CONTROLLER_ID;
 
                 break;
             }
@@ -264,7 +266,7 @@ uint8_t EditorSerieController::render(utils::Context& context)
                     context.removeAllMessages();
 
                     expectedControllerId =
-                        factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
+                        MAIN_MENU_CONTROLLER_ID;
                 }
                 /* check buttons click according to current status */
                 switch(status)
@@ -280,7 +282,7 @@ uint8_t EditorSerieController::render(utils::Context& context)
                     if(buttonOpen.isMouseHover())
                     {
                         expectedControllerId =
-                            factories::ControllerFactory::OPEN_SERIE_CONTROLLER_ID;
+                            OPEN_SERIE_CONTROLLER_ID;
                     }
                     break;
                 case NEW_SERIE:
@@ -349,7 +351,7 @@ uint8_t EditorSerieController::render(utils::Context& context)
                         context.setStringsList(levelsList.getStringsList());
 
                         expectedControllerId =
-                            factories::ControllerFactory::OPEN_LEVEL_CONTROLLER_ID;
+                            OPEN_LEVEL_CONTROLLER_ID;
 
                     }
                 }
@@ -504,4 +506,7 @@ void EditorSerieController::writeLevelsIntoSerie()
         constants::Extensions::SERIES_EXTENSION,
         strToWrt
     );
+}
+
+}
 }

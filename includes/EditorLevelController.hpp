@@ -39,8 +39,11 @@
 #include "Level.hpp"
 #include "FrameWidget.hpp"
 
+namespace memoris
+{
 namespace controllers
 {
+
 class EditorLevelController : public Controller
 {
 
@@ -195,6 +198,8 @@ private:
      */
     bool currEditIsAllowed();
 };
+
+}
 }
 
 #endif

@@ -35,15 +35,17 @@
 #include "DirReader.hpp"
 #include "StringsListsUtils.hpp"
 #include "FileWriter.hpp"
-#include "ControllerFactory.hpp"
 #include "Screens.hpp"
 #include "Messages.hpp"
 #include "CellsFilter.hpp"
 #include "CellsFileRepresentations.hpp"
 #include "window.hpp"
+#include "controllers.hpp"
 
-using namespace controllers;
-using namespace memoris;
+namespace memoris
+{
+namespace controllers
+{
 
 const std::string EditorLevelController::EDITOR_LEVEL_BUTTON_EXIT_TEXT = "Exit";
 const std::string EditorLevelController::EDITOR_LEVEL_BUTTON_NEW_TEXT = "New";
@@ -363,7 +365,7 @@ uint8_t EditorLevelController::render(utils::Context& context)
                         context.removeAllMessages();
 
                         expectedControllerId =
-                            factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
+                            MAIN_MENU_CONTROLLER_ID;
                     }
                     else if(buttonNew.isMouseHover())
                     {
@@ -378,7 +380,7 @@ uint8_t EditorLevelController::render(utils::Context& context)
                         );
 
                         expectedControllerId =
-                            factories::ControllerFactory::OPEN_LEVEL_CONTROLLER_ID;
+                            OPEN_LEVEL_CONTROLLER_ID;
                     }
                     else if(cellSelector.isMouseHover() && status != MAIN_MENU)
                     {
@@ -671,4 +673,7 @@ bool EditorLevelController::currEditIsAllowed()
     }
 
     return true;
+}
+
+}
 }

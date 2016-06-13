@@ -23,12 +23,15 @@
  */
 
 #include "OfficialSeriesSelectorController.hpp"
-#include "ControllerFactory.hpp"
 #include "Colors.hpp"
 #include "Fonts.hpp"
 #include "FileWriter.hpp"
+#include "controllers.hpp"
 
-using namespace controllers;
+namespace memoris
+{
+namespace controllers
+{
 
 const std::string OfficialSeriesSelectorController::OFF_SER_TITLE = "Official series";
 const std::string OfficialSeriesSelectorController::TEMPORARY_DEFAULT_SERIE = "data/series/1.serie";
@@ -88,7 +91,7 @@ uint8_t OfficialSeriesSelectorController::render(utils::Context& context)
             case sf::Keyboard::Escape:
             {
                 expectedControllerId =
-                    factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
+                    MAIN_MENU_CONTROLLER_ID;
 
                 break;
             }
@@ -99,7 +102,7 @@ uint8_t OfficialSeriesSelectorController::render(utils::Context& context)
                 context.setNxtLvlStrPath(levels[0]);
 
                 expectedControllerId =
-                    factories::ControllerFactory::GAME_CONTROLLER_ID;
+                    GAME_CONTROLLER_ID;
 
                 break;
             }
@@ -168,4 +171,7 @@ void OfficialSeriesSelectorController::createItems()
         strListSfx,
         false
     );
+}
+
+}
 }
