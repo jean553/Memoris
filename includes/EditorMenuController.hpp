@@ -35,8 +35,11 @@
 
 #include "HasMenuSelectorAnimation.hpp"
 
+namespace memoris
+{
 namespace controllers
 {
+
 class EditorMenuController : public Controller
 {
     friend class policies::HasMenuSelectorAnimation;
@@ -105,6 +108,8 @@ private:
 
     sf::Sound soundSelectorMove;
 };
+
+}
 }
 
 #endif

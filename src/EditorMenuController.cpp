@@ -23,12 +23,15 @@
  */
 
 #include "EditorMenuController.hpp"
-#include "ControllerFactory.hpp"
 #include "Colors.hpp"
 #include "Fonts.hpp"
 #include "Sounds.hpp"
+#include "controllers.hpp"
 
-using namespace controllers;
+namespace memoris
+{
+namespace controllers
+{
 
 const std::string EditorMenuController::STRING_LEVELS_EDITOR = "Levels";
 const std::string EditorMenuController::STRING_SERIES_EDITOR = "Series";
@@ -198,7 +201,7 @@ void EditorMenuController::selectMenuItem()
     {
 
         expectedControllerId =
-            factories::ControllerFactory::EDITOR_LEVEL_CONTROLLER_ID;
+            EDITOR_LEVEL_CONTROLLER_ID;
 
         break;
     }
@@ -206,7 +209,7 @@ void EditorMenuController::selectMenuItem()
     {
 
         expectedControllerId =
-            factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID;
+            EDITOR_SERIE_CONTROLLER_ID;
 
         break;
     }
@@ -214,9 +217,12 @@ void EditorMenuController::selectMenuItem()
     {
 
         expectedControllerId =
-            factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
+            MAIN_MENU_CONTROLLER_ID;
 
         break;
     }
     }
+}
+
+}
 }

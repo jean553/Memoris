@@ -24,9 +24,12 @@
 
 #include "OpenSerieController.hpp"
 #include "DirReader.hpp"
-#include "ControllerFactory.hpp"
+#include "controllers.hpp"
 
-using namespace controllers;
+namespace memoris
+{
+namespace controllers
+{
 
 const std::string OpenSerieController::STRING_OPEN_SERIE_TITLE = "Open serie";
 const std::string OpenSerieController::OPEN_SERIE_BUTTON_EXIT = "Exit";
@@ -94,7 +97,7 @@ uint8_t OpenSerieController::render(utils::Context& context)
             case sf::Keyboard::Escape:
             {
                 expectedControllerId =
-                    factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID;
+                    EDITOR_SERIE_CONTROLLER_ID;
             }
             }
         }
@@ -107,7 +110,7 @@ uint8_t OpenSerieController::render(utils::Context& context)
                 if(buttonExit.isMouseHover())
                 {
                     expectedControllerId =
-                        factories::ControllerFactory::EDITOR_SERIE_CONTROLLER_ID;
+                        EDITOR_SERIE_CONTROLLER_ID;
                 }
 
                 seriesList.scroll();
@@ -118,4 +121,7 @@ uint8_t OpenSerieController::render(utils::Context& context)
     }
 
     return nextControllerId;
+}
+
+}
 }

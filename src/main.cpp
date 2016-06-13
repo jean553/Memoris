@@ -21,9 +21,9 @@
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "ControllerFactory.hpp"
 #include "Controller.hpp"
 #include "Context.hpp"
+#include "controllers.hpp"
 #include "musics.hpp"
 
 using namespace memoris;
@@ -37,7 +37,7 @@ int main()
        rendered controller; when the program starts, the first controller
        to display is the main menu controller. */
     unsigned short currentControllerId =
-        factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
+        controllers::MAIN_MENU_CONTROLLER_ID;
 
     /* the current music path string contains the file system path of the
        music currently played by the current controller; when the program
@@ -79,7 +79,7 @@ int main()
            children classes of controllers, all children of the Controller
            class. */
         controllers::Controller* pCurrentController =
-            factories::ControllerFactory::getControllerById(
+            controllers::getControllerById(
                 currentControllerId,
                 context
             );
@@ -103,7 +103,7 @@ int main()
         delete pCurrentController;
 
         /* check if the program is supposed to be terminated */
-        if (currentControllerId != factories::ControllerFactory::EXIT)
+        if (currentControllerId != controllers::EXIT)
         {
             /* get the path of the new music to load according to the next
                controller to load; sometimes, the music path is the same as
@@ -131,7 +131,7 @@ int main()
             context.playScreenTransitionSound();
         }
     }
-    while (currentControllerId != factories::ControllerFactory::EXIT);
+    while (currentControllerId != controllers::EXIT);
 
     context.stopMusic();
 

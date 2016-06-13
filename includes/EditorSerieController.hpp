@@ -39,8 +39,11 @@
 #include "OrderedItemsListWidget.hpp"
 #include "InputTextWidget.hpp"
 
+namespace memoris
+{
 namespace controllers
 {
+
 class EditorSerieController : public Controller
 {
 
@@ -186,6 +189,8 @@ private:
      */
     void writeLevelsIntoSerie();
 };
+
+}
 }
 
 #endif

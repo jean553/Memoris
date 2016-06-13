@@ -33,6 +33,8 @@
 #include "Fonts.hpp"
 #include "Colors.hpp"
 
+namespace memoris
+{
 namespace controllers
 {
 class ErrController : public Controller
@@ -68,6 +70,7 @@ private:
 
     sf::Text error;
 };
+}
 }
 
 #endif

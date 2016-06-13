@@ -23,13 +23,16 @@
  */
 
 #include "MainMenuController.hpp"
-#include "ControllerFactory.hpp"
 #include "Colors.hpp"
 #include "Fonts.hpp"
 #include "Sounds.hpp"
 #include "HasMenuSelectorAnimation.hpp"
+#include "controllers.hpp"
 
-using namespace controllers;
+namespace memoris
+{
+namespace controllers
+{
 
 const std::string MainMenuController::PATH_IMAGE_GITHUB = "res/images/fork-me.png";
 const std::string MainMenuController::STRING_TITLE = "Memoris";
@@ -337,7 +340,7 @@ void MainMenuController::selectMenuItem()
     {
 
         expectedControllerId =
-            factories::ControllerFactory::NEW_GAME_CONTROLLER_ID;
+            NEW_GAME_CONTROLLER_ID;
 
         break;
     }
@@ -345,7 +348,7 @@ void MainMenuController::selectMenuItem()
     {
 
         expectedControllerId =
-            factories::ControllerFactory::EDITOR_MENU_CONTROLLER_ID;
+            EDITOR_MENU_CONTROLLER_ID;
 
         break;
     }
@@ -353,9 +356,12 @@ void MainMenuController::selectMenuItem()
     {
 
         nextControllerId =
-            factories::ControllerFactory::EXIT;
+            EXIT;
 
         break;
     }
     }
+}
+
+}
 }

@@ -36,8 +36,11 @@
 #include "AnimatedBackground.hpp"
 #include "MenuGradient.hpp"
 
+namespace memoris
+{
 namespace controllers
 {
+
 class MainMenuController : public Controller
 {
     friend class policies::HasMenuSelectorAnimation;
@@ -166,6 +169,8 @@ private:
 
     utils::MenuGradient menuGradient;
 };
+
+}
 }
 
 #endif

@@ -23,9 +23,12 @@
  */
 
 #include "ErrController.hpp"
-#include "ControllerFactory.hpp"
+#include "controllers.hpp"
 
-using namespace controllers;
+namespace memoris
+{
+namespace controllers
+{
 
 const float_t ErrController::ERR_HRTL_PSTN = 10.f;
 const float_t ErrController::ERR_VRTL_PSTN = 10.f;
@@ -76,7 +79,7 @@ uint8_t ErrController::render(utils::Context& context)
                 /* TODO: return to the official series menu screen for now,
                  * as this error screen can obly be displayed from this first screen */
                 expectedControllerId =
-                    factories::ControllerFactory::OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID;
+                    OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID;
 
                 break;
             }
@@ -86,4 +89,7 @@ uint8_t ErrController::render(utils::Context& context)
     }
 
     return nextControllerId;
+}
+
+}
 }

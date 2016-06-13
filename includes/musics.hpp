@@ -20,7 +20,6 @@
  * @file musics.hpp
  * @brief contains the musics files paths and one function
  * to get each path by controller id
- * @package musics
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 

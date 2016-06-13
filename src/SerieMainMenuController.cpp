@@ -23,12 +23,15 @@
  */
 
 #include "SerieMainMenuController.hpp"
-#include "ControllerFactory.hpp"
 #include "Fonts.hpp"
 #include "Colors.hpp"
 #include "Sounds.hpp"
+#include "controllers.hpp"
 
-using namespace controllers;
+namespace memoris
+{
+namespace controllers
+{
 
 const std::string SerieMainMenuController::OFFICIAL_STR = "Official series";
 const std::string SerieMainMenuController::PERSONAL_STR = "Personal series";
@@ -181,7 +184,7 @@ uint8_t SerieMainMenuController::render(utils::Context& context)
             case sf::Keyboard::Escape:
             {
                 expectedControllerId =
-                    factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
+                    MAIN_MENU_CONTROLLER_ID;
 
                 break;
             }
@@ -265,16 +268,19 @@ void SerieMainMenuController::selectMenuItem()
     case SERIE_MAIN_MENU_OFFICIAL_ITEM:
     {
         expectedControllerId =
-            factories::ControllerFactory::OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID;
+            OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID;
 
         break;
     }
     case SERIE_MAIN_MENU_BACK_ITEM:
     {
         expectedControllerId =
-            factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
+            MAIN_MENU_CONTROLLER_ID;
 
         break;
     }
     }
+}
+
+}
 }

@@ -26,7 +26,6 @@
  */
 
 #include "GameController.hpp"
-#include "ControllerFactory.hpp"
 #include "FileWriter.hpp"
 #include "Sounds.hpp"
 #include "CellsFileRepresentations.hpp"
@@ -34,9 +33,12 @@
 #include "Fonts.hpp"
 #include "Colors.hpp"
 #include "window.hpp"
+#include "controllers.hpp"
 
-using namespace controllers;
-using namespace memoris;
+namespace memoris
+{
+namespace controllers
+{
 
 const std::string GameController::STAR_IMG_PATH = "res/images/star.png";
 const std::string GameController::LIFE_IMG_PATH = "res/images/life.png";
@@ -307,7 +309,7 @@ uint8_t GameController::render(utils::Context& context)
             case sf::Keyboard::Escape:
             {
                 expectedControllerId =
-                    factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
+                    MAIN_MENU_CONTROLLER_ID;
 
                 break;
             }
@@ -350,7 +352,7 @@ uint8_t GameController::render(utils::Context& context)
     if (terminateGame)
     {
         nextControllerId =
-            factories::ControllerFactory::MAIN_MENU_CONTROLLER_ID;
+            MAIN_MENU_CONTROLLER_ID;
     }
 
     return nextControllerId;
@@ -627,4 +629,7 @@ void GameController::selectNewCell(
     newCell->setIsAnimated(true);
     newCell->setSelected(true);
     newCell->setHidden(false);
+}
+
+}
 }

@@ -34,8 +34,11 @@
 #include "Controller.hpp"
 #include "Level.hpp"
 
+namespace memoris
+{
 namespace controllers
 {
+
 class GameController : public Controller
 {
 public:
@@ -215,6 +218,8 @@ private:
     sf::RectangleShape leftSeparator;
     sf::RectangleShape rightSeparator;
 };
+
+}
 }
 
 #endif
