@@ -22,6 +22,9 @@
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
+#ifndef MEMORIS_CONTROLLERS_H_
+#define MEMORIS_CONTROLLERS_H_
+
 #include "Context.hpp"
 #include "Controller.hpp"
 #include "ErrController.hpp"
@@ -71,3 +74,5 @@ ErrController* getErrCtrl(const std::string& msg);
 
 }
 }
+
+#endif
