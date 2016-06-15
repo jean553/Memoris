@@ -38,7 +38,7 @@ const float_t ErrController::ERR_VRTL_PSTN = 10.f;
  */
 ErrController::ErrController(const std::string& msg) : Controller()
 {
-    font.loadFromFile(constants::Fonts::getTextFontPath());
+    font.loadFromFile(memoris::fonts::TEXT_FONT);
 
     colorErr.r = constants::Colors::COLOR_RED_RED;
     colorErr.g = constants::Colors::COLOR_RED_GREEN;
@@ -47,7 +47,7 @@ ErrController::ErrController(const std::string& msg) : Controller()
 
     error.setFont(font);
     error.setString(msg);
-    error.setCharacterSize(constants::Fonts::SIZE_TEXT_FONT);
+    error.setCharacterSize(memoris::fonts::TEXT_SIZE);
     error.setColor(colorErr);
     error.setPosition(
         ERR_HRTL_PSTN,

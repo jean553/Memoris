@@ -25,7 +25,7 @@
 #include "TitleBarWidget.hpp"
 
 #include "Colors.hpp"
-#include "Fonts.hpp"
+#include "fonts.hpp"
 
 using namespace widgets;
 
@@ -47,7 +47,7 @@ TitleBarWidget::TitleBarWidget(
 {
     setText(barText);
 
-    fontText.loadFromFile(constants::Fonts::getTextFontPath());
+    fontText.loadFromFile(memoris::fonts::TEXT_FONT);
 
     textColor.r = constants::Colors::COLOR_ORANGE_RED;
     textColor.g = constants::Colors::COLOR_ORANGE_GREEN;

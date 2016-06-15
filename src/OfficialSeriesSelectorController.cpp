@@ -24,7 +24,7 @@
 
 #include "OfficialSeriesSelectorController.hpp"
 #include "Colors.hpp"
-#include "Fonts.hpp"
+#include "fonts.hpp"
 #include "FileWriter.hpp"
 #include "controllers.hpp"
 
@@ -44,7 +44,7 @@ const float_t OfficialSeriesSelectorController::OFF_SER_TITLE_VRTL_PSTN = 50.f;
  */
 OfficialSeriesSelectorController::OfficialSeriesSelectorController()
 {
-    fontTitle.loadFromFile(constants::Fonts::getTitleFontPath());
+    fontTitle.loadFromFile(memoris::fonts::TITLE_FONT);
 
     colorTitle.r = constants::Colors::COLOR_LIGHT_BLUE_RED;
     colorTitle.g = constants::Colors::COLOR_LIGHT_BLUE_GREEN;
@@ -53,7 +53,7 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController()
 
     offSerTitle.setFont(fontTitle);
     offSerTitle.setString(OFF_SER_TITLE);
-    offSerTitle.setCharacterSize(constants::Fonts::SIZE_SUB_TITLE_FONT);
+    offSerTitle.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
     offSerTitle.setColor(colorTitle);
     offSerTitle.setPosition(
         OFF_SER_TITLE_HRTL_PSTN,

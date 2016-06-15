@@ -25,7 +25,7 @@
 #include "ButtonWidget.hpp"
 
 #include "Colors.hpp"
-#include "Fonts.hpp"
+#include "fonts.hpp"
 
 using namespace widgets;
 
@@ -38,7 +38,7 @@ const unsigned int ButtonWidget::SIZE_BUTTON_TEXT_FONT = 40;
  */
 ButtonWidget::ButtonWidget()
 {
-    fontButton.loadFromFile(constants::Fonts::getTextFontPath());
+    fontButton.loadFromFile(memoris::fonts::TEXT_FONT);
 
     textColor.r = constants::Colors::COLOR_WHITE_RED;
     textColor.g = constants::Colors::COLOR_WHITE_GREEN;

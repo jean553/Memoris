@@ -30,7 +30,7 @@
 
 #include "Context.hpp"
 #include "Controller.hpp"
-#include "Fonts.hpp"
+#include "fonts.hpp"
 #include "Colors.hpp"
 
 namespace memoris

@@ -29,7 +29,7 @@
 #include "Positions.hpp"
 #include "Dimensions.hpp"
 #include "Colors.hpp"
-#include "Fonts.hpp"
+#include "fonts.hpp"
 #include "Directories.hpp"
 #include "Extensions.hpp"
 #include "DirReader.hpp"
@@ -152,14 +152,14 @@ EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSIT
     errorLabelColor.b = constants::Colors::COLOR_RED_BLUE;
     errorLabelColor.a = constants::Colors::COLOR_ALPHA_FULL;
 
-    levelNameLabelFont.loadFromFile(constants::Fonts::getTextFontPath());
+    levelNameLabelFont.loadFromFile(memoris::fonts::TEXT_FONT);
 
     levelNameLabel.setFont(levelNameLabelFont);
-    levelNameLabel.setCharacterSize(constants::Fonts::SIZE_SUB_TITLE_FONT);
+    levelNameLabel.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
     levelNameLabel.setColor(levelNameLabelUnsavedColor);
 
     errorLabel.setFont(levelNameLabelFont);
-    errorLabel.setCharacterSize(constants::Fonts::SIZE_MESSAGE_FONT);
+    errorLabel.setCharacterSize(memoris::fonts::INFORMATION_SIZE);
     errorLabel.setColor(errorLabelColor);
     errorLabel.setString(STRING_NEW_LEVEL_ERROR);
     errorLabel.setPosition(
@@ -168,7 +168,7 @@ EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSIT
     );
 
     floorPrefixLabel.setFont(levelNameLabelFont);
-    floorPrefixLabel.setCharacterSize(constants::Fonts::SIZE_MESSAGE_FONT);
+    floorPrefixLabel.setCharacterSize(memoris::fonts::INFORMATION_SIZE);
     floorPrefixLabel.setColor(levelNameLabelColor);
     floorPrefixLabel.setString(STRING_FLOOR_PREFIX_LABEL);
     floorPrefixLabel.setPosition(
@@ -177,7 +177,7 @@ EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSIT
     );
 
     floorLabel.setFont(levelNameLabelFont);
-    floorLabel.setCharacterSize(constants::Fonts::SIZE_SUB_TITLE_FONT);
+    floorLabel.setCharacterSize(memoris::fonts::TEXT_SIZE);
     floorLabel.setColor(levelNameLabelColor);
     floorLabel.setString(std::to_string(currentFloor + 1));
     floorLabel.setPosition(

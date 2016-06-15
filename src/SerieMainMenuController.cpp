@@ -23,7 +23,7 @@
  */
 
 #include "SerieMainMenuController.hpp"
-#include "Fonts.hpp"
+#include "fonts.hpp"
 #include "Colors.hpp"
 #include "Sounds.hpp"
 #include "controllers.hpp"
@@ -74,8 +74,8 @@ SerieMainMenuController::SerieMainMenuController() :
         TRLST_COMMON_HRTL_SIZE
     )
 {
-    fontTitle.loadFromFile(constants::Fonts::getTitleFontPath());
-    fontItem.loadFromFile(constants::Fonts::getTextFontPath());
+    fontTitle.loadFromFile(memoris::fonts::TITLE_FONT);
+    fontItem.loadFromFile(memoris::fonts::TEXT_FONT);
 
     colorWhite.r = constants::Colors::COLOR_WHITE_RED;
     colorWhite.g = constants::Colors::COLOR_WHITE_GREEN;
@@ -94,7 +94,7 @@ SerieMainMenuController::SerieMainMenuController() :
 
     title.setFont(fontTitle);
     title.setString(TITLE_STR);
-    title.setCharacterSize(constants::Fonts::SIZE_SUB_TITLE_FONT);
+    title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
     title.setColor(colorTitle);
     title.setPosition(
         TITLE_HRTL_PSTN,
@@ -103,7 +103,7 @@ SerieMainMenuController::SerieMainMenuController() :
 
     itemOfficialSeries.setFont(fontItem);
     itemOfficialSeries.setString(OFFICIAL_STR);
-    itemOfficialSeries.setCharacterSize(constants::Fonts::SIZE_ITEM_FONT);
+    itemOfficialSeries.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemOfficialSeries.setColor(colorSelector);
     itemOfficialSeries.setPosition(
         OFFICIAL_HRTL_PSTN,
@@ -112,7 +112,7 @@ SerieMainMenuController::SerieMainMenuController() :
 
     itemPersonalSeries.setFont(fontItem);
     itemPersonalSeries.setString(PERSONAL_STR);
-    itemPersonalSeries.setCharacterSize(constants::Fonts::SIZE_ITEM_FONT);
+    itemPersonalSeries.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemPersonalSeries.setColor(colorWhite);
     itemPersonalSeries.setPosition(
         PERSONAL_HRTL_PSTN,
@@ -121,7 +121,7 @@ SerieMainMenuController::SerieMainMenuController() :
 
     itemBack.setFont(fontItem);
     itemBack.setString(BACK_STR);
-    itemBack.setCharacterSize(constants::Fonts::SIZE_ITEM_FONT);
+    itemBack.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemBack.setColor(colorWhite);
     itemBack.setPosition(
         BACK_HRTL_PSTN,

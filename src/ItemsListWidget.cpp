@@ -24,7 +24,7 @@
 
 #include "ItemsListWidget.hpp"
 
-#include "Fonts.hpp"
+#include "fonts.hpp"
 #include "Colors.hpp"
 
 using namespace widgets;
@@ -42,7 +42,7 @@ const unsigned int ItemsListWidget::ITEMS_LIST_ITEM_HEIGHT = 40;
  */
 ItemsListWidget::ItemsListWidget()
 {
-    textItemFont.loadFromFile(constants::Fonts::getTextFontPath());
+    textItemFont.loadFromFile(memoris::fonts::TEXT_FONT);
 
     color.r = constants::Colors::COLOR_WHITE_RED;
     color.g = constants::Colors::COLOR_WHITE_GREEN;

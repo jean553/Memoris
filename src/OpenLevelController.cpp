@@ -26,7 +26,7 @@
 #include "DirReader.hpp"
 #include "Screens.hpp"
 #include "Messages.hpp"
-#include "Fonts.hpp"
+#include "fonts.hpp"
 #include "Colors.hpp"
 #include "controllers.hpp"
 
@@ -72,7 +72,7 @@ OpenLevelController::OpenLevelController() : Controller()
         )
     );
 
-    errorLabelFont.loadFromFile(constants::Fonts::getTextFontPath());
+    errorLabelFont.loadFromFile(memoris::fonts::TEXT_FONT);
 
     errorLabelColor.r = constants::Colors::COLOR_RED_RED;
     errorLabelColor.g = constants::Colors::COLOR_RED_GREEN;
@@ -80,7 +80,7 @@ OpenLevelController::OpenLevelController() : Controller()
     errorLabelColor.a = constants::Colors::COLOR_ALPHA_FULL;
 
     errorLabel.setFont(errorLabelFont);
-    errorLabel.setCharacterSize(constants::Fonts::SIZE_MESSAGE_FONT);
+    errorLabel.setCharacterSize(memoris::fonts::INFORMATION_SIZE);
     errorLabel.setColor(errorLabelColor);
     errorLabel.setString(STRING_ALREADY_ADDED_ERROR_MESSAGE);
     errorLabel.setPosition(

@@ -27,7 +27,7 @@
 #include "Positions.hpp"
 #include "Directories.hpp"
 #include "Extensions.hpp"
-#include "Fonts.hpp"
+#include "fonts.hpp"
 #include "Colors.hpp"
 #include "DirReader.hpp"
 #include "StringsListsUtils.hpp"
@@ -163,14 +163,14 @@ EditorSerieController::EditorSerieController(utils::Context& context) : Controll
     errorLabelColor.b = constants::Colors::COLOR_RED_BLUE;
     errorLabelColor.a = constants::Colors::COLOR_ALPHA_FULL;
 
-    serieNameLabelFont.loadFromFile(constants::Fonts::getTextFontPath());
+    serieNameLabelFont.loadFromFile(memoris::fonts::TEXT_FONT);
 
     serieNameLabel.setFont(serieNameLabelFont);
-    serieNameLabel.setCharacterSize(constants::Fonts::SIZE_SUB_TITLE_FONT);
+    serieNameLabel.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
     serieNameLabel.setColor(serieNameLabelUnsavedColor);
 
     errorLabel.setFont(serieNameLabelFont);
-    errorLabel.setCharacterSize(constants::Fonts::SIZE_MESSAGE_FONT);
+    errorLabel.setCharacterSize(memoris::fonts::INFORMATION_SIZE);
     errorLabel.setColor(errorLabelColor);
     errorLabel.setString(STRING_NEW_SERIE_ERROR);
     errorLabel.setPosition(
@@ -179,7 +179,7 @@ EditorSerieController::EditorSerieController(utils::Context& context) : Controll
     );
 
     levelErrorLabel.setFont(serieNameLabelFont);
-    levelErrorLabel.setCharacterSize(constants::Fonts::SIZE_MESSAGE_FONT);
+    levelErrorLabel.setCharacterSize(memoris::fonts::INFORMATION_SIZE);
     levelErrorLabel.setColor(errorLabelColor);
     levelErrorLabel.setString(STRING_NEW_LEVEL_ERROR);
     levelErrorLabel.setPosition(

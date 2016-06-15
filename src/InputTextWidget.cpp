@@ -25,7 +25,7 @@
 #include "InputTextWidget.hpp"
 
 #include "Colors.hpp"
-#include "Fonts.hpp"
+#include "fonts.hpp"
 
 using namespace widgets;
 
@@ -49,7 +49,7 @@ InputTextWidget::InputTextWidget()
     displayCursor = true;
     setMaximumCharacters(DEFAULT_MAXIMUM_CHARACTERS);
 
-    fontInputText.loadFromFile(constants::Fonts::getTextFontPath());
+    fontInputText.loadFromFile(memoris::fonts::TEXT_FONT);
 
     inputTextColor.r = constants::Colors::COLOR_LIGHT_BLUE_RED;
     inputTextColor.g = constants::Colors::COLOR_LIGHT_BLUE_GREEN;

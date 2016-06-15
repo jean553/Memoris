@@ -18,7 +18,6 @@ OBJS = \
 	   build/Messages.o \
 	   build/Directories.o \
 	   build/Extensions.o \
-	   build/Fonts.o \
 	   build/Sounds.o \
 	   build/Colors.o \
 	   build/Screens.o \
@@ -124,9 +123,6 @@ build/Directories.o: src/Directories.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/Extensions.o: src/Extensions.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/Fonts.o: src/Fonts.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/Sounds.o: src/Sounds.cpp
