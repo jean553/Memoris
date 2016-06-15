@@ -24,7 +24,7 @@
  */
 
 #include "ScrollableListWidget.hpp"
-#include "Fonts.hpp"
+#include "fonts.hpp"
 #include "Colors.hpp"
 
 using namespace widgets;
@@ -36,7 +36,7 @@ const std::string ScrollableListWidget::ARR_DOWN_IMG_PATH = "res/images/scroll_d
  */
 ScrollableListWidget::ScrollableListWidget()
 {
-    font.loadFromFile(constants::Fonts::getTextFontPath());
+    font.loadFromFile(memoris::fonts::TEXT_FONT);
 
     colorSltr.r = constants::Colors::COLOR_RED_RED;
     colorSltr.g = constants::Colors::COLOR_RED_GREEN;
@@ -114,7 +114,7 @@ void ScrollableListWidget::initFromStrArr(
 
     /* TODO: use short as it is declared inside the
      * Fonts class, but should be changed... */
-    const short size = constants::Fonts::SIZE_ITEM_FONT;
+    const short size = memoris::fonts::ITEM_SIZE;
 
     /* select the position according to the side */
     if (isPrefix)

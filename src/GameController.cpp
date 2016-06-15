@@ -30,7 +30,7 @@
 #include "Sounds.hpp"
 #include "CellsFileRepresentations.hpp"
 #include "CellFactory.hpp"
-#include "Fonts.hpp"
+#include "fonts.hpp"
 #include "Colors.hpp"
 #include "window.hpp"
 #include "controllers.hpp"
@@ -111,7 +111,7 @@ GameController::GameController(const std::string& lvlFilePath) : Controller(), l
     level.loadCells(utils::FileWriter::readFile(lvlFilePath));
     level.setCellsCursorSensitivity(false);
 
-    fontTime.loadFromFile(constants::Fonts::getTextFontPath());
+    fontTime.loadFromFile(memoris::fonts::TEXT_FONT);
 
     colorItems.r = constants::Colors::COLOR_WHITE_RED;
     colorItems.g = constants::Colors::COLOR_WHITE_GREEN;
@@ -119,7 +119,7 @@ GameController::GameController(const std::string& lvlFilePath) : Controller(), l
     colorItems.a = constants::Colors::COLOR_ALPHA_FULL;
 
     time.setFont(fontTime);
-    time.setCharacterSize(constants::Fonts::SIZE_ITEM_FONT);
+    time.setCharacterSize(memoris::fonts::TEXT_SIZE);
     time.setColor(colorItems);
     time.setPosition(
         TIMER_HRTL_PSTN,
@@ -130,7 +130,7 @@ GameController::GameController(const std::string& lvlFilePath) : Controller(), l
      * according to the found stars... */
     foundStarsAmntStr.setFont(fontTime);
     foundStarsAmntStr.setString("0");
-    foundStarsAmntStr.setCharacterSize(constants::Fonts::SIZE_TEXT_FONT);
+    foundStarsAmntStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
     foundStarsAmntStr.setColor(colorItems);
     foundStarsAmntStr.setPosition(
         FOUND_STAR_CELLS_HRTL_PSTN,
@@ -139,7 +139,7 @@ GameController::GameController(const std::string& lvlFilePath) : Controller(), l
 
     lifesAmntStr.setFont(fontTime);
     lifesAmntStr.setString(std::to_string(lifesAmount));
-    lifesAmntStr.setCharacterSize(constants::Fonts::SIZE_TEXT_FONT);
+    lifesAmntStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
     lifesAmntStr.setColor(colorItems);
     lifesAmntStr.setPosition(
         LIFES_HRTL_PSTN,
@@ -147,7 +147,7 @@ GameController::GameController(const std::string& lvlFilePath) : Controller(), l
     );
 
     timeStr.setFont(fontTime);
-    timeStr.setCharacterSize(constants::Fonts::SIZE_TEXT_FONT);
+    timeStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
     timeStr.setColor(colorItems);
     timeStr.setPosition(
         TIME_HRTL_PSTN,
@@ -157,7 +157,7 @@ GameController::GameController(const std::string& lvlFilePath) : Controller(), l
     /* TODO: static string for now... */
     floorStr.setFont(fontTime);
     floorStr.setString(std::to_string(floor));
-    floorStr.setCharacterSize(constants::Fonts::SIZE_TEXT_FONT);
+    floorStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
     floorStr.setColor(colorItems);
     floorStr.setPosition(
         FLOOR_HRTL_PSTN,
@@ -168,7 +168,7 @@ GameController::GameController(const std::string& lvlFilePath) : Controller(), l
 
     targetStr.setFont(fontTime);
     targetStr.setString(std::to_string(starCellsAmount));
-    targetStr.setCharacterSize(constants::Fonts::SIZE_TEXT_FONT);
+    targetStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
     targetStr.setColor(colorItems);
     targetStr.setPosition(
         TOTAL_STARS_HRTL_PSTN,

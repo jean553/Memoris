@@ -24,7 +24,7 @@
 
 #include "EditorMenuController.hpp"
 #include "Colors.hpp"
-#include "Fonts.hpp"
+#include "fonts.hpp"
 #include "Sounds.hpp"
 #include "controllers.hpp"
 
@@ -54,7 +54,7 @@ const unsigned short EditorMenuController::EDITOR_MENU_ITEM_BACK = 2;
  */
 EditorMenuController::EditorMenuController() : Controller()
 {
-    fontItem.loadFromFile(constants::Fonts::getTextFontPath());
+    fontItem.loadFromFile(memoris::fonts::TEXT_FONT);
 
     selectorPosition = 0;
 
@@ -70,7 +70,7 @@ EditorMenuController::EditorMenuController() : Controller()
 
     itemLevelsEditor.setFont(fontItem);
     itemLevelsEditor.setString(STRING_LEVELS_EDITOR);
-    itemLevelsEditor.setCharacterSize(constants::Fonts::SIZE_ITEM_FONT);
+    itemLevelsEditor.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemLevelsEditor.setColor(colorSelector);
     itemLevelsEditor.setPosition(
         POSITION_ITEM_LEVELS_EDITOR_X,
@@ -79,7 +79,7 @@ EditorMenuController::EditorMenuController() : Controller()
 
     itemSeriesEditor.setFont(fontItem);
     itemSeriesEditor.setString(STRING_SERIES_EDITOR);
-    itemSeriesEditor.setCharacterSize(constants::Fonts::SIZE_ITEM_FONT);
+    itemSeriesEditor.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemSeriesEditor.setColor(colorWhite);
     itemSeriesEditor.setPosition(
         POSITION_ITEM_SERIES_EDITOR_X,
@@ -88,7 +88,7 @@ EditorMenuController::EditorMenuController() : Controller()
 
     itemBack.setFont(fontItem);
     itemBack.setString(STRING_BACK);
-    itemBack.setCharacterSize(constants::Fonts::SIZE_ITEM_FONT);
+    itemBack.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemBack.setColor(colorWhite);
     itemBack.setPosition(
         POSITION_ITEM_BACK_X,

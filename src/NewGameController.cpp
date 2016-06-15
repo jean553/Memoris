@@ -26,7 +26,7 @@
 
 #include "NewGameController.hpp"
 #include "Colors.hpp"
-#include "Fonts.hpp"
+#include "fonts.hpp"
 #include "controllers.hpp"
 
 namespace memoris
@@ -52,8 +52,8 @@ const unsigned short NewGameController::MAX_NAME_LENGTH = 15;
  */
 NewGameController::NewGameController() : Controller()
 {
-    fontTitle.loadFromFile(constants::Fonts::getTitleFontPath());
-    fontExplanation.loadFromFile(constants::Fonts::getTextFontPath());
+    fontTitle.loadFromFile(memoris::fonts::TITLE_FONT);
+    fontExplanation.loadFromFile(memoris::fonts::TEXT_FONT);
 
     colorTitle.r = constants::Colors::COLOR_LIGHT_BLUE_RED;
     colorTitle.g = constants::Colors::COLOR_LIGHT_BLUE_GREEN;
@@ -67,7 +67,7 @@ NewGameController::NewGameController() : Controller()
 
     title.setFont(fontTitle);
     title.setString(STRING_NEW_GAME_TITLE);
-    title.setCharacterSize(constants::Fonts::SIZE_SUB_TITLE_FONT);
+    title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
     title.setColor(colorTitle);
     title.setPosition(
         POSITION_NEW_GAME_TITLE_X,
@@ -76,7 +76,7 @@ NewGameController::NewGameController() : Controller()
 
     explanation.setFont(fontExplanation);
     explanation.setString(STRING_NEW_GAME_EXPLANATION);
-    explanation.setCharacterSize(constants::Fonts::SIZE_TEXT_FONT);
+    explanation.setCharacterSize(memoris::fonts::TEXT_SIZE);
     explanation.setColor(colorExplanation);
     explanation.setPosition(
         POSITION_NEW_GAME_EXPLANATION_X,
