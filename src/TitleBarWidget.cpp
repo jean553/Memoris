@@ -42,12 +42,11 @@ const float TitleBarWidget::BAR_WIDTH = 1600;
  *
  */
 TitleBarWidget::TitleBarWidget(
+    utils::Context& context,
     std::string barText
 )
 {
     setText(barText);
-
-    fontText.loadFromFile(memoris::fonts::TEXT_FONT);
 
     textColor.r = constants::Colors::COLOR_ORANGE_RED;
     textColor.g = constants::Colors::COLOR_ORANGE_GREEN;
@@ -59,7 +58,7 @@ TitleBarWidget::TitleBarWidget(
     lineColor.b = constants::Colors::COLOR_WHITE_BLUE;
     lineColor.a = constants::Colors::COLOR_ALPHA_FULL;
 
-    displayedText.setFont(fontText);
+    displayedText.setFont(context.getFontsManager().getTextFont());
     displayedText.setString(text);
     displayedText.setCharacterSize(SIZE_TITLE_BAR_TEXT_FONT);
     displayedText.setColor(textColor);

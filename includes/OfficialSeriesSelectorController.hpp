@@ -39,7 +39,7 @@ class OfficialSeriesSelectorController : public Controller
 {
 public:
 
-    OfficialSeriesSelectorController();
+    OfficialSeriesSelectorController(utils::Context& context);
 
     /**
      * @brief rendering method
@@ -55,7 +55,7 @@ private:
     /**
      * @brief create the items
      */
-    void createItems();
+    void createItems(utils::Context& context);
 
     static const std::string OFF_SER_TITLE;
     static const std::string TEMPORARY_DEFAULT_SERIE;
@@ -64,8 +64,6 @@ private:
     static const float_t OFF_SER_TITLE_VRTL_PSTN;
 
     sf::Color colorTitle;
-
-    sf::Font fontTitle;
 
     sf::Text offSerTitle;
 

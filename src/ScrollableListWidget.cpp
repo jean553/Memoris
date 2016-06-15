@@ -36,8 +36,6 @@ const std::string ScrollableListWidget::ARR_DOWN_IMG_PATH = "res/images/scroll_d
  */
 ScrollableListWidget::ScrollableListWidget()
 {
-    font.loadFromFile(memoris::fonts::TEXT_FONT);
-
     colorSltr.r = constants::Colors::COLOR_RED_RED;
     colorSltr.g = constants::Colors::COLOR_RED_GREEN;
     colorSltr.b = constants::Colors::COLOR_RED_BLUE;
@@ -105,6 +103,7 @@ void ScrollableListWidget::display(utils::Context& context)
  *
  */
 void ScrollableListWidget::initFromStrArr(
+    utils::Context& context,
     const std::vector<std::string>& arr,
     const bool& isPrefix
 )
@@ -130,7 +129,7 @@ void ScrollableListWidget::initFromStrArr(
     {
         sf::Text txt;
 
-        txt.setFont(font);
+        txt.setFont(context.getFontsManager().getTextFont());
         txt.setString(str);
         txt.setCharacterSize(size);
         txt.setColor(colorWhite);

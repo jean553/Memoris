@@ -17,7 +17,7 @@
 */
 
 /**
- * @file ErrController.hpp
+ * @file ErrorController.hpp
  * @brief display exceptions messages
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
@@ -37,16 +37,20 @@ namespace memoris
 {
 namespace controllers
 {
-class ErrController : public Controller
+class ErrorController : public Controller
 {
 public:
 
     /**
      * @brief constructor
      *
+     * @param context reference to the current context
      * @param msg error message to display
      */
-    ErrController(const std::string& msg);
+    ErrorController(
+        utils::Context& context,
+        const std::string& msg
+    );
 
     /**
      * @brief renders the error message screen
@@ -63,8 +67,6 @@ private:
     static const float_t ERR_VRTL_PSTN;
 
     std::string errMsg;
-
-    sf::Font font;
 
     sf::Color colorErr;
 

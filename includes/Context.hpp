@@ -27,6 +27,8 @@
 #ifndef MEMORIS_CONTEXT_H_
 #define MEMORIS_CONTEXT_H_
 
+#include "FontsManager.hpp"
+
 #include <string>
 #include <map>
 #include <memory>
@@ -67,6 +69,13 @@ public:
      * time the screen (controller) is switched from one to another one
      */
     void playScreenTransitionSound();
+
+    /**
+     * @brief returns a reference to the unique fonts factory object
+     *
+     * @return memoris::fonts::FontsManager&
+     */
+    memoris::fonts::FontsManager& getFontsManager();
 
     /**
      * @brief add a message into the context
@@ -156,6 +165,12 @@ private:
        is NULL if the loading process of the sound failed, it is automatically
        destroyed */
     std::unique_ptr<sf::Sound> screenTransitionSound;
+
+    /* unique object of fonts factory; initialized when
+       the unique context is initialized; creates
+       and stores all the SFML fonts objects; provides
+       public methods to get references to these fonts */
+    memoris::fonts::FontsManager fontsFactory;
 
     std::map<std::string, std::string> messages;
 

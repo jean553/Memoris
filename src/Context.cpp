@@ -115,6 +115,38 @@ void Context::playScreenTransitionSound()
 /**
  *
  */
+void Context::loadScreenTransitionSound()
+{
+    /* by default, the pointer is NULL; this is used for error management */
+    screenTransitionSound = NULL;
+
+    /* load the SFML buffer and the sound to play when the
+       screen is switched from one controller to another one */
+    if(
+        screenTransitionSoundBuffer.loadFromFile(
+            sounds::SCREEN_TRANSITION_SOUND
+        )
+    )
+    {
+        /* reset the NULL pointer with a pointed SFML sound object value,
+           the sound object is generated at this moment, only if the file is
+           opened successfully */
+        screenTransitionSound.reset(new sf::Sound());
+        screenTransitionSound->setBuffer(screenTransitionSoundBuffer);
+    }
+}
+
+/**
+ *
+ */
+memoris::fonts::FontsManager& Context::getFontsManager()
+{
+    return fontsFactory;
+}
+
+/**
+ *
+ */
 void Context::addMessageByName(
     std::string messageName,
     std::string messageValue
@@ -191,28 +223,4 @@ void Context::setNxtLvlStrPath(const std::string& path)
 void Context::removeAllStrings()
 {
     stringsList.clear();
-}
-
-/**
- *
- */
-void Context::loadScreenTransitionSound()
-{
-    /* by default, the pointer is NULL; this is used for error management */
-    screenTransitionSound = NULL;
-
-    /* load the SFML buffer and the sound to play when the
-       screen is switched from one controller to another one */
-    if(
-        screenTransitionSoundBuffer.loadFromFile(
-            sounds::SCREEN_TRANSITION_SOUND
-        )
-    )
-    {
-        /* reset the NULL pointer with a pointed SFML sound object value,
-           the sound object is generated at this moment, only if the file is
-           opened successfully */
-        screenTransitionSound.reset(new sf::Sound());
-        screenTransitionSound->setBuffer(screenTransitionSoundBuffer);
-    }
 }

@@ -45,7 +45,9 @@ const unsigned short OpenSerieController::SERIES_LIST_SERIES_NUMBER = 18;
 /**
  *
  */
-OpenSerieController::OpenSerieController() : Controller()
+OpenSerieController::OpenSerieController(utils::Context& context) :
+    Controller(),
+    titleBar(context)
 {
     titleBar.setDisplayedText(
         STRING_OPEN_SERIE_TITLE
@@ -54,6 +56,7 @@ OpenSerieController::OpenSerieController() : Controller()
     buttonExit.setLabel(OPEN_SERIE_BUTTON_EXIT);
 
     buttonExit.setLayout(
+        context,
         OPEN_SERIE_BUTTON_EXIT_POSITION_X,
         OPEN_SERIE_BUTTON_EXIT_POSITION_Y,
         OPEN_SERIE_BUTTONS_WIDTH

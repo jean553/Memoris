@@ -62,7 +62,7 @@ const uint8_t SerieMainMenuController::SERIE_MAIN_MENU_BACK_ITEM = 2;
 /**
  *
  */
-SerieMainMenuController::SerieMainMenuController() :
+SerieMainMenuController::SerieMainMenuController(utils::Context& context) :
     cupTrslt(
         TRLST_COMMON_HRTL_PSTN,
         CUP_TRLST_VRTL_PSTN,
@@ -74,8 +74,8 @@ SerieMainMenuController::SerieMainMenuController() :
         TRLST_COMMON_HRTL_SIZE
     )
 {
-    fontTitle.loadFromFile(memoris::fonts::TITLE_FONT);
-    fontItem.loadFromFile(memoris::fonts::TEXT_FONT);
+    context.getFontsManager().getTitleFont().loadFromFile(memoris::fonts::TITLE_FONT);
+    context.getFontsManager().getTextFont().loadFromFile(memoris::fonts::TEXT_FONT);
 
     colorWhite.r = constants::Colors::COLOR_WHITE_RED;
     colorWhite.g = constants::Colors::COLOR_WHITE_GREEN;
@@ -92,7 +92,7 @@ SerieMainMenuController::SerieMainMenuController() :
     colorTitle.b = constants::Colors::COLOR_LIGHT_BLUE_BLUE;
     colorTitle.a = constants::Colors::COLOR_ALPHA_FULL;
 
-    title.setFont(fontTitle);
+    title.setFont(context.getFontsManager().getTitleFont());
     title.setString(TITLE_STR);
     title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
     title.setColor(colorTitle);
@@ -101,7 +101,7 @@ SerieMainMenuController::SerieMainMenuController() :
         TITLE_VRTL_PSTN
     );
 
-    itemOfficialSeries.setFont(fontItem);
+    itemOfficialSeries.setFont(context.getFontsManager().getTextFont());
     itemOfficialSeries.setString(OFFICIAL_STR);
     itemOfficialSeries.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemOfficialSeries.setColor(colorSelector);
@@ -110,7 +110,7 @@ SerieMainMenuController::SerieMainMenuController() :
         OFFICIAL_VRTL_PSTN
     );
 
-    itemPersonalSeries.setFont(fontItem);
+    itemPersonalSeries.setFont(context.getFontsManager().getTextFont());
     itemPersonalSeries.setString(PERSONAL_STR);
     itemPersonalSeries.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemPersonalSeries.setColor(colorWhite);
@@ -119,7 +119,7 @@ SerieMainMenuController::SerieMainMenuController() :
         PERSONAL_VRTL_PSTN
     );
 
-    itemBack.setFont(fontItem);
+    itemBack.setFont(context.getFontsManager().getTextFont());
     itemBack.setString(BACK_STR);
     itemBack.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemBack.setColor(colorWhite);

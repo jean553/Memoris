@@ -51,7 +51,7 @@ class InputTextWidget : public Widget
 
 public:
 
-    InputTextWidget();
+    InputTextWidget(utils::Context& context);
 
     /**
      * @brief set the size and the position of the widget
@@ -122,8 +122,6 @@ private:
     unsigned short maximumCharacters;
 
     std::string text;
-
-    sf::Font fontInputText;
 
     sf::Color inputTextColor;
 

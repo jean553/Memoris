@@ -27,7 +27,7 @@
 
 #include "Context.hpp"
 #include "Controller.hpp"
-#include "ErrController.hpp"
+#include "ErrorController.hpp"
 
 namespace memoris
 {
@@ -66,11 +66,15 @@ Controller* getControllerById(
  * unique error message; this error message is passed as constructor
  * parameter
  *
+ * @param context the unique context to use
  * @param msg the message to display on the error controller screen
  *
- * @return ErrController*
+ * @return ErrorController*
  */
-ErrController* getErrCtrl(const std::string& msg);
+ErrorController* getErrorController(
+    utils::Context& context,
+    const std::string& msg
+);
 
 }
 }

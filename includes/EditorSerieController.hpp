@@ -125,8 +125,6 @@ private:
 
     widgets::InputTextWidget inputTextNew;
 
-    sf::Font serieNameLabelFont;
-
     sf::Color serieNameLabelColor;
     sf::Color serieNameLabelUnsavedColor;
     sf::Color errorLabelColor;

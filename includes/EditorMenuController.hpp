@@ -66,7 +66,7 @@ class EditorMenuController : public Controller
 
 public:
 
-    EditorMenuController();
+    EditorMenuController(utils::Context& context);
 
     /**
      * @brief render the serie editor screen
@@ -94,8 +94,6 @@ private:
     unsigned short selectorPosition;
 
     short selectorDirection;
-
-    sf::Font fontItem;
 
     sf::Color colorWhite;
     sf::Color colorSelector;

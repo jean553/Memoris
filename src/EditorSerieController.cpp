@@ -76,7 +76,10 @@ const unsigned short EditorSerieController::ERROR_MESSAGE_POSITION_Y = 200;
 /**
  *
  */
-EditorSerieController::EditorSerieController(utils::Context& context) : Controller()
+EditorSerieController::EditorSerieController(utils::Context& context) :
+    Controller(),
+    inputTextNew(context),
+    titleBar(context)
 {
     errorNewSerie = false;
     errorNewLevel = false;
@@ -94,42 +97,49 @@ EditorSerieController::EditorSerieController(utils::Context& context) : Controll
     buttonNewCancel.setLabel(STRING_CANCEL);
 
     buttonNew.setLayout(
+        context,
         EDITOR_SERIE_BUTTON_NEW_POSITION_X,
         constants::Positions::EDITOR_BUTTONS_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonOpen.setLayout(
+        context,
         EDITOR_SERIE_BUTTON_OPEN_POSITION_X,
         constants::Positions::EDITOR_BUTTONS_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonSave.setLayout(
+        context,
         EDITOR_SERIE_BUTTON_SAVE_POSITION_X,
         constants::Positions::EDITOR_BUTTONS_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonAdd.setLayout(
+        context,
         EDITOR_SERIE_BUTTON_ADD_POSITION_X,
         constants::Positions::EDITOR_BUTTONS_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonExit.setLayout(
+        context,
         EDITOR_SERIE_BUTTON_EXIT_POSITION_X,
         constants::Positions::EDITOR_BUTTONS_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonNewOk.setLayout(
+        context,
         EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_X,
         EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonNewCancel.setLayout(
+        context,
         EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_X,
         EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
@@ -163,13 +173,11 @@ EditorSerieController::EditorSerieController(utils::Context& context) : Controll
     errorLabelColor.b = constants::Colors::COLOR_RED_BLUE;
     errorLabelColor.a = constants::Colors::COLOR_ALPHA_FULL;
 
-    serieNameLabelFont.loadFromFile(memoris::fonts::TEXT_FONT);
-
-    serieNameLabel.setFont(serieNameLabelFont);
+    serieNameLabel.setFont(context.getFontsManager().getTextFont());
     serieNameLabel.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
     serieNameLabel.setColor(serieNameLabelUnsavedColor);
 
-    errorLabel.setFont(serieNameLabelFont);
+    errorLabel.setFont(context.getFontsManager().getTextFont());
     errorLabel.setCharacterSize(memoris::fonts::INFORMATION_SIZE);
     errorLabel.setColor(errorLabelColor);
     errorLabel.setString(STRING_NEW_SERIE_ERROR);
@@ -178,7 +186,7 @@ EditorSerieController::EditorSerieController(utils::Context& context) : Controll
         ERROR_MESSAGE_POSITION_Y
     );
 
-    levelErrorLabel.setFont(serieNameLabelFont);
+    levelErrorLabel.setFont(context.getFontsManager().getTextFont());
     levelErrorLabel.setCharacterSize(memoris::fonts::INFORMATION_SIZE);
     levelErrorLabel.setColor(errorLabelColor);
     levelErrorLabel.setString(STRING_NEW_LEVEL_ERROR);

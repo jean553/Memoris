@@ -44,19 +44,17 @@ const short InputTextWidget::INTERVAL_ANIMATION_CURSOR = 200;
 /**
  *
  */
-InputTextWidget::InputTextWidget()
+InputTextWidget::InputTextWidget(utils::Context& context)
 {
     displayCursor = true;
     setMaximumCharacters(DEFAULT_MAXIMUM_CHARACTERS);
-
-    fontInputText.loadFromFile(memoris::fonts::TEXT_FONT);
 
     inputTextColor.r = constants::Colors::COLOR_LIGHT_BLUE_RED;
     inputTextColor.g = constants::Colors::COLOR_LIGHT_BLUE_GREEN;
     inputTextColor.b = constants::Colors::COLOR_LIGHT_BLUE_BLUE;
     inputTextColor.a = constants::Colors::COLOR_ALPHA_FULL;
 
-    displayedText.setFont(fontInputText);
+    displayedText.setFont(context.getFontsManager().getTextFont());
     displayedText.setCharacterSize(SIZE_INPUT_TEXT_FONT);
     displayedText.setColor(inputTextColor);
 

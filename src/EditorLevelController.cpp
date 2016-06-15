@@ -86,7 +86,11 @@ const float EditorLevelController::FLOOR_LABEL_VERTICAL_POSITION = 670;
 /**
  *
  */
-EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSITION_X, LEVEL_POSITION_Y)
+EditorLevelController::EditorLevelController(utils::Context& context) :
+    Controller(),
+    level(LEVEL_POSITION_X, LEVEL_POSITION_Y),
+    inputTextNew(context),
+    titleBar(context)
 {
     currentFloor = 0;
 
@@ -102,36 +106,42 @@ EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSIT
     buttonPreviousFloor.setLabel(EDITOR_LEVEL_BUTTON_PREVIOUS_FLOOR_TEXT);
 
     buttonExit.setLayout(
+        context,
         LEVEL_EDITOR_BUTTONS_POSITION_X,
         constants::Positions::EDITOR_BUTTONS_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonNew.setLayout(
+        context,
         LEVEL_EDITOR_BUTTONS_POSITION_X,
         LEVEL_EDITOR_BUTTON_NEW_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonOpen.setLayout(
+        context,
         LEVEL_EDITOR_BUTTONS_POSITION_X,
         LEVEL_EDITOR_BUTTON_OPEN_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonSave.setLayout(
+        context,
         LEVEL_EDITOR_BUTTONS_POSITION_X,
         LEVEL_EDITOR_BUTTON_SAVE_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonNextFloor.setLayout(
+        context,
         LEVEL_EDITOR_BUTTONS_POSITION_X,
         LEVEL_EDITOR_BUTTON_LEVEL_UP_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonPreviousFloor.setLayout(
+        context,
         LEVEL_EDITOR_BUTTONS_POSITION_X,
         LEVEL_EDITOR_BUTTON_LEVEL_DOWN_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
@@ -152,13 +162,11 @@ EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSIT
     errorLabelColor.b = constants::Colors::COLOR_RED_BLUE;
     errorLabelColor.a = constants::Colors::COLOR_ALPHA_FULL;
 
-    levelNameLabelFont.loadFromFile(memoris::fonts::TEXT_FONT);
-
-    levelNameLabel.setFont(levelNameLabelFont);
+    levelNameLabel.setFont(context.getFontsManager().getTextFont());
     levelNameLabel.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
     levelNameLabel.setColor(levelNameLabelUnsavedColor);
 
-    errorLabel.setFont(levelNameLabelFont);
+    errorLabel.setFont(context.getFontsManager().getTextFont());
     errorLabel.setCharacterSize(memoris::fonts::INFORMATION_SIZE);
     errorLabel.setColor(errorLabelColor);
     errorLabel.setString(STRING_NEW_LEVEL_ERROR);
@@ -167,7 +175,7 @@ EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSIT
         ERROR_MESSAGE_POSITION_Y
     );
 
-    floorPrefixLabel.setFont(levelNameLabelFont);
+    floorPrefixLabel.setFont(context.getFontsManager().getTextFont());
     floorPrefixLabel.setCharacterSize(memoris::fonts::INFORMATION_SIZE);
     floorPrefixLabel.setColor(levelNameLabelColor);
     floorPrefixLabel.setString(STRING_FLOOR_PREFIX_LABEL);
@@ -176,7 +184,7 @@ EditorLevelController::EditorLevelController() : Controller(), level(LEVEL_POSIT
         FLOOR_PREFIX_LABEL_VERTICAL_POSITION
     );
 
-    floorLabel.setFont(levelNameLabelFont);
+    floorLabel.setFont(context.getFontsManager().getTextFont());
     floorLabel.setCharacterSize(memoris::fonts::TEXT_SIZE);
     floorLabel.setColor(levelNameLabelColor);
     floorLabel.setString(std::to_string(currentFloor + 1));

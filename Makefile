@@ -51,7 +51,8 @@ OBJS = \
 	   build/SerieMainMenuController.o \
 	   build/OfficialSeriesSelectorController.o \
 	   build/SprtTransition.o \
-	   build/ErrController.o \
+	   build/ErrorController.o \
+	   build/FontsManager.o \
 	   build/ScrollableListWidget.o
 
 INC = -I includes
@@ -70,6 +71,9 @@ build/musics.o: src/musics.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/controllers.o: src/controllers.cpp
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+
+build/FontsManager.o: src/FontsManager.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/CellFactory.o: src/CellFactory.cpp
@@ -212,7 +216,7 @@ build/SerieMainMenuController.o: src/SerieMainMenuController.cpp
 build/OfficialSeriesSelectorController.o: src/OfficialSeriesSelectorController.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/ErrController.o: src/ErrController.cpp
+build/ErrorController.o: src/ErrorController.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 # policies

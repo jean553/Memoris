@@ -47,9 +47,13 @@ class TitleBarWidget
 public:
 
     /**
+     * @param context unique context
      * @param barText                content of the text bar
      */
-    TitleBarWidget(std::string barText = "");
+    TitleBarWidget(
+        utils::Context& context,
+        std::string barText = ""
+    );
 
     /**
      * @brief update the displayed text content
@@ -75,8 +79,6 @@ public:
 private:
 
     std::string text;
-
-    sf::Font fontText;
 
     sf::Color textColor;
     sf::Color lineColor;
