@@ -50,7 +50,9 @@ const float OpenLevelController::ERROR_MESSAGE_POSITION_Y = 40;
 /**
  *
  */
-OpenLevelController::OpenLevelController() : Controller()
+OpenLevelController::OpenLevelController(utils::Context& context) :
+    Controller(),
+    titleBar(context)
 {
     errorAlreadyAddedLevel = false;
 
@@ -72,14 +74,12 @@ OpenLevelController::OpenLevelController() : Controller()
         )
     );
 
-    errorLabelFont.loadFromFile(memoris::fonts::TEXT_FONT);
-
     errorLabelColor.r = constants::Colors::COLOR_RED_RED;
     errorLabelColor.g = constants::Colors::COLOR_RED_GREEN;
     errorLabelColor.b = constants::Colors::COLOR_RED_BLUE;
     errorLabelColor.a = constants::Colors::COLOR_ALPHA_FULL;
 
-    errorLabel.setFont(errorLabelFont);
+    errorLabel.setFont(context.getFontsManager().getTextFont());
     errorLabel.setCharacterSize(memoris::fonts::INFORMATION_SIZE);
     errorLabel.setColor(errorLabelColor);
     errorLabel.setString(STRING_ALREADY_ADDED_ERROR_MESSAGE);

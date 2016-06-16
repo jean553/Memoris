@@ -44,9 +44,9 @@ class GameController : public Controller
 public:
 
     /**
-     * @param lvlFilePath path of the level to load
+     * @param context unique context to use
      */
-    GameController(const std::string& lvlFilePath);
+    GameController(utils::Context& context);
 
     /**
      * @brief renders the game main screen
@@ -197,9 +197,6 @@ private:
     sf::Text targetStr;
     sf::Text timeStr;
     sf::Text floorStr;
-
-    sf::Font fontTime;
-    sf::Font fontItems;
 
     sf::Color colorItems;
 

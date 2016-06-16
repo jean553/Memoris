@@ -104,7 +104,7 @@ class MainMenuController : public Controller
 
 public:
 
-    MainMenuController();
+    MainMenuController(utils::Context& context);
 
     /**
      * @brief render the main menu
@@ -140,9 +140,6 @@ private:
 
     short titleBlueDirection;
     short selectorDirection;
-
-    sf::Font fontTitle;
-    sf::Font fontItem;
 
     sf::Color colorTitle;
     sf::Color colorWhite;

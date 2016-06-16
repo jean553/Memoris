@@ -38,8 +38,6 @@ const unsigned int ButtonWidget::SIZE_BUTTON_TEXT_FONT = 40;
  */
 ButtonWidget::ButtonWidget()
 {
-    fontButton.loadFromFile(memoris::fonts::TEXT_FONT);
-
     textColor.r = constants::Colors::COLOR_WHITE_RED;
     textColor.g = constants::Colors::COLOR_WHITE_GREEN;
     textColor.b = constants::Colors::COLOR_WHITE_BLUE;
@@ -91,6 +89,7 @@ void ButtonWidget::setLabel(std::string textLabel)
  *
  */
 void ButtonWidget::setLayout(
+    utils::Context& context,
     float buttonHorizontalPosition,
     float buttonVerticalPosition,
     float buttonWidth
@@ -103,7 +102,7 @@ void ButtonWidget::setLayout(
         buttonVerticalPosition
     );
 
-    buttonText.setFont(fontButton);
+    buttonText.setFont(context.getFontsManager().getTextFont());
     buttonText.setCharacterSize(SIZE_BUTTON_TEXT_FONT);
     buttonText.setPosition(
         buttonHorizontalPosition +

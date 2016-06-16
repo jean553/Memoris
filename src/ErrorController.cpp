@@ -17,12 +17,12 @@
 */
 
 /**
- * @file ErrController.cpp
+ * @file ErrorController.cpp
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "ErrController.hpp"
+#include "ErrorController.hpp"
 #include "controllers.hpp"
 
 namespace memoris
@@ -30,22 +30,23 @@ namespace memoris
 namespace controllers
 {
 
-const float_t ErrController::ERR_HRTL_PSTN = 10.f;
-const float_t ErrController::ERR_VRTL_PSTN = 10.f;
+const float_t ErrorController::ERR_HRTL_PSTN = 10.f;
+const float_t ErrorController::ERR_VRTL_PSTN = 10.f;
 
 /**
  *
  */
-ErrController::ErrController(const std::string& msg) : Controller()
+ErrorController::ErrorController(
+    utils::Context& context,
+    const std::string& msg
+) : Controller()
 {
-    font.loadFromFile(memoris::fonts::TEXT_FONT);
-
     colorErr.r = constants::Colors::COLOR_RED_RED;
     colorErr.g = constants::Colors::COLOR_RED_GREEN;
     colorErr.b = constants::Colors::COLOR_RED_BLUE;
     colorErr.a = constants::Colors::COLOR_ALPHA_FULL;
 
-    error.setFont(font);
+    error.setFont(context.getFontsManager().getTextFont());
     error.setString(msg);
     error.setCharacterSize(memoris::fonts::TEXT_SIZE);
     error.setColor(colorErr);
@@ -60,7 +61,7 @@ ErrController::ErrController(const std::string& msg) : Controller()
 /**
  *
  */
-uint8_t ErrController::render(utils::Context& context)
+uint8_t ErrorController::render(utils::Context& context)
 {
     nextControllerId = animateScreenTransition(context);
 

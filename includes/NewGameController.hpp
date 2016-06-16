@@ -61,7 +61,7 @@ class NewGameController : public Controller
 
 public:
 
-    NewGameController();
+    NewGameController(utils::Context& context);
 
     /**
      * @brief render the new game screen
@@ -75,9 +75,6 @@ public:
     );
 
 private:
-
-    sf::Font fontTitle;
-    sf::Font fontExplanation;
 
     sf::Color colorTitle;
     sf::Color colorExplanation;

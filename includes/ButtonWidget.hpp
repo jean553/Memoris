@@ -56,11 +56,13 @@ public:
      * NOTE: the method setText() must be called before
      * to calculate the real required size of text in button
      *
+     * @param context unique context
      * @param buttonHorizontalPosition  button horizontal position
      * @param buttonVerticalPosition    button vertical position
      * @param buttonWidth               button fixed width
      */
     void setLayout(
+        utils::Context& context,
         float buttonHorizontalPosition,
         float buttonVerticalPosition,
         float buttonWidth
@@ -102,8 +104,6 @@ public:
 private:
 
     std::string text;
-
-    sf::Font fontButton;
 
     sf::Color textColor;
     sf::Color backgroundColor;

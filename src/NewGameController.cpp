@@ -50,11 +50,10 @@ const unsigned short NewGameController::MAX_NAME_LENGTH = 15;
 /**
  *
  */
-NewGameController::NewGameController() : Controller()
+NewGameController::NewGameController(utils::Context& context)
+    : inputTextGameName(context),
+      Controller()
 {
-    fontTitle.loadFromFile(memoris::fonts::TITLE_FONT);
-    fontExplanation.loadFromFile(memoris::fonts::TEXT_FONT);
-
     colorTitle.r = constants::Colors::COLOR_LIGHT_BLUE_RED;
     colorTitle.g = constants::Colors::COLOR_LIGHT_BLUE_GREEN;
     colorTitle.b = constants::Colors::COLOR_LIGHT_BLUE_BLUE;
@@ -65,7 +64,7 @@ NewGameController::NewGameController() : Controller()
     colorExplanation.b = constants::Colors::COLOR_WHITE_BLUE;
     colorExplanation.a = constants::Colors::COLOR_ALPHA_FULL;
 
-    title.setFont(fontTitle);
+    title.setFont(context.getFontsManager().getTitleFont());
     title.setString(STRING_NEW_GAME_TITLE);
     title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
     title.setColor(colorTitle);
@@ -74,7 +73,7 @@ NewGameController::NewGameController() : Controller()
         POSITION_NEW_GAME_TITLE_Y
     );
 
-    explanation.setFont(fontExplanation);
+    explanation.setFont(context.getFontsManager().getTextFont());
     explanation.setString(STRING_NEW_GAME_EXPLANATION);
     explanation.setCharacterSize(memoris::fonts::TEXT_SIZE);
     explanation.setColor(colorExplanation);

@@ -84,7 +84,7 @@ const float_t GameController::FLOOR_IMG_VRTL_PSTN = 0;
 /**
  *
  */
-GameController::GameController(const std::string& lvlFilePath) : Controller(), level(0, 0)
+GameController::GameController(utils::Context& context) : Controller(), level(0, 0)
 {
     starCellsAmount = 0;
     lifesAmount = 0;
@@ -108,17 +108,15 @@ GameController::GameController(const std::string& lvlFilePath) : Controller(), l
     );
 
     /* TODO: use a constant level name for now... */
-    level.loadCells(utils::FileWriter::readFile(lvlFilePath));
+    level.loadCells(utils::FileWriter::readFile(context.getNxtLvlStrPath()));
     level.setCellsCursorSensitivity(false);
-
-    fontTime.loadFromFile(memoris::fonts::TEXT_FONT);
 
     colorItems.r = constants::Colors::COLOR_WHITE_RED;
     colorItems.g = constants::Colors::COLOR_WHITE_GREEN;
     colorItems.b = constants::Colors::COLOR_WHITE_BLUE;
     colorItems.a = constants::Colors::COLOR_ALPHA_FULL;
 
-    time.setFont(fontTime);
+    time.setFont(context.getFontsManager().getTextFont());
     time.setCharacterSize(memoris::fonts::TEXT_SIZE);
     time.setColor(colorItems);
     time.setPosition(
@@ -128,7 +126,7 @@ GameController::GameController(const std::string& lvlFilePath) : Controller(), l
 
     /* TODO: set a constant string for now, should change
      * according to the found stars... */
-    foundStarsAmntStr.setFont(fontTime);
+    foundStarsAmntStr.setFont(context.getFontsManager().getTextFont());
     foundStarsAmntStr.setString("0");
     foundStarsAmntStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
     foundStarsAmntStr.setColor(colorItems);
@@ -137,7 +135,7 @@ GameController::GameController(const std::string& lvlFilePath) : Controller(), l
         FOUND_STAR_CELLS_VRTL_PSTN
     );
 
-    lifesAmntStr.setFont(fontTime);
+    lifesAmntStr.setFont(context.getFontsManager().getTextFont());
     lifesAmntStr.setString(std::to_string(lifesAmount));
     lifesAmntStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
     lifesAmntStr.setColor(colorItems);
@@ -146,7 +144,7 @@ GameController::GameController(const std::string& lvlFilePath) : Controller(), l
         LIFES_VRTL_PSTN
     );
 
-    timeStr.setFont(fontTime);
+    timeStr.setFont(context.getFontsManager().getTextFont());
     timeStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
     timeStr.setColor(colorItems);
     timeStr.setPosition(
@@ -155,7 +153,7 @@ GameController::GameController(const std::string& lvlFilePath) : Controller(), l
     );
 
     /* TODO: static string for now... */
-    floorStr.setFont(fontTime);
+    floorStr.setFont(context.getFontsManager().getTextFont());
     floorStr.setString(std::to_string(floor));
     floorStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
     floorStr.setColor(colorItems);
@@ -166,7 +164,7 @@ GameController::GameController(const std::string& lvlFilePath) : Controller(), l
 
     starCellsAmount = level.getStarCellsAmount();
 
-    targetStr.setFont(fontTime);
+    targetStr.setFont(context.getFontsManager().getTextFont());
     targetStr.setString(std::to_string(starCellsAmount));
     targetStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
     targetStr.setColor(colorItems);

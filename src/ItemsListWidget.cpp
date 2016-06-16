@@ -42,8 +42,6 @@ const unsigned int ItemsListWidget::ITEMS_LIST_ITEM_HEIGHT = 40;
  */
 ItemsListWidget::ItemsListWidget()
 {
-    textItemFont.loadFromFile(memoris::fonts::TEXT_FONT);
-
     color.r = constants::Colors::COLOR_WHITE_RED;
     color.g = constants::Colors::COLOR_WHITE_GREEN;
     color.b = constants::Colors::COLOR_WHITE_BLUE;
@@ -235,7 +233,7 @@ void ItemsListWidget::display(utils::Context& context)
 
         sf::Text item;
 
-        item.setFont(textItemFont);
+        item.setFont(context.getFontsManager().getTextFont());
         item.setCharacterSize(ITEMS_LIST_ITEM_HEIGHT);
         item.setColor(color);
         item.setString(*textItem);

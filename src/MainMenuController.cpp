@@ -80,11 +80,8 @@ const short MainMenuController::SELECTOR_COLOR_MAXIMUM = 255;
 /**
  *
  */
-MainMenuController::MainMenuController() : Controller()
+MainMenuController::MainMenuController(utils::Context& context) : Controller()
 {
-    fontTitle.loadFromFile(memoris::fonts::TITLE_FONT);
-    fontItem.loadFromFile(memoris::fonts::TEXT_FONT);
-
     colorTitle.r = COLOR_TITLE_RED_INIT;
     colorTitle.g = COLOR_TITLE_GREEN_INIT;
     colorTitle.b = COLOR_TITLE_BLUE_INIT;
@@ -100,7 +97,7 @@ MainMenuController::MainMenuController() : Controller()
     colorSelector.b = constants::Colors::COLOR_RED_BLUE;
     colorSelector.a = constants::Colors::COLOR_ALPHA_FULL;
 
-    title.setFont(fontTitle);
+    title.setFont(context.getFontsManager().getTitleFont());
     title.setString(STRING_TITLE);
     title.setCharacterSize(memoris::fonts::TITLE_SIZE);
     title.setColor(colorTitle);
@@ -109,7 +106,7 @@ MainMenuController::MainMenuController() : Controller()
         POSITION_TITLE_Y
     );
 
-    itemNewGame.setFont(fontItem);
+    itemNewGame.setFont(context.getFontsManager().getTextFont());
     itemNewGame.setString(STRING_NEW_GAME);
     itemNewGame.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemNewGame.setColor(colorSelector);
@@ -118,7 +115,7 @@ MainMenuController::MainMenuController() : Controller()
         POSITION_ITEM_NEW_GAME_Y
     );
 
-    itemLoadGame.setFont(fontItem);
+    itemLoadGame.setFont(context.getFontsManager().getTextFont());
     itemLoadGame.setString(STRING_LOAD_GAME);
     itemLoadGame.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemLoadGame.setColor(colorWhite);
@@ -127,7 +124,7 @@ MainMenuController::MainMenuController() : Controller()
         POSITION_ITEM_LOAD_GAME_Y
     );
 
-    itemEditor.setFont(fontItem);
+    itemEditor.setFont(context.getFontsManager().getTextFont());
     itemEditor.setString(STRING_EDITOR);
     itemEditor.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemEditor.setColor(colorWhite);
@@ -136,7 +133,7 @@ MainMenuController::MainMenuController() : Controller()
         POSITION_ITEM_EDITOR_Y
     );
 
-    itemOptions.setFont(fontItem);
+    itemOptions.setFont(context.getFontsManager().getTextFont());
     itemOptions.setString(STRING_OPTIONS);
     itemOptions.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemOptions.setColor(colorWhite);
@@ -145,7 +142,7 @@ MainMenuController::MainMenuController() : Controller()
         POSITION_ITEM_OPTIONS_Y
     );
 
-    itemExit.setFont(fontItem);
+    itemExit.setFont(context.getFontsManager().getTextFont());
     itemExit.setString(STRING_EXIT);
     itemExit.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemExit.setColor(colorWhite);

@@ -55,7 +55,7 @@ class OpenLevelController : public Controller
     static const float ERROR_MESSAGE_POSITION_Y;
 
 public:
-    OpenLevelController();
+    OpenLevelController(utils::Context& context);
 
     /**
      * @brief render the open serie screen
@@ -87,8 +87,6 @@ private:
     sf::Color errorLabelColor;
 
     sf::Text errorLabel;
-
-    sf::Font errorLabelFont;
 };
 
 }

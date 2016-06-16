@@ -42,16 +42,14 @@ const float_t OfficialSeriesSelectorController::OFF_SER_TITLE_VRTL_PSTN = 50.f;
 /**
  *
  */
-OfficialSeriesSelectorController::OfficialSeriesSelectorController()
+OfficialSeriesSelectorController::OfficialSeriesSelectorController(utils::Context& context)
 {
-    fontTitle.loadFromFile(memoris::fonts::TITLE_FONT);
-
     colorTitle.r = constants::Colors::COLOR_LIGHT_BLUE_RED;
     colorTitle.g = constants::Colors::COLOR_LIGHT_BLUE_GREEN;
     colorTitle.b = constants::Colors::COLOR_LIGHT_BLUE_BLUE;
     colorTitle.a = constants::Colors::COLOR_ALPHA_FULL;
 
-    offSerTitle.setFont(fontTitle);
+    offSerTitle.setFont(context.getFontsManager().getTitleFont());
     offSerTitle.setString(OFF_SER_TITLE);
     offSerTitle.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
     offSerTitle.setColor(colorTitle);
@@ -64,7 +62,7 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController()
     levels = utils::FileWriter::readFileWithSprt(TEMPORARY_DEFAULT_SERIE);
 
     /* generate the series names list */
-    createItems();
+    createItems(context);
 }
 
 /**
@@ -129,7 +127,7 @@ uint8_t OfficialSeriesSelectorController::render(utils::Context& context)
 /**
  *
  */
-void OfficialSeriesSelectorController::createItems()
+void OfficialSeriesSelectorController::createItems(utils::Context& context)
 {
     /* TODO: the list is generated here for
      * official series... maybe it should be
@@ -164,10 +162,11 @@ void OfficialSeriesSelectorController::createItems()
     };
 
     /* display the prefix strings */
-    scrlList.initFromStrArr(strList);
+    scrlList.initFromStrArr(context, strList);
 
     /* display the suffix strings */
     scrlList.initFromStrArr(
+        context,
         strListSfx,
         false
     );

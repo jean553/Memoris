@@ -59,7 +59,7 @@ class OpenSerieController : public Controller
 
 public:
 
-    OpenSerieController();
+    OpenSerieController(utils::Context& context);
 
     /**
      * @brief render the open serie screen

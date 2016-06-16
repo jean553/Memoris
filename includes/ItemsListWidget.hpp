@@ -123,8 +123,6 @@ protected:
     static const std::string PATH_IMAGE_ARROW_UP;
     static const std::string PATH_IMAGE_ARROW_DOWN;
 
-    sf::Font textItemFont;
-
     sf::Color color;
     sf::Color selectorColor;
 

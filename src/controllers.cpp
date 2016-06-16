@@ -52,12 +52,12 @@ Controller* getControllerById(
     {
     case NEW_GAME_CONTROLLER_ID:
     {
-        return new NewGameController;
+        return new NewGameController(context);
     }
     break;
     case EDITOR_MENU_CONTROLLER_ID:
     {
-        return new EditorMenuController;
+        return new EditorMenuController(context);
     }
     break;
     case EDITOR_SERIE_CONTROLLER_ID:
@@ -67,27 +67,27 @@ Controller* getControllerById(
     break;
     case OPEN_SERIE_CONTROLLER_ID:
     {
-        return new OpenSerieController;
+        return new OpenSerieController(context);
     }
     break;
     case EDITOR_LEVEL_CONTROLLER_ID:
     {
-        return new EditorLevelController;
+        return new EditorLevelController(context);
     }
     break;
     case OPEN_LEVEL_CONTROLLER_ID:
     {
-        return new OpenLevelController;
+        return new OpenLevelController(context);
     }
     break;
     case SERIE_MAIN_MENU_CONTROLLER_ID:
     {
-        return new SerieMainMenuController;
+        return new SerieMainMenuController(context);
     }
     break;
     case OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID:
     {
-        return new OfficialSeriesSelectorController;
+        return new OfficialSeriesSelectorController(context);
     }
     break;
     case GAME_CONTROLLER_ID:
@@ -99,11 +99,14 @@ Controller* getControllerById(
            error message is also set in the FileWriter class */
         try
         {
-            return new GameController(context.getNxtLvlStrPath());
+            return new GameController(context);
         }
         catch(const std::invalid_argument& e)
         {
-            return getErrCtrl(e.what());
+            return getErrorController(
+                       context,
+                       e.what()
+                   );
         }
     }
     break;
@@ -114,7 +117,7 @@ Controller* getControllerById(
        if an incorrect controller id is specified */
     default:
     {
-        return new MainMenuController;
+        return new MainMenuController(context);
     }
     break;
     }
@@ -123,9 +126,15 @@ Controller* getControllerById(
 /**
  *
  */
-ErrController* getErrCtrl(const std::string& msg)
+ErrorController* getErrorController(
+    utils::Context& context,
+    const std::string& msg
+)
 {
-    return new ErrController(msg);
+    return new ErrorController(
+               context,
+               msg
+           );
 }
 
 }

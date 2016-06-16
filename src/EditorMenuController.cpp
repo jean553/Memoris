@@ -52,10 +52,8 @@ const unsigned short EditorMenuController::EDITOR_MENU_ITEM_BACK = 2;
 /**
  *
  */
-EditorMenuController::EditorMenuController() : Controller()
+EditorMenuController::EditorMenuController(utils::Context& context) : Controller()
 {
-    fontItem.loadFromFile(memoris::fonts::TEXT_FONT);
-
     selectorPosition = 0;
 
     colorWhite.r = constants::Colors::COLOR_WHITE_RED;
@@ -68,7 +66,7 @@ EditorMenuController::EditorMenuController() : Controller()
     colorSelector.b = constants::Colors::COLOR_RED_BLUE;
     colorSelector.a = constants::Colors::COLOR_ALPHA_FULL;
 
-    itemLevelsEditor.setFont(fontItem);
+    itemLevelsEditor.setFont(context.getFontsManager().getTextFont());
     itemLevelsEditor.setString(STRING_LEVELS_EDITOR);
     itemLevelsEditor.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemLevelsEditor.setColor(colorSelector);
@@ -77,7 +75,7 @@ EditorMenuController::EditorMenuController() : Controller()
         POSITION_ITEM_LEVELS_EDITOR_Y
     );
 
-    itemSeriesEditor.setFont(fontItem);
+    itemSeriesEditor.setFont(context.getFontsManager().getTextFont());
     itemSeriesEditor.setString(STRING_SERIES_EDITOR);
     itemSeriesEditor.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemSeriesEditor.setColor(colorWhite);
@@ -86,7 +84,7 @@ EditorMenuController::EditorMenuController() : Controller()
         POSITION_ITEM_SERIES_EDITOR_Y
     );
 
-    itemBack.setFont(fontItem);
+    itemBack.setFont(context.getFontsManager().getTextFont());
     itemBack.setString(STRING_BACK);
     itemBack.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemBack.setColor(colorWhite);

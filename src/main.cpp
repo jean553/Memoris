@@ -47,7 +47,10 @@ int main()
 
     /* the context is an unique object that is transfered from one controller
        to another during controllers switch; it contains data to exchange
-       between controller, it also contains the SFML window */
+       between controller, it also contains the SFML window; the context
+       constructor also loads the fonts manager, that loads fonts from file;
+       an exception is thrown here if at least one font file couldn't be
+       opened, the error message is displayed in the console */
     utils::Context context;
 
     /* load and play the main menu music when the program starts */
@@ -67,7 +70,7 @@ int main()
        one controller to another, the currentMusicPath and the nxtMusicPath are
        the sames, there is no interupt and modification of the playing music;
        if they are different during the generation of a new controller, a new
-       music will be loaded using the nxtMusicPath */
+       music will be loaded using the nextMusicPath */
     std::string nextMusicPath;
 
     /* first loop, calls the render loop and create each controller

@@ -84,7 +84,7 @@ class EditorLevelController : public Controller
 
 public:
 
-    EditorLevelController();
+    EditorLevelController(utils::Context& context);
 
     /**
      * @brief renders the level editor screen
@@ -126,8 +126,6 @@ private:
     widgets::CellSelectorWidget cellSelector;
 
     entities::Level level;
-
-    sf::Font levelNameLabelFont;
 
     sf::Color levelNameLabelColor;
     sf::Color levelNameLabelUnsavedColor;

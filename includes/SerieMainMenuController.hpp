@@ -44,7 +44,7 @@ class SerieMainMenuController : public Controller
 
 public:
 
-    SerieMainMenuController();
+    SerieMainMenuController(utils::Context& context);
 
     /**
      * @brief render the serie editor screen
@@ -88,9 +88,6 @@ private:
     uint8_t selectorPosition;
 
     int8_t selectorDirection;
-
-    sf::Font fontItem;
-    sf::Font fontTitle;
 
     sf::Color colorWhite;
     sf::Color colorSelector;

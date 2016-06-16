@@ -51,10 +51,12 @@ public:
     /**
      * @brief initialize the strings list from a string vector
      *
+     * @param context unique context
      * @param arr array of strings
      * @param side side where the strings have to be displayed
      */
     void initFromStrArr(
+        utils::Context& context,
         const std::vector<std::string>& arr,
         const bool& isPrefix = true
     );
@@ -103,8 +105,6 @@ private:
 
     std::vector<sf::Text> txtItems;
     std::vector<sf::Text> txtSfx;
-
-    sf::Font font;
 
     sf::Color colorSltr;
     sf::Color colorWhite;
