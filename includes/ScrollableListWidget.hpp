@@ -38,8 +38,10 @@ public:
 
     /**
      * @brief constructor
+     *
+     * @param context current context reference
      */
-    ScrollableListWidget();
+    ScrollableListWidget(utils::Context& context);
 
     /**
      * @brief display the scrollable list widget
@@ -73,8 +75,10 @@ public:
 
     /**
      * @brief update the color and the position of the menu selector
+     *
+     * @param context current context reference
      */
-    void updtSltrPstn();
+    void updtSltrPstn(utils::Context& context);
 
 private:
 
@@ -106,8 +110,9 @@ private:
     std::vector<sf::Text> txtItems;
     std::vector<sf::Text> txtSfx;
 
-    sf::Color colorSltr;
-    sf::Color colorWhite;
+    /* the color of the animated arrow; declared here
+       as the color is animated and is modified
+       continually */
     sf::Color colorArrow;
 
     sf::Texture arrDownTxt;

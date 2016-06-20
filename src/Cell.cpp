@@ -25,7 +25,7 @@
 
 #include "Cell.hpp"
 #include "Dimensions.hpp"
-#include "Colors.hpp"
+
 
 using namespace entities;
 
@@ -37,8 +37,16 @@ const uint16_t Cell::MINIMUM_RED_COLOR_AMOUNT = 0;
 /**
  *
  */
-Cell::Cell()
+Cell::Cell(utils::Context& context)
 {
+    /* TODO: this is not used inside the copy constructor,
+      because we are mandatory to pass the context as
+      a parameter of the copy constructor. If we do that,
+      this is not a copy constructor anymore... Need to
+      find a solution for this... */
+    /* the selector color is continually updated, that's
+       why we copy it from the red color first */
+    selectorColor = context.getColorsManager().getColorRed();
     initializeCommonAttributes();
 }
 
@@ -64,8 +72,12 @@ Cell::Cell(const Cell& cell)
 /**
  *
  */
-Cell::Cell(std::string fileValue) : stringRepresentation(fileValue)
+Cell::Cell(
+    utils::Context& context,
+    std::string fileValue) :
+    stringRepresentation(fileValue)
 {
+    selectorColor = context.getColorsManager().getColorRed();
     initializeCommonAttributes();
 }
 
@@ -166,11 +178,11 @@ void Cell::display(utils::Context& context)
 
     if (isMouseHover() && isCursorSensitive)
     {
-        sprToDspl.setColor(transparentWhiteColor);
+        sprToDspl.setColor(context.getColorsManager().getColorPartialWhite());
     }
     else
     {
-        sprToDspl.setColor(whiteColor);
+        sprToDspl.setColor(context.getColorsManager().getColorWhite());
     }
 
     context.getSfmlWindow().draw(sprToDspl);
@@ -294,20 +306,6 @@ void Cell::initializeCommonAttributes()
     address = 0;
     selectorDirection = -1;
 
-    transparentWhiteColor.r = constants::Colors::COLOR_WHITE_RED;
-    transparentWhiteColor.g = constants::Colors::COLOR_WHITE_GREEN;
-    transparentWhiteColor.b = constants::Colors::COLOR_WHITE_BLUE;
-    transparentWhiteColor.a = constants::Colors::COLOR_ALPHA_PARTIAL;
-
-    whiteColor.r = constants::Colors::COLOR_WHITE_RED;
-    whiteColor.g = constants::Colors::COLOR_WHITE_GREEN;
-    whiteColor.b = constants::Colors::COLOR_WHITE_BLUE;
-    whiteColor.a = constants::Colors::COLOR_ALPHA_FULL;
-
-    selectorColor.r = constants::Colors::COLOR_RED_RED;
-    selectorColor.g = constants::Colors::COLOR_RED_GREEN;
-    selectorColor.b = constants::Colors::COLOR_RED_BLUE;
-    selectorColor.a = constants::Colors::COLOR_ALPHA_FULL;
 
     topSelectionBar.setSize(
         sf::Vector2f(

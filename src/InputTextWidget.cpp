@@ -24,7 +24,7 @@
 
 #include "InputTextWidget.hpp"
 
-#include "Colors.hpp"
+
 #include "fonts.hpp"
 
 using namespace widgets;
@@ -49,16 +49,11 @@ InputTextWidget::InputTextWidget(utils::Context& context)
     displayCursor = true;
     setMaximumCharacters(DEFAULT_MAXIMUM_CHARACTERS);
 
-    inputTextColor.r = constants::Colors::COLOR_LIGHT_BLUE_RED;
-    inputTextColor.g = constants::Colors::COLOR_LIGHT_BLUE_GREEN;
-    inputTextColor.b = constants::Colors::COLOR_LIGHT_BLUE_BLUE;
-    inputTextColor.a = constants::Colors::COLOR_ALPHA_FULL;
-
     displayedText.setFont(context.getFontsManager().getTextFont());
     displayedText.setCharacterSize(SIZE_INPUT_TEXT_FONT);
-    displayedText.setColor(inputTextColor);
+    displayedText.setColor(context.getColorsManager().getColorLightBlue());
 
-    cursor.setFillColor(inputTextColor);
+    cursor.setFillColor(context.getColorsManager().getColorLightBlue());
 }
 
 /**
@@ -73,6 +68,7 @@ void InputTextWidget::setMaximumCharacters(unsigned short maxCharacters)
  *
  */
 void InputTextWidget::setLayout(
+    utils::Context& context,
     float inputHorizontalPosition,
     float inputVerticalPosition,
     float inputWidth
@@ -123,10 +119,10 @@ void InputTextWidget::setLayout(
                          BOX_LARGER
                      ));
 
-    boxRight.setFillColor(inputTextColor);
-    boxTop.setFillColor(inputTextColor);
-    boxBottom.setFillColor(inputTextColor);
-    boxLeft.setFillColor(inputTextColor);
+    boxRight.setFillColor(context.getColorsManager().getColorLightBlue());
+    boxTop.setFillColor(context.getColorsManager().getColorLightBlue());
+    boxBottom.setFillColor(context.getColorsManager().getColorLightBlue());
+    boxLeft.setFillColor(context.getColorsManager().getColorLightBlue());
 
     initCursorPosition();
 

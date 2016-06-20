@@ -23,7 +23,7 @@
  */
 
 #include "EditorMenuController.hpp"
-#include "Colors.hpp"
+
 #include "fonts.hpp"
 #include "Sounds.hpp"
 #include "controllers.hpp"
@@ -52,19 +52,14 @@ const unsigned short EditorMenuController::EDITOR_MENU_ITEM_BACK = 2;
 /**
  *
  */
-EditorMenuController::EditorMenuController(utils::Context& context) : Controller()
+EditorMenuController::EditorMenuController(utils::Context& context) :
+    Controller(context)
 {
     selectorPosition = 0;
 
-    colorWhite.r = constants::Colors::COLOR_WHITE_RED;
-    colorWhite.g = constants::Colors::COLOR_WHITE_GREEN;
-    colorWhite.b = constants::Colors::COLOR_WHITE_BLUE;
-    colorWhite.a = constants::Colors::COLOR_ALPHA_FULL;
-
-    colorSelector.r = constants::Colors::COLOR_RED_RED;
-    colorSelector.g = constants::Colors::COLOR_RED_GREEN;
-    colorSelector.b = constants::Colors::COLOR_RED_BLUE;
-    colorSelector.a = constants::Colors::COLOR_ALPHA_FULL;
+    /* this color is continually updated, that's
+       why this is a copy of the red color */
+    colorSelector = context.getColorsManager().getColorRedCopy();
 
     itemLevelsEditor.setFont(context.getFontsManager().getTextFont());
     itemLevelsEditor.setString(STRING_LEVELS_EDITOR);
@@ -78,7 +73,7 @@ EditorMenuController::EditorMenuController(utils::Context& context) : Controller
     itemSeriesEditor.setFont(context.getFontsManager().getTextFont());
     itemSeriesEditor.setString(STRING_SERIES_EDITOR);
     itemSeriesEditor.setCharacterSize(memoris::fonts::ITEM_SIZE);
-    itemSeriesEditor.setColor(colorWhite);
+    itemSeriesEditor.setColor(context.getColorsManager().getColorWhite());
     itemSeriesEditor.setPosition(
         POSITION_ITEM_SERIES_EDITOR_X,
         POSITION_ITEM_SERIES_EDITOR_Y
@@ -87,7 +82,7 @@ EditorMenuController::EditorMenuController(utils::Context& context) : Controller
     itemBack.setFont(context.getFontsManager().getTextFont());
     itemBack.setString(STRING_BACK);
     itemBack.setCharacterSize(memoris::fonts::ITEM_SIZE);
-    itemBack.setColor(colorWhite);
+    itemBack.setColor(context.getColorsManager().getColorWhite());
     itemBack.setPosition(
         POSITION_ITEM_BACK_X,
         POSITION_ITEM_BACK_Y
@@ -107,7 +102,7 @@ uint8_t EditorMenuController::render(utils::Context& context)
 {
     policies::HasMenuSelectorAnimation::animateMenuSelector<EditorMenuController>(this);
 
-    updateSelectorPosition();
+    updateSelectorPosition(context);
 
     context.getSfmlWindow().draw(itemLevelsEditor);
     context.getSfmlWindow().draw(itemSeriesEditor);
@@ -156,7 +151,7 @@ uint8_t EditorMenuController::render(utils::Context& context)
 /**
  *
  */
-void EditorMenuController::updateSelectorPosition()
+void EditorMenuController::updateSelectorPosition(utils::Context& context)
 {
     selectorPosition = (
                            (selectorPosition > EDITOR_MENU_SELECTOR_MAX) ?
@@ -164,9 +159,9 @@ void EditorMenuController::updateSelectorPosition()
                            selectorPosition
                        );
 
-    itemLevelsEditor.setColor(colorWhite);
-    itemSeriesEditor.setColor(colorWhite);
-    itemBack.setColor(colorWhite);
+    itemLevelsEditor.setColor(context.getColorsManager().getColorWhite());
+    itemSeriesEditor.setColor(context.getColorsManager().getColorWhite());
+    itemBack.setColor(context.getColorsManager().getColorWhite());
 
     switch (selectorPosition)
     {

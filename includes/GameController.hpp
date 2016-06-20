@@ -198,8 +198,6 @@ private:
     sf::Text timeStr;
     sf::Text floorStr;
 
-    sf::Color colorItems;
-
     sf::Texture textureStar;
     sf::Texture textureLife;
     sf::Texture textureTarget;

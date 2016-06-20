@@ -24,7 +24,7 @@
  */
 
 #include "MenuGradient.hpp"
-#include "Colors.hpp"
+
 #include "window.hpp"
 
 using namespace utils;
@@ -38,13 +38,8 @@ const uint16_t MenuGradient::SIDE_RECTANGLES_AMNT = 510;
 /**
  *
  */
-MenuGradient::MenuGradient()
+MenuGradient::MenuGradient(utils::Context& context)
 {
-    gradientColor.r = constants::Colors::COLOR_BLACK_RED;
-    gradientColor.g = constants::Colors::COLOR_BLACK_GREEN;
-    gradientColor.b = constants::Colors::COLOR_BLACK_BLUE;
-    gradientColor.a = constants::Colors::COLOR_ALPHA_FULL;
-
     /* the height is the screen height,
      * the width is less than the window width */
     main.setSize(
@@ -56,9 +51,9 @@ MenuGradient::MenuGradient()
 
     main.setPosition(MAIN_SURFACE_HRTL_PSTN, 0);
 
-    main.setFillColor(gradientColor);
+    main.setFillColor(context.getColorsManager().getColorBlack());
 
-    initializeGradientRectangles();
+    initializeGradientRectangles(context);
 }
 
 /**
@@ -92,16 +87,12 @@ void MenuGradient::display(utils::Context& context)
 /**
  *
  */
-void MenuGradient::initializeGradientRectangles()
+void MenuGradient::initializeGradientRectangles(utils::Context& context)
 {
     float_t hrtlPstn = MAIN_SURFACE_HRTL_PSTN - 1.f;
 
-    sf::Color effectColor;
-    effectColor.r = constants::Colors::COLOR_BLACK_RED;
-    effectColor.g = constants::Colors::COLOR_BLACK_GREEN;
-    effectColor.b = constants::Colors::COLOR_BLACK_BLUE;
-
-    sf::Uint8 alpha = constants::Colors::COLOR_ALPHA_FULL;
+    sf::Color effectColor = context.getColorsManager().getColorBlackCopy();
+    sf::Uint8 alpha = 255;
 
     /* initialize the left rectangles */
     for (uint16_t i = SIDE_RECTANGLES_AMNT; i > 0; i--)
@@ -134,7 +125,7 @@ void MenuGradient::initializeGradientRectangles()
 
     /* the origin is on the right side of the main rectangle */
     hrtlPstn = MAIN_SURFACE_HRTL_PSTN + MAIN_SURFACE_WIDTH - 1.f;
-    alpha = constants::Colors::COLOR_ALPHA_FULL;
+    alpha = 255;
 
     /* initialize the right rectangles */
     /* TODO: can be refactored with the previous one... */

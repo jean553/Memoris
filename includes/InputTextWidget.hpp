@@ -56,11 +56,13 @@ public:
     /**
      * @brief set the size and the position of the widget
      *
+     * @param context current context reference
      * @param inputHorizontalPosition    input horizontal position
      * @param inputVerticalPosition      input vertical position
      * @param inputWidth                 input width
      */
     void setLayout(
+        utils::Context& context,
         float inputHorizontalPosition,
         float inputVerticalPosition,
         float inputWidth
@@ -122,8 +124,6 @@ private:
     unsigned short maximumCharacters;
 
     std::string text;
-
-    sf::Color inputTextColor;
 
     sf::Text displayedText;
 

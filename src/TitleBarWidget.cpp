@@ -24,7 +24,7 @@
 
 #include "TitleBarWidget.hpp"
 
-#include "Colors.hpp"
+
 #include "fonts.hpp"
 
 using namespace widgets;
@@ -48,20 +48,10 @@ TitleBarWidget::TitleBarWidget(
 {
     setText(barText);
 
-    textColor.r = constants::Colors::COLOR_ORANGE_RED;
-    textColor.g = constants::Colors::COLOR_ORANGE_GREEN;
-    textColor.b = constants::Colors::COLOR_ORANGE_BLUE;
-    textColor.a = constants::Colors::COLOR_ALPHA_FULL;
-
-    lineColor.r = constants::Colors::COLOR_WHITE_RED;
-    lineColor.g = constants::Colors::COLOR_WHITE_GREEN;
-    lineColor.b = constants::Colors::COLOR_WHITE_BLUE;
-    lineColor.a = constants::Colors::COLOR_ALPHA_FULL;
-
     displayedText.setFont(context.getFontsManager().getTextFont());
     displayedText.setString(text);
     displayedText.setCharacterSize(SIZE_TITLE_BAR_TEXT_FONT);
-    displayedText.setColor(textColor);
+    displayedText.setColor(context.getColorsManager().getColorOrange());
     displayedText.setPosition(
         TITLE_BAR_TEXT_POSITION_X,
         TITLE_BAR_TEXT_POSITION_Y
@@ -75,7 +65,7 @@ TitleBarWidget::TitleBarWidget(
         TITLE_BAR_LINE_POSITION_X,
         TITLE_BAR_LINE_POSITION_Y
     );
-    line.setFillColor(lineColor);
+    line.setFillColor(context.getColorsManager().getColorWhite());
 }
 
 /**

@@ -105,14 +105,6 @@ private:
 
     std::string text;
 
-    sf::Color textColor;
-    sf::Color backgroundColor;
-    sf::Color linesColor;
-    sf::Color textColorDisable;
-    sf::Color backgroundColorDisable;
-    sf::Color textMouseHoverColor;
-    sf::Color backgroundMouseHoverColor;
-
     sf::Text buttonText;
 
     sf::RectangleShape background;

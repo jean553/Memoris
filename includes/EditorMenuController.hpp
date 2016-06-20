@@ -81,8 +81,10 @@ public:
 
     /**
      * @brief change the position of the cursor in the menu
+     *
+     * @param context current context reference
      */
-    void updateSelectorPosition();
+    void updateSelectorPosition(utils::Context& context);
 
     /**
      * @brief changes the controller id according to the selected menu item
@@ -95,7 +97,9 @@ private:
 
     short selectorDirection;
 
-    sf::Color colorWhite;
+    /* the color of the animated menu selector, we declare
+       it here because this color is continually updated
+       during the animation */
     sf::Color colorSelector;
 
     sf::Text itemLevelsEditor;

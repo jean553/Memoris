@@ -38,7 +38,12 @@ class AnimatedBackground
 {
 public:
 
-    AnimatedBackground();
+    /**
+     * @brief constructor
+     *
+     * @param context current context reference
+     */
+    AnimatedBackground(utils::Context& context);
 
     /**
      * @brief animate the background
@@ -60,8 +65,10 @@ private:
 
     /**
      * @brief initialize the cells array randomly
+     *
+     * @param context current context reference
      */
-    void initializeCells();
+    void initializeCells(utils::Context& context);
 
     /**
      * @brief initialize the cells lib array

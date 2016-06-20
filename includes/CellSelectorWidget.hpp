@@ -43,7 +43,12 @@ public:
     static const short COLUMNS_AMOUNT;
     static const short ROWS_AMOUNT;
 
-    CellSelectorWidget();
+    /**
+     * @brief constructor
+     *
+     * @param context current context reference
+     */
+    CellSelectorWidget(utils::Context& context);
 
     /**
      * @brief displays all the cells for selection

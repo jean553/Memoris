@@ -28,7 +28,7 @@
 #include "EditorLevelController.hpp"
 #include "Positions.hpp"
 #include "Dimensions.hpp"
-#include "Colors.hpp"
+
 #include "fonts.hpp"
 #include "Directories.hpp"
 #include "Extensions.hpp"
@@ -87,10 +87,12 @@ const float EditorLevelController::FLOOR_LABEL_VERTICAL_POSITION = 670;
  *
  */
 EditorLevelController::EditorLevelController(utils::Context& context) :
-    Controller(),
+    Controller(context),
     level(LEVEL_POSITION_X, LEVEL_POSITION_Y),
     inputTextNew(context),
-    titleBar(context)
+    titleBar(context),
+    cellSelector(context),
+    floorSelectionFrame(context)
 {
     currentFloor = 0;
 
@@ -147,28 +149,13 @@ EditorLevelController::EditorLevelController(utils::Context& context) :
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
-    levelNameLabelColor.r = constants::Colors::COLOR_WHITE_RED;
-    levelNameLabelColor.g = constants::Colors::COLOR_WHITE_GREEN;
-    levelNameLabelColor.b = constants::Colors::COLOR_WHITE_BLUE;
-    levelNameLabelColor.a = constants::Colors::COLOR_ALPHA_FULL;
-
-    levelNameLabelUnsavedColor.r = constants::Colors::COLOR_GREY_RED;
-    levelNameLabelUnsavedColor.g = constants::Colors::COLOR_GREY_GREEN;
-    levelNameLabelUnsavedColor.b = constants::Colors::COLOR_GREY_BLUE;
-    levelNameLabelUnsavedColor.a = constants::Colors::COLOR_ALPHA_FULL;
-
-    errorLabelColor.r = constants::Colors::COLOR_RED_RED;
-    errorLabelColor.g = constants::Colors::COLOR_RED_GREEN;
-    errorLabelColor.b = constants::Colors::COLOR_RED_BLUE;
-    errorLabelColor.a = constants::Colors::COLOR_ALPHA_FULL;
-
     levelNameLabel.setFont(context.getFontsManager().getTextFont());
     levelNameLabel.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
-    levelNameLabel.setColor(levelNameLabelUnsavedColor);
+    levelNameLabel.setColor(context.getColorsManager().getColorGrey());
 
     errorLabel.setFont(context.getFontsManager().getTextFont());
     errorLabel.setCharacterSize(memoris::fonts::INFORMATION_SIZE);
-    errorLabel.setColor(errorLabelColor);
+    errorLabel.setColor(context.getColorsManager().getColorRed());
     errorLabel.setString(STRING_NEW_LEVEL_ERROR);
     errorLabel.setPosition(
         ERROR_MESSAGE_POSITION_X,
@@ -177,7 +164,7 @@ EditorLevelController::EditorLevelController(utils::Context& context) :
 
     floorPrefixLabel.setFont(context.getFontsManager().getTextFont());
     floorPrefixLabel.setCharacterSize(memoris::fonts::INFORMATION_SIZE);
-    floorPrefixLabel.setColor(levelNameLabelColor);
+    floorPrefixLabel.setColor(context.getColorsManager().getColorWhite());
     floorPrefixLabel.setString(STRING_FLOOR_PREFIX_LABEL);
     floorPrefixLabel.setPosition(
         FLOOR_PREFIX_LABEL_HORIZONTAL_POSITION,
@@ -186,7 +173,7 @@ EditorLevelController::EditorLevelController(utils::Context& context) :
 
     floorLabel.setFont(context.getFontsManager().getTextFont());
     floorLabel.setCharacterSize(memoris::fonts::TEXT_SIZE);
-    floorLabel.setColor(levelNameLabelColor);
+    floorLabel.setColor(context.getColorsManager().getColorWhite());
     floorLabel.setString(std::to_string(currentFloor + 1));
     floorLabel.setPosition(
         FLOOR_LABEL_HORIZONTAL_POSITION,
@@ -194,6 +181,7 @@ EditorLevelController::EditorLevelController(utils::Context& context) :
     );
 
     inputTextNew.setLayout(
+        context,
         POSITION_NEW_LEVEL_INPUT_TEXT_X,
         POSITION_NEW_LEVEL_INPUT_TEXT_Y,
         SIZE_NEW_LEVEL_TEXT
@@ -204,11 +192,6 @@ EditorLevelController::EditorLevelController(utils::Context& context) :
         CELL_SELECTOR_POSITION_Y
     );
 
-    floorSelectionFrame.setColor(
-        constants::Colors::COLOR_WHITE_RED,
-        constants::Colors::COLOR_WHITE_GREEN,
-        constants::Colors::COLOR_WHITE_BLUE
-    );
     floorSelectionFrame.setSize(
         FLOOR_SELECTION_FRAME_HORIZONTAL_SIZE,
         FLOOR_SELECTION_FRAME_VERTICAL_SIZE
@@ -227,7 +210,7 @@ EditorLevelController::EditorLevelController(utils::Context& context) :
     buttonNextFloor.setEnable(false);
     buttonPreviousFloor.setEnable(false);
 
-    level.loadCells();
+    level.loadCells(context);
 }
 
 /**
@@ -351,7 +334,7 @@ uint8_t EditorLevelController::render(utils::Context& context)
                                              level.getCellsAsString()
                                          );
 
-                        displaySavedLevelName(true);
+                        displaySavedLevelName(context, true);
 
                         buttonSave.setEnable(false);
                         buttonNextFloor.setEnable(true);
@@ -418,7 +401,7 @@ uint8_t EditorLevelController::render(utils::Context& context)
                             prevCellStr
                         );
 
-                        displaySavedLevelName(false);
+                        displaySavedLevelName(context, false);
                         buttonSave.setEnable(true);
                     }
                 }
@@ -435,15 +418,18 @@ uint8_t EditorLevelController::render(utils::Context& context)
 /**
  *
  */
-void EditorLevelController::displaySavedLevelName(bool saved)
+void EditorLevelController::displaySavedLevelName(
+    utils::Context& context,
+    bool saved
+)
 {
     if (saved)
     {
-        levelNameLabel.setColor(levelNameLabelColor);
+        levelNameLabel.setColor(context.getColorsManager().getColorWhite());
     }
     else
     {
-        levelNameLabel.setColor(levelNameLabelUnsavedColor);
+        levelNameLabel.setColor(context.getColorsManager().getColorGrey());
     }
 }
 

@@ -28,7 +28,7 @@
 #include "Directories.hpp"
 #include "Extensions.hpp"
 #include "fonts.hpp"
-#include "Colors.hpp"
+
 #include "DirReader.hpp"
 #include "StringsListsUtils.hpp"
 #include "FileWriter.hpp"
@@ -77,9 +77,10 @@ const unsigned short EditorSerieController::ERROR_MESSAGE_POSITION_Y = 200;
  *
  */
 EditorSerieController::EditorSerieController(utils::Context& context) :
-    Controller(),
+    Controller(context),
     inputTextNew(context),
-    titleBar(context)
+    titleBar(context),
+    levelsList(context)
 {
     errorNewSerie = false;
     errorNewLevel = false;
@@ -153,33 +154,19 @@ EditorSerieController::EditorSerieController(utils::Context& context) :
     );
 
     inputTextNew.setLayout(
+        context,
         POSITION_NEW_SERIE_INPUT_TEXT_X,
         POSITION_NEW_SERIE_INPUT_TEXT_Y,
         SIZE_NEW_SERIE_TEXT
     );
 
-    serieNameLabelColor.r = constants::Colors::COLOR_WHITE_RED;
-    serieNameLabelColor.g = constants::Colors::COLOR_WHITE_GREEN;
-    serieNameLabelColor.b = constants::Colors::COLOR_WHITE_BLUE;
-    serieNameLabelColor.a = constants::Colors::COLOR_ALPHA_FULL;
-
-    serieNameLabelUnsavedColor.r = constants::Colors::COLOR_GREY_RED;
-    serieNameLabelUnsavedColor.g = constants::Colors::COLOR_GREY_GREEN;
-    serieNameLabelUnsavedColor.b = constants::Colors::COLOR_GREY_BLUE;
-    serieNameLabelUnsavedColor.a = constants::Colors::COLOR_ALPHA_FULL;
-
-    errorLabelColor.r = constants::Colors::COLOR_RED_RED;
-    errorLabelColor.g = constants::Colors::COLOR_RED_GREEN;
-    errorLabelColor.b = constants::Colors::COLOR_RED_BLUE;
-    errorLabelColor.a = constants::Colors::COLOR_ALPHA_FULL;
-
     serieNameLabel.setFont(context.getFontsManager().getTextFont());
     serieNameLabel.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
-    serieNameLabel.setColor(serieNameLabelUnsavedColor);
+    serieNameLabel.setColor(context.getColorsManager().getColorGrey());
 
     errorLabel.setFont(context.getFontsManager().getTextFont());
     errorLabel.setCharacterSize(memoris::fonts::INFORMATION_SIZE);
-    errorLabel.setColor(errorLabelColor);
+    errorLabel.setColor(context.getColorsManager().getColorRed());
     errorLabel.setString(STRING_NEW_SERIE_ERROR);
     errorLabel.setPosition(
         ERROR_MESSAGE_POSITION_X,
@@ -188,7 +175,7 @@ EditorSerieController::EditorSerieController(utils::Context& context) :
 
     levelErrorLabel.setFont(context.getFontsManager().getTextFont());
     levelErrorLabel.setCharacterSize(memoris::fonts::INFORMATION_SIZE);
-    levelErrorLabel.setColor(errorLabelColor);
+    levelErrorLabel.setColor(context.getColorsManager().getColorRed());
     levelErrorLabel.setString(STRING_NEW_LEVEL_ERROR);
     levelErrorLabel.setPosition(
         ERROR_MESSAGE_POSITION_X,
@@ -342,7 +329,7 @@ uint8_t EditorSerieController::render(utils::Context& context)
 
                         writeLevelsIntoSerie();
 
-                        displaySavedSerieName(true);
+                        displaySavedSerieName(context, true);
                     }
                     if(buttonAdd.isMouseHover())
                     {
@@ -409,15 +396,18 @@ void EditorSerieController::initializeMainMenuButtons()
 /**
  *
  */
-void EditorSerieController::displaySavedSerieName(bool saved)
+void EditorSerieController::displaySavedSerieName(
+    utils::Context& context,
+    bool saved
+)
 {
     if (saved)
     {
-        serieNameLabel.setColor(serieNameLabelColor);
+        serieNameLabel.setColor(context.getColorsManager().getColorWhite());
     }
     else
     {
-        serieNameLabel.setColor(serieNameLabelUnsavedColor);
+        serieNameLabel.setColor(context.getColorsManager().getColorGrey());
     }
 
     buttonSave.setEnable(!saved);

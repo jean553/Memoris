@@ -23,7 +23,7 @@
  */
 
 #include "Controller.hpp"
-#include "Colors.hpp"
+
 #include "window.hpp"
 
 namespace memoris
@@ -38,7 +38,7 @@ const unsigned short Controller::TRANSITION_TIME_MAX = 5;
 /**
  *
  */
-Controller::Controller()
+Controller::Controller(utils::Context& context)
 {
     nextControllerId = 0;
     expectedControllerId = 0;
@@ -46,10 +46,10 @@ Controller::Controller()
 
     openScreen = true;
 
-    transitionSurfaceColor.r = constants::Colors::COLOR_BLACK_RED;
-    transitionSurfaceColor.g = constants::Colors::COLOR_BLACK_GREEN;
-    transitionSurfaceColor.b = constants::Colors::COLOR_BLACK_BLUE;
-    transitionSurfaceColor.a = constants::Colors::COLOR_ALPHA_FULL;
+    /* the screen transition color is continually modified
+       when screens are switched, that's why we copy the
+       default color from the black color */
+    transitionSurfaceColor = context.getColorsManager().getColorBlackCopy();
 
     transitionSurface.setSize(
         sf::Vector2f(

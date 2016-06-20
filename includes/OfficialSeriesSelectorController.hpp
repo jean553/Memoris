@@ -63,8 +63,6 @@ private:
     static const float_t OFF_SER_TITLE_HRTL_PSTN;
     static const float_t OFF_SER_TITLE_VRTL_PSTN;
 
-    sf::Color colorTitle;
-
     sf::Text offSerTitle;
 
     widgets::ScrollableListWidget scrlList;

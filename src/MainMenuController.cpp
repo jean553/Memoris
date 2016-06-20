@@ -23,7 +23,7 @@
  */
 
 #include "MainMenuController.hpp"
-#include "Colors.hpp"
+
 #include "fonts.hpp"
 #include "Sounds.hpp"
 #include "HasMenuSelectorAnimation.hpp"
@@ -42,9 +42,6 @@ const std::string MainMenuController::STRING_EDITOR = "Editor";
 const std::string MainMenuController::STRING_OPTIONS = "Options";
 const std::string MainMenuController::STRING_EXIT = "Exit";
 
-const unsigned short MainMenuController::COLOR_TITLE_RED_INIT = 0;
-const unsigned short MainMenuController::COLOR_TITLE_GREEN_INIT = 0;
-const unsigned short MainMenuController::COLOR_TITLE_BLUE_INIT = 255;
 const unsigned short MainMenuController::COLOR_TITLE_RED_MAX = 255;
 const unsigned short MainMenuController::COLOR_TITLE_GREEN_MAX = 180;
 const unsigned short MainMenuController::COLOR_TITLE_BLUE_MAX = 255;
@@ -80,22 +77,15 @@ const short MainMenuController::SELECTOR_COLOR_MAXIMUM = 255;
 /**
  *
  */
-MainMenuController::MainMenuController(utils::Context& context) : Controller()
+MainMenuController::MainMenuController(utils::Context& context) :
+    Controller(context),
+    background(context),
+    menuGradient(context)
 {
-    colorTitle.r = COLOR_TITLE_RED_INIT;
-    colorTitle.g = COLOR_TITLE_GREEN_INIT;
-    colorTitle.b = COLOR_TITLE_BLUE_INIT;
-    colorTitle.a = constants::Colors::COLOR_ALPHA_FULL;
-
-    colorWhite.r = constants::Colors::COLOR_WHITE_RED;
-    colorWhite.g = constants::Colors::COLOR_WHITE_GREEN;
-    colorWhite.b = constants::Colors::COLOR_WHITE_BLUE;
-    colorWhite.a = constants::Colors::COLOR_ALPHA_FULL;
-
-    colorSelector.r = constants::Colors::COLOR_RED_RED;
-    colorSelector.g = constants::Colors::COLOR_RED_GREEN;
-    colorSelector.b = constants::Colors::COLOR_RED_BLUE;
-    colorSelector.a = constants::Colors::COLOR_ALPHA_FULL;
+    /* the title color and selector color are copies from
+       manager colors, because they are updated continually */
+    colorTitle = context.getColorsManager().getColorBlueCopy();
+    colorSelector = context.getColorsManager().getColorRedCopy();
 
     title.setFont(context.getFontsManager().getTitleFont());
     title.setString(STRING_TITLE);
@@ -118,7 +108,7 @@ MainMenuController::MainMenuController(utils::Context& context) : Controller()
     itemLoadGame.setFont(context.getFontsManager().getTextFont());
     itemLoadGame.setString(STRING_LOAD_GAME);
     itemLoadGame.setCharacterSize(memoris::fonts::ITEM_SIZE);
-    itemLoadGame.setColor(colorWhite);
+    itemLoadGame.setColor(context.getColorsManager().getColorWhite());
     itemLoadGame.setPosition(
         POSITION_ITEM_LOAD_GAME_X,
         POSITION_ITEM_LOAD_GAME_Y
@@ -127,7 +117,7 @@ MainMenuController::MainMenuController(utils::Context& context) : Controller()
     itemEditor.setFont(context.getFontsManager().getTextFont());
     itemEditor.setString(STRING_EDITOR);
     itemEditor.setCharacterSize(memoris::fonts::ITEM_SIZE);
-    itemEditor.setColor(colorWhite);
+    itemEditor.setColor(context.getColorsManager().getColorWhite());
     itemEditor.setPosition(
         POSITION_ITEM_EDITOR_X,
         POSITION_ITEM_EDITOR_Y
@@ -136,7 +126,7 @@ MainMenuController::MainMenuController(utils::Context& context) : Controller()
     itemOptions.setFont(context.getFontsManager().getTextFont());
     itemOptions.setString(STRING_OPTIONS);
     itemOptions.setCharacterSize(memoris::fonts::ITEM_SIZE);
-    itemOptions.setColor(colorWhite);
+    itemOptions.setColor(context.getColorsManager().getColorWhite());
     itemOptions.setPosition(
         POSITION_ITEM_OPTIONS_X,
         POSITION_ITEM_OPTIONS_Y
@@ -145,7 +135,7 @@ MainMenuController::MainMenuController(utils::Context& context) : Controller()
     itemExit.setFont(context.getFontsManager().getTextFont());
     itemExit.setString(STRING_EXIT);
     itemExit.setCharacterSize(memoris::fonts::ITEM_SIZE);
-    itemExit.setColor(colorWhite);
+    itemExit.setColor(context.getColorsManager().getColorWhite());
     itemExit.setPosition(
         POSITION_ITEM_EXIT_X,
         POSITION_ITEM_EXIT_Y
@@ -193,7 +183,7 @@ uint8_t MainMenuController::render(utils::Context& context)
 
     policies::HasMenuSelectorAnimation::animateMenuSelector<MainMenuController>(this);
 
-    updateSelectorPosition();
+    updateSelectorPosition(context);
 
     context.getSfmlWindow().draw(title);
     context.getSfmlWindow().draw(itemNewGame);
@@ -282,7 +272,7 @@ void MainMenuController::animateTitleColor()
 /**
  *
  */
-void MainMenuController::updateSelectorPosition()
+void MainMenuController::updateSelectorPosition(utils::Context& context)
 {
     selectorPosition = (
                            (selectorPosition > MAIN_MENU_SELECTOR_MAX) ?
@@ -290,11 +280,11 @@ void MainMenuController::updateSelectorPosition()
                            selectorPosition
                        );
 
-    itemNewGame.setColor(colorWhite);
-    itemLoadGame.setColor(colorWhite);
-    itemEditor.setColor(colorWhite);
-    itemOptions.setColor(colorWhite);
-    itemExit.setColor(colorWhite);
+    itemNewGame.setColor(context.getColorsManager().getColorWhite());
+    itemLoadGame.setColor(context.getColorsManager().getColorWhite());
+    itemEditor.setColor(context.getColorsManager().getColorWhite());
+    itemOptions.setColor(context.getColorsManager().getColorWhite());
+    itemExit.setColor(context.getColorsManager().getColorWhite());
 
     switch(selectorPosition)
     {

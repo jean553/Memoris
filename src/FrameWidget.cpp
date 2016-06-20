@@ -31,8 +31,13 @@ const unsigned short FrameWidget::BORDER_WIDTH = 1;
 /**
  *
  */
-FrameWidget::FrameWidget()
+FrameWidget::FrameWidget(utils::Context& context)
 {
+    leftLine.setFillColor(context.getColorsManager().getColorWhite());
+    rightLine.setFillColor(context.getColorsManager().getColorWhite());
+    topLine.setFillColor(context.getColorsManager().getColorWhite());
+    bottomLine.setFillColor(context.getColorsManager().getColorWhite());
+
     horizontalSize = 0;
     verticalSize = 0;
 }
@@ -86,25 +91,6 @@ void FrameWidget::setSize(
             BORDER_WIDTH
         )
     );
-}
-
-/**
- *
- */
-void FrameWidget::setColor(
-    sf::Uint8 red,
-    sf::Uint8 green,
-    sf::Uint8 blue
-)
-{
-    borderColor.r = red;
-    borderColor.g = green;
-    borderColor.b = blue;
-
-    leftLine.setFillColor(borderColor);
-    rightLine.setFillColor(borderColor);
-    topLine.setFillColor(borderColor);
-    bottomLine.setFillColor(borderColor);
 }
 
 /**

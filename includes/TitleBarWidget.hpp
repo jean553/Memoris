@@ -80,9 +80,6 @@ private:
 
     std::string text;
 
-    sf::Color textColor;
-    sf::Color lineColor;
-
     sf::Text displayedText;
 
     sf::RectangleShape line;

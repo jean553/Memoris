@@ -40,7 +40,12 @@ class FrameWidget : public Widget
 
 public:
 
-    FrameWidget();
+    /**
+     * @brief constructor
+     *
+     * @param context current context reference
+     */
+    FrameWidget(utils::Context& context);
 
     /**
      * @brief displays the button and manage
@@ -63,19 +68,6 @@ public:
     );
 
     /**
-     * @brief update the color of the border
-     *
-     * @param red quantity
-     * @param green quantity
-     * @param blue quantity
-     */
-    void setColor(
-        sf::Uint8 red,
-        sf::Uint8 green,
-        sf::Uint8 blue
-    );
-
-    /**
      * @brief overwrite the setPosition function to
      * set the position of each frame border
      *
@@ -88,8 +80,6 @@ public:
     );
 
 private:
-
-    sf::Color borderColor;
 
     sf::RectangleShape leftLine;
     sf::RectangleShape rightLine;

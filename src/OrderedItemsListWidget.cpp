@@ -24,7 +24,7 @@
 
 #include "OrderedItemsListWidget.hpp"
 
-#include "Colors.hpp"
+
 
 using namespace widgets;
 
@@ -34,7 +34,8 @@ const std::string OrderedItemsListWidget::PATH_IMAGE_DELETE = "res/images/delete
 /**
  *
  */
-OrderedItemsListWidget::OrderedItemsListWidget() : ItemsListWidget()
+OrderedItemsListWidget::OrderedItemsListWidget(utils::Context& context) :
+    ItemsListWidget(context)
 {
 }
 

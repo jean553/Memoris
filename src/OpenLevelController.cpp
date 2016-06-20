@@ -27,7 +27,7 @@
 #include "Screens.hpp"
 #include "Messages.hpp"
 #include "fonts.hpp"
-#include "Colors.hpp"
+
 #include "controllers.hpp"
 
 namespace memoris
@@ -51,8 +51,9 @@ const float OpenLevelController::ERROR_MESSAGE_POSITION_Y = 40;
  *
  */
 OpenLevelController::OpenLevelController(utils::Context& context) :
-    Controller(),
-    titleBar(context)
+    Controller(context),
+    titleBar(context),
+    levelsList(context)
 {
     errorAlreadyAddedLevel = false;
 
@@ -74,14 +75,9 @@ OpenLevelController::OpenLevelController(utils::Context& context) :
         )
     );
 
-    errorLabelColor.r = constants::Colors::COLOR_RED_RED;
-    errorLabelColor.g = constants::Colors::COLOR_RED_GREEN;
-    errorLabelColor.b = constants::Colors::COLOR_RED_BLUE;
-    errorLabelColor.a = constants::Colors::COLOR_ALPHA_FULL;
-
     errorLabel.setFont(context.getFontsManager().getTextFont());
     errorLabel.setCharacterSize(memoris::fonts::INFORMATION_SIZE);
-    errorLabel.setColor(errorLabelColor);
+    errorLabel.setColor(context.getColorsManager().getColorRed());
     errorLabel.setString(STRING_ALREADY_ADDED_ERROR_MESSAGE);
     errorLabel.setPosition(
         ERROR_MESSAGE_POSITION_X,

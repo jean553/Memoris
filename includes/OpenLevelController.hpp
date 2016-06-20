@@ -84,8 +84,6 @@ private:
 
     widgets::CursorWidget cursor;
 
-    sf::Color errorLabelColor;
-
     sf::Text errorLabel;
 };
 

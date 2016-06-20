@@ -39,7 +39,19 @@ const short CellSelectorWidget::ROWS_AMOUNT = 5;
 /**
  *
  */
-CellSelectorWidget::CellSelectorWidget()
+CellSelectorWidget::CellSelectorWidget(utils::Context& context) :
+    emptyCell(context),
+    departureCell(context),
+    arrivalCell(context),
+    starCell(context),
+    lifeCell(context),
+    malusCell(context),
+    moreTimeCell(context),
+    lessTimeCell(context),
+    wallCell(context),
+    lightCell(context),
+    floorUpCell(context),
+    floorDownCell(context)
 {
     soundCellSelectionBuffer.loadFromFile(
         constants::Sounds::CELL_SELECTOR_SELECTION_SOUND_PATH
