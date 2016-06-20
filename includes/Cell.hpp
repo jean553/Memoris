@@ -42,19 +42,41 @@ public:
     /**
      * @brief default constructor
      */
-    Cell();
+    Cell(utils::Context& context);
 
     /**
      * @brief copy constructor
      *
+     * @param context current context reference
      * @param Cell reference to a cell to copy
+     *
+     * XXX: the copy is not done correctly anymore,
+     * the sf::Sprite and textures are not copied
+     * anymore. This is because this constructor is
+     * not called at all anymore, this is not a
+     * copy constructor anymore...
+     *
+     * the only place we need the context in this
+     * constructor is inside the initializeCommonAttributes
+     * function for the selector color... I guess the
+     * best solution is maybe declare the selector color
+     * attributes, directly inside the Cell, in "static" variables...
      */
-    Cell(const Cell& cell);
+    Cell(
+        const Cell& cell
+    );
 
     /**
      * @brief constructor
+     *
+     * @param context current context reference
+     * @param fileRepresentation the string representation
+     * of the cell into the level file
      */
-    Cell(std::string fileRepresentation);
+    Cell(
+        utils::Context& context,
+        std::string fileRepresentation
+    );
 
     /**
      * @brief destructor, mandatory as the class is abstract
@@ -239,8 +261,9 @@ private:
     sf::RectangleShape leftSelectionBar;
     sf::RectangleShape rightSelectionBar;
 
-    sf::Color transparentWhiteColor;
-    sf::Color whiteColor;
+    /* the color of the animated cell selector; this is
+       declared here as the color is animated and continually
+       modified */
     sf::Color selectorColor;
 
     /* TODO: should be refactored, for now

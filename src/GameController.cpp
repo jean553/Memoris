@@ -31,7 +31,7 @@
 #include "CellsFileRepresentations.hpp"
 #include "CellFactory.hpp"
 #include "fonts.hpp"
-#include "Colors.hpp"
+
 #include "window.hpp"
 #include "controllers.hpp"
 
@@ -84,7 +84,9 @@ const float_t GameController::FLOOR_IMG_VRTL_PSTN = 0;
 /**
  *
  */
-GameController::GameController(utils::Context& context) : Controller(), level(0, 0)
+GameController::GameController(utils::Context& context) :
+    Controller(context),
+    level(0, 0)
 {
     starCellsAmount = 0;
     lifesAmount = 0;
@@ -108,17 +110,15 @@ GameController::GameController(utils::Context& context) : Controller(), level(0,
     );
 
     /* TODO: use a constant level name for now... */
-    level.loadCells(utils::FileWriter::readFile(context.getNxtLvlStrPath()));
+    level.loadCells(
+        context,
+        utils::FileWriter::readFile(context.getNxtLvlStrPath())
+    );
     level.setCellsCursorSensitivity(false);
-
-    colorItems.r = constants::Colors::COLOR_WHITE_RED;
-    colorItems.g = constants::Colors::COLOR_WHITE_GREEN;
-    colorItems.b = constants::Colors::COLOR_WHITE_BLUE;
-    colorItems.a = constants::Colors::COLOR_ALPHA_FULL;
 
     time.setFont(context.getFontsManager().getTextFont());
     time.setCharacterSize(memoris::fonts::TEXT_SIZE);
-    time.setColor(colorItems);
+    time.setColor(context.getColorsManager().getColorWhite());
     time.setPosition(
         TIMER_HRTL_PSTN,
         TIMER_VRTL_PSTN
@@ -129,7 +129,7 @@ GameController::GameController(utils::Context& context) : Controller(), level(0,
     foundStarsAmntStr.setFont(context.getFontsManager().getTextFont());
     foundStarsAmntStr.setString("0");
     foundStarsAmntStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
-    foundStarsAmntStr.setColor(colorItems);
+    foundStarsAmntStr.setColor(context.getColorsManager().getColorWhite());
     foundStarsAmntStr.setPosition(
         FOUND_STAR_CELLS_HRTL_PSTN,
         FOUND_STAR_CELLS_VRTL_PSTN
@@ -138,7 +138,7 @@ GameController::GameController(utils::Context& context) : Controller(), level(0,
     lifesAmntStr.setFont(context.getFontsManager().getTextFont());
     lifesAmntStr.setString(std::to_string(lifesAmount));
     lifesAmntStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
-    lifesAmntStr.setColor(colorItems);
+    lifesAmntStr.setColor(context.getColorsManager().getColorWhite());
     lifesAmntStr.setPosition(
         LIFES_HRTL_PSTN,
         LIFES_VRTL_PSTN
@@ -146,7 +146,7 @@ GameController::GameController(utils::Context& context) : Controller(), level(0,
 
     timeStr.setFont(context.getFontsManager().getTextFont());
     timeStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
-    timeStr.setColor(colorItems);
+    timeStr.setColor(context.getColorsManager().getColorWhite());
     timeStr.setPosition(
         TIME_HRTL_PSTN,
         TIME_VRTL_PSTN
@@ -156,7 +156,7 @@ GameController::GameController(utils::Context& context) : Controller(), level(0,
     floorStr.setFont(context.getFontsManager().getTextFont());
     floorStr.setString(std::to_string(floor));
     floorStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
-    floorStr.setColor(colorItems);
+    floorStr.setColor(context.getColorsManager().getColorWhite());
     floorStr.setPosition(
         FLOOR_HRTL_PSTN,
         FLOOR_VRTL_PSTN
@@ -167,7 +167,7 @@ GameController::GameController(utils::Context& context) : Controller(), level(0,
     targetStr.setFont(context.getFontsManager().getTextFont());
     targetStr.setString(std::to_string(starCellsAmount));
     targetStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
-    targetStr.setColor(colorItems);
+    targetStr.setColor(context.getColorsManager().getColorWhite());
     targetStr.setPosition(
         TOTAL_STARS_HRTL_PSTN,
         TOTAL_STARS_VRTL_PSTN
@@ -236,8 +236,8 @@ GameController::GameController(utils::Context& context) : Controller(), level(0,
         0
     );
 
-    leftSeparator.setFillColor(colorItems);
-    rightSeparator.setFillColor(colorItems);
+    leftSeparator.setFillColor(context.getColorsManager().getColorWhite());
+    rightSeparator.setFillColor(context.getColorsManager().getColorWhite());
 
     updateWatchingTimeStr();
 }

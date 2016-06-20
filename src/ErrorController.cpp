@@ -39,17 +39,12 @@ const float_t ErrorController::ERR_VRTL_PSTN = 10.f;
 ErrorController::ErrorController(
     utils::Context& context,
     const std::string& msg
-) : Controller()
+) : Controller(context)
 {
-    colorErr.r = constants::Colors::COLOR_RED_RED;
-    colorErr.g = constants::Colors::COLOR_RED_GREEN;
-    colorErr.b = constants::Colors::COLOR_RED_BLUE;
-    colorErr.a = constants::Colors::COLOR_ALPHA_FULL;
-
     error.setFont(context.getFontsManager().getTextFont());
     error.setString(msg);
     error.setCharacterSize(memoris::fonts::TEXT_SIZE);
-    error.setColor(colorErr);
+    error.setColor(context.getColorsManager().getColorRed());
     error.setPosition(
         ERR_HRTL_PSTN,
         ERR_VRTL_PSTN

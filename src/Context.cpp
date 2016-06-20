@@ -141,7 +141,15 @@ void Context::loadScreenTransitionSound()
  */
 memoris::fonts::FontsManager& Context::getFontsManager()
 {
-    return fontsFactory;
+    return fontsManager;
+}
+
+/**
+ *
+ */
+memoris::colors::ColorsManager& Context::getColorsManager()
+{
+    return colorsManager;
 }
 
 /**

@@ -42,7 +42,12 @@ class OrderedItemsListWidget : public ItemsListWidget
 
 public:
 
-    OrderedItemsListWidget();
+    /**
+     * @brief constructor
+     *
+     * @param context current context reference
+     */
+    OrderedItemsListWidget(utils::Context& context);
 
     /**
      * @brief display the items list widget

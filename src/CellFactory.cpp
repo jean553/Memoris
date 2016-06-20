@@ -30,9 +30,12 @@
 
 using namespace factories;
 
-entities::Cell CellFactory::getCellPointerByStringName(const std::string& stringCell)
+entities::Cell CellFactory::getCellPointerByStringName(
+    utils::Context& context,
+    const std::string& stringCell
+)
 {
-    entities::Cell cell;
+    entities::Cell cell(context);
     cell.setStringRepresentation(stringCell);
     cell.setPicturePath("res/cells/" + stringCell + ".png");
     return cell;

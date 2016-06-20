@@ -46,8 +46,9 @@ const unsigned short OpenSerieController::SERIES_LIST_SERIES_NUMBER = 18;
  *
  */
 OpenSerieController::OpenSerieController(utils::Context& context) :
-    Controller(),
-    titleBar(context)
+    Controller(context),
+    titleBar(context),
+    seriesList(context)
 {
     titleBar.setDisplayedText(
         STRING_OPEN_SERIE_TITLE

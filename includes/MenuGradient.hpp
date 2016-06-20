@@ -37,7 +37,12 @@ class MenuGradient
 {
 public:
 
-    MenuGradient();
+    /**
+     * @brief constructor
+     *
+     * @param context current context reference
+     */
+    MenuGradient(utils::Context& context);
 
     /**
      * @brief display the gradient area
@@ -55,10 +60,10 @@ private:
 
     /**
      * @brief initialize gradient rectangles
+     *
+     * @param context current context reference
      */
-    void initializeGradientRectangles();
-
-    sf::Color gradientColor;
+    void initializeGradientRectangles(utils::Context& context);
 
     sf::RectangleShape main;
 

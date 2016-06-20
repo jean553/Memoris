@@ -54,10 +54,6 @@ class MainMenuController : public Controller
     static const std::string STRING_OPTIONS;
     static const std::string STRING_EXIT;
 
-    static const unsigned short COLOR_TITLE_RED_INIT;
-    static const unsigned short COLOR_TITLE_GREEN_INIT;
-    static const unsigned short COLOR_TITLE_BLUE_INIT;
-
     static const unsigned short COLOR_TITLE_RED_MAX;
     static const unsigned short COLOR_TITLE_GREEN_MAX;
     static const unsigned short COLOR_TITLE_BLUE_MAX;
@@ -126,8 +122,10 @@ private:
 
     /**
      * @brief visually update the selector position
+     *
+     * @param context unique context
      */
-    void updateSelectorPosition();
+    void updateSelectorPosition(utils::Context& context);
 
     /**
      * @brief call action for one selected menu item
@@ -141,8 +139,9 @@ private:
     short titleBlueDirection;
     short selectorDirection;
 
+    /* the title and selector colors are declared here
+       because they are animated and continually modified */
     sf::Color colorTitle;
-    sf::Color colorWhite;
     sf::Color colorSelector;
 
     sf::Text title;

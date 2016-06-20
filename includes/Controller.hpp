@@ -41,7 +41,7 @@ class Controller
 
 public:
 
-    Controller();
+    Controller(utils::Context& context);
     virtual ~Controller();
 
     /**
@@ -81,6 +81,9 @@ private:
 
     sf::RectangleShape transitionSurface;
 
+    /* the color of the background for the screen
+       transition animation; declared here because
+       this color is animated and continually updated */
     sf::Color transitionSurfaceColor;
 
     sf::Clock screenTransitionClock;

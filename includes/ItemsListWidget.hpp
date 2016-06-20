@@ -41,7 +41,12 @@ public:
 
     static const unsigned int ITEMS_LIST_ITEM_HEIGHT;
 
-    ItemsListWidget();
+    /**
+     * @brief constructor
+     *
+     * @param context current context reference
+     */
+    ItemsListWidget(utils::Context& context);
 
     /**
      * @brief set the size and position of the widget
@@ -122,9 +127,6 @@ protected:
 
     static const std::string PATH_IMAGE_ARROW_UP;
     static const std::string PATH_IMAGE_ARROW_DOWN;
-
-    sf::Color color;
-    sf::Color selectorColor;
 
     sf::RectangleShape boxTop;
     sf::RectangleShape boxBottom;

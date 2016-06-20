@@ -25,7 +25,7 @@
 
 #include "ScrollableListWidget.hpp"
 #include "fonts.hpp"
-#include "Colors.hpp"
+
 
 using namespace widgets;
 
@@ -34,22 +34,11 @@ const std::string ScrollableListWidget::ARR_DOWN_IMG_PATH = "res/images/scroll_d
 /**
  *
  */
-ScrollableListWidget::ScrollableListWidget()
+ScrollableListWidget::ScrollableListWidget(utils::Context& context)
 {
-    colorSltr.r = constants::Colors::COLOR_RED_RED;
-    colorSltr.g = constants::Colors::COLOR_RED_GREEN;
-    colorSltr.b = constants::Colors::COLOR_RED_BLUE;
-    colorSltr.a = constants::Colors::COLOR_ALPHA_FULL;
-
-    colorWhite.r = constants::Colors::COLOR_WHITE_RED;
-    colorWhite.g = constants::Colors::COLOR_WHITE_GREEN;
-    colorWhite.b = constants::Colors::COLOR_WHITE_BLUE;
-    colorWhite.a = constants::Colors::COLOR_ALPHA_FULL;
-
-    colorArrow.r = constants::Colors::COLOR_WHITE_RED;
-    colorArrow.g = constants::Colors::COLOR_WHITE_GREEN;
-    colorArrow.b = constants::Colors::COLOR_WHITE_BLUE;
-    colorArrow.a = constants::Colors::COLOR_ALPHA_FULL;
+    /* the animated arrow is animated, that's why we copy
+       the color from the white color first */
+    colorArrow = context.getColorsManager().getColorWhiteCopy();
 
     arrDownTxt.loadFromFile(ARR_DOWN_IMG_PATH);
 
@@ -132,7 +121,7 @@ void ScrollableListWidget::initFromStrArr(
         txt.setFont(context.getFontsManager().getTextFont());
         txt.setString(str);
         txt.setCharacterSize(size);
-        txt.setColor(colorWhite);
+        txt.setColor(context.getColorsManager().getColorWhite());
         txt.setPosition(
             hrtlPstnSide,
             SLTR_VRTL_PSTN + SLTR_VRTL_SPRT * it
@@ -150,23 +139,23 @@ void ScrollableListWidget::initFromStrArr(
 /**
  *
  */
-void ScrollableListWidget::updtSltrPstn()
+void ScrollableListWidget::updtSltrPstn(utils::Context& context)
 {
     sltrPstn = ((sltrPstn > ITEMS_AMNT - 1) ? 0 : sltrPstn);
 
     /* TODO: could be refactored in a loop with iterator... */
     for (sf::Text& item : txtItems)
     {
-        item.setColor(colorWhite);
+        item.setColor(context.getColorsManager().getColorWhite());
     }
 
     for (sf::Text& sfx : txtSfx)
     {
-        sfx.setColor(colorWhite);
+        sfx.setColor(context.getColorsManager().getColorWhite());
     }
 
-    txtItems[sltrPstn].setColor(colorSltr);
-    txtSfx[sltrPstn].setColor(colorSltr);
+    txtItems[sltrPstn].setColor(context.getColorsManager().getColorRed());
+    txtSfx[sltrPstn].setColor(context.getColorsManager().getColorRed());
 }
 
 /**
@@ -194,7 +183,7 @@ void ScrollableListWidget::displayArrDown(utils::Context& context)
     {
         if (
             colorArrow.a <= 0 ||
-            colorArrow.a >= constants::Colors::COLOR_ALPHA_FULL
+            colorArrow.a >= 255
         )
         {
             animDirection *= -1;

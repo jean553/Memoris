@@ -76,9 +76,6 @@ public:
 
 private:
 
-    sf::Color colorTitle;
-    sf::Color colorExplanation;
-
     sf::Text title;
     sf::Text explanation;
 

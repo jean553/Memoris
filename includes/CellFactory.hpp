@@ -41,11 +41,15 @@ public:
      * pointer according to the given
      * cell string
      *
+     * @param context current context reference
      * @param stringCell       cell string representation
      *
      * @return Cell
      */
-    static entities::Cell getCellPointerByStringName(const std::string& stringCell);
+    static entities::Cell getCellPointerByStringName(
+        utils::Context& context,
+        const std::string& stringCell
+    );
 };
 }
 

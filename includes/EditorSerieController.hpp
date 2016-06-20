@@ -125,10 +125,6 @@ private:
 
     widgets::InputTextWidget inputTextNew;
 
-    sf::Color serieNameLabelColor;
-    sf::Color serieNameLabelUnsavedColor;
-    sf::Color errorLabelColor;
-
     sf::Text serieNameLabel;
     sf::Text errorLabel;
     sf::Text levelErrorLabel;
@@ -166,9 +162,13 @@ private:
      * name, according if the latest version of
      * the serie has been persisted
      *
+     * @param context current context reference
      * @param saved true if saved, false if unsaved
      */
-    void displaySavedSerieName(bool saved);
+    void displaySavedSerieName(
+        utils::Context& context,
+        bool saved
+    );
 
     /**
      * @brief update the position of the serie name label

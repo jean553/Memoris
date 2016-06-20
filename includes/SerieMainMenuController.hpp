@@ -89,9 +89,10 @@ private:
 
     int8_t selectorDirection;
 
-    sf::Color colorWhite;
+    /* the color of the animated menu selector, we declare
+       it here because this color is continually updated
+       during the animation */
     sf::Color colorSelector;
-    sf::Color colorTitle;
 
     sf::Text itemOfficialSeries;
     sf::Text itemPersonalSeries;
@@ -116,8 +117,10 @@ private:
 
     /**
      * @brief update the position of the selector
+     *
+     * @param context current context
      */
-    void updateSelectorPosition();
+    void updateSelectorPosition(utils::Context& context);
 
     /**
      * @brief execute an action according to the current menu selection

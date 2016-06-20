@@ -127,10 +127,6 @@ private:
 
     entities::Level level;
 
-    sf::Color levelNameLabelColor;
-    sf::Color levelNameLabelUnsavedColor;
-    sf::Color errorLabelColor;
-
     sf::Text levelNameLabel;
     sf::Text errorLabel;
     sf::Text floorPrefixLabel;
@@ -152,9 +148,13 @@ private:
      * @brief change the color of the level name
      * according if the file is saved or not
      *
+     * @param context current context reference
      * @param saved boolean of the value to display
      */
-    void displaySavedLevelName(bool saved);
+    void displaySavedLevelName(
+        utils::Context& context,
+        bool saved
+    );
 
     /**
      * @brief update one cell of the level grid

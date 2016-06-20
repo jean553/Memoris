@@ -44,10 +44,10 @@ const int8_t AnimatedBackground::CELL_ORIGINAL_HRTL_PSTN = -49;
 /**
  *
  */
-AnimatedBackground::AnimatedBackground()
+AnimatedBackground::AnimatedBackground(utils::Context& context)
 {
     initializeCellsLib();
-    initializeCells();
+    initializeCells(context);
 }
 
 /**
@@ -68,7 +68,7 @@ void AnimatedBackground::animate(utils::Context& context)
 /**
  *
  */
-void AnimatedBackground::initializeCells()
+void AnimatedBackground::initializeCells(utils::Context& context)
 {
     uint16_t cellAddress = 0;
     uint8_t currentLine = 0, currentColumn = 0, rdm = 0;
@@ -78,7 +78,7 @@ void AnimatedBackground::initializeCells()
 
     for (uint16_t i = 0; i < TOTAL_CELLS_AMNT; i++)
     {
-        entities::Cell cell;
+        //entities::Cell cell(context);
 
         /* select a cell randomly */
         rdm = rand() % RANDOM_MAX;
@@ -86,8 +86,11 @@ void AnimatedBackground::initializeCells()
         /* adapt the cell to display */
         rdm = ( rdm >= cellsLib.size() ? cellsLib.size() - 1 : rdm );
 
-        cell =
-            factories::CellFactory::getCellPointerByStringName(cellsLib[rdm]);
+        entities::Cell cell =
+            factories::CellFactory::getCellPointerByStringName(
+                context,
+                cellsLib[rdm]
+            );
 
         cell.setPosition(
             currentColumn *

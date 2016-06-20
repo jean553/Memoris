@@ -23,7 +23,7 @@
  */
 
 #include "OfficialSeriesSelectorController.hpp"
-#include "Colors.hpp"
+
 #include "fonts.hpp"
 #include "FileWriter.hpp"
 #include "controllers.hpp"
@@ -42,17 +42,14 @@ const float_t OfficialSeriesSelectorController::OFF_SER_TITLE_VRTL_PSTN = 50.f;
 /**
  *
  */
-OfficialSeriesSelectorController::OfficialSeriesSelectorController(utils::Context& context)
+OfficialSeriesSelectorController::OfficialSeriesSelectorController(utils::Context& context) :
+    Controller(context),
+    scrlList(context)
 {
-    colorTitle.r = constants::Colors::COLOR_LIGHT_BLUE_RED;
-    colorTitle.g = constants::Colors::COLOR_LIGHT_BLUE_GREEN;
-    colorTitle.b = constants::Colors::COLOR_LIGHT_BLUE_BLUE;
-    colorTitle.a = constants::Colors::COLOR_ALPHA_FULL;
-
     offSerTitle.setFont(context.getFontsManager().getTitleFont());
     offSerTitle.setString(OFF_SER_TITLE);
     offSerTitle.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
-    offSerTitle.setColor(colorTitle);
+    offSerTitle.setColor(context.getColorsManager().getColorLightBlue());
     offSerTitle.setPosition(
         OFF_SER_TITLE_HRTL_PSTN,
         OFF_SER_TITLE_VRTL_PSTN
@@ -70,7 +67,7 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController(utils::Contex
  */
 uint8_t OfficialSeriesSelectorController::render(utils::Context& context)
 {
-    scrlList.updtSltrPstn();
+    scrlList.updtSltrPstn(context);
 
     context.getSfmlWindow().draw(offSerTitle);
 

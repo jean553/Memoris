@@ -24,7 +24,7 @@
 
 #include "ButtonWidget.hpp"
 
-#include "Colors.hpp"
+
 #include "fonts.hpp"
 
 using namespace widgets;
@@ -38,41 +38,6 @@ const unsigned int ButtonWidget::SIZE_BUTTON_TEXT_FONT = 40;
  */
 ButtonWidget::ButtonWidget()
 {
-    textColor.r = constants::Colors::COLOR_WHITE_RED;
-    textColor.g = constants::Colors::COLOR_WHITE_GREEN;
-    textColor.b = constants::Colors::COLOR_WHITE_BLUE;
-    textColor.a = constants::Colors::COLOR_ALPHA_FULL;
-
-    backgroundColor.r = constants::Colors::COLOR_GRAY_RED;
-    backgroundColor.g = constants::Colors::COLOR_GRAY_GREEN;
-    backgroundColor.b = constants::Colors::COLOR_GRAY_BLUE;
-    backgroundColor.a = constants::Colors::COLOR_ALPHA_FULL;
-
-    linesColor.r = constants::Colors::COLOR_WHITE_RED;
-    linesColor.g = constants::Colors::COLOR_WHITE_GREEN;
-    linesColor.b = constants::Colors::COLOR_WHITE_BLUE;
-    linesColor.a = constants::Colors::COLOR_ALPHA_FULL;
-
-    textColorDisable.r = constants::Colors::COLOR_WHITE_RED;
-    textColorDisable.g = constants::Colors::COLOR_WHITE_GREEN;
-    textColorDisable.b = constants::Colors::COLOR_WHITE_BLUE;
-    textColorDisable.a = constants::Colors::COLOR_ALPHA_PARTIAL;
-
-    backgroundColorDisable.r = constants::Colors::COLOR_GRAY_RED;
-    backgroundColorDisable.g = constants::Colors::COLOR_GRAY_GREEN;
-    backgroundColorDisable.b = constants::Colors::COLOR_GRAY_BLUE;
-    backgroundColorDisable.a = constants::Colors::COLOR_ALPHA_PARTIAL;
-
-    textMouseHoverColor.r = constants::Colors::COLOR_LIGHT_BLUE_RED;
-    textMouseHoverColor.g = constants::Colors::COLOR_LIGHT_BLUE_GREEN;
-    textMouseHoverColor.b = constants::Colors::COLOR_LIGHT_BLUE_BLUE;
-    textMouseHoverColor.a = constants::Colors::COLOR_ALPHA_FULL;
-
-    backgroundMouseHoverColor.r = constants::Colors::COLOR_DARK_GRAY_RED;
-    backgroundMouseHoverColor.g = constants::Colors::COLOR_DARK_GRAY_GREEN;
-    backgroundMouseHoverColor.b = constants::Colors::COLOR_DARK_GRAY_BLUE;
-    backgroundMouseHoverColor.a = constants::Colors::COLOR_ALPHA_FULL;
-
     enable = true;
 }
 
@@ -150,10 +115,10 @@ void ButtonWidget::setLayout(
         buttonVerticalPosition
     );
 
-    topLine.setFillColor(linesColor);
-    bottomLine.setFillColor(linesColor);
-    leftLine.setFillColor(linesColor);
-    rightLine.setFillColor(linesColor);
+    topLine.setFillColor(context.getColorsManager().getColorWhite());
+    bottomLine.setFillColor(context.getColorsManager().getColorWhite());
+    leftLine.setFillColor(context.getColorsManager().getColorWhite());
+    rightLine.setFillColor(context.getColorsManager().getColorWhite());
 }
 
 /**
@@ -172,21 +137,21 @@ void ButtonWidget::display(utils::Context& context)
     if(enable)
     {
 
-        buttonText.setColor(textColor);
-        background.setFillColor(backgroundColor);
+        buttonText.setColor(context.getColorsManager().getColorWhite());
+        background.setFillColor(context.getColorsManager().getColorGrey());
 
         if(isMouseHover())
         {
 
-            buttonText.setColor(textMouseHoverColor);
-            background.setFillColor(backgroundMouseHoverColor);
+            buttonText.setColor(context.getColorsManager().getColorLightBlue());
+            background.setFillColor(context.getColorsManager().getColorDarkGrey());
         }
     }
     else
     {
 
-        buttonText.setColor(textColorDisable);
-        background.setFillColor(backgroundColorDisable);
+        buttonText.setColor(context.getColorsManager().getColorPartialWhite());
+        background.setFillColor(context.getColorsManager().getColorPartialGrey());
     }
 
     context.getSfmlWindow().draw(background);

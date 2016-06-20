@@ -25,7 +25,7 @@
 #include "ItemsListWidget.hpp"
 
 #include "fonts.hpp"
-#include "Colors.hpp"
+
 
 using namespace widgets;
 
@@ -40,25 +40,15 @@ const unsigned int ItemsListWidget::ITEMS_LIST_ITEM_HEIGHT = 40;
 /**
  *
  */
-ItemsListWidget::ItemsListWidget()
+ItemsListWidget::ItemsListWidget(utils::Context& context)
 {
-    color.r = constants::Colors::COLOR_WHITE_RED;
-    color.g = constants::Colors::COLOR_WHITE_GREEN;
-    color.b = constants::Colors::COLOR_WHITE_BLUE;
-    color.a = constants::Colors::COLOR_ALPHA_FULL;
-
-    selectorColor.r = constants::Colors::COLOR_LIGHT_BLUE_RED;
-    selectorColor.g = constants::Colors::COLOR_LIGHT_BLUE_GREEN;
-    selectorColor.b = constants::Colors::COLOR_LIGHT_BLUE_BLUE;
-    selectorColor.a = constants::Colors::COLOR_ALPHA_FULL;
-
-    boxTop.setFillColor(color);
-    boxBottom.setFillColor(color);
-    boxLeft.setFillColor(color);
-    boxRight.setFillColor(color);
-    selector.setFillColor(selectorColor);
-    arrowUpSelector.setFillColor(selectorColor);
-    arrowDownSelector.setFillColor(selectorColor);
+    boxTop.setFillColor(context.getColorsManager().getColorWhite());
+    boxBottom.setFillColor(context.getColorsManager().getColorWhite());
+    boxLeft.setFillColor(context.getColorsManager().getColorWhite());
+    boxRight.setFillColor(context.getColorsManager().getColorWhite());
+    selector.setFillColor(context.getColorsManager().getColorLightBlue());
+    arrowUpSelector.setFillColor(context.getColorsManager().getColorLightBlue());
+    arrowDownSelector.setFillColor(context.getColorsManager().getColorLightBlue());
 
     textureUp.loadFromFile(PATH_IMAGE_ARROW_UP);
     spriteUp.setTexture(textureUp, true);
@@ -235,7 +225,7 @@ void ItemsListWidget::display(utils::Context& context)
 
         item.setFont(context.getFontsManager().getTextFont());
         item.setCharacterSize(ITEMS_LIST_ITEM_HEIGHT);
-        item.setColor(color);
+        item.setColor(context.getColorsManager().getColorWhite());
         item.setString(*textItem);
         item.setPosition(
             horizontalPosition,

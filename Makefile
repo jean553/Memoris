@@ -19,7 +19,6 @@ OBJS = \
 	   build/Directories.o \
 	   build/Extensions.o \
 	   build/Sounds.o \
-	   build/Colors.o \
 	   build/Screens.o \
 	   build/Dimensions.o \
 	   build/Positions.o \
@@ -53,6 +52,7 @@ OBJS = \
 	   build/SprtTransition.o \
 	   build/ErrorController.o \
 	   build/FontsManager.o \
+	   build/ColorsManager.o \
 	   build/ScrollableListWidget.o
 
 INC = -I includes
@@ -74,6 +74,9 @@ build/controllers.o: src/controllers.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/FontsManager.o: src/FontsManager.cpp
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+
+build/ColorsManager.o: src/ColorsManager.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/CellFactory.o: src/CellFactory.cpp
@@ -113,9 +116,6 @@ build/SprtTransition.o: src/SprtTransition.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 # defines
-
-build/Colors.o: src/Colors.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/Dimensions.o: src/Dimensions.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<

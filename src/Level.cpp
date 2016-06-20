@@ -49,7 +49,10 @@ Level::Level(
 /**
  *
  */
-Level::Level(const Level &level)
+Level::Level(
+    utils::Context& context,
+    const Level &level
+)
 {
     initializeSomeCommonCells();
 
@@ -59,7 +62,7 @@ Level::Level(const Level &level)
     I need to investigate how to do it properly. By the way,
     I think I will change from a multi-dimensional array to
     a one-dimension array... */
-    loadCells();
+    loadCells(context);
 
     horizontalPosition = level.horizontalPosition;
     verticalPosition = level.verticalPosition;
@@ -195,14 +198,17 @@ std::string Level::getCellsAsString()
 /**
  *
  */
-void Level::loadCells(const std::string& levelString)
+void Level::loadCells(
+    utils::Context& context,
+    const std::string& levelString
+)
 {
     short cellNumber = 0;
     uint16_t cellAddress = 0, currentLine = 0, currentColumn = 0;
 
     for (uint16_t i = 0; i < constants::Dimensions::CELLS_PER_LEVEL; i++)
     {
-        Cell newCell;
+        Cell newCell(context);
 
         if (levelString.empty())
         {
@@ -211,6 +217,7 @@ void Level::loadCells(const std::string& levelString)
         else
         {
             newCell = factories::CellFactory::getCellPointerByStringName(
+                          context,
                           levelString.substr(static_cast<size_t>(cellNumber), 2)
                       );
         }

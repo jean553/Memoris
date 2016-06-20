@@ -28,6 +28,7 @@
 #define MEMORIS_CONTEXT_H_
 
 #include "FontsManager.hpp"
+#include "ColorsManager.hpp"
 
 #include <string>
 #include <map>
@@ -71,11 +72,18 @@ public:
     void playScreenTransitionSound();
 
     /**
-     * @brief returns a reference to the unique fonts factory object
+     * @brief returns a reference to the unique fonts manager object
      *
      * @return memoris::fonts::FontsManager&
      */
     memoris::fonts::FontsManager& getFontsManager();
+
+    /**
+     * @brief returns a reference to the unique colors manager object
+     *
+     * @return memoris::colors::ColorsManager&
+     */
+    memoris::colors::ColorsManager& getColorsManager();
 
     /**
      * @brief add a message into the context
@@ -170,7 +178,13 @@ private:
        the unique context is initialized; creates
        and stores all the SFML fonts objects; provides
        public methods to get references to these fonts */
-    memoris::fonts::FontsManager fontsFactory;
+    memoris::fonts::FontsManager fontsManager;
+
+    /* unique object of colors manager; initialize all
+       the SFML colors objects that are used in the
+       whole program; provides public methods to get
+       references to these colors */
+    memoris::colors::ColorsManager colorsManager;
 
     std::map<std::string, std::string> messages;
 

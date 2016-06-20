@@ -31,7 +31,7 @@
 #include "Context.hpp"
 #include "Controller.hpp"
 #include "fonts.hpp"
-#include "Colors.hpp"
+
 
 namespace memoris
 {
@@ -67,8 +67,6 @@ private:
     static const float_t ERR_VRTL_PSTN;
 
     std::string errMsg;
-
-    sf::Color colorErr;
 
     sf::Text error;
 };

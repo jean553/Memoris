@@ -25,7 +25,7 @@
  */
 
 #include "NewGameController.hpp"
-#include "Colors.hpp"
+
 #include "fonts.hpp"
 #include "controllers.hpp"
 
@@ -50,24 +50,14 @@ const unsigned short NewGameController::MAX_NAME_LENGTH = 15;
 /**
  *
  */
-NewGameController::NewGameController(utils::Context& context)
-    : inputTextGameName(context),
-      Controller()
+NewGameController::NewGameController(utils::Context& context) :
+    inputTextGameName(context),
+    Controller(context)
 {
-    colorTitle.r = constants::Colors::COLOR_LIGHT_BLUE_RED;
-    colorTitle.g = constants::Colors::COLOR_LIGHT_BLUE_GREEN;
-    colorTitle.b = constants::Colors::COLOR_LIGHT_BLUE_BLUE;
-    colorTitle.a = constants::Colors::COLOR_ALPHA_FULL;
-
-    colorExplanation.r = constants::Colors::COLOR_WHITE_RED;
-    colorExplanation.g = constants::Colors::COLOR_WHITE_GREEN;
-    colorExplanation.b = constants::Colors::COLOR_WHITE_BLUE;
-    colorExplanation.a = constants::Colors::COLOR_ALPHA_FULL;
-
     title.setFont(context.getFontsManager().getTitleFont());
     title.setString(STRING_NEW_GAME_TITLE);
     title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
-    title.setColor(colorTitle);
+    title.setColor(context.getColorsManager().getColorLightBlue());
     title.setPosition(
         POSITION_NEW_GAME_TITLE_X,
         POSITION_NEW_GAME_TITLE_Y
@@ -76,13 +66,14 @@ NewGameController::NewGameController(utils::Context& context)
     explanation.setFont(context.getFontsManager().getTextFont());
     explanation.setString(STRING_NEW_GAME_EXPLANATION);
     explanation.setCharacterSize(memoris::fonts::TEXT_SIZE);
-    explanation.setColor(colorExplanation);
+    explanation.setColor(context.getColorsManager().getColorWhite());
     explanation.setPosition(
         POSITION_NEW_GAME_EXPLANATION_X,
         POSITION_NEW_GAME_EXPLANATION_Y
     );
 
     inputTextGameName.setLayout(
+        context,
         POSITION_NAME_INPUT_TEXT_X,
         POSITION_NAME_INPUT_TEXT_Y,
         SIZE_NAME_INPUT_TEXT

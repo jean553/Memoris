@@ -24,7 +24,7 @@
 
 #include "SerieMainMenuController.hpp"
 #include "fonts.hpp"
-#include "Colors.hpp"
+
 #include "Sounds.hpp"
 #include "controllers.hpp"
 
@@ -63,6 +63,7 @@ const uint8_t SerieMainMenuController::SERIE_MAIN_MENU_BACK_ITEM = 2;
  *
  */
 SerieMainMenuController::SerieMainMenuController(utils::Context& context) :
+    Controller(context),
     cupTrslt(
         TRLST_COMMON_HRTL_PSTN,
         CUP_TRLST_VRTL_PSTN,
@@ -77,25 +78,14 @@ SerieMainMenuController::SerieMainMenuController(utils::Context& context) :
     context.getFontsManager().getTitleFont().loadFromFile(memoris::fonts::TITLE_FONT);
     context.getFontsManager().getTextFont().loadFromFile(memoris::fonts::TEXT_FONT);
 
-    colorWhite.r = constants::Colors::COLOR_WHITE_RED;
-    colorWhite.g = constants::Colors::COLOR_WHITE_GREEN;
-    colorWhite.b = constants::Colors::COLOR_WHITE_BLUE;
-    colorWhite.a = constants::Colors::COLOR_ALPHA_FULL;
-
-    colorSelector.r = constants::Colors::COLOR_RED_RED;
-    colorSelector.g = constants::Colors::COLOR_RED_GREEN;
-    colorSelector.b = constants::Colors::COLOR_RED_BLUE;
-    colorSelector.a = constants::Colors::COLOR_ALPHA_FULL;
-
-    colorTitle.r = constants::Colors::COLOR_LIGHT_BLUE_RED;
-    colorTitle.g = constants::Colors::COLOR_LIGHT_BLUE_GREEN;
-    colorTitle.b = constants::Colors::COLOR_LIGHT_BLUE_BLUE;
-    colorTitle.a = constants::Colors::COLOR_ALPHA_FULL;
+    /* this color is continually updated, that's
+       why this is a copy of the red color */
+    colorSelector = context.getColorsManager().getColorRedCopy();
 
     title.setFont(context.getFontsManager().getTitleFont());
     title.setString(TITLE_STR);
     title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
-    title.setColor(colorTitle);
+    title.setColor(context.getColorsManager().getColorLightBlue());
     title.setPosition(
         TITLE_HRTL_PSTN,
         TITLE_VRTL_PSTN
@@ -113,7 +103,7 @@ SerieMainMenuController::SerieMainMenuController(utils::Context& context) :
     itemPersonalSeries.setFont(context.getFontsManager().getTextFont());
     itemPersonalSeries.setString(PERSONAL_STR);
     itemPersonalSeries.setCharacterSize(memoris::fonts::ITEM_SIZE);
-    itemPersonalSeries.setColor(colorWhite);
+    itemPersonalSeries.setColor(context.getColorsManager().getColorWhite());
     itemPersonalSeries.setPosition(
         PERSONAL_HRTL_PSTN,
         PERSONAL_VRTL_PSTN
@@ -122,7 +112,7 @@ SerieMainMenuController::SerieMainMenuController(utils::Context& context) :
     itemBack.setFont(context.getFontsManager().getTextFont());
     itemBack.setString(BACK_STR);
     itemBack.setCharacterSize(memoris::fonts::ITEM_SIZE);
-    itemBack.setColor(colorWhite);
+    itemBack.setColor(context.getColorsManager().getColorWhite());
     itemBack.setPosition(
         BACK_HRTL_PSTN,
         BACK_VRTL_PSTN
@@ -152,7 +142,7 @@ uint8_t SerieMainMenuController::render(utils::Context& context)
 {
     policies::HasMenuSelectorAnimation::animateMenuSelector<SerieMainMenuController>(this);
 
-    updateSelectorPosition();
+    updateSelectorPosition(context);
 
     cupTrslt.display(
         context,
@@ -221,7 +211,7 @@ uint8_t SerieMainMenuController::render(utils::Context& context)
 /**
  *
  */
-void SerieMainMenuController::updateSelectorPosition()
+void SerieMainMenuController::updateSelectorPosition(utils::Context& context)
 {
     selectorPosition = (
                            (selectorPosition > SERIE_MAIN_MENU_SELECTOR_MAX) ?
@@ -229,9 +219,9 @@ void SerieMainMenuController::updateSelectorPosition()
                            selectorPosition
                        );
 
-    itemOfficialSeries.setColor(colorWhite);
-    itemPersonalSeries.setColor(colorWhite);
-    itemBack.setColor(colorWhite);
+    itemOfficialSeries.setColor(context.getColorsManager().getColorWhite());
+    itemPersonalSeries.setColor(context.getColorsManager().getColorWhite());
+    itemBack.setColor(context.getColorsManager().getColorWhite());
 
     animCup = false;
     animGame = false;
