@@ -6,3 +6,4 @@ data/levels/*
 data/series/*
 !data/levels/1.level
 !data/series/1.serie
+*.swp

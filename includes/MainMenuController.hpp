@@ -17,16 +17,14 @@
 */
 
 /**
- * Main menu screen.
- *
  * @file MainMenuController.hpp
- * @brief main menu of the program
- * @package controllers
+ * @brief render the main menu of the program; this is the
+ * first controller which is loaded
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_MAIN_MENU_CONTROLLER
-#define DEF_MAIN_MENU_CONTROLLER
+#ifndef MEMORIS_MAINMENUCONTROLLER_H_
+#define MEMORIS_MAINMENUCONTROLLER_H_
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -43,75 +41,26 @@ namespace controllers
 
 class MainMenuController : public Controller
 {
+    /* TODO: #438 to delete, use a dedicated function */
     friend class policies::HasMenuSelectorAnimation;
-
-    static const std::string PATH_IMAGE_GITHUB;
-
-    static const std::string STRING_TITLE;
-    static const std::string STRING_NEW_GAME;
-    static const std::string STRING_LOAD_GAME;
-    static const std::string STRING_EDITOR;
-    static const std::string STRING_OPTIONS;
-    static const std::string STRING_EXIT;
-
-    static const unsigned short COLOR_TITLE_RED_MAX;
-    static const unsigned short COLOR_TITLE_GREEN_MAX;
-    static const unsigned short COLOR_TITLE_BLUE_MAX;
-
-    static const unsigned short COLOR_TITLE_ALL_MIN;
-
-    static const unsigned short POSITION_TITLE_X;
-    static const unsigned short POSITION_TITLE_Y;
-
-    static const unsigned short POSITION_GITHUB_X;
-    static const unsigned short POSITION_GITHUB_Y;
-
-    static const unsigned short POSITION_ITEM_NEW_GAME_X;
-    static const unsigned short POSITION_ITEM_NEW_GAME_Y;
-
-    static const unsigned short POSITION_ITEM_LOAD_GAME_X;
-    static const unsigned short POSITION_ITEM_LOAD_GAME_Y;
-
-    static const unsigned short POSITION_ITEM_EDITOR_X;
-    static const unsigned short POSITION_ITEM_EDITOR_Y;
-
-    static const unsigned short POSITION_ITEM_OPTIONS_X;
-    static const unsigned short POSITION_ITEM_OPTIONS_Y;
-
-    static const unsigned short POSITION_ITEM_EXIT_X;
-    static const unsigned short POSITION_ITEM_EXIT_Y;
-
-    static const unsigned short DIRECTION_TITLE_RED_INIT;
-    static const unsigned short DIRECTION_TITLE_GREEN_INIT;
-
-    static const unsigned short MAIN_MENU_SELECTOR_MIN;
-    static const unsigned short MAIN_MENU_SELECTOR_MAX;
-
-    static const unsigned short MAIN_MENU_ITEM_NEW_GAME;
-    static const unsigned short MAIN_MENU_ITEM_LOAD_GAME;
-    static const unsigned short MAIN_MENU_ITEM_EDITOR;
-    static const unsigned short MAIN_MENU_ITEM_OPTIONS;
-    static const unsigned short MAIN_MENU_ITEM_EXIT;
-
-    static const short DIRECTION_TITLE_BLUE_INIT;
-
-    static const short SELECTOR_COLOR_MINIMUM;
-    static const short SELECTOR_COLOR_MAXIMUM;
 
 public:
 
+    /**
+     * @brief constructor
+     */
     MainMenuController(utils::Context& context);
 
     /**
-     * @brief render the main menu
+     * @brief render the main menu controller
      *
-     * @param context   commons items for controller
+     * @param context current context reference
      *
-     * @return uint8_t   id of the next screen controller
+     * @return uint8_t id of the next screen controller
+     *
+     * TODO: #443 wrong return type, should be unsigned short
      */
-    uint8_t render(
-        utils::Context& context
-    );
+    uint8_t render(utils::Context& context);
 
 private:
 
@@ -132,11 +81,79 @@ private:
      */
     void selectMenuItem();
 
+    /* the file path of the Github picture, displayed in the top right
+       corner fo the main menu screen */
+    static const std::string PATH_IMAGE_GITHUB;
+
+    /* the text content of each menu selectable item */
+    static const std::string TITLE;
+    static const std::string NEW_GAME;
+    static const std::string LOAD_GAME;
+    static const std::string EDITOR;
+    static const std::string OPTIONS;
+    static const std::string EXIT;
+
+    /* maximum amount of RGB color for the title color animation: during
+       rendering, the color of the title is continually changed. During the
+       animation, the red, green and blue colors of the title cannot have a
+       value that is more than these given constants */
+    static const sf::Uint8 COLOR_TITLE_RED_MAX = 255;
+    static const sf::Uint8 COLOR_TITLE_GREEN_MAX = 180;
+    static const sf::Uint8 COLOR_TITLE_BLUE_MAX = 255;
+
+    /* minimum amount of RGB color for the title color animation: the red,
+       blue and green colors of the title cannot have a value that is less
+       than this given constant */
+    static const sf::Uint8 COLOR_TITLE_ALL_MIN = 0;
+
+    /* position of the title */
+    static constexpr float TITLE_HORIZONTAL_POSITION = 480.f;
+    static constexpr float TITLE_VERTICAL_POSITION = 100.f;
+
+    /* position of the new game menu item */
+    static constexpr float NEW_GAME_HORIZONTAL_POSITION = 615.f;
+    static constexpr float NEW_GAME_VERTICAL_POSITION = 300.f;
+
+    /* position of the load game menu item */
+    static constexpr float LOAD_GAME_HORIZONTAL_POSITION = 605.f;
+    static constexpr float LOAD_GAME_VERTICAL_POSITION = 400.f;
+
+    /* position of the editor menu item */
+    static constexpr float EDITOR_HORIZONTAL_POSITION = 685.f;
+    static constexpr float EDITOR_VERTICAL_POSITION = 500.f;
+
+    /* position of the options menu item */
+    static constexpr float OPTIONS_HORIZONTAL_POSITION = 660.f;
+    static constexpr float OPTIONS_VERTICAL_POSITION = 600.f;
+
+    /* position of the exit menu item */
+    static constexpr float EXIT_HORIZONTAL_POSITION = 725.f;
+    static constexpr float EXIT_VERTICAL_POSITION = 700.f;
+
+    /* position of the github picture */
+    static constexpr float GITHUB_PICTURE_HORIZONTAL_POSITION = 1300.f;
+    static constexpr float GITHUB_PICTURE_VERTICAL_POSITION = 0.f;
+
+    /* main menu items order, used to identify them */
+    static constexpr unsigned short ITEM_NEW_GAME = 0;
+    static constexpr unsigned short ITEM_LOAD_GAME = 1;
+    static constexpr unsigned short ITEM_EDITOR = 2;
+    static constexpr unsigned short ITEM_OPTIONS = 3;
+    static constexpr unsigned short ITEM_EXIT = 4;
+
+    static constexpr unsigned short DIRECTION_TITLE_RED_INIT = 1;
+    static constexpr unsigned short DIRECTION_TITLE_GREEN_INIT = 1;
+    static constexpr short DIRECTION_TITLE_BLUE_INIT = -1;
+
+    /* TODO: #444 to refactor, should be sf::Uint8 and should
+       not be less than 0...*/
     unsigned short titleRedDirection;
     unsigned short titleGreenDirection;
-    unsigned short selectorPosition;
-
     short titleBlueDirection;
+
+    /* TODO: #436 to refactor, should be refactored in a middleware,
+       class or trait */
+    unsigned short selectorPosition;
     short selectorDirection;
 
     /* the title and selector colors are declared here
@@ -152,17 +169,21 @@ private:
     sf::Text itemExit;
 
     sf::Texture textureGithub;
-
     sf::Sprite spriteGithub;
 
+    /* TODO: #437 to refactor */
     sf::Clock clockTitle;
 
+    /* TODO: #434 to refactor */
     sf::SoundBuffer soundBuffer;
-
     sf::Sound soundSelectorMove;
 
+    /* object that generates and display the random
+       cells in the main menu backround */
     utils::AnimatedBackground background;
 
+    /* object that displays the black color gradient on
+       both sides of the main menu items */
     utils::MenuGradient menuGradient;
 };
 
