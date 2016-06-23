@@ -24,7 +24,6 @@
 
 #include "Context.hpp"
 #include "window.hpp"
-#include "sounds.hpp"
 
 using namespace memoris;
 using namespace utils;
@@ -49,9 +48,6 @@ Context::Context() : sfmlWindow(
     /* prevent the user to keep a key pressed down: the events are only
        triggered one time during the first press down and not continually */
     sfmlWindow.setKeyRepeatEnabled(false);
-
-    /* load the screen transition sound */
-    loadScreenTransitionSound();
 }
 
 /**
@@ -102,43 +98,6 @@ void Context::stopMusic()
 /**
  *
  */
-void Context::playScreenTransitionSound()
-{
-    /* check if the sound exists and has been
-       loaded correctly before playing */
-    if (screenTransitionSound != NULL)
-    {
-        screenTransitionSound->play();
-    }
-}
-
-/**
- *
- */
-void Context::loadScreenTransitionSound()
-{
-    /* by default, the pointer is NULL; this is used for error management */
-    screenTransitionSound = NULL;
-
-    /* load the SFML buffer and the sound to play when the
-       screen is switched from one controller to another one */
-    if(
-        screenTransitionSoundBuffer.loadFromFile(
-            sounds::SCREEN_TRANSITION_SOUND
-        )
-    )
-    {
-        /* reset the NULL pointer with a pointed SFML sound object value,
-           the sound object is generated at this moment, only if the file is
-           opened successfully */
-        screenTransitionSound.reset(new sf::Sound());
-        screenTransitionSound->setBuffer(screenTransitionSoundBuffer);
-    }
-}
-
-/**
- *
- */
 memoris::fonts::FontsManager& Context::getFontsManager()
 {
     return fontsManager;
@@ -150,6 +109,14 @@ memoris::fonts::FontsManager& Context::getFontsManager()
 memoris::colors::ColorsManager& Context::getColorsManager()
 {
     return colorsManager;
+}
+
+/**
+ *
+ */
+memoris::sounds::SoundsManager& Context::getSoundsManager()
+{
+    return soundsManager;
 }
 
 /**

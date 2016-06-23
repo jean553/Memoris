@@ -133,10 +133,6 @@ private:
     entities::Cell lightCell;
     entities::Cell floorUpCell;
     entities::Cell floorDownCell;
-
-    sf::SoundBuffer soundCellSelectionBuffer;
-
-    sf::Sound soundCellSelection;
 };
 }
 

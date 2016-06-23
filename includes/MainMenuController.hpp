@@ -174,10 +174,6 @@ private:
     /* TODO: #437 to refactor */
     sf::Clock clockTitle;
 
-    /* TODO: #434 to refactor */
-    sf::SoundBuffer soundBuffer;
-    sf::Sound soundSelectorMove;
-
     /* object that generates and display the random
        cells in the main menu backround */
     utils::AnimatedBackground background;

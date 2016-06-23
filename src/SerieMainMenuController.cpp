@@ -25,7 +25,7 @@
 #include "SerieMainMenuController.hpp"
 #include "fonts.hpp"
 
-#include "Sounds.hpp"
+
 #include "controllers.hpp"
 
 namespace memoris
@@ -124,10 +124,6 @@ SerieMainMenuController::SerieMainMenuController(utils::Context& context) :
     cupSprt.setTexture(cup, true);
     gameSprt.setTexture(game, true);
 
-    soundBfr.loadFromFile(constants::Sounds::MOVE_SELECTOR_SOUND_PATH);
-
-    selectorMoveSnd.setBuffer(soundBfr);
-
     selectorDirection = 1;
     selectorPosition = 0;
 
@@ -180,7 +176,7 @@ uint8_t SerieMainMenuController::render(utils::Context& context)
             }
             case sf::Keyboard::Up:
             {
-                selectorMoveSnd.play();
+                context.getSoundsManager().playMoveSelectorSound();
 
                 selectorPosition--;
 
@@ -188,7 +184,7 @@ uint8_t SerieMainMenuController::render(utils::Context& context)
             }
             case sf::Keyboard::Down:
             {
-                selectorMoveSnd.play();
+                context.getSoundsManager().playMoveSelectorSound();
 
                 selectorPosition++;
 

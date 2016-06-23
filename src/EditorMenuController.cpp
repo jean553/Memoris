@@ -25,7 +25,7 @@
 #include "EditorMenuController.hpp"
 
 #include "fonts.hpp"
-#include "Sounds.hpp"
+
 #include "controllers.hpp"
 
 namespace memoris
@@ -88,10 +88,6 @@ EditorMenuController::EditorMenuController(utils::Context& context) :
         POSITION_ITEM_BACK_Y
     );
 
-    soundBuffer.loadFromFile(constants::Sounds::MOVE_SELECTOR_SOUND_PATH);
-
-    soundSelectorMove.setBuffer(soundBuffer);
-
     selectorDirection = 1;
 }
 
@@ -120,7 +116,7 @@ uint8_t EditorMenuController::render(utils::Context& context)
             {
             case sf::Keyboard::Up:
             {
-                soundSelectorMove.play();
+                context.getSoundsManager().playMoveSelectorSound();
 
                 selectorPosition--;
 
@@ -128,7 +124,7 @@ uint8_t EditorMenuController::render(utils::Context& context)
             }
             case sf::Keyboard::Down:
             {
-                soundSelectorMove.play();
+                context.getSoundsManager().playMoveSelectorSound();
 
                 selectorPosition++;
 

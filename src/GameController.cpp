@@ -27,7 +27,7 @@
 
 #include "GameController.hpp"
 #include "FileWriter.hpp"
-#include "Sounds.hpp"
+
 #include "CellsFileRepresentations.hpp"
 #include "CellFactory.hpp"
 #include "fonts.hpp"
@@ -173,9 +173,6 @@ GameController::GameController(utils::Context& context) :
         TOTAL_STARS_VRTL_PSTN
     );
 
-    soundBuffer.loadFromFile(constants::Sounds::HIDE_LEVEL_SOUND_PATH);
-    soundHideLevel.setBuffer(soundBuffer);
-
     textureStar.loadFromFile(STAR_IMG_PATH);
     textureLife.loadFromFile(LIFE_IMG_PATH);
     textureTarget.loadFromFile(TOTAL_STARS_IMG_PATH);
@@ -288,7 +285,7 @@ uint8_t GameController::render(utils::Context& context)
             level.setPlayerCellAsEnabled();
         }
 
-        soundHideLevel.play();
+        context.getSoundsManager().playHideLevelSound();
 
         status = PLAYING;
         clock.restart();

@@ -26,9 +26,6 @@
 #include "fonts.hpp"
 #include "controllers.hpp"
 
-/* TODO: #434 use the same way as fonts and controllers */
-#include "Sounds.hpp"
-
 namespace memoris
 {
 namespace controllers
@@ -129,11 +126,6 @@ MainMenuController::MainMenuController(utils::Context& context) :
         GITHUB_PICTURE_VERTICAL_POSITION
     );
 
-    /* TODO: #434 use the controllers, fonts and colors method: load all of
-       them separately and use them when needed */
-    soundBuffer.loadFromFile(constants::Sounds::MOVE_SELECTOR_SOUND_PATH);
-    soundSelectorMove.setBuffer(soundBuffer);
-
     titleRedDirection = DIRECTION_TITLE_RED_INIT;
     titleGreenDirection = DIRECTION_TITLE_GREEN_INIT;
     titleBlueDirection = DIRECTION_TITLE_BLUE_INIT;
@@ -197,7 +189,7 @@ uint8_t MainMenuController::render(utils::Context& context)
             {
             case sf::Keyboard::Up:
             {
-                soundSelectorMove.play();
+                context.getSoundsManager().playMoveSelectorSound();
 
                 selectorPosition--;
 
@@ -205,7 +197,7 @@ uint8_t MainMenuController::render(utils::Context& context)
             }
             case sf::Keyboard::Down:
             {
-                soundSelectorMove.play();
+                context.getSoundsManager().playMoveSelectorSound();
 
                 selectorPosition++;
 

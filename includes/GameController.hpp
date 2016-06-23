@@ -187,10 +187,6 @@ private:
     sf::Clock clock;
     sf::Clock timeClck;
 
-    sf::SoundBuffer soundBuffer;
-
-    sf::Sound soundHideLevel;
-
     sf::Text time;
     sf::Text foundStarsAmntStr;
     sf::Text lifesAmntStr;
