@@ -99,10 +99,6 @@ private:
     sf::Text itemBack;
     sf::Text title;
 
-    sf::SoundBuffer soundBfr;
-
-    sf::Sound selectorMoveSnd;
-
     sf::Texture cup;
     sf::Texture game;
 

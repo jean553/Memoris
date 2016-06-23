@@ -105,10 +105,6 @@ private:
     sf::Text itemLevelsEditor;
     sf::Text itemSeriesEditor;
     sf::Text itemBack;
-
-    sf::SoundBuffer soundBuffer;
-
-    sf::Sound soundSelectorMove;
 };
 
 }

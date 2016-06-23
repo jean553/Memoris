@@ -29,6 +29,7 @@
 
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
+#include "SoundsManager.hpp"
 
 #include <string>
 #include <map>
@@ -66,12 +67,6 @@ public:
     void stopMusic();
 
     /**
-     * @brief plays the screen transition sound, this sound is played each
-     * time the screen (controller) is switched from one to another one
-     */
-    void playScreenTransitionSound();
-
-    /**
      * @brief returns a reference to the unique fonts manager object
      *
      * @return memoris::fonts::FontsManager&
@@ -84,6 +79,13 @@ public:
      * @return memoris::colors::ColorsManager&
      */
     memoris::colors::ColorsManager& getColorsManager();
+
+    /**
+     * @brief returns a reference to the unique sounds manager object
+     *
+     * @return memoris::sounds::SoundsManager&
+     */
+    memoris::sounds::SoundsManager& getSoundsManager();
 
     /**
      * @brief add a message into the context
@@ -154,11 +156,6 @@ public:
 
 private:
 
-    /**
-     * @brief loads the screen transition sound
-     */
-    void loadScreenTransitionSound();
-
     /* the main SFML window object */
     sf::RenderWindow sfmlWindow;
 
@@ -185,6 +182,12 @@ private:
        whole program; provides public methods to get
        references to these colors */
     memoris::colors::ColorsManager colorsManager;
+
+    /* unique object of sounds manager; initialize all
+       the SFML sounds objects that are used in the
+       whole program; provides public methods to get
+       references to these sounds */
+    memoris::sounds::SoundsManager soundsManager;
 
     std::map<std::string, std::string> messages;
 

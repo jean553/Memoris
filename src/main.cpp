@@ -131,7 +131,7 @@ int main()
             /* if the program is not supposed to be terminated, the screen
                content is updated: a common sound is played during the
                visual switch */
-            context.playScreenTransitionSound();
+            context.getSoundsManager().playScreenTransitionSound();
         }
     }
     while (currentControllerId != controllers::EXIT);

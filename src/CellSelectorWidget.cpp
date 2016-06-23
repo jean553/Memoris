@@ -27,7 +27,7 @@
 
 #include "CellSelectorWidget.hpp"
 #include "Dimensions.hpp"
-#include "Sounds.hpp"
+
 #include "CellsFileRepresentations.hpp"
 #include "CellFactory.hpp"
 
@@ -53,14 +53,6 @@ CellSelectorWidget::CellSelectorWidget(utils::Context& context) :
     floorUpCell(context),
     floorDownCell(context)
 {
-    soundCellSelectionBuffer.loadFromFile(
-        constants::Sounds::CELL_SELECTOR_SELECTION_SOUND_PATH
-    );
-
-    soundCellSelection.setBuffer(
-        soundCellSelectionBuffer
-    );
-
     /* TODO: to refactor... */
     emptyCell.setStringRepresentation(constants::CellsFileRepresentations::EMPTY_CELL);
     departureCell.setStringRepresentation(constants::CellsFileRepresentations::DEPARTURE_CELL);
@@ -226,11 +218,6 @@ void CellSelectorWidget::selectCellOnClick()
     {
         floorDownCell.setSelected(true);
     }
-
-    /* TODO: should not be played when no cell is selected,
-       I keep it here for now as the selector is a cells rectangle
-       and this problem is not supposed to happen in the future */
-    soundCellSelection.play();
 }
 
 /**
