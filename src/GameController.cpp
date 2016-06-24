@@ -242,7 +242,7 @@ GameController::GameController(utils::Context& context) :
 /**
  *
  */
-uint8_t GameController::render(utils::Context& context)
+unsigned short GameController::render(utils::Context& context)
 {
     level.displayAllCellsByFloor(
         context,

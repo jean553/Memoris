@@ -49,9 +49,9 @@ public:
      *
      * @param context   common context pointer for controller
      *
-     * @return uint8_t     next called screen controller id
+     * @return unsigned short next called screen controller id
      */
-    virtual uint8_t render(utils::Context& context) = 0;
+    virtual unsigned short render(utils::Context& context) = 0;
 
 protected:
 

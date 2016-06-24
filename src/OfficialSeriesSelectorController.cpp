@@ -65,7 +65,7 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController(utils::Contex
 /**
  *
  */
-uint8_t OfficialSeriesSelectorController::render(utils::Context& context)
+unsigned short OfficialSeriesSelectorController::render(utils::Context& context)
 {
     scrlList.updtSltrPstn(context);
 

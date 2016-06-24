@@ -134,7 +134,7 @@ SerieMainMenuController::SerieMainMenuController(utils::Context& context) :
 /**
  *
  */
-uint8_t SerieMainMenuController::render(utils::Context& context)
+unsigned short SerieMainMenuController::render(utils::Context& context)
 {
     policies::HasMenuSelectorAnimation::animateMenuSelector<SerieMainMenuController>(this);
 

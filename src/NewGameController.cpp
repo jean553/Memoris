@@ -92,7 +92,7 @@ NewGameController::NewGameController(utils::Context& context) :
 /**
  *
  */
-uint8_t NewGameController::render(utils::Context& context)
+unsigned short NewGameController::render(utils::Context& context)
 {
     context.getSfmlWindow().draw(title);
     context.getSfmlWindow().draw(explanation);
