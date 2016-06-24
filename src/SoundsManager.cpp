@@ -37,81 +37,43 @@ const std::string SoundsManager::HIDE_LEVEL_SOUND_PATH = "res/sounds/003.wav";
 /**
  *
  */
-SoundsManager::SoundsManager()
+SoundsManager::SoundsManager() :
+    moveSelectorSound(MOVE_SELECTOR_SOUND_PATH),
+    screenTransitionSound(SCREEN_TRANSITION_SOUND_PATH),
+    hideLevelSound(HIDE_LEVEL_SOUND_PATH)
 {
-    /* by default, the pointer is NULL; this is used for error management */
-    moveSelectorSound = NULL;
-    screenTransitionSound = NULL;
-    hideLevelSound = NULL;
-
     /* try to load each sound from their files, one by one; the game run
        even if some/all sounds cannot be loaded; if loading succeeds, we
        reset the NULL pointer with a pointed SFML sound object value,
        the sound object is generated at this moment, only if the file is
        opened successfully */
 
-    if(
-        moveSelectorSoundBuffer.loadFromFile(
-            MOVE_SELECTOR_SOUND_PATH
-        )
-    )
-    {
-        moveSelectorSound.reset(new sf::Sound());
-        moveSelectorSound->setBuffer(moveSelectorSoundBuffer);
-    }
-
-    if(
-        screenTransitionSoundBuffer.loadFromFile(
-            SCREEN_TRANSITION_SOUND_PATH
-        )
-    )
-    {
-        screenTransitionSound.reset(new sf::Sound());
-        screenTransitionSound->setBuffer(screenTransitionSoundBuffer);
-    }
-
-    if(
-        hideLevelSoundBuffer.loadFromFile(
-            HIDE_LEVEL_SOUND_PATH
-        )
-    )
-    {
-        hideLevelSound.reset(new sf::Sound());
-        hideLevelSound->setBuffer(hideLevelSoundBuffer);
-    }
+    /* NOTE: the constructor body is empty, but this is required to
+       add it when using initialization list */
 }
 
 /**
  *
  */
-void SoundsManager::playMoveSelectorSound()
+Sound& SoundsManager::getMoveSelectorSound()
 {
-    if (moveSelectorSound != NULL)
-    {
-        moveSelectorSound->play();
-    }
+    return moveSelectorSound;
 }
 
 /**
  *
  */
-void SoundsManager::playScreenTransitionSound()
+Sound& SoundsManager::getScreenTransitionSound()
 {
-    if (screenTransitionSound != NULL)
-    {
-        screenTransitionSound->play();
-    }
+    return screenTransitionSound;
 }
 
 /**
  *
  */
-void SoundsManager::playHideLevelSound()
+Sound& SoundsManager::getHideLevelSound()
 {
-    if (hideLevelSound != NULL)
-    {
-        hideLevelSound->play();
-    }
+    return hideLevelSound;
 }
 
 }

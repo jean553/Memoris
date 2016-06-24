@@ -25,9 +25,7 @@
 #ifndef MEMORIS_SOUNDSMANAGER_H_
 #define MEMORIS_SOUNDSMANAGER_H_
 
-#include <SFML/Audio.hpp>
-
-#include <memory>
+#include "Sound.hpp"
 
 namespace memoris
 {
@@ -47,24 +45,26 @@ public:
      */
     SoundsManager();
 
-    /* NOTE: every function that plays a sound, plays it only if the sound
-       has been successfully loaded from the file ( unique pointer not null );
-       silently fails if the sound has not been loaded correctly */
+    /**
+     * @brief getter of the move selector sound if loaded
+     *
+     * @return Sound&
+     */
+    Sound& getMoveSelectorSound();
 
     /**
-     * @brief plays the move selector sound if loaded
+     * @brief getter of the screen transition sound if loaded
+     *
+     * @return Sound&
      */
-    void playMoveSelectorSound();
+    Sound& getScreenTransitionSound();
 
     /**
-     * @brief plays the screen transition sound if loaded
+     * @brief getter of the hide level sound if loaded
+     *
+     * @return Sound&
      */
-    void playScreenTransitionSound();
-
-    /**
-     * @brief plays the hide level sound if loaded
-     */
-    void playHideLevelSound();
+    Sound& getHideLevelSound();
 
 private:
 
@@ -72,19 +72,9 @@ private:
     static const std::string SCREEN_TRANSITION_SOUND_PATH;
     static const std::string HIDE_LEVEL_SOUND_PATH;
 
-    /* NOTE: we use unique pointers for the SFML sounds; we use
-       an unique pointer because it is never copied (only called here), it
-       is NULL if the loading process of the sound failed, it is automatically
-       destroyed */
-
-    std::unique_ptr<sf::Sound> moveSelectorSound;
-    std::unique_ptr<sf::Sound> screenTransitionSound;
-    std::unique_ptr<sf::Sound> hideLevelSound;
-
-    /* SFML sound buffers for every sound */
-    sf::SoundBuffer moveSelectorSoundBuffer;
-    sf::SoundBuffer screenTransitionSoundBuffer;
-    sf::SoundBuffer hideLevelSoundBuffer;
+    Sound moveSelectorSound;
+    Sound screenTransitionSound;
+    Sound hideLevelSound;
 };
 
 }

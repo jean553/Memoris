@@ -285,7 +285,7 @@ unsigned short GameController::render(utils::Context& context)
             level.setPlayerCellAsEnabled();
         }
 
-        context.getSoundsManager().playHideLevelSound();
+        context.getSoundsManager().getHideLevelSound().play();
 
         status = PLAYING;
         clock.restart();
