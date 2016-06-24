@@ -139,7 +139,7 @@ MainMenuController::MainMenuController(utils::Context& context) :
 /**
  *
  */
-uint8_t MainMenuController::render(utils::Context& context)
+unsigned short MainMenuController::render(utils::Context& context)
 {
     /* display the background animation */
     background.animate(context);

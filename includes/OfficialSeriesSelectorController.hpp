@@ -46,9 +46,9 @@ public:
      *
      * @param context current context
      *
-     * @return uint8_t id of the next screen
+     * @return unsigned short id of the next screen
      */
-    uint8_t render(utils::Context& context);
+    unsigned short render(utils::Context& context);
 
 private:
 

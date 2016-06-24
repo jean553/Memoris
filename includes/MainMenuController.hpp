@@ -56,11 +56,9 @@ public:
      *
      * @param context current context reference
      *
-     * @return uint8_t id of the next screen controller
-     *
-     * TODO: #443 wrong return type, should be unsigned short
+     * @return unsigned short id of the next screen controller
      */
-    uint8_t render(utils::Context& context);
+    unsigned short render(utils::Context& context);
 
 private:
 

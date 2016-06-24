@@ -216,7 +216,7 @@ EditorLevelController::EditorLevelController(utils::Context& context) :
 /**
  *
  */
-uint8_t EditorLevelController::render(utils::Context& context)
+unsigned short EditorLevelController::render(utils::Context& context)
 {
     titleBar.display(context);
     buttonExit.display(context);

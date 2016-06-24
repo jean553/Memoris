@@ -56,7 +56,7 @@ ErrorController::ErrorController(
 /**
  *
  */
-uint8_t ErrorController::render(utils::Context& context)
+unsigned short ErrorController::render(utils::Context& context)
 {
     nextControllerId = animateScreenTransition(context);
 

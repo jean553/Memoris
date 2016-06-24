@@ -188,7 +188,7 @@ EditorSerieController::EditorSerieController(utils::Context& context) :
 /**
  *
  */
-uint8_t EditorSerieController::render(utils::Context& context)
+unsigned short EditorSerieController::render(utils::Context& context)
 {
     titleBar.display(context);
     buttonNew.display(context);
