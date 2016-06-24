@@ -53,6 +53,7 @@ OBJS = \
 	   build/FontsManager.o \
 	   build/ColorsManager.o \
 	   build/SoundsManager.o \
+	   build/Sound.o \
 	   build/ScrollableListWidget.o
 
 INC = -I includes
@@ -150,6 +151,9 @@ build/Level.o: src/Level.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/Cell.o: src/Cell.cpp
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+
+build/Sound.o: src/Sound.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 # widgets

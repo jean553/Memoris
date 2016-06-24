@@ -176,7 +176,7 @@ unsigned short SerieMainMenuController::render(utils::Context& context)
             }
             case sf::Keyboard::Up:
             {
-                context.getSoundsManager().playMoveSelectorSound();
+                context.getSoundsManager().getMoveSelectorSound().play();
 
                 selectorPosition--;
 
@@ -184,7 +184,7 @@ unsigned short SerieMainMenuController::render(utils::Context& context)
             }
             case sf::Keyboard::Down:
             {
-                context.getSoundsManager().playMoveSelectorSound();
+                context.getSoundsManager().getMoveSelectorSound().play();
 
                 selectorPosition++;
 
