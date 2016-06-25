@@ -30,6 +30,7 @@
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "SoundsManager.hpp"
+#include "TexturesManager.hpp"
 
 #include <string>
 #include <map>
@@ -86,6 +87,13 @@ public:
      * @return memoris::sounds::SoundsManager&
      */
     memoris::sounds::SoundsManager& getSoundsManager();
+
+    /**
+     * @brief returns a reference to the unique textures manager object
+     *
+     * @return memoris::textures::TexturesManager&
+     */
+    memoris::textures::TexturesManager& getTexturesManager();
 
     /**
      * @brief add a message into the context
@@ -162,32 +170,21 @@ private:
     /* the SFML music to play */
     sf::Music music;
 
-    /* SFML sound buffer for the unique transition sound */
-    sf::SoundBuffer screenTransitionSoundBuffer;
+    /* all the managers create and store SFML objects,
+       they provide public method to access to these
+       objects */
 
-    /* unique pointer for the SFML screen transition sound; we use an
-       unique pointer because it is never copied (only called here), it
-       is NULL if the loading process of the sound failed, it is automatically
-       destroyed */
-    std::unique_ptr<sf::Sound> screenTransitionSound;
-
-    /* unique object of fonts factory; initialized when
-       the unique context is initialized; creates
-       and stores all the SFML fonts objects; provides
-       public methods to get references to these fonts */
+    /* unique object of fonts factory */
     memoris::fonts::FontsManager fontsManager;
 
-    /* unique object of colors manager; initialize all
-       the SFML colors objects that are used in the
-       whole program; provides public methods to get
-       references to these colors */
+    /* unique object of colors manager */
     memoris::colors::ColorsManager colorsManager;
 
-    /* unique object of sounds manager; initialize all
-       the SFML sounds objects that are used in the
-       whole program; provides public methods to get
-       references to these sounds */
+    /* unique object of sounds manager */
     memoris::sounds::SoundsManager soundsManager;
+
+    /* unique object of textures manager */
+    memoris::textures::TexturesManager texturesManager;
 
     std::map<std::string, std::string> messages;
 
