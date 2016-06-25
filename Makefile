@@ -53,6 +53,7 @@ OBJS = \
 	   build/FontsManager.o \
 	   build/ColorsManager.o \
 	   build/SoundsManager.o \
+	   build/TexturesManager.o \
 	   build/Sound.o \
 	   build/ScrollableListWidget.o
 
@@ -81,6 +82,9 @@ build/ColorsManager.o: src/ColorsManager.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/SoundsManager.o: src/SoundsManager.cpp
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+
+build/TexturesManager.o: src/TexturesManager.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/CellFactory.o: src/CellFactory.cpp

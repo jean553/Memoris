@@ -116,11 +116,10 @@ MainMenuController::MainMenuController(utils::Context& context) :
         EXIT_VERTICAL_POSITION
     );
 
-    /* TODO: #435 load a picture from a file should be done safely...,
-       add errors handling */
-    textureGithub.loadFromFile(PATH_IMAGE_GITHUB);
-
-    spriteGithub.setTexture(textureGithub, true);
+    spriteGithub.setTexture(
+        context.getTexturesManager().getGithubTexture(),
+        true
+    );
     spriteGithub.setPosition(
         GITHUB_PICTURE_HORIZONTAL_POSITION,
         GITHUB_PICTURE_VERTICAL_POSITION

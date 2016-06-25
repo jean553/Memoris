@@ -166,7 +166,6 @@ private:
     sf::Text itemOptions;
     sf::Text itemExit;
 
-    sf::Texture textureGithub;
     sf::Sprite spriteGithub;
 
     /* TODO: #437 to refactor */
