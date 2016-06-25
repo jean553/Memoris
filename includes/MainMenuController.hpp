@@ -143,6 +143,13 @@ private:
     static constexpr unsigned short DIRECTION_TITLE_GREEN_INIT = 1;
     static constexpr short DIRECTION_TITLE_BLUE_INIT = -1;
 
+    /* NOTE: we use SFML 32 bits long integers to save the
+       last updated time of each animation; we use this
+       data type as it is the one used by SFML clock */
+
+    /* save the last time the title color has been modified */
+    sf::Int32 titleLastAnimationTime;
+
     /* TODO: #444 to refactor, should be sf::Uint8 and should
        not be less than 0...*/
     unsigned short titleRedDirection;
@@ -167,9 +174,6 @@ private:
     sf::Text itemExit;
 
     sf::Sprite spriteGithub;
-
-    /* TODO: #437 to refactor */
-    sf::Clock clockTitle;
 
     /* object that generates and display the random
        cells in the main menu backround */

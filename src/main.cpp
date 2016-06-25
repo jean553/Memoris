@@ -132,6 +132,9 @@ int main()
                content is updated: a common sound is played during the
                visual switch */
             context.getSoundsManager().getScreenTransitionSound().play();
+
+            /* restart the clock */
+            context.restartClock();
         }
     }
     while (currentControllerId != controllers::EXIT);

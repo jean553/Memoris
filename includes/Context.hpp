@@ -68,6 +68,24 @@ public:
     void stopMusic();
 
     /**
+     * @brief return the elapsed time in milliseconds since
+     * the clock started or restarted; returns a SFML integer
+     * type for 32 bits integer; the maximum value is equivalent
+     * to 49 days; we can considere that this "case won't never
+     * happen"
+     *
+     * @return sf::Int32
+     */
+    sf::Int32 getClockMillisecondsTime() const;
+
+    /**
+     * @brief restart the SFML clock; this function is called
+     * everytime the screen is switched from one controller
+     * to another
+     */
+    void restartClock();
+
+    /**
      * @brief returns a reference to the unique fonts manager object
      *
      * @return memoris::fonts::FontsManager&
@@ -169,6 +187,13 @@ private:
 
     /* the SFML music to play */
     sf::Music music;
+
+    /* the unique SFML clock for time management in every controller
+     * NOTE: we use an unique clock for all the animation and time
+     * management of the game; the clock is restarted everytime the
+     * controller is modified; the maximum time returned in milliseconds
+     * is equal to 49 days... so this is a safe method */
+    sf::Clock clock;
 
     /* all the managers create and store SFML objects,
        they provide public method to access to these
