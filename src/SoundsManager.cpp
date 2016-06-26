@@ -28,10 +28,16 @@ namespace memoris
 namespace sounds
 {
 
+/* play this sound when the menu selector of any menu is moved up or down */
 const std::string SoundsManager::MOVE_SELECTOR_SOUND_PATH =
     "res/sounds/001.wav";
+
+
+/* play this sound every time the current screen is switched */
 const std::string SoundsManager::SCREEN_TRANSITION_SOUND_PATH =
     "res/sounds/002.wav";
+
+/* play this sound when the game level is hidden */
 const std::string SoundsManager::HIDE_LEVEL_SOUND_PATH = "res/sounds/003.wav";
 
 /**

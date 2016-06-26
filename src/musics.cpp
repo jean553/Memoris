@@ -29,6 +29,18 @@ namespace memoris
 namespace musics
 {
 
+/* music played in all the menus of the game */
+const std::string MAIN_MENU_MUSIC =
+    "res/musics/pokki-dj-made-in-italy.ogg";
+
+/* music played in the level editor of the game */
+const std::string EDITOR_MUSIC =
+    "res/musics/bigmanboo-back-to-the-90s-nostalgia.ogg";
+
+/* music played during the game */
+const std::string GAME_MUSIC =
+    "res/musics/J.O.R.B.I_-_2.Dancing_of_the_Night.ogg";
+
 /**
  *
  */

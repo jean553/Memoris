@@ -72,8 +72,14 @@ private:
     static const std::string SCREEN_TRANSITION_SOUND_PATH;
     static const std::string HIDE_LEVEL_SOUND_PATH;
 
+    /* play this sound when the menu selector
+       of any menu is moved up or down */
     Sound moveSelectorSound;
+
+    /* play this sound every time the current screen is switched */
     Sound screenTransitionSound;
+
+    /* play this sound when the game level is hidden */
     Sound hideLevelSound;
 };
 

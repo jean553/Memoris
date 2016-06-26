@@ -64,10 +64,10 @@ public:
 private:
 
     /* font used for main title and sub-titles */
-    const std::string TITLE_FONT = "res/fonts/crystal_regular.ttf";
+    static const std::string TITLE_FONT;
 
     /* font used for menu items, buttons and texts */
-    const std::string TEXT_FONT = "res/fonts/hi.otf";
+    static const std::string TEXT_FONT;
 
     /* SFML font object for the title and sub-titles */
     sf::Font titleFont;
