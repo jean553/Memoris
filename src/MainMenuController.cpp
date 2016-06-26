@@ -25,6 +25,7 @@
 
 #include "fonts.hpp"
 #include "controllers.hpp"
+#include "intervals.hpp"
 
 namespace memoris
 {
@@ -51,6 +52,9 @@ MainMenuController::MainMenuController(utils::Context& context) :
     background(context),
     menuGradient(context)
 {
+    /* animations times are all set to 0 */
+    titleLastAnimationTime = 0;
+
     /* the title color and selector color are copies from
        manager colors, because they are updated continually */
     colorTitle = context.getColorsManager().getColorBlueCopy();
@@ -146,14 +150,16 @@ unsigned short MainMenuController::render(utils::Context& context)
     /* apply the menu sub-surface */
     menuGradient.display(context);
 
-    /* TODO: #437 the management of the clock should be done with an unique
-       sf::Clock object, and be used separately in each controller */
-    if(clockTitle.getElapsedTime().asMilliseconds() >
-            policies::HasMenuSelectorAnimation::INTERVAL_ANIMATION
+    /* animate the main menu title according to its last animation time */
+    if(context.getClockMillisecondsTime() - titleLastAnimationTime >
+            memoris::intervals::MENU_ITEM_ANIMATION_MILLISECONDS_INTERVAL
       )
     {
         animateTitleColor();
-        clockTitle.restart();
+
+        /* update the title animation time with the current time
+           after the animation */
+        titleLastAnimationTime = context.getClockMillisecondsTime();
     }
 
     /* TODO: #438 to refactor */

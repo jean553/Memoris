@@ -98,6 +98,22 @@ void Context::stopMusic()
 /**
  *
  */
+sf::Int32 Context::getClockMillisecondsTime() const
+{
+    return clock.getElapsedTime().asMilliseconds();
+}
+
+/**
+ *
+ */
+void Context::restartClock()
+{
+    clock.restart();
+}
+
+/**
+ *
+ */
 memoris::fonts::FontsManager& Context::getFontsManager()
 {
     return fontsManager;
