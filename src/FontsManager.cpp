@@ -33,6 +33,12 @@ namespace memoris
 namespace fonts
 {
 
+/* font used for main title and sub-titles */
+const std::string FontsManager::TITLE_FONT = "res/fonts/crystal_regular.ttf";
+
+/* font used for menu items, buttons and texts */
+const std::string FontsManager::TEXT_FONT = "res/fonts/hi.otf";
+
 /**
  *
  */

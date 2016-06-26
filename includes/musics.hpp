@@ -32,19 +32,6 @@ namespace memoris
 {
 namespace musics
 {
-/* NOTE: the strings cannot be declared as constant expressions */
-
-/* music played in all the menus of the game */
-const std::string MAIN_MENU_MUSIC =
-    "res/musics/pokki-dj-made-in-italy.ogg";
-
-/* music played in the level editor of the game */
-const std::string EDITOR_MUSIC =
-    "res/musics/bigmanboo-back-to-the-90s-nostalgia.ogg";
-
-/* music played during the game */
-const std::string GAME_MUSIC =
-    "res/musics/J.O.R.B.I_-_2.Dancing_of_the_Night.ogg";
 
 /**
  * @brief returns the path of the music according to the controller id;
@@ -56,6 +43,7 @@ const std::string GAME_MUSIC =
  * @return std::string
  */
 std::string getMusicPathById(const unsigned short& id);
+
 }
 }
 
