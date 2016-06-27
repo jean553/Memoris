@@ -158,7 +158,7 @@ private:
 
     /* TODO: #436 to refactor, should be refactored in a middleware,
        class or trait */
-    unsigned short selectorPosition;
+    short selectorPosition;
     short selectorDirection;
 
     /* the title and selector colors are declared here

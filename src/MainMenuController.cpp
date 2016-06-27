@@ -265,12 +265,17 @@ void MainMenuController::animateTitleColor()
  */
 void MainMenuController::updateSelectorPosition(utils::Context& context)
 {
-    /* if the selector position is more than the Exit menu item position,
-       the New Game item becomes the selected item */
-    /* TODO: #441 going from exit to new game works but not going from new
-       game to exit */
+    /* limit de movement of the selector, according to the first and last
+       menu list item position */
+    /* TODO: #436 should be refactored in a middleware */
     selectorPosition = (
                            (selectorPosition > ITEM_EXIT) ?
+                           ITEM_EXIT :
+                           selectorPosition
+                       );
+
+    selectorPosition = (
+                           (selectorPosition < ITEM_NEW_GAME) ?
                            ITEM_NEW_GAME :
                            selectorPosition
                        );
