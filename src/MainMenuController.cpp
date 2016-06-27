@@ -136,7 +136,6 @@ MainMenuController::MainMenuController(utils::Context& context) :
     /* TODO: #436 should be refactored in a middleware controller type, for
        example AbstractMenuController */
     selectorPosition = 0;
-    selectorDirection = 1;
 }
 
 /**
@@ -161,9 +160,6 @@ unsigned short MainMenuController::render(utils::Context& context)
            after the animation */
         titleLastAnimationTime = context.getClockMillisecondsTime();
     }
-
-    /* TODO: #438 to refactor */
-    policies::HasMenuSelectorAnimation::animateMenuSelector<MainMenuController>(this);
 
     /* TODO: #439 for now, the current selected item color is continually
        updated, even when it is not necessary, should be refactored */

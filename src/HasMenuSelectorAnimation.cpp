@@ -66,6 +66,5 @@ void HasMenuSelectorAnimation::animateMenuSelector(T* pMenuController)
     clock.restart();
 }
 
-template void HasMenuSelectorAnimation::animateMenuSelector<controllers::MainMenuController>(controllers::MainMenuController* pMenuController);
 template void HasMenuSelectorAnimation::animateMenuSelector<controllers::EditorMenuController>(controllers::EditorMenuController* pMenuController);
 template void HasMenuSelectorAnimation::animateMenuSelector<controllers::SerieMainMenuController>(controllers::SerieMainMenuController* pMenuController);
