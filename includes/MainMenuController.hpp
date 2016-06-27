@@ -30,7 +30,6 @@
 #include <SFML/Audio.hpp>
 
 #include "Controller.hpp"
-#include "HasMenuSelectorAnimation.hpp"
 #include "AnimatedBackground.hpp"
 #include "MenuGradient.hpp"
 
@@ -41,8 +40,6 @@ namespace controllers
 
 class MainMenuController : public Controller
 {
-    /* TODO: #438 to delete, use a dedicated function */
-    friend class policies::HasMenuSelectorAnimation;
 
 public:
 
@@ -159,7 +156,6 @@ private:
     /* TODO: #436 to refactor, should be refactored in a middleware,
        class or trait */
     short selectorPosition;
-    short selectorDirection;
 
     /* the title and selector colors are declared here
        because they are animated and continually modified */
