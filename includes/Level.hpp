@@ -169,8 +169,8 @@ public:
      * @param hPosition vertical position
      */
     void setPosition(
-        const float_t& hPosition,
-        const float_t& vPosition
+        const float& hPosition,
+        const float& vPosition
     );
 
     /**

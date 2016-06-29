@@ -37,9 +37,9 @@ class SprtTransition
 public:
 
     SprtTransition(
-        const float_t& hrtlPstnRef,
-        const float_t& vrtlPstnRef,
-        const float_t& hrtlSizeRef
+        const float& hrtlPstnRef,
+        const float& vrtlPstnRef,
+        const float& hrtlSizeRef
     );
 
     /**
@@ -57,15 +57,15 @@ public:
 private:
 
     static const uint8_t INTERVAL;
-    static const float_t HRTL_INTERVAL;
+    static const float HRTL_INTERVAL;
 
     sf::Clock clk;
 
-    float_t hrtlPstn;
-    float_t vrtlPstn;
-    float_t hrtlSize;
+    float hrtlPstn;
+    float vrtlPstn;
+    float hrtlSize;
 
-    const float_t oriHrtlPstn;
+    const float oriHrtlPstn;
 
     int8_t drct;
 };

@@ -60,8 +60,8 @@ private:
     static const std::string OFF_SER_TITLE;
     static const std::string TEMPORARY_DEFAULT_SERIE;
 
-    static const float_t OFF_SER_TITLE_HRTL_PSTN;
-    static const float_t OFF_SER_TITLE_VRTL_PSTN;
+    static const float OFF_SER_TITLE_HRTL_PSTN;
+    static const float OFF_SER_TITLE_VRTL_PSTN;
 
     sf::Text offSerTitle;
 

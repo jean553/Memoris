@@ -64,18 +64,18 @@ private:
     static const std::string CUP_IMG_PATH;
     static const std::string GAME_IMG_PATH;
 
-    static const float_t OFFICIAL_HRTL_PSTN;
-    static const float_t OFFICIAL_VRTL_PSTN;
-    static const float_t PERSONAL_HRTL_PSTN;
-    static const float_t PERSONAL_VRTL_PSTN;
-    static const float_t BACK_HRTL_PSTN;
-    static const float_t BACK_VRTL_PSTN;
-    static const float_t TITLE_HRTL_PSTN;
-    static const float_t TITLE_VRTL_PSTN;
-    static const float_t TRLST_COMMON_HRTL_PSTN;
-    static const float_t TRLST_COMMON_HRTL_SIZE;
-    static const float_t CUP_TRLST_VRTL_PSTN;
-    static const float_t GAME_TRLST_VRTL_PSTN;
+    static const float OFFICIAL_HRTL_PSTN;
+    static const float OFFICIAL_VRTL_PSTN;
+    static const float PERSONAL_HRTL_PSTN;
+    static const float PERSONAL_VRTL_PSTN;
+    static const float BACK_HRTL_PSTN;
+    static const float BACK_VRTL_PSTN;
+    static const float TITLE_HRTL_PSTN;
+    static const float TITLE_VRTL_PSTN;
+    static const float TRLST_COMMON_HRTL_PSTN;
+    static const float TRLST_COMMON_HRTL_SIZE;
+    static const float CUP_TRLST_VRTL_PSTN;
+    static const float GAME_TRLST_VRTL_PSTN;
 
     static const uint8_t SERIE_MAIN_MENU_SELECTOR_MAX;
     static const uint8_t SERIE_MAIN_MENU_SELECTOR_MIN;

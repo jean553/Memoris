@@ -52,8 +52,8 @@ sf::Sprite HiddenCellPicture::getSprite() const
  *
  */
 void HiddenCellPicture::setSpritePosition(
-    float_t hPosition,
-    float_t vPosition
+    float hPosition,
+    float vPosition
 )
 {
     sprite.setPosition(

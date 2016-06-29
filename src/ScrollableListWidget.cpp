@@ -98,7 +98,7 @@ void ScrollableListWidget::initFromStrArr(
 )
 {
     uint8_t it = 0;
-    float_t hrtlPstnSide = 0.f;
+    float hrtlPstnSide = 0.f;
 
     /* TODO: use short as it is declared inside the
      * Fonts class, but should be changed... */

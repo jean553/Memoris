@@ -36,8 +36,8 @@ namespace controllers
 const std::string OfficialSeriesSelectorController::OFF_SER_TITLE = "Official series";
 const std::string OfficialSeriesSelectorController::TEMPORARY_DEFAULT_SERIE = "data/series/1.serie";
 
-const float_t OfficialSeriesSelectorController::OFF_SER_TITLE_HRTL_PSTN = 550.f;
-const float_t OfficialSeriesSelectorController::OFF_SER_TITLE_VRTL_PSTN = 50.f;
+const float OfficialSeriesSelectorController::OFF_SER_TITLE_HRTL_PSTN = 550.f;
+const float OfficialSeriesSelectorController::OFF_SER_TITLE_VRTL_PSTN = 50.f;
 
 /**
  *
