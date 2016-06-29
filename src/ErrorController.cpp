@@ -30,8 +30,8 @@ namespace memoris
 namespace controllers
 {
 
-const float_t ErrorController::ERR_HRTL_PSTN = 10.f;
-const float_t ErrorController::ERR_VRTL_PSTN = 10.f;
+const float ErrorController::ERR_HRTL_PSTN = 10.f;
+const float ErrorController::ERR_VRTL_PSTN = 10.f;
 
 /**
  *

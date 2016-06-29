@@ -89,17 +89,17 @@ private:
      */
     void displayArrDown(utils::Context& context);
 
-    static constexpr float_t SLTR_HRTL_PSTN = 20.f;
-    static constexpr float_t SLTR_HRTL_PSTN_SUFFIX = 1500.f;
-    static constexpr float_t SLTR_VRTL_PSTN = 200.f;
-    static constexpr float_t SLTR_VRTL_SPRT = 80.f;
+    static constexpr float SLTR_HRTL_PSTN = 20.f;
+    static constexpr float SLTR_HRTL_PSTN_SUFFIX = 1500.f;
+    static constexpr float SLTR_VRTL_PSTN = 200.f;
+    static constexpr float SLTR_VRTL_SPRT = 80.f;
 
     static constexpr uint8_t ITEMS_AMNT = 8;
     static constexpr uint8_t TIME_ITRVL = 10;
     static constexpr uint8_t COLOR_ITRVL = 5;
 
-    static constexpr float_t ARR_DOWN_HRTL_PSTN = 790.f;
-    static constexpr float_t ARR_DOWN_VRTL_PSTN = 850.f;
+    static constexpr float ARR_DOWN_HRTL_PSTN = 790.f;
+    static constexpr float ARR_DOWN_VRTL_PSTN = 850.f;
 
     static const std::string ARR_DOWN_IMG_PATH;
 

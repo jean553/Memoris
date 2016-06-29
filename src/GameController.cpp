@@ -46,8 +46,8 @@ const std::string GameController::TOTAL_STARS_IMG_PATH = "res/images/target.png"
 const std::string GameController::TIME_IMG_PATH = "res/images/timer.png";
 const std::string GameController::FLOOR_IMG_PATH = "res/images/floor.png";
 
-const float_t GameController::LEVEL_HORIZONTAL_POSITION = 300;
-const float_t GameController::LEVEL_VERTICAL_POSITION = 100;
+const float GameController::LEVEL_HORIZONTAL_POSITION = 300;
+const float GameController::LEVEL_VERTICAL_POSITION = 100;
 
 int32_t GameController::DEFAULT_WATCHING_TIME = 5000;
 
@@ -66,20 +66,20 @@ const int16_t GameController::FOUND_STAR_CELLS_VRTL_PSTN = -10;
 const uint16_t GameController::LIFES_HRTL_PSTN = 1200;
 const uint16_t GameController::LIFES_VRTL_PSTN = 35;
 
-const float_t GameController::TOTAL_STARS_HRTL_PSTN = 1050;
-const float_t GameController::TOTAL_STARS_VRTL_PSTN = -10;
-const float_t GameController::TARGET_HRTL_PSTN = 1100;
-const float_t GameController::TARGET_VRTL_PSTN = 0;
-const float_t GameController::TIME_HRTL_PSTN = 1050;
-const float_t GameController::TIME_VRTL_PSTN = 35;
-const float_t GameController::TIME_IMG_HRTL_PSTN = 1100;
-const float_t GameController::TIME_IMG_VRTL_PSTN = 50;
-const float_t GameController::LEFT_SEPARATOR_PSTN = 290;
-const float_t GameController::RIGHT_SEPARATOR_PSTN = 1308;
-const float_t GameController::FLOOR_HRTL_PSTN = 900;
-const float_t GameController::FLOOR_VRTL_PSTN = -10;
-const float_t GameController::FLOOR_IMG_HRTL_PSTN = 950;
-const float_t GameController::FLOOR_IMG_VRTL_PSTN = 0;
+const float GameController::TOTAL_STARS_HRTL_PSTN = 1050;
+const float GameController::TOTAL_STARS_VRTL_PSTN = -10;
+const float GameController::TARGET_HRTL_PSTN = 1100;
+const float GameController::TARGET_VRTL_PSTN = 0;
+const float GameController::TIME_HRTL_PSTN = 1050;
+const float GameController::TIME_VRTL_PSTN = 35;
+const float GameController::TIME_IMG_HRTL_PSTN = 1100;
+const float GameController::TIME_IMG_VRTL_PSTN = 50;
+const float GameController::LEFT_SEPARATOR_PSTN = 290;
+const float GameController::RIGHT_SEPARATOR_PSTN = 1308;
+const float GameController::FLOOR_HRTL_PSTN = 900;
+const float GameController::FLOOR_VRTL_PSTN = -10;
+const float GameController::FLOOR_IMG_HRTL_PSTN = 950;
+const float GameController::FLOOR_IMG_VRTL_PSTN = 0;
 
 /**
  *

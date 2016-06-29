@@ -54,8 +54,8 @@ public:
      * @param vPosition vertical position
      */
     void setSpritePosition(
-        float_t hPosition,
-        float_t vPosition
+        float hPosition,
+        float vPosition
     );
 
 private:

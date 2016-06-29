@@ -30,8 +30,8 @@
 using namespace utils;
 using namespace memoris;
 
-const float_t MenuGradient::MAIN_SURFACE_WIDTH = 620.f;
-const float_t MenuGradient::MAIN_SURFACE_HRTL_PSTN = 480.f;
+const float MenuGradient::MAIN_SURFACE_WIDTH = 620.f;
+const float MenuGradient::MAIN_SURFACE_HRTL_PSTN = 480.f;
 
 const uint16_t MenuGradient::SIDE_RECTANGLES_AMNT = 510;
 
@@ -89,7 +89,7 @@ void MenuGradient::display(utils::Context& context)
  */
 void MenuGradient::initializeGradientRectangles(utils::Context& context)
 {
-    float_t hrtlPstn = MAIN_SURFACE_HRTL_PSTN - 1.f;
+    float hrtlPstn = MAIN_SURFACE_HRTL_PSTN - 1.f;
 
     sf::Color effectColor = context.getColorsManager().getColorBlackCopy();
     sf::Uint8 alpha = 255;

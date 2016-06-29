@@ -302,8 +302,8 @@ void Level::setCellsCursorSensitivity(const bool& sensitivity)
  *
  */
 void Level::setPosition(
-    const float_t& hPosition,
-    const float_t& vPosition
+    const float& hPosition,
+    const float& vPosition
 )
 {
     horizontalPosition = hPosition;

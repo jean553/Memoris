@@ -127,8 +127,8 @@ private:
     static const std::string TIME_IMG_PATH;
     static const std::string FLOOR_IMG_PATH;
 
-    static const float_t LEVEL_HORIZONTAL_POSITION;
-    static const float_t LEVEL_VERTICAL_POSITION;
+    static const float LEVEL_HORIZONTAL_POSITION;
+    static const float LEVEL_VERTICAL_POSITION;
 
     static const uint16_t TIMER_HRTL_PSTN;
     static const uint16_t TIMER_VRTL_PSTN;
@@ -141,20 +141,20 @@ private:
     static const uint16_t LIFES_HRTL_PSTN;
     static const uint16_t LIFES_VRTL_PSTN;
 
-    static const float_t TOTAL_STARS_HRTL_PSTN;
-    static const float_t TOTAL_STARS_VRTL_PSTN;
-    static const float_t TARGET_HRTL_PSTN;
-    static const float_t TARGET_VRTL_PSTN;
-    static const float_t TIME_HRTL_PSTN;
-    static const float_t TIME_VRTL_PSTN;
-    static const float_t TIME_IMG_HRTL_PSTN;
-    static const float_t TIME_IMG_VRTL_PSTN;
-    static const float_t LEFT_SEPARATOR_PSTN;
-    static const float_t RIGHT_SEPARATOR_PSTN;
-    static const float_t FLOOR_HRTL_PSTN;
-    static const float_t FLOOR_VRTL_PSTN;
-    static const float_t FLOOR_IMG_HRTL_PSTN;
-    static const float_t FLOOR_IMG_VRTL_PSTN;
+    static const float TOTAL_STARS_HRTL_PSTN;
+    static const float TOTAL_STARS_VRTL_PSTN;
+    static const float TARGET_HRTL_PSTN;
+    static const float TARGET_VRTL_PSTN;
+    static const float TIME_HRTL_PSTN;
+    static const float TIME_VRTL_PSTN;
+    static const float TIME_IMG_HRTL_PSTN;
+    static const float TIME_IMG_VRTL_PSTN;
+    static const float LEFT_SEPARATOR_PSTN;
+    static const float RIGHT_SEPARATOR_PSTN;
+    static const float FLOOR_HRTL_PSTN;
+    static const float FLOOR_VRTL_PSTN;
+    static const float FLOOR_IMG_HRTL_PSTN;
+    static const float FLOOR_IMG_VRTL_PSTN;
 
     /**
      * @enum GameController::GameStatus

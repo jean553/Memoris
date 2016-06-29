@@ -30,15 +30,15 @@ using namespace utils;
 
 const uint8_t SprtTransition::INTERVAL = 10;
 
-const float_t SprtTransition::HRTL_INTERVAL = 10.f;
+const float SprtTransition::HRTL_INTERVAL = 10.f;
 
 /**
  *
  */
 SprtTransition::SprtTransition(
-    const float_t& hrtlPstnRef,
-    const float_t& vrtlPstnRef,
-    const float_t& hrtlSizeRef
+    const float& hrtlPstnRef,
+    const float& vrtlPstnRef,
+    const float& hrtlSizeRef
 ) : oriHrtlPstn(hrtlPstnRef)
 {
 

@@ -63,8 +63,8 @@ public:
 
 private:
 
-    static const float_t ERR_HRTL_PSTN;
-    static const float_t ERR_VRTL_PSTN;
+    static const float ERR_HRTL_PSTN;
+    static const float ERR_VRTL_PSTN;
 
     std::string errMsg;
 
