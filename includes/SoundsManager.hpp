@@ -25,6 +25,7 @@
 #ifndef MEMORIS_SOUNDSMANAGER_H_
 #define MEMORIS_SOUNDSMANAGER_H_
 
+#include "NotCopiable.hpp"
 #include "Sound.hpp"
 
 namespace memoris
@@ -32,18 +33,21 @@ namespace memoris
 namespace sounds
 {
 
-class SoundsManager
+class SoundsManager : public others::NotCopiable
 {
 
 public:
 
     /**
-     * @brief constructor, loads each sound file one by one, silently
-     * fails if the loading process fail; throw an exception and display
-     * a message in the console; the program continues even if one or many
-     * sounds file(s) cannot be loaded.
+     * @brief make the sounds manager a singleton class;
+     * creates a static singleton object, call the private
+     * constructor only one time; as the object is static,
+     * this unique object is returned everytime and we never
+     * create it again
+     *
+     * @return static SoundsManager&
      */
-    SoundsManager();
+    static SoundsManager& get();
 
     /**
      * @brief getter of the move selector sound if loaded
@@ -67,6 +71,15 @@ public:
     Sound& getHideLevelSound();
 
 private:
+
+    /**
+     * @brief constructor, loads each sound file one by one, silently
+     * fails if the loading process fail; throw an exception and display
+     * a message in the console; the program continues even if one or many
+     * sounds file(s) cannot be loaded; the sounds manager is private
+     * because loaded by the static get() function (singleton pattern)
+     */
+    SoundsManager();
 
     static const std::string MOVE_SELECTOR_SOUND_PATH;
     static const std::string SCREEN_TRANSITION_SOUND_PATH;

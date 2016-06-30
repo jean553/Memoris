@@ -25,6 +25,7 @@
 #include "Context.hpp"
 #include "controllers.hpp"
 #include "musics.hpp"
+#include "SoundsManager.hpp"
 
 using namespace memoris;
 
@@ -131,7 +132,7 @@ int main()
             /* if the program is not supposed to be terminated, the screen
                content is updated: a common sound is played during the
                visual switch */
-            context.getSoundsManager().getScreenTransitionSound().play();
+            sounds::SoundsManager::get().getScreenTransitionSound().play();
 
             /* restart the clock */
             context.restartClock();

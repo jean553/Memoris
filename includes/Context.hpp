@@ -29,7 +29,6 @@
 
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
-#include "SoundsManager.hpp"
 #include "TexturesManager.hpp"
 
 #include <string>
@@ -98,13 +97,6 @@ public:
      * @return memoris::colors::ColorsManager&
      */
     memoris::colors::ColorsManager& getColorsManager();
-
-    /**
-     * @brief returns a reference to the unique sounds manager object
-     *
-     * @return memoris::sounds::SoundsManager&
-     */
-    memoris::sounds::SoundsManager& getSoundsManager();
 
     /**
      * @brief returns a reference to the unique textures manager object
@@ -204,9 +196,6 @@ private:
 
     /* unique object of colors manager */
     memoris::colors::ColorsManager colorsManager;
-
-    /* unique object of sounds manager */
-    memoris::sounds::SoundsManager soundsManager;
 
     /* unique object of textures manager */
     memoris::textures::TexturesManager texturesManager;

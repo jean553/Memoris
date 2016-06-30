@@ -31,9 +31,9 @@
 #include "CellsFileRepresentations.hpp"
 #include "CellFactory.hpp"
 #include "fonts.hpp"
-
 #include "window.hpp"
 #include "controllers.hpp"
+#include "SoundsManager.hpp"
 
 namespace memoris
 {
@@ -285,7 +285,7 @@ unsigned short GameController::render(utils::Context& context)
             level.setPlayerCellAsEnabled();
         }
 
-        context.getSoundsManager().getHideLevelSound().play();
+        sounds::SoundsManager::get().getHideLevelSound().play();
 
         status = PLAYING;
         clock.restart();
