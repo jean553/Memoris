@@ -43,6 +43,18 @@ const std::string SoundsManager::HIDE_LEVEL_SOUND_PATH = "res/sounds/003.wav";
 /**
  *
  */
+SoundsManager& SoundsManager::get()
+{
+    /* create only one time a sounds manager instance */
+    static SoundsManager singleton;
+
+    /* always return the same sounds manager instance */
+    return singleton;
+}
+
+/**
+ *
+ */
 SoundsManager::SoundsManager() :
     moveSelectorSound(MOVE_SELECTOR_SOUND_PATH),
     screenTransitionSound(SCREEN_TRANSITION_SOUND_PATH),

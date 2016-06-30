@@ -130,14 +130,6 @@ memoris::colors::ColorsManager& Context::getColorsManager()
 /**
  *
  */
-memoris::sounds::SoundsManager& Context::getSoundsManager()
-{
-    return soundsManager;
-}
-
-/**
- *
- */
 memoris::textures::TexturesManager& Context::getTexturesManager()
 {
     return texturesManager;

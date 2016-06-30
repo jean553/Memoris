@@ -23,6 +23,8 @@
 
 #include "MainMenuController.hpp"
 
+#include "SoundsManager.hpp"
+
 #include "fonts.hpp"
 #include "controllers.hpp"
 #include "intervals.hpp"
@@ -190,7 +192,7 @@ unsigned short MainMenuController::render(utils::Context& context)
             {
             case sf::Keyboard::Up:
             {
-                context.getSoundsManager().getMoveSelectorSound().play();
+                sounds::SoundsManager::get().getMoveSelectorSound().play();
 
                 selectorPosition--;
 
@@ -198,7 +200,7 @@ unsigned short MainMenuController::render(utils::Context& context)
             }
             case sf::Keyboard::Down:
             {
-                context.getSoundsManager().getMoveSelectorSound().play();
+                sounds::SoundsManager::get().getMoveSelectorSound().play();
 
                 selectorPosition++;
 

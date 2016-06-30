@@ -55,6 +55,7 @@ OBJS = \
 	   build/SoundsManager.o \
 	   build/TexturesManager.o \
 	   build/Sound.o \
+	   build/NotCopiable.o \
 	   build/ScrollableListWidget.o
 
 INC = -I includes
@@ -121,6 +122,11 @@ build/MenuGradient.o: src/MenuGradient.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/SprtTransition.o: src/SprtTransition.cpp
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+
+# others
+
+build/NotCopiable.o: src/NotCopiable.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 # defines
