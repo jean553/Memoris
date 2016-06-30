@@ -23,7 +23,9 @@
  */
 
 #include "ErrorController.hpp"
+
 #include "controllers.hpp"
+#include "FontsManager.hpp"
 
 namespace memoris
 {
@@ -41,7 +43,7 @@ ErrorController::ErrorController(
     const std::string& msg
 ) : Controller(context)
 {
-    error.setFont(context.getFontsManager().getTextFont());
+    error.setFont(memoris::fonts::FontsManager::get().getTextFont());
     error.setString(msg);
     error.setCharacterSize(memoris::fonts::TEXT_SIZE);
     error.setColor(context.getColorsManager().getColorRed());

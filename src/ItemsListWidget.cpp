@@ -25,7 +25,7 @@
 #include "ItemsListWidget.hpp"
 
 #include "fonts.hpp"
-
+#include "FontsManager.hpp"
 
 using namespace widgets;
 
@@ -223,7 +223,7 @@ void ItemsListWidget::display(utils::Context& context)
 
         sf::Text item;
 
-        item.setFont(context.getFontsManager().getTextFont());
+        item.setFont(memoris::fonts::FontsManager::get().getTextFont());
         item.setCharacterSize(ITEMS_LIST_ITEM_HEIGHT);
         item.setColor(context.getColorsManager().getColorWhite());
         item.setString(*textItem);

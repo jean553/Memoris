@@ -24,8 +24,8 @@
 
 #include "TitleBarWidget.hpp"
 
-
 #include "fonts.hpp"
+#include "FontsManager.hpp"
 
 using namespace widgets;
 
@@ -48,7 +48,7 @@ TitleBarWidget::TitleBarWidget(
 {
     setText(barText);
 
-    displayedText.setFont(context.getFontsManager().getTextFont());
+    displayedText.setFont(memoris::fonts::FontsManager::get().getTextFont());
     displayedText.setString(text);
     displayedText.setCharacterSize(SIZE_TITLE_BAR_TEXT_FONT);
     displayedText.setColor(context.getColorsManager().getColorOrange());

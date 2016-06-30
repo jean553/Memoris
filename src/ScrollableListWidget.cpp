@@ -24,8 +24,9 @@
  */
 
 #include "ScrollableListWidget.hpp"
-#include "fonts.hpp"
 
+#include "fonts.hpp"
+#include "FontsManager.hpp"
 
 using namespace widgets;
 
@@ -118,7 +119,7 @@ void ScrollableListWidget::initFromStrArr(
     {
         sf::Text txt;
 
-        txt.setFont(context.getFontsManager().getTextFont());
+        txt.setFont(memoris::fonts::FontsManager::get().getTextFont());
         txt.setString(str);
         txt.setCharacterSize(size);
         txt.setColor(context.getColorsManager().getColorWhite());

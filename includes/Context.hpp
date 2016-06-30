@@ -27,7 +27,6 @@
 #ifndef MEMORIS_CONTEXT_H_
 #define MEMORIS_CONTEXT_H_
 
-#include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "TexturesManager.hpp"
 
@@ -83,13 +82,6 @@ public:
      * to another
      */
     void restartClock();
-
-    /**
-     * @brief returns a reference to the unique fonts manager object
-     *
-     * @return memoris::fonts::FontsManager&
-     */
-    memoris::fonts::FontsManager& getFontsManager();
 
     /**
      * @brief returns a reference to the unique colors manager object
@@ -190,9 +182,6 @@ private:
     /* all the managers create and store SFML objects,
        they provide public method to access to these
        objects */
-
-    /* unique object of fonts factory */
-    memoris::fonts::FontsManager fontsManager;
 
     /* unique object of colors manager */
     memoris::colors::ColorsManager colorsManager;

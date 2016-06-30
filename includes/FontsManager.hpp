@@ -28,6 +28,8 @@
 #ifndef MEMORIS_FONTSMANAGER_H_
 #define MEMORIS_FONTSMANAGER_H_
 
+#include "NotCopiable.hpp"
+
 #include <SFML/Graphics.hpp>
 
 namespace memoris
@@ -35,17 +37,21 @@ namespace memoris
 namespace fonts
 {
 
-class FontsManager
+class FontsManager : public others::NotCopiable
 {
 
 public:
 
     /**
-     * @brief constructor, loads each font file one by one, throw an exception
-     * if one loading process failed; the exception is not caught and stops
-     * the program, an error message is displayed in the console
+     * @brief make the fonts manager a singleton class;
+     * creates a static singleton object, call the private
+     * constructor only one time; as the object is static,
+     * this unique object is returned everytime and we never
+     * create it again
+     *
+     * @return static FontsManager&
      */
-    FontsManager();
+    static FontsManager& get();
 
     /**
      * @brief get title font reference
@@ -62,6 +68,13 @@ public:
     sf::Font& getTextFont();
 
 private:
+
+    /**
+     * @brief constructor, loads each font file one by one, throw an exception
+     * if one loading process failed; the exception is not caught and stops
+     * the program, an error message is displayed in the console
+     */
+    FontsManager();
 
     /* font used for main title and sub-titles */
     static const std::string TITLE_FONT;
