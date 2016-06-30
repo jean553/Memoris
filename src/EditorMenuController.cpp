@@ -27,6 +27,7 @@
 #include "fonts.hpp"
 #include "controllers.hpp"
 #include "SoundsManager.hpp"
+#include "FontsManager.hpp"
 
 namespace memoris
 {
@@ -61,7 +62,7 @@ EditorMenuController::EditorMenuController(utils::Context& context) :
        why this is a copy of the red color */
     colorSelector = context.getColorsManager().getColorRedCopy();
 
-    itemLevelsEditor.setFont(context.getFontsManager().getTextFont());
+    itemLevelsEditor.setFont(memoris::fonts::FontsManager::get().getTextFont());
     itemLevelsEditor.setString(STRING_LEVELS_EDITOR);
     itemLevelsEditor.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemLevelsEditor.setColor(colorSelector);
@@ -70,7 +71,7 @@ EditorMenuController::EditorMenuController(utils::Context& context) :
         POSITION_ITEM_LEVELS_EDITOR_Y
     );
 
-    itemSeriesEditor.setFont(context.getFontsManager().getTextFont());
+    itemSeriesEditor.setFont(memoris::fonts::FontsManager::get().getTextFont());
     itemSeriesEditor.setString(STRING_SERIES_EDITOR);
     itemSeriesEditor.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemSeriesEditor.setColor(context.getColorsManager().getColorWhite());
@@ -79,7 +80,7 @@ EditorMenuController::EditorMenuController(utils::Context& context) :
         POSITION_ITEM_SERIES_EDITOR_Y
     );
 
-    itemBack.setFont(context.getFontsManager().getTextFont());
+    itemBack.setFont(memoris::fonts::FontsManager::get().getTextFont());
     itemBack.setString(STRING_BACK);
     itemBack.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemBack.setColor(context.getColorsManager().getColorWhite());

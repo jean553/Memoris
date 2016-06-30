@@ -24,8 +24,8 @@
 
 #include "InputTextWidget.hpp"
 
-
 #include "fonts.hpp"
+#include "FontsManager.hpp"
 
 using namespace widgets;
 
@@ -49,7 +49,7 @@ InputTextWidget::InputTextWidget(utils::Context& context)
     displayCursor = true;
     setMaximumCharacters(DEFAULT_MAXIMUM_CHARACTERS);
 
-    displayedText.setFont(context.getFontsManager().getTextFont());
+    displayedText.setFont(memoris::fonts::FontsManager::get().getTextFont());
     displayedText.setCharacterSize(SIZE_INPUT_TEXT_FONT);
     displayedText.setColor(context.getColorsManager().getColorLightBlue());
 

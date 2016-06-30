@@ -23,12 +23,12 @@
  */
 
 #include "EditorSerieController.hpp"
+
 #include "Dimensions.hpp"
 #include "Positions.hpp"
 #include "Directories.hpp"
 #include "Extensions.hpp"
 #include "fonts.hpp"
-
 #include "DirReader.hpp"
 #include "StringsListsUtils.hpp"
 #include "FileWriter.hpp"
@@ -36,6 +36,7 @@
 #include "Messages.hpp"
 #include "window.hpp"
 #include "controllers.hpp"
+#include "FontsManager.hpp"
 
 namespace memoris
 {
@@ -160,11 +161,11 @@ EditorSerieController::EditorSerieController(utils::Context& context) :
         SIZE_NEW_SERIE_TEXT
     );
 
-    serieNameLabel.setFont(context.getFontsManager().getTextFont());
+    serieNameLabel.setFont(memoris::fonts::FontsManager::get().getTextFont());
     serieNameLabel.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
     serieNameLabel.setColor(context.getColorsManager().getColorGrey());
 
-    errorLabel.setFont(context.getFontsManager().getTextFont());
+    errorLabel.setFont(memoris::fonts::FontsManager::get().getTextFont());
     errorLabel.setCharacterSize(memoris::fonts::INFORMATION_SIZE);
     errorLabel.setColor(context.getColorsManager().getColorRed());
     errorLabel.setString(STRING_NEW_SERIE_ERROR);
@@ -173,7 +174,7 @@ EditorSerieController::EditorSerieController(utils::Context& context) :
         ERROR_MESSAGE_POSITION_Y
     );
 
-    levelErrorLabel.setFont(context.getFontsManager().getTextFont());
+    levelErrorLabel.setFont(memoris::fonts::FontsManager::get().getTextFont());
     levelErrorLabel.setCharacterSize(memoris::fonts::INFORMATION_SIZE);
     levelErrorLabel.setColor(context.getColorsManager().getColorRed());
     levelErrorLabel.setString(STRING_NEW_LEVEL_ERROR);

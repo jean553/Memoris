@@ -23,12 +23,13 @@
  */
 
 #include "OpenLevelController.hpp"
+
 #include "DirReader.hpp"
 #include "Screens.hpp"
 #include "Messages.hpp"
 #include "fonts.hpp"
-
 #include "controllers.hpp"
+#include "FontsManager.hpp"
 
 namespace memoris
 {
@@ -75,7 +76,7 @@ OpenLevelController::OpenLevelController(utils::Context& context) :
         )
     );
 
-    errorLabel.setFont(context.getFontsManager().getTextFont());
+    errorLabel.setFont(memoris::fonts::FontsManager::get().getTextFont());
     errorLabel.setCharacterSize(memoris::fonts::INFORMATION_SIZE);
     errorLabel.setColor(context.getColorsManager().getColorRed());
     errorLabel.setString(STRING_ALREADY_ADDED_ERROR_MESSAGE);

@@ -27,6 +27,7 @@
 #include "fonts.hpp"
 #include "FileWriter.hpp"
 #include "controllers.hpp"
+#include "FontsManager.hpp"
 
 namespace memoris
 {
@@ -46,7 +47,7 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController(utils::Contex
     Controller(context),
     scrlList(context)
 {
-    offSerTitle.setFont(context.getFontsManager().getTitleFont());
+    offSerTitle.setFont(memoris::fonts::FontsManager::get().getTitleFont());
     offSerTitle.setString(OFF_SER_TITLE);
     offSerTitle.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
     offSerTitle.setColor(context.getColorsManager().getColorLightBlue());

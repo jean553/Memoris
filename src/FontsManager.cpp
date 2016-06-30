@@ -42,6 +42,18 @@ const std::string FontsManager::TEXT_FONT = "res/fonts/hi.otf";
 /**
  *
  */
+FontsManager& FontsManager::get()
+{
+    /* create only one time a fonts manager instance */
+    static FontsManager singleton;
+
+    /* always return the same fonts manager instance */
+    return singleton;
+}
+
+/**
+ *
+ */
 FontsManager::FontsManager()
 {
     /* try to open each font file one by one; in case

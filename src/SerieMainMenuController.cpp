@@ -27,6 +27,7 @@
 #include "SoundsManager.hpp"
 #include "fonts.hpp"
 #include "controllers.hpp"
+#include "FontsManager.hpp"
 
 namespace memoris
 {
@@ -75,14 +76,14 @@ SerieMainMenuController::SerieMainMenuController(utils::Context& context) :
         TRLST_COMMON_HRTL_SIZE
     )
 {
-    context.getFontsManager().getTitleFont().loadFromFile(memoris::fonts::TITLE_FONT);
-    context.getFontsManager().getTextFont().loadFromFile(memoris::fonts::TEXT_FONT);
+    memoris::fonts::FontsManager::get().getTitleFont().loadFromFile(memoris::fonts::TITLE_FONT);
+    memoris::fonts::FontsManager::get().getTextFont().loadFromFile(memoris::fonts::TEXT_FONT);
 
     /* this color is continually updated, that's
        why this is a copy of the red color */
     colorSelector = context.getColorsManager().getColorRedCopy();
 
-    title.setFont(context.getFontsManager().getTitleFont());
+    title.setFont(memoris::fonts::FontsManager::get().getTitleFont());
     title.setString(TITLE_STR);
     title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
     title.setColor(context.getColorsManager().getColorLightBlue());
@@ -91,7 +92,7 @@ SerieMainMenuController::SerieMainMenuController(utils::Context& context) :
         TITLE_VRTL_PSTN
     );
 
-    itemOfficialSeries.setFont(context.getFontsManager().getTextFont());
+    itemOfficialSeries.setFont(memoris::fonts::FontsManager::get().getTextFont());
     itemOfficialSeries.setString(OFFICIAL_STR);
     itemOfficialSeries.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemOfficialSeries.setColor(colorSelector);
@@ -100,7 +101,7 @@ SerieMainMenuController::SerieMainMenuController(utils::Context& context) :
         OFFICIAL_VRTL_PSTN
     );
 
-    itemPersonalSeries.setFont(context.getFontsManager().getTextFont());
+    itemPersonalSeries.setFont(memoris::fonts::FontsManager::get().getTextFont());
     itemPersonalSeries.setString(PERSONAL_STR);
     itemPersonalSeries.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemPersonalSeries.setColor(context.getColorsManager().getColorWhite());
@@ -109,7 +110,7 @@ SerieMainMenuController::SerieMainMenuController(utils::Context& context) :
         PERSONAL_VRTL_PSTN
     );
 
-    itemBack.setFont(context.getFontsManager().getTextFont());
+    itemBack.setFont(memoris::fonts::FontsManager::get().getTextFont());
     itemBack.setString(BACK_STR);
     itemBack.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemBack.setColor(context.getColorsManager().getColorWhite());

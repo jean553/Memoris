@@ -24,8 +24,8 @@
 
 #include "ButtonWidget.hpp"
 
-
 #include "fonts.hpp"
+#include "FontsManager.hpp"
 
 using namespace widgets;
 
@@ -67,7 +67,7 @@ void ButtonWidget::setLayout(
         buttonVerticalPosition
     );
 
-    buttonText.setFont(context.getFontsManager().getTextFont());
+    buttonText.setFont(memoris::fonts::FontsManager::get().getTextFont());
     buttonText.setCharacterSize(SIZE_BUTTON_TEXT_FONT);
     buttonText.setPosition(
         buttonHorizontalPosition +

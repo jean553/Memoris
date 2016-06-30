@@ -34,6 +34,7 @@
 #include "window.hpp"
 #include "controllers.hpp"
 #include "SoundsManager.hpp"
+#include "FontsManager.hpp"
 
 namespace memoris
 {
@@ -116,7 +117,7 @@ GameController::GameController(utils::Context& context) :
     );
     level.setCellsCursorSensitivity(false);
 
-    time.setFont(context.getFontsManager().getTextFont());
+    time.setFont(memoris::fonts::FontsManager::get().getTextFont());
     time.setCharacterSize(memoris::fonts::TEXT_SIZE);
     time.setColor(context.getColorsManager().getColorWhite());
     time.setPosition(
@@ -126,7 +127,7 @@ GameController::GameController(utils::Context& context) :
 
     /* TODO: set a constant string for now, should change
      * according to the found stars... */
-    foundStarsAmntStr.setFont(context.getFontsManager().getTextFont());
+    foundStarsAmntStr.setFont(memoris::fonts::FontsManager::get().getTextFont());
     foundStarsAmntStr.setString("0");
     foundStarsAmntStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
     foundStarsAmntStr.setColor(context.getColorsManager().getColorWhite());
@@ -135,7 +136,7 @@ GameController::GameController(utils::Context& context) :
         FOUND_STAR_CELLS_VRTL_PSTN
     );
 
-    lifesAmntStr.setFont(context.getFontsManager().getTextFont());
+    lifesAmntStr.setFont(memoris::fonts::FontsManager::get().getTextFont());
     lifesAmntStr.setString(std::to_string(lifesAmount));
     lifesAmntStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
     lifesAmntStr.setColor(context.getColorsManager().getColorWhite());
@@ -144,7 +145,7 @@ GameController::GameController(utils::Context& context) :
         LIFES_VRTL_PSTN
     );
 
-    timeStr.setFont(context.getFontsManager().getTextFont());
+    timeStr.setFont(memoris::fonts::FontsManager::get().getTextFont());
     timeStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
     timeStr.setColor(context.getColorsManager().getColorWhite());
     timeStr.setPosition(
@@ -153,7 +154,7 @@ GameController::GameController(utils::Context& context) :
     );
 
     /* TODO: static string for now... */
-    floorStr.setFont(context.getFontsManager().getTextFont());
+    floorStr.setFont(memoris::fonts::FontsManager::get().getTextFont());
     floorStr.setString(std::to_string(floor));
     floorStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
     floorStr.setColor(context.getColorsManager().getColorWhite());
@@ -164,7 +165,7 @@ GameController::GameController(utils::Context& context) :
 
     starCellsAmount = level.getStarCellsAmount();
 
-    targetStr.setFont(context.getFontsManager().getTextFont());
+    targetStr.setFont(memoris::fonts::FontsManager::get().getTextFont());
     targetStr.setString(std::to_string(starCellsAmount));
     targetStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
     targetStr.setColor(context.getColorsManager().getColorWhite());

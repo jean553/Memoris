@@ -26,9 +26,9 @@
  */
 
 #include "EditorLevelController.hpp"
+
 #include "Positions.hpp"
 #include "Dimensions.hpp"
-
 #include "fonts.hpp"
 #include "Directories.hpp"
 #include "Extensions.hpp"
@@ -41,6 +41,7 @@
 #include "CellsFileRepresentations.hpp"
 #include "window.hpp"
 #include "controllers.hpp"
+#include "FontsManager.hpp"
 
 namespace memoris
 {
@@ -149,11 +150,11 @@ EditorLevelController::EditorLevelController(utils::Context& context) :
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
-    levelNameLabel.setFont(context.getFontsManager().getTextFont());
+    levelNameLabel.setFont(memoris::fonts::FontsManager::get().getTextFont());
     levelNameLabel.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
     levelNameLabel.setColor(context.getColorsManager().getColorGrey());
 
-    errorLabel.setFont(context.getFontsManager().getTextFont());
+    errorLabel.setFont(memoris::fonts::FontsManager::get().getTextFont());
     errorLabel.setCharacterSize(memoris::fonts::INFORMATION_SIZE);
     errorLabel.setColor(context.getColorsManager().getColorRed());
     errorLabel.setString(STRING_NEW_LEVEL_ERROR);
@@ -162,7 +163,7 @@ EditorLevelController::EditorLevelController(utils::Context& context) :
         ERROR_MESSAGE_POSITION_Y
     );
 
-    floorPrefixLabel.setFont(context.getFontsManager().getTextFont());
+    floorPrefixLabel.setFont(memoris::fonts::FontsManager::get().getTextFont());
     floorPrefixLabel.setCharacterSize(memoris::fonts::INFORMATION_SIZE);
     floorPrefixLabel.setColor(context.getColorsManager().getColorWhite());
     floorPrefixLabel.setString(STRING_FLOOR_PREFIX_LABEL);
@@ -171,7 +172,7 @@ EditorLevelController::EditorLevelController(utils::Context& context) :
         FLOOR_PREFIX_LABEL_VERTICAL_POSITION
     );
 
-    floorLabel.setFont(context.getFontsManager().getTextFont());
+    floorLabel.setFont(memoris::fonts::FontsManager::get().getTextFont());
     floorLabel.setCharacterSize(memoris::fonts::TEXT_SIZE);
     floorLabel.setColor(context.getColorsManager().getColorWhite());
     floorLabel.setString(std::to_string(currentFloor + 1));

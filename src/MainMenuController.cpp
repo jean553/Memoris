@@ -24,7 +24,7 @@
 #include "MainMenuController.hpp"
 
 #include "SoundsManager.hpp"
-
+#include "FontsManager.hpp"
 #include "fonts.hpp"
 #include "controllers.hpp"
 #include "intervals.hpp"
@@ -63,7 +63,7 @@ MainMenuController::MainMenuController(utils::Context& context) :
     colorSelector = context.getColorsManager().getColorRedCopy();
 
     /* initialize the title text label, at the top center of the screen */
-    title.setFont(context.getFontsManager().getTitleFont());
+    title.setFont(memoris::fonts::FontsManager::get().getTitleFont());
     title.setString(TITLE);
     title.setCharacterSize(memoris::fonts::TITLE_SIZE);
     title.setColor(colorTitle);
@@ -73,7 +73,7 @@ MainMenuController::MainMenuController(utils::Context& context) :
     );
 
     /* initialize the new game menu item */
-    itemNewGame.setFont(context.getFontsManager().getTextFont());
+    itemNewGame.setFont(memoris::fonts::FontsManager::get().getTextFont());
     itemNewGame.setString(NEW_GAME);
     itemNewGame.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemNewGame.setColor(colorSelector);
@@ -83,7 +83,7 @@ MainMenuController::MainMenuController(utils::Context& context) :
     );
 
     /* initialize the open game menu item */
-    itemLoadGame.setFont(context.getFontsManager().getTextFont());
+    itemLoadGame.setFont(memoris::fonts::FontsManager::get().getTextFont());
     itemLoadGame.setString(LOAD_GAME);
     itemLoadGame.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemLoadGame.setColor(context.getColorsManager().getColorWhite());
@@ -93,7 +93,7 @@ MainMenuController::MainMenuController(utils::Context& context) :
     );
 
     /* initialize the editor menu item */
-    itemEditor.setFont(context.getFontsManager().getTextFont());
+    itemEditor.setFont(memoris::fonts::FontsManager::get().getTextFont());
     itemEditor.setString(EDITOR);
     itemEditor.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemEditor.setColor(context.getColorsManager().getColorWhite());
@@ -103,7 +103,7 @@ MainMenuController::MainMenuController(utils::Context& context) :
     );
 
     /* initialize the options menu item */
-    itemOptions.setFont(context.getFontsManager().getTextFont());
+    itemOptions.setFont(memoris::fonts::FontsManager::get().getTextFont());
     itemOptions.setString(OPTIONS);
     itemOptions.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemOptions.setColor(context.getColorsManager().getColorWhite());
@@ -113,7 +113,7 @@ MainMenuController::MainMenuController(utils::Context& context) :
     );
 
     /* initialize the exit menu item */
-    itemExit.setFont(context.getFontsManager().getTextFont());
+    itemExit.setFont(memoris::fonts::FontsManager::get().getTextFont());
     itemExit.setString(EXIT);
     itemExit.setCharacterSize(memoris::fonts::ITEM_SIZE);
     itemExit.setColor(context.getColorsManager().getColorWhite());
