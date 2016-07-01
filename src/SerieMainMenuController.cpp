@@ -77,9 +77,6 @@ SerieMainMenuController::SerieMainMenuController(utils::Context& context) :
         TRLST_COMMON_HRTL_SIZE
     )
 {
-    memoris::fonts::FontsManager::get().getTitleFont().loadFromFile(memoris::fonts::TITLE_FONT);
-    memoris::fonts::FontsManager::get().getTextFont().loadFromFile(memoris::fonts::TEXT_FONT);
-
     /* this color is continually updated, that's
        why this is a copy of the red color */
     colorSelector = memoris::colors::ColorsManager::get().getColorRedCopy();
