@@ -31,7 +31,6 @@ namespace memoris
 {
 namespace fonts
 {
-/* NOTE: the strings cannot be declared as constant expressions */
 
 /* used for the unique main title in the main menu */
 constexpr unsigned short TITLE_SIZE = 140;
@@ -50,11 +49,6 @@ constexpr unsigned short TEXT_SIZE = 50;
    the editors ( files errors, names errors... ) */
 constexpr unsigned short INFORMATION_SIZE = 30;
 
-/* font used for main title and sub-titles */
-const std::string TITLE_FONT = "res/fonts/crystal_regular.ttf";
-
-/* font used for menu items, buttons and texts */
-const std::string TEXT_FONT = "res/fonts/hi.otf";
 };
 }
 
