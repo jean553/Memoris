@@ -29,6 +29,7 @@
 #include "fonts.hpp"
 #include "controllers.hpp"
 #include "FontsManager.hpp"
+#include "ColorsManager.hpp"
 
 namespace memoris
 {
@@ -58,7 +59,7 @@ NewGameController::NewGameController(utils::Context& context) :
     title.setFont(memoris::fonts::FontsManager::get().getTitleFont());
     title.setString(STRING_NEW_GAME_TITLE);
     title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
-    title.setColor(context.getColorsManager().getColorLightBlue());
+    title.setColor(memoris::colors::ColorsManager::get().getColorLightBlue());
     title.setPosition(
         POSITION_NEW_GAME_TITLE_X,
         POSITION_NEW_GAME_TITLE_Y
@@ -67,7 +68,7 @@ NewGameController::NewGameController(utils::Context& context) :
     explanation.setFont(memoris::fonts::FontsManager::get().getTextFont());
     explanation.setString(STRING_NEW_GAME_EXPLANATION);
     explanation.setCharacterSize(memoris::fonts::TEXT_SIZE);
-    explanation.setColor(context.getColorsManager().getColorWhite());
+    explanation.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     explanation.setPosition(
         POSITION_NEW_GAME_EXPLANATION_X,
         POSITION_NEW_GAME_EXPLANATION_Y

@@ -26,6 +26,7 @@
 
 #include "controllers.hpp"
 #include "FontsManager.hpp"
+#include "ColorsManager.hpp"
 
 namespace memoris
 {
@@ -46,7 +47,7 @@ ErrorController::ErrorController(
     error.setFont(memoris::fonts::FontsManager::get().getTextFont());
     error.setString(msg);
     error.setCharacterSize(memoris::fonts::TEXT_SIZE);
-    error.setColor(context.getColorsManager().getColorRed());
+    error.setColor(memoris::colors::ColorsManager::get().getColorRed());
     error.setPosition(
         ERR_HRTL_PSTN,
         ERR_VRTL_PSTN

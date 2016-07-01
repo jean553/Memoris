@@ -114,14 +114,6 @@ void Context::restartClock()
 /**
  *
  */
-memoris::colors::ColorsManager& Context::getColorsManager()
-{
-    return colorsManager;
-}
-
-/**
- *
- */
 memoris::textures::TexturesManager& Context::getTexturesManager()
 {
     return texturesManager;

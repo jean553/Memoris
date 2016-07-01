@@ -26,6 +26,7 @@
 #include "MenuGradient.hpp"
 
 #include "window.hpp"
+#include "ColorsManager.hpp"
 
 using namespace utils;
 using namespace memoris;
@@ -51,7 +52,7 @@ MenuGradient::MenuGradient(utils::Context& context)
 
     main.setPosition(MAIN_SURFACE_HRTL_PSTN, 0);
 
-    main.setFillColor(context.getColorsManager().getColorBlack());
+    main.setFillColor(memoris::colors::ColorsManager::get().getColorBlack());
 
     initializeGradientRectangles(context);
 }
@@ -91,7 +92,7 @@ void MenuGradient::initializeGradientRectangles(utils::Context& context)
 {
     float hrtlPstn = MAIN_SURFACE_HRTL_PSTN - 1.f;
 
-    sf::Color effectColor = context.getColorsManager().getColorBlackCopy();
+    sf::Color effectColor = memoris::colors::ColorsManager::get().getColorBlackCopy();
     sf::Uint8 alpha = 255;
 
     /* initialize the left rectangles */

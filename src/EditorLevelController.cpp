@@ -42,6 +42,7 @@
 #include "window.hpp"
 #include "controllers.hpp"
 #include "FontsManager.hpp"
+#include "ColorsManager.hpp"
 
 namespace memoris
 {
@@ -152,11 +153,11 @@ EditorLevelController::EditorLevelController(utils::Context& context) :
 
     levelNameLabel.setFont(memoris::fonts::FontsManager::get().getTextFont());
     levelNameLabel.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
-    levelNameLabel.setColor(context.getColorsManager().getColorGrey());
+    levelNameLabel.setColor(memoris::colors::ColorsManager::get().getColorGrey());
 
     errorLabel.setFont(memoris::fonts::FontsManager::get().getTextFont());
     errorLabel.setCharacterSize(memoris::fonts::INFORMATION_SIZE);
-    errorLabel.setColor(context.getColorsManager().getColorRed());
+    errorLabel.setColor(memoris::colors::ColorsManager::get().getColorRed());
     errorLabel.setString(STRING_NEW_LEVEL_ERROR);
     errorLabel.setPosition(
         ERROR_MESSAGE_POSITION_X,
@@ -165,7 +166,7 @@ EditorLevelController::EditorLevelController(utils::Context& context) :
 
     floorPrefixLabel.setFont(memoris::fonts::FontsManager::get().getTextFont());
     floorPrefixLabel.setCharacterSize(memoris::fonts::INFORMATION_SIZE);
-    floorPrefixLabel.setColor(context.getColorsManager().getColorWhite());
+    floorPrefixLabel.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     floorPrefixLabel.setString(STRING_FLOOR_PREFIX_LABEL);
     floorPrefixLabel.setPosition(
         FLOOR_PREFIX_LABEL_HORIZONTAL_POSITION,
@@ -174,7 +175,7 @@ EditorLevelController::EditorLevelController(utils::Context& context) :
 
     floorLabel.setFont(memoris::fonts::FontsManager::get().getTextFont());
     floorLabel.setCharacterSize(memoris::fonts::TEXT_SIZE);
-    floorLabel.setColor(context.getColorsManager().getColorWhite());
+    floorLabel.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     floorLabel.setString(std::to_string(currentFloor + 1));
     floorLabel.setPosition(
         FLOOR_LABEL_HORIZONTAL_POSITION,
@@ -426,11 +427,11 @@ void EditorLevelController::displaySavedLevelName(
 {
     if (saved)
     {
-        levelNameLabel.setColor(context.getColorsManager().getColorWhite());
+        levelNameLabel.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     }
     else
     {
-        levelNameLabel.setColor(context.getColorsManager().getColorGrey());
+        levelNameLabel.setColor(memoris::colors::ColorsManager::get().getColorGrey());
     }
 }
 

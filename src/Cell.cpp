@@ -24,8 +24,9 @@
  */
 
 #include "Cell.hpp"
-#include "Dimensions.hpp"
 
+#include "Dimensions.hpp"
+#include "ColorsManager.hpp"
 
 using namespace entities;
 
@@ -46,7 +47,7 @@ Cell::Cell(utils::Context& context)
       find a solution for this... */
     /* the selector color is continually updated, that's
        why we copy it from the red color first */
-    selectorColor = context.getColorsManager().getColorRed();
+    selectorColor = memoris::colors::ColorsManager::get().getColorRed();
     initializeCommonAttributes();
 }
 
@@ -77,7 +78,7 @@ Cell::Cell(
     std::string fileValue) :
     stringRepresentation(fileValue)
 {
-    selectorColor = context.getColorsManager().getColorRed();
+    selectorColor = memoris::colors::ColorsManager::get().getColorRed();
     initializeCommonAttributes();
 }
 
@@ -178,11 +179,11 @@ void Cell::display(utils::Context& context)
 
     if (isMouseHover() && isCursorSensitive)
     {
-        sprToDspl.setColor(context.getColorsManager().getColorPartialWhite());
+        sprToDspl.setColor(memoris::colors::ColorsManager::get().getColorPartialWhite());
     }
     else
     {
-        sprToDspl.setColor(context.getColorsManager().getColorWhite());
+        sprToDspl.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     }
 
     context.getSfmlWindow().draw(sprToDspl);

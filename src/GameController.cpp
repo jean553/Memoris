@@ -35,6 +35,7 @@
 #include "controllers.hpp"
 #include "SoundsManager.hpp"
 #include "FontsManager.hpp"
+#include "ColorsManager.hpp"
 
 namespace memoris
 {
@@ -119,7 +120,7 @@ GameController::GameController(utils::Context& context) :
 
     time.setFont(memoris::fonts::FontsManager::get().getTextFont());
     time.setCharacterSize(memoris::fonts::TEXT_SIZE);
-    time.setColor(context.getColorsManager().getColorWhite());
+    time.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     time.setPosition(
         TIMER_HRTL_PSTN,
         TIMER_VRTL_PSTN
@@ -130,7 +131,7 @@ GameController::GameController(utils::Context& context) :
     foundStarsAmntStr.setFont(memoris::fonts::FontsManager::get().getTextFont());
     foundStarsAmntStr.setString("0");
     foundStarsAmntStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
-    foundStarsAmntStr.setColor(context.getColorsManager().getColorWhite());
+    foundStarsAmntStr.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     foundStarsAmntStr.setPosition(
         FOUND_STAR_CELLS_HRTL_PSTN,
         FOUND_STAR_CELLS_VRTL_PSTN
@@ -139,7 +140,7 @@ GameController::GameController(utils::Context& context) :
     lifesAmntStr.setFont(memoris::fonts::FontsManager::get().getTextFont());
     lifesAmntStr.setString(std::to_string(lifesAmount));
     lifesAmntStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
-    lifesAmntStr.setColor(context.getColorsManager().getColorWhite());
+    lifesAmntStr.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     lifesAmntStr.setPosition(
         LIFES_HRTL_PSTN,
         LIFES_VRTL_PSTN
@@ -147,7 +148,7 @@ GameController::GameController(utils::Context& context) :
 
     timeStr.setFont(memoris::fonts::FontsManager::get().getTextFont());
     timeStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
-    timeStr.setColor(context.getColorsManager().getColorWhite());
+    timeStr.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     timeStr.setPosition(
         TIME_HRTL_PSTN,
         TIME_VRTL_PSTN
@@ -157,7 +158,7 @@ GameController::GameController(utils::Context& context) :
     floorStr.setFont(memoris::fonts::FontsManager::get().getTextFont());
     floorStr.setString(std::to_string(floor));
     floorStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
-    floorStr.setColor(context.getColorsManager().getColorWhite());
+    floorStr.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     floorStr.setPosition(
         FLOOR_HRTL_PSTN,
         FLOOR_VRTL_PSTN
@@ -168,7 +169,7 @@ GameController::GameController(utils::Context& context) :
     targetStr.setFont(memoris::fonts::FontsManager::get().getTextFont());
     targetStr.setString(std::to_string(starCellsAmount));
     targetStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
-    targetStr.setColor(context.getColorsManager().getColorWhite());
+    targetStr.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     targetStr.setPosition(
         TOTAL_STARS_HRTL_PSTN,
         TOTAL_STARS_VRTL_PSTN
@@ -234,8 +235,8 @@ GameController::GameController(utils::Context& context) :
         0
     );
 
-    leftSeparator.setFillColor(context.getColorsManager().getColorWhite());
-    rightSeparator.setFillColor(context.getColorsManager().getColorWhite());
+    leftSeparator.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
+    rightSeparator.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
 
     updateWatchingTimeStr();
 }

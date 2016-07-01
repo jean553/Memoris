@@ -27,6 +27,8 @@
 #ifndef MEMORIS_COLORSMANAGER_H_
 #define MEMORIS_COLORSMANAGER_H_
 
+#include "NotCopiable.hpp"
+
 #include <SFML/Graphics.hpp>
 
 namespace memoris
@@ -40,9 +42,15 @@ class ColorsManager
 public:
 
     /**
-     * @brief constructor, loads each color one by one
+     * @brief make the colors manager a singleton class;
+     * creates a static singleton object, call the private
+     * constructor only one time; as the object is static,
+     * this unique object is returned everytime and we never
+     * create it again
+     *
+     * @return static ColorsManager&
      */
-    ColorsManager();
+    static ColorsManager& get();
 
     /**
      * @brief returns a reference to the white color
@@ -138,6 +146,11 @@ public:
     sf::Color getColorBlackCopy() const;
 
 private:
+
+    /**
+     * @brief constructor, loads each color one by one
+     */
+    ColorsManager();
 
     /* NOTE: sf::Uint8 type cannot be constant expressions if
        they are not static. */

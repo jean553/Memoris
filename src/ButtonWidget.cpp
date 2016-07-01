@@ -26,6 +26,7 @@
 
 #include "fonts.hpp"
 #include "FontsManager.hpp"
+#include "ColorsManager.hpp"
 
 using namespace widgets;
 
@@ -115,10 +116,10 @@ void ButtonWidget::setLayout(
         buttonVerticalPosition
     );
 
-    topLine.setFillColor(context.getColorsManager().getColorWhite());
-    bottomLine.setFillColor(context.getColorsManager().getColorWhite());
-    leftLine.setFillColor(context.getColorsManager().getColorWhite());
-    rightLine.setFillColor(context.getColorsManager().getColorWhite());
+    topLine.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
+    bottomLine.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
+    leftLine.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
+    rightLine.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
 }
 
 /**
@@ -137,21 +138,21 @@ void ButtonWidget::display(utils::Context& context)
     if(enable)
     {
 
-        buttonText.setColor(context.getColorsManager().getColorWhite());
-        background.setFillColor(context.getColorsManager().getColorGrey());
+        buttonText.setColor(memoris::colors::ColorsManager::get().getColorWhite());
+        background.setFillColor(memoris::colors::ColorsManager::get().getColorGrey());
 
         if(isMouseHover())
         {
 
-            buttonText.setColor(context.getColorsManager().getColorLightBlue());
-            background.setFillColor(context.getColorsManager().getColorDarkGrey());
+            buttonText.setColor(memoris::colors::ColorsManager::get().getColorLightBlue());
+            background.setFillColor(memoris::colors::ColorsManager::get().getColorDarkGrey());
         }
     }
     else
     {
 
-        buttonText.setColor(context.getColorsManager().getColorPartialWhite());
-        background.setFillColor(context.getColorsManager().getColorPartialGrey());
+        buttonText.setColor(memoris::colors::ColorsManager::get().getColorPartialWhite());
+        background.setFillColor(memoris::colors::ColorsManager::get().getColorPartialGrey());
     }
 
     context.getSfmlWindow().draw(background);

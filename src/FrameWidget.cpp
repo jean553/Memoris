@@ -24,6 +24,8 @@
 
 #include "FrameWidget.hpp"
 
+#include "ColorsManager.hpp"
+
 using namespace widgets;
 
 const unsigned short FrameWidget::BORDER_WIDTH = 1;
@@ -33,10 +35,10 @@ const unsigned short FrameWidget::BORDER_WIDTH = 1;
  */
 FrameWidget::FrameWidget(utils::Context& context)
 {
-    leftLine.setFillColor(context.getColorsManager().getColorWhite());
-    rightLine.setFillColor(context.getColorsManager().getColorWhite());
-    topLine.setFillColor(context.getColorsManager().getColorWhite());
-    bottomLine.setFillColor(context.getColorsManager().getColorWhite());
+    leftLine.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
+    rightLine.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
+    topLine.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
+    bottomLine.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
 
     horizontalSize = 0;
     verticalSize = 0;

@@ -28,6 +28,7 @@
 #include "fonts.hpp"
 #include "controllers.hpp"
 #include "intervals.hpp"
+#include "ColorsManager.hpp"
 
 namespace memoris
 {
@@ -59,8 +60,8 @@ MainMenuController::MainMenuController(utils::Context& context) :
 
     /* the title color and selector color are copies from
        manager colors, because they are updated continually */
-    colorTitle = context.getColorsManager().getColorBlueCopy();
-    colorSelector = context.getColorsManager().getColorRedCopy();
+    colorTitle = memoris::colors::ColorsManager::get().getColorBlueCopy();
+    colorSelector = memoris::colors::ColorsManager::get().getColorRedCopy();
 
     /* initialize the title text label, at the top center of the screen */
     title.setFont(memoris::fonts::FontsManager::get().getTitleFont());
@@ -86,7 +87,7 @@ MainMenuController::MainMenuController(utils::Context& context) :
     itemLoadGame.setFont(memoris::fonts::FontsManager::get().getTextFont());
     itemLoadGame.setString(LOAD_GAME);
     itemLoadGame.setCharacterSize(memoris::fonts::ITEM_SIZE);
-    itemLoadGame.setColor(context.getColorsManager().getColorWhite());
+    itemLoadGame.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     itemLoadGame.setPosition(
         LOAD_GAME_HORIZONTAL_POSITION,
         LOAD_GAME_VERTICAL_POSITION
@@ -96,7 +97,7 @@ MainMenuController::MainMenuController(utils::Context& context) :
     itemEditor.setFont(memoris::fonts::FontsManager::get().getTextFont());
     itemEditor.setString(EDITOR);
     itemEditor.setCharacterSize(memoris::fonts::ITEM_SIZE);
-    itemEditor.setColor(context.getColorsManager().getColorWhite());
+    itemEditor.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     itemEditor.setPosition(
         EDITOR_HORIZONTAL_POSITION,
         EDITOR_VERTICAL_POSITION
@@ -106,7 +107,7 @@ MainMenuController::MainMenuController(utils::Context& context) :
     itemOptions.setFont(memoris::fonts::FontsManager::get().getTextFont());
     itemOptions.setString(OPTIONS);
     itemOptions.setCharacterSize(memoris::fonts::ITEM_SIZE);
-    itemOptions.setColor(context.getColorsManager().getColorWhite());
+    itemOptions.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     itemOptions.setPosition(
         OPTIONS_HORIZONTAL_POSITION,
         OPTIONS_VERTICAL_POSITION
@@ -116,7 +117,7 @@ MainMenuController::MainMenuController(utils::Context& context) :
     itemExit.setFont(memoris::fonts::FontsManager::get().getTextFont());
     itemExit.setString(EXIT);
     itemExit.setCharacterSize(memoris::fonts::ITEM_SIZE);
-    itemExit.setColor(context.getColorsManager().getColorWhite());
+    itemExit.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     itemExit.setPosition(
         EXIT_HORIZONTAL_POSITION,
         EXIT_VERTICAL_POSITION
@@ -280,11 +281,11 @@ void MainMenuController::updateSelectorPosition(utils::Context& context)
 
     /* before applying the selector color on the selected menu item, we
        first change the color of every menu item to white */
-    itemNewGame.setColor(context.getColorsManager().getColorWhite());
-    itemLoadGame.setColor(context.getColorsManager().getColorWhite());
-    itemEditor.setColor(context.getColorsManager().getColorWhite());
-    itemOptions.setColor(context.getColorsManager().getColorWhite());
-    itemExit.setColor(context.getColorsManager().getColorWhite());
+    itemNewGame.setColor(memoris::colors::ColorsManager::get().getColorWhite());
+    itemLoadGame.setColor(memoris::colors::ColorsManager::get().getColorWhite());
+    itemEditor.setColor(memoris::colors::ColorsManager::get().getColorWhite());
+    itemOptions.setColor(memoris::colors::ColorsManager::get().getColorWhite());
+    itemExit.setColor(memoris::colors::ColorsManager::get().getColorWhite());
 
     /* apply the selector color on the right item, according to the current
        selector position */

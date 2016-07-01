@@ -26,6 +26,7 @@
 
 #include "fonts.hpp"
 #include "FontsManager.hpp"
+#include "ColorsManager.hpp"
 
 using namespace widgets;
 
@@ -42,13 +43,13 @@ const unsigned int ItemsListWidget::ITEMS_LIST_ITEM_HEIGHT = 40;
  */
 ItemsListWidget::ItemsListWidget(utils::Context& context)
 {
-    boxTop.setFillColor(context.getColorsManager().getColorWhite());
-    boxBottom.setFillColor(context.getColorsManager().getColorWhite());
-    boxLeft.setFillColor(context.getColorsManager().getColorWhite());
-    boxRight.setFillColor(context.getColorsManager().getColorWhite());
-    selector.setFillColor(context.getColorsManager().getColorLightBlue());
-    arrowUpSelector.setFillColor(context.getColorsManager().getColorLightBlue());
-    arrowDownSelector.setFillColor(context.getColorsManager().getColorLightBlue());
+    boxTop.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
+    boxBottom.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
+    boxLeft.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
+    boxRight.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
+    selector.setFillColor(memoris::colors::ColorsManager::get().getColorLightBlue());
+    arrowUpSelector.setFillColor(memoris::colors::ColorsManager::get().getColorLightBlue());
+    arrowDownSelector.setFillColor(memoris::colors::ColorsManager::get().getColorLightBlue());
 
     textureUp.loadFromFile(PATH_IMAGE_ARROW_UP);
     spriteUp.setTexture(textureUp, true);
@@ -225,7 +226,7 @@ void ItemsListWidget::display(utils::Context& context)
 
         item.setFont(memoris::fonts::FontsManager::get().getTextFont());
         item.setCharacterSize(ITEMS_LIST_ITEM_HEIGHT);
-        item.setColor(context.getColorsManager().getColorWhite());
+        item.setColor(memoris::colors::ColorsManager::get().getColorWhite());
         item.setString(*textItem);
         item.setPosition(
             horizontalPosition,
