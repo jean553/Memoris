@@ -36,7 +36,7 @@ namespace memoris
 namespace colors
 {
 
-class ColorsManager
+class ColorsManager : public others::NotCopiable
 {
 
 public:

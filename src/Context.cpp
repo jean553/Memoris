@@ -114,14 +114,6 @@ void Context::restartClock()
 /**
  *
  */
-memoris::textures::TexturesManager& Context::getTexturesManager()
-{
-    return texturesManager;
-}
-
-/**
- *
- */
 void Context::addMessageByName(
     std::string messageName,
     std::string messageValue

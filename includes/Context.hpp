@@ -27,14 +27,12 @@
 #ifndef MEMORIS_CONTEXT_H_
 #define MEMORIS_CONTEXT_H_
 
-#include "TexturesManager.hpp"
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 #include <string>
 #include <map>
 #include <memory>
-
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 
 namespace utils
 {
@@ -81,13 +79,6 @@ public:
      * to another
      */
     void restartClock();
-
-    /**
-     * @brief returns a reference to the unique textures manager object
-     *
-     * @return memoris::textures::TexturesManager&
-     */
-    memoris::textures::TexturesManager& getTexturesManager();
 
     /**
      * @brief add a message into the context
@@ -170,13 +161,6 @@ private:
      * controller is modified; the maximum time returned in milliseconds
      * is equal to 49 days... so this is a safe method */
     sf::Clock clock;
-
-    /* all the managers create and store SFML objects,
-       they provide public method to access to these
-       objects */
-
-    /* unique object of textures manager */
-    memoris::textures::TexturesManager texturesManager;
 
     std::map<std::string, std::string> messages;
 
