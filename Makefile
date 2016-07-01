@@ -6,6 +6,7 @@ DEPS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 OBJS = \
 	   build/main.o \
 	   build/musics.o \
+	   build/window.o \
 	   build/controllers.o \
 	   build/CellFactory.o \
 	   build/Context.o \
@@ -69,6 +70,9 @@ build/main.o: src/main.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 # utils
+
+build/window.o: src/window.cpp
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/musics.o: src/musics.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
