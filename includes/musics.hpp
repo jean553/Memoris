@@ -40,9 +40,9 @@ namespace musics
  *
  * @param id the id of the controller
  *
- * @return std::string
+ * @return const std::string
  */
-std::string getMusicPathById(const unsigned short& id);
+const std::string getMusicPathById(const unsigned short& id);
 
 }
 }
