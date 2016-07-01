@@ -25,6 +25,8 @@
 #ifndef MEMORIS_TEXTURESMANAGER_H_
 #define MEMORIS_TEXTURESMANAGER_H_
 
+#include "NotCopiable.hpp"
+
 #include <SFML/Graphics.hpp>
 
 namespace memoris
@@ -32,15 +34,20 @@ namespace memoris
 namespace textures
 {
 
-class TexturesManager
+class TexturesManager : public others::NotCopiable
 {
 public:
 
     /**
-     * @brief constructor, loads each texture one by one, stop if one texture
-     * cannot be loaded
+     * @brief make the textures manager a singleton class;
+     * creates a static singleton object, call the private
+     * constructor only one time; as the object is static,
+     * this unique object is returned everytime and we never
+     * create it again
+     *
+     * @return static TexturesManager&
      */
-    TexturesManager();
+    static TexturesManager& get();
 
     /**
      * @brief getter for the github texture
@@ -50,6 +57,12 @@ public:
     sf::Texture& getGithubTexture();
 
 private:
+
+    /**
+     * @brief constructor, loads each texture one by one, stop if one texture
+     * cannot be loaded
+     */
+    TexturesManager();
 
     /**
      * @brief loads one texture by file path, throw

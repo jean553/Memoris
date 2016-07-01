@@ -36,6 +36,18 @@ const std::string TexturesManager::GITHUB_TEXTURE_PATH =
 /**
  *
  */
+TexturesManager& TexturesManager::get()
+{
+    /* create only one time a textures manager instance */
+    static TexturesManager singleton;
+
+    /* always return the same textures manager instance */
+    return singleton;
+}
+
+/**
+ *
+ */
 TexturesManager::TexturesManager()
 {
     /* load all the textures one by one; an exception is throw
