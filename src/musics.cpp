@@ -29,23 +29,14 @@ namespace memoris
 namespace musics
 {
 
-/* music played in all the menus of the game */
-const std::string MAIN_MENU_MUSIC =
-    "res/musics/pokki-dj-made-in-italy.ogg";
-
-/* music played in the level editor of the game */
-const std::string EDITOR_MUSIC =
-    "res/musics/bigmanboo-back-to-the-90s-nostalgia.ogg";
-
-/* music played during the game */
-const std::string GAME_MUSIC =
-    "res/musics/J.O.R.B.I_-_2.Dancing_of_the_Night.ogg";
-
 /**
  *
  */
-std::string getMusicPathById(const unsigned short& id)
+const std::string getMusicPathById(const unsigned short& id)
 {
+    /* NOTE: directly set the files paths inside the code, without any
+       constant declaration; in fact, this code is explicit enough */
+
     switch(id)
     {
     case controllers::EDITOR_LEVEL_CONTROLLER_ID:
@@ -53,12 +44,12 @@ std::string getMusicPathById(const unsigned short& id)
     case controllers::OPEN_LEVEL_CONTROLLER_ID:
     case controllers::OPEN_SERIE_CONTROLLER_ID:
     {
-        return EDITOR_MUSIC;
+        return "res/musics/bigmanboo-back-to-the-90s-nostalgia.ogg";
     }
     break;
     case controllers::GAME_CONTROLLER_ID:
     {
-        return GAME_MUSIC;
+        return "res/musics/J.O.R.B.I_-_2.Dancing_of_the_Night.ogg";
     }
     break;
     /* by default, if the controller id does not exist, the main
@@ -67,7 +58,7 @@ std::string getMusicPathById(const unsigned short& id)
        if an incorrect controller id is specified */
     default:
     {
-        return MAIN_MENU_MUSIC;
+        return "res/musics/pokki-dj-made-in-italy.ogg";
     }
     }
 }

@@ -29,15 +29,14 @@ namespace memoris
 namespace window
 {
 
-/* title of the displayed window */
-const std::string TITLE = "Memoris";
+/* NOTE: return a string literal is safe as long as we copy when we return */
 
 /**
  *
  */
 const std::string getWindowTitle()
 {
-    return TITLE;
+    return "Memoris";
 }
 
 }
