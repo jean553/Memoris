@@ -17,38 +17,28 @@
 */
 
 /**
- * @file window.hpp
+ * @file window.cpp
  * @brief namespace for SFML window dimensions, resolution and title
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef MEMORIS_WINDOW_H_
-#define MEMORIS_WINDOW_H_
-
-#include <string>
+#include "window.hpp"
 
 namespace memoris
 {
 namespace window
 {
 
-/* width of the SFML window */
-constexpr unsigned short WIDTH = 1600;
-
-/* height of the SFML window */
-constexpr unsigned short HEIGHT = 900;
-
-/* resolution of the SFML window */
-constexpr unsigned short RESOLUTION = 32;
+/* title of the displayed window */
+const std::string TITLE = "Memoris";
 
 /**
- * @brief returns the value of the window title string
  *
- * @return const std::string
  */
-const std::string getWindowTitle();
+const std::string getWindowTitle()
+{
+    return TITLE;
+}
 
 }
 }
-
-#endif
