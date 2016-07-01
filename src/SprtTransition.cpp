@@ -25,6 +25,7 @@
 
 #include "SprtTransition.hpp"
 
+#include "ColorsManager.hpp"
 
 using namespace utils;
 
@@ -67,7 +68,7 @@ void SprtTransition::display(
             vrtlPstn
         );
 
-        sprt.setColor(context.getColorsManager().getColorWhite());
+        sprt.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     }
 
     if (
@@ -78,7 +79,7 @@ void SprtTransition::display(
         return;
     }
 
-    sprt.setColor(context.getColorsManager().getColorWhite());
+    sprt.setColor(memoris::colors::ColorsManager::get().getColorWhite());
 
     hrtlPstn += HRTL_INTERVAL * drct;
 

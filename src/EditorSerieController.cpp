@@ -37,6 +37,7 @@
 #include "window.hpp"
 #include "controllers.hpp"
 #include "FontsManager.hpp"
+#include "ColorsManager.hpp"
 
 namespace memoris
 {
@@ -163,11 +164,11 @@ EditorSerieController::EditorSerieController(utils::Context& context) :
 
     serieNameLabel.setFont(memoris::fonts::FontsManager::get().getTextFont());
     serieNameLabel.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
-    serieNameLabel.setColor(context.getColorsManager().getColorGrey());
+    serieNameLabel.setColor(memoris::colors::ColorsManager::get().getColorGrey());
 
     errorLabel.setFont(memoris::fonts::FontsManager::get().getTextFont());
     errorLabel.setCharacterSize(memoris::fonts::INFORMATION_SIZE);
-    errorLabel.setColor(context.getColorsManager().getColorRed());
+    errorLabel.setColor(memoris::colors::ColorsManager::get().getColorRed());
     errorLabel.setString(STRING_NEW_SERIE_ERROR);
     errorLabel.setPosition(
         ERROR_MESSAGE_POSITION_X,
@@ -176,7 +177,7 @@ EditorSerieController::EditorSerieController(utils::Context& context) :
 
     levelErrorLabel.setFont(memoris::fonts::FontsManager::get().getTextFont());
     levelErrorLabel.setCharacterSize(memoris::fonts::INFORMATION_SIZE);
-    levelErrorLabel.setColor(context.getColorsManager().getColorRed());
+    levelErrorLabel.setColor(memoris::colors::ColorsManager::get().getColorRed());
     levelErrorLabel.setString(STRING_NEW_LEVEL_ERROR);
     levelErrorLabel.setPosition(
         ERROR_MESSAGE_POSITION_X,
@@ -404,11 +405,11 @@ void EditorSerieController::displaySavedSerieName(
 {
     if (saved)
     {
-        serieNameLabel.setColor(context.getColorsManager().getColorWhite());
+        serieNameLabel.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     }
     else
     {
-        serieNameLabel.setColor(context.getColorsManager().getColorGrey());
+        serieNameLabel.setColor(memoris::colors::ColorsManager::get().getColorGrey());
     }
 
     buttonSave.setEnable(!saved);

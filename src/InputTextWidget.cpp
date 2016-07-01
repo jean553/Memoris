@@ -26,6 +26,7 @@
 
 #include "fonts.hpp"
 #include "FontsManager.hpp"
+#include "ColorsManager.hpp"
 
 using namespace widgets;
 
@@ -51,9 +52,9 @@ InputTextWidget::InputTextWidget(utils::Context& context)
 
     displayedText.setFont(memoris::fonts::FontsManager::get().getTextFont());
     displayedText.setCharacterSize(SIZE_INPUT_TEXT_FONT);
-    displayedText.setColor(context.getColorsManager().getColorLightBlue());
+    displayedText.setColor(memoris::colors::ColorsManager::get().getColorLightBlue());
 
-    cursor.setFillColor(context.getColorsManager().getColorLightBlue());
+    cursor.setFillColor(memoris::colors::ColorsManager::get().getColorLightBlue());
 }
 
 /**
@@ -119,10 +120,10 @@ void InputTextWidget::setLayout(
                          BOX_LARGER
                      ));
 
-    boxRight.setFillColor(context.getColorsManager().getColorLightBlue());
-    boxTop.setFillColor(context.getColorsManager().getColorLightBlue());
-    boxBottom.setFillColor(context.getColorsManager().getColorLightBlue());
-    boxLeft.setFillColor(context.getColorsManager().getColorLightBlue());
+    boxRight.setFillColor(memoris::colors::ColorsManager::get().getColorLightBlue());
+    boxTop.setFillColor(memoris::colors::ColorsManager::get().getColorLightBlue());
+    boxBottom.setFillColor(memoris::colors::ColorsManager::get().getColorLightBlue());
+    boxLeft.setFillColor(memoris::colors::ColorsManager::get().getColorLightBlue());
 
     initCursorPosition();
 

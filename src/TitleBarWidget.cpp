@@ -26,6 +26,7 @@
 
 #include "fonts.hpp"
 #include "FontsManager.hpp"
+#include "ColorsManager.hpp"
 
 using namespace widgets;
 
@@ -51,7 +52,7 @@ TitleBarWidget::TitleBarWidget(
     displayedText.setFont(memoris::fonts::FontsManager::get().getTextFont());
     displayedText.setString(text);
     displayedText.setCharacterSize(SIZE_TITLE_BAR_TEXT_FONT);
-    displayedText.setColor(context.getColorsManager().getColorOrange());
+    displayedText.setColor(memoris::colors::ColorsManager::get().getColorOrange());
     displayedText.setPosition(
         TITLE_BAR_TEXT_POSITION_X,
         TITLE_BAR_TEXT_POSITION_Y
@@ -65,7 +66,7 @@ TitleBarWidget::TitleBarWidget(
         TITLE_BAR_LINE_POSITION_X,
         TITLE_BAR_LINE_POSITION_Y
     );
-    line.setFillColor(context.getColorsManager().getColorWhite());
+    line.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
 }
 
 /**

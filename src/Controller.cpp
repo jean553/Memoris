@@ -25,6 +25,7 @@
 #include "Controller.hpp"
 
 #include "window.hpp"
+#include "ColorsManager.hpp"
 
 namespace memoris
 {
@@ -49,7 +50,7 @@ Controller::Controller(utils::Context& context)
     /* the screen transition color is continually modified
        when screens are switched, that's why we copy the
        default color from the black color */
-    transitionSurfaceColor = context.getColorsManager().getColorBlackCopy();
+    transitionSurfaceColor = memoris::colors::ColorsManager::get().getColorBlackCopy();
 
     transitionSurface.setSize(
         sf::Vector2f(

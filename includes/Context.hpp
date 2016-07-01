@@ -27,7 +27,6 @@
 #ifndef MEMORIS_CONTEXT_H_
 #define MEMORIS_CONTEXT_H_
 
-#include "ColorsManager.hpp"
 #include "TexturesManager.hpp"
 
 #include <string>
@@ -82,13 +81,6 @@ public:
      * to another
      */
     void restartClock();
-
-    /**
-     * @brief returns a reference to the unique colors manager object
-     *
-     * @return memoris::colors::ColorsManager&
-     */
-    memoris::colors::ColorsManager& getColorsManager();
 
     /**
      * @brief returns a reference to the unique textures manager object
@@ -182,9 +174,6 @@ private:
     /* all the managers create and store SFML objects,
        they provide public method to access to these
        objects */
-
-    /* unique object of colors manager */
-    memoris::colors::ColorsManager colorsManager;
 
     /* unique object of textures manager */
     memoris::textures::TexturesManager texturesManager;

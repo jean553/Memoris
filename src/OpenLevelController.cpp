@@ -30,6 +30,7 @@
 #include "fonts.hpp"
 #include "controllers.hpp"
 #include "FontsManager.hpp"
+#include "ColorsManager.hpp"
 
 namespace memoris
 {
@@ -78,7 +79,7 @@ OpenLevelController::OpenLevelController(utils::Context& context) :
 
     errorLabel.setFont(memoris::fonts::FontsManager::get().getTextFont());
     errorLabel.setCharacterSize(memoris::fonts::INFORMATION_SIZE);
-    errorLabel.setColor(context.getColorsManager().getColorRed());
+    errorLabel.setColor(memoris::colors::ColorsManager::get().getColorRed());
     errorLabel.setString(STRING_ALREADY_ADDED_ERROR_MESSAGE);
     errorLabel.setPosition(
         ERROR_MESSAGE_POSITION_X,

@@ -31,6 +31,18 @@ namespace colors
 /**
  *
  */
+ColorsManager& ColorsManager::get()
+{
+    /* create only one time a colors manager instance */
+    static ColorsManager singleton;
+
+    /* always return the same colors manager instance */
+    return singleton;
+}
+
+/**
+ *
+ */
 ColorsManager::ColorsManager()
 {
     colorWhite.r = COLOR_WHITE_RED;

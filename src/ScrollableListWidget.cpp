@@ -27,6 +27,7 @@
 
 #include "fonts.hpp"
 #include "FontsManager.hpp"
+#include "ColorsManager.hpp"
 
 using namespace widgets;
 
@@ -39,7 +40,7 @@ ScrollableListWidget::ScrollableListWidget(utils::Context& context)
 {
     /* the animated arrow is animated, that's why we copy
        the color from the white color first */
-    colorArrow = context.getColorsManager().getColorWhiteCopy();
+    colorArrow = memoris::colors::ColorsManager::get().getColorWhiteCopy();
 
     arrDownTxt.loadFromFile(ARR_DOWN_IMG_PATH);
 
@@ -122,7 +123,7 @@ void ScrollableListWidget::initFromStrArr(
         txt.setFont(memoris::fonts::FontsManager::get().getTextFont());
         txt.setString(str);
         txt.setCharacterSize(size);
-        txt.setColor(context.getColorsManager().getColorWhite());
+        txt.setColor(memoris::colors::ColorsManager::get().getColorWhite());
         txt.setPosition(
             hrtlPstnSide,
             SLTR_VRTL_PSTN + SLTR_VRTL_SPRT * it
@@ -147,16 +148,16 @@ void ScrollableListWidget::updtSltrPstn(utils::Context& context)
     /* TODO: could be refactored in a loop with iterator... */
     for (sf::Text& item : txtItems)
     {
-        item.setColor(context.getColorsManager().getColorWhite());
+        item.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     }
 
     for (sf::Text& sfx : txtSfx)
     {
-        sfx.setColor(context.getColorsManager().getColorWhite());
+        sfx.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     }
 
-    txtItems[sltrPstn].setColor(context.getColorsManager().getColorRed());
-    txtSfx[sltrPstn].setColor(context.getColorsManager().getColorRed());
+    txtItems[sltrPstn].setColor(memoris::colors::ColorsManager::get().getColorRed());
+    txtSfx[sltrPstn].setColor(memoris::colors::ColorsManager::get().getColorRed());
 }
 
 /**

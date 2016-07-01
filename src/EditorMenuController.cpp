@@ -28,6 +28,7 @@
 #include "controllers.hpp"
 #include "SoundsManager.hpp"
 #include "FontsManager.hpp"
+#include "ColorsManager.hpp"
 
 namespace memoris
 {
@@ -60,7 +61,7 @@ EditorMenuController::EditorMenuController(utils::Context& context) :
 
     /* this color is continually updated, that's
        why this is a copy of the red color */
-    colorSelector = context.getColorsManager().getColorRedCopy();
+    colorSelector = memoris::colors::ColorsManager::get().getColorRedCopy();
 
     itemLevelsEditor.setFont(memoris::fonts::FontsManager::get().getTextFont());
     itemLevelsEditor.setString(STRING_LEVELS_EDITOR);
@@ -74,7 +75,7 @@ EditorMenuController::EditorMenuController(utils::Context& context) :
     itemSeriesEditor.setFont(memoris::fonts::FontsManager::get().getTextFont());
     itemSeriesEditor.setString(STRING_SERIES_EDITOR);
     itemSeriesEditor.setCharacterSize(memoris::fonts::ITEM_SIZE);
-    itemSeriesEditor.setColor(context.getColorsManager().getColorWhite());
+    itemSeriesEditor.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     itemSeriesEditor.setPosition(
         POSITION_ITEM_SERIES_EDITOR_X,
         POSITION_ITEM_SERIES_EDITOR_Y
@@ -83,7 +84,7 @@ EditorMenuController::EditorMenuController(utils::Context& context) :
     itemBack.setFont(memoris::fonts::FontsManager::get().getTextFont());
     itemBack.setString(STRING_BACK);
     itemBack.setCharacterSize(memoris::fonts::ITEM_SIZE);
-    itemBack.setColor(context.getColorsManager().getColorWhite());
+    itemBack.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     itemBack.setPosition(
         POSITION_ITEM_BACK_X,
         POSITION_ITEM_BACK_Y
@@ -156,9 +157,9 @@ void EditorMenuController::updateSelectorPosition(utils::Context& context)
                            selectorPosition
                        );
 
-    itemLevelsEditor.setColor(context.getColorsManager().getColorWhite());
-    itemSeriesEditor.setColor(context.getColorsManager().getColorWhite());
-    itemBack.setColor(context.getColorsManager().getColorWhite());
+    itemLevelsEditor.setColor(memoris::colors::ColorsManager::get().getColorWhite());
+    itemSeriesEditor.setColor(memoris::colors::ColorsManager::get().getColorWhite());
+    itemBack.setColor(memoris::colors::ColorsManager::get().getColorWhite());
 
     switch (selectorPosition)
     {

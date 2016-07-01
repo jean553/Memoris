@@ -28,6 +28,7 @@
 #include "fonts.hpp"
 #include "controllers.hpp"
 #include "FontsManager.hpp"
+#include "ColorsManager.hpp"
 
 namespace memoris
 {
@@ -81,12 +82,12 @@ SerieMainMenuController::SerieMainMenuController(utils::Context& context) :
 
     /* this color is continually updated, that's
        why this is a copy of the red color */
-    colorSelector = context.getColorsManager().getColorRedCopy();
+    colorSelector = memoris::colors::ColorsManager::get().getColorRedCopy();
 
     title.setFont(memoris::fonts::FontsManager::get().getTitleFont());
     title.setString(TITLE_STR);
     title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
-    title.setColor(context.getColorsManager().getColorLightBlue());
+    title.setColor(memoris::colors::ColorsManager::get().getColorLightBlue());
     title.setPosition(
         TITLE_HRTL_PSTN,
         TITLE_VRTL_PSTN
@@ -104,7 +105,7 @@ SerieMainMenuController::SerieMainMenuController(utils::Context& context) :
     itemPersonalSeries.setFont(memoris::fonts::FontsManager::get().getTextFont());
     itemPersonalSeries.setString(PERSONAL_STR);
     itemPersonalSeries.setCharacterSize(memoris::fonts::ITEM_SIZE);
-    itemPersonalSeries.setColor(context.getColorsManager().getColorWhite());
+    itemPersonalSeries.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     itemPersonalSeries.setPosition(
         PERSONAL_HRTL_PSTN,
         PERSONAL_VRTL_PSTN
@@ -113,7 +114,7 @@ SerieMainMenuController::SerieMainMenuController(utils::Context& context) :
     itemBack.setFont(memoris::fonts::FontsManager::get().getTextFont());
     itemBack.setString(BACK_STR);
     itemBack.setCharacterSize(memoris::fonts::ITEM_SIZE);
-    itemBack.setColor(context.getColorsManager().getColorWhite());
+    itemBack.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     itemBack.setPosition(
         BACK_HRTL_PSTN,
         BACK_VRTL_PSTN
@@ -216,9 +217,9 @@ void SerieMainMenuController::updateSelectorPosition(utils::Context& context)
                            selectorPosition
                        );
 
-    itemOfficialSeries.setColor(context.getColorsManager().getColorWhite());
-    itemPersonalSeries.setColor(context.getColorsManager().getColorWhite());
-    itemBack.setColor(context.getColorsManager().getColorWhite());
+    itemOfficialSeries.setColor(memoris::colors::ColorsManager::get().getColorWhite());
+    itemPersonalSeries.setColor(memoris::colors::ColorsManager::get().getColorWhite());
+    itemBack.setColor(memoris::colors::ColorsManager::get().getColorWhite());
 
     animCup = false;
     animGame = false;
