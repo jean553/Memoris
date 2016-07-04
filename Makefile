@@ -57,6 +57,8 @@ OBJS = \
 	   build/TexturesManager.o \
 	   build/Sound.o \
 	   build/NotCopiable.o \
+	   build/AbstractMenuController.o \
+	   build/MenuItem.o \
 	   build/ScrollableListWidget.o
 
 INC = -I includes
@@ -67,6 +69,11 @@ all: $(OBJS)
 	$(CC) $(OBJS) -o bin/Memoris $(DEPS)
 
 build/main.o: src/main.cpp
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+
+# items
+
+build/MenuItem.o: src/MenuItem.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 # utils
@@ -232,6 +239,9 @@ build/SerieMainMenuController.o: src/SerieMainMenuController.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/OfficialSeriesSelectorController.o: src/OfficialSeriesSelectorController.cpp
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+
+build/AbstractMenuController.o: src/AbstractMenuController.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/ErrorController.o: src/ErrorController.cpp

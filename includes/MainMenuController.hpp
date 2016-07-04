@@ -26,19 +26,21 @@
 #ifndef MEMORIS_MAINMENUCONTROLLER_H_
 #define MEMORIS_MAINMENUCONTROLLER_H_
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
+#include "AbstractMenuController.hpp"
 
-#include "Controller.hpp"
 #include "AnimatedBackground.hpp"
 #include "MenuGradient.hpp"
+#include "MenuItem.hpp"
+
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 namespace memoris
 {
 namespace controllers
 {
 
-class MainMenuController : public Controller
+class MainMenuController : public AbstractMenuController
 {
 
 public:
@@ -47,6 +49,11 @@ public:
      * @brief constructor
      */
     MainMenuController(utils::Context& context);
+
+    /**
+     * @brief destructor, delete the dynamically allocated menu items
+     */
+    ~MainMenuController();
 
     /**
      * @brief render the main menu controller
@@ -67,7 +74,7 @@ private:
     /**
      * @brief visually update the selector position
      *
-     * @param context unique context
+     * @param context unique context reference
      */
     void updateSelectorPosition(utils::Context& context);
 
@@ -76,70 +83,6 @@ private:
      */
     void selectMenuItem();
 
-    /* the file path of the Github picture, displayed in the top right
-       corner fo the main menu screen */
-    static const std::string PATH_IMAGE_GITHUB;
-
-    /* the text content of each menu selectable item */
-    static const std::string TITLE;
-    static const std::string NEW_GAME;
-    static const std::string LOAD_GAME;
-    static const std::string EDITOR;
-    static const std::string OPTIONS;
-    static const std::string EXIT;
-
-    /* maximum amount of RGB color for the title color animation: during
-       rendering, the color of the title is continually changed. During the
-       animation, the red, green and blue colors of the title cannot have a
-       value that is more than these given constants */
-    static const sf::Uint8 COLOR_TITLE_RED_MAX = 255;
-    static const sf::Uint8 COLOR_TITLE_GREEN_MAX = 180;
-    static const sf::Uint8 COLOR_TITLE_BLUE_MAX = 255;
-
-    /* minimum amount of RGB color for the title color animation: the red,
-       blue and green colors of the title cannot have a value that is less
-       than this given constant */
-    static const sf::Uint8 COLOR_TITLE_ALL_MIN = 0;
-
-    /* position of the title */
-    static constexpr float TITLE_HORIZONTAL_POSITION = 480.f;
-    static constexpr float TITLE_VERTICAL_POSITION = 100.f;
-
-    /* position of the new game menu item */
-    static constexpr float NEW_GAME_HORIZONTAL_POSITION = 615.f;
-    static constexpr float NEW_GAME_VERTICAL_POSITION = 300.f;
-
-    /* position of the load game menu item */
-    static constexpr float LOAD_GAME_HORIZONTAL_POSITION = 605.f;
-    static constexpr float LOAD_GAME_VERTICAL_POSITION = 400.f;
-
-    /* position of the editor menu item */
-    static constexpr float EDITOR_HORIZONTAL_POSITION = 685.f;
-    static constexpr float EDITOR_VERTICAL_POSITION = 500.f;
-
-    /* position of the options menu item */
-    static constexpr float OPTIONS_HORIZONTAL_POSITION = 660.f;
-    static constexpr float OPTIONS_VERTICAL_POSITION = 600.f;
-
-    /* position of the exit menu item */
-    static constexpr float EXIT_HORIZONTAL_POSITION = 725.f;
-    static constexpr float EXIT_VERTICAL_POSITION = 700.f;
-
-    /* position of the github picture */
-    static constexpr float GITHUB_PICTURE_HORIZONTAL_POSITION = 1300.f;
-    static constexpr float GITHUB_PICTURE_VERTICAL_POSITION = 0.f;
-
-    /* main menu items order, used to identify them */
-    static constexpr unsigned short ITEM_NEW_GAME = 0;
-    static constexpr unsigned short ITEM_LOAD_GAME = 1;
-    static constexpr unsigned short ITEM_EDITOR = 2;
-    static constexpr unsigned short ITEM_OPTIONS = 3;
-    static constexpr unsigned short ITEM_EXIT = 4;
-
-    static constexpr unsigned short DIRECTION_TITLE_RED_INIT = 1;
-    static constexpr unsigned short DIRECTION_TITLE_GREEN_INIT = 1;
-    static constexpr short DIRECTION_TITLE_BLUE_INIT = -1;
-
     /* NOTE: we use SFML 32 bits long integers to save the
        last updated time of each animation; we use this
        data type as it is the one used by SFML clock */
@@ -147,28 +90,30 @@ private:
     /* save the last time the title color has been modified */
     sf::Int32 titleLastAnimationTime;
 
+    /* variables to animate the colors of the main menu title */
     /* TODO: #444 to refactor, should be sf::Uint8 and should
        not be less than 0...*/
     unsigned short titleRedDirection;
     unsigned short titleGreenDirection;
     short titleBlueDirection;
 
-    /* TODO: #436 to refactor, should be refactored in a middleware,
-       class or trait */
-    short selectorPosition;
-
-    /* the title and selector colors are declared here
-       because they are animated and continually modified */
+    /* the main menu 'Memoris' animated title color, copied here because
+       this color is animated and change all the time */
     sf::Color colorTitle;
-    sf::Color colorSelector;
 
+    /* the main menu 'Memoris' animated title */
     sf::Text title;
-    sf::Text itemNewGame;
-    sf::Text itemLoadGame;
-    sf::Text itemEditor;
-    sf::Text itemOptions;
-    sf::Text itemExit;
 
+    /* main menu items pointers; we use pointers because we store them
+       in the abstract menu class items list; we do this to prevent copy */
+    /* TODO: #463 use smart pointers/use move sementics ? */
+    items::MenuItem* newGame;
+    items::MenuItem* loadGame;
+    items::MenuItem* editor;
+    items::MenuItem* options;
+    items::MenuItem* exit;
+
+    /* the displayed github texture sprite, in the top right corner */
     sf::Sprite spriteGithub;
 
     /* object that generates and display the random
