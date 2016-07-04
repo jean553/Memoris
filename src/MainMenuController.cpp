@@ -23,7 +23,6 @@
 
 #include "MainMenuController.hpp"
 
-#include "SoundsManager.hpp"
 #include "FontsManager.hpp"
 #include "fonts.hpp"
 #include "controllers.hpp"
@@ -36,23 +35,11 @@ namespace memoris
 namespace controllers
 {
 
-/* NOTE: the string are non-integral type,
-   it cannot be defined in the header */
-
-const std::string MainMenuController::PATH_IMAGE_GITHUB =
-    "res/images/fork-me.png";
-const std::string MainMenuController::TITLE = "Memoris";
-const std::string MainMenuController::NEW_GAME = "New game";
-const std::string MainMenuController::LOAD_GAME = "Load game";
-const std::string MainMenuController::EDITOR = "Editor";
-const std::string MainMenuController::OPTIONS = "Options";
-const std::string MainMenuController::EXIT = "Exit";
-
 /**
  *
  */
 MainMenuController::MainMenuController(utils::Context& context) :
-    Controller(context),
+    AbstractMenuController(context),
     background(context),
     menuGradient(context)
 {
@@ -62,84 +49,88 @@ MainMenuController::MainMenuController(utils::Context& context) :
     /* the title color and selector color are copies from
        manager colors, because they are updated continually */
     colorTitle = colors::ColorsManager::get().getColorBlueCopy();
-    colorSelector = colors::ColorsManager::get().getColorRedCopy();
 
     /* initialize the title text label, at the top center of the screen */
     title.setFont(fonts::FontsManager::get().getTitleFont());
-    title.setString(TITLE);
+    title.setString("Memoris");
     title.setCharacterSize(fonts::TITLE_SIZE);
     title.setColor(colorTitle);
     title.setPosition(
-        TITLE_HORIZONTAL_POSITION,
-        TITLE_VERTICAL_POSITION
+        480.f,
+        100.f
     );
 
     /* initialize the new game menu item */
-    itemNewGame.setFont(fonts::FontsManager::get().getTextFont());
-    itemNewGame.setString(NEW_GAME);
-    itemNewGame.setCharacterSize(fonts::ITEM_SIZE);
-    itemNewGame.setColor(colorSelector);
-    itemNewGame.setPosition(
-        NEW_GAME_HORIZONTAL_POSITION,
-        NEW_GAME_VERTICAL_POSITION
+    newGame = new items::MenuItem(
+        "New game",
+        615.f,
+        300.f
     );
 
     /* initialize the open game menu item */
-    itemLoadGame.setFont(fonts::FontsManager::get().getTextFont());
-    itemLoadGame.setString(LOAD_GAME);
-    itemLoadGame.setCharacterSize(fonts::ITEM_SIZE);
-    itemLoadGame.setColor(colors::ColorsManager::get().getColorWhite());
-    itemLoadGame.setPosition(
-        LOAD_GAME_HORIZONTAL_POSITION,
-        LOAD_GAME_VERTICAL_POSITION
+    loadGame = new items::MenuItem(
+        "Load game",
+        605.f,
+        400.f
     );
 
     /* initialize the editor menu item */
-    itemEditor.setFont(fonts::FontsManager::get().getTextFont());
-    itemEditor.setString(EDITOR);
-    itemEditor.setCharacterSize(fonts::ITEM_SIZE);
-    itemEditor.setColor(colors::ColorsManager::get().getColorWhite());
-    itemEditor.setPosition(
-        EDITOR_HORIZONTAL_POSITION,
-        EDITOR_VERTICAL_POSITION
+    editor = new items::MenuItem(
+        "Editor",
+        685.f,
+        500.f
     );
 
     /* initialize the options menu item */
-    itemOptions.setFont(fonts::FontsManager::get().getTextFont());
-    itemOptions.setString(OPTIONS);
-    itemOptions.setCharacterSize(fonts::ITEM_SIZE);
-    itemOptions.setColor(colors::ColorsManager::get().getColorWhite());
-    itemOptions.setPosition(
-        OPTIONS_HORIZONTAL_POSITION,
-        OPTIONS_VERTICAL_POSITION
+    options = new items::MenuItem(
+        "Options",
+        660.f,
+        600.f
     );
 
     /* initialize the exit menu item */
-    itemExit.setFont(fonts::FontsManager::get().getTextFont());
-    itemExit.setString(EXIT);
-    itemExit.setCharacterSize(fonts::ITEM_SIZE);
-    itemExit.setColor(colors::ColorsManager::get().getColorWhite());
-    itemExit.setPosition(
-        EXIT_HORIZONTAL_POSITION,
-        EXIT_VERTICAL_POSITION
+    exit = new items::MenuItem(
+        "Exit",
+        725.f,
+        700.f
     );
+
+    /* add the menu items inside the menu items list */
+    addMenuItem(newGame);
+    addMenuItem(loadGame);
+    addMenuItem(editor);
+    addMenuItem(options);
+    addMenuItem(exit);
+
+    /* select the first item of the menu */
+    /* TODO: #465 check if there is a way to select the first item by
+       default */
+    newGame->select();
 
     spriteGithub.setTexture(
-        textures::TexturesManager::get().getGithubTexture(),
-        true
+        textures::TexturesManager::get().getGithubTexture()
     );
     spriteGithub.setPosition(
-        GITHUB_PICTURE_HORIZONTAL_POSITION,
-        GITHUB_PICTURE_VERTICAL_POSITION
+        1300.f,
+        0.f
     );
 
-    titleRedDirection = DIRECTION_TITLE_RED_INIT;
-    titleGreenDirection = DIRECTION_TITLE_GREEN_INIT;
-    titleBlueDirection = DIRECTION_TITLE_BLUE_INIT;
+    titleRedDirection = 1;
+    titleGreenDirection = 1;
+    titleBlueDirection = -1;
+}
 
-    /* TODO: #436 should be refactored in a middleware controller type, for
-       example AbstractMenuController */
-    selectorPosition = 0;
+/**
+ *
+ */
+MainMenuController::~MainMenuController()
+{
+    /* TODO: #463 use a smart pointer for the management of the menu items */
+    delete newGame;
+    delete loadGame;
+    delete editor;
+    delete options;
+    delete exit;
 }
 
 /**
@@ -165,18 +156,12 @@ unsigned short MainMenuController::render(utils::Context& context)
         titleLastAnimationTime = context.getClockMillisecondsTime();
     }
 
-    /* TODO: #439 for now, the current selected item color is continually
-       updated, even when it is not necessary, should be refactored */
-    updateSelectorPosition(context);
-
-    /* render the title, all the menu items and the github picture */
+    /* render the title and the github picture */
     context.getSfmlWindow().draw(title);
-    context.getSfmlWindow().draw(itemNewGame);
-    context.getSfmlWindow().draw(itemLoadGame);
-    context.getSfmlWindow().draw(itemEditor);
-    context.getSfmlWindow().draw(itemOptions);
-    context.getSfmlWindow().draw(itemExit);
     context.getSfmlWindow().draw(spriteGithub);
+
+    /* display all the menu items */
+    renderAllMenuItems(context);
 
     /* TODO: #440 to refactor */
     nextControllerId = animateScreenTransition(context);
@@ -194,17 +179,13 @@ unsigned short MainMenuController::render(utils::Context& context)
             {
             case sf::Keyboard::Up:
             {
-                sounds::SoundsManager::get().getMoveSelectorSound().play();
-
-                selectorPosition--;
+                moveUp();
 
                 break;
             }
             case sf::Keyboard::Down:
             {
-                sounds::SoundsManager::get().getMoveSelectorSound().play();
-
-                selectorPosition++;
+                moveDown();
 
                 break;
             }
@@ -234,24 +215,24 @@ void MainMenuController::animateTitleColor()
     colorTitle.b += titleBlueDirection;
 
     if(
-        colorTitle.r == COLOR_TITLE_RED_MAX ||
-        colorTitle.r == COLOR_TITLE_ALL_MIN
+        colorTitle.r == 255 ||
+        colorTitle.r == 0
     )
     {
         titleRedDirection = -titleRedDirection;
     }
 
     if(
-        colorTitle.g == COLOR_TITLE_GREEN_MAX ||
-        colorTitle.g == COLOR_TITLE_ALL_MIN
+        colorTitle.g == 180 ||
+        colorTitle.g == 0
     )
     {
         titleGreenDirection = -titleGreenDirection;
     }
 
     if(
-        colorTitle.b == COLOR_TITLE_BLUE_MAX ||
-        colorTitle.b == COLOR_TITLE_ALL_MIN
+        colorTitle.b == 255 ||
+        colorTitle.b == 0
     )
     {
         titleBlueDirection = -titleBlueDirection;
@@ -263,84 +244,26 @@ void MainMenuController::animateTitleColor()
 /**
  *
  */
-void MainMenuController::updateSelectorPosition(utils::Context& context)
-{
-    /* limit de movement of the selector, according to the first and last
-       menu list item position */
-    /* TODO: #436 should be refactored in a middleware */
-    selectorPosition = (
-                           (selectorPosition > ITEM_EXIT) ?
-                           ITEM_EXIT :
-                           selectorPosition
-                       );
-
-    selectorPosition = (
-                           (selectorPosition < ITEM_NEW_GAME) ?
-                           ITEM_NEW_GAME :
-                           selectorPosition
-                       );
-
-    /* before applying the selector color on the selected menu item, we
-       first change the color of every menu item to white */
-    itemNewGame.setColor(colors::ColorsManager::get().getColorWhite());
-    itemLoadGame.setColor(colors::ColorsManager::get().getColorWhite());
-    itemEditor.setColor(colors::ColorsManager::get().getColorWhite());
-    itemOptions.setColor(colors::ColorsManager::get().getColorWhite());
-    itemExit.setColor(colors::ColorsManager::get().getColorWhite());
-
-    /* apply the selector color on the right item, according to the current
-       selector position */
-    switch(selectorPosition)
-    {
-    case ITEM_NEW_GAME:
-    {
-        itemNewGame.setColor(colorSelector);
-        break;
-    }
-    case ITEM_LOAD_GAME:
-    {
-        itemLoadGame.setColor(colorSelector);
-        break;
-    }
-    case ITEM_EDITOR:
-    {
-        itemEditor.setColor(colorSelector);
-        break;
-    }
-    case ITEM_OPTIONS:
-    {
-        itemOptions.setColor(colorSelector);
-        break;
-    }
-    default:
-    {
-        itemExit.setColor(colorSelector);
-        break;
-    }
-    }
-}
-
-/**
- *
- */
 void MainMenuController::selectMenuItem()
 {
-    /* update the expected controller id according to the selector
-       current position */
-    switch(selectorPosition)
+    /* call the correct controller according to the current selected item */
+    switch(getSelectorPosition())
     {
-    case ITEM_NEW_GAME:
+    /* the new game item is selected */
+    case 0:
     {
         expectedControllerId = NEW_GAME_CONTROLLER_ID;
 
         break;
     }
-    case ITEM_EDITOR:
+    /* the editor item is selected */
+    case 2:
     {
         expectedControllerId = EDITOR_MENU_CONTROLLER_ID;
 
         break;
     }
+    /* the exit item is selected (or any other) */
     default:
     {
         /* TODO: #442 we specify the namespace because the variable name is the
