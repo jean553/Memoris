@@ -103,8 +103,6 @@ MainMenuController::MainMenuController(utils::Context& context) :
     addMenuItem(exit);
 
     /* select the first item of the menu */
-    /* TODO: #465 check if there is a way to select the first item by
-       default */
     newGame->select();
 
     spriteGithub.setTexture(
@@ -266,9 +264,7 @@ void MainMenuController::selectMenuItem()
     /* the exit item is selected (or any other) */
     default:
     {
-        /* TODO: #442 we specify the namespace because the variable name is the
-           same as the EXIT menu item string */
-        nextControllerId = controllers::EXIT;
+        nextControllerId = EXIT;
 
         break;
     }
