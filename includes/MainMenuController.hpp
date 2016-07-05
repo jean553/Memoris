@@ -85,12 +85,14 @@ private:
     /* save the last time the title color has been modified */
     sf::Int32 titleLastAnimationTime;
 
-    /* variables to animate the colors of the main menu title */
-    /* TODO: #444 to refactor, should be sf::Uint8 and should
-       not be less than 0...*/
-    unsigned short titleRedDirection;
-    unsigned short titleGreenDirection;
-    short titleBlueDirection;
+    /* booleans used to indicate if we have to increment or decrement each
+       color value (rgb) of the main menu title color animation; we use
+       booleans instead of having signed numbers to indicate the direction
+       (increment or decrement) : in fact, we avoid to mix signed numbers
+       with sf::Uint8 (color number type) */
+    bool incrementTitleRedColor;
+    bool incrementTitleGreenColor;
+    bool incrementTitleBlueColor;
 
     /* the main menu 'Memoris' animated title color, copied here because
        this color is animated and change all the time */
