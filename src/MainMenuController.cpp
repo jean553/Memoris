@@ -161,7 +161,9 @@ unsigned short MainMenuController::render(utils::Context& context)
     /* display all the menu items */
     renderAllMenuItems(context);
 
-    /* TODO: #440 to refactor */
+    /* render the opening/closing animation if necessary, get the next
+       controller id at the end of the closing animation if the expected
+       controller id has been modified */
     nextControllerId = animateScreenTransition(context);
 
     /* main menu controller events loop; changes the position of the menu
