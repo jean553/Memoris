@@ -25,14 +25,16 @@
 #ifndef MEMORIS_INTERVALS_H_
 #define MEMORIS_INTERVALS_H_
 
+#include <SFML/System.hpp>
+
 namespace memoris
 {
 namespace intervals
 {
 
-/* the interval to animation a menu item or the main menu title
-   is 10 milliseconds */
-constexpr sf::Uint32 MENU_ITEM_ANIMATION_MILLISECONDS_INTERVAL = 10;
+/* the common interval in milliseconds for almost all the animations of the
+   game is 10 milliseconds */
+constexpr sf::Uint32 COMMON_ANIMATIONS_MILLISECONDS_INTERVAL = 10;
 }
 }
 
