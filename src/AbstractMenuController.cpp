@@ -44,14 +44,6 @@ AbstractMenuController::AbstractMenuController(utils::Context& context) :
 /**
  *
  */
-AbstractMenuController::~AbstractMenuController()
-{
-    /* empty destructor, must be defined to make the class abstract */
-}
-
-/**
- *
- */
 void AbstractMenuController::addMenuItem(items::MenuItem* item)
 {
     items.push_back(item);
