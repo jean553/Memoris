@@ -33,7 +33,6 @@
 #include "MenuItem.hpp"
 
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 
 namespace memoris
 {
@@ -72,14 +71,10 @@ private:
     void animateTitleColor();
 
     /**
-     * @brief visually update the selector position
-     *
-     * @param context unique context reference
-     */
-    void updateSelectorPosition(utils::Context& context);
-
-    /**
      * @brief call action for one selected menu item
+     *
+     * TODO: #466 should be a pure virtual method ( the destructor does not
+     * need to be pure virtual anymore );
      */
     void selectMenuItem();
 
