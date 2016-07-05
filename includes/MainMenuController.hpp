@@ -71,10 +71,8 @@ private:
     void animateTitleColor();
 
     /**
-     * @brief call action for one selected menu item
-     *
-     * TODO: #466 should be a pure virtual method ( the destructor does not
-     * need to be pure virtual anymore );
+     * @brief overwrite the parent method, defines which controller
+     * is called when one menu item is selected
      */
     void selectMenuItem();
 

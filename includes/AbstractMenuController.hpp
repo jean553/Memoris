@@ -49,12 +49,6 @@ protected:
     AbstractMenuController(utils::Context& context);
 
     /**
-     * @brief pure virtual destructor with empty definition;
-     * only to make this class abstract
-     */
-    virtual ~AbstractMenuController() = 0;
-
-    /**
      * @brief insert one menu item pointer inside the menu items list
      *
      * @param item pointer to the item to add; this is required to use
@@ -89,6 +83,14 @@ protected:
      * one
      */
     void moveDown();
+
+    /**
+     * @brief pure virtual method with empty definition; this method is used
+     * to make the class abstract; this method has to be overwritted by all
+     * children classes to define what happens when menu items are selected
+     * by definition; this method can also be used in any other menu purpose
+     */
+    virtual void selectMenuItem() = 0;
 
 private:
 
