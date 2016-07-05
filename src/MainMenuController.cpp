@@ -113,9 +113,9 @@ MainMenuController::MainMenuController(utils::Context& context) :
         0.f
     );
 
-    titleRedDirection = 1;
-    titleGreenDirection = 1;
-    titleBlueDirection = -1;
+    incrementTitleRedColor = true;
+    incrementTitleGreenColor = true;
+    incrementTitleBlueColor = false;
 }
 
 /**
@@ -208,16 +208,39 @@ void MainMenuController::animateTitleColor()
 {
     /* update the color of the title over time */
 
-    colorTitle.r += titleRedDirection;
-    colorTitle.g += titleGreenDirection;
-    colorTitle.b += titleBlueDirection;
+    if (incrementTitleRedColor)
+    {
+        colorTitle.r++;
+    }
+    else
+    {
+        colorTitle.r--;
+    }
+
+    if (incrementTitleGreenColor)
+    {
+        colorTitle.g++;
+    }
+    else
+    {
+        colorTitle.g--;
+    }
+
+    if (incrementTitleBlueColor)
+    {
+        colorTitle.b++;
+    }
+    else
+    {
+        colorTitle.b--;
+    }
 
     if(
         colorTitle.r == 255 ||
         colorTitle.r == 0
     )
     {
-        titleRedDirection = -titleRedDirection;
+        incrementTitleRedColor = !incrementTitleRedColor;
     }
 
     if(
@@ -225,7 +248,7 @@ void MainMenuController::animateTitleColor()
         colorTitle.g == 0
     )
     {
-        titleGreenDirection = -titleGreenDirection;
+        incrementTitleGreenColor = !incrementTitleGreenColor;
     }
 
     if(
@@ -233,7 +256,7 @@ void MainMenuController::animateTitleColor()
         colorTitle.b == 0
     )
     {
-        titleBlueDirection = -titleBlueDirection;
+        incrementTitleBlueColor = !incrementTitleBlueColor;
     }
 
     title.setColor(colorTitle);
