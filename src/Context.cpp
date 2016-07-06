@@ -29,6 +29,18 @@ using namespace memoris;
 using namespace utils;
 
 /**
+ *
+ */
+Context& Context::get()
+{
+    /* create only one time a context instance */
+    static Context singleton;
+
+    /* always return the same singleton instance */
+    return singleton;
+}
+
+/**
  * The constructor initializes the SFML window object: the dimensions,
  * the resolution, the title and the mode ( fullscreen ) are set
  */

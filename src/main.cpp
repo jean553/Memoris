@@ -23,9 +23,9 @@
 
 #include "Controller.hpp"
 #include "Context.hpp"
+#include "SoundsManager.hpp"
 #include "controllers.hpp"
 #include "musics.hpp"
-#include "SoundsManager.hpp"
 
 using namespace memoris;
 
@@ -46,16 +46,8 @@ int main()
     std::string currentMusicPath =
         musics::getMusicPathById(currentControllerId);
 
-    /* the context is an unique object that is transfered from one controller
-       to another during controllers switch; it contains data to exchange
-       between controller, it also contains the SFML window; the context
-       constructor also loads the fonts manager, that loads fonts from file;
-       an exception is thrown here if at least one font file couldn't be
-       opened, the error message is displayed in the console */
-    utils::Context context;
-
     /* load and play the main menu music when the program starts */
-    context.loadMusicFile(currentMusicPath);
+    utils::Context::get().loadMusicFile(currentMusicPath);
 
     /* the next controller id contains the id of the new controller to
        initialize. After generation of a controller, the current controller id
@@ -85,23 +77,22 @@ int main()
            functions; as it is a smart pointer, we do not need to delete it
            manually after each loop iteration */
         std::unique_ptr<controllers::Controller> pCurrentController =
-            controllers::getControllerById(
-                currentControllerId,
-                context
-            );
+            controllers::getControllerById(currentControllerId);
 
         /* main program loop: loads, renders and modifies controllers;
            the loop stops when the SFML window is closed */
         do
         {
             /* continually clear the whole SFML window content */
-            context.getSfmlWindow().clear();
+            utils::Context::get().getSfmlWindow().clear();
 
             /* continually render the current controller scene */
-            nextControllerId = pCurrentController->render(context);
+            nextControllerId = pCurrentController->render(
+                                   utils::Context::get()
+                               );
 
             /* continually display the loaded content */
-            context.getSfmlWindow().display();
+            utils::Context::get().getSfmlWindow().display();
         }
         while (!nextControllerId);
 
@@ -122,7 +113,7 @@ int main()
                 /* if the current music path and the next music path are
                    different, load and play the new music according to the
                    next music path */
-                context.loadMusicFile(nextMusicPath);
+                utils::Context::get().loadMusicFile(nextMusicPath);
                 currentMusicPath = nextMusicPath;
             }
 
@@ -134,15 +125,15 @@ int main()
             sounds::SoundsManager::get().getScreenTransitionSound().play();
 
             /* restart the clock */
-            context.restartClock();
+            utils::Context::get().restartClock();
         }
     }
     while (currentControllerId != controllers::EXIT);
 
-    context.stopMusic();
+    utils::Context::get().stopMusic();
 
     /* close the SFML window */
-    context.getSfmlWindow().close();
+    utils::Context::get().getSfmlWindow().close();
 
     return EXIT_SUCCESS;
 }

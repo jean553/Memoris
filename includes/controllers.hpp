@@ -25,9 +25,7 @@
 #ifndef MEMORIS_CONTROLLERS_H_
 #define MEMORIS_CONTROLLERS_H_
 
-#include "Context.hpp"
 #include "Controller.hpp"
-#include "ErrorController.hpp"
 
 namespace memoris
 {
@@ -52,14 +50,10 @@ constexpr unsigned short OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID = 11;
  * to an unique id; this method returns a pointer to a Controller child object
  *
  * @param id the id of the controller
- * @param context reference to the unique context to display the controller
  *
  * @return std::unique_ptr<Controller>
  */
-std::unique_ptr<Controller> getControllerById(
-    const unsigned short& id,
-    utils::Context& context
-);
+std::unique_ptr<Controller> getControllerById(const unsigned short& id);
 
 }
 }
