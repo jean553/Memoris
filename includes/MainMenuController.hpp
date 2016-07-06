@@ -50,11 +50,6 @@ public:
     MainMenuController(utils::Context& context);
 
     /**
-     * @brief destructor, delete the dynamically allocated menu items
-     */
-    ~MainMenuController();
-
-    /**
      * @brief render the main menu controller
      *
      * @param context current context reference
@@ -98,15 +93,6 @@ private:
 
     /* the main menu 'Memoris' animated title */
     sf::Text title;
-
-    /* main menu items pointers; we use pointers because we store them
-       in the abstract menu class items list; we do this to prevent copy */
-    /* TODO: #463 use smart pointers/use move sementics ? */
-    items::MenuItem* newGame;
-    items::MenuItem* loadGame;
-    items::MenuItem* editor;
-    items::MenuItem* options;
-    items::MenuItem* exit;
 
     /* the displayed github texture sprite, in the top right corner */
     sf::Sprite spriteGithub;

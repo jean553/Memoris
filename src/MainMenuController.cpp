@@ -61,49 +61,59 @@ MainMenuController::MainMenuController(utils::Context& context) :
     );
 
     /* initialize the new game menu item */
-    newGame = new items::MenuItem(
-        "New game",
-        615.f,
-        300.f
+    std::unique_ptr<items::MenuItem> newGame(
+        new items::MenuItem(
+            "New game",
+            615.f,
+            300.f
+        )
     );
 
     /* initialize the open game menu item */
-    loadGame = new items::MenuItem(
-        "Load game",
-        605.f,
-        400.f
+    std::unique_ptr<items::MenuItem> loadGame(
+        new items::MenuItem(
+            "Load game",
+            605.f,
+            400.f
+        )
     );
 
     /* initialize the editor menu item */
-    editor = new items::MenuItem(
-        "Editor",
-        685.f,
-        500.f
+    std::unique_ptr<items::MenuItem> editor (
+        new items::MenuItem(
+            "Editor",
+            685.f,
+            500.f
+        )
     );
 
     /* initialize the options menu item */
-    options = new items::MenuItem(
-        "Options",
-        660.f,
-        600.f
+    std::unique_ptr<items::MenuItem> options(
+        new items::MenuItem(
+            "Options",
+            660.f,
+            600.f
+        )
     );
 
     /* initialize the exit menu item */
-    exit = new items::MenuItem(
-        "Exit",
-        725.f,
-        700.f
+    std::unique_ptr<items::MenuItem> exit(
+        new items::MenuItem(
+            "Exit",
+            725.f,
+            700.f
+        )
     );
-
-    /* add the menu items inside the menu items list */
-    addMenuItem(newGame);
-    addMenuItem(loadGame);
-    addMenuItem(editor);
-    addMenuItem(options);
-    addMenuItem(exit);
 
     /* select the first item of the menu */
     newGame->select();
+
+    /* add the menu items inside the menu items list */
+    addMenuItem(std::move(newGame));
+    addMenuItem(std::move(loadGame));
+    addMenuItem(std::move(editor));
+    addMenuItem(std::move(options));
+    addMenuItem(std::move(exit));
 
     spriteGithub.setTexture(
         textures::TexturesManager::get().getGithubTexture()
@@ -116,19 +126,6 @@ MainMenuController::MainMenuController(utils::Context& context) :
     incrementTitleRedColor = true;
     incrementTitleGreenColor = true;
     incrementTitleBlueColor = false;
-}
-
-/**
- *
- */
-MainMenuController::~MainMenuController()
-{
-    /* TODO: #463 use a smart pointer for the management of the menu items */
-    delete newGame;
-    delete loadGame;
-    delete editor;
-    delete options;
-    delete exit;
 }
 
 /**
