@@ -34,6 +34,9 @@
 #include "OfficialSeriesSelectorController.hpp"
 #include "GameController.hpp"
 
+#include "Context.hpp"
+#include "ErrorController.hpp"
+
 namespace memoris
 {
 namespace controllers
@@ -42,10 +45,7 @@ namespace controllers
 /**
  *
  */
-std::unique_ptr<Controller> getControllerById(
-    const unsigned short& id,
-    utils::Context& context
-)
+std::unique_ptr<Controller> getControllerById(const unsigned short& id)
 {
     /* create an unique pointer in order to store the future generated
        controller pointer; initialize it with a null pointer; the type of the
@@ -60,42 +60,46 @@ std::unique_ptr<Controller> getControllerById(
     {
     case NEW_GAME_CONTROLLER_ID:
     {
-        controller.reset(new NewGameController(context));
+        controller.reset(new NewGameController(utils::Context::get()));
     }
     break;
     case EDITOR_MENU_CONTROLLER_ID:
     {
-        controller.reset(new EditorMenuController(context));
+        controller.reset(new EditorMenuController(utils::Context::get()));
     }
     break;
     case EDITOR_SERIE_CONTROLLER_ID:
     {
-        controller.reset(new EditorSerieController(context));
+        controller.reset(new EditorSerieController(utils::Context::get()));
     }
     break;
     case OPEN_SERIE_CONTROLLER_ID:
     {
-        controller.reset(new OpenSerieController(context));
+        controller.reset(new OpenSerieController(utils::Context::get()));
     }
     break;
     case EDITOR_LEVEL_CONTROLLER_ID:
     {
-        controller.reset(new EditorLevelController(context));
+        controller.reset(new EditorLevelController(utils::Context::get()));
     }
     break;
     case OPEN_LEVEL_CONTROLLER_ID:
     {
-        controller.reset(new OpenLevelController(context));
+        controller.reset(new OpenLevelController(utils::Context::get()));
     }
     break;
     case SERIE_MAIN_MENU_CONTROLLER_ID:
     {
-        controller.reset(new SerieMainMenuController(context));
+        controller.reset(new SerieMainMenuController(utils::Context::get()));
     }
     break;
     case OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID:
     {
-        controller.reset(new OfficialSeriesSelectorController(context));
+        controller.reset(
+            new OfficialSeriesSelectorController(
+                utils::Context::get()
+            )
+        );
     }
     break;
     case GAME_CONTROLLER_ID:
@@ -107,13 +111,13 @@ std::unique_ptr<Controller> getControllerById(
            error message is also set in the FileWriter class */
         try
         {
-            controller.reset(new GameController(context));
+            controller.reset(new GameController(utils::Context::get()));
         }
         catch(const std::invalid_argument& e)
         {
             controller.reset(
                 new ErrorController(
-                    context,
+                    utils::Context::get(),
                     e.what()
                 )
             );
@@ -127,7 +131,11 @@ std::unique_ptr<Controller> getControllerById(
        if an incorrect controller id is specified */
     default:
     {
-        controller.reset(new MainMenuController(context));
+        controller.reset(
+            new MainMenuController(
+                utils::Context::get()
+            )
+        );
     }
     break;
     }

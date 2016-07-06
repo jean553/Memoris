@@ -27,6 +27,8 @@
 #ifndef MEMORIS_CONTEXT_H_
 #define MEMORIS_CONTEXT_H_
 
+#include "NotCopiable.hpp"
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
@@ -36,11 +38,20 @@
 
 namespace utils
 {
-class Context
+class Context : public memoris::others::NotCopiable
 {
 public:
 
-    Context();
+    /**
+     * @brief make the context a singleton class;
+     * creates a static singleton object, call the private
+     * constructor only one time; as the object is static,
+     * this unique object is returned everytime and we never
+     * create it again
+     *
+     * @return static Context&
+     */
+    static Context& get();
 
     /**
      * @brief getter on the SFML window object
@@ -148,6 +159,11 @@ public:
     void removeAllStrings();
 
 private:
+
+    /**
+     * @brief constructor, create and set the SFML window
+     */
+    Context();
 
     /* the main SFML window object */
     sf::RenderWindow sfmlWindow;
