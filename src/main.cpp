@@ -78,11 +78,13 @@ int main()
        when necessary */
     do
     {
-        /* create a pointer to the current controller, pointing to the
+        /* create a unique pointer to the current controller, pointing to the
            controller to render; we use a pointer as there are different
            children classes of controllers, all children of the Controller
-           class. */
-        controllers::Controller* pCurrentController =
+           class; we use an unique pointer, clearly appropriate for factories
+           functions; as it is a smart pointer, we do not need to delete it
+           manually after each loop iteration */
+        std::unique_ptr<controllers::Controller> pCurrentController =
             controllers::getControllerById(
                 currentControllerId,
                 context
@@ -102,9 +104,6 @@ int main()
             context.getSfmlWindow().display();
         }
         while (!nextControllerId);
-
-        /* delete the controller pointed by the current controller pointer */
-        delete pCurrentController;
 
         /* check if the program is supposed to be terminated */
         if (currentControllerId != controllers::EXIT)
