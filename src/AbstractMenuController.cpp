@@ -44,9 +44,9 @@ AbstractMenuController::AbstractMenuController(utils::Context& context) :
 /**
  *
  */
-void AbstractMenuController::addMenuItem(items::MenuItem* item)
+void AbstractMenuController::addMenuItem(std::unique_ptr<items::MenuItem> item)
 {
-    items.push_back(item);
+    items.push_back(std::move(item));
 }
 
 /**
@@ -54,9 +54,19 @@ void AbstractMenuController::addMenuItem(items::MenuItem* item)
  */
 void AbstractMenuController::renderAllMenuItems(utils::Context& context)
 {
-    for(items::MenuItem* item : items)
+    /* use a loop with iterator as the unique pointer is not moved or copied
+       during the loop iteration; that's why we use an iterator to point on
+       each loop item one by one */
+    for(
+        std::vector<std::unique_ptr<items::MenuItem>>::iterator item =
+            items.begin();
+        item != items.end();
+        ++item
+    )
     {
-        item->render(context);
+        /* the item iterator is a pointer to an unique pointer; that's why
+           whe use the double dereference to manipulate the object */
+        (**item).render(context);
     }
 }
 
@@ -88,7 +98,8 @@ void AbstractMenuController::updateMenuSelection()
     /* browse all the menu items; use an iterator in order to calculate the
        current index during each iteration */
     for(
-        std::vector<items::MenuItem*>::iterator iterator = items.begin();
+        std::vector<std::unique_ptr<items::MenuItem>>::iterator iterator =
+            items.begin();
         iterator != items.end();
         ++iterator
     )
@@ -109,13 +120,15 @@ void AbstractMenuController::updateMenuSelection()
             ) == selectorPosition
         )
         {
-            (*iterator)->select();
+            /* the item iterator is a pointer to an unique pointer; that's why
+               whe use the double dereference to manipulate the object */
+            (**iterator).select();
 
             continue;
         }
 
         /* unselect all the others items */
-        (*iterator)->unselect();
+        (**iterator).unselect();
     }
 }
 

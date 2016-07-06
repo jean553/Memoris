@@ -51,12 +51,12 @@ protected:
     /**
      * @brief insert one menu item pointer inside the menu items list
      *
-     * @param item pointer to the item to add; this is required to use
+     * @param unique pointer to the item to add; this is required to use
      * pointers to avoid to create two objects; this is better to have
      * two pointers pointing on the same object; we also use pointers
      * because references cannot be added into containers
      */
-    void addMenuItem(items::MenuItem* item);
+    void addMenuItem(std::unique_ptr<items::MenuItem> item);
 
     /**
      * @brief display all the menu items
@@ -115,7 +115,7 @@ private:
     /* the container of menu items; we use a vector because we have to handle
        order, keys management ( indexes ), we have to be able to find by index,
        we insert at the end and the size won't change at all after creation */
-    std::vector<items::MenuItem*> items;
+    std::vector<std::unique_ptr<items::MenuItem>> items;
 };
 
 }
