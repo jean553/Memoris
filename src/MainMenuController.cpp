@@ -161,7 +161,7 @@ unsigned short MainMenuController::render(utils::Context& context)
     /* render the opening/closing animation if necessary, get the next
        controller id at the end of the closing animation if the expected
        controller id has been modified */
-    nextControllerId = animateScreenTransition(context);
+    nextControllerId = animateScreenTransition();
 
     /* main menu controller events loop; changes the position of the menu
        selector according to the Up/Down keys; select a menu item when

@@ -45,7 +45,7 @@ const float OfficialSeriesSelectorController::OFF_SER_TITLE_VRTL_PSTN = 50.f;
  *
  */
 OfficialSeriesSelectorController::OfficialSeriesSelectorController(utils::Context& context) :
-    Controller(context),
+    Controller(),
     scrlList(context)
 {
     offSerTitle.setFont(memoris::fonts::FontsManager::get().getTitleFont());
@@ -75,7 +75,7 @@ unsigned short OfficialSeriesSelectorController::render(utils::Context& context)
 
     scrlList.display(context);
 
-    nextControllerId = animateScreenTransition(context);
+    nextControllerId = animateScreenTransition();
 
     while(context.getSfmlWindow().pollEvent(event))
     {

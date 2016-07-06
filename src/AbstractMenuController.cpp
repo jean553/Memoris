@@ -35,7 +35,7 @@ namespace controllers
  *
  */
 AbstractMenuController::AbstractMenuController(utils::Context& context) :
-    Controller(context)
+    Controller()
 {
     /* the default pointed item is always the first one when the menu starts */
     selectorPosition = 0;

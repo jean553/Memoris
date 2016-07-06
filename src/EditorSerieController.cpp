@@ -79,7 +79,7 @@ const unsigned short EditorSerieController::ERROR_MESSAGE_POSITION_Y = 200;
  *
  */
 EditorSerieController::EditorSerieController(utils::Context& context) :
-    Controller(context),
+    Controller(),
     inputTextNew(context),
     titleBar(context),
     levelsList(context)
@@ -223,7 +223,7 @@ unsigned short EditorSerieController::render(utils::Context& context)
 
     cursor.display(context);
 
-    nextControllerId = animateScreenTransition(context);
+    nextControllerId = animateScreenTransition();
 
     while(context.getSfmlWindow().pollEvent(event))
     {

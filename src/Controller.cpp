@@ -35,7 +35,7 @@ namespace controllers
 /**
  *
  */
-Controller::Controller(utils::Context& context)
+Controller::Controller()
 {
     /* when the controller starts, there is no new controller to load at
        the moment, that's why the next controller id is initialized with 0 */
@@ -94,7 +94,7 @@ Controller::~Controller()
 /**
  *
  */
-unsigned short Controller::animateScreenTransition(utils::Context& context)
+unsigned short Controller::animateScreenTransition()
 {
     /* the animation is rendered only if a new screen is called ( the program
        is closing the current screen ) or if the new called screen is
@@ -114,11 +114,14 @@ unsigned short Controller::animateScreenTransition(utils::Context& context)
     transitionSurface.setFillColor(transitionSurfaceColor);
 
     /* draw the transition surface */
-    context.getSfmlWindow().draw(transitionSurface);
+    utils::Context::get().getSfmlWindow().draw(transitionSurface);
 
     /* animate the screen transition animation according to the last screen
        transition animation update time */
-    if (context.getClockMillisecondsTime() - lastScreenTransitionTime > 25)
+    if (
+        utils::Context::get().getClockMillisecondsTime() -
+        lastScreenTransitionTime > 25
+    )
     {
         if (openingScreen)
         {
@@ -131,7 +134,8 @@ unsigned short Controller::animateScreenTransition(utils::Context& context)
 
         /* update the last screen transition time with the current time for
            the next animation step */
-        lastScreenTransitionTime = context.getClockMillisecondsTime();
+        lastScreenTransitionTime =
+            utils::Context::get().getClockMillisecondsTime();
     }
 
     /* when the closing animation is finished, the color transparency value is
