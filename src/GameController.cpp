@@ -87,7 +87,7 @@ const float GameController::FLOOR_IMG_VRTL_PSTN = 0;
  *
  */
 GameController::GameController(utils::Context& context) :
-    Controller(context),
+    Controller(),
     level(0, 0)
 {
     starCellsAmount = 0;
@@ -293,7 +293,7 @@ unsigned short GameController::render(utils::Context& context)
         clock.restart();
     }
 
-    nextControllerId = animateScreenTransition(context);
+    nextControllerId = animateScreenTransition();
 
     while(context.getSfmlWindow().pollEvent(event))
     {

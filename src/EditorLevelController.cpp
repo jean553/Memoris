@@ -89,7 +89,7 @@ const float EditorLevelController::FLOOR_LABEL_VERTICAL_POSITION = 670;
  *
  */
 EditorLevelController::EditorLevelController(utils::Context& context) :
-    Controller(context),
+    Controller(),
     level(LEVEL_POSITION_X, LEVEL_POSITION_Y),
     inputTextNew(context),
     titleBar(context),
@@ -270,7 +270,7 @@ unsigned short EditorLevelController::render(utils::Context& context)
 
     cursor.display(context);
 
-    nextControllerId = animateScreenTransition(context);
+    nextControllerId = animateScreenTransition();
 
     while(context.getSfmlWindow().pollEvent(event))
     {

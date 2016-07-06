@@ -46,7 +46,7 @@ const unsigned short OpenSerieController::SERIES_LIST_SERIES_NUMBER = 18;
  *
  */
 OpenSerieController::OpenSerieController(utils::Context& context) :
-    Controller(context),
+    Controller(),
     titleBar(context),
     seriesList(context)
 {
@@ -88,7 +88,7 @@ unsigned short OpenSerieController::render(utils::Context& context)
     seriesList.display(context);
     cursor.display(context);
 
-    nextControllerId = animateScreenTransition(context);
+    nextControllerId = animateScreenTransition();
 
     while(context.getSfmlWindow().pollEvent(event))
     {

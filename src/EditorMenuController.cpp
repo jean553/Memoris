@@ -55,7 +55,7 @@ const unsigned short EditorMenuController::EDITOR_MENU_ITEM_BACK = 2;
  *
  */
 EditorMenuController::EditorMenuController(utils::Context& context) :
-    Controller(context)
+    Controller()
 {
     selectorPosition = 0;
 
@@ -106,7 +106,7 @@ unsigned short EditorMenuController::render(utils::Context& context)
     context.getSfmlWindow().draw(itemSeriesEditor);
     context.getSfmlWindow().draw(itemBack);
 
-    nextControllerId = animateScreenTransition(context);
+    nextControllerId = animateScreenTransition();
 
     while (context.getSfmlWindow().pollEvent(event))
     {

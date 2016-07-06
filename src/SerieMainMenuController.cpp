@@ -65,7 +65,7 @@ const uint8_t SerieMainMenuController::SERIE_MAIN_MENU_BACK_ITEM = 2;
  *
  */
 SerieMainMenuController::SerieMainMenuController(utils::Context& context) :
-    Controller(context),
+    Controller(),
     cupTrslt(
         TRLST_COMMON_HRTL_PSTN,
         CUP_TRLST_VRTL_PSTN,
@@ -156,7 +156,7 @@ unsigned short SerieMainMenuController::render(utils::Context& context)
     context.getSfmlWindow().draw(itemPersonalSeries);
     context.getSfmlWindow().draw(itemBack);
 
-    nextControllerId = animateScreenTransition(context);
+    nextControllerId = animateScreenTransition();
 
     while (context.getSfmlWindow().pollEvent(event))
     {

@@ -44,10 +44,8 @@ public:
     /**
      * @brief constructor, initialize variables and load in memory the
      * transition surface (used for screens transition animation)
-     *
-     * @param context current context reference
      */
-    Controller(utils::Context& context);
+    Controller();
 
     /**
      * @brief destructor, does nothing, only used to respect the rule saying
@@ -67,6 +65,14 @@ public:
      * @param context current context reference
      *
      * @return unsigned short
+     *
+     * TODO: #476 the context should not be passed here and never be passed to
+     * a function anyway; the context is a singleton always accessible using
+     * the static method get(); we should delete all the context parameters;
+     * as this task is huge and as we do it step by step, we are mandatory
+     * to keep it here for now inside the interface; this parameter will be
+     * deleted when all the controllers will directly get the current context
+     * reference from the singleton get() method
      */
     virtual unsigned short render(utils::Context& context) = 0;
 
@@ -84,8 +90,6 @@ protected:
      * animtation (opening or closing) is terminated; this id can be stored
      * in the nextControllerId and the screen can be switched.
      *
-     * @param context current context reference
-     *
      * @return unsigned short
      *
      * NOTE: must be called inside the render method of a controller,
@@ -93,7 +97,7 @@ protected:
      * animation is displayed; the screen switching process is not handled
      * by this function
      */
-    unsigned short animateScreenTransition(utils::Context& context);
+    unsigned short animateScreenTransition();
 
 
     /* the controller SFML event manager; there is no need to declare a SFML

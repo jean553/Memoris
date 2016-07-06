@@ -53,7 +53,7 @@ const float OpenLevelController::ERROR_MESSAGE_POSITION_Y = 40;
  *
  */
 OpenLevelController::OpenLevelController(utils::Context& context) :
-    Controller(context),
+    Controller(),
     titleBar(context),
     levelsList(context)
 {
@@ -101,7 +101,7 @@ unsigned short OpenLevelController::render(utils::Context& context)
         context.getSfmlWindow().draw(errorLabel);
     }
 
-    nextControllerId = animateScreenTransition(context);
+    nextControllerId = animateScreenTransition();
 
     while(context.getSfmlWindow().pollEvent(event))
     {
