@@ -54,26 +54,11 @@ constexpr unsigned short OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID = 11;
  * @param id the id of the controller
  * @param context reference to the unique context to display the controller
  *
- * @return Controller*
+ * @return std::unique_ptr<Controller>
  */
-Controller* getControllerById(
+std::unique_ptr<Controller> getControllerById(
     const unsigned short& id,
     utils::Context& context
-);
-
-/**
- * @brief returns the unique error controller; this is a screen with an
- * unique error message; this error message is passed as constructor
- * parameter
- *
- * @param context the unique context to use
- * @param msg the message to display on the error controller screen
- *
- * @return ErrorController*
- */
-ErrorController* getErrorController(
-    utils::Context& context,
-    const std::string& msg
 );
 
 }
