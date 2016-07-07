@@ -27,6 +27,7 @@
 #include "fonts.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
+#include "Context.hpp"
 
 using namespace widgets;
 
@@ -41,7 +42,7 @@ const unsigned int ItemsListWidget::ITEMS_LIST_ITEM_HEIGHT = 40;
 /**
  *
  */
-ItemsListWidget::ItemsListWidget(utils::Context& context)
+ItemsListWidget::ItemsListWidget()
 {
     boxTop.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
     boxBottom.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
@@ -183,22 +184,22 @@ void ItemsListWidget::addTextItem(std::string textItem)
 /**
  *
  */
-void ItemsListWidget::display(utils::Context& context)
+void ItemsListWidget::display()
 {
-    context.getSfmlWindow().draw(boxTop);
-    context.getSfmlWindow().draw(boxBottom);
-    context.getSfmlWindow().draw(boxLeft);
-    context.getSfmlWindow().draw(boxRight);
+    utils::Context::get().getSfmlWindow().draw(boxTop);
+    utils::Context::get().getSfmlWindow().draw(boxBottom);
+    utils::Context::get().getSfmlWindow().draw(boxLeft);
+    utils::Context::get().getSfmlWindow().draw(boxRight);
 
     if (isMouseHover())
     {
-        highlightCurrentItem(context);
+        highlightCurrentItem();
     }
 
-    highlightArrows(context);
+    highlightArrows();
 
-    context.getSfmlWindow().draw(spriteUp);
-    context.getSfmlWindow().draw(spriteDown);
+    utils::Context::get().getSfmlWindow().draw(spriteUp);
+    utils::Context::get().getSfmlWindow().draw(spriteDown);
 
     for(std::vector<std::string>::iterator textItem = stringsList.begin();
             textItem != stringsList.end(); ++textItem)
@@ -233,7 +234,7 @@ void ItemsListWidget::display(utils::Context& context)
             itemsCommonVerticalPosition - ITEMS_LIST_TEXT_OFFSET
         );
 
-        context.getSfmlWindow().draw(item);
+        utils::Context::get().getSfmlWindow().draw(item);
     }
 }
 
@@ -280,7 +281,7 @@ bool ItemsListWidget::isMouseHover() const
 /**
  *
  */
-void ItemsListWidget::highlightCurrentItem(utils::Context& context)
+void ItemsListWidget::highlightCurrentItem()
 {
     unsigned short cursorInternalHorizontalPosition =
         static_cast<unsigned short>(sf::Mouse::getPosition().y - verticalPosition);
@@ -303,7 +304,7 @@ void ItemsListWidget::highlightCurrentItem(utils::Context& context)
         ITEMS_LIST_ITEM_HEIGHT + ITEMS_LIST_BORDER_SIZE
     );
 
-    context.getSfmlWindow().draw(selector);
+    utils::Context::get().getSfmlWindow().draw(selector);
 
     /* TODO: use the same variable, should be refactored,
        use a second separated variable to avoid all casting problems */
@@ -313,15 +314,15 @@ void ItemsListWidget::highlightCurrentItem(utils::Context& context)
 /**
  *
  */
-void ItemsListWidget::highlightArrows(utils::Context& context)
+void ItemsListWidget::highlightArrows()
 {
     if (isMouseHoverArrowUp())
     {
-        context.getSfmlWindow().draw(arrowUpSelector);
+        utils::Context::get().getSfmlWindow().draw(arrowUpSelector);
     }
     else if (isMouseHoverArrowDown())
     {
-        context.getSfmlWindow().draw(arrowDownSelector);
+        utils::Context::get().getSfmlWindow().draw(arrowDownSelector);
     }
 }
 

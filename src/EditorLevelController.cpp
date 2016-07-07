@@ -90,11 +90,7 @@ const float EditorLevelController::FLOOR_LABEL_VERTICAL_POSITION = 670;
  */
 EditorLevelController::EditorLevelController(utils::Context& context) :
     Controller(),
-    level(LEVEL_POSITION_X, LEVEL_POSITION_Y),
-    inputTextNew(context),
-    titleBar(context),
-    cellSelector(context),
-    floorSelectionFrame(context)
+    level(LEVEL_POSITION_X, LEVEL_POSITION_Y)
 {
     currentFloor = 0;
 
@@ -110,42 +106,36 @@ EditorLevelController::EditorLevelController(utils::Context& context) :
     buttonPreviousFloor.setLabel(EDITOR_LEVEL_BUTTON_PREVIOUS_FLOOR_TEXT);
 
     buttonExit.setLayout(
-        context,
         LEVEL_EDITOR_BUTTONS_POSITION_X,
         constants::Positions::EDITOR_BUTTONS_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonNew.setLayout(
-        context,
         LEVEL_EDITOR_BUTTONS_POSITION_X,
         LEVEL_EDITOR_BUTTON_NEW_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonOpen.setLayout(
-        context,
         LEVEL_EDITOR_BUTTONS_POSITION_X,
         LEVEL_EDITOR_BUTTON_OPEN_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonSave.setLayout(
-        context,
         LEVEL_EDITOR_BUTTONS_POSITION_X,
         LEVEL_EDITOR_BUTTON_SAVE_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonNextFloor.setLayout(
-        context,
         LEVEL_EDITOR_BUTTONS_POSITION_X,
         LEVEL_EDITOR_BUTTON_LEVEL_UP_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonPreviousFloor.setLayout(
-        context,
         LEVEL_EDITOR_BUTTONS_POSITION_X,
         LEVEL_EDITOR_BUTTON_LEVEL_DOWN_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
@@ -183,7 +173,6 @@ EditorLevelController::EditorLevelController(utils::Context& context) :
     );
 
     inputTextNew.setLayout(
-        context,
         POSITION_NEW_LEVEL_INPUT_TEXT_X,
         POSITION_NEW_LEVEL_INPUT_TEXT_Y,
         SIZE_NEW_LEVEL_TEXT
@@ -220,21 +209,21 @@ EditorLevelController::EditorLevelController(utils::Context& context) :
  */
 unsigned short EditorLevelController::render(utils::Context& context)
 {
-    titleBar.display(context);
-    buttonExit.display(context);
-    buttonNew.display(context);
-    buttonOpen.display(context);
-    buttonSave.display(context);
-    buttonNextFloor.display(context);
-    buttonPreviousFloor.display(context);
+    titleBar.display();
+    buttonExit.display();
+    buttonNew.display();
+    buttonOpen.display();
+    buttonSave.display();
+    buttonNextFloor.display();
+    buttonPreviousFloor.display();
 
     level.displayAllCellsByFloor(
         context,
         currentFloor
     );
 
-    cellSelector.display(context);
-    floorSelectionFrame.display(context);
+    cellSelector.display();
+    floorSelectionFrame.display();
 
     context.getSfmlWindow().draw(floorPrefixLabel);
     context.getSfmlWindow().draw(floorLabel);
@@ -242,7 +231,7 @@ unsigned short EditorLevelController::render(utils::Context& context)
     /* displays the input text line for new level */
     if (status == NEW_LEVEL)
     {
-        inputTextNew.display(context);
+        inputTextNew.display();
     }
 
     /* displays the name of the level if one level is being edited */
@@ -268,7 +257,7 @@ unsigned short EditorLevelController::render(utils::Context& context)
         context.getSfmlWindow().draw(errorLabel);
     }
 
-    cursor.display(context);
+    cursor.display();
 
     nextControllerId = animateScreenTransition();
 

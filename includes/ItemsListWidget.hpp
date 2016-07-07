@@ -46,7 +46,7 @@ public:
      *
      * @param context current context reference
      */
-    ItemsListWidget(utils::Context& context);
+    ItemsListWidget();
 
     /**
      * @brief set the size and position of the widget
@@ -73,7 +73,7 @@ public:
      *
      * @param context  current context pointer
      */
-    void display(utils::Context& context);
+    void display();
 
     /**
      * @brief setter for the items list widget strings list
@@ -113,17 +113,13 @@ protected:
 
     /**
      * @brief highlight the current selected item of the list
-     *
-     * @param context  current context pointer
      */
-    void highlightCurrentItem(utils::Context& context);
+    void highlightCurrentItem();
 
     /**
      * @brief highlight the widget arrows if mouse is hover
-     *
-     * @param context  current context pointer
      */
-    void highlightArrows(utils::Context& context);
+    void highlightArrows();
 
     static const std::string PATH_IMAGE_ARROW_UP;
     static const std::string PATH_IMAGE_ARROW_DOWN;

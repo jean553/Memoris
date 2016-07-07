@@ -47,11 +47,9 @@ class TitleBarWidget
 public:
 
     /**
-     * @param context unique context
      * @param barText                content of the text bar
      */
     TitleBarWidget(
-        utils::Context& context,
         std::string barText = ""
     );
 
@@ -71,10 +69,8 @@ public:
 
     /**
      * @brief display the header title bar
-     *
-     * @param context       current context pointer
      */
-    void display(utils::Context& context);
+    void display();
 
 private:
 

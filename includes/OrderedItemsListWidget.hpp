@@ -44,17 +44,13 @@ public:
 
     /**
      * @brief constructor
-     *
-     * @param context current context reference
      */
-    OrderedItemsListWidget(utils::Context& context);
+    OrderedItemsListWidget();
 
     /**
      * @brief display the items list widget
-     *
-     * @param context  current context pointer
      */
-    void display(utils::Context& context);
+    void display();
 };
 }
 

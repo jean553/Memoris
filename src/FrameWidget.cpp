@@ -25,6 +25,7 @@
 #include "FrameWidget.hpp"
 
 #include "ColorsManager.hpp"
+#include "Context.hpp"
 
 using namespace widgets;
 
@@ -33,7 +34,7 @@ const unsigned short FrameWidget::BORDER_WIDTH = 1;
 /**
  *
  */
-FrameWidget::FrameWidget(utils::Context& context)
+FrameWidget::FrameWidget()
 {
     leftLine.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
     rightLine.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
@@ -47,12 +48,12 @@ FrameWidget::FrameWidget(utils::Context& context)
 /**
  *
  */
-void FrameWidget::display(utils::Context& context)
+void FrameWidget::display()
 {
-    context.getSfmlWindow().draw(leftLine);
-    context.getSfmlWindow().draw(rightLine);
-    context.getSfmlWindow().draw(topLine);
-    context.getSfmlWindow().draw(bottomLine);
+    utils::Context::get().getSfmlWindow().draw(leftLine);
+    utils::Context::get().getSfmlWindow().draw(rightLine);
+    utils::Context::get().getSfmlWindow().draw(topLine);
+    utils::Context::get().getSfmlWindow().draw(bottomLine);
 }
 
 /**

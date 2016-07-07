@@ -51,18 +51,16 @@ class InputTextWidget : public Widget
 
 public:
 
-    InputTextWidget(utils::Context& context);
+    InputTextWidget();
 
     /**
      * @brief set the size and the position of the widget
      *
-     * @param context current context reference
      * @param inputHorizontalPosition    input horizontal position
      * @param inputVerticalPosition      input vertical position
      * @param inputWidth                 input width
      */
     void setLayout(
-        utils::Context& context,
         float inputHorizontalPosition,
         float inputVerticalPosition,
         float inputWidth
@@ -90,10 +88,8 @@ public:
     /**
      * @brief display the input text
      * with its content
-     *
-     * @param context       current context pointer
      */
-    void display(utils::Context& context);
+    void display();
 
     /**
      * @brief update the input text

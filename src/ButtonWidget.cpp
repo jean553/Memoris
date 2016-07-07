@@ -27,6 +27,7 @@
 #include "fonts.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
+#include "Context.hpp"
 
 using namespace widgets;
 
@@ -55,7 +56,6 @@ void ButtonWidget::setLabel(std::string textLabel)
  *
  */
 void ButtonWidget::setLayout(
-    utils::Context& context,
     float buttonHorizontalPosition,
     float buttonVerticalPosition,
     float buttonWidth
@@ -116,10 +116,18 @@ void ButtonWidget::setLayout(
         buttonVerticalPosition
     );
 
-    topLine.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
-    bottomLine.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
-    leftLine.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
-    rightLine.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
+    topLine.setFillColor(
+        memoris::colors::ColorsManager::get().getColorWhite()
+    );
+    bottomLine.setFillColor(
+        memoris::colors::ColorsManager::get().getColorWhite()
+    );
+    leftLine.setFillColor(
+        memoris::colors::ColorsManager::get().getColorWhite()
+    );
+    rightLine.setFillColor(
+        memoris::colors::ColorsManager::get().getColorWhite()
+    );
 }
 
 /**
@@ -133,34 +141,46 @@ void ButtonWidget::setText(std::string inputTextData)
 /**
  *
  */
-void ButtonWidget::display(utils::Context& context)
+void ButtonWidget::display()
 {
     if(enable)
     {
 
-        buttonText.setColor(memoris::colors::ColorsManager::get().getColorWhite());
-        background.setFillColor(memoris::colors::ColorsManager::get().getColorGrey());
+        buttonText.setColor(
+            memoris::colors::ColorsManager::get().getColorWhite()
+        );
+        background.setFillColor(
+            memoris::colors::ColorsManager::get().getColorGrey()
+        );
 
         if(isMouseHover())
         {
 
-            buttonText.setColor(memoris::colors::ColorsManager::get().getColorLightBlue());
-            background.setFillColor(memoris::colors::ColorsManager::get().getColorDarkGrey());
+            buttonText.setColor(
+                memoris::colors::ColorsManager::get().getColorLightBlue()
+            );
+            background.setFillColor(
+                memoris::colors::ColorsManager::get().getColorDarkGrey()
+            );
         }
     }
     else
     {
 
-        buttonText.setColor(memoris::colors::ColorsManager::get().getColorPartialWhite());
-        background.setFillColor(memoris::colors::ColorsManager::get().getColorPartialGrey());
+        buttonText.setColor(
+            memoris::colors::ColorsManager::get().getColorPartialWhite()
+        );
+        background.setFillColor(
+            memoris::colors::ColorsManager::get().getColorPartialGrey()
+        );
     }
 
-    context.getSfmlWindow().draw(background);
-    context.getSfmlWindow().draw(topLine);
-    context.getSfmlWindow().draw(bottomLine);
-    context.getSfmlWindow().draw(leftLine);
-    context.getSfmlWindow().draw(rightLine);
-    context.getSfmlWindow().draw(buttonText);
+    utils::Context::get().getSfmlWindow().draw(background);
+    utils::Context::get().getSfmlWindow().draw(topLine);
+    utils::Context::get().getSfmlWindow().draw(bottomLine);
+    utils::Context::get().getSfmlWindow().draw(leftLine);
+    utils::Context::get().getSfmlWindow().draw(rightLine);
+    utils::Context::get().getSfmlWindow().draw(buttonText);
 }
 
 /**
@@ -172,7 +192,10 @@ bool ButtonWidget::isMouseHover() const
         unsigned(sf::Mouse::getPosition().x) > horizontalPosition &&
         unsigned(sf::Mouse::getPosition().x) < horizontalPosition + width &&
         unsigned(sf::Mouse::getPosition().y) > verticalPosition &&
-        unsigned(sf::Mouse::getPosition().y) < verticalPosition + BUTTON_FIXED_HEIGHT &&
+        (
+            unsigned(sf::Mouse::getPosition().y) <
+            verticalPosition + BUTTON_FIXED_HEIGHT
+        ) &&
         enable
     )
     {

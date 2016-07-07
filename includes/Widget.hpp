@@ -28,8 +28,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Context.hpp"
-
 namespace widgets
 {
 class Widget
@@ -63,10 +61,8 @@ protected:
 
     /**
      * @brief common method to display the widget
-     *
-     * @param context    current context pointer
      */
-    virtual void display(utils::Context& context) = 0;
+    virtual void display() = 0;
 
     float horizontalPosition;
     float verticalPosition;

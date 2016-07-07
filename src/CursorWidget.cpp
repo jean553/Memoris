@@ -24,6 +24,8 @@
 
 #include "CursorWidget.hpp"
 
+#include "Context.hpp"
+
 using namespace widgets;
 
 const std::string CursorWidget::PATH_IMAGE_CURSOR = "res/images/cursor.png";
@@ -40,7 +42,7 @@ CursorWidget::CursorWidget()
 /**
  *
  */
-void CursorWidget::display(utils::Context& context)
+void CursorWidget::display()
 {
     /* NOTE: this is useless, as the CursorWidget attributes are never get,
        instead, we directly get the sf::Cursor position. Despite this, we
@@ -55,5 +57,5 @@ void CursorWidget::display(utils::Context& context)
         verticalPosition
     );
 
-    context.getSfmlWindow().draw(sprite);
+    utils::Context::get().getSfmlWindow().draw(sprite);
 }

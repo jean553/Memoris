@@ -53,7 +53,7 @@ const unsigned short NewGameController::MAX_NAME_LENGTH = 15;
  *
  */
 NewGameController::NewGameController(utils::Context& context) :
-    inputTextGameName(context),
+    inputTextGameName(),
     Controller()
 {
     title.setFont(memoris::fonts::FontsManager::get().getTitleFont());
@@ -75,7 +75,6 @@ NewGameController::NewGameController(utils::Context& context) :
     );
 
     inputTextGameName.setLayout(
-        context,
         POSITION_NAME_INPUT_TEXT_X,
         POSITION_NAME_INPUT_TEXT_Y,
         SIZE_NAME_INPUT_TEXT
@@ -99,7 +98,7 @@ unsigned short NewGameController::render(utils::Context& context)
     context.getSfmlWindow().draw(title);
     context.getSfmlWindow().draw(explanation);
 
-    inputTextGameName.display(context);
+    inputTextGameName.display();
 
     nextControllerId = animateScreenTransition();
 

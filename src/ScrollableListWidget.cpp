@@ -28,6 +28,7 @@
 #include "fonts.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
+#include "Context.hpp"
 
 using namespace widgets;
 
@@ -36,7 +37,7 @@ const std::string ScrollableListWidget::ARR_DOWN_IMG_PATH = "res/images/scroll_d
 /**
  *
  */
-ScrollableListWidget::ScrollableListWidget(utils::Context& context)
+ScrollableListWidget::ScrollableListWidget()
 {
     /* the animated arrow is animated, that's why we copy
        the color from the white color first */
@@ -57,7 +58,7 @@ ScrollableListWidget::ScrollableListWidget(utils::Context& context)
 /**
  *
  */
-void ScrollableListWidget::display(utils::Context& context)
+void ScrollableListWidget::display()
 {
     /* iterate like that as we copy the reference in the for loop */
     uint8_t it = 0;
@@ -70,7 +71,7 @@ void ScrollableListWidget::display(utils::Context& context)
         if (it >= ITEMS_AMNT)
             continue;
 
-        context.getSfmlWindow().draw(txt);
+        utils::Context::get().getSfmlWindow().draw(txt);
         it++;
     }
 
@@ -83,18 +84,17 @@ void ScrollableListWidget::display(utils::Context& context)
         if (it >= ITEMS_AMNT)
             continue;
 
-        context.getSfmlWindow().draw(txt);
+        utils::Context::get().getSfmlWindow().draw(txt);
         it++;
     }
 
-    displayArrDown(context);
+    displayArrDown();
 }
 
 /**
  *
  */
 void ScrollableListWidget::initFromStrArr(
-    utils::Context& context,
     const std::vector<std::string>& arr,
     const bool& isPrefix
 )
@@ -141,7 +141,7 @@ void ScrollableListWidget::initFromStrArr(
 /**
  *
  */
-void ScrollableListWidget::updtSltrPstn(utils::Context& context)
+void ScrollableListWidget::updtSltrPstn()
 {
     sltrPstn = ((sltrPstn > ITEMS_AMNT - 1) ? 0 : sltrPstn);
 
@@ -179,7 +179,7 @@ void ScrollableListWidget::decSltrPstn()
 /**
  *
  */
-void ScrollableListWidget::displayArrDown(utils::Context& context)
+void ScrollableListWidget::displayArrDown()
 {
     if (clk.getElapsedTime().asMilliseconds() > TIME_ITRVL)
     {
@@ -198,5 +198,5 @@ void ScrollableListWidget::displayArrDown(utils::Context& context)
         clk.restart();
     }
 
-    context.getSfmlWindow().draw(arrDownSprt);
+    utils::Context::get().getSfmlWindow().draw(arrDownSprt);
 }
