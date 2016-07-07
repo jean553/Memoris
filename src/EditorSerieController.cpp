@@ -78,7 +78,7 @@ const unsigned short EditorSerieController::ERROR_MESSAGE_POSITION_Y = 200;
 /**
  *
  */
-EditorSerieController::EditorSerieController(utils::Context& context) :
+EditorSerieController::EditorSerieController() :
     Controller()
 {
     errorNewSerie = false;
@@ -173,13 +173,13 @@ EditorSerieController::EditorSerieController(utils::Context& context) :
         ERROR_MESSAGE_POSITION_Y
     );
 
-    initializeOpenedSerie(context);
+    initializeOpenedSerie();
 }
 
 /**
  *
  */
-unsigned short EditorSerieController::render(utils::Context& context)
+unsigned short EditorSerieController::render()
 {
     titleBar.display();
     buttonNew.display();
@@ -198,23 +198,23 @@ unsigned short EditorSerieController::render(utils::Context& context)
 
     if (status != MAIN_MENU)
     {
-        context.getSfmlWindow().draw(serieNameLabel);
+        utils::Context::get().getSfmlWindow().draw(serieNameLabel);
     }
 
     if (errorNewSerie)
     {
-        context.getSfmlWindow().draw(errorLabel);
+        utils::Context::get().getSfmlWindow().draw(errorLabel);
     }
     else if (errorNewLevel)
     {
-        context.getSfmlWindow().draw(levelErrorLabel);
+        utils::Context::get().getSfmlWindow().draw(levelErrorLabel);
     }
 
     cursor.display();
 
     nextControllerId = animateScreenTransition();
 
-    while(context.getSfmlWindow().pollEvent(event))
+    while(utils::Context::get().getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {
@@ -249,7 +249,7 @@ unsigned short EditorSerieController::render(utils::Context& context)
 
                 if(buttonExit.isMouseHover())
                 {
-                    context.removeAllMessages();
+                    utils::Context::get().removeAllMessages();
 
                     expectedControllerId =
                         MAIN_MENU_CONTROLLER_ID;
@@ -320,21 +320,21 @@ unsigned short EditorSerieController::render(utils::Context& context)
 
                         writeLevelsIntoSerie();
 
-                        displaySavedSerieName(context, true);
+                        displaySavedSerieName(true);
                     }
                     if(buttonAdd.isMouseHover())
                     {
-                        context.addMessageByName(
+                        utils::Context::get().addMessageByName(
                             constants::Messages::PREVIOUS_CONTROLLER_MESSAGE,
                             constants::Screens::SERIE_EDITOR_SCREEN_NAME
                         );
 
-                        context.addMessageByName(
+                        utils::Context::get().addMessageByName(
                             constants::Messages::OPEN_SERIE_MESSAGE,
                             serie.getName()
                         );
 
-                        context.setStringsList(levelsList.getStringsList());
+                        utils::Context::get().setStringsList(levelsList.getStringsList());
 
                         expectedControllerId =
                             OPEN_LEVEL_CONTROLLER_ID;
@@ -387,10 +387,7 @@ void EditorSerieController::initializeMainMenuButtons()
 /**
  *
  */
-void EditorSerieController::displaySavedSerieName(
-    utils::Context& context,
-    bool saved
-)
+void EditorSerieController::displaySavedSerieName(bool saved)
 {
     if (saved)
     {
@@ -442,10 +439,10 @@ void EditorSerieController::updateSerieNameLabelPosition()
 /**
  *
  */
-void EditorSerieController::initializeOpenedSerie(utils::Context& context)
+void EditorSerieController::initializeOpenedSerie()
 {
     std::string openedSerie =
-        context.getMessageByName(constants::Messages::OPEN_SERIE_MESSAGE);
+        utils::Context::get().getMessageByName(constants::Messages::OPEN_SERIE_MESSAGE);
 
     if (openedSerie.empty())
     {
@@ -463,7 +460,7 @@ void EditorSerieController::initializeOpenedSerie(utils::Context& context)
     updateSerieNameLabelPosition();
     switchMainMenuButtonsToEditSerieStatus();
 
-    levelsList.setStringsList(context.getStringsList());
+    levelsList.setStringsList(utils::Context::get().getStringsList());
 }
 
 /**

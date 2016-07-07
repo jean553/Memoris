@@ -39,23 +39,21 @@ class OfficialSeriesSelectorController : public Controller
 {
 public:
 
-    OfficialSeriesSelectorController(utils::Context& context);
+    OfficialSeriesSelectorController();
 
     /**
      * @brief rendering method
      *
-     * @param context current context
-     *
      * @return unsigned short id of the next screen
      */
-    unsigned short render(utils::Context& context);
+    unsigned short render();
 
 private:
 
     /**
      * @brief create the items
      */
-    void createItems(utils::Context& context);
+    void createItems();
 
     static const std::string OFF_SER_TITLE;
     static const std::string TEMPORARY_DEFAULT_SERIE;

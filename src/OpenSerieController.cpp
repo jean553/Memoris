@@ -45,7 +45,7 @@ const unsigned short OpenSerieController::SERIES_LIST_SERIES_NUMBER = 18;
 /**
  *
  */
-OpenSerieController::OpenSerieController(utils::Context& context) :
+OpenSerieController::OpenSerieController() :
     Controller()
 {
     titleBar.setDisplayedText(
@@ -78,7 +78,7 @@ OpenSerieController::OpenSerieController(utils::Context& context) :
 /**
  *
  */
-unsigned short OpenSerieController::render(utils::Context& context)
+unsigned short OpenSerieController::render()
 {
     titleBar.display();
     buttonExit.display();
@@ -87,7 +87,7 @@ unsigned short OpenSerieController::render(utils::Context& context)
 
     nextControllerId = animateScreenTransition();
 
-    while(context.getSfmlWindow().pollEvent(event))
+    while(utils::Context::get().getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

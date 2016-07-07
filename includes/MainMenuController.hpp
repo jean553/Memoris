@@ -47,16 +47,14 @@ public:
     /**
      * @brief constructor
      */
-    MainMenuController(utils::Context& context);
+    MainMenuController();
 
     /**
      * @brief render the main menu controller
      *
-     * @param context current context reference
-     *
      * @return unsigned short id of the next screen controller
      */
-    unsigned short render(utils::Context& context);
+    unsigned short render();
 
 private:
 

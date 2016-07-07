@@ -43,10 +43,8 @@ protected:
 
     /**
      * @brief constructor
-     *
-     * @param context current context reference
      */
-    AbstractMenuController(utils::Context& context);
+    AbstractMenuController();
 
     /**
      * @brief insert one menu item pointer inside the menu items list
@@ -60,10 +58,8 @@ protected:
 
     /**
      * @brief display all the menu items
-     *
-     * @param context current context reference
      */
-    void renderAllMenuItems(utils::Context& context);
+    void renderAllMenuItems();
 
     /**
      * @brief getter of the selector position

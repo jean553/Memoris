@@ -38,10 +38,10 @@ namespace controllers
 /**
  *
  */
-MainMenuController::MainMenuController(utils::Context& context) :
-    AbstractMenuController(context),
-    background(context),
-    menuGradient(context)
+MainMenuController::MainMenuController() :
+    AbstractMenuController(),
+    background(utils::Context::get()),
+    menuGradient(utils::Context::get())
 {
     /* animations times are all set to 0 */
     titleLastAnimationTime = 0;
@@ -131,32 +131,35 @@ MainMenuController::MainMenuController(utils::Context& context) :
 /**
  *
  */
-unsigned short MainMenuController::render(utils::Context& context)
+unsigned short MainMenuController::render()
 {
     /* display the background animation */
-    background.animate(context);
+    background.animate(utils::Context::get());
 
     /* apply the menu sub-surface */
-    menuGradient.display(context);
+    menuGradient.display(utils::Context::get());
 
     /* animate the main menu title according to its last animation time */
-    if(context.getClockMillisecondsTime() - titleLastAnimationTime >
-            memoris::intervals::COMMON_ANIMATIONS_MILLISECONDS_INTERVAL
-      )
+    if(
+        utils::Context::get().getClockMillisecondsTime() -
+        titleLastAnimationTime >
+        memoris::intervals::COMMON_ANIMATIONS_MILLISECONDS_INTERVAL
+    )
     {
         animateTitleColor();
 
         /* update the title animation time with the current time
            after the animation */
-        titleLastAnimationTime = context.getClockMillisecondsTime();
+        titleLastAnimationTime =
+            utils::Context::get().getClockMillisecondsTime();
     }
 
     /* render the title and the github picture */
-    context.getSfmlWindow().draw(title);
-    context.getSfmlWindow().draw(spriteGithub);
+    utils::Context::get().getSfmlWindow().draw(title);
+    utils::Context::get().getSfmlWindow().draw(spriteGithub);
 
     /* display all the menu items */
-    renderAllMenuItems(context);
+    renderAllMenuItems();
 
     /* render the opening/closing animation if necessary, get the next
        controller id at the end of the closing animation if the expected
@@ -166,7 +169,7 @@ unsigned short MainMenuController::render(utils::Context& context)
     /* main menu controller events loop; changes the position of the menu
        selector according to the Up/Down keys; select a menu item when
        the Enter key is pressed */
-    while(context.getSfmlWindow().pollEvent(event))
+    while(utils::Context::get().getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

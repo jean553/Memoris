@@ -52,7 +52,7 @@ const unsigned short NewGameController::MAX_NAME_LENGTH = 15;
 /**
  *
  */
-NewGameController::NewGameController(utils::Context& context) :
+NewGameController::NewGameController() :
     inputTextGameName(),
     Controller()
 {
@@ -93,16 +93,16 @@ NewGameController::NewGameController(utils::Context& context) :
 /**
  *
  */
-unsigned short NewGameController::render(utils::Context& context)
+unsigned short NewGameController::render()
 {
-    context.getSfmlWindow().draw(title);
-    context.getSfmlWindow().draw(explanation);
+    utils::Context::get().getSfmlWindow().draw(title);
+    utils::Context::get().getSfmlWindow().draw(explanation);
 
     inputTextGameName.display();
 
     nextControllerId = animateScreenTransition();
 
-    while(context.getSfmlWindow().pollEvent(event))
+    while(utils::Context::get().getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

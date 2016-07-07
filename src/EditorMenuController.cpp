@@ -54,7 +54,7 @@ const unsigned short EditorMenuController::EDITOR_MENU_ITEM_BACK = 2;
 /**
  *
  */
-EditorMenuController::EditorMenuController(utils::Context& context) :
+EditorMenuController::EditorMenuController() :
     Controller()
 {
     selectorPosition = 0;
@@ -96,19 +96,19 @@ EditorMenuController::EditorMenuController(utils::Context& context) :
 /**
  *
  */
-unsigned short EditorMenuController::render(utils::Context& context)
+unsigned short EditorMenuController::render()
 {
     policies::HasMenuSelectorAnimation::animateMenuSelector<EditorMenuController>(this);
 
-    updateSelectorPosition(context);
+    updateSelectorPosition();
 
-    context.getSfmlWindow().draw(itemLevelsEditor);
-    context.getSfmlWindow().draw(itemSeriesEditor);
-    context.getSfmlWindow().draw(itemBack);
+    utils::Context::get().getSfmlWindow().draw(itemLevelsEditor);
+    utils::Context::get().getSfmlWindow().draw(itemSeriesEditor);
+    utils::Context::get().getSfmlWindow().draw(itemBack);
 
     nextControllerId = animateScreenTransition();
 
-    while (context.getSfmlWindow().pollEvent(event))
+    while (utils::Context::get().getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {
@@ -149,7 +149,7 @@ unsigned short EditorMenuController::render(utils::Context& context)
 /**
  *
  */
-void EditorMenuController::updateSelectorPosition(utils::Context& context)
+void EditorMenuController::updateSelectorPosition()
 {
     selectorPosition = (
                            (selectorPosition > EDITOR_MENU_SELECTOR_MAX) ?

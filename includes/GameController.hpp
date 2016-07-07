@@ -44,18 +44,16 @@ class GameController : public Controller
 public:
 
     /**
-     * @param context unique context to use
+     * @brief constructor
      */
-    GameController(utils::Context& context);
+    GameController();
 
     /**
      * @brief renders the game main screen
      *
-     * @param context commons items for controller
-     *
      * @return unsigned short id of the new screen controller
      */
-    unsigned short render(utils::Context& context);
+    unsigned short render();
 
 private:
 
@@ -74,10 +72,8 @@ private:
 
     /**
      * @brief display the game time
-     *
-     * @param context pointer to the current context
      */
-    void displayTime(utils::Context& context);
+    void displayTime();
 
     /**
      * @brief set and increment the displayed value of the star counter

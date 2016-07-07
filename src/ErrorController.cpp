@@ -39,10 +39,8 @@ const float ErrorController::ERR_VRTL_PSTN = 10.f;
 /**
  *
  */
-ErrorController::ErrorController(
-    utils::Context& context,
-    const std::string& msg
-) : Controller()
+ErrorController::ErrorController(const std::string& msg) :
+    Controller()
 {
     error.setFont(memoris::fonts::FontsManager::get().getTextFont());
     error.setString(msg);
@@ -59,13 +57,13 @@ ErrorController::ErrorController(
 /**
  *
  */
-unsigned short ErrorController::render(utils::Context& context)
+unsigned short ErrorController::render()
 {
     nextControllerId = animateScreenTransition();
 
-    context.getSfmlWindow().draw(error);
+    utils::Context::get().getSfmlWindow().draw(error);
 
-    while(context.getSfmlWindow().pollEvent(event))
+    while(utils::Context::get().getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

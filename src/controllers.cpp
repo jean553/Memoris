@@ -60,46 +60,42 @@ std::unique_ptr<Controller> getControllerById(const unsigned short& id)
     {
     case NEW_GAME_CONTROLLER_ID:
     {
-        controller.reset(new NewGameController(utils::Context::get()));
+        controller.reset(new NewGameController());
     }
     break;
     case EDITOR_MENU_CONTROLLER_ID:
     {
-        controller.reset(new EditorMenuController(utils::Context::get()));
+        controller.reset(new EditorMenuController());
     }
     break;
     case EDITOR_SERIE_CONTROLLER_ID:
     {
-        controller.reset(new EditorSerieController(utils::Context::get()));
+        controller.reset(new EditorSerieController());
     }
     break;
     case OPEN_SERIE_CONTROLLER_ID:
     {
-        controller.reset(new OpenSerieController(utils::Context::get()));
+        controller.reset(new OpenSerieController());
     }
     break;
     case EDITOR_LEVEL_CONTROLLER_ID:
     {
-        controller.reset(new EditorLevelController(utils::Context::get()));
+        controller.reset(new EditorLevelController());
     }
     break;
     case OPEN_LEVEL_CONTROLLER_ID:
     {
-        controller.reset(new OpenLevelController(utils::Context::get()));
+        controller.reset(new OpenLevelController());
     }
     break;
     case SERIE_MAIN_MENU_CONTROLLER_ID:
     {
-        controller.reset(new SerieMainMenuController(utils::Context::get()));
+        controller.reset(new SerieMainMenuController());
     }
     break;
     case OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID:
     {
-        controller.reset(
-            new OfficialSeriesSelectorController(
-                utils::Context::get()
-            )
-        );
+        controller.reset(new OfficialSeriesSelectorController());
     }
     break;
     case GAME_CONTROLLER_ID:
@@ -111,16 +107,11 @@ std::unique_ptr<Controller> getControllerById(const unsigned short& id)
            error message is also set in the FileWriter class */
         try
         {
-            controller.reset(new GameController(utils::Context::get()));
+            controller.reset(new GameController());
         }
         catch(const std::invalid_argument& e)
         {
-            controller.reset(
-                new ErrorController(
-                    utils::Context::get(),
-                    e.what()
-                )
-            );
+            controller.reset(new ErrorController(e.what()));
         }
     }
     break;
@@ -131,11 +122,7 @@ std::unique_ptr<Controller> getControllerById(const unsigned short& id)
        if an incorrect controller id is specified */
     default:
     {
-        controller.reset(
-            new MainMenuController(
-                utils::Context::get()
-            )
-        );
+        controller.reset(new MainMenuController());
     }
     break;
     }

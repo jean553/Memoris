@@ -87,9 +87,7 @@ int main()
             utils::Context::get().getSfmlWindow().clear();
 
             /* continually render the current controller scene */
-            nextControllerId = pCurrentController->render(
-                                   utils::Context::get()
-                               );
+            nextControllerId = pCurrentController->render();
 
             /* continually display the loaded content */
             utils::Context::get().getSfmlWindow().display();

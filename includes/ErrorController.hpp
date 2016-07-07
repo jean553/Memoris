@@ -44,22 +44,16 @@ public:
     /**
      * @brief constructor
      *
-     * @param context reference to the current context
      * @param msg error message to display
      */
-    ErrorController(
-        utils::Context& context,
-        const std::string& msg
-    );
+    ErrorController(const std::string& msg);
 
     /**
      * @brief renders the error message screen
      *
-     * @param context commons items for controller
-     *
      * @return unsigned short id of the new screen controller
      */
-    unsigned short render(utils::Context& context);
+    unsigned short render();
 
 private:
 

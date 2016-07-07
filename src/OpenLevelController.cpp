@@ -52,7 +52,7 @@ const float OpenLevelController::ERROR_MESSAGE_POSITION_Y = 40;
 /**
  *
  */
-OpenLevelController::OpenLevelController(utils::Context& context) :
+OpenLevelController::OpenLevelController() :
     Controller()
 {
     errorAlreadyAddedLevel = false;
@@ -88,7 +88,7 @@ OpenLevelController::OpenLevelController(utils::Context& context) :
 /**
  *
  */
-unsigned short OpenLevelController::render(utils::Context& context)
+unsigned short OpenLevelController::render()
 {
     titleBar.display();
     levelsList.display();
@@ -96,12 +96,12 @@ unsigned short OpenLevelController::render(utils::Context& context)
 
     if (errorAlreadyAddedLevel)
     {
-        context.getSfmlWindow().draw(errorLabel);
+        utils::Context::get().getSfmlWindow().draw(errorLabel);
     }
 
     nextControllerId = animateScreenTransition();
 
-    while(context.getSfmlWindow().pollEvent(event))
+    while(utils::Context::get().getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {
@@ -111,7 +111,7 @@ unsigned short OpenLevelController::render(utils::Context& context)
             {
             case sf::Keyboard::Escape:
             {
-                changeNextControllerId(context);
+                changeNextControllerId();
             }
             }
         }
@@ -124,7 +124,7 @@ unsigned short OpenLevelController::render(utils::Context& context)
                 if (levelsList.isMouseHover())
                 {
                     std::vector<std::string> stringsList =
-                        context.getStringsList();
+                        utils::Context::get().getStringsList();
 
                     /* do not add the level if already in the list
                        TODO: could be refactored if addStringIntoStringsList
@@ -142,11 +142,11 @@ unsigned short OpenLevelController::render(utils::Context& context)
                         continue;
                     }
 
-                    context.addStringIntoStringsList(
+                    utils::Context::get().addStringIntoStringsList(
                         levelsList.getSelectedItemValue()
                     );
 
-                    changeNextControllerId(context);
+                    changeNextControllerId();
                 }
                 levelsList.scroll();
             }
@@ -161,10 +161,10 @@ unsigned short OpenLevelController::render(utils::Context& context)
 /**
  *
  */
-void OpenLevelController::changeNextControllerId(utils::Context& context)
+void OpenLevelController::changeNextControllerId()
 {
     expectedControllerId =
-        context.getMessageByName(
+        utils::Context::get().getMessageByName(
             constants::Messages::PREVIOUS_CONTROLLER_MESSAGE
         ) == constants::Screens::SERIE_EDITOR_SCREEN_NAME ?
         EDITOR_SERIE_CONTROLLER_ID :

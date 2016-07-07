@@ -55,16 +55,14 @@ class OpenLevelController : public Controller
     static const float ERROR_MESSAGE_POSITION_Y;
 
 public:
-    OpenLevelController(utils::Context& context);
+    OpenLevelController();
 
     /**
      * @brief render the open serie screen
      *
-     * @param context commons items for controller
-     *
      * @return unsigned short id of the next screen controller
      */
-    unsigned short render(utils::Context& context);
+    unsigned short render();
 
 private:
 
@@ -73,10 +71,8 @@ private:
     /**
      * @brief modifies the value of the next controller according of
      * the controller that called the current one
-     *
-     * @param context current context pointer
      */
-    void changeNextControllerId(utils::Context& context);
+    void changeNextControllerId();
 
     widgets::TitleBarWidget titleBar;
 
