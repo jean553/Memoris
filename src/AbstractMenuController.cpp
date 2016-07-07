@@ -25,6 +25,7 @@
 #include "AbstractMenuController.hpp"
 
 #include "SoundsManager.hpp"
+#include "Context.hpp"
 
 namespace memoris
 {
@@ -34,7 +35,7 @@ namespace controllers
 /**
  *
  */
-AbstractMenuController::AbstractMenuController(utils::Context& context) :
+AbstractMenuController::AbstractMenuController() :
     Controller()
 {
     /* the default pointed item is always the first one when the menu starts */
@@ -52,7 +53,7 @@ void AbstractMenuController::addMenuItem(std::unique_ptr<items::MenuItem> item)
 /**
  *
  */
-void AbstractMenuController::renderAllMenuItems(utils::Context& context)
+void AbstractMenuController::renderAllMenuItems()
 {
     /* use a loop with iterator as the unique pointer is not moved or copied
        during the loop iteration; that's why we use an iterator to point on
@@ -66,7 +67,7 @@ void AbstractMenuController::renderAllMenuItems(utils::Context& context)
     {
         /* the item iterator is a pointer to an unique pointer; that's why
            whe use the double dereference to manipulate the object */
-        (**item).render(context);
+        (**item).render(utils::Context::get());
     }
 }
 

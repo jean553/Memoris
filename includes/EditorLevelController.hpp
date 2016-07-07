@@ -84,16 +84,14 @@ class EditorLevelController : public Controller
 
 public:
 
-    EditorLevelController(utils::Context& context);
+    EditorLevelController();
 
     /**
      * @brief renders the level editor screen
      *
-     * @param context commons items for controller
-     *
      * @return unsigned short id of the new screen controller
      */
-    unsigned short render(utils::Context& context);
+    unsigned short render();
 
 private:
 
@@ -148,11 +146,9 @@ private:
      * @brief change the color of the level name
      * according if the file is saved or not
      *
-     * @param context current context reference
      * @param saved boolean of the value to display
      */
     void displaySavedLevelName(
-        utils::Context& context,
         bool saved
     );
 

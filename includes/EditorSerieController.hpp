@@ -80,18 +80,16 @@ class EditorSerieController : public Controller
 public:
 
     /**
-     * @param context pointer to the current context
+     * @brief constructor
      */
-    EditorSerieController(utils::Context& context);
+    EditorSerieController();
 
     /**
      * @brief render the serie editor screen
      *
-     * @param context commons items for controller
-     *
      * @return unsigned short id of the next screen controller
      */
-    unsigned short render(utils::Context& context);
+    unsigned short render();
 
 private:
 
@@ -162,13 +160,9 @@ private:
      * name, according if the latest version of
      * the serie has been persisted
      *
-     * @param context current context reference
      * @param saved true if saved, false if unsaved
      */
-    void displaySavedSerieName(
-        utils::Context& context,
-        bool saved
-    );
+    void displaySavedSerieName(bool saved);
 
     /**
      * @brief update the position of the serie name label
@@ -179,7 +173,7 @@ private:
      * @brief initialize the serie editor if one serie is already opened,
      * only used if the controller has been called after the OpenLevel one
      */
-    void initializeOpenedSerie(utils::Context& context);
+    void initializeOpenedSerie();
 
     /**
      * @brief write the levels into the serie file, the content

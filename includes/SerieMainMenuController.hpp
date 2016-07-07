@@ -44,16 +44,14 @@ class SerieMainMenuController : public Controller
 
 public:
 
-    SerieMainMenuController(utils::Context& context);
+    SerieMainMenuController();
 
     /**
      * @brief render the serie editor screen
      *
-     * @param context commons items for controller
-     *
      * @return unsigned short id of the next screen controller
      */
-    unsigned short render(utils::Context& context);
+    unsigned short render();
 
 private:
 
@@ -111,10 +109,8 @@ private:
 
     /**
      * @brief update the position of the selector
-     *
-     * @param context current context
      */
-    void updateSelectorPosition(utils::Context& context);
+    void updateSelectorPosition();
 
     /**
      * @brief execute an action according to the current menu selection

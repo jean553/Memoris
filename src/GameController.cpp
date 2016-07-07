@@ -86,7 +86,7 @@ const float GameController::FLOOR_IMG_VRTL_PSTN = 0;
 /**
  *
  */
-GameController::GameController(utils::Context& context) :
+GameController::GameController() :
     Controller(),
     level(0, 0)
 {
@@ -113,8 +113,8 @@ GameController::GameController(utils::Context& context) :
 
     /* TODO: use a constant level name for now... */
     level.loadCells(
-        context,
-        utils::FileWriter::readFile(context.getNxtLvlStrPath())
+        utils::Context::get(),
+        utils::FileWriter::readFile(utils::Context::get().getNxtLvlStrPath())
     );
     level.setCellsCursorSensitivity(false);
 
@@ -244,28 +244,28 @@ GameController::GameController(utils::Context& context) :
 /**
  *
  */
-unsigned short GameController::render(utils::Context& context)
+unsigned short GameController::render()
 {
     level.displayAllCellsByFloor(
-        context,
+        utils::Context::get(),
         floor
     );
 
     /* update and display the timer */
-    displayTime(context);
+    displayTime();
 
-    context.getSfmlWindow().draw(spriteStar);
-    context.getSfmlWindow().draw(spriteLife);
-    context.getSfmlWindow().draw(spriteTarget);
-    context.getSfmlWindow().draw(spriteTime);
-    context.getSfmlWindow().draw(spriteFloor);
-    context.getSfmlWindow().draw(foundStarsAmntStr);
-    context.getSfmlWindow().draw(lifesAmntStr);
-    context.getSfmlWindow().draw(targetStr);
-    context.getSfmlWindow().draw(timeStr);
-    context.getSfmlWindow().draw(floorStr);
-    context.getSfmlWindow().draw(leftSeparator);
-    context.getSfmlWindow().draw(rightSeparator);
+    utils::Context::get().getSfmlWindow().draw(spriteStar);
+    utils::Context::get().getSfmlWindow().draw(spriteLife);
+    utils::Context::get().getSfmlWindow().draw(spriteTarget);
+    utils::Context::get().getSfmlWindow().draw(spriteTime);
+    utils::Context::get().getSfmlWindow().draw(spriteFloor);
+    utils::Context::get().getSfmlWindow().draw(foundStarsAmntStr);
+    utils::Context::get().getSfmlWindow().draw(lifesAmntStr);
+    utils::Context::get().getSfmlWindow().draw(targetStr);
+    utils::Context::get().getSfmlWindow().draw(timeStr);
+    utils::Context::get().getSfmlWindow().draw(floorStr);
+    utils::Context::get().getSfmlWindow().draw(leftSeparator);
+    utils::Context::get().getSfmlWindow().draw(rightSeparator);
 
     if (
         (status == WATCHING || status == PLAYING_AND_WATCHING) &&
@@ -295,7 +295,7 @@ unsigned short GameController::render(utils::Context& context)
 
     nextControllerId = animateScreenTransition();
 
-    while(context.getSfmlWindow().pollEvent(event))
+    while(utils::Context::get().getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {
@@ -345,7 +345,7 @@ unsigned short GameController::render(utils::Context& context)
         }
     }
 
-    /* check if the game has to be finished according to the context */
+    /* check if the game has to be finished according to the utils::Context::get() */
     if (terminateGame)
     {
         nextControllerId =
@@ -520,7 +520,7 @@ void GameController::executeCellAction()
 /**
  *
  */
-void GameController::displayTime(utils::Context& context)
+void GameController::displayTime()
 {
     /* update the time every 10 milliseconds, keep number
      * directly inside the code because they never change
@@ -544,7 +544,7 @@ void GameController::displayTime(utils::Context& context)
         timeClck.restart();
     }
 
-    context.getSfmlWindow().draw(time);
+    utils::Context::get().getSfmlWindow().draw(time);
 }
 
 /**

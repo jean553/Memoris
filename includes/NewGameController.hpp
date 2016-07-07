@@ -61,16 +61,14 @@ class NewGameController : public Controller
 
 public:
 
-    NewGameController(utils::Context& context);
+    NewGameController();
 
     /**
      * @brief render the new game screen
      *
-     * @param context commons items for controller
-     *
      * @return unsigned short id of the next screen controller
      */
-    unsigned short render(utils::Context& context);
+    unsigned short render();
 
 private:
 

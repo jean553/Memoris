@@ -62,8 +62,6 @@ public:
      * to load and to display (returns 0 if no controller has to be loaded
      * and only the current controller must be displayed)
      *
-     * @param context current context reference
-     *
      * @return unsigned short
      *
      * TODO: #476 the context should not be passed here and never be passed to
@@ -74,7 +72,7 @@ public:
      * deleted when all the controllers will directly get the current context
      * reference from the singleton get() method
      */
-    virtual unsigned short render(utils::Context& context) = 0;
+    virtual unsigned short render() = 0;
 
 protected:
 

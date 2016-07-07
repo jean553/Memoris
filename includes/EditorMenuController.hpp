@@ -66,23 +66,19 @@ class EditorMenuController : public Controller
 
 public:
 
-    EditorMenuController(utils::Context& context);
+    EditorMenuController();
 
     /**
      * @brief render the serie editor screen
      *
-     * @param context commons items for controller
-     *
      * @return unsigned short id of the next screen controller
      */
-    unsigned short render(utils::Context& context);
+    unsigned short render();
 
     /**
      * @brief change the position of the cursor in the menu
-     *
-     * @param context current context reference
      */
-    void updateSelectorPosition(utils::Context& context);
+    void updateSelectorPosition();
 
     /**
      * @brief changes the controller id according to the selected menu item

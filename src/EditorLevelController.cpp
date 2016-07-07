@@ -88,7 +88,7 @@ const float EditorLevelController::FLOOR_LABEL_VERTICAL_POSITION = 670;
 /**
  *
  */
-EditorLevelController::EditorLevelController(utils::Context& context) :
+EditorLevelController::EditorLevelController() :
     Controller(),
     level(LEVEL_POSITION_X, LEVEL_POSITION_Y)
 {
@@ -201,13 +201,13 @@ EditorLevelController::EditorLevelController(utils::Context& context) :
     buttonNextFloor.setEnable(false);
     buttonPreviousFloor.setEnable(false);
 
-    level.loadCells(context);
+    level.loadCells(utils::Context::get());
 }
 
 /**
  *
  */
-unsigned short EditorLevelController::render(utils::Context& context)
+unsigned short EditorLevelController::render()
 {
     titleBar.display();
     buttonExit.display();
@@ -218,15 +218,15 @@ unsigned short EditorLevelController::render(utils::Context& context)
     buttonPreviousFloor.display();
 
     level.displayAllCellsByFloor(
-        context,
+        utils::Context::get(),
         currentFloor
     );
 
     cellSelector.display();
     floorSelectionFrame.display();
 
-    context.getSfmlWindow().draw(floorPrefixLabel);
-    context.getSfmlWindow().draw(floorLabel);
+    utils::Context::get().getSfmlWindow().draw(floorPrefixLabel);
+    utils::Context::get().getSfmlWindow().draw(floorLabel);
 
     /* displays the input text line for new level */
     if (status == NEW_LEVEL)
@@ -237,7 +237,7 @@ unsigned short EditorLevelController::render(utils::Context& context)
     /* displays the name of the level if one level is being edited */
     else if (status == EDIT_LEVEL)
     {
-        context.getSfmlWindow().draw(levelNameLabel);
+        utils::Context::get().getSfmlWindow().draw(levelNameLabel);
     }
 
     /* displays the error message if the level name is being edited and an error occured */
@@ -254,14 +254,14 @@ unsigned short EditorLevelController::render(utils::Context& context)
 
     if (levelAlreadyExists || saveLevelError)
     {
-        context.getSfmlWindow().draw(errorLabel);
+        utils::Context::get().getSfmlWindow().draw(errorLabel);
     }
 
     cursor.display();
 
     nextControllerId = animateScreenTransition();
 
-    while(context.getSfmlWindow().pollEvent(event))
+    while(utils::Context::get().getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {
@@ -325,7 +325,7 @@ unsigned short EditorLevelController::render(utils::Context& context)
                                              level.getCellsAsString()
                                          );
 
-                        displaySavedLevelName(context, true);
+                        displaySavedLevelName(true);
 
                         buttonSave.setEnable(false);
                         buttonNextFloor.setEnable(true);
@@ -344,7 +344,7 @@ unsigned short EditorLevelController::render(utils::Context& context)
                 {
                     if(buttonExit.isMouseHover())
                     {
-                        context.removeAllMessages();
+                        utils::Context::get().removeAllMessages();
 
                         expectedControllerId =
                             MAIN_MENU_CONTROLLER_ID;
@@ -356,7 +356,7 @@ unsigned short EditorLevelController::render(utils::Context& context)
                     else if(buttonOpen.isMouseHover())
                     {
 
-                        context.addMessageByName(
+                        utils::Context::get().addMessageByName(
                             constants::Messages::PREVIOUS_CONTROLLER_MESSAGE,
                             constants::Screens::LEVEL_EDITOR_SCREEN_NAME
                         );
@@ -392,7 +392,7 @@ unsigned short EditorLevelController::render(utils::Context& context)
                             prevCellStr
                         );
 
-                        displaySavedLevelName(context, false);
+                        displaySavedLevelName(false);
                         buttonSave.setEnable(true);
                     }
                 }
@@ -409,10 +409,7 @@ unsigned short EditorLevelController::render(utils::Context& context)
 /**
  *
  */
-void EditorLevelController::displaySavedLevelName(
-    utils::Context& context,
-    bool saved
-)
+void EditorLevelController::displaySavedLevelName(bool saved)
 {
     if (saved)
     {

@@ -59,16 +59,14 @@ class OpenSerieController : public Controller
 
 public:
 
-    OpenSerieController(utils::Context& context);
+    OpenSerieController();
 
     /**
      * @brief render the open serie screen
      *
-     * @param context commons items for controller
-     *
      * @return unsigned short id of the next screen controller
      */
-    unsigned short render(utils::Context& context);
+    unsigned short render();
 
 private:
 

@@ -44,7 +44,7 @@ const float OfficialSeriesSelectorController::OFF_SER_TITLE_VRTL_PSTN = 50.f;
 /**
  *
  */
-OfficialSeriesSelectorController::OfficialSeriesSelectorController(utils::Context& context) :
+OfficialSeriesSelectorController::OfficialSeriesSelectorController() :
     Controller()
 {
     offSerTitle.setFont(memoris::fonts::FontsManager::get().getTitleFont());
@@ -60,23 +60,23 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController(utils::Contex
     levels = utils::FileWriter::readFileWithSprt(TEMPORARY_DEFAULT_SERIE);
 
     /* generate the series names list */
-    createItems(context);
+    createItems();
 }
 
 /**
  *
  */
-unsigned short OfficialSeriesSelectorController::render(utils::Context& context)
+unsigned short OfficialSeriesSelectorController::render()
 {
     scrlList.updtSltrPstn();
 
-    context.getSfmlWindow().draw(offSerTitle);
+    utils::Context::get().getSfmlWindow().draw(offSerTitle);
 
     scrlList.display();
 
     nextControllerId = animateScreenTransition();
 
-    while(context.getSfmlWindow().pollEvent(event))
+    while(utils::Context::get().getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {
@@ -95,7 +95,7 @@ unsigned short OfficialSeriesSelectorController::render(utils::Context& context)
             case sf::Keyboard::Return:
             {
                 /* TODO: the level should be specified according to the selected serie */
-                context.setNxtLvlStrPath(levels[0]);
+                utils::Context::get().setNxtLvlStrPath(levels[0]);
 
                 expectedControllerId =
                     GAME_CONTROLLER_ID;
@@ -125,7 +125,7 @@ unsigned short OfficialSeriesSelectorController::render(utils::Context& context)
 /**
  *
  */
-void OfficialSeriesSelectorController::createItems(utils::Context& context)
+void OfficialSeriesSelectorController::createItems()
 {
     /* TODO: the list is generated here for
      * official series... maybe it should be
