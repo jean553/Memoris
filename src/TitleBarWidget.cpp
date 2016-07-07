@@ -27,6 +27,7 @@
 #include "fonts.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
+#include "Context.hpp"
 
 using namespace widgets;
 
@@ -43,7 +44,6 @@ const float TitleBarWidget::BAR_WIDTH = 1600;
  *
  */
 TitleBarWidget::TitleBarWidget(
-    utils::Context& context,
     std::string barText
 )
 {
@@ -89,8 +89,8 @@ void TitleBarWidget::setText(std::string inputTextData)
 /**
  *
  */
-void TitleBarWidget::display(utils::Context& context)
+void TitleBarWidget::display()
 {
-    context.getSfmlWindow().draw(displayedText);
-    context.getSfmlWindow().draw(line);
+    utils::Context::get().getSfmlWindow().draw(displayedText);
+    utils::Context::get().getSfmlWindow().draw(line);
 }

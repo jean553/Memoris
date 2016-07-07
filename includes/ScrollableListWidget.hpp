@@ -38,27 +38,21 @@ public:
 
     /**
      * @brief constructor
-     *
-     * @param context current context reference
      */
-    ScrollableListWidget(utils::Context& context);
+    ScrollableListWidget();
 
     /**
      * @brief display the scrollable list widget
-     *
-     * @param context current context pointer
      */
-    void display(utils::Context& context);
+    void display();
 
     /**
      * @brief initialize the strings list from a string vector
      *
-     * @param context unique context
      * @param arr array of strings
      * @param side side where the strings have to be displayed
      */
     void initFromStrArr(
-        utils::Context& context,
         const std::vector<std::string>& arr,
         const bool& isPrefix = true
     );
@@ -75,19 +69,15 @@ public:
 
     /**
      * @brief update the color and the position of the menu selector
-     *
-     * @param context current context reference
      */
-    void updtSltrPstn(utils::Context& context);
+    void updtSltrPstn();
 
 private:
 
     /**
      * @brief displays the arrow down and animate it
-     *
-     * @param context pointer to the current context object
      */
-    void displayArrDown(utils::Context& context);
+    void displayArrDown();
 
     static constexpr float SLTR_HRTL_PSTN = 20.f;
     static constexpr float SLTR_HRTL_PSTN_SUFFIX = 1500.f;

@@ -79,10 +79,7 @@ const unsigned short EditorSerieController::ERROR_MESSAGE_POSITION_Y = 200;
  *
  */
 EditorSerieController::EditorSerieController(utils::Context& context) :
-    Controller(),
-    inputTextNew(context),
-    titleBar(context),
-    levelsList(context)
+    Controller()
 {
     errorNewSerie = false;
     errorNewLevel = false;
@@ -100,49 +97,42 @@ EditorSerieController::EditorSerieController(utils::Context& context) :
     buttonNewCancel.setLabel(STRING_CANCEL);
 
     buttonNew.setLayout(
-        context,
         EDITOR_SERIE_BUTTON_NEW_POSITION_X,
         constants::Positions::EDITOR_BUTTONS_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonOpen.setLayout(
-        context,
         EDITOR_SERIE_BUTTON_OPEN_POSITION_X,
         constants::Positions::EDITOR_BUTTONS_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonSave.setLayout(
-        context,
         EDITOR_SERIE_BUTTON_SAVE_POSITION_X,
         constants::Positions::EDITOR_BUTTONS_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonAdd.setLayout(
-        context,
         EDITOR_SERIE_BUTTON_ADD_POSITION_X,
         constants::Positions::EDITOR_BUTTONS_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonExit.setLayout(
-        context,
         EDITOR_SERIE_BUTTON_EXIT_POSITION_X,
         constants::Positions::EDITOR_BUTTONS_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonNewOk.setLayout(
-        context,
         EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_X,
         EDITOR_SERIE_BUTTON_NEW_SERIE_OK_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonNewCancel.setLayout(
-        context,
         EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_X,
         EDITOR_SERIE_BUTTON_NEW_SERIE_CANCEL_POSITION_Y,
         constants::Dimensions::EDITOR_BUTTONS_WIDTH
@@ -156,7 +146,6 @@ EditorSerieController::EditorSerieController(utils::Context& context) :
     );
 
     inputTextNew.setLayout(
-        context,
         POSITION_NEW_SERIE_INPUT_TEXT_X,
         POSITION_NEW_SERIE_INPUT_TEXT_Y,
         SIZE_NEW_SERIE_TEXT
@@ -192,19 +181,19 @@ EditorSerieController::EditorSerieController(utils::Context& context) :
  */
 unsigned short EditorSerieController::render(utils::Context& context)
 {
-    titleBar.display(context);
-    buttonNew.display(context);
-    buttonOpen.display(context);
-    buttonSave.display(context);
-    buttonAdd.display(context);
-    buttonExit.display(context);
-    levelsList.display(context);
+    titleBar.display();
+    buttonNew.display();
+    buttonOpen.display();
+    buttonSave.display();
+    buttonAdd.display();
+    buttonExit.display();
+    levelsList.display();
 
     if (status == NEW_SERIE)
     {
-        buttonNewOk.display(context);
-        buttonNewCancel.display(context);
-        inputTextNew.display(context);
+        buttonNewOk.display();
+        buttonNewCancel.display();
+        inputTextNew.display();
     }
 
     if (status != MAIN_MENU)
@@ -221,7 +210,7 @@ unsigned short EditorSerieController::render(utils::Context& context)
         context.getSfmlWindow().draw(levelErrorLabel);
     }
 
-    cursor.display(context);
+    cursor.display();
 
     nextControllerId = animateScreenTransition();
 

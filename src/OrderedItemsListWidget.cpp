@@ -24,7 +24,7 @@
 
 #include "OrderedItemsListWidget.hpp"
 
-
+#include "Context.hpp"
 
 using namespace widgets;
 
@@ -34,17 +34,17 @@ const std::string OrderedItemsListWidget::PATH_IMAGE_DELETE = "res/images/delete
 /**
  *
  */
-OrderedItemsListWidget::OrderedItemsListWidget(utils::Context& context) :
-    ItemsListWidget(context)
+OrderedItemsListWidget::OrderedItemsListWidget() :
+    ItemsListWidget()
 {
 }
 
 /**
  *
  */
-void OrderedItemsListWidget::display(utils::Context& context)
+void OrderedItemsListWidget::display()
 {
-    ItemsListWidget::display(context);
+    ItemsListWidget::display();
 
     for(std::vector<std::string>::iterator textItem = stringsList.begin();
             textItem != stringsList.end(); ++textItem)
@@ -72,7 +72,7 @@ void OrderedItemsListWidget::display(utils::Context& context)
             itemsCommonVerticalPosition
         );
 
-        context.getSfmlWindow().draw(spriteEdit);
-        context.getSfmlWindow().draw(spriteDelete);
+        utils::Context::get().getSfmlWindow().draw(spriteEdit);
+        utils::Context::get().getSfmlWindow().draw(spriteDelete);
     }
 }

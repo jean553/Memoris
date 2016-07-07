@@ -45,17 +45,13 @@ public:
 
     /**
      * @brief constructor
-     *
-     * @param context current context reference
      */
-    CellSelectorWidget(utils::Context& context);
+    CellSelectorWidget();
 
     /**
      * @brief displays all the cells for selection
-     *
-     * @param context current context pointer
      */
-    void display(utils::Context& context);
+    void display();
 
     /**
      * @brief redefinition of the position setter,

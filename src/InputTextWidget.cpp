@@ -27,6 +27,7 @@
 #include "fonts.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
+#include "Context.hpp"
 
 using namespace widgets;
 
@@ -45,7 +46,7 @@ const short InputTextWidget::INTERVAL_ANIMATION_CURSOR = 200;
 /**
  *
  */
-InputTextWidget::InputTextWidget(utils::Context& context)
+InputTextWidget::InputTextWidget()
 {
     displayCursor = true;
     setMaximumCharacters(DEFAULT_MAXIMUM_CHARACTERS);
@@ -69,7 +70,6 @@ void InputTextWidget::setMaximumCharacters(unsigned short maxCharacters)
  *
  */
 void InputTextWidget::setLayout(
-    utils::Context& context,
     float inputHorizontalPosition,
     float inputVerticalPosition,
     float inputWidth
@@ -153,17 +153,17 @@ void InputTextWidget::setText(std::string inputTextData)
 /**
  *
  */
-void InputTextWidget::display(utils::Context& context)
+void InputTextWidget::display()
 {
-    context.getSfmlWindow().draw(boxTop);
-    context.getSfmlWindow().draw(boxBottom);
-    context.getSfmlWindow().draw(boxLeft);
-    context.getSfmlWindow().draw(boxRight);
-    context.getSfmlWindow().draw(displayedText);
+    utils::Context::get().getSfmlWindow().draw(boxTop);
+    utils::Context::get().getSfmlWindow().draw(boxBottom);
+    utils::Context::get().getSfmlWindow().draw(boxLeft);
+    utils::Context::get().getSfmlWindow().draw(boxRight);
+    utils::Context::get().getSfmlWindow().draw(displayedText);
 
     if(displayCursor)
     {
-        context.getSfmlWindow().draw(cursor);
+        utils::Context::get().getSfmlWindow().draw(cursor);
     }
 
     if(clock.getElapsedTime().asMilliseconds() >

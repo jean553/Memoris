@@ -26,8 +26,9 @@
  */
 
 #include "CellSelectorWidget.hpp"
-#include "Dimensions.hpp"
 
+#include "Context.hpp"
+#include "Dimensions.hpp"
 #include "CellsFileRepresentations.hpp"
 #include "CellFactory.hpp"
 
@@ -39,19 +40,19 @@ const short CellSelectorWidget::ROWS_AMOUNT = 5;
 /**
  *
  */
-CellSelectorWidget::CellSelectorWidget(utils::Context& context) :
-    emptyCell(context),
-    departureCell(context),
-    arrivalCell(context),
-    starCell(context),
-    lifeCell(context),
-    malusCell(context),
-    moreTimeCell(context),
-    lessTimeCell(context),
-    wallCell(context),
-    lightCell(context),
-    floorUpCell(context),
-    floorDownCell(context)
+CellSelectorWidget::CellSelectorWidget() :
+    emptyCell(utils::Context::get()),
+    departureCell(utils::Context::get()),
+    arrivalCell(utils::Context::get()),
+    starCell(utils::Context::get()),
+    lifeCell(utils::Context::get()),
+    malusCell(utils::Context::get()),
+    moreTimeCell(utils::Context::get()),
+    lessTimeCell(utils::Context::get()),
+    wallCell(utils::Context::get()),
+    lightCell(utils::Context::get()),
+    floorUpCell(utils::Context::get()),
+    floorDownCell(utils::Context::get())
 {
     /* TODO: to refactor... */
     emptyCell.setStringRepresentation(constants::CellsFileRepresentations::EMPTY_CELL);
@@ -147,20 +148,20 @@ void CellSelectorWidget::setPosition(
 /**
  *
  */
-void CellSelectorWidget::display(utils::Context& context)
+void CellSelectorWidget::display()
 {
-    emptyCell.display(context);
-    departureCell.display(context);
-    arrivalCell.display(context);
-    starCell.display(context);
-    lifeCell.display(context);
-    malusCell.display(context);
-    moreTimeCell.display(context);
-    lessTimeCell.display(context);
-    wallCell.display(context);
-    lightCell.display(context);
-    floorUpCell.display(context);
-    floorDownCell.display(context);
+    emptyCell.display(utils::Context::get());
+    departureCell.display(utils::Context::get());
+    arrivalCell.display(utils::Context::get());
+    starCell.display(utils::Context::get());
+    lifeCell.display(utils::Context::get());
+    malusCell.display(utils::Context::get());
+    moreTimeCell.display(utils::Context::get());
+    lessTimeCell.display(utils::Context::get());
+    wallCell.display(utils::Context::get());
+    lightCell.display(utils::Context::get());
+    floorUpCell.display(utils::Context::get());
+    floorDownCell.display(utils::Context::get());
 }
 
 /**

@@ -42,19 +42,15 @@ public:
 
     /**
      * @brief constructor
-     *
-     * @param context current context reference
      */
-    FrameWidget(utils::Context& context);
+    FrameWidget();
 
     /**
      * @brief displays the button and manage
      * button colors according to the current
      * cursor position on screen
-     *
-     * @param context       current context pointer
      */
-    void display(utils::Context& context);
+    void display();
 
     /**
      * @brief update the size of the frame

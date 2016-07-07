@@ -45,8 +45,7 @@ const float OfficialSeriesSelectorController::OFF_SER_TITLE_VRTL_PSTN = 50.f;
  *
  */
 OfficialSeriesSelectorController::OfficialSeriesSelectorController(utils::Context& context) :
-    Controller(),
-    scrlList(context)
+    Controller()
 {
     offSerTitle.setFont(memoris::fonts::FontsManager::get().getTitleFont());
     offSerTitle.setString(OFF_SER_TITLE);
@@ -69,11 +68,11 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController(utils::Contex
  */
 unsigned short OfficialSeriesSelectorController::render(utils::Context& context)
 {
-    scrlList.updtSltrPstn(context);
+    scrlList.updtSltrPstn();
 
     context.getSfmlWindow().draw(offSerTitle);
 
-    scrlList.display(context);
+    scrlList.display();
 
     nextControllerId = animateScreenTransition();
 
@@ -161,11 +160,10 @@ void OfficialSeriesSelectorController::createItems(utils::Context& context)
     };
 
     /* display the prefix strings */
-    scrlList.initFromStrArr(context, strList);
+    scrlList.initFromStrArr(strList);
 
     /* display the suffix strings */
     scrlList.initFromStrArr(
-        context,
         strListSfx,
         false
     );

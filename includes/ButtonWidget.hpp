@@ -56,13 +56,11 @@ public:
      * NOTE: the method setText() must be called before
      * to calculate the real required size of text in button
      *
-     * @param context unique context
      * @param buttonHorizontalPosition  button horizontal position
      * @param buttonVerticalPosition    button vertical position
      * @param buttonWidth               button fixed width
      */
     void setLayout(
-        utils::Context& context,
         float buttonHorizontalPosition,
         float buttonVerticalPosition,
         float buttonWidth
@@ -79,10 +77,8 @@ public:
      * @brief displays the button and manage
      * button colors according to the current
      * cursor position on screen
-     *
-     * @param context       current context pointer
      */
-    void display(utils::Context& context);
+    void display();
 
     /**
      * Returns true if the mouse is

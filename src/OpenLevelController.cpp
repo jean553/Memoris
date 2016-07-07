@@ -53,9 +53,7 @@ const float OpenLevelController::ERROR_MESSAGE_POSITION_Y = 40;
  *
  */
 OpenLevelController::OpenLevelController(utils::Context& context) :
-    Controller(),
-    titleBar(context),
-    levelsList(context)
+    Controller()
 {
     errorAlreadyAddedLevel = false;
 
@@ -92,9 +90,9 @@ OpenLevelController::OpenLevelController(utils::Context& context) :
  */
 unsigned short OpenLevelController::render(utils::Context& context)
 {
-    titleBar.display(context);
-    levelsList.display(context);
-    cursor.display(context);
+    titleBar.display();
+    levelsList.display();
+    cursor.display();
 
     if (errorAlreadyAddedLevel)
     {

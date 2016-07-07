@@ -46,9 +46,7 @@ const unsigned short OpenSerieController::SERIES_LIST_SERIES_NUMBER = 18;
  *
  */
 OpenSerieController::OpenSerieController(utils::Context& context) :
-    Controller(),
-    titleBar(context),
-    seriesList(context)
+    Controller()
 {
     titleBar.setDisplayedText(
         STRING_OPEN_SERIE_TITLE
@@ -57,7 +55,6 @@ OpenSerieController::OpenSerieController(utils::Context& context) :
     buttonExit.setLabel(OPEN_SERIE_BUTTON_EXIT);
 
     buttonExit.setLayout(
-        context,
         OPEN_SERIE_BUTTON_EXIT_POSITION_X,
         OPEN_SERIE_BUTTON_EXIT_POSITION_Y,
         OPEN_SERIE_BUTTONS_WIDTH
@@ -83,10 +80,10 @@ OpenSerieController::OpenSerieController(utils::Context& context) :
  */
 unsigned short OpenSerieController::render(utils::Context& context)
 {
-    titleBar.display(context);
-    buttonExit.display(context);
-    seriesList.display(context);
-    cursor.display(context);
+    titleBar.display();
+    buttonExit.display();
+    seriesList.display();
+    cursor.display();
 
     nextControllerId = animateScreenTransition();
 
