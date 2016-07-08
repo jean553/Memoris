@@ -195,7 +195,17 @@ unsigned short MainMenuController::render()
 
                 break;
             }
+            default:
+            {
+                /* empty default block for coding style requirements */
+                break;
             }
+            }
+        }
+        default:
+        {
+            /* empty default block for coding style requirements */
+            break;
         }
         }
     }
