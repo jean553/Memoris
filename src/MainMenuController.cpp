@@ -40,8 +40,7 @@ namespace controllers
  */
 MainMenuController::MainMenuController() :
     AbstractMenuController(),
-    background(utils::Context::get()),
-    menuGradient(utils::Context::get())
+    background(utils::Context::get())
 {
     /* animations times are all set to 0 */
     titleLastAnimationTime = 0;
@@ -137,7 +136,7 @@ unsigned short MainMenuController::render()
     background.animate(utils::Context::get());
 
     /* apply the menu sub-surface */
-    menuGradient.display(utils::Context::get());
+    menuGradient.display();
 
     /* animate the main menu title according to its last animation time */
     if(

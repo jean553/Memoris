@@ -18,8 +18,6 @@
 
 /**
  * @file MenuGradient.cpp
- * @brief menu gradient behing the selectors
- * @package utils
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
@@ -27,134 +25,136 @@
 
 #include "window.hpp"
 #include "ColorsManager.hpp"
+#include "Context.hpp"
 
-using namespace utils;
-using namespace memoris;
-
-const float MenuGradient::MAIN_SURFACE_WIDTH = 620.f;
-const float MenuGradient::MAIN_SURFACE_HRTL_PSTN = 480.f;
-
-const uint16_t MenuGradient::SIDE_RECTANGLES_AMNT = 510;
+namespace memoris
+{
+namespace others
+{
 
 /**
  *
  */
-MenuGradient::MenuGradient(utils::Context& context)
+MenuGradient::MenuGradient()
 {
-    /* the height is the screen height,
-     * the width is less than the window width */
-    main.setSize(
+    /* the width of the menuBackground surface is fixed and the height is equal
+       to the window height */
+    menuBackground.setSize(
         sf::Vector2f(
-            MAIN_SURFACE_WIDTH,
+            620.f,
             window::HEIGHT
         )
     );
 
-    main.setPosition(MAIN_SURFACE_HRTL_PSTN, 0);
+    /* the menuBackground surface is graphically displayed at the horizontal
+       center of the screen */
+    menuBackground.setPosition(480.f, 0);
 
-    main.setFillColor(memoris::colors::ColorsManager::get().getColorBlack());
+    /* the menuBackground surface is full black */
+    menuBackground.setFillColor(
+        memoris::colors::ColorsManager::get().getColorBlack()
+    );
 
-    initializeGradientRectangles(context);
+    /* initialize all the rectangles that are necessary to make the gradient
+       visual effect */
+    initializeGradientRectangles();
 }
 
 /**
  *
  */
-void MenuGradient::display(utils::Context& context)
+void MenuGradient::display()
 {
-    context.getSfmlWindow().draw(main);
+    /* display first the menu background */
+    utils::Context::get().getSfmlWindow().draw(menuBackground);
 
-    /* display the left gradient */
-    for (
-        std::vector<sf::RectangleShape>::iterator rtgl = leftRtgls.begin();
-        rtgl != leftRtgls.end();
-        ++rtgl
-    )
+    /* iterate the whole sides lines container and displays them one by one */
+    for (const std::unique_ptr<sf::RectangleShape>& rectangle : sidesLines)
     {
-        context.getSfmlWindow().draw(*rtgl);
-    }
-
-    /* display the right gradient */
-    for (
-        std::vector<sf::RectangleShape>::iterator rtgl = rightRtgls.begin();
-        rtgl != rightRtgls.end();
-        ++rtgl
-    )
-    {
-        context.getSfmlWindow().draw(*rtgl);
+        utils::Context::get().getSfmlWindow().draw(*rectangle);
     }
 }
 
 /**
  *
  */
-void MenuGradient::initializeGradientRectangles(utils::Context& context)
+void MenuGradient::initializeGradientRectangles()
 {
-    float hrtlPstn = MAIN_SURFACE_HRTL_PSTN - 1.f;
+     /* NOTE: the creation of the rectangles can be done directly inside the
+       constructor of the class; in fact, there are many local variables
+       to use to create these surfaces; in order to improve the code
+       organization and clarity, we create these surfaces into a dedicated
+       function. */
 
-    sf::Color effectColor = memoris::colors::ColorsManager::get().getColorBlackCopy();
-    sf::Uint8 alpha = 255;
+    /* horizontal position of the current created line; this cursor is edited,
+       incremented and decremented continually during the gradient lines
+       creation */
+    float horizontalPosition = 479.f;
 
-    /* initialize the left rectangles */
-    for (uint16_t i = SIDE_RECTANGLES_AMNT; i > 0; i--)
+    /* this color is continually updated for each created line; the alpha
+       value is continually modified to make the gradient effect; this color
+       is copied first because we continually modify it and because we copy
+       it to each created surface */
+    sf::Color effectColor =
+        memoris::colors::ColorsManager::get().getColorBlackCopy();
+
+    /* iterate the loop 1020 times: this is the required amount of surfaces to
+       make the gradient effect on both sides of the menu background */
+    for (unsigned long index = 1020; index > 0; index--)
     {
-        sf::RectangleShape rtgl;
+        /* create an unique pointer and initialize a SFML rectangle shape at
+           the pointed object location; we use unique pointers because we
+           create each rectangle one by one and copy them inside the
+           destination container; copy a pointer is better than copy the whole
+           object */
+        std::unique_ptr<sf::RectangleShape> rectangle(new sf::RectangleShape);
 
-        rtgl.setPosition(
-            hrtlPstn,
-            0
+        /* the position of the current created rectangle is always vertically
+           null and horizontally equals to the current horizontal position
+           cursor value */
+        rectangle->setPosition(horizontalPosition, 0);
+
+        /* the gradient lines all have the same surface size; the width is one
+           pixel and the height is equal to the window height */
+        rectangle->setSize(
+            sf::Vector2f(1, window::HEIGHT)
         );
 
-        rtgl.setSize(
-            sf::Vector2f(
-                1,
-                window::HEIGHT
-            )
-        );
+        /* set the current calculated color to the surface */
+        rectangle->setFillColor(effectColor);
 
-        rtgl.setFillColor(effectColor);
-
-        hrtlPstn--;
-        if (i % 2 == 0)
+        /* we increment or decrement the current horizontal position cursor
+           according to the current iteration index; in fact, we have to check
+           if we are creating the left side or the right side of the menu */
+        if(index >= 510)
         {
-            alpha--;
+            horizontalPosition--;
+        } else {
+            horizontalPosition++;
         }
-        effectColor.a = alpha;
 
-        leftRtgls.push_back(rtgl);
-    }
-
-    /* the origin is on the right side of the main rectangle */
-    hrtlPstn = MAIN_SURFACE_HRTL_PSTN + MAIN_SURFACE_WIDTH - 1.f;
-    alpha = 255;
-
-    /* initialize the right rectangles */
-    /* TODO: can be refactored with the previous one... */
-    for (uint16_t i = SIDE_RECTANGLES_AMNT; i > 0; i--)
-    {
-        sf::RectangleShape rtgl;
-
-        rtgl.setPosition(
-            hrtlPstn,
-            0
-        );
-
-        rtgl.setSize(
-            sf::Vector2f(
-                1,
-                window::HEIGHT
-            )
-        );
-
-        rtgl.setFillColor(effectColor);
-
-        hrtlPstn++;
-        if (i % 2 == 0)
+        /* when we are in the middle of the iteration, update the horizontal
+           position and reset the alpha value; we switch from the left side
+           to the right side */
+        if (index == 520)
         {
-            alpha--;
+            horizontalPosition = 1099.f; // 480 + 620 - 1
+            effectColor.a = 255;
         }
-        effectColor.a = alpha;
 
-        rightRtgls.push_back(rtgl);
+        /* the alpha value of the color is decremented each time we create two
+           lines of the gradient surface */
+        if (index % 2 == 0)
+        {
+            /* update the alpha value */
+            effectColor.a--;
+        }
+
+        /* append the new created rectangle inside the container used for the
+           the gradient effect creation */
+        sidesLines.push_back(std::move(rectangle));
     }
+}
+
+}
 }

@@ -18,58 +18,69 @@
 
 /**
  * @file MenuGradient.hpp
- * @brief menu gradient behing the selectors
- * @package utils
+ * @brief this class manages the rendering of color gradients displayed on
+ * both of the two menu sides
+ * @package others
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_MENU_GRADIENT
-#define DEF_MENU_GRADIENT
+#ifndef MEMORIS_MENUGARDIENT_H_
+#define MEMORIS_MENUGARDIENT_H_
 
 #include <SFML/Graphics.hpp>
+
 #include <vector>
+#include <memory>
 
-#include "Context.hpp"
-
-namespace utils
+namespace memoris
 {
+namespace others
+{
+
 class MenuGradient
 {
 public:
 
     /**
-     * @brief constructor
-     *
-     * @param context current context reference
+     * @brief constructor, loads the main surface and call a separated method
+     * to initialize all the gradient rectangles
      */
-    MenuGradient(utils::Context& context);
+    MenuGradient();
 
     /**
-     * @brief display the gradient area
-     *
-     * @param context pointer to the current context
+     * @brief display the menu background and all the gradient effect lines
+     * surfaces
      */
-    void display(utils::Context& context);
+    void display();
 
 private:
 
-    static const float MAIN_SURFACE_WIDTH;
-    static const float MAIN_SURFACE_HRTL_PSTN;
-
-    static const uint16_t SIDE_RECTANGLES_AMNT;
-
     /**
-     * @brief initialize gradient rectangles
+     * @brief private method called by the constructor only to create the
+     * background sides lines with the gradient effect
      *
-     * @param context current context reference
+     * NOTE: the creation of the rectangles can be done directly inside the
+     * constructor of the class; in fact, there are many local variables
+     * to use to create these surfaces; in order to improve the code
+     * organization and clarity, we create these surfaces into a dedicated
+     * function.
      */
-    void initializeGradientRectangles(utils::Context& context);
+    void initializeGradientRectangles();
 
-    sf::RectangleShape main;
+    /* the main rectangle shape is the black rectangle without any gradient
+       that is directly the background of the menu items; the gradient
+       surfaces are at both left and right sides of this rectangle */
+    sf::RectangleShape menuBackground;
 
-    std::vector<sf::RectangleShape> leftRtgls;
-    std::vector<sf::RectangleShape> rightRtgls;
+    /* the sides rectangles are vertical lines displayed on both of the menu
+       background; they all have the same color but a different alpha value
+       to create the gradient visual effect */
+    /* TODO: #484 is it really necessary to use smart pointers here ?
+       Investigate, eventually modify and document... */
+    std::vector<std::unique_ptr<sf::RectangleShape>> sidesLines;
 };
+
+}
 }
 
 #endif
