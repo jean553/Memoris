@@ -98,7 +98,7 @@ private:
 
     /* object that displays the black color gradient on
        both sides of the main menu items */
-    utils::MenuGradient menuGradient;
+    others::MenuGradient menuGradient;
 };
 
 }
