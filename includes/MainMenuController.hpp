@@ -30,9 +30,6 @@
 
 #include "AnimatedBackground.hpp"
 #include "MenuGradient.hpp"
-#include "MenuItem.hpp"
-
-#include <SFML/Graphics.hpp>
 
 namespace memoris
 {
