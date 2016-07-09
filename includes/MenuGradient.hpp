@@ -30,7 +30,6 @@
 #include <SFML/Graphics.hpp>
 
 #include <vector>
-#include <memory>
 
 namespace memoris
 {
@@ -74,10 +73,11 @@ private:
 
     /* the sides rectangles are vertical lines displayed on both of the menu
        background; they all have the same color but a different alpha value
-       to create the gradient visual effect */
-    /* TODO: #484 is it really necessary to use smart pointers here ?
-       Investigate, eventually modify and document... */
-    std::vector<std::unique_ptr<sf::RectangleShape>> sidesLines;
+       to create the gradient visual effect; we use a simple container of
+       objects : in fact, no need for pointers here, the objects are all
+       created one time and copied one by one into the container; we do not
+       need to delete them manually */
+    std::vector<sf::RectangleShape> sidesLines;
 };
 
 }
