@@ -41,18 +41,18 @@ const short CellSelectorWidget::ROWS_AMOUNT = 5;
  *
  */
 CellSelectorWidget::CellSelectorWidget() :
-    emptyCell(utils::Context::get()),
-    departureCell(utils::Context::get()),
-    arrivalCell(utils::Context::get()),
-    starCell(utils::Context::get()),
-    lifeCell(utils::Context::get()),
-    malusCell(utils::Context::get()),
-    moreTimeCell(utils::Context::get()),
-    lessTimeCell(utils::Context::get()),
-    wallCell(utils::Context::get()),
-    lightCell(utils::Context::get()),
-    floorUpCell(utils::Context::get()),
-    floorDownCell(utils::Context::get())
+    emptyCell(memoris::utils::Context::get()),
+    departureCell(memoris::utils::Context::get()),
+    arrivalCell(memoris::utils::Context::get()),
+    starCell(memoris::utils::Context::get()),
+    lifeCell(memoris::utils::Context::get()),
+    malusCell(memoris::utils::Context::get()),
+    moreTimeCell(memoris::utils::Context::get()),
+    lessTimeCell(memoris::utils::Context::get()),
+    wallCell(memoris::utils::Context::get()),
+    lightCell(memoris::utils::Context::get()),
+    floorUpCell(memoris::utils::Context::get()),
+    floorDownCell(memoris::utils::Context::get())
 {
     /* TODO: to refactor... */
     emptyCell.setStringRepresentation(constants::CellsFileRepresentations::EMPTY_CELL);
@@ -150,18 +150,18 @@ void CellSelectorWidget::setPosition(
  */
 void CellSelectorWidget::display()
 {
-    emptyCell.display(utils::Context::get());
-    departureCell.display(utils::Context::get());
-    arrivalCell.display(utils::Context::get());
-    starCell.display(utils::Context::get());
-    lifeCell.display(utils::Context::get());
-    malusCell.display(utils::Context::get());
-    moreTimeCell.display(utils::Context::get());
-    lessTimeCell.display(utils::Context::get());
-    wallCell.display(utils::Context::get());
-    lightCell.display(utils::Context::get());
-    floorUpCell.display(utils::Context::get());
-    floorDownCell.display(utils::Context::get());
+    emptyCell.display(memoris::utils::Context::get());
+    departureCell.display(memoris::utils::Context::get());
+    arrivalCell.display(memoris::utils::Context::get());
+    starCell.display(memoris::utils::Context::get());
+    lifeCell.display(memoris::utils::Context::get());
+    malusCell.display(memoris::utils::Context::get());
+    moreTimeCell.display(memoris::utils::Context::get());
+    lessTimeCell.display(memoris::utils::Context::get());
+    wallCell.display(memoris::utils::Context::get());
+    lightCell.display(memoris::utils::Context::get());
+    floorUpCell.display(memoris::utils::Context::get());
+    floorDownCell.display(memoris::utils::Context::get());
 }
 
 /**

@@ -31,7 +31,7 @@
 using namespace factories;
 
 entities::Cell CellFactory::getCellPointerByStringName(
-    utils::Context& context,
+    memoris::utils::Context& context,
     const std::string& stringCell
 )
 {

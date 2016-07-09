@@ -67,7 +67,7 @@ void AbstractMenuController::renderAllMenuItems()
     {
         /* the item iterator is a pointer to an unique pointer; that's why
            whe use the double dereference to manipulate the object */
-        (**item).render(utils::Context::get());
+        (**item).render();
     }
 }
 

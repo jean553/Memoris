@@ -73,7 +73,7 @@ public:
      * TODO: the cells are not copied for now, all the cells are created as Empty Cells
      */
     Level(
-        utils::Context& context,
+        memoris::utils::Context& context,
         const Level &level
     );
 
@@ -89,7 +89,7 @@ public:
      * @param floor number
      */
     void displayAllCellsByFloor(
-        utils::Context& context,
+        memoris::utils::Context& context,
         const uint8_t& floor = 0
     );
 
@@ -144,7 +144,7 @@ public:
      * @param levelString string representation of the level
      */
     void loadCells(
-        utils::Context& context,
+        memoris::utils::Context& context,
         const std::string& levelString = ""
     );
 

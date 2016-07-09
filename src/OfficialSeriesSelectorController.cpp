@@ -57,7 +57,7 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController() :
     );
 
     /* TODO: load all the levels of the serie, should be adapted according to the selected serie */
-    levels = utils::FileWriter::readFileWithSprt(TEMPORARY_DEFAULT_SERIE);
+    levels = ::utils::FileWriter::readFileWithSprt(TEMPORARY_DEFAULT_SERIE);
 
     /* generate the series names list */
     createItems();
@@ -148,7 +148,7 @@ void OfficialSeriesSelectorController::createItems()
     std::vector<std::string> strListSfx =
     {
         /* TODO: temporary solution, only returns the amount of levels in the first serie */
-        std::to_string(utils::FileWriter::getItemsAmnt(TEMPORARY_DEFAULT_SERIE)),
+        std::to_string(::utils::FileWriter::getItemsAmnt(TEMPORARY_DEFAULT_SERIE)),
         "2",
         "3",
         "4",

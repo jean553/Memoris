@@ -57,5 +57,5 @@ void CursorWidget::display()
         verticalPosition
     );
 
-    utils::Context::get().getSfmlWindow().draw(sprite);
+    memoris::utils::Context::get().getSfmlWindow().draw(sprite);
 }

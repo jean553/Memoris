@@ -101,8 +101,8 @@ private:
     sf::Sprite cupSprt;
     sf::Sprite gameSprt;
 
-    utils::SprtTransition cupTrslt;
-    utils::SprtTransition gameTrslt;
+    ::utils::SprtTransition cupTrslt;
+    ::utils::SprtTransition gameTrslt;
 
     bool animCup;
     bool animGame;

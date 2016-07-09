@@ -50,7 +50,7 @@ Level::Level(
  *
  */
 Level::Level(
-    utils::Context& context,
+    memoris::utils::Context& context,
     const Level &level
 )
 {
@@ -90,7 +90,7 @@ Level::~Level()
  *
  */
 void Level::displayAllCellsByFloor(
-    utils::Context& context,
+    memoris::utils::Context& context,
     const uint8_t& floor
 )
 {
@@ -199,7 +199,7 @@ std::string Level::getCellsAsString()
  *
  */
 void Level::loadCells(
-    utils::Context& context,
+    memoris::utils::Context& context,
     const std::string& levelString
 )
 {

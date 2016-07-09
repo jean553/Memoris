@@ -186,10 +186,10 @@ void ItemsListWidget::addTextItem(std::string textItem)
  */
 void ItemsListWidget::display()
 {
-    utils::Context::get().getSfmlWindow().draw(boxTop);
-    utils::Context::get().getSfmlWindow().draw(boxBottom);
-    utils::Context::get().getSfmlWindow().draw(boxLeft);
-    utils::Context::get().getSfmlWindow().draw(boxRight);
+    memoris::utils::Context::get().getSfmlWindow().draw(boxTop);
+    memoris::utils::Context::get().getSfmlWindow().draw(boxBottom);
+    memoris::utils::Context::get().getSfmlWindow().draw(boxLeft);
+    memoris::utils::Context::get().getSfmlWindow().draw(boxRight);
 
     if (isMouseHover())
     {
@@ -198,8 +198,8 @@ void ItemsListWidget::display()
 
     highlightArrows();
 
-    utils::Context::get().getSfmlWindow().draw(spriteUp);
-    utils::Context::get().getSfmlWindow().draw(spriteDown);
+    memoris::utils::Context::get().getSfmlWindow().draw(spriteUp);
+    memoris::utils::Context::get().getSfmlWindow().draw(spriteDown);
 
     for(std::vector<std::string>::iterator textItem = stringsList.begin();
             textItem != stringsList.end(); ++textItem)
@@ -234,7 +234,7 @@ void ItemsListWidget::display()
             itemsCommonVerticalPosition - ITEMS_LIST_TEXT_OFFSET
         );
 
-        utils::Context::get().getSfmlWindow().draw(item);
+        memoris::utils::Context::get().getSfmlWindow().draw(item);
     }
 }
 
@@ -304,7 +304,7 @@ void ItemsListWidget::highlightCurrentItem()
         ITEMS_LIST_ITEM_HEIGHT + ITEMS_LIST_BORDER_SIZE
     );
 
-    utils::Context::get().getSfmlWindow().draw(selector);
+    memoris::utils::Context::get().getSfmlWindow().draw(selector);
 
     /* TODO: use the same variable, should be refactored,
        use a second separated variable to avoid all casting problems */
@@ -318,11 +318,11 @@ void ItemsListWidget::highlightArrows()
 {
     if (isMouseHoverArrowUp())
     {
-        utils::Context::get().getSfmlWindow().draw(arrowUpSelector);
+        memoris::utils::Context::get().getSfmlWindow().draw(arrowUpSelector);
     }
     else if (isMouseHoverArrowDown())
     {
-        utils::Context::get().getSfmlWindow().draw(arrowDownSelector);
+        memoris::utils::Context::get().getSfmlWindow().draw(arrowDownSelector);
     }
 }
 

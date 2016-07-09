@@ -32,19 +32,24 @@
 
 using namespace utils;
 
-const uint16_t AnimatedBackground::TOTAL_CELLS_AMNT = 576;
+const uint16_t memoris::utils::AnimatedBackground::TOTAL_CELLS_AMNT = 576;
 
-const uint8_t AnimatedBackground::RANDOM_MAX = 16;
-const uint8_t AnimatedBackground::LINES_AMNT = 18;
-const uint8_t AnimatedBackground::COLS_AMNT = 32;
-const uint8_t AnimatedBackground::ANIMATION_INTERVAL = 10;
+const uint8_t memoris::utils::AnimatedBackground::RANDOM_MAX = 16;
+const uint8_t memoris::utils::AnimatedBackground::LINES_AMNT = 18;
+const uint8_t memoris::utils::AnimatedBackground::COLS_AMNT = 32;
+const uint8_t memoris::utils::AnimatedBackground::ANIMATION_INTERVAL = 10;
 
-const int8_t AnimatedBackground::CELL_ORIGINAL_HRTL_PSTN = -49;
+const int8_t memoris::utils::AnimatedBackground::CELL_ORIGINAL_HRTL_PSTN = -49;
+
+namespace memoris
+{
+namespace utils
+{
 
 /**
  *
  */
-AnimatedBackground::AnimatedBackground(utils::Context& context)
+AnimatedBackground::AnimatedBackground(memoris::utils::Context& context)
 {
     initializeCellsLib();
     initializeCells(context);
@@ -53,7 +58,7 @@ AnimatedBackground::AnimatedBackground(utils::Context& context)
 /**
  *
  */
-void AnimatedBackground::animate(utils::Context& context)
+void AnimatedBackground::animate(memoris::utils::Context& context)
 {
     for (
         std::vector<entities::Cell>::iterator cell = cells.begin();
@@ -68,7 +73,7 @@ void AnimatedBackground::animate(utils::Context& context)
 /**
  *
  */
-void AnimatedBackground::initializeCells(utils::Context& context)
+void AnimatedBackground::initializeCells(memoris::utils::Context& context)
 {
     uint16_t cellAddress = 0;
     uint8_t currentLine = 0, currentColumn = 0, rdm = 0;
@@ -142,4 +147,7 @@ void AnimatedBackground::initializeCellsLib()
         constants::CellsFileRepresentations::LESS_TIME_CELL,
         constants::CellsFileRepresentations::NULL_CELL,
     };
+}
+
+}
 }

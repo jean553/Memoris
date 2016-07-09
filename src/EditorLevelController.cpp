@@ -318,7 +318,7 @@ unsigned short EditorLevelController::render()
                 {
                     if(buttonSave.isMouseHover())
                     {
-                        saveLevelError = !utils::FileWriter::writeFile(
+                        saveLevelError = !::utils::FileWriter::writeFile(
                                              constants::Directories::LEVELS_DIRECTORY_PATH +
                                              level.getName() +
                                              constants::Extensions::LEVELS_EXTENSION,
@@ -433,12 +433,12 @@ bool EditorLevelController::levelExists(std::string levelName)
         constants::Extensions::LEVELS_EXTENSION;
 
     std::vector<std::string> levelsName =
-        utils::DirReader::getAllFiles(
+        ::utils::DirReader::getAllFiles(
             levelsDirectory.c_str(),
             levelsExtension.c_str()
         );
 
-    return utils::StringsListsUtils::stringsListContainsString(
+    return ::utils::StringsListsUtils::stringsListContainsString(
                levelsName,
                levelName
            );
@@ -461,7 +461,7 @@ void EditorLevelController::updateOneCell(
     }
 
     if (
-        !utils::CellsFilter::canBeAdded(
+        !::utils::CellsFilter::canBeAdded(
             level.getCellsAsString(),
             pCellsSelectorCell->getStringRepresentation(),
             pSelectedCell->getAddress() == 0

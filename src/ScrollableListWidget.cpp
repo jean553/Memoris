@@ -71,7 +71,7 @@ void ScrollableListWidget::display()
         if (it >= ITEMS_AMNT)
             continue;
 
-        utils::Context::get().getSfmlWindow().draw(txt);
+        memoris::utils::Context::get().getSfmlWindow().draw(txt);
         it++;
     }
 
@@ -84,7 +84,7 @@ void ScrollableListWidget::display()
         if (it >= ITEMS_AMNT)
             continue;
 
-        utils::Context::get().getSfmlWindow().draw(txt);
+        memoris::utils::Context::get().getSfmlWindow().draw(txt);
         it++;
     }
 
@@ -198,5 +198,5 @@ void ScrollableListWidget::displayArrDown()
         clk.restart();
     }
 
-    utils::Context::get().getSfmlWindow().draw(arrDownSprt);
+    memoris::utils::Context::get().getSfmlWindow().draw(arrDownSprt);
 }

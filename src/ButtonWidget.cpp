@@ -175,12 +175,12 @@ void ButtonWidget::display()
         );
     }
 
-    utils::Context::get().getSfmlWindow().draw(background);
-    utils::Context::get().getSfmlWindow().draw(topLine);
-    utils::Context::get().getSfmlWindow().draw(bottomLine);
-    utils::Context::get().getSfmlWindow().draw(leftLine);
-    utils::Context::get().getSfmlWindow().draw(rightLine);
-    utils::Context::get().getSfmlWindow().draw(buttonText);
+    memoris::utils::Context::get().getSfmlWindow().draw(background);
+    memoris::utils::Context::get().getSfmlWindow().draw(topLine);
+    memoris::utils::Context::get().getSfmlWindow().draw(bottomLine);
+    memoris::utils::Context::get().getSfmlWindow().draw(leftLine);
+    memoris::utils::Context::get().getSfmlWindow().draw(rightLine);
+    memoris::utils::Context::get().getSfmlWindow().draw(buttonText);
 }
 
 /**
