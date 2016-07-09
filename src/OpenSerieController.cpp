@@ -68,7 +68,7 @@ OpenSerieController::OpenSerieController() :
     );
 
     seriesList.setStringsList(
-        utils::DirReader::getAllFiles(
+        ::utils::DirReader::getAllFiles(
             "data/series",
             ".serie"
         )
@@ -87,7 +87,7 @@ unsigned short OpenSerieController::render()
 
     nextControllerId = animateScreenTransition();
 
-    while(utils::Context::get().getSfmlWindow().pollEvent(event))
+    while(memoris::utils::Context::get().getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

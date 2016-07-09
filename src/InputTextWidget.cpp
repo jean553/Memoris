@@ -155,15 +155,15 @@ void InputTextWidget::setText(std::string inputTextData)
  */
 void InputTextWidget::display()
 {
-    utils::Context::get().getSfmlWindow().draw(boxTop);
-    utils::Context::get().getSfmlWindow().draw(boxBottom);
-    utils::Context::get().getSfmlWindow().draw(boxLeft);
-    utils::Context::get().getSfmlWindow().draw(boxRight);
-    utils::Context::get().getSfmlWindow().draw(displayedText);
+    memoris::utils::Context::get().getSfmlWindow().draw(boxTop);
+    memoris::utils::Context::get().getSfmlWindow().draw(boxBottom);
+    memoris::utils::Context::get().getSfmlWindow().draw(boxLeft);
+    memoris::utils::Context::get().getSfmlWindow().draw(boxRight);
+    memoris::utils::Context::get().getSfmlWindow().draw(displayedText);
 
     if(displayCursor)
     {
-        utils::Context::get().getSfmlWindow().draw(cursor);
+        memoris::utils::Context::get().getSfmlWindow().draw(cursor);
     }
 
     if(clock.getElapsedTime().asMilliseconds() >

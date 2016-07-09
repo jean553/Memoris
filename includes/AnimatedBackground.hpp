@@ -32,8 +32,11 @@
 #include "Context.hpp"
 #include "Cell.hpp"
 
+namespace memoris
+{
 namespace utils
 {
+
 class AnimatedBackground
 {
 public:
@@ -43,14 +46,14 @@ public:
      *
      * @param context current context reference
      */
-    AnimatedBackground(utils::Context& context);
+    AnimatedBackground(memoris::utils::Context& context);
 
     /**
      * @brief animate the background
      *
      * @param context pointer to the current context
      */
-    void animate(utils::Context& context);
+    void animate(memoris::utils::Context& context);
 
 private:
 
@@ -68,7 +71,7 @@ private:
      *
      * @param context current context reference
      */
-    void initializeCells(utils::Context& context);
+    void initializeCells(memoris::utils::Context& context);
 
     /**
      * @brief initialize the cells lib array
@@ -82,6 +85,8 @@ private:
 
     sf::Clock clock;
 };
+
+}
 }
 
 #endif

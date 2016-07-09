@@ -25,8 +25,10 @@
 #include "Context.hpp"
 #include "window.hpp"
 
-using namespace memoris;
-using namespace utils;
+namespace memoris
+{
+namespace utils
+{
 
 /**
  *
@@ -202,4 +204,7 @@ void Context::setNxtLvlStrPath(const std::string& path)
 void Context::removeAllStrings()
 {
     stringsList.clear();
+}
+
+}
 }

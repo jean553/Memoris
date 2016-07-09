@@ -42,7 +42,7 @@ public:
     /**
      * @brief default constructor
      */
-    Cell(utils::Context& context);
+    Cell(memoris::utils::Context& context);
 
     /**
      * @brief copy constructor
@@ -74,7 +74,7 @@ public:
      * of the cell into the level file
      */
     Cell(
-        utils::Context& context,
+        memoris::utils::Context& context,
         std::string fileRepresentation
     );
 
@@ -119,7 +119,7 @@ public:
      *
      * @param context context pointer
      */
-    void display(utils::Context& context);
+    void display(memoris::utils::Context& context);
 
     /**
      * TODO: this parameter has two different uses: set the selected cell in the selector widget

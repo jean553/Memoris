@@ -49,7 +49,7 @@ public:
      * @param sprt sprite to display
      */
     void display(
-        utils::Context& context,
+        memoris::utils::Context& context,
         sf::Sprite& sprt,
         const bool& animate
     );

@@ -26,8 +26,6 @@
 #ifndef MEMORIS_MENUITEM_H_
 #define MEMORIS_MENUITEM_H_
 
-#include "Context.hpp"
-
 #include <SFML/Graphics.hpp>
 
 namespace memoris
@@ -57,10 +55,8 @@ public:
     /**
      * @brief display the menu item inside the given context; displays the
      * item in the correct color
-     *
-     * @param context current context
      */
-    void render(utils::Context& context);
+    void render();
 
     /**
      * @brief unselect the menu item, make it white

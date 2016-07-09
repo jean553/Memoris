@@ -27,6 +27,7 @@
 #include "ColorsManager.hpp"
 #include "FontsManager.hpp"
 #include "fonts.hpp"
+#include "Context.hpp"
 
 namespace memoris
 {
@@ -64,9 +65,9 @@ MenuItem::MenuItem(
 /**
  *
  */
-void MenuItem::render(utils::Context& context)
+void MenuItem::render()
 {
-    context.getSfmlWindow().draw(text);
+    utils::Context::get().getSfmlWindow().draw(text);
 }
 
 /**

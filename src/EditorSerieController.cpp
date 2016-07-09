@@ -311,7 +311,7 @@ unsigned short EditorSerieController::render()
 
                         if (!serieExists(serie.getName()))
                         {
-                            utils::FileWriter::writeFile(
+                            ::utils::FileWriter::writeFile(
                                 constants::Directories::SERIES_DIRECTORY_PATH +
                                 serie.getName() +
                                 constants::Extensions::SERIES_EXTENSION
@@ -413,12 +413,12 @@ bool EditorSerieController::serieExists(std::string serieName)
         constants::Extensions::SERIES_EXTENSION;
 
     std::vector<std::string> seriesNames =
-        utils::DirReader::getAllFiles(
+        ::utils::DirReader::getAllFiles(
             seriesDirectory.c_str(),
             seriesExtension.c_str()
         );
 
-    return utils::StringsListsUtils::stringsListContainsString(
+    return ::utils::StringsListsUtils::stringsListContainsString(
                seriesNames,
                serieName
            );
@@ -486,7 +486,7 @@ void EditorSerieController::writeLevelsIntoSerie()
         }
     }
 
-    utils::FileWriter::writeFile(
+    ::utils::FileWriter::writeFile(
         constants::Directories::SERIES_DIRECTORY_PATH +
         serie.getName() +
         constants::Extensions::SERIES_EXTENSION,

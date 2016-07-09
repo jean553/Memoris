@@ -47,7 +47,7 @@ public:
      * @return Cell
      */
     static entities::Cell getCellPointerByStringName(
-        utils::Context& context,
+        memoris::utils::Context& context,
         const std::string& stringCell
     );
 };

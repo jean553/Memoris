@@ -69,7 +69,7 @@ OpenLevelController::OpenLevelController() :
     );
 
     levelsList.setStringsList(
-        utils::DirReader::getAllFiles(
+        ::utils::DirReader::getAllFiles(
             "data/levels",
             ".level"
         )

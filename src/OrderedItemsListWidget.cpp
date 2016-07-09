@@ -72,7 +72,7 @@ void OrderedItemsListWidget::display()
             itemsCommonVerticalPosition
         );
 
-        utils::Context::get().getSfmlWindow().draw(spriteEdit);
-        utils::Context::get().getSfmlWindow().draw(spriteDelete);
+        memoris::utils::Context::get().getSfmlWindow().draw(spriteEdit);
+        memoris::utils::Context::get().getSfmlWindow().draw(spriteDelete);
     }
 }

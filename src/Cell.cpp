@@ -38,7 +38,7 @@ const uint16_t Cell::MINIMUM_RED_COLOR_AMOUNT = 0;
 /**
  *
  */
-Cell::Cell(utils::Context& context)
+Cell::Cell(memoris::utils::Context& context)
 {
     /* TODO: this is not used inside the copy constructor,
       because we are mandatory to pass the context as
@@ -74,7 +74,7 @@ Cell::Cell(const Cell& cell)
  *
  */
 Cell::Cell(
-    utils::Context& context,
+    memoris::utils::Context& context,
     std::string fileValue) :
     stringRepresentation(fileValue)
 {
@@ -164,7 +164,7 @@ std::string Cell::getPicturePath() const
 /**
  *
  */
-void Cell::display(utils::Context& context)
+void Cell::display(memoris::utils::Context& context)
 {
     sf::Sprite sprToDspl;
 

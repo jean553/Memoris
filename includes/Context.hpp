@@ -36,8 +36,11 @@
 #include <map>
 #include <memory>
 
+namespace memoris
+{
 namespace utils
 {
+
 class Context : public memoris::others::NotCopiable
 {
 public:
@@ -184,6 +187,8 @@ private:
 
     std::string nxtLvlStrPath;
 };
+
+}
 }
 
 #endif

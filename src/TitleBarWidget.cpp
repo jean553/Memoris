@@ -91,6 +91,6 @@ void TitleBarWidget::setText(std::string inputTextData)
  */
 void TitleBarWidget::display()
 {
-    utils::Context::get().getSfmlWindow().draw(displayedText);
-    utils::Context::get().getSfmlWindow().draw(line);
+    memoris::utils::Context::get().getSfmlWindow().draw(displayedText);
+    memoris::utils::Context::get().getSfmlWindow().draw(line);
 }
