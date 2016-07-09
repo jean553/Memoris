@@ -69,9 +69,9 @@ void MenuGradient::display()
     utils::Context::get().getSfmlWindow().draw(menuBackground);
 
     /* iterate the whole sides lines container and displays them one by one */
-    for (const std::unique_ptr<sf::RectangleShape>& rectangle : sidesLines)
+    for (const sf::RectangleShape& rectangle : sidesLines)
     {
-        utils::Context::get().getSfmlWindow().draw(*rectangle);
+        utils::Context::get().getSfmlWindow().draw(rectangle);
     }
 }
 
@@ -80,11 +80,11 @@ void MenuGradient::display()
  */
 void MenuGradient::initializeGradientRectangles()
 {
-     /* NOTE: the creation of the rectangles can be done directly inside the
-       constructor of the class; in fact, there are many local variables
-       to use to create these surfaces; in order to improve the code
-       organization and clarity, we create these surfaces into a dedicated
-       function. */
+    /* NOTE: the creation of the rectangles can be done directly inside the
+      constructor of the class; in fact, there are many local variables
+      to use to create these surfaces; in order to improve the code
+      organization and clarity, we create these surfaces into a dedicated
+      function. */
 
     /* horizontal position of the current created line; this cursor is edited,
        incremented and decremented continually during the gradient lines
@@ -102,26 +102,24 @@ void MenuGradient::initializeGradientRectangles()
        make the gradient effect on both sides of the menu background */
     for (unsigned long index = 1020; index > 0; index--)
     {
-        /* create an unique pointer and initialize a SFML rectangle shape at
-           the pointed object location; we use unique pointers because we
-           create each rectangle one by one and copy them inside the
-           destination container; copy a pointer is better than copy the whole
-           object */
-        std::unique_ptr<sf::RectangleShape> rectangle(new sf::RectangleShape);
+        /* create a temporary object that exists only during the loop
+           iteration; set all the values of the SFML rectangle in order to
+           add it into the rectangles container */
+        sf::RectangleShape rectangle;
 
         /* the position of the current created rectangle is always vertically
            null and horizontally equals to the current horizontal position
            cursor value */
-        rectangle->setPosition(horizontalPosition, 0);
+        rectangle.setPosition(horizontalPosition, 0);
 
         /* the gradient lines all have the same surface size; the width is one
            pixel and the height is equal to the window height */
-        rectangle->setSize(
+        rectangle.setSize(
             sf::Vector2f(1, window::HEIGHT)
         );
 
         /* set the current calculated color to the surface */
-        rectangle->setFillColor(effectColor);
+        rectangle.setFillColor(effectColor);
 
         /* we increment or decrement the current horizontal position cursor
            according to the current iteration index; in fact, we have to check
@@ -129,7 +127,9 @@ void MenuGradient::initializeGradientRectangles()
         if(index >= 510)
         {
             horizontalPosition--;
-        } else {
+        }
+        else
+        {
             horizontalPosition++;
         }
 
@@ -152,7 +152,7 @@ void MenuGradient::initializeGradientRectangles()
 
         /* append the new created rectangle inside the container used for the
            the gradient effect creation */
-        sidesLines.push_back(std::move(rectangle));
+        sidesLines.push_back(rectangle);
     }
 }
 
