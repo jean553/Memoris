@@ -40,7 +40,21 @@ namespace utils
 /**
  *
  */
-AnimatedBackground::AnimatedBackground()
+AnimatedBackground& AnimatedBackground::AnimatedBackground::get()
+{
+    /* create the unique animated background instance */
+    static AnimatedBackground singleton;
+
+    /* return the unique singleton; as it is static, the unique one is always
+       returned */
+    return singleton;
+}
+
+/**
+ *
+ */
+AnimatedBackground::AnimatedBackground() :
+    others::NotCopiable()
 {
     /* initialize all the cells */
     initializeCells();
