@@ -30,6 +30,7 @@
 #include "ColorsManager.hpp"
 #include "TexturesManager.hpp"
 #include "AnimatedBackground.hpp"
+#include "MenuGradient.hpp"
 
 namespace memoris
 {
@@ -136,7 +137,7 @@ unsigned short MainMenuController::render()
     utils::AnimatedBackground::get().render();
 
     /* apply the menu sub-surface */
-    menuGradient.display();
+    others::MenuGradient::get().display();
 
     /* animate the main menu title according to its last animation time */
     if(

@@ -35,6 +35,18 @@ namespace others
 /**
  *
  */
+MenuGradient& MenuGradient::get()
+{
+    /* create the unique instance of the menu gradient singleton */
+    static MenuGradient singleton;
+
+    /* return the new created instance or the unique instance */
+    return singleton;
+}
+
+/**
+ *
+ */
 MenuGradient::MenuGradient()
 {
     /* the width of the menuBackground surface is fixed and the height is equal
