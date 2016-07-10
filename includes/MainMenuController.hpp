@@ -28,7 +28,6 @@
 
 #include "AbstractMenuController.hpp"
 
-#include "AnimatedBackground.hpp"
 #include "MenuGradient.hpp"
 
 namespace memoris
@@ -91,10 +90,6 @@ private:
 
     /* the displayed github texture sprite, in the top right corner */
     sf::Sprite spriteGithub;
-
-    /* object that generates and display the random
-       cells in the main menu backround */
-    utils::AnimatedBackground background;
 
     /* object that displays the black color gradient on
        both sides of the main menu items */

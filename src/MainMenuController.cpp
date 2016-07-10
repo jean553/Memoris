@@ -29,6 +29,7 @@
 #include "intervals.hpp"
 #include "ColorsManager.hpp"
 #include "TexturesManager.hpp"
+#include "AnimatedBackground.hpp"
 
 namespace memoris
 {
@@ -131,8 +132,8 @@ MainMenuController::MainMenuController() :
  */
 unsigned short MainMenuController::render()
 {
-    /* display the background animation */
-    background.render();
+    /* get the unique animated background instance and render it */
+    utils::AnimatedBackground::get().render();
 
     /* apply the menu sub-surface */
     menuGradient.display();

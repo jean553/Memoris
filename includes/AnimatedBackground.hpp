@@ -26,6 +26,7 @@
 #ifndef MEMORIS_ANIMATEDBACKGROUND_H_
 #define MEMORIS_ANIMATEDBACKGROUND_H_
 
+#include "NotCopiable.hpp"
 #include "Cell.hpp"
 
 #include <SFML/Graphics.hpp>
@@ -37,15 +38,18 @@ namespace memoris
 namespace utils
 {
 
-class AnimatedBackground
+class AnimatedBackground : public others::NotCopiable
 {
 public:
 
     /**
-     * @brief constructor, does nothin except calling the function to
-     * initialize the cells of the background
+     * @brief public class method used to get the unique singleton animated
+     * background instance; in fact, the animated background is generated
+     * one time and it the same for all the menus
+     *
+     * @return static AnimatedBackground&
      */
-    AnimatedBackground();
+    static AnimatedBackground& get();
 
     /**
      * @brief render the animated background, display all the cells
@@ -53,6 +57,12 @@ public:
     void render();
 
 private:
+
+    /**
+     * @brief constructor, does nothin except calling the function to
+     * initialize the cells of the background
+     */
+    AnimatedBackground();
 
     /**
      * @brief initialize all the cells of the animated background; this

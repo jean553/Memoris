@@ -41,7 +41,7 @@ namespace memoris
 namespace utils
 {
 
-class Context : public memoris::others::NotCopiable
+class Context : public others::NotCopiable
 {
 public:
 
