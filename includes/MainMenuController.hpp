@@ -28,7 +28,6 @@
 
 #include "AbstractMenuController.hpp"
 
-#include "MenuGradient.hpp"
 
 namespace memoris
 {
@@ -90,10 +89,6 @@ private:
 
     /* the displayed github texture sprite, in the top right corner */
     sf::Sprite spriteGithub;
-
-    /* object that displays the black color gradient on
-       both sides of the main menu items */
-    others::MenuGradient menuGradient;
 };
 
 }

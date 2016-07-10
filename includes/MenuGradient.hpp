@@ -27,6 +27,8 @@
 #ifndef MEMORIS_MENUGARDIENT_H_
 #define MEMORIS_MENUGARDIENT_H_
 
+#include "NotCopiable.hpp"
+
 #include <SFML/Graphics.hpp>
 
 #include <vector>
@@ -36,15 +38,17 @@ namespace memoris
 namespace others
 {
 
-class MenuGradient
+class MenuGradient : public others::NotCopiable
 {
 public:
 
     /**
-     * @brief constructor, loads the main surface and call a separated method
-     * to initialize all the gradient rectangles
+     * @brief public class method to get the unique instance of the gradient
+     * menu class; the class is a singleton
+     *
+     * @return static MenuGradient&
      */
-    MenuGradient();
+    static MenuGradient& get();
 
     /**
      * @brief display the menu background and all the gradient effect lines
@@ -53,6 +57,12 @@ public:
     void display();
 
 private:
+
+    /**
+     * @brief constructor, loads the main surface and call a separated method
+     * to initialize all the gradient rectangles
+     */
+    MenuGradient();
 
     /**
      * @brief private method called by the constructor only to create the
