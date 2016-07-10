@@ -28,14 +28,15 @@
 #include "CellFactory.hpp"
 #include "CellsFileRepresentations.hpp"
 
+#include "Context.hpp"
+
 using namespace factories;
 
-entities::Cell CellFactory::getCellPointerByStringName(
-    memoris::utils::Context& context,
+entities::Cell CellFactory::getCellByStringName(
     const std::string& stringCell
 )
 {
-    entities::Cell cell(context);
+    entities::Cell cell(memoris::utils::Context::get());
     cell.setStringRepresentation(stringCell);
     cell.setPicturePath("res/cells/" + stringCell + ".png");
     return cell;

@@ -41,13 +41,11 @@ public:
      * pointer according to the given
      * cell string
      *
-     * @param context current context reference
      * @param stringCell       cell string representation
      *
      * @return Cell
      */
-    static entities::Cell getCellPointerByStringName(
-        memoris::utils::Context& context,
+    static entities::Cell getCellByStringName(
         const std::string& stringCell
     );
 };

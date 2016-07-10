@@ -23,23 +23,14 @@
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include <time.h>
-
 #include "AnimatedBackground.hpp"
+
+#include "Context.hpp"
 #include "Dimensions.hpp"
 #include "CellFactory.hpp"
 #include "CellsFileRepresentations.hpp"
 
-using namespace utils;
-
-const uint16_t memoris::utils::AnimatedBackground::TOTAL_CELLS_AMNT = 576;
-
-const uint8_t memoris::utils::AnimatedBackground::RANDOM_MAX = 16;
-const uint8_t memoris::utils::AnimatedBackground::LINES_AMNT = 18;
-const uint8_t memoris::utils::AnimatedBackground::COLS_AMNT = 32;
-const uint8_t memoris::utils::AnimatedBackground::ANIMATION_INTERVAL = 10;
-
-const int8_t memoris::utils::AnimatedBackground::CELL_ORIGINAL_HRTL_PSTN = -49;
+#include <time.h>
 
 namespace memoris
 {
@@ -49,54 +40,85 @@ namespace utils
 /**
  *
  */
-AnimatedBackground::AnimatedBackground(memoris::utils::Context& context)
+AnimatedBackground::AnimatedBackground()
 {
-    initializeCellsLib();
-    initializeCells(context);
+    /* initialize all the cells */
+    initializeCells();
 }
 
 /**
  *
  */
-void AnimatedBackground::animate(memoris::utils::Context& context)
+void AnimatedBackground::render()
 {
-    for (
-        std::vector<entities::Cell>::iterator cell = cells.begin();
-        cell != cells.end();
-        ++cell
-    )
+    /* iterate all the cells and display them one by one; we use a reference
+       because we do not copy the cells during the iteration */
+    for (entities::Cell& cell : cells)
     {
-        cell->display(context);
+        cell.display(utils::Context::get());
     }
 }
 
 /**
  *
  */
-void AnimatedBackground::initializeCells(memoris::utils::Context& context)
+void AnimatedBackground::initializeCells()
 {
-    uint16_t cellAddress = 0;
-    uint8_t currentLine = 0, currentColumn = 0, rdm = 0;
+    /* a container containing all the cells strings that can be used to
+       randomly select the animated background cells */
+    /* TODO: #488 bad idea, we have to update this container manually everytime
+       we add new cells types */
+    std::vector<std::string> cellsLib =
+    {
+        constants::CellsFileRepresentations::DEPARTURE_CELL,
+        constants::CellsFileRepresentations::ARRIVAL_CELL,
+        constants::CellsFileRepresentations::STAR_CELL,
+        constants::CellsFileRepresentations::EMPTY_CELL,
+        constants::CellsFileRepresentations::LIFE_CELL,
+        constants::CellsFileRepresentations::DAMAGE_CELL,
+        constants::CellsFileRepresentations::WALL_CELL,
+        constants::CellsFileRepresentations::MORE_TIME_CELL,
+        constants::CellsFileRepresentations::LESS_TIME_CELL,
+        constants::CellsFileRepresentations::NULL_CELL,
+    };
 
-    /* initialize random seed for random numbers */
+    /* the current line and the current column are used during the generation
+       of all the cells of the background; they indicate the current address
+       of the generated cell */
+    unsigned short currentLine = 0, currentColumn = 0;
+
+    /* the rand() function to generate random numbers return an integer */
+    int randomNumber = 0;
+
+    /* initialize random to generate random numbers */
     srand(time(NULL));
 
-    for (uint16_t i = 0; i < TOTAL_CELLS_AMNT; i++)
+    /* we browse the array of cells; there are 576 cells to create */
+    for (unsigned int i = 0; i < 576; i++)
     {
-        //entities::Cell cell(context);
+        /* select a cell randomly; the maximum value of the generated number
+           is 16 even if there are only 10 different cells to generate; if the
+           random number is more than 10, the 10 value will be used anyway, so
+           there are more chances to get the value 10; this is because it is
+           better to have manu "null cells" ( black cells ), to generate a
+           beautiful background */
+        randomNumber = rand() % 16;
+        randomNumber = (
+                           randomNumber >= cellsLib.size() ?
+                           cellsLib.size() - 1 :
+                           randomNumber
+                       );
 
-        /* select a cell randomly */
-        rdm = rand() % RANDOM_MAX;
-
-        /* adapt the cell to display */
-        rdm = ( rdm >= cellsLib.size() ? cellsLib.size() - 1 : rdm );
-
+        /* generate the cell object from the cells factory according to the
+           random number */
         entities::Cell cell =
-            factories::CellFactory::getCellPointerByStringName(
-                context,
-                cellsLib[rdm]
+            factories::CellFactory::getCellByStringName(
+                cellsLib[randomNumber]
             );
 
+        /* set the current cell position, calculated using the constant fixed
+           dimensions of the cell and the current column/line of the
+           iteration */
         cell.setPosition(
             currentColumn *
             (
@@ -110,43 +132,24 @@ void AnimatedBackground::initializeCells(memoris::utils::Context& context)
             )
         );
 
-        cell.setLevelAddresses(cellAddress);
-        cellAddress++;
-
+        /* copy the cell object inside the cells container */
         cells.push_back(cell);
 
+        /* increment the current line */
         currentLine++;
-        if (currentLine >= LINES_AMNT)
+
+        /* the the current line is equal to the last line index, we reset the
+           line index and we increment the column index; in fact, we start to
+           generate cells in the next column */
+        if (currentLine == 18)
         {
+            /* reset the current line index */
             currentLine = 0;
 
+            /* increment the current column */
             currentColumn++;
-            if (currentColumn >= COLS_AMNT)
-            {
-                currentColumn = 0;
-            }
         }
     }
-}
-
-/**
- *
- */
-void AnimatedBackground::initializeCellsLib()
-{
-    cellsLib =
-    {
-        constants::CellsFileRepresentations::DEPARTURE_CELL,
-        constants::CellsFileRepresentations::ARRIVAL_CELL,
-        constants::CellsFileRepresentations::STAR_CELL,
-        constants::CellsFileRepresentations::EMPTY_CELL,
-        constants::CellsFileRepresentations::LIFE_CELL,
-        constants::CellsFileRepresentations::DAMAGE_CELL,
-        constants::CellsFileRepresentations::WALL_CELL,
-        constants::CellsFileRepresentations::MORE_TIME_CELL,
-        constants::CellsFileRepresentations::LESS_TIME_CELL,
-        constants::CellsFileRepresentations::NULL_CELL,
-    };
 }
 
 }

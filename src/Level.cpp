@@ -216,8 +216,7 @@ void Level::loadCells(
         }
         else
         {
-            newCell = factories::CellFactory::getCellPointerByStringName(
-                          context,
+            newCell = factories::CellFactory::getCellByStringName(
                           levelString.substr(static_cast<size_t>(cellNumber), 2)
                       );
         }

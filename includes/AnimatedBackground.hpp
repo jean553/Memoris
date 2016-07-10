@@ -18,19 +18,19 @@
 
 /**
  * @file AnimatedBackground.hpp
- * @brief background animation
+ * @brief manage the menu background animation
  * @package utils
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_ANIMATED_BACKGROUND
-#define DEF_ANIMATED_BACKGROUND
+#ifndef MEMORIS_ANIMATEDBACKGROUND_H_
+#define MEMORIS_ANIMATEDBACKGROUND_H_
+
+#include "Cell.hpp"
 
 #include <SFML/Graphics.hpp>
-#include <vector>
 
-#include "Context.hpp"
-#include "Cell.hpp"
+#include <vector>
 
 namespace memoris
 {
@@ -42,48 +42,33 @@ class AnimatedBackground
 public:
 
     /**
-     * @brief constructor
-     *
-     * @param context current context reference
+     * @brief constructor, does nothin except calling the function to
+     * initialize the cells of the background
      */
-    AnimatedBackground(memoris::utils::Context& context);
+    AnimatedBackground();
 
     /**
-     * @brief animate the background
-     *
-     * @param context pointer to the current context
+     * @brief render the animated background, display all the cells
      */
-    void animate(memoris::utils::Context& context);
+    void render();
 
 private:
 
-    static const uint16_t TOTAL_CELLS_AMNT;
-
-    static const uint8_t RANDOM_MAX;
-    static const uint8_t COLS_AMNT;
-    static const uint8_t LINES_AMNT;
-    static const uint8_t ANIMATION_INTERVAL;
-
-    static const int8_t CELL_ORIGINAL_HRTL_PSTN;
-
     /**
-     * @brief initialize the cells array randomly
-     *
-     * @param context current context reference
+     * @brief initialize all the cells of the animated background; this
+     * method is the unique function that is called by the animated background
+     * constructor; the creation of the cells could be done directly into
+     * the constructor, but I prefer separate it into a dedicated function, as
+     * this method requires a lot of internal variables
      */
-    void initializeCells(memoris::utils::Context& context);
+    void initializeCells();
 
-    /**
-     * @brief initialize the cells lib array
-     */
-    void initializeCellsLib();
-
+    /* the array of displayed cells in the background; this is an array of
+       18 rows and 32 columns, that means 576 cells; we declare the cells
+       one by one in the creation cells loop; we store simple Cells objects
+       and not pointers; in fact, the cells are created one by one in the loop
+       and copied into the container; they never change after */
     std::vector<entities::Cell> cells;
-
-    /* as the cells are randomly selected, a number must be attached */
-    std::vector<std::string> cellsLib;
-
-    sf::Clock clock;
 };
 
 }
