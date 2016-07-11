@@ -148,7 +148,7 @@ void MenuGradient::initializeGradientRectangles()
         /* when we are in the middle of the iteration, update the horizontal
            position and reset the alpha value; we switch from the left side
            to the right side */
-        if (index == 520)
+        if (index == 510)
         {
             horizontalPosition = 1099.f; // 480 + 620 - 1
             effectColor.a = 255;

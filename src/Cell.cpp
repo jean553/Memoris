@@ -26,6 +26,7 @@
 #include "Cell.hpp"
 
 #include "dimensions.hpp"
+#include "window.hpp"
 #include "ColorsManager.hpp"
 
 using namespace entities;
@@ -398,4 +399,32 @@ void Cell::animateCell()
     }
 
     clock.restart();
+}
+
+/**
+ *
+ */
+void Cell::moveOnTheRight()
+{
+    /* increment the horizontal position of the cell; we do
+       it separately to make it clear */
+    horizontalPosition++;
+
+    /* if the cell is outside of the screen on the right side, the position
+       is reset to -49 because a cell width is 49 pixel; the cell is now
+       outside of the screen, on the left corner and will be displayed soon
+       during the animation; we considere the cell outside of the screen on
+       the right corner when the position is 1649, that means the window
+       width and one cell width */
+    if (horizontalPosition == memoris::window::WIDTH)
+    {
+        /* note that the cell pixel dimensions is forced to be signed */
+        horizontalPosition = -memoris::dimensions::CELL_PIXELS_DIMENSIONS;
+    }
+
+    /* update the horizontal position */
+    setPosition(
+        horizontalPosition,
+        verticalPosition
+    );
 }
