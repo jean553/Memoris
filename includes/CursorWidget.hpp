@@ -32,7 +32,7 @@
 
 namespace widgets
 {
-class CursorWidget : public Widget
+class CursorWidget : public memoris::widgets::Widget
 {
 
     static const std::string PATH_IMAGE_CURSOR;

@@ -33,7 +33,7 @@
 
 namespace widgets
 {
-class FrameWidget : public Widget
+class FrameWidget : public memoris::widgets::Widget
 {
 
     static const unsigned short BORDER_WIDTH;

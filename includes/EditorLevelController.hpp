@@ -106,22 +106,22 @@ private:
 
     EditorLevelStatus status;
 
-    widgets::ButtonWidget buttonExit;
-    widgets::ButtonWidget buttonNew;
-    widgets::ButtonWidget buttonOpen;
-    widgets::ButtonWidget buttonSave;
-    widgets::ButtonWidget buttonNextFloor;
-    widgets::ButtonWidget buttonPreviousFloor;
+    ::widgets::ButtonWidget buttonExit;
+    ::widgets::ButtonWidget buttonNew;
+    ::widgets::ButtonWidget buttonOpen;
+    ::widgets::ButtonWidget buttonSave;
+    ::widgets::ButtonWidget buttonNextFloor;
+    ::widgets::ButtonWidget buttonPreviousFloor;
 
-    widgets::FrameWidget floorSelectionFrame;
+    ::widgets::FrameWidget floorSelectionFrame;
 
-    widgets::CursorWidget cursor;
+    ::widgets::CursorWidget cursor;
 
-    widgets::TitleBarWidget titleBar;
+    ::widgets::TitleBarWidget titleBar;
 
-    widgets::InputTextWidget inputTextNew;
+    ::widgets::InputTextWidget inputTextNew;
 
-    widgets::CellSelectorWidget cellSelector;
+    ::widgets::CellSelectorWidget cellSelector;
 
     entities::Level level;
 

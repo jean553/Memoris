@@ -32,7 +32,7 @@
 
 namespace widgets
 {
-class ButtonWidget : public Widget
+class ButtonWidget : public memoris::widgets::Widget
 {
 
     static const float BUTTON_FIXED_HEIGHT;

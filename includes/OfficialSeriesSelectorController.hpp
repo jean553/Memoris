@@ -63,7 +63,7 @@ private:
 
     sf::Text offSerTitle;
 
-    widgets::ScrollableListWidget scrlList;
+    ::widgets::ScrollableListWidget scrlList;
 
     std::vector<std::string> levels;
 };

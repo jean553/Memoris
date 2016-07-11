@@ -30,7 +30,7 @@
 
 namespace widgets
 {
-class ItemsListWidget : public Widget
+class ItemsListWidget : public memoris::widgets::Widget
 {
 
 public:

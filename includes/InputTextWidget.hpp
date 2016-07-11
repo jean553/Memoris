@@ -34,7 +34,7 @@
 
 namespace widgets
 {
-class InputTextWidget : public Widget
+class InputTextWidget : public memoris::widgets::Widget
 {
 
     static const unsigned short BOX_BORDER_LARGER;
