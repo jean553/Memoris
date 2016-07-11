@@ -24,7 +24,7 @@
  */
 
 #include "Level.hpp"
-#include "Dimensions.hpp"
+#include "dimensions.hpp"
 #include "CellFactory.hpp"
 #include "CellsFileRepresentations.hpp"
 
@@ -102,10 +102,10 @@ void Level::displayAllCellsByFloor(
     {
         if (
             std::distance(cells.begin(), cell) >=
-            floor * constants::Dimensions::LEVEL_CELLS_PER_FLOOR &&
+            floor * memoris::dimensions::LEVEL_CELLS_PER_FLOOR &&
             std::distance(cells.begin(), cell) <
-            floor * constants::Dimensions::LEVEL_CELLS_PER_FLOOR +
-            constants::Dimensions::LEVEL_CELLS_PER_FLOOR
+            floor * memoris::dimensions::LEVEL_CELLS_PER_FLOOR +
+            memoris::dimensions::LEVEL_CELLS_PER_FLOOR
         )
         {
             cell->display(context);
@@ -142,10 +142,10 @@ bool Level::isMouseHover(short floor)
     {
         if (
             std::distance(cells.begin(), cell) >=
-            floor * constants::Dimensions::LEVEL_CELLS_PER_FLOOR &&
+            floor * memoris::dimensions::LEVEL_CELLS_PER_FLOOR &&
             std::distance(cells.begin(), cell) <
-            floor * constants::Dimensions::LEVEL_CELLS_PER_FLOOR +
-            constants::Dimensions::LEVEL_CELLS_PER_FLOOR
+            floor * memoris::dimensions::LEVEL_CELLS_PER_FLOOR +
+            memoris::dimensions::LEVEL_CELLS_PER_FLOOR
         )
         {
             if(cell->isMouseHover())
@@ -206,7 +206,7 @@ void Level::loadCells(
     short cellNumber = 0;
     uint16_t cellAddress = 0, currentLine = 0, currentColumn = 0;
 
-    for (uint16_t i = 0; i < constants::Dimensions::CELLS_PER_LEVEL; i++)
+    for (uint16_t i = 0; i < memoris::dimensions::CELLS_PER_LEVEL; i++)
     {
         Cell newCell(context);
 
@@ -225,14 +225,14 @@ void Level::loadCells(
             horizontalPosition +
             currentColumn *
             (
-                constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-                constants::Dimensions::CELLS_PIXELS_SEPARATION
+                memoris::dimensions::CELL_PIXELS_DIMENSIONS +
+                memoris::dimensions::CELLS_PIXELS_SEPARATION
             ),
             verticalPosition +
             currentLine *
             (
-                constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-                constants::Dimensions::CELLS_PIXELS_SEPARATION
+                memoris::dimensions::CELL_PIXELS_DIMENSIONS +
+                memoris::dimensions::CELLS_PIXELS_SEPARATION
             )
         );
 
@@ -252,12 +252,12 @@ void Level::loadCells(
         cells.push_back(newCell);
 
         currentLine++;
-        if (currentLine >= constants::Dimensions::CELLS_PER_COLUMN)
+        if (currentLine >= memoris::dimensions::CELLS_PER_COLUMN)
         {
             currentLine = 0;
 
             currentColumn++;
-            if (currentColumn >= constants::Dimensions::CELLS_PER_LINE)
+            if (currentColumn >= 20)
             {
                 currentColumn = 0;
             }
@@ -370,12 +370,12 @@ void Level::movePlayer(const PlayerDirection& direction)
     else if (direction == LEFT)
     {
         newIndex = currentIndex -
-                   constants::Dimensions::CELLS_PER_COLUMN;
+                   memoris::dimensions::CELLS_PER_COLUMN;
     }
     else
     {
         newIndex = currentIndex +
-                   constants::Dimensions::CELLS_PER_COLUMN;
+                   memoris::dimensions::CELLS_PER_COLUMN;
     }
 
     setPlayerCellIndex(newIndex);
@@ -396,7 +396,7 @@ bool Level::playerIsMovable(
     /* check if the player can go on the left */
     if (
         direction == LEFT &&
-        currentIndex < constants::Dimensions::CELLS_PER_COLUMN
+        currentIndex < memoris::dimensions::CELLS_PER_COLUMN
     )
     {
         return false;
@@ -406,9 +406,9 @@ bool Level::playerIsMovable(
     if (
         direction == RIGHT &&
         currentIndex >=
-        constants::Dimensions::LEVEL_CELLS_PER_FLOOR -
-        constants::Dimensions::CELLS_PER_COLUMN &&
-        currentIndex < constants::Dimensions::LEVEL_CELLS_PER_FLOOR
+        memoris::dimensions::LEVEL_CELLS_PER_FLOOR -
+        memoris::dimensions::CELLS_PER_COLUMN &&
+        currentIndex < memoris::dimensions::LEVEL_CELLS_PER_FLOOR
     )
     {
         return false;
@@ -417,7 +417,7 @@ bool Level::playerIsMovable(
     /* check if the player can go up */
     if (
         direction == UP &&
-        currentIndex % constants::Dimensions::CELLS_PER_COLUMN == 0
+        currentIndex % memoris::dimensions::CELLS_PER_COLUMN == 0
     )
     {
         return false;
@@ -426,8 +426,8 @@ bool Level::playerIsMovable(
     /* check if the player can go down */
     if (
         direction == DOWN &&
-        currentIndex % constants::Dimensions::CELLS_PER_COLUMN ==
-        constants::Dimensions::CELLS_PER_COLUMN - 1
+        currentIndex % memoris::dimensions::CELLS_PER_COLUMN ==
+        memoris::dimensions::CELLS_PER_COLUMN - 1
     )
     {
         return false;

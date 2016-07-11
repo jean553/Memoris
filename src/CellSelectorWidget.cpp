@@ -28,7 +28,7 @@
 #include "CellSelectorWidget.hpp"
 
 #include "Context.hpp"
-#include "Dimensions.hpp"
+#include "dimensions.hpp"
 #include "CellsFileRepresentations.hpp"
 #include "CellFactory.hpp"
 
@@ -78,8 +78,8 @@ void CellSelectorWidget::setPosition(
 )
 {
     const float cellsDimensions =
-        constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-        constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION;
+        memoris::dimensions::CELL_PIXELS_DIMENSIONS +
+        memoris::dimensions::SELECTOR_CELLS_PIXELS_SEPARATION;
 
     horizontalPosition = hPosition;
     verticalPosition = vPosition;
@@ -249,14 +249,14 @@ bool CellSelectorWidget::isMouseHover() const
         sf::Mouse::getPosition().x > horizontalPosition &&
         sf::Mouse::getPosition().x < horizontalPosition +
         (
-            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION +
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS
+            memoris::dimensions::SELECTOR_CELLS_PIXELS_SEPARATION +
+            memoris::dimensions::CELL_PIXELS_DIMENSIONS
         ) * COLUMNS_AMOUNT &&
         sf::Mouse::getPosition().y > verticalPosition &&
         sf::Mouse::getPosition().y < verticalPosition +
         (
-            constants::Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION +
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS
+            memoris::dimensions::SELECTOR_CELLS_PIXELS_SEPARATION +
+            memoris::dimensions::CELL_PIXELS_DIMENSIONS
         ) * ROWS_AMOUNT
     )
     {
