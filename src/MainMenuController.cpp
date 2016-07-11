@@ -143,7 +143,7 @@ unsigned short MainMenuController::render()
     if(
         utils::Context::get().getClockMillisecondsTime() -
         titleLastAnimationTime >
-        memoris::intervals::COMMON_ANIMATIONS_MILLISECONDS_INTERVAL
+        intervals::COMMON_ANIMATIONS_MILLISECONDS_INTERVAL
     )
     {
         animateTitleColor();

@@ -220,6 +220,12 @@ public:
      */
     void setIsAnimated(const bool& animate);
 
+    /**
+     * @brief move the cell to one pixel on the right; this method is used
+     * with the animated background
+     */
+    void moveOnTheRight();
+
 private:
 
     static const uint8_t INTERVAL_ANIMATION;

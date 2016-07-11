@@ -29,6 +29,7 @@
 #include "dimensions.hpp"
 #include "CellFactory.hpp"
 #include "CellsFileRepresentations.hpp"
+#include "intervals.hpp"
 
 #include <time.h>
 
@@ -58,6 +59,9 @@ AnimatedBackground::AnimatedBackground() :
 {
     /* initialize all the cells */
     initializeCells();
+
+    /* initialize the cells movement last animation with the value 0 */
+    cellsMovementLastAnimation = 0;
 }
 
 /**
@@ -65,6 +69,26 @@ AnimatedBackground::AnimatedBackground() :
  */
 void AnimatedBackground::render()
 {
+    /* move the cells every 30 milliseconds */
+    if(
+        (
+            utils::Context::get().getClockMillisecondsTime() -
+            cellsMovementLastAnimation
+        ) > intervals::COMMON_ANIMATIONS_MILLISECONDS_INTERVAL
+    )
+    {
+        /* iterate all the cells; for each one, modify the horizontal
+           position */
+        for (entities::Cell& cell : cells)
+        {
+            cell.moveOnTheRight();
+        }
+
+        /* update the new cells movement animation time with the new time */
+        cellsMovementLastAnimation =
+            utils::Context::get().getClockMillisecondsTime();
+    }
+
     /* iterate all the cells and display them one by one; we use a reference
        because we do not copy the cells during the iteration */
     for (entities::Cell& cell : cells)
