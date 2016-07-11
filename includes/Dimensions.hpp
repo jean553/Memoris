@@ -17,39 +17,47 @@
 */
 
 /**
- * Dimensions.
- *
- * @file Dimensions.hpp
+ * @file dimensions.hpp
  * @brief contains defined and fixed dimensions
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_DIMENSIONS
-#define DEF_DIMENSIONS
+#ifndef MEMORIS_DIMENSIONS_H_
+#define MEMORIS_DIMENSIONS_H_
 
-#include <iostream>
-
-namespace constants
+namespace memoris
 {
-class Dimensions
+namespace dimensions
 {
 
-public:
+/* the common width of all the editor buttons, used into Editor level
+controller */
+constexpr unsigned short EDITOR_BUTTONS_WIDTH = 200;
 
-    static const unsigned short EDITOR_BUTTONS_WIDTH;
-    static const unsigned short LEVEL_CELLS_PER_FLOOR;
-    static const unsigned short LEVEL_FLOORS;
-    static const unsigned short POSITION_NAME_LABEL_Y;
-    static const unsigned short LEVEL_MAX_FLOOR_NUMBER;
+/* amount of cells per floor, used in Level entity */
+constexpr unsigned short LEVEL_CELLS_PER_FLOOR = 320;
 
-    static const uint16_t CELLS_PER_LEVEL;
-    static const uint16_t CELLS_PER_COLUMN;
-    static const uint16_t CELLS_PER_LINE;
+/* amount of cells per level, used into the editor level controller and the
+level entity */
+constexpr unsigned short CELLS_PER_LEVEL = 3200;
 
-    static const float CELL_PIXELS_DIMENSIONS;
-    static const float CELLS_PIXELS_SEPARATION;
-    static const float SELECTED_CELLS_BORDER_WIDTH;
-    static const float SELECTOR_CELLS_PIXELS_SEPARATION;
+/* amount of cells per column, used into the level entity */
+constexpr unsigned short CELLS_PER_COLUMN = 16;
+
+/* width and height of a cell, used into the animated background, the cell
+   entity, the cell selector widget and level entity */
+constexpr float CELL_PIXELS_DIMENSIONS = 49.f;
+
+/* the separation between each cell in pixels, used into the animated
+   background, the cell selector widget and the level entity */
+constexpr float CELLS_PIXELS_SEPARATION = 1.f;
+
+/* the border width of each cells in pixels, used into the Cell entity */
+constexpr float SELECTED_CELLS_BORDER_WIDTH = 3.f;
+
+/* the separation between cells into the cells selector widget */
+constexpr float SELECTOR_CELLS_PIXELS_SEPARATION = 5.f;
+
 };
 }
 

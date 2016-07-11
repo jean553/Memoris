@@ -28,7 +28,7 @@
 #include "EditorLevelController.hpp"
 
 #include "Positions.hpp"
-#include "Dimensions.hpp"
+#include "dimensions.hpp"
 #include "fonts.hpp"
 #include "Directories.hpp"
 #include "Extensions.hpp"
@@ -108,37 +108,37 @@ EditorLevelController::EditorLevelController() :
     buttonExit.setLayout(
         LEVEL_EDITOR_BUTTONS_POSITION_X,
         constants::Positions::EDITOR_BUTTONS_POSITION_Y,
-        constants::Dimensions::EDITOR_BUTTONS_WIDTH
+        memoris::dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonNew.setLayout(
         LEVEL_EDITOR_BUTTONS_POSITION_X,
         LEVEL_EDITOR_BUTTON_NEW_POSITION_Y,
-        constants::Dimensions::EDITOR_BUTTONS_WIDTH
+        memoris::dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonOpen.setLayout(
         LEVEL_EDITOR_BUTTONS_POSITION_X,
         LEVEL_EDITOR_BUTTON_OPEN_POSITION_Y,
-        constants::Dimensions::EDITOR_BUTTONS_WIDTH
+        memoris::dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonSave.setLayout(
         LEVEL_EDITOR_BUTTONS_POSITION_X,
         LEVEL_EDITOR_BUTTON_SAVE_POSITION_Y,
-        constants::Dimensions::EDITOR_BUTTONS_WIDTH
+        memoris::dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonNextFloor.setLayout(
         LEVEL_EDITOR_BUTTONS_POSITION_X,
         LEVEL_EDITOR_BUTTON_LEVEL_UP_POSITION_Y,
-        constants::Dimensions::EDITOR_BUTTONS_WIDTH
+        memoris::dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     buttonPreviousFloor.setLayout(
         LEVEL_EDITOR_BUTTONS_POSITION_X,
         LEVEL_EDITOR_BUTTON_LEVEL_DOWN_POSITION_Y,
-        constants::Dimensions::EDITOR_BUTTONS_WIDTH
+        memoris::dimensions::EDITOR_BUTTONS_WIDTH
     );
 
     levelNameLabel.setFont(memoris::fonts::FontsManager::get().getTextFont());
@@ -285,7 +285,7 @@ unsigned short EditorLevelController::render()
                     levelNameLabel.setPosition(
                         window::WIDTH -
                         levelNameLabel.getLocalBounds().width,
-                        constants::Dimensions::POSITION_NAME_LABEL_Y
+                        0
                     );
 
                     level.setName(inputTextNew.getText());
@@ -493,8 +493,7 @@ void EditorLevelController::updateFloorNumber(short updateValue)
 {
     /* use a if(), got some troubles with the ternary condition... */
     if (
-        (currentFloor ==
-         constants::Dimensions::LEVEL_MAX_FLOOR_NUMBER &&
+        (currentFloor == 9 &&
          updateValue > 0) ||
         (currentFloor == 0 && updateValue < 0)
     )
@@ -526,7 +525,7 @@ void EditorLevelController::updtLevelForSpecCells(
     )
     {
         uint16_t addr = pSelectedCell->getAddress() +
-                        constants::Dimensions::LEVEL_CELLS_PER_FLOOR;
+                        memoris::dimensions::LEVEL_CELLS_PER_FLOOR;
 
         entities::Cell* otrCell = &(*cells)[addr];
         entities::Cell* downCell = cellSelector.getFloorDownCell();
@@ -541,7 +540,7 @@ void EditorLevelController::updtLevelForSpecCells(
     )
     {
         uint16_t addr = pSelectedCell->getAddress() -
-                        constants::Dimensions::LEVEL_CELLS_PER_FLOOR;
+                        memoris::dimensions::LEVEL_CELLS_PER_FLOOR;
 
         entities::Cell* otrCell = &(*cells)[addr];
         entities::Cell* downCell = cellSelector.getFloorUpCell();
@@ -557,7 +556,7 @@ void EditorLevelController::updtLevelForSpecCells(
     )
     {
         uint16_t addr = pSelectedCell->getAddress() +
-                        constants::Dimensions::LEVEL_CELLS_PER_FLOOR;
+                        memoris::dimensions::LEVEL_CELLS_PER_FLOOR;
 
         entities::Cell* otrCell = &(*cells)[addr];
         entities::Cell* emptyCell = cellSelector.getEmptyCell();
@@ -573,7 +572,7 @@ void EditorLevelController::updtLevelForSpecCells(
     )
     {
         uint16_t addr = pSelectedCell->getAddress() -
-                        constants::Dimensions::LEVEL_CELLS_PER_FLOOR;
+                        memoris::dimensions::LEVEL_CELLS_PER_FLOOR;
 
         entities::Cell* otrCell = &(*cells)[addr];
         entities::Cell* emptyCell = cellSelector.getEmptyCell();
@@ -596,13 +595,13 @@ bool EditorLevelController::currEditIsAllowed()
     uint16_t addr = levCell->getAddress();
     entities::Cell *cellPrevFloor = NULL, *cellNextFloor = NULL;
 
-    if (addr - constants::Dimensions::LEVEL_CELLS_PER_FLOOR >= 0)
+    if (addr - memoris::dimensions::LEVEL_CELLS_PER_FLOOR >= 0)
     {
-        cellPrevFloor = &(*cells)[addr - constants::Dimensions::LEVEL_CELLS_PER_FLOOR];
+        cellPrevFloor = &(*cells)[addr - memoris::dimensions::LEVEL_CELLS_PER_FLOOR];
     }
-    if (addr + constants::Dimensions::LEVEL_CELLS_PER_FLOOR < constants::Dimensions::CELLS_PER_LEVEL)
+    if (addr + memoris::dimensions::LEVEL_CELLS_PER_FLOOR < memoris::dimensions::CELLS_PER_LEVEL)
     {
-        cellNextFloor = &(*cells)[addr + constants::Dimensions::LEVEL_CELLS_PER_FLOOR];
+        cellNextFloor = &(*cells)[addr + memoris::dimensions::LEVEL_CELLS_PER_FLOOR];
     }
 
     /* cannot add floor up on the last floor, cannot add floor down on the first floor */
@@ -610,7 +609,7 @@ bool EditorLevelController::currEditIsAllowed()
         (
             cell->getStringRepresentation() ==
             constants::CellsFileRepresentations::FLOOR_UP_CELL &&
-            currentFloor == constants::Dimensions::LEVEL_FLOORS - 1
+            currentFloor == memoris::dimensions::LEVEL_FLOORS - 1
         ) ||
         (
             cell->getStringRepresentation() ==

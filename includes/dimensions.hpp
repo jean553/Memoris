@@ -17,28 +17,34 @@
 */
 
 /**
- * Dimensions.
- *
- * @file Dimensions.cpp
+ * @file dimensions.hpp
  * @brief contains defined and fixed dimensions
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "Dimensions.hpp"
+#ifndef MEMORIS_DIMENSIONS_H_
+#define MEMORIS_DIMENSIONS_H_
 
-using namespace constants;
+namespace memoris
+{
+namespace dimensions
+{
 
-const unsigned short Dimensions::EDITOR_BUTTONS_WIDTH = 200;
-const unsigned short Dimensions::LEVEL_FLOORS = 10;
-const unsigned short Dimensions::POSITION_NAME_LABEL_Y = 0;
-const unsigned short Dimensions::LEVEL_MAX_FLOOR_NUMBER = 9;
+constexpr unsigned short EDITOR_BUTTONS_WIDTH = 200;
+constexpr unsigned short LEVEL_CELLS_PER_FLOOR = 320;
+constexpr unsigned short LEVEL_FLOORS = 10;
+constexpr unsigned short POSITION_NAME_LABEL_Y = 0;
+constexpr unsigned short LEVEL_MAX_FLOOR_NUMBER = 9;
+constexpr unsigned short CELLS_PER_LEVEL = 3200;
+constexpr unsigned short CELLS_PER_COLUMN = 16;
+constexpr unsigned short CELLS_PER_LINE = 20;
 
-const uint16_t Dimensions::CELLS_PER_LEVEL = 3200;
-const uint16_t Dimensions::CELLS_PER_COLUMN = 16;
-const uint16_t Dimensions::CELLS_PER_LINE = 20;
-const uint16_t Dimensions::LEVEL_CELLS_PER_FLOOR = 320;
+constexpr float CELL_PIXELS_DIMENSIONS = 49.f;
+constexpr float CELLS_PIXELS_SEPARATION = 1.f;
+constexpr float SELECTED_CELLS_BORDER_WIDTH = 3.f;
+constexpr float SELECTOR_CELLS_PIXELS_SEPARATION = 5.f;
 
-const float Dimensions::CELL_PIXELS_DIMENSIONS = 49;
-const float Dimensions::CELLS_PIXELS_SEPARATION = 1;
-const float Dimensions::SELECTED_CELLS_BORDER_WIDTH = 3;
-const float Dimensions::SELECTOR_CELLS_PIXELS_SEPARATION = 5;
+};
+}
+
+#endif

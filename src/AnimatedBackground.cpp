@@ -26,7 +26,7 @@
 #include "AnimatedBackground.hpp"
 
 #include "Context.hpp"
-#include "Dimensions.hpp"
+#include "dimensions.hpp"
 #include "CellFactory.hpp"
 #include "CellsFileRepresentations.hpp"
 
@@ -136,13 +136,13 @@ void AnimatedBackground::initializeCells()
         cell.setPosition(
             currentColumn *
             (
-                constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-                constants::Dimensions::CELLS_PIXELS_SEPARATION
+                dimensions::CELL_PIXELS_DIMENSIONS +
+                dimensions::CELLS_PIXELS_SEPARATION
             ),
             currentLine *
             (
-                constants::Dimensions::CELL_PIXELS_DIMENSIONS +
-                constants::Dimensions::CELLS_PIXELS_SEPARATION
+                dimensions::CELL_PIXELS_DIMENSIONS +
+                dimensions::CELLS_PIXELS_SEPARATION
             )
         );
 

@@ -25,7 +25,7 @@
 
 #include "Cell.hpp"
 
-#include "Dimensions.hpp"
+#include "dimensions.hpp"
 #include "ColorsManager.hpp"
 
 using namespace entities;
@@ -125,8 +125,8 @@ void Cell::setPosition(
     bottomSelectionBar.setPosition(
         horizontalPosition,
         verticalPosition +
-        constants::Dimensions::CELL_PIXELS_DIMENSIONS -
-        constants::Dimensions::SELECTED_CELLS_BORDER_WIDTH
+        memoris::dimensions::CELL_PIXELS_DIMENSIONS -
+        memoris::dimensions::SELECTED_CELLS_BORDER_WIDTH
     );
 
     leftSelectionBar.setPosition(
@@ -136,8 +136,8 @@ void Cell::setPosition(
 
     rightSelectionBar.setPosition(
         horizontalPosition +
-        constants::Dimensions::CELL_PIXELS_DIMENSIONS -
-        constants::Dimensions::SELECTED_CELLS_BORDER_WIDTH,
+        memoris::dimensions::CELL_PIXELS_DIMENSIONS -
+        memoris::dimensions::SELECTED_CELLS_BORDER_WIDTH,
         verticalPosition
     );
 }
@@ -209,9 +209,9 @@ bool Cell::isMouseHover() const
 {
     if (
         sf::Mouse::getPosition().x > horizontalPosition &&
-        sf::Mouse::getPosition().x < horizontalPosition + constants::Dimensions::CELL_PIXELS_DIMENSIONS &&
+        sf::Mouse::getPosition().x < horizontalPosition + memoris::dimensions::CELL_PIXELS_DIMENSIONS &&
         sf::Mouse::getPosition().y > verticalPosition &&
-        sf::Mouse::getPosition().y < verticalPosition + constants::Dimensions::CELL_PIXELS_DIMENSIONS
+        sf::Mouse::getPosition().y < verticalPosition + memoris::dimensions::CELL_PIXELS_DIMENSIONS
     )
     {
         return true;
@@ -310,29 +310,29 @@ void Cell::initializeCommonAttributes()
 
     topSelectionBar.setSize(
         sf::Vector2f(
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS,
-            constants::Dimensions::SELECTED_CELLS_BORDER_WIDTH
+            memoris::dimensions::CELL_PIXELS_DIMENSIONS,
+            memoris::dimensions::SELECTED_CELLS_BORDER_WIDTH
         )
     );
 
     bottomSelectionBar.setSize(
         sf::Vector2f(
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS,
-            constants::Dimensions::SELECTED_CELLS_BORDER_WIDTH
+            memoris::dimensions::CELL_PIXELS_DIMENSIONS,
+            memoris::dimensions::SELECTED_CELLS_BORDER_WIDTH
         )
     );
 
     leftSelectionBar.setSize(
         sf::Vector2f(
-            constants::Dimensions::SELECTED_CELLS_BORDER_WIDTH,
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS
+            memoris::dimensions::SELECTED_CELLS_BORDER_WIDTH,
+            memoris::dimensions::CELL_PIXELS_DIMENSIONS
         )
     );
 
     rightSelectionBar.setSize(
         sf::Vector2f(
-            constants::Dimensions::SELECTED_CELLS_BORDER_WIDTH,
-            constants::Dimensions::CELL_PIXELS_DIMENSIONS
+            memoris::dimensions::SELECTED_CELLS_BORDER_WIDTH,
+            memoris::dimensions::CELL_PIXELS_DIMENSIONS
         )
     );
 

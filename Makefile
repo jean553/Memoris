@@ -20,7 +20,6 @@ OBJS = \
 	   build/Directories.o \
 	   build/Extensions.o \
 	   build/Screens.o \
-	   build/Dimensions.o \
 	   build/Positions.o \
 	   build/Serie.o \
 	   build/ButtonWidget.o \
@@ -141,9 +140,6 @@ build/NotCopiable.o: src/NotCopiable.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 # defines
-
-build/Dimensions.o: src/Dimensions.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/Positions.o: src/Positions.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
