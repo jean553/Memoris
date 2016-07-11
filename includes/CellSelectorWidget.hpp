@@ -35,7 +35,7 @@
 
 namespace widgets
 {
-class CellSelectorWidget : public Widget
+class CellSelectorWidget : public memoris::widgets::Widget
 {
 
 public:

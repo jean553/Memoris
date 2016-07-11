@@ -107,21 +107,21 @@ private:
 
     EditorSerieStatus status;
 
-    widgets::TitleBarWidget titleBar;
+    ::widgets::TitleBarWidget titleBar;
 
-    widgets::ButtonWidget buttonNew;
-    widgets::ButtonWidget buttonOpen;
-    widgets::ButtonWidget buttonSave;
-    widgets::ButtonWidget buttonAdd;
-    widgets::ButtonWidget buttonExit;
-    widgets::ButtonWidget buttonNewOk;
-    widgets::ButtonWidget buttonNewCancel;
+    ::widgets::ButtonWidget buttonNew;
+    ::widgets::ButtonWidget buttonOpen;
+    ::widgets::ButtonWidget buttonSave;
+    ::widgets::ButtonWidget buttonAdd;
+    ::widgets::ButtonWidget buttonExit;
+    ::widgets::ButtonWidget buttonNewOk;
+    ::widgets::ButtonWidget buttonNewCancel;
 
-    widgets::CursorWidget cursor;
+    ::widgets::CursorWidget cursor;
 
-    widgets::OrderedItemsListWidget levelsList;
+    ::widgets::OrderedItemsListWidget levelsList;
 
-    widgets::InputTextWidget inputTextNew;
+    ::widgets::InputTextWidget inputTextNew;
 
     sf::Text serieNameLabel;
     sf::Text errorLabel;

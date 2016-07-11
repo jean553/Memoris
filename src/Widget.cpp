@@ -25,7 +25,10 @@
 
 #include "Widget.hpp"
 
-using namespace widgets;
+namespace memoris
+{
+namespace widgets
+{
 
 /**
  *
@@ -53,4 +56,7 @@ void Widget::setPosition(
 {
     horizontalPosition = hPosition;
     verticalPosition = vPosition;
+}
+
+}
 }

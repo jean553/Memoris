@@ -70,13 +70,13 @@ public:
 
 private:
 
-    widgets::TitleBarWidget titleBar;
+    ::widgets::TitleBarWidget titleBar;
 
-    widgets::ButtonWidget buttonExit;
+    ::widgets::ButtonWidget buttonExit;
 
-    widgets::CursorWidget cursor;
+    ::widgets::CursorWidget cursor;
 
-    widgets::ItemsListWidget seriesList;
+    ::widgets::ItemsListWidget seriesList;
 };
 }
 }

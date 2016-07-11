@@ -32,7 +32,7 @@
 
 namespace widgets
 {
-class ScrollableListWidget : public Widget
+class ScrollableListWidget : public memoris::widgets::Widget
 {
 public:
 

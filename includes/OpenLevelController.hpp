@@ -74,11 +74,11 @@ private:
      */
     void changeNextControllerId();
 
-    widgets::TitleBarWidget titleBar;
+    ::widgets::TitleBarWidget titleBar;
 
-    widgets::ItemsListWidget levelsList;
+    ::widgets::ItemsListWidget levelsList;
 
-    widgets::CursorWidget cursor;
+    ::widgets::CursorWidget cursor;
 
     sf::Text errorLabel;
 };

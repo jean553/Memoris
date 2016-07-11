@@ -18,18 +18,24 @@
 
 /**
  * @file Widget.hpp
- * @brief widget parent class
+ * @brief widget parent class; contains the common properties of every widget;
+ * contains the vertical and the horizontal position of the widget; this class
+ * is abstract
  * @package widgets
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_WIDGET
-#define DEF_WIDGET
+#ifndef MEMORIS_WIDGET_H_ 
+#define MEMORIS_WIDGET_H_ 
 
+/* TODO: never used into the Widget class, should be in the children classes */
 #include <SFML/Graphics.hpp>
 
+namespace memoris
+{
 namespace widgets
 {
+
 class Widget
 {
 
@@ -67,6 +73,8 @@ protected:
     float horizontalPosition;
     float verticalPosition;
 };
+
+}
 }
 
 #endif

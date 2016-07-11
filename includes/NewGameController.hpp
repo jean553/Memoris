@@ -75,7 +75,7 @@ private:
     sf::Text title;
     sf::Text explanation;
 
-    widgets::InputTextWidget inputTextGameName;
+    ::widgets::InputTextWidget inputTextGameName;
 };
 
 }
