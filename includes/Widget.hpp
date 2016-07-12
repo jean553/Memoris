@@ -42,35 +42,46 @@ class Widget
 public:
 
     /**
-     * @brief position setter
+     * @brief widget position setter
      *
      * @param hPosition widget horizontal position
      * @param vPosition widget vertical position
      */
-    virtual void setPosition(
+    void setPosition(
         float hPosition,
         float vPosition
     );
 
 protected:
 
+    /**
+     * @brief constructor, initialize the widget positions values; this
+     * constructor is protected because only called by children classes as the
+     * Widget class is abstract (we never directly create a Widget instance)
+     */
     Widget();
 
     /**
-     * Virtual destructor, better to declare as
-     * the class is an abstract class, fix security
-     * problems that could be caused by polymorphism,
-     * whatever happens, we are sure to call both
-     * of the child and parent destructor
+     * @brief destructor, virtual and empty; virtual because we create
+     * children of this Widget class, we have to ensure that the child
+     * object destructor is called
      */
     virtual ~Widget();
 
     /**
-     * @brief common method to display the widget
+     * @brief pure virtual function to render the widget; according to the
+     * child widget, this method has to be written in every widget class;
+     * makes the Widget abstract
      */
     virtual void display() = 0;
 
+    /* NOTE: we use float for the widget position because it is the type
+       used by the SFML library to set surfaces positions */
+
+    /* the horizontal position of the widget */
     float horizontalPosition;
+
+    /* the vertical position of the widget */
     float verticalPosition;
 };
 
