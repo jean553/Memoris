@@ -17,20 +17,20 @@
 */
 
 /**
- * New game screen.
- *
  * @file NewGameController.hpp
- * @brief new game screen of the program
+ * @brief controller that displays the new game screen; this screen contains
+ * a title and an input text widget to let the user enter the name of the
+ * new game
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_NEW_GAME
-#define DEF_NEW_GAME
-
-#include <SFML/Graphics.hpp>
+#ifndef MEMORIS_NEWGAME_H_
+#define MEMORIS_NEWGAME_H_
 
 #include "Controller.hpp"
+
+#include <SFML/Graphics.hpp>
 
 #include "InputTextWidget.hpp"
 
@@ -42,25 +42,12 @@ namespace controllers
 class NewGameController : public Controller
 {
 
-    static const std::string STRING_NEW_GAME_TITLE;
-    static const std::string STRING_NEW_GAME_EXPLANATION;
-    static const std::string STRING_NAME_DEFAULT;
-
-    static const unsigned short SIZE_NAME_INPUT_TEXT;
-
-    static const unsigned short POSITION_NEW_GAME_TITLE_X;
-    static const unsigned short POSITION_NEW_GAME_TITLE_Y;
-
-    static const unsigned short POSITION_NEW_GAME_EXPLANATION_X;
-    static const unsigned short POSITION_NEW_GAME_EXPLANATION_Y;
-
-    static const unsigned short POSITION_NAME_INPUT_TEXT_X;
-    static const unsigned short POSITION_NAME_INPUT_TEXT_Y;
-
-    static const unsigned short MAX_NAME_LENGTH;
-
 public:
 
+    /**
+     * @brief constructor, creates the title surface and the explanation
+     * label surface; creates the input text widget
+     */
     NewGameController();
 
     /**
@@ -72,9 +59,16 @@ public:
 
 private:
 
+    /* the new game screen title */
     sf::Text title;
+
+    /* the new game screen short explanation indicating the text input widget
+       is used to specify the name of the game */
     sf::Text explanation;
 
+    /* the input text widget is used to let the user enter the name of the
+       new game to create */
+    /* TODO: #496 fix namespace issue */
     ::widgets::InputTextWidget inputTextGameName;
 };
 
