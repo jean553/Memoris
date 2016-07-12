@@ -87,7 +87,7 @@ Controller::Controller()
 Controller::~Controller()
 {
     /* virtual destructor that we have to declare in order to ensure that
-       the children constructors are called correctly when a child object
+       the children destructors are called correctly when a child object
        is pointed by a parent pointer and the pointed object is deleted */
 }
 

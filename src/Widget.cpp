@@ -35,6 +35,7 @@ namespace widgets
  */
 Widget::Widget()
 {
+    /* the default position of a widget is the top left corner */
     horizontalPosition = 0;
     verticalPosition = 0;
 }
@@ -44,6 +45,10 @@ Widget::Widget()
  */
 Widget::~Widget()
 {
+    /* virtual destructor that we have to declare in order to ensure that
+       the children widgets destructors are called correctly when a child
+       object is pointed by a parent pointer and the pointed object is
+       deleted */
 }
 
 /**
@@ -54,6 +59,8 @@ void Widget::setPosition(
     float vPosition
 )
 {
+    /* update the widget position according to the given horizontal and
+       vertical position */
     horizontalPosition = hPosition;
     verticalPosition = vPosition;
 }
