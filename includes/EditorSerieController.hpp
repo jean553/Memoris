@@ -121,7 +121,7 @@ private:
 
     ::widgets::OrderedItemsListWidget levelsList;
 
-    ::widgets::InputTextWidget inputTextNew;
+    memoris::widgets::InputTextWidget inputTextNew;
 
     sf::Text serieNameLabel;
     sf::Text errorLabel;

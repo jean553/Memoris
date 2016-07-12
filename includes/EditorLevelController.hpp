@@ -119,7 +119,7 @@ private:
 
     ::widgets::TitleBarWidget titleBar;
 
-    ::widgets::InputTextWidget inputTextNew;
+    memoris::widgets::InputTextWidget inputTextNew;
 
     ::widgets::CellSelectorWidget cellSelector;
 
