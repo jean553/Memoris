@@ -75,8 +75,9 @@ int main()
            children classes of controllers, all children of the Controller
            class; we use an unique pointer, clearly appropriate for factories
            functions; as it is a smart pointer, we do not need to delete it
-           manually after each loop iteration */
-        std::unique_ptr<controllers::Controller> pCurrentController =
+           manually after each loop iteration; we use auto here because we
+           will always return an unique pointer to a controller */
+        auto pCurrentController =
             controllers::getControllerById(currentControllerId);
 
         /* main program loop: loads, renders and modifies controllers;
