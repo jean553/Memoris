@@ -46,6 +46,9 @@ public:
      *
      * @param hPosition widget horizontal position
      * @param vPosition widget vertical position
+     *
+     * TODO: #503 this method should be deleted; set the widget position is
+     * only done through the constructor
      */
     void setPosition(
         float hPosition,
@@ -58,8 +61,20 @@ protected:
      * @brief constructor, initialize the widget positions values; this
      * constructor is protected because only called by children classes as the
      * Widget class is abstract (we never directly create a Widget instance)
+     *
+     * @param hPosition widget horizontal position
+     * @param vPosition widget vertical position
+     *
+     * TODO: #503 this feature is not developed yet, so some widgets are not
+     * using the Widget constructor by sending directly the positions values to
+     * it; the default value of these positions should be deleted when all the
+     * widgets directly set the positions when the widget constructor is
+     * called
      */
-    Widget();
+    Widget(
+        const float& hPosition = 0,
+        const float& vPosition = 0
+    );
 
     /**
      * @brief destructor, virtual and empty; virtual because we create
