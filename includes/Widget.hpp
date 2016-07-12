@@ -25,8 +25,8 @@
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef MEMORIS_WIDGET_H_ 
-#define MEMORIS_WIDGET_H_ 
+#ifndef MEMORIS_WIDGET_H_
+#define MEMORIS_WIDGET_H_
 
 /* TODO: never used into the Widget class, should be in the children classes */
 #include <SFML/Graphics.hpp>

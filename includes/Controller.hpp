@@ -23,8 +23,8 @@
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_SCREEN
-#define DEF_SCREEN
+#ifndef MEMORIS_CONTROLLER_H_
+#define MEMORIS_CONTROLLER_H_
 
 #include "Context.hpp"
 
@@ -63,14 +63,6 @@ public:
      * and only the current controller must be displayed)
      *
      * @return unsigned short
-     *
-     * TODO: #476 the context should not be passed here and never be passed to
-     * a function anyway; the context is a singleton always accessible using
-     * the static method get(); we should delete all the context parameters;
-     * as this task is huge and as we do it step by step, we are mandatory
-     * to keep it here for now inside the interface; this parameter will be
-     * deleted when all the controllers will directly get the current context
-     * reference from the singleton get() method
      */
     virtual unsigned short render() = 0;
 
