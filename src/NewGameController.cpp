@@ -38,7 +38,13 @@ namespace controllers
  *
  */
 NewGameController::NewGameController() :
-    Controller()
+    Controller(),
+    inputTextGameName(
+        500.f,
+        450.f,
+        600.f,
+        15
+    )
 {
     /* initialize the new game screen title; this title is horizontally
        centered and vertically in the top area of the screen */
@@ -62,20 +68,6 @@ NewGameController::NewGameController() :
         645,
         380
     );
-
-    /* set the position and the pixels width of the input text widget; the
-       widget is just under the explanation label and is horizontaly centered;
-       the width of the widget is 600 pixels long */
-    inputTextGameName.setLayout(
-        500,
-        450,
-        600
-    );
-
-    /* the input text widget can contains 15 characters maximum; with this
-       amount, we can create a lot of different names and we are sure that
-       the text won't overflow the widget width */
-    inputTextGameName.setMaximumCharacters(15);
 }
 
 
@@ -132,7 +124,7 @@ unsigned short NewGameController::render()
                key is a letter and displays it */
             default:
             {
-                inputTextGameName.update(&event);
+                inputTextGameName.update(event);
 
                 break;
             }

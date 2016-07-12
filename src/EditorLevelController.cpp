@@ -90,7 +90,13 @@ const float EditorLevelController::FLOOR_LABEL_VERTICAL_POSITION = 670;
  */
 EditorLevelController::EditorLevelController() :
     Controller(),
-    level(LEVEL_POSITION_X, LEVEL_POSITION_Y)
+    level(LEVEL_POSITION_X, LEVEL_POSITION_Y),
+    inputTextNew(
+        POSITION_NEW_LEVEL_INPUT_TEXT_X,
+        POSITION_NEW_LEVEL_INPUT_TEXT_Y,
+        SIZE_NEW_LEVEL_TEXT,
+        10
+    )
 {
     currentFloor = 0;
 
@@ -170,12 +176,6 @@ EditorLevelController::EditorLevelController() :
     floorLabel.setPosition(
         FLOOR_LABEL_HORIZONTAL_POSITION,
         FLOOR_LABEL_VERTICAL_POSITION
-    );
-
-    inputTextNew.setLayout(
-        POSITION_NEW_LEVEL_INPUT_TEXT_X,
-        POSITION_NEW_LEVEL_INPUT_TEXT_Y,
-        SIZE_NEW_LEVEL_TEXT
     );
 
     cellSelector.setPosition(
@@ -301,7 +301,7 @@ unsigned short EditorLevelController::render()
 
                 if (status == NEW_LEVEL)
                 {
-                    inputTextNew.update(&event);
+                    inputTextNew.update(event);
                 }
             }
             }

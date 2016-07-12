@@ -34,123 +34,132 @@ namespace memoris
 namespace widgets
 {
 
-const unsigned short InputTextWidget::BOX_BORDER_LARGER = 1;
-const unsigned short InputTextWidget::BOX_LARGER = 60;
-const unsigned short InputTextWidget::CURSOR_WIDTH = 25;
-const unsigned short InputTextWidget::CURSOR_HEIGHT = 50;
-const unsigned short InputTextWidget::SIZE_INPUT_TEXT_FONT = 45;
-const unsigned short InputTextWidget::CURSOR_HORIZONTAL_OFFSET = 5;
-const unsigned short InputTextWidget::CURSOR_VERTICAL_OFFSET = 5;
-const unsigned short InputTextWidget::TEXT_HORIZONTAL_OFFSET = 5;
-const unsigned short InputTextWidget::DEFAULT_MAXIMUM_CHARACTERS = 10;
-
-const short InputTextWidget::INTERVAL_ANIMATION_CURSOR = 200;
-
 /**
  *
  */
-InputTextWidget::InputTextWidget()
+InputTextWidget::InputTextWidget(
+    const float& hPosition,
+    const float& vPosition,
+    const float& lineWidth,
+    const size_t& maxCharacters
+) : Widget(
+        hPosition,
+        vPosition
+    )
 {
-    displayCursor = true;
-    setMaximumCharacters(DEFAULT_MAXIMUM_CHARACTERS);
-
-    displayedText.setFont(memoris::fonts::FontsManager::get().getTextFont());
-    displayedText.setCharacterSize(SIZE_INPUT_TEXT_FONT);
-    displayedText.setColor(memoris::colors::ColorsManager::get().getColorLightBlue());
-
-    cursor.setFillColor(memoris::colors::ColorsManager::get().getColorLightBlue());
-}
-
-/**
- *
- */
-void InputTextWidget::setMaximumCharacters(unsigned short maxCharacters)
-{
+    /* set the maximum characters amount allowed in the input
+       text widget according to the given parameter value */
     maximumCharacters = maxCharacters;
-}
 
-/**
- *
- */
-void InputTextWidget::setLayout(
-    float inputHorizontalPosition,
-    float inputVerticalPosition,
-    float inputWidth
-)
-{
-    width = inputWidth;
+    /* by default, the cursor last flash animation time is equal to 0 */
+    cursorLastFlashAnimation = 0;
 
-    setPosition(
-        inputHorizontalPosition,
-        inputVerticalPosition
+    /* set the width of the widget according to the given parameter */
+    width = lineWidth;
+
+    /* when the input text widget start to be displayed, the cursor is
+       displayed */
+    displayCursor = true;
+
+    /* the font of the displayed text is the normal text font; we get a
+       reference of this font from the fonts manager */
+    displayedText.setFont(fonts::FontsManager::get().getTextFont());
+
+    /* the font size is the one set in the fonts namespace; the input text
+       widget has a font with a specific font size */
+    displayedText.setCharacterSize(fonts::INPUT_TEXT_SIZE);
+
+    /* get a reference of the light blue color for the input text widget
+       text color */
+    displayedText.setColor(colors::ColorsManager::get().getColorLightBlue());
+
+    /* set the widget border to light blue */
+    cursor.setFillColor(colors::ColorsManager::get().getColorLightBlue());
+
+    /* the default position of the cursor surface is at the left side of the
+       input text line; we set the same positions as the widget and add 5
+       to put it into the borders rectangle */
+    cursor.setPosition(
+        horizontalPosition + 5,
+        verticalPosition + 5
     );
 
+    /* the size of the flashing cursor has a width of 25 pixels and a height
+       of 50 pixels; this cursor size matches with the font size */
+    cursor.setSize(sf::Vector2f(
+                       25,
+                       50
+                   ));
+
+    /* set the position of the displayed text; by default, the displayed text
+       position is the same one as the cursor one; to match with the container
+       size, the vertical position is the same as the widget */
     displayedText.setPosition(
-        horizontalPosition + TEXT_HORIZONTAL_OFFSET,
+        horizontalPosition + 5,
         verticalPosition
     );
+
+    /* the position of the top border is the same as the widget */
     boxTop.setPosition(
         horizontalPosition,
         verticalPosition
     );
+
+    /* the position of the bottom border is 60 pixels under the top border */
     boxBottom.setPosition(
         horizontalPosition,
-        verticalPosition + BOX_LARGER
+        verticalPosition + 60
     );
+
+    /* the position of the left border is the same as the widget */
     boxLeft.setPosition(
         horizontalPosition,
         verticalPosition
     );
+
+    /* to find the horizontal position of the right border, we add the width
+       value to the widget horizontal position */
     boxRight.setPosition(
         horizontalPosition + width,
         verticalPosition
     );
 
+    /* the width of the horizontal borders are equals to the widgets widths */
     boxTop.setSize(sf::Vector2f(
                        width,
-                       BOX_BORDER_LARGER
+                       1
                    ));
+
     boxBottom.setSize(sf::Vector2f(
                           width,
-                          BOX_BORDER_LARGER
+                          1
                       ));
+
+    /* the height of the vertical borders are equals to the widget fixed
+       height */
     boxLeft.setSize(sf::Vector2f(
-                        BOX_BORDER_LARGER,
-                        BOX_LARGER
+                        1,
+                        60
                     ));
+
     boxRight.setSize(sf::Vector2f(
-                         BOX_BORDER_LARGER,
-                         BOX_LARGER
+                         1,
+                         60
                      ));
 
-    boxRight.setFillColor(memoris::colors::ColorsManager::get().getColorLightBlue());
-    boxTop.setFillColor(memoris::colors::ColorsManager::get().getColorLightBlue());
-    boxBottom.setFillColor(memoris::colors::ColorsManager::get().getColorLightBlue());
-    boxLeft.setFillColor(memoris::colors::ColorsManager::get().getColorLightBlue());
-
-    initCursorPosition();
-
-    cursor.setSize(sf::Vector2f(
-                       CURSOR_WIDTH,
-                       CURSOR_HEIGHT
-                   ));
+    /* all the borders have the same light blue color */
+    boxRight.setFillColor(colors::ColorsManager::get().getColorLightBlue());
+    boxTop.setFillColor(colors::ColorsManager::get().getColorLightBlue());
+    boxBottom.setFillColor(colors::ColorsManager::get().getColorLightBlue());
+    boxLeft.setFillColor(colors::ColorsManager::get().getColorLightBlue());
 }
 
 /**
  *
  */
-void InputTextWidget::setDisplayedText(std::string inputTextData)
+void InputTextWidget::setDisplayedText(const sf::String& inputTextData)
 {
-    setText(inputTextData);
     displayedText.setString(inputTextData);
-}
-
-/**
- *
- */
-void InputTextWidget::setText(std::string inputTextData)
-{
-    text = inputTextData;
 }
 
 /**
@@ -158,219 +167,232 @@ void InputTextWidget::setText(std::string inputTextData)
  */
 void InputTextWidget::display()
 {
-    memoris::utils::Context::get().getSfmlWindow().draw(boxTop);
-    memoris::utils::Context::get().getSfmlWindow().draw(boxBottom);
-    memoris::utils::Context::get().getSfmlWindow().draw(boxLeft);
-    memoris::utils::Context::get().getSfmlWindow().draw(boxRight);
-    memoris::utils::Context::get().getSfmlWindow().draw(displayedText);
+    /* display the widget borders */
+    utils::Context::get().getSfmlWindow().draw(boxTop);
+    utils::Context::get().getSfmlWindow().draw(boxBottom);
+    utils::Context::get().getSfmlWindow().draw(boxLeft);
+    utils::Context::get().getSfmlWindow().draw(boxRight);
 
+    /* display the widget text */
+    utils::Context::get().getSfmlWindow().draw(displayedText);
+
+    /* the widget cursor is animated; the displayedCursor boolean is used to
+       check if the cursor has to be displayed or not */
     if(displayCursor)
     {
-        memoris::utils::Context::get().getSfmlWindow().draw(cursor);
+        utils::Context::get().getSfmlWindow().draw(cursor);
     }
 
-    if(clock.getElapsedTime().asMilliseconds() >
-            INTERVAL_ANIMATION_CURSOR
-      )
+    /* check if enough time elapsed since the last animation update of the
+       cursor; the interval between each animation is 200 milliseconds */
+    if(
+        (
+            utils::Context::get().getClockMillisecondsTime() -
+            cursorLastFlashAnimation
+        ) > 200
+    )
     {
+
+        /* if the cursor was displayed, we hide it; if the cursor was hidden,
+           we show it */
         displayCursor = !displayCursor;
-        clock.restart();
+
+        /* update the cursor animation time with the current time just after
+           the animation */
+        cursorLastFlashAnimation =
+            utils::Context::get().getClockMillisecondsTime();
     }
 }
 
 /**
  *
  */
-void InputTextWidget::update(sf::Event* event)
+void InputTextWidget::update(const sf::Event& event)
 {
-    std::string newText = "";
+    /* do not allow to continue to write content if the input text widget
+       already contains the maximum amount of characters allowed */
+    if (
+        (displayedText.getString()).getSize() ==
+        maximumCharacters
+    )
+    {
+        return;
+    }
 
-    switch(event->key.code)
+    /* make a concatenation of the existing SFML string with the new added
+       string; save it as the new displayed string */
+    displayedText.setString(displayedText.getString() + getInputLetter(event));
+
+    /* update the position of the cursor according to the new SFML text surface
+       width; add 5 pixels everytime horizontaly and verticaly; we set the
+       cursor exactly after the last letter; we cannot predict what is one
+       character width, because it is different for all of them, so we use
+       getLocalBounds() to calculate the "real" text surface width and add
+       the cursor directly right after */
+    cursor.setPosition(
+        horizontalPosition +
+        5 +
+        displayedText.getLocalBounds().width,
+        verticalPosition +
+        5
+    );
+}
+
+/**
+ *
+ */
+sf::String InputTextWidget::getInputLetter(const sf::Event& event)
+{
+    sf::String character;
+
+    switch(event.key.code)
     {
     case sf::Keyboard::A:
     {
-        newText = text + 'a';
+        character = 'a';
         break;
     }
     case sf::Keyboard::B:
     {
-        newText = text + 'b';
+        character = 'b';
         break;
     }
     case sf::Keyboard::C:
     {
-        newText = text + 'c';
+        character = 'c';
         break;
     }
     case sf::Keyboard::D:
     {
-        newText = text + 'd';
+        character = 'd';
         break;
     }
     case sf::Keyboard::E:
     {
-        newText = text + 'e';
+        character = 'e';
         break;
     }
     case sf::Keyboard::F:
     {
-        newText = text + 'f';
+        character = 'f';
         break;
     }
     case sf::Keyboard::G:
     {
-        newText = text + 'g';
+        character = 'g';
         break;
     }
     case sf::Keyboard::H:
     {
-        newText = text + 'h';
+        character = 'h';
         break;
     }
     case sf::Keyboard::I:
     {
-        newText = text + 'i';
+        character = 'i';
         break;
     }
     case sf::Keyboard::J:
     {
-        newText = text + 'j';
+        character = 'j';
         break;
     }
     case sf::Keyboard::K:
     {
-        newText = text + 'k';
+        character = 'k';
         break;
     }
     case sf::Keyboard::L:
     {
-        newText = text + 'l';
+        character = 'l';
         break;
     }
     case sf::Keyboard::M:
     {
-        newText = text + 'm';
+        character = 'm';
         break;
     }
     case sf::Keyboard::N:
     {
-        newText = text + 'n';
+        character = 'n';
         break;
     }
     case sf::Keyboard::O:
     {
-        newText = text + 'o';
+        character = 'o';
         break;
     }
     case sf::Keyboard::P:
     {
-        newText = text + 'p';
+        character = 'p';
         break;
     }
     case sf::Keyboard::Q:
     {
-        newText = text + 'q';
+        character = 'q';
         break;
     }
     case sf::Keyboard::R:
     {
-        newText = text + 'r';
+        character = 'r';
         break;
     }
     case sf::Keyboard::S:
     {
-        newText = text + 's';
+        character = 's';
         break;
     }
     case sf::Keyboard::T:
     {
-        newText = text + 't';
+        character = 't';
         break;
     }
     case sf::Keyboard::U:
     {
-        newText = text + 'u';
+        character = 'u';
         break;
     }
     case sf::Keyboard::V:
     {
-        newText = text + 'v';
+        character = 'v';
         break;
     }
     case sf::Keyboard::W:
     {
-        newText = text + 'w';
+        character = 'w';
         break;
     }
     case sf::Keyboard::X:
     {
-        newText = text + 'x';
+        character = 'x';
         break;
     }
     case sf::Keyboard::Y:
     {
-        newText = text + 'y';
+        character = 'y';
         break;
     }
     case sf::Keyboard::Z:
     {
-        newText = text + 'z';
-        break;
-    }
-    case sf::Keyboard::BackSpace:
-    {
-        newText = text.substr(0, text.size() - 1);
+        character = 'z';
         break;
     }
     default:
     {
-        return;
+        /* does nothing, added for best practices */
+        break;
     }
     }
 
-    if(newText.size() > maximumCharacters)
-    {
-        return;
-    }
-
-    text = newText;
-    displayedText.setString(text);
-
-    cursor.setPosition(
-        horizontalPosition +
-        CURSOR_HORIZONTAL_OFFSET +
-        displayedText.getLocalBounds().width,
-        verticalPosition +
-        CURSOR_VERTICAL_OFFSET
-    );
+    return character;
 }
 
 /**
  *
  */
-void InputTextWidget::clear()
+sf::String InputTextWidget::getText() const
 {
-    setDisplayedText("");
-    initCursorPosition();
-}
-
-/**
- *
- */
-void InputTextWidget::initCursorPosition()
-{
-    cursor.setPosition(
-        horizontalPosition + CURSOR_HORIZONTAL_OFFSET,
-        verticalPosition + CURSOR_VERTICAL_OFFSET
-    );
-}
-
-/**
- *
- */
-std::string InputTextWidget::getText()
-{
-    return text;
+    return displayedText.getString();
 }
 
 }

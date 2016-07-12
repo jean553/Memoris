@@ -79,7 +79,13 @@ const unsigned short EditorSerieController::ERROR_MESSAGE_POSITION_Y = 200;
  *
  */
 EditorSerieController::EditorSerieController() :
-    Controller()
+    Controller(),
+    inputTextNew(
+        POSITION_NEW_SERIE_INPUT_TEXT_X,
+        POSITION_NEW_SERIE_INPUT_TEXT_Y,
+        SIZE_NEW_SERIE_TEXT,
+        10
+    )
 {
     errorNewSerie = false;
     errorNewLevel = false;
@@ -143,12 +149,6 @@ EditorSerieController::EditorSerieController() :
         LEVELS_LIST_POSITION_Y,
         LEVELS_LIST_WIDTH,
         LEVELS_LIST_LEVELS_NUMBER
-    );
-
-    inputTextNew.setLayout(
-        POSITION_NEW_SERIE_INPUT_TEXT_X,
-        POSITION_NEW_SERIE_INPUT_TEXT_Y,
-        SIZE_NEW_SERIE_TEXT
     );
 
     serieNameLabel.setFont(memoris::fonts::FontsManager::get().getTextFont());
@@ -235,7 +235,7 @@ unsigned short EditorSerieController::render()
 
                 if(status == NEW_SERIE)
                 {
-                    inputTextNew.update(&event);
+                    inputTextNew.update(event);
                 }
             }
             }
@@ -302,7 +302,9 @@ unsigned short EditorSerieController::render()
 
                         status = MAIN_MENU;
 
-                        inputTextNew.clear();
+                        /* TODO: temporary deleted to make refactor of the
+                           input text widget easier */
+                        //inputTextNew.clear();
                     }
                     break;
                 case EDIT_SERIE:

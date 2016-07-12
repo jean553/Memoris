@@ -17,130 +17,126 @@
 */
 
 /**
- * Input text box widget
- *
  * @file InputTextWidget.hpp
- * @brief input text box widget
+ * @brief the input text widget is a text line where the user can type text
  * @package widgets
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_INPUT_TEXT_WIDGET
-#define DEF_INPUT_TEXT_WIDGET
-
-#include <string>
+#ifndef MEMORIS_INPUTTEXTWIDGET_H_
+#define MEMORIS_INPUTTEXTWIDGET_H_
 
 #include "Widget.hpp"
+
+#include <string>
 
 namespace memoris
 {
 namespace widgets
 {
 
-class InputTextWidget : public memoris::widgets::Widget
+class InputTextWidget : public Widget
 {
-
-    static const unsigned short BOX_BORDER_LARGER;
-    static const unsigned short BOX_LARGER;
-    static const unsigned short CURSOR_WIDTH;
-    static const unsigned short CURSOR_HEIGHT;
-    static const unsigned short SIZE_INPUT_TEXT_FONT;
-    static const unsigned short CURSOR_HORIZONTAL_OFFSET;
-    static const unsigned short CURSOR_VERTICAL_OFFSET;
-    static const unsigned short TEXT_HORIZONTAL_OFFSET;
-    static const unsigned short DEFAULT_MAXIMUM_CHARACTERS;
-
-    static const short INTERVAL_ANIMATION_CURSOR;
 
 public:
 
-    InputTextWidget();
-
     /**
-     * @brief set the size and the position of the widget
+     * @brief constructor, initialize the whole widget with the correct size,
+     * at the correct given position; set the maximum character variable;
      *
-     * @param inputHorizontalPosition    input horizontal position
-     * @param inputVerticalPosition      input vertical position
-     * @param inputWidth                 input width
+     * @param hPosition horizontal position
+     * @param vPosition vertical position
+     * @param lineWidth the width of the input text widget
+     * @param maxCharacters the maximum amount of characters allowed
      */
-    void setLayout(
-        float inputHorizontalPosition,
-        float inputVerticalPosition,
-        float inputWidth
+    InputTextWidget(
+        const float& hPosition,
+        const float& vPosition,
+        const float& lineWidth,
+        const size_t& maxCharacters
     );
 
     /**
-     * @param maxCharacters     setter value
-     */
-    void setMaximumCharacters(unsigned short maxCharacters);
-
-    /**
-     * @brief set the displayed text
+     * @brief set the displayed text; this function is used to force the
+     * content of the input text widget; this function is used by the
+     * level editor to edit the name of the current edited level
      *
-     * @param inputTextData content to set
+     * @param inputTextData reference of a string to display into the input
+     * text widget
      */
-    void setDisplayedText(std::string inputTextData);
+    void setDisplayedText(const sf::String& inputTextData);
 
     /**
-     * @brief setter for input text content
-     *
-     * @param inputTextData content to set
-     */
-    void setText(std::string inputTextData);
-
-    /**
-     * @brief display the input text
-     * with its content
+     * @brief render the widget and its content
      */
     void display();
 
     /**
-     * @brief update the input text
-     * content according to the event
-     * pointer content
+     * @brief update the displayed text according to the user input
      *
-     * @param event         pointer on SFML event
+     * @param event constant reference to the SFML events manager
      */
-    void update(sf::Event* event);
+    void update(const sf::Event& event);
 
     /**
-     * @brief reset the input text
-     */
-    void clear();
-
-    /**
-     * @brief return the current displayed text
+     * @brief return the current displayed text; return a copy of the string
+     * for manipulation in calling object
      *
-     * @return string
+     * @return sf::String
+     *
+     * NOTE: the string we return is not an attribute of the widget class
+     * but directly the string contained inside the SFML text object; this
+     * avoid duplication of identical data
      */
-    std::string getText();
+    sf::String getText() const;
 
 private:
 
+    /**
+     * @brief return a copy of the letter selected by the user on the keyboard;
+     * this function uses the SFML events manager
+     *
+     * @param event constant reference to the SFML events manager
+     *
+     * @return sf::String
+     */
+    sf::String getInputLetter(const sf::Event& event);
+
+    /* the last time of the input text widget cursor flashing animation
+       update; we use SFML sf::Int32 data type as the SFML clock object
+       uses this data type to handle time features */
+    sf::Int32 cursorLastFlashAnimation;
+
+    /* the maximum amount of characters allowed into the input text widget; we
+       use a size_t because we compare sizes during the rendering of the widget
+       between the actual sf::String size and the maximum size; SFML uses
+       size_t to return the size of a SFML string */
+    size_t maximumCharacters;
+
+    /* boolean that specifies if the input text line cursor must be displayed
+       or not; in fact, the animation of the input text line widget is to
+       display the cursor during a very short time and then hide it; the cursor
+       is also hidden during a very short time and displayed again */
     bool displayCursor;
 
+    /* the pixels width of the input text widget; this value must be set by
+       the developer in the calling object */
     float width;
-    unsigned short maximumCharacters;
 
-    std::string text;
-
+    /* the SFML surface of the displayed text inside the input text widget */
     sf::Text displayedText;
 
+    /* the four following SFML rectangles shapes are the borders of the input
+       text widget */
     sf::RectangleShape boxTop;
     sf::RectangleShape boxBottom;
     sf::RectangleShape boxLeft;
     sf::RectangleShape boxRight;
+
+    /* the cursor SFML rectangle shape is the flashing surface that moves on
+       the right when one character is added and moved on the left when one
+       character is deleted */
     sf::RectangleShape cursor;
-
-    sf::Clock clock;
-
-    /**
-     * @brief initialize the cursor position on the left side of the input
-     *
-     * NOTE: must be called AFTER the cursor object creation, the horizontal
-     * and vertical positions of the input text must be defined
-     */
-    void initCursorPosition();
 };
 
 }

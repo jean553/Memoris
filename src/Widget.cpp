@@ -33,11 +33,13 @@ namespace widgets
 /**
  *
  */
-Widget::Widget()
+Widget::Widget(
+    const float& hPosition,
+    const float& vPosition
+)
 {
-    /* the default position of a widget is the top left corner */
-    horizontalPosition = 0;
-    verticalPosition = 0;
+    horizontalPosition = hPosition;
+    verticalPosition = vPosition;
 }
 
 /**

@@ -32,22 +32,28 @@ namespace memoris
 namespace fonts
 {
 
+/* NOTE: we use unsigned int for all the fonts sizes because it is the one
+   SFML requires when we set the font size of a text surface */
+
 /* used for the unique main title in the main menu */
-constexpr unsigned short TITLE_SIZE = 140;
+constexpr unsigned int TITLE_SIZE = 140;
 
 /* used for editors titles, sub-menus titles */
-constexpr unsigned short SUB_TITLE_SIZE = 70;
+constexpr unsigned int SUB_TITLE_SIZE = 70;
 
 /* used for all the lists and menus selectable items */
-constexpr unsigned short ITEM_SIZE = 60;
+constexpr unsigned int ITEM_SIZE = 60;
 
 /* used for explanations, game screen items, error screen
    messages and some specific items in the editors */
-constexpr unsigned short TEXT_SIZE = 50;
+constexpr unsigned int TEXT_SIZE = 50;
+
+/* used for the input text widget */
+constexpr unsigned int INPUT_TEXT_SIZE = 45;
 
 /* used for small information messages displayed inside
    the editors ( files errors, names errors... ) */
-constexpr unsigned short INFORMATION_SIZE = 30;
+constexpr unsigned int INFORMATION_SIZE = 30;
 
 };
 }
