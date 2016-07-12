@@ -68,8 +68,7 @@ private:
 
     /* the input text widget is used to let the user enter the name of the
        new game to create */
-    /* TODO: #496 fix namespace issue */
-    ::widgets::InputTextWidget inputTextGameName;
+    widgets::InputTextWidget inputTextGameName;
 };
 
 }

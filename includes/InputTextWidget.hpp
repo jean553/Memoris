@@ -32,8 +32,11 @@
 
 #include "Widget.hpp"
 
+namespace memoris
+{
 namespace widgets
 {
+
 class InputTextWidget : public memoris::widgets::Widget
 {
 
@@ -139,6 +142,8 @@ private:
      */
     void initCursorPosition();
 };
+
+}
 }
 
 #endif

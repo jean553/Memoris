@@ -29,7 +29,10 @@
 #include "ColorsManager.hpp"
 #include "Context.hpp"
 
-using namespace widgets;
+namespace memoris
+{
+namespace widgets
+{
 
 const unsigned short InputTextWidget::BOX_BORDER_LARGER = 1;
 const unsigned short InputTextWidget::BOX_LARGER = 60;
@@ -368,4 +371,7 @@ void InputTextWidget::initCursorPosition()
 std::string InputTextWidget::getText()
 {
     return text;
+}
+
+}
 }
