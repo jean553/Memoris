@@ -5,7 +5,7 @@ project(Memoris)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin)
 set(EXECUTABLE Memoris)
 
-add_compile_options(-std=c++11)
+add_compile_options(-std=c++11 -Wall -Werror)
 
 file(
     GLOB

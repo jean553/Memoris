@@ -345,7 +345,17 @@ unsigned short EditorSerieController::render()
                 }
                 break;
             }
+            default:
+            {
+                /* useless, added here to respect the syntax */
+                break;
             }
+            }
+        }
+        default:
+        {
+            /* useless, added here to respect the syntax */
+            break;
         }
         }
     }
@@ -481,8 +491,12 @@ void EditorSerieController::writeLevelsIntoSerie()
     {
         strToWrt = strToWrt + (*i);
 
-        /* do not add the separator if the level is the last one */
-        if (std::distance(strList.begin(), i) != strList.size() - 1)
+        /* do not add the separator if the level is the last one; use a cast
+           to make the strings list size a signed value (std::distance can
+           return a signed value too */
+        if (
+            std::distance(strList.begin(), i) !=
+            static_cast<int>(strList.size() - 1))
         {
             strToWrt = strToWrt + LEVELS_SPRT;
         }

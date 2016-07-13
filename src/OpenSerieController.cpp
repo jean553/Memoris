@@ -100,6 +100,11 @@ unsigned short OpenSerieController::render()
                 expectedControllerId =
                     EDITOR_SERIE_CONTROLLER_ID;
             }
+            default:
+            {
+                /* useless, added in order to have correct syntax */
+                break;
+            }
             }
         }
         case sf::Event::MouseButtonPressed:
@@ -116,7 +121,17 @@ unsigned short OpenSerieController::render()
 
                 seriesList.scroll();
             }
+            default:
+            {
+                /* useless, added in order to have correct syntax */
+                break;
             }
+            }
+        }
+        default:
+        {
+            /* useless, added in order to have correct syntax */
+            break;
         }
         }
     }

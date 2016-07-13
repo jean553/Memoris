@@ -340,7 +340,17 @@ unsigned short GameController::render()
 
                 break;
             }
+            default:
+            {
+                /* useless, added here to respect syntax */
+                break;
             }
+            }
+        }
+        default:
+        {
+            /* useless, added here to respect syntax */
+            break;
         }
         }
     }

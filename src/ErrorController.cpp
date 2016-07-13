@@ -80,7 +80,18 @@ unsigned short ErrorController::render()
 
                 break;
             }
+            default:
+            {
+                /* useless, only added here in order to have a correct
+                   syntax */
+                break;
             }
+            }
+        }
+        default:
+        {
+            /* useless, only added here in order to have a correct syntax */
+            break;
         }
         }
     }

@@ -113,6 +113,11 @@ unsigned short OpenLevelController::render()
             {
                 changeNextControllerId();
             }
+            default:
+            {
+                /* useless, added here to respect syntax */
+                break;
+            }
             }
         }
         case sf::Event::MouseButtonPressed:
@@ -150,7 +155,17 @@ unsigned short OpenLevelController::render()
                 }
                 levelsList.scroll();
             }
+            default:
+            {
+                /* useless, added here to respect syntax */
+                break;
             }
+            }
+        }
+        default:
+        {
+            /* useless, added here to respect syntax */
+            break;
         }
         }
     }

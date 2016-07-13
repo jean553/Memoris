@@ -138,7 +138,17 @@ unsigned short EditorMenuController::render()
 
                 break;
             }
+            default:
+            {
+                /* useless, added here only to respect the syntax */
+                break;
             }
+            }
+        }
+        default:
+        {
+            /* useless, added here only to respect the syntax */
+            break;
         }
         }
     }
