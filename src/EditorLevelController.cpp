@@ -90,13 +90,13 @@ const float EditorLevelController::FLOOR_LABEL_VERTICAL_POSITION = 670;
  */
 EditorLevelController::EditorLevelController() :
     Controller(),
-    level(LEVEL_POSITION_X, LEVEL_POSITION_Y),
     inputTextNew(
         POSITION_NEW_LEVEL_INPUT_TEXT_X,
         POSITION_NEW_LEVEL_INPUT_TEXT_Y,
         SIZE_NEW_LEVEL_TEXT,
         10
-    )
+    ),
+    level(LEVEL_POSITION_X, LEVEL_POSITION_Y)
 {
     currentFloor = 0;
 
@@ -399,7 +399,17 @@ unsigned short EditorLevelController::render()
                 break;
                 }
             }
+            default:
+            {
+                /* useless, just added here to respect the syntax */
+                break;
             }
+            }
+        }
+        default:
+        {
+            /* useless, just added here to respect the syntax */
+            break;
         }
         }
     }

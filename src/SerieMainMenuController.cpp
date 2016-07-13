@@ -195,7 +195,17 @@ unsigned short SerieMainMenuController::render()
 
                 break;
             }
+            default:
+            {
+                /* useless, added here to respect the syntax */
+                break;
             }
+            }
+        }
+        default:
+        {
+            /* useless, added here to respect the syntax */
+            break;
         }
         }
     }

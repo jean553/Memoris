@@ -1,6 +1,6 @@
 CC = clang++
 
-CFLAGS = -std=c++11 -Wno-switch -Wno-switch-enum -Wno-c++98-compat -Werror -Wno-padded -Wno-global-constructors -Wno-exit-time-destructors -Wno-implicit-fallthrough -ferror-limit=0 
+CFLAGS = -std=c++11 -Wall -Werror
 DEPS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 OBJS = \

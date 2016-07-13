@@ -26,7 +26,6 @@
 #include "FontsManager.hpp"
 #include "fonts.hpp"
 #include "controllers.hpp"
-#include "intervals.hpp"
 #include "ColorsManager.hpp"
 #include "TexturesManager.hpp"
 #include "AnimatedBackground.hpp"
@@ -139,8 +138,7 @@ unsigned short MainMenuController::render()
     /* animate the main menu title according to its last animation time */
     if(
         utils::Context::get().getClockMillisecondsTime() -
-        titleLastAnimationTime >
-        intervals::COMMON_ANIMATIONS_MILLISECONDS_INTERVAL
+        titleLastAnimationTime > 10
     )
     {
         animateTitleColor();

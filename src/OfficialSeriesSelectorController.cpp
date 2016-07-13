@@ -114,7 +114,17 @@ unsigned short OfficialSeriesSelectorController::render()
 
                 break;
             }
+            default:
+            {
+                /* useless, added here to respect the syntax */
+                break;
             }
+            }
+        }
+        default:
+        {
+            /* useless, added here to respect the syntax */
+            break;
         }
         }
     }

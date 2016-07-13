@@ -29,7 +29,6 @@
 #include "dimensions.hpp"
 #include "CellFactory.hpp"
 #include "CellsFileRepresentations.hpp"
-#include "intervals.hpp"
 
 #include <time.h>
 
@@ -74,7 +73,7 @@ void AnimatedBackground::render()
         (
             utils::Context::get().getClockMillisecondsTime() -
             cellsMovementLastAnimation
-        ) > intervals::COMMON_ANIMATIONS_MILLISECONDS_INTERVAL
+        ) > 10
     )
     {
         /* iterate all the cells; for each one, modify the horizontal
@@ -125,8 +124,11 @@ void AnimatedBackground::initializeCells()
        of the generated cell */
     unsigned short currentLine = 0, currentColumn = 0;
 
-    /* the rand() function to generate random numbers return an integer */
-    int randomNumber = 0;
+    /* the rand() function to generate random numbers return an integer; we
+       use an integer because the rand() function returns an integer; we
+       unsigned the integer because of the comparison between this variable
+       and the available cells array size (unsigned integer) */
+    unsigned int randomNumber = 0;
 
     /* initialize random to generate random numbers */
     srand(time(NULL));
@@ -140,6 +142,8 @@ void AnimatedBackground::initializeCells()
            there are more chances to get the value 10; this is because it is
            better to have manu "null cells" ( black cells ), to generate a
            beautiful background */
+        /* NOTE: there is no need to cast the rand() value here, rand()
+           returned a integer with a minimum of 0 (unsigned). */
         randomNumber = rand() % 16;
         randomNumber = (
                            randomNumber >= cellsLib.size() ?
