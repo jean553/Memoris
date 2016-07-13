@@ -35,16 +35,6 @@ namespace controllers
 /**
  *
  */
-AbstractMenuController::AbstractMenuController() :
-    Controller()
-{
-    /* the default pointed item is always the first one when the menu starts */
-    selectorPosition = 0;
-}
-
-/**
- *
- */
 void AbstractMenuController::addMenuItem(std::unique_ptr<items::MenuItem> item)
 {
     items.push_back(std::move(item));
