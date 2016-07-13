@@ -58,9 +58,6 @@ AnimatedBackground::AnimatedBackground() :
 {
     /* initialize all the cells */
     initializeCells();
-
-    /* initialize the cells movement last animation with the value 0 */
-    cellsMovementLastAnimation = 0;
 }
 
 /**
@@ -122,13 +119,13 @@ void AnimatedBackground::initializeCells()
     /* the current line and the current column are used during the generation
        of all the cells of the background; they indicate the current address
        of the generated cell */
-    unsigned short currentLine = 0, currentColumn = 0;
+    unsigned short currentLine {0}, currentColumn {0};
 
     /* the rand() function to generate random numbers return an integer; we
        use an integer because the rand() function returns an integer; we
        unsigned the integer because of the comparison between this variable
        and the available cells array size (unsigned integer) */
-    unsigned int randomNumber = 0;
+    unsigned int randomNumber {0};
 
     /* initialize random to generate random numbers */
     srand(time(NULL));
