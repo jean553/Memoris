@@ -81,8 +81,9 @@ private:
     std::vector<entities::Cell> cells;
 
     /* last time of the cell movement; we use a SFML unsigned integer of 32
-       bits because this is the data type used by the SFML clock */
-    sf::Uint32 cellsMovementLastAnimation;
+       bits because this is the data type used by the SFML clock; initialize
+       the cells movement last animation with the value 0 */
+    sf::Uint32 cellsMovementLastAnimation {0};
 };
 
 }
