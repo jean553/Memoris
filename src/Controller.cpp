@@ -37,29 +37,6 @@ namespace controllers
  */
 Controller::Controller()
 {
-    /* when the controller starts, there is no new controller to load at
-       the moment, that's why the next controller id is initialized with 0 */
-    nextControllerId = 0;
-
-    /* when the controller starts, there is no ask for a new controller to
-       start and no controller switch animation; that's why the expected
-       controller id is initialized with 0 */
-    expectedControllerId = 0;
-
-    /* when a new controller starts, there is an opening animation; for every
-       controller, the boolean to indicate that there is an opening animation
-       is set to true by default; it becomes false at the end of the opening
-       animation */
-    openingScreen = true;
-
-    /* the default last screen transition time is initialized to 0 */
-    lastScreenTransitionTime = 0;
-
-    /* when a new screen opens, it appears in an animation after a short time;
-       the screen is totally black when the screen is opened; the alpha
-       value of the screen transition surface is equal to 255 (5 * 51) */
-    transitionTime = 5;
-
     /* the screen transition color is continually modified
        when screens are switched, that's why we copy the
        default color from the black color */

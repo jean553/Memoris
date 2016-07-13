@@ -93,6 +93,10 @@ protected:
     /* NOTE: we use float for the widget position because it is the type
        used by the SFML library to set surfaces positions */
 
+    /* NOTE: we do not initialize these non-static members here, in fact, they
+       are directly initialized with the values given by the child object
+       by the constructor */
+
     /* the horizontal position of the widget */
     float horizontalPosition;
 

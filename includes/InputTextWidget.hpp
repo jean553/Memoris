@@ -113,20 +113,25 @@ private:
 
     /* the last time of the input text widget cursor flashing animation
        update; we use SFML sf::Int32 data type as the SFML clock object
-       uses this data type to handle time features */
-    sf::Int32 cursorLastFlashAnimation;
+       uses this data type to handle time features; we initialize this member
+       to 0 */
+    sf::Int32 cursorLastFlashAnimation {0};
+
+    /* boolean that specifies if the input text line cursor must be displayed
+       or not; in fact, the animation of the input text line widget is to
+       display the cursor during a very short time and then hide it; the cursor
+       is also hidden during a very short time and displayed again; the default
+       value is true */
+    bool displayCursor {true};
+
+    /* NOTE: these members are not initialized here because they are directly
+       initialized when the unique constructor is called */
 
     /* the maximum amount of characters allowed into the input text widget; we
        use a size_t because we compare sizes during the rendering of the widget
        between the actual sf::String size and the maximum size; SFML uses
        size_t to return the size of a SFML string */
     size_t maximumCharacters;
-
-    /* boolean that specifies if the input text line cursor must be displayed
-       or not; in fact, the animation of the input text line widget is to
-       display the cursor during a very short time and then hide it; the cursor
-       is also hidden during a very short time and displayed again */
-    bool displayCursor;
 
     /* the pixels width of the input text widget; this value must be set by
        the developer in the calling object */

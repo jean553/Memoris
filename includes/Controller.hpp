@@ -96,8 +96,10 @@ protected:
 
     /* must be returned by the render method in every controller; contains the
        id of the next controller to load; contains 0 if no new controller has
-       to be rendered and if there is no controller switch at the moment */
-    unsigned short nextControllerId;
+       to be rendered and if there is no controller switch at the moment;
+       when the controller starts, there is no new controller to load at
+       the moment, that's why the next controller id is initialized with 0 */
+    unsigned short nextControllerId {0};
 
     /* must be changed inside the render method of the current rendered
        controller when a new controller has to be rendered; usually, this
@@ -106,14 +108,19 @@ protected:
        animation, the next controller id becomes equal to the expected
        controller id and the controllers can be switched; contains 0 if no new
        controller has to be rendered and if there is no controller switch at
-       the moment */
-    unsigned short expectedControllerId;
+       the moment; when the controller starts, there is no ask for a new
+       controller to start and no controller switch animation; that's why the
+       expected controller id is initialized with 0 */
+    unsigned short expectedControllerId {0};
 
     /* this boolean is true if the opening animation is currently rendering and
        is false if the opening animation is not rendering; this boolean is true
        everytime a new controller is opened, while the opening animation is not
-       finished, then it becomes false */
-    bool openingScreen;
+       finished, then it becomes false when a new controller starts, there is
+       an opening animation; for every controller, the boolean to indicate that
+       there is an opening animation is set to true by default; it becomes
+       false at the end of the opening animation */
+    bool openingScreen {true};
 
 private:
 
@@ -122,14 +129,17 @@ private:
        data type as it is the one used by SFML clock */
 
     /* save the last time the screen transition surface transparency animation
-       has been updated */
-    sf::Int32 lastScreenTransitionTime;
+       has been updated; the default last screen transition time is initialized
+       to 0 */
+    sf::Int32 lastScreenTransitionTime {0};
 
     /* the current step of the screen switch animation from 0 to 5; this value
        is incremented or decremented every second quarter during the animation
        to detect when the animation is finished; used for both opening and
-       closing */
-    sf::Uint8 transitionTime;
+       closing; when a new screen opens, it appears in an animation after a
+       short time; the screen is totally black when the screen is opened; the
+       alpha value of the screen transition surface is equal to 255 (5 * 51) */
+    sf::Uint8 transitionTime {5};
 
     /* the color of the background for the screen
        transition animation; declared here because
