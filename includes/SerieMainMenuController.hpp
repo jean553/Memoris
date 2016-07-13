@@ -17,33 +17,32 @@
 */
 
 /**
- * Serie main menu screen.
- *
  * @file SerieMainMenuController.hpp
- * @brief main menu for the serie selection
+ * @brief the main menu for the serie selection; the player can choose between
+ * the official series and the personal series
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_SERIE_MAIN_MENU_CONTROLLER
-#define DEF_SERIE_MAIN_MENU_CONTROLLER
+#ifndef MEMORIS_SERIEMAINMENUCONTROLLER_H_
+#define MEMORIS_SERIEMAINMENUCONTROLLER_H_
 
-#include "Controller.hpp"
-#include "Context.hpp"
-#include "HasMenuSelectorAnimation.hpp"
-#include "SprtTransition.hpp"
+#include "AbstractMenuController.hpp"
 
 namespace memoris
 {
 namespace controllers
 {
 
-class SerieMainMenuController : public Controller
+class SerieMainMenuController : public AbstractMenuController
 {
-    friend class policies::HasMenuSelectorAnimation;
 
 public:
 
+    /**
+     * @brief constructor, creates the title surface and generate the
+     * menu items unique pointers of the menu
+     */
     SerieMainMenuController();
 
     /**
@@ -55,65 +54,12 @@ public:
 
 private:
 
-    static const std::string OFFICIAL_STR;
-    static const std::string PERSONAL_STR;
-    static const std::string BACK_STR;
-    static const std::string TITLE_STR;
-    static const std::string CUP_IMG_PATH;
-    static const std::string GAME_IMG_PATH;
-
-    static const float OFFICIAL_HRTL_PSTN;
-    static const float OFFICIAL_VRTL_PSTN;
-    static const float PERSONAL_HRTL_PSTN;
-    static const float PERSONAL_VRTL_PSTN;
-    static const float BACK_HRTL_PSTN;
-    static const float BACK_VRTL_PSTN;
-    static const float TITLE_HRTL_PSTN;
-    static const float TITLE_VRTL_PSTN;
-    static const float TRLST_COMMON_HRTL_PSTN;
-    static const float TRLST_COMMON_HRTL_SIZE;
-    static const float CUP_TRLST_VRTL_PSTN;
-    static const float GAME_TRLST_VRTL_PSTN;
-
-    static const uint8_t SERIE_MAIN_MENU_SELECTOR_MAX;
-    static const uint8_t SERIE_MAIN_MENU_SELECTOR_MIN;
-    static const uint8_t SERIE_MAIN_MENU_OFFICIAL_ITEM;
-    static const uint8_t SERIE_MAIN_MENU_PERSONAL_ITEM;
-    static const uint8_t SERIE_MAIN_MENU_BACK_ITEM;
-
-    uint8_t selectorPosition;
-
-    int8_t selectorDirection;
-
-    /* the color of the animated menu selector, we declare
-       it here because this color is continually updated
-       during the animation */
-    sf::Color colorSelector;
-
-    sf::Text itemOfficialSeries;
-    sf::Text itemPersonalSeries;
-    sf::Text itemBack;
+    /* the serie main menu controller main SFML title */
     sf::Text title;
 
-    sf::Texture cup;
-    sf::Texture game;
-
-    sf::Sprite cupSprt;
-    sf::Sprite gameSprt;
-
-    ::utils::SprtTransition cupTrslt;
-    ::utils::SprtTransition gameTrslt;
-
-    bool animCup;
-    bool animGame;
-
     /**
-     * @brief update the position of the selector
-     */
-    void updateSelectorPosition();
-
-    /**
-     * @brief execute an action according to the current menu selection
+     * @brief overwrite the parent method; defines which constroller is called
+     * when one menu item is selected
      */
     void selectMenuItem();
 };

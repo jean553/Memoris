@@ -35,99 +35,56 @@ namespace memoris
 namespace controllers
 {
 
-const std::string SerieMainMenuController::OFFICIAL_STR = "Official series";
-const std::string SerieMainMenuController::PERSONAL_STR = "Personal series";
-const std::string SerieMainMenuController::BACK_STR = "Back";
-const std::string SerieMainMenuController::TITLE_STR = "Series";
-const std::string SerieMainMenuController::CUP_IMG_PATH = "res/images/cup.png";
-const std::string SerieMainMenuController::GAME_IMG_PATH = "res/images/game.png";
-
-const float SerieMainMenuController::OFFICIAL_HRTL_PSTN = 550.f;
-const float SerieMainMenuController::OFFICIAL_VRTL_PSTN = 250.f;
-const float SerieMainMenuController::PERSONAL_HRTL_PSTN = 520.f;
-const float SerieMainMenuController::PERSONAL_VRTL_PSTN = 470.f;
-const float SerieMainMenuController::BACK_HRTL_PSTN = 720.f;
-const float SerieMainMenuController::BACK_VRTL_PSTN = 800.f;
-const float SerieMainMenuController::TITLE_HRTL_PSTN = 700.f;
-const float SerieMainMenuController::TITLE_VRTL_PSTN = 50.f;
-const float SerieMainMenuController::TRLST_COMMON_HRTL_PSTN = 740.f;
-const float SerieMainMenuController::TRLST_COMMON_HRTL_SIZE = 200.f;
-const float SerieMainMenuController::CUP_TRLST_VRTL_PSTN = 230.f;
-const float SerieMainMenuController::GAME_TRLST_VRTL_PSTN = 450.f;
-
-const uint8_t SerieMainMenuController::SERIE_MAIN_MENU_SELECTOR_MAX = 2;
-const uint8_t SerieMainMenuController::SERIE_MAIN_MENU_SELECTOR_MIN = 0;
-const uint8_t SerieMainMenuController::SERIE_MAIN_MENU_OFFICIAL_ITEM = 0;
-const uint8_t SerieMainMenuController::SERIE_MAIN_MENU_PERSONAL_ITEM = 1;
-const uint8_t SerieMainMenuController::SERIE_MAIN_MENU_BACK_ITEM = 2;
-
 /**
  *
  */
-SerieMainMenuController::SerieMainMenuController() :
-    Controller(),
-    cupTrslt(
-        TRLST_COMMON_HRTL_PSTN,
-        CUP_TRLST_VRTL_PSTN,
-        TRLST_COMMON_HRTL_SIZE
-    ),
-    gameTrslt(
-        TRLST_COMMON_HRTL_PSTN,
-        GAME_TRLST_VRTL_PSTN,
-        TRLST_COMMON_HRTL_SIZE
-    )
+SerieMainMenuController::SerieMainMenuController()
 {
-    /* this color is continually updated, that's
-       why this is a copy of the red color */
-    colorSelector = memoris::colors::ColorsManager::get().getColorRedCopy();
-
+    /* set the properties of the series main menu title */
     title.setFont(memoris::fonts::FontsManager::get().getTitleFont());
-    title.setString(TITLE_STR);
+    title.setString("Series");
     title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
     title.setColor(memoris::colors::ColorsManager::get().getColorLightBlue());
     title.setPosition(
-        TITLE_HRTL_PSTN,
-        TITLE_VRTL_PSTN
+        700.f,
+        50.f
     );
 
-    itemOfficialSeries.setFont(memoris::fonts::FontsManager::get().getTextFont());
-    itemOfficialSeries.setString(OFFICIAL_STR);
-    itemOfficialSeries.setCharacterSize(memoris::fonts::ITEM_SIZE);
-    itemOfficialSeries.setColor(colorSelector);
-    itemOfficialSeries.setPosition(
-        OFFICIAL_HRTL_PSTN,
-        OFFICIAL_VRTL_PSTN
+    /* creates the unique pointer to the official series item */
+    std::unique_ptr<items::MenuItem> officialSeries(
+        new items::MenuItem(
+            "Official series",
+            550.f,
+            250.f
+        )
     );
 
-    itemPersonalSeries.setFont(memoris::fonts::FontsManager::get().getTextFont());
-    itemPersonalSeries.setString(PERSONAL_STR);
-    itemPersonalSeries.setCharacterSize(memoris::fonts::ITEM_SIZE);
-    itemPersonalSeries.setColor(memoris::colors::ColorsManager::get().getColorWhite());
-    itemPersonalSeries.setPosition(
-        PERSONAL_HRTL_PSTN,
-        PERSONAL_VRTL_PSTN
+    /* creates the unique pointer to the personal series item */
+    std::unique_ptr<items::MenuItem> personalSeries(
+        new items::MenuItem(
+            "Personal series",
+            520.f,
+            470.f
+        )
     );
 
-    itemBack.setFont(memoris::fonts::FontsManager::get().getTextFont());
-    itemBack.setString(BACK_STR);
-    itemBack.setCharacterSize(memoris::fonts::ITEM_SIZE);
-    itemBack.setColor(memoris::colors::ColorsManager::get().getColorWhite());
-    itemBack.setPosition(
-        BACK_HRTL_PSTN,
-        BACK_VRTL_PSTN
+    /* creates the unique pointer to the back item */
+    std::unique_ptr<items::MenuItem> back(
+        new items::MenuItem(
+            "Back",
+            720.f,
+            800.f
+        )
     );
 
-    cup.loadFromFile(CUP_IMG_PATH);
-    game.loadFromFile(GAME_IMG_PATH);
+    /* select the official series item in the menu */
+    officialSeries->select();
 
-    cupSprt.setTexture(cup, true);
-    gameSprt.setTexture(game, true);
-
-    selectorDirection = 1;
-    selectorPosition = 0;
-
-    animCup = true;
-    animGame = false;
+    /* add the menu items inside the menu items list of the abstract menu
+       controller class */
+    addMenuItem(std::move(officialSeries));
+    addMenuItem(std::move(personalSeries));
+    addMenuItem(std::move(back));
 }
 
 /**
@@ -135,29 +92,18 @@ SerieMainMenuController::SerieMainMenuController() :
  */
 unsigned short SerieMainMenuController::render()
 {
-    policies::HasMenuSelectorAnimation::animateMenuSelector<SerieMainMenuController>(this);
-
-    updateSelectorPosition();
-
-    cupTrslt.display(
-        utils::Context::get(),
-        cupSprt,
-        animCup
-    );
-
-    gameTrslt.display(
-        utils::Context::get(),
-        gameSprt,
-        animGame
-    );
-
+    /* display the serie main menu title */
     utils::Context::get().getSfmlWindow().draw(title);
-    utils::Context::get().getSfmlWindow().draw(itemOfficialSeries);
-    utils::Context::get().getSfmlWindow().draw(itemPersonalSeries);
-    utils::Context::get().getSfmlWindow().draw(itemBack);
 
+    /* display all the menu items */
+    renderAllMenuItems();
+
+    /* render the opening/closing animation of the screen if necessary */
     nextControllerId = animateScreenTransition();
 
+    /* series main menu events loop; the player can select between the
+       official series item and the personal series item; the player can also
+       go back to the main menu selecting the back button */
     while (utils::Context::get().getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
@@ -168,24 +114,19 @@ unsigned short SerieMainMenuController::render()
             {
             case sf::Keyboard::Escape:
             {
-                expectedControllerId =
-                    MAIN_MENU_CONTROLLER_ID;
+                expectedControllerId = MAIN_MENU_CONTROLLER_ID;
 
                 break;
             }
             case sf::Keyboard::Up:
             {
-                sounds::SoundsManager::get().getMoveSelectorSound().play();
-
-                selectorPosition--;
+                moveUp();
 
                 break;
             }
             case sf::Keyboard::Down:
             {
-                sounds::SoundsManager::get().getMoveSelectorSound().play();
-
-                selectorPosition++;
+                moveDown();
 
                 break;
             }
@@ -216,61 +157,24 @@ unsigned short SerieMainMenuController::render()
 /**
  *
  */
-void SerieMainMenuController::updateSelectorPosition()
-{
-    selectorPosition = (
-                           (selectorPosition > SERIE_MAIN_MENU_SELECTOR_MAX) ?
-                           SERIE_MAIN_MENU_SELECTOR_MIN :
-                           selectorPosition
-                       );
-
-    itemOfficialSeries.setColor(memoris::colors::ColorsManager::get().getColorWhite());
-    itemPersonalSeries.setColor(memoris::colors::ColorsManager::get().getColorWhite());
-    itemBack.setColor(memoris::colors::ColorsManager::get().getColorWhite());
-
-    animCup = false;
-    animGame = false;
-
-    switch (selectorPosition)
-    {
-    case SERIE_MAIN_MENU_OFFICIAL_ITEM:
-    {
-        itemOfficialSeries.setColor(colorSelector);
-        animCup = true;
-        break;
-    }
-    case SERIE_MAIN_MENU_PERSONAL_ITEM:
-    {
-        itemPersonalSeries.setColor(colorSelector);
-        animGame = true;
-        break;
-    }
-    case SERIE_MAIN_MENU_BACK_ITEM:
-    {
-        itemBack.setColor(colorSelector);
-        break;
-    }
-    }
-}
-
-/**
- *
- */
 void SerieMainMenuController::selectMenuItem()
 {
-    switch(selectorPosition)
+    /* TODO: nothing happens for now when the personal series item is selected,
+       we have to define a behavior and call the expected controller */
+
+    switch(getSelectorPosition())
     {
-    case SERIE_MAIN_MENU_OFFICIAL_ITEM:
+    /* the official series menu item is selected */
+    case 0:
     {
-        expectedControllerId =
-            OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID;
+        expectedControllerId = OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID;
 
         break;
     }
-    case SERIE_MAIN_MENU_BACK_ITEM:
+    /* the back menu item is selected */
+    case 2:
     {
-        expectedControllerId =
-            MAIN_MENU_CONTROLLER_ID;
+        expectedControllerId = MAIN_MENU_CONTROLLER_ID;
 
         break;
     }
