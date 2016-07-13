@@ -42,11 +42,6 @@ class AbstractMenuController : public Controller
 protected:
 
     /**
-     * @brief constructor
-     */
-    AbstractMenuController();
-
-    /**
      * @brief insert one menu item pointer inside the menu items list
      *
      * @param unique pointer to the item to add; this is required to use
@@ -105,8 +100,9 @@ private:
      */
     void updateMenuSelection();
 
-    /* the current position of the selector ( the current pointed item ) */
-    unsigned short selectorPosition;
+    /* the current position of the selector ( the current pointed item ); the
+       default value is 0 */
+    unsigned short selectorPosition {0};
 
     /* the container of menu items; we use a vector because we have to handle
        order, keys management ( indexes ), we have to be able to find by index,

@@ -153,7 +153,7 @@ unsigned short NewGameController::render()
 bool NewGameController::validateGameName() const
 {
     /* directly return false if the given name is empty */
-    /* TODO: we could do 'return !widget.isEmpty()', but this test is not
+    /* NOTE: we could do 'return !widget.isEmpty()', but this test is not
        supposed to be the only one; we must also check if the given name
        is not already used; the two tests have to be clearly exposed */
     if (inputTextGameName.isEmpty())
