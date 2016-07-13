@@ -37,8 +37,7 @@ int main()
     /* the current controller id variable contains the id of the currently
        rendered controller; when the program starts, the first controller
        to display is the main menu controller. */
-    unsigned short currentControllerId =
-        controllers::MAIN_MENU_CONTROLLER_ID;
+    unsigned short currentControllerId {controllers::MAIN_MENU_CONTROLLER_ID};
 
     /* the current music path string contains the file system path of the
        music currently played by the current controller; when the program
@@ -56,7 +55,7 @@ int main()
        variable is updated. If the next controller id and the current
        controller id are different, the controller with the nextControllerId
        value is generated.*/
-    unsigned short nextControllerId = 0;
+    unsigned short nextControllerId {0};
 
     /* the next music path string contains the path of the next music to
        load and play during the next controller generation. Sometimes, from

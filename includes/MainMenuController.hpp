@@ -68,8 +68,9 @@ private:
        last updated time of each animation; we use this
        data type as it is the one used by SFML clock */
 
-    /* save the last time the title color has been modified */
-    sf::Int32 titleLastAnimationTime;
+    /* save the last time the title color has been modified; the default
+       value is 0 */
+    sf::Int32 titleLastAnimationTime {0};
 
     /* booleans used to indicate if we have to increment or decrement each
        color value (rgb) of the main menu title color animation; we use

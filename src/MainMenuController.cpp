@@ -43,9 +43,6 @@ namespace controllers
 MainMenuController::MainMenuController() :
     AbstractMenuController()
 {
-    /* animations times are all set to 0 */
-    titleLastAnimationTime = 0;
-
     /* the title color and selector color are copies from
        manager colors, because they are updated continually */
     colorTitle = colors::ColorsManager::get().getColorBlueCopy();

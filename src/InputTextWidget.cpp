@@ -51,15 +51,8 @@ InputTextWidget::InputTextWidget(
        text widget according to the given parameter value */
     maximumCharacters = maxCharacters;
 
-    /* by default, the cursor last flash animation time is equal to 0 */
-    cursorLastFlashAnimation = 0;
-
     /* set the width of the widget according to the given parameter */
     width = lineWidth;
-
-    /* when the input text widget start to be displayed, the cursor is
-       displayed */
-    displayCursor = true;
 
     /* the font of the displayed text is the normal text font; we get a
        reference of this font from the fonts manager */
@@ -260,6 +253,7 @@ bool InputTextWidget::isEmpty() const
  */
 sf::String InputTextWidget::getInputLetter(const sf::Event& event)
 {
+    /* creates an empty SFML string */
     sf::String character;
 
     switch(event.key.code)
