@@ -109,11 +109,17 @@ unsigned short NewGameController::render()
             }
             /* go to the serie main menu controller if the Enter key is
                pressed */
-            /* TODO: #497 should not be allowed if the input text widget is
-               empty */
             /* TODO: #498 should not be allowed if the name already exists */
             case sf::Keyboard::Return:
             {
+                /* validate the name of the new game; does not change the
+                   controller if the name is empty */
+                if (!validateGameName())
+                {
+                    /* stop the execution of this switch case */
+                    break;
+                }
+
                 expectedControllerId =
                     SERIE_MAIN_MENU_CONTROLLER_ID;
 
@@ -139,6 +145,23 @@ unsigned short NewGameController::render()
     }
 
     return nextControllerId;
+}
+
+/**
+ *
+ */
+bool NewGameController::validateGameName() const
+{
+    /* directly return false if the given name is empty */
+    /* TODO: we could do 'return !widget.isEmpty()', but this test is not
+       supposed to be the only one; we must also check if the given name
+       is not already used; the two tests have to be clearly exposed */
+    if (inputTextGameName.isEmpty())
+    {
+        return false;
+    }
+
+    return true;
 }
 
 }

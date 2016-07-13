@@ -90,6 +90,15 @@ public:
      */
     sf::String getText() const;
 
+    /**
+     * @brief returns a boolean indicating if the input text widget content
+     * is empty or not; used into the new game controller to save the new
+     * game only if the name is not empty
+     *
+     * @return bool
+     */
+    bool isEmpty() const;
+
 private:
 
     /**

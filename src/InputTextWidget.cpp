@@ -241,6 +241,23 @@ void InputTextWidget::update(const sf::Event& event)
 /**
  *
  */
+sf::String InputTextWidget::getText() const
+{
+    return displayedText.getString();
+}
+
+/**
+ *
+ */
+bool InputTextWidget::isEmpty() const
+{
+    /* use directly the SFML string function */
+    return displayedText.getString().isEmpty();
+}
+
+/**
+ *
+ */
 sf::String InputTextWidget::getInputLetter(const sf::Event& event)
 {
     sf::String character;
@@ -385,14 +402,6 @@ sf::String InputTextWidget::getInputLetter(const sf::Event& event)
     }
 
     return character;
-}
-
-/**
- *
- */
-sf::String InputTextWidget::getText() const
-{
-    return displayedText.getString();
 }
 
 }
