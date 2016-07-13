@@ -25,7 +25,6 @@
 #include "OfficialSeriesSelectorController.hpp"
 
 #include "fonts.hpp"
-#include "FileWriter.hpp"
 #include "controllers.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
@@ -35,32 +34,90 @@ namespace memoris
 namespace controllers
 {
 
-const std::string OfficialSeriesSelectorController::OFF_SER_TITLE = "Official series";
-const std::string OfficialSeriesSelectorController::TEMPORARY_DEFAULT_SERIE = "data/series/1.serie";
-
-const float OfficialSeriesSelectorController::OFF_SER_TITLE_HRTL_PSTN = 550.f;
-const float OfficialSeriesSelectorController::OFF_SER_TITLE_VRTL_PSTN = 50.f;
-
 /**
  *
  */
-OfficialSeriesSelectorController::OfficialSeriesSelectorController() :
-    Controller()
+OfficialSeriesSelectorController::OfficialSeriesSelectorController()
 {
-    offSerTitle.setFont(memoris::fonts::FontsManager::get().getTitleFont());
-    offSerTitle.setString(OFF_SER_TITLE);
-    offSerTitle.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
-    offSerTitle.setColor(memoris::colors::ColorsManager::get().getColorLightBlue());
-    offSerTitle.setPosition(
-        OFF_SER_TITLE_HRTL_PSTN,
-        OFF_SER_TITLE_VRTL_PSTN
+    /* set the parameters of the title of the screen */
+    title.setFont(memoris::fonts::FontsManager::get().getTitleFont());
+    title.setString("Official series");
+    title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
+    title.setColor(memoris::colors::ColorsManager::get().getColorLightBlue());
+    title.setPosition(
+        550.f,
+        50.f
     );
 
-    /* TODO: load all the levels of the serie, should be adapted according to the selected serie */
-    levels = ::utils::FileWriter::readFileWithSprt(TEMPORARY_DEFAULT_SERIE);
+    /* initialize all the official series menu items unique pointers for the
+       menu construction */
+    std::unique_ptr<items::MenuItem> tutorial(
+        new items::MenuItem(
+            "1. Tutorial",
+            10.f,
+            200.f
+        )
+    );
 
-    /* generate the series names list */
-    createItems();
+    std::unique_ptr<items::MenuItem> easy(
+        new items::MenuItem(
+            "2. Easy",
+            10.f,
+            250.f
+        )
+    );
+
+    std::unique_ptr<items::MenuItem> medium(
+        new items::MenuItem(
+            "3. Medium",
+            10.f,
+            300.f
+        )
+    );
+
+    std::unique_ptr<items::MenuItem> difficult(
+        new items::MenuItem(
+            "4. Difficult",
+            10.f,
+            350.f
+        )
+    );
+
+    std::unique_ptr<items::MenuItem> hard(
+        new items::MenuItem(
+            "5. Hard",
+            10.f,
+            400.f
+        )
+    );
+
+    std::unique_ptr<items::MenuItem> veryHard(
+        new items::MenuItem(
+            "6. Very Hard",
+            10.f,
+            450.f
+        )
+    );
+
+    std::unique_ptr<items::MenuItem> hazardous(
+        new items::MenuItem(
+            "7. Hazardous",
+            10.f,
+            500.f
+        )
+    );
+
+    /* select the first official serie name */
+    tutorial->select();
+
+    /* add all the series names into the menu */
+    addMenuItem(std::move(tutorial));
+    addMenuItem(std::move(easy));
+    addMenuItem(std::move(medium));
+    addMenuItem(std::move(difficult));
+    addMenuItem(std::move(hard));
+    addMenuItem(std::move(veryHard));
+    addMenuItem(std::move(hazardous));
 }
 
 /**
@@ -68,11 +125,9 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController() :
  */
 unsigned short OfficialSeriesSelectorController::render()
 {
-    scrlList.updtSltrPstn();
+    utils::Context::get().getSfmlWindow().draw(title);
 
-    utils::Context::get().getSfmlWindow().draw(offSerTitle);
-
-    scrlList.display();
+    renderAllMenuItems();
 
     nextControllerId = animateScreenTransition();
 
@@ -86,31 +141,25 @@ unsigned short OfficialSeriesSelectorController::render()
             {
             case sf::Keyboard::Escape:
             {
-                expectedControllerId =
-                    MAIN_MENU_CONTROLLER_ID;
+                expectedControllerId = MAIN_MENU_CONTROLLER_ID;
 
                 break;
             }
-            /* TODO: temporary solution, should be deleted */
             case sf::Keyboard::Return:
             {
-                /* TODO: the level should be specified according to the selected serie */
-                utils::Context::get().setNxtLvlStrPath(levels[0]);
-
-                expectedControllerId =
-                    GAME_CONTROLLER_ID;
+                selectMenuItem();
 
                 break;
             }
             case sf::Keyboard::Up:
             {
-                scrlList.decSltrPstn();
+                moveUp();
 
                 break;
             }
             case sf::Keyboard::Down:
             {
-                scrlList.incSltrPstn();
+                moveDown();
 
                 break;
             }
@@ -135,48 +184,13 @@ unsigned short OfficialSeriesSelectorController::render()
 /**
  *
  */
-void OfficialSeriesSelectorController::createItems()
+void OfficialSeriesSelectorController::selectMenuItem()
 {
-    /* TODO: the list is generated here for
-     * official series... maybe it should be
-     * in a better place... */
-    std::vector<std::string> strList =
-    {
-        "1. tutorial",
-        "2. a serie",
-        "3. another serie",
-        "4. another serie",
-        "5. another serie",
-        "6. another serie",
-        "7. another serie",
-        "8. another serie",
-        "9. another serie"
-    };
+    /* TODO: #512 the first level to played should be loaded from the selected 
+       serie */
+    utils::Context::get().setNextLevelPathString("data/levels/1.level");
 
-    /* TODO: should display the amount of levels inside
-     * each serie */
-    std::vector<std::string> strListSfx =
-    {
-        /* TODO: temporary solution, only returns the amount of levels in the first serie */
-        std::to_string(::utils::FileWriter::getItemsAmnt(TEMPORARY_DEFAULT_SERIE)),
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9"
-    };
-
-    /* display the prefix strings */
-    scrlList.initFromStrArr(strList);
-
-    /* display the suffix strings */
-    scrlList.initFromStrArr(
-        strListSfx,
-        false
-    );
+    expectedControllerId = GAME_CONTROLLER_ID;
 }
 
 }
