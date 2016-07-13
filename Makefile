@@ -48,7 +48,6 @@ OBJS = \
 	   build/CellsFileRepresentations.o \
 	   build/SerieMainMenuController.o \
 	   build/OfficialSeriesSelectorController.o \
-	   build/SprtTransition.o \
 	   build/ErrorController.o \
 	   build/FontsManager.o \
 	   build/ColorsManager.o \
@@ -129,9 +128,6 @@ build/AnimatedBackground.o: src/AnimatedBackground.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/MenuGradient.o: src/MenuGradient.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/SprtTransition.o: src/SprtTransition.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 # others

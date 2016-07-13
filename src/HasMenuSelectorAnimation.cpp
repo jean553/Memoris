@@ -67,4 +67,3 @@ void HasMenuSelectorAnimation::animateMenuSelector(T* pMenuController)
 }
 
 template void HasMenuSelectorAnimation::animateMenuSelector<controllers::EditorMenuController>(controllers::EditorMenuController* pMenuController);
-template void HasMenuSelectorAnimation::animateMenuSelector<controllers::SerieMainMenuController>(controllers::SerieMainMenuController* pMenuController);
