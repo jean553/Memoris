@@ -95,6 +95,24 @@ public:
     void restartClock();
 
     /**
+     * @brief set the string of the path of the next level,
+     * used when call the game controller to specify the level
+     *
+     * @param path string of the level file path
+     */
+    void setNextLevelPathString(const std::string& path);
+
+    /**
+     * @brief return the string of the path of the next level,
+     * used when call the game controller to specify the level
+     *
+     * @return std::string
+     */
+    std::string getNextLevelPathString() const;
+
+    /* TODO: refactored from the beginning to here */
+
+    /**
      * @brief add a message into the context
      *
      * @param messageName name of the message
@@ -141,22 +159,6 @@ public:
     void addStringIntoStringsList(std::string newString);
 
     /**
-     * @brief return the string of the path of the next level,
-     * used when call the game controller to specify the level
-     *
-     * @return std::string
-     */
-    std::string getNxtLvlStrPath() const;
-
-    /**
-     * @brief set the string of the path of the next level,
-     * used when call the game controller to specify the level
-     *
-     * @param path string of the level file path
-     */
-    void setNxtLvlStrPath(const std::string& path);
-
-    /**
      * @brief remove all the strings from the strings list
      */
     void removeAllStrings();
@@ -181,11 +183,16 @@ private:
      * is equal to 49 days... so this is a safe method */
     sf::Clock clock;
 
+    /* the context keeps in mind the expected next level path; this is used
+       to call the correct level during the game; we keep this value in
+       the context to facilitate data transfer between all the concerned
+       controllers */
+    std::string nextLevelPathString;
+
     std::map<std::string, std::string> messages;
 
     std::vector<std::string> stringsList;
 
-    std::string nxtLvlStrPath;
 };
 
 }

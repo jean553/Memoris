@@ -17,28 +17,30 @@
 */
 
 /**
- * Official series selector menu
- *
  * @file OfficialSeriesSelectorController.hpp
- * @brief official series menu
+ * @brief official series menu; display all the official series of the game
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_OFFICIAL_SERIES_SELECTOR_MENU
-#define DEF_OFFICIAL_SERIES_SELECTOR_MENU
+#ifndef MEMORIS_OFFICIALSERIESSELECTORCONTROLLER_H_
+#define MEMORIS_OFFICIALSERIESSELECTORCONTROLLER_H_
 
-#include "Controller.hpp"
-#include "ScrollableListWidget.hpp"
+#include "AbstractMenuController.hpp"
 
 namespace memoris
 {
 namespace controllers
 {
-class OfficialSeriesSelectorController : public Controller
+
+class OfficialSeriesSelectorController : public AbstractMenuController
 {
 public:
 
+    /**
+     * @brief constructor, generates the title of the screen; create unique
+     * pointers of the menu items of this screen
+     */
     OfficialSeriesSelectorController();
 
     /**
@@ -51,22 +53,14 @@ public:
 private:
 
     /**
-     * @brief create the items
+     * @brief defines what to do when the menu items are selected
      */
-    void createItems();
+    void selectMenuItem();
 
-    static const std::string OFF_SER_TITLE;
-    static const std::string TEMPORARY_DEFAULT_SERIE;
-
-    static const float OFF_SER_TITLE_HRTL_PSTN;
-    static const float OFF_SER_TITLE_VRTL_PSTN;
-
-    sf::Text offSerTitle;
-
-    ::widgets::ScrollableListWidget scrlList;
-
-    std::vector<std::string> levels;
+    /* the title of the official series list screen is a SFML text surface */
+    sf::Text title;
 };
+
 }
 }
 

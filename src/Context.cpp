@@ -185,17 +185,17 @@ void Context::addStringIntoStringsList(std::string newString)
 /**
  *
  */
-std::string Context::getNxtLvlStrPath() const
+std::string Context::getNextLevelPathString() const
 {
-    return nxtLvlStrPath;
+    return nextLevelPathString;
 }
 
 /**
  *
  */
-void Context::setNxtLvlStrPath(const std::string& path)
+void Context::setNextLevelPathString(const std::string& path)
 {
-    nxtLvlStrPath = path;
+    nextLevelPathString = path;
 }
 
 /**
