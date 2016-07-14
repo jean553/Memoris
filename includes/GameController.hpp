@@ -17,22 +17,21 @@
 */
 
 /**
- * Game interface.
- *
  * @file GameController.hpp
- * @brief main controller for the game
+ * @brief main game controller, renders the map and let the user play
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_GAME_CONTROLLER
-#define DEF_GAME_CONTROLLER
+#ifndef MEMORIS_GAMECONTROLLER_H_
+#define MEMORIS_GAMECONTROLLER_H_
+
+#include "Controller.hpp"
+
+#include "Level.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-
-#include "Controller.hpp"
-#include "Level.hpp"
 
 namespace memoris
 {
@@ -108,10 +107,6 @@ private:
         entities::Cell* newCell
     );
 
-    /* do not use a const for casting problems with getElapsedTime().asMilliseconds() */
-    /* TODO: should be const ? */
-    static int32_t DEFAULT_WATCHING_TIME;
-
     /* interval to wait before changing the game time value */
     static const uint8_t TIMER_ITRVL;
     static const uint8_t WATCH_TIME_INCREMENTATION;
@@ -152,6 +147,18 @@ private:
     static const float FLOOR_IMG_HRTL_PSTN;
     static const float FLOOR_IMG_VRTL_PSTN;
 
+    /* contains the exact time when the level is displayed to the player; this
+       is used for the "hide level" animation; we have to know when the level
+       is rendered to calculate when we have to hide it */
+    /* NOTE: we do not initialize this variable here because the level opening
+       time is got inside the constructor and assigned to the variable; that
+       kind of action cannot be done in the header */
+    sf::Uint32 displayLevelTime;
+
+    /* the SFML unsigned integer contains the time of the last animation
+       update of the graphical timer; by default, this variable is equal to 0 */
+    sf::Uint32 lastTimerUpdateTime {0};
+
     /**
      * @enum GameController::GameStatus
      *
@@ -179,9 +186,6 @@ private:
     GameStatus status;
 
     entities::Level level;
-
-    sf::Clock clock;
-    sf::Clock timeClck;
 
     sf::Text time;
     sf::Text foundStarsAmntStr;
