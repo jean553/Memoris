@@ -57,7 +57,8 @@ OBJS = \
 	   build/NotCopiable.o \
 	   build/AbstractMenuController.o \
 	   build/MenuItem.o \
-	   build/ScrollableListWidget.o
+	   build/ScrollableListWidget.o \
+	   build/TimerWidget.o
 
 INC = -I includes
 
@@ -199,6 +200,9 @@ build/Widget.o: src/Widget.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/ScrollableListWidget.o: src/ScrollableListWidget.cpp
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+
+build/TimerWidget.o: src/TimerWidget.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 # controllers

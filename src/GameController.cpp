@@ -17,10 +17,7 @@
 */
 
 /**
- * Game main screen.
- *
  * @file GameController.cpp
- * @brief game main screen
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -47,19 +44,18 @@ namespace controllers
  */
 GameController::GameController() :
     Controller(),
+    timer(
+        295.f,
+        10.f
+    ),
     level(0, 0)
 {
-    displayLevelTime = utils::Context::get().getClockMillisecondsTime();
-
     starCellsAmount = 0;
     lifesAmount = 0;
     foundStarCellsAmount = 0;
 
     terminateGame = false;
 
-    timeMilli = 0;
-    timeSec = 0;
-    timeMin = 0;
     floor = 0;
 
     /* TODO: depends of previous levels */
@@ -78,14 +74,6 @@ GameController::GameController() :
         ::utils::FileWriter::readFile(utils::Context::get().getNextLevelPathString())
     );
     level.setCellsCursorSensitivity(false);
-
-    time.setFont(memoris::fonts::FontsManager::get().getTextFont());
-    time.setCharacterSize(memoris::fonts::TEXT_SIZE);
-    time.setColor(memoris::colors::ColorsManager::get().getColorWhite());
-    time.setPosition(
-        295,
-        10
-    );
 
     /* TODO: set a constant string for now, should change
      * according to the found stars... */
@@ -200,6 +188,9 @@ GameController::GameController() :
     rightSeparator.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
 
     updateWatchingTimeStr();
+
+    /* save the exact time the level starts to be displayed */
+    displayLevelTime = utils::Context::get().getClockMillisecondsTime();
 }
 
 /**
@@ -207,13 +198,13 @@ GameController::GameController() :
  */
 unsigned short GameController::render()
 {
+    /* render the timer widget */
+    timer.display();
+
     level.displayAllCellsByFloor(
         utils::Context::get(),
         floor
     );
-
-    /* update and display the timer */
-    displayTime();
 
     utils::Context::get().getSfmlWindow().draw(spriteStar);
     utils::Context::get().getSfmlWindow().draw(spriteLife);
@@ -484,81 +475,6 @@ void GameController::executeCellAction()
             constants::CellsFileRepresentations::EMPTY_CELL
         );
     }
-}
-
-/**
- *
- */
-void GameController::displayTime()
-{
-    /* update the time every 10 milliseconds, keep number
-     * directly inside the code because they never change
-     * according to the purposes of the function */
-    if(
-        utils::Context::get().getClockMillisecondsTime() -
-        lastTimerUpdateTime > 10
-    )
-    {
-
-        timeMilli++;
-        if (timeMilli == 100)
-        {
-            timeMilli = 0;
-            timeSec++;
-            if (timeSec == 60)
-            {
-                timeSec = 0;
-                timeMin++;
-            }
-        }
-
-        time.setString(updateTimeStr());
-
-        /* update the last timer update time with the current time at the
-           end of the animation */
-        lastTimerUpdateTime = utils::Context::get().getClockMillisecondsTime();
-    }
-
-    utils::Context::get().getSfmlWindow().draw(time);
-}
-
-/**
- *
- */
-std::string GameController::updateTimeStr()
-{
-    std::string milliStr, minStr, secStr;
-
-    /* directly use the number 10 as this value never
-     * changes according to the purposes of the function */
-    if (timeMilli < 10)
-    {
-        milliStr = "0" + std::to_string(timeMilli);
-    }
-    else
-    {
-        milliStr = std::to_string(timeMilli);
-    }
-
-    if (timeSec < 10)
-    {
-        secStr = "0" + std::to_string(timeSec);
-    }
-    else
-    {
-        secStr = std::to_string(timeSec);
-    }
-
-    if (timeMin < 10)
-    {
-        minStr = "0" + std::to_string(timeMin);
-    }
-    else
-    {
-        minStr = std::to_string(timeMin);
-    }
-
-    return minStr + " : " + secStr + " : " + milliStr;
 }
 
 /**
