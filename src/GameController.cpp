@@ -51,8 +51,6 @@ const std::string GameController::FLOOR_IMG_PATH = "res/images/floor.png";
 const float GameController::LEVEL_HORIZONTAL_POSITION = 300;
 const float GameController::LEVEL_VERTICAL_POSITION = 100;
 
-int32_t GameController::DEFAULT_WATCHING_TIME = 5000;
-
 const uint8_t GameController::TIMER_ITRVL = 10;
 const uint8_t GameController::WATCH_TIME_INCREMENTATION = 3;
 const uint8_t GameController::DEFAULT_WATCH_TIME = 6;
@@ -90,6 +88,8 @@ GameController::GameController() :
     Controller(),
     level(0, 0)
 {
+    displayLevelTime = utils::Context::get().getClockMillisecondsTime();
+
     starCellsAmount = 0;
     lifesAmount = 0;
     foundStarCellsAmount = 0;
@@ -269,8 +269,10 @@ unsigned short GameController::render()
 
     if (
         (status == WATCHING || status == PLAYING_AND_WATCHING) &&
-        clock.getElapsedTime().asMilliseconds() >
-        DEFAULT_WATCHING_TIME
+        (
+            utils::Context::get().getClockMillisecondsTime() -
+            displayLevelTime > 5000
+        )
     )
     {
         /* hide all the cells except departure */
@@ -290,7 +292,6 @@ unsigned short GameController::render()
         sounds::SoundsManager::get().getHideLevelSound().play();
 
         status = PLAYING;
-        clock.restart();
     }
 
     nextControllerId = animateScreenTransition();
@@ -479,9 +480,6 @@ void GameController::executeCellAction()
         level.setAllCellsVisibility(false);
 
         status = PLAYING_AND_WATCHING;
-
-        /* force the clock to restart */
-        clock.restart();
     }
 
     /* update the current display floor and player position if the cell is a stair cell */
@@ -535,7 +533,10 @@ void GameController::displayTime()
     /* update the time every 10 milliseconds, keep number
      * directly inside the code because they never change
      * according to the purposes of the function */
-    if(timeClck.getElapsedTime().asMilliseconds() >= TIMER_ITRVL)
+    if(
+        utils::Context::get().getClockMillisecondsTime() -
+        lastTimerUpdateTime > 10
+    )
     {
 
         timeMilli++;
@@ -551,7 +552,10 @@ void GameController::displayTime()
         }
 
         time.setString(updateTimeStr());
-        timeClck.restart();
+
+        /* update the last timer update time with the current time at the
+           end of the animation */
+        lastTimerUpdateTime = utils::Context::get().getClockMillisecondsTime();
     }
 
     utils::Context::get().getSfmlWindow().draw(time);
