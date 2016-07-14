@@ -29,6 +29,7 @@
 #include "Controller.hpp"
 
 #include "Level.hpp"
+#include "TimerWidget.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -70,19 +71,9 @@ private:
     void executeCellAction();
 
     /**
-     * @brief display the game time
-     */
-    void displayTime();
-
-    /**
      * @brief set and increment the displayed value of the star counter
      */
     void updateStarCntStr();
-
-    /**
-     * @brief update the time string according to the current time
-     */
-    std::string updateTimeStr();
 
     /**
      * @brief update the lifes string according to the lifes amount
@@ -115,9 +106,9 @@ private:
        kind of action cannot be done in the header */
     sf::Uint32 displayLevelTime;
 
-    /* the SFML unsigned integer contains the time of the last animation
-       update of the graphical timer; by default, this variable is equal to 0 */
-    sf::Uint32 lastTimerUpdateTime {0};
+    /* the graphical timer widget of the game; renders the elapsed time since
+       the beginning of the game */
+    widgets::TimerWidget timer;
 
     /**
      * @enum GameController::GameStatus
@@ -135,9 +126,6 @@ private:
     uint16_t foundStarCellsAmount;
     uint16_t lifesAmount;
 
-    uint8_t timeMilli;
-    uint8_t timeSec;
-    uint8_t timeMin;
     uint8_t floor;
     uint8_t watchTime;
 
@@ -147,7 +135,6 @@ private:
 
     entities::Level level;
 
-    sf::Text time;
     sf::Text foundStarsAmntStr;
     sf::Text lifesAmntStr;
     sf::Text targetStr;
