@@ -42,45 +42,6 @@ namespace memoris
 namespace controllers
 {
 
-const std::string GameController::STAR_IMG_PATH = "res/images/star.png";
-const std::string GameController::LIFE_IMG_PATH = "res/images/life.png";
-const std::string GameController::TOTAL_STARS_IMG_PATH = "res/images/target.png";
-const std::string GameController::TIME_IMG_PATH = "res/images/timer.png";
-const std::string GameController::FLOOR_IMG_PATH = "res/images/floor.png";
-
-const float GameController::LEVEL_HORIZONTAL_POSITION = 300;
-const float GameController::LEVEL_VERTICAL_POSITION = 100;
-
-const uint8_t GameController::TIMER_ITRVL = 10;
-const uint8_t GameController::WATCH_TIME_INCREMENTATION = 3;
-const uint8_t GameController::DEFAULT_WATCH_TIME = 6;
-
-const uint16_t GameController::TIMER_HRTL_PSTN = 295;
-const uint16_t GameController::TIMER_VRTL_PSTN = 10;
-const uint16_t GameController::STAR_HRTL_PSTN = 1250;
-const uint16_t GameController::STAR_VRTL_PSTN = 0;
-const uint16_t GameController::LIFE_HRTL_PSTN = 1250;
-const uint16_t GameController::LIFE_VRTL_PSTN = 50;
-const uint16_t GameController::FOUND_STAR_CELLS_HRTL_PSTN = 1200;
-const int16_t GameController::FOUND_STAR_CELLS_VRTL_PSTN = -10;
-const uint16_t GameController::LIFES_HRTL_PSTN = 1200;
-const uint16_t GameController::LIFES_VRTL_PSTN = 35;
-
-const float GameController::TOTAL_STARS_HRTL_PSTN = 1050;
-const float GameController::TOTAL_STARS_VRTL_PSTN = -10;
-const float GameController::TARGET_HRTL_PSTN = 1100;
-const float GameController::TARGET_VRTL_PSTN = 0;
-const float GameController::TIME_HRTL_PSTN = 1050;
-const float GameController::TIME_VRTL_PSTN = 35;
-const float GameController::TIME_IMG_HRTL_PSTN = 1100;
-const float GameController::TIME_IMG_VRTL_PSTN = 50;
-const float GameController::LEFT_SEPARATOR_PSTN = 290;
-const float GameController::RIGHT_SEPARATOR_PSTN = 1308;
-const float GameController::FLOOR_HRTL_PSTN = 900;
-const float GameController::FLOOR_VRTL_PSTN = -10;
-const float GameController::FLOOR_IMG_HRTL_PSTN = 950;
-const float GameController::FLOOR_IMG_VRTL_PSTN = 0;
-
 /**
  *
  */
@@ -102,13 +63,13 @@ GameController::GameController() :
     floor = 0;
 
     /* TODO: depends of previous levels */
-    watchTime = DEFAULT_WATCH_TIME;
+    watchTime = 6;
 
     status = WATCHING;
 
     level.setPosition(
-        LEVEL_HORIZONTAL_POSITION,
-        LEVEL_VERTICAL_POSITION
+        300,
+        100
     );
 
     /* TODO: use a constant level name for now... */
@@ -122,8 +83,8 @@ GameController::GameController() :
     time.setCharacterSize(memoris::fonts::TEXT_SIZE);
     time.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     time.setPosition(
-        TIMER_HRTL_PSTN,
-        TIMER_VRTL_PSTN
+        295,
+        10
     );
 
     /* TODO: set a constant string for now, should change
@@ -133,8 +94,8 @@ GameController::GameController() :
     foundStarsAmntStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
     foundStarsAmntStr.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     foundStarsAmntStr.setPosition(
-        FOUND_STAR_CELLS_HRTL_PSTN,
-        FOUND_STAR_CELLS_VRTL_PSTN
+        1200,
+        -10
     );
 
     lifesAmntStr.setFont(memoris::fonts::FontsManager::get().getTextFont());
@@ -142,16 +103,16 @@ GameController::GameController() :
     lifesAmntStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
     lifesAmntStr.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     lifesAmntStr.setPosition(
-        LIFES_HRTL_PSTN,
-        LIFES_VRTL_PSTN
+        1200,
+        35
     );
 
     timeStr.setFont(memoris::fonts::FontsManager::get().getTextFont());
     timeStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
     timeStr.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     timeStr.setPosition(
-        TIME_HRTL_PSTN,
-        TIME_VRTL_PSTN
+        1050,
+        35
     );
 
     /* TODO: static string for now... */
@@ -160,8 +121,8 @@ GameController::GameController() :
     floorStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
     floorStr.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     floorStr.setPosition(
-        FLOOR_HRTL_PSTN,
-        FLOOR_VRTL_PSTN
+        900,
+        -10
     );
 
     starCellsAmount = level.getStarCellsAmount();
@@ -171,44 +132,44 @@ GameController::GameController() :
     targetStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
     targetStr.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     targetStr.setPosition(
-        TOTAL_STARS_HRTL_PSTN,
-        TOTAL_STARS_VRTL_PSTN
+        1050,
+        -10
     );
 
-    textureStar.loadFromFile(STAR_IMG_PATH);
-    textureLife.loadFromFile(LIFE_IMG_PATH);
-    textureTarget.loadFromFile(TOTAL_STARS_IMG_PATH);
-    textureTime.loadFromFile(TIME_IMG_PATH);
-    textureFloor.loadFromFile(FLOOR_IMG_PATH);
+    textureStar.loadFromFile("res/images/star.png");
+    textureLife.loadFromFile("res/images/life.png");
+    textureTarget.loadFromFile("res/images/target.png");
+    textureTime.loadFromFile("res/images/timer.png");
+    textureFloor.loadFromFile("res/images/floor.png");
 
     spriteStar.setTexture(textureStar, true);
     spriteStar.setPosition(
-        STAR_HRTL_PSTN,
-        STAR_VRTL_PSTN
+        1250,
+        0
     );
 
     spriteFloor.setTexture(textureFloor, true);
     spriteFloor.setPosition(
-        FLOOR_IMG_HRTL_PSTN,
-        FLOOR_IMG_VRTL_PSTN
+        950,
+        0
     );
 
     spriteLife.setTexture(textureLife, true);
     spriteLife.setPosition(
-        LIFE_HRTL_PSTN,
-        LIFE_VRTL_PSTN
+        1250,
+        50
     );
 
     spriteTarget.setTexture(textureTarget, true);
     spriteTarget.setPosition(
-        TARGET_HRTL_PSTN,
-        TARGET_VRTL_PSTN
+        1100,
+        0
     );
 
     spriteTime.setTexture(textureTime, true);
     spriteTime.setPosition(
-        TIME_IMG_HRTL_PSTN,
-        TIME_IMG_VRTL_PSTN
+        1100,
+        50
     );
 
     leftSeparator.setSize(
@@ -226,12 +187,12 @@ GameController::GameController() :
     );
 
     leftSeparator.setPosition(
-        LEFT_SEPARATOR_PSTN,
+        290,
         0
     );
 
     rightSeparator.setPosition(
-        RIGHT_SEPARATOR_PSTN,
+        1308,
         0
     );
 
@@ -444,18 +405,18 @@ void GameController::executeCellAction()
     /* add three seconds if the cell is a time bonus */
     if (currCellStrRep == constants::CellsFileRepresentations::MORE_TIME_CELL)
     {
-        watchTime += WATCH_TIME_INCREMENTATION;
+        watchTime += 3;
         updateWatchingTimeStr();
     }
 
     /* delete three seconds if the cell is a time malus */
     if (currCellStrRep == constants::CellsFileRepresentations::LESS_TIME_CELL)
     {
-        watchTime -= WATCH_TIME_INCREMENTATION;
+        watchTime -= 3;
 
         /* the watch time cannot be less than 3 */
         watchTime =
-            watchTime < WATCH_TIME_INCREMENTATION ? WATCH_TIME_INCREMENTATION : watchTime;
+            watchTime < 3 ? 3 : watchTime;
 
         updateWatchingTimeStr();
     }

@@ -107,46 +107,6 @@ private:
         entities::Cell* newCell
     );
 
-    /* interval to wait before changing the game time value */
-    static const uint8_t TIMER_ITRVL;
-    static const uint8_t WATCH_TIME_INCREMENTATION;
-    static const uint8_t DEFAULT_WATCH_TIME;
-
-    static const std::string STAR_IMG_PATH;
-    static const std::string LIFE_IMG_PATH;
-    static const std::string TOTAL_STARS_IMG_PATH;
-    static const std::string TIME_IMG_PATH;
-    static const std::string FLOOR_IMG_PATH;
-
-    static const float LEVEL_HORIZONTAL_POSITION;
-    static const float LEVEL_VERTICAL_POSITION;
-
-    static const uint16_t TIMER_HRTL_PSTN;
-    static const uint16_t TIMER_VRTL_PSTN;
-    static const uint16_t STAR_HRTL_PSTN;
-    static const uint16_t STAR_VRTL_PSTN;
-    static const uint16_t LIFE_HRTL_PSTN;
-    static const uint16_t LIFE_VRTL_PSTN;
-    static const uint16_t FOUND_STAR_CELLS_HRTL_PSTN;
-    static const int16_t FOUND_STAR_CELLS_VRTL_PSTN;
-    static const uint16_t LIFES_HRTL_PSTN;
-    static const uint16_t LIFES_VRTL_PSTN;
-
-    static const float TOTAL_STARS_HRTL_PSTN;
-    static const float TOTAL_STARS_VRTL_PSTN;
-    static const float TARGET_HRTL_PSTN;
-    static const float TARGET_VRTL_PSTN;
-    static const float TIME_HRTL_PSTN;
-    static const float TIME_VRTL_PSTN;
-    static const float TIME_IMG_HRTL_PSTN;
-    static const float TIME_IMG_VRTL_PSTN;
-    static const float LEFT_SEPARATOR_PSTN;
-    static const float RIGHT_SEPARATOR_PSTN;
-    static const float FLOOR_HRTL_PSTN;
-    static const float FLOOR_VRTL_PSTN;
-    static const float FLOOR_IMG_HRTL_PSTN;
-    static const float FLOOR_IMG_VRTL_PSTN;
-
     /* contains the exact time when the level is displayed to the player; this
        is used for the "hide level" animation; we have to know when the level
        is rendered to calculate when we have to hide it */
