@@ -33,6 +33,7 @@
 #include "SoundsManager.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
+#include "TexturesManager.hpp"
 
 namespace memoris
 {
@@ -124,37 +125,33 @@ GameController::GameController() :
         -10
     );
 
-    textureStar.loadFromFile("res/images/star.png");
-    textureLife.loadFromFile("res/images/life.png");
-    textureTarget.loadFromFile("res/images/target.png");
-    textureTime.loadFromFile("res/images/timer.png");
-    textureFloor.loadFromFile("res/images/floor.png");
-
-    spriteStar.setTexture(textureStar, true);
+    spriteStar.setTexture(textures::TexturesManager::get().getStarTexture());
     spriteStar.setPosition(
         1250,
         0
     );
 
-    spriteFloor.setTexture(textureFloor, true);
+    spriteFloor.setTexture(textures::TexturesManager::get().getFloorTexture());
     spriteFloor.setPosition(
         950,
         0
     );
 
-    spriteLife.setTexture(textureLife, true);
+    spriteLife.setTexture(textures::TexturesManager::get().getLifeTexture());
     spriteLife.setPosition(
         1250,
         50
     );
 
-    spriteTarget.setTexture(textureTarget, true);
+    spriteTarget.setTexture(
+        textures::TexturesManager::get().getTargetTexture()
+    );
     spriteTarget.setPosition(
         1100,
         0
     );
 
-    spriteTime.setTexture(textureTime, true);
+    spriteTime.setTexture(textures::TexturesManager::get().getTimeTexture());
     spriteTime.setPosition(
         1100,
         50

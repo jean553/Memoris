@@ -141,12 +141,6 @@ private:
     sf::Text timeStr;
     sf::Text floorStr;
 
-    sf::Texture textureStar;
-    sf::Texture textureLife;
-    sf::Texture textureTarget;
-    sf::Texture textureTime;
-    sf::Texture textureFloor;
-
     sf::Sprite spriteStar;
     sf::Sprite spriteLife;
     sf::Sprite spriteTarget;

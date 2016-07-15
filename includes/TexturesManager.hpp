@@ -56,6 +56,41 @@ public:
      */
     sf::Texture& getGithubTexture();
 
+    /**
+     * @brief getter for the star texture
+     *
+     * @return sf::Texture&
+     */
+    sf::Texture& getStarTexture();
+
+    /**
+     * @brief getter for the life texture
+     *
+     * @return sf::Texture&
+     */
+    sf::Texture& getLifeTexture();
+
+    /**
+     * @brief getter for the target texture
+     *
+     * @return sf::Texture&
+     */
+    sf::Texture& getTargetTexture();
+
+    /**
+     * @brief getter for the time texture
+     *
+     * @return sf::Texture&
+     */
+    sf::Texture& getTimeTexture();
+
+    /**
+     * @brief getter for the floor texture
+     *
+     * @return sf::Texture&
+     */
+    sf::Texture& getFloorTexture();
+
 private:
 
     /**
@@ -76,15 +111,15 @@ private:
         const std::string& filePath
     );
 
-    /* message to display in the console if one file cannot be loaded */
-    static const std::string LOAD_TEXTURE_FILE_ERROR;
-
-    /* paths of the textures files */
-
-    static const std::string GITHUB_TEXTURE_PATH;
-
     /* github texture displayed on the main menu */
     sf::Texture githubTexture;
+
+    /* the textures of the game screen */
+    sf::Texture starTexture;
+    sf::Texture lifeTexture;
+    sf::Texture targetTexture;
+    sf::Texture timeTexture;
+    sf::Texture floorTexture;
 };
 
 }

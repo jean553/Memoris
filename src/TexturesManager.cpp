@@ -28,11 +28,6 @@ namespace memoris
 namespace textures
 {
 
-const std::string TexturesManager::LOAD_TEXTURE_FILE_ERROR =
-    "Cannot load the texture : ";
-const std::string TexturesManager::GITHUB_TEXTURE_PATH =
-    "res/images/fork-me.png";
-
 /**
  *
  */
@@ -53,7 +48,12 @@ TexturesManager::TexturesManager()
     /* load all the textures one by one; an exception is throw
        and the program stop if one texture cannot be loaded */
 
-    loadTexture(githubTexture, GITHUB_TEXTURE_PATH);
+    loadTexture(githubTexture, "res/images/fork-me.png");
+    loadTexture(starTexture, "res/images/star.png");
+    loadTexture(lifeTexture, "res/images/life.png");
+    loadTexture(targetTexture, "res/images/target.png");
+    loadTexture(timeTexture, "res/images/timer.png");
+    loadTexture(floorTexture, "res/images/floor.png");
 }
 
 /**
@@ -62,6 +62,46 @@ TexturesManager::TexturesManager()
 sf::Texture& TexturesManager::getGithubTexture()
 {
     return githubTexture;
+}
+
+/**
+ *
+ */
+sf::Texture& TexturesManager::getStarTexture()
+{
+    return starTexture;
+}
+
+/**
+ *
+ */
+sf::Texture& TexturesManager::getLifeTexture()
+{
+    return lifeTexture;
+}
+
+/**
+ *
+ */
+sf::Texture& TexturesManager::getTargetTexture()
+{
+    return targetTexture;
+}
+
+/**
+ *
+ */
+sf::Texture& TexturesManager::getTimeTexture()
+{
+    return timeTexture;
+}
+
+/**
+ *
+ */
+sf::Texture& TexturesManager::getFloorTexture()
+{
+    return floorTexture;
 }
 
 /**
@@ -76,7 +116,7 @@ void TexturesManager::loadTexture(
        exception and terminates the program if the texture cannot be loaded */
     if (!sfmlTexture.loadFromFile(filePath))
     {
-        throw std::invalid_argument(LOAD_TEXTURE_FILE_ERROR + filePath);
+        throw std::invalid_argument("Cannot load texture : " + filePath);
     }
 }
 
