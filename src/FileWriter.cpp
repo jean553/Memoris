@@ -30,7 +30,10 @@
 #include <iostream>
 #include <stdexcept>
 
-using namespace utils;
+namespace memoris
+{
+namespace utils
+{
 
 /**
  *
@@ -88,7 +91,7 @@ std::string FileWriter::readFile(const std::string& fileName)
  */
 std::vector<std::string> FileWriter::readFileWithSprt(const std::string& filePath)
 {
-    return utils::StringsListsUtils::splitString(
+    return ::utils::StringsListsUtils::splitString(
                readFile(filePath),
                '|'
            );
@@ -105,4 +108,7 @@ uint8_t FileWriter::getItemsAmnt(const std::string& filePath)
     /* count the amount of separators and add one ( we return the amount
      * of items, not the amount of separators ) */
     return (std::count(fileContent.begin(), fileContent.end(), '|') + 1);
+}
+
+}
 }

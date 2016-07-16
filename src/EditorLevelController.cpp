@@ -318,7 +318,7 @@ unsigned short EditorLevelController::render()
                 {
                     if(buttonSave.isMouseHover())
                     {
-                        saveLevelError = !::utils::FileWriter::writeFile(
+                        saveLevelError = !utils::FileWriter::writeFile(
                                              constants::Directories::LEVELS_DIRECTORY_PATH +
                                              level.getName() +
                                              constants::Extensions::LEVELS_EXTENSION,
