@@ -49,26 +49,11 @@ GameController::GameController() :
         295.f,
         10.f
     ),
-    level(0, 0)
-{
-    starCellsAmount = 0;
-    lifesAmount = 0;
-    foundStarCellsAmount = 0;
-
-    terminateGame = false;
-
-    floor = 0;
-
-    /* TODO: depends of previous levels */
-    watchTime = 6;
-
-    status = WATCHING;
-
-    level.setPosition(
+    level(
         300,
         100
-    );
-
+    )
+{
     /* TODO: use a constant level name for now... */
     level.loadCells(
         utils::Context::get(),

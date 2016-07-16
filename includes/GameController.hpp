@@ -41,6 +41,18 @@ namespace controllers
 
 class GameController : public Controller
 {
+    /**
+     * @enum GameController::GameStatus
+     *
+     * @brief gives information about the current status of the game
+     */
+    enum GameStatus
+    {
+        WATCHING, /* < the player is watching the level before playing */
+        PLAYING, /* < the player is playing the level and moving over the cells */
+        PLAYING_AND_WATCHING /* < the player just took a light bonus, he can move and watch */
+    };
+
 public:
 
     /**
@@ -110,37 +122,41 @@ private:
        the beginning of the game */
     widgets::TimerWidget timer;
 
-    /**
-     * @enum GameController::GameStatus
-     *
-     * @brief gives information about the current status of the game
-     */
-    enum GameStatus
-    {
-        WATCHING, /* < the player is watching the level before playing */
-        PLAYING, /* < the player is playing the level and moving over the cells */
-        PLAYING_AND_WATCHING /* < the player just took a light bonus, he can move and watch */
-    };
+    /* the displayed stars cells amount available on the level */
+    unsigned short starCellsAmount {0};
 
-    uint16_t starCellsAmount;
-    uint16_t foundStarCellsAmount;
-    uint16_t lifesAmount;
+    /* the amount of star cells that the user has already found */
+    unsigned short foundStarCellsAmount {0};
 
-    uint8_t floor;
-    uint8_t watchTime;
+    /* the amount of lifes the user has */
+    unsigned short lifesAmount {0};
 
-    bool terminateGame;
+    /* the current player level */
+    unsigned short floor {0};
 
-    GameStatus status;
+    /* the allowed watch time for the current level, depends of the previous
+       levels, equal to 6 by default */
+    unsigned short watchTime {6};
 
+    /* boolean that indicates that the level is terminated, false by default */
+    /* TODO: check if necessary */
+    bool terminateGame {false};
+
+    /* status that indicates the current status of the game */
+    /* TODO: check if necessary */
+    GameStatus status {WATCHING};
+
+    /* the level object that contains all the cells */
     entities::Level level;
 
+    /* TODO: to refactor in a separated class */
     sf::Text foundStarsAmntStr;
     sf::Text lifesAmntStr;
     sf::Text targetStr;
     sf::Text timeStr;
     sf::Text floorStr;
 
+    /* TODO: to refactor in a separated class */
     sf::Sprite spriteStar;
     sf::Sprite spriteLife;
     sf::Sprite spriteTarget;
