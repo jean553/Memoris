@@ -50,15 +50,21 @@ GameController::GameController() :
         100
     )
 {
+    /* load all the cells of the level from the required level file */
+    /* TODO: to refactor, this call construction is really bad... */
     level.loadCells(
-        utils::Context::get(),
         utils::FileWriter::readFile(
             utils::Context::get().getNextLevelPathString()
         )
     );
+
+    /* do not change the color of a cell when the cursor mouse hover it */
+    /* TODO: this should be the default behavior of the cells */
     level.setCellsCursorSensitivity(false);
 
-    /* save the exact time the level starts to be displayed */
+    /* save the exact time the level starts to be displayed; this is used to
+       calculate the duration of the watching period before the beginning
+       of the playing period */
     displayLevelTime = utils::Context::get().getClockMillisecondsTime();
 }
 
@@ -70,10 +76,7 @@ unsigned short GameController::render()
     /* displays the game dashboard */
     dashboard.display();
 
-    level.displayAllCellsByFloor(
-        utils::Context::get(),
-        floor
-    );
+    level.displayAllCellsByFloor(floor);
 
     if (
         (status == WATCHING || status == PLAYING_AND_WATCHING) &&

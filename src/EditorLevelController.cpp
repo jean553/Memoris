@@ -201,7 +201,7 @@ EditorLevelController::EditorLevelController() :
     buttonNextFloor.setEnable(false);
     buttonPreviousFloor.setEnable(false);
 
-    level.loadCells(utils::Context::get());
+    level.loadCells();
 }
 
 /**
@@ -217,10 +217,7 @@ unsigned short EditorLevelController::render()
     buttonNextFloor.display();
     buttonPreviousFloor.display();
 
-    level.displayAllCellsByFloor(
-        utils::Context::get(),
-        currentFloor
-    );
+    level.displayAllCellsByFloor(currentFloor);
 
     cellSelector.display();
     floorSelectionFrame.display();
