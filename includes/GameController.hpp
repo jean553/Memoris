@@ -134,9 +134,6 @@ private:
 
     /* the level object that contains all the cells */
     entities::Level level;
-
-    sf::RectangleShape leftSeparator;
-    sf::RectangleShape rightSeparator;
 };
 
 }

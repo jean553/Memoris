@@ -29,6 +29,7 @@
 #include "ColorsManager.hpp"
 #include "TexturesManager.hpp"
 #include "Context.hpp"
+#include "window.hpp"
 
 namespace memoris
 {
@@ -136,6 +137,33 @@ GameDashboard::GameDashboard() :
         1100.f,
         50.f
     );
+
+    /* initialize the graphical separators on both sides of the cells array */
+
+    leftSeparator.setSize(
+        sf::Vector2f(
+            1,
+            window::HEIGHT
+        )
+    );
+    leftSeparator.setPosition(
+        290,
+        0
+    );
+    leftSeparator.setFillColor(colors::ColorsManager::get().getColorWhite());
+
+    rightSeparator.setSize(
+        sf::Vector2f(
+            1,
+            window::HEIGHT
+        )
+    );
+    rightSeparator.setPosition(
+        1308,
+        0
+    );
+    rightSeparator.setFillColor(colors::ColorsManager::get().getColorWhite());
+
 }
 
 /**
@@ -159,6 +187,10 @@ void GameDashboard::display()
     utils::Context::get().getSfmlWindow().draw(spriteTarget);
     utils::Context::get().getSfmlWindow().draw(spriteTime);
     utils::Context::get().getSfmlWindow().draw(spriteFloor);
+
+    /* displays the separators on both sides of the cells array */
+    utils::Context::get().getSfmlWindow().draw(leftSeparator);
+    utils::Context::get().getSfmlWindow().draw(rightSeparator);
 }
 
 }
