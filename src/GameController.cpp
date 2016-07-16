@@ -57,33 +57,6 @@ GameController::GameController() :
     );
     level.setCellsCursorSensitivity(false);
 
-    leftSeparator.setSize(
-        sf::Vector2f(
-            1,
-            window::HEIGHT
-        )
-    );
-
-    rightSeparator.setSize(
-        sf::Vector2f(
-            1,
-            window::HEIGHT
-        )
-    );
-
-    leftSeparator.setPosition(
-        290,
-        0
-    );
-
-    rightSeparator.setPosition(
-        1308,
-        0
-    );
-
-    leftSeparator.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
-    rightSeparator.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
-
     /* save the exact time the level starts to be displayed */
     displayLevelTime = utils::Context::get().getClockMillisecondsTime();
 }
@@ -100,9 +73,6 @@ unsigned short GameController::render()
         utils::Context::get(),
         floor
     );
-
-    utils::Context::get().getSfmlWindow().draw(leftSeparator);
-    utils::Context::get().getSfmlWindow().draw(rightSeparator);
 
     if (
         (status == WATCHING || status == PLAYING_AND_WATCHING) &&

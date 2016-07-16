@@ -77,6 +77,11 @@ private:
     sf::Sprite spriteTarget;
     sf::Sprite spriteTime;
     sf::Sprite spriteFloor;
+
+    /* the two SFML surfaces that are the two separators on both sides of the
+       level cells */
+    sf::RectangleShape leftSeparator;
+    sf::RectangleShape rightSeparator;
 };
 
 }
