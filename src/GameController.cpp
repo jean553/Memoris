@@ -23,17 +23,11 @@
  */
 
 #include "GameController.hpp"
-#include "FileWriter.hpp"
 
+#include "FileWriter.hpp"
 #include "CellsFileRepresentations.hpp"
-#include "CellFactory.hpp"
-#include "fonts.hpp"
-#include "window.hpp"
 #include "controllers.hpp"
 #include "SoundsManager.hpp"
-#include "FontsManager.hpp"
-#include "ColorsManager.hpp"
-#include "TexturesManager.hpp"
 
 namespace memoris
 {
@@ -119,47 +113,70 @@ unsigned short GameController::render()
            the current time here */
     }
 
+    /* used for the screen switch transition animation */
     nextControllerId = animateScreenTransition();
 
+    /* the events loop of the game controller */
     while(utils::Context::get().getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {
+        /* a key is pressed on the keyboard */
         case sf::Event::KeyPressed:
         {
             switch(event.key.code)
             {
+            /* the escape key is pressed down */
             case sf::Keyboard::Escape:
             {
-                expectedControllerId =
-                    MAIN_MENU_CONTROLLER_ID;
+                /* the game is terminated and the called controller is the
+                   main menu controller */
+
+                /* NOTE: the game does not ask for confirmation to the player
+                   when he pressed the espace key; in fact, this feature does
+                   not exist in Memoris: this would give to the player some
+                   'relax' time and more time to thinks about how to finish
+                   the level, even if the cells are not displayed during the
+                   pause time */
+                expectedControllerId = MAIN_MENU_CONTROLLER_ID;
 
                 break;
             }
+            /* the up key is pressed down */
             case sf::Keyboard::Up:
             {
+                /* move up the player */
                 movePlayer(UP);
 
                 break;
             }
+            /* the down key is pressed down */
             case sf::Keyboard::Down:
             {
+                /* move down the player */
                 movePlayer(DOWN);
 
                 break;
             }
+            /* the left key is pressed down */
             case sf::Keyboard::Left:
             {
+                /* move the player on the left */
                 movePlayer(LEFT);
 
                 break;
             }
+            /* the right key is pressed down */
             case sf::Keyboard::Right:
             {
+                /* move the player on the right */
                 movePlayer(RIGHT);
 
                 break;
             }
+            /* TODO: this is a cheat function, only in order to help during
+               the game development and display all the cells; this function
+               will be deleted */
             case sf::Keyboard::V:
             {
                 level.setAllCellsVisibility(false);
@@ -181,11 +198,12 @@ unsigned short GameController::render()
         }
     }
 
-    /* check if the game has to be finished according to the utils::Context::get() */
+    /* this condition checks if the game has to come back to the main menu
+       controller page, if all the levels of the serie have been played and
+       won by the user */
     if (terminateGame)
     {
-        nextControllerId =
-            MAIN_MENU_CONTROLLER_ID;
+        nextControllerId = MAIN_MENU_CONTROLLER_ID;
     }
 
     return nextControllerId;
@@ -203,6 +221,8 @@ void GameController::movePlayer(PlayerDirection direction)
         return;
     }
 
+    /* if the player is allowd to move, we call a level function to move him
+       in the expected direction and update the level cells status */
     level.movePlayer(direction);
 
     /* execute the action of the new cell */
