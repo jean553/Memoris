@@ -76,10 +76,15 @@ unsigned short GameController::render()
     /* displays the game dashboard */
     dashboard.display();
 
+    /* display all the cells of the player current floor */
     level.displayAllCellsByFloor(floor);
 
+    /* displays all the cells of the level during the time of the watching
+       period */
+    /* TODO: 5000 ms is a default value, should be the actual bonus watching
+       time of the player */
     if (
-        (status == WATCHING || status == PLAYING_AND_WATCHING) &&
+        watchingPeriod &&
         (
             utils::Context::get().getClockMillisecondsTime() -
             displayLevelTime > 5000
@@ -89,20 +94,29 @@ unsigned short GameController::render()
         /* hide all the cells except departure */
         level.setAllCellsVisibility(true);
 
-        /* set the player position on the departure only if
-         * the game starts */
-        if (status == WATCHING)
+        /* when the game starts, the playing period is disabled; this is the
+           first time we hide all the cells; when we hide all the cells for
+           this first time, the player position is set on the departure cell;
+           sometimes during the game, all the cells are displayed for a short
+           time; when the cells are hidden again, we do not force the player
+           to come back on the departure cell */
+        if (!playingPeriod)
         {
             level.setDepartureCellAsEnabled();
         }
-        else
-        {
-            level.setPlayerCellAsEnabled();
-        }
 
+        /* plays the hide level sound */
         sounds::SoundsManager::get().getHideLevelSound().play();
 
-        status = PLAYING;
+        /* the watching mode is now terminated */
+        watchingPeriod = false;
+
+        /* the playing mode starts now */
+        playingPeriod = true;
+
+        /* at this moment, we do not save the moment the animation ends; in
+           fact, this is not a repeated action, there is no need to save
+           the current time here */
     }
 
     nextControllerId = animateScreenTransition();
@@ -182,11 +196,9 @@ unsigned short GameController::render()
  */
 void GameController::movePlayer(PlayerDirection direction)
 {
-    /* try to move the player only if the current status is playing */
-    if (
-        status != PLAYING &&
-        status != PLAYING_AND_WATCHING
-    )
+    /* when the current status of the game is not the 'playing' one; the
+       player is not allowed to move at all */
+    if (!playingPeriod)
     {
         return;
     }
@@ -284,7 +296,13 @@ void GameController::executeCellAction()
     {
         level.setAllCellsVisibility(false);
 
-        status = PLAYING_AND_WATCHING;
+        /* all the level is now visible, the watching period is temporary
+           enabled */
+        watchingPeriod = true;
+
+        /* save the current time, this is used to show the level cells only
+           during a dedicated period of time */
+        displayLevelTime = utils::Context::get().getClockMillisecondsTime();
     }
 
     /* update the current display floor and player position if the cell is a stair cell */
