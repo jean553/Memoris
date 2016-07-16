@@ -24,9 +24,11 @@
  */
 
 #include "Level.hpp"
+
 #include "dimensions.hpp"
 #include "CellFactory.hpp"
 #include "CellsFileRepresentations.hpp"
+#include "Context.hpp"
 
 using namespace entities;
 
@@ -49,10 +51,7 @@ Level::Level(
 /**
  *
  */
-Level::Level(
-    memoris::utils::Context& context,
-    const Level &level
-)
+Level::Level(const Level &level)
 {
     initializeSomeCommonCells();
 
@@ -62,7 +61,7 @@ Level::Level(
     I need to investigate how to do it properly. By the way,
     I think I will change from a multi-dimensional array to
     a one-dimension array... */
-    loadCells(context);
+    loadCells();
 
     horizontalPosition = level.horizontalPosition;
     verticalPosition = level.verticalPosition;
@@ -89,10 +88,7 @@ Level::~Level()
 /**
  *
  */
-void Level::displayAllCellsByFloor(
-    memoris::utils::Context& context,
-    const uint8_t& floor
-)
+void Level::displayAllCellsByFloor(const uint8_t& floor)
 {
     for (
         std::vector<Cell>::iterator cell = cells.begin();
@@ -108,7 +104,7 @@ void Level::displayAllCellsByFloor(
             memoris::dimensions::LEVEL_CELLS_PER_FLOOR
         )
         {
-            cell->display(context);
+            cell->display(memoris::utils::Context::get());
         }
     }
 }
@@ -198,17 +194,14 @@ std::string Level::getCellsAsString()
 /**
  *
  */
-void Level::loadCells(
-    memoris::utils::Context& context,
-    const std::string& levelString
-)
+void Level::loadCells(const std::string& levelString)
 {
     short cellNumber = 0;
     uint16_t cellAddress = 0, currentLine = 0, currentColumn = 0;
 
     for (uint16_t i = 0; i < memoris::dimensions::CELLS_PER_LEVEL; i++)
     {
-        Cell newCell(context);
+        Cell newCell(memoris::utils::Context::get());
 
         if (levelString.empty())
         {

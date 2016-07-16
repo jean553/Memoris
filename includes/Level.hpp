@@ -67,15 +67,11 @@ public:
     /**
      * @brief copy constructor
      *
-     * @param context current context reference
      * @param level reference to the level to copy
      *
      * TODO: the cells are not copied for now, all the cells are created as Empty Cells
      */
-    Level(
-        memoris::utils::Context& context,
-        const Level &level
-    );
+    Level(const Level &level);
 
     /**
      * @brief used to destroy the cells pointers array
@@ -85,13 +81,9 @@ public:
     /**
      * @brief display all the cells of one floor
      *
-     * @param context pointer to a context
      * @param floor number
      */
-    void displayAllCellsByFloor(
-        memoris::utils::Context& context,
-        const uint8_t& floor = 0
-    );
+    void displayAllCellsByFloor(const uint8_t& floor = 0);
 
     /**
      * @brief name setter
@@ -143,10 +135,7 @@ public:
      *
      * @param levelString string representation of the level
      */
-    void loadCells(
-        memoris::utils::Context& context,
-        const std::string& levelString = ""
-    );
+    void loadCells(const std::string& levelString = "");
 
     /**
      * @brief hide all the cells of the level
