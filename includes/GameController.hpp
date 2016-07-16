@@ -42,17 +42,6 @@ namespace controllers
 
 class GameController : public Controller
 {
-    /**
-     * @enum GameController::GameStatus
-     *
-     * @brief gives information about the current status of the game
-     */
-    enum GameStatus
-    {
-        WATCHING, /* < the player is watching the level before playing */
-        PLAYING, /* < the player is playing the level and moving over the cells */
-        PLAYING_AND_WATCHING /* < the player just took a light bonus, he can move and watch */
-    };
 
 public:
 
@@ -124,13 +113,25 @@ private:
        levels, equal to 6 by default */
     unsigned short watchTime {6};
 
+    /* NOTE: the use a watching and a playing boolean; we use two different
+       booleans; we might think that one boolean is enough to handle the
+       actions (the player is watching or playing), but in fact, it can be
+       necessary to display all the cells for a short time when the user is
+       playing, for example, when the user got a visibility bonus */
+
+    /* boolean that is true if all the cells of the level have to be
+       displayed; by default, the watching period is enabled and the
+       boolean is equal to true */
+    bool watchingPeriod {true};
+
+    /* boolean that is true when the user is playing; when the game starts,
+       the player is watching the level and not playing on it, so the default
+       value is false */
+    bool playingPeriod {false};
+
     /* boolean that indicates that the level is terminated, false by default */
     /* TODO: check if necessary */
     bool terminateGame {false};
-
-    /* status that indicates the current status of the game */
-    /* TODO: check if necessary */
-    GameStatus status {WATCHING};
 
     /* the level object that contains all the cells */
     entities::Level level;
