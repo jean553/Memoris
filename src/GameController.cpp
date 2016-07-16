@@ -45,10 +45,6 @@ namespace controllers
  */
 GameController::GameController() :
     Controller(),
-    timer(
-        295.f,
-        10.f
-    ),
     level(
         300,
         100
@@ -60,87 +56,6 @@ GameController::GameController() :
         ::utils::FileWriter::readFile(utils::Context::get().getNextLevelPathString())
     );
     level.setCellsCursorSensitivity(false);
-
-    /* TODO: set a constant string for now, should change
-     * according to the found stars... */
-    foundStarsAmntStr.setFont(memoris::fonts::FontsManager::get().getTextFont());
-    foundStarsAmntStr.setString("0");
-    foundStarsAmntStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
-    foundStarsAmntStr.setColor(memoris::colors::ColorsManager::get().getColorWhite());
-    foundStarsAmntStr.setPosition(
-        1200,
-        -10
-    );
-
-    lifesAmntStr.setFont(memoris::fonts::FontsManager::get().getTextFont());
-    lifesAmntStr.setString(std::to_string(lifesAmount));
-    lifesAmntStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
-    lifesAmntStr.setColor(memoris::colors::ColorsManager::get().getColorWhite());
-    lifesAmntStr.setPosition(
-        1200,
-        35
-    );
-
-    timeStr.setFont(memoris::fonts::FontsManager::get().getTextFont());
-    timeStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
-    timeStr.setColor(memoris::colors::ColorsManager::get().getColorWhite());
-    timeStr.setPosition(
-        1050,
-        35
-    );
-
-    /* TODO: static string for now... */
-    floorStr.setFont(memoris::fonts::FontsManager::get().getTextFont());
-    floorStr.setString(std::to_string(floor));
-    floorStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
-    floorStr.setColor(memoris::colors::ColorsManager::get().getColorWhite());
-    floorStr.setPosition(
-        900,
-        -10
-    );
-
-    starCellsAmount = level.getStarCellsAmount();
-
-    targetStr.setFont(memoris::fonts::FontsManager::get().getTextFont());
-    targetStr.setString(std::to_string(starCellsAmount));
-    targetStr.setCharacterSize(memoris::fonts::TEXT_SIZE);
-    targetStr.setColor(memoris::colors::ColorsManager::get().getColorWhite());
-    targetStr.setPosition(
-        1050,
-        -10
-    );
-
-    spriteStar.setTexture(textures::TexturesManager::get().getStarTexture());
-    spriteStar.setPosition(
-        1250,
-        0
-    );
-
-    spriteFloor.setTexture(textures::TexturesManager::get().getFloorTexture());
-    spriteFloor.setPosition(
-        950,
-        0
-    );
-
-    spriteLife.setTexture(textures::TexturesManager::get().getLifeTexture());
-    spriteLife.setPosition(
-        1250,
-        50
-    );
-
-    spriteTarget.setTexture(
-        textures::TexturesManager::get().getTargetTexture()
-    );
-    spriteTarget.setPosition(
-        1100,
-        0
-    );
-
-    spriteTime.setTexture(textures::TexturesManager::get().getTimeTexture());
-    spriteTime.setPosition(
-        1100,
-        50
-    );
 
     leftSeparator.setSize(
         sf::Vector2f(
@@ -169,8 +84,6 @@ GameController::GameController() :
     leftSeparator.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
     rightSeparator.setFillColor(memoris::colors::ColorsManager::get().getColorWhite());
 
-    updateWatchingTimeStr();
-
     /* save the exact time the level starts to be displayed */
     displayLevelTime = utils::Context::get().getClockMillisecondsTime();
 }
@@ -180,24 +93,14 @@ GameController::GameController() :
  */
 unsigned short GameController::render()
 {
-    /* render the timer widget */
-    timer.display();
+    /* displays the game dashboard */
+    dashboard.display();
 
     level.displayAllCellsByFloor(
         utils::Context::get(),
         floor
     );
 
-    utils::Context::get().getSfmlWindow().draw(spriteStar);
-    utils::Context::get().getSfmlWindow().draw(spriteLife);
-    utils::Context::get().getSfmlWindow().draw(spriteTarget);
-    utils::Context::get().getSfmlWindow().draw(spriteTime);
-    utils::Context::get().getSfmlWindow().draw(spriteFloor);
-    utils::Context::get().getSfmlWindow().draw(foundStarsAmntStr);
-    utils::Context::get().getSfmlWindow().draw(lifesAmntStr);
-    utils::Context::get().getSfmlWindow().draw(targetStr);
-    utils::Context::get().getSfmlWindow().draw(timeStr);
-    utils::Context::get().getSfmlWindow().draw(floorStr);
     utils::Context::get().getSfmlWindow().draw(leftSeparator);
     utils::Context::get().getSfmlWindow().draw(rightSeparator);
 
@@ -351,14 +254,12 @@ void GameController::executeCellAction()
     if (currCellStrRep == constants::CellsFileRepresentations::STAR_CELL)
     {
         foundStarCellsAmount++;
-        updateStarCntStr();
     }
 
     /* increment the amount of life cells if a life cell is found */
     if (currCellStrRep == constants::CellsFileRepresentations::LIFE_CELL)
     {
         lifesAmount++;
-        updateLifesCntStr();
     }
 
     /* decrement the amount of life cells if a life cell is found */
@@ -372,14 +273,12 @@ void GameController::executeCellAction()
         }
 
         lifesAmount--;
-        updateLifesCntStr();
     }
 
     /* add three seconds if the cell is a time bonus */
     if (currCellStrRep == constants::CellsFileRepresentations::MORE_TIME_CELL)
     {
         watchTime += 3;
-        updateWatchingTimeStr();
     }
 
     /* delete three seconds if the cell is a time malus */
@@ -390,8 +289,6 @@ void GameController::executeCellAction()
         /* the watch time cannot be less than 3 */
         watchTime =
             watchTime < 3 ? 3 : watchTime;
-
-        updateWatchingTimeStr();
     }
 
     /* put back the player on the previous cell if the cell is a wall */
@@ -457,30 +354,6 @@ void GameController::executeCellAction()
             constants::CellsFileRepresentations::EMPTY_CELL
         );
     }
-}
-
-/**
- *
- */
-void GameController::updateStarCntStr()
-{
-    foundStarsAmntStr.setString(std::to_string(foundStarCellsAmount));
-}
-
-/**
- *
- */
-void GameController::updateLifesCntStr()
-{
-    lifesAmntStr.setString(std::to_string(lifesAmount));
-}
-
-/**
- *
- */
-void GameController::updateWatchingTimeStr()
-{
-    timeStr.setString(std::to_string(watchTime));
 }
 
 /**

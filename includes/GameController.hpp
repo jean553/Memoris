@@ -30,6 +30,7 @@
 
 #include "Level.hpp"
 #include "TimerWidget.hpp"
+#include "GameDashboard.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -83,21 +84,6 @@ private:
     void executeCellAction();
 
     /**
-     * @brief set and increment the displayed value of the star counter
-     */
-    void updateStarCntStr();
-
-    /**
-     * @brief update the lifes string according to the lifes amount
-     */
-    void updateLifesCntStr();
-
-    /**
-     * @brief set and increment the displayed value of the watching time counter
-     */
-    void updateWatchingTimeStr();
-
-    /**
      * @brief force the level to be updated according to a recent update
      * of the player position : the current cell is not animated anymore
      * but a new cell given as parameter is animated, selected and shown
@@ -118,9 +104,12 @@ private:
        kind of action cannot be done in the header */
     sf::Uint32 displayLevelTime;
 
-    /* the graphical timer widget of the game; renders the elapsed time since
-       the beginning of the game */
-    widgets::TimerWidget timer;
+    /* the top dashboard that displays the countdown timer and all the
+       current game information labels */
+    utils::GameDashboard dashboard;
+
+    /* the current level to render into the level entity */
+    unsigned short floor {0};
 
     /* the displayed stars cells amount available on the level */
     unsigned short starCellsAmount {0};
@@ -130,9 +119,6 @@ private:
 
     /* the amount of lifes the user has */
     unsigned short lifesAmount {0};
-
-    /* the current player level */
-    unsigned short floor {0};
 
     /* the allowed watch time for the current level, depends of the previous
        levels, equal to 6 by default */
@@ -148,20 +134,6 @@ private:
 
     /* the level object that contains all the cells */
     entities::Level level;
-
-    /* TODO: to refactor in a separated class */
-    sf::Text foundStarsAmntStr;
-    sf::Text lifesAmntStr;
-    sf::Text targetStr;
-    sf::Text timeStr;
-    sf::Text floorStr;
-
-    /* TODO: to refactor in a separated class */
-    sf::Sprite spriteStar;
-    sf::Sprite spriteLife;
-    sf::Sprite spriteTarget;
-    sf::Sprite spriteTime;
-    sf::Sprite spriteFloor;
 
     sf::RectangleShape leftSeparator;
     sf::RectangleShape rightSeparator;

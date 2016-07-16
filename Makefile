@@ -58,7 +58,8 @@ OBJS = \
 	   build/AbstractMenuController.o \
 	   build/MenuItem.o \
 	   build/ScrollableListWidget.o \
-	   build/TimerWidget.o
+	   build/TimerWidget.o \
+	   build/GameDashboard.o
 
 INC = -I includes
 
@@ -129,6 +130,9 @@ build/AnimatedBackground.o: src/AnimatedBackground.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/MenuGradient.o: src/MenuGradient.cpp
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+
+build/GameDashboard.o: src/GameDashboard.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 # others
