@@ -313,7 +313,7 @@ unsigned short EditorSerieController::render()
 
                         if (!serieExists(serie.getName()))
                         {
-                            ::utils::FileWriter::writeFile(
+                            utils::FileWriter::writeFile(
                                 constants::Directories::SERIES_DIRECTORY_PATH +
                                 serie.getName() +
                                 constants::Extensions::SERIES_EXTENSION
@@ -502,7 +502,7 @@ void EditorSerieController::writeLevelsIntoSerie()
         }
     }
 
-    ::utils::FileWriter::writeFile(
+    utils::FileWriter::writeFile(
         constants::Directories::SERIES_DIRECTORY_PATH +
         serie.getName() +
         constants::Extensions::SERIES_EXTENSION,

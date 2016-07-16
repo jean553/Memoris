@@ -50,10 +50,11 @@ GameController::GameController() :
         100
     )
 {
-    /* TODO: use a constant level name for now... */
     level.loadCells(
         utils::Context::get(),
-        ::utils::FileWriter::readFile(utils::Context::get().getNextLevelPathString())
+        utils::FileWriter::readFile(
+            utils::Context::get().getNextLevelPathString()
+        )
     );
     level.setCellsCursorSensitivity(false);
 

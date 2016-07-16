@@ -22,16 +22,19 @@
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_FILEWRITER
-#define DEF_FILEWRITER
+#ifndef MEMORIS_FILEWRITER_H_
+#define MEMORIS_FILEWRITER_H_
 
 #include "Level.hpp"
 
 #include <string>
 #include <vector>
 
+namespace memoris
+{
 namespace utils
 {
+
 class FileWriter
 {
 
@@ -80,6 +83,8 @@ public:
     static uint8_t getItemsAmnt(const std::string& filePath);
 
 };
+
+}
 }
 
 #endif
