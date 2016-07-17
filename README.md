@@ -93,8 +93,6 @@ doxygen config/Doxyfile
 
 ### Musics
 
-"BigManBoo" - Back to the 90s - Nostalgia - CreativeCommons 3.0 BY-NC (https://www.jamendo.com/track/1317970/back-to-the-90s-nostalgia) ( https://creativecommons.org/licenses/by-nc/3.0/ )
-
 "Pokki DJ" - Made in Italy - CreativeCommons 3.0 BY (https://www.jamendo.com/track/1206274/made-in-italy) ( https://creativecommons.org/licenses/by/3.0/ )
 
 "J.O.R.B.Y" - Another Day - Dancing of the Night - CreativeCommons 3.0 BY (https://www.jamendo.com/track/1341169/2-dancing-of-the-night) (http://creativecommons.org/licenses/by/3.0/)

@@ -36,14 +36,9 @@ namespace controllers
 constexpr unsigned short EXIT = 1;
 constexpr unsigned short MAIN_MENU_CONTROLLER_ID = 2;
 constexpr unsigned short NEW_GAME_CONTROLLER_ID = 3;
-constexpr unsigned short EDITOR_MENU_CONTROLLER_ID = 4;
-constexpr unsigned short EDITOR_SERIE_CONTROLLER_ID = 5;
-constexpr unsigned short OPEN_SERIE_CONTROLLER_ID = 6;
-constexpr unsigned short EDITOR_LEVEL_CONTROLLER_ID = 7;
-constexpr unsigned short OPEN_LEVEL_CONTROLLER_ID = 8;
-constexpr unsigned short GAME_CONTROLLER_ID = 9;
-constexpr unsigned short SERIE_MAIN_MENU_CONTROLLER_ID = 10;
-constexpr unsigned short OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID = 11;
+constexpr unsigned short GAME_CONTROLLER_ID = 4;
+constexpr unsigned short SERIE_MAIN_MENU_CONTROLLER_ID = 5;
+constexpr unsigned short OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID = 6;
 
 /**
  * @brief factory method to create controllers by id, each controller is linked

@@ -25,11 +25,6 @@
 
 #include "MainMenuController.hpp"
 #include "NewGameController.hpp"
-#include "EditorMenuController.hpp"
-#include "EditorSerieController.hpp"
-#include "OpenSerieController.hpp"
-#include "EditorLevelController.hpp"
-#include "OpenLevelController.hpp"
 #include "SerieMainMenuController.hpp"
 #include "OfficialSeriesSelectorController.hpp"
 #include "GameController.hpp"
@@ -61,31 +56,6 @@ std::unique_ptr<Controller> getControllerById(const unsigned short& id)
     case NEW_GAME_CONTROLLER_ID:
     {
         controller.reset(new NewGameController());
-    }
-    break;
-    case EDITOR_MENU_CONTROLLER_ID:
-    {
-        controller.reset(new EditorMenuController());
-    }
-    break;
-    case EDITOR_SERIE_CONTROLLER_ID:
-    {
-        controller.reset(new EditorSerieController());
-    }
-    break;
-    case OPEN_SERIE_CONTROLLER_ID:
-    {
-        controller.reset(new OpenSerieController());
-    }
-    break;
-    case EDITOR_LEVEL_CONTROLLER_ID:
-    {
-        controller.reset(new EditorLevelController());
-    }
-    break;
-    case OPEN_LEVEL_CONTROLLER_ID:
-    {
-        controller.reset(new OpenLevelController());
     }
     break;
     case SERIE_MAIN_MENU_CONTROLLER_ID:

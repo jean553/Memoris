@@ -11,37 +11,12 @@ OBJS = \
 	   build/CellFactory.o \
 	   build/Context.o \
 	   build/Controller.o \
-	   build/DirReader.o \
-	   build/FileWriter.o \
-	   build/StringsListsUtils.o \
-	   build/CellsUtils.o \
-	   build/CellsFilter.o \
-	   build/Messages.o \
-	   build/Directories.o \
-	   build/Extensions.o \
-	   build/Screens.o \
-	   build/Positions.o \
-	   build/Serie.o \
-	   build/ButtonWidget.o \
-	   build/CursorWidget.o \
 	   build/InputTextWidget.o \
-	   build/ItemsListWidget.o \
-	   build/OrderedItemsListWidget.o \
-	   build/TitleBarWidget.o \
-	   build/CellSelectorWidget.o \
-	   build/FrameWidget.o \
 	   build/Widget.o \
 	   build/MainMenuController.o \
 	   build/NewGameController.o \
-	   build/EditorMenuController.o \
-	   build/EditorLevelController.o \
-	   build/EditorSerieController.o \
-	   build/OpenSerieController.o \
-	   build/OpenLevelController.o \
 	   build/GameController.o \
-	   build/Level.o \
 	   build/Cell.o \
-	   build/HasMenuSelectorAnimation.o \
 	   build/HiddenCellPicture.o \
 	   build/AnimatedBackground.o \
 	   build/MenuGradient.o \
@@ -57,7 +32,6 @@ OBJS = \
 	   build/NotCopiable.o \
 	   build/AbstractMenuController.o \
 	   build/MenuItem.o \
-	   build/ScrollableListWidget.o \
 	   build/TimerWidget.o \
 	   build/GameDashboard.o
 
@@ -108,21 +82,6 @@ build/Context.o: src/Context.cpp
 build/Controller.o: src/Controller.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/DirReader.o: src/DirReader.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/FileWriter.o: src/FileWriter.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/StringsListsUtils.o: src/StringsListsUtils.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/CellsUtils.o: src/CellsUtils.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/CellsFilter.o: src/CellsFilter.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
 build/HiddenCellPicture.o: src/HiddenCellPicture.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
@@ -142,31 +101,10 @@ build/NotCopiable.o: src/NotCopiable.cpp
 
 # defines
 
-build/Positions.o: src/Positions.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/Directories.o: src/Directories.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/Extensions.o: src/Extensions.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/Screens.o: src/Screens.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/Messages.o: src/Messages.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
 build/CellsFileRepresentations.o: src/CellsFileRepresentations.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 # entities
-
-build/Serie.o: src/Serie.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/Level.o: src/Level.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/Cell.o: src/Cell.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
@@ -176,34 +114,10 @@ build/Sound.o: src/Sound.cpp
 
 # widgets
 
-build/ButtonWidget.o: src/ButtonWidget.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/CursorWidget.o: src/CursorWidget.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
 build/InputTextWidget.o: src/InputTextWidget.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/ItemsListWidget.o: src/ItemsListWidget.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/OrderedItemsListWidget.o: src/OrderedItemsListWidget.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/TitleBarWidget.o: src/TitleBarWidget.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/CellSelectorWidget.o: src/CellSelectorWidget.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/FrameWidget.o: src/FrameWidget.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
 build/Widget.o: src/Widget.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/ScrollableListWidget.o: src/ScrollableListWidget.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/TimerWidget.o: src/TimerWidget.cpp
@@ -215,21 +129,6 @@ build/MainMenuController.o: src/MainMenuController.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/NewGameController.o: src/NewGameController.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/EditorMenuController.o: src/EditorMenuController.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/EditorLevelController.o: src/EditorLevelController.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/EditorSerieController.o: src/EditorSerieController.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/OpenSerieController.o: src/OpenSerieController.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/OpenLevelController.o: src/OpenLevelController.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/GameController.o: src/GameController.cpp
@@ -245,9 +144,4 @@ build/AbstractMenuController.o: src/AbstractMenuController.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/ErrorController.o: src/ErrorController.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-# policies
-
-build/HasMenuSelectorAnimation.o: src/HasMenuSelectorAnimation.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
