@@ -50,7 +50,7 @@ const std::string getMusicPathById(const unsigned short& id)
        if an incorrect controller id is specified */
     default:
     {
-        return "res/musics/pokki-dj-made-in-italy.ogg";
+        return "res/musics/Zeropage_-_Ambient_Dance.ogg";
     }
     }
 }
