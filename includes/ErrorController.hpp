@@ -18,25 +18,22 @@
 
 /**
  * @file ErrorController.hpp
- * @brief display exceptions messages
+ * @brief display exceptions messages in a dedicated screen (resources cannot
+ * be found, level/serie cannot be found... etc...)
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_ERR_CONTROLLER
-#define DEF_ERR_CONTROLLER
+#ifndef MEMORIS_ERRORCONTROLLER_H_
+#define MEMORIS_ERRORCONTROLLER_H_
 
-#include <string>
-
-#include "Context.hpp"
 #include "Controller.hpp"
-#include "fonts.hpp"
-
 
 namespace memoris
 {
 namespace controllers
 {
+
 class ErrorController : public Controller
 {
 public:
@@ -44,26 +41,23 @@ public:
     /**
      * @brief constructor
      *
-     * @param msg error message to display
+     * @param message the error message to display on the screen
      */
-    ErrorController(const std::string& msg);
+    ErrorController(const std::string& message);
 
     /**
      * @brief renders the error message screen
      *
-     * @return unsigned short id of the new screen controller
+     * @return unsigned short
      */
     unsigned short render();
 
 private:
 
-    static const float ERR_HRTL_PSTN;
-    static const float ERR_VRTL_PSTN;
-
-    std::string errMsg;
-
+    /* the SFML surface with the error message inside */
     sf::Text error;
 };
+
 }
 }
 
