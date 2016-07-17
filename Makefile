@@ -16,10 +16,8 @@ OBJS = \
 	   build/NewGameController.o \
 	   build/GameController.o \
 	   build/Cell.o \
-	   build/HiddenCellPicture.o \
 	   build/AnimatedBackground.o \
 	   build/MenuGradient.o \
-	   build/CellsFileRepresentations.o \
 	   build/SerieMainMenuController.o \
 	   build/OfficialSeriesSelectorController.o \
 	   build/ErrorController.o \
@@ -33,6 +31,8 @@ OBJS = \
 	   build/MenuItem.o \
 	   build/TimerWidget.o \
 	   build/GameDashboard.o \
+	   build/CellsTexturesManager.o \
+	   build/cells.o \
 	   build/TexturesLoader.o
 
 INC = -I includes
@@ -58,10 +58,16 @@ build/window.o: src/window.cpp
 build/musics.o: src/musics.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
+build/cells.o: src/cells.cpp
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+
 build/controllers.o: src/controllers.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/FontsManager.o: src/FontsManager.cpp
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+
+build/CellsTexturesManager.o: src/CellsTexturesManager.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/ColorsManager.o: src/ColorsManager.cpp
@@ -82,9 +88,6 @@ build/Context.o: src/Context.cpp
 build/Controller.o: src/Controller.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-build/HiddenCellPicture.o: src/HiddenCellPicture.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
 build/AnimatedBackground.o: src/AnimatedBackground.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
@@ -97,11 +100,6 @@ build/GameDashboard.o: src/GameDashboard.cpp
 # others
 
 build/NotCopiable.o: src/NotCopiable.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-# defines
-
-build/CellsFileRepresentations.o: src/CellsFileRepresentations.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 # entities

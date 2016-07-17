@@ -26,8 +26,6 @@
 #ifndef MEMORIS_CELL_H_
 #define MEMORIS_CELL_H_
 
-#include "HiddenCellPicture.hpp"
-
 #include <SFML/Graphics.hpp>
 
 #include <string>
@@ -76,27 +74,6 @@ public:
     );
 
     /**
-     * @brief setter for the string type; the types of the cells are
-     * represented by two letters (ex: 'DP') in the level file; this function
-     * takes this string representation as a parameter
-     *
-     * @param cellType string representation of the type of the cell
-     *
-     * TODO: to delete, the initialization must be done with initialization
-     * list
-     */
-    void setCellType(const std::string& cellType);
-
-    /**
-     * @brief set the picture
-     *
-     * @param path image path
-     *
-     * TODO: to delete, use the texture manager
-     */
-    void setPicturePath(std::string path);
-
-    /**
      * @brief displays the cell according to the context
      */
     void display();
@@ -117,18 +94,8 @@ private:
        'DP' for Departure Cell); this parameter represents the type of cell */
     std::string type;
 
-    /* TODO: to delete, the textures of each cell have to be loaded by the
-       textures manager */
-    sf::Texture texture;
-
     /* the SFML surface of the cell */
     sf::Sprite sprite;
-
-    /* TODO: must be refactored */
-    ::utils::HiddenCellPicture hiddenCellPtr;
-
-    /* TODO: to delete (managed by the texture manager) */
-    std::string picturePath;
 };
 
 }

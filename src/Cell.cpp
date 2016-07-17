@@ -28,6 +28,7 @@
 #include "dimensions.hpp"
 #include "window.hpp"
 #include "Context.hpp"
+#include "CellsTexturesManager.hpp"
 
 namespace memoris
 {
@@ -41,7 +42,8 @@ Cell::Cell(
     const float& hPosition,
     const float& vPosition,
     const std::string& cellType
-)
+) :
+    type(cellType)
 {
     /* set the given position */
     setPosition(
@@ -49,8 +51,13 @@ Cell::Cell(
         vPosition
     );
 
-    /* set the name of the cell */
-    setCellType(cellType);
+    /* get the texture from the cells textures manager according to the type
+       of cell; set this reference as a texture for the current cell object */
+    sprite.setTexture(
+        textures::CellsTexturesManager::get().getTextureReferenceByCellType(
+            cellType
+        )
+    );
 }
 
 /**
@@ -95,39 +102,9 @@ void Cell::setPosition(
         verticalPosition
     );
 
-    /* TODO: check if necessary... */
-    hiddenCellPtr.setSpritePosition(
-        horizontalPosition,
-        verticalPosition
-    );
-
     /* save the given values */
     horizontalPosition = hPosition;
     verticalPosition = vPosition;
-
-}
-
-/**
- *
- */
-void Cell::setCellType(const std::string& cellType)
-{
-    /* TODO: to refactor */
-    setPicturePath("res/cells/" + cellType + ".png");
-
-    /* save the cell type */
-    type = cellType;
-}
-
-/**
- *
- */
-void Cell::setPicturePath(std::string path)
-{
-    texture.loadFromFile(path);
-    sprite.setTexture(texture, true);
-
-    picturePath = path;
 }
 
 /**
@@ -135,6 +112,7 @@ void Cell::setPicturePath(std::string path)
  */
 void Cell::display()
 {
+    /* display the cell sprite */
     utils::Context::get().getSfmlWindow().draw(sprite);
 }
 
