@@ -75,9 +75,9 @@ unsigned short ErrorController::render()
             /* the escape key has been pressed down */
             case sf::Keyboard::Escape:
             {
-                /* TODO: #532 return to the official series menu screen for 
-                   now, the error controller is only accessible from this 
-                   screen when a level is not found; should go back to the 
+                /* TODO: #532 return to the official series menu screen for
+                   now, the error controller is only accessible from this
+                   screen when a level is not found; should go back to the
                    previous controller */
                 expectedControllerId = OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID;
 

@@ -48,44 +48,10 @@ public:
     Cell();
 
     /**
-     * @brief copy constructor
-     *
-     * @param Cell reference to a cell to copy
-     *
-     * XXX: the copy is not done correctly anymore,
-     * the sf::Sprite and textures are not copied
-     * anymore. This is because this constructor is
-     * not called at all anymore, this is not a
-     * copy constructor anymore...
-     *
-     * the only place we need the context in this
-     * constructor is inside the initializeCommonAttributes
-     * function for the selector color... I guess the
-     * best solution is maybe declare the selector color
-     * attributes, directly inside the Cell, in "static" variables...
+     * @brief move the cell to one pixel on the right; this method is used
+     * with the animated background
      */
-    Cell(
-        const Cell& cell
-    );
-
-    /**
-     * @brief constructor
-     *
-     * @param fileRepresentation the string representation
-     * of the cell into the level file
-     */
-    Cell(std::string fileRepresentation);
-
-    /**
-     * @brief destructor, mandatory as the class is abstract
-     */
-    virtual ~Cell();
-
-    /**
-     * @brief abstract method that defines the action
-     * to perform when the cell is triggered
-     */
-    virtual void performAction();
+    void moveOnTheRight();
 
     /**
      * @brief setter for the position
@@ -106,94 +72,9 @@ public:
     void setPicturePath(std::string path);
 
     /**
-     * @brief get the picture path
-     *
-     * @return string
-     */
-    std::string getPicturePath() const;
-
-    /**
      * @brief displays the cell according to the context
      */
     void display();
-
-    /**
-     * TODO: this parameter has two different uses: set the selected cell in the selector widget
-     * but also update manually when the user clicks on one cell of the level grid. Each use
-     * should be separated, should create a new parameter... ?
-     *
-     * @brief set the cell as selected, used to display
-     * the selection frame around the cell
-     */
-    void setSelected(bool selected);
-
-    /**
-     * @brief getter for cell selection parameter
-     *
-     * @return bool
-     */
-    bool getIsSelected() const;
-
-    /**
-     * @brief check if the mouse is hover the cell
-     *
-     * @return bool
-     */
-    bool isMouseHover() const;
-
-    /**
-     * @brief getter for the horizontal position of the cell on the screen
-     *
-     * @return float
-     */
-    float getHorizontalPosition() const;
-
-    /**
-     * @brief getter for the vertical position of the cell on the screen
-     *
-     * @return float
-     */
-    float getVerticalPosition() const;
-
-    /**
-     * @brief setter for the horizontal and vertical address of the cell on a level grid
-     *
-     * @param cellAddress address of the cell inside the array
-     *
-     * TODO: should be deleted, check if a vector function exists
-     * to get the current index of an item in the array...
-     */
-    void setLevelAddresses(const uint16_t& cellAddress);
-
-    /**
-     * @brief getter for the horizontal address of the cell on a level grid
-     *
-     * @return uint16_t
-     */
-    uint16_t getAddress() const;
-
-    /**
-     * @brief setter for hidden parameter
-     *
-     * @param hidden true if the cell is hidden
-     */
-    void setHidden(const bool& hidden);
-
-    /**
-     * @brief getter for the hidden parameter
-     *
-     * @return bool
-     */
-    bool getIsHidden() const;
-
-    /**
-     * @brief setter for the cursor sensitivity of the cell,
-     * if sensitive, the cell's color changes when the cursor
-     * is overring it
-     *
-     * @param sensitivity true if the cell is sensitive
-     */
-    void setCursorSensitivity(const bool& sensitivity);
 
     /**
      * @brief setter for the string representation
@@ -202,26 +83,6 @@ public:
      */
     void setStringRepresentation(const std::string& representation);
 
-    /**
-     * @brief getter for the string representation
-     *
-     * @return string
-     */
-    std::string getStringRepresentation() const;
-
-    /**
-     * @brief setter for the animation boolean
-     *
-     * @param animate boolean for the animation
-     */
-    void setIsAnimated(const bool& animate);
-
-    /**
-     * @brief move the cell to one pixel on the right; this method is used
-     * with the animated background
-     */
-    void moveOnTheRight();
-
 private:
 
     /**
@@ -229,17 +90,8 @@ private:
      */
     void initializeCommonAttributes();
 
-    bool isSelected;
-    bool isHidden;
-    bool isCursorSensitive;
-    bool isAnimated;
-
     float horizontalPosition;
     float verticalPosition;
-
-    uint16_t address;
-
-    int8_t selectorDirection;
 
     sf::Texture texture;
 
