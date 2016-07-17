@@ -28,7 +28,6 @@
 
 #include "Controller.hpp"
 
-#include "Level.hpp"
 #include "TimerWidget.hpp"
 #include "GameDashboard.hpp"
 
@@ -56,32 +55,6 @@ public:
 
 private:
 
-    /**
-     * @brief tries to move the player in the given direction
-     * only if the status of the game is playing
-     *
-     * @param direction specific direction
-     */
-    void movePlayer(PlayerDirection direction);
-
-    /**
-     * @brief checks the new player cell, trigger event according to this cell
-     */
-    void executeCellAction();
-
-    /**
-     * @brief force the level to be updated according to a recent update
-     * of the player position : the current cell is not animated anymore
-     * but a new cell given as parameter is animated, selected and shown
-     *
-     * @param currCell pointer to the current cell to animate
-     * @param newCell pointer to a new cell to animate
-     */
-    void selectNewCell(
-        entities::Cell* currCell,
-        entities::Cell* newCell
-    );
-
     /* contains the exact time when the level is displayed to the player; this
        is used for the "hide level" animation; we have to know when the level
        is rendered to calculate when we have to hide it */
@@ -94,22 +67,6 @@ private:
        current game information labels */
     utils::GameDashboard dashboard;
 
-    /* the current level to render into the level entity */
-    unsigned short floor {0};
-
-    /* the displayed stars cells amount available on the level */
-    unsigned short starCellsAmount {0};
-
-    /* the amount of star cells that the user has already found */
-    unsigned short foundStarCellsAmount {0};
-
-    /* the amount of lifes the user has */
-    unsigned short lifesAmount {0};
-
-    /* the allowed watch time for the current level, depends of the previous
-       levels, equal to 6 by default */
-    unsigned short watchTime {6};
-
     /* NOTE: the use a watching and a playing boolean; we use two different
        booleans; we might think that one boolean is enough to handle the
        actions (the player is watching or playing), but in fact, it can be
@@ -120,20 +77,6 @@ private:
        displayed; by default, the watching period is enabled and the
        boolean is equal to true */
     bool watchingPeriod {true};
-
-    /* boolean that is true when the user is playing; when the game starts,
-       the player is watching the level and not playing on it, so the default
-       value is false */
-    bool playingPeriod {false};
-
-    /* boolean that indicates that the level is terminated, false by default */
-    /* TODO: check if necessary */
-    bool terminateGame {false};
-
-    /* the level object that contains all the cells */
-    /* TODO: #523 refactor the level object usage according to the Level class
-       methods refactoring */
-    entities::Level level;
 };
 
 }

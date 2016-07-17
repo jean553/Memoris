@@ -39,14 +39,6 @@ const std::string getMusicPathById(const unsigned short& id)
 
     switch(id)
     {
-    case controllers::EDITOR_LEVEL_CONTROLLER_ID:
-    case controllers::EDITOR_SERIE_CONTROLLER_ID:
-    case controllers::OPEN_LEVEL_CONTROLLER_ID:
-    case controllers::OPEN_SERIE_CONTROLLER_ID:
-    {
-        return "res/musics/bigmanboo-back-to-the-90s-nostalgia.ogg";
-    }
-    break;
     case controllers::GAME_CONTROLLER_ID:
     {
         return "res/musics/J.O.R.B.I_-_2.Dancing_of_the_Night.ogg";
