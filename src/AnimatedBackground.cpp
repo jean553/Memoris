@@ -89,7 +89,7 @@ void AnimatedBackground::render()
        because we do not copy the cells during the iteration */
     for (entities::Cell& cell : cells)
     {
-        cell.display(utils::Context::get());
+        cell.display();
     }
 }
 
