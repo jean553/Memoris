@@ -27,7 +27,6 @@
 
 #include "Context.hpp"
 #include "dimensions.hpp"
-#include "CellFactory.hpp"
 #include "CellsFileRepresentations.hpp"
 
 #include <time.h>
@@ -73,11 +72,14 @@ void AnimatedBackground::render()
         ) > 10
     )
     {
-        /* iterate all the cells; for each one, modify the horizontal
-           position */
-        for (entities::Cell& cell : cells)
+        for(
+            std::vector<std::unique_ptr<entities::Cell>>::iterator cell =
+                cells.begin();
+            cell != cells.end();
+            ++cell
+        )
         {
-            cell.moveOnTheRight();
+            (**cell).moveOnTheRight();
         }
 
         /* update the new cells movement animation time with the new time */
@@ -87,9 +89,14 @@ void AnimatedBackground::render()
 
     /* iterate all the cells and display them one by one; we use a reference
        because we do not copy the cells during the iteration */
-    for (entities::Cell& cell : cells)
+    for(
+        std::vector<std::unique_ptr<entities::Cell>>::iterator cell =
+            cells.begin();
+        cell != cells.end();
+        ++cell
+    )
     {
-        cell.display();
+        (**cell).display();
     }
 }
 
@@ -148,31 +155,25 @@ void AnimatedBackground::initializeCells()
                            randomNumber
                        );
 
-        /* generate the cell object from the cells factory according to the
-           random number */
-        entities::Cell cell =
-            factories::CellFactory::getCellByStringName(
+        /* generate a new cell object */
+        std::unique_ptr<entities::Cell> cell(
+            new entities::Cell(
+                currentColumn *
+                (
+                    dimensions::CELL_PIXELS_DIMENSIONS +
+                    dimensions::CELLS_PIXELS_SEPARATION
+                ),
+                currentLine *
+                (
+                    dimensions::CELL_PIXELS_DIMENSIONS +
+                    dimensions::CELLS_PIXELS_SEPARATION
+                ),
                 cellsLib[randomNumber]
-            );
-
-        /* set the current cell position, calculated using the constant fixed
-           dimensions of the cell and the current column/line of the
-           iteration */
-        cell.setPosition(
-            currentColumn *
-            (
-                dimensions::CELL_PIXELS_DIMENSIONS +
-                dimensions::CELLS_PIXELS_SEPARATION
-            ),
-            currentLine *
-            (
-                dimensions::CELL_PIXELS_DIMENSIONS +
-                dimensions::CELLS_PIXELS_SEPARATION
             )
         );
 
         /* copy the cell object inside the cells container */
-        cells.push_back(cell);
+        cells.push_back(std::move(cell));
 
         /* increment the current line */
         currentLine++;
