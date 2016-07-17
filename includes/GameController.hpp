@@ -133,7 +133,7 @@ private:
     /* the level object that contains all the cells */
     /* TODO: #523 refactor the level object usage according to the Level class
        methods refactoring */
-    entities::Level level;
+    ::entities::Level level;
 };
 
 }

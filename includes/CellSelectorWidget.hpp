@@ -83,7 +83,7 @@ public:
      *
      * @return entities::Cell*
      */
-    entities::Cell* getSelectedNewCellPointer();
+    memoris::entities::Cell* getSelectedNewCellPointer();
 
     /**
      * @brief return a pointer to the down floor cell, used
@@ -91,7 +91,7 @@ public:
      *
      * @return entities::Cell*
      */
-    entities::Cell* getFloorDownCell();
+    memoris::entities::Cell* getFloorDownCell();
 
     /**
      * @brief return a pointer to the up floor cell, used
@@ -99,7 +99,7 @@ public:
      *
      * @return entities::Cell*
      */
-    entities::Cell* getFloorUpCell();
+    memoris::entities::Cell* getFloorUpCell();
 
     /**
      * @brief return a pointer to the empty cell, used
@@ -108,7 +108,7 @@ public:
      *
      * @return entities::Cell*
      */
-    entities::Cell* getEmptyCell();
+    memoris::entities::Cell* getEmptyCell();
 
 private:
 
@@ -117,18 +117,18 @@ private:
      */
     void unselectAllCells();
 
-    entities::Cell emptyCell;
-    entities::Cell departureCell;
-    entities::Cell arrivalCell;
-    entities::Cell starCell;
-    entities::Cell lifeCell;
-    entities::Cell malusCell;
-    entities::Cell moreTimeCell;
-    entities::Cell lessTimeCell;
-    entities::Cell wallCell;
-    entities::Cell lightCell;
-    entities::Cell floorUpCell;
-    entities::Cell floorDownCell;
+    memoris::entities::Cell emptyCell;
+    memoris::entities::Cell departureCell;
+    memoris::entities::Cell arrivalCell;
+    memoris::entities::Cell starCell;
+    memoris::entities::Cell lifeCell;
+    memoris::entities::Cell malusCell;
+    memoris::entities::Cell moreTimeCell;
+    memoris::entities::Cell lessTimeCell;
+    memoris::entities::Cell wallCell;
+    memoris::entities::Cell lightCell;
+    memoris::entities::Cell floorUpCell;
+    memoris::entities::Cell floorDownCell;
 };
 }
 

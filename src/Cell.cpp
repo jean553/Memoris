@@ -29,12 +29,10 @@
 #include "window.hpp"
 #include "ColorsManager.hpp"
 
-using namespace entities;
-
-const uint8_t Cell::INTERVAL_ANIMATION = 10;
-const uint8_t Cell::SELECTOR_COLOR_INCREMENTATION_STEP = 15;
-const uint16_t Cell::MAXIMUM_RED_COLOR_AMOUNT = 255;
-const uint16_t Cell::MINIMUM_RED_COLOR_AMOUNT = 0;
+namespace memoris
+{
+namespace entities
+{
 
 /**
  *
@@ -375,15 +373,15 @@ void Cell::setIsAnimated(const bool& animate)
  */
 void Cell::animateCell()
 {
-    if(clock.getElapsedTime().asMilliseconds() <= INTERVAL_ANIMATION)
+    if(clock.getElapsedTime().asMilliseconds() <= 10)
     {
         return;
     }
 
     selectorColor.g +=
-        SELECTOR_COLOR_INCREMENTATION_STEP * selectorDirection;
+        15 * selectorDirection;
     selectorColor.b +=
-        SELECTOR_COLOR_INCREMENTATION_STEP * selectorDirection;
+        15 * selectorDirection;
 
     topSelectionBar.setFillColor(selectorColor);
     bottomSelectionBar.setFillColor(selectorColor);
@@ -391,8 +389,8 @@ void Cell::animateCell()
     rightSelectionBar.setFillColor(selectorColor);
 
     if (
-        selectorColor.g == MINIMUM_RED_COLOR_AMOUNT ||
-        selectorColor.g == MAXIMUM_RED_COLOR_AMOUNT
+        selectorColor.g == 0 ||
+        selectorColor.g == 255
     )
     {
         selectorDirection *= -1;
@@ -427,4 +425,7 @@ void Cell::moveOnTheRight()
         horizontalPosition,
         verticalPosition
     );
+}
+
+}
 }
