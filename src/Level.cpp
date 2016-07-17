@@ -30,7 +30,10 @@
 #include "CellsFileRepresentations.hpp"
 #include "Context.hpp"
 
-using namespace entities;
+namespace memoris
+{
+namespace entities
+{
 
 const unsigned short Level::CELLS_STRING_STEP = 2;
 
@@ -485,4 +488,7 @@ memoris::entities::Cell* Level::getPreviousPlayerCellPtr() const
 void Level::setPlayerCellAsEnabled()
 {
     pPlayerCell->setHidden(false);
+}
+
+}
 }
