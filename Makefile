@@ -32,7 +32,8 @@ OBJS = \
 	   build/AbstractMenuController.o \
 	   build/MenuItem.o \
 	   build/TimerWidget.o \
-	   build/GameDashboard.o
+	   build/GameDashboard.o \
+	   build/TexturesLoader.o
 
 INC = -I includes
 
@@ -70,6 +71,9 @@ build/SoundsManager.o: src/SoundsManager.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/TexturesManager.o: src/TexturesManager.cpp
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+
+build/TexturesLoader.o: src/TexturesLoader.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/Context.o: src/Context.cpp
