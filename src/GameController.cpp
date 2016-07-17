@@ -39,6 +39,10 @@ namespace controllers
 GameController::GameController() :
     Controller()
 {
+    /* TODO: #530 load a level file, throw an invalid argument exception if the
+       file cannot be opened; this exception is caught inside the controllers
+       factory and render the error controller instead */
+
     /* save the exact time the level starts to be displayed; this is used to
        calculate the duration of the watching period before the beginning
        of the playing period */

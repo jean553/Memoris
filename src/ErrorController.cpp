@@ -27,31 +27,28 @@
 #include "controllers.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
+#include "fonts.hpp"
 
 namespace memoris
 {
 namespace controllers
 {
 
-const float ErrorController::ERR_HRTL_PSTN = 10.f;
-const float ErrorController::ERR_VRTL_PSTN = 10.f;
-
 /**
  *
  */
-ErrorController::ErrorController(const std::string& msg) :
+ErrorController::ErrorController(const std::string& message) :
     Controller()
 {
+    /* initializes the SFML error text surface */
     error.setFont(memoris::fonts::FontsManager::get().getTextFont());
-    error.setString(msg);
+    error.setString(message);
     error.setCharacterSize(memoris::fonts::TEXT_SIZE);
     error.setColor(memoris::colors::ColorsManager::get().getColorRed());
     error.setPosition(
-        ERR_HRTL_PSTN,
-        ERR_VRTL_PSTN
+        10.f,
+        10.f
     );
-
-    errMsg = msg;
 }
 
 /**
@@ -59,24 +56,30 @@ ErrorController::ErrorController(const std::string& msg) :
  */
 unsigned short ErrorController::render()
 {
-    nextControllerId = animateScreenTransition();
-
+    /* displays the error message */
     utils::Context::get().getSfmlWindow().draw(error);
 
+    /* used for screen switch animation */
+    nextControllerId = animateScreenTransition();
+
+    /* main loop event of the error controller */
     while(utils::Context::get().getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {
+        /* a key is pressed down */
         case sf::Event::KeyPressed:
         {
             switch(event.key.code)
             {
+            /* the escape key has been pressed down */
             case sf::Keyboard::Escape:
             {
-                /* TODO: return to the official series menu screen for now,
-                 * as this error screen can obly be displayed from this first screen */
-                expectedControllerId =
-                    OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID;
+                /* TODO: #532 return to the official series menu screen for 
+                   now, the error controller is only accessible from this 
+                   screen when a level is not found; should go back to the 
+                   previous controller */
+                expectedControllerId = OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID;
 
                 break;
             }
