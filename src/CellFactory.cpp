@@ -36,7 +36,7 @@ memoris::entities::Cell CellFactory::getCellByStringName(
     const std::string& stringCell
 )
 {
-    memoris::entities::Cell cell(memoris::utils::Context::get());
+    memoris::entities::Cell cell;
     cell.setStringRepresentation(stringCell);
     cell.setPicturePath("res/cells/" + stringCell + ".png");
     return cell;

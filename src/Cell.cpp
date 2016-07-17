@@ -28,6 +28,7 @@
 #include "dimensions.hpp"
 #include "window.hpp"
 #include "ColorsManager.hpp"
+#include "Context.hpp"
 
 namespace memoris
 {
@@ -37,10 +38,10 @@ namespace entities
 /**
  *
  */
-Cell::Cell(memoris::utils::Context& context)
+Cell::Cell()
 {
     /* TODO: this is not used inside the copy constructor,
-      because we are mandatory to pass the context as
+      because we are mandatory to pass the utils::Context::get() as
       a parameter of the copy constructor. If we do that,
       this is not a copy constructor anymore... Need to
       find a solution for this... */
@@ -72,9 +73,7 @@ Cell::Cell(const Cell& cell)
 /**
  *
  */
-Cell::Cell(
-    memoris::utils::Context& context,
-    std::string fileValue) :
+Cell::Cell(std::string fileValue) :
     stringRepresentation(fileValue)
 {
     selectorColor = memoris::colors::ColorsManager::get().getColorRed();
@@ -163,7 +162,7 @@ std::string Cell::getPicturePath() const
 /**
  *
  */
-void Cell::display(memoris::utils::Context& context)
+void Cell::display()
 {
     sf::Sprite sprToDspl;
 
@@ -185,7 +184,7 @@ void Cell::display(memoris::utils::Context& context)
         sprToDspl.setColor(memoris::colors::ColorsManager::get().getColorWhite());
     }
 
-    context.getSfmlWindow().draw(sprToDspl);
+    utils::Context::get().getSfmlWindow().draw(sprToDspl);
 
     if (isSelected)
     {
@@ -194,10 +193,10 @@ void Cell::display(memoris::utils::Context& context)
             animateCell();
         }
 
-        context.getSfmlWindow().draw(topSelectionBar);
-        context.getSfmlWindow().draw(bottomSelectionBar);
-        context.getSfmlWindow().draw(leftSelectionBar);
-        context.getSfmlWindow().draw(rightSelectionBar);
+        utils::Context::get().getSfmlWindow().draw(topSelectionBar);
+        utils::Context::get().getSfmlWindow().draw(bottomSelectionBar);
+        utils::Context::get().getSfmlWindow().draw(leftSelectionBar);
+        utils::Context::get().getSfmlWindow().draw(rightSelectionBar);
     }
 }
 

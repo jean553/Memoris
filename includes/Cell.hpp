@@ -18,7 +18,7 @@
 
 /**
  * @file Cell.hpp
- * @brief cell entity
+ * @brief cell entity, represents one cell
  * @package entities
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -26,11 +26,11 @@
 #ifndef MEMORIS_CELL_H_
 #define MEMORIS_CELL_H_
 
-#include <SFML/Graphics.hpp>
-#include <string>
-
-#include "Context.hpp"
 #include "HiddenCellPicture.hpp"
+
+#include <SFML/Graphics.hpp>
+
+#include <string>
 
 namespace memoris
 {
@@ -45,12 +45,11 @@ public:
     /**
      * @brief default constructor
      */
-    Cell(memoris::utils::Context& context);
+    Cell();
 
     /**
      * @brief copy constructor
      *
-     * @param context current context reference
      * @param Cell reference to a cell to copy
      *
      * XXX: the copy is not done correctly anymore,
@@ -72,14 +71,10 @@ public:
     /**
      * @brief constructor
      *
-     * @param context current context reference
      * @param fileRepresentation the string representation
      * of the cell into the level file
      */
-    Cell(
-        memoris::utils::Context& context,
-        std::string fileRepresentation
-    );
+    Cell(std::string fileRepresentation);
 
     /**
      * @brief destructor, mandatory as the class is abstract
@@ -119,10 +114,8 @@ public:
 
     /**
      * @brief displays the cell according to the context
-     *
-     * @param context context pointer
      */
-    void display(memoris::utils::Context& context);
+    void display();
 
     /**
      * TODO: this parameter has two different uses: set the selected cell in the selector widget

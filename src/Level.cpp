@@ -107,7 +107,7 @@ void Level::displayAllCellsByFloor(const uint8_t& floor)
             memoris::dimensions::LEVEL_CELLS_PER_FLOOR
         )
         {
-            cell->display(memoris::utils::Context::get());
+            cell->display();
         }
     }
 }
@@ -204,7 +204,7 @@ void Level::loadCells(const std::string& levelString)
 
     for (uint16_t i = 0; i < memoris::dimensions::CELLS_PER_LEVEL; i++)
     {
-        memoris::entities::Cell newCell(memoris::utils::Context::get());
+        memoris::entities::Cell newCell;
 
         if (levelString.empty())
         {
