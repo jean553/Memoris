@@ -27,8 +27,10 @@
 
 #include "Context.hpp"
 #include "dimensions.hpp"
-#include "CellsFileRepresentations.hpp"
+#include "cells.hpp"
 
+/* inclusion of C library; no need for extern "C" {} here, the time library
+   already handles C++ integration */
 #include <time.h>
 
 namespace memoris
@@ -111,16 +113,15 @@ void AnimatedBackground::initializeCells()
        we add new cells types */
     std::vector<std::string> cellsLib =
     {
-        constants::CellsFileRepresentations::DEPARTURE_CELL,
-        constants::CellsFileRepresentations::ARRIVAL_CELL,
-        constants::CellsFileRepresentations::STAR_CELL,
-        constants::CellsFileRepresentations::EMPTY_CELL,
-        constants::CellsFileRepresentations::LIFE_CELL,
-        constants::CellsFileRepresentations::DAMAGE_CELL,
-        constants::CellsFileRepresentations::WALL_CELL,
-        constants::CellsFileRepresentations::MORE_TIME_CELL,
-        constants::CellsFileRepresentations::LESS_TIME_CELL,
-        constants::CellsFileRepresentations::NULL_CELL,
+        cells::EMPTY_CELL,
+        cells::DEPARTURE_CELL,
+        cells::ARRIVAL_CELL,
+        cells::STAR_CELL,
+        cells::MORE_LIFE_CELL,
+        cells::LESS_LIFE_CELL,
+        cells::MORE_TIME_CELL,
+        cells::LESS_TIME_CELL,
+        cells::WALL_CELL
     };
 
     /* the current line and the current column are used during the generation
@@ -137,8 +138,10 @@ void AnimatedBackground::initializeCells()
     /* initialize random to generate random numbers */
     srand(time(NULL));
 
-    /* we browse the array of cells; there are 576 cells to create */
-    for (unsigned int i = 0; i < 576; i++)
+    /* we browse the array of cells; there are 575 cells to create ( 576 (the
+       total of displayed cells on the screen) - 1 because the first one is
+       never drawn (top left corner) */
+    for (unsigned int i = 0; i < 575; i++)
     {
         /* select a cell randomly; the maximum value of the generated number
            is 16 even if there are only 10 different cells to generate; if the
@@ -149,11 +152,32 @@ void AnimatedBackground::initializeCells()
         /* NOTE: there is no need to cast the rand() value here, rand()
            returned a integer with a minimum of 0 (unsigned). */
         randomNumber = rand() % 16;
-        randomNumber = (
-                           randomNumber >= cellsLib.size() ?
-                           cellsLib.size() - 1 :
-                           randomNumber
-                       );
+
+        /* increment the current line */
+        currentLine++;
+
+        /* the the current line is equal to the last line index, we reset the
+           line index and we increment the column index; in fact, we start to
+           generate cells in the next column */
+        if (currentLine == 18)
+        {
+            /* reset the current line index */
+            currentLine = 0;
+
+            /* increment the current column */
+            currentColumn++;
+        }
+
+        /* the random number can be up to 16, there is no so much available
+           cells type in the cells library; if the number is more than 16,
+           the position is incremented for the next cell but the cell at the
+           current position is not created; this is used to show some blank
+           black spaces into the background; this is optimized because we
+           do not create any useless cell (cell that is not displayed) */
+        if(randomNumber >= cellsLib.size())
+        {
+            continue;
+        }
 
         /* generate a new cell object */
         std::unique_ptr<entities::Cell> cell(
@@ -174,21 +198,6 @@ void AnimatedBackground::initializeCells()
 
         /* copy the cell object inside the cells container */
         cells.push_back(std::move(cell));
-
-        /* increment the current line */
-        currentLine++;
-
-        /* the the current line is equal to the last line index, we reset the
-           line index and we increment the column index; in fact, we start to
-           generate cells in the next column */
-        if (currentLine == 18)
-        {
-            /* reset the current line index */
-            currentLine = 0;
-
-            /* increment the current column */
-            currentColumn++;
-        }
     }
 }
 

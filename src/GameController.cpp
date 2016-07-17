@@ -24,7 +24,6 @@
 
 #include "GameController.hpp"
 
-#include "CellsFileRepresentations.hpp"
 #include "controllers.hpp"
 #include "SoundsManager.hpp"
 
