@@ -123,7 +123,7 @@ private:
 
     ::widgets::CellSelectorWidget cellSelector;
 
-    ::entities::Level level;
+    entities::Level level;
 
     sf::Text levelNameLabel;
     sf::Text errorLabel;

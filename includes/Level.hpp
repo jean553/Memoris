@@ -23,15 +23,15 @@
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_LEVEL
-#define DEF_LEVEL
-
-#include <vector>
-#include <string>
+#ifndef MEMORIS_LEVEL_H_
+#define MEMORIS_LEVEL_H_
 
 #include "Cell.hpp"
 #include "Context.hpp"
 #include "HiddenCellPicture.hpp"
+
+#include <vector>
+#include <string>
 
 enum PlayerDirection
 {
@@ -41,8 +41,11 @@ enum PlayerDirection
     RIGHT
 };
 
+namespace memoris
+{
 namespace entities
 {
+
 class Level
 {
     static const unsigned short CELLS_STRING_STEP;
@@ -254,6 +257,8 @@ private:
      * after found */
     memoris::entities::Cell* pPreviousPlayerCell;
 };
+
+}
 }
 
 #endif
