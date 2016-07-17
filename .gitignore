@@ -7,3 +7,6 @@ data/series/*
 !data/levels/1.level
 !data/series/1.serie
 *.swp
+latex/
+html/
+doxygen_sqlite3.db
