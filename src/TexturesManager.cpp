@@ -23,6 +23,8 @@
 
 #include "TexturesManager.hpp"
 
+#include "TexturesLoader.hpp"
+
 namespace memoris
 {
 namespace textures
@@ -102,22 +104,6 @@ sf::Texture& TexturesManager::getTimeTexture()
 sf::Texture& TexturesManager::getFloorTexture()
 {
     return floorTexture;
-}
-
-/**
- *
- */
-void TexturesManager::loadTexture(
-    sf::Texture& sfmlTexture,
-    const std::string& filePath
-)
-{
-    /* try to open the given texture at the given file path; throw an
-       exception and terminates the program if the texture cannot be loaded */
-    if (!sfmlTexture.loadFromFile(filePath))
-    {
-        throw std::invalid_argument("Cannot load texture : " + filePath);
-    }
 }
 
 }
