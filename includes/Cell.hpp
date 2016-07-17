@@ -229,11 +229,6 @@ private:
      */
     void initializeCommonAttributes();
 
-    /**
-     * @brief animate the cell selector
-     */
-    void animateCell();
-
     bool isSelected;
     bool isHidden;
     bool isCursorSensitive;
@@ -249,8 +244,6 @@ private:
     sf::Texture texture;
 
     sf::Sprite sprite;
-
-    sf::Clock clock;
 
     sf::RectangleShape topSelectionBar;
     sf::RectangleShape bottomSelectionBar;

@@ -188,11 +188,6 @@ void Cell::display()
 
     if (isSelected)
     {
-        if (isAnimated)
-        {
-            animateCell();
-        }
-
         utils::Context::get().getSfmlWindow().draw(topSelectionBar);
         utils::Context::get().getSfmlWindow().draw(bottomSelectionBar);
         utils::Context::get().getSfmlWindow().draw(leftSelectionBar);
@@ -365,37 +360,6 @@ std::string Cell::getStringRepresentation() const
 void Cell::setIsAnimated(const bool& animate)
 {
     isAnimated = animate;
-}
-
-/**
- *
- */
-void Cell::animateCell()
-{
-    if(clock.getElapsedTime().asMilliseconds() <= 10)
-    {
-        return;
-    }
-
-    selectorColor.g +=
-        15 * selectorDirection;
-    selectorColor.b +=
-        15 * selectorDirection;
-
-    topSelectionBar.setFillColor(selectorColor);
-    bottomSelectionBar.setFillColor(selectorColor);
-    leftSelectionBar.setFillColor(selectorColor);
-    rightSelectionBar.setFillColor(selectorColor);
-
-    if (
-        selectorColor.g == 0 ||
-        selectorColor.g == 255
-    )
-    {
-        selectorDirection *= -1;
-    }
-
-    clock.restart();
 }
 
 /**
