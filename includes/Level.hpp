@@ -113,14 +113,14 @@ public:
      *
      * @return pointer to the current selected cell
      */
-    entities::Cell* getSelectedCellPointer() const;
+    memoris::entities::Cell* getSelectedCellPointer() const;
 
     /**
      * @brief returns cells array pointer
      *
      * @return vector pointer containing cells objects pointers
      */
-    std::vector<Cell>* getPointerCells();
+    std::vector<memoris::entities::Cell>* getPointerCells();
 
     /**
      * @brief returns all the level cells as string
@@ -207,21 +207,21 @@ public:
      *
      * @param Cell* pointer to a cell
      */
-    void setPlayerCellPtr(entities::Cell* ptrPlayerCell);
+    void setPlayerCellPtr(memoris::entities::Cell* ptrPlayerCell);
 
     /**
      * @brief getter for the player cell pointer
      *
      * @return Cell*
      */
-    entities::Cell* getPlayerCellPtr() const;
+    memoris::entities::Cell* getPlayerCellPtr() const;
 
     /**
      * @brief getter for the previous player cell pointer
      *
      * @return Cell*
      */
-    entities::Cell* getPreviousPlayerCellPtr() const;
+    memoris::entities::Cell* getPreviousPlayerCellPtr() const;
 
     /**
      * @brief set the current player cell as enabled
@@ -240,19 +240,19 @@ private:
 
     std::string name;
 
-    Cell* pSelectedCell;
+    memoris::entities::Cell* pSelectedCell;
 
     uint16_t departureCellIndex;
 
-    std::vector<Cell> cells;
+    std::vector<memoris::entities::Cell> cells;
 
     /* pointer to the current player position cell */
-    Cell* pPlayerCell;
+    memoris::entities::Cell* pPlayerCell;
 
     /* pointer to the previous cell where was the player,
      * useful when the content of the cell has to disapeared
      * after found */
-    Cell* pPreviousPlayerCell;
+    memoris::entities::Cell* pPreviousPlayerCell;
 };
 }
 

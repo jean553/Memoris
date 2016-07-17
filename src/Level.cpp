@@ -91,7 +91,7 @@ Level::~Level()
 void Level::displayAllCellsByFloor(const uint8_t& floor)
 {
     for (
-        std::vector<Cell>::iterator cell = cells.begin();
+        std::vector<memoris::entities::Cell>::iterator cell = cells.begin();
         cell != cells.end();
         ++cell
     )
@@ -131,7 +131,7 @@ std::string Level::getName() const
 bool Level::isMouseHover(short floor)
 {
     for (
-        std::vector<Cell>::iterator cell = cells.begin();
+        std::vector<memoris::entities::Cell>::iterator cell = cells.begin();
         cell != cells.end();
         ++cell
     )
@@ -159,7 +159,7 @@ bool Level::isMouseHover(short floor)
 /**
  *
  */
-entities::Cell* Level::getSelectedCellPointer() const
+memoris::entities::Cell* Level::getSelectedCellPointer() const
 {
     return pSelectedCell;
 }
@@ -167,7 +167,7 @@ entities::Cell* Level::getSelectedCellPointer() const
 /**
  *
  */
-std::vector<Cell>* Level::getPointerCells()
+std::vector<memoris::entities::Cell>* Level::getPointerCells()
 {
     return &cells;
 }
@@ -180,7 +180,7 @@ std::string Level::getCellsAsString()
     std::string cellsAsString;
 
     for (
-        std::vector<Cell>::iterator cell = cells.begin();
+        std::vector<memoris::entities::Cell>::iterator cell = cells.begin();
         cell != cells.end();
         ++cell
     )
@@ -201,7 +201,7 @@ void Level::loadCells(const std::string& levelString)
 
     for (uint16_t i = 0; i < memoris::dimensions::CELLS_PER_LEVEL; i++)
     {
-        Cell newCell(memoris::utils::Context::get());
+        memoris::entities::Cell newCell(memoris::utils::Context::get());
 
         if (levelString.empty())
         {
@@ -266,7 +266,7 @@ void Level::loadCells(const std::string& levelString)
 void Level::setAllCellsVisibility(const bool& hidden)
 {
     for (
-        std::vector<Cell>::iterator cell = cells.begin();
+        std::vector<memoris::entities::Cell>::iterator cell = cells.begin();
         cell != cells.end();
         ++cell
     )
@@ -281,7 +281,7 @@ void Level::setAllCellsVisibility(const bool& hidden)
 void Level::setCellsCursorSensitivity(const bool& sensitivity)
 {
     for (
-        std::vector<Cell>::iterator cell = cells.begin();
+        std::vector<memoris::entities::Cell>::iterator cell = cells.begin();
         cell != cells.end();
         ++cell
     )
@@ -438,7 +438,7 @@ uint16_t Level::getStarCellsAmount()
 
     /* TODO: maybe is there a better solution than iterate the array... ? */
     for (
-        std::vector<Cell>::iterator cell = cells.begin();
+        std::vector<memoris::entities::Cell>::iterator cell = cells.begin();
         cell != cells.end();
         ++cell
     )
@@ -458,7 +458,7 @@ uint16_t Level::getStarCellsAmount()
 /**
  *
  */
-void Level::setPlayerCellPtr(entities::Cell* ptrPlayerCell)
+void Level::setPlayerCellPtr(memoris::entities::Cell* ptrPlayerCell)
 {
     pPlayerCell = ptrPlayerCell;
 }
@@ -466,7 +466,7 @@ void Level::setPlayerCellPtr(entities::Cell* ptrPlayerCell)
 /**
  *
  */
-entities::Cell* Level::getPlayerCellPtr() const
+memoris::entities::Cell* Level::getPlayerCellPtr() const
 {
     return pPlayerCell;
 }
@@ -474,7 +474,7 @@ entities::Cell* Level::getPlayerCellPtr() const
 /**
  *
  */
-entities::Cell* Level::getPreviousPlayerCellPtr() const
+memoris::entities::Cell* Level::getPreviousPlayerCellPtr() const
 {
     return pPreviousPlayerCell;
 }

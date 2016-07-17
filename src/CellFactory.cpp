@@ -32,11 +32,11 @@
 
 using namespace factories;
 
-entities::Cell CellFactory::getCellByStringName(
+memoris::entities::Cell CellFactory::getCellByStringName(
     const std::string& stringCell
 )
 {
-    entities::Cell cell(memoris::utils::Context::get());
+    memoris::entities::Cell cell(memoris::utils::Context::get());
     cell.setStringRepresentation(stringCell);
     cell.setPicturePath("res/cells/" + stringCell + ".png");
     return cell;

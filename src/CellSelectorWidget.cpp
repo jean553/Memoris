@@ -269,7 +269,7 @@ bool CellSelectorWidget::isMouseHover() const
 /**
  *
  */
-entities::Cell* CellSelectorWidget::getSelectedNewCellPointer()
+memoris::entities::Cell* CellSelectorWidget::getSelectedNewCellPointer()
 {
     if (departureCell.getIsSelected())
     {
@@ -324,7 +324,7 @@ entities::Cell* CellSelectorWidget::getSelectedNewCellPointer()
 /**
  *
  */
-entities::Cell* CellSelectorWidget::getFloorDownCell()
+memoris::entities::Cell* CellSelectorWidget::getFloorDownCell()
 {
     return &floorDownCell;
 }
@@ -332,7 +332,7 @@ entities::Cell* CellSelectorWidget::getFloorDownCell()
 /**
  *
  */
-entities::Cell* CellSelectorWidget::getFloorUpCell()
+memoris::entities::Cell* CellSelectorWidget::getFloorUpCell()
 {
     return &floorUpCell;
 }
@@ -340,7 +340,7 @@ entities::Cell* CellSelectorWidget::getFloorUpCell()
 /**
  *
  */
-entities::Cell* CellSelectorWidget::getEmptyCell()
+memoris::entities::Cell* CellSelectorWidget::getEmptyCell()
 {
     return &emptyCell;
 }

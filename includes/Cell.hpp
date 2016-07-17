@@ -23,8 +23,8 @@
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef DEF_CELL
-#define DEF_CELL
+#ifndef MEMORIS_CELL_H_
+#define MEMORIS_CELL_H_
 
 #include <SFML/Graphics.hpp>
 #include <string>
@@ -32,8 +32,11 @@
 #include "Context.hpp"
 #include "HiddenCellPicture.hpp"
 
+namespace memoris
+{
 namespace entities
 {
+
 class Cell
 {
 
@@ -228,12 +231,6 @@ public:
 
 private:
 
-    static const uint8_t INTERVAL_ANIMATION;
-    static const uint8_t SELECTOR_COLOR_INCREMENTATION_STEP;
-
-    static const uint16_t MINIMUM_RED_COLOR_AMOUNT;
-    static const uint16_t MAXIMUM_RED_COLOR_AMOUNT;
-
     /**
      * @brief common initializer for all constructors
      */
@@ -274,11 +271,13 @@ private:
 
     /* TODO: should be refactored, for now
      * we create one hidden cell per cell... */
-    utils::HiddenCellPicture hiddenCellPtr;
+    ::utils::HiddenCellPicture hiddenCellPtr;
 
     std::string picturePath;
     std::string stringRepresentation;
 };
+
+}
 }
 
 #endif

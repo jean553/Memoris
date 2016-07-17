@@ -45,7 +45,7 @@ public:
      *
      * @return Cell
      */
-    static entities::Cell getCellByStringName(
+    static memoris::entities::Cell getCellByStringName(
         const std::string& stringCell
     );
 };
