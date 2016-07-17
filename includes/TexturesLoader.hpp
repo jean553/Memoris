@@ -1,0 +1,56 @@
+/**
+ * Memoris
+ * Copyright (C) 2015  Jean LELIEVRE
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/**
+ * @file TexturesLoader.hpp
+ * @brief contains only one method used by both of the two textures managers
+ * (the simple one and the cells one) to load the textures
+ * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
+ */
+
+#ifndef MEMORIS_TEXTURESLOADER_H_
+#define MEMORIS_TEXTURESLOADER_H_
+
+#include <SFML/Graphics.hpp>
+
+#include <string>
+
+namespace memoris
+{
+namespace textures
+{
+
+/**
+ * @brief loads one texture by file path, throw an exception if the file cannot
+ * be loaded
+ *
+ * @param sfmlTexture SFML texture object
+ * @param filePath path of the file to open
+ *
+ * NOTE: this function is used by the two textures managers of the game: the
+ * normal textures manager and the cells manager
+ */
+void loadTexture(
+    sf::Texture& sfmlTexture,
+    const std::string& filePath
+);
+
+}
+}
+
+#endif

@@ -99,18 +99,6 @@ private:
      */
     TexturesManager();
 
-    /**
-     * @brief loads one texture by file path, throw
-     * an exception if the file cannot be loaded
-     *
-     * @param sfmlTexture SFML texture object
-     * @param filePath path of the file to open
-     */
-    void loadTexture(
-        sf::Texture& sfmlTexture,
-        const std::string& filePath
-    );
-
     /* github texture displayed on the main menu */
     sf::Texture githubTexture;
 
