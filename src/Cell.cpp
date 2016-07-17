@@ -27,7 +27,6 @@
 
 #include "dimensions.hpp"
 #include "window.hpp"
-#include "ColorsManager.hpp"
 #include "Context.hpp"
 
 namespace memoris
@@ -38,17 +37,20 @@ namespace entities
 /**
  *
  */
-Cell::Cell()
+Cell::Cell(
+    const float& hPosition,
+    const float& vPosition,
+    const std::string& cellType
+)
 {
-    /* TODO: this is not used inside the copy constructor,
-      because we are mandatory to pass the utils::Context::get() as
-      a parameter of the copy constructor. If we do that,
-      this is not a copy constructor anymore... Need to
-      find a solution for this... */
-    /* the selector color is continually updated, that's
-       why we copy it from the red color first */
-    selectorColor = memoris::colors::ColorsManager::get().getColorRed();
-    initializeCommonAttributes();
+    /* set the given position */
+    setPosition(
+        hPosition,
+        vPosition
+    );
+
+    /* set the name of the cell */
+    setCellType(cellType);
 }
 
 /**
@@ -83,46 +85,38 @@ void Cell::moveOnTheRight()
  *
  */
 void Cell::setPosition(
-    float hPosition,
-    float vPosition
+    const float& hPosition,
+    const float& vPosition
 )
 {
-    horizontalPosition = hPosition;
-    verticalPosition = vPosition;
-
+    /* set the new position of the SFML surface */
     sprite.setPosition(
         horizontalPosition,
         verticalPosition
     );
 
+    /* TODO: check if necessary... */
     hiddenCellPtr.setSpritePosition(
         horizontalPosition,
         verticalPosition
     );
 
-    topSelectionBar.setPosition(
-        horizontalPosition,
-        verticalPosition
-    );
+    /* save the given values */
+    horizontalPosition = hPosition;
+    verticalPosition = vPosition;
 
-    bottomSelectionBar.setPosition(
-        horizontalPosition,
-        verticalPosition +
-        memoris::dimensions::CELL_PIXELS_DIMENSIONS -
-        memoris::dimensions::SELECTED_CELLS_BORDER_WIDTH
-    );
+}
 
-    leftSelectionBar.setPosition(
-        horizontalPosition,
-        verticalPosition
-    );
+/**
+ *
+ */
+void Cell::setCellType(const std::string& cellType)
+{
+    /* TODO: to refactor */
+    setPicturePath("res/cells/" + cellType + ".png");
 
-    rightSelectionBar.setPosition(
-        horizontalPosition +
-        memoris::dimensions::CELL_PIXELS_DIMENSIONS -
-        memoris::dimensions::SELECTED_CELLS_BORDER_WIDTH,
-        verticalPosition
-    );
+    /* save the cell type */
+    type = cellType;
 }
 
 /**
@@ -142,59 +136,6 @@ void Cell::setPicturePath(std::string path)
 void Cell::display()
 {
     utils::Context::get().getSfmlWindow().draw(sprite);
-}
-
-/**
- *
- */
-void Cell::setStringRepresentation(const std::string& representation)
-{
-    stringRepresentation = representation;
-
-    /* force the update of the picture path */
-    setPicturePath("res/cells/" + representation + ".png");
-}
-
-/**
- *
- */
-void Cell::initializeCommonAttributes()
-{
-    horizontalPosition = 0;
-    verticalPosition = 0;
-
-    topSelectionBar.setSize(
-        sf::Vector2f(
-            memoris::dimensions::CELL_PIXELS_DIMENSIONS,
-            memoris::dimensions::SELECTED_CELLS_BORDER_WIDTH
-        )
-    );
-
-    bottomSelectionBar.setSize(
-        sf::Vector2f(
-            memoris::dimensions::CELL_PIXELS_DIMENSIONS,
-            memoris::dimensions::SELECTED_CELLS_BORDER_WIDTH
-        )
-    );
-
-    leftSelectionBar.setSize(
-        sf::Vector2f(
-            memoris::dimensions::SELECTED_CELLS_BORDER_WIDTH,
-            memoris::dimensions::CELL_PIXELS_DIMENSIONS
-        )
-    );
-
-    rightSelectionBar.setSize(
-        sf::Vector2f(
-            memoris::dimensions::SELECTED_CELLS_BORDER_WIDTH,
-            memoris::dimensions::CELL_PIXELS_DIMENSIONS
-        )
-    );
-
-    topSelectionBar.setFillColor(selectorColor);
-    bottomSelectionBar.setFillColor(selectorColor);
-    leftSelectionBar.setFillColor(selectorColor);
-    rightSelectionBar.setFillColor(selectorColor);
 }
 
 }

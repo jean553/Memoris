@@ -8,7 +8,6 @@ OBJS = \
 	   build/musics.o \
 	   build/window.o \
 	   build/controllers.o \
-	   build/CellFactory.o \
 	   build/Context.o \
 	   build/Controller.o \
 	   build/InputTextWidget.o \
@@ -71,9 +70,6 @@ build/SoundsManager.o: src/SoundsManager.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/TexturesManager.o: src/TexturesManager.cpp
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
-
-build/CellFactory.o: src/CellFactory.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 build/Context.o: src/Context.cpp

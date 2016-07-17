@@ -43,9 +43,15 @@ class Cell
 public:
 
     /**
-     * @brief default constructor
+     * @brief cell constructor, get the horizontal and vertical position of
+     * the cell, get the type of the cell. Set the cell at the given
+     * position, set the cell type
      */
-    Cell();
+    Cell(
+        const float& hPosition,
+        const float& vPosition,
+        const std::string& name
+    );
 
     /**
      * @brief move the cell to one pixel on the right; this method is used
@@ -58,16 +64,35 @@ public:
      *
      * @param hPosition horizontal position
      * @param vPosition vertical position
+     *
+     * NOTE: we use a separated method to set the horizontal and vertical
+     * position, because this is a code called by the constructor but also
+     * by the methods that update the cells position (like the animated
+     * background animation)
      */
     void setPosition(
-        float hPosition,
-        float vPosition
+        const float& hPosition,
+        const float& vPosition
     );
+
+    /**
+     * @brief setter for the string type; the types of the cells are
+     * represented by two letters (ex: 'DP') in the level file; this function
+     * takes this string representation as a parameter
+     *
+     * @param cellType string representation of the type of the cell
+     *
+     * TODO: to delete, the initialization must be done with initialization
+     * list
+     */
+    void setCellType(const std::string& cellType);
 
     /**
      * @brief set the picture
      *
      * @param path image path
+     *
+     * TODO: to delete, use the texture manager
      */
     void setPicturePath(std::string path);
 
@@ -76,43 +101,34 @@ public:
      */
     void display();
 
-    /**
-     * @brief setter for the string representation
-     *
-     * @param representation string representation
-     */
-    void setStringRepresentation(const std::string& representation);
-
 private:
 
-    /**
-     * @brief common initializer for all constructors
-     */
-    void initializeCommonAttributes();
-
+    /* the horizontal and vertical positions of the cell on the screen */
+    /* NOTE: we do not initialize the positions here, because they have to
+       be initialized inside the cell constructor; these positions are already
+       saved into the SFML surface object but we save them also into this
+       class object; in fact, we need to access them quickly to calculate the
+       cells movements and also to use the cells selector */
     float horizontalPosition;
     float verticalPosition;
 
+    /* contains a representation of the cell inside the level file; each cell
+       inside the level file is represented by two characters of a string (ex:
+       'DP' for Departure Cell); this parameter represents the type of cell */
+    std::string type;
+
+    /* TODO: to delete, the textures of each cell have to be loaded by the
+       textures manager */
     sf::Texture texture;
 
+    /* the SFML surface of the cell */
     sf::Sprite sprite;
 
-    sf::RectangleShape topSelectionBar;
-    sf::RectangleShape bottomSelectionBar;
-    sf::RectangleShape leftSelectionBar;
-    sf::RectangleShape rightSelectionBar;
-
-    /* the color of the animated cell selector; this is
-       declared here as the color is animated and continually
-       modified */
-    sf::Color selectorColor;
-
-    /* TODO: should be refactored, for now
-     * we create one hidden cell per cell... */
+    /* TODO: must be refactored */
     ::utils::HiddenCellPicture hiddenCellPtr;
 
+    /* TODO: to delete (managed by the texture manager) */
     std::string picturePath;
-    std::string stringRepresentation;
 };
 
 }

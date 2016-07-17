@@ -32,6 +32,7 @@
 #include <SFML/Graphics.hpp>
 
 #include <vector>
+#include <memory>
 
 namespace memoris
 {
@@ -78,7 +79,7 @@ private:
        one by one in the creation cells loop; we store simple Cells objects
        and not pointers; in fact, the cells are created one by one in the loop
        and copied into the container; they never change after */
-    std::vector<entities::Cell> cells;
+    std::vector<std::unique_ptr<entities::Cell>> cells;
 
     /* last time of the cell movement; we use a SFML unsigned integer of 32
        bits because this is the data type used by the SFML clock; initialize
