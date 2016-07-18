@@ -74,11 +74,15 @@ private:
      */
     void initializeCells();
 
-    /* the array of displayed cells in the background; this is an array of
-       18 rows and 32 columns, that means 576 cells; we declare the cells
-       one by one in the creation cells loop; we store simple Cells objects
-       and not pointers; in fact, the cells are created one by one in the loop
-       and copied into the container; they never change after */
+    /* the array of displayed cells in the animated background; we do not know
+       in advance the size of the array, it depends of the random generation
+       of cells */
+    /* NOTE: the container is a pointers container for two reasons: we do not
+       have to overwritte the copy constructor of Cell to handle the sprites,
+       textures transfert during the copy (when append the object in the
+       container); we analyzed that the execution speed is almost ten times
+       faster when copying pointers (clock() usage); we use an unique pointer
+       because we do not need to handle ownership management of the objects */
     std::vector<std::unique_ptr<entities::Cell>> cells;
 
     /* last time of the cell movement; we use a SFML unsigned integer of 32

@@ -155,7 +155,7 @@ void AnimatedBackground::initializeCells()
                            randomNumber
                        );
 
-        /* generate a new cell object */
+        /* generate a new cell object, pointed by an unique pointer */
         std::unique_ptr<entities::Cell> cell(
             new entities::Cell(
                 currentColumn *
@@ -172,7 +172,7 @@ void AnimatedBackground::initializeCells()
             )
         );
 
-        /* copy the cell object inside the cells container */
+        /* move the cell object unique pointer into the container */
         cells.push_back(std::move(cell));
 
         /* increment the current line */
