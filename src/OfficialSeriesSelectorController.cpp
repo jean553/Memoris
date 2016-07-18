@@ -188,7 +188,6 @@ void OfficialSeriesSelectorController::selectMenuItem()
 {
     /* TODO: #512 the first level to played should be loaded from the selected
        serie */
-    utils::Context::get().setNextLevelPathString("data/levels/1.level");
 
     expectedControllerId = GAME_CONTROLLER_ID;
 }

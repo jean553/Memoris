@@ -63,7 +63,9 @@ NewGameController::NewGameController() :
     explanation.setFont(memoris::fonts::FontsManager::get().getTextFont());
     explanation.setString("Your name :");
     explanation.setCharacterSize(memoris::fonts::TEXT_SIZE);
-    explanation.setColor(memoris::colors::ColorsManager::get().getColorWhite());
+    explanation.setColor(
+        memoris::colors::ColorsManager::get().getColorWhite()
+    );
     explanation.setPosition(
         645,
         380
