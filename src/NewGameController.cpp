@@ -122,8 +122,7 @@ unsigned short NewGameController::render()
                     break;
                 }
 
-                expectedControllerId =
-                    SERIE_MAIN_MENU_CONTROLLER_ID;
+                expectedControllerId = SERIE_MAIN_MENU_CONTROLLER_ID;
 
                 break;
             }

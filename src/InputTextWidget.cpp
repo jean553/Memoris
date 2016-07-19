@@ -202,6 +202,20 @@ void InputTextWidget::display()
  */
 void InputTextWidget::update(const sf::Event& event)
 {
+    /* check if the pressed key is the backspace; in that case, just empty
+       the whole field */
+    if (backspaceIsPressedDown(event))
+    {
+        /* clear the widget content; set an empty string as the SFML text
+           surface content */
+        displayedText.setString("");
+
+        /* update the cursor position */
+        updateCursorPosition();
+
+        return;
+    }
+
     /* do not allow to continue to write content if the input text widget
        already contains the maximum amount of characters allowed */
     if (
@@ -214,21 +228,12 @@ void InputTextWidget::update(const sf::Event& event)
 
     /* make a concatenation of the existing SFML string with the new added
        string; save it as the new displayed string */
-    displayedText.setString(displayedText.getString() + getInputLetter(event));
-
-    /* update the position of the cursor according to the new SFML text surface
-       width; add 5 pixels everytime horizontaly and verticaly; we set the
-       cursor exactly after the last letter; we cannot predict what is one
-       character width, because it is different for all of them, so we use
-       getLocalBounds() to calculate the "real" text surface width and add
-       the cursor directly right after */
-    cursor.setPosition(
-        horizontalPosition +
-        5 +
-        displayedText.getLocalBounds().width,
-        verticalPosition +
-        5
+    displayedText.setString(
+        displayedText.getString() + getInputLetter(event)
     );
+
+    /* update the cursor position */
+    updateCursorPosition();
 }
 
 /**
@@ -396,6 +401,34 @@ sf::String InputTextWidget::getInputLetter(const sf::Event& event)
     }
 
     return character;
+}
+
+/**
+ *
+ */
+const bool InputTextWidget::backspaceIsPressedDown(const sf::Event& event)
+{
+    return event.key.code == sf::Keyboard::BackSpace;
+}
+
+/**
+ *
+ */
+void InputTextWidget::updateCursorPosition()
+{
+    /* update the position of the cursor according to the new SFML text surface
+       width; add 5 pixels everytime horizontaly and verticaly; we set the
+       cursor exactly after the last letter; we cannot predict what is one
+       character width, because it is different for all of them, so we use
+       getLocalBounds() to calculate the "real" text surface width and add
+       the cursor directly right after */
+    cursor.setPosition(
+        horizontalPosition +
+        5 +
+        displayedText.getLocalBounds().width,
+        verticalPosition +
+        5
+    );
 }
 
 }
