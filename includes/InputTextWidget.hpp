@@ -111,6 +111,22 @@ private:
      */
     sf::String getInputLetter(const sf::Event& event);
 
+    /**
+     * @brief check if the keyspace key is pressed down, returns True if
+     * pressed down, False is released
+     *
+     * @param event constant reference to the SFML events manager
+     *
+     * @return const bool
+     */
+    const bool backspaceIsPressedDown(const sf::Event& event);
+
+    /**
+     * @brief refactor of the action that update the position of the cursor
+     * according of the current widget content graphical width
+     */
+    void updateCursorPosition();
+
     /* the last time of the input text widget cursor flashing animation
        update; we use SFML sf::Int32 data type as the SFML clock object
        uses this data type to handle time features; we initialize this member
