@@ -10,3 +10,4 @@ data/series/*
 latex/
 html/
 doxygen_sqlite3.db
+core

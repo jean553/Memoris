@@ -35,30 +35,11 @@ After individual verification of each asset license, all of them can be integrat
 Memoris has been compiled and executed successfully on :
 - Debian 8
 - Ubuntu 14.04 LTS
-- Ubuntu 15.04
 
 ### Compilation
 
-Memoris uses the version 2.1 of the SFML library and CMake.
-
-```
-sudo apt-get update
-sudo apt-get install -y libsfml-dev cmake
-```
-
-Compile the application with CMake ( Debian 8 only ) :
-
-```
-mkdir build && cd build/
-cmake ..
-make -j
-```
-
-Compile the application ( all distributions ) :
-
-```
-make -j
-```
+Memoris is developed into a dedicated Docker container including all the required tools and development facilities.
+Available here : [memoris-dev](https://github.com/jean553/memoris-dev)
 
 ### Execution
 

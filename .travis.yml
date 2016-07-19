@@ -3,6 +3,8 @@ dist: trusty
 compiler: clang++
 before_script:
     - sudo apt-get update
-    - sudo apt-get install libsfml-dev -y
+    - sudo apt-get install libsfml-dev cmake -y
 script: 
+    - mkdir build && cd build/
+    - cmake ..
     - make -j
