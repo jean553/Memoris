@@ -52,7 +52,7 @@ Context::Context() : sfmlWindow(
             window::HEIGHT,
             window::RESOLUTION
         ),
-        window::getWindowTitle(),
+        window::TITLE,
         sf::Style::Fullscreen
     )
 {
