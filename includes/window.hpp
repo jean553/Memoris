@@ -32,6 +32,9 @@ namespace memoris
 namespace window
 {
 
+/* NOTE: the strings are declared as extern, like that we are sure they are
+   only defined one time, and all the scripts that need them use the sames */
+
 /* width of the SFML window */
 constexpr unsigned short WIDTH = 1600;
 
@@ -41,12 +44,8 @@ constexpr unsigned short HEIGHT = 900;
 /* resolution of the SFML window */
 constexpr unsigned short RESOLUTION = 32;
 
-/**
- * @brief returns the value of the window title string
- *
- * @return const std::string
- */
-const std::string getWindowTitle();
+/* the title of the SFML window */
+extern const std::string TITLE;
 
 }
 }
