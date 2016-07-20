@@ -56,10 +56,15 @@ unsigned short GameController::render()
     /* displays the game dashboard */
     dashboard.display();
 
+    /* display the level and all the cells */
+    /* TODO: #546 only displays the first floor for now, so 0; should be
+       modified according to the current user floor */
+    level.display(0);
+
     /* displays all the cells of the level during the time of the watching
        period */
-    /* TODO: 5000 ms is a default value, should be the actual bonus watching
-       time of the player */
+    /* TODO: #547 5000 ms is a default value, should be the actual bonus
+       watching time of the player */
     if (
         watchingPeriod &&
         (

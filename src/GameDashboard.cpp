@@ -147,8 +147,8 @@ GameDashboard::GameDashboard() :
         )
     );
     leftSeparator.setPosition(
-        290,
-        0
+        290.f,
+        0.f
     );
     leftSeparator.setFillColor(colors::ColorsManager::get().getColorWhite());
 
@@ -159,8 +159,8 @@ GameDashboard::GameDashboard() :
         )
     );
     rightSeparator.setPosition(
-        1308,
-        0
+        1308.f,
+        0.f
     );
     rightSeparator.setFillColor(colors::ColorsManager::get().getColorWhite());
 

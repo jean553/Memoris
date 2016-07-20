@@ -1,0 +1,79 @@
+/*
+ * Memoris
+ * Copyright (C) 2015  Jean LELIEVRE
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/**
+ * @file Level.hpp
+ * @brief level entity, contains all the cells
+ * @package entities
+ * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
+ */
+
+#ifndef MEMORIS_LEVEL_H_
+#define MEMORIS_LEVEL_H_
+
+#include "Cell.hpp"
+
+#include <vector>
+#include <memory>
+
+namespace memoris
+{
+namespace entities
+{
+
+class Level
+{
+
+public:
+
+    /**
+     * @brief constructor, call the method that initializes all the cells
+     */
+    Level();
+
+    /**
+     * @brief render the level and all the cells of the given floor; this
+     * method is optimized and only calculate/render/display the cells of
+     * the given floor; the other cells are totally ignored
+     *
+     * @param floor the floor to render
+     */
+    void display(const unsigned short& floor) const;
+
+private:
+
+    /**
+     * @brief method that initialize all the cells to empty cells; we use a
+     * separated method to handle this task instead of using directly the
+     * constructor because we use many temporary variables for this task; this
+     * method is called by the controller
+     */
+    void initializeCells();
+
+    /* container of unique pointers of cells; we use unique pointers because
+       pointers are fast to copy/move instead of a whole cell object; we use
+       a unique pointer to make the pointer as restrictif as possible, in fact,
+       we only use dynamic allocation to make the program run faster, so this
+       is always better to limit the freedom of variables */
+    std::vector<std::unique_ptr<Cell>> cells;
+};
+
+}
+}
+
+#endif
