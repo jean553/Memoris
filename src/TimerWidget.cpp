@@ -53,6 +53,9 @@ TimerWidget::TimerWidget(
         295.f,
         10.f
     );
+
+    /* update the displayed timer string */
+    updateDisplayedString();
 }
 
 /**
@@ -61,10 +64,10 @@ TimerWidget::TimerWidget(
 void TimerWidget::display()
 {
     /* check if the elapsed time since the last timer update is more than
-       10 milliseconds; if yes, the timer value is updated */
+       1000 milliseconds; if yes, the timer value is updated */
     if (
         utils::Context::get().getClockMillisecondsTime() -
-        lastTimerUpdateTime > 10
+        lastTimerUpdateTime > 1000
     )
     {
         /* call the separated private method to update all the timer values */
@@ -83,8 +86,8 @@ void TimerWidget::display()
  */
 void TimerWidget::updateTimerValues()
 {
-    /* increment the amount of displayed milliseconds */
-    milliseconds++;
+    /* increment the amount of displayed seconds */
+    seconds++;
 
     /* adapt the values of other timer variables */
 
@@ -94,30 +97,29 @@ void TimerWidget::updateTimerValues()
        countdown, so this case will never happen after the whole game
        development */
 
-    /* check if the amount of elapsed milliseconds is equal to 100; if yes,
-       the amount of milliseconds is reset and the amount of seconds is
+    /* check if the amount of elapsed seconds is equal to 60; if yes,
+       the amount of seconds is reset and the amount of minutes is
        incremented */
-    if (milliseconds == 100)
+    if (seconds == 60)
     {
-        seconds++;
-        milliseconds = 0;
-
-        /* check if the amount of elapsed seconds is equal to 60; if yes
-        the amount of seconds is reset and the amount of minutes is
-        incremented */
-        if (seconds == 60)
-        {
-            minutes++;
-            seconds = 0;
-        }
+        minutes++;
+        seconds = 0;
     }
 
+    /* update the displayed timer string */
+    updateDisplayedString();
+}
+
+/**
+ *
+ */
+void TimerWidget::updateDisplayedString()
+{
     /* declare the SFML strings; call sf::String(const std::string&) for each
        SFML string creation; that's why we convert the unsigned long into
        a std::string in the rvalue, to get a string */
     sf::String secondsString = std::to_string(seconds),
-               minutesString = std::to_string(minutes),
-               millisecondsString = std::to_string(milliseconds);
+               minutesString = std::to_string(minutes);
 
     /* NOTE: sf::String also define a insert() method that applies the
        std::string insert() function on m_string; m_string is the internal
@@ -140,15 +142,7 @@ void TimerWidget::updateTimerValues()
     }
 
     /* update the SFML surface displayed text */
-    /* NOTE: the milliseconds are directly converted into a string here, we
-       do not check if the value is less than 10 to create a better visual
-       effect by adding a zero in the front of the value; in fact, this value
-       changes so fast, this is not necessary to add logic on that */
-    text.setString(
-        minutesString + " : " +
-        secondsString + " : " +
-        millisecondsString
-    );
+    text.setString(minutesString + " : " + secondsString);
 }
 
 }

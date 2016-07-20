@@ -60,11 +60,17 @@ public:
 private:
 
     /**
-     * @brief increments the amount of milliseconds to the current timer time;
+     * @brief increments the amount of seconds to the current timer time;
      * increments the seconds and minutes variables if necessary; reset the
-     * milliseconds or seconds variables if necessary
+     * seconds variable if necessary
      */
     void updateTimerValues();
+
+    /**
+     * @brief update the displayed timer string; add a 0 to second or minute
+     * value if it contains only one digit to make a better graphical effect
+     */
+    void updateDisplayedString();
 
     /* the time of the last update of the timer; we use this variable to
        animate the timer; by default, the value is equal to 0 */
@@ -73,10 +79,12 @@ private:
     /* SFML text surface object to render the time */
     sf::Text text;
 
-    /* unsigned shorts to store the minutes, seconds and milliseconds */
+    /* unsigned shorts to store the minutes and seconds */
+    /* NOTE: we do not work with milliseconds, we do not display milliseconds;
+       using milliseconds, the time step is too small and we cannot measure it
+       properly */
     unsigned short minutes {0};
     unsigned short seconds {0};
-    unsigned short milliseconds {0};
 };
 
 }
