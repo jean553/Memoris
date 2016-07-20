@@ -96,15 +96,15 @@ void Cell::setPosition(
     const float& vPosition
 )
 {
+    /* save the given values */
+    horizontalPosition = hPosition;
+    verticalPosition = vPosition;
+
     /* set the new position of the SFML surface */
     sprite.setPosition(
         horizontalPosition,
         verticalPosition
     );
-
-    /* save the given values */
-    horizontalPosition = hPosition;
-    verticalPosition = vPosition;
 }
 
 /**

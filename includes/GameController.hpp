@@ -30,6 +30,7 @@
 
 #include "TimerWidget.hpp"
 #include "GameDashboard.hpp"
+#include "Level.hpp"
 
 namespace memoris
 {
@@ -66,6 +67,9 @@ private:
     /* the top dashboard that displays the countdown timer and all the
        current game information labels */
     utils::GameDashboard dashboard;
+
+    /* the level that contains all the cells to display */
+    entities::Level level;
 
     /* NOTE: the use a watching and a playing boolean; we use two different
        booleans; we might think that one boolean is enough to handle the
