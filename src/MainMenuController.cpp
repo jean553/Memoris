@@ -58,7 +58,7 @@ MainMenuController::MainMenuController() :
 
     /* initialize the new game menu item */
     std::unique_ptr<items::MenuItem> newGame(
-        new items::MenuItem(
+        std::make_unique<items::MenuItem>(
             "New game",
             615.f,
             300.f
@@ -67,7 +67,7 @@ MainMenuController::MainMenuController() :
 
     /* initialize the open game menu item */
     std::unique_ptr<items::MenuItem> loadGame(
-        new items::MenuItem(
+        std::make_unique<items::MenuItem>(
             "Load game",
             605.f,
             400.f
@@ -76,7 +76,7 @@ MainMenuController::MainMenuController() :
 
     /* initialize the editor menu item */
     std::unique_ptr<items::MenuItem> editor (
-        new items::MenuItem(
+        std::make_unique<items::MenuItem>(
             "Editor",
             685.f,
             500.f
@@ -85,7 +85,7 @@ MainMenuController::MainMenuController() :
 
     /* initialize the options menu item */
     std::unique_ptr<items::MenuItem> options(
-        new items::MenuItem(
+        std::make_unique<items::MenuItem>(
             "Options",
             660.f,
             600.f
@@ -94,7 +94,7 @@ MainMenuController::MainMenuController() :
 
     /* initialize the exit menu item */
     std::unique_ptr<items::MenuItem> exit(
-        new items::MenuItem(
+        std::make_unique<items::MenuItem>(
             "Exit",
             725.f,
             700.f
