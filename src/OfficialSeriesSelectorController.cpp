@@ -52,7 +52,7 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController()
     /* initialize all the official series menu items unique pointers for the
        menu construction */
     std::unique_ptr<items::MenuItem> tutorial(
-        new items::MenuItem(
+        std::make_unique<items::MenuItem>(
             "1. Tutorial",
             10.f,
             200.f
@@ -60,7 +60,7 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController()
     );
 
     std::unique_ptr<items::MenuItem> easy(
-        new items::MenuItem(
+        std::make_unique<items::MenuItem>(
             "2. Easy",
             10.f,
             250.f
@@ -68,7 +68,7 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController()
     );
 
     std::unique_ptr<items::MenuItem> medium(
-        new items::MenuItem(
+        std::make_unique<items::MenuItem>(
             "3. Medium",
             10.f,
             300.f
@@ -76,7 +76,7 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController()
     );
 
     std::unique_ptr<items::MenuItem> difficult(
-        new items::MenuItem(
+        std::make_unique<items::MenuItem>(
             "4. Difficult",
             10.f,
             350.f
@@ -84,7 +84,7 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController()
     );
 
     std::unique_ptr<items::MenuItem> hard(
-        new items::MenuItem(
+        std::make_unique<items::MenuItem>(
             "5. Hard",
             10.f,
             400.f
@@ -92,7 +92,7 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController()
     );
 
     std::unique_ptr<items::MenuItem> veryHard(
-        new items::MenuItem(
+        std::make_unique<items::MenuItem>(
             "6. Very Hard",
             10.f,
             450.f
@@ -100,7 +100,7 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController()
     );
 
     std::unique_ptr<items::MenuItem> hazardous(
-        new items::MenuItem(
+        std::make_unique<items::MenuItem>(
             "7. Hazardous",
             10.f,
             500.f
