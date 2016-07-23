@@ -26,7 +26,7 @@
 #include "MainMenuController.hpp"
 #include "NewGameController.hpp"
 #include "SerieMainMenuController.hpp"
-#include "OfficialSeriesSelectorController.hpp"
+#include "OfficialSeriesMenuController.hpp"
 #include "GameController.hpp"
 
 #include "Context.hpp"
@@ -65,7 +65,7 @@ std::unique_ptr<Controller> getControllerById(const unsigned short& id)
     break;
     case OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID:
     {
-        controller.reset(new OfficialSeriesSelectorController());
+        controller.reset(new OfficialSeriesMenuController());
     }
     break;
     case GAME_CONTROLLER_ID:

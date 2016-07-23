@@ -17,14 +17,14 @@
 */
 
 /**
- * @file OfficialSeriesSelectorController.hpp
+ * @file OfficialSeriesMenuController.hpp
  * @brief official series menu; display all the official series of the game
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef MEMORIS_OFFICIALSERIESSELECTORCONTROLLER_H_
-#define MEMORIS_OFFICIALSERIESSELECTORCONTROLLER_H_
+#ifndef MEMORIS_OFFICIALSERIESMENUCONTROLLER_H_
+#define MEMORIS_OFFICIALSERIESMENUCONTROLLER_H_
 
 #include "AbstractMenuController.hpp"
 
@@ -33,7 +33,7 @@ namespace memoris
 namespace controllers
 {
 
-class OfficialSeriesSelectorController : public AbstractMenuController
+class OfficialSeriesMenuController : public AbstractMenuController
 {
 public:
 
@@ -41,7 +41,7 @@ public:
      * @brief constructor, generates the title of the screen; create unique
      * pointers of the menu items of this screen
      */
-    OfficialSeriesSelectorController();
+    OfficialSeriesMenuController();
 
     /**
      * @brief rendering method
