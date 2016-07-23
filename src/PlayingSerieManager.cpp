@@ -78,5 +78,14 @@ void PlayingSerieManager::loadSerieFileContent(const std::string& path)
        destroyed when the object goes out of the scope */
 }
 
+/**
+ *
+ */
+std::string& PlayingSerieManager::getNextLevelName()
+{
+    /* returns the first item of the container without popping */
+    return levels.front();
+}
+
 }
 }

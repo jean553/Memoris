@@ -63,6 +63,20 @@ public:
      */
     void loadSerieFileContent(const std::string& path);
 
+    /**
+     * @brief returns the next (or the first) item of the levels container
+     * according to the FIFO specifications
+     *
+     * @return std::string&
+     *
+     * WARNING: this function returns a *reference* to a string from a queue
+     * container, *without* popping this value; this value has to be popped
+     * when the levels are switched and when we are sure we do not use the
+     * concerned string anymore. We return reference to avoid strings
+     * copies and improve performances.
+     */
+    std::string& getNextLevelName();
+
 private:
 
     /* we use the FIFO (first in first out) method to store the levels names;
