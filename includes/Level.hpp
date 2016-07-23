@@ -55,6 +55,12 @@ public:
      */
     void display(const unsigned short& floor) const;
 
+    /**
+     * @brief hides all the cells of the level, call the method (hide()) for
+     * all of them
+     */
+    void hideAllCells();
+
 private:
 
     /**

@@ -78,6 +78,11 @@ public:
      */
     void display();
 
+    /**
+     * @brief hide the cell, the sprite is replaced by the hidden cell texture
+     */
+    void hide();
+
 private:
 
     /* the horizontal and vertical positions of the cell on the screen */

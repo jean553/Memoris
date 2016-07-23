@@ -58,6 +58,15 @@ public:
      */
     sf::Texture& getTextureReferenceByCellType(const std::string& type);
 
+    /**
+     * @brief returns a texture reference of the hidden cell texture; this cell
+     * texture is special and is useless in the cells factory method; that's
+     * why we return this texture using a separated dedicated method
+     *
+     * @return sf::Texture&
+     */
+    sf::Texture& getHiddenCellTexture();
+
 private:
 
     /**
@@ -76,6 +85,7 @@ private:
     sf::Texture moreTimeCellTexture;
     sf::Texture lessTimeCellTexture;
     sf::Texture wallCellTexture;
+    sf::Texture hiddenCellTexture;
 };
 
 }

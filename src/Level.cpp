@@ -70,6 +70,18 @@ void Level::display(const unsigned short& floor) const
 /**
  *
  */
+void Level::hideAllCells()
+{
+    /* hide all the cells of the array one by one */
+    for(unsigned short index = 0; index < 3200; index++)
+    {
+        (*cells[index]).hide();
+    }
+}
+
+/**
+ *
+ */
 void Level::initializeCells()
 {
     /* positions cursor used to keep trace of the initialized cell position
@@ -90,7 +102,7 @@ void Level::initializeCells()
            the data; this is not a problem to cast as we always manipulate
            integer values anyway */
         std::unique_ptr<Cell> cell(
-            new Cell(
+            std::make_unique<Cell>(
                 300.f + 50.f * static_cast<float>(horizontalPositionCursor),
                 98.f + 50.f * static_cast<float>(verticalPositionCursor),
                 cells::EMPTY_CELL

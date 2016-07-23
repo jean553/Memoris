@@ -91,6 +91,13 @@ public:
      */
     sf::Texture& getFloorTexture();
 
+    /**
+     * @brief getter for the hidden texture
+     *
+     * @return sf::Texture&
+     */
+    sf::Texture& getHiddenTexture();
+
 private:
 
     /**
