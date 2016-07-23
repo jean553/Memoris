@@ -20,6 +20,8 @@
  * @file ErrorController.hpp
  * @brief display exceptions messages in a dedicated screen (resources cannot
  * be found, level/serie cannot be found... etc...)
+ * TODO: #559 this controller is partially developped and only display a black
+ * screen for now...
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -39,23 +41,11 @@ class ErrorController : public Controller
 public:
 
     /**
-     * @brief constructor
-     *
-     * @param message the error message to display on the screen
-     */
-    ErrorController(const std::string& message);
-
-    /**
      * @brief renders the error message screen
      *
      * @return unsigned short
      */
     unsigned short render();
-
-private:
-
-    /* the SFML surface with the error message inside */
-    sf::Text error;
 };
 
 }
