@@ -26,6 +26,7 @@
 
 #include "controllers.hpp"
 #include "SoundsManager.hpp"
+#include "PlayingSerieManager.hpp"
 
 namespace memoris
 {
@@ -38,9 +39,12 @@ namespace controllers
 GameController::GameController() :
     Controller()
 {
-    /* TODO: #530 load a level file, throw an invalid argument exception if the
-       file cannot be opened; this exception is caught inside the controllers
-       factory and render the error controller instead */
+    /* get the next level (or the first one) of the playing serie manager
+       respecting the FIFO specifications */
+    /* TODO: #563 read the file and load the level according to the file
+       content, handle exceptions; this levelName variable is useless */
+    std::string levelName =
+        series::PlayingSerieManager::get().getNextLevelName();
 
     /* save the exact time the level starts to be displayed; this is used to
        calculate the duration of the watching period before the beginning
