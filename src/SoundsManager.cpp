@@ -62,7 +62,7 @@ SoundsManager::SoundsManager() :
 {
     /* try to load each sound from their files, one by one; the game run
        even if some/all sounds cannot be loaded; if loading succeeds, we
-       reset the NULL pointer with a pointed SFML sound object value,
+       reset the null pointer with a pointed SFML sound object value,
        the sound object is generated at this moment, only if the file is
        opened successfully */
 

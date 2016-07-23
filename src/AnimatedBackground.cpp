@@ -29,9 +29,7 @@
 #include "dimensions.hpp"
 #include "cells.hpp"
 
-/* inclusion of C library; no need for extern "C" {} here, the time library
-   already handles C++ integration */
-#include <time.h>
+#include <random>
 
 namespace memoris
 {
@@ -135,8 +133,12 @@ void AnimatedBackground::initializeCells()
        and the available cells array size (unsigned integer) */
     unsigned int randomNumber {0};
 
-    /* initialize random to generate random numbers */
-    srand(time(NULL));
+    /* initialization of the random C++ library generator */
+    std::default_random_engine generator;
+
+    /* initialization of the random integer generator; unsigned short is a
+       complient type parameter for this library */
+    std::uniform_int_distribution<unsigned short> distribution(0, 15);
 
     /* we browse the array of cells; there are 575 cells to create ( 576 (the
        total of displayed cells on the screen) - 1 because the first one is
@@ -149,9 +151,7 @@ void AnimatedBackground::initializeCells()
            there are more chances to get the value 10; this is because it is
            better to have manu "null cells" ( black cells ), to generate a
            beautiful background */
-        /* NOTE: there is no need to cast the rand() value here, rand()
-           returned a integer with a minimum of 0 (unsigned). */
-        randomNumber = rand() % 16;
+        randomNumber = distribution(generator);
 
         /* increment the current line */
         currentLine++;

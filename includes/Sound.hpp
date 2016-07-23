@@ -57,8 +57,8 @@ public:
 private:
 
     /* NOTE: we use unique pointers for the SFML sounds; we use
-       an unique pointer because it is never copied (only called here), it
-       is NULL if the loading process of the sound failed, it is automatically
+       a unique pointer because it is never copied (only called here), it
+       is null if the loading process of the sound failed, it is automatically
        destroyed */
 
     std::unique_ptr<sf::Sound> sound;

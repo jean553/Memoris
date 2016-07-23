@@ -33,8 +33,8 @@ namespace sounds
  */
 Sound::Sound(const std::string& filePath)
 {
-    /* by default, the pointer is NULL; this is used for error management */
-    sound = NULL;
+    /* by default, the pointer is null; this is used for error management */
+    sound = nullptr;
 
     /* try to load the sound from file; if it fails, the pointer remains
        null, the sound won't be used */
@@ -52,7 +52,7 @@ void Sound::play() const
 {
     /* check if the sound has been loaded correctly;
        if not loaded, the function silently fails */
-    if (sound != NULL)
+    if (sound != nullptr)
     {
         sound->play();
     }
