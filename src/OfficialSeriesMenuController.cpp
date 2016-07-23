@@ -17,12 +17,12 @@
 */
 
 /**
- * @file OfficialSeriesSelectorController.cpp
+ * @file OfficialSeriesMenuController.cpp
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "OfficialSeriesSelectorController.hpp"
+#include "OfficialSeriesMenuController.hpp"
 
 #include "fonts.hpp"
 #include "controllers.hpp"
@@ -37,7 +37,7 @@ namespace controllers
 /**
  *
  */
-OfficialSeriesSelectorController::OfficialSeriesSelectorController()
+OfficialSeriesMenuController::OfficialSeriesMenuController()
 {
     /* set the parameters of the title of the screen */
     title.setFont(memoris::fonts::FontsManager::get().getTitleFont());
@@ -123,7 +123,7 @@ OfficialSeriesSelectorController::OfficialSeriesSelectorController()
 /**
  *
  */
-unsigned short OfficialSeriesSelectorController::render()
+unsigned short OfficialSeriesMenuController::render()
 {
     utils::Context::get().getSfmlWindow().draw(title);
 
@@ -184,7 +184,7 @@ unsigned short OfficialSeriesSelectorController::render()
 /**
  *
  */
-void OfficialSeriesSelectorController::selectMenuItem()
+void OfficialSeriesMenuController::selectMenuItem()
 {
     /* TODO: #512 the first level to played should be loaded from the selected
        serie */
