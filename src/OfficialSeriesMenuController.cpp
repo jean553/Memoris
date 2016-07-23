@@ -28,6 +28,7 @@
 #include "controllers.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
+#include "PlayingSerieManager.hpp"
 
 namespace memoris
 {
@@ -186,10 +187,32 @@ unsigned short OfficialSeriesMenuController::render()
  */
 void OfficialSeriesMenuController::selectMenuItem()
 {
-    /* TODO: #512 the first level to played should be loaded from the selected
-       serie */
+    /* load the content of the serie file into a serie object and insert into
+       the game context */
+    try
+    {
+        /* use the playing serie manager to load the serie file content */
+        /* TODO: #512 we use a fixed file name for now, of course, this
+           parameter should change according to the selected menu item */
+        series::PlayingSerieManager::get().loadSerieFileContent(
+            "data/series/1.serie"
+        );
 
-    expectedControllerId = GAME_CONTROLLER_ID;
+        /* if no exception, we go to the game controller with the loaded
+           serie */
+        expectedControllerId = GAME_CONTROLLER_ID;
+
+    }
+    /* catch a std::invalid_arguments exception if the file cannot be found;
+       we use a reference here to avoid copy, but this is only for optimization
+       in that case */
+    catch(std::invalid_argument&)
+    {
+        /* TODO: #559 the error controller should display the error message */
+
+        /* if an error occured, we redirect to the error controller */
+        expectedControllerId = ERROR_CONTROLLER_ID;
+    }
 }
 
 }

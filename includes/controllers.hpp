@@ -39,6 +39,7 @@ constexpr unsigned short NEW_GAME_CONTROLLER_ID = 3;
 constexpr unsigned short GAME_CONTROLLER_ID = 4;
 constexpr unsigned short SERIE_MAIN_MENU_CONTROLLER_ID = 5;
 constexpr unsigned short OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID = 6;
+constexpr unsigned short ERROR_CONTROLLER_ID = 7;
 
 /**
  * @brief factory method to create controllers by id, each controller is linked

@@ -25,9 +25,6 @@
 #include "ErrorController.hpp"
 
 #include "controllers.hpp"
-#include "FontsManager.hpp"
-#include "ColorsManager.hpp"
-#include "fonts.hpp"
 
 namespace memoris
 {
@@ -37,28 +34,8 @@ namespace controllers
 /**
  *
  */
-ErrorController::ErrorController(const std::string& message) :
-    Controller()
-{
-    /* initializes the SFML error text surface */
-    error.setFont(memoris::fonts::FontsManager::get().getTextFont());
-    error.setString(message);
-    error.setCharacterSize(memoris::fonts::TEXT_SIZE);
-    error.setColor(memoris::colors::ColorsManager::get().getColorRed());
-    error.setPosition(
-        10.f,
-        10.f
-    );
-}
-
-/**
- *
- */
 unsigned short ErrorController::render()
 {
-    /* displays the error message */
-    utils::Context::get().getSfmlWindow().draw(error);
-
     /* used for screen switch animation */
     nextControllerId = animateScreenTransition();
 

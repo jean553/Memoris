@@ -56,35 +56,33 @@ std::unique_ptr<Controller> getControllerById(const unsigned short& id)
     case NEW_GAME_CONTROLLER_ID:
     {
         controller.reset(new NewGameController());
+
+        break;
     }
-    break;
     case SERIE_MAIN_MENU_CONTROLLER_ID:
     {
         controller.reset(new SerieMainMenuController());
+
+        break;
     }
-    break;
     case OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID:
     {
         controller.reset(new OfficialSeriesMenuController());
+
+        break;
     }
-    break;
     case GAME_CONTROLLER_ID:
     {
-        /* the game controller constructor tries to open the level file;
-           the process to open the file is handled by the FileWriter; if the
-           read process fails, an exception is thrown and the error controller
-           with a specific message for this case is rendered instead; the
-           error message is also set in the FileWriter class */
-        try
-        {
-            controller.reset(new GameController());
-        }
-        catch(const std::invalid_argument& e)
-        {
-            controller.reset(new ErrorController(e.what()));
-        }
+        controller.reset(new GameController());
+
+        break;
     }
-    break;
+    case ERROR_CONTROLLER_ID:
+    {
+        controller.reset(new ErrorController());
+
+        break;
+    }
 
     /* by default, if the controller id does not exist, the main
        menu is rendered; it avoids mistakes in screens transitions;
@@ -93,8 +91,9 @@ std::unique_ptr<Controller> getControllerById(const unsigned short& id)
     default:
     {
         controller.reset(new MainMenuController());
+
+        break;
     }
-    break;
     }
 
     return controller;
