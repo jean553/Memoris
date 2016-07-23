@@ -60,6 +60,7 @@ CellsTexturesManager::CellsTexturesManager()
     loadTexture(moreTimeCellTexture, "res/cells/moreTime.png");
     loadTexture(lessTimeCellTexture, "res/cells/lessTime.png");
     loadTexture(wallCellTexture, "res/cells/wall.png");
+    loadTexture(hiddenCellTexture, "res/cells/hidden.png");
 }
 
 /**
@@ -108,6 +109,14 @@ sf::Texture& CellsTexturesManager::getTextureReferenceByCellType(
     {
         return wallCellTexture;
     }
+}
+
+/**
+ *
+ */
+sf::Texture& CellsTexturesManager::getHiddenCellTexture()
+{
+    return hiddenCellTexture;
 }
 
 }

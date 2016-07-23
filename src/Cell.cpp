@@ -116,5 +116,15 @@ void Cell::display()
     utils::Context::get().getSfmlWindow().draw(sprite);
 }
 
+/**
+ *
+ */
+void Cell::hide()
+{
+    sprite.setTexture(
+        textures::CellsTexturesManager::get().getHiddenCellTexture()
+    );
+}
+
 }
 }
