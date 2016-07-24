@@ -167,7 +167,7 @@ void SerieMainMenuController::selectMenuItem()
     /* the official series menu item is selected */
     case 0:
     {
-        expectedControllerId = OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID;
+        expectedControllerId = OFFICIAL_SERIES_MENU_CONTROLLER_ID;
 
         break;
     }

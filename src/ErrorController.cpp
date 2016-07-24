@@ -56,7 +56,7 @@ unsigned short ErrorController::render()
                    now, the error controller is only accessible from this
                    screen when a level is not found; should go back to the
                    previous controller */
-                expectedControllerId = OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID;
+                expectedControllerId = OFFICIAL_SERIES_MENU_CONTROLLER_ID;
 
                 break;
             }

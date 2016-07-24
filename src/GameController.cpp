@@ -37,15 +37,11 @@ namespace controllers
  *
  */
 GameController::GameController() :
-    Controller()
+/* TODO: #560 the playing serie manager should not be accessible from
+   everywhere; we send the parameter here to force the execution of the
+   Level constructor that loads from level file */
+    level(series::PlayingSerieManager::get().getNextLevelName())
 {
-    /* get the next level (or the first one) of the playing serie manager
-       respecting the FIFO specifications */
-    /* TODO: #563 read the file and load the level according to the file
-       content, handle exceptions; this levelName variable is useless */
-    std::string levelName =
-        series::PlayingSerieManager::get().getNextLevelName();
-
     /* save the exact time the level starts to be displayed; this is used to
        calculate the duration of the watching period before the beginning
        of the playing period */
