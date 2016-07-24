@@ -42,7 +42,7 @@ class Level
 public:
 
     /**
-     * @brief constructor, call the method that initializes all the cells
+     * @brief constructor, initialize all the cells of the level
      */
     Level();
 
@@ -62,14 +62,6 @@ public:
     void hideAllCells();
 
 private:
-
-    /**
-     * @brief method that initialize all the cells to empty cells; we use a
-     * separated method to handle this task instead of using directly the
-     * constructor because we use many temporary variables for this task; this
-     * method is called by the controller
-     */
-    void initializeCells();
 
     /* container of unique pointers of cells; we use unique pointers because
        pointers are fast to copy/move instead of a whole cell object; we use

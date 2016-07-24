@@ -38,52 +38,6 @@ namespace entities
  */
 Level::Level()
 {
-    /* call the separated method that initializes all the cells with empty
-       cells */
-    initializeCells();
-}
-
-/**
- *
- */
-void Level::display(const unsigned short& floor) const
-{
-    /* calculate the index of the first cell of the given floor */
-    const unsigned short firstCellIndex = floor * 320;
-
-    /* calculate the index of the last cell of the given floor */
-    const unsigned short lastCellIndex = floor * 320 + 320;
-
-    /* only display the cells of the given floor; all the other cells of the
-       level are ignored */
-    for(
-        unsigned short index = firstCellIndex;
-        index < lastCellIndex;
-        index++
-    )
-    {
-        /* get an unique pointer, get the cell object from this pointer */
-        (*cells[index]).display();
-    }
-}
-
-/**
- *
- */
-void Level::hideAllCells()
-{
-    /* hide all the cells of the array one by one */
-    for(unsigned short index = 0; index < 3200; index++)
-    {
-        (*cells[index]).hide();
-    }
-}
-
-/**
- *
- */
-void Level::initializeCells()
-{
     /* positions cursor used to keep trace of the initialized cell position
        when initializing every cell one by one */
     unsigned short horizontalPositionCursor {0}, verticalPositionCursor {0};
@@ -127,6 +81,42 @@ void Level::initializeCells()
 
         /* move the unique pointer into the cells unique pointers container */
         cells.push_back(std::move(cell));
+    }
+}
+
+/**
+ *
+ */
+void Level::display(const unsigned short& floor) const
+{
+    /* calculate the index of the first cell of the given floor */
+    const unsigned short firstCellIndex = floor * 320;
+
+    /* calculate the index of the last cell of the given floor */
+    const unsigned short lastCellIndex = floor * 320 + 320;
+
+    /* only display the cells of the given floor; all the other cells of the
+       level are ignored */
+    for(
+        unsigned short index = firstCellIndex;
+        index < lastCellIndex;
+        index++
+    )
+    {
+        /* get an unique pointer, get the cell object from this pointer */
+        (*cells[index]).display();
+    }
+}
+
+/**
+ *
+ */
+void Level::hideAllCells()
+{
+    /* hide all the cells of the array one by one */
+    for(unsigned short index = 0; index < 3200; index++)
+    {
+        (*cells[index]).hide();
     }
 }
 
