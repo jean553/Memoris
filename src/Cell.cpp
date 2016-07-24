@@ -41,9 +41,8 @@ namespace entities
 Cell::Cell(
     const float& hPosition,
     const float& vPosition,
-    const std::string& cellType
-) :
-    type(cellType)
+    const char& type
+)
 {
     /* set the given position */
     setPosition(
@@ -55,7 +54,7 @@ Cell::Cell(
        of cell; set this reference as a texture for the current cell object */
     sprite.setTexture(
         textures::CellsTexturesManager::get().getTextureReferenceByCellType(
-            cellType
+            type
         )
     );
 }
