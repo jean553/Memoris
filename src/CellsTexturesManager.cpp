@@ -67,7 +67,7 @@ CellsTexturesManager::CellsTexturesManager()
  *
  */
 sf::Texture& CellsTexturesManager::getTextureReferenceByCellType(
-    const std::string& type
+    const char& type
 )
 {
     /* NOTE: we do not use switch/case here because this instruction does not

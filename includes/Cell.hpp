@@ -44,11 +44,15 @@ public:
      * @brief cell constructor, get the horizontal and vertical position of
      * the cell, get the type of the cell. Set the cell at the given
      * position, set the cell type
+     *
+     * @param hPosition the horizontal position of the cell
+     * @param vPosition the vertical position of the cell
+     * @param type the type of the cell, represented by a unique character
      */
     Cell(
         const float& hPosition,
         const float& vPosition,
-        const std::string& name
+        const char& type
     );
 
     /**
@@ -93,11 +97,6 @@ private:
        cells movements and also to use the cells selector */
     float horizontalPosition;
     float verticalPosition;
-
-    /* contains a representation of the cell inside the level file; each cell
-       inside the level file is represented by two characters of a string (ex:
-       'DP' for Departure Cell); this parameter represents the type of cell */
-    std::string type;
 
     /* the SFML surface of the cell */
     sf::Sprite sprite;

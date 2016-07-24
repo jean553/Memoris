@@ -105,11 +105,14 @@ void AnimatedBackground::render()
  */
 void AnimatedBackground::initializeCells()
 {
-    /* a container containing all the cells strings that can be used to
-       randomly select the animated background cells */
+    /* a container containing all the cells characters that can be used to
+       randomly select the animated background cells; we declare this array
+       using the annotation const char name[]: this creates only one object
+       containing all the cells characters, existing only in the current
+       variable scope and not in read-only */
     /* TODO: #488 bad idea, we have to update this container manually everytime
        we add new cells types */
-    std::vector<std::string> cellsLib =
+    const char cellsLib[] =
     {
         cells::EMPTY_CELL,
         cells::DEPARTURE_CELL,
@@ -173,8 +176,11 @@ void AnimatedBackground::initializeCells()
            the position is incremented for the next cell but the cell at the
            current position is not created; this is used to show some blank
            black spaces into the background; this is optimized because we
-           do not create any useless cell (cell that is not displayed) */
-        if(randomNumber >= cellsLib.size())
+           do not create any useless cell (cell that is not displayed); we
+           get the total size of the cells lib in bytes, divided by the size
+           of one char type in bytes; like that, we can get the number of items
+           into the cells lib automatically */
+        if(randomNumber >= (sizeof(cellsLib) / sizeof(char)))
         {
             continue;
         }

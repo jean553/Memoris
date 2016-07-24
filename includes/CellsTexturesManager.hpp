@@ -54,9 +54,11 @@ public:
     /**
      * @brief returns a texture reference corresponding to the given cell type
      *
+     * @param type the type of the cell to get
+     *
      * @return sf::Texture&
      */
-    sf::Texture& getTextureReferenceByCellType(const std::string& type);
+    sf::Texture& getTextureReferenceByCellType(const char& type);
 
     /**
      * @brief returns a texture reference of the hidden cell texture; this cell

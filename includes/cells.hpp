@@ -18,9 +18,11 @@
 
 /**
  * @file cells.hpp
- * @brief contains all the cells types strings and a factory method to generate
- * appropriate cell object according to the given type (set the correct sprite
- * texture)
+ * @brief each cell is represented by one character (value between 0 and 255),
+ * we use this data type because it makes loading and manipulations faster
+ * when reading, playing and comparing; the character of a cell is always the
+ * first letter of its type, in lowercase; if it's a bonus, the character is
+ * uppercase, if it is a malus, the character is in lowercase
  * @package cells
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -28,46 +30,37 @@
 #ifndef MEMORIS_CELLS_H_
 #define MEMORIS_CELLS_H_
 
-#include <string>
-
 namespace memoris
 {
 namespace cells
 {
 
-/* NOTE: this is allowed to define std::string objects inside the header as
-   long as they are extern and not class members; strings cannot be constant
-   expressions */
-
-/* NOTE: the strings are declared as extern, like that we are sure they are
-   only defined one time, and all the scripts that need them use the sames */
-
 /* empty cell type string representation */
-extern const std::string EMPTY_CELL;
+constexpr char EMPTY_CELL {'e'};
 
 /* departure cell type string representation */
-extern const std::string DEPARTURE_CELL;
+constexpr char DEPARTURE_CELL {'d'};
 
 /* arrival cell type string representation */
-extern const std::string ARRIVAL_CELL;
+constexpr char ARRIVAL_CELL {'a'};
 
 /* star cell type string representation */
-extern const std::string STAR_CELL;
+constexpr char STAR_CELL {'s'};
 
 /* more life cell type string representation */
-extern const std::string MORE_LIFE_CELL;
+constexpr char MORE_LIFE_CELL {'L'};
 
 /* less life cell type string representation */
-extern const std::string LESS_LIFE_CELL;
+constexpr char LESS_LIFE_CELL {'l'};
 
 /* more time cell type string representation */
-extern const std::string MORE_TIME_CELL;
+constexpr char MORE_TIME_CELL {'T'};
 
 /* less time cell type string representation */
-extern const std::string LESS_TIME_CELL;
+constexpr char LESS_TIME_CELL {'t'};
 
 /* wall cell type string representation */
-extern const std::string WALL_CELL;
+constexpr char WALL_CELL {'w'};
 
 }
 }
