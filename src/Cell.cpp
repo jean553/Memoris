@@ -41,8 +41,9 @@ namespace entities
 Cell::Cell(
     const float& hPosition,
     const float& vPosition,
-    const char& type
-)
+    const char& cellType
+) :
+    type(cellType)
 {
     /* set the given position */
     setPosition(
