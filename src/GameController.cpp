@@ -74,7 +74,7 @@ unsigned short GameController::render()
     )
     {
         /* hide all the cells of the level */
-        level.hideAllCells();
+        level.hideAllCellsExceptDeparture();
 
         /* plays the hide level sound */
         sounds::SoundsManager::get().getHideLevelSound().play();

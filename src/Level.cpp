@@ -132,11 +132,19 @@ void Level::display(const unsigned short& floor) const
 /**
  *
  */
-void Level::hideAllCells()
+void Level::hideAllCellsExceptDeparture()
 {
-    /* hide all the cells of the array one by one */
+    /* iterates all the cells of the array one by one */
     for(unsigned short index = 0; index < 3200; index++)
     {
+        /* check if the type of the current cell is the departure cell type */
+        if ((*cells[index]).getType() == cells::DEPARTURE_CELL)
+        {
+            /* do nothing and continue to iterate if the type is the departure
+               cell; in fact, any departure cell stays visible */
+            continue;
+        }
+
         (*cells[index]).hide();
     }
 }
