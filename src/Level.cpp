@@ -28,6 +28,8 @@
 #include "Context.hpp"
 #include "cells.hpp"
 
+#include <fstream>
+
 namespace memoris
 {
 namespace entities
@@ -36,8 +38,18 @@ namespace entities
 /**
  *
  */
-Level::Level()
+Level::Level(const std::string& path)
 {
+    /* create a file object to read the level file and load the cells */
+    std::ifstream file(path);
+
+    /* check if the file is opened correctly */
+    if (!file.is_open())
+    {
+        /* TODO: #561 - check PlayingSerieManager.cpp for details */
+        throw std::invalid_argument("Cannot open the given level file");
+    }
+
     /* positions cursor used to keep trace of the initialized cell position
        when initializing every cell one by one */
     unsigned short horizontalPositionCursor {0}, verticalPositionCursor {0};
@@ -59,7 +71,13 @@ Level::Level()
             std::make_unique<Cell>(
                 300.f + 50.f * static_cast<float>(horizontalPositionCursor),
                 98.f + 50.f * static_cast<float>(verticalPositionCursor),
-                cells::EMPTY_CELL
+                /* test if we finished to read the level file; if no, we take
+                   the next character of this file and we use it to generate
+                   the next cell; if yes, we juste create an empty cell by
+                   default; by doing like that, we are sure that we will load
+                   completely the file even if this file is damaged; this
+                   prevents segmentation faults */
+                (file.eof() ? cells::EMPTY_CELL : file.get())
             )
         );
 
@@ -82,6 +100,9 @@ Level::Level()
         /* move the unique pointer into the cells unique pointers container */
         cells.push_back(std::move(cell));
     }
+
+    /* we do not manually close the std::ifstream object, this object is
+       automatically destroyed when it goes out of the scope */
 }
 
 /**

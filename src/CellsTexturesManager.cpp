@@ -70,45 +70,48 @@ sf::Texture& CellsTexturesManager::getTextureReferenceByCellType(
     const char& type
 )
 {
-    /* NOTE: we do not use switch/case here because this instruction does not
-       work with std::string objects */
-
-    if (type == cells::EMPTY_CELL)
+    /* returns the correct cell texture reference according to the type */
+    switch(type)
     {
-        return emptyCellTexture;
-    }
-    else if (type == cells::DEPARTURE_CELL)
-    {
-        return departureCellTexture;
-    }
-    else if (type == cells::ARRIVAL_CELL)
-    {
-        return arrivalCellTexture;
-    }
-    else if (type == cells::STAR_CELL)
-    {
-        return starCellTexture;
-    }
-    else if (type == cells::MORE_LIFE_CELL)
-    {
-        return moreLifeCellTexture;
-    }
-    else if (type == cells::LESS_LIFE_CELL)
-    {
-        return lessLifeCellTexture;
-    }
-    else if (type == cells::MORE_TIME_CELL)
-    {
-        return moreTimeCellTexture;
-    }
-    else if (type == cells::LESS_TIME_CELL)
-    {
-        return lessTimeCellTexture;
-    }
-    else
+    case cells::WALL_CELL:
     {
         return wallCellTexture;
     }
+    case cells::DEPARTURE_CELL:
+    {
+        return departureCellTexture;
+    }
+    case cells::ARRIVAL_CELL:
+    {
+        return arrivalCellTexture;
+    }
+    case cells::STAR_CELL:
+    {
+        return starCellTexture;
+    }
+    case cells::MORE_LIFE_CELL:
+    {
+        return moreLifeCellTexture;
+    }
+    case cells::LESS_LIFE_CELL:
+    {
+        return lessLifeCellTexture;
+    }
+    case cells::MORE_TIME_CELL:
+    {
+        return moreTimeCellTexture;
+    }
+    case cells::LESS_TIME_CELL:
+    {
+        return lessTimeCellTexture;
+    }
+    }
+
+    /* by default, an empty cell texture reference is returned if the type
+       cannot be found; using this default way, we will return a reference
+       whatever the type character value; the process is safe and will never
+       file in a 'unknown' status */
+    return emptyCellTexture;
 }
 
 /**

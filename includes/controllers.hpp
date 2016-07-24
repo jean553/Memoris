@@ -27,6 +27,8 @@
 
 #include "Controller.hpp"
 
+#include "ErrorController.hpp"
+
 namespace memoris
 {
 namespace controllers
@@ -38,7 +40,7 @@ constexpr unsigned short MAIN_MENU_CONTROLLER_ID = 2;
 constexpr unsigned short NEW_GAME_CONTROLLER_ID = 3;
 constexpr unsigned short GAME_CONTROLLER_ID = 4;
 constexpr unsigned short SERIE_MAIN_MENU_CONTROLLER_ID = 5;
-constexpr unsigned short OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID = 6;
+constexpr unsigned short OFFICIAL_SERIES_MENU_CONTROLLER_ID = 6;
 constexpr unsigned short ERROR_CONTROLLER_ID = 7;
 
 /**
@@ -50,6 +52,15 @@ constexpr unsigned short ERROR_CONTROLLER_ID = 7;
  * @return std::unique_ptr<Controller>
  */
 std::unique_ptr<Controller> getControllerById(const unsigned short& id);
+
+/**
+ * @brief refactored function to get a unique pointer to a error controller;
+ * this controller is needed in different cases, that's why it is refactored
+ * here
+ *
+ * @return std::unique_ptr<ErrorController>
+ */
+std::unique_ptr<ErrorController> getErrorController();
 
 }
 }

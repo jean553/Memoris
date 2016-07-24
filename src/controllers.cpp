@@ -29,9 +29,6 @@
 #include "OfficialSeriesMenuController.hpp"
 #include "GameController.hpp"
 
-#include "Context.hpp"
-#include "ErrorController.hpp"
-
 namespace memoris
 {
 namespace controllers
@@ -42,61 +39,58 @@ namespace controllers
  */
 std::unique_ptr<Controller> getControllerById(const unsigned short& id)
 {
-    /* create an unique pointer in order to store the future generated
-       controller pointer; initialize it with a null pointer; the type of the
-       pointer is Controller, in order to store any type of controller */
-    std::unique_ptr<Controller> controller(nullptr);
-
-    /* NOTE: the returned variable is an unique pointer, that's why we have
-       to create the pointed object with reset() */
-
-    /* return a pointer to the correct controller according to the id */
+    /* return a unique pointer to the correct controller according to the id */
     switch(id)
     {
     case NEW_GAME_CONTROLLER_ID:
     {
-        controller.reset(new NewGameController());
-
-        break;
+        return std::make_unique<NewGameController>();
     }
     case SERIE_MAIN_MENU_CONTROLLER_ID:
     {
-        controller.reset(new SerieMainMenuController());
-
-        break;
+        return std::make_unique<SerieMainMenuController>();
     }
-    case OFFICIAL_SERIES_SELECTOR_CONTROLLER_ID:
+    case OFFICIAL_SERIES_MENU_CONTROLLER_ID:
     {
-        controller.reset(new OfficialSeriesMenuController());
-
-        break;
+        return std::make_unique<OfficialSeriesMenuController>();
     }
     case GAME_CONTROLLER_ID:
     {
-        controller.reset(new GameController());
+        try
+        {
+            /* try to load the game controller with the next level of the
+               playing serie manager, if the file cannot be opened, this
+               constructor throws a std::invalid_argument exception */
+            return std::make_unique<GameController>();
 
-        break;
+            /* catch the invalid argument exception if the game cannot start;
+               we get it as a reference to make the program runs faster */
+        }
+        catch(std::invalid_argument&)
+        {
+            /* render the error controller instead of the game controller */
+            return getErrorController();
+        }
     }
     case ERROR_CONTROLLER_ID:
     {
-        controller.reset(new ErrorController());
-
-        break;
+        return getErrorController();
+    }
     }
 
     /* by default, if the controller id does not exist, the main
        menu is rendered; it avoids mistakes in screens transitions;
        NOTE: the musics factory also returns the main menu music
        if an incorrect controller id is specified */
-    default:
-    {
-        controller.reset(new MainMenuController());
+    return std::make_unique<MainMenuController>();
+}
 
-        break;
-    }
-    }
-
-    return controller;
+/**
+ *
+ */
+std::unique_ptr<ErrorController> getErrorController()
+{
+    return std::make_unique<ErrorController>();
 }
 
 }

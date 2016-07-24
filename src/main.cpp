@@ -84,6 +84,9 @@ int main()
         do
         {
             /* continually clear the whole SFML window content */
+            /* NOTE: this instruction generates memory leaks; this error comes
+               from OpenGL libraries; we do not handle this error; the leak is
+               deleted if we delete this line */
             utils::Context::get().getSfmlWindow().clear();
 
             /* continually render the current controller scene */
