@@ -47,12 +47,12 @@ public:
      *
      * @param hPosition the horizontal position of the cell
      * @param vPosition the vertical position of the cell
-     * @param type the type of the cell, represented by a unique character
+     * @param cellType the type of the cell, represented by a unique character
      */
     Cell(
         const float& hPosition,
         const float& vPosition,
-        const char& type
+        const char& cellType
     );
 
     /**
@@ -100,6 +100,11 @@ private:
 
     /* the SFML surface of the cell */
     sf::Sprite sprite;
+
+    /* contains the current type of the cell according of the 'cells' types
+       list into cells.hpp; this variable is not directly initialized here
+       because it is initialized inside the constructor */
+    char type;
 };
 
 }
