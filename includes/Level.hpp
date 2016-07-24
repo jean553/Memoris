@@ -66,9 +66,9 @@ public:
 
     /**
      * @brief hides all the cells of the level, call the method (hide()) for
-     * all of them
+     * all of them except for departure cell(s)
      */
-    void hideAllCells();
+    void hideAllCellsExceptDeparture();
 
 private:
 

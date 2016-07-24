@@ -51,13 +51,9 @@ Cell::Cell(
         vPosition
     );
 
-    /* get the texture from the cells textures manager according to the type
-       of cell; set this reference as a texture for the current cell object */
-    sprite.setTexture(
-        textures::CellsTexturesManager::get().getTextureReferenceByCellType(
-            type
-        )
-    );
+    /* the cell is shown by default; we get the reference of the texture to
+       display according to the given cell type */
+    show();
 }
 
 /**
@@ -124,6 +120,28 @@ void Cell::hide()
     sprite.setTexture(
         textures::CellsTexturesManager::get().getHiddenCellTexture()
     );
+}
+
+/**
+ *
+ */
+void Cell::show()
+{
+    /* get the texture from the cells textures manager according to the type
+       of cell; set this reference as a texture for the current cell object */
+    sprite.setTexture(
+        textures::CellsTexturesManager::get().getTextureReferenceByCellType(
+            type
+        )
+    );
+}
+
+/**
+ *
+ */
+const char& Cell::getType()
+{
+    return type;
 }
 
 }

@@ -87,6 +87,24 @@ public:
      */
     void hide();
 
+    /**
+     * @brief show the cell, loads a reference of the texture to display
+     * according to the current set type character; this method can be called
+     * from the level object but is also called automatically by the Cell
+     * constructor when the object is built
+     */
+    void show();
+
+    /**
+     * @brief returns a reference to the current set cell type character; we
+     * return a constant because this attribute should not be modified from
+     * the outside in that way; this function is only a getter; we return
+     * a reference to optimize and avoid copy;
+     *
+     * @return const char&
+     */
+    const char& getType();
+
 private:
 
     /* the horizontal and vertical positions of the cell on the screen */
