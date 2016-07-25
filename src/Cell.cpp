@@ -29,6 +29,7 @@
 #include "window.hpp"
 #include "Context.hpp"
 #include "CellsTexturesManager.hpp"
+#include "ColorsManager.hpp"
 
 namespace memoris
 {
@@ -142,6 +143,21 @@ void Cell::show()
 const char& Cell::getType()
 {
     return type;
+}
+
+/**
+ *
+ */
+void Cell::setCellColorTransparency(const sf::Uint8& alpha)
+{
+    /* get a copy of the white color from the colors manager */
+    sf::Color cellColor = colors::ColorsManager::get().getColorWhiteCopy();
+
+    /* update the transparency of the color */
+    cellColor.a = alpha;
+
+    /* update the color of the cell */
+    sprite.setColor(cellColor);
 }
 
 }

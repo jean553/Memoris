@@ -67,6 +67,9 @@ private:
        kind of action cannot be done in the header */
     sf::Uint32 displayLevelTime;
 
+    /* the time of the last animation of the player cell animation */
+    sf::Uint32 playerCellAnimationTime {0};
+
     /* the top dashboard that displays the countdown timer and all the
        current game information labels */
     utils::GameDashboard dashboard;
@@ -84,6 +87,21 @@ private:
        displayed; by default, the watching period is enabled and the
        boolean is equal to true */
     bool watchingPeriod {true};
+
+    /* this boolean is used to indicate when the current game period is playing
+       and when the player can move over the cells; we do not only use one
+       boolean even if we have only two states because we can have some special
+       cases (visibility bonus for example: the cells are all hidden, so
+       watching, but the player can still move, so playing); when the game
+       starts, the player is watching the level, so the status is playing is
+       false */
+    bool playingPeriod {false};
+
+    /* the transparency of the player cell color; used to animate the current
+       player cell with a flashing animation; we use a sf::Uint8 type because
+       this is the one expected by the sf::Color object; the variable is
+       initialized with the value 64 and switches between 64 and 128 */
+    sf::Uint8 playerCellTransparency {64};
 };
 
 }

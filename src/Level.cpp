@@ -57,6 +57,20 @@ Level::Level(const std::string& path)
     /* there are 3200 cells per level, 320 per floor, there are 10 floors */
     for(unsigned short index {0}; index < 3200; index++)
     {
+        /* declare a new character at each loop iteration; initialize it with
+           an empty cell; this character contains the type of the current
+           iterated cell into the level file */
+        char cellType = cells::EMPTY_CELL;
+
+        /* check if the read of the file is finished; by doing this way, we are
+           sure that a valid level can still be loaded in memory (with empty
+           cells), even if the given file is damaged */
+        if (!file.eof())
+        {
+            /* if the file is not finished, read the next character from it */
+            cellType = file.get();
+        }
+
         /* create an unique pointer to a cell object; the horizontal position
            of a cell is equal to 300 (horizontal position of the grid) + 50
            (cell width including separator) * the horizontal position cursor;
@@ -71,15 +85,17 @@ Level::Level(const std::string& path)
             std::make_unique<Cell>(
                 300.f + 50.f * static_cast<float>(horizontalPositionCursor),
                 98.f + 50.f * static_cast<float>(verticalPositionCursor),
-                /* test if we finished to read the level file; if no, we take
-                   the next character of this file and we use it to generate
-                   the next cell; if yes, we juste create an empty cell by
-                   default; by doing like that, we are sure that we will load
-                   completely the file even if this file is damaged; this
-                   prevents segmentation faults */
-                (file.eof() ? cells::EMPTY_CELL : file.get())
+                cellType
             )
         );
+
+        /* store the current cell index into the player cell index if the
+           current cell is a departure cell; this will be the starting cell
+           of the player */
+        if (cellType == cells::DEPARTURE_CELL)
+        {
+            playerIndex = index;
+        }
 
         /* increment the horizontal position cursor */
         horizontalPositionCursor++;
@@ -147,6 +163,15 @@ void Level::hideAllCellsExceptDeparture()
 
         (*cells[index]).hide();
     }
+}
+
+/**
+ *
+ */
+void Level::setPlayerCellTransparency(const sf::Uint8& alpha)
+{
+    /* update the cell color with the index equals to the player index */
+    (*cells[playerIndex]).setCellColorTransparency(alpha);
 }
 
 }

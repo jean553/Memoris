@@ -105,6 +105,15 @@ public:
      */
     const char& getType();
 
+    /**
+     * @brief get a copy of the white color from the colors manager; apply
+     * the given transparency to this color and set it as the cell current
+     * color
+     *
+     * @param alpha the SFML sf::Color oject transparency value
+     */
+    void setCellColorTransparency(const sf::Uint8& alpha);
+
 private:
 
     /* the horizontal and vertical positions of the cell on the screen */
