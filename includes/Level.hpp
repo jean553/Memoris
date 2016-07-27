@@ -70,6 +70,15 @@ public:
      */
     void hideAllCellsExceptDeparture();
 
+    /**
+     * @brief update the transparency value of the current player color
+     *
+     * @param alpha the current player cell transparency value; we use a
+     * sf::Uint8 value as this is the type used to set the colors of a
+     * sf::Color object
+     */
+    void setPlayerCellTransparency(const sf::Uint8& alpha);
+
 private:
 
     /* container of unique pointers of cells; we use unique pointers because
@@ -78,6 +87,10 @@ private:
        we only use dynamic allocation to make the program run faster, so this
        is always better to limit the freedom of variables */
     std::vector<std::unique_ptr<Cell>> cells;
+
+    /* the index of the current player cell; the position of the player in
+       the level; the variable is 0 by default; */
+    unsigned short playerIndex {0};
 };
 
 }

@@ -82,9 +82,45 @@ unsigned short GameController::render()
         /* the watching mode is now terminated */
         watchingPeriod = false;
 
+        /* the playing period starts now */
+        playingPeriod = true;
+
         /* at this moment, we do not save the moment the animation ends; in
            fact, this is not a repeated action, there is no need to save
            the current time here */
+    }
+
+    /* if the current game status is playing, the player cell has to be
+       animated */
+    if (
+        playingPeriod &&
+        (
+            utils::Context::get().getClockMillisecondsTime() -
+            playerCellAnimationTime > 100
+        )
+    )
+    {
+        /* increment the value of the transparency with the value 64; */
+        playerCellTransparency += 64;
+
+        /* modifies the transparency of the player cell color */
+        level.setPlayerCellTransparency(playerCellTransparency);
+
+        /* check if the current value is more than 128; in fact, the
+           transparency value can only be located between 64 and 128 */
+        if (playerCellTransparency > 128)
+        {
+            /* reset the player cell transparency; this value will be set to
+               64 during the next incrementation; I use this method to avoid
+               to have the same constant expression at different locations in
+               the code */
+            playerCellTransparency = 0;
+        }
+
+        /* save the time of the last player cell animation, for the next
+           animation step */
+        playerCellAnimationTime =
+            utils::Context::get().getClockMillisecondsTime();
     }
 
     /* used for the screen switch transition animation */
