@@ -89,6 +89,17 @@ public:
 
 private:
 
+    /**
+     * @brief check if the player is allowed to perform the given movement
+
+     * @param move the value (positive or negative) to apply on the current
+     * player index; defines the mouvement of the player; this check is
+     * separated into a dedicated method for better code organisation
+     *
+     * @return bool
+     */
+    bool allowPlayerMovement(const short& movement);
+
     /* container of unique pointers of cells; we use unique pointers because
        pointers are fast to copy/move instead of a whole cell object; we use
        a unique pointer to make the pointer as restrictif as possible, in fact,
