@@ -79,6 +79,14 @@ public:
      */
     void setPlayerCellTransparency(const sf::Uint8& alpha);
 
+    /**
+     * @brief move the player down if possible
+     *
+     * @param move the value (positive or negative) to apply on the current
+     * player index; defines the mouvement of the player
+     */
+    void movePlayer(const short& movement);
+
 private:
 
     /* container of unique pointers of cells; we use unique pointers because

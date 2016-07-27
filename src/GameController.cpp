@@ -136,6 +136,34 @@ unsigned short GameController::render()
         {
             switch(event.key.code)
             {
+            /* the up key is pressed down */
+            case sf::Keyboard::Up:
+            {
+                level.movePlayer(-20);
+
+                break;
+            }
+            /* the down key is pressed down */
+            case sf::Keyboard::Down:
+            {
+                level.movePlayer(20);
+
+                break;
+            }
+            /* the left key is pressed down */
+            case sf::Keyboard::Left:
+            {
+                level.movePlayer(-1);
+
+                break;
+            }
+            /* the right key is pressed down */
+            case sf::Keyboard::Right:
+            {
+                level.movePlayer(1);
+
+                break;
+            }
             /* the escape key is pressed down */
             case sf::Keyboard::Escape:
             {

@@ -174,5 +174,21 @@ void Level::setPlayerCellTransparency(const sf::Uint8& alpha)
     (*cells[playerIndex]).setCellColorTransparency(alpha);
 }
 
+/**
+ *
+ */
+void Level::movePlayer(const short& movement)
+{
+    /* reset the current player cell transparency */
+    setPlayerCellTransparency(255);
+
+    /* apply the movement value to the current player index to change his
+       position on the level */
+    playerIndex += movement;
+
+    /* show the player cell */
+    (*cells[playerIndex]).show();
+}
+
 }
 }
