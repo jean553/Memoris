@@ -179,6 +179,13 @@ void Level::setPlayerCellTransparency(const sf::Uint8& alpha)
  */
 void Level::movePlayer(const short& movement)
 {
+    /* test if the player movement is possible or not */
+    if (!allowPlayerMovement(movement))
+    {
+        /* finish the function and do not move the player */
+        return;
+    }
+
     /* reset the current player cell transparency */
     setPlayerCellTransparency(255);
 
@@ -188,6 +195,30 @@ void Level::movePlayer(const short& movement)
 
     /* show the player cell */
     (*cells[playerIndex]).show();
+}
+
+/**
+ *
+ */
+bool Level::allowPlayerMovement(const short& movement)
+{
+    /* calculate the expected new player position */
+    short expectedIndex = playerIndex + movement;
+
+    /* we check if the player does not move up if already at the top; cannot
+       move down if already at the bottom; cannot move left if already on the
+       left; cannot move right if already on the right */
+    if (
+        expectedIndex < 0 ||
+        expectedIndex > 320 ||
+        (playerIndex % 20 == 19 && movement == 1) ||
+        (playerIndex % 20 == 0 && movement == -1)
+    )
+    {
+        return false;
+    }
+
+    return true;
 }
 
 }
