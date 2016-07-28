@@ -91,14 +91,24 @@ private:
 
     /**
      * @brief check if the player is allowed to perform the given movement
-
+     *
      * @param move the value (positive or negative) to apply on the current
      * player index; defines the mouvement of the player; this check is
      * separated into a dedicated method for better code organisation
      *
      * @return bool
      */
-    bool allowPlayerMovement(const short& movement);
+    bool allowPlayerMovement(const short& movement) const;
+
+    /**
+     * @brief check if the expected cell after the movement is a wall cell,
+     * if yes, show the wall cell and forbid the movement
+     *
+     * @param movement the movement number
+     *
+     * @return bool
+     */
+    bool detectWalls(const short& movement) const;
 
     /* container of unique pointers of cells; we use unique pointers because
        pointers are fast to copy/move instead of a whole cell object; we use
