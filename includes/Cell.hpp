@@ -114,6 +114,12 @@ public:
      */
     void setCellColorTransparency(const sf::Uint8& alpha);
 
+    /**
+     * @brief changes the cell to an empty cell, this is used by the game
+     * controller when the player leaves a cell;
+     */
+    void empty();
+
 private:
 
     /* the horizontal and vertical positions of the cell on the screen */

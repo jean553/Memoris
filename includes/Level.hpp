@@ -100,17 +100,36 @@ public:
      */
     bool allowPlayerMovement(const short& movement) const;
 
-private:
+    /**
+     * @brief get the current player cell type; this getter is used into the
+     * game controller to execute the correct current player cell event action
+     *
+     * @return const char&
+     */
+    const char& getPlayerCellType();
 
     /**
      * @brief check if the expected cell after the movement is a wall cell,
-     * if yes, show the wall cell and forbid the movement
+     * if yes, show the wall cell and forbid the movement; this function is
+     * called by the game controller when the player is allowed to move, we
+     * check if the user is currently in collision with a wall; if there is
+     * a collision, the wall is shown
      *
-     * @param movement the movement number
+     * @param movement the movement direction, the same as movePlayer()
      *
      * @return bool
      */
     bool detectWalls(const short& movement) const;
+
+    /**
+     * @brief updates the current player cell to an empty cell, whatever the
+     * previous type; this method is called by the game controller to empty
+     * a cell when the player leaves it; this method automatically forces the
+     * load of a new texture for the player cell
+     */
+    void emptyPlayerCell();
+
+private:
 
     /* container of unique pointers of cells; we use unique pointers because
        pointers are fast to copy/move instead of a whole cell object; we use

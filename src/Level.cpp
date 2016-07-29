@@ -179,22 +179,6 @@ void Level::setPlayerCellTransparency(const sf::Uint8& alpha)
  */
 void Level::movePlayer(const short& movement)
 {
-    /* check if the movement creates a collision with a wall cell */
-    if (detectWalls(movement))
-    {
-        /* if the expected cell already contains a wall, the movement is not
-           allowed and the wall is shown; we can get the cell by index
-           safely as we alredy made the operation in the previous method
-           allowPlayerMovement() */
-        /* TODO: #575 the pointer variable is accessed two times exactly
-           by the same way: here and in detectWalls(); this should be
-           refactored */
-        (*cells[playerIndex + movement]).show();
-
-        /* forbid the movement */
-        return;
-    }
-
     /* reset the current player cell transparency */
     setPlayerCellTransparency(255);
 
@@ -238,10 +222,33 @@ bool Level::detectWalls(const short& movement) const
     /* check if the expected cell is a wall cell */
     if((*cells[playerIndex + movement]).getType() == cells::WALL_CELL)
     {
+        /* show the concerned wall cell */
+        (*cells[playerIndex + movement]).show();
+
         return true;
     }
 
     return false;
+}
+
+/**
+ *
+ */
+const char& Level::getPlayerCellType()
+{
+    return (*cells[playerIndex]).getType();
+}
+
+/**
+ *
+ */
+void Level::emptyPlayerCell()
+{
+    /* empty the player cell */
+    (*cells[playerIndex]).empty();
+
+    /* reload the cell texture reference */
+    (*cells[playerIndex]).show();
 }
 
 }

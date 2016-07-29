@@ -27,6 +27,7 @@
 #include "controllers.hpp"
 #include "SoundsManager.hpp"
 #include "PlayingSerieManager.hpp"
+#include "cells.hpp"
 
 namespace memoris
 {
@@ -203,6 +204,11 @@ unsigned short GameController::render()
  */
 void GameController::handlePlayerMovement(const short& movement)
 {
+    /* NOTE: we voluntary do not refactor the two following conditions or use
+       short-circuiting on them; in fact, we really want check the movement
+       allowance first and end the function if the movement cannot be perfored,
+       without starting to check the second condition */
+
     /* checks if the movement is actually allowed before performing it; we
        check if the player is not already on level borders and is trying to
        move to the outside of the playable area */
@@ -212,9 +218,73 @@ void GameController::handlePlayerMovement(const short& movement)
         return;
     }
 
+    /* check if the player is against a wall during the movement; if there is
+       a collision, the wall is displayed by the condition function and the
+       movement is cancelled */
+    if (level.detectWalls(movement))
+    {
+        /* the movement is cancelled if the player is against a wall */
+        return;
+    }
+
+    /* empty the current player cell before moving; some types are not cleared,
+       that's what the function has to check */
+    emptyPlayerCell();
+
     /* move the player, display walls if there are some collisions and show
        the new cell */
     level.movePlayer(movement);
+
+    /* execute the action of the new player cell right after the movement */
+    executePlayerCellAction();
+}
+
+/**
+ *
+ */
+void GameController::executePlayerCellAction()
+{
+    /* create an alias on the new player cell type, returned as a reference
+       by the level getter */
+    const char& newPlayerCellType = level.getPlayerCellType();
+
+    /* NOTE: this switch only contains one case for now but expects to get
+       almost one case per cell type */
+
+    switch(newPlayerCellType)
+    {
+    case cells::STAR_CELL:
+    {
+        /* increments the amount of found stars inside the dashboard */
+        dashboard.incrementFoundStars();
+
+        break;
+    }
+    }
+}
+
+/**
+ *
+ */
+void GameController::emptyPlayerCell()
+{
+    /* create an alias on the new player cell type, returned as a reference
+       by the level getter */
+    const char& playerCellType = level.getPlayerCellType();
+
+    /* check if the player cell is one of the types that are never deleted */
+    if (
+        playerCellType == cells::EMPTY_CELL ||
+        playerCellType == cells::DEPARTURE_CELL
+    )
+    {
+        /* immediately ends the function; the current cell does not need to
+           be empty even if the player is leaving it */
+        return;
+    }
+
+    /* empty the player cell type */
+    level.emptyPlayerCell();
 }
 
 }

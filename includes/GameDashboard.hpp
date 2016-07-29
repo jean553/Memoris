@@ -50,6 +50,13 @@ public:
      */
     void display();
 
+    /**
+     * @brief increments the found stars amount and updates the displayed found
+     * stars amount text; this function is called by the game controller when
+     * one new star is found by the player
+     */
+    void incrementFoundStars();
+
 private:
 
     /* the graphical timer widget of the game; renders the elapsed time since
@@ -82,6 +89,10 @@ private:
        level cells */
     sf::RectangleShape leftSeparator;
     sf::RectangleShape rightSeparator;
+
+    /* the amount of stars to display in the dashboard; set with 0 by default
+       because when the level starts, the found stars amount is always 0 */
+    unsigned short foundStars {0};
 };
 
 }
