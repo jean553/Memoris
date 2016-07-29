@@ -139,28 +139,28 @@ unsigned short GameController::render()
             /* the up key is pressed down */
             case sf::Keyboard::Up:
             {
-                level.movePlayer(-20);
+                handlePlayerMovement(-20);
 
                 break;
             }
             /* the down key is pressed down */
             case sf::Keyboard::Down:
             {
-                level.movePlayer(20);
+                handlePlayerMovement(20);
 
                 break;
             }
             /* the left key is pressed down */
             case sf::Keyboard::Left:
             {
-                level.movePlayer(-1);
+                handlePlayerMovement(-1);
 
                 break;
             }
             /* the right key is pressed down */
             case sf::Keyboard::Right:
             {
-                level.movePlayer(1);
+                handlePlayerMovement(1);
 
                 break;
             }
@@ -196,6 +196,25 @@ unsigned short GameController::render()
     }
 
     return nextControllerId;
+}
+
+/**
+ *
+ */
+void GameController::handlePlayerMovement(const short& movement)
+{
+    /* checks if the movement is actually allowed before performing it; we
+       check if the player is not already on level borders and is trying to
+       move to the outside of the playable area */
+    if (!level.allowPlayerMovement(movement))
+    {
+        /* stop the process and do not move if the movement is not allowed */
+        return;
+    }
+
+    /* move the player, display walls if there are some collisions and show
+       the new cell */
+    level.movePlayer(movement);
 }
 
 }

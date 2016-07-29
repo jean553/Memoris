@@ -87,10 +87,10 @@ public:
      */
     void movePlayer(const short& movement);
 
-private:
-
     /**
-     * @brief check if the player is allowed to perform the given movement
+     * @brief check if the player is allowed to perform the given movement;
+     * this function is called from the game controller each time the player
+     * trigger an event to move on the level
      *
      * @param move the value (positive or negative) to apply on the current
      * player index; defines the mouvement of the player; this check is
@@ -99,6 +99,8 @@ private:
      * @return bool
      */
     bool allowPlayerMovement(const short& movement) const;
+
+private:
 
     /**
      * @brief check if the expected cell after the movement is a wall cell,

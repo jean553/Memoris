@@ -59,6 +59,21 @@ public:
 
 private:
 
+    /**
+     * @brief function that refectors all the management related to the player
+     * movement; this action is called everytime the player makes a move on
+     * the level; it checks if the movement is allowed, move the player on
+     * the level and executes the player's new cell action
+     *
+     * @param the numeric representation of the movement's direction,
+     * the delta between the current player cell and the destination cell
+     *
+     * NOTE: the user can only moves to the left, right, top or bottom; that's
+     * why the only possible values here are -20, 20, -1 and 1. These values
+     * are not checked when the function is executed.
+     */
+    void handlePlayerMovement(const short& movement);
+
     /* contains the exact time when the level is displayed to the player; this
        is used for the "hide level" animation; we have to know when the level
        is rendered to calculate when we have to hide it */

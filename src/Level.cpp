@@ -179,13 +179,6 @@ void Level::setPlayerCellTransparency(const sf::Uint8& alpha)
  */
 void Level::movePlayer(const short& movement)
 {
-    /* test if the player movement is possible or not */
-    if (!allowPlayerMovement(movement))
-    {
-        /* finish the function and do not move the player */
-        return;
-    }
-
     /* check if the movement creates a collision with a wall cell */
     if (detectWalls(movement))
     {
