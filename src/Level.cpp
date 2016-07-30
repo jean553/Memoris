@@ -203,7 +203,7 @@ bool Level::allowPlayerMovement(const short& movement) const
        left; cannot move right if already on the right */
     if (
         expectedIndex < 0 ||
-        expectedIndex > 320 ||
+        expectedIndex >= 320 ||
         (playerIndex % 20 == 19 && movement == 1) ||
         (playerIndex % 20 == 0 && movement == -1)
     )
