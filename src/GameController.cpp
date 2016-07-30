@@ -263,6 +263,16 @@ void GameController::executePlayerCellAction()
 
         break;
     }
+    case cells::MORE_LIFE_CELL:
+    {
+        /* plays the found life cell sound */
+        sounds::SoundsManager::get().getFoundLifeSound().play();
+
+        /* increments the amount of lifes inside the dashboard */
+        dashboard.incrementLifes();
+
+        break;
+    }
     }
 }
 

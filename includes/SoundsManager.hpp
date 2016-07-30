@@ -77,6 +77,13 @@ public:
      */
     const Sound& getFoundStarSound();
 
+    /**
+     * @brief getter of the found star life sound if loaded
+     *
+     * @return const Sound&
+     */
+    const Sound& getFoundLifeSound();
+
 private:
 
     /**
@@ -100,6 +107,9 @@ private:
 
     /* play this sound when one star cell is found in the game controller */
     Sound foundStarSound;
+
+    /* play this sound when one life cell is found in the game controller */
+    Sound foundLifeSound;
 };
 
 }

@@ -205,5 +205,17 @@ void GameDashboard::incrementFoundStars()
     foundStarsAmount.setString(std::to_string(foundStars));
 }
 
+/**
+ *
+ */
+void GameDashboard::incrementLifes()
+{
+    /* increment the lifes amount */
+    lifes++;
+
+    /* update the SFML text surface that displays the amount of lifes */
+    lifesAmount.setString(std::to_string(lifes));
+}
+
 }
 }

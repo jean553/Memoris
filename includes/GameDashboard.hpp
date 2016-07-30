@@ -57,6 +57,12 @@ public:
      */
     void incrementFoundStars();
 
+    /**
+     * @brief increments the found lifes amount and updates the displayed found
+     * lifes amount text; this action is called by the game controller
+     */
+    void incrementLifes();
+
 private:
 
     /* the graphical timer widget of the game; renders the elapsed time since
@@ -93,6 +99,13 @@ private:
     /* the amount of stars to display in the dashboard; set with 0 by default
        because when the level starts, the found stars amount is always 0 */
     unsigned short foundStars {0};
+
+    /* the amount of lifes to display in the dashboard */
+    /* TODO: #579 this amount is 0 by default for now, but the default value 
+       should be extracted from the serie file if the level is the first one of 
+       the serie; it it is not the first one, the amount of lifes should be the
+       lifes left the user has */
+    unsigned short lifes {0};
 };
 
 }
