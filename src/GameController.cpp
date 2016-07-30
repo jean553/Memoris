@@ -222,6 +222,9 @@ void GameController::handlePlayerMovement(const short& movement)
        move to the outside of the playable area */
     if (!level.allowPlayerMovement(movement))
     {
+        /* plays the collision sound */
+        sounds::SoundsManager::get().getCollisionSound().play();
+
         /* stop the process and do not move if the movement is not allowed */
         return;
     }
@@ -231,6 +234,9 @@ void GameController::handlePlayerMovement(const short& movement)
        movement is cancelled */
     if (level.detectWalls(movement))
     {
+        /* plays the collision sound */
+        sounds::SoundsManager::get().getCollisionSound().play();
+
         /* the movement is cancelled if the player is against a wall */
         return;
     }

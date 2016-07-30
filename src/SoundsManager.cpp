@@ -49,7 +49,8 @@ SoundsManager::SoundsManager() :
     hideLevelSound("res/sounds/003.wav"),
     foundStarSound("res/sounds/004.wav"),
     foundLifeOrTimeSound("res/sounds/005.wav"),
-    foundDeadOrLessTimeSound("res/sounds/006.wav")
+    foundDeadOrLessTimeSound("res/sounds/006.wav"),
+    collisionSound("res/sounds/007.wav")
 {
     /* try to load each sound from their files, one by one; the game run
        even if some/all sounds cannot be loaded; if loading succeeds, we
@@ -107,6 +108,14 @@ const Sound& SoundsManager::getFoundLifeOrTimeSound()
 const Sound& SoundsManager::getFoundDeadOrLessTimeSound()
 {
     return foundDeadOrLessTimeSound;
+}
+
+/**
+ *
+ */
+const Sound& SoundsManager::getCollisionSound()
+{
+    return collisionSound;
 }
 
 }
