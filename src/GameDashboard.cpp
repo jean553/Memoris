@@ -222,6 +222,16 @@ void GameDashboard::incrementLifes()
  */
 void GameDashboard::decrementLifes()
 {
+    /* TODO: #587 we check if the amount of lifes is equal to 0 but we should
+       not do it this way and here; we only prevent the value to be
+       automatically set to 65665 if the lifes amount is already equal to 0;
+       the 'lose' process should be called instead and the game should
+       finish */
+    if (lifes == 0)
+    {
+        return;
+    }
+
     /* decrement the lifes amount */
     lifes--;
 
