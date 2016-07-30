@@ -30,6 +30,7 @@
 #include "Context.hpp"
 #include "CellsTexturesManager.hpp"
 #include "ColorsManager.hpp"
+#include "cells.hpp"
 
 namespace memoris
 {
@@ -158,6 +159,15 @@ void Cell::setCellColorTransparency(const sf::Uint8& alpha)
 
     /* update the color of the cell */
     sprite.setColor(cellColor);
+}
+
+/**
+ *
+ */
+void Cell::empty()
+{
+    /* set the cell as empty by changing the type to empty cell */
+    type = cells::EMPTY_CELL;
 }
 
 }

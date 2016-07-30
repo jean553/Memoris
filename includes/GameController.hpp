@@ -74,6 +74,20 @@ private:
      */
     void handlePlayerMovement(const short& movement);
 
+    /**
+     * @brief applies the action of the new player cell; this method is called
+     * immediately after the player moved
+     */
+    void executePlayerCellAction();
+
+    /**
+     * @brief empties the player cell (the current player cell is switched to
+     * an empty cell); this action is triggered everytime the player leaves
+     * a cell; some types are never deleted from their original cell, this
+     * function also checks that
+     */
+    void emptyPlayerCell();
+
     /* contains the exact time when the level is displayed to the player; this
        is used for the "hide level" animation; we have to know when the level
        is rendered to calculate when we have to hide it */

@@ -193,5 +193,17 @@ void GameDashboard::display()
     utils::Context::get().getSfmlWindow().draw(rightSeparator);
 }
 
+/**
+ *
+ */
+void GameDashboard::incrementFoundStars()
+{
+    /* increment the amount of found stars */
+    foundStars++;
+
+    /* update the SFML text surface that displays the amount of found stars */
+    foundStarsAmount.setString(std::to_string(foundStars));
+}
+
 }
 }
