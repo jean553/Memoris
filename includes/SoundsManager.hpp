@@ -93,6 +93,15 @@ public:
      */
     const Sound& getFoundDeadOrLessTimeSound();
 
+    /**
+     * @brief getter of the collision sound; this sound is played by the game
+     * controller when the player tries to make a forbidden movement and when
+     * a wall cell is found
+     *
+     * @return const Sound&
+     */
+    const Sound& getCollisionSound();
+
 private:
 
     /**
@@ -123,6 +132,10 @@ private:
 
     /* play this sound when one dead cell or one less time cell is found */
     Sound foundDeadOrLessTimeSound;
+
+    /* play this sound when the player tries to make a forbidden move or when
+       the player finds a wall */
+    Sound collisionSound;
 };
 
 }
