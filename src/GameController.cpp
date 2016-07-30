@@ -209,6 +209,14 @@ void GameController::handlePlayerMovement(const short& movement)
        allowance first and end the function if the movement cannot be perfored,
        without starting to check the second condition */
 
+    /* check if the game is not in watching period; in that case, the player
+       is not allowed to move */
+    if (watchingPeriod)
+    {
+        /* ends the current function and the movement is not allowed */
+        return;
+    }
+
     /* checks if the movement is actually allowed before performing it; we
        check if the player is not already on level borders and is trying to
        move to the outside of the playable area */
