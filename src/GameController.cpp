@@ -281,13 +281,33 @@ void GameController::executePlayerCellAction()
 
         break;
     }
+    case cells::LESS_LIFE_CELL:
+    {
+        /* plays the sound of a dead cell */
+        sounds::SoundsManager::get().getFoundDeadOrLessTimeSound().play();
+
+        /* decrement the amount of lifes */
+        dashboard.decrementLifes();
+
+        break;
+    }
     case cells::MORE_TIME_CELL:
     {
         /* plays the found time cell sound */
         sounds::SoundsManager::get().getFoundLifeOrTimeSound().play();
 
-        /* increments the amount of lifes inside the dashboard */
+        /* increments the amount of watching time inside the dashboard */
         dashboard.increaseWatchingTime();
+
+        break;
+    }
+    case cells::LESS_TIME_CELL:
+    {
+        /* plays the found less time cell sound */
+        sounds::SoundsManager::get().getFoundDeadOrLessTimeSound().play();
+
+        /* decrease the amount of watching time inside the dasboard */
+        dashboard.decreaseWatchingTime();
 
         break;
     }
