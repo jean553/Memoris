@@ -63,6 +63,11 @@ public:
      */
     void incrementLifes();
 
+    /**
+     * @brief increase the amount of seconds of the watching time by 3 seconds
+     */
+    void increaseWatchingTime();
+
 private:
 
     /* the graphical timer widget of the game; renders the elapsed time since
@@ -101,11 +106,18 @@ private:
     unsigned short foundStars {0};
 
     /* the amount of lifes to display in the dashboard */
-    /* TODO: #579 this amount is 0 by default for now, but the default value 
-       should be extracted from the serie file if the level is the first one of 
+    /* TODO: #579 this amount is 0 by default for now, but the default value
+       should be extracted from the serie file if the level is the first one of
        the serie; it it is not the first one, the amount of lifes should be the
        lifes left the user has */
     unsigned short lifes {0};
+
+    /* the amount of seconds the user can watch the level before hidding it */
+    /* TODO: #583 default value is 0 for now, this value should be specified
+       into the serie file if the played level is the first one and should be
+       got from previous level if the current level is not the first one of the
+       serie */
+    unsigned short watchingTime {3};
 };
 
 }
