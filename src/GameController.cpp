@@ -255,6 +255,9 @@ void GameController::executePlayerCellAction()
     {
     case cells::STAR_CELL:
     {
+        /* plays the found star cell sound */
+        sounds::SoundsManager::get().getFoundStarSound().play();
+
         /* increments the amount of found stars inside the dashboard */
         dashboard.incrementFoundStars();
 

@@ -52,23 +52,30 @@ public:
     /**
      * @brief getter of the move selector sound if loaded
      *
-     * @return Sound&
+     * @return const Sound&
      */
-    Sound& getMoveSelectorSound();
+    const Sound& getMoveSelectorSound();
 
     /**
      * @brief getter of the screen transition sound if loaded
      *
-     * @return Sound&
+     * @return const Sound&
      */
-    Sound& getScreenTransitionSound();
+    const Sound& getScreenTransitionSound();
 
     /**
      * @brief getter of the hide level sound if loaded
      *
-     * @return Sound&
+     * @return const Sound&
      */
-    Sound& getHideLevelSound();
+    const Sound& getHideLevelSound();
+
+    /**
+     * @brief getter of the found star cell sound if loaded
+     *
+     * @return const Sound&
+     */
+    const Sound& getFoundStarSound();
 
 private:
 
@@ -81,10 +88,6 @@ private:
      */
     SoundsManager();
 
-    static const std::string MOVE_SELECTOR_SOUND_PATH;
-    static const std::string SCREEN_TRANSITION_SOUND_PATH;
-    static const std::string HIDE_LEVEL_SOUND_PATH;
-
     /* play this sound when the menu selector
        of any menu is moved up or down */
     Sound moveSelectorSound;
@@ -94,6 +97,9 @@ private:
 
     /* play this sound when the game level is hidden */
     Sound hideLevelSound;
+
+    /* play this sound when one star cell is found in the game controller */
+    Sound foundStarSound;
 };
 
 }

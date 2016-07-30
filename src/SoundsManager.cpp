@@ -28,18 +28,6 @@ namespace memoris
 namespace sounds
 {
 
-/* play this sound when the menu selector of any menu is moved up or down */
-const std::string SoundsManager::MOVE_SELECTOR_SOUND_PATH =
-    "res/sounds/001.wav";
-
-
-/* play this sound every time the current screen is switched */
-const std::string SoundsManager::SCREEN_TRANSITION_SOUND_PATH =
-    "res/sounds/002.wav";
-
-/* play this sound when the game level is hidden */
-const std::string SoundsManager::HIDE_LEVEL_SOUND_PATH = "res/sounds/003.wav";
-
 /**
  *
  */
@@ -56,9 +44,10 @@ SoundsManager& SoundsManager::get()
  *
  */
 SoundsManager::SoundsManager() :
-    moveSelectorSound(MOVE_SELECTOR_SOUND_PATH),
-    screenTransitionSound(SCREEN_TRANSITION_SOUND_PATH),
-    hideLevelSound(HIDE_LEVEL_SOUND_PATH)
+    moveSelectorSound("res/sounds/001.wav"),
+    screenTransitionSound("res/sounds/002.wav"),
+    hideLevelSound("res/sounds/003.wav"),
+    foundStarSound("res/sounds/004.wav")
 {
     /* try to load each sound from their files, one by one; the game run
        even if some/all sounds cannot be loaded; if loading succeeds, we
@@ -73,7 +62,7 @@ SoundsManager::SoundsManager() :
 /**
  *
  */
-Sound& SoundsManager::getMoveSelectorSound()
+const Sound& SoundsManager::getMoveSelectorSound()
 {
     return moveSelectorSound;
 }
@@ -81,7 +70,7 @@ Sound& SoundsManager::getMoveSelectorSound()
 /**
  *
  */
-Sound& SoundsManager::getScreenTransitionSound()
+const Sound& SoundsManager::getScreenTransitionSound()
 {
     return screenTransitionSound;
 }
@@ -89,9 +78,17 @@ Sound& SoundsManager::getScreenTransitionSound()
 /**
  *
  */
-Sound& SoundsManager::getHideLevelSound()
+const Sound& SoundsManager::getHideLevelSound()
 {
     return hideLevelSound;
+}
+
+/**
+ *
+ */
+const Sound& SoundsManager::getFoundStarSound()
+{
+    return foundStarSound;
 }
 
 }
