@@ -220,12 +220,46 @@ void GameDashboard::incrementLifes()
 /**
  *
  */
+void GameDashboard::decrementLifes()
+{
+    /* decrement the lifes amount */
+    lifes--;
+
+    /* update the SFML text surface that displays the amount of lifes */
+    lifesAmount.setString(std::to_string(lifes));
+}
+
+/**
+ *
+ */
 void GameDashboard::increaseWatchingTime()
 {
     /* increase the amount of watching time; this amount of 3 seconds; */
     watchingTime += 3;
 
-    /* update the SFML text surface that displays the amount of lifes */
+    /* update the SFML text surface that displays the amount of watching
+       time */
+    time.setString(std::to_string(watchingTime));
+}
+
+/**
+ *
+ */
+void GameDashboard::decreaseWatchingTime()
+{
+    /* do not decrease the amount of watching time if this watching time
+       is already equal to 3; the minimum watching time is 3 */
+    if (watchingTime == 3)
+    {
+        /* ends the process */
+        return;
+    }
+
+    /* decrease the amount of watching time */
+    watchingTime -= 3;
+
+    /* update the SFML text surface that displays the amount of watching
+       time */
     time.setString(std::to_string(watchingTime));
 }
 

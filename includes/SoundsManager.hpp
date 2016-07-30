@@ -85,6 +85,14 @@ public:
      */
     const Sound& getFoundLifeOrTimeSound();
 
+    /**
+     * @brief getter of the found dead or less time sound if loaded; the dead
+     * and the less time cell use the same sound
+     *
+     * @return const Sound&
+     */
+    const Sound& getFoundDeadOrLessTimeSound();
+
 private:
 
     /**
@@ -112,6 +120,9 @@ private:
     /* play this sound when one life cell or one time cell is found in the game
        controller */
     Sound foundLifeOrTimeSound;
+
+    /* play this sound when one dead cell or one less time cell is found */
+    Sound foundDeadOrLessTimeSound;
 };
 
 }

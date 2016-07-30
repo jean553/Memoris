@@ -64,9 +64,20 @@ public:
     void incrementLifes();
 
     /**
+     * @brief decrements the amount of lifes and update the displayed lifes
+     * amount; this action is called by the game controller
+     */
+    void decrementLifes();
+
+    /**
      * @brief increase the amount of seconds of the watching time by 3 seconds
      */
     void increaseWatchingTime();
+
+    /**
+     * @brief decrease the amount of seconds of the watching time by 3 seconds
+     */
+    void decreaseWatchingTime();
 
 private:
 
