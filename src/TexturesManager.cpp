@@ -61,7 +61,7 @@ TexturesManager::TexturesManager()
 /**
  *
  */
-sf::Texture& TexturesManager::getGithubTexture()
+const sf::Texture& TexturesManager::getGithubTexture()
 {
     return githubTexture;
 }
@@ -69,7 +69,7 @@ sf::Texture& TexturesManager::getGithubTexture()
 /**
  *
  */
-sf::Texture& TexturesManager::getStarTexture()
+const sf::Texture& TexturesManager::getStarTexture()
 {
     return starTexture;
 }
@@ -77,7 +77,7 @@ sf::Texture& TexturesManager::getStarTexture()
 /**
  *
  */
-sf::Texture& TexturesManager::getLifeTexture()
+const sf::Texture& TexturesManager::getLifeTexture()
 {
     return lifeTexture;
 }
@@ -85,7 +85,7 @@ sf::Texture& TexturesManager::getLifeTexture()
 /**
  *
  */
-sf::Texture& TexturesManager::getTargetTexture()
+const sf::Texture& TexturesManager::getTargetTexture()
 {
     return targetTexture;
 }
@@ -93,7 +93,7 @@ sf::Texture& TexturesManager::getTargetTexture()
 /**
  *
  */
-sf::Texture& TexturesManager::getTimeTexture()
+const sf::Texture& TexturesManager::getTimeTexture()
 {
     return timeTexture;
 }
@@ -101,7 +101,7 @@ sf::Texture& TexturesManager::getTimeTexture()
 /**
  *
  */
-sf::Texture& TexturesManager::getFloorTexture()
+const sf::Texture& TexturesManager::getFloorTexture()
 {
     return floorTexture;
 }

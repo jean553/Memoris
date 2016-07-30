@@ -52,51 +52,51 @@ public:
     /**
      * @brief getter for the github texture
      *
-     * @return sf::Texture&
+     * @return const sf::Texture&
      */
-    sf::Texture& getGithubTexture();
+    const sf::Texture& getGithubTexture();
 
     /**
      * @brief getter for the star texture
      *
-     * @return sf::Texture&
+     * @return const sf::Texture&
      */
-    sf::Texture& getStarTexture();
+    const sf::Texture& getStarTexture();
 
     /**
      * @brief getter for the life texture
      *
-     * @return sf::Texture&
+     * @return const sf::Texture&
      */
-    sf::Texture& getLifeTexture();
+    const sf::Texture& getLifeTexture();
 
     /**
      * @brief getter for the target texture
      *
-     * @return sf::Texture&
+     * @return const sf::Texture&
      */
-    sf::Texture& getTargetTexture();
+    const sf::Texture& getTargetTexture();
 
     /**
      * @brief getter for the time texture
      *
-     * @return sf::Texture&
+     * @return const sf::Texture&
      */
-    sf::Texture& getTimeTexture();
+    const sf::Texture& getTimeTexture();
 
     /**
      * @brief getter for the floor texture
      *
-     * @return sf::Texture&
+     * @return const sf::Texture&
      */
-    sf::Texture& getFloorTexture();
+    const sf::Texture& getFloorTexture();
 
     /**
      * @brief getter for the hidden texture
      *
-     * @return sf::Texture&
+     * @return const sf::Texture&
      */
-    sf::Texture& getHiddenTexture();
+    const sf::Texture& getHiddenTexture();
 
 private:
 
