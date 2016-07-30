@@ -48,7 +48,7 @@ SoundsManager::SoundsManager() :
     screenTransitionSound("res/sounds/002.wav"),
     hideLevelSound("res/sounds/003.wav"),
     foundStarSound("res/sounds/004.wav"),
-    foundLifeSound("res/sounds/005.wav")
+    foundLifeOrTimeSound("res/sounds/005.wav")
 {
     /* try to load each sound from their files, one by one; the game run
        even if some/all sounds cannot be loaded; if loading succeeds, we
@@ -95,9 +95,9 @@ const Sound& SoundsManager::getFoundStarSound()
 /**
  *
  */
-const Sound& SoundsManager::getFoundLifeSound()
+const Sound& SoundsManager::getFoundLifeOrTimeSound()
 {
-    return foundLifeSound;
+    return foundLifeOrTimeSound;
 }
 
 }

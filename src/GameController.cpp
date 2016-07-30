@@ -274,10 +274,20 @@ void GameController::executePlayerCellAction()
     case cells::MORE_LIFE_CELL:
     {
         /* plays the found life cell sound */
-        sounds::SoundsManager::get().getFoundLifeSound().play();
+        sounds::SoundsManager::get().getFoundLifeOrTimeSound().play();
 
         /* increments the amount of lifes inside the dashboard */
         dashboard.incrementLifes();
+
+        break;
+    }
+    case cells::MORE_TIME_CELL:
+    {
+        /* plays the found time cell sound */
+        sounds::SoundsManager::get().getFoundLifeOrTimeSound().play();
+
+        /* increments the amount of lifes inside the dashboard */
+        dashboard.increaseWatchingTime();
 
         break;
     }

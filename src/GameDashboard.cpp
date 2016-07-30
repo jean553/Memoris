@@ -74,7 +74,7 @@ GameDashboard::GameDashboard() :
     /* creates the information label that displays the watch time the player
        got until now */
     time.setFont(fonts::FontsManager::get().getTextFont());
-    time.setString("0");
+    time.setString("3");
     time.setCharacterSize(fonts::TEXT_SIZE);
     time.setColor(colors::ColorsManager::get().getColorWhite());
     time.setPosition(
@@ -215,6 +215,18 @@ void GameDashboard::incrementLifes()
 
     /* update the SFML text surface that displays the amount of lifes */
     lifesAmount.setString(std::to_string(lifes));
+}
+
+/**
+ *
+ */
+void GameDashboard::increaseWatchingTime()
+{
+    /* increase the amount of watching time; this amount of 3 seconds; */
+    watchingTime += 3;
+
+    /* update the SFML text surface that displays the amount of lifes */
+    time.setString(std::to_string(watchingTime));
 }
 
 }
