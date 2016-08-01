@@ -111,6 +111,13 @@ Level::Level(const std::string& path)
 
             /* increment the vertical position cursor */
             verticalPositionCursor++;
+
+            /* reset the vertical position cursor if the current vertical
+               position is equal to the last one (16) */
+            if (verticalPositionCursor % 16 == 0)
+            {
+                verticalPositionCursor = 0;
+            }
         }
 
         /* move the unique pointer into the cells unique pointers container */
@@ -193,7 +200,10 @@ void Level::movePlayer(const short& movement)
 /**
  *
  */
-bool Level::allowPlayerMovement(const short& movement) const
+bool Level::allowPlayerMovement(
+    const short& movement,
+    const unsigned short& floor
+) const
 {
     /* calculate the expected new player position */
     short expectedIndex = playerIndex + movement;
@@ -202,8 +212,8 @@ bool Level::allowPlayerMovement(const short& movement) const
        move down if already at the bottom; cannot move left if already on the
        left; cannot move right if already on the right */
     if (
-        expectedIndex < 0 ||
-        expectedIndex >= 320 ||
+        expectedIndex < 320 * floor ||
+        expectedIndex >= (320 * floor) + 320 ||
         (playerIndex % 20 == 19 && movement == 1) ||
         (playerIndex % 20 == 0 && movement == -1)
     )
@@ -249,6 +259,60 @@ void Level::emptyPlayerCell()
 
     /* reload the cell texture reference */
     (*cells[playerIndex]).show();
+}
+
+/**
+ *
+ */
+bool Level::movePlayerToNextFloor()
+{
+    /* calculate the expected new index of the player after his movement; use
+       an unsigned variable as the user cannot have an index less than 0 at
+       this moment and because this is the expected data type for the player
+       index */
+    unsigned short newIndex = playerIndex + 320;
+
+    /* check if the expected index is less than 3200 (outside of the level) */
+    if (newIndex > 3200)
+    {
+        /* if the next index is too hight, the player is not moved */
+        return false;
+    }
+
+    /* if the player can be moved, the index is updated */
+    playerIndex = newIndex;
+
+    /* the texture of the new player cell is loaded */
+    (*cells[playerIndex]).show();
+
+    return true;
+}
+
+/**
+ *
+ */
+bool Level::movePlayerToPreviousFloor()
+{
+    /* calculate the expected new index of the player after his movement; use
+       a signed variable because at this moment, the player can be on the
+       first level and the expected index can be less than 0 */
+    short newIndex = playerIndex - 320;
+
+    /* check if the expected new cell is less than 0 */
+    if (newIndex < 0)
+    {
+        /* if the next index is too low, the player is not moved */
+        return false;
+    }
+
+    /* no problem to cast the value; this variable is never less than 0 here
+       and cannot be more than ~32000 (65536/2) anyway */
+    playerIndex = static_cast<unsigned short>(newIndex);
+
+    /* the texture of the new player cell is loaded */
+    (*cells[playerIndex]).show();
+
+    return true;
 }
 
 }

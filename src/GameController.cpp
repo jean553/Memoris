@@ -57,10 +57,9 @@ unsigned short GameController::render()
     /* displays the game dashboard */
     dashboard.display();
 
-    /* display the level and all the cells */
-    /* TODO: #546 only displays the first floor for now, so 0; should be
-       modified according to the current user floor */
-    level.display(0);
+    /* display the level and all the cells; displays only the cells of the
+       given floor */
+    level.display(floor);
 
     /* displays all the cells of the level during the time of the watching
        period */
@@ -220,7 +219,7 @@ void GameController::handlePlayerMovement(const short& movement)
     /* checks if the movement is actually allowed before performing it; we
        check if the player is not already on level borders and is trying to
        move to the outside of the playable area */
-    if (!level.allowPlayerMovement(movement))
+    if (!level.allowPlayerMovement(movement, floor))
     {
         /* plays the collision sound */
         sounds::SoundsManager::get().getCollisionSound().play();
@@ -317,6 +316,30 @@ void GameController::executePlayerCellAction()
 
         break;
     }
+    case cells::STAIRS_UP_CELL:
+    {
+        /* check if the player can be moved to the next floor (maybe it cannot
+           because he is already on the last floor) */
+        if (level.movePlayerToNextFloor())
+        {
+            /* if the player can move, increment the current player floor */
+            floor++;
+        }
+
+        break;
+    }
+    case cells::STAIRS_DOWN_CELL:
+    {
+        /* check if the player can be moved to the previous floor (maybe it
+           cannot because he is already on the first floor) */
+        if (level.movePlayerToPreviousFloor())
+        {
+            /* if the player can move, decrement the current player floor */
+            floor--;
+        }
+
+        break;
+    }
     }
 }
 
@@ -332,7 +355,9 @@ void GameController::emptyPlayerCell()
     /* check if the player cell is one of the types that are never deleted */
     if (
         playerCellType == cells::EMPTY_CELL ||
-        playerCellType == cells::DEPARTURE_CELL
+        playerCellType == cells::DEPARTURE_CELL ||
+        playerCellType == cells::STAIRS_UP_CELL ||
+        playerCellType == cells::STAIRS_DOWN_CELL
     )
     {
         /* immediately ends the function; the current cell does not need to

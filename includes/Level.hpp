@@ -95,10 +95,14 @@ public:
      * @param move the value (positive or negative) to apply on the current
      * player index; defines the mouvement of the player; this check is
      * separated into a dedicated method for better code organisation
+     * @param floor the current player floor number
      *
      * @return bool
      */
-    bool allowPlayerMovement(const short& movement) const;
+    bool allowPlayerMovement(
+        const short& movement,
+        const unsigned short& floor
+    ) const;
 
     /**
      * @brief get the current player cell type; this getter is used into the
@@ -128,6 +132,24 @@ public:
      * load of a new texture for the player cell
      */
     void emptyPlayerCell();
+
+    /**
+     * @brief moves the current player to the next floor if possible,
+     * returns true if the action has been executed, false if it is not
+     * possible to move to the next floor
+     *
+     * @bool true if the player moved to the next floor
+     */
+    bool movePlayerToNextFloor();
+
+    /**
+     * @brief moves the current player to the previous floor if possible,
+     * returns true if the action has been executed, false if it is not
+     * possible to move to the previous floor
+     *
+     * @bool true if the player moved to the previous floor
+     */
+    bool movePlayerToPreviousFloor();
 
 private:
 
