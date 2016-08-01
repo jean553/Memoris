@@ -35,32 +35,38 @@ namespace memoris
 namespace cells
 {
 
-/* empty cell type string representation */
+/* empty */
 constexpr char EMPTY_CELL {'e'};
 
-/* departure cell type string representation */
+/* departure */
 constexpr char DEPARTURE_CELL {'d'};
 
-/* arrival cell type string representation */
+/* arrival */
 constexpr char ARRIVAL_CELL {'a'};
 
-/* star cell type string representation */
+/* star */
 constexpr char STAR_CELL {'s'};
 
-/* more life cell type string representation */
+/* more life */
 constexpr char MORE_LIFE_CELL {'L'};
 
-/* less life cell type string representation */
+/* less life */
 constexpr char LESS_LIFE_CELL {'l'};
 
-/* more time cell type string representation */
+/* more time */
 constexpr char MORE_TIME_CELL {'T'};
 
-/* less time cell type string representation */
+/* less time */
 constexpr char LESS_TIME_CELL {'t'};
 
-/* wall cell type string representation */
+/* wall */
 constexpr char WALL_CELL {'w'};
+
+/* stairs up */
+constexpr char STAIRS_UP_CELL {'u'};
+
+/* stairs down */
+constexpr char STAIRS_DOWN_CELL {'p'};
 
 }
 }

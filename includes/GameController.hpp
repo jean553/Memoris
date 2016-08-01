@@ -131,6 +131,12 @@ private:
        this is the one expected by the sf::Color object; the variable is
        initialized with the value 64 and switches between 64 and 128 */
     sf::Uint8 playerCellTransparency {64};
+
+    /* the current floor of the player, by default for now, this current floor
+       is the first floor (so number 0);*/
+    /* TODO: #589 the default value of the current floor should be the
+       departure cell floor value */
+    unsigned short floor {0};
 };
 
 }

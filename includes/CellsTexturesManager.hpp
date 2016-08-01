@@ -88,6 +88,8 @@ private:
     sf::Texture lessTimeCellTexture;
     sf::Texture wallCellTexture;
     sf::Texture hiddenCellTexture;
+    sf::Texture stairsUpCellTexture;
+    sf::Texture stairsDownCellTexture;
 };
 
 }

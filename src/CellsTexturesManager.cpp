@@ -61,6 +61,8 @@ CellsTexturesManager::CellsTexturesManager()
     loadTexture(lessTimeCellTexture, "res/cells/lessTime.png");
     loadTexture(wallCellTexture, "res/cells/wall.png");
     loadTexture(hiddenCellTexture, "res/cells/hidden.png");
+    loadTexture(stairsUpCellTexture, "res/cells/stairs_up.png");
+    loadTexture(stairsDownCellTexture, "res/cells/stairs_down.png");
 }
 
 /**
@@ -104,6 +106,14 @@ sf::Texture& CellsTexturesManager::getTextureReferenceByCellType(
     case cells::LESS_TIME_CELL:
     {
         return lessTimeCellTexture;
+    }
+    case cells::STAIRS_UP_CELL:
+    {
+        return stairsUpCellTexture;
+    }
+    case cells::STAIRS_DOWN_CELL:
+    {
+        return stairsDownCellTexture;
     }
     }
 
