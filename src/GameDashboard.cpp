@@ -273,5 +273,40 @@ void GameDashboard::decreaseWatchingTime()
     time.setString(std::to_string(watchingTime));
 }
 
+/**
+ *
+ */
+const unsigned short& GameDashboard::getFoundStarsAmount()
+{
+    return foundStars;
+}
+
+/**
+ *
+ */
+void GameDashboard::updateTotalStarsAmountSurface(const unsigned short& amount)
+{
+    /* update the displayed stars amount inside the game dashboard according
+       to the passed amount */
+    target.setString(std::to_string(amount));
+}
+
+/**
+ *
+ */
+const unsigned short& GameDashboard::getLifesAmount()
+{
+    return lifes;
+}
+
+/**
+ *
+ */
+void GameDashboard::stopTimer()
+{
+    /* call the method to stop the timer */
+    timer.stop();
+}
+
 }
 }

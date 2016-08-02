@@ -89,12 +89,25 @@ Level::Level(const std::string& path)
             )
         );
 
-        /* store the current cell index into the player cell index if the
-           current cell is a departure cell; this will be the starting cell
-           of the player */
-        if (cellType == cells::DEPARTURE_CELL)
+        switch(cellType)
         {
+        case cells::DEPARTURE_CELL:
+        {
+            /* store the current cell index into the player cell index if the
+               current cell is a departure cell; this will be the starting cell
+               of the player */
             playerIndex = index;
+
+            break;
+        }
+        case cells::STAR_CELL:
+        {
+            /* increment the amount of stars on the level if the current cell
+               is a star cell */
+            starsAmount++;
+
+            break;
+        }
         }
 
         /* increment the horizontal position cursor */
@@ -313,6 +326,14 @@ bool Level::movePlayerToPreviousFloor()
     (*cells[playerIndex]).show();
 
     return true;
+}
+
+/**
+ *
+ */
+const unsigned short& Level::getStarsAmount()
+{
+    return starsAmount;
 }
 
 }

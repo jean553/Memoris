@@ -151,6 +151,15 @@ public:
      */
     bool movePlayerToPreviousFloor();
 
+    /**
+     * @brief getter of the total stars amount in the level; this is used by
+     * the game controller to check when the user got all the stars of the
+     * current played level
+     *
+     * @return const unsigned short&
+     */
+    const unsigned short& getStarsAmount();
+
 private:
 
     /* container of unique pointers of cells; we use unique pointers because
@@ -163,6 +172,10 @@ private:
     /* the index of the current player cell; the position of the player in
        the level; the variable is 0 by default; */
     unsigned short playerIndex {0};
+
+    /* the total amount of stars on the level; the default amount is 0 before
+       the level file is loaded */
+    unsigned short starsAmount {0};
 };
 
 }
