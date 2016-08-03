@@ -160,6 +160,25 @@ public:
      */
     const unsigned short& getStarsAmount();
 
+    /**
+     * @brief getter for the amount of playable floors; this is used to select
+     * which floors have to be displayed during the watching period; this
+     * amount is generated during the loading process of the level; it contains
+     * the amount of floors (from the first one included) that contains at
+     * least one non-empty cell
+     *
+     * @return const unsigned short&
+     */
+    const unsigned short& getPlayableFloors();
+
+    /**
+     * @brief getter for the current player floor index; we do not return
+     * a reference because there is no attribute to store the player floor
+     *
+     * @return const unsigned short
+     */
+    const unsigned short getPlayerFloor();
+
 private:
 
     /* container of unique pointers of cells; we use unique pointers because
@@ -176,6 +195,11 @@ private:
     /* the total amount of stars on the level; the default amount is 0 before
        the level file is loaded */
     unsigned short starsAmount {0};
+
+    /* contains the amount of floors that are playable in this level; a
+       playable floor is a floor with at least one cell non empty; this is
+       used to select which floor to display during the watching period */
+    unsigned short playableFloors {0};
 };
 
 }
