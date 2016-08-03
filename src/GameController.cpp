@@ -24,10 +24,14 @@
 
 #include "GameController.hpp"
 
-#include "controllers.hpp"
 #include "SoundsManager.hpp"
 #include "PlayingSerieManager.hpp"
+#include "ColorsManager.hpp"
+#include "FontsManager.hpp"
 #include "cells.hpp"
+#include "window.hpp"
+#include "fonts.hpp"
+#include "controllers.hpp"
 
 namespace memoris
 {
@@ -43,6 +47,18 @@ GameController::GameController() :
    Level constructor that loads from level file */
     level(series::PlayingSerieManager::get().getNextLevelName())
 {
+    /* update the dashboard total stars amount according to the value returned
+       by the level object */
+    /* TODO: #592 this way to do is bad: we got data from one object to
+       directly set it as a value of another object, should be refactored */
+    dashboard.updateTotalStarsAmountSurface(level.getStarsAmount());
+
+    /* initialize the lose grey filter surface */
+    initializeGreyFilter();
+
+    /* initialize the lose text */
+    initializeLoseText();
+
     /* save the exact time the level starts to be displayed; this is used to
        calculate the duration of the watching period before the beginning
        of the playing period */
@@ -121,6 +137,28 @@ unsigned short GameController::render()
            animation step */
         playerCellAnimationTime =
             utils::Context::get().getClockMillisecondsTime();
+    }
+
+    /* check if the current game status is the lose phase */
+    if (startLosePeriodTime)
+    {
+        /* display the grey filter */
+        utils::Context::get().getSfmlWindow().draw(greyFilter);
+
+        /* displays the lose text */
+        utils::Context::get().getSfmlWindow().draw(loseText);
+
+        /* check if the lose period is finished; the lose period duration is
+           5 seconds */
+        if (
+            utils::Context::get().getClockMillisecondsTime() -
+            startLosePeriodTime > 5000
+        )
+        {
+            /* just go back to the serie selector */
+            expectedControllerId =
+                controllers::OFFICIAL_SERIES_MENU_CONTROLLER_ID;
+        }
     }
 
     /* used for the screen switch transition animation */
@@ -208,9 +246,9 @@ void GameController::handlePlayerMovement(const short& movement)
        allowance first and end the function if the movement cannot be perfored,
        without starting to check the second condition */
 
-    /* check if the game is not in watching period; in that case, the player
-       is not allowed to move */
-    if (watchingPeriod)
+    /* check if the game is in watching or lose period; in both cases, the
+       movement is directly canceled */
+    if (watchingPeriod || startLosePeriodTime)
     {
         /* ends the current function and the movement is not allowed */
         return;
@@ -291,6 +329,20 @@ void GameController::executePlayerCellAction()
         /* plays the sound of a dead cell */
         sounds::SoundsManager::get().getFoundDeadOrLessTimeSound().play();
 
+        /* check if the player lifes amount is already equal to 0 */
+        if (dashboard.getLifesAmount() == 0)
+        {
+            /* force the music to stop */
+            utils::Context::get().stopMusic();
+
+            /* force the timer to stop in the dashboard */
+            dashboard.stopTimer();
+
+            /* save when started the lose period time */
+            startLosePeriodTime =
+                utils::Context::get().getClockMillisecondsTime();
+        }
+
         /* decrement the amount of lifes */
         dashboard.decrementLifes();
 
@@ -340,6 +392,19 @@ void GameController::executePlayerCellAction()
 
         break;
     }
+    case cells::ARRIVAL_CELL:
+    {
+        /* check if the all the star cells have been found */
+        if (dashboard.getFoundStarsAmount() == level.getStarsAmount())
+        {
+            /* TODO: when the level is completed, the game goes back to the
+               main menu; at this moment of course, the next level should be
+               loaded */
+            expectedControllerId = controllers::MAIN_MENU_CONTROLLER_ID;
+        }
+
+        break;
+    }
     }
 }
 
@@ -352,12 +417,15 @@ void GameController::emptyPlayerCell()
        by the level getter */
     const char& playerCellType = level.getPlayerCellType();
 
-    /* check if the player cell is one of the types that are never deleted */
+    /* check if the player cell is one of the types that are never deleted; we
+       could use a test on an array here, but in order to improve visibility,
+       we prefer these multiple conditions */
     if (
         playerCellType == cells::EMPTY_CELL ||
         playerCellType == cells::DEPARTURE_CELL ||
         playerCellType == cells::STAIRS_UP_CELL ||
-        playerCellType == cells::STAIRS_DOWN_CELL
+        playerCellType == cells::STAIRS_DOWN_CELL ||
+        playerCellType == cells::ARRIVAL_CELL
     )
     {
         /* immediately ends the function; the current cell does not need to
@@ -367,6 +435,59 @@ void GameController::emptyPlayerCell()
 
     /* empty the player cell type */
     level.emptyPlayerCell();
+}
+
+/**
+ *
+ */
+void GameController::initializeGreyFilter()
+{
+    /* create the grey rectangle shape that is displayed when the player loses
+       the current game */
+
+    /* the position of the filter is the left top corner as it is displayed on
+       the whole screen */
+    greyFilter.setPosition(0.f, 0.f);
+
+    /* the size of the filter is the whole window size */
+    greyFilter.setSize(
+        sf::Vector2f(
+            window::WIDTH,
+            window::HEIGHT
+        )
+    );
+
+    /* the color of the grey filter is grey with a light transparency */
+    greyFilter.setFillColor(
+        colors::ColorsManager::get().getColorPartialDarkGrey()
+    );
+}
+
+/**
+ *
+ */
+void GameController::initializeLoseText()
+{
+    /* initialize the SFML text that is displayed when the player loses the
+       game */
+
+    /* the text is aligned at the center of the window */
+    loseText.setPosition(
+        400.f,
+        200.f
+    );
+
+    /* the text contains the lose message */
+    loseText.setString("You Lose !");
+
+    /* the size of the lose message is the same as the title items sizes */
+    loseText.setCharacterSize(fonts::TITLE_SIZE);
+
+    /* the font of the lose message is the normal text font */
+    loseText.setFont(fonts::FontsManager::get().getTextFont());
+
+    /* the lose text is written in red color on the grey filter */
+    loseText.setColor(colors::ColorsManager::get().getColorRed());
 }
 
 }

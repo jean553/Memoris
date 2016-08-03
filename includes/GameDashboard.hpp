@@ -79,6 +79,35 @@ public:
      */
     void decreaseWatchingTime();
 
+    /**
+     * @brief getter of the found star(s) amount
+     *
+     * @return const unsigned short&
+     */
+    const unsigned short& getFoundStarsAmount();
+
+    /**
+     * @brief updates the SFML surface that displays the total amount of cells
+     * on the level; this method is called directly after the end of the level
+     * loading process;
+     *
+     * @param amount the amount to display in the dashboard
+     */
+    void updateTotalStarsAmountSurface(const unsigned short& amount);
+
+    /**
+     * @brief getter for the lifes amount (the amount of lifes the user has)
+     *
+     * @return const unsigned short&
+     */
+    const unsigned short& getLifesAmount();
+
+    /**
+     * @brief stops the timer; used by the game controller when the lose
+     * period starts
+     */
+    void stopTimer();
+
 private:
 
     /* the graphical timer widget of the game; renders the elapsed time since

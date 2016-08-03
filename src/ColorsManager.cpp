@@ -65,36 +65,21 @@ ColorsManager::ColorsManager()
     colorLightBlue.b = COLOR_LIGHT_BLUE_BLUE;
     colorLightBlue.a = COLOR_FULL_ALPHA;
 
-    colorGrey.r = COLOR_GREY_RED;
-    colorGrey.g = COLOR_GREY_GREEN;
-    colorGrey.b = COLOR_GREY_BLUE;
-    colorGrey.a = COLOR_FULL_ALPHA;
+    colorPartialDarkGrey.r = COLOR_DARK_GREY_RED;
+    colorPartialDarkGrey.g = COLOR_DARK_GREY_GREEN;
+    colorPartialDarkGrey.b = COLOR_DARK_GREY_BLUE;
+    colorPartialDarkGrey.a = COLOR_PARTIAL_ALPHA;
 
-    colorPartialGrey.r = COLOR_GREY_RED;
-    colorPartialGrey.g = COLOR_GREY_GREEN;
-    colorPartialGrey.b = COLOR_GREY_BLUE;
-    colorPartialGrey.a = COLOR_PARTIAL_ALPHA;
-
-    colorPartialWhite.r = COLOR_WHITE_RED;
-    colorPartialWhite.g = COLOR_WHITE_GREEN;
-    colorPartialWhite.b = COLOR_WHITE_BLUE;
-    colorPartialWhite.a = COLOR_PARTIAL_ALPHA;
-
-    colorDarkGrey.r = COLOR_DARK_GREY_RED;
-    colorDarkGrey.g = COLOR_DARK_GREY_GREEN;
-    colorDarkGrey.b = COLOR_DARK_GREY_BLUE;
-    colorDarkGrey.a = COLOR_FULL_ALPHA;
-
-    colorOrange.r = COLOR_ORANGE_RED;
-    colorOrange.g = COLOR_ORANGE_GREEN;
-    colorOrange.b = COLOR_ORANGE_BLUE;
-    colorOrange.a = COLOR_FULL_ALPHA;
+    colorBlack.r = COLOR_BLACK_RED;
+    colorBlack.g = COLOR_BLACK_GREEN;
+    colorBlack.b = COLOR_BLACK_BLUE;
+    colorBlack.a = COLOR_FULL_ALPHA;
 }
 
 /**
  *
  */
-sf::Color& ColorsManager::getColorWhite()
+const sf::Color& ColorsManager::getColorWhite()
 {
     return colorWhite;
 }
@@ -102,7 +87,7 @@ sf::Color& ColorsManager::getColorWhite()
 /**
  *
  */
-sf::Color& ColorsManager::getColorLightBlue()
+const sf::Color& ColorsManager::getColorLightBlue()
 {
     return colorLightBlue;
 }
@@ -110,7 +95,7 @@ sf::Color& ColorsManager::getColorLightBlue()
 /**
  *
  */
-sf::Color& ColorsManager::getColorRed()
+const sf::Color& ColorsManager::getColorRed()
 {
     return colorRed;
 }
@@ -118,49 +103,17 @@ sf::Color& ColorsManager::getColorRed()
 /**
  *
  */
-sf::Color& ColorsManager::getColorGrey()
-{
-    return colorGrey;
-}
-
-/**
- *
- */
-sf::Color& ColorsManager::getColorPartialWhite()
-{
-    return colorPartialWhite;
-}
-
-/**
- *
- */
-sf::Color& ColorsManager::getColorPartialGrey()
-{
-    return colorPartialGrey;
-}
-
-/**
- *
- */
-sf::Color& ColorsManager::getColorDarkGrey()
-{
-    return colorDarkGrey;
-}
-
-/**
- *
- */
-sf::Color& ColorsManager::getColorOrange()
-{
-    return colorOrange;
-}
-
-/**
- *
- */
-sf::Color& ColorsManager::getColorBlack()
+const sf::Color& ColorsManager::getColorBlack()
 {
     return colorBlack;
+}
+
+/**
+ *
+ */
+const sf::Color& ColorsManager::getColorPartialDarkGrey()
+{
+    return colorPartialDarkGrey;
 }
 
 /**

@@ -88,6 +88,22 @@ private:
      */
     void emptyPlayerCell();
 
+    /**
+     * @brief initialize the grey filter surface that is displayed if the
+     * player loses the game; this private method is called by the constructor;
+     * the content of this method could be inside the controller itself, but
+     * we put it inside a separated method for better organization
+     */
+    void initializeGreyFilter();
+
+    /**
+     * @brief initialize the lose text that is displayed when the player loses
+     * the current game; this private method is called by the constructor;
+     * the content of this method could be inside the controller itself, but
+     * we put it inside a separated method for better organization
+     */
+    void initializeLoseText();
+
     /* contains the exact time when the level is displayed to the player; this
        is used for the "hide level" animation; we have to know when the level
        is rendered to calculate when we have to hide it */
@@ -98,6 +114,14 @@ private:
 
     /* the time of the last animation of the player cell animation */
     sf::Uint32 playerCellAnimationTime {0};
+
+    /* this SFML variable contains when the lose period started; because this
+       period is limited in time, this is used to make calculation and decide
+       when the lose period stops, and when the current game stops; this
+       variable is also used to check if the game is currently inside the
+       lose period; if the lose period is enabled, this variable is positive
+       for sure */
+    sf::Uint32 startLosePeriodTime {0};
 
     /* the top dashboard that displays the countdown timer and all the
        current game information labels */
@@ -137,6 +161,13 @@ private:
     /* TODO: #589 the default value of the current floor should be the
        departure cell floor value */
     unsigned short floor {0};
+
+    /* the rectangle shape to apply and display on the screen during a short
+       time when the player just lost the current playing game */
+    sf::RectangleShape greyFilter;
+
+    /* the SFML surface that is displayed when the player loses the game */
+    sf::Text loseText;
 };
 
 }

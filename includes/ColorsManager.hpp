@@ -55,67 +55,37 @@ public:
     /**
      * @brief returns a reference to the white color
      *
-     * @return sf::Color&
+     * @return const sf::Color&
      */
-    sf::Color& getColorWhite();
+    const sf::Color& getColorWhite();
 
     /**
      * @brief returns a reference to the light blue color
      *
-     * @return sf::Color&
+     * @return const sf::Color&
      */
-    sf::Color& getColorLightBlue();
+    const sf::Color& getColorLightBlue();
 
     /**
      * @brief returns a reference to the red color
      *
-     * @return sf::Color&
+     * @return const sf::Color&
      */
-    sf::Color& getColorRed();
-
-    /**
-     * @brief returns a reference to the grey color
-     *
-     * @return sf::Color&
-     */
-    sf::Color& getColorGrey();
-
-    /**
-     * @brief returns a reference to the partial white color
-     * (a white color with transparency)
-     *
-     * @return sf::Color&
-     */
-    sf::Color& getColorPartialWhite();
-
-    /**
-     * @brief returns a reference to the partial grey color
-     * (a grey color with transparency)
-     *
-     * @return sf::Color&
-     */
-    sf::Color& getColorPartialGrey();
-
-    /**
-     * @brief returns a reference to the dark grey color
-     *
-     * @return sf::Color&
-     */
-    sf::Color& getColorDarkGrey();
+    const sf::Color& getColorRed();
 
     /**
      * @brief returns a reference to the orange color
      *
-     * @return sf::Color&
+     * @return const sf::Color&
      */
-    sf::Color& getColorOrange();
+    const sf::Color& getColorBlack();
 
     /**
-     * @brief returns a reference to the orange color
+     * @brief returns a reference to the partial dark grey color
      *
-     * @return sf::Color&
+     * @return const sf::Color&
      */
-    sf::Color& getColorBlack();
+    const sf::Color& getColorPartialDarkGrey();
 
     /**
      * @brief returns a copy of the blue color
@@ -171,35 +141,23 @@ private:
     static constexpr sf::Uint8 COLOR_LIGHT_BLUE_GREEN = 125;
     static constexpr sf::Uint8 COLOR_LIGHT_BLUE_BLUE = 255;
 
-    static constexpr sf::Uint8 COLOR_GREY_RED = 128;
-    static constexpr sf::Uint8 COLOR_GREY_GREEN = 128;
-    static constexpr sf::Uint8 COLOR_GREY_BLUE = 128;
-
     static constexpr sf::Uint8 COLOR_DARK_GREY_RED = 50;
     static constexpr sf::Uint8 COLOR_DARK_GREY_GREEN = 50;
     static constexpr sf::Uint8 COLOR_DARK_GREY_BLUE = 50;
-
-    static constexpr sf::Uint8 COLOR_ORANGE_RED = 255;
-    static constexpr sf::Uint8 COLOR_ORANGE_GREEN = 128;
-    static constexpr sf::Uint8 COLOR_ORANGE_BLUE = 0;
 
     static constexpr sf::Uint8 COLOR_BLACK_RED = 0;
     static constexpr sf::Uint8 COLOR_BLACK_GREEN = 0;
     static constexpr sf::Uint8 COLOR_BLACK_BLUE = 0;
 
     static constexpr sf::Uint8 COLOR_FULL_ALPHA = 255;
-    static constexpr sf::Uint8 COLOR_PARTIAL_ALPHA = 128;
+    static constexpr sf::Uint8 COLOR_PARTIAL_ALPHA = 225;
 
     sf::Color colorWhite;
     sf::Color colorBlue;
     sf::Color colorRed;
     sf::Color colorLightBlue;
-    sf::Color colorGrey;
-    sf::Color colorPartialWhite;
-    sf::Color colorPartialGrey;
-    sf::Color colorDarkGrey;
-    sf::Color colorOrange;
     sf::Color colorBlack;
+    sf::Color colorPartialDarkGrey;
 };
 
 }

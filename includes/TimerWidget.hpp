@@ -57,6 +57,12 @@ public:
      */
     void display();
 
+    /**
+     * @brief public method to stop the timer, used by the game controller to
+     * stop the timer when the lose period starts
+     */
+    void stop();
+
 private:
 
     /**
@@ -85,6 +91,11 @@ private:
        properly */
     unsigned short minutes {0};
     unsigned short seconds {0};
+
+    /* determinates if the timer is started or not; this is used by the game
+       controller to stop the timer during the lose period for example; the
+       timer is stopped and the player does not see the animation anymore */
+    bool started {true};
 };
 
 }

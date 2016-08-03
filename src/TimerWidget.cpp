@@ -64,10 +64,14 @@ TimerWidget::TimerWidget(
 void TimerWidget::display()
 {
     /* check if the elapsed time since the last timer update is more than
-       1000 milliseconds; if yes, the timer value is updated */
+       1000 milliseconds; if yes, the timer value is updated; also check if
+       the timer is started */
     if (
-        utils::Context::get().getClockMillisecondsTime() -
-        lastTimerUpdateTime > 1000
+        started &&
+        (
+            utils::Context::get().getClockMillisecondsTime() -
+            lastTimerUpdateTime > 1000
+        )
     )
     {
         /* call the separated private method to update all the timer values */
@@ -143,6 +147,15 @@ void TimerWidget::updateDisplayedString()
 
     /* update the SFML surface displayed text */
     text.setString(minutesString + " : " + secondsString);
+}
+
+/**
+ *
+ */
+void TimerWidget::stop()
+{
+    /* the started boolean is marked as false and the timer is stopped */
+    started = false;
 }
 
 }
