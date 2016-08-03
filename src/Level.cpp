@@ -54,6 +54,10 @@ Level::Level(const std::string& path)
        when initializing every cell one by one */
     unsigned short horizontalPositionCursor {0}, verticalPositionCursor {0};
 
+    /* boolean used to remember if one cell is at least non empty on the
+       current loaded floor; used to increment the amount of playable floors */
+    bool emptyFloor = true;
+
     /* there are 3200 cells per level, 320 per floor, there are 10 floors */
     for(unsigned short index {0}; index < 3200; index++)
     {
@@ -110,6 +114,13 @@ Level::Level(const std::string& path)
         }
         }
 
+        /* set the current floor as playable if the current cell is not
+           empty and if no non-empty cell has already been found */
+        if (cellType != cells::EMPTY_CELL && emptyFloor)
+        {
+            emptyFloor = false;
+        }
+
         /* increment the horizontal position cursor */
         horizontalPositionCursor++;
 
@@ -130,6 +141,17 @@ Level::Level(const std::string& path)
             if (verticalPositionCursor % 16 == 0)
             {
                 verticalPositionCursor = 0;
+
+                /* check if the floor is playable or not */
+                if (!emptyFloor)
+                {
+                    /* if the current floor is not empty, increment the amount
+                       of playable floors */
+                    playableFloors++;
+
+                    /* reset the boolean to check properly the next floor */
+                    emptyFloor = true;
+                }
             }
         }
 
@@ -334,6 +356,24 @@ bool Level::movePlayerToPreviousFloor()
 const unsigned short& Level::getStarsAmount()
 {
     return starsAmount;
+}
+
+/**
+ *
+ */
+const unsigned short& Level::getPlayableFloors()
+{
+    return playableFloors;
+}
+
+/**
+ *
+ */
+const unsigned short Level::getPlayerFloor()
+{
+    /* divide the current player index by 320 (cells per floor) and trunctae
+       the result as the result type is an unsigned short */
+    return playerIndex / 320;
 }
 
 }

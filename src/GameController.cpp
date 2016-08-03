@@ -89,21 +89,10 @@ unsigned short GameController::render()
         )
     )
     {
-        /* hide all the cells of the level */
-        level.hideAllCellsExceptDeparture();
-
-        /* plays the hide level sound */
-        sounds::SoundsManager::get().getHideLevelSound().play();
-
-        /* the watching mode is now terminated */
-        watchingPeriod = false;
-
-        /* the playing period starts now */
-        playingPeriod = true;
-
-        /* at this moment, we do not save the moment the animation ends; in
-           fact, this is not a repeated action, there is no need to save
-           the current time here */
+        /* call the private method that display the next floor of the level
+           in watching mode if necessary or stops the watching mode if all
+           the playable floors have been watched */
+        watchNextFloorOrHideLevel();
     }
 
     /* if the current game status is playing, the player cell has to be
@@ -488,6 +477,48 @@ void GameController::initializeLoseText()
 
     /* the lose text is written in red color on the grey filter */
     loseText.setColor(colors::ColorsManager::get().getColorRed());
+}
+
+/**
+ *
+ */
+void GameController::watchNextFloorOrHideLevel()
+{
+    /* check if the current displayed level is the last one to display; the
+       'floor' variable contains the current floor index, the level public
+       method returns an amount of floors, that's why we substract one */
+    if (floor != level.getPlayableFloors() - 1)
+    {
+        /* increment the floor index to display the next floor cells */
+        floor++;
+
+        /* reset the display level time with the current time to allow more
+           watching time for the next floor watching period */
+        displayLevelTime =
+            utils::Context::get().getClockMillisecondsTime();
+
+        /* ends the process here */
+        return;
+    }
+
+    /* hide all the cells of the level */
+    level.hideAllCellsExceptDeparture();
+
+    /* plays the hide level sound */
+    sounds::SoundsManager::get().getHideLevelSound().play();
+
+    /* the watching mode is now terminated */
+    watchingPeriod = false;
+
+    /* the playing period starts now */
+    playingPeriod = true;
+
+    /* get the player floor index from the level */
+    floor = level.getPlayerFloor();
+
+    /* at this moment, we do not save the moment the animation ends; in
+       fact, this is not a repeated action, there is no need to save
+       the current time here */
 }
 
 }

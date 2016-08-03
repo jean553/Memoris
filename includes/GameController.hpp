@@ -104,6 +104,14 @@ private:
      */
     void initializeLoseText();
 
+    /**
+     * @brief this method is called during the watching mode by the main
+     * display method to jump to the next floor if the next floor is a playable
+     * floor or to stop the watching period if there is no playable floor
+     * anymore; this function is called at each 'watching time interval'
+     */
+    void watchNextFloorOrHideLevel();
+
     /* contains the exact time when the level is displayed to the player; this
        is used for the "hide level" animation; we have to know when the level
        is rendered to calculate when we have to hide it */
