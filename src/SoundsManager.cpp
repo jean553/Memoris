@@ -50,7 +50,8 @@ SoundsManager::SoundsManager() :
     foundStarSound("res/sounds/004.wav"),
     foundLifeOrTimeSound("res/sounds/005.wav"),
     foundDeadOrLessTimeSound("res/sounds/006.wav"),
-    collisionSound("res/sounds/007.wav")
+    collisionSound("res/sounds/007.wav"),
+    floorSwitchSound("res/sounds/008.wav")
 {
     /* try to load each sound from their files, one by one; the game run
        even if some/all sounds cannot be loaded; if loading succeeds, we
@@ -116,6 +117,14 @@ const Sound& SoundsManager::getFoundDeadOrLessTimeSound()
 const Sound& SoundsManager::getCollisionSound()
 {
     return collisionSound;
+}
+
+/**
+ *
+ */
+const Sound& SoundsManager::getFloorSwitchSound()
+{
+    return floorSwitchSound;
 }
 
 }

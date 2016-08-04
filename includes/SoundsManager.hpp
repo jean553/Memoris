@@ -102,6 +102,13 @@ public:
      */
     const Sound& getCollisionSound();
 
+    /**
+     * @brief getter of the floor switch animation sound
+     *
+     * @return const Sound&
+     */
+    const Sound& getFloorSwitchSound();
+
 private:
 
     /**
@@ -136,6 +143,10 @@ private:
     /* play this sound when the player tries to make a forbidden move or when
        the player finds a wall */
     Sound collisionSound;
+
+    /* play this sound when the floor switch animation is played in the game
+       controller */
+    Sound floorSwitchSound;
 };
 
 }

@@ -504,6 +504,9 @@ void GameController::watchNextFloorOrHideLevel()
         /* enable the animation of the floor transition */
         level.setAnimateFloorTransition(true);
 
+        /* play the floor switch animation sound */
+        sounds::SoundsManager::get().getFloorSwitchSound().play();
+
         /* reset the display level time with the current time to allow more
            watching time for the next floor watching period */
         displayLevelTime =
