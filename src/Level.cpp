@@ -424,11 +424,11 @@ void Level::playFloorTransitionAnimation()
         (*cells[animationFloor * 320 + i]).display();
     }
 
-    /* the switch floor animation is updated every 50 milliseconds until the
+    /* the switch floor animation is updated every 25 milliseconds until the
        end of the animation */
     if (
         utils::Context::get().getClockMillisecondsTime() -
-        lastAnimationTime > 50
+        lastAnimationTime > 25
     )
     {
         /* increment the animation column; this column is used as a limitation
