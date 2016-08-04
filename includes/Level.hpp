@@ -179,6 +179,31 @@ public:
      */
     const unsigned short getPlayerFloor();
 
+    /**
+     * @brief plays the floor transition animation; for now, the unique
+     * animation renders a verical column that scroll the whole floor and
+     * displays the next floor;
+     *
+     * NOTE: this method must be called instead of 'display()' during the
+     * animation
+     */
+    void playFloorTransitionAnimation();
+
+    /**
+     * @brief setter for the animation boolean
+     *
+     * @param animate true if the animation must be rendered; the animation
+     * can be displayed using the method playFloorTransitionAnimation()
+     */
+    void setAnimateFloorTransition(const bool& animate);
+
+    /**
+     * @brief getter for the animation boolean
+     *
+     * @return const bool&
+     */
+    const bool& getAnimateFloorTransition();
+
 private:
 
     /* container of unique pointers of cells; we use unique pointers because
@@ -200,6 +225,29 @@ private:
        playable floor is a floor with at least one cell non empty; this is
        used to select which floor to display during the watching period */
     unsigned short playableFloors {0};
+
+    /* this boolean is true when a switch level animation is currently playing;
+       this boolean is used by the game controller to starts the floor switch
+       animation but also to know when the animate has been terminated by the
+       level (using setter and getter) */
+    bool animateFloorTransition {false};
+
+    /* this is a SFML unsigned integer used to store the last update time of
+       the current level animation; this variable can be used for any kind
+       of level animation as only one animation can occure at a time */
+    sf::Uint32 lastAnimationTime {0};
+
+    /* the following variables are used for level animation and effects */
+
+    /* the current column index on which one the animation occures; for
+       example, during a floor switch animation, each column is hidden one
+       by one and the content of the next level progressively appears; this
+       variable is used to store the current 'breaking' column of the effect */
+    unsigned short animationColumn {0};
+
+    /* the current floor index is stored inside this variable when the switch
+       floor animation occures; this is used by the animation; */
+    unsigned short animationFloor {0};
 };
 
 }

@@ -198,6 +198,12 @@ void Level::hideAllCellsExceptDeparture()
         /* check if the type of the current cell is the departure cell type */
         if ((*cells[index]).getType() == cells::DEPARTURE_CELL)
         {
+            /* force the cell to be shown; this is to ensure that whatever
+               happened to the level before (animation, floor switch) that
+               occured hide/show cells actions, we still show the departure
+               cell anyway */
+            (*cells[index]).show();
+
             /* do nothing and continue to iterate if the type is the departure
                cell; in fact, any departure cell stays visible */
             continue;
@@ -371,9 +377,100 @@ const unsigned short& Level::getPlayableFloors()
  */
 const unsigned short Level::getPlayerFloor()
 {
-    /* divide the current player index by 320 (cells per floor) and trunctae
+    /* divide the current player index by 320 (cells per floor) and truncate
        the result as the result type is an unsigned short */
     return playerIndex / 320;
+}
+
+/**
+ *
+ */
+void Level::playFloorTransitionAnimation()
+{
+    /* NOTE: this function only applies the horizontal transition animation
+       for now */
+
+    /* browse the 320 cells of the current floor */
+    for(
+        unsigned short i = 0;
+        animationFloor * 320 + i < animationFloor * 320 + 320;
+        i++
+    )
+    {
+        /* check if the cell is on the left side of the limit column; in that
+           case, the displayed cell must be the one at the same position on
+           the next level */
+        if (i % 20 < animationColumn)
+        {
+            /* displays the cell at the same position but on the next level;
+               each level contains 320 cell, so the cell at the same position
+               that this one on the next level is 320 cells after... */
+            (*cells[animationFloor * 320 + i + 320]).display();
+
+            /* directly increment the loop from here */
+            continue;
+        }
+
+        /* check if the cell is on the limit column; in that case, the current
+           cell is hidden to display the limitation column */
+        if (i % 20 == animationColumn)
+        {
+            (*cells[animationFloor * 320 + i]).hide();
+        }
+
+        /* if the cell is on the limitation column or if the cell is on the
+           right of the limitation column (current floor), the current cell
+           is just displayed */
+        (*cells[animationFloor * 320 + i]).display();
+    }
+
+    /* the switch floor animation is updated every 50 milliseconds until the
+       end of the animation */
+    if (
+        utils::Context::get().getClockMillisecondsTime() -
+        lastAnimationTime > 50
+    )
+    {
+        /* increment the animation column; this column is used as a limitation
+           column and this variable is its index; we increment the index to
+           move the current limitation column on the floor */
+        animationColumn++;
+
+        /* the animation stops when the animation column is 20: means outside
+           of the level */
+        if (animationColumn == 20)
+        {
+            /* stops the floor transition animation */
+            animateFloorTransition = false;
+
+            /* reset the animation column for a future animation if it
+               happens... */
+            animationColumn = 0;
+
+            /* increments the animation floor for a future animation */
+            animationFloor++;
+        }
+
+        /* update the last animation update time to ensure the whole animation
+           rendering */
+        lastAnimationTime = utils::Context::get().getClockMillisecondsTime();
+    }
+}
+
+/**
+ *
+ */
+void Level::setAnimateFloorTransition(const bool& animate)
+{
+    animateFloorTransition = animate;
+}
+
+/**
+ *
+ */
+const bool& Level::getAnimateFloorTransition()
+{
+    return animateFloorTransition;
 }
 
 }

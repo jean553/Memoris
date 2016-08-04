@@ -73,9 +73,18 @@ unsigned short GameController::render()
     /* displays the game dashboard */
     dashboard.display();
 
-    /* display the level and all the cells; displays only the cells of the
-       given floor */
-    level.display(floor);
+    /* check if the level is currently rendering a floor switch animation */
+    if (level.getAnimateFloorTransition())
+    {
+        /* renders the floor animation */
+        level.playFloorTransitionAnimation();
+    }
+    else
+    {
+
+        /* renders a static playable level if no animation are playing */
+        level.display(floor);
+    }
 
     /* displays all the cells of the level during the time of the watching
        period */
@@ -491,6 +500,9 @@ void GameController::watchNextFloorOrHideLevel()
     {
         /* increment the floor index to display the next floor cells */
         floor++;
+
+        /* enable the animation of the floor transition */
+        level.setAnimateFloorTransition(true);
 
         /* reset the display level time with the current time to allow more
            watching time for the next floor watching period */
