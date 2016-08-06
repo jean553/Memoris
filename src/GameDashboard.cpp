@@ -311,6 +311,21 @@ void GameDashboard::stopTimer()
 /**
  *
  */
+void GameDashboard::setTimerMinutesAndSeconds(
+    const unsigned short& minutes,
+    const unsigned short& seconds
+)
+{
+    /* call the setters of the minutes and the seconds */
+    timer.setMinutes(minutes);
+    timer.setSeconds(seconds);
+
+    timer.updateDisplayedString();
+}
+
+/**
+ *
+ */
 void GameDashboard::updateCurrentFloor(const unsigned short& floorIndex)
 {
     floor.setString(std::to_string(floorIndex + 1));

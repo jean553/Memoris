@@ -90,9 +90,6 @@ void TimerWidget::display()
  */
 void TimerWidget::updateTimerValues()
 {
-    /* increment the amount of displayed seconds */
-    seconds++;
-
     /* adapt the values of other timer variables */
 
     /* NOTE: we never manage what happens when the amount of minutes is more
@@ -104,10 +101,14 @@ void TimerWidget::updateTimerValues()
     /* check if the amount of elapsed seconds is equal to 60; if yes,
        the amount of seconds is reset and the amount of minutes is
        incremented */
-    if (seconds == 60)
+    if (seconds == 0)
     {
-        minutes++;
-        seconds = 0;
+        minutes--;
+        seconds = 59;
+    }
+    else
+    {
+        seconds--;
     }
 
     /* update the displayed timer string */
@@ -156,6 +157,22 @@ void TimerWidget::stop()
 {
     /* the started boolean is marked as false and the timer is stopped */
     started = false;
+}
+
+/**
+ *
+ */
+void TimerWidget::setMinutes(const unsigned short& minutesAmount)
+{
+    minutes = minutesAmount;
+}
+
+/**
+ *
+ */
+void TimerWidget::setSeconds(const unsigned short& secondsAmount)
+{
+    seconds = secondsAmount;
 }
 
 }

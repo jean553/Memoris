@@ -109,6 +109,17 @@ public:
     void stopTimer();
 
     /**
+     * @brief set the minutes and seconds of the timer
+     *
+     * @param minutes amount of minutes to display
+     * @param seconds amount of seconds to display
+     */
+    void setTimerMinutesAndSeconds(
+        const unsigned short& minutes,
+        const unsigned short& seconds
+    );
+
+    /**
      * @brief update the displayed floor index
      *
      * @param floor the current floor index, the method will automatically

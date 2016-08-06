@@ -53,6 +53,9 @@ GameController::GameController() :
        directly set it as a value of another object, should be refactored */
     dashboard.updateTotalStarsAmountSurface(level.getStarsAmount());
 
+    /* */
+    dashboard.setTimerMinutesAndSeconds(3, 0);
+
     /* initialize the lose grey filter surface */
     initializeGreyFilter();
 

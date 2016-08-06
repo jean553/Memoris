@@ -63,6 +63,26 @@ public:
      */
     void stop();
 
+    /**
+     * @brief setter of the minutes amount
+     *
+     * @param minutesAmount the amount of minutes to set
+     */
+    void setMinutes(const unsigned short& minutesAmount);
+
+    /**
+     * @brief setter of the secondes amount
+     *
+     * @param secondsAmount the amount of minutes to set
+     */
+    void setSeconds(const unsigned short& secondsAmount);
+
+    /**
+     * @brief update the displayed timer string; add a 0 to second or minute
+     * value if it contains only one digit to make a better graphical effect
+     */
+    void updateDisplayedString();
+
 private:
 
     /**
@@ -71,12 +91,6 @@ private:
      * seconds variable if necessary
      */
     void updateTimerValues();
-
-    /**
-     * @brief update the displayed timer string; add a 0 to second or minute
-     * value if it contains only one digit to make a better graphical effect
-     */
-    void updateDisplayedString();
 
     /* the time of the last update of the timer; we use this variable to
        animate the timer; by default, the value is equal to 0 */
