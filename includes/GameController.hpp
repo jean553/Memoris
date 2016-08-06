@@ -112,6 +112,13 @@ private:
      */
     void watchNextFloorOrHideLevel();
 
+    /**
+     * @brief this method checks if the lose period must be started; there
+     * could have two reasons for it : the user has no life anymore and just
+     * took a 'less life' cell, or the countdown is finished
+     */
+    void handleLosePeriod();
+
     /* contains the exact time when the level is displayed to the player; this
        is used for the "hide level" animation; we have to know when the level
        is rendered to calculate when we have to hide it */

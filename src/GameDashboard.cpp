@@ -320,6 +320,7 @@ void GameDashboard::setTimerMinutesAndSeconds(
     timer.setMinutes(minutes);
     timer.setSeconds(seconds);
 
+    /* update the displayed string of the timer widget */
     timer.updateDisplayedString();
 }
 
