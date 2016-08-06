@@ -119,6 +119,10 @@ private:
      */
     void handleLosePeriod();
 
+    /* the graphical timer widget of the game; renders the elapsed time since
+       the beginning of the game */
+    widgets::TimerWidget timer;
+
     /* contains the exact time when the level is displayed to the player; this
        is used for the "hide level" animation; we have to know when the level
        is rendered to calculate when we have to hide it */

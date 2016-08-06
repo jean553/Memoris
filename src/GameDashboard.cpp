@@ -39,11 +39,7 @@ namespace utils
 /**
  *
  */
-GameDashboard::GameDashboard() :
-    timer(
-        295.f,
-        10.f
-    )
+GameDashboard::GameDashboard()
 {
     /* create the information label that displays the current amount of found
        stars into the current level */
@@ -171,9 +167,6 @@ GameDashboard::GameDashboard() :
  */
 void GameDashboard::display()
 {
-    /* displays the countdown widget */
-    timer.display();
-
     /* displays the information labels of the dashboard */
     utils::Context::get().getSfmlWindow().draw(foundStarsAmount);
     utils::Context::get().getSfmlWindow().draw(lifesAmount);
@@ -297,31 +290,6 @@ void GameDashboard::updateTotalStarsAmountSurface(const unsigned short& amount)
 const unsigned short& GameDashboard::getLifesAmount()
 {
     return lifes;
-}
-
-/**
- *
- */
-void GameDashboard::stopTimer()
-{
-    /* call the method to stop the timer */
-    timer.stop();
-}
-
-/**
- *
- */
-void GameDashboard::setTimerMinutesAndSeconds(
-    const unsigned short& minutes,
-    const unsigned short& seconds
-)
-{
-    /* call the setters of the minutes and the seconds */
-    timer.setMinutes(minutes);
-    timer.setSeconds(seconds);
-
-    /* update the displayed string of the timer widget */
-    timer.updateDisplayedString();
 }
 
 /**
