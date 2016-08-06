@@ -53,6 +53,11 @@ GameController::GameController() :
        directly set it as a value of another object, should be refactored */
     dashboard.updateTotalStarsAmountSurface(level.getStarsAmount());
 
+    /* set the values inside the game timer countdown */
+    /* TODO: set a fix default value for now, should read the value from the
+       serie/level file */
+    dashboard.setTimerMinutesAndSeconds(0, 30);
+
     /* initialize the lose grey filter surface */
     initializeGreyFilter();
 
@@ -327,18 +332,10 @@ void GameController::executePlayerCellAction()
         /* plays the sound of a dead cell */
         sounds::SoundsManager::get().getFoundDeadOrLessTimeSound().play();
 
-        /* check if the player lifes amount is already equal to 0 */
+        /* check if the lose period must be started */
         if (dashboard.getLifesAmount() == 0)
         {
-            /* force the music to stop */
-            utils::Context::get().stopMusic();
-
-            /* force the timer to stop in the dashboard */
-            dashboard.stopTimer();
-
-            /* save when started the lose period time */
-            startLosePeriodTime =
-                utils::Context::get().getClockMillisecondsTime();
+            handleLosePeriod();
         }
 
         /* decrement the amount of lifes */
@@ -546,6 +543,22 @@ void GameController::watchNextFloorOrHideLevel()
     /* at this moment, we do not save the moment the animation ends; in
        fact, this is not a repeated action, there is no need to save
        the current time here */
+}
+
+/**
+ *
+ */
+void GameController::handleLosePeriod()
+{
+    /* force the music to stop */
+    utils::Context::get().stopMusic();
+
+    /* force the timer to stop in the dashboard */
+    dashboard.stopTimer();
+
+    /* save when started the lose period time */
+    startLosePeriodTime =
+        utils::Context::get().getClockMillisecondsTime();
 }
 
 }

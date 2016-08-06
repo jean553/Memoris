@@ -90,24 +90,34 @@ void TimerWidget::display()
  */
 void TimerWidget::updateTimerValues()
 {
-    /* increment the amount of displayed seconds */
-    seconds++;
-
     /* adapt the values of other timer variables */
 
-    /* NOTE: we never manage what happens when the amount of minutes is more
-       than the unsigned short maximum value; in fact, one round never exceed
-       a few minutes; for now, this is a timer, but this timer should be a
-       countdown, so this case will never happen after the whole game
-       development */
-
-    /* check if the amount of elapsed seconds is equal to 60; if yes,
-       the amount of seconds is reset and the amount of minutes is
-       incremented */
-    if (seconds == 60)
+    /* check if the countdown seconds is equal to 0, if yes, switch to the
+       next minute of the countdown */
+    if (seconds == 0)
     {
-        minutes++;
-        seconds = 0;
+        if (minutes == 0)
+        {
+            /* if the amount of seconds and the amount of minutes are both
+               equals to 0, just stop the countdown */
+            started = false;
+        }
+        else
+        {
+
+            /* if the amount of minutes is more than 0, just decrement it */
+            minutes--;
+
+            /* reset the amount of seconds to 59 in order to countdown the
+               next minute */
+            seconds = 59;
+        }
+    }
+    else
+    {
+        /* if the amount of seconds is more than 0, just decrement the
+           countdown */
+        seconds--;
     }
 
     /* update the displayed timer string */
@@ -156,6 +166,22 @@ void TimerWidget::stop()
 {
     /* the started boolean is marked as false and the timer is stopped */
     started = false;
+}
+
+/**
+ *
+ */
+void TimerWidget::setMinutes(const unsigned short& minutesAmount)
+{
+    minutes = minutesAmount;
+}
+
+/**
+ *
+ */
+void TimerWidget::setSeconds(const unsigned short& secondsAmount)
+{
+    seconds = secondsAmount;
 }
 
 }
