@@ -108,6 +108,14 @@ public:
      */
     void stopTimer();
 
+    /**
+     * @brief update the displayed floor index
+     *
+     * @param floor the current floor index, the method will automatically
+     * increment it to make it human readable
+     */
+    void updateCurrentFloor(const unsigned short& floorIndex);
+
 private:
 
     /* the graphical timer widget of the game; renders the elapsed time since

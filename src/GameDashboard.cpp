@@ -308,5 +308,13 @@ void GameDashboard::stopTimer()
     timer.stop();
 }
 
+/**
+ *
+ */
+void GameDashboard::updateCurrentFloor(const unsigned short& floorIndex)
+{
+    floor.setString(std::to_string(floorIndex + 1));
+}
+
 }
 }

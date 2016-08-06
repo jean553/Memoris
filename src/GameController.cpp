@@ -374,6 +374,9 @@ void GameController::executePlayerCellAction()
         {
             /* if the player can move, increment the current player floor */
             floor++;
+
+            /* update the floor number inside the game dashboard */
+            dashboard.updateCurrentFloor(floor);
         }
 
         break;
@@ -386,6 +389,9 @@ void GameController::executePlayerCellAction()
         {
             /* if the player can move, decrement the current player floor */
             floor--;
+
+            /* update the floor number inside the game dashboard */
+            dashboard.updateCurrentFloor(floor);
         }
 
         break;
@@ -507,6 +513,9 @@ void GameController::watchNextFloorOrHideLevel()
         /* play the floor switch animation sound */
         sounds::SoundsManager::get().getFloorSwitchSound().play();
 
+        /* update the floor number inside the game dashboard */
+        dashboard.updateCurrentFloor(floor);
+
         /* reset the display level time with the current time to allow more
            watching time for the next floor watching period */
         displayLevelTime =
@@ -530,6 +539,9 @@ void GameController::watchNextFloorOrHideLevel()
 
     /* get the player floor index from the level */
     floor = level.getPlayerFloor();
+
+    /* update the floor number inside the game dashboard */
+    dashboard.updateCurrentFloor(floor);
 
     /* at this moment, we do not save the moment the animation ends; in
        fact, this is not a repeated action, there is no need to save
