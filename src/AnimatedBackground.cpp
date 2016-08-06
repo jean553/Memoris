@@ -29,7 +29,7 @@
 #include "dimensions.hpp"
 #include "cells.hpp"
 
-#include <random>
+#include <time.h>
 
 namespace memoris
 {
@@ -122,7 +122,9 @@ void AnimatedBackground::initializeCells()
         cells::LESS_LIFE_CELL,
         cells::MORE_TIME_CELL,
         cells::LESS_TIME_CELL,
-        cells::WALL_CELL
+        cells::WALL_CELL,
+        cells::STAIRS_UP_CELL,
+        cells::STAIRS_DOWN_CELL
     };
 
     /* the current line and the current column are used during the generation
@@ -136,12 +138,8 @@ void AnimatedBackground::initializeCells()
        and the available cells array size (unsigned integer) */
     unsigned int randomNumber {0};
 
-    /* initialization of the random C++ library generator */
-    std::default_random_engine generator;
-
-    /* initialization of the random integer generator; unsigned short is a
-       complient type parameter for this library */
-    std::uniform_int_distribution<unsigned short> distribution(0, 15);
+    /* initialize the random seed */
+    srand(time(NULL));
 
     /* we browse the array of cells; there are 575 cells to create ( 576 (the
        total of displayed cells on the screen) - 1 because the first one is
@@ -149,12 +147,12 @@ void AnimatedBackground::initializeCells()
     for (unsigned int i = 0; i < 575; i++)
     {
         /* select a cell randomly; the maximum value of the generated number
-           is 16 even if there are only 10 different cells to generate; if the
-           random number is more than 10, the 10 value will be used anyway, so
-           there are more chances to get the value 10; this is because it is
+           is 17 even if there are only 11 different cells to generate; if the
+           random number is more than 11, the 11 value will be used anyway, so
+           there are more chances to get the value 11; this is because it is
            better to have manu "null cells" ( black cells ), to generate a
            beautiful background */
-        randomNumber = distribution(generator);
+        randomNumber = rand() % 17;
 
         /* increment the current line */
         currentLine++;
