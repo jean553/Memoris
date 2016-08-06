@@ -101,6 +101,9 @@ void TimerWidget::updateTimerValues()
             /* if the amount of seconds and the amount of minutes are both
                equals to 0, just stop the countdown */
             started = false;
+
+            /* set the finished boolean as true */
+            finished = true;
         }
         else
         {
@@ -182,6 +185,14 @@ void TimerWidget::setMinutesAndSeconds(
     /* force the update of the SFML surfaces that displays the countdown with
        the new values */
     updateDisplayedString();
+}
+
+/**
+ *
+ */
+const bool& TimerWidget::isFinished() const
+{
+    return finished;
 }
 
 }
