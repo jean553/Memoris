@@ -76,6 +76,14 @@ public:
         const unsigned short& secondsAmount
     );
 
+    /**
+     * @brief getter used by the game controller to know if the countdown
+     * is finished
+     *
+     * @return const bool&
+     */
+    const bool& isFinished() const;
+
 private:
 
     /**
@@ -109,6 +117,11 @@ private:
        controller to stop the timer during the lose period for example; the
        timer is stopped and the player does not see the animation anymore */
     bool started {true};
+
+    /* determinates if the countdown is finished; false when the game starts
+       and become false when the last second of the last minute has been
+       elapsed */
+    bool finished {false};
 };
 
 }

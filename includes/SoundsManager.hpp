@@ -109,6 +109,13 @@ public:
      */
     const Sound& getFloorSwitchSound();
 
+    /**
+     * @brief getter of the time over sound
+     *
+     * @return const Sound&
+     */
+    const Sound& getTimeOverSound();
+
 private:
 
     /**
@@ -147,6 +154,9 @@ private:
     /* play this sound when the floor switch animation is played in the game
        controller */
     Sound floorSwitchSound;
+
+    /* play this sound when game time is over */
+    Sound timeOverSound;
 };
 
 }

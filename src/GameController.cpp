@@ -85,6 +85,16 @@ unsigned short GameController::render()
     /* displays the countdown widget */
     timer.display();
 
+    /* starts the lose period if the countdown is finished; checks that the
+       starting lose period time has not been set yet */
+    if (timer.isFinished() && startLosePeriodTime == 0)
+    {
+        /* plays the time over sound */
+        sounds::SoundsManager::get().getTimeOverSound().play();
+
+        handleLosePeriod();
+    }
+
     /* check if the level is currently rendering a floor switch animation */
     if (level.getAnimateFloorTransition())
     {
