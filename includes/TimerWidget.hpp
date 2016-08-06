@@ -64,24 +64,17 @@ public:
     void stop();
 
     /**
-     * @brief setter of the minutes amount
+     * @brief setter of the minutes and seconds amount to display; the function
+     * is a setter for the minutes and seconds attributes but also updates the
+     * SFML surfaces that displays the countdown
      *
      * @param minutesAmount the amount of minutes to set
+     * @param secondsAmount the amount of seconds to set
      */
-    void setMinutes(const unsigned short& minutesAmount);
-
-    /**
-     * @brief setter of the secondes amount
-     *
-     * @param secondsAmount the amount of minutes to set
-     */
-    void setSeconds(const unsigned short& secondsAmount);
-
-    /**
-     * @brief update the displayed timer string; add a 0 to second or minute
-     * value if it contains only one digit to make a better graphical effect
-     */
-    void updateDisplayedString();
+    void setMinutesAndSeconds(
+        const unsigned short& minutesAmount,
+        const unsigned short& secondsAmount
+    );
 
 private:
 
@@ -91,6 +84,12 @@ private:
      * seconds variable if necessary
      */
     void updateTimerValues();
+
+    /**
+     * @brief update the displayed timer string; add a 0 to second or minute
+     * value if it contains only one digit to make a better graphical effect
+     */
+    void updateDisplayedString();
 
     /* the time of the last update of the timer; we use this variable to
        animate the timer; by default, the value is equal to 0 */

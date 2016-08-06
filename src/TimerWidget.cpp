@@ -171,17 +171,17 @@ void TimerWidget::stop()
 /**
  *
  */
-void TimerWidget::setMinutes(const unsigned short& minutesAmount)
+void TimerWidget::setMinutesAndSeconds(
+    const unsigned short& minutesAmount,
+    const unsigned short& secondsAmount
+)
 {
     minutes = minutesAmount;
-}
-
-/**
- *
- */
-void TimerWidget::setSeconds(const unsigned short& secondsAmount)
-{
     seconds = secondsAmount;
+
+    /* force the update of the SFML surfaces that displays the countdown with
+       the new values */
+    updateDisplayedString();
 }
 
 }

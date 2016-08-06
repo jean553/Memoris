@@ -27,7 +27,7 @@
 #ifndef MEMORIS_GAMEDASHBOARD_H_
 #define MEMORIS_GAMEDASHBOARD_H_
 
-#include "TimerWidget.hpp"
+#include <SFML/Graphics.hpp>
 
 namespace memoris
 {
@@ -103,23 +103,6 @@ public:
     const unsigned short& getLifesAmount();
 
     /**
-     * @brief stops the timer; used by the game controller when the lose
-     * period starts
-     */
-    void stopTimer();
-
-    /**
-     * @brief set the minutes and seconds of the timer
-     *
-     * @param minutes amount of minutes to display
-     * @param seconds amount of seconds to display
-     */
-    void setTimerMinutesAndSeconds(
-        const unsigned short& minutes,
-        const unsigned short& seconds
-    );
-
-    /**
      * @brief update the displayed floor index
      *
      * @param floor the current floor index, the method will automatically
@@ -128,10 +111,6 @@ public:
     void updateCurrentFloor(const unsigned short& floorIndex);
 
 private:
-
-    /* the graphical timer widget of the game; renders the elapsed time since
-       the beginning of the game */
-    widgets::TimerWidget timer;
 
     /* displays the amount of found stars in the current level */
     sf::Text foundStarsAmount;

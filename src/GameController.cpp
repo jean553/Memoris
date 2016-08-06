@@ -42,6 +42,10 @@ namespace controllers
  *
  */
 GameController::GameController() :
+    timer(
+        295.f,
+        10.f
+    ),
 /* TODO: #560 the playing serie manager should not be accessible from
    everywhere; we send the parameter here to force the execution of the
    Level constructor that loads from level file */
@@ -56,7 +60,7 @@ GameController::GameController() :
     /* set the values inside the game timer countdown */
     /* TODO: set a fix default value for now, should read the value from the
        serie/level file */
-    dashboard.setTimerMinutesAndSeconds(0, 30);
+    timer.setMinutesAndSeconds(0, 30);
 
     /* initialize the lose grey filter surface */
     initializeGreyFilter();
@@ -77,6 +81,9 @@ unsigned short GameController::render()
 {
     /* displays the game dashboard */
     dashboard.display();
+
+    /* displays the countdown widget */
+    timer.display();
 
     /* check if the level is currently rendering a floor switch animation */
     if (level.getAnimateFloorTransition())
@@ -553,8 +560,8 @@ void GameController::handleLosePeriod()
     /* force the music to stop */
     utils::Context::get().stopMusic();
 
-    /* force the timer to stop in the dashboard */
-    dashboard.stopTimer();
+    /* call the method to stop the timer */
+    timer.stop();
 
     /* save when started the lose period time */
     startLosePeriodTime =
