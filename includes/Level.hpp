@@ -204,6 +204,20 @@ public:
      */
     const bool& getAnimateFloorTransition();
 
+    /**
+     * @brief getter for the minutes amount loaded from the level file
+     *
+     * @return const unsigned short&
+     */
+    const unsigned short& getMinutes() const;
+
+    /**
+     * @brief getter for the seconds amount loaded from the level file
+     *
+     * @return const unsigned short&
+     */
+    const unsigned short& getSeconds() const;
+
 private:
 
     /* container of unique pointers of cells; we use unique pointers because
@@ -225,6 +239,12 @@ private:
        playable floor is a floor with at least one cell non empty; this is
        used to select which floor to display during the watching period */
     unsigned short playableFloors {0};
+
+    /* the amount of minutes loaded from the file for the current level */
+    unsigned short minutes {0};
+
+    /* the amount of seconds loaded from the file for the current level */
+    unsigned short seconds {0};
 
     /* this boolean is true when a switch level animation is currently playing;
        this boolean is used by the game controller to starts the floor switch
