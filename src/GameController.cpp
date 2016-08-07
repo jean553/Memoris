@@ -46,6 +46,9 @@ GameController::GameController() :
         295.f,
         10.f
     ),
+/* FIXME: for now, we directly set this timer at 12 seconds; the time
+   used here should be got from the last played level */
+    watchingPeriodTimer(12),
 /* TODO: #560 the playing serie manager should not be accessible from
    everywhere; we send the parameter here to force the execution of the
    Level constructor that loads from level file */
@@ -86,6 +89,12 @@ unsigned short GameController::render()
     /* displays the countdown widget */
     timer.display();
 
+    /* displays the watching period timer if started */
+    if (watchingPeriodTimer.isStarted())
+    {
+        watchingPeriodTimer.display();
+    }
+
     /* starts the lose period if the countdown is finished; checks that the
        starting lose period time has not been set yet */
     if (timer.isFinished() && startLosePeriodTime == 0)
@@ -111,13 +120,13 @@ unsigned short GameController::render()
 
     /* displays all the cells of the level during the time of the watching
        period */
-    /* TODO: #547 5000 ms is a default value, should be the actual bonus
+    /* TODO: #547 6000 ms is a default value, should be the actual bonus
        watching time of the player */
     if (
         watchingPeriod &&
         (
             utils::Context::get().getClockMillisecondsTime() -
-            displayLevelTime > 5000
+            displayLevelTime > 6000
         )
     )
     {

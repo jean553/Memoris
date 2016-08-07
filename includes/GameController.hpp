@@ -31,6 +31,7 @@
 #include "TimerWidget.hpp"
 #include "GameDashboard.hpp"
 #include "Level.hpp"
+#include "WatchingPeriodTimer.hpp"
 
 namespace memoris
 {
@@ -145,6 +146,10 @@ private:
     /* the top dashboard that displays the countdown timer and all the
        current game information labels */
     utils::GameDashboard dashboard;
+
+    /* the timer that is displayed on both of the left and right sides of the
+       level during the watching period */
+    utils::WatchingPeriodTimer watchingPeriodTimer;
 
     /* the level that contains all the cells to display */
     entities::Level level;
