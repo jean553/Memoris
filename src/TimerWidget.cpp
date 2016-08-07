@@ -174,6 +174,15 @@ void TimerWidget::stop()
 /**
  *
  */
+void TimerWidget::start()
+{
+    /* set the 'start' boolean to true automatically starts the countdown */
+    started = true;
+}
+
+/**
+ *
+ */
 void TimerWidget::setMinutesAndSeconds(
     const unsigned short& minutesAmount,
     const unsigned short& secondsAmount

@@ -569,6 +569,9 @@ void GameController::watchNextFloorOrHideLevel()
     /* update the floor number inside the game dashboard */
     dashboard.updateCurrentFloor(floor);
 
+    /* starts the countdown */
+    timer.start();
+
     /* at this moment, we do not save the moment the animation ends; in
        fact, this is not a repeated action, there is no need to save
        the current time here */
