@@ -415,10 +415,21 @@ void GameController::executePlayerCellAction()
         /* check if the all the star cells have been found */
         if (dashboard.getFoundStarsAmount() == level.getStarsAmount())
         {
-            /* TODO: when the level is completed, the game goes back to the
-               main menu; at this moment of course, the next level should be
-               loaded */
-            expectedControllerId = controllers::MAIN_MENU_CONTROLLER_ID;
+            /* check if the loaded serie has a next level to play */
+            if (series::PlayingSerieManager::get().hasNextLevel())
+            {
+                /* if there is a next level to play, load the level to play,
+                   so call again the game controller; the playing serie manager
+                   will automatically take the next level of the queue */
+                expectedControllerId = controllers::GAME_CONTROLLER_ID;
+            }
+            else
+            {
+
+                /* if the serie is finished, go back to the main menu */
+                /* TODO: should go to another screen as a win screen */
+                expectedControllerId = controllers::MAIN_MENU_CONTROLLER_ID;
+            }
         }
 
         break;

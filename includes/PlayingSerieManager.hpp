@@ -67,15 +67,18 @@ public:
      * @brief returns the next (or the first) item of the levels container
      * according to the FIFO specifications
      *
-     * @return std::string&
-     *
-     * WARNING: this function returns a *reference* to a string from a queue
-     * container, *without* popping this value; this value has to be popped
-     * when the levels are switched and when we are sure we do not use the
-     * concerned string anymore. We return reference to avoid strings
-     * copies and improve performances.
+     * @return std::string
      */
-    std::string& getNextLevelName();
+    std::string getNextLevelName();
+
+    /**
+     * @brief checks if the levels queue has a next level or if the queue is
+     * empty; this is used by the game controller to know if a next level
+     * has to be loaded when the player wins the current level
+     *
+     * @return const bool
+     */
+    const bool hasNextLevel() const;
 
 private:
 

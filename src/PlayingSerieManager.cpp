@@ -81,10 +81,31 @@ void PlayingSerieManager::loadSerieFileContent(const std::string& path)
 /**
  *
  */
-std::string& PlayingSerieManager::getNextLevelName()
+std::string PlayingSerieManager::getNextLevelName()
 {
     /* returns the first item of the container without popping */
-    return levels.front();
+    std::string level = levels.front();
+
+    /* delete the first item of the list; this is safe because we copied the
+       string into a dedicated variable */
+    levels.pop();
+
+    return level;
+}
+
+/**
+ *
+ */
+const bool PlayingSerieManager::hasNextLevel() const
+{
+    /* check if the queue is empty; in fact, if the queue is empty, for sure
+       there is no level to load anymore */
+    if (levels.empty())
+    {
+        return false;
+    }
+
+    return true;
 }
 
 }
