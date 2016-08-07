@@ -58,9 +58,10 @@ GameController::GameController() :
     dashboard.updateTotalStarsAmountSurface(level.getStarsAmount());
 
     /* set the values inside the game timer countdown */
-    /* TODO: set a fix default value for now, should read the value from the
-       serie/level file */
-    timer.setMinutesAndSeconds(0, 30);
+    timer.setMinutesAndSeconds(
+        level.getMinutes(),
+        level.getSeconds()
+    );
 
     /* initialize the lose grey filter surface */
     initializeGreyFilter();

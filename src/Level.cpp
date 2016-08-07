@@ -58,6 +58,14 @@ Level::Level(const std::string& path)
        current loaded floor; used to increment the amount of playable floors */
     bool emptyFloor = true;
 
+    /* save the minutes and seconds of the current level into the dedicated
+       attributes */
+
+    /* FIXME: if the minutes/seconds are not specified or partially specified,
+       the behavior is unmanaged */
+    file >> minutes;
+    file >> seconds;
+
     /* there are 3200 cells per level, 320 per floor, there are 10 floors */
     for(unsigned short index {0}; index < 3200; index++)
     {
@@ -471,6 +479,22 @@ void Level::setAnimateFloorTransition(const bool& animate)
 const bool& Level::getAnimateFloorTransition()
 {
     return animateFloorTransition;
+}
+
+/**
+ *
+ */
+const unsigned short& Level::getMinutes() const
+{
+    return minutes;
+}
+
+/**
+ *
+ */
+const unsigned short& Level::getSeconds() const
+{
+    return seconds;
 }
 
 }
