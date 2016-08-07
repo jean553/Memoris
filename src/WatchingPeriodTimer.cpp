@@ -83,8 +83,7 @@ void WatchingPeriodTimer::display()
         }
 
         /* update the SFML surfaces */
-        leftText->setString(std::to_string(seconds));
-        rightText->setString(std::to_string(seconds));
+        updateDisplayedSurfaces();
 
         /* update the last update time */
         lastUpdateTime = utils::Context::get().getClockMillisecondsTime();
@@ -133,6 +132,28 @@ std::unique_ptr<sf::Text> WatchingPeriodTimer::createWatchingPeriodTimerText(
 
     /* return the unique pointer to the created object */
     return sfmlText;
+}
+
+/**
+ *
+ */
+void WatchingPeriodTimer::applyFloorsAmount(const unsigned short& floors)
+{
+    /* the whole watching time is the allowed watching seconds amount
+       multiplied by the floors amount */
+    seconds *= floors;
+
+    /* update the SFML surfaces */
+    updateDisplayedSurfaces();
+}
+
+/**
+ *
+ */
+void WatchingPeriodTimer::updateDisplayedSurfaces() const
+{
+    leftText->setString(std::to_string(seconds));
+    rightText->setString(std::to_string(seconds));
 }
 
 }

@@ -46,9 +46,9 @@ GameController::GameController() :
         295.f,
         10.f
     ),
-/* FIXME: for now, we directly set this timer at 12 seconds; the time
+/* FIXME: for now, we directly set this timer at 6 seconds; the time
    used here should be got from the last played level */
-    watchingPeriodTimer(12),
+    watchingPeriodTimer(6),
 /* TODO: #560 the playing serie manager should not be accessible from
    everywhere; we send the parameter here to force the execution of the
    Level constructor that loads from level file */
@@ -71,6 +71,9 @@ GameController::GameController() :
 
     /* initialize the lose text */
     initializeLoseText();
+
+    /* apply the floors amount on the watching time */
+    watchingPeriodTimer.applyFloorsAmount(level.getPlayableFloors());
 
     /* save the exact time the level starts to be displayed; this is used to
        calculate the duration of the watching period before the beginning

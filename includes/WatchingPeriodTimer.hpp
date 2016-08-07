@@ -63,6 +63,17 @@ public:
      */
     const bool& isStarted() const;
 
+    /**
+     * @brief multiplies the time by the amount of floors
+     *
+     * @param floors amount of floors in the current level
+     *
+     * TODO: this is better to directly sends the time amount into the
+     * constructor of the object, but when the constructor is called, the
+     * level object that contains the amount of floors does not exist yet
+     */
+    void applyFloorsAmount(const unsigned short& floors);
+
 private:
 
     /**
@@ -85,6 +96,11 @@ private:
         const float& vPosition,
         const unsigned short& time
     );
+
+    /**
+     * @brief displays the two SFML surfaces on both sides of the level
+     */
+    void updateDisplayedSurfaces() const;
 
     /* the displayed time into the countdown; we do not specify a default
        value directly here because this attribute is directly initialized in
