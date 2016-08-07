@@ -5,6 +5,7 @@ errors.log
 data/levels/*
 data/series/*
 !data/levels/1.level
+!data/levels/2.level
 !data/series/1.serie
 *.swp
 latex/
