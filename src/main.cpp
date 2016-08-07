@@ -76,6 +76,13 @@ int main()
            functions; as it is a smart pointer, we do not need to delete it
            manually after each loop iteration; we use auto here because we
            will always return an unique pointer to a controller */
+
+        /* NOTE: we use 'auto' for automatic deduction here. The function
+           getControllerById() returns a pointer to a Controller object. The
+           deduction is equivalent to :
+           template<typename T> void f(T* param); f(getControllerById());
+           In that case, 'param' type is Controller* and T is Controller,
+           so the deducted variable type is a pointer to a Controller object */
         auto pCurrentController =
             controllers::getControllerById(currentControllerId);
 
