@@ -28,6 +28,7 @@
 #include "ColorsManager.hpp"
 #include "fonts.hpp"
 #include "Context.hpp"
+#include "positions.hpp"
 
 namespace memoris
 {
@@ -37,12 +38,9 @@ namespace widgets
 /**
  *
  */
-TimerWidget::TimerWidget(
-    const float& hPosition,
-    const float& vPosition
-) : Widget(
-        hPosition,
-        vPosition
+TimerWidget::TimerWidget() : Widget(
+        positions::TIMER_HORIZONTAL_POSITION,
+        positions::TIMER_VERTICAL_POSITION
     )
 {
     /* initialize the timer text SFML surface */
@@ -50,8 +48,8 @@ TimerWidget::TimerWidget(
     text.setCharacterSize(fonts::TEXT_SIZE);
     text.setColor(colors::ColorsManager::get().getColorWhite());
     text.setPosition(
-        295.f,
-        10.f
+        positions::TIMER_HORIZONTAL_POSITION,
+        positions::TIMER_VERTICAL_POSITION
     );
 
     /* update the displayed timer string */

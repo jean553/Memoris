@@ -42,10 +42,6 @@ namespace controllers
  *
  */
 GameController::GameController() :
-    timer(
-        295.f,
-        10.f
-    ),
     dashboard(series::PlayingSerieManager::get().getWatchingTime()),
     watchingPeriodTimer(series::PlayingSerieManager::get().getWatchingTime()),
 /* TODO: #560 the playing serie manager should not be accessible from
