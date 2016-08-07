@@ -64,6 +64,12 @@ public:
     void stop();
 
     /**
+     * @brief public method to start the timer, used by the game controller to
+     * start the timer when the watching period is finished
+     */
+    void start();
+
+    /**
      * @brief setter of the minutes and seconds amount to display; the function
      * is a setter for the minutes and seconds attributes but also updates the
      * SFML surfaces that displays the countdown
@@ -115,8 +121,9 @@ private:
 
     /* determinates if the timer is started or not; this is used by the game
        controller to stop the timer during the lose period for example; the
-       timer is stopped and the player does not see the animation anymore */
-    bool started {true};
+       timer is stopped and the player does not see the animation anymore;
+       during the watching time, the timer is stopped by default */
+    bool started {false};
 
     /* determinates if the countdown is finished; false when the game starts
        and become false when the last second of the last minute has been
