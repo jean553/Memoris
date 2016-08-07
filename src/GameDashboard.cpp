@@ -39,8 +39,10 @@ namespace utils
 /**
  *
  */
-GameDashboard::GameDashboard()
+GameDashboard::GameDashboard(const unsigned short& watchingPeriodTime)
 {
+    watchingTime = watchingPeriodTime;
+
     /* create the information label that displays the current amount of found
        stars into the current level */
     foundStarsAmount.setFont(
@@ -70,7 +72,7 @@ GameDashboard::GameDashboard()
     /* creates the information label that displays the watch time the player
        got until now */
     time.setFont(fonts::FontsManager::get().getTextFont());
-    time.setString("3");
+    time.setString(std::to_string(watchingTime));
     time.setCharacterSize(fonts::TEXT_SIZE);
     time.setColor(colors::ColorsManager::get().getColorWhite());
     time.setPosition(
@@ -298,6 +300,14 @@ const unsigned short& GameDashboard::getLifesAmount()
 void GameDashboard::updateCurrentFloor(const unsigned short& floorIndex)
 {
     floor.setString(std::to_string(floorIndex + 1));
+}
+
+/**
+ *
+ */
+const unsigned short& GameDashboard::getWatchingTime() const
+{
+    return watchingTime;
 }
 
 }

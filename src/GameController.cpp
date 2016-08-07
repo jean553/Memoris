@@ -46,9 +46,8 @@ GameController::GameController() :
         295.f,
         10.f
     ),
-/* FIXME: for now, we directly set this timer at 6 seconds; the time
-   used here should be got from the last played level */
-    watchingPeriodTimer(6),
+    dashboard(series::PlayingSerieManager::get().getWatchingTime()),
+    watchingPeriodTimer(series::PlayingSerieManager::get().getWatchingTime()),
 /* TODO: #560 the playing serie manager should not be accessible from
    everywhere; we send the parameter here to force the execution of the
    Level constructor that loads from level file */
@@ -129,7 +128,8 @@ unsigned short GameController::render()
         watchingPeriod &&
         (
             utils::Context::get().getClockMillisecondsTime() -
-            displayLevelTime > 6000
+            displayLevelTime >
+            series::PlayingSerieManager::get().getWatchingTime() * 1000
         )
     )
     {
@@ -435,6 +435,12 @@ void GameController::executePlayerCellAction()
                    so call again the game controller; the playing serie manager
                    will automatically take the next level of the queue */
                 expectedControllerId = controllers::GAME_CONTROLLER_ID;
+
+                /* save the current amount of watching time for the next
+                   level */
+                series::PlayingSerieManager::get().setWatchingTime(
+                    dashboard.getWatchingTime()
+                );
             }
             else
             {

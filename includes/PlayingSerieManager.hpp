@@ -80,6 +80,22 @@ public:
      */
     const bool hasNextLevel() const;
 
+    /**
+     * @brief getter for the current watching time for the level; used by the
+     * game controller to know the long of the watching period
+     *
+     * @return const unsigned short&
+     */
+    const unsigned short& getWatchingTime() const;
+
+    /**
+     * @brief setter for the watching time; used by the game controller to
+     * set the next level watching time when the player wins the current level
+     *
+     * @param tim the time to set to the watching time
+     */
+    void setWatchingTime(const unsigned short& time);
+
 private:
 
     /* we use the FIFO (first in first out) method to store the levels names;
@@ -87,6 +103,12 @@ private:
        load a serie and we pop them one by one in the same order; the queue
        container is directly optimized for that kind of operations */
     std::queue<std::string> levels;
+
+    /* current watching time that will be given for the next level; this time
+       is the watching time *per floor*; this value is set to 6 by default
+       all the time when a serie starts; we set it here because this value
+       has to be transferred from one level to another */
+    unsigned short watchingTime {6};
 };
 
 }

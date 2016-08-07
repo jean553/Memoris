@@ -42,8 +42,11 @@ public:
     /**
      * @brief constructor, initialize the timer widget, all the dashboard
      * informations labels and all the labels images
+     *
+     * @param watchingPeriodTime the expected time to be displayed in the
+     * watching period
      */
-    GameDashboard();
+    GameDashboard(const unsigned short& watchingPeriodTime);
 
     /**
      * @brief overwritte the method to display the dashboard
@@ -110,6 +113,15 @@ public:
      */
     void updateCurrentFloor(const unsigned short& floorIndex);
 
+    /**
+     * @brief getter for the watching time in the current level; this is used
+     * by the game controller to get the modification of the previous
+     * watching time and update it inside the current playing serie context
+     *
+     * @return const unsigned short&
+     */
+    const unsigned short& getWatchingTime() const;
+
 private:
 
     /* displays the amount of found stars in the current level */
@@ -151,11 +163,7 @@ private:
     unsigned short lifes {0};
 
     /* the amount of seconds the user can watch the level before hidding it */
-    /* TODO: #583 default value is 0 for now, this value should be specified
-       into the serie file if the played level is the first one and should be
-       got from previous level if the current level is not the first one of the
-       serie */
-    unsigned short watchingTime {3};
+    unsigned short watchingTime;
 };
 
 }
