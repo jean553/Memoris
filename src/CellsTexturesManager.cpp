@@ -63,6 +63,10 @@ CellsTexturesManager::CellsTexturesManager()
     loadTexture(hiddenCellTexture, "res/cells/hidden.png");
     loadTexture(stairsUpCellTexture, "res/cells/stairs_up.png");
     loadTexture(stairsDownCellTexture, "res/cells/stairs_down.png");
+    loadTexture(
+        horizontalMirrorCellTexture,
+        "res/cells/horizontal_mirror.png"
+    );
 }
 
 /**
@@ -114,6 +118,10 @@ sf::Texture& CellsTexturesManager::getTextureReferenceByCellType(
     case cells::STAIRS_DOWN_CELL:
     {
         return stairsDownCellTexture;
+    }
+    case cells::HORIZONTAL_MIRROR_CELL:
+    {
+        return horizontalMirrorCellTexture;
     }
     }
 

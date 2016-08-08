@@ -68,6 +68,9 @@ constexpr char STAIRS_UP_CELL {'u'};
 /* stairs down */
 constexpr char STAIRS_DOWN_CELL {'p'};
 
+/* horizontal mirror event cell */
+constexpr char HORIZONTAL_MIRROR_CELL {'%'};
+
 }
 }
 
