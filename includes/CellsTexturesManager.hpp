@@ -90,6 +90,7 @@ private:
     sf::Texture hiddenCellTexture;
     sf::Texture stairsUpCellTexture;
     sf::Texture stairsDownCellTexture;
+    sf::Texture horizontalMirrorCellTexture;
 };
 
 }
