@@ -42,8 +42,10 @@ public:
     /**
      * @brief constructor, creates the title surface and generate the
      * menu items unique pointers of the menu
+     *
+     * @param contextPtr shared pointer to the context to use
      */
-    SerieMainMenuController();
+    SerieMainMenuController(std::shared_ptr<utils::Context> contextPtr);
 
     /**
      * @brief render the serie editor screen

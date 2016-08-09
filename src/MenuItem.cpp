@@ -38,10 +38,12 @@ namespace items
  *
  */
 MenuItem::MenuItem(
+    std::shared_ptr<utils::Context> contextPtr,
     const std::string& label,
     const float& horizontalPosition,
     const float& verticalPosition
-)
+) :
+    context(contextPtr)
 {
     /* the displayed text of the item is the given label */
     text.setString(label);
@@ -67,7 +69,7 @@ MenuItem::MenuItem(
  */
 void MenuItem::render()
 {
-    utils::Context::get().getSfmlWindow().draw(text);
+    context->getSfmlWindow().draw(text);
 }
 
 /**

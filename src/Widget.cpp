@@ -34,12 +34,15 @@ namespace widgets
  *
  */
 Widget::Widget(
+    std::shared_ptr<utils::Context> contextPtr,
     const float& hPosition,
     const float& vPosition
-)
+) :
+    context(contextPtr),
+    horizontalPosition(hPosition),
+    verticalPosition(vPosition)
 {
-    horizontalPosition = hPosition;
-    verticalPosition = vPosition;
+    /* does nothing, only assigned the given parameters into the attributes */
 }
 
 /**

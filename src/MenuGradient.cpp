@@ -25,7 +25,6 @@
 
 #include "window.hpp"
 #include "ColorsManager.hpp"
-#include "Context.hpp"
 
 namespace memoris
 {
@@ -35,19 +34,8 @@ namespace others
 /**
  *
  */
-MenuGradient& MenuGradient::get()
-{
-    /* create the unique instance of the menu gradient singleton */
-    static MenuGradient singleton;
-
-    /* return the new created instance or the unique instance */
-    return singleton;
-}
-
-/**
- *
- */
-MenuGradient::MenuGradient()
+MenuGradient::MenuGradient(std::shared_ptr<utils::Context> contextPtr) :
+    context(contextPtr)
 {
     /* the width of the menuBackground surface is fixed and the height is equal
        to the window height */
@@ -78,12 +66,12 @@ MenuGradient::MenuGradient()
 void MenuGradient::display()
 {
     /* display first the menu background */
-    utils::Context::get().getSfmlWindow().draw(menuBackground);
+    context->getSfmlWindow().draw(menuBackground);
 
     /* iterate the whole sides lines container and displays them one by one */
     for (const sf::RectangleShape& rectangle : sidesLines)
     {
-        utils::Context::get().getSfmlWindow().draw(rectangle);
+        context->getSfmlWindow().draw(rectangle);
     }
 }
 

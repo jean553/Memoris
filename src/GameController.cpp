@@ -41,7 +41,12 @@ namespace controllers
 /**
  *
  */
-GameController::GameController()
+GameController::GameController(std::shared_ptr<utils::Context> contextPtr) :
+    Controller(contextPtr),
+    timer(contextPtr),
+    dashboard(contextPtr),
+    watchingPeriodTimer(contextPtr),
+    level(contextPtr)
 {
     /* update the dashboard total stars amount according to the value returned
        by the level object */
@@ -67,7 +72,7 @@ GameController::GameController()
     /* save the exact time the level starts to be displayed; this is used to
        calculate the duration of the watching period before the beginning
        of the playing period */
-    displayLevelTime = utils::Context::get().getClockMillisecondsTime();
+    displayLevelTime = context->getClockMillisecondsTime();
 }
 
 /**
@@ -117,7 +122,7 @@ unsigned short GameController::render()
     if (
         watchingPeriod &&
         (
-            utils::Context::get().getClockMillisecondsTime() -
+            context->getClockMillisecondsTime() -
             displayLevelTime >
             series::PlayingSerieManager::get().getWatchingTime() * 1000
         )
@@ -134,7 +139,7 @@ unsigned short GameController::render()
     if (
         playingPeriod &&
         (
-            utils::Context::get().getClockMillisecondsTime() -
+            context->getClockMillisecondsTime() -
             playerCellAnimationTime > 100
         )
     )
@@ -159,22 +164,22 @@ unsigned short GameController::render()
         /* save the time of the last player cell animation, for the next
            animation step */
         playerCellAnimationTime =
-            utils::Context::get().getClockMillisecondsTime();
+            context->getClockMillisecondsTime();
     }
 
     /* check if the current game status is the lose phase */
     if (startLosePeriodTime)
     {
         /* display the grey filter */
-        utils::Context::get().getSfmlWindow().draw(greyFilter);
+        context->getSfmlWindow().draw(greyFilter);
 
         /* displays the lose text */
-        utils::Context::get().getSfmlWindow().draw(loseText);
+        context->getSfmlWindow().draw(loseText);
 
         /* check if the lose period is finished; the lose period duration is
            5 seconds */
         if (
-            utils::Context::get().getClockMillisecondsTime() -
+            context->getClockMillisecondsTime() -
             startLosePeriodTime > 5000
         )
         {
@@ -188,7 +193,7 @@ unsigned short GameController::render()
     nextControllerId = animateScreenTransition();
 
     /* the events loop of the game controller */
-    while(utils::Context::get().getSfmlWindow().pollEvent(event))
+    while(context->getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {
@@ -553,7 +558,7 @@ void GameController::watchNextFloorOrHideLevel()
         /* reset the display level time with the current time to allow more
            watching time for the next floor watching period */
         displayLevelTime =
-            utils::Context::get().getClockMillisecondsTime();
+            context->getClockMillisecondsTime();
 
         /* ends the process here */
         return;
@@ -591,14 +596,14 @@ void GameController::watchNextFloorOrHideLevel()
 void GameController::handleLosePeriod()
 {
     /* force the music to stop */
-    utils::Context::get().stopMusic();
+    context->stopMusic();
 
     /* call the method to stop the timer */
     timer.stop();
 
     /* save when started the lose period time */
     startLosePeriodTime =
-        utils::Context::get().getClockMillisecondsTime();
+        context->getClockMillisecondsTime();
 }
 
 }

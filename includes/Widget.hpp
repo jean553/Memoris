@@ -28,8 +28,7 @@
 #ifndef MEMORIS_WIDGET_H_
 #define MEMORIS_WIDGET_H_
 
-/* TODO: never used into the Widget class, should be in the children classes */
-#include <SFML/Graphics.hpp>
+#include "Context.hpp"
 
 namespace memoris
 {
@@ -62,6 +61,7 @@ protected:
      * constructor is protected because only called by children classes as the
      * Widget class is abstract (we never directly create a Widget instance)
      *
+     * @param contextPtr shared pointer to the context to use
      * @param hPosition widget horizontal position
      * @param vPosition widget vertical position
      *
@@ -72,6 +72,7 @@ protected:
      * called
      */
     Widget(
+        std::shared_ptr<utils::Context> contextPtr,
         const float& hPosition = 0,
         const float& vPosition = 0
     );
@@ -82,6 +83,13 @@ protected:
      * object destructor is called
      */
     virtual ~Widget();
+
+    /* the shared pointer to the context to use; protected because this
+       context is used in every controller/widgets of the game and used at the
+       same time into the main program loop; the pointer is not initialized
+       to nullptr here because this is mandatory to pass it in every widget
+       constructor */
+    std::shared_ptr<utils::Context> context;
 
     /**
      * @brief pure virtual function to render the widget; according to the

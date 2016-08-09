@@ -32,20 +32,15 @@ namespace memoris
 {
 namespace controllers
 {
+
 class Controller
 {
 public:
 
     /**
-     * NOTE: the constructor, destructor and render functions are public
-     * as they are called from the program main algorithm (main.cpp)
+     * NOTE: destructor and render functions are public as they are called from
+     * the program main algorithm (main.cpp)
      */
-
-    /**
-     * @brief constructor, initialize variables and load in memory the
-     * transition surface (used for screens transition animation)
-     */
-    Controller();
 
     /**
      * @brief destructor, does nothing, only used to respect the rule saying
@@ -69,6 +64,22 @@ public:
 protected:
 
     /**
+     * @brief constructor, initialize variables and load in memory the
+     * transition surface (used for screens transition animation)
+     *
+     * @param contextPtr shared pointer to the context to use into the
+     * controller
+     */
+    Controller(std::shared_ptr<utils::Context> contextPtr);
+
+    /* the shared pointer to the context to use; protected because this
+       context is used in every controller/widgets of the game and used at the
+       same time into the main program loop; the pointer is not initialized
+       to nullptr here because this is mandatory to pass it in every controller
+       constructor */
+    std::shared_ptr<utils::Context> context;
+
+    /**
      * @brief render the controller switching animation (the animation that
      * is rendered when one screen is closed and a new one is opened, also
      * rendered when the first screen is opened and when the last screen is
@@ -88,7 +99,6 @@ protected:
      * by this function
      */
     unsigned short animateScreenTransition();
-
 
     /* the controller SFML event manager; there is no need to declare a SFML
        event manager inside each controller, this is done here */
@@ -151,6 +161,7 @@ private:
        the animation to create a smooth opening/closing effect */
     sf::RectangleShape transitionSurface;
 };
+
 }
 }
 

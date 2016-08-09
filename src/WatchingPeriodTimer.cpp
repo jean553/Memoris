@@ -27,7 +27,6 @@
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "PlayingSerieManager.hpp"
-#include "Context.hpp"
 #include "fonts.hpp"
 
 namespace memoris
@@ -38,7 +37,10 @@ namespace utils
 /**
  *
  */
-WatchingPeriodTimer::WatchingPeriodTimer()
+WatchingPeriodTimer::WatchingPeriodTimer(
+    std::shared_ptr<utils::Context> contextPtr
+) :
+    context(contextPtr)
 {
     seconds = series::PlayingSerieManager::get().getWatchingTime();
 
@@ -55,15 +57,15 @@ WatchingPeriodTimer::WatchingPeriodTimer()
 void WatchingPeriodTimer::display()
 {
     /* display the SFML surfaces */
-    utils::Context::get().getSfmlWindow().draw(*leftText);
-    utils::Context::get().getSfmlWindow().draw(*rightText);
+    context->getSfmlWindow().draw(*leftText);
+    context->getSfmlWindow().draw(*rightText);
 
     /* check if the timer is started and if at least one second elapsed since
        the last timer value update; if yes, decrement the displayed value */
     if (
         started &&
         (
-            utils::Context::get().getClockMillisecondsTime() -
+            context->getClockMillisecondsTime() -
             lastUpdateTime > 1000
         )
     )
@@ -87,7 +89,7 @@ void WatchingPeriodTimer::display()
         updateDisplayedSurfaces();
 
         /* update the last update time */
-        lastUpdateTime = utils::Context::get().getClockMillisecondsTime();
+        lastUpdateTime = context->getClockMillisecondsTime();
     }
 }
 

@@ -28,6 +28,7 @@
 
 #include "NotCopiable.hpp"
 #include "Cell.hpp"
+#include "Context.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -41,16 +42,16 @@ namespace utils
 
 class AnimatedBackground : public others::NotCopiable
 {
+
 public:
 
     /**
-     * @brief public class method used to get the unique singleton animated
-     * background instance; in fact, the animated background is generated
-     * one time and it the same for all the menus
+     * @brief constructor, does nothin except calling the function to
+     * initialize the cells of the background
      *
-     * @return static AnimatedBackground&
+     * @param contextPtr shared pointer to the context to use
      */
-    static AnimatedBackground& get();
+    AnimatedBackground(std::shared_ptr<utils::Context> contextPtr);
 
     /**
      * @brief render the animated background, display all the cells
@@ -60,12 +61,6 @@ public:
 private:
 
     /**
-     * @brief constructor, does nothin except calling the function to
-     * initialize the cells of the background
-     */
-    AnimatedBackground();
-
-    /**
      * @brief initialize all the cells of the animated background; this
      * method is the unique function that is called by the animated background
      * constructor; the creation of the cells could be done directly into
@@ -73,6 +68,9 @@ private:
      * this method requires a lot of internal variables
      */
     void initializeCells();
+
+    /* shared pointer to the context to use for the rendering */
+    std::shared_ptr<utils::Context> context;
 
     /* the array of displayed cells in the animated background; we do not know
        in advance the size of the array, it depends of the random generation

@@ -39,7 +39,8 @@ namespace entities
 /**
  *
  */
-Level::Level()
+Level::Level(std::shared_ptr<utils::Context> contextPtr) :
+    context(contextPtr)
 {
     /* create a file object to read the level file and load the cells */
     std::ifstream file(series::PlayingSerieManager::get().getNextLevelName());
@@ -96,6 +97,7 @@ Level::Level()
            integer values anyway */
         std::unique_ptr<Cell> cell(
             std::make_unique<Cell>(
+                context,
                 300.f + 50.f * static_cast<float>(horizontalPositionCursor),
                 98.f + 50.f * static_cast<float>(verticalPositionCursor),
                 cellType
@@ -436,7 +438,7 @@ void Level::playFloorTransitionAnimation()
     /* the switch floor animation is updated every 25 milliseconds until the
        end of the animation */
     if (
-        utils::Context::get().getClockMillisecondsTime() -
+        context->getClockMillisecondsTime() -
         lastAnimationTime > 25
     )
     {
@@ -462,7 +464,7 @@ void Level::playFloorTransitionAnimation()
 
         /* update the last animation update time to ensure the whole animation
            rendering */
-        lastAnimationTime = utils::Context::get().getClockMillisecondsTime();
+        lastAnimationTime = context->getClockMillisecondsTime();
     }
 }
 

@@ -35,7 +35,8 @@ namespace controllers
 /**
  *
  */
-Controller::Controller()
+Controller::Controller(std::shared_ptr<utils::Context> contextPtr) :
+    context(contextPtr)
 {
     /* the screen transition color is continually modified
        when screens are switched, that's why we copy the
@@ -91,14 +92,11 @@ unsigned short Controller::animateScreenTransition()
     transitionSurface.setFillColor(transitionSurfaceColor);
 
     /* draw the transition surface */
-    utils::Context::get().getSfmlWindow().draw(transitionSurface);
+    context->getSfmlWindow().draw(transitionSurface);
 
     /* animate the screen transition animation according to the last screen
        transition animation update time */
-    if (
-        utils::Context::get().getClockMillisecondsTime() -
-        lastScreenTransitionTime > 25
-    )
+    if (context->getClockMillisecondsTime() - lastScreenTransitionTime > 25)
     {
         if (openingScreen)
         {
@@ -111,8 +109,7 @@ unsigned short Controller::animateScreenTransition()
 
         /* update the last screen transition time with the current time for
            the next animation step */
-        lastScreenTransitionTime =
-            utils::Context::get().getClockMillisecondsTime();
+        lastScreenTransitionTime = context->getClockMillisecondsTime();
     }
 
     /* when the closing animation is finished, the color transparency value is

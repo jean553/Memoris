@@ -28,7 +28,6 @@
 #include "ColorsManager.hpp"
 #include "TexturesManager.hpp"
 #include "PlayingSerieManager.hpp"
-#include "Context.hpp"
 #include "window.hpp"
 #include "fonts.hpp"
 
@@ -40,7 +39,8 @@ namespace utils
 /**
  *
  */
-GameDashboard::GameDashboard()
+GameDashboard::GameDashboard(std::shared_ptr<utils::Context> contextPtr) :
+    context(contextPtr)
 {
     watchingTime = series::PlayingSerieManager::get().getWatchingTime();
 
@@ -171,22 +171,22 @@ GameDashboard::GameDashboard()
 void GameDashboard::display()
 {
     /* displays the information labels of the dashboard */
-    utils::Context::get().getSfmlWindow().draw(foundStarsAmount);
-    utils::Context::get().getSfmlWindow().draw(lifesAmount);
-    utils::Context::get().getSfmlWindow().draw(target);
-    utils::Context::get().getSfmlWindow().draw(time);
-    utils::Context::get().getSfmlWindow().draw(floor);
+    context->getSfmlWindow().draw(foundStarsAmount);
+    context->getSfmlWindow().draw(lifesAmount);
+    context->getSfmlWindow().draw(target);
+    context->getSfmlWindow().draw(time);
+    context->getSfmlWindow().draw(floor);
 
     /* displays the dashboard sprites */
-    utils::Context::get().getSfmlWindow().draw(spriteStar);
-    utils::Context::get().getSfmlWindow().draw(spriteLife);
-    utils::Context::get().getSfmlWindow().draw(spriteTarget);
-    utils::Context::get().getSfmlWindow().draw(spriteTime);
-    utils::Context::get().getSfmlWindow().draw(spriteFloor);
+    context->getSfmlWindow().draw(spriteStar);
+    context->getSfmlWindow().draw(spriteLife);
+    context->getSfmlWindow().draw(spriteTarget);
+    context->getSfmlWindow().draw(spriteTime);
+    context->getSfmlWindow().draw(spriteFloor);
 
     /* displays the separators on both sides of the cells array */
-    utils::Context::get().getSfmlWindow().draw(leftSeparator);
-    utils::Context::get().getSfmlWindow().draw(rightSeparator);
+    context->getSfmlWindow().draw(leftSeparator);
+    context->getSfmlWindow().draw(rightSeparator);
 }
 
 /**

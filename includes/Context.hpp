@@ -46,15 +46,9 @@ class Context : public others::NotCopiable
 public:
 
     /**
-     * @brief make the context a singleton class;
-     * creates a static singleton object, call the private
-     * constructor only one time; as the object is static,
-     * this unique object is returned everytime and we never
-     * create it again
-     *
-     * @return static Context&
+     * @brief constructor, create and set the SFML window
      */
-    static Context& get();
+    Context();
 
     /**
      * @brief getter on the SFML window object
@@ -95,11 +89,6 @@ public:
     void restartClock();
 
 private:
-
-    /**
-     * @brief constructor, create and set the SFML window
-     */
-    Context();
 
     /* the main SFML window object */
     sf::RenderWindow sfmlWindow;

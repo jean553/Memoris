@@ -43,8 +43,10 @@ public:
 
     /**
      * @brief constructor, set the timer positions
+     *
+     * @param contextPtr shared pointer to the context to use
      */
-    TimerWidget();
+    TimerWidget(std::shared_ptr<utils::Context> contextPtr);
 
     /**
      * @brief overwritte the display method to render the widget

@@ -26,6 +26,8 @@
 #ifndef MEMORIS_MENUITEM_H_
 #define MEMORIS_MENUITEM_H_
 
+#include "Context.hpp"
+
 #include <SFML/Graphics.hpp>
 
 namespace memoris
@@ -35,6 +37,7 @@ namespace items
 
 class MenuItem
 {
+
 public:
 
     /**
@@ -42,11 +45,13 @@ public:
      * string label at the specified location; automatically applies the
      * default color, font and font size ( same for all the menu items )
      *
+     * @param contextPtr shared pointer to the context to use
      * @param label the menu item text label
      * @param horizontalPosition the horizontal position of the text
      * @param verticalPosition the vertical position of the text
      */
     MenuItem(
+        std::shared_ptr<utils::Context> contextPtr,
         const std::string& label,
         const float& horizontalPosition,
         const float& verticalPosition
@@ -69,6 +74,9 @@ public:
     void select();
 
 private:
+
+    /* shared pointer to the context to use for rendering */
+    std::shared_ptr<utils::Context> context;
 
     /* the SFML text object; a menu item is a SFML text with specific
        properties */

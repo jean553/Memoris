@@ -38,7 +38,9 @@ namespace widgets
 /**
  *
  */
-TimerWidget::TimerWidget() : Widget(
+TimerWidget::TimerWidget(std::shared_ptr<utils::Context> contextPtr) :
+    Widget(
+        contextPtr,
         positions::TIMER_HORIZONTAL_POSITION,
         positions::TIMER_VERTICAL_POSITION
     )
@@ -67,7 +69,7 @@ void TimerWidget::display()
     if (
         started &&
         (
-            utils::Context::get().getClockMillisecondsTime() -
+            context->getClockMillisecondsTime() -
             lastTimerUpdateTime > 1000
         )
     )
@@ -76,11 +78,11 @@ void TimerWidget::display()
         updateTimerValues();
 
         /* save the last timer update time at the end of the animation */
-        lastTimerUpdateTime = utils::Context::get().getClockMillisecondsTime();
+        lastTimerUpdateTime = context->getClockMillisecondsTime();
     }
 
     /* display the SFML text surface */
-    utils::Context::get().getSfmlWindow().draw(text);
+    context->getSfmlWindow().draw(text);
 }
 
 /**

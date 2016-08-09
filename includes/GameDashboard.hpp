@@ -27,6 +27,8 @@
 #ifndef MEMORIS_GAMEDASHBOARD_H_
 #define MEMORIS_GAMEDASHBOARD_H_
 
+#include "Context.hpp"
+
 #include <SFML/Graphics.hpp>
 
 namespace memoris
@@ -42,8 +44,10 @@ public:
     /**
      * @brief constructor, initialize the timer widget, all the dashboard
      * informations labels and all the labels images
+     *
+     * @param contextPtr pointer to the context to use for rendering
      */
-    GameDashboard();
+    GameDashboard(std::shared_ptr<utils::Context> contextPtr);
 
     /**
      * @brief overwritte the method to display the dashboard
@@ -120,6 +124,9 @@ public:
     const unsigned short& getWatchingTime() const;
 
 private:
+
+    /* shared pointer to the context to use for rendering */
+    std::shared_ptr<utils::Context> context;
 
     /* displays the amount of found stars in the current level */
     sf::Text foundStarsAmount;
