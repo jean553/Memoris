@@ -45,15 +45,9 @@ public:
      * @brief constructor, initialize all the cells of the level according to
      * the given level file path
      *
-     * @param string reference to the level file path, this path is got from
-     * the playing serie manager; we do not directly get it inside the
-     * constructor because we will have two constructors for the level; one
-     * to initialize a level from a file (this one) and one to initialize an
-     * empty level
-     *
      * @throw std::invalid_argument the level file cannot be opened
      */
-    Level(const std::string& path);
+    Level();
 
     /**
      * @brief render the level and all the cells of the given floor; this

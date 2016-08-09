@@ -42,11 +42,8 @@ public:
     /**
      * @brief constructor, initialize the timer widget, all the dashboard
      * informations labels and all the labels images
-     *
-     * @param watchingPeriodTime the expected time to be displayed in the
-     * watching period
      */
-    GameDashboard(const unsigned short& watchingPeriodTime);
+    GameDashboard();
 
     /**
      * @brief overwritte the method to display the dashboard

@@ -26,6 +26,7 @@
 #include "Level.hpp"
 
 #include "Context.hpp"
+#include "PlayingSerieManager.hpp"
 #include "cells.hpp"
 
 #include <fstream>
@@ -38,10 +39,10 @@ namespace entities
 /**
  *
  */
-Level::Level(const std::string& path)
+Level::Level()
 {
     /* create a file object to read the level file and load the cells */
-    std::ifstream file(path);
+    std::ifstream file(series::PlayingSerieManager::get().getNextLevelName());
 
     /* check if the file is opened correctly */
     if (!file.is_open())

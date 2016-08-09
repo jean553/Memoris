@@ -24,12 +24,13 @@
 
 #include "GameDashboard.hpp"
 
-#include "fonts.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "TexturesManager.hpp"
+#include "PlayingSerieManager.hpp"
 #include "Context.hpp"
 #include "window.hpp"
+#include "fonts.hpp"
 
 namespace memoris
 {
@@ -39,9 +40,9 @@ namespace utils
 /**
  *
  */
-GameDashboard::GameDashboard(const unsigned short& watchingPeriodTime)
+GameDashboard::GameDashboard()
 {
-    watchingTime = watchingPeriodTime;
+    watchingTime = series::PlayingSerieManager::get().getWatchingTime();
 
     /* create the information label that displays the current amount of found
        stars into the current level */
