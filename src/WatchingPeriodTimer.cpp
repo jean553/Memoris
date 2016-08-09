@@ -26,6 +26,7 @@
 
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
+#include "PlayingSerieManager.hpp"
 #include "Context.hpp"
 #include "fonts.hpp"
 
@@ -37,15 +38,15 @@ namespace utils
 /**
  *
  */
-WatchingPeriodTimer::WatchingPeriodTimer(const unsigned short& time)
+WatchingPeriodTimer::WatchingPeriodTimer()
 {
-    seconds = time;
+    seconds = series::PlayingSerieManager::get().getWatchingTime();
 
     /* initialize the two SFML surfaces used to display the left watching time
        of the current level */
 
-    leftText = createWatchingPeriodTimerText(75.f, 335.f, time);
-    rightText = createWatchingPeriodTimerText(1400.f, 335.f, time);
+    leftText = createWatchingPeriodTimerText(75.f, 335.f, seconds);
+    rightText = createWatchingPeriodTimerText(1400.f, 335.f, seconds);
 }
 
 /**

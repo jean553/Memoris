@@ -44,10 +44,8 @@ public:
     /**
      * @brief constructor, save the given time and initialize the SFML surfaces
      * according to this given time
-     *
-     * @param time the watching period total time
      */
-    WatchingPeriodTimer(const unsigned short& time);
+    WatchingPeriodTimer();
 
     /**
      * @brief displays the watching period timer SFML surfaces; automatically

@@ -41,13 +41,7 @@ namespace controllers
 /**
  *
  */
-GameController::GameController() :
-    dashboard(series::PlayingSerieManager::get().getWatchingTime()),
-    watchingPeriodTimer(series::PlayingSerieManager::get().getWatchingTime()),
-/* TODO: #560 the playing serie manager should not be accessible from
-   everywhere; we send the parameter here to force the execution of the
-   Level constructor that loads from level file */
-    level(series::PlayingSerieManager::get().getNextLevelName())
+GameController::GameController()
 {
     /* update the dashboard total stars amount according to the value returned
        by the level object */
