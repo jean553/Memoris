@@ -39,7 +39,16 @@ namespace controllers
 
 class AbstractMenuController : public Controller
 {
+
 protected:
+
+    /**
+     * @brief constructor, does nothing; just declared and defined to pass
+     * the context shared pointer to the Controller parent constructor
+     *
+     * @param contextPtr shared pointer to the context to use
+     */
+    AbstractMenuController(std::shared_ptr<utils::Context> contextPtr);
 
     /**
      * @brief insert one menu item pointer inside the menu items list

@@ -28,6 +28,8 @@
 #ifndef MEMORIS_WATCHINGPERIODTIMER_H_
 #define MEMORIS_WATCHINGPERIODTIMER_H_
 
+#include "Context.hpp"
+
 #include <SFML/Graphics.hpp>
 
 #include <memory>
@@ -44,8 +46,10 @@ public:
     /**
      * @brief constructor, save the given time and initialize the SFML surfaces
      * according to this given time
+     *
+     * @param contextPtr shared pointer to the context to use
      */
-    WatchingPeriodTimer();
+    WatchingPeriodTimer(std::shared_ptr<utils::Context> contextPtr);
 
     /**
      * @brief displays the watching period timer SFML surfaces; automatically
@@ -94,6 +98,9 @@ private:
         const float& vPosition,
         const unsigned short& time
     );
+
+    /* shared pointer to the context object to use for rendering */
+    std::shared_ptr<utils::Context> context;
 
     /**
      * @brief displays the two SFML surfaces on both sides of the level

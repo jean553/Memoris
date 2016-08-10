@@ -28,6 +28,7 @@
 #include "Controller.hpp"
 
 #include "ErrorController.hpp"
+#include "Context.hpp"
 
 namespace memoris
 {
@@ -47,20 +48,28 @@ constexpr unsigned short ERROR_CONTROLLER_ID = 7;
  * @brief factory method to create controllers by id, each controller is linked
  * to an unique id; this method returns a pointer to a Controller child object
  *
+ * @param context shared pointer of the context to use in every controller
  * @param id the id of the controller
  *
  * @return std::unique_ptr<Controller>
  */
-std::unique_ptr<Controller> getControllerById(const unsigned short& id);
+std::unique_ptr<Controller> getControllerById(
+    std::shared_ptr<utils::Context> context,
+    const unsigned short& id
+);
 
 /**
  * @brief refactored function to get a unique pointer to a error controller;
  * this controller is needed in different cases, that's why it is refactored
  * here
  *
+ * @param context shared pointer to the context to use
+ *
  * @return std::unique_ptr<ErrorController>
  */
-std::unique_ptr<ErrorController> getErrorController();
+std::unique_ptr<ErrorController> getErrorController(
+    std::shared_ptr<utils::Context> context
+);
 
 }
 }

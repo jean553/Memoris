@@ -47,8 +47,10 @@ public:
     /**
      * @brief constructor, creates the title surface and the explanation
      * label surface; creates the input text widget
+     *
+     * @param contextPtr shared pointer to the context to use
      */
-    NewGameController();
+    NewGameController(std::shared_ptr<utils::Context> contextPtr);
 
     /**
      * @brief render the new game screen

@@ -45,8 +45,17 @@ int main()
     std::string currentMusicPath =
         musics::getMusicPathById(currentControllerId);
 
+    /* creates a std::shared_ptr<utils::Context> object; we use 'auto' because
+       the deduced type with the use of make_shared is directly shared_ptr; we
+       use a shared pointer because the context is passed to every controller
+       and widget, BUT at the same time, it has to stay accessible inside the
+       main program loop that creates all these controllers; the use of an
+       unique pointer is more restrictive than a shared pointer, but this is
+       not possible in our case */
+    auto context(std::make_shared<utils::Context>());
+
     /* load and play the main menu music when the program starts */
-    utils::Context::get().loadMusicFile(currentMusicPath);
+    context->loadMusicFile(currentMusicPath);
 
     /* the next controller id contains the id of the new controller to
        initialize. After generation of a controller, the current controller id
@@ -84,7 +93,10 @@ int main()
            In that case, 'param' type is Controller* and T is Controller,
            so the deducted variable type is a pointer to a Controller object */
         auto pCurrentController =
-            controllers::getControllerById(currentControllerId);
+            controllers::getControllerById(
+                context,
+                currentControllerId
+            );
 
         /* main program loop: loads, renders and modifies controllers;
            the loop stops when the SFML window is closed */
@@ -94,13 +106,13 @@ int main()
             /* NOTE: this instruction generates memory leaks; this error comes
                from OpenGL libraries; we do not handle this error; the leak is
                deleted if we delete this line */
-            utils::Context::get().getSfmlWindow().clear();
+            context->getSfmlWindow().clear();
 
             /* continually render the current controller scene */
             nextControllerId = pCurrentController->render();
 
             /* continually display the loaded content */
-            utils::Context::get().getSfmlWindow().display();
+            context->getSfmlWindow().display();
         }
         while (!nextControllerId);
 
@@ -121,7 +133,7 @@ int main()
                 /* if the current music path and the next music path are
                    different, load and play the new music according to the
                    next music path */
-                utils::Context::get().loadMusicFile(nextMusicPath);
+                context->loadMusicFile(nextMusicPath);
                 currentMusicPath = nextMusicPath;
             }
 
@@ -133,15 +145,15 @@ int main()
             sounds::SoundsManager::get().getScreenTransitionSound().play();
 
             /* restart the clock */
-            utils::Context::get().restartClock();
+            context->restartClock();
         }
     }
     while (currentControllerId != controllers::EXIT);
 
-    utils::Context::get().stopMusic();
+    context->stopMusic();
 
     /* close the SFML window */
-    utils::Context::get().getSfmlWindow().close();
+    context->getSfmlWindow().close();
 
     return EXIT_SUCCESS;
 }

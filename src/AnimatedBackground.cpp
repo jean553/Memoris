@@ -39,21 +39,11 @@ namespace utils
 /**
  *
  */
-AnimatedBackground& AnimatedBackground::AnimatedBackground::get()
-{
-    /* create the unique animated background instance */
-    static AnimatedBackground singleton;
-
-    /* return the unique singleton; as it is static, the unique one is always
-       returned */
-    return singleton;
-}
-
-/**
- *
- */
-AnimatedBackground::AnimatedBackground() :
-    others::NotCopiable()
+AnimatedBackground::AnimatedBackground(
+    std::shared_ptr<utils::Context> contextPtr
+) :
+    others::NotCopiable(),
+    context(contextPtr)
 {
     /* initialize all the cells */
     initializeCells();
@@ -67,7 +57,7 @@ void AnimatedBackground::render()
     /* move the cells every 30 milliseconds */
     if(
         (
-            utils::Context::get().getClockMillisecondsTime() -
+            context->getClockMillisecondsTime() -
             cellsMovementLastAnimation
         ) > 10
     )
@@ -83,8 +73,7 @@ void AnimatedBackground::render()
         }
 
         /* update the new cells movement animation time with the new time */
-        cellsMovementLastAnimation =
-            utils::Context::get().getClockMillisecondsTime();
+        cellsMovementLastAnimation = context->getClockMillisecondsTime();
     }
 
     /* iterate all the cells and display them one by one; we use a reference
@@ -186,6 +175,7 @@ void AnimatedBackground::initializeCells()
         /* generate a new cell object, pointed by an unique pointer */
         std::unique_ptr<entities::Cell> cell(
             new entities::Cell(
+                context,
                 currentColumn *
                 (
                     dimensions::CELL_PIXELS_DIMENSIONS +

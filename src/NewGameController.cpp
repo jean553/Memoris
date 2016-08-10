@@ -37,9 +37,12 @@ namespace controllers
 /**
  *
  */
-NewGameController::NewGameController() :
-    Controller(),
+NewGameController::NewGameController(
+    std::shared_ptr<utils::Context> contextPtr
+) :
+    Controller(contextPtr),
     inputTextGameName(
+        contextPtr,
         500.f,
         450.f,
         600.f,
@@ -79,8 +82,8 @@ NewGameController::NewGameController() :
 unsigned short NewGameController::render()
 {
     /* display the title and the explanation labels */
-    utils::Context::get().getSfmlWindow().draw(title);
-    utils::Context::get().getSfmlWindow().draw(explanation);
+    context->getSfmlWindow().draw(title);
+    context->getSfmlWindow().draw(explanation);
 
     /* render the input text widget */
     inputTextGameName.display();
@@ -93,7 +96,7 @@ unsigned short NewGameController::render()
     /* new game controller events loop; update the text displayed inside the
        input text widget; go back to the main menu if the Escape key is
        pressed; directly go to the series menu if the Enter key is pressed */
-    while(utils::Context::get().getSfmlWindow().pollEvent(event))
+    while(context->getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

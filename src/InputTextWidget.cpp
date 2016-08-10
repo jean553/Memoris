@@ -38,11 +38,13 @@ namespace widgets
  *
  */
 InputTextWidget::InputTextWidget(
+    std::shared_ptr<utils::Context> contextPtr,
     const float& hPosition,
     const float& vPosition,
     const float& lineWidth,
     const size_t& maxCharacters
 ) : Widget(
+        contextPtr,
         hPosition,
         vPosition
     )
@@ -161,26 +163,26 @@ void InputTextWidget::setDisplayedText(const sf::String& inputTextData)
 void InputTextWidget::display()
 {
     /* display the widget borders */
-    utils::Context::get().getSfmlWindow().draw(boxTop);
-    utils::Context::get().getSfmlWindow().draw(boxBottom);
-    utils::Context::get().getSfmlWindow().draw(boxLeft);
-    utils::Context::get().getSfmlWindow().draw(boxRight);
+    context->getSfmlWindow().draw(boxTop);
+    context->getSfmlWindow().draw(boxBottom);
+    context->getSfmlWindow().draw(boxLeft);
+    context->getSfmlWindow().draw(boxRight);
 
     /* display the widget text */
-    utils::Context::get().getSfmlWindow().draw(displayedText);
+    context->getSfmlWindow().draw(displayedText);
 
     /* the widget cursor is animated; the displayedCursor boolean is used to
        check if the cursor has to be displayed or not */
     if(displayCursor)
     {
-        utils::Context::get().getSfmlWindow().draw(cursor);
+        context->getSfmlWindow().draw(cursor);
     }
 
     /* check if enough time elapsed since the last animation update of the
        cursor; the interval between each animation is 200 milliseconds */
     if(
         (
-            utils::Context::get().getClockMillisecondsTime() -
+            context->getClockMillisecondsTime() -
             cursorLastFlashAnimation
         ) > 200
     )
@@ -193,7 +195,7 @@ void InputTextWidget::display()
         /* update the cursor animation time with the current time just after
            the animation */
         cursorLastFlashAnimation =
-            utils::Context::get().getClockMillisecondsTime();
+            context->getClockMillisecondsTime();
     }
 }
 

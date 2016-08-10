@@ -38,7 +38,9 @@ namespace controllers
 /**
  *
  */
-OfficialSeriesMenuController::OfficialSeriesMenuController()
+OfficialSeriesMenuController::OfficialSeriesMenuController(
+    std::shared_ptr<utils::Context> contextPtr
+) : AbstractMenuController(contextPtr)
 {
     /* set the parameters of the title of the screen */
     title.setFont(memoris::fonts::FontsManager::get().getTitleFont());
@@ -54,6 +56,7 @@ OfficialSeriesMenuController::OfficialSeriesMenuController()
        menu construction */
     std::unique_ptr<items::MenuItem> tutorial(
         std::make_unique<items::MenuItem>(
+            context,
             "1. Tutorial",
             10.f,
             200.f
@@ -62,6 +65,7 @@ OfficialSeriesMenuController::OfficialSeriesMenuController()
 
     std::unique_ptr<items::MenuItem> easy(
         std::make_unique<items::MenuItem>(
+            context,
             "2. Easy",
             10.f,
             250.f
@@ -70,6 +74,7 @@ OfficialSeriesMenuController::OfficialSeriesMenuController()
 
     std::unique_ptr<items::MenuItem> medium(
         std::make_unique<items::MenuItem>(
+            context,
             "3. Medium",
             10.f,
             300.f
@@ -78,6 +83,7 @@ OfficialSeriesMenuController::OfficialSeriesMenuController()
 
     std::unique_ptr<items::MenuItem> difficult(
         std::make_unique<items::MenuItem>(
+            context,
             "4. Difficult",
             10.f,
             350.f
@@ -86,6 +92,7 @@ OfficialSeriesMenuController::OfficialSeriesMenuController()
 
     std::unique_ptr<items::MenuItem> hard(
         std::make_unique<items::MenuItem>(
+            context,
             "5. Hard",
             10.f,
             400.f
@@ -94,6 +101,7 @@ OfficialSeriesMenuController::OfficialSeriesMenuController()
 
     std::unique_ptr<items::MenuItem> veryHard(
         std::make_unique<items::MenuItem>(
+            context,
             "6. Very Hard",
             10.f,
             450.f
@@ -102,6 +110,7 @@ OfficialSeriesMenuController::OfficialSeriesMenuController()
 
     std::unique_ptr<items::MenuItem> hazardous(
         std::make_unique<items::MenuItem>(
+            context,
             "7. Hazardous",
             10.f,
             500.f
@@ -126,13 +135,13 @@ OfficialSeriesMenuController::OfficialSeriesMenuController()
  */
 unsigned short OfficialSeriesMenuController::render()
 {
-    utils::Context::get().getSfmlWindow().draw(title);
+    context->getSfmlWindow().draw(title);
 
     renderAllMenuItems();
 
     nextControllerId = animateScreenTransition();
 
-    while(utils::Context::get().getSfmlWindow().pollEvent(event))
+    while(context->getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

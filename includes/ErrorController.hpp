@@ -38,7 +38,17 @@ namespace controllers
 
 class ErrorController : public Controller
 {
+
 public:
+
+    /**
+     * @brief constructor, does nothing, just declared and defined to pass
+     * the context shared pointer to the Controller constructor as it is the
+     * parent class
+     *
+     * @param contextPtr shared pointer to the context to use
+     */
+    ErrorController(std::shared_ptr<utils::Context> contextPtr);
 
     /**
      * @brief renders the error message screen

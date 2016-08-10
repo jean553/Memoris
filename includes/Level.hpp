@@ -45,9 +45,11 @@ public:
      * @brief constructor, initialize all the cells of the level according to
      * the given level file path
      *
+     * @param contextPtr shared pointer to the context to use for rendering
+     *
      * @throw std::invalid_argument the level file cannot be opened
      */
-    Level();
+    Level(std::shared_ptr<utils::Context> contextPtr);
 
     /**
      * @brief render the level and all the cells of the given floor; this
@@ -213,6 +215,9 @@ public:
     const unsigned short& getSeconds() const;
 
 private:
+
+    /* shared pointer to the context to use for rendering */
+    std::shared_ptr<utils::Context> context;
 
     /* container of unique pointers of cells; we use unique pointers because
        pointers are fast to copy/move instead of a whole cell object; we use

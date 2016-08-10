@@ -28,6 +28,8 @@
 
 #include "AbstractMenuController.hpp"
 
+#include "AnimatedBackground.hpp"
+#include "MenuGradient.hpp"
 
 namespace memoris
 {
@@ -41,8 +43,10 @@ public:
 
     /**
      * @brief constructor
+     *
+     * @param contextPtr shared pointer to the context to use
      */
-    MainMenuController();
+    MainMenuController(std::shared_ptr<utils::Context> contextPtr);
 
     /**
      * @brief render the main menu controller
@@ -63,6 +67,12 @@ private:
      * is called when one menu item is selected
      */
     void selectMenuItem();
+
+    /* */
+    utils::AnimatedBackground animatedBackground;
+
+    /* */
+    others::MenuGradient menuGradient;
 
     /* NOTE: we use SFML 32 bits long integers to save the
        last updated time of each animation; we use this

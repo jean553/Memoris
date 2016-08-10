@@ -38,7 +38,9 @@ namespace controllers
 /**
  *
  */
-SerieMainMenuController::SerieMainMenuController()
+SerieMainMenuController::SerieMainMenuController(
+    std::shared_ptr<utils::Context> contextPtr
+) : AbstractMenuController(contextPtr)
 {
     /* set the properties of the series main menu title */
     title.setFont(memoris::fonts::FontsManager::get().getTitleFont());
@@ -53,6 +55,7 @@ SerieMainMenuController::SerieMainMenuController()
     /* creates the unique pointer to the official series item */
     std::unique_ptr<items::MenuItem> officialSeries(
         std::make_unique<items::MenuItem>(
+            context,
             "Official series",
             550.f,
             250.f
@@ -62,6 +65,7 @@ SerieMainMenuController::SerieMainMenuController()
     /* creates the unique pointer to the personal series item */
     std::unique_ptr<items::MenuItem> personalSeries(
         std::make_unique<items::MenuItem>(
+            context,
             "Personal series",
             520.f,
             470.f
@@ -71,6 +75,7 @@ SerieMainMenuController::SerieMainMenuController()
     /* creates the unique pointer to the back item */
     std::unique_ptr<items::MenuItem> back(
         std::make_unique<items::MenuItem>(
+            context,
             "Back",
             720.f,
             800.f
@@ -93,7 +98,7 @@ SerieMainMenuController::SerieMainMenuController()
 unsigned short SerieMainMenuController::render()
 {
     /* display the serie main menu title */
-    utils::Context::get().getSfmlWindow().draw(title);
+    context->getSfmlWindow().draw(title);
 
     /* display all the menu items */
     renderAllMenuItems();
@@ -104,7 +109,7 @@ unsigned short SerieMainMenuController::render()
     /* series main menu events loop; the player can select between the
        official series item and the personal series item; the player can also
        go back to the main menu selecting the back button */
-    while (utils::Context::get().getSfmlWindow().pollEvent(event))
+    while (context->getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

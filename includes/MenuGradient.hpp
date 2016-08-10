@@ -29,6 +29,8 @@
 
 #include "NotCopiable.hpp"
 
+#include "Context.hpp"
+
 #include <SFML/Graphics.hpp>
 
 #include <vector>
@@ -40,15 +42,16 @@ namespace others
 
 class MenuGradient : public others::NotCopiable
 {
+
 public:
 
     /**
-     * @brief public class method to get the unique instance of the gradient
-     * menu class; the class is a singleton
+     * @brief constructor, loads the main surface and call a separated method
+     * to initialize all the gradient rectangles
      *
-     * @return static MenuGradient&
+     * @param contextPtr shared pointer to the context to use
      */
-    static MenuGradient& get();
+    MenuGradient(std::shared_ptr<utils::Context> contextPtr);
 
     /**
      * @brief display the menu background and all the gradient effect lines
@@ -57,12 +60,6 @@ public:
     void display();
 
 private:
-
-    /**
-     * @brief constructor, loads the main surface and call a separated method
-     * to initialize all the gradient rectangles
-     */
-    MenuGradient();
 
     /**
      * @brief private method called by the constructor only to create the
@@ -75,6 +72,9 @@ private:
      * function.
      */
     void initializeGradientRectangles();
+
+    /* shared pointer to the context to use for rendering */
+    std::shared_ptr<utils::Context> context;
 
     /* the main rectangle shape is the black rectangle without any gradient
        that is directly the background of the menu items; the gradient

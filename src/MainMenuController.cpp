@@ -28,8 +28,6 @@
 #include "controllers.hpp"
 #include "ColorsManager.hpp"
 #include "TexturesManager.hpp"
-#include "AnimatedBackground.hpp"
-#include "MenuGradient.hpp"
 
 namespace memoris
 {
@@ -39,8 +37,12 @@ namespace controllers
 /**
  *
  */
-MainMenuController::MainMenuController() :
-    AbstractMenuController()
+MainMenuController::MainMenuController(
+    std::shared_ptr<utils::Context> contextPtr
+) :
+    AbstractMenuController(contextPtr),
+    animatedBackground(contextPtr),
+    menuGradient(contextPtr)
 {
     /* the title color and selector color are copies from
        manager colors, because they are updated continually */
@@ -59,6 +61,7 @@ MainMenuController::MainMenuController() :
     /* initialize the new game menu item */
     std::unique_ptr<items::MenuItem> newGame(
         std::make_unique<items::MenuItem>(
+            context,
             "New game",
             615.f,
             300.f
@@ -68,6 +71,7 @@ MainMenuController::MainMenuController() :
     /* initialize the open game menu item */
     std::unique_ptr<items::MenuItem> loadGame(
         std::make_unique<items::MenuItem>(
+            context,
             "Load game",
             605.f,
             400.f
@@ -77,6 +81,7 @@ MainMenuController::MainMenuController() :
     /* initialize the editor menu item */
     std::unique_ptr<items::MenuItem> editor (
         std::make_unique<items::MenuItem>(
+            context,
             "Editor",
             685.f,
             500.f
@@ -86,6 +91,7 @@ MainMenuController::MainMenuController() :
     /* initialize the options menu item */
     std::unique_ptr<items::MenuItem> options(
         std::make_unique<items::MenuItem>(
+            context,
             "Options",
             660.f,
             600.f
@@ -95,6 +101,7 @@ MainMenuController::MainMenuController() :
     /* initialize the exit menu item */
     std::unique_ptr<items::MenuItem> exit(
         std::make_unique<items::MenuItem>(
+            context,
             "Exit",
             725.f,
             700.f
@@ -129,15 +136,15 @@ MainMenuController::MainMenuController() :
  */
 unsigned short MainMenuController::render()
 {
-    /* get the unique animated background instance and render it */
-    utils::AnimatedBackground::get().render();
+    /* animate the animated background */
+    animatedBackground.render();
 
     /* apply the menu sub-surface */
-    others::MenuGradient::get().display();
+    menuGradient.display();
 
     /* animate the main menu title according to its last animation time */
     if(
-        utils::Context::get().getClockMillisecondsTime() -
+        context->getClockMillisecondsTime() -
         titleLastAnimationTime > 10
     )
     {
@@ -146,12 +153,12 @@ unsigned short MainMenuController::render()
         /* update the title animation time with the current time
            after the animation */
         titleLastAnimationTime =
-            utils::Context::get().getClockMillisecondsTime();
+            context->getClockMillisecondsTime();
     }
 
     /* render the title and the github picture */
-    utils::Context::get().getSfmlWindow().draw(title);
-    utils::Context::get().getSfmlWindow().draw(spriteGithub);
+    context->getSfmlWindow().draw(title);
+    context->getSfmlWindow().draw(spriteGithub);
 
     /* display all the menu items */
     renderAllMenuItems();
@@ -164,7 +171,7 @@ unsigned short MainMenuController::render()
     /* main menu controller events loop; changes the position of the menu
        selector according to the Up/Down keys; select a menu item when
        the Enter key is pressed */
-    while(utils::Context::get().getSfmlWindow().pollEvent(event))
+    while(context->getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

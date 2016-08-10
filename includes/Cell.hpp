@@ -26,6 +26,8 @@
 #ifndef MEMORIS_CELL_H_
 #define MEMORIS_CELL_H_
 
+#include "Context.hpp"
+
 #include <SFML/Graphics.hpp>
 
 #include <string>
@@ -45,11 +47,13 @@ public:
      * the cell, get the type of the cell. Set the cell at the given
      * position, set the cell type
      *
+     * @param contextPtr shared pointer to the context to use
      * @param hPosition the horizontal position of the cell
      * @param vPosition the vertical position of the cell
      * @param cellType the type of the cell, represented by a unique character
      */
     Cell(
+        std::shared_ptr<utils::Context> contextPtr,
         const float& hPosition,
         const float& vPosition,
         const char& cellType
@@ -121,6 +125,9 @@ public:
     void empty();
 
 private:
+
+    /* shared pointer to the context to use for rendering */
+    std::shared_ptr<utils::Context> context;
 
     /* the horizontal and vertical positions of the cell on the screen */
     /* NOTE: we do not initialize the positions here, because they have to

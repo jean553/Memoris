@@ -27,7 +27,6 @@
 
 #include "dimensions.hpp"
 #include "window.hpp"
-#include "Context.hpp"
 #include "CellsTexturesManager.hpp"
 #include "ColorsManager.hpp"
 #include "cells.hpp"
@@ -41,10 +40,12 @@ namespace entities
  *
  */
 Cell::Cell(
+    std::shared_ptr<utils::Context> contextPtr,
     const float& hPosition,
     const float& vPosition,
     const char& cellType
 ) :
+    context(contextPtr),
     type(cellType)
 {
     /* set the given position */
@@ -111,7 +112,7 @@ void Cell::setPosition(
 void Cell::display()
 {
     /* display the cell sprite */
-    utils::Context::get().getSfmlWindow().draw(sprite);
+    context->getSfmlWindow().draw(sprite);
 }
 
 /**
