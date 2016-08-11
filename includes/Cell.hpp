@@ -47,13 +47,11 @@ public:
      * the cell, get the type of the cell. Set the cell at the given
      * position, set the cell type
      *
-     * @param contextPtr shared pointer to the context to use
      * @param hPosition the horizontal position of the cell
      * @param vPosition the vertical position of the cell
      * @param cellType the type of the cell, represented by a unique character
      */
     Cell(
-        std::shared_ptr<utils::Context> contextPtr,
         const float& hPosition,
         const float& vPosition,
         const char& cellType
@@ -83,8 +81,10 @@ public:
 
     /**
      * @brief displays the cell according to the context
+     *
+     * @param context shared pointer to the context to use
      */
-    void display();
+    void display(std::shared_ptr<utils::Context> context);
 
     /**
      * @brief hide the cell, the sprite is replaced by the hidden cell texture
@@ -125,9 +125,6 @@ public:
     void empty();
 
 private:
-
-    /* shared pointer to the context to use for rendering */
-    std::shared_ptr<utils::Context> context;
 
     /* the horizontal and vertical positions of the cell on the screen */
     /* NOTE: we do not initialize the positions here, because they have to

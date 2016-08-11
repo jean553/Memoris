@@ -40,12 +40,10 @@ namespace entities
  *
  */
 Cell::Cell(
-    std::shared_ptr<utils::Context> contextPtr,
     const float& hPosition,
     const float& vPosition,
     const char& cellType
 ) :
-    context(contextPtr),
     type(cellType)
 {
     /* set the given position */
@@ -109,7 +107,7 @@ void Cell::setPosition(
 /**
  *
  */
-void Cell::display()
+void Cell::display(std::shared_ptr<utils::Context> context)
 {
     /* display the cell sprite */
     context->getSfmlWindow().draw(sprite);

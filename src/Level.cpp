@@ -97,7 +97,6 @@ Level::Level(std::shared_ptr<utils::Context> contextPtr) :
            integer values anyway */
         std::unique_ptr<Cell> cell(
             std::make_unique<Cell>(
-                context,
                 300.f + 50.f * static_cast<float>(horizontalPositionCursor),
                 98.f + 50.f * static_cast<float>(verticalPositionCursor),
                 cellType
@@ -194,7 +193,7 @@ void Level::display(const unsigned short& floor) const
     )
     {
         /* get an unique pointer, get the cell object from this pointer */
-        (*cells[index]).display();
+        (*cells[index]).display(context);
     }
 }
 
@@ -416,7 +415,7 @@ void Level::playFloorTransitionAnimation()
             /* displays the cell at the same position but on the next level;
                each level contains 320 cell, so the cell at the same position
                that this one on the next level is 320 cells after... */
-            (*cells[animationFloor * 320 + i + 320]).display();
+            (*cells[animationFloor * 320 + i + 320]).display(context);
 
             /* directly increment the loop from here */
             continue;
@@ -432,7 +431,7 @@ void Level::playFloorTransitionAnimation()
         /* if the cell is on the limitation column or if the cell is on the
            right of the limitation column (current floor), the current cell
            is just displayed */
-        (*cells[animationFloor * 320 + i]).display();
+        (*cells[animationFloor * 320 + i]).display(context);
     }
 
     /* the switch floor animation is updated every 25 milliseconds until the

@@ -40,8 +40,7 @@ namespace controllers
 MainMenuController::MainMenuController(
     std::shared_ptr<utils::Context> contextPtr
 ) :
-    AbstractMenuController(contextPtr),
-    animatedBackground(contextPtr)
+    AbstractMenuController(contextPtr)
 {
     /* the title color and selector color are copies from
        manager colors, because they are updated continually */
@@ -136,7 +135,7 @@ MainMenuController::MainMenuController(
 unsigned short MainMenuController::render()
 {
     /* animate the animated background */
-    animatedBackground.render();
+    animatedBackground.render(context);
 
     /* apply the menu sub-surface */
     menuGradient.display(context);
