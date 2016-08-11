@@ -43,7 +43,6 @@ namespace controllers
  */
 GameController::GameController(std::shared_ptr<utils::Context> contextPtr) :
     Controller(contextPtr),
-    timer(contextPtr),
     dashboard(contextPtr),
     watchingPeriodTimer(contextPtr),
     level(contextPtr)
@@ -84,7 +83,7 @@ unsigned short GameController::render()
     dashboard.display();
 
     /* displays the countdown widget */
-    timer.display();
+    timer.display(context);
 
     /* displays the watching period timer if started */
     if (watchingPeriodTimer.isStarted())

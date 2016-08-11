@@ -42,7 +42,6 @@ NewGameController::NewGameController(
 ) :
     Controller(contextPtr),
     inputTextGameName(
-        contextPtr,
         500.f,
         450.f,
         600.f,
@@ -86,7 +85,7 @@ unsigned short NewGameController::render()
     context->getSfmlWindow().draw(explanation);
 
     /* render the input text widget */
-    inputTextGameName.display();
+    inputTextGameName.display(context);
 
     /* render the opening/closing animation if necessary, get the next
        controller id at the end of the closing animation if the expected

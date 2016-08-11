@@ -38,13 +38,11 @@ namespace widgets
  *
  */
 InputTextWidget::InputTextWidget(
-    std::shared_ptr<utils::Context> contextPtr,
     const float& hPosition,
     const float& vPosition,
     const float& lineWidth,
     const size_t& maxCharacters
 ) : Widget(
-        contextPtr,
         hPosition,
         vPosition
     )
@@ -160,7 +158,7 @@ void InputTextWidget::setDisplayedText(const sf::String& inputTextData)
 /**
  *
  */
-void InputTextWidget::display()
+void InputTextWidget::display(std::shared_ptr<utils::Context> context)
 {
     /* display the widget borders */
     context->getSfmlWindow().draw(boxTop);

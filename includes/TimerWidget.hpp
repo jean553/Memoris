@@ -43,15 +43,15 @@ public:
 
     /**
      * @brief constructor, set the timer positions
-     *
-     * @param contextPtr shared pointer to the context to use
      */
-    TimerWidget(std::shared_ptr<utils::Context> contextPtr);
+    TimerWidget();
 
     /**
      * @brief overwritte the display method to render the widget
+     *
+     * @param context shared pointer to the context to use
      */
-    void display();
+    void display(std::shared_ptr<utils::Context> context);
 
     /**
      * @brief public method to stop the timer, used by the game controller to

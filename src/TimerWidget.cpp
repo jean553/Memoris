@@ -38,9 +38,8 @@ namespace widgets
 /**
  *
  */
-TimerWidget::TimerWidget(std::shared_ptr<utils::Context> contextPtr) :
+TimerWidget::TimerWidget() :
     Widget(
-        contextPtr,
         positions::TIMER_HORIZONTAL_POSITION,
         positions::TIMER_VERTICAL_POSITION
     )
@@ -61,7 +60,7 @@ TimerWidget::TimerWidget(std::shared_ptr<utils::Context> contextPtr) :
 /**
  *
  */
-void TimerWidget::display()
+void TimerWidget::display(std::shared_ptr<utils::Context> context)
 {
     /* check if the elapsed time since the last timer update is more than
        1000 milliseconds; if yes, the timer value is updated; also check if
