@@ -26,7 +26,7 @@
 #ifndef MEMORIS_INPUTTEXTWIDGET_H_
 #define MEMORIS_INPUTTEXTWIDGET_H_
 
-#include "Widget.hpp"
+#include "Context.hpp"
 
 #include <string>
 
@@ -35,7 +35,7 @@ namespace memoris
 namespace widgets
 {
 
-class InputTextWidget : public Widget
+class InputTextWidget
 {
 
 public:

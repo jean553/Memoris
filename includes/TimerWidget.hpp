@@ -27,7 +27,7 @@
 #ifndef MEMORIS_TIMERWIDGET_H_
 #define MEMORIS_TIMERWIDGET_H_
 
-#include "Widget.hpp"
+#include "Context.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -36,7 +36,7 @@ namespace memoris
 namespace widgets
 {
 
-class TimerWidget : public Widget
+class TimerWidget
 {
 
 public:
