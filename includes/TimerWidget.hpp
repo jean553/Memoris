@@ -27,7 +27,7 @@
 #ifndef MEMORIS_TIMERWIDGET_H_
 #define MEMORIS_TIMERWIDGET_H_
 
-#include "Widget.hpp"
+#include "Context.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -36,15 +36,21 @@ namespace memoris
 namespace widgets
 {
 
-class TimerWidget : public Widget
+class TimerWidget
 {
 
 public:
 
     /**
      * @brief constructor, set the timer positions
+     *
+     * @param hPosition the horizontal position
+     * @param vPosition the vertical position
      */
-    TimerWidget();
+    TimerWidget(
+        const float& hPosition,
+        const float& vPosition
+    );
 
     /**
      * @brief overwritte the display method to render the widget

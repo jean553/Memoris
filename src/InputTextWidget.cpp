@@ -42,10 +42,9 @@ InputTextWidget::InputTextWidget(
     const float& vPosition,
     const float& lineWidth,
     const size_t& maxCharacters
-) : Widget(
-        hPosition,
-        vPosition
-    )
+) :
+    horizontalPosition(hPosition),
+    verticalPosition(vPosition)
 {
     /* set the maximum characters amount allowed in the input
        text widget according to the given parameter value */

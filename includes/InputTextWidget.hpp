@@ -26,7 +26,7 @@
 #ifndef MEMORIS_INPUTTEXTWIDGET_H_
 #define MEMORIS_INPUTTEXTWIDGET_H_
 
-#include "Widget.hpp"
+#include "Context.hpp"
 
 #include <string>
 
@@ -35,7 +35,7 @@ namespace memoris
 namespace widgets
 {
 
-class InputTextWidget : public Widget
+class InputTextWidget
 {
 
 public:
@@ -169,6 +169,15 @@ private:
        the right when one character is added and moved on the left when one
        character is deleted */
     sf::RectangleShape cursor;
+
+    /* the horizontal and vertical position of the input text widget; for this
+       widget, we have to store the positions in the object, as we do
+       calculations on them when rendering the widget (for example, to know
+       if text can still be added, put back the cursor at the beginning of the
+       line... etc... ); we do not initialize them here as they are directly
+       initialized by the constructor */
+    float horizontalPosition;
+    float verticalPosition;
 };
 
 }
