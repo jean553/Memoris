@@ -43,8 +43,14 @@ public:
 
     /**
      * @brief constructor, set the timer positions
+     *
+     * @param hPosition the horizontal position
+     * @param vPosition the vertical position
      */
-    TimerWidget();
+    TimerWidget(
+        const float& hPosition,
+        const float& vPosition
+    );
 
     /**
      * @brief overwritte the display method to render the widget

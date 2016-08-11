@@ -38,42 +38,7 @@ namespace widgets
 class Widget
 {
 
-public:
-
-    /**
-     * @brief widget position setter
-     *
-     * @param hPosition widget horizontal position
-     * @param vPosition widget vertical position
-     *
-     * TODO: #503 this method should be deleted; set the widget position is
-     * only done through the constructor
-     */
-    void setPosition(
-        float hPosition,
-        float vPosition
-    );
-
 protected:
-
-    /**
-     * @brief constructor, initialize the widget positions values; this
-     * constructor is protected because only called by children classes as the
-     * Widget class is abstract (we never directly create a Widget instance)
-     *
-     * @param hPosition widget horizontal position
-     * @param vPosition widget vertical position
-     *
-     * TODO: #503 this feature is not developed yet, so some widgets are not
-     * using the Widget constructor by sending directly the positions values to
-     * it; the default value of these positions should be deleted when all the
-     * widgets directly set the positions when the widget constructor is
-     * called
-     */
-    Widget(
-        const float& hPosition = 0,
-        const float& vPosition = 0
-    );
 
     /**
      * @brief destructor, virtual and empty; virtual because we create
@@ -90,19 +55,6 @@ protected:
      * @param context shared pointer to the context to use
      */
     virtual void display(std::shared_ptr<utils::Context> context) = 0;
-
-    /* NOTE: we use float for the widget position because it is the type
-       used by the SFML library to set surfaces positions */
-
-    /* NOTE: we do not initialize these non-static members here, in fact, they
-       are directly initialized with the values given by the child object
-       by the constructor */
-
-    /* the horizontal position of the widget */
-    float horizontalPosition;
-
-    /* the vertical position of the widget */
-    float verticalPosition;
 };
 
 }

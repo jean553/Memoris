@@ -43,6 +43,10 @@ namespace controllers
  */
 GameController::GameController(std::shared_ptr<utils::Context> contextPtr) :
     Controller(contextPtr),
+    timer(
+        295.f,
+        10.f
+    ),
     dashboard(contextPtr),
     watchingPeriodTimer(contextPtr),
     level(contextPtr)

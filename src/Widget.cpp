@@ -33,39 +33,12 @@ namespace widgets
 /**
  *
  */
-Widget::Widget(
-    const float& hPosition,
-    const float& vPosition
-) :
-    horizontalPosition(hPosition),
-    verticalPosition(vPosition)
-{
-    /* does nothing, only assigned the given parameters into the attributes */
-}
-
-/**
- *
- */
 Widget::~Widget()
 {
     /* virtual destructor that we have to declare in order to ensure that
        the children widgets destructors are called correctly when a child
        object is pointed by a parent pointer and the pointed object is
        deleted */
-}
-
-/**
- *
- */
-void Widget::setPosition(
-    float hPosition,
-    float vPosition
-)
-{
-    /* update the widget position according to the given horizontal and
-       vertical position */
-    horizontalPosition = hPosition;
-    verticalPosition = vPosition;
 }
 
 }
