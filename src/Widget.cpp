@@ -34,11 +34,9 @@ namespace widgets
  *
  */
 Widget::Widget(
-    std::shared_ptr<utils::Context> contextPtr,
     const float& hPosition,
     const float& vPosition
 ) :
-    context(contextPtr),
     horizontalPosition(hPosition),
     verticalPosition(vPosition)
 {
