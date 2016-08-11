@@ -34,8 +34,7 @@ namespace others
 /**
  *
  */
-MenuGradient::MenuGradient(std::shared_ptr<utils::Context> contextPtr) :
-    context(contextPtr)
+MenuGradient::MenuGradient()
 {
     /* the width of the menuBackground surface is fixed and the height is equal
        to the window height */
@@ -63,7 +62,7 @@ MenuGradient::MenuGradient(std::shared_ptr<utils::Context> contextPtr) :
 /**
  *
  */
-void MenuGradient::display()
+void MenuGradient::display(std::shared_ptr<utils::Context> context)
 {
     /* display first the menu background */
     context->getSfmlWindow().draw(menuBackground);
