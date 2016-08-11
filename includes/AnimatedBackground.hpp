@@ -48,15 +48,15 @@ public:
     /**
      * @brief constructor, does nothin except calling the function to
      * initialize the cells of the background
-     *
-     * @param contextPtr shared pointer to the context to use
      */
-    AnimatedBackground(std::shared_ptr<utils::Context> contextPtr);
+    AnimatedBackground();
 
     /**
      * @brief render the animated background, display all the cells
+     *
+     * @param context shared pointer to the context to use
      */
-    void render();
+    void render(std::shared_ptr<utils::Context> context);
 
 private:
 
@@ -68,9 +68,6 @@ private:
      * this method requires a lot of internal variables
      */
     void initializeCells();
-
-    /* shared pointer to the context to use for the rendering */
-    std::shared_ptr<utils::Context> context;
 
     /* the array of displayed cells in the animated background; we do not know
        in advance the size of the array, it depends of the random generation

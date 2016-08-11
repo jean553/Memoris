@@ -39,11 +39,8 @@ namespace utils
 /**
  *
  */
-AnimatedBackground::AnimatedBackground(
-    std::shared_ptr<utils::Context> contextPtr
-) :
-    others::NotCopiable(),
-    context(contextPtr)
+AnimatedBackground::AnimatedBackground() :
+    others::NotCopiable()
 {
     /* initialize all the cells */
     initializeCells();
@@ -52,7 +49,7 @@ AnimatedBackground::AnimatedBackground(
 /**
  *
  */
-void AnimatedBackground::render()
+void AnimatedBackground::render(std::shared_ptr<utils::Context> context)
 {
     /* move the cells every 30 milliseconds */
     if(
@@ -85,7 +82,7 @@ void AnimatedBackground::render()
         ++cell
     )
     {
-        (**cell).display();
+        (**cell).display(context);
     }
 }
 
@@ -175,7 +172,6 @@ void AnimatedBackground::initializeCells()
         /* generate a new cell object, pointed by an unique pointer */
         std::unique_ptr<entities::Cell> cell(
             new entities::Cell(
-                context,
                 currentColumn *
                 (
                     dimensions::CELL_PIXELS_DIMENSIONS +
