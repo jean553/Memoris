@@ -37,10 +37,7 @@ namespace utils
 /**
  *
  */
-WatchingPeriodTimer::WatchingPeriodTimer(
-    std::shared_ptr<utils::Context> contextPtr
-) :
-    context(contextPtr)
+WatchingPeriodTimer::WatchingPeriodTimer()
 {
     seconds = series::PlayingSerieManager::get().getWatchingTime();
 
@@ -54,7 +51,7 @@ WatchingPeriodTimer::WatchingPeriodTimer(
 /**
  *
  */
-void WatchingPeriodTimer::display()
+void WatchingPeriodTimer::display(std::shared_ptr<Context> context)
 {
     /* display the SFML surfaces */
     context->getSfmlWindow().draw(*leftText);

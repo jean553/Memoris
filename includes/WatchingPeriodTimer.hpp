@@ -46,16 +46,16 @@ public:
     /**
      * @brief constructor, save the given time and initialize the SFML surfaces
      * according to this given time
-     *
-     * @param contextPtr shared pointer to the context to use
      */
-    WatchingPeriodTimer(std::shared_ptr<utils::Context> contextPtr);
+    WatchingPeriodTimer();
 
     /**
      * @brief displays the watching period timer SFML surfaces; automatically
      * updates the displayed value every seconds until the last one
+     *
+     * @param context shared pointer to the current context to use
      */
-    void display();
+    void display(std::shared_ptr<Context> context);
 
     /**
      * @brief returns true if the timer is started; used by the game controller
@@ -98,9 +98,6 @@ private:
         const float& vPosition,
         const unsigned short& time
     );
-
-    /* shared pointer to the context object to use for rendering */
-    std::shared_ptr<utils::Context> context;
 
     /**
      * @brief displays the two SFML surfaces on both sides of the level

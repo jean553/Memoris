@@ -47,7 +47,6 @@ GameController::GameController(std::shared_ptr<utils::Context> contextPtr) :
         295.f,
         10.f
     ),
-    watchingPeriodTimer(contextPtr),
     level(contextPtr)
 {
     /* update the dashboard total stars amount according to the value returned
@@ -91,7 +90,7 @@ unsigned short GameController::render()
     /* displays the watching period timer if started */
     if (watchingPeriodTimer.isStarted())
     {
-        watchingPeriodTimer.display();
+        watchingPeriodTimer.display(context);
     }
 
     /* starts the lose period if the countdown is finished; checks that the
