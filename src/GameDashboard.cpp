@@ -39,8 +39,7 @@ namespace utils
 /**
  *
  */
-GameDashboard::GameDashboard(std::shared_ptr<utils::Context> contextPtr) :
-    context(contextPtr)
+GameDashboard::GameDashboard()
 {
     watchingTime = series::PlayingSerieManager::get().getWatchingTime();
 
@@ -168,7 +167,7 @@ GameDashboard::GameDashboard(std::shared_ptr<utils::Context> contextPtr) :
 /**
  *
  */
-void GameDashboard::display()
+void GameDashboard::display(std::shared_ptr<utils::Context> context)
 {
     /* displays the information labels of the dashboard */
     context->getSfmlWindow().draw(foundStarsAmount);
