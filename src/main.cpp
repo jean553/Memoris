@@ -93,10 +93,7 @@ int main()
            In that case, 'param' type is Controller* and T is Controller,
            so the deducted variable type is a pointer to a Controller object */
         auto pCurrentController =
-            controllers::getControllerById(
-                context,
-                currentControllerId
-            );
+            controllers::getControllerById(currentControllerId);
 
         /* main program loop: loads, renders and modifies controllers;
            the loop stops when the SFML window is closed */
@@ -109,7 +106,7 @@ int main()
             context->getSfmlWindow().clear();
 
             /* continually render the current controller scene */
-            nextControllerId = pCurrentController->render();
+            nextControllerId = pCurrentController->render(context);
 
             /* continually display the loaded content */
             context->getSfmlWindow().display();

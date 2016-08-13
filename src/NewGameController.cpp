@@ -37,10 +37,7 @@ namespace controllers
 /**
  *
  */
-NewGameController::NewGameController(
-    std::shared_ptr<utils::Context> contextPtr
-) :
-    Controller(contextPtr),
+NewGameController::NewGameController() :
     inputTextGameName(
         500.f,
         450.f,
@@ -78,7 +75,9 @@ NewGameController::NewGameController(
 /**
  *
  */
-unsigned short NewGameController::render()
+unsigned short NewGameController::render(
+    std::shared_ptr<utils::Context> context
+)
 {
     /* display the title and the explanation labels */
     context->getSfmlWindow().draw(title);
@@ -90,7 +89,7 @@ unsigned short NewGameController::render()
     /* render the opening/closing animation if necessary, get the next
        controller id at the end of the closing animation if the expected
        controller id has been modified */
-    nextControllerId = animateScreenTransition();
+    nextControllerId = animateScreenTransition(context);
 
     /* new game controller events loop; update the text displayed inside the
        input text widget; go back to the main menu if the Escape key is

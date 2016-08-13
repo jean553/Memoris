@@ -35,8 +35,7 @@ namespace controllers
 /**
  *
  */
-Controller::Controller(std::shared_ptr<utils::Context> contextPtr) :
-    context(contextPtr)
+Controller::Controller()
 {
     /* the screen transition color is continually modified
        when screens are switched, that's why we copy the
@@ -72,7 +71,9 @@ Controller::~Controller()
 /**
  *
  */
-unsigned short Controller::animateScreenTransition()
+unsigned short Controller::animateScreenTransition(
+    std::shared_ptr<utils::Context> context
+)
 {
     /* the animation is rendered only if a new screen is called ( the program
        is closing the current screen ) or if the new called screen is

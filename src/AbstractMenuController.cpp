@@ -35,9 +35,7 @@ namespace controllers
 /**
  *
  */
-AbstractMenuController::AbstractMenuController(
-    std::shared_ptr<utils::Context> contextPtr
-) : Controller(contextPtr)
+AbstractMenuController::AbstractMenuController()
 {
     /* does nothing, only used to pass the context pointer to the Controller
        as it is the parent constructor */
@@ -54,7 +52,9 @@ void AbstractMenuController::addMenuItem(std::unique_ptr<items::MenuItem> item)
 /**
  *
  */
-void AbstractMenuController::renderAllMenuItems()
+void AbstractMenuController::renderAllMenuItems(
+    std::shared_ptr<utils::Context> context
+)
 {
     /* use a loop with iterator as the unique pointer is not moved or copied
        during the loop iteration; that's why we use an iterator to point on

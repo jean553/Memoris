@@ -38,9 +38,7 @@ namespace controllers
 /**
  *
  */
-SerieMainMenuController::SerieMainMenuController(
-    std::shared_ptr<utils::Context> contextPtr
-) : AbstractMenuController(contextPtr)
+SerieMainMenuController::SerieMainMenuController()
 {
     /* set the properties of the series main menu title */
     title.setFont(memoris::fonts::FontsManager::get().getTitleFont());
@@ -92,16 +90,18 @@ SerieMainMenuController::SerieMainMenuController(
 /**
  *
  */
-unsigned short SerieMainMenuController::render()
+unsigned short SerieMainMenuController::render(
+    std::shared_ptr<utils::Context> context
+)
 {
     /* display the serie main menu title */
     context->getSfmlWindow().draw(title);
 
     /* display all the menu items */
-    renderAllMenuItems();
+    renderAllMenuItems(context);
 
     /* render the opening/closing animation of the screen if necessary */
-    nextControllerId = animateScreenTransition();
+    nextControllerId = animateScreenTransition(context);
 
     /* series main menu events loop; the player can select between the
        official series item and the personal series item; the player can also

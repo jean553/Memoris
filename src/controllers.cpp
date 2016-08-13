@@ -37,25 +37,22 @@ namespace controllers
 /**
  *
  */
-std::unique_ptr<Controller> getControllerById(
-    std::shared_ptr<utils::Context> context,
-    const unsigned short& id
-)
+std::unique_ptr<Controller> getControllerById(const unsigned short& id)
 {
     /* return a unique pointer to the correct controller according to the id */
     switch(id)
     {
     case NEW_GAME_CONTROLLER_ID:
     {
-        return std::make_unique<NewGameController>(context);
+        return std::make_unique<NewGameController>();
     }
     case SERIE_MAIN_MENU_CONTROLLER_ID:
     {
-        return std::make_unique<SerieMainMenuController>(context);
+        return std::make_unique<SerieMainMenuController>();
     }
     case OFFICIAL_SERIES_MENU_CONTROLLER_ID:
     {
-        return std::make_unique<OfficialSeriesMenuController>(context);
+        return std::make_unique<OfficialSeriesMenuController>();
     }
     case GAME_CONTROLLER_ID:
     {
@@ -64,7 +61,7 @@ std::unique_ptr<Controller> getControllerById(
             /* try to load the game controller with the next level of the
                playing serie manager, if the file cannot be opened, this
                constructor throws a std::invalid_argument exception */
-            return std::make_unique<GameController>(context);
+            return std::make_unique<GameController>();
 
             /* catch the invalid argument exception if the game cannot start;
                we get it as a reference to make the program runs faster */
@@ -72,12 +69,12 @@ std::unique_ptr<Controller> getControllerById(
         catch(std::invalid_argument&)
         {
             /* render the error controller instead of the game controller */
-            return getErrorController(context);
+            return getErrorController();
         }
     }
     case ERROR_CONTROLLER_ID:
     {
-        return getErrorController(context);
+        return getErrorController();
     }
     }
 
@@ -85,17 +82,15 @@ std::unique_ptr<Controller> getControllerById(
        menu is rendered; it avoids mistakes in screens transitions;
        NOTE: the musics factory also returns the main menu music
        if an incorrect controller id is specified */
-    return std::make_unique<MainMenuController>(context);
+    return std::make_unique<MainMenuController>();
 }
 
 /**
  *
  */
-std::unique_ptr<ErrorController> getErrorController(
-    std::shared_ptr<utils::Context> context
-)
+std::unique_ptr<ErrorController> getErrorController()
 {
-    return std::make_unique<ErrorController>(context);
+    return std::make_unique<ErrorController>();
 }
 
 }

@@ -57,27 +57,19 @@ public:
      * to load and to display (returns 0 if no controller has to be loaded
      * and only the current controller must be displayed)
      *
+     * @param context shared pointer to the context to use
+     *
      * @return unsigned short
      */
-    virtual unsigned short render() = 0;
+    virtual unsigned short render(std::shared_ptr<utils::Context> context) = 0;
 
 protected:
 
     /**
      * @brief constructor, initialize variables and load in memory the
      * transition surface (used for screens transition animation)
-     *
-     * @param contextPtr shared pointer to the context to use into the
-     * controller
      */
-    Controller(std::shared_ptr<utils::Context> contextPtr);
-
-    /* the shared pointer to the context to use; protected because this
-       context is used in every controller/widgets of the game and used at the
-       same time into the main program loop; the pointer is not initialized
-       to nullptr here because this is mandatory to pass it in every controller
-       constructor */
-    std::shared_ptr<utils::Context> context;
+    Controller();
 
     /**
      * @brief render the controller switching animation (the animation that
@@ -91,6 +83,8 @@ protected:
      * animtation (opening or closing) is terminated; this id can be stored
      * in the nextControllerId and the screen can be switched.
      *
+     * @param context shared pointer to the current context to use
+     *
      * @return unsigned short
      *
      * NOTE: must be called inside the render method of a controller,
@@ -98,7 +92,9 @@ protected:
      * animation is displayed; the screen switching process is not handled
      * by this function
      */
-    unsigned short animateScreenTransition();
+    unsigned short animateScreenTransition(
+        std::shared_ptr<utils::Context> context
+    );
 
     /* the controller SFML event manager; there is no need to declare a SFML
        event manager inside each controller, this is done here */

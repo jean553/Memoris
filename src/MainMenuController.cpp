@@ -37,10 +37,7 @@ namespace controllers
 /**
  *
  */
-MainMenuController::MainMenuController(
-    std::shared_ptr<utils::Context> contextPtr
-) :
-    AbstractMenuController(contextPtr)
+MainMenuController::MainMenuController()
 {
     /* the title color and selector color are copies from
        manager colors, because they are updated continually */
@@ -127,7 +124,9 @@ MainMenuController::MainMenuController(
 /**
  *
  */
-unsigned short MainMenuController::render()
+unsigned short MainMenuController::render(
+    std::shared_ptr<utils::Context> context
+)
 {
     /* animate the animated background */
     animatedBackground.render(context);
@@ -154,12 +153,12 @@ unsigned short MainMenuController::render()
     context->getSfmlWindow().draw(spriteGithub);
 
     /* display all the menu items */
-    renderAllMenuItems();
+    renderAllMenuItems(context);
 
     /* render the opening/closing animation if necessary, get the next
        controller id at the end of the closing animation if the expected
        controller id has been modified */
-    nextControllerId = animateScreenTransition();
+    nextControllerId = animateScreenTransition(context);
 
     /* main menu controller events loop; changes the position of the menu
        selector according to the Up/Down keys; select a menu item when
