@@ -46,8 +46,7 @@ GameController::GameController(std::shared_ptr<utils::Context> contextPtr) :
     timer(
         295.f,
         10.f
-    ),
-    level(contextPtr)
+    )
 {
     /* update the dashboard total stars amount according to the value returned
        by the level object */
@@ -113,7 +112,10 @@ unsigned short GameController::render()
     {
 
         /* renders a static playable level if no animation are playing */
-        level.display(floor);
+        level.display(
+            context,
+            floor
+        );
     }
 
     /* displays all the cells of the level during the time of the watching

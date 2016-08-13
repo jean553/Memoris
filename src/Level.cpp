@@ -39,8 +39,7 @@ namespace entities
 /**
  *
  */
-Level::Level(std::shared_ptr<utils::Context> contextPtr) :
-    context(contextPtr)
+Level::Level()
 {
     /* create a file object to read the level file and load the cells */
     std::ifstream file(series::PlayingSerieManager::get().getNextLevelName());
@@ -176,7 +175,10 @@ Level::Level(std::shared_ptr<utils::Context> contextPtr) :
 /**
  *
  */
-void Level::display(const unsigned short& floor) const
+void Level::display(
+    std::shared_ptr<utils::Context> context,
+    const unsigned short& floor
+) const
 {
     /* calculate the index of the first cell of the given floor */
     const unsigned short firstCellIndex = floor * 320;
