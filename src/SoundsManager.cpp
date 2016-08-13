@@ -31,18 +31,6 @@ namespace sounds
 /**
  *
  */
-SoundsManager& SoundsManager::get()
-{
-    /* create only one time a sounds manager instance */
-    static SoundsManager singleton;
-
-    /* always return the same sounds manager instance */
-    return singleton;
-}
-
-/**
- *
- */
 SoundsManager::SoundsManager() :
     moveSelectorSound("res/sounds/001.wav"),
     screenTransitionSound("res/sounds/002.wav"),
@@ -67,7 +55,7 @@ SoundsManager::SoundsManager() :
 /**
  *
  */
-const Sound& SoundsManager::getMoveSelectorSound()
+const Sound& SoundsManager::getMoveSelectorSound() const
 {
     return moveSelectorSound;
 }
@@ -75,7 +63,7 @@ const Sound& SoundsManager::getMoveSelectorSound()
 /**
  *
  */
-const Sound& SoundsManager::getScreenTransitionSound()
+const Sound& SoundsManager::getScreenTransitionSound() const
 {
     return screenTransitionSound;
 }
@@ -83,7 +71,7 @@ const Sound& SoundsManager::getScreenTransitionSound()
 /**
  *
  */
-const Sound& SoundsManager::getHideLevelSound()
+const Sound& SoundsManager::getHideLevelSound() const
 {
     return hideLevelSound;
 }
@@ -91,7 +79,7 @@ const Sound& SoundsManager::getHideLevelSound()
 /**
  *
  */
-const Sound& SoundsManager::getFoundStarSound()
+const Sound& SoundsManager::getFoundStarSound() const
 {
     return foundStarSound;
 }
@@ -99,7 +87,7 @@ const Sound& SoundsManager::getFoundStarSound()
 /**
  *
  */
-const Sound& SoundsManager::getFoundLifeOrTimeSound()
+const Sound& SoundsManager::getFoundLifeOrTimeSound() const
 {
     return foundLifeOrTimeSound;
 }
@@ -107,7 +95,7 @@ const Sound& SoundsManager::getFoundLifeOrTimeSound()
 /**
  *
  */
-const Sound& SoundsManager::getFoundDeadOrLessTimeSound()
+const Sound& SoundsManager::getFoundDeadOrLessTimeSound() const
 {
     return foundDeadOrLessTimeSound;
 }
@@ -115,7 +103,7 @@ const Sound& SoundsManager::getFoundDeadOrLessTimeSound()
 /**
  *
  */
-const Sound& SoundsManager::getCollisionSound()
+const Sound& SoundsManager::getCollisionSound() const
 {
     return collisionSound;
 }
@@ -123,7 +111,7 @@ const Sound& SoundsManager::getCollisionSound()
 /**
  *
  */
-const Sound& SoundsManager::getFloorSwitchSound()
+const Sound& SoundsManager::getFloorSwitchSound() const
 {
     return floorSwitchSound;
 }
@@ -131,7 +119,7 @@ const Sound& SoundsManager::getFloorSwitchSound()
 /**
  *
  */
-const Sound& SoundsManager::getTimeOverSound()
+const Sound& SoundsManager::getTimeOverSound() const
 {
     return timeOverSound;
 }

@@ -113,5 +113,13 @@ void Context::restartClock()
     clock.restart();
 }
 
+/**
+ *
+ */
+const sounds::SoundsManager& Context::getSoundsManager() const
+{
+    return soundsManager;
+}
+
 }
 }

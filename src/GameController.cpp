@@ -24,7 +24,6 @@
 
 #include "GameController.hpp"
 
-#include "SoundsManager.hpp"
 #include "PlayingSerieManager.hpp"
 #include "ColorsManager.hpp"
 #include "FontsManager.hpp"
@@ -100,7 +99,7 @@ unsigned short GameController::render(
     if (timer.isFinished() && startLosePeriodTime == 0)
     {
         /* plays the time over sound */
-        sounds::SoundsManager::get().getTimeOverSound().play();
+        context->getSoundsManager().getTimeOverSound().play();
 
         handleLosePeriod(context);
     }
@@ -309,7 +308,7 @@ void GameController::handlePlayerMovement(
     if (!level.allowPlayerMovement(movement, floor))
     {
         /* plays the collision sound */
-        sounds::SoundsManager::get().getCollisionSound().play();
+        context->getSoundsManager().getCollisionSound().play();
 
         /* stop the process and do not move if the movement is not allowed */
         return;
@@ -321,7 +320,7 @@ void GameController::handlePlayerMovement(
     if (level.detectWalls(movement))
     {
         /* plays the collision sound */
-        sounds::SoundsManager::get().getCollisionSound().play();
+        context->getSoundsManager().getCollisionSound().play();
 
         /* the movement is cancelled if the player is against a wall */
         return;
@@ -358,7 +357,7 @@ void GameController::executePlayerCellAction(
     case cells::STAR_CELL:
     {
         /* plays the found star cell sound */
-        sounds::SoundsManager::get().getFoundStarSound().play();
+        context->getSoundsManager().getFoundStarSound().play();
 
         /* increments the amount of found stars inside the dashboard */
         dashboard.incrementFoundStars();
@@ -368,7 +367,7 @@ void GameController::executePlayerCellAction(
     case cells::MORE_LIFE_CELL:
     {
         /* plays the found life cell sound */
-        sounds::SoundsManager::get().getFoundLifeOrTimeSound().play();
+        context->getSoundsManager().getFoundLifeOrTimeSound().play();
 
         /* increments the amount of lifes inside the dashboard */
         dashboard.incrementLifes();
@@ -378,7 +377,7 @@ void GameController::executePlayerCellAction(
     case cells::LESS_LIFE_CELL:
     {
         /* plays the sound of a dead cell */
-        sounds::SoundsManager::get().getFoundDeadOrLessTimeSound().play();
+        context->getSoundsManager().getFoundDeadOrLessTimeSound().play();
 
         /* check if the lose period must be started */
         if (dashboard.getLifesAmount() == 0)
@@ -394,7 +393,7 @@ void GameController::executePlayerCellAction(
     case cells::MORE_TIME_CELL:
     {
         /* plays the found time cell sound */
-        sounds::SoundsManager::get().getFoundLifeOrTimeSound().play();
+        context->getSoundsManager().getFoundLifeOrTimeSound().play();
 
         /* increments the amount of watching time inside the dashboard */
         dashboard.increaseWatchingTime();
@@ -404,7 +403,7 @@ void GameController::executePlayerCellAction(
     case cells::LESS_TIME_CELL:
     {
         /* plays the found less time cell sound */
-        sounds::SoundsManager::get().getFoundDeadOrLessTimeSound().play();
+        context->getSoundsManager().getFoundDeadOrLessTimeSound().play();
 
         /* decrease the amount of watching time inside the dasboard */
         dashboard.decreaseWatchingTime();
@@ -575,7 +574,7 @@ void GameController::watchNextFloorOrHideLevel(
         level.setAnimateFloorTransition(true);
 
         /* play the floor switch animation sound */
-        sounds::SoundsManager::get().getFloorSwitchSound().play();
+        context->getSoundsManager().getFloorSwitchSound().play();
 
         /* update the floor number inside the game dashboard */
         dashboard.updateCurrentFloor(floor);
@@ -593,7 +592,7 @@ void GameController::watchNextFloorOrHideLevel(
     level.hideAllCellsExceptDeparture();
 
     /* plays the hide level sound */
-    sounds::SoundsManager::get().getHideLevelSound().play();
+    context->getSoundsManager().getHideLevelSound().play();
 
     /* the watching mode is now terminated */
     watchingPeriod = false;

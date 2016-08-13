@@ -156,13 +156,13 @@ unsigned short OfficialSeriesMenuController::render(
             }
             case sf::Keyboard::Up:
             {
-                moveUp();
+                moveUp(context);
 
                 break;
             }
             case sf::Keyboard::Down:
             {
-                moveDown();
+                moveDown(context);
 
                 break;
             }
