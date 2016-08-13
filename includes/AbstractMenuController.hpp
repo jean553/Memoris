@@ -45,10 +45,8 @@ protected:
     /**
      * @brief constructor, does nothing; just declared and defined to pass
      * the context shared pointer to the Controller parent constructor
-     *
-     * @param contextPtr shared pointer to the context to use
      */
-    AbstractMenuController(std::shared_ptr<utils::Context> contextPtr);
+    AbstractMenuController();
 
     /**
      * @brief insert one menu item pointer inside the menu items list
@@ -62,8 +60,10 @@ protected:
 
     /**
      * @brief display all the menu items
+     *
+     * @param context shared pointer to the context to use
      */
-    void renderAllMenuItems();
+    void renderAllMenuItems(std::shared_ptr<utils::Context> context);
 
     /**
      * @brief getter of the selector position

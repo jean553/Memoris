@@ -182,10 +182,12 @@ public:
      * animation renders a verical column that scroll the whole floor and
      * displays the next floor;
      *
+     * @param context shared pointer to the current context
+     *
      * NOTE: this method must be called instead of 'display()' during the
      * animation
      */
-    void playFloorTransitionAnimation();
+    void playFloorTransitionAnimation(std::shared_ptr<utils::Context> context);
 
     /**
      * @brief setter for the animation boolean
@@ -217,9 +219,6 @@ public:
     const unsigned short& getSeconds() const;
 
 private:
-
-    /* shared pointer to the context to use for rendering */
-    std::shared_ptr<utils::Context> context;
 
     /* container of unique pointers of cells; we use unique pointers because
        pointers are fast to copy/move instead of a whole cell object; we use

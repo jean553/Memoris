@@ -41,8 +41,7 @@ namespace controllers
 /**
  *
  */
-GameController::GameController(std::shared_ptr<utils::Context> contextPtr) :
-    Controller(contextPtr),
+GameController::GameController() :
     timer(
         295.f,
         10.f
@@ -68,18 +67,20 @@ GameController::GameController(std::shared_ptr<utils::Context> contextPtr) :
 
     /* apply the floors amount on the watching time */
     watchingPeriodTimer.applyFloorsAmount(level.getPlayableFloors());
-
-    /* save the exact time the level starts to be displayed; this is used to
-       calculate the duration of the watching period before the beginning
-       of the playing period */
-    displayLevelTime = context->getClockMillisecondsTime();
 }
 
 /**
  *
  */
-unsigned short GameController::render()
+unsigned short GameController::render(std::shared_ptr<utils::Context> context)
 {
+    /* check if the display level time is equal to 0; if it is equal to 0, that
+       means the level just opened and this level time has to be set */
+    if (displayLevelTime == 0)
+    {
+        displayLevelTime = context->getClockMillisecondsTime();
+    }
+
     /* displays the game dashboard */
     dashboard.display(context);
 
@@ -99,14 +100,14 @@ unsigned short GameController::render()
         /* plays the time over sound */
         sounds::SoundsManager::get().getTimeOverSound().play();
 
-        handleLosePeriod();
+        handleLosePeriod(context);
     }
 
     /* check if the level is currently rendering a floor switch animation */
     if (level.getAnimateFloorTransition())
     {
         /* renders the floor animation */
-        level.playFloorTransitionAnimation();
+        level.playFloorTransitionAnimation(context);
     }
     else
     {
@@ -134,7 +135,7 @@ unsigned short GameController::render()
         /* call the private method that display the next floor of the level
            in watching mode if necessary or stops the watching mode if all
            the playable floors have been watched */
-        watchNextFloorOrHideLevel();
+        watchNextFloorOrHideLevel(context);
     }
 
     /* if the current game status is playing, the player cell has to be
@@ -193,7 +194,7 @@ unsigned short GameController::render()
     }
 
     /* used for the screen switch transition animation */
-    nextControllerId = animateScreenTransition();
+    nextControllerId = animateScreenTransition(context);
 
     /* the events loop of the game controller */
     while(context->getSfmlWindow().pollEvent(event))
@@ -208,28 +209,40 @@ unsigned short GameController::render()
             /* the up key is pressed down */
             case sf::Keyboard::Up:
             {
-                handlePlayerMovement(-20);
+                handlePlayerMovement(
+                    context,
+                    -20
+                );
 
                 break;
             }
             /* the down key is pressed down */
             case sf::Keyboard::Down:
             {
-                handlePlayerMovement(20);
+                handlePlayerMovement(
+                    context,
+                    20
+                );
 
                 break;
             }
             /* the left key is pressed down */
             case sf::Keyboard::Left:
             {
-                handlePlayerMovement(-1);
+                handlePlayerMovement(
+                    context,
+                    -1
+                );
 
                 break;
             }
             /* the right key is pressed down */
             case sf::Keyboard::Right:
             {
-                handlePlayerMovement(1);
+                handlePlayerMovement(
+                    context,
+                    1
+                );
 
                 break;
             }
@@ -270,7 +283,10 @@ unsigned short GameController::render()
 /**
  *
  */
-void GameController::handlePlayerMovement(const short& movement)
+void GameController::handlePlayerMovement(
+    std::shared_ptr<utils::Context> context,
+    const short& movement
+)
 {
     /* NOTE: we voluntary do not refactor the two following conditions or use
        short-circuiting on them; in fact, we really want check the movement
@@ -318,13 +334,15 @@ void GameController::handlePlayerMovement(const short& movement)
     level.movePlayer(movement);
 
     /* execute the action of the new player cell right after the movement */
-    executePlayerCellAction();
+    executePlayerCellAction(context);
 }
 
 /**
  *
  */
-void GameController::executePlayerCellAction()
+void GameController::executePlayerCellAction(
+    std::shared_ptr<utils::Context> context
+)
 {
     /* create an alias on the new player cell type, returned as a reference
        by the level getter */
@@ -363,7 +381,7 @@ void GameController::executePlayerCellAction()
         /* check if the lose period must be started */
         if (dashboard.getLifesAmount() == 0)
         {
-            handleLosePeriod();
+            handleLosePeriod(context);
         }
 
         /* decrement the amount of lifes */
@@ -539,7 +557,9 @@ void GameController::initializeLoseText()
 /**
  *
  */
-void GameController::watchNextFloorOrHideLevel()
+void GameController::watchNextFloorOrHideLevel(
+    std::shared_ptr<utils::Context> context
+)
 {
     /* check if the current displayed level is the last one to display; the
        'floor' variable contains the current floor index, the level public
@@ -596,7 +616,7 @@ void GameController::watchNextFloorOrHideLevel()
 /**
  *
  */
-void GameController::handleLosePeriod()
+void GameController::handleLosePeriod(std::shared_ptr<utils::Context> context)
 {
     /* force the music to stop */
     context->stopMusic();

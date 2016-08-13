@@ -47,18 +47,18 @@ public:
      * @brief constructor, call the Level constructor that loads and create
      * the game level; initialize the watching time of the game
      *
-     * @param contextPtr shared pointer to the context to use
-     *
      * @throw std::invalid_argument the level file cannot be opened
      */
-    GameController(std::shared_ptr<utils::Context> contextPtr);
+    GameController();
 
     /**
      * @brief renders the game main screen
      *
+     * @param context shared pointer to the current context to use
+     *
      * @return unsigned short id of the new screen controller
      */
-    unsigned short render();
+    unsigned short render(std::shared_ptr<utils::Context> context);
 
 private:
 
@@ -68,6 +68,7 @@ private:
      * the level; it checks if the movement is allowed, move the player on
      * the level and executes the player's new cell action
      *
+     * @param context shared pointer to the current context to use
      * @param the numeric representation of the movement's direction,
      * the delta between the current player cell and the destination cell
      *
@@ -75,13 +76,18 @@ private:
      * why the only possible values here are -20, 20, -1 and 1. These values
      * are not checked when the function is executed.
      */
-    void handlePlayerMovement(const short& movement);
+    void handlePlayerMovement(
+        std::shared_ptr<utils::Context> context,
+        const short& movement
+    );
 
     /**
      * @brief applies the action of the new player cell; this method is called
      * immediately after the player moved
+     *
+     * @param context shared pointer to the context to use
      */
-    void executePlayerCellAction();
+    void executePlayerCellAction(std::shared_ptr<utils::Context> context);
 
     /**
      * @brief empties the player cell (the current player cell is switched to
@@ -112,15 +118,19 @@ private:
      * display method to jump to the next floor if the next floor is a playable
      * floor or to stop the watching period if there is no playable floor
      * anymore; this function is called at each 'watching time interval'
+     *
+     * @param context shared pointer to the context to use
      */
-    void watchNextFloorOrHideLevel();
+    void watchNextFloorOrHideLevel(std::shared_ptr<utils::Context> context);
 
     /**
      * @brief this method checks if the lose period must be started; there
      * could have two reasons for it : the user has no life anymore and just
      * took a 'less life' cell, or the countdown is finished
+     *
+     * @param context shared pointer to the context to use
      */
-    void handleLosePeriod();
+    void handleLosePeriod(std::shared_ptr<utils::Context> context);
 
     /* the graphical timer widget of the game; renders the elapsed time since
        the beginning of the game */
@@ -128,11 +138,10 @@ private:
 
     /* contains the exact time when the level is displayed to the player; this
        is used for the "hide level" animation; we have to know when the level
-       is rendered to calculate when we have to hide it */
-    /* NOTE: we do not initialize this variable here because the level opening
-       time is got inside the constructor and assigned to the variable; that
-       kind of action cannot be done in the header */
-    sf::Uint32 displayLevelTime;
+       is rendered to calculate when we have to hide it; by default, the
+       display level time is equal to 0, that means that the level has not been
+       opened yet */
+    sf::Uint32 displayLevelTime {0};
 
     /* the time of the last animation of the player cell animation */
     sf::Uint32 playerCellAnimationTime {0};

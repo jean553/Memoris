@@ -397,7 +397,9 @@ const unsigned short Level::getPlayerFloor()
 /**
  *
  */
-void Level::playFloorTransitionAnimation()
+void Level::playFloorTransitionAnimation(
+    std::shared_ptr<utils::Context> context
+)
 {
     /* NOTE: this function only applies the horizontal transition animation
        for now */

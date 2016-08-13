@@ -34,8 +34,7 @@ namespace controllers
 /**
  *
  */
-ErrorController::ErrorController(std::shared_ptr<utils::Context> contextPtr) :
-    Controller(contextPtr)
+ErrorController::ErrorController()
 {
     /* does nothing, only used to pass parameters to the parent class */
 }
@@ -43,10 +42,10 @@ ErrorController::ErrorController(std::shared_ptr<utils::Context> contextPtr) :
 /**
  *
  */
-unsigned short ErrorController::render()
+unsigned short ErrorController::render(std::shared_ptr<utils::Context> context)
 {
     /* used for screen switch animation */
-    nextControllerId = animateScreenTransition();
+    nextControllerId = animateScreenTransition(context);
 
     /* main loop event of the error controller */
     while(context->getSfmlWindow().pollEvent(event))

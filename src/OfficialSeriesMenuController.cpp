@@ -38,9 +38,7 @@ namespace controllers
 /**
  *
  */
-OfficialSeriesMenuController::OfficialSeriesMenuController(
-    std::shared_ptr<utils::Context> contextPtr
-) : AbstractMenuController(contextPtr)
+OfficialSeriesMenuController::OfficialSeriesMenuController()
 {
     /* set the parameters of the title of the screen */
     title.setFont(memoris::fonts::FontsManager::get().getTitleFont());
@@ -126,13 +124,15 @@ OfficialSeriesMenuController::OfficialSeriesMenuController(
 /**
  *
  */
-unsigned short OfficialSeriesMenuController::render()
+unsigned short OfficialSeriesMenuController::render(
+    std::shared_ptr<utils::Context> context
+)
 {
     context->getSfmlWindow().draw(title);
 
-    renderAllMenuItems();
+    renderAllMenuItems(context);
 
-    nextControllerId = animateScreenTransition();
+    nextControllerId = animateScreenTransition(context);
 
     while(context->getSfmlWindow().pollEvent(event))
     {

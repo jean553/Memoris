@@ -43,17 +43,17 @@ public:
 
     /**
      * @brief constructor
-     *
-     * @param contextPtr shared pointer to the context to use
      */
-    MainMenuController(std::shared_ptr<utils::Context> contextPtr);
+    MainMenuController();
 
     /**
      * @brief render the main menu controller
      *
+     * @param context shared pointer to the current context to use
+     *
      * @return unsigned short id of the next screen controller
      */
-    unsigned short render();
+    unsigned short render(std::shared_ptr<utils::Context> context);
 
 private:
 
