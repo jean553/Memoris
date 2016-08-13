@@ -48,6 +48,10 @@ PlayingSerieManager& PlayingSerieManager::get()
  */
 void PlayingSerieManager::loadSerieFileContent(const std::string& path)
 {
+    /* simple way to clear the levels queue; checked with Valgrind, seems to
+       work without any leak or error... */
+    levels = std::queue<std::string>();
+
     /* creates an object to read the file and pass the given path */
     std::ifstream file(path);
 
