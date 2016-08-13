@@ -107,7 +107,7 @@ void Cell::setPosition(
 /**
  *
  */
-void Cell::display(std::shared_ptr<utils::Context> context)
+void Cell::display(const std::shared_ptr<utils::Context>& context)
 {
     /* display the cell sprite */
     context->getSfmlWindow().draw(sprite);

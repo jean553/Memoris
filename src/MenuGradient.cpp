@@ -62,7 +62,7 @@ MenuGradient::MenuGradient()
 /**
  *
  */
-void MenuGradient::display(std::shared_ptr<utils::Context> context)
+void MenuGradient::display(const std::shared_ptr<utils::Context>& context)
 {
     /* display first the menu background */
     context->getSfmlWindow().draw(menuBackground);

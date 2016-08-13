@@ -125,7 +125,7 @@ MainMenuController::MainMenuController()
  *
  */
 unsigned short MainMenuController::render(
-    std::shared_ptr<utils::Context> context
+    const std::shared_ptr<utils::Context>& context
 )
 {
     /* animate the animated background */

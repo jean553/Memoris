@@ -49,7 +49,7 @@ AnimatedBackground::AnimatedBackground() :
 /**
  *
  */
-void AnimatedBackground::render(std::shared_ptr<utils::Context> context)
+void AnimatedBackground::render(const std::shared_ptr<utils::Context>& context)
 {
     /* move the cells every 30 milliseconds */
     if(

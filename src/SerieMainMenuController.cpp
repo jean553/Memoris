@@ -91,7 +91,7 @@ SerieMainMenuController::SerieMainMenuController()
  *
  */
 unsigned short SerieMainMenuController::render(
-    std::shared_ptr<utils::Context> context
+    const std::shared_ptr<utils::Context>& context
 )
 {
     /* display the serie main menu title */

@@ -53,7 +53,7 @@ void AbstractMenuController::addMenuItem(std::unique_ptr<items::MenuItem> item)
  *
  */
 void AbstractMenuController::renderAllMenuItems(
-    std::shared_ptr<utils::Context> context
+    const std::shared_ptr<utils::Context>& context
 )
 {
     /* use a loop with iterator as the unique pointer is not moved or copied

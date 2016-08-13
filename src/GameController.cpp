@@ -72,7 +72,9 @@ GameController::GameController() :
 /**
  *
  */
-unsigned short GameController::render(std::shared_ptr<utils::Context> context)
+unsigned short GameController::render(
+    const std::shared_ptr<utils::Context>& context
+)
 {
     /* check if the display level time is equal to 0; if it is equal to 0, that
        means the level just opened and this level time has to be set */
@@ -284,7 +286,7 @@ unsigned short GameController::render(std::shared_ptr<utils::Context> context)
  *
  */
 void GameController::handlePlayerMovement(
-    std::shared_ptr<utils::Context> context,
+    const std::shared_ptr<utils::Context>& context,
     const short& movement
 )
 {
@@ -341,7 +343,7 @@ void GameController::handlePlayerMovement(
  *
  */
 void GameController::executePlayerCellAction(
-    std::shared_ptr<utils::Context> context
+    const std::shared_ptr<utils::Context>& context
 )
 {
     /* create an alias on the new player cell type, returned as a reference
@@ -558,7 +560,7 @@ void GameController::initializeLoseText()
  *
  */
 void GameController::watchNextFloorOrHideLevel(
-    std::shared_ptr<utils::Context> context
+    const std::shared_ptr<utils::Context>& context
 )
 {
     /* check if the current displayed level is the last one to display; the
@@ -616,7 +618,9 @@ void GameController::watchNextFloorOrHideLevel(
 /**
  *
  */
-void GameController::handleLosePeriod(std::shared_ptr<utils::Context> context)
+void GameController::handleLosePeriod(
+    const std::shared_ptr<utils::Context>& context
+)
 {
     /* force the music to stop */
     context->stopMusic();

@@ -42,7 +42,9 @@ ErrorController::ErrorController()
 /**
  *
  */
-unsigned short ErrorController::render(std::shared_ptr<utils::Context> context)
+unsigned short ErrorController::render(
+    const std::shared_ptr<utils::Context>& context
+)
 {
     /* used for screen switch animation */
     nextControllerId = animateScreenTransition(context);

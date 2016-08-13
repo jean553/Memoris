@@ -157,7 +157,7 @@ void InputTextWidget::setDisplayedText(const sf::String& inputTextData)
 /**
  *
  */
-void InputTextWidget::display(std::shared_ptr<utils::Context> context)
+void InputTextWidget::display(const std::shared_ptr<utils::Context>& context)
 {
     /* display the widget borders */
     context->getSfmlWindow().draw(boxTop);

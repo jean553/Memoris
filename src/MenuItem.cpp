@@ -65,7 +65,7 @@ MenuItem::MenuItem(
 /**
  *
  */
-void MenuItem::render(std::shared_ptr<utils::Context> context)
+void MenuItem::render(const std::shared_ptr<utils::Context>& context)
 {
     context->getSfmlWindow().draw(text);
 }

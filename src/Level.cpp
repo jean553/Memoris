@@ -176,7 +176,7 @@ Level::Level()
  *
  */
 void Level::display(
-    std::shared_ptr<utils::Context> context,
+    const std::shared_ptr<utils::Context>& context,
     const unsigned short& floor
 ) const
 {
@@ -398,7 +398,7 @@ const unsigned short Level::getPlayerFloor()
  *
  */
 void Level::playFloorTransitionAnimation(
-    std::shared_ptr<utils::Context> context
+    const std::shared_ptr<utils::Context>& context
 )
 {
     /* NOTE: this function only applies the horizontal transition animation

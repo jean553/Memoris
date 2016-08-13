@@ -55,9 +55,9 @@ public:
      * @brief display the menu background and all the gradient effect lines
      * surfaces
      *
-     * @param contextPtr shared pointer to the context to use
+     * @param context shared pointer to the context to use
      */
-    void display(std::shared_ptr<utils::Context> contextPtr);
+    void display(const std::shared_ptr<utils::Context>& context);
 
 private:
 

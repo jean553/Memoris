@@ -61,7 +61,7 @@ public:
      *
      * @param context shared pointer ot the current context to use
      */
-    void render(std::shared_ptr<utils::Context> context);
+    void render(const std::shared_ptr<utils::Context>& context);
 
     /**
      * @brief unselect the menu item, make it white

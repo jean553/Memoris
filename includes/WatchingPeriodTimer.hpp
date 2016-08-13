@@ -55,7 +55,7 @@ public:
      *
      * @param context shared pointer to the current context to use
      */
-    void display(std::shared_ptr<Context> context);
+    void display(const std::shared_ptr<Context>& context);
 
     /**
      * @brief returns true if the timer is started; used by the game controller

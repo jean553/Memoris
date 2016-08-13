@@ -51,7 +51,7 @@ WatchingPeriodTimer::WatchingPeriodTimer()
 /**
  *
  */
-void WatchingPeriodTimer::display(std::shared_ptr<Context> context)
+void WatchingPeriodTimer::display(const std::shared_ptr<Context>& context)
 {
     /* display the SFML surfaces */
     context->getSfmlWindow().draw(*leftText);

@@ -167,7 +167,7 @@ GameDashboard::GameDashboard()
 /**
  *
  */
-void GameDashboard::display(std::shared_ptr<utils::Context> context)
+void GameDashboard::display(const std::shared_ptr<utils::Context>& context)
 {
     /* displays the information labels of the dashboard */
     context->getSfmlWindow().draw(foundStarsAmount);

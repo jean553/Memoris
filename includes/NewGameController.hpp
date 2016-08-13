@@ -57,7 +57,7 @@ public:
      *
      * @return unsigned short id of the next screen controller
      */
-    unsigned short render(std::shared_ptr<utils::Context> context);
+    unsigned short render(const std::shared_ptr<utils::Context>& context);
 
 private:
 

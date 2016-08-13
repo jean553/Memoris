@@ -58,7 +58,7 @@ TimerWidget::TimerWidget(
 /**
  *
  */
-void TimerWidget::display(std::shared_ptr<utils::Context> context)
+void TimerWidget::display(const std::shared_ptr<utils::Context>& context)
 {
     /* check if the elapsed time since the last timer update is more than
        1000 milliseconds; if yes, the timer value is updated; also check if

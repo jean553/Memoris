@@ -58,7 +58,7 @@ public:
      * @param floor the floor to render
      */
     void display(
-        std::shared_ptr<utils::Context> context,
+        const std::shared_ptr<utils::Context>& context,
         const unsigned short& floor
     ) const;
 
@@ -187,7 +187,9 @@ public:
      * NOTE: this method must be called instead of 'display()' during the
      * animation
      */
-    void playFloorTransitionAnimation(std::shared_ptr<utils::Context> context);
+    void playFloorTransitionAnimation(
+        const std::shared_ptr<utils::Context>& context
+    );
 
     /**
      * @brief setter for the animation boolean

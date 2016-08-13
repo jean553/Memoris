@@ -72,7 +72,7 @@ Controller::~Controller()
  *
  */
 unsigned short Controller::animateScreenTransition(
-    std::shared_ptr<utils::Context> context
+    const std::shared_ptr<utils::Context>& context
 )
 {
     /* the animation is rendered only if a new screen is called ( the program
