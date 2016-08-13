@@ -47,7 +47,6 @@ GameController::GameController(std::shared_ptr<utils::Context> contextPtr) :
         295.f,
         10.f
     ),
-    dashboard(contextPtr),
     watchingPeriodTimer(contextPtr),
     level(contextPtr)
 {
@@ -84,7 +83,7 @@ GameController::GameController(std::shared_ptr<utils::Context> contextPtr) :
 unsigned short GameController::render()
 {
     /* displays the game dashboard */
-    dashboard.display();
+    dashboard.display(context);
 
     /* displays the countdown widget */
     timer.display(context);
