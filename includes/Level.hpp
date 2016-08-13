@@ -45,20 +45,22 @@ public:
      * @brief constructor, initialize all the cells of the level according to
      * the given level file path
      *
-     * @param contextPtr shared pointer to the context to use for rendering
-     *
      * @throw std::invalid_argument the level file cannot be opened
      */
-    Level(std::shared_ptr<utils::Context> contextPtr);
+    Level();
 
     /**
      * @brief render the level and all the cells of the given floor; this
      * method is optimized and only calculate/render/display the cells of
      * the given floor; the other cells are totally ignored
      *
+     * @param context shared pointer to the current context to use
      * @param floor the floor to render
      */
-    void display(const unsigned short& floor) const;
+    void display(
+        std::shared_ptr<utils::Context> context,
+        const unsigned short& floor
+    ) const;
 
     /**
      * @brief hides all the cells of the level, call the method (hide()) for
