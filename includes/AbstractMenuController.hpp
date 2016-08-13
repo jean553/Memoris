@@ -63,7 +63,9 @@ protected:
      *
      * @param context shared pointer to the context to use
      */
-    void renderAllMenuItems(std::shared_ptr<utils::Context> context);
+    void renderAllMenuItems(
+        const std::shared_ptr<utils::Context>& context
+    );
 
     /**
      * @brief getter of the selector position

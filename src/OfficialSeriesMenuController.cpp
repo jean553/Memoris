@@ -125,7 +125,7 @@ OfficialSeriesMenuController::OfficialSeriesMenuController()
  *
  */
 unsigned short OfficialSeriesMenuController::render(
-    std::shared_ptr<utils::Context> context
+    const std::shared_ptr<utils::Context>& context
 )
 {
     context->getSfmlWindow().draw(title);

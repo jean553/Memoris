@@ -76,7 +76,7 @@ NewGameController::NewGameController() :
  *
  */
 unsigned short NewGameController::render(
-    std::shared_ptr<utils::Context> context
+    const std::shared_ptr<utils::Context>& context
 )
 {
     /* display the title and the explanation labels */

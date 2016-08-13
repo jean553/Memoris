@@ -55,7 +55,7 @@ public:
      *
      * @return unsigned short
      */
-    unsigned short render(std::shared_ptr<utils::Context> context);
+    unsigned short render(const std::shared_ptr<utils::Context>& context);
 };
 
 }

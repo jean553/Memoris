@@ -57,7 +57,7 @@ public:
      *
      * @param context shared pointer to the context to use
      */
-    void display(std::shared_ptr<utils::Context> context);
+    void display(const std::shared_ptr<utils::Context>& context);
 
     /**
      * @brief public method to stop the timer, used by the game controller to

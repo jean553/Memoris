@@ -84,7 +84,7 @@ public:
      *
      * @param context shared pointer to the context to use
      */
-    void display(std::shared_ptr<utils::Context> context);
+    void display(const std::shared_ptr<utils::Context>& context);
 
     /**
      * @brief hide the cell, the sprite is replaced by the hidden cell texture

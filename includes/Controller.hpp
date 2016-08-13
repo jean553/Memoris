@@ -61,7 +61,9 @@ public:
      *
      * @return unsigned short
      */
-    virtual unsigned short render(std::shared_ptr<utils::Context> context) = 0;
+    virtual unsigned short render(
+        const std::shared_ptr<utils::Context>& context
+    ) = 0;
 
 protected:
 
@@ -93,7 +95,7 @@ protected:
      * by this function
      */
     unsigned short animateScreenTransition(
-        std::shared_ptr<utils::Context> context
+        const std::shared_ptr<utils::Context>& context
     );
 
     /* the controller SFML event manager; there is no need to declare a SFML

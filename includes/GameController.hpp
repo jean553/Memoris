@@ -58,7 +58,7 @@ public:
      *
      * @return unsigned short id of the new screen controller
      */
-    unsigned short render(std::shared_ptr<utils::Context> context);
+    unsigned short render(const std::shared_ptr<utils::Context>& context);
 
 private:
 
@@ -77,7 +77,7 @@ private:
      * are not checked when the function is executed.
      */
     void handlePlayerMovement(
-        std::shared_ptr<utils::Context> context,
+        const std::shared_ptr<utils::Context>& context,
         const short& movement
     );
 
@@ -87,7 +87,9 @@ private:
      *
      * @param context shared pointer to the context to use
      */
-    void executePlayerCellAction(std::shared_ptr<utils::Context> context);
+    void executePlayerCellAction(
+        const std::shared_ptr<utils::Context>& context
+    );
 
     /**
      * @brief empties the player cell (the current player cell is switched to
@@ -121,7 +123,9 @@ private:
      *
      * @param context shared pointer to the context to use
      */
-    void watchNextFloorOrHideLevel(std::shared_ptr<utils::Context> context);
+    void watchNextFloorOrHideLevel(
+        const std::shared_ptr<utils::Context>& context
+    );
 
     /**
      * @brief this method checks if the lose period must be started; there
@@ -130,7 +134,7 @@ private:
      *
      * @param context shared pointer to the context to use
      */
-    void handleLosePeriod(std::shared_ptr<utils::Context> context);
+    void handleLosePeriod(const std::shared_ptr<utils::Context>& context);
 
     /* the graphical timer widget of the game; renders the elapsed time since
        the beginning of the game */
