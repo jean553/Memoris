@@ -27,7 +27,6 @@
 #include "fonts.hpp"
 #include "controllers.hpp"
 #include "ColorsManager.hpp"
-#include "TexturesManager.hpp"
 
 namespace memoris
 {
@@ -37,7 +36,9 @@ namespace controllers
 /**
  *
  */
-MainMenuController::MainMenuController()
+MainMenuController::MainMenuController(
+    const std::shared_ptr<utils::Context> context
+)
 {
     /* the title color and selector color are copies from
        manager colors, because they are updated continually */
@@ -109,7 +110,7 @@ MainMenuController::MainMenuController()
     addMenuItem(std::move(exit));
 
     spriteGithub.setTexture(
-        textures::TexturesManager::get().getGithubTexture()
+        context->getTexturesManager().getGithubTexture()
     );
     spriteGithub.setPosition(
         1300.f,

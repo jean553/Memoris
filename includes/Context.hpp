@@ -29,6 +29,7 @@
 
 #include "NotCopiable.hpp"
 
+#include "TexturesManager.hpp"
 #include "SoundsManager.hpp"
 
 #include <SFML/Graphics.hpp>
@@ -91,6 +92,13 @@ public:
     void restartClock();
 
     /**
+     * @brief getter of the textures manager
+     *
+     * @return const textures::TexturesManager&
+     */
+    const textures::TexturesManager& getTexturesManager() const;
+
+    /**
      * @brief getter of the sounds manager
      *
      * @return const sounds::SoundsManager&
@@ -98,6 +106,12 @@ public:
     const sounds::SoundsManager& getSoundsManager() const;
 
 private:
+
+    /* textures manager; handles all the textures (not cells textures) */
+    textures::TexturesManager texturesManager;
+
+    /* the sounds manager, handles all the sounds */
+    sounds::SoundsManager soundsManager;
 
     /* the main SFML window object */
     sf::RenderWindow sfmlWindow;
@@ -111,9 +125,6 @@ private:
      * controller is modified; the maximum time returned in milliseconds
      * is equal to 49 days... so this is a safe method */
     sf::Clock clock;
-
-    /* the sounds manager, handles all the sounds */
-    sounds::SoundsManager soundsManager;
 };
 
 }

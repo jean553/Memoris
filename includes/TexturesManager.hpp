@@ -36,75 +36,65 @@ namespace textures
 
 class TexturesManager : public others::NotCopiable
 {
+
 public:
-
-    /**
-     * @brief make the textures manager a singleton class;
-     * creates a static singleton object, call the private
-     * constructor only one time; as the object is static,
-     * this unique object is returned everytime and we never
-     * create it again
-     *
-     * @return static TexturesManager&
-     */
-    static TexturesManager& get();
-
-    /**
-     * @brief getter for the github texture
-     *
-     * @return const sf::Texture&
-     */
-    const sf::Texture& getGithubTexture();
-
-    /**
-     * @brief getter for the star texture
-     *
-     * @return const sf::Texture&
-     */
-    const sf::Texture& getStarTexture();
-
-    /**
-     * @brief getter for the life texture
-     *
-     * @return const sf::Texture&
-     */
-    const sf::Texture& getLifeTexture();
-
-    /**
-     * @brief getter for the target texture
-     *
-     * @return const sf::Texture&
-     */
-    const sf::Texture& getTargetTexture();
-
-    /**
-     * @brief getter for the time texture
-     *
-     * @return const sf::Texture&
-     */
-    const sf::Texture& getTimeTexture();
-
-    /**
-     * @brief getter for the floor texture
-     *
-     * @return const sf::Texture&
-     */
-    const sf::Texture& getFloorTexture();
-
-    /**
-     * @brief getter for the hidden texture
-     *
-     * @return const sf::Texture&
-     */
-    const sf::Texture& getHiddenTexture();
-
-private:
 
     /**
      * @brief constructor, loads each texture one by one, stop if one texture
      * cannot be loaded
      */
     TexturesManager();
+
+    /**
+     * @brief getter for the github texture
+     *
+     * @return const sf::Texture&
+     */
+    const sf::Texture& getGithubTexture() const;
+
+    /**
+     * @brief getter for the star texture
+     *
+     * @return const sf::Texture&
+     */
+    const sf::Texture& getStarTexture() const;
+
+    /**
+     * @brief getter for the life texture
+     *
+     * @return const sf::Texture&
+     */
+    const sf::Texture& getLifeTexture() const;
+
+    /**
+     * @brief getter for the target texture
+     *
+     * @return const sf::Texture&
+     */
+    const sf::Texture& getTargetTexture() const;
+
+    /**
+     * @brief getter for the time texture
+     *
+     * @return const sf::Texture&
+     */
+    const sf::Texture& getTimeTexture() const;
+
+    /**
+     * @brief getter for the floor texture
+     *
+     * @return const sf::Texture&
+     */
+    const sf::Texture& getFloorTexture() const;
+
+    /**
+     * @brief getter for the hidden texture
+     *
+     * @return const sf::Texture&
+     */
+    const sf::Texture& getHiddenTexture() const;
+
+private:
 
     /* github texture displayed on the main menu */
     sf::Texture githubTexture;

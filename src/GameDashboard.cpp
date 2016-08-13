@@ -26,7 +26,6 @@
 
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
-#include "TexturesManager.hpp"
 #include "PlayingSerieManager.hpp"
 #include "window.hpp"
 #include "fonts.hpp"
@@ -39,7 +38,7 @@ namespace utils
 /**
  *
  */
-GameDashboard::GameDashboard()
+GameDashboard::GameDashboard(const std::shared_ptr<utils::Context> context)
 {
     watchingTime = series::PlayingSerieManager::get().getWatchingTime();
 
@@ -104,33 +103,33 @@ GameDashboard::GameDashboard()
 
     /* initialize all the sprites of the dashboard with their textures */
 
-    spriteStar.setTexture(textures::TexturesManager::get().getStarTexture());
+    spriteStar.setTexture(context->getTexturesManager().getStarTexture());
     spriteStar.setPosition(
         1250.f,
         0.f
     );
 
-    spriteFloor.setTexture(textures::TexturesManager::get().getFloorTexture());
+    spriteFloor.setTexture(context->getTexturesManager().getFloorTexture());
     spriteFloor.setPosition(
         950.f,
         0.f
     );
 
-    spriteLife.setTexture(textures::TexturesManager::get().getLifeTexture());
+    spriteLife.setTexture(context->getTexturesManager().getLifeTexture());
     spriteLife.setPosition(
         1250.f,
         50.f
     );
 
     spriteTarget.setTexture(
-        textures::TexturesManager::get().getTargetTexture()
+        context->getTexturesManager().getTargetTexture()
     );
     spriteTarget.setPosition(
         1100.f,
         0.f
     );
 
-    spriteTime.setTexture(textures::TexturesManager::get().getTimeTexture());
+    spriteTime.setTexture(context->getTexturesManager().getTimeTexture());
     spriteTime.setPosition(
         1100.f,
         50.f

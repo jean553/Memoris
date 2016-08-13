@@ -116,6 +116,14 @@ void Context::restartClock()
 /**
  *
  */
+const textures::TexturesManager& Context::getTexturesManager() const
+{
+    return texturesManager;
+}
+
+/**
+ *
+ */
 const sounds::SoundsManager& Context::getSoundsManager() const
 {
     return soundsManager;

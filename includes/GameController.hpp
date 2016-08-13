@@ -47,9 +47,11 @@ public:
      * @brief constructor, call the Level constructor that loads and create
      * the game level; initialize the watching time of the game
      *
+     * @param context shared pointer to the current context
+     *
      * @throw std::invalid_argument the level file cannot be opened
      */
-    GameController();
+    GameController(const std::shared_ptr<utils::Context> context);
 
     /**
      * @brief renders the game main screen

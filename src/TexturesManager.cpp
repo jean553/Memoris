@@ -33,18 +33,6 @@ namespace textures
 /**
  *
  */
-TexturesManager& TexturesManager::get()
-{
-    /* create only one time a textures manager instance */
-    static TexturesManager singleton;
-
-    /* always return the same textures manager instance */
-    return singleton;
-}
-
-/**
- *
- */
 TexturesManager::TexturesManager()
 {
     /* load all the textures one by one; an exception is throw
@@ -61,7 +49,7 @@ TexturesManager::TexturesManager()
 /**
  *
  */
-const sf::Texture& TexturesManager::getGithubTexture()
+const sf::Texture& TexturesManager::getGithubTexture() const
 {
     return githubTexture;
 }
@@ -69,7 +57,7 @@ const sf::Texture& TexturesManager::getGithubTexture()
 /**
  *
  */
-const sf::Texture& TexturesManager::getStarTexture()
+const sf::Texture& TexturesManager::getStarTexture() const
 {
     return starTexture;
 }
@@ -77,7 +65,7 @@ const sf::Texture& TexturesManager::getStarTexture()
 /**
  *
  */
-const sf::Texture& TexturesManager::getLifeTexture()
+const sf::Texture& TexturesManager::getLifeTexture() const
 {
     return lifeTexture;
 }
@@ -85,7 +73,7 @@ const sf::Texture& TexturesManager::getLifeTexture()
 /**
  *
  */
-const sf::Texture& TexturesManager::getTargetTexture()
+const sf::Texture& TexturesManager::getTargetTexture() const
 {
     return targetTexture;
 }
@@ -93,7 +81,7 @@ const sf::Texture& TexturesManager::getTargetTexture()
 /**
  *
  */
-const sf::Texture& TexturesManager::getTimeTexture()
+const sf::Texture& TexturesManager::getTimeTexture() const
 {
     return timeTexture;
 }
@@ -101,7 +89,7 @@ const sf::Texture& TexturesManager::getTimeTexture()
 /**
  *
  */
-const sf::Texture& TexturesManager::getFloorTexture()
+const sf::Texture& TexturesManager::getFloorTexture() const
 {
     return floorTexture;
 }
