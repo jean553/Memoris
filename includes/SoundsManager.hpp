@@ -39,43 +39,40 @@ class SoundsManager : public others::NotCopiable
 public:
 
     /**
-     * @brief make the sounds manager a singleton class;
-     * creates a static singleton object, call the private
-     * constructor only one time; as the object is static,
-     * this unique object is returned everytime and we never
-     * create it again
-     *
-     * @return static SoundsManager&
+     * @brief constructor, loads each sound file one by one, silently
+     * fails if the loading process fail; throw an exception and display
+     * a message in the console; the program continues even if one or many
+     * sounds file(s) cannot be loaded;
      */
-    static SoundsManager& get();
+    SoundsManager();
 
     /**
      * @brief getter of the move selector sound if loaded
      *
      * @return const Sound&
      */
-    const Sound& getMoveSelectorSound();
+    const Sound& getMoveSelectorSound() const;
 
     /**
      * @brief getter of the screen transition sound if loaded
      *
      * @return const Sound&
      */
-    const Sound& getScreenTransitionSound();
+    const Sound& getScreenTransitionSound() const;
 
     /**
      * @brief getter of the hide level sound if loaded
      *
      * @return const Sound&
      */
-    const Sound& getHideLevelSound();
+    const Sound& getHideLevelSound() const;
 
     /**
      * @brief getter of the found star cell sound if loaded
      *
      * @return const Sound&
      */
-    const Sound& getFoundStarSound();
+    const Sound& getFoundStarSound() const;
 
     /**
      * @brief getter of the found life/time sound if loaded; the life and the
@@ -83,7 +80,7 @@ public:
      *
      * @return const Sound&
      */
-    const Sound& getFoundLifeOrTimeSound();
+    const Sound& getFoundLifeOrTimeSound() const;
 
     /**
      * @brief getter of the found dead or less time sound if loaded; the dead
@@ -91,7 +88,7 @@ public:
      *
      * @return const Sound&
      */
-    const Sound& getFoundDeadOrLessTimeSound();
+    const Sound& getFoundDeadOrLessTimeSound() const;
 
     /**
      * @brief getter of the collision sound; this sound is played by the game
@@ -100,32 +97,23 @@ public:
      *
      * @return const Sound&
      */
-    const Sound& getCollisionSound();
+    const Sound& getCollisionSound() const;
 
     /**
      * @brief getter of the floor switch animation sound
      *
      * @return const Sound&
      */
-    const Sound& getFloorSwitchSound();
+    const Sound& getFloorSwitchSound() const;
 
     /**
      * @brief getter of the time over sound
      *
      * @return const Sound&
      */
-    const Sound& getTimeOverSound();
+    const Sound& getTimeOverSound() const;
 
 private:
-
-    /**
-     * @brief constructor, loads each sound file one by one, silently
-     * fails if the loading process fail; throw an exception and display
-     * a message in the console; the program continues even if one or many
-     * sounds file(s) cannot be loaded; the sounds manager is private
-     * because loaded by the static get() function (singleton pattern)
-     */
-    SoundsManager();
 
     /* play this sound when the menu selector
        of any menu is moved up or down */

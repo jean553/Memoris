@@ -24,7 +24,6 @@
 
 #include "AbstractMenuController.hpp"
 
-#include "SoundsManager.hpp"
 #include "Context.hpp"
 
 namespace memoris
@@ -136,7 +135,9 @@ unsigned short AbstractMenuController::getSelectorPosition() const
 /**
  *
  */
-void AbstractMenuController::moveUp()
+void AbstractMenuController::moveUp(
+    const std::shared_ptr<utils::Context>& context
+)
 {
     /* move the selector only if the current position is not already the
        first one */
@@ -151,13 +152,15 @@ void AbstractMenuController::moveUp()
     updateMenuSelection();
 
     /* play the move selector sound */
-    sounds::SoundsManager::get().getMoveSelectorSound().play();
+    context->getSoundsManager().getMoveSelectorSound().play();
 }
 
 /**
  *
  */
-void AbstractMenuController::moveDown()
+void AbstractMenuController::moveDown(
+    const std::shared_ptr<utils::Context>& context
+)
 {
     /* move the selector only if the current selected item is not the last
        one */
@@ -172,7 +175,7 @@ void AbstractMenuController::moveDown()
     updateMenuSelection();
 
     /* play the move selector sound */
-    sounds::SoundsManager::get().getMoveSelectorSound().play();
+    context->getSoundsManager().getMoveSelectorSound().play();
 }
 
 }

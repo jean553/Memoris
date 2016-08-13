@@ -29,6 +29,8 @@
 
 #include "NotCopiable.hpp"
 
+#include "SoundsManager.hpp"
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
@@ -88,6 +90,13 @@ public:
      */
     void restartClock();
 
+    /**
+     * @brief getter of the sounds manager
+     *
+     * @return const sounds::SoundsManager&
+     */
+    const sounds::SoundsManager& getSoundsManager() const;
+
 private:
 
     /* the main SFML window object */
@@ -102,6 +111,9 @@ private:
      * controller is modified; the maximum time returned in milliseconds
      * is equal to 49 days... so this is a safe method */
     sf::Clock clock;
+
+    /* the sounds manager, handles all the sounds */
+    sounds::SoundsManager soundsManager;
 };
 
 }

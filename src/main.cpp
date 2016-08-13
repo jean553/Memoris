@@ -23,7 +23,6 @@
 
 #include "Controller.hpp"
 #include "Context.hpp"
-#include "SoundsManager.hpp"
 #include "controllers.hpp"
 #include "musics.hpp"
 
@@ -139,7 +138,7 @@ int main()
             /* if the program is not supposed to be terminated, the screen
                content is updated: a common sound is played during the
                visual switch */
-            sounds::SoundsManager::get().getScreenTransitionSound().play();
+            context->getSoundsManager().getScreenTransitionSound().play();
 
             /* restart the clock */
             context->restartClock();

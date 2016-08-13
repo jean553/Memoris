@@ -24,7 +24,6 @@
 
 #include "SerieMainMenuController.hpp"
 
-#include "SoundsManager.hpp"
 #include "fonts.hpp"
 #include "controllers.hpp"
 #include "FontsManager.hpp"
@@ -122,13 +121,13 @@ unsigned short SerieMainMenuController::render(
             }
             case sf::Keyboard::Up:
             {
-                moveUp();
+                moveUp(context);
 
                 break;
             }
             case sf::Keyboard::Down:
             {
-                moveDown();
+                moveDown(context);
 
                 break;
             }

@@ -71,14 +71,18 @@ protected:
     /**
      * @brief move up the selector, only if the selected item is not the first
      * one
+     *
+     * @param context shared pointer to the current context to use
      */
-    void moveUp();
+    void moveUp(const std::shared_ptr<utils::Context>& context);
 
     /**
      * @brief move down the selector, only if the selected item is not the last
      * one
+     *
+     * @param context shared pointer to the current context to use
      */
-    void moveDown();
+    void moveDown(const std::shared_ptr<utils::Context>& context);
 
     /**
      * @brief pure virtual method with empty definition; this method is used
