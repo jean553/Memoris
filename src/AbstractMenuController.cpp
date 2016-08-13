@@ -35,15 +35,6 @@ namespace controllers
 /**
  *
  */
-AbstractMenuController::AbstractMenuController()
-{
-    /* does nothing, only used to pass the context pointer to the Controller
-       as it is the parent constructor */
-}
-
-/**
- *
- */
 void AbstractMenuController::addMenuItem(std::unique_ptr<items::MenuItem> item)
 {
     items.push_back(std::move(item));

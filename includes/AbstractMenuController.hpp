@@ -43,12 +43,6 @@ class AbstractMenuController : public Controller
 protected:
 
     /**
-     * @brief constructor, does nothing; just declared and defined to pass
-     * the context shared pointer to the Controller parent constructor
-     */
-    AbstractMenuController();
-
-    /**
      * @brief insert one menu item pointer inside the menu items list
      *
      * @param unique pointer to the item to add; this is required to use
