@@ -37,7 +37,10 @@ namespace controllers
 /**
  *
  */
-std::unique_ptr<Controller> getControllerById(const unsigned short& id)
+std::unique_ptr<Controller> getControllerById(
+    const std::shared_ptr<utils::Context> context,
+    const unsigned short& id
+)
 {
     /* return a unique pointer to the correct controller according to the id */
     switch(id)
@@ -61,7 +64,7 @@ std::unique_ptr<Controller> getControllerById(const unsigned short& id)
             /* try to load the game controller with the next level of the
                playing serie manager, if the file cannot be opened, this
                constructor throws a std::invalid_argument exception */
-            return std::make_unique<GameController>();
+            return std::make_unique<GameController>(context);
 
             /* catch the invalid argument exception if the game cannot start;
                we get it as a reference to make the program runs faster */
@@ -82,7 +85,7 @@ std::unique_ptr<Controller> getControllerById(const unsigned short& id)
        menu is rendered; it avoids mistakes in screens transitions;
        NOTE: the musics factory also returns the main menu music
        if an incorrect controller id is specified */
-    return std::make_unique<MainMenuController>();
+    return std::make_unique<MainMenuController>(context);
 }
 
 /**

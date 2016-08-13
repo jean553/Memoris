@@ -44,8 +44,10 @@ public:
     /**
      * @brief constructor, initialize the timer widget, all the dashboard
      * informations labels and all the labels images
+     *
+     * @param context shared pointer to the current context
      */
-    GameDashboard();
+    GameDashboard(const std::shared_ptr<utils::Context> context);
 
     /**
      * @brief overwritte the method to display the dashboard

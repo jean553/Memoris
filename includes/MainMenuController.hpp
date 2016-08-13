@@ -43,8 +43,10 @@ public:
 
     /**
      * @brief constructor
+     *
+     * @param context shared pointer to the current context
      */
-    MainMenuController();
+    MainMenuController(const std::shared_ptr<utils::Context> context);
 
     /**
      * @brief render the main menu controller

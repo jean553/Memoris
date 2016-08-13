@@ -40,11 +40,12 @@ namespace controllers
 /**
  *
  */
-GameController::GameController() :
+GameController::GameController(const std::shared_ptr<utils::Context> context) :
     timer(
         295.f,
         10.f
-    )
+    ),
+    dashboard(context)
 {
     /* update the dashboard total stars amount according to the value returned
        by the level object */

@@ -48,11 +48,15 @@ constexpr unsigned short ERROR_CONTROLLER_ID = 7;
  * @brief factory method to create controllers by id, each controller is linked
  * to an unique id; this method returns a pointer to a Controller child object
  *
+ * @param context shared pointer to the current context
  * @param id the id of the controller
  *
  * @return std::unique_ptr<Controller>
  */
-std::unique_ptr<Controller> getControllerById(const unsigned short& id);
+std::unique_ptr<Controller> getControllerById(
+    const std::shared_ptr<utils::Context> context,
+    const unsigned short& id
+);
 
 /**
  * @brief refactored function to get a unique pointer to a error controller;
