@@ -55,7 +55,6 @@ SerieMainMenuController::SerieMainMenuController(
     /* creates the unique pointer to the official series item */
     std::unique_ptr<items::MenuItem> officialSeries(
         std::make_unique<items::MenuItem>(
-            context,
             "Official series",
             550.f,
             250.f
@@ -65,7 +64,6 @@ SerieMainMenuController::SerieMainMenuController(
     /* creates the unique pointer to the personal series item */
     std::unique_ptr<items::MenuItem> personalSeries(
         std::make_unique<items::MenuItem>(
-            context,
             "Personal series",
             520.f,
             470.f
@@ -75,7 +73,6 @@ SerieMainMenuController::SerieMainMenuController(
     /* creates the unique pointer to the back item */
     std::unique_ptr<items::MenuItem> back(
         std::make_unique<items::MenuItem>(
-            context,
             "Back",
             720.f,
             800.f
