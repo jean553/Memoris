@@ -26,7 +26,6 @@
 
 #include "fonts.hpp"
 #include "controllers.hpp"
-#include "PlayingSerieManager.hpp"
 
 namespace memoris
 {
@@ -39,7 +38,10 @@ namespace controllers
 OfficialSeriesMenuController::OfficialSeriesMenuController(
     const std::shared_ptr<utils::Context>& context
 ) :
-    AbstractMenuController(context)
+    AbstractMenuController(context),
+/* this is specific to the official series menu controller, check the
+   header for more details */
+    contextPtr(context)
 {
     /* set the parameters of the title of the screen */
     title.setFont(context->getFontsManager().getTitleFont());
@@ -204,7 +206,7 @@ void OfficialSeriesMenuController::selectMenuItem()
         /* use the playing serie manager to load the serie file content */
         /* TODO: #512 we use a fixed file name for now, of course, this
            parameter should change according to the selected menu item */
-        series::PlayingSerieManager::get().loadSerieFileContent(
+        contextPtr->getPlayingSerieManager().loadSerieFileContent(
             "data/series/1.serie"
         );
 

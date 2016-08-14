@@ -54,17 +54,27 @@ public:
      *
      * @return unsigned short id of the next screen
      */
-    unsigned short render(const std::shared_ptr<utils::Context>& context);
+    unsigned short render(
+        const std::shared_ptr<utils::Context>& context
+    ) override;
 
 private:
 
     /**
      * @brief defines what to do when the menu items are selected
      */
-    void selectMenuItem();
+    void selectMenuItem() override;
 
     /* the title of the official series list screen is a SFML text surface */
     sf::Text title;
+
+    /* this is specific to the official series menu controller; in fact, we
+       need to use the context pointer inside the selectMenuItem() method,
+       but this is a pure virtual method inherited from AbstractMenuController;
+       all the others menus do not need this pointer in this method; we cannot
+       overwritte the parameters of this function only into this class, so we
+       create a separated pointer */
+    const std::shared_ptr<utils::Context>& contextPtr;
 };
 
 }

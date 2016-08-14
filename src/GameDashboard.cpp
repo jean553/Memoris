@@ -24,7 +24,6 @@
 
 #include "GameDashboard.hpp"
 
-#include "PlayingSerieManager.hpp"
 #include "window.hpp"
 #include "fonts.hpp"
 
@@ -38,7 +37,7 @@ namespace utils
  */
 GameDashboard::GameDashboard(const std::shared_ptr<utils::Context>& context)
 {
-    watchingTime = series::PlayingSerieManager::get().getWatchingTime();
+    watchingTime = context->getPlayingSerieManager().getWatchingTime();
 
     /* create the information label that displays the current amount of found
        stars into the current level */

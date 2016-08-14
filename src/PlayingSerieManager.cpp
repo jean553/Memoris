@@ -34,18 +34,6 @@ namespace series
 /**
  *
  */
-PlayingSerieManager& PlayingSerieManager::get()
-{
-    /* creates the static single instance of the playing serie manager */
-    static PlayingSerieManager singleton;
-
-    /* return the unique instance of the playing serie manager */
-    return singleton;
-}
-
-/**
- *
- */
 void PlayingSerieManager::loadSerieFileContent(const std::string& path)
 {
     /* simple way to clear the levels queue; checked with Valgrind, seems to

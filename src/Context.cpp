@@ -153,5 +153,13 @@ const textures::CellsTexturesManager& Context::getCellsTexturesManager() const
     return cellsTexturesManager;
 }
 
+/**
+ *
+ */
+series::PlayingSerieManager& Context::getPlayingSerieManager()
+{
+    return playingSerieManager;
+}
+
 }
 }

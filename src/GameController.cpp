@@ -24,7 +24,6 @@
 
 #include "GameController.hpp"
 
-#include "PlayingSerieManager.hpp"
 #include "cells.hpp"
 #include "window.hpp"
 #include "fonts.hpp"
@@ -134,7 +133,7 @@ unsigned short GameController::render(
         (
             context->getClockMillisecondsTime() -
             displayLevelTime >
-            series::PlayingSerieManager::get().getWatchingTime() * 1000
+            context->getPlayingSerieManager().getWatchingTime() * 1000
         )
     )
     {
@@ -457,7 +456,7 @@ void GameController::executePlayerCellAction(
         if (dashboard.getFoundStarsAmount() == level.getStarsAmount())
         {
             /* check if the loaded serie has a next level to play */
-            if (series::PlayingSerieManager::get().hasNextLevel())
+            if (context->getPlayingSerieManager().hasNextLevel())
             {
                 /* if there is a next level to play, load the level to play,
                    so call again the game controller; the playing serie manager
@@ -466,7 +465,7 @@ void GameController::executePlayerCellAction(
 
                 /* save the current amount of watching time for the next
                    level */
-                series::PlayingSerieManager::get().setWatchingTime(
+                context->getPlayingSerieManager().setWatchingTime(
                     dashboard.getWatchingTime()
                 );
             }
