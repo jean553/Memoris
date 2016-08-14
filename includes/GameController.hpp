@@ -48,10 +48,14 @@ public:
      * the game level; initialize the watching time of the game
      *
      * @param context shared pointer to the current context
+     * @param levelPtr shared pointer to the level object to use
      *
      * @throw std::invalid_argument the level file cannot be opened
      */
-    GameController(const std::shared_ptr<utils::Context>& context);
+    GameController(
+        const std::shared_ptr<utils::Context>& context,
+        std::shared_ptr<entities::Level> levelPtr
+    );
 
     /**
      * @brief renders the game main screen
@@ -177,7 +181,7 @@ private:
     utils::WatchingPeriodTimer watchingPeriodTimer;
 
     /* the level that contains all the cells to display */
-    entities::Level level;
+    std::shared_ptr<entities::Level> level;
 
     /* NOTE: the use a watching and a playing boolean; we use two different
        booleans; we might think that one boolean is enough to handle the
