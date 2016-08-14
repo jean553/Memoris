@@ -38,7 +38,8 @@ namespace controllers
  *
  */
 GameController::GameController(
-    const std::shared_ptr<utils::Context>& context
+    const std::shared_ptr<utils::Context>& context,
+    std::shared_ptr<entities::Level> levelPtr
 ) :
     Controller(context),
     timer(
@@ -48,18 +49,18 @@ GameController::GameController(
     ),
     dashboard(context),
     watchingPeriodTimer(context),
-    level(context)
+    level(levelPtr)
 {
     /* update the dashboard total stars amount according to the value returned
-       by the level object */
+       by the level->object */
     /* TODO: #592 this way to do is bad: we got data from one object to
        directly set it as a value of another object, should be refactored */
-    dashboard.updateTotalStarsAmountSurface(level.getStarsAmount());
+    dashboard.updateTotalStarsAmountSurface(level->getStarsAmount());
 
     /* set the values inside the game timer countdown */
     timer.setMinutesAndSeconds(
-        level.getMinutes(),
-        level.getSeconds()
+        level->getMinutes(),
+        level->getSeconds()
     );
 
     /* initialize the lose grey filter surface */
@@ -69,7 +70,7 @@ GameController::GameController(
     initializeLoseText(context);
 
     /* apply the floors amount on the watching time */
-    watchingPeriodTimer.applyFloorsAmount(level.getPlayableFloors());
+    watchingPeriodTimer.applyFloorsAmount(level->getPlayableFloors());
 }
 
 /**
@@ -79,8 +80,8 @@ unsigned short GameController::render(
     const std::shared_ptr<utils::Context>& context
 )
 {
-    /* check if the display level time is equal to 0; if it is equal to 0, that
-       means the level just opened and this level time has to be set */
+    /* check if the display level->time is equal to 0; if it is equal to 0,
+       that means the level->just opened and this level->time has to be set */
     if (displayLevelTime == 0)
     {
         displayLevelTime = context->getClockMillisecondsTime();
@@ -108,23 +109,23 @@ unsigned short GameController::render(
         handleLosePeriod(context);
     }
 
-    /* check if the level is currently rendering a floor switch animation */
-    if (level.getAnimateFloorTransition())
+    /* check if the level->is currently rendering a floor switch animation */
+    if (level->getAnimateFloorTransition())
     {
         /* renders the floor animation */
-        level.playFloorTransitionAnimation(context);
+        level->playFloorTransitionAnimation(context);
     }
     else
     {
 
-        /* renders a static playable level if no animation are playing */
-        level.display(
+        /* renders a static playable level->if no animation are playing */
+        level->display(
             context,
             floor
         );
     }
 
-    /* displays all the cells of the level during the time of the watching
+    /* displays all the cells of the level->during the time of the watching
        period */
     /* TODO: #547 6000 ms is a default value, should be the actual bonus
        watching time of the player */
@@ -157,7 +158,7 @@ unsigned short GameController::render(
         playerCellTransparency += 64;
 
         /* modifies the transparency of the player cell color */
-        level.setPlayerCellTransparency(
+        level->setPlayerCellTransparency(
             context,
             playerCellTransparency
         );
@@ -264,7 +265,7 @@ unsigned short GameController::render(
                    when he pressed the espace key; in fact, this feature does
                    not exist in Memoris: this would give to the player some
                    'relax' time and more time to thinks about how to finish
-                   the level, even if the cells are not displayed during the
+                   the level-> even if the cells are not displayed during the
                    pause time */
                 expectedControllerId = MAIN_MENU_CONTROLLER_ID;
 
@@ -310,9 +311,9 @@ void GameController::handlePlayerMovement(
     }
 
     /* checks if the movement is actually allowed before performing it; we
-       check if the player is not already on level borders and is trying to
+       check if the player is not already on level->borders and is trying to
        move to the outside of the playable area */
-    if (!level.allowPlayerMovement(movement, floor))
+    if (!level->allowPlayerMovement(movement, floor))
     {
         /* plays the collision sound */
         context->getSoundsManager().getCollisionSound().play();
@@ -324,7 +325,7 @@ void GameController::handlePlayerMovement(
     /* check if the player is against a wall during the movement; if there is
        a collision, the wall is displayed by the condition function and the
        movement is cancelled */
-    if (level.detectWalls(context, movement))
+    if (level->detectWalls(context, movement))
     {
         /* plays the collision sound */
         context->getSoundsManager().getCollisionSound().play();
@@ -339,7 +340,7 @@ void GameController::handlePlayerMovement(
 
     /* move the player, display walls if there are some collisions and show
        the new cell */
-    level.movePlayer(
+    level->movePlayer(
         context,
         movement
     );
@@ -356,8 +357,8 @@ void GameController::executePlayerCellAction(
 )
 {
     /* create an alias on the new player cell type, returned as a reference
-       by the level getter */
-    const char& newPlayerCellType = level.getPlayerCellType();
+       by the level->getter */
+    const char& newPlayerCellType = level->getPlayerCellType();
 
     /* NOTE: this switch only contains one case for now but expects to get
        almost one case per cell type */
@@ -424,7 +425,7 @@ void GameController::executePlayerCellAction(
     {
         /* check if the player can be moved to the next floor (maybe it cannot
            because he is already on the last floor) */
-        if (level.movePlayerToNextFloor(context))
+        if (level->movePlayerToNextFloor(context))
         {
             /* if the player can move, increment the current player floor */
             floor++;
@@ -439,7 +440,7 @@ void GameController::executePlayerCellAction(
     {
         /* check if the player can be moved to the previous floor (maybe it
            cannot because he is already on the first floor) */
-        if (level.movePlayerToPreviousFloor(context))
+        if (level->movePlayerToPreviousFloor(context))
         {
             /* if the player can move, decrement the current player floor */
             floor--;
@@ -453,18 +454,18 @@ void GameController::executePlayerCellAction(
     case cells::ARRIVAL_CELL:
     {
         /* check if the all the star cells have been found */
-        if (dashboard.getFoundStarsAmount() == level.getStarsAmount())
+        if (dashboard.getFoundStarsAmount() == level->getStarsAmount())
         {
-            /* check if the loaded serie has a next level to play */
+            /* check if the loaded serie has a next level->to play */
             if (context->getPlayingSerieManager().hasNextLevel())
             {
-                /* if there is a next level to play, load the level to play,
+                /* if there is a next level->to play, load the level->to play,
                    so call again the game controller; the playing serie manager
-                   will automatically take the next level of the queue */
+                   will automatically take the next level->of the queue */
                 expectedControllerId = controllers::GAME_CONTROLLER_ID;
 
                 /* save the current amount of watching time for the next
-                   level */
+                   level->*/
                 context->getPlayingSerieManager().setWatchingTime(
                     dashboard.getWatchingTime()
                 );
@@ -491,8 +492,8 @@ void GameController::emptyPlayerCell(
 )
 {
     /* create an alias on the new player cell type, returned as a reference
-       by the level getter */
-    const char& playerCellType = level.getPlayerCellType();
+       by the level->getter */
+    const char& playerCellType = level->getPlayerCellType();
 
     /* check if the player cell is one of the types that are never deleted; we
        could use a test on an array here, but in order to improve visibility,
@@ -511,7 +512,7 @@ void GameController::emptyPlayerCell(
     }
 
     /* empty the player cell type */
-    level.emptyPlayerCell(context);
+    level->emptyPlayerCell(context);
 }
 
 /**
@@ -578,16 +579,16 @@ void GameController::watchNextFloorOrHideLevel(
     const std::shared_ptr<utils::Context>& context
 )
 {
-    /* check if the current displayed level is the last one to display; the
-       'floor' variable contains the current floor index, the level public
+    /* check if the current displayed level->is the last one to display; the
+       'floor' variable contains the current floor index, the level->public
        method returns an amount of floors, that's why we substract one */
-    if (floor != level.getPlayableFloors() - 1)
+    if (floor != level->getPlayableFloors() - 1)
     {
         /* increment the floor index to display the next floor cells */
         floor++;
 
         /* enable the animation of the floor transition */
-        level.setAnimateFloorTransition(true);
+        level->setAnimateFloorTransition(true);
 
         /* play the floor switch animation sound */
         context->getSoundsManager().getFloorSwitchSound().play();
@@ -595,7 +596,7 @@ void GameController::watchNextFloorOrHideLevel(
         /* update the floor number inside the game dashboard */
         dashboard.updateCurrentFloor(floor);
 
-        /* reset the display level time with the current time to allow more
+        /* reset the display level->time with the current time to allow more
            watching time for the next floor watching period */
         displayLevelTime =
             context->getClockMillisecondsTime();
@@ -604,10 +605,10 @@ void GameController::watchNextFloorOrHideLevel(
         return;
     }
 
-    /* hide all the cells of the level */
-    level.hideAllCellsExceptDeparture(context);
+    /* hide all the cells of the level->*/
+    level->hideAllCellsExceptDeparture(context);
 
-    /* plays the hide level sound */
+    /* plays the hide level->sound */
     context->getSoundsManager().getHideLevelSound().play();
 
     /* the watching mode is now terminated */
@@ -616,8 +617,8 @@ void GameController::watchNextFloorOrHideLevel(
     /* the playing period starts now */
     playingPeriod = true;
 
-    /* get the player floor index from the level */
-    floor = level.getPlayerFloor();
+    /* get the player floor index from the level->*/
+    floor = level->getPlayerFloor();
 
     /* update the floor number inside the game dashboard */
     dashboard.updateCurrentFloor(floor);

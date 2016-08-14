@@ -29,6 +29,8 @@
 #include "OfficialSeriesMenuController.hpp"
 #include "GameController.hpp"
 
+#include "Level.hpp"
+
 namespace memoris
 {
 namespace controllers
@@ -61,10 +63,21 @@ std::unique_ptr<Controller> getControllerById(
     {
         try
         {
-            /* try to load the game controller with the next level of the
-               playing serie manager, if the file cannot be opened, this
-               constructor throws a std::invalid_argument exception */
-            return std::make_unique<GameController>(context);
+            /* creates a level object using the next level file path; this path
+               is located inside the context object; this part of the code
+               throw an exception if an error occures during the file reading
+               process; we use auto, the generates type is
+               std::shared_ptr<entities::Level>; create this pointer here
+               instead of directly creating it inside the game controller makes
+               the code easier to maintain; the level pointer is used in the
+               game controller and also in the LevelAnimation object */
+            auto level = std::make_shared<entities::Level>(context);
+
+            /* creates the game controller and pass the level pointer to it */
+            return std::make_unique<GameController>(
+                       context,
+                       level
+                   );
 
             /* catch the invalid argument exception if the game cannot start;
                we get it as a reference to make the program runs faster */
