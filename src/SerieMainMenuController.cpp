@@ -26,7 +26,6 @@
 
 #include "fonts.hpp"
 #include "controllers.hpp"
-#include "FontsManager.hpp"
 
 namespace memoris
 {
@@ -42,7 +41,7 @@ SerieMainMenuController::SerieMainMenuController(
     AbstractMenuController(context)
 {
     /* set the properties of the series main menu title */
-    title.setFont(memoris::fonts::FontsManager::get().getTitleFont());
+    title.setFont(context->getFontsManager().getTitleFont());
     title.setString("Series");
     title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
     title.setColor(context->getColorsManager().getColorLightBlue());

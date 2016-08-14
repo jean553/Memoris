@@ -25,7 +25,6 @@
 #include "InputTextWidget.hpp"
 
 #include "fonts.hpp"
-#include "FontsManager.hpp"
 #include "Context.hpp"
 
 namespace memoris
@@ -55,7 +54,7 @@ InputTextWidget::InputTextWidget(
 
     /* the font of the displayed text is the normal text font; we get a
        reference of this font from the fonts manager */
-    displayedText.setFont(fonts::FontsManager::get().getTextFont());
+    displayedText.setFont(context->getFontsManager().getTextFont());
 
     /* the font size is the one set in the fonts namespace; the input text
        widget has a font with a specific font size */

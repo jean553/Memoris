@@ -25,7 +25,6 @@
 #include "GameController.hpp"
 
 #include "PlayingSerieManager.hpp"
-#include "FontsManager.hpp"
 #include "cells.hpp"
 #include "window.hpp"
 #include "fonts.hpp"
@@ -564,7 +563,7 @@ void GameController::initializeLoseText(
     loseText.setCharacterSize(fonts::TITLE_SIZE);
 
     /* the font of the lose message is the normal text font */
-    loseText.setFont(fonts::FontsManager::get().getTextFont());
+    loseText.setFont(context->getFontsManager().getTextFont());
 
     /* the lose text is written in red color on the grey filter */
     loseText.setColor(context->getColorsManager().getColorRed());

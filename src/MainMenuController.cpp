@@ -23,7 +23,6 @@
 
 #include "MainMenuController.hpp"
 
-#include "FontsManager.hpp"
 #include "fonts.hpp"
 #include "controllers.hpp"
 
@@ -46,7 +45,7 @@ MainMenuController::MainMenuController(
     colorTitle = context->getColorsManager().getColorBlueCopy();
 
     /* initialize the title text label, at the top center of the screen */
-    title.setFont(fonts::FontsManager::get().getTitleFont());
+    title.setFont(context->getFontsManager().getTitleFont());
     title.setString("Memoris");
     title.setCharacterSize(fonts::TITLE_SIZE);
     title.setColor(colorTitle);

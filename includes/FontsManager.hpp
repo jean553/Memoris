@@ -18,7 +18,7 @@
 
 /**
  * @file FontsManager.hpp
- * @brief a class for the unique fonts factory object of the game, all the
+ * @brief a class for the fonts factory object of the game, all the
  * fonts are loaded from their files when the unique context object is created;
  * we do this to improve performances; each controller, through the context,
  * can get references to each font object, already loaded.
@@ -43,38 +43,27 @@ class FontsManager : public others::NotCopiable
 public:
 
     /**
-     * @brief make the fonts manager a singleton class;
-     * creates a static singleton object, call the private
-     * constructor only one time; as the object is static,
-     * this unique object is returned everytime and we never
-     * create it again
-     *
-     * @return static FontsManager&
-     */
-    static FontsManager& get();
-
-    /**
-     * @brief get title font reference
-     *
-     * @return sf::Font&
-     */
-    sf::Font& getTitleFont();
-
-    /**
-     * @brief get text font reference
-     *
-     * @return sf::Font&
-     */
-    sf::Font& getTextFont();
-
-private:
-
-    /**
      * @brief constructor, loads each font file one by one, throw an exception
      * if one loading process failed; the exception is not caught and stops
      * the program, an error message is displayed in the console
      */
     FontsManager();
+
+    /**
+     * @brief get title font reference
+     *
+     * @return const sf::Font&
+     */
+    const sf::Font& getTitleFont() const;
+
+    /**
+     * @brief get text font reference
+     *
+     * @return const sf::Font&
+     */
+    const sf::Font& getTextFont() const;
+
+private:
 
     /* font used for main title and sub-titles */
     static const std::string TITLE_FONT;

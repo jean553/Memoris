@@ -24,7 +24,6 @@
 
 #include "MenuItem.hpp"
 
-#include "FontsManager.hpp"
 #include "fonts.hpp"
 #include "Context.hpp"
 
@@ -47,7 +46,7 @@ MenuItem::MenuItem(
     text.setString(label);
 
     /* set the common menu item font */
-    text.setFont(fonts::FontsManager::get().getTextFont());
+    text.setFont(context->getFontsManager().getTextFont());
 
     /* common font size for all the menu items */
     text.setCharacterSize(fonts::ITEM_SIZE);

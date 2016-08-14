@@ -24,7 +24,6 @@
 
 #include "TimerWidget.hpp"
 
-#include "FontsManager.hpp"
 #include "fonts.hpp"
 #include "Context.hpp"
 
@@ -43,7 +42,7 @@ TimerWidget::TimerWidget(
 )
 {
     /* initialize the timer text SFML surface */
-    text.setFont(fonts::FontsManager::get().getTextFont());
+    text.setFont(context->getFontsManager().getTextFont());
     text.setCharacterSize(fonts::TEXT_SIZE);
     text.setColor(context->getColorsManager().getColorWhite());
     text.setPosition(
