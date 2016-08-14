@@ -38,7 +38,10 @@ namespace controllers
 OfficialSeriesMenuController::OfficialSeriesMenuController(
     const std::shared_ptr<utils::Context>& context
 ) :
-    AbstractMenuController(context)
+    AbstractMenuController(context),
+/* this is specific to the official series menu controller, check the
+   header for more details */
+    contextPtr(context)
 {
     /* set the parameters of the title of the screen */
     title.setFont(context->getFontsManager().getTitleFont());
@@ -157,7 +160,7 @@ unsigned short OfficialSeriesMenuController::render(
             }
             case sf::Keyboard::Return:
             {
-                selectMenuItem(context);
+                selectMenuItem();
 
                 break;
             }
@@ -194,9 +197,7 @@ unsigned short OfficialSeriesMenuController::render(
 /**
  *
  */
-void OfficialSeriesMenuController::selectMenuItem(
-    const std::shared_ptr<utils::Context>& context
-)
+void OfficialSeriesMenuController::selectMenuItem()
 {
     /* load the content of the serie file into a serie object and insert into
        the game context */
@@ -205,7 +206,7 @@ void OfficialSeriesMenuController::selectMenuItem(
         /* use the playing serie manager to load the serie file content */
         /* TODO: #512 we use a fixed file name for now, of course, this
            parameter should change according to the selected menu item */
-        context->getPlayingSerieManager().loadSerieFileContent(
+        contextPtr->getPlayingSerieManager().loadSerieFileContent(
             "data/series/1.serie"
         );
 
