@@ -27,7 +27,6 @@
 
 #include "dimensions.hpp"
 #include "window.hpp"
-#include "CellsTexturesManager.hpp"
 #include "cells.hpp"
 
 namespace memoris
@@ -39,6 +38,7 @@ namespace entities
  *
  */
 Cell::Cell(
+    const std::shared_ptr<utils::Context>& context,
     const float& hPosition,
     const float& vPosition,
     const char& cellType
@@ -53,7 +53,7 @@ Cell::Cell(
 
     /* the cell is shown by default; we get the reference of the texture to
        display according to the given cell type */
-    show();
+    show(context);
 }
 
 /**
@@ -115,22 +115,22 @@ void Cell::display(const std::shared_ptr<utils::Context>& context)
 /**
  *
  */
-void Cell::hide()
+void Cell::hide(const std::shared_ptr<utils::Context>& context)
 {
     sprite.setTexture(
-        textures::CellsTexturesManager::get().getHiddenCellTexture()
+        context->getCellsTexturesManager().getHiddenCellTexture()
     );
 }
 
 /**
  *
  */
-void Cell::show()
+void Cell::show(const std::shared_ptr<utils::Context>& context)
 {
     /* get the texture from the cells textures manager according to the type
        of cell; set this reference as a texture for the current cell object */
     sprite.setTexture(
-        textures::CellsTexturesManager::get().getTextureReferenceByCellType(
+        context->getCellsTexturesManager().getTextureReferenceByCellType(
             type
         )
     );

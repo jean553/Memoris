@@ -39,7 +39,7 @@ namespace entities
 /**
  *
  */
-Level::Level()
+Level::Level(const std::shared_ptr<utils::Context>& context)
 {
     /* create a file object to read the level file and load the cells */
     std::ifstream file(series::PlayingSerieManager::get().getNextLevelName());
@@ -96,6 +96,7 @@ Level::Level()
            integer values anyway */
         std::unique_ptr<Cell> cell(
             std::make_unique<Cell>(
+                context,
                 300.f + 50.f * static_cast<float>(horizontalPositionCursor),
                 98.f + 50.f * static_cast<float>(verticalPositionCursor),
                 cellType
@@ -202,7 +203,9 @@ void Level::display(
 /**
  *
  */
-void Level::hideAllCellsExceptDeparture()
+void Level::hideAllCellsExceptDeparture(
+    const std::shared_ptr<utils::Context>& context
+)
 {
     /* iterates all the cells of the array one by one */
     for(unsigned short index = 0; index < 3200; index++)
@@ -214,14 +217,14 @@ void Level::hideAllCellsExceptDeparture()
                happened to the level before (animation, floor switch) that
                occured hide/show cells actions, we still show the departure
                cell anyway */
-            (*cells[index]).show();
+            (*cells[index]).show(context);
 
             /* do nothing and continue to iterate if the type is the departure
                cell; in fact, any departure cell stays visible */
             continue;
         }
 
-        (*cells[index]).hide();
+        (*cells[index]).hide(context);
     }
 }
 
@@ -259,7 +262,7 @@ void Level::movePlayer(
     playerIndex += movement;
 
     /* show the player cell */
-    (*cells[playerIndex]).show();
+    (*cells[playerIndex]).show(context);
 }
 
 /**
@@ -292,13 +295,16 @@ bool Level::allowPlayerMovement(
 /**
  *
  */
-bool Level::detectWalls(const short& movement) const
+bool Level::detectWalls(
+    const std::shared_ptr<utils::Context>& context,
+    const short& movement
+) const
 {
     /* check if the expected cell is a wall cell */
     if((*cells[playerIndex + movement]).getType() == cells::WALL_CELL)
     {
         /* show the concerned wall cell */
-        (*cells[playerIndex + movement]).show();
+        (*cells[playerIndex + movement]).show(context);
 
         return true;
     }
@@ -317,19 +323,21 @@ const char& Level::getPlayerCellType()
 /**
  *
  */
-void Level::emptyPlayerCell()
+void Level::emptyPlayerCell(const std::shared_ptr<utils::Context>& context)
 {
     /* empty the player cell */
     (*cells[playerIndex]).empty();
 
     /* reload the cell texture reference */
-    (*cells[playerIndex]).show();
+    (*cells[playerIndex]).show(context);
 }
 
 /**
  *
  */
-bool Level::movePlayerToNextFloor()
+bool Level::movePlayerToNextFloor(
+    const std::shared_ptr<utils::Context>& context
+)
 {
     /* calculate the expected new index of the player after his movement; use
        an unsigned variable as the user cannot have an index less than 0 at
@@ -348,7 +356,7 @@ bool Level::movePlayerToNextFloor()
     playerIndex = newIndex;
 
     /* the texture of the new player cell is loaded */
-    (*cells[playerIndex]).show();
+    (*cells[playerIndex]).show(context);
 
     return true;
 }
@@ -356,7 +364,9 @@ bool Level::movePlayerToNextFloor()
 /**
  *
  */
-bool Level::movePlayerToPreviousFloor()
+bool Level::movePlayerToPreviousFloor(
+    const std::shared_ptr<utils::Context>& context
+)
 {
     /* calculate the expected new index of the player after his movement; use
        a signed variable because at this moment, the player can be on the
@@ -375,7 +385,7 @@ bool Level::movePlayerToPreviousFloor()
     playerIndex = static_cast<unsigned short>(newIndex);
 
     /* the texture of the new player cell is loaded */
-    (*cells[playerIndex]).show();
+    (*cells[playerIndex]).show(context);
 
     return true;
 }
@@ -441,7 +451,7 @@ void Level::playFloorTransitionAnimation(
            cell is hidden to display the limitation column */
         if (i % 20 == animationColumn)
         {
-            (*cells[animationFloor * 320 + i]).hide();
+            (*cells[animationFloor * 320 + i]).hide(context);
         }
 
         /* if the cell is on the limitation column or if the cell is on the

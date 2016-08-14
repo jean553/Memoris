@@ -145,5 +145,13 @@ const fonts::FontsManager& Context::getFontsManager() const
     return fontsManager;
 }
 
+/**
+ *
+ */
+const textures::CellsTexturesManager& Context::getCellsTexturesManager() const
+{
+    return cellsTexturesManager;
+}
+
 }
 }

@@ -41,41 +41,30 @@ class CellsTexturesManager : public others::NotCopiable
 public:
 
     /**
-     * @brief make the cells textures manager a singleton class;
-     * creates a static singleton object, call the private
-     * constructor only one time; as the object is static,
-     * this unique object is returned everytime and we never
-     * create it again
-     *
-     * @return static TexturesManager&
+     * @brief constructor, loads each texture one by one, stop if one texture
+     * cannot be loaded
      */
-    static CellsTexturesManager& get();
+    CellsTexturesManager();
 
     /**
      * @brief returns a texture reference corresponding to the given cell type
      *
      * @param type the type of the cell to get
      *
-     * @return sf::Texture&
+     * @return const sf::Texture&
      */
-    sf::Texture& getTextureReferenceByCellType(const char& type);
+    const sf::Texture& getTextureReferenceByCellType(const char& type) const;
 
     /**
      * @brief returns a texture reference of the hidden cell texture; this cell
      * texture is special and is useless in the cells factory method; that's
      * why we return this texture using a separated dedicated method
      *
-     * @return sf::Texture&
+     * @return const sf::Texture&
      */
-    sf::Texture& getHiddenCellTexture();
+    const sf::Texture& getHiddenCellTexture() const;
 
 private:
-
-    /**
-     * @brief constructor, loads each texture one by one, stop if one texture
-     * cannot be loaded
-     */
-    CellsTexturesManager();
 
     /* the textures of all the cells */
     sf::Texture emptyCellTexture;

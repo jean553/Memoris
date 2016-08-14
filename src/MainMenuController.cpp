@@ -38,6 +38,7 @@ MainMenuController::MainMenuController(
     const std::shared_ptr<utils::Context>& context
 ) :
     AbstractMenuController(context),
+    animatedBackground(context),
     menuGradient(context)
 {
     /* the title color and selector color are copies from

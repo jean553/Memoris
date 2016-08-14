@@ -48,7 +48,8 @@ GameController::GameController(
         10.f
     ),
     dashboard(context),
-    watchingPeriodTimer(context)
+    watchingPeriodTimer(context),
+    level(context)
 {
     /* update the dashboard total stars amount according to the value returned
        by the level object */
@@ -324,7 +325,7 @@ void GameController::handlePlayerMovement(
     /* check if the player is against a wall during the movement; if there is
        a collision, the wall is displayed by the condition function and the
        movement is cancelled */
-    if (level.detectWalls(movement))
+    if (level.detectWalls(context, movement))
     {
         /* plays the collision sound */
         context->getSoundsManager().getCollisionSound().play();
@@ -335,7 +336,7 @@ void GameController::handlePlayerMovement(
 
     /* empty the current player cell before moving; some types are not cleared,
        that's what the function has to check */
-    emptyPlayerCell();
+    emptyPlayerCell(context);
 
     /* move the player, display walls if there are some collisions and show
        the new cell */
@@ -424,7 +425,7 @@ void GameController::executePlayerCellAction(
     {
         /* check if the player can be moved to the next floor (maybe it cannot
            because he is already on the last floor) */
-        if (level.movePlayerToNextFloor())
+        if (level.movePlayerToNextFloor(context))
         {
             /* if the player can move, increment the current player floor */
             floor++;
@@ -439,7 +440,7 @@ void GameController::executePlayerCellAction(
     {
         /* check if the player can be moved to the previous floor (maybe it
            cannot because he is already on the first floor) */
-        if (level.movePlayerToPreviousFloor())
+        if (level.movePlayerToPreviousFloor(context))
         {
             /* if the player can move, decrement the current player floor */
             floor--;
@@ -486,7 +487,9 @@ void GameController::executePlayerCellAction(
 /**
  *
  */
-void GameController::emptyPlayerCell()
+void GameController::emptyPlayerCell(
+    const std::shared_ptr<utils::Context>& context
+)
 {
     /* create an alias on the new player cell type, returned as a reference
        by the level getter */
@@ -509,7 +512,7 @@ void GameController::emptyPlayerCell()
     }
 
     /* empty the player cell type */
-    level.emptyPlayerCell();
+    level.emptyPlayerCell(context);
 }
 
 /**
@@ -603,7 +606,7 @@ void GameController::watchNextFloorOrHideLevel(
     }
 
     /* hide all the cells of the level */
-    level.hideAllCellsExceptDeparture();
+    level.hideAllCellsExceptDeparture(context);
 
     /* plays the hide level sound */
     context->getSoundsManager().getHideLevelSound().play();
