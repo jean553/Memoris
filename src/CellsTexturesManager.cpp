@@ -34,18 +34,6 @@ namespace textures
 /**
  *
  */
-CellsTexturesManager& CellsTexturesManager::get()
-{
-    /* create only one time a textures manager instance */
-    static CellsTexturesManager singleton;
-
-    /* always return the same textures manager instance */
-    return singleton;
-}
-
-/**
- *
- */
 CellsTexturesManager::CellsTexturesManager()
 {
     /* load all the cells pictures one by one; throw an exception and stop
@@ -72,9 +60,9 @@ CellsTexturesManager::CellsTexturesManager()
 /**
  *
  */
-sf::Texture& CellsTexturesManager::getTextureReferenceByCellType(
+const sf::Texture& CellsTexturesManager::getTextureReferenceByCellType(
     const char& type
-)
+) const
 {
     /* returns the correct cell texture reference according to the type */
     switch(type)
@@ -135,7 +123,7 @@ sf::Texture& CellsTexturesManager::getTextureReferenceByCellType(
 /**
  *
  */
-sf::Texture& CellsTexturesManager::getHiddenCellTexture()
+const sf::Texture& CellsTexturesManager::getHiddenCellTexture() const
 {
     return hiddenCellTexture;
 }

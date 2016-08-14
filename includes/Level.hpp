@@ -45,9 +45,11 @@ public:
      * @brief constructor, initialize all the cells of the level according to
      * the given level file path
      *
+     * @param context shared pointer to the current context
+     *
      * @throw std::invalid_argument the level file cannot be opened
      */
-    Level();
+    Level(const std::shared_ptr<utils::Context>& context);
 
     /**
      * @brief render the level and all the cells of the given floor; this
@@ -65,8 +67,12 @@ public:
     /**
      * @brief hides all the cells of the level, call the method (hide()) for
      * all of them except for departure cell(s)
+     *
+     * @param context shared pointer to the current context to use
      */
-    void hideAllCellsExceptDeparture();
+    void hideAllCellsExceptDeparture(
+        const std::shared_ptr<utils::Context>& context
+    );
 
     /**
      * @brief update the transparency value of the current player color
@@ -125,37 +131,51 @@ public:
      * check if the user is currently in collision with a wall; if there is
      * a collision, the wall is shown
      *
+     * @param context shared pointer to the current context
      * @param movement the movement direction, the same as movePlayer()
      *
      * @return bool
      */
-    bool detectWalls(const short& movement) const;
+    bool detectWalls(
+        const std::shared_ptr<utils::Context>& context,
+        const short& movement
+    ) const;
 
     /**
      * @brief updates the current player cell to an empty cell, whatever the
      * previous type; this method is called by the game controller to empty
      * a cell when the player leaves it; this method automatically forces the
      * load of a new texture for the player cell
+     *
+     * @param context shared pointer to the current context
      */
-    void emptyPlayerCell();
+    void emptyPlayerCell(
+        const std::shared_ptr<utils::Context>& context
+    );
 
     /**
      * @brief moves the current player to the next floor if possible,
      * returns true if the action has been executed, false if it is not
      * possible to move to the next floor
      *
+     * @param context shared pointer to the current context
+     *
      * @bool true if the player moved to the next floor
      */
-    bool movePlayerToNextFloor();
+    bool movePlayerToNextFloor(const std::shared_ptr<utils::Context>& context);
 
     /**
      * @brief moves the current player to the previous floor if possible,
      * returns true if the action has been executed, false if it is not
      * possible to move to the previous floor
      *
+     * @param context shared pointer to the current context to use
+     *
      * @bool true if the player moved to the previous floor
      */
-    bool movePlayerToPreviousFloor();
+    bool movePlayerToPreviousFloor(
+        const std::shared_ptr<utils::Context>& context
+    );
 
     /**
      * @brief getter of the total stars amount in the level; this is used by

@@ -39,11 +39,13 @@ namespace utils
 /**
  *
  */
-AnimatedBackground::AnimatedBackground() :
+AnimatedBackground::AnimatedBackground(
+    const std::shared_ptr<utils::Context>& context
+) :
     others::NotCopiable()
 {
     /* initialize all the cells */
-    initializeCells();
+    initializeCells(context);
 }
 
 /**
@@ -89,7 +91,9 @@ void AnimatedBackground::render(const std::shared_ptr<utils::Context>& context)
 /**
  *
  */
-void AnimatedBackground::initializeCells()
+void AnimatedBackground::initializeCells(
+    const std::shared_ptr<utils::Context>& context
+)
 {
     /* a container containing all the cells characters that can be used to
        randomly select the animated background cells; we declare this array
@@ -172,6 +176,7 @@ void AnimatedBackground::initializeCells()
         /* generate a new cell object, pointed by an unique pointer */
         std::unique_ptr<entities::Cell> cell(
             new entities::Cell(
+                context,
                 currentColumn *
                 (
                     dimensions::CELL_PIXELS_DIMENSIONS +

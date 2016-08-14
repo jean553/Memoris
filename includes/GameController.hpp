@@ -98,8 +98,10 @@ private:
      * an empty cell); this action is triggered everytime the player leaves
      * a cell; some types are never deleted from their original cell, this
      * function also checks that
+     *
+     * @param context shared pointer to the context to use
      */
-    void emptyPlayerCell();
+    void emptyPlayerCell(const std::shared_ptr<utils::Context>& context);
 
     /**
      * @brief initialize the grey filter surface that is displayed if the

@@ -47,11 +47,13 @@ public:
      * the cell, get the type of the cell. Set the cell at the given
      * position, set the cell type
      *
+     * @param context shared pointer to the current context
      * @param hPosition the horizontal position of the cell
      * @param vPosition the vertical position of the cell
      * @param cellType the type of the cell, represented by a unique character
      */
     Cell(
+        const std::shared_ptr<utils::Context>& context,
         const float& hPosition,
         const float& vPosition,
         const char& cellType
@@ -88,16 +90,20 @@ public:
 
     /**
      * @brief hide the cell, the sprite is replaced by the hidden cell texture
+     *
+     * @param context shared pointer to the context to use
      */
-    void hide();
+    void hide(const std::shared_ptr<utils::Context>& context);
 
     /**
      * @brief show the cell, loads a reference of the texture to display
      * according to the current set type character; this method can be called
      * from the level object but is also called automatically by the Cell
      * constructor when the object is built
+     *
+     * @param context shared pointer to the context to use
      */
-    void show();
+    void show(const std::shared_ptr<utils::Context>& context);
 
     /**
      * @brief returns a reference to the current set cell type character; we
