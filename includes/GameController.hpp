@@ -60,7 +60,9 @@ public:
      *
      * @return unsigned short id of the new screen controller
      */
-    unsigned short render(const std::shared_ptr<utils::Context>& context);
+    unsigned short render(
+        const std::shared_ptr<utils::Context>& context
+    ) override;
 
 private:
 
