@@ -228,19 +228,31 @@ void Level::hideAllCellsExceptDeparture()
 /**
  *
  */
-void Level::setPlayerCellTransparency(const sf::Uint8& alpha)
+void Level::setPlayerCellTransparency(
+    const std::shared_ptr<utils::Context>& context,
+    const sf::Uint8& alpha
+)
 {
     /* update the cell color with the index equals to the player index */
-    (*cells[playerIndex]).setCellColorTransparency(alpha);
+    (*cells[playerIndex]).setCellColorTransparency(
+        context,
+        alpha
+    );
 }
 
 /**
  *
  */
-void Level::movePlayer(const short& movement)
+void Level::movePlayer(
+    const std::shared_ptr<utils::Context>& context,
+    const short& movement
+)
 {
     /* reset the current player cell transparency */
-    setPlayerCellTransparency(255);
+    setPlayerCellTransparency(
+        context,
+        255
+    );
 
     /* apply the movement value to the current player index to change his
        position on the level */

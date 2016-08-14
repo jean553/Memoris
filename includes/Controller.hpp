@@ -70,8 +70,10 @@ protected:
     /**
      * @brief constructor, initialize variables and load in memory the
      * transition surface (used for screens transition animation)
+     *
+     * @param context shared pointer to the current context to use
      */
-    Controller();
+    Controller(const std::shared_ptr<utils::Context>& context);
 
     /**
      * @brief render the controller switching animation (the animation that

@@ -44,10 +44,12 @@ public:
     /**
      * @brief constructor, set the timer positions
      *
+     * @param context shared pointer to the current context
      * @param hPosition the horizontal position
      * @param vPosition the vertical position
      */
     TimerWidget(
+        const std::shared_ptr<utils::Context>& context,
         const float& hPosition,
         const float& vPosition
     );

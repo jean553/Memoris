@@ -31,6 +31,7 @@
 
 #include "TexturesManager.hpp"
 #include "SoundsManager.hpp"
+#include "ColorsManager.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -105,6 +106,13 @@ public:
      */
     const sounds::SoundsManager& getSoundsManager() const;
 
+    /**
+     * @brief getter of the colors manager
+     *
+     * @return const colors::ColorsManager&
+     */
+    const colors::ColorsManager& getColorsManager() const;
+
 private:
 
     /* textures manager; handles all the textures (not cells textures) */
@@ -112,6 +120,9 @@ private:
 
     /* the sounds manager, handles all the sounds */
     sounds::SoundsManager soundsManager;
+
+    /* the colors manager, handles all the SFML colors */
+    colors::ColorsManager colorsManager;
 
     /* the main SFML window object */
     sf::RenderWindow sfmlWindow;

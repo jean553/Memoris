@@ -25,7 +25,6 @@
 #include "GameController.hpp"
 
 #include "PlayingSerieManager.hpp"
-#include "ColorsManager.hpp"
 #include "FontsManager.hpp"
 #include "cells.hpp"
 #include "window.hpp"
@@ -40,12 +39,17 @@ namespace controllers
 /**
  *
  */
-GameController::GameController(const std::shared_ptr<utils::Context> context) :
+GameController::GameController(
+    const std::shared_ptr<utils::Context>& context
+) :
+    Controller(context),
     timer(
+        context,
         295.f,
         10.f
     ),
-    dashboard(context)
+    dashboard(context),
+    watchingPeriodTimer(context)
 {
     /* update the dashboard total stars amount according to the value returned
        by the level object */
@@ -60,10 +64,10 @@ GameController::GameController(const std::shared_ptr<utils::Context> context) :
     );
 
     /* initialize the lose grey filter surface */
-    initializeGreyFilter();
+    initializeGreyFilter(context);
 
     /* initialize the lose text */
-    initializeLoseText();
+    initializeLoseText(context);
 
     /* apply the floors amount on the watching time */
     watchingPeriodTimer.applyFloorsAmount(level.getPlayableFloors());
@@ -154,7 +158,10 @@ unsigned short GameController::render(
         playerCellTransparency += 64;
 
         /* modifies the transparency of the player cell color */
-        level.setPlayerCellTransparency(playerCellTransparency);
+        level.setPlayerCellTransparency(
+            context,
+            playerCellTransparency
+        );
 
         /* check if the current value is more than 128; in fact, the
            transparency value can only be located between 64 and 128 */
@@ -333,7 +340,10 @@ void GameController::handlePlayerMovement(
 
     /* move the player, display walls if there are some collisions and show
        the new cell */
-    level.movePlayer(movement);
+    level.movePlayer(
+        context,
+        movement
+    );
 
     /* execute the action of the new player cell right after the movement */
     executePlayerCellAction(context);
@@ -506,7 +516,9 @@ void GameController::emptyPlayerCell()
 /**
  *
  */
-void GameController::initializeGreyFilter()
+void GameController::initializeGreyFilter(
+    const std::shared_ptr<utils::Context>& context
+)
 {
     /* create the grey rectangle shape that is displayed when the player loses
        the current game */
@@ -525,14 +537,16 @@ void GameController::initializeGreyFilter()
 
     /* the color of the grey filter is grey with a light transparency */
     greyFilter.setFillColor(
-        colors::ColorsManager::get().getColorPartialDarkGrey()
+        context->getColorsManager().getColorPartialDarkGrey()
     );
 }
 
 /**
  *
  */
-void GameController::initializeLoseText()
+void GameController::initializeLoseText(
+    const std::shared_ptr<utils::Context>& context
+)
 {
     /* initialize the SFML text that is displayed when the player loses the
        game */
@@ -553,7 +567,7 @@ void GameController::initializeLoseText()
     loseText.setFont(fonts::FontsManager::get().getTextFont());
 
     /* the lose text is written in red color on the grey filter */
-    loseText.setColor(colors::ColorsManager::get().getColorRed());
+    loseText.setColor(context->getColorsManager().getColorRed());
 }
 
 /**

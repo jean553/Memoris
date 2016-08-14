@@ -24,7 +24,6 @@
 #include "MenuGradient.hpp"
 
 #include "window.hpp"
-#include "ColorsManager.hpp"
 
 namespace memoris
 {
@@ -34,7 +33,7 @@ namespace others
 /**
  *
  */
-MenuGradient::MenuGradient()
+MenuGradient::MenuGradient(const std::shared_ptr<utils::Context>& context)
 {
     /* the width of the menuBackground surface is fixed and the height is equal
        to the window height */
@@ -50,13 +49,11 @@ MenuGradient::MenuGradient()
     menuBackground.setPosition(480.f, 0);
 
     /* the menuBackground surface is full black */
-    menuBackground.setFillColor(
-        memoris::colors::ColorsManager::get().getColorBlack()
-    );
+    menuBackground.setFillColor(context->getColorsManager().getColorBlack());
 
     /* initialize all the rectangles that are necessary to make the gradient
        visual effect */
-    initializeGradientRectangles();
+    initializeGradientRectangles(context);
 }
 
 /**
@@ -77,7 +74,9 @@ void MenuGradient::display(const std::shared_ptr<utils::Context>& context)
 /**
  *
  */
-void MenuGradient::initializeGradientRectangles()
+void MenuGradient::initializeGradientRectangles(
+    const std::shared_ptr<utils::Context>& context
+)
 {
     /* NOTE: the creation of the rectangles can be done directly inside the
       constructor of the class; in fact, there are many local variables
@@ -94,8 +93,7 @@ void MenuGradient::initializeGradientRectangles()
        value is continually modified to make the gradient effect; this color
        is copied first because we continually modify it and because we copy
        it to each created surface */
-    sf::Color effectColor =
-        memoris::colors::ColorsManager::get().getColorBlackCopy();
+    sf::Color effectColor = context->getColorsManager().getColorBlackCopy();
 
     /* iterate the loop 1020 times: this is the required amount of surfaces to
        make the gradient effect on both sides of the menu background */

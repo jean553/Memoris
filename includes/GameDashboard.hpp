@@ -47,7 +47,7 @@ public:
      *
      * @param context shared pointer to the current context
      */
-    GameDashboard(const std::shared_ptr<utils::Context> context);
+    GameDashboard(const std::shared_ptr<utils::Context>& context);
 
     /**
      * @brief overwritte the method to display the dashboard

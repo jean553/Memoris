@@ -26,7 +26,6 @@
 
 #include "fonts.hpp"
 #include "FontsManager.hpp"
-#include "ColorsManager.hpp"
 #include "Context.hpp"
 
 namespace memoris
@@ -38,6 +37,7 @@ namespace widgets
  *
  */
 InputTextWidget::InputTextWidget(
+    const std::shared_ptr<utils::Context>& context,
     const float& hPosition,
     const float& vPosition,
     const float& lineWidth,
@@ -63,10 +63,10 @@ InputTextWidget::InputTextWidget(
 
     /* get a reference of the light blue color for the input text widget
        text color */
-    displayedText.setColor(colors::ColorsManager::get().getColorLightBlue());
+    displayedText.setColor(context->getColorsManager().getColorLightBlue());
 
     /* set the widget border to light blue */
-    cursor.setFillColor(colors::ColorsManager::get().getColorLightBlue());
+    cursor.setFillColor(context->getColorsManager().getColorLightBlue());
 
     /* the default position of the cursor surface is at the left side of the
        input text line; we set the same positions as the widget and add 5
@@ -140,10 +140,10 @@ InputTextWidget::InputTextWidget(
                      ));
 
     /* all the borders have the same light blue color */
-    boxRight.setFillColor(colors::ColorsManager::get().getColorLightBlue());
-    boxTop.setFillColor(colors::ColorsManager::get().getColorLightBlue());
-    boxBottom.setFillColor(colors::ColorsManager::get().getColorLightBlue());
-    boxLeft.setFillColor(colors::ColorsManager::get().getColorLightBlue());
+    boxRight.setFillColor(context->getColorsManager().getColorLightBlue());
+    boxTop.setFillColor(context->getColorsManager().getColorLightBlue());
+    boxBottom.setFillColor(context->getColorsManager().getColorLightBlue());
+    boxLeft.setFillColor(context->getColorsManager().getColorLightBlue());
 }
 
 /**

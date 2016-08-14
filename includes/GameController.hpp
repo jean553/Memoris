@@ -51,7 +51,7 @@ public:
      *
      * @throw std::invalid_argument the level file cannot be opened
      */
-    GameController(const std::shared_ptr<utils::Context> context);
+    GameController(const std::shared_ptr<utils::Context>& context);
 
     /**
      * @brief renders the game main screen
@@ -106,16 +106,20 @@ private:
      * player loses the game; this private method is called by the constructor;
      * the content of this method could be inside the controller itself, but
      * we put it inside a separated method for better organization
+     *
+     * @param context shared pointer to the current context of the game
      */
-    void initializeGreyFilter();
+    void initializeGreyFilter(const std::shared_ptr<utils::Context>& context);
 
     /**
      * @brief initialize the lose text that is displayed when the player loses
      * the current game; this private method is called by the constructor;
      * the content of this method could be inside the controller itself, but
      * we put it inside a separated method for better organization
+     *
+     * @param context shared pointer to the current context of the game
      */
-    void initializeLoseText();
+    void initializeLoseText(const std::shared_ptr<utils::Context>& context);
 
     /**
      * @brief this method is called during the watching mode by the main

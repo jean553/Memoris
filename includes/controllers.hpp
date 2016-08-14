@@ -54,7 +54,7 @@ constexpr unsigned short ERROR_CONTROLLER_ID = 7;
  * @return std::unique_ptr<Controller>
  */
 std::unique_ptr<Controller> getControllerById(
-    const std::shared_ptr<utils::Context> context,
+    const std::shared_ptr<utils::Context>& context,
     const unsigned short& id
 );
 
@@ -65,7 +65,9 @@ std::unique_ptr<Controller> getControllerById(
  *
  * @return std::unique_ptr<ErrorController>
  */
-std::unique_ptr<ErrorController> getErrorController();
+std::unique_ptr<ErrorController> getErrorController(
+    const std::shared_ptr<utils::Context>& context
+);
 
 }
 }

@@ -129,5 +129,13 @@ const sounds::SoundsManager& Context::getSoundsManager() const
     return soundsManager;
 }
 
+/**
+ *
+ */
+const colors::ColorsManager& Context::getColorsManager() const
+{
+    return colorsManager;
+}
+
 }
 }

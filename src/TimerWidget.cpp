@@ -25,7 +25,6 @@
 #include "TimerWidget.hpp"
 
 #include "FontsManager.hpp"
-#include "ColorsManager.hpp"
 #include "fonts.hpp"
 #include "Context.hpp"
 
@@ -38,6 +37,7 @@ namespace widgets
  *
  */
 TimerWidget::TimerWidget(
+    const std::shared_ptr<utils::Context>& context,
     const float& hPosition,
     const float& vPosition
 )
@@ -45,7 +45,7 @@ TimerWidget::TimerWidget(
     /* initialize the timer text SFML surface */
     text.setFont(fonts::FontsManager::get().getTextFont());
     text.setCharacterSize(fonts::TEXT_SIZE);
-    text.setColor(colors::ColorsManager::get().getColorWhite());
+    text.setColor(context->getColorsManager().getColorWhite());
     text.setPosition(
         hPosition,
         vPosition

@@ -40,8 +40,12 @@ public:
     /**
      * @brief constructor, generates the title of the screen; create unique
      * pointers of the menu items of this screen
+     *
+     * @param context shared pointer to the current context to use
      */
-    OfficialSeriesMenuController();
+    OfficialSeriesMenuController(
+        const std::shared_ptr<utils::Context>& context
+    );
 
     /**
      * @brief rendering method

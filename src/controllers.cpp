@@ -38,7 +38,7 @@ namespace controllers
  *
  */
 std::unique_ptr<Controller> getControllerById(
-    const std::shared_ptr<utils::Context> context,
+    const std::shared_ptr<utils::Context>& context,
     const unsigned short& id
 )
 {
@@ -47,15 +47,15 @@ std::unique_ptr<Controller> getControllerById(
     {
     case NEW_GAME_CONTROLLER_ID:
     {
-        return std::make_unique<NewGameController>();
+        return std::make_unique<NewGameController>(context);
     }
     case SERIE_MAIN_MENU_CONTROLLER_ID:
     {
-        return std::make_unique<SerieMainMenuController>();
+        return std::make_unique<SerieMainMenuController>(context);
     }
     case OFFICIAL_SERIES_MENU_CONTROLLER_ID:
     {
-        return std::make_unique<OfficialSeriesMenuController>();
+        return std::make_unique<OfficialSeriesMenuController>(context);
     }
     case GAME_CONTROLLER_ID:
     {
@@ -72,12 +72,12 @@ std::unique_ptr<Controller> getControllerById(
         catch(std::invalid_argument&)
         {
             /* render the error controller instead of the game controller */
-            return getErrorController();
+            return getErrorController(context);
         }
     }
     case ERROR_CONTROLLER_ID:
     {
-        return getErrorController();
+        return getErrorController(context);
     }
     }
 
@@ -91,9 +91,11 @@ std::unique_ptr<Controller> getControllerById(
 /**
  *
  */
-std::unique_ptr<ErrorController> getErrorController()
+std::unique_ptr<ErrorController> getErrorController(
+    const std::shared_ptr<utils::Context>& context
+)
 {
-    return std::make_unique<ErrorController>();
+    return std::make_unique<ErrorController>(context);
 }
 
 }

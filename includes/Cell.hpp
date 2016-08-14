@@ -114,9 +114,13 @@ public:
      * the given transparency to this color and set it as the cell current
      * color
      *
+     * @param context shared pointer to the current context to use
      * @param alpha the SFML sf::Color oject transparency value
      */
-    void setCellColorTransparency(const sf::Uint8& alpha);
+    void setCellColorTransparency(
+        const std::shared_ptr<utils::Context>& context,
+        const sf::Uint8& alpha
+    );
 
     /**
      * @brief changes the cell to an empty cell, this is used by the game

@@ -18,7 +18,7 @@
 
 /**
  * @file ColorsManager.hpp
- * @brief a class for the unique colors manager of the game, all the
+ * @brief a class for the colors manager of the game, all the
  * colors are loaded when the object is created; each controller,
  * through the context, can get the color object it needs
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
@@ -42,50 +42,44 @@ class ColorsManager : public others::NotCopiable
 public:
 
     /**
-     * @brief make the colors manager a singleton class;
-     * creates a static singleton object, call the private
-     * constructor only one time; as the object is static,
-     * this unique object is returned everytime and we never
-     * create it again
-     *
-     * @return static ColorsManager&
+     * @brief constructor, loads each color one by one
      */
-    static ColorsManager& get();
+    ColorsManager();
 
     /**
      * @brief returns a reference to the white color
      *
      * @return const sf::Color&
      */
-    const sf::Color& getColorWhite();
+    const sf::Color& getColorWhite() const;
 
     /**
      * @brief returns a reference to the light blue color
      *
      * @return const sf::Color&
      */
-    const sf::Color& getColorLightBlue();
+    const sf::Color& getColorLightBlue() const;
 
     /**
      * @brief returns a reference to the red color
      *
      * @return const sf::Color&
      */
-    const sf::Color& getColorRed();
+    const sf::Color& getColorRed() const;
 
     /**
      * @brief returns a reference to the orange color
      *
      * @return const sf::Color&
      */
-    const sf::Color& getColorBlack();
+    const sf::Color& getColorBlack() const;
 
     /**
      * @brief returns a reference to the partial dark grey color
      *
      * @return const sf::Color&
      */
-    const sf::Color& getColorPartialDarkGrey();
+    const sf::Color& getColorPartialDarkGrey() const;
 
     /**
      * @brief returns a copy of the blue color
@@ -116,11 +110,6 @@ public:
     sf::Color getColorBlackCopy() const;
 
 private:
-
-    /**
-     * @brief constructor, loads each color one by one
-     */
-    ColorsManager();
 
     /* NOTE: sf::Uint8 type cannot be constant expressions if
        they are not static. */
