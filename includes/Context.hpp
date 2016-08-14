@@ -34,6 +34,7 @@
 #include "ColorsManager.hpp"
 #include "FontsManager.hpp"
 #include "CellsTexturesManager.hpp"
+#include "PlayingSerieManager.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -129,6 +130,16 @@ public:
      */
     const textures::CellsTexturesManager& getCellsTexturesManager() const;
 
+    /**
+     * @brief getter of the playing serie manager
+     *
+     * @return series::PlayingSerieManager&
+     *
+     * NOTE: the returned reference is not constant, in fact, the manager is
+     * modified by the Level class when a level file is loaded
+     */
+    series::PlayingSerieManager& getPlayingSerieManager();
+
 private:
 
     /* textures manager; handles all the textures (not cells textures) */
@@ -145,6 +156,9 @@ private:
 
     /* the manager for the textures of the cells */
     textures::CellsTexturesManager cellsTexturesManager;
+
+    /* the manager for the playing serie */
+    series::PlayingSerieManager playingSerieManager;
 
     /* the main SFML window object */
     sf::RenderWindow sfmlWindow;

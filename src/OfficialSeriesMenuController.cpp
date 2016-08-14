@@ -26,7 +26,6 @@
 
 #include "fonts.hpp"
 #include "controllers.hpp"
-#include "PlayingSerieManager.hpp"
 
 namespace memoris
 {
@@ -158,7 +157,7 @@ unsigned short OfficialSeriesMenuController::render(
             }
             case sf::Keyboard::Return:
             {
-                selectMenuItem();
+                selectMenuItem(context);
 
                 break;
             }
@@ -195,7 +194,9 @@ unsigned short OfficialSeriesMenuController::render(
 /**
  *
  */
-void OfficialSeriesMenuController::selectMenuItem()
+void OfficialSeriesMenuController::selectMenuItem(
+    const std::shared_ptr<utils::Context>& context
+)
 {
     /* load the content of the serie file into a serie object and insert into
        the game context */
@@ -204,7 +205,7 @@ void OfficialSeriesMenuController::selectMenuItem()
         /* use the playing serie manager to load the serie file content */
         /* TODO: #512 we use a fixed file name for now, of course, this
            parameter should change according to the selected menu item */
-        series::PlayingSerieManager::get().loadSerieFileContent(
+        context->getPlayingSerieManager().loadSerieFileContent(
             "data/series/1.serie"
         );
 

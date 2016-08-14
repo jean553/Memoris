@@ -98,8 +98,12 @@ protected:
      * to make the class abstract; this method has to be overwritted by all
      * children classes to define what happens when menu items are selected
      * by definition; this method can also be used in any other menu purpose
+     *
+     * @param context shared pointer to the current context
      */
-    virtual void selectMenuItem() = 0;
+    virtual void selectMenuItem(
+        const std::shared_ptr<utils::Context>& context
+    ) = 0;
 
 private:
 

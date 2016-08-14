@@ -24,7 +24,6 @@
 
 #include "WatchingPeriodTimer.hpp"
 
-#include "PlayingSerieManager.hpp"
 #include "fonts.hpp"
 
 namespace memoris
@@ -39,7 +38,7 @@ WatchingPeriodTimer::WatchingPeriodTimer(
     const std::shared_ptr<utils::Context>& context
 )
 {
-    seconds = series::PlayingSerieManager::get().getWatchingTime();
+    seconds = context->getPlayingSerieManager().getWatchingTime();
 
     /* initialize the two SFML surfaces used to display the left watching time
        of the current level */

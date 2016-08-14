@@ -46,14 +46,6 @@ class PlayingSerieManager : public others::NotCopiable
 public:
 
     /**
-     * @brief static variable to get a reference to the instance of the unique
-     * singleton of the playing serie manager
-     *
-     * @return static PlayingSerieManager&
-     */
-    static PlayingSerieManager& get();
-
-    /**
      * @brief loads all the level of a given serie file by path
      *
      * @param path the path of the serie file

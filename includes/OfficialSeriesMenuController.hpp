@@ -54,14 +54,18 @@ public:
      *
      * @return unsigned short id of the next screen
      */
-    unsigned short render(const std::shared_ptr<utils::Context>& context);
+    unsigned short render(
+        const std::shared_ptr<utils::Context>& context
+    ) override;
 
 private:
 
     /**
      * @brief defines what to do when the menu items are selected
      */
-    void selectMenuItem();
+    void selectMenuItem(
+        const std::shared_ptr<utils::Context>& context
+    ) override;
 
     /* the title of the official series list screen is a SFML text surface */
     sf::Text title;
