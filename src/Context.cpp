@@ -137,5 +137,13 @@ const colors::ColorsManager& Context::getColorsManager() const
     return colorsManager;
 }
 
+/**
+ *
+ */
+const fonts::FontsManager& Context::getFontsManager() const
+{
+    return fontsManager;
+}
+
 }
 }

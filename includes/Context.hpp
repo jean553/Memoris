@@ -32,6 +32,7 @@
 #include "TexturesManager.hpp"
 #include "SoundsManager.hpp"
 #include "ColorsManager.hpp"
+#include "FontsManager.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -113,6 +114,13 @@ public:
      */
     const colors::ColorsManager& getColorsManager() const;
 
+    /**
+     * @brief getter of the fonts manager
+     *
+     * @return const fonts::FontsManager&
+     */
+    const fonts::FontsManager& getFontsManager() const;
+
 private:
 
     /* textures manager; handles all the textures (not cells textures) */
@@ -123,6 +131,9 @@ private:
 
     /* the colors manager, handles all the SFML colors */
     colors::ColorsManager colorsManager;
+
+    /* the fonts manager, handles all the SFML fonts */
+    fonts::FontsManager fontsManager;
 
     /* the main SFML window object */
     sf::RenderWindow sfmlWindow;

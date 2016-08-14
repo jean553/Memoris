@@ -26,7 +26,6 @@
 
 #include "fonts.hpp"
 #include "controllers.hpp"
-#include "FontsManager.hpp"
 
 namespace memoris
 {
@@ -50,7 +49,7 @@ NewGameController::NewGameController(
 {
     /* initialize the new game screen title; this title is horizontally
        centered and vertically in the top area of the screen */
-    title.setFont(memoris::fonts::FontsManager::get().getTitleFont());
+    title.setFont(context->getFontsManager().getTitleFont());
     title.setString("New game");
     title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
     title.setColor(context->getColorsManager().getColorLightBlue());
@@ -62,7 +61,7 @@ NewGameController::NewGameController(
     /* initialize the new game label indicating the input text widget should
        contains the new game name; this text is located under the new game
        screen title and before the input text widget */
-    explanation.setFont(memoris::fonts::FontsManager::get().getTextFont());
+    explanation.setFont(context->getFontsManager().getTextFont());
     explanation.setString("Your name :");
     explanation.setCharacterSize(memoris::fonts::TEXT_SIZE);
     explanation.setColor(

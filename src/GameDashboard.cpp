@@ -24,7 +24,6 @@
 
 #include "GameDashboard.hpp"
 
-#include "FontsManager.hpp"
 #include "PlayingSerieManager.hpp"
 #include "window.hpp"
 #include "fonts.hpp"
@@ -43,9 +42,7 @@ GameDashboard::GameDashboard(const std::shared_ptr<utils::Context>& context)
 
     /* create the information label that displays the current amount of found
        stars into the current level */
-    foundStarsAmount.setFont(
-        fonts::FontsManager::get().getTextFont()
-    );
+    foundStarsAmount.setFont(context->getFontsManager().getTextFont());
     foundStarsAmount.setString("0");
     foundStarsAmount.setCharacterSize(fonts::TEXT_SIZE);
     foundStarsAmount.setColor(
@@ -58,7 +55,7 @@ GameDashboard::GameDashboard(const std::shared_ptr<utils::Context>& context)
 
     /* creates the information label that displays the current lifes amount
        of the player */
-    lifesAmount.setFont(fonts::FontsManager::get().getTextFont());
+    lifesAmount.setFont(context->getFontsManager().getTextFont());
     lifesAmount.setString("0");
     lifesAmount.setCharacterSize(fonts::TEXT_SIZE);
     lifesAmount.setColor(context->getColorsManager().getColorWhite());
@@ -69,7 +66,7 @@ GameDashboard::GameDashboard(const std::shared_ptr<utils::Context>& context)
 
     /* creates the information label that displays the watch time the player
        got until now */
-    time.setFont(fonts::FontsManager::get().getTextFont());
+    time.setFont(context->getFontsManager().getTextFont());
     time.setString(std::to_string(watchingTime));
     time.setCharacterSize(fonts::TEXT_SIZE);
     time.setColor(context->getColorsManager().getColorWhite());
@@ -80,7 +77,7 @@ GameDashboard::GameDashboard(const std::shared_ptr<utils::Context>& context)
 
     /* creates the information label that displays the current player floor;
        the default displayed level is the first one */
-    floor.setFont(fonts::FontsManager::get().getTextFont());
+    floor.setFont(context->getFontsManager().getTextFont());
     floor.setString("1");
     floor.setCharacterSize(fonts::TEXT_SIZE);
     floor.setColor(context->getColorsManager().getColorWhite());
@@ -91,7 +88,7 @@ GameDashboard::GameDashboard(const std::shared_ptr<utils::Context>& context)
 
     /* creates the information label that indicates the total amount of
        stars available into the level */
-    target.setFont(fonts::FontsManager::get().getTextFont());
+    target.setFont(context->getFontsManager().getTextFont());
     target.setString("0");
     target.setCharacterSize(fonts::TEXT_SIZE);
     target.setColor(context->getColorsManager().getColorWhite());

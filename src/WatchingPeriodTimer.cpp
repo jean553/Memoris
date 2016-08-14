@@ -24,7 +24,6 @@
 
 #include "WatchingPeriodTimer.hpp"
 
-#include "FontsManager.hpp"
 #include "PlayingSerieManager.hpp"
 #include "fonts.hpp"
 
@@ -134,7 +133,7 @@ std::unique_ptr<sf::Text> WatchingPeriodTimer::createWatchingPeriodTimerText(
     sfmlText->setCharacterSize(fonts::TITLE_SIZE);
 
     /* the font of the counter is the normal font of the game */
-    sfmlText->setFont(fonts::FontsManager::get().getTextFont());
+    sfmlText->setFont(context->getFontsManager().getTextFont());
 
     /* the color of the counter is a light blue color */
     sfmlText->setColor(context->getColorsManager().getColorLightBlue());
