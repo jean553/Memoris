@@ -48,8 +48,10 @@ public:
     /**
      * @brief constructor, loads the main surface and call a separated method
      * to initialize all the gradient rectangles
+     *
+     * @param context shared pointer to the context to use
      */
-    MenuGradient();
+    MenuGradient(const std::shared_ptr<utils::Context>& context);
 
     /**
      * @brief display the menu background and all the gradient effect lines
@@ -65,13 +67,17 @@ private:
      * @brief private method called by the constructor only to create the
      * background sides lines with the gradient effect
      *
+     * @param context shared pointer to the current context to use
+     *
      * NOTE: the creation of the rectangles can be done directly inside the
      * constructor of the class; in fact, there are many local variables
      * to use to create these surfaces; in order to improve the code
      * organization and clarity, we create these surfaces into a dedicated
      * function.
      */
-    void initializeGradientRectangles();
+    void initializeGradientRectangles(
+        const std::shared_ptr<utils::Context>& context
+    );
 
     /* the main rectangle shape is the black rectangle without any gradient
        that is directly the background of the menu items; the gradient

@@ -45,8 +45,10 @@ public:
      * @brief constructor, does nothing, just declared and defined to pass
      * the context shared pointer to the Controller constructor as it is the
      * parent class
+     *
+     * @param context shared pointer to the current context
      */
-    ErrorController();
+    ErrorController(const std::shared_ptr<utils::Context>& context);
 
     /**
      * @brief renders the error message screen

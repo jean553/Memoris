@@ -71,19 +71,27 @@ public:
     /**
      * @brief update the transparency value of the current player color
      *
+     * @param context shared pointer to the current context
      * @param alpha the current player cell transparency value; we use a
      * sf::Uint8 value as this is the type used to set the colors of a
      * sf::Color object
      */
-    void setPlayerCellTransparency(const sf::Uint8& alpha);
+    void setPlayerCellTransparency(
+        const std::shared_ptr<utils::Context>& context,
+        const sf::Uint8& alpha
+    );
 
     /**
      * @brief move the player down if possible
      *
      * @param move the value (positive or negative) to apply on the current
      * player index; defines the mouvement of the player
+     * @param context shared pointer to the current context to use
      */
-    void movePlayer(const short& movement);
+    void movePlayer(
+        const std::shared_ptr<utils::Context>& context,
+        const short& movement
+    );
 
     /**
      * @brief check if the player is allowed to perform the given movement;

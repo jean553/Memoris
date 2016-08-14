@@ -43,6 +43,15 @@ class AbstractMenuController : public Controller
 protected:
 
     /**
+     * @brief constructor, does nothing; only used to pass arguments to the
+     * parent constructor of Controller; protected because only called during
+     * children objects creation
+     *
+     * @param context shared pointer to the current context
+     */
+    AbstractMenuController(const std::shared_ptr<utils::Context>& context);
+
+    /**
      * @brief insert one menu item pointer inside the menu items list
      *
      * @param unique pointer to the item to add; this is required to use
@@ -106,8 +115,10 @@ private:
     /**
      * @brief update the colors of all the menu items; the current
      * selected item is colored by the red color
+     *
+     * @param context shared pointer to the current context
      */
-    void updateMenuSelection();
+    void updateMenuSelection(const std::shared_ptr<utils::Context>& context);
 
     /* the current position of the selector ( the current pointed item ); the
        default value is 0 */

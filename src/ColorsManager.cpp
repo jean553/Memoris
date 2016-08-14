@@ -31,18 +31,6 @@ namespace colors
 /**
  *
  */
-ColorsManager& ColorsManager::get()
-{
-    /* create only one time a colors manager instance */
-    static ColorsManager singleton;
-
-    /* always return the same colors manager instance */
-    return singleton;
-}
-
-/**
- *
- */
 ColorsManager::ColorsManager()
 {
     colorWhite.r = COLOR_WHITE_RED;
@@ -79,7 +67,7 @@ ColorsManager::ColorsManager()
 /**
  *
  */
-const sf::Color& ColorsManager::getColorWhite()
+const sf::Color& ColorsManager::getColorWhite() const
 {
     return colorWhite;
 }
@@ -87,7 +75,7 @@ const sf::Color& ColorsManager::getColorWhite()
 /**
  *
  */
-const sf::Color& ColorsManager::getColorLightBlue()
+const sf::Color& ColorsManager::getColorLightBlue() const
 {
     return colorLightBlue;
 }
@@ -95,7 +83,7 @@ const sf::Color& ColorsManager::getColorLightBlue()
 /**
  *
  */
-const sf::Color& ColorsManager::getColorRed()
+const sf::Color& ColorsManager::getColorRed() const
 {
     return colorRed;
 }
@@ -103,7 +91,7 @@ const sf::Color& ColorsManager::getColorRed()
 /**
  *
  */
-const sf::Color& ColorsManager::getColorBlack()
+const sf::Color& ColorsManager::getColorBlack() const
 {
     return colorBlack;
 }
@@ -111,7 +99,7 @@ const sf::Color& ColorsManager::getColorBlack()
 /**
  *
  */
-const sf::Color& ColorsManager::getColorPartialDarkGrey()
+const sf::Color& ColorsManager::getColorPartialDarkGrey() const
 {
     return colorPartialDarkGrey;
 }

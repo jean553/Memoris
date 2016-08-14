@@ -34,7 +34,10 @@ namespace controllers
 /**
  *
  */
-ErrorController::ErrorController()
+ErrorController::ErrorController(
+    const std::shared_ptr<utils::Context>& context
+) :
+    Controller(context)
 {
     /* does nothing, only used to pass parameters to the parent class */
 }

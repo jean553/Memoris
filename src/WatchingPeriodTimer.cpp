@@ -25,7 +25,6 @@
 #include "WatchingPeriodTimer.hpp"
 
 #include "FontsManager.hpp"
-#include "ColorsManager.hpp"
 #include "PlayingSerieManager.hpp"
 #include "fonts.hpp"
 
@@ -37,15 +36,28 @@ namespace utils
 /**
  *
  */
-WatchingPeriodTimer::WatchingPeriodTimer()
+WatchingPeriodTimer::WatchingPeriodTimer(
+    const std::shared_ptr<utils::Context>& context
+)
 {
     seconds = series::PlayingSerieManager::get().getWatchingTime();
 
     /* initialize the two SFML surfaces used to display the left watching time
        of the current level */
 
-    leftText = createWatchingPeriodTimerText(75.f, 335.f, seconds);
-    rightText = createWatchingPeriodTimerText(1400.f, 335.f, seconds);
+    leftText = createWatchingPeriodTimerText(
+                   context,
+                   75.f,
+                   335.f,
+                   seconds
+               );
+
+    rightText = createWatchingPeriodTimerText(
+                    context,
+                    1400.f,
+                    335.f,
+                    seconds
+                );
 }
 
 /**
@@ -102,6 +114,7 @@ const bool& WatchingPeriodTimer::isStarted() const
  *
  */
 std::unique_ptr<sf::Text> WatchingPeriodTimer::createWatchingPeriodTimerText(
+    const std::shared_ptr<utils::Context>& context,
     const float& hPosition,
     const float& vPosition,
     const unsigned short& time
@@ -124,7 +137,7 @@ std::unique_ptr<sf::Text> WatchingPeriodTimer::createWatchingPeriodTimerText(
     sfmlText->setFont(fonts::FontsManager::get().getTextFont());
 
     /* the color of the counter is a light blue color */
-    sfmlText->setColor(colors::ColorsManager::get().getColorLightBlue());
+    sfmlText->setColor(context->getColorsManager().getColorLightBlue());
 
     /* transform the given unsigned short into a string to pass it to the
        SFML surface function */

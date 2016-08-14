@@ -25,7 +25,6 @@
 #include "Controller.hpp"
 
 #include "window.hpp"
-#include "ColorsManager.hpp"
 
 namespace memoris
 {
@@ -35,13 +34,13 @@ namespace controllers
 /**
  *
  */
-Controller::Controller()
+Controller::Controller(const std::shared_ptr<utils::Context>& context)
 {
     /* the screen transition color is continually modified
        when screens are switched, that's why we copy the
        default color from the black color */
     transitionSurfaceColor =
-        memoris::colors::ColorsManager::get().getColorBlackCopy();
+        context->getColorsManager().getColorBlackCopy();
 
     /* the size of the screen transition surface is equal to the window
        dimension; in fact, the screen transition surface covers the whole

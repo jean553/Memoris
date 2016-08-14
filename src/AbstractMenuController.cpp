@@ -34,6 +34,17 @@ namespace controllers
 /**
  *
  */
+AbstractMenuController::AbstractMenuController(
+    const std::shared_ptr<utils::Context>& context
+) :
+    Controller(context)
+{
+    /* does nothing, just passed arguments from one controller to another */
+}
+
+/**
+ *
+ */
 void AbstractMenuController::addMenuItem(std::unique_ptr<items::MenuItem> item)
 {
     items.push_back(std::move(item));
@@ -85,7 +96,9 @@ unsigned short AbstractMenuController::getLastMenuItemIndex() const
 /**
  *
  */
-void AbstractMenuController::updateMenuSelection()
+void AbstractMenuController::updateMenuSelection(
+    const std::shared_ptr<utils::Context>& context
+)
 {
     /* browse all the menu items; use an iterator in order to calculate the
        current index during each iteration */
@@ -114,13 +127,13 @@ void AbstractMenuController::updateMenuSelection()
         {
             /* the item iterator is a pointer to an unique pointer; that's why
                whe use the double dereference to manipulate the object */
-            (**iterator).select();
+            (**iterator).select(context);
 
             continue;
         }
 
         /* unselect all the others items */
-        (**iterator).unselect();
+        (**iterator).unselect(context);
     }
 }
 
@@ -149,7 +162,7 @@ void AbstractMenuController::moveUp(
     selectorPosition--;
 
     /* graphically update the selector position */
-    updateMenuSelection();
+    updateMenuSelection(context);
 
     /* play the move selector sound */
     context->getSoundsManager().getMoveSelectorSound().play();
@@ -172,7 +185,7 @@ void AbstractMenuController::moveDown(
     selectorPosition++;
 
     /* graphically update the selector position */
-    updateMenuSelection();
+    updateMenuSelection(context);
 
     /* play the move selector sound */
     context->getSoundsManager().getMoveSelectorSound().play();

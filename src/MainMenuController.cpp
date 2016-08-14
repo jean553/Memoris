@@ -26,7 +26,6 @@
 #include "FontsManager.hpp"
 #include "fonts.hpp"
 #include "controllers.hpp"
-#include "ColorsManager.hpp"
 
 namespace memoris
 {
@@ -37,12 +36,14 @@ namespace controllers
  *
  */
 MainMenuController::MainMenuController(
-    const std::shared_ptr<utils::Context> context
-)
+    const std::shared_ptr<utils::Context>& context
+) :
+    AbstractMenuController(context),
+    menuGradient(context)
 {
     /* the title color and selector color are copies from
        manager colors, because they are updated continually */
-    colorTitle = colors::ColorsManager::get().getColorBlueCopy();
+    colorTitle = context->getColorsManager().getColorBlueCopy();
 
     /* initialize the title text label, at the top center of the screen */
     title.setFont(fonts::FontsManager::get().getTitleFont());
@@ -57,6 +58,7 @@ MainMenuController::MainMenuController(
     /* initialize the new game menu item */
     std::unique_ptr<items::MenuItem> newGame(
         std::make_unique<items::MenuItem>(
+            context,
             "New game",
             615.f,
             300.f
@@ -66,6 +68,7 @@ MainMenuController::MainMenuController(
     /* initialize the open game menu item */
     std::unique_ptr<items::MenuItem> loadGame(
         std::make_unique<items::MenuItem>(
+            context,
             "Load game",
             605.f,
             400.f
@@ -75,6 +78,7 @@ MainMenuController::MainMenuController(
     /* initialize the editor menu item */
     std::unique_ptr<items::MenuItem> editor (
         std::make_unique<items::MenuItem>(
+            context,
             "Editor",
             685.f,
             500.f
@@ -84,6 +88,7 @@ MainMenuController::MainMenuController(
     /* initialize the options menu item */
     std::unique_ptr<items::MenuItem> options(
         std::make_unique<items::MenuItem>(
+            context,
             "Options",
             660.f,
             600.f
@@ -93,6 +98,7 @@ MainMenuController::MainMenuController(
     /* initialize the exit menu item */
     std::unique_ptr<items::MenuItem> exit(
         std::make_unique<items::MenuItem>(
+            context,
             "Exit",
             725.f,
             700.f
@@ -100,7 +106,7 @@ MainMenuController::MainMenuController(
     );
 
     /* select the first item of the menu */
-    newGame->select();
+    newGame->select(context);
 
     /* add the menu items inside the menu items list */
     addMenuItem(std::move(newGame));

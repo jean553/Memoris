@@ -45,11 +45,13 @@ public:
      * string label at the specified location; automatically applies the
      * default color, font and font size ( same for all the menu items )
      *
+     * @param context shared pointer to the current context
      * @param label the menu item text label
      * @param horizontalPosition the horizontal position of the text
      * @param verticalPosition the vertical position of the text
      */
     MenuItem(
+        const std::shared_ptr<utils::Context>& context,
         const std::string& label,
         const float& horizontalPosition,
         const float& verticalPosition
@@ -65,13 +67,17 @@ public:
 
     /**
      * @brief unselect the menu item, make it white
+     *
+     * @param context shared pointer to the current context
      */
-    void unselect();
+    void unselect(const std::shared_ptr<utils::Context>& context);
 
     /**
      * @brief select the menu item, make it red
+     *
+     * @param context shared pointer to the current context
      */
-    void select();
+    void select(const std::shared_ptr<utils::Context>& context);
 
 private:
 

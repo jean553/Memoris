@@ -27,7 +27,6 @@
 #include "fonts.hpp"
 #include "controllers.hpp"
 #include "FontsManager.hpp"
-#include "ColorsManager.hpp"
 
 namespace memoris
 {
@@ -37,13 +36,16 @@ namespace controllers
 /**
  *
  */
-SerieMainMenuController::SerieMainMenuController()
+SerieMainMenuController::SerieMainMenuController(
+    const std::shared_ptr<utils::Context>& context
+) :
+    AbstractMenuController(context)
 {
     /* set the properties of the series main menu title */
     title.setFont(memoris::fonts::FontsManager::get().getTitleFont());
     title.setString("Series");
     title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
-    title.setColor(memoris::colors::ColorsManager::get().getColorLightBlue());
+    title.setColor(context->getColorsManager().getColorLightBlue());
     title.setPosition(
         700.f,
         50.f
@@ -52,6 +54,7 @@ SerieMainMenuController::SerieMainMenuController()
     /* creates the unique pointer to the official series item */
     std::unique_ptr<items::MenuItem> officialSeries(
         std::make_unique<items::MenuItem>(
+            context,
             "Official series",
             550.f,
             250.f
@@ -61,6 +64,7 @@ SerieMainMenuController::SerieMainMenuController()
     /* creates the unique pointer to the personal series item */
     std::unique_ptr<items::MenuItem> personalSeries(
         std::make_unique<items::MenuItem>(
+            context,
             "Personal series",
             520.f,
             470.f
@@ -70,6 +74,7 @@ SerieMainMenuController::SerieMainMenuController()
     /* creates the unique pointer to the back item */
     std::unique_ptr<items::MenuItem> back(
         std::make_unique<items::MenuItem>(
+            context,
             "Back",
             720.f,
             800.f
@@ -77,7 +82,7 @@ SerieMainMenuController::SerieMainMenuController()
     );
 
     /* select the official series item in the menu */
-    officialSeries->select();
+    officialSeries->select(context);
 
     /* add the menu items inside the menu items list of the abstract menu
        controller class */

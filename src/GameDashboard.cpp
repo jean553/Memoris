@@ -25,7 +25,6 @@
 #include "GameDashboard.hpp"
 
 #include "FontsManager.hpp"
-#include "ColorsManager.hpp"
 #include "PlayingSerieManager.hpp"
 #include "window.hpp"
 #include "fonts.hpp"
@@ -38,7 +37,7 @@ namespace utils
 /**
  *
  */
-GameDashboard::GameDashboard(const std::shared_ptr<utils::Context> context)
+GameDashboard::GameDashboard(const std::shared_ptr<utils::Context>& context)
 {
     watchingTime = series::PlayingSerieManager::get().getWatchingTime();
 
@@ -50,7 +49,7 @@ GameDashboard::GameDashboard(const std::shared_ptr<utils::Context> context)
     foundStarsAmount.setString("0");
     foundStarsAmount.setCharacterSize(fonts::TEXT_SIZE);
     foundStarsAmount.setColor(
-        colors::ColorsManager::get().getColorWhite()
+        context->getColorsManager().getColorWhite()
     );
     foundStarsAmount.setPosition(
         1200.f,
@@ -62,7 +61,7 @@ GameDashboard::GameDashboard(const std::shared_ptr<utils::Context> context)
     lifesAmount.setFont(fonts::FontsManager::get().getTextFont());
     lifesAmount.setString("0");
     lifesAmount.setCharacterSize(fonts::TEXT_SIZE);
-    lifesAmount.setColor(colors::ColorsManager::get().getColorWhite());
+    lifesAmount.setColor(context->getColorsManager().getColorWhite());
     lifesAmount.setPosition(
         1200.f,
         35.f
@@ -73,7 +72,7 @@ GameDashboard::GameDashboard(const std::shared_ptr<utils::Context> context)
     time.setFont(fonts::FontsManager::get().getTextFont());
     time.setString(std::to_string(watchingTime));
     time.setCharacterSize(fonts::TEXT_SIZE);
-    time.setColor(colors::ColorsManager::get().getColorWhite());
+    time.setColor(context->getColorsManager().getColorWhite());
     time.setPosition(
         1050.f,
         35.f
@@ -84,7 +83,7 @@ GameDashboard::GameDashboard(const std::shared_ptr<utils::Context> context)
     floor.setFont(fonts::FontsManager::get().getTextFont());
     floor.setString("1");
     floor.setCharacterSize(fonts::TEXT_SIZE);
-    floor.setColor(colors::ColorsManager::get().getColorWhite());
+    floor.setColor(context->getColorsManager().getColorWhite());
     floor.setPosition(
         900.f,
         -10.f
@@ -95,7 +94,7 @@ GameDashboard::GameDashboard(const std::shared_ptr<utils::Context> context)
     target.setFont(fonts::FontsManager::get().getTextFont());
     target.setString("0");
     target.setCharacterSize(fonts::TEXT_SIZE);
-    target.setColor(colors::ColorsManager::get().getColorWhite());
+    target.setColor(context->getColorsManager().getColorWhite());
     target.setPosition(
         1050.f,
         -10.f
@@ -147,7 +146,7 @@ GameDashboard::GameDashboard(const std::shared_ptr<utils::Context> context)
         290.f,
         0.f
     );
-    leftSeparator.setFillColor(colors::ColorsManager::get().getColorWhite());
+    leftSeparator.setFillColor(context->getColorsManager().getColorWhite());
 
     rightSeparator.setSize(
         sf::Vector2f(
@@ -159,7 +158,7 @@ GameDashboard::GameDashboard(const std::shared_ptr<utils::Context> context)
         1308.f,
         0.f
     );
-    rightSeparator.setFillColor(colors::ColorsManager::get().getColorWhite());
+    rightSeparator.setFillColor(context->getColorsManager().getColorWhite());
 
 }
 

@@ -46,7 +46,7 @@ public:
      *
      * @param context shared pointer to the current context
      */
-    MainMenuController(const std::shared_ptr<utils::Context> context);
+    MainMenuController(const std::shared_ptr<utils::Context>& context);
 
     /**
      * @brief render the main menu controller
@@ -70,10 +70,10 @@ private:
      */
     void selectMenuItem();
 
-    /* */
+    /* animated background of the main menu */
     utils::AnimatedBackground animatedBackground;
 
-    /* */
+    /* menu gradient effect */
     others::MenuGradient menuGradient;
 
     /* NOTE: we use SFML 32 bits long integers to save the

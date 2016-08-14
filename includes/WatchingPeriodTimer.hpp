@@ -46,8 +46,12 @@ public:
     /**
      * @brief constructor, save the given time and initialize the SFML surfaces
      * according to this given time
+     *
+     * @param context shared pointer to the current context
      */
-    WatchingPeriodTimer();
+    WatchingPeriodTimer(
+        const std::shared_ptr<utils::Context>& context
+    );
 
     /**
      * @brief displays the watching period timer SFML surfaces; automatically
@@ -87,6 +91,7 @@ private:
      * instruction of this factory; this method is static because it is a
      * factory function, so it do not manipulate the object attributes
      *
+     * @param context shared pointer to the current context
      * @param hPosition horizontal position of the counter
      * @param vPosition vertical position of the counter
      * @param time time to display inside the surface
@@ -94,6 +99,7 @@ private:
      * @return std::unique_ptr<sf::Text>
      */
     static std::unique_ptr<sf::Text> createWatchingPeriodTimerText(
+        const std::shared_ptr<utils::Context>& context,
         const float& hPosition,
         const float& vPosition,
         const unsigned short& time

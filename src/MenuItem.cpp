@@ -24,7 +24,6 @@
 
 #include "MenuItem.hpp"
 
-#include "ColorsManager.hpp"
 #include "FontsManager.hpp"
 #include "fonts.hpp"
 #include "Context.hpp"
@@ -38,6 +37,7 @@ namespace items
  *
  */
 MenuItem::MenuItem(
+    const std::shared_ptr<utils::Context>& context,
     const std::string& label,
     const float& horizontalPosition,
     const float& verticalPosition
@@ -59,7 +59,7 @@ MenuItem::MenuItem(
     );
 
     /* the default color when the item is unselected is white */
-    unselect();
+    unselect(context);
 }
 
 /**
@@ -73,19 +73,19 @@ void MenuItem::render(const std::shared_ptr<utils::Context>& context)
 /**
  *
  */
-void MenuItem::unselect()
+void MenuItem::unselect(const std::shared_ptr<utils::Context>& context)
 {
     /* the menu item is white when unselected */
-    text.setColor(colors::ColorsManager::get().getColorWhite());
+    text.setColor(context->getColorsManager().getColorWhite());
 }
 
 /**
  *
  */
-void MenuItem::select()
+void MenuItem::select(const std::shared_ptr<utils::Context>& context)
 {
     /* the menu item is red when selected */
-    text.setColor(colors::ColorsManager::get().getColorRed());
+    text.setColor(context->getColorsManager().getColorRed());
 }
 
 }

@@ -28,7 +28,6 @@
 #include "dimensions.hpp"
 #include "window.hpp"
 #include "CellsTexturesManager.hpp"
-#include "ColorsManager.hpp"
 #include "cells.hpp"
 
 namespace memoris
@@ -148,10 +147,13 @@ const char& Cell::getType()
 /**
  *
  */
-void Cell::setCellColorTransparency(const sf::Uint8& alpha)
+void Cell::setCellColorTransparency(
+    const std::shared_ptr<utils::Context>& context,
+    const sf::Uint8& alpha
+)
 {
     /* get a copy of the white color from the colors manager */
-    sf::Color cellColor = colors::ColorsManager::get().getColorWhiteCopy();
+    sf::Color cellColor = context->getColorsManager().getColorWhiteCopy();
 
     /* update the transparency of the color */
     cellColor.a = alpha;
