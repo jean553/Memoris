@@ -71,6 +71,9 @@ constexpr char STAIRS_DOWN_CELL {'p'};
 /* horizontal mirror event cell */
 constexpr char HORIZONTAL_MIRROR_CELL {'%'};
 
+/* vertical mirror event cell */
+constexpr char VERTICAL_MIRROR_CELL {'P'};
+
 }
 }
 

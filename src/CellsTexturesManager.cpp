@@ -55,6 +55,10 @@ CellsTexturesManager::CellsTexturesManager()
         horizontalMirrorCellTexture,
         "res/cells/horizontal_mirror.png"
     );
+    loadTexture(
+        verticalMirrorCellTexture,
+        "res/cells/vertical_mirror.png"
+    );
 }
 
 /**
@@ -110,6 +114,10 @@ const sf::Texture& CellsTexturesManager::getTextureReferenceByCellType(
     case cells::HORIZONTAL_MIRROR_CELL:
     {
         return horizontalMirrorCellTexture;
+    }
+    case cells::VERTICAL_MIRROR_CELL:
+    {
+        return verticalMirrorCellTexture;
     }
     }
 
