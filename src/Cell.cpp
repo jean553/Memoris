@@ -120,6 +120,9 @@ void Cell::hide(const std::shared_ptr<utils::Context>& context)
     sprite.setTexture(
         context->getCellsTexturesManager().getHiddenCellTexture()
     );
+
+    /* the cell is hidden, so the boolean of visibility is updated to false */
+    visible = false;
 }
 
 /**
@@ -134,6 +137,9 @@ void Cell::show(const std::shared_ptr<utils::Context>& context)
             type
         )
     );
+
+    /* the cell is shown, so the boolean of visibility is updated to true */
+    visible = true;
 }
 
 /**
@@ -142,6 +148,14 @@ void Cell::show(const std::shared_ptr<utils::Context>& context)
 const char& Cell::getType()
 {
     return type;
+}
+
+/**
+ *
+ */
+void Cell::setType(const char& typeChar)
+{
+    type = typeChar;
 }
 
 /**
@@ -169,6 +183,14 @@ void Cell::empty()
 {
     /* set the cell as empty by changing the type to empty cell */
     type = cells::EMPTY_CELL;
+}
+
+/**
+ *
+ */
+const bool& Cell::isVisible() const
+{
+    return visible;
 }
 
 }

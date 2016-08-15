@@ -122,7 +122,7 @@ public:
      *
      * @return const char&
      */
-    const char& getPlayerCellType();
+    const char& getPlayerCellType() const;
 
     /**
      * @brief check if the expected cell after the movement is a wall cell,
@@ -248,7 +248,19 @@ public:
      */
     const unsigned short& getSeconds() const;
 
-private:
+    /**
+     * @brief getter of the player cell index
+     *
+     * @return const unsigned short&
+     */
+    const unsigned short& getPlayerCellIndex() const;
+
+    /**
+     * @brief setter of the player cell index
+     *
+     * @param index the value to set for the player cell index
+     */
+    void setPlayerCellIndex(const unsigned short& index);
 
     /* container of unique pointers of cells; we use unique pointers because
        pointers are fast to copy/move instead of a whole cell object; we use
@@ -256,6 +268,8 @@ private:
        we only use dynamic allocation to make the program run faster, so this
        is always better to limit the freedom of variables */
     std::vector<std::unique_ptr<Cell>> cells;
+
+private:
 
     /* the index of the current player cell; the position of the player in
        the level; the variable is 0 by default; */

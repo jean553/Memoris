@@ -28,6 +28,7 @@
 #include "window.hpp"
 #include "fonts.hpp"
 #include "controllers.hpp"
+#include "animations.hpp"
 
 namespace memoris
 {
@@ -109,15 +110,39 @@ unsigned short GameController::render(
         handleLosePeriod(context);
     }
 
-    /* check if the level->is currently rendering a floor switch animation */
+    /* check if the level is currently rendering a floor switch animation */
     if (level->getAnimateFloorTransition())
     {
         /* renders the floor animation */
         level->playFloorTransitionAnimation(context);
     }
+    /* if an animation is currently rendering, the rendering animation has to
+       display the level during the whole animation time, that's why we do
+       not call the display() function of the level but the display()
+       method of the animation instead; if an animation is rendering, the
+       animation pointer is pointing on something */
+    else if (animation != nullptr)
+    {
+        /* the animation rendering method is called instead of the level
+           rendering method; the animation has to handle this task during the
+           whole animation process */
+        animation->render(
+            context,
+            level,
+            floor
+        );
+
+        /* checks if the animation is terminated, if yes delete the
+           animation */
+        if (animation->isFinished())
+        {
+            /* reset() deletes the pointed object and set back the unique
+               pointer to nullptr */
+            animation.reset();
+        }
+    }
     else
     {
-
         /* renders a static playable level->if no animation are playing */
         level->display(
             context,
@@ -125,7 +150,7 @@ unsigned short GameController::render(
         );
     }
 
-    /* displays all the cells of the level->during the time of the watching
+    /* displays all the cells of the level during the time of the watching
        period */
     /* TODO: #547 6000 ms is a default value, should be the actual bonus
        watching time of the player */
@@ -145,9 +170,11 @@ unsigned short GameController::render(
     }
 
     /* if the current game status is playing, the player cell has to be
-       animated */
+       animated; we check if no animation is currently played; if an animation
+       is playing, the player cursor is not animated at all */
     if (
         playingPeriod &&
+        animation == nullptr &&
         (
             context->getClockMillisecondsTime() -
             playerCellAnimationTime > 100
@@ -303,8 +330,9 @@ void GameController::handlePlayerMovement(
        without starting to check the second condition */
 
     /* check if the game is in watching or lose period; in both cases, the
-       movement is directly canceled */
-    if (watchingPeriod || startLosePeriodTime)
+       movement is directly canceled; if an animation is currently rendering,
+       the movement is forbidden too */
+    if (watchingPeriod || startLosePeriodTime || animation != nullptr)
     {
         /* ends the current function and the movement is not allowed */
         return;
@@ -481,6 +509,18 @@ void GameController::executePlayerCellAction(
 
         break;
     }
+    /* all the animation cells are specified into this case; we do not create
+       a case for each animation cell */
+    case cells::HORIZONTAL_MIRROR_CELL:
+    {
+        /* starts the level animation according to the current player cell */
+        animation = animations::getAnimationByCellType(
+                        context,
+                        newPlayerCellType
+                    );
+
+        break;
+    }
     }
 }
 
@@ -503,7 +543,8 @@ void GameController::emptyPlayerCell(
         playerCellType == cells::DEPARTURE_CELL ||
         playerCellType == cells::STAIRS_UP_CELL ||
         playerCellType == cells::STAIRS_DOWN_CELL ||
-        playerCellType == cells::ARRIVAL_CELL
+        playerCellType == cells::ARRIVAL_CELL ||
+        playerCellType == cells::HORIZONTAL_MIRROR_CELL
     )
     {
         /* immediately ends the function; the current cell does not need to

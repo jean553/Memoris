@@ -314,7 +314,7 @@ bool Level::detectWalls(
 /**
  *
  */
-const char& Level::getPlayerCellType()
+const char& Level::getPlayerCellType() const
 {
     return (*cells[playerIndex]).getType();
 }
@@ -522,6 +522,22 @@ const unsigned short& Level::getMinutes() const
 const unsigned short& Level::getSeconds() const
 {
     return seconds;
+}
+
+/**
+ *
+ */
+const unsigned short& Level::getPlayerCellIndex() const
+{
+    return playerIndex;
+}
+
+/**
+ *
+ */
+void Level::setPlayerCellIndex(const unsigned short& index)
+{
+    playerIndex = index;
 }
 
 }

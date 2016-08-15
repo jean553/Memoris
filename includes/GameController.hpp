@@ -32,6 +32,7 @@
 #include "GameDashboard.hpp"
 #include "Level.hpp"
 #include "WatchingPeriodTimer.hpp"
+#include "LevelAnimation.hpp"
 
 namespace memoris
 {
@@ -182,6 +183,11 @@ private:
 
     /* the level that contains all the cells to display */
     std::shared_ptr<entities::Level> level;
+
+    /* pointer to the animation to play; there is no animation by default, so
+       the pointer is null; the pointer is set back to null when an animation
+       is finished */
+    std::unique_ptr<animations::LevelAnimation> animation {nullptr};
 
     /* NOTE: the use a watching and a playing boolean; we use two different
        booleans; we might think that one boolean is enough to handle the
