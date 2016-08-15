@@ -13,7 +13,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ Â* along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 /**
@@ -23,8 +23,6 @@
  */
 
 #include "HorizontalMirrorAnimation.hpp"
-
-#include <iostream>
 
 namespace memoris
 {
@@ -47,28 +45,14 @@ HorizontalMirrorAnimation::HorizontalMirrorAnimation(
 /**
  *
  */
-void HorizontalMirrorAnimation::render(
+void HorizontalMirrorAnimation::playNextAnimationStep(
     const std::shared_ptr<utils::Context>& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 )
 {
-    /* checks if enough time elapsed since the last animation step */
-    if (context->getClockMillisecondsTime() - lastAnimationUpdateTime < 50)
-    {
-        /* if not enough time elapsed since the last animation step, just
-           display the level normally */
-        level->display(
-            context,
-            floor
-        );
-
-        /* renders the separator */
-        context->getSfmlWindow().draw(separator);
-
-        /* immediately returns, the animation is pending */
-        return;
-    }
+    unsigned short startingHighCellsIndex = floor * 320;
+    unsigned short startingLowCellsIndex = startingHighCellsIndex + 160;
 
     /* NOTE: we do not use a switch/case here because we create conditions on
        ranges of steps, which is not handled by switch/case instructions */
@@ -81,19 +65,20 @@ void HorizontalMirrorAnimation::render(
     if (animationSteps < 15 && animationSteps >= 10)
     {
         /* we start at the index 160 * level (bottom side) and we reduce the
-           alpha value of all the cells by 51.f at each iteration */
+           alpha value of all the cells by TRANSPARENCY_UPDATE_AMOUNT at each
+           iteration */
         setLevelSideCellsTransparency(
             context,
             level,
-            floor * 320 + 160,
-            -51.f
+            startingLowCellsIndex,
+            -TRANSPARENCY_UPDATE_AMOUNT
         );
     }
     /* when the bottom side is totally hidden, replace all the bottom side
        cells by the top side cells */
     else if (animationSteps == 15)
     {
-        replaceLowCellsByHighCells(
+        executeMirrorMovement(
             context,
             level,
             floor
@@ -105,12 +90,13 @@ void HorizontalMirrorAnimation::render(
     else if (animationSteps >= 16 && animationSteps < 21)
     {
         /* we start at the index 160 * floor (bottom side) and we increase the
-           alpha value of all the cells by 51.f at each iteration */
+           alpha value of all the cells by TRANSPARENCY_UPDATE_AMOUNT at each
+           iteration */
         setLevelSideCellsTransparency(
             context,
             level,
-            floor * 320 + 160,
-            51.f
+            startingLowCellsIndex,
+            TRANSPARENCY_UPDATE_AMOUNT
         );
     }
     /* between the steps 21 and 26, progressively hide the top side of the
@@ -118,12 +104,13 @@ void HorizontalMirrorAnimation::render(
     else if (animationSteps >= 21 && animationSteps < 26)
     {
         /* starts at the cell 0 + floor * 320 (top side) and decrease the
-           transparency value by 51.f at each iteration */
+           transparency value by TRANSPARENCY_UPDATE_AMOUNT at each iteration
+           */
         setLevelSideCellsTransparency(
             context,
             level,
-            floor * 320,
-            -51.f
+            startingHighCellsIndex,
+            -TRANSPARENCY_UPDATE_AMOUNT
         );
     }
     /* replace all the cells of the top by the cells of the bottom when the
@@ -131,7 +118,7 @@ void HorizontalMirrorAnimation::render(
     else if (animationSteps == 26)
     {
         /* replace the top cells by the bottom cells */
-        replaceHighCellsByLowCells(
+        executeReverseMirrorMovement(
             context,
             level,
             floor
@@ -142,12 +129,13 @@ void HorizontalMirrorAnimation::render(
     else if (animationSteps >= 26 && animationSteps < 32)
     {
         /* starts at the cell 0 + floor * 320 (top side) and increase the
-           transparency value by 51.f at each iteration */
+           transparency value by TRANSPARENCY_UPDATE_AMOUNT at each iteration
+           */
         setLevelSideCellsTransparency(
             context,
             level,
-            floor * 320,
-            51.f
+            startingHighCellsIndex,
+            TRANSPARENCY_UPDATE_AMOUNT
         );
     }
     /* during the last step of the animation, the new player cell is
@@ -155,38 +143,33 @@ void HorizontalMirrorAnimation::render(
     else if (animationSteps == 33)
     {
         /* set the new player cell index */
-        level->setPlayerCellIndex(destinationCell);
+        level->setPlayerCellIndex(playerCellIndexAfterAnimation);
 
         /* force the new player cell to be shown, no matter if this cell was
            shown or hidden */
-        level->cells[destinationCell]->show(context);
+        level->cells[playerCellIndexAfterAnimation]->show(context);
 
         /* set finished to true, the animation is terminated, no new iteration
            will be triggered */
         finished = true;
     }
 
-    /* increment the steps index at each iteration */
-    animationSteps++;
-
-    /* save the last animation update time to know when the next iteration
-       has to be triggered */
-    lastAnimationUpdateTime = context->getClockMillisecondsTime();
-
-    /* display the whole floor */
-    level->display(
+    /* displays the level and the animation separator */
+    displayLevelAndSeparator(
         context,
+        level,
         floor
     );
 
-    /* display the separator */
-    context->getSfmlWindow().draw(separator);
+    /* increments the animation step and update the last animation update
+       time */
+    incrementAnimationStep(context);
 }
 
 /**
  *
  */
-void HorizontalMirrorAnimation::replaceHighCellsByLowCells(
+void HorizontalMirrorAnimation::executeReverseMirrorMovement(
     const std::shared_ptr<utils::Context>& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
@@ -207,26 +190,28 @@ void HorizontalMirrorAnimation::replaceHighCellsByLowCells(
         if (offset == 20)
         {
             offset = 0;
-            cursor = cursor - 20;
+            cursor -= 20;
         }
 
         level->cells[cursor + offset]->setType(
-            lowCells[index]
+            savedCells.front().getType()
         );
 
         showOrHideCell(
             context,
             level,
             cursor + offset,
-            visible[index]
+            savedCells.front().isVisible()
         );
 
+        savedCells.pop();
+
         if (
-            cursor + offset == destinationCell &&
-            gotDestinationCell
+            cursor + offset == playerCellIndexAfterAnimation &&
+            playerCellIndexAfterAnimation != -1
         )
         {
-            destinationCell = cursor + offset;
+            playerCellIndexAfterAnimation = cursor + offset;
         }
 
         offset++;
@@ -236,7 +221,7 @@ void HorizontalMirrorAnimation::replaceHighCellsByLowCells(
 /**
  *
  */
-void HorizontalMirrorAnimation::replaceLowCellsByHighCells(
+void HorizontalMirrorAnimation::executeMirrorMovement(
     const std::shared_ptr<utils::Context>& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
@@ -246,27 +231,31 @@ void HorizontalMirrorAnimation::replaceLowCellsByHighCells(
        , their disposition and their visibility inside two containers; these
        containers are used to copy the cells in the top side */
 
-    unsigned short cursor = floor * 320 + 300, offset = 0, diff = 20;
+    unsigned short
+    startingHighCellIndex = floor * 320,
+    cursor = startingHighCellIndex + 300,
+    startingLowCellIndex = startingHighCellIndex + 160,
+    endingLowCellIndex = 320 * (floor + 1),
+    offset = 0,
+    diff = 20;
 
     for (
-        unsigned short index = floor * 320 + 160;
-        index < 320 * (floor + 1);
+        unsigned short index = startingLowCellIndex;
+        index < endingLowCellIndex;
         index++
     )
     {
         if (offset == 20)
         {
             offset = 0;
-            diff = diff + 40;
+            diff += 40;
         }
 
-        lowCells.push_back(level->cells[index]->getType());
-        visible.push_back(level->cells[index]->isVisible());
+        savedCells.push(*(level->cells[index]));
 
         if (index == level->getPlayerCellIndex())
         {
-            destinationCell = index - diff;
-            gotDestinationCell = true;
+            playerCellIndexAfterAnimation = index - diff;
         }
 
         offset++;
@@ -278,15 +267,15 @@ void HorizontalMirrorAnimation::replaceLowCellsByHighCells(
     offset = 0;
 
     for (
-        unsigned short index = 320 * floor;
-        index < floor * 320 + 160;
+        unsigned short index = startingHighCellIndex;
+        index < startingLowCellIndex;
         index++
     )
     {
         if (offset == 20)
         {
             offset = 0;
-            cursor = cursor - 20;
+            cursor -= 20;
         }
 
         level->cells[cursor + offset]->setType(
@@ -302,7 +291,7 @@ void HorizontalMirrorAnimation::replaceLowCellsByHighCells(
 
         if (index == level->getPlayerCellIndex())
         {
-            destinationCell = cursor + offset;
+            playerCellIndexAfterAnimation = cursor + offset;
         }
 
         offset++;
@@ -315,39 +304,23 @@ void HorizontalMirrorAnimation::replaceLowCellsByHighCells(
 void HorizontalMirrorAnimation::setLevelSideCellsTransparency(
     const std::shared_ptr<utils::Context>& context,
     const std::shared_ptr<entities::Level>& level,
-    const unsigned short& startingCellIndex,
-    const float& difference
+    const unsigned short& startingLowCellsIndex,
+    const float difference,
+    ...
 )
 {
-    gradient += difference;
+    animatedSideTransparency += difference;
 
     for (
-        unsigned short index = startingCellIndex;
-        index < startingCellIndex + 160;
+        unsigned short index = startingLowCellsIndex;
+        index < startingLowCellsIndex + 160;
         index++
     )
     {
         level->cells[index]->setCellColorTransparency(
             context,
-            gradient
+            animatedSideTransparency
         );
-    }
-}
-
-void HorizontalMirrorAnimation::showOrHideCell(
-    const std::shared_ptr<utils::Context>& context,
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& index,
-    const bool& visible
-)
-{
-    if (visible)
-    {
-        level->cells[index]->show(context);
-    }
-    else
-    {
-        level->cells[index]->hide(context);
     }
 }
 
