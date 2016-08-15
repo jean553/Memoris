@@ -116,6 +116,13 @@ public:
     const char& getType();
 
     /**
+     * @brief setter for the type of the cell
+     *
+     * @param typeChar character representation of the type
+     */
+    void setType(const char& typeChar);
+
+    /**
      * @brief get a copy of the white color from the colors manager; apply
      * the given transparency to this color and set it as the cell current
      * color
@@ -133,6 +140,13 @@ public:
      * controller when the player leaves a cell;
      */
     void empty();
+
+    /**
+     * @brief getter for the visible parameter
+     *
+     * @return const bool&
+     */
+    const bool& isVisible() const;
 
 private:
 
@@ -152,6 +166,12 @@ private:
        list into cells.hpp; this variable is not directly initialized here
        because it is initialized inside the constructor */
     char type;
+
+    /* this boolean is true if the current cell is visible; false if hidden;
+       used by the animations to transfer visibility of the cells; by default,
+       all the cells are hidden; this value is modified by the hide() and
+       show() methods */
+    bool visible {false};
 };
 
 }
