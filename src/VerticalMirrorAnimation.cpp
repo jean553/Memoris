@@ -42,6 +42,9 @@ VerticalMirrorAnimation::VerticalMirrorAnimation(
     separator.setPosition(798.f, 98.f);
     separator.setFillColor(context->getColorsManager().getColorRed());
     separator.setSize(sf::Vector2f(4.f, 800.f));
+
+    /* plays the mirror animation sound */
+    context->getSoundsManager().getMirrorAnimationSound().play();
 }
 
 /**
