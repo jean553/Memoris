@@ -33,8 +33,10 @@ namespace animations
  *
  */
 StairsAnimation::StairsAnimation(
-    const std::shared_ptr<utils::Context>& context
-)
+    const std::shared_ptr<utils::Context>& context,
+    const short& dir
+) :
+    direction(dir)
 {
     /* this animation is a simple waiting period; in order to wait the
        appropriated time, we just save the current time once before the
@@ -52,22 +54,25 @@ void StairsAnimation::renderAnimation(
     const unsigned short& floor
 )
 {
-    /* just display the level during 2 seconds*/
     level->display(
         context,
-        floor
+        floor + transformation
     );
 
     /* the waiting time is 2 seconds; this is enough to let the player see
        which cell he's just found */
-    if (context->getClockMillisecondsTime() - lastAnimationUpdateTime < 2000)
+    if (context->getClockMillisecondsTime() - lastAnimationUpdateTime < 100)
     {
         return;
     }
 
-    /* ends the animation without calling the playNextAnimationStep(), this
-       is superfluous for this animation a sthere is only one step exactly */
-    finished = true;
+    playNextAnimationStep(
+        context,
+        level,
+        floor
+    );
+
+    lastAnimationUpdateTime = context->getClockMillisecondsTime();
 }
 
 /**
@@ -79,8 +84,74 @@ void StairsAnimation::playNextAnimationStep(
     const unsigned short& floor
 )
 {
-    /* useless in this animation, only defined because this is a pure virtual
-       method in the parent class */
+    /* the animation does nothing during the 10 first steps (first second) */
+
+    /* play the stop sound when the player just arrived on the cell */
+    if (animationSteps == 0)
+    {
+        context->getSoundsManager().getCollisionSound().play();
+    }
+
+    /* play the floor switch sound when the floor starts to change */
+    if (animationSteps == 10)
+    {
+        context->getSoundsManager().getFloorSwitchSound().play();
+    }
+
+    if (animationSteps >= 10 && animationSteps < 15)
+    {
+        /* change the transparency amount */
+        cellsTransparency -= 51.f;
+
+        /* update the transparency of all the cells to create a smooth floor
+           closing effect */
+        level->setCellsTransparency(
+            context,
+            cellsTransparency,
+            floor
+        );
+    }
+    else if (animationSteps == 15)
+    {
+        /* in order to animate the transition, we have to make all the next
+           floor cells not visible first */
+        level->setCellsTransparency(
+            context,
+            0.f,
+            floor + direction
+        );
+
+        /* set the transformation variable, the next floor has to be displayed
+           now instead of the original one */
+        transformation = direction;
+    }
+    else if (animationSteps >= 16 && animationSteps < 21)
+    {
+        /* change the transparency amount */
+        cellsTransparency += 51.f;
+
+        /* displays the cells of the next floor and progressively apply the
+           transparency */
+        level->setCellsTransparency(
+            context,
+            cellsTransparency,
+            floor + direction
+        );
+    }
+    else if (animationSteps == 21)
+    {
+        /* the cells of the previous floor have to be visible, even if we are
+           not on this floor anymore */
+        level->setCellsTransparency(
+            context,
+            255.f,
+            floor
+        );
+
+        finished = true;
+    }
+
+    animationSteps++;
 }
 
 }
