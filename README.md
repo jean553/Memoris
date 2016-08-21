@@ -101,3 +101,8 @@ http://appercuts.blogspot.fr/ - Free for commercial use with link to author webs
 https://www.iconfinder.com/Squid.ink / http://thesquid.ink/flat-icons/ - CreativeCommons - BY 3.0 - http://creativecommons.org/licenses/by/3.0/
 
 https://www.iconfinder.com/icons/1055053/controller_game_controller_video_game_icon#size=128 / http://www.elegantthemes.com/ - GNU GPL
+
+### Sounds
+
+All sounds files have been downloaded from www.universal-soundbank.com. They have
+been converted from .mp3 to .wav. This is the only modification.
