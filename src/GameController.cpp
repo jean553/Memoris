@@ -136,6 +136,19 @@ unsigned short GameController::render(
            animation */
         if (animation->isFinished())
         {
+            /* some animations require a specific ends */
+            if (movePlayerToNextFloor)
+            {
+                /* increments the floor value */
+                floor++;
+
+                /* update the displayed floor value on the game dashboard */
+                dashboard.updateCurrentFloor(floor);
+
+                /* reset the boolean */
+                movePlayerToNextFloor = false;
+            }
+
             /* reset() deletes the pointed object and set back the unique
                pointer to nullptr */
             animation.reset();
@@ -455,11 +468,16 @@ void GameController::executePlayerCellAction(
            because he is already on the last floor) */
         if (level->movePlayerToNextFloor(context))
         {
-            /* if the player can move, increment the current player floor */
-            floor++;
+            /* set the animation value; for the stairs cells, the animation
+               is a simple waiting period */
+            animation = animations::getAnimationByCellType(
+                            context,
+                            newPlayerCellType
+                        );
 
-            /* update the floor number inside the game dashboard */
-            dashboard.updateCurrentFloor(floor);
+            /* remember that we have ot move the player on the next floor at
+               the end of the animation */
+            movePlayerToNextFloor = true;
         }
 
         break;
