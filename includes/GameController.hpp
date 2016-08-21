@@ -209,6 +209,11 @@ private:
        false */
     bool playingPeriod {false};
 
+    /* this boolean is used to remember if the user has just took a stairs up
+       cell; if yes, we animate the level and then move the player; by default,
+       the player does not move, so the boolean is false */
+    bool movePlayerToNextFloor {false};
+
     /* the transparency of the player cell color; used to animate the current
        player cell with a flashing animation; we use a sf::Uint8 type because
        this is the one expected by the sf::Color object; the variable is

@@ -19,7 +19,7 @@
 /**
  * @file AbstractMirrorAnimation.hpp
  * @brief abstract class that manages the level mirror animations
- * @package controllers
+ * @package animations
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
