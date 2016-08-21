@@ -113,6 +113,13 @@ public:
      */
     const Sound& getTimeOverSound() const;
 
+    /**
+     * @brief getter of the mirror animation sound
+     *
+     * @return const Sound&
+     */
+    const Sound& getMirrorAnimationSound() const;
+
 private:
 
     /* play this sound when the menu selector
@@ -145,6 +152,10 @@ private:
 
     /* play this sound when game time is over */
     Sound timeOverSound;
+
+    /* play this sound when a horizontal or vertical mirror animation cell is
+       found */
+    Sound mirrorAnimationSound;
 };
 
 }

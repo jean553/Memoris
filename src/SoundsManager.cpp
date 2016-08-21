@@ -40,7 +40,8 @@ SoundsManager::SoundsManager() :
     foundDeadOrLessTimeSound("res/sounds/006.wav"),
     collisionSound("res/sounds/007.wav"),
     floorSwitchSound("res/sounds/008.wav"),
-    timeOverSound("res/sounds/009.wav")
+    timeOverSound("res/sounds/009.wav"),
+    mirrorAnimationSound("res/sounds/010.wav")
 {
     /* try to load each sound from their files, one by one; the game run
        even if some/all sounds cannot be loaded; if loading succeeds, we
@@ -122,6 +123,14 @@ const Sound& SoundsManager::getFloorSwitchSound() const
 const Sound& SoundsManager::getTimeOverSound() const
 {
     return timeOverSound;
+}
+
+/**
+ *
+ */
+const Sound& SoundsManager::getMirrorAnimationSound() const
+{
+    return mirrorAnimationSound;
 }
 
 }

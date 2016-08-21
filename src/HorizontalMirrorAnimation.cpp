@@ -40,6 +40,9 @@ HorizontalMirrorAnimation::HorizontalMirrorAnimation(
     separator.setPosition(300.f, 495.f);
     separator.setFillColor(context->getColorsManager().getColorRed());
     separator.setSize(sf::Vector2f(1000.f, 4.f));
+
+    /* plays the mirror animation sound */
+    context->getSoundsManager().getMirrorAnimationSound().play();
 }
 
 /**
