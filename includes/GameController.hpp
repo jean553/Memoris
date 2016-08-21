@@ -213,6 +213,7 @@ private:
        cell; if yes, we animate the level and then move the player; by default,
        the player does not move, so the boolean is false */
     bool movePlayerToNextFloor {false};
+    bool movePlayerToPreviousFloor {false};
 
     /* the transparency of the player cell color; used to animate the current
        player cell with a flashing animation; we use a sf::Uint8 type because
