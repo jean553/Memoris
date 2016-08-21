@@ -126,7 +126,7 @@ unsigned short GameController::render(
         /* the animation rendering method is called instead of the level
            rendering method; the animation has to handle this task during the
            whole animation process */
-        animation->render(
+        animation->renderAnimation(
             context,
             level,
             floor
@@ -512,6 +512,7 @@ void GameController::executePlayerCellAction(
     /* all the animation cells are specified into this case; we do not create
        a case for each animation cell */
     case cells::HORIZONTAL_MIRROR_CELL:
+    case cells::VERTICAL_MIRROR_CELL:
     {
         /* starts the level animation according to the current player cell */
         animation = animations::getAnimationByCellType(
@@ -544,7 +545,8 @@ void GameController::emptyPlayerCell(
         playerCellType == cells::STAIRS_UP_CELL ||
         playerCellType == cells::STAIRS_DOWN_CELL ||
         playerCellType == cells::ARRIVAL_CELL ||
-        playerCellType == cells::HORIZONTAL_MIRROR_CELL
+        playerCellType == cells::HORIZONTAL_MIRROR_CELL ||
+        playerCellType == cells::VERTICAL_MIRROR_CELL
     )
     {
         /* immediately ends the function; the current cell does not need to

@@ -17,14 +17,11 @@
 */
 
 /**
- * @file HorizontalMirrorAnimation.hpp
- * @brief plays the horizontal mirror animation
+ * @file VerticalMirrorAnimation.hpp
+ * @brief plays the vertical mirror animation
  * @package animations
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
-
-#ifndef MEMORIS_ABSTRACTLEVELANIMATIONS_H_
-#define MEMORIS_ABSTRACTLEVELANIMATIONS_H_
 
 #include "AbstractMirrorAnimation.hpp"
 
@@ -33,7 +30,7 @@ namespace memoris
 namespace animations
 {
 
-class HorizontalMirrorAnimation : public AbstractMirrorAnimation
+class VerticalMirrorAnimation : public AbstractMirrorAnimation
 {
 
 public:
@@ -43,7 +40,7 @@ public:
      *
      * @param context shared pointer to the context to use
      */
-    HorizontalMirrorAnimation(
+    VerticalMirrorAnimation(
         const std::shared_ptr<utils::Context>& context
     );
 
@@ -84,20 +81,7 @@ private:
     ) override;
 
     /**
-     * @brief replace the high cells by the low cells
-     *
-     * @param context shared pointer to the current context to use
-     * @param level shared pointer to the level to use
-     * @param floor the current floor to display in the animation
-     */
-    void executeReverseMirrorMovement(
-        const std::shared_ptr<utils::Context>& context,
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) override;
-
-    /**
-     * @brief replace the low cells by the high cells
+     * @brief replace the left side cells by the right side cells
      *
      * @param context shared pointer to the current context to use
      * @param level shared pointer to the level to use
@@ -108,9 +92,20 @@ private:
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) override;
+
+    /**
+     * @brief replace the right side cells by the left side cells
+     *
+     * @param context shared pointer to the current context to use
+     * @param level shared pointer to the level to use
+     * @param floor the current floor to display in the animation
+     */
+    void executeReverseMirrorMovement(
+        const std::shared_ptr<utils::Context>& context,
+        const std::shared_ptr<entities::Level>& level,
+        const unsigned short& floor
+    ) override;
 };
 
 }
 }
-
-#endif

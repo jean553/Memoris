@@ -25,6 +25,8 @@
 #include "animations.hpp"
 
 #include "HorizontalMirrorAnimation.hpp"
+#include "VerticalMirrorAnimation.hpp"
+#include "cells.hpp"
 
 namespace memoris
 {
@@ -39,9 +41,20 @@ std::unique_ptr<LevelAnimation> getAnimationByCellType(
     const char& cellType
 )
 {
-    /* only return the horizontal mirror animation for now, in fact, this is
-       the only one implemented yet */
-    return std::make_unique<HorizontalMirrorAnimation>(context);
+    /* creates the animation according to the given cell type */
+    switch(cellType)
+    {
+    case cells::VERTICAL_MIRROR_CELL:
+    {
+        return std::make_unique<VerticalMirrorAnimation>(context);
+    }
+    default:
+    {
+        /* by default, the horizontal mirror animation is created */
+
+        return std::make_unique<HorizontalMirrorAnimation>(context);
+    }
+    }
 }
 
 }

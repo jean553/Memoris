@@ -39,14 +39,17 @@ class LevelAnimation
 public:
 
     /**
-     * @brief pure virtual method for level animation rendering; this method
-     * is called by the game controller
+     * @brief public function called from the game controller; this function
+     * handles the time management (interval) of the animation and call the
+     * animation step incrementation method at each interval. This function is
+     * public because this is the only interface accessible from the game
+     * controller
      *
      * @param context shared pointer to the current context to use
      * @param level shared pointer to the level to animate
      * @param floor the current floor to display in the animation
      */
-    virtual void render(
+    virtual void renderAnimation(
         const std::shared_ptr<utils::Context>& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
@@ -61,6 +64,22 @@ public:
     const bool& isFinished() const;
 
 protected:
+
+    /**
+     * @brief protected virtual method that contains the animation flow with
+     * the different animation steps; it defines what does the animation
+     * according to the current animationSteps value; this method is protected
+     * because called by the renderAnimation function
+     *
+     * @param context shared pointer to the current context to use
+     * @param level shared pointer to the level to animate
+     * @param floor the current floor to display in the animation
+     */
+    virtual void playNextAnimationStep(
+        const std::shared_ptr<utils::Context>& context,
+        const std::shared_ptr<entities::Level>& level,
+        const unsigned short& floor
+    ) = 0;
 
     /* used by the animation creator (game controller) to know if the animation
        is terminated; in fact, the animation object sets it to false when all
