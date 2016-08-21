@@ -43,9 +43,14 @@ public:
      * just before the animation starts; we use this saved value later to
      * know when the waiting time of the animation is terminated
      *
-     * @paran context shared pointer to the current context to use
+     * @param context shared pointer to the current context to use
+     * @param dir indicates in which direction is made the transition
+     * (up/down), only equals to -1 or 1;
      */
-    StairsAnimation(const std::shared_ptr<utils::Context>& context);
+    StairsAnimation(
+        const std::shared_ptr<utils::Context>& context,
+        const short& dir
+    );
 
     /**
      * @param context shared pointer to the current context to use
@@ -68,6 +73,21 @@ public:
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     );
+
+private:
+
+    /* the direction of the movement; can be set to 1 or -1; not initialized
+       here because this variable can be specified in the constructor of the
+       animation */
+    short direction;
+
+    /* the update to apply on the current floor index according to the
+       animation progression; first the current floor is displayed, and then
+       we switch to next/previous one */
+    short transformation {0};
+
+    /* the transparency value to apply on all the cells of the same floor */
+    float cellsTransparency {255.f};
 };
 
 }

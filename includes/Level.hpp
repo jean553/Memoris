@@ -262,11 +262,25 @@ public:
      */
     void setPlayerCellIndex(const unsigned short& index);
 
+    /**
+     * @brief set the transparency of all the cells of the given floor
+     *
+     * @param context shared pointer to the context to use
+     * @param transparency the value of SFML transparency
+     * @param floor the concerned floor index
+     */
+    void setCellsTransparency(
+        const std::shared_ptr<utils::Context>& context,
+        const float& transparency,
+        const unsigned short& floor
+    );
+
     /* container of unique pointers of cells; we use unique pointers because
        pointers are fast to copy/move instead of a whole cell object; we use
        a unique pointer to make the pointer as restrictif as possible, in fact,
        we only use dynamic allocation to make the program run faster, so this
        is always better to limit the freedom of variables */
+    /* TODO: #644 should be private, create a getter */
     std::vector<std::unique_ptr<Cell>> cells;
 
 private:

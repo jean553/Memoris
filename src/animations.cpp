@@ -50,9 +50,18 @@ std::unique_ptr<LevelAnimation> getAnimationByCellType(
         return std::make_unique<VerticalMirrorAnimation>(context);
     }
     case cells::STAIRS_UP_CELL:
+    {
+        return std::make_unique<StairsAnimation>(
+                   context,
+                   1
+               );
+    }
     case cells::STAIRS_DOWN_CELL:
     {
-        return std::make_unique<StairsAnimation>(context);
+        return std::make_unique<StairsAnimation>(
+                   context,
+                   -1
+               );
     }
     default:
     {

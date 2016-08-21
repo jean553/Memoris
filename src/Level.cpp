@@ -540,5 +540,30 @@ void Level::setPlayerCellIndex(const unsigned short& index)
     playerIndex = index;
 }
 
+/**
+ *
+ */
+void Level::setCellsTransparency(
+    const std::shared_ptr<utils::Context>& context,
+    const float& transparency,
+    const unsigned short& floor
+)
+{
+    const unsigned short firstCellIndex = floor * 320;
+    const unsigned short lastCellIndex = firstCellIndex + 320;
+
+    for (
+        unsigned short index = firstCellIndex;
+        index < lastCellIndex;
+        index++
+    )
+    {
+        cells[index]->setCellColorTransparency(
+            context,
+            transparency
+        );
+    }
+}
+
 }
 }
