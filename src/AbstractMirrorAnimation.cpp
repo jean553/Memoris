@@ -41,11 +41,11 @@ void AbstractMirrorAnimation::showOrHideCell(
 {
     if (visible)
     {
-        level->cells[index]->show(context);
+        level->getCells()[index]->show(context);
     }
     else
     {
-        level->cells[index]->hide(context);
+        level->getCells()[index]->hide(context);
     }
 }
 

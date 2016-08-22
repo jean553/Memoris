@@ -275,15 +275,25 @@ public:
         const unsigned short& floor
     );
 
+    /**
+     * @brief getter of the cells container; returns a reference to the
+     * container; we return a constant reference to the container; in that
+     * case, the elements of the container cannot be modified (that means
+     * each pointer into the container cannot be replaced by another one)
+     * but the objects pointed by those pointers can be modified
+     *
+     * @return const std::vector<std::unique_ptr<Cell>>&
+     */
+    const std::vector<std::unique_ptr<Cell>>& getCells() const;
+
+private:
+
     /* container of unique pointers of cells; we use unique pointers because
        pointers are fast to copy/move instead of a whole cell object; we use
        a unique pointer to make the pointer as restrictif as possible, in fact,
        we only use dynamic allocation to make the program run faster, so this
        is always better to limit the freedom of variables */
-    /* TODO: #644 should be private, create a getter */
     std::vector<std::unique_ptr<Cell>> cells;
-
-private:
 
     /* the index of the current player cell; the position of the player in
        the level; the variable is 0 by default; */

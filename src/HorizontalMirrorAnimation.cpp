@@ -150,7 +150,7 @@ void HorizontalMirrorAnimation::playNextAnimationStep(
 
         /* force the new player cell to be shown, no matter if this cell was
            shown or hidden */
-        level->cells[playerCellIndexAfterAnimation]->show(context);
+        level->getCells()[playerCellIndexAfterAnimation]->show(context);
 
         /* set finished to true, the animation is terminated, no new iteration
            will be triggered */
@@ -196,7 +196,7 @@ void HorizontalMirrorAnimation::executeReverseMirrorMovement(
             cursor -= 20;
         }
 
-        level->cells[cursor + offset]->setType(
+        level->getCells()[cursor + offset]->setType(
             savedCells.front().getType()
         );
 
@@ -254,7 +254,7 @@ void HorizontalMirrorAnimation::executeMirrorMovement(
             diff += 40;
         }
 
-        savedCells.push(*(level->cells[index]));
+        savedCells.push(*(level->getCells()[index]));
 
         if (index == level->getPlayerCellIndex())
         {
@@ -281,15 +281,15 @@ void HorizontalMirrorAnimation::executeMirrorMovement(
             cursor -= 20;
         }
 
-        level->cells[cursor + offset]->setType(
-            level->cells[index]->getType()
+        level->getCells()[cursor + offset]->setType(
+            level->getCells()[index]->getType()
         );
 
         showOrHideCell(
             context,
             level,
             cursor + offset,
-            level->cells[index]->isVisible()
+            level->getCells()[index]->isVisible()
         );
 
         if (index == level->getPlayerCellIndex())
@@ -319,7 +319,7 @@ void HorizontalMirrorAnimation::setLevelSideCellsTransparency(
         index++
     )
     {
-        level->cells[index]->setCellColorTransparency(
+        level->getCells()[index]->setCellColorTransparency(
             context,
             animatedSideTransparency
         );
