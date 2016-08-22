@@ -134,7 +134,7 @@ void VerticalMirrorAnimation::playNextAnimationStep(
 
         /* force the new player cell to be shown, no matter if this cell was
            shown or hidden */
-        level->cells[playerCellIndexAfterAnimation]->show(context);
+        level->getCells()[playerCellIndexAfterAnimation]->show(context);
 
         finished = true;
     }
@@ -181,7 +181,7 @@ void VerticalMirrorAnimation::setLevelSideCellsTransparency(
 
     while(index <= startingCellIndex + 309)
     {
-        level->cells[index]->setCellColorTransparency(
+        level->getCells()[index]->setCellColorTransparency(
             context,
             animatedSideTransparency
         );
@@ -213,7 +213,7 @@ void VerticalMirrorAnimation::executeMirrorMovement(
     {
         /* the 'cells' array of the Level entity is a container of pointers;
            we really want to 'copy' the cells here, so we have to use '*' */
-        savedCells.push(*(level->cells[index - difference]));
+        savedCells.push(*(level->getCells()[index - difference]));
 
         if (index - difference == level->getPlayerCellIndex())
         {
@@ -225,15 +225,15 @@ void VerticalMirrorAnimation::executeMirrorMovement(
             playerCellIndexAfterAnimation = index - difference;
         }
 
-        level->cells[index - difference]->setType(
-            level->cells[index]->getType()
+        level->getCells()[index - difference]->setType(
+            level->getCells()[index]->getType()
         );
 
         showOrHideCell(
             context,
             level,
             index - difference,
-            level->cells[index]->isVisible()
+            level->getCells()[index]->isVisible()
         );
 
         index++;
@@ -263,7 +263,7 @@ void VerticalMirrorAnimation::executeReverseMirrorMovement(
 
     while(index <= end)
     {
-        level->cells[index]->setType(
+        level->getCells()[index]->setType(
             savedCells.front().getType()
         );
 
