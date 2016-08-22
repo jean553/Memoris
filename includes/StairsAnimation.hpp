@@ -76,6 +76,12 @@ public:
 
 private:
 
+    /* during the animation, the transparency of the cells is modified
+       progressively; the amount of transparency value update at each iteration
+       is always the same and equal to 17.f, so we just refactor it in the
+       code segment */
+    static constexpr float TRANSPARENCY_UPDATE_AMOUNT {17.f};
+
     /* the direction of the movement; can be set to 1 or -1; not initialized
        here because this variable can be specified in the constructor of the
        animation */
