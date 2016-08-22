@@ -277,11 +277,14 @@ public:
 
     /**
      * @brief getter of the cells container; returns a reference to the
-     * container (the reference is not constant)
+     * container; we return a constant reference to the container; in that
+     * case, the elements of the container cannot be modified (that means
+     * each pointer into the container cannot be replaced by another one)
+     * but the objects pointed by those pointers can be modified
      *
-     * @return std::vector<std::unique_ptr<Cell>>&
+     * @return const std::vector<std::unique_ptr<Cell>>&
      */
-    std::vector<std::unique_ptr<Cell>>& getCells();
+    const std::vector<std::unique_ptr<Cell>>& getCells() const;
 
 private:
 

@@ -568,7 +568,7 @@ void Level::setCellsTransparency(
 /**
  *
  */
-std::vector<std::unique_ptr<Cell>>& Level::getCells()
+const std::vector<std::unique_ptr<Cell>>& Level::getCells() const
 {
     return cells;
 }
