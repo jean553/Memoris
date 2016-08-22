@@ -61,7 +61,7 @@ void StairsAnimation::renderAnimation(
 
     /* the waiting time is 2 seconds; this is enough to let the player see
        which cell he's just found */
-    if (context->getClockMillisecondsTime() - lastAnimationUpdateTime < 100)
+    if (context->getClockMillisecondsTime() - lastAnimationUpdateTime < 50)
     {
         return;
     }
@@ -98,10 +98,10 @@ void StairsAnimation::playNextAnimationStep(
         context->getSoundsManager().getFloorSwitchSound().play();
     }
 
-    if (animationSteps >= 10 && animationSteps < 15)
+    if (animationSteps >= 10 && animationSteps < 25)
     {
         /* change the transparency amount */
-        cellsTransparency -= 51.f;
+        cellsTransparency -= TRANSPARENCY_UPDATE_AMOUNT;
 
         /* update the transparency of all the cells to create a smooth floor
            closing effect */
@@ -111,7 +111,7 @@ void StairsAnimation::playNextAnimationStep(
             floor
         );
     }
-    else if (animationSteps == 15)
+    else if (animationSteps == 25)
     {
         /* in order to animate the transition, we have to make all the next
            floor cells not visible first */
@@ -125,10 +125,10 @@ void StairsAnimation::playNextAnimationStep(
            now instead of the original one */
         transformation = direction;
     }
-    else if (animationSteps >= 16 && animationSteps < 21)
+    else if (animationSteps >= 26 && animationSteps < 41)
     {
         /* change the transparency amount */
-        cellsTransparency += 51.f;
+        cellsTransparency += TRANSPARENCY_UPDATE_AMOUNT;
 
         /* displays the cells of the next floor and progressively apply the
            transparency */
@@ -138,7 +138,7 @@ void StairsAnimation::playNextAnimationStep(
             floor + direction
         );
     }
-    else if (animationSteps == 21)
+    else if (animationSteps == 41)
     {
         /* the cells of the previous floor have to be visible, even if we are
            not on this floor anymore */
