@@ -72,15 +72,12 @@ private:
      * @param floor the current floor to display in the animation
      * @param difference the color transparency update to apply on the
      * transparency value of the cells textures
-     * @param ... specific parameter for the vertical mirror only (check
-     * interface documentation for details)
      */
     void setLevelSideCellsTransparency(
         const std::shared_ptr<utils::Context>& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& startingCellIndex,
-        const float difference,
-        ...
+        const float difference
     ) override;
 
     /**

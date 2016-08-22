@@ -69,15 +69,12 @@ private:
      * @param floor the current floor to display in the animation
      * @param difference the color transparency update to apply on the
      * transparency value of the cells textures
-     * @param ... specific parameter for the vertical mirror only (check
-     * interface documentation for details)
      */
     void setLevelSideCellsTransparency(
         const std::shared_ptr<utils::Context>& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& startingCellIndex,
-        const float difference,
-        ...
+        const float difference
     ) override;
 
     /**
@@ -105,6 +102,13 @@ private:
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) override;
+
+    /* use to know when the end of the line of the current
+       animated side has been reached; this is used to know
+       when the animation is switched to the next line without
+       animating the other side; check the code of
+       setLevelSideCellsTransparency for more details */
+    unsigned short sideMax {10};
 };
 
 }

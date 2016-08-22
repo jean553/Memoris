@@ -72,11 +72,6 @@ protected:
      * update
      * @param difference the positive or negative transparency amount to
      * add or substract
-     * @param ... makes the function a variadic function (only for vertical
-     * mirror animation): this integer parameter is used to calculate the end
-     * of a line animation and specifies 10 or 20 (left side or right side);
-     * this parameter is required when the vertical mirror animation calls
-     * this function
      *
      * NOTE: the 'difference' parameter is passed by copy. This is mandatory
      * to use the variadic parameters (va_list does not work if the previous
@@ -86,8 +81,7 @@ protected:
         const std::shared_ptr<utils::Context>& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& startingCellIndex,
-        const float difference,
-        ...
+        const float difference
     ) = 0;
 
     /**

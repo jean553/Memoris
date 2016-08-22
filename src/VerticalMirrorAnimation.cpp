@@ -24,8 +24,6 @@
 
 #include "VerticalMirrorAnimation.hpp"
 
-#include <cstdarg>
-
 namespace memoris
 {
 namespace animations
@@ -69,8 +67,7 @@ void VerticalMirrorAnimation::playNextAnimationStep(
             context,
             level,
             startingLeftSideCellIndex,
-            -TRANSPARENCY_UPDATE_AMOUNT,
-            10
+            -TRANSPARENCY_UPDATE_AMOUNT
         );
     }
     else if (animationSteps == 15)
@@ -89,20 +86,21 @@ void VerticalMirrorAnimation::playNextAnimationStep(
             context,
             level,
             startingLeftSideCellIndex,
-            TRANSPARENCY_UPDATE_AMOUNT,
-            10
+            TRANSPARENCY_UPDATE_AMOUNT
         );
     }
     else if (animationSteps >= 21 && animationSteps < 26)
     {
+        /* switch from one side to another, so change the maximum step */
+        sideMax = 20;
+
         /* make the cells of the right side transparent progressively, by
            step of 51 alpha value */
         setLevelSideCellsTransparency(
             context,
             level,
             startingRightSideCellIndex,
-            -TRANSPARENCY_UPDATE_AMOUNT,
-            20
+            -TRANSPARENCY_UPDATE_AMOUNT
         );
     }
     else if (animationSteps == 26)
@@ -123,8 +121,7 @@ void VerticalMirrorAnimation::playNextAnimationStep(
             context,
             level,
             startingRightSideCellIndex,
-            TRANSPARENCY_UPDATE_AMOUNT,
-            20
+            TRANSPARENCY_UPDATE_AMOUNT
         );
     }
     else if (animationSteps == 33)
@@ -158,24 +155,10 @@ void VerticalMirrorAnimation::setLevelSideCellsTransparency(
     const std::shared_ptr<utils::Context>& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& startingCellIndex,
-    const float difference,
-    ...
+    const float difference
 )
 {
-    /* declare a va_list variable used to find the variadic function
-       parameters */
-    va_list params;
-
-    /* specify from which parameter address the variadic list starts, in our
-       case, right after the 'difference' paramater */
-    va_start(params, difference);
-
-    /* use 'int' because va_arg does not work with unsigned short */
-    int sideMax = va_arg(params, int);
-
-    /* we could use unsigned short here, but as we are mandatory to use 'int',
-       we use it everywhere in the function */
-    int index = startingCellIndex;
+    unsigned short index = startingCellIndex;
 
     animatedSideTransparency += difference;
 
