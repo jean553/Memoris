@@ -308,8 +308,7 @@ void HorizontalMirrorAnimation::setLevelSideCellsTransparency(
     const std::shared_ptr<utils::Context>& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& startingLowCellsIndex,
-    const float difference,
-    ...
+    const float difference
 )
 {
     animatedSideTransparency += difference;
