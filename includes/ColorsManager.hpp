@@ -89,6 +89,13 @@ public:
     const sf::Color& getColorGreen() const;
 
     /**
+     * @brief returns a reference to the dark green color
+     *
+     * @return const sf::Color&
+     */
+    const sf::Color& getColorDarkGreen() const;
+
+    /**
      * @brief returns a copy of the blue color
      *
      * @return sf::Color
@@ -149,6 +156,10 @@ private:
     static constexpr sf::Uint8 COLOR_GREEN_GREEN = 192;
     static constexpr sf::Uint8 COLOR_GREEN_BLUE = 0;
 
+    static constexpr sf::Uint8 COLOR_DARK_GREEN_RED = 0;
+    static constexpr sf::Uint8 COLOR_DARK_GREEN_GREEN = 100;
+    static constexpr sf::Uint8 COLOR_DARK_GREEN_BLUE = 0;
+
     static constexpr sf::Uint8 COLOR_FULL_ALPHA = 255;
     static constexpr sf::Uint8 COLOR_PARTIAL_ALPHA = 225;
 
@@ -159,6 +170,7 @@ private:
     sf::Color colorBlack;
     sf::Color colorPartialDarkGrey;
     sf::Color colorGreen;
+    sf::Color colorDarkGreen;
 };
 
 }

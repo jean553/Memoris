@@ -67,6 +67,11 @@ ColorsManager::ColorsManager()
     colorGreen.g = COLOR_GREEN_GREEN;
     colorGreen.b = COLOR_GREEN_BLUE;
     colorGreen.a = COLOR_FULL_ALPHA;
+
+    colorDarkGreen.r = COLOR_DARK_GREEN_RED;
+    colorDarkGreen.g = COLOR_DARK_GREEN_GREEN;
+    colorDarkGreen.b = COLOR_DARK_GREEN_BLUE;
+    colorDarkGreen.a = COLOR_FULL_ALPHA;
 }
 
 /**
@@ -115,6 +120,14 @@ const sf::Color& ColorsManager::getColorPartialDarkGrey() const
 const sf::Color& ColorsManager::getColorGreen() const
 {
     return colorGreen;
+}
+
+/**
+ *
+ */
+const sf::Color& ColorsManager::getColorDarkGreen() const
+{
+    return colorDarkGreen;
 }
 
 /**

@@ -242,6 +242,8 @@ unsigned short GameController::render(
         if (win)
         {
             context->getSfmlWindow().draw(winText);
+            context->getSfmlWindow().draw(leftLevelsAmountText);
+            context->getSfmlWindow().draw(winInformationText);
         }
         else
         {
@@ -667,23 +669,38 @@ void GameController::initializeWinText(
     /* initialize the SFML text that is displayed when the player loses the
        game */
 
-    /* the text is aligned at the center of the window */
     winText.setPosition(
-        470.f,
+        480.f,
+        100.f
+    );
+    winText.setString("You Win !");
+    winText.setCharacterSize(fonts::TITLE_SIZE);
+    winText.setFont(context->getFontsManager().getTextFont());
+    winText.setColor(context->getColorsManager().getColorGreen());
+
+    leftLevelsAmountText.setPosition(
+        700.f,
         200.f
     );
+    leftLevelsAmountText.setString(
+        std::to_string(
+            context->getPlayingSerieManager().getRemainingLevelsAmount()
+        )
+    );
+    leftLevelsAmountText.setCharacterSize(fonts::LEVELS_COUNTDOWN_SIZE);
+    leftLevelsAmountText.setFont(context->getFontsManager().getTextFont());
+    leftLevelsAmountText.setColor(context->getColorsManager().getColorWhite());
 
-    /* the text contains the win message */
-    winText.setString("You Win !");
-
-    /* the size of the win message is the same as the title items sizes */
-    winText.setCharacterSize(fonts::TITLE_SIZE);
-
-    /* the font of the win message is the normal text font */
-    winText.setFont(context->getFontsManager().getTextFont());
-
-    /* the win text is written in red color on the grey filter */
-    winText.setColor(context->getColorsManager().getColorGreen());
+    winInformationText.setPosition(
+        560.f,
+        650.f
+    );
+    winInformationText.setString("levels left");
+    winInformationText.setCharacterSize(fonts::SUB_TITLE_SIZE);
+    winInformationText.setFont(context->getFontsManager().getTextFont());
+    winInformationText.setColor(
+        context->getColorsManager().getColorDarkGreen()
+    );
 }
 
 /**
@@ -761,7 +778,6 @@ void GameController::endLevel(
     }
     else
     {
-
         /* force the music to stop */
         context->stopMusic();
 
@@ -773,8 +789,7 @@ void GameController::endLevel(
     timer.stop();
 
     /* save when started the lose period time */
-    endPeriodStartTime =
-        context->getClockMillisecondsTime();
+    endPeriodStartTime = context->getClockMillisecondsTime();
 }
 
 }

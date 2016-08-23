@@ -240,10 +240,13 @@ private:
        time when the player just lost the current playing game */
     sf::RectangleShape greyFilter;
 
-    /* the SFML surface that is displayed when the player loses/wins the
+    /* the SFML surfaces that are displayed when the player loses/wins the
        game */
+
     sf::Text loseText;
     sf::Text winText;
+    sf::Text winInformationText;
+    sf::Text leftLevelsAmountText;
 };
 
 }
