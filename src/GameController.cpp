@@ -105,12 +105,10 @@ unsigned short GameController::render(
 
     /* starts the lose period if the countdown is finished; checks that the
        starting lose period time has not been set yet */
-    if (timer.isFinished() && startLosePeriodTime == 0)
+    if (timer.isFinished() && endPeriodStartTime == 0)
     {
-        /* plays the time over sound */
-        context->getSoundsManager().getTimeOverSound().play();
-
-        handleLosePeriod(context);
+        /* ends the level with the lose period */
+        endLevel(context);
     }
 
     /* check if the level is currently rendering a floor switch animation */
@@ -234,45 +232,34 @@ unsigned short GameController::render(
             context->getClockMillisecondsTime();
     }
 
-    /* check if the current game status is the lose phase */
-    if (startLosePeriodTime)
-    {
-        /* display the grey filter */
-        context->getSfmlWindow().draw(greyFilter);
-
-        /* displays the lose text */
-        context->getSfmlWindow().draw(loseText);
-
-        /* check if the lose period is finished; the lose period duration is
-           5 seconds */
-        if (
-            context->getClockMillisecondsTime() -
-            startLosePeriodTime > 5000
-        )
-        {
-            /* just go back to the serie selector */
-            expectedControllerId =
-                controllers::OFFICIAL_SERIES_MENU_CONTROLLER_ID;
-        }
-    }
-
     /* check if the current game status is the win phase */
-    if (startWinPeriodTime)
+    if (endPeriodStartTime)
     {
         /* display the grey filter */
         context->getSfmlWindow().draw(greyFilter);
 
-        /* displays the lose text */
-        context->getSfmlWindow().draw(winText);
+        /* display the win text or the lose text */
+        if (win)
+        {
+            context->getSfmlWindow().draw(winText);
+        }
+        else
+        {
+            context->getSfmlWindow().draw(loseText);
+        }
 
         /* check if the lose period is finished; the lose period duration is
            5 seconds */
         if (
             context->getClockMillisecondsTime() -
-            startWinPeriodTime > 5000
+            endPeriodStartTime > 5000
         )
         {
-            expectedControllerId = controllers::GAME_CONTROLLER_ID;
+            /* change the expected controller id according to the level
+               status */
+            expectedControllerId = win ?
+                                   controllers::GAME_CONTROLLER_ID:
+                                   controllers::MAIN_MENU_CONTROLLER_ID;
         }
     }
 
@@ -381,8 +368,7 @@ void GameController::handlePlayerMovement(
        the movement is forbidden too */
     if (
         watchingPeriod ||
-        startLosePeriodTime ||
-        startWinPeriodTime ||
+        endPeriodStartTime ||
         animation != nullptr
     )
     {
@@ -473,7 +459,7 @@ void GameController::executePlayerCellAction(
         /* check if the lose period must be started */
         if (dashboard.getLifesAmount() == 0)
         {
-            handleLosePeriod(context);
+            endLevel(context);
         }
 
         /* decrement the amount of lifes */
@@ -546,15 +532,17 @@ void GameController::executePlayerCellAction(
         /* check if the all the star cells have been found */
         if (dashboard.getFoundStarsAmount() == level->getStarsAmount())
         {
+            /* set the level as won */
+            win = true;
+
             /* check if the loaded serie has a next level->to play */
             if (context->getPlayingSerieManager().hasNextLevel())
             {
                 /* displays the win level screen */
-                handleWinPeriod(context);
+                endLevel(context);
             }
             else
             {
-
                 /* if the serie is finished, go back to the main menu */
                 /* TODO: should go to another screen as a win screen */
                 expectedControllerId = controllers::MAIN_MENU_CONTROLLER_ID;
@@ -760,36 +748,32 @@ void GameController::watchNextFloorOrHideLevel(
 /**
  *
  */
-void GameController::handleLosePeriod(
+void GameController::endLevel(
     const std::shared_ptr<utils::Context>& context
 )
 {
-    /* force the music to stop */
-    context->stopMusic();
+    /* stop the music or play a specific sound according if the player has
+       just won or lost */
+    if (win)
+    {
+        /* plays the win level sound */
+        context->getSoundsManager().getWinLevelSound().play();
+    }
+    else
+    {
+
+        /* force the music to stop */
+        context->stopMusic();
+
+        /* plays the time over sound */
+        context->getSoundsManager().getTimeOverSound().play();
+    }
 
     /* call the method to stop the timer */
     timer.stop();
 
     /* save when started the lose period time */
-    startLosePeriodTime =
-        context->getClockMillisecondsTime();
-}
-
-/**
- *
- */
-void GameController::handleWinPeriod(
-    const std::shared_ptr<utils::Context>& context
-)
-{
-    /* plays the win level sound */
-    context->getSoundsManager().getWinLevelSound().play();
-
-    /* call the method to stop the timer */
-    timer.stop();
-
-    /* save when started the lose period time */
-    startWinPeriodTime =
+    endPeriodStartTime =
         context->getClockMillisecondsTime();
 }
 
