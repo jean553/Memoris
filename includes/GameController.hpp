@@ -131,6 +131,13 @@ private:
     void initializeLoseText(const std::shared_ptr<utils::Context>& context);
 
     /**
+     * @brief initialize the win text that is displayed when the player wins
+     *
+     * @param context shared pointer to the current context of the game
+     */
+    void initializeWinText(const std::shared_ptr<utils::Context>& context);
+
+    /**
      * @brief this method is called during the watching mode by the main
      * display method to jump to the next floor if the next floor is a playable
      * floor or to stop the watching period if there is no playable floor
@@ -150,6 +157,15 @@ private:
      * @param context shared pointer to the context to use
      */
     void handleLosePeriod(const std::shared_ptr<utils::Context>& context);
+
+    /**
+     * @brief this method is called when the player wins the current level,
+     * it plays the win sound, display information about the remaining levels
+     * and switch to the next level after a short waiting time
+     *
+     * @param context shared pointer to the context to use
+     */
+    void handleWinPeriod(const std::shared_ptr<utils::Context>& context);
 
     /* the graphical timer widget of the game; renders the elapsed time since
        the beginning of the game */
@@ -172,6 +188,7 @@ private:
        lose period; if the lose period is enabled, this variable is positive
        for sure */
     sf::Uint32 startLosePeriodTime {0};
+    sf::Uint32 startWinPeriodTime {0};
 
     /* the top dashboard that displays the countdown timer and all the
        current game information labels */
@@ -231,8 +248,10 @@ private:
        time when the player just lost the current playing game */
     sf::RectangleShape greyFilter;
 
-    /* the SFML surface that is displayed when the player loses the game */
+    /* the SFML surface that is displayed when the player loses/wins the
+       game */
     sf::Text loseText;
+    sf::Text winText;
 };
 
 }

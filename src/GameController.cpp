@@ -70,6 +70,9 @@ GameController::GameController(
     /* initialize the lose text */
     initializeLoseText(context);
 
+    /* initialize the win text */
+    initializeWinText(context);
+
     /* apply the floors amount on the watching time */
     watchingPeriodTimer.applyFloorsAmount(level->getPlayableFloors());
 }
@@ -253,6 +256,26 @@ unsigned short GameController::render(
         }
     }
 
+    /* check if the current game status is the win phase */
+    if (startWinPeriodTime)
+    {
+        /* display the grey filter */
+        context->getSfmlWindow().draw(greyFilter);
+
+        /* displays the lose text */
+        context->getSfmlWindow().draw(winText);
+
+        /* check if the lose period is finished; the lose period duration is
+           5 seconds */
+        if (
+            context->getClockMillisecondsTime() -
+            startWinPeriodTime > 5000
+        )
+        {
+            expectedControllerId = controllers::GAME_CONTROLLER_ID;
+        }
+    }
+
     /* used for the screen switch transition animation */
     nextControllerId = animateScreenTransition(context);
 
@@ -356,7 +379,12 @@ void GameController::handlePlayerMovement(
     /* check if the game is in watching or lose period; in both cases, the
        movement is directly canceled; if an animation is currently rendering,
        the movement is forbidden too */
-    if (watchingPeriod || startLosePeriodTime || animation != nullptr)
+    if (
+        watchingPeriod ||
+        startLosePeriodTime ||
+        startWinPeriodTime ||
+        animation != nullptr
+    )
     {
         /* ends the current function and the movement is not allowed */
         return;
@@ -521,16 +549,8 @@ void GameController::executePlayerCellAction(
             /* check if the loaded serie has a next level->to play */
             if (context->getPlayingSerieManager().hasNextLevel())
             {
-                /* if there is a next level->to play, load the level->to play,
-                   so call again the game controller; the playing serie manager
-                   will automatically take the next level->of the queue */
-                expectedControllerId = controllers::GAME_CONTROLLER_ID;
-
-                /* save the current amount of watching time for the next
-                   level->*/
-                context->getPlayingSerieManager().setWatchingTime(
-                    dashboard.getWatchingTime()
-                );
+                /* displays the win level screen */
+                handleWinPeriod(context);
             }
             else
             {
@@ -652,6 +672,35 @@ void GameController::initializeLoseText(
 /**
  *
  */
+void GameController::initializeWinText(
+    const std::shared_ptr<utils::Context>& context
+)
+{
+    /* initialize the SFML text that is displayed when the player loses the
+       game */
+
+    /* the text is aligned at the center of the window */
+    winText.setPosition(
+        470.f,
+        200.f
+    );
+
+    /* the text contains the win message */
+    winText.setString("You Win !");
+
+    /* the size of the win message is the same as the title items sizes */
+    winText.setCharacterSize(fonts::TITLE_SIZE);
+
+    /* the font of the win message is the normal text font */
+    winText.setFont(context->getFontsManager().getTextFont());
+
+    /* the win text is written in red color on the grey filter */
+    winText.setColor(context->getColorsManager().getColorGreen());
+}
+
+/**
+ *
+ */
 void GameController::watchNextFloorOrHideLevel(
     const std::shared_ptr<utils::Context>& context
 )
@@ -723,6 +772,24 @@ void GameController::handleLosePeriod(
 
     /* save when started the lose period time */
     startLosePeriodTime =
+        context->getClockMillisecondsTime();
+}
+
+/**
+ *
+ */
+void GameController::handleWinPeriod(
+    const std::shared_ptr<utils::Context>& context
+)
+{
+    /* plays the win level sound */
+    context->getSoundsManager().getWinLevelSound().play();
+
+    /* call the method to stop the timer */
+    timer.stop();
+
+    /* save when started the lose period time */
+    startWinPeriodTime =
         context->getClockMillisecondsTime();
 }
 
