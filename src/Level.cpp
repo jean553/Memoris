@@ -206,25 +206,32 @@ void Level::hideAllCellsExceptDeparture(
     const std::shared_ptr<utils::Context>& context
 )
 {
-    /* iterates all the cells of the array one by one */
-    for(unsigned short index = 0; index < 3200; index++)
-    {
-        /* check if the type of the current cell is the departure cell type */
-        if ((*cells[index]).getType() == cells::DEPARTURE_CELL)
+    /* use a for_each to browse all the unique pointers of the cells container;
+       send a reference to the pointer as a lambda function parameter at each
+       iteration; capture the context shared pointer by reference; */
+    std::for_each(
+        cells.begin(),
+        cells.end(),
+        [&context](const std::unique_ptr<Cell>& cell)
         {
-            /* force the cell to be shown; this is to ensure that whatever
-               happened to the level before (animation, floor switch) that
-               occured hide/show cells actions, we still show the departure
-               cell anyway */
-            (*cells[index]).show(context);
+            /* check if the type of the current cell is the departure cell
+               type */
+            if (cell->getType() == cells::DEPARTURE_CELL)
+            {
+                /* force the cell to be shown; this is to ensure that whatever
+                   happened to the level before (animation, floor switch) that
+                   occured hide/show cells actions, we still show the departure
+                   cell anyway */
+                cell->show(context);
 
-            /* do nothing and continue to iterate if the type is the departure
-               cell; in fact, any departure cell stays visible */
-            continue;
+                /* do nothing and continue to iterate if the type is the
+                   departure cell; in fact, any departure cell stays visible */
+                return;
+            }
+
+            cell->hide(context);
         }
-
-        (*cells[index]).hide(context);
-    }
+    );
 }
 
 /**
