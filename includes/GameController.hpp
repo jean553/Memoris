@@ -131,6 +131,13 @@ private:
     void initializeLoseText(const std::shared_ptr<utils::Context>& context);
 
     /**
+     * @brief initialize the win text that is displayed when the player wins
+     *
+     * @param context shared pointer to the current context of the game
+     */
+    void initializeWinText(const std::shared_ptr<utils::Context>& context);
+
+    /**
      * @brief this method is called during the watching mode by the main
      * display method to jump to the next floor if the next floor is a playable
      * floor or to stop the watching period if there is no playable floor
@@ -143,13 +150,12 @@ private:
     );
 
     /**
-     * @brief this method checks if the lose period must be started; there
-     * could have two reasons for it : the user has no life anymore and just
-     * took a 'less life' cell, or the countdown is finished
+     * @brief this method ends the level, it displays the win or lose screen
+     * according if the player has just won or lost the current level
      *
      * @param context shared pointer to the context to use
      */
-    void handleLosePeriod(const std::shared_ptr<utils::Context>& context);
+    void endLevel(const std::shared_ptr<utils::Context>& context);
 
     /* the graphical timer widget of the game; renders the elapsed time since
        the beginning of the game */
@@ -171,7 +177,7 @@ private:
        variable is also used to check if the game is currently inside the
        lose period; if the lose period is enabled, this variable is positive
        for sure */
-    sf::Uint32 startLosePeriodTime {0};
+    sf::Uint32 endPeriodStartTime {0};
 
     /* the top dashboard that displays the countdown timer and all the
        current game information labels */
@@ -215,6 +221,9 @@ private:
     bool movePlayerToNextFloor {false};
     bool movePlayerToPreviousFloor {false};
 
+    /* this boolean is true when the player has just won the current level */
+    bool win {false};
+
     /* the transparency of the player cell color; used to animate the current
        player cell with a flashing animation; we use a sf::Uint8 type because
        this is the one expected by the sf::Color object; the variable is
@@ -231,8 +240,10 @@ private:
        time when the player just lost the current playing game */
     sf::RectangleShape greyFilter;
 
-    /* the SFML surface that is displayed when the player loses the game */
+    /* the SFML surface that is displayed when the player loses/wins the
+       game */
     sf::Text loseText;
+    sf::Text winText;
 };
 
 }

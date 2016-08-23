@@ -120,6 +120,13 @@ public:
      */
     const Sound& getMirrorAnimationSound() const;
 
+    /**
+     * @brief getter of the win level sound
+     *
+     * @return const Sound&
+     */
+    const Sound& getWinLevelSound() const;
+
 private:
 
     /* play this sound when the menu selector
@@ -156,6 +163,9 @@ private:
     /* play this sound when a horizontal or vertical mirror animation cell is
        found */
     Sound mirrorAnimationSound;
+
+    /* play this sound when the player wins the current level */
+    Sound winLevelSound;
 };
 
 }
