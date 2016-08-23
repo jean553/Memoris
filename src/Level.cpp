@@ -213,24 +213,24 @@ void Level::hideAllCellsExceptDeparture(
         cells.begin(),
         cells.end(),
         [&context](const std::unique_ptr<Cell>& cell)
+    {
+        /* check if the type of the current cell is the departure cell
+           type */
+        if (cell->getType() == cells::DEPARTURE_CELL)
         {
-            /* check if the type of the current cell is the departure cell
-               type */
-            if (cell->getType() == cells::DEPARTURE_CELL)
-            {
-                /* force the cell to be shown; this is to ensure that whatever
-                   happened to the level before (animation, floor switch) that
-                   occured hide/show cells actions, we still show the departure
-                   cell anyway */
-                cell->show(context);
+            /* force the cell to be shown; this is to ensure that whatever
+               happened to the level before (animation, floor switch) that
+               occured hide/show cells actions, we still show the departure
+               cell anyway */
+            cell->show(context);
 
-                /* do nothing and continue to iterate if the type is the
-                   departure cell; in fact, any departure cell stays visible */
-                return;
-            }
-
-            cell->hide(context);
+            /* do nothing and continue to iterate if the type is the
+               departure cell; in fact, any departure cell stays visible */
+            return;
         }
+
+        cell->hide(context);
+    }
     );
 }
 

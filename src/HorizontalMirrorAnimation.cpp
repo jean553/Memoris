@@ -54,8 +54,8 @@ void HorizontalMirrorAnimation::playNextAnimationStep(
     const unsigned short& floor
 )
 {
-    unsigned short startingHighCellsIndex = floor * 320;
-    unsigned short startingLowCellsIndex = startingHighCellsIndex + 160;
+    unsigned short startingHighCellsIndex = floor * 320,
+                   startingLowCellsIndex = startingHighCellsIndex + 160;
 
     /* NOTE: we do not use a switch/case here because we create conditions on
        ranges of steps, which is not handled by switch/case instructions */
@@ -234,13 +234,12 @@ void HorizontalMirrorAnimation::executeMirrorMovement(
        , their disposition and their visibility inside two containers; these
        containers are used to copy the cells in the top side */
 
-    unsigned short
-    startingHighCellIndex = floor * 320,
-    cursor = startingHighCellIndex + 300,
-    startingLowCellIndex = startingHighCellIndex + 160,
-    endingLowCellIndex = 320 * (floor + 1),
-    offset = 0,
-    diff = 20;
+    unsigned short startingHighCellIndex = floor * 320,
+                   cursor = startingHighCellIndex + 300,
+                   startingLowCellIndex = startingHighCellIndex + 160,
+                   endingLowCellIndex = 320 * (floor + 1),
+                   offset = 0,
+                   diff = 20;
 
     for (
         unsigned short index = startingLowCellIndex;

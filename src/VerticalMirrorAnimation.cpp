@@ -54,9 +54,8 @@ void VerticalMirrorAnimation::playNextAnimationStep(
     const unsigned short& floor
 )
 {
-    unsigned short
-    startingLeftSideCellIndex = floor * 320,
-    startingRightSideCellIndex = startingLeftSideCellIndex + 10;
+    unsigned short startingLeftSideCellIndex = floor * 320,
+                   startingRightSideCellIndex = startingLeftSideCellIndex + 10;
 
     if (animationSteps < 15 && animationSteps >= 10)
     {
@@ -187,10 +186,9 @@ void VerticalMirrorAnimation::executeMirrorMovement(
     const unsigned short& floor
 )
 {
-    unsigned short
-    index = floor * 320 + 10,
-    difference = 1,
-    end = floor * 320 + 319;
+    unsigned short index = floor * 320 + 10,
+                   difference = 1,
+                   end = floor * 320 + 319;
 
     while(index <= end)
     {
@@ -239,10 +237,9 @@ void VerticalMirrorAnimation::executeReverseMirrorMovement(
     const unsigned short& floor
 )
 {
-    unsigned short
-    index = floor * 320 + 10,
-    it = 0,
-    end = floor * 320 + 319;
+    unsigned short index = floor * 320 + 10,
+                   it = 0,
+                   end = floor * 320 + 319;
 
     while(index <= end)
     {
