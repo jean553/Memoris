@@ -88,6 +88,15 @@ public:
      */
     void setWatchingTime(const unsigned short& time);
 
+    /**
+     * @brief getter for the amount of remaining levels in the serie
+     *
+     * @return size_t
+     *
+     * NOTE: using size(), this is not possible to return a reference (why ?)
+     */
+    size_t getRemainingLevelsAmount() const;
+
 private:
 
     /* we use the FIFO (first in first out) method to store the levels names;
