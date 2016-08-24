@@ -242,8 +242,10 @@ unsigned short GameController::render(
         if (win)
         {
             context->getSfmlWindow().draw(winText);
-            context->getSfmlWindow().draw(leftLevelsAmountText);
             context->getSfmlWindow().draw(winInformationText);
+
+            /* animate the left levels amount surface */
+            animateLeftLevelsAmount(context);
         }
         else
         {
@@ -790,6 +792,59 @@ void GameController::endLevel(
 
     /* save when started the lose period time */
     endPeriodStartTime = context->getClockMillisecondsTime();
+}
+
+/**
+ *
+ */
+void GameController::animateLeftLevelsAmount(
+    const std::shared_ptr<utils::Context>& context
+)
+{
+    /* display the amount of left levels */
+    context->getSfmlWindow().draw(leftLevelsAmountText);
+
+    /* check if at least 50 milliseconds elapsed between the last animation
+       of the text surface */
+    if (
+        context->getClockMillisecondsTime() -
+        leftLevelsAmountLastAnimationTime < 50
+    )
+    {
+        /* does nothing if not enough time elapsed */
+        return;
+    }
+
+    /* this part updates the transparency of the SFML surface */
+
+    /* update the transparency of the surface, add or substract the current
+       left amount animation direction */
+    leftLevelsAmountTransparency += leftLevelsAmountDirection;
+
+    /* toggle the direction of the animation if the alpha value is equal to 0
+       or 255 (borders values) */
+    if (
+            leftLevelsAmountTransparency == 0 ||
+            leftLevelsAmountTransparency == 255
+       )
+    {
+        leftLevelsAmountDirection *= -1;
+    }
+
+    /* copy the color of the text from the colors manager; we have to do a
+       copy because the transparency will be updated for the animation
+       purposes */
+    sf::Color color = context->getColorsManager().getColorWhiteCopy();
+
+    /* change the alpha value of the SFML color */
+    color.a = leftLevelsAmountTransparency;
+
+    /* update the color */
+    leftLevelsAmountText.setColor(color);
+
+    /* store the time of the end of the animation update for the next
+       update */
+    leftLevelsAmountLastAnimationTime = context->getClockMillisecondsTime();
 }
 
 }

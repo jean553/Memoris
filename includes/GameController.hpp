@@ -157,6 +157,15 @@ private:
      */
     void endLevel(const std::shared_ptr<utils::Context>& context);
 
+    /**
+     * @brief animate the displayed left level amount on the win screen
+     *
+     * @param context shared pointer to the context to use
+     */
+    void animateLeftLevelsAmount(
+        const std::shared_ptr<utils::Context>& context
+    );
+
     /* the graphical timer widget of the game; renders the elapsed time since
        the beginning of the game */
     widgets::TimerWidget timer;
@@ -170,6 +179,10 @@ private:
 
     /* the time of the last animation of the player cell animation */
     sf::Uint32 playerCellAnimationTime {0};
+
+    /* the time of the last animation of the left levels amount on the win
+       screen */
+    sf::Uint32 leftLevelsAmountLastAnimationTime {0};
 
     /* this SFML variable contains when the lose period started; because this
        period is limited in time, this is used to make calculation and decide
@@ -229,6 +242,14 @@ private:
        this is the one expected by the sf::Color object; the variable is
        initialized with the value 64 and switches between 64 and 128 */
     sf::Uint8 playerCellTransparency {64};
+
+    /* the transparency of the left levels amount SFML text that is displayed
+       on the win screen; used to animate it */
+    sf::Uint8 leftLevelsAmountTransparency {255};
+
+    /* used to update the transparency of the SFML surface, this value is
+       continually updated between a signed and unsigned value */
+    sf::Int8 leftLevelsAmountDirection {-17};
 
     /* the current floor of the player, by default for now, this current floor
        is the first floor (so number 0);*/
