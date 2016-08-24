@@ -74,6 +74,9 @@ constexpr char HORIZONTAL_MIRROR_CELL {'%'};
 /* vertical mirror event cell */
 constexpr char VERTICAL_MIRROR_CELL {'P'};
 
+/* quarters diagonal animation */
+constexpr char DIAGONAL_CELL {'?'};
+
 }
 }
 

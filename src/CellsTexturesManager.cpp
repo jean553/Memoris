@@ -59,6 +59,7 @@ CellsTexturesManager::CellsTexturesManager()
         verticalMirrorCellTexture,
         "res/cells/vertical_mirror.png"
     );
+    loadTexture(diagonalCellTexture, "res/cells/diagonal.png");
 }
 
 /**
@@ -118,6 +119,10 @@ const sf::Texture& CellsTexturesManager::getTextureReferenceByCellType(
     case cells::VERTICAL_MIRROR_CELL:
     {
         return verticalMirrorCellTexture;
+    }
+    case cells::DIAGONAL_CELL:
+    {
+        return diagonalCellTexture;
     }
     }
 
