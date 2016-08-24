@@ -81,6 +81,7 @@ private:
     sf::Texture stairsDownCellTexture;
     sf::Texture horizontalMirrorCellTexture;
     sf::Texture verticalMirrorCellTexture;
+    sf::Texture diagonalCellTexture;
 };
 
 }
