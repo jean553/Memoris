@@ -96,6 +96,13 @@ public:
     const sf::Color& getColorDarkGreen() const;
 
     /**
+     * @brief returns a reference to the purple with low transparency color
+     *
+     * @return const sf::Color&
+     */
+    const sf::Color& getColorPurpleLowAlpha() const;
+
+    /**
      * @brief returns a copy of the blue color
      *
      * @return sf::Color
@@ -160,8 +167,13 @@ private:
     static constexpr sf::Uint8 COLOR_DARK_GREEN_GREEN = 100;
     static constexpr sf::Uint8 COLOR_DARK_GREEN_BLUE = 0;
 
+    static constexpr sf::Uint8 COLOR_PURPLE_RED = 255;
+    static constexpr sf::Uint8 COLOR_PURPLE_GREEN = 0;
+    static constexpr sf::Uint8 COLOR_PURPLE_BLUE = 255;
+
     static constexpr sf::Uint8 COLOR_FULL_ALPHA = 255;
     static constexpr sf::Uint8 COLOR_PARTIAL_ALPHA = 225;
+    static constexpr sf::Uint8 COLOR_PARTIAL_LOW_ALPHA = 200;
 
     sf::Color colorWhite;
     sf::Color colorBlue;
@@ -171,6 +183,7 @@ private:
     sf::Color colorPartialDarkGrey;
     sf::Color colorGreen;
     sf::Color colorDarkGreen;
+    sf::Color colorPurpleLowAlpha;
 };
 
 }

@@ -179,6 +179,14 @@ void Cell::setCellColorTransparency(
 /**
  *
  */
+void Cell::setCellColor(const sf::Color& color)
+{
+    sprite.setColor(color);
+}
+
+/**
+ *
+ */
 void Cell::empty()
 {
     /* set the cell as empty by changing the type to empty cell */

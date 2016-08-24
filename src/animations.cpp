@@ -27,6 +27,7 @@
 #include "HorizontalMirrorAnimation.hpp"
 #include "VerticalMirrorAnimation.hpp"
 #include "StairsAnimation.hpp"
+#include "DiagonalAnimation.hpp"
 #include "cells.hpp"
 
 namespace memoris
@@ -62,6 +63,10 @@ std::unique_ptr<LevelAnimation> getAnimationByCellType(
                    context,
                    -1
                );
+    }
+    case cells::DIAGONAL_CELL:
+    {
+        return std::make_unique<DiagonalAnimation>(context);
     }
     default:
     {

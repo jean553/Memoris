@@ -37,5 +37,19 @@ const bool& LevelAnimation::isFinished() const
     return finished;
 }
 
+/**
+ *
+ */
+void LevelAnimation::incrementAnimationStep(
+    const std::shared_ptr<utils::Context>& context
+)
+{
+    /* increments the animations step */
+    animationSteps++;
+
+    /* update the last animation update time to calculate the next iteration */
+    lastAnimationUpdateTime = context->getClockMillisecondsTime();
+}
+
 }
 }

@@ -102,19 +102,5 @@ void AbstractMirrorAnimation::displayLevelAndSeparator(
     context->getSfmlWindow().draw(separator);
 }
 
-/**
- *
- */
-void AbstractMirrorAnimation::incrementAnimationStep(
-    const std::shared_ptr<utils::Context>& context
-)
-{
-    /* increments the animations step */
-    animationSteps++;
-
-    /* update the last animation update time to calculate the next iteration */
-    lastAnimationUpdateTime = context->getClockMillisecondsTime();
-}
-
 }
 }

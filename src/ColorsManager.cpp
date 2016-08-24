@@ -72,6 +72,11 @@ ColorsManager::ColorsManager()
     colorDarkGreen.g = COLOR_DARK_GREEN_GREEN;
     colorDarkGreen.b = COLOR_DARK_GREEN_BLUE;
     colorDarkGreen.a = COLOR_FULL_ALPHA;
+
+    colorPurpleLowAlpha.r = COLOR_PURPLE_RED;
+    colorPurpleLowAlpha.g = COLOR_PURPLE_GREEN;
+    colorPurpleLowAlpha.b = COLOR_PURPLE_BLUE;
+    colorPurpleLowAlpha.a = COLOR_PARTIAL_ALPHA;
 }
 
 /**
@@ -128,6 +133,14 @@ const sf::Color& ColorsManager::getColorGreen() const
 const sf::Color& ColorsManager::getColorDarkGreen() const
 {
     return colorDarkGreen;
+}
+
+/**
+ *
+ */
+const sf::Color& ColorsManager::getColorPurpleLowAlpha() const
+{
+    return colorPurpleLowAlpha;
 }
 
 /**
