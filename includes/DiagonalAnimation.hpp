@@ -106,6 +106,51 @@ private:
         const sf::Color& color
     );
 
+    /**
+     * @bried invert the cells of the top left corner with the cells of the
+     * bottom right corner
+     *
+     * @param context shared pointer to the current context to use
+     * @param level shared pointer to the level to animate
+     * @param floor the current floor to display in the animation
+     */
+    void invertTopLeftWithBottomRight(
+        const std::shared_ptr<utils::Context>& context,
+        const std::shared_ptr<entities::Level>& level,
+        const unsigned short& floor
+    );
+
+    /**
+     * @brief invert the cells of the top right corner with the cells of the
+     * bottom left corner
+     *
+     * @param context shared pointer to the current context to use
+     * @param level shared pointer to the level to animate
+     * @param floor the current floor to display in the animation
+     */
+    void invertBottomLeftWithTopRight(
+        const std::shared_ptr<utils::Context>& context,
+        const std::shared_ptr<entities::Level>& level,
+        const unsigned short& floor
+    );
+
+    /**
+     * @brief invert the cells of the top right corner with the cells of the
+     * bottom left corner
+     *
+     * @param context shared pointer to the current context to use
+     * @param level shared pointer to the level to animate
+     * @param source the source cell index
+     * @param destination the difference to apply on the source cell to get
+     * the destination cell
+     */
+    void invertCells(
+        const std::shared_ptr<utils::Context>& context,
+        const std::shared_ptr<entities::Level>& level,
+        const unsigned short& source,
+        const short& difference
+    );
+
     /* the vertical and horizontal separators */
     sf::RectangleShape verticalSeparator;
     sf::RectangleShape horizontalSeparator;

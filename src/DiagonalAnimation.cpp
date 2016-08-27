@@ -115,10 +115,38 @@ void DiagonalAnimation::playNextAnimationStep(
         color
     );
 
-    /* ends the animation when necessary */
-    if (animationSteps == 11)
+    switch(animationSteps)
     {
+    case 3:
+    {
+        invertTopLeftWithBottomRight(
+            context,
+            level,
+            floor
+        );
+
+        break;
+    }
+    case 9:
+    {
+        invertBottomLeftWithTopRight(
+            context,
+            level,
+            floor
+        );
+
+        break;
+    }
+    case 11:
+    {
+        /* ends the animation after 11 steps */
         finished = true;
+
+        /* put the player on his new cell */
+        level->setPlayerCellIndex(playerCellIndexAfterAnimation);
+
+        break;
+    }
     }
 }
 
@@ -190,6 +218,109 @@ void DiagonalAnimation::applyPurpleColorOnCellsQuarters(
         {
             level->getCells()[index]->setCellColor(color);
         }
+    }
+}
+
+/**
+ *
+ */
+void DiagonalAnimation::invertTopLeftWithBottomRight(
+    const std::shared_ptr<utils::Context>& context,
+    const std::shared_ptr<entities::Level>& level,
+    const unsigned short& floor
+)
+{
+    unsigned short index = floor * 320;
+
+    while(index != floor * 320 + 160)
+    {
+        if (
+            index < floor * 320 + 160 &&
+            ((index - floor * 320) % 20) < 10
+        )
+        {
+            invertCells(
+                context,
+                level,
+                index,
+                170
+            );
+        }
+
+        index++;
+    }
+}
+
+/**
+ *
+ */
+void DiagonalAnimation::invertBottomLeftWithTopRight(
+    const std::shared_ptr<utils::Context>& context,
+    const std::shared_ptr<entities::Level>& level,
+    const unsigned short& floor
+)
+{
+    unsigned short index = floor * 320 + 160;
+
+    while(index < (floor + 1) * 320)
+    {
+        if (
+            index >= floor * 320 + 160 &&
+            ((index - floor * 320) % 20) < 10
+        )
+        {
+            invertCells(
+                context,
+                level,
+                index,
+                -150
+            );
+        }
+
+        index++;
+    }
+}
+
+/**
+ *
+ */
+void DiagonalAnimation::invertCells(
+    const std::shared_ptr<utils::Context>& context,
+    const std::shared_ptr<entities::Level>& level,
+    const unsigned short& source,
+    const short& difference
+)
+{
+    char type = level->getCells()[source + difference]->getType();
+    bool visible = level->getCells()[source + difference]->isVisible();
+
+    level->getCells()[source + difference]->setType(
+        level->getCells()[source]->getType()
+    );
+
+    level->getCells()[source]->setType(type);
+
+    showOrHideCell(
+        context,
+        level,
+        source + difference,
+        level->getCells()[source]->isVisible()
+    );
+
+    showOrHideCell(
+        context,
+        level,
+        source,
+        visible
+    );
+
+    if (source == level->getPlayerCellIndex())
+    {
+        playerCellIndexAfterAnimation = source + difference;
+    }
+    else if (source + difference == level->getPlayerCellIndex())
+    {
+        playerCellIndexAfterAnimation = source;
     }
 }
 
