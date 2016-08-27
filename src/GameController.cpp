@@ -824,9 +824,9 @@ void GameController::animateLeftLevelsAmount(
     /* toggle the direction of the animation if the alpha value is equal to 0
        or 255 (borders values) */
     if (
-            leftLevelsAmountTransparency == 0 ||
-            leftLevelsAmountTransparency == 255
-       )
+        leftLevelsAmountTransparency == 0 ||
+        leftLevelsAmountTransparency == 255
+    )
     {
         leftLevelsAmountDirection *= -1;
     }
