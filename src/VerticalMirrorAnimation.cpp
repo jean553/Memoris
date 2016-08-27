@@ -24,6 +24,8 @@
 
 #include "VerticalMirrorAnimation.hpp"
 
+#include "separators.hpp"
+
 namespace memoris
 {
 namespace animations
@@ -36,10 +38,7 @@ VerticalMirrorAnimation::VerticalMirrorAnimation(
     const std::shared_ptr<utils::Context>& context
 )
 {
-    /* initialize the separator surface positions, sizes and color */
-    separator.setPosition(798.f, 98.f);
-    separator.setFillColor(context->getColorsManager().getColorRed());
-    separator.setSize(sf::Vector2f(4.f, 800.f));
+    initializeVerticalSeparator(context, separator);
 
     /* plays the mirror animation sound */
     context->getSoundsManager().getMirrorAnimationSound().play();
