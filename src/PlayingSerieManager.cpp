@@ -119,7 +119,7 @@ void PlayingSerieManager::setWatchingTime(const unsigned short& time)
 /**
  *
  */
-size_t PlayingSerieManager::getRemainingLevelsAmount() const
+const size_t PlayingSerieManager::getRemainingLevelsAmount() const
 {
     return levels.size();
 }

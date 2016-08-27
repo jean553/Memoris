@@ -91,11 +91,14 @@ public:
     /**
      * @brief getter for the amount of remaining levels in the serie
      *
-     * @return size_t
+     * @return const size_t
      *
-     * NOTE: using size(), this is not possible to return a reference (why ?)
+     * NOTE: we do not return a reference here but a copy of the variable; in
+     * fact, this method executes 'return queue.size()' which returns a copy
+     * of a variable; this variable does not exist at the end of the function
+     * execution, so we cannot return a reference
      */
-    size_t getRemainingLevelsAmount() const;
+    const size_t getRemainingLevelsAmount() const;
 
 private:
 
