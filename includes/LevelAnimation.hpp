@@ -82,6 +82,22 @@ protected:
     ) = 0;
 
     /**
+     * @brief hides or shows the given cell at the given index, used during the
+     * animation
+     *
+     * @param context shared pointer to the current context to use
+     * @param level shared pointer to the concerned level object
+     * @param index the index of the cell to display or to hide
+     * @param visible boolean that indicates if the cell has to be hide or not
+     */
+    void showOrHideCell(
+        const std::shared_ptr<utils::Context>& context,
+        const std::shared_ptr<entities::Level>& level,
+        const unsigned short& index,
+        const bool& visible
+    );
+
+    /**
      * @brief increments the animation steps counter and set the animation last
      * update time with the current time
      *
@@ -106,6 +122,12 @@ protected:
        every x seconds/milliseconds/minutes and is used to manage the
        animation rendering; every animation have it; */
     unsigned short animationSteps {0};
+
+    /* this variable is the index of the new player cell at the end of the
+       animation; the default value is -1, which means that the next player
+       cell has not been calculated yet */
+    short playerCellIndexAfterAnimation {-1};
+
 };
 
 }

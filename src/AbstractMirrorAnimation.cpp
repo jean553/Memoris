@@ -32,26 +32,6 @@ namespace animations
 /**
  *
  */
-void AbstractMirrorAnimation::showOrHideCell(
-    const std::shared_ptr<utils::Context>& context,
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& index,
-    const bool& visible
-)
-{
-    if (visible)
-    {
-        level->getCells()[index]->show(context);
-    }
-    else
-    {
-        level->getCells()[index]->hide(context);
-    }
-}
-
-/**
- *
- */
 void AbstractMirrorAnimation::renderAnimation(
     const std::shared_ptr<utils::Context>& context,
     const std::shared_ptr<entities::Level>& level,
