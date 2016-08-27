@@ -141,16 +141,6 @@ protected:
         const unsigned short& floor
     );
 
-    /**
-     * @brief method used for code refactoring; update the last animation time
-     * and increment the animation step
-     *
-     * @param context shared pointer to the current context to use
-     */
-    void incrementAnimationStep(
-        const std::shared_ptr<utils::Context>& context
-    );
-
     /* the transparency of the animated side during the animation; the default
        value is 255 as the side is totally visible */
     float animatedSideTransparency {255.f};

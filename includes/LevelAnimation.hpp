@@ -81,6 +81,16 @@ protected:
         const unsigned short& floor
     ) = 0;
 
+    /**
+     * @brief increments the animation steps counter and set the animation last
+     * update time with the current time
+     *
+     * @param context shared pointer to the current context to use
+     */
+    void incrementAnimationStep(
+        const std::shared_ptr<utils::Context>& context
+    );
+
     /* used by the animation creator (game controller) to know if the animation
        is terminated; in fact, the animation object sets it to false when all
        the animation has been rendered; this is use to know when the animation

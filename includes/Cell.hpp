@@ -136,6 +136,13 @@ public:
     );
 
     /**
+     * @brief color to apply on the cell
+     *
+     * @param color reference to the SFML color to use
+     */
+    void setCellColor(const sf::Color& color);
+
+    /**
      * @brief changes the cell to an empty cell, this is used by the game
      * controller when the player leaves a cell;
      */
