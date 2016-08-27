@@ -127,6 +127,13 @@ public:
      */
     const Sound& getWinLevelSound() const;
 
+    /**
+     * @brief getter of the diagonal animation sound
+     *
+     * @return const Sound&
+     */
+    const Sound& getDiagonalAnimationSound() const;
+
 private:
 
     /* play this sound when the menu selector
@@ -166,6 +173,9 @@ private:
 
     /* play this sound when the player wins the current level */
     Sound winLevelSound;
+
+    /* play this sound when the diagonal animation is played */
+    Sound diagonalAnimationSound;
 };
 
 }

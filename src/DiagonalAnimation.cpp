@@ -49,6 +49,9 @@ DiagonalAnimation::DiagonalAnimation(
         context,
         verticalSeparator
     );
+
+    /* plays the mirror animation sound */
+    context->getSoundsManager().getDiagonalAnimationSound().play();
 }
 
 /**
@@ -60,7 +63,7 @@ void DiagonalAnimation::renderAnimation(
     const unsigned short& floor
 )
 {
-    if (context->getClockMillisecondsTime() - lastAnimationUpdateTime < 250)
+    if (context->getClockMillisecondsTime() - lastAnimationUpdateTime < 100)
     {
         displayLevelAndSeparator(
             context,

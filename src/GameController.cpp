@@ -593,7 +593,8 @@ void GameController::emptyPlayerCell(
         playerCellType == cells::STAIRS_DOWN_CELL ||
         playerCellType == cells::ARRIVAL_CELL ||
         playerCellType == cells::HORIZONTAL_MIRROR_CELL ||
-        playerCellType == cells::VERTICAL_MIRROR_CELL
+        playerCellType == cells::VERTICAL_MIRROR_CELL ||
+        playerCellType == cells::DIAGONAL_CELL
     )
     {
         /* immediately ends the function; the current cell does not need to
