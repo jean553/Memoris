@@ -60,6 +60,7 @@ CellsTexturesManager::CellsTexturesManager()
         "res/cells/vertical_mirror.png"
     );
     loadTexture(diagonalCellTexture, "res/cells/diagonal.png");
+    loadTexture(leftRotationCellTexture, "res/cells/rotate_left.png");
 }
 
 /**
@@ -123,6 +124,10 @@ const sf::Texture& CellsTexturesManager::getTextureReferenceByCellType(
     case cells::DIAGONAL_CELL:
     {
         return diagonalCellTexture;
+    }
+    case cells::LEFT_ROTATION_CELL:
+    {
+        return leftRotationCellTexture;
     }
     }
 

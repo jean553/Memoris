@@ -77,6 +77,9 @@ constexpr char VERTICAL_MIRROR_CELL {'P'};
 /* quarters diagonal animation */
 constexpr char DIAGONAL_CELL {'?'};
 
+/* left rotation animation */
+constexpr char LEFT_ROTATION_CELL {'('};
+
 }
 }
 

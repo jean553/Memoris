@@ -99,6 +99,8 @@ https://www.iconfinder.com/Squid.ink / http://thesquid.ink/flat-icons/ - Creativ
 
 https://www.iconfinder.com/icons/1055053/controller_game_controller_video_game_icon#size=128 / http://www.elegantthemes.com/ - GNU GPL
 
+http://code.google.com/u/newmooon/ - GNU GPL
+
 ### Sounds
 
 All sounds files have been downloaded from www.universal-soundbank.com. They have
