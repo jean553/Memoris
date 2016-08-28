@@ -61,6 +61,7 @@ CellsTexturesManager::CellsTexturesManager()
     );
     loadTexture(diagonalCellTexture, "res/cells/diagonal.png");
     loadTexture(leftRotationCellTexture, "res/cells/rotate_left.png");
+    loadTexture(rightRotationCellTexture, "res/cells/rotate_right.png");
 }
 
 /**
@@ -128,6 +129,10 @@ const sf::Texture& CellsTexturesManager::getTextureReferenceByCellType(
     case cells::LEFT_ROTATION_CELL:
     {
         return leftRotationCellTexture;
+    }
+    case cells::RIGHT_ROTATION_CELL:
+    {
+        return rightRotationCellTexture;
     }
     }
 

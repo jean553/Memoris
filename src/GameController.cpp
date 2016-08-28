@@ -561,6 +561,7 @@ void GameController::executePlayerCellAction(
     case cells::VERTICAL_MIRROR_CELL:
     case cells::DIAGONAL_CELL:
     case cells::LEFT_ROTATION_CELL:
+    case cells::RIGHT_ROTATION_CELL:
     {
         /* starts the level animation according to the current player cell */
         animation = animations::getAnimationByCellType(
@@ -595,7 +596,9 @@ void GameController::emptyPlayerCell(
         playerCellType == cells::ARRIVAL_CELL ||
         playerCellType == cells::HORIZONTAL_MIRROR_CELL ||
         playerCellType == cells::VERTICAL_MIRROR_CELL ||
-        playerCellType == cells::DIAGONAL_CELL
+        playerCellType == cells::DIAGONAL_CELL ||
+        playerCellType == cells::LEFT_ROTATION_CELL ||
+        playerCellType == cells::RIGHT_ROTATION_CELL
     )
     {
         /* immediately ends the function; the current cell does not need to

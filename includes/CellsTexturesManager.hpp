@@ -83,6 +83,7 @@ private:
     sf::Texture verticalMirrorCellTexture;
     sf::Texture diagonalCellTexture;
     sf::Texture leftRotationCellTexture;
+    sf::Texture rightRotationCellTexture;
 };
 
 }

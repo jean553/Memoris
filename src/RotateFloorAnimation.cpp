@@ -32,12 +32,29 @@ namespace animations
 /**
  *
  */
+RotateFloorAnimation::RotateFloorAnimation(const short& movementDirection) :
+    direction(movementDirection)
+{
+    /* useless constructor, only used to set attributes */
+}
+
+/**
+ *
+ */
 void RotateFloorAnimation::playNextAnimationStep(
     const std::shared_ptr<utils::Context>& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 )
 {
+    for (
+        unsigned short index = floor * 256;
+        index < (floor + 1) * 256;
+        index++
+    )
+    {
+        level->getCells()[index]->rotateFromFloorCenter(5 * direction);
+    }
 }
 
 /**
@@ -54,7 +71,7 @@ void RotateFloorAnimation::renderAnimation(
         floor
     );
 
-    if (context->getClockMillisecondsTime() - lastAnimationUpdateTime < 100)
+    if (context->getClockMillisecondsTime() - lastAnimationUpdateTime < 50)
     {
         return;
     }
@@ -64,6 +81,13 @@ void RotateFloorAnimation::renderAnimation(
         level,
         floor
     );
+
+    iterations++;
+
+    if (iterations == 18)
+    {
+        finished = true;
+    }
 
     incrementAnimationStep(context);
 }
