@@ -285,7 +285,7 @@ unsigned short GameController::render(
             {
                 handlePlayerMovement(
                     context,
-                    -20
+                    -16
                 );
 
                 break;
@@ -295,7 +295,7 @@ unsigned short GameController::render(
             {
                 handlePlayerMovement(
                     context,
-                    20
+                    16
                 );
 
                 break;

@@ -184,8 +184,8 @@ void DiagonalAnimation::applyPurpleColorOnCellsQuarters(
 )
 {
     for(
-        unsigned short index = 320 * floor;
-        index < 320 * (floor + 1);
+        unsigned short index = 256 * floor;
+        index < 256 * (floor + 1);
         index++
     )
     {
@@ -195,12 +195,12 @@ void DiagonalAnimation::applyPurpleColorOnCellsQuarters(
             (
                 (
                     (
-                        index < floor * 320 + 160 &&
-                        ((index - floor * 320) % 20) < 10
+                        index < floor * 256 + 128 &&
+                        ((index - floor * 256) % 16) < 8
                     ) ||
                     (
-                        index > floor * 320 + 160 &&
-                        ((index - floor * 320) % 20) >= 10
+                        index > floor * 256 + 128 &&
+                        ((index - floor * 256) % 16) >= 8
                     )
                 ) &&
                 animationSteps < 6
@@ -208,12 +208,12 @@ void DiagonalAnimation::applyPurpleColorOnCellsQuarters(
             (
                 (
                     (
-                        index < floor * 320 + 160 &&
-                        ((index - floor * 320) % 20) >= 10
+                        index < floor * 256 + 128 &&
+                        ((index - floor * 256) % 16) >= 8
                     ) ||
                     (
-                        index >= floor * 320 + 160 &&
-                        ((index - floor * 320) % 20) < 10
+                        index >= floor * 256 + 128 &&
+                        ((index - floor * 256) % 16) < 8
                     )
                 ) && animationSteps >= 6
             )
@@ -233,20 +233,20 @@ void DiagonalAnimation::invertTopLeftWithBottomRight(
     const unsigned short& floor
 )
 {
-    unsigned short index = floor * 320;
+    unsigned short index = floor * 256;
 
-    while(index != floor * 320 + 160)
+    while(index != floor * 256 + 128)
     {
         if (
-            index < floor * 320 + 160 &&
-            ((index - floor * 320) % 20) < 10
+            index < floor * 256 + 128 &&
+            ((index - floor * 256) % 16) < 8
         )
         {
             invertCells(
                 context,
                 level,
                 index,
-                170
+                136
             );
         }
 
@@ -263,20 +263,20 @@ void DiagonalAnimation::invertBottomLeftWithTopRight(
     const unsigned short& floor
 )
 {
-    unsigned short index = floor * 320 + 160;
+    unsigned short index = floor * 256 + 128;
 
-    while(index < (floor + 1) * 320)
+    while(index < (floor + 1) * 256)
     {
         if (
-            index >= floor * 320 + 160 &&
-            ((index - floor * 320) % 20) < 10
+            index >= floor * 256 + 128 &&
+            ((index - floor * 256) % 16) < 8
         )
         {
             invertCells(
                 context,
                 level,
                 index,
-                -150
+                -120
             );
         }
 

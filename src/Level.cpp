@@ -66,8 +66,8 @@ Level::Level(const std::shared_ptr<utils::Context>& context)
     file >> minutes;
     file >> seconds;
 
-    /* there are 3200 cells per level, 320 per floor, there are 10 floors */
-    for(unsigned short index {0}; index < 3200; index++)
+    /* there are 2560 cells per level, 256 per floor, there are 10 floors */
+    for(unsigned short index {0}; index < 2560; index++)
     {
         /* declare a new character at each loop iteration; initialize it with
            an empty cell; this character contains the type of the current
@@ -96,7 +96,7 @@ Level::Level(const std::shared_ptr<utils::Context>& context)
         std::unique_ptr<Cell> cell(
             std::make_unique<Cell>(
                 context,
-                300.f + 50.f * static_cast<float>(horizontalPositionCursor),
+                400.f + 50.f * static_cast<float>(horizontalPositionCursor),
                 98.f + 50.f * static_cast<float>(verticalPositionCursor),
                 cellType
             )
@@ -134,10 +134,10 @@ Level::Level(const std::shared_ptr<utils::Context>& context)
         horizontalPositionCursor++;
 
         /* the cells are created line by line; when one line is finished
-           (modulo 20, there are 20 cells per line), jump to the next line
+           (modulo 16, there are 16 cells per line), jump to the next line
            and reset the horizontal position cursor; we do not use !() but
            == 0 instead: we really want make this test explicit */
-        if (horizontalPositionCursor % 20 == 0)
+        if (horizontalPositionCursor % 16 == 0)
         {
             /* reset the horizontal position cursor */
             horizontalPositionCursor = 0;
@@ -181,10 +181,10 @@ void Level::display(
 ) const
 {
     /* calculate the index of the first cell of the given floor */
-    const unsigned short firstCellIndex = floor * 320;
+    const unsigned short firstCellIndex = floor * 256;
 
     /* calculate the index of the last cell of the given floor */
-    const unsigned short lastCellIndex = floor * 320 + 320;
+    const unsigned short lastCellIndex = floor * 256 + 256;
 
     /* only display the cells of the given floor; all the other cells of the
        level are ignored */
@@ -286,10 +286,10 @@ bool Level::allowPlayerMovement(
        move down if already at the bottom; cannot move left if already on the
        left; cannot move right if already on the right */
     if (
-        expectedIndex < 320 * floor ||
-        expectedIndex >= (320 * floor) + 320 ||
-        (playerIndex % 20 == 19 && movement == 1) ||
-        (playerIndex % 20 == 0 && movement == -1)
+        expectedIndex < 256 * floor ||
+        expectedIndex >= (256 * floor) + 256 ||
+        (playerIndex % 16 == 19 && movement == 1) ||
+        (playerIndex % 16 == 0 && movement == -1)
     )
     {
         return false;
@@ -349,10 +349,10 @@ bool Level::movePlayerToNextFloor(
        an unsigned variable as the user cannot have an index less than 0 at
        this moment and because this is the expected data type for the player
        index */
-    unsigned short newIndex = playerIndex + 320;
+    unsigned short newIndex = playerIndex + 256;
 
-    /* check if the expected index is less than 3200 (outside of the level) */
-    if (newIndex > 3200)
+    /* check if the expected index is less than 2560 (outside of the level) */
+    if (newIndex > 2560)
     {
         /* if the next index is too hight, the player is not moved */
         return false;
@@ -377,7 +377,7 @@ bool Level::movePlayerToPreviousFloor(
     /* calculate the expected new index of the player after his movement; use
        a signed variable because at this moment, the player can be on the
        first level and the expected index can be less than 0 */
-    short newIndex = playerIndex - 320;
+    short newIndex = playerIndex - 256;
 
     /* check if the expected new cell is less than 0 */
     if (newIndex < 0)
@@ -387,7 +387,7 @@ bool Level::movePlayerToPreviousFloor(
     }
 
     /* no problem to cast the value; this variable is never less than 0 here
-       and cannot be more than ~32000 (65536/2) anyway */
+       and cannot be more than ~25600 (65536/2) anyway */
     playerIndex = static_cast<unsigned short>(newIndex);
 
     /* the texture of the new player cell is loaded */
@@ -417,9 +417,9 @@ const unsigned short& Level::getPlayableFloors()
  */
 const unsigned short Level::getPlayerFloor()
 {
-    /* divide the current player index by 320 (cells per floor) and truncate
+    /* divide the current player index by 256 (cells per floor) and truncate
        the result as the result type is an unsigned short */
-    return playerIndex / 320;
+    return playerIndex / 256;
 }
 
 /**
@@ -432,22 +432,22 @@ void Level::playFloorTransitionAnimation(
     /* NOTE: this function only applies the horizontal transition animation
        for now */
 
-    /* browse the 320 cells of the current floor */
+    /* browse the 256 cells of the current floor */
     for(
         unsigned short i = 0;
-        animationFloor * 320 + i < animationFloor * 320 + 320;
+        animationFloor * 256 + i < animationFloor * 256 + 256;
         i++
     )
     {
         /* check if the cell is on the left side of the limit column; in that
            case, the displayed cell must be the one at the same position on
            the next level */
-        if (i % 20 < animationColumn)
+        if (i % 16 < animationColumn)
         {
             /* displays the cell at the same position but on the next level;
-               each level contains 320 cell, so the cell at the same position
-               that this one on the next level is 320 cells after... */
-            (*cells[animationFloor * 320 + i + 320]).display(context);
+               each level contains 256 cell, so the cell at the same position
+               that this one on the next level is 256 cells after... */
+            (*cells[animationFloor * 256 + i + 256]).display(context);
 
             /* directly increment the loop from here */
             continue;
@@ -455,15 +455,15 @@ void Level::playFloorTransitionAnimation(
 
         /* check if the cell is on the limit column; in that case, the current
            cell is hidden to display the limitation column */
-        if (i % 20 == animationColumn)
+        if (i % 16 == animationColumn)
         {
-            (*cells[animationFloor * 320 + i]).hide(context);
+            (*cells[animationFloor * 256 + i]).hide(context);
         }
 
         /* if the cell is on the limitation column or if the cell is on the
            right of the limitation column (current floor), the current cell
            is just displayed */
-        (*cells[animationFloor * 320 + i]).display(context);
+        (*cells[animationFloor * 256 + i]).display(context);
     }
 
     /* the switch floor animation is updated every 25 milliseconds until the
@@ -478,9 +478,9 @@ void Level::playFloorTransitionAnimation(
            move the current limitation column on the floor */
         animationColumn++;
 
-        /* the animation stops when the animation column is 20: means outside
+        /* the animation stops when the animation column is 16: means outside
            of the level */
-        if (animationColumn == 20)
+        if (animationColumn == 16)
         {
             /* stops the floor transition animation */
             animateFloorTransition = false;
@@ -556,8 +556,8 @@ void Level::setCellsTransparency(
     const unsigned short& floor
 )
 {
-    const unsigned short firstCellIndex = floor * 320;
-    const unsigned short lastCellIndex = firstCellIndex + 320;
+    const unsigned short firstCellIndex = floor * 256;
+    const unsigned short lastCellIndex = firstCellIndex + 256;
 
     for (
         unsigned short index = firstCellIndex;

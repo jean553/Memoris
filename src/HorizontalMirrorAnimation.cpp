@@ -56,8 +56,8 @@ void HorizontalMirrorAnimation::playNextAnimationStep(
     const unsigned short& floor
 )
 {
-    unsigned short startingHighCellsIndex = floor * 320,
-                   startingLowCellsIndex = startingHighCellsIndex + 160;
+    unsigned short startingHighCellsIndex = floor * 256,
+                   startingLowCellsIndex = startingHighCellsIndex + 128;
 
     /* NOTE: we do not use a switch/case here because we create conditions on
        ranges of steps, which is not handled by switch/case instructions */
@@ -69,7 +69,7 @@ void HorizontalMirrorAnimation::playNextAnimationStep(
        and 15 */
     if (animationSteps < 15 && animationSteps >= 10)
     {
-        /* we start at the index 160 * level (bottom side) and we reduce the
+        /* we start at the index 128 * level (bottom side) and we reduce the
            alpha value of all the cells by TRANSPARENCY_UPDATE_AMOUNT at each
            iteration */
         setLevelSideCellsTransparency(
@@ -94,7 +94,7 @@ void HorizontalMirrorAnimation::playNextAnimationStep(
        this moment */
     else if (animationSteps >= 16 && animationSteps < 21)
     {
-        /* we start at the index 160 * floor (bottom side) and we increase the
+        /* we start at the index 128 * floor (bottom side) and we increase the
            alpha value of all the cells by TRANSPARENCY_UPDATE_AMOUNT at each
            iteration */
         setLevelSideCellsTransparency(
@@ -108,7 +108,7 @@ void HorizontalMirrorAnimation::playNextAnimationStep(
        floor */
     else if (animationSteps >= 21 && animationSteps < 26)
     {
-        /* starts at the cell 0 + floor * 320 (top side) and decrease the
+        /* starts at the cell 0 + floor * 256 (top side) and decrease the
            transparency value by TRANSPARENCY_UPDATE_AMOUNT at each iteration
            */
         setLevelSideCellsTransparency(
@@ -133,7 +133,7 @@ void HorizontalMirrorAnimation::playNextAnimationStep(
        new textures */
     else if (animationSteps >= 26 && animationSteps < 32)
     {
-        /* starts at the cell 0 + floor * 320 (top side) and increase the
+        /* starts at the cell 0 + floor * 256 (top side) and increase the
            transparency value by TRANSPARENCY_UPDATE_AMOUNT at each iteration
            */
         setLevelSideCellsTransparency(
@@ -184,18 +184,18 @@ void HorizontalMirrorAnimation::executeReverseMirrorMovement(
        cells contained into the lowCells container; visibility is also copied
     */
 
-    unsigned short cursor = floor * 320 + 140, offset = 0;
+    unsigned short cursor = floor * 256 + 112, offset = 0;
 
     for (
         unsigned short index = 0;
-        index < 160;
+        index < 128;
         index++
     )
     {
-        if (offset == 20)
+        if (offset == 16)
         {
             offset = 0;
-            cursor -= 20;
+            cursor -= 16;
         }
 
         level->getCells()[cursor + offset]->setType(
@@ -236,12 +236,12 @@ void HorizontalMirrorAnimation::executeMirrorMovement(
        , their disposition and their visibility inside two containers; these
        containers are used to copy the cells in the top side */
 
-    unsigned short startingHighCellIndex = floor * 320,
-                   cursor = startingHighCellIndex + 300,
-                   startingLowCellIndex = startingHighCellIndex + 160,
-                   endingLowCellIndex = 320 * (floor + 1),
+    unsigned short startingHighCellIndex = floor * 256,
+                   cursor = startingHighCellIndex + 240,
+                   startingLowCellIndex = startingHighCellIndex + 128,
+                   endingLowCellIndex = 256 * (floor + 1),
                    offset = 0,
-                   diff = 20;
+                   diff = 16;
 
     for (
         unsigned short index = startingLowCellIndex;
@@ -249,10 +249,10 @@ void HorizontalMirrorAnimation::executeMirrorMovement(
         index++
     )
     {
-        if (offset == 20)
+        if (offset == 16)
         {
             offset = 0;
-            diff += 40;
+            diff += 32;
         }
 
         savedCells.push(*(level->getCells()[index]));
@@ -276,10 +276,10 @@ void HorizontalMirrorAnimation::executeMirrorMovement(
         index++
     )
     {
-        if (offset == 20)
+        if (offset == 16)
         {
             offset = 0;
-            cursor -= 20;
+            cursor -= 16;
         }
 
         level->getCells()[cursor + offset]->setType(
@@ -316,7 +316,7 @@ void HorizontalMirrorAnimation::setLevelSideCellsTransparency(
 
     for (
         unsigned short index = startingLowCellsIndex;
-        index < startingLowCellsIndex + 160;
+        index < startingLowCellsIndex + 128;
         index++
     )
     {

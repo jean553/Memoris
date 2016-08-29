@@ -108,7 +108,7 @@ private:
        when the animation is switched to the next line without
        animating the other side; check the code of
        setLevelSideCellsTransparency for more details */
-    unsigned short sideMax {10};
+    unsigned short sideMax {8};
 };
 
 }
