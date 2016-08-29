@@ -53,14 +53,14 @@ void VerticalMirrorAnimation::playNextAnimationStep(
     const unsigned short& floor
 )
 {
-    unsigned short startingLeftSideCellIndex = floor * 320,
-                   startingRightSideCellIndex = startingLeftSideCellIndex + 10;
+    unsigned short startingLeftSideCellIndex = floor * 256,
+                   startingRightSideCellIndex = startingLeftSideCellIndex + 8;
 
     if (animationSteps < 15 && animationSteps >= 10)
     {
         /* make the left side transparent; decrement the alpha value of all
            the side cells by 51; starts from the cell 0 of the given floor;
-           go back to the next line every 10 cells */
+           go back to the next line every 8 cells */
         setLevelSideCellsTransparency(
             context,
             level,
@@ -90,7 +90,7 @@ void VerticalMirrorAnimation::playNextAnimationStep(
     else if (animationSteps >= 21 && animationSteps < 26)
     {
         /* switch from one side to another, so change the maximum step */
-        sideMax = 20;
+        sideMax = 16;
 
         /* make the cells of the right side transparent progressively, by
            step of 51 alpha value */
@@ -112,7 +112,7 @@ void VerticalMirrorAnimation::playNextAnimationStep(
     }
     else if (animationSteps >= 26 && animationSteps < 32)
     {
-        /* starts at the cell 0 + floor * 320 (top side) and increase the
+        /* starts at the cell 0 + floor * 256 (top side) and increase the
            transparency value by TRANSPARENCY_UPDATE_AMOUNT at each iteration
            */
         setLevelSideCellsTransparency(
@@ -160,7 +160,7 @@ void VerticalMirrorAnimation::setLevelSideCellsTransparency(
 
     animatedSideTransparency += difference;
 
-    while(index <= startingCellIndex + 309)
+    while(index <= startingCellIndex + 247)
     {
         level->getCells()[index]->setCellColorTransparency(
             context,
@@ -171,7 +171,7 @@ void VerticalMirrorAnimation::setLevelSideCellsTransparency(
 
         if(index % sideMax == 0 && index != 0)
         {
-            index += 10;
+            index += 8;
         }
     }
 }
@@ -185,9 +185,9 @@ void VerticalMirrorAnimation::executeMirrorMovement(
     const unsigned short& floor
 )
 {
-    unsigned short index = floor * 320 + 10,
+    unsigned short index = floor * 256 + 8,
                    difference = 1,
-                   end = floor * 320 + 319;
+                   end = floor * 256 + 255;
 
     while(index <= end)
     {
@@ -219,9 +219,9 @@ void VerticalMirrorAnimation::executeMirrorMovement(
         index++;
         difference += 2;
 
-        if (index % 20 == 0)
+        if (index % 16 == 0)
         {
-            index += 10;
+            index += 8;
             difference = 1;
         }
     }
@@ -236,9 +236,9 @@ void VerticalMirrorAnimation::executeReverseMirrorMovement(
     const unsigned short& floor
 )
 {
-    unsigned short index = floor * 320 + 10,
+    unsigned short index = floor * 256 + 8,
                    it = 0,
-                   end = floor * 320 + 319;
+                   end = floor * 256 + 255;
 
     while(index <= end)
     {
@@ -258,9 +258,9 @@ void VerticalMirrorAnimation::executeReverseMirrorMovement(
         index++;
         it++;
 
-        if (index % 20 == 0)
+        if (index % 16 == 0)
         {
-            index += 10;
+            index += 8;
         }
     }
 }
