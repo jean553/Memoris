@@ -80,6 +80,9 @@ constexpr char DIAGONAL_CELL {'?'};
 /* left rotation animation */
 constexpr char LEFT_ROTATION_CELL {'('};
 
+/* right rotation animation */
+constexpr char RIGHT_ROTATION_CELL {')'};
+
 }
 }
 

@@ -155,6 +155,14 @@ public:
      */
     const bool& isVisible() const;
 
+    /**
+     * @brief rotate the cell with the given amount of degrees; the origin is
+     * the floor center; this is used for animations
+     *
+     * @param degrees amount of degrees of the animation
+     */
+    void rotateFromFloorCenter(const short& degrees);
+
 private:
 
     /* the horizontal and vertical positions of the cell on the screen */
@@ -179,6 +187,11 @@ private:
        all the cells are hidden; this value is modified by the hide() and
        show() methods */
     bool visible {false};
+
+    /* SFML transform to apply on the cell sprite; this is used for rotation
+       animations */
+    /* TODO: #666 check if we can use a common unique transform object */
+    sf::Transform transform;
 };
 
 }

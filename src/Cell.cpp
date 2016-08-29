@@ -109,7 +109,7 @@ void Cell::setPosition(
 void Cell::display(const std::shared_ptr<utils::Context>& context)
 {
     /* display the cell sprite */
-    context->getSfmlWindow().draw(sprite);
+    context->getSfmlWindow().draw(sprite, transform);
 }
 
 /**
@@ -199,6 +199,18 @@ void Cell::empty()
 const bool& Cell::isVisible() const
 {
     return visible;
+}
+
+/**
+ *
+ */
+void Cell::rotateFromFloorCenter(const short& degrees)
+{
+    transform.rotate(
+        degrees,
+        800,
+        498
+    );
 }
 
 }

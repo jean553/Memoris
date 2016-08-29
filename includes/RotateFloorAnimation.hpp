@@ -39,6 +39,14 @@ class RotateFloorAnimation : public LevelAnimation
 public:
 
     /**
+     * @brief constructor, called by the animations factory
+     *
+     * @param movementDirection indicates if the movement is clockwise or not;
+     * usually contains 1 or -1
+     */
+    RotateFloorAnimation(const short& movementDirection);
+
+    /**
      * @brief public function called from the game controller; this function
      * handles the time management (interval) of the animation and call the
      * animation step incrementation method at each interval. This function is
@@ -72,6 +80,13 @@ private:
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) override;
+
+    /* amount of rotation movements, used to calculate the end of the
+       animation */
+    unsigned short iterations {0};
+
+    /* the rotation direction, negative or positive */
+    short direction {1};
 };
 
 }
