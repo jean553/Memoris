@@ -106,10 +106,21 @@ void Cell::setPosition(
 /**
  *
  */
-void Cell::display(const std::shared_ptr<utils::Context>& context)
+void Cell::display(
+    const std::shared_ptr<utils::Context>& context,
+    const std::unique_ptr<sf::Transform>& transform
+)
 {
-    /* display the cell sprite */
-    context->getSfmlWindow().draw(sprite, transform);
+    /* display the cell with a transform SFML object if an object is pointed
+       by the given unique pointer reference */
+    if (transform != nullptr)
+    {
+        context->getSfmlWindow().draw(sprite, *transform);
+    }
+    else
+    {
+        context->getSfmlWindow().draw(sprite);
+    }
 }
 
 /**
@@ -199,18 +210,6 @@ void Cell::empty()
 const bool& Cell::isVisible() const
 {
     return visible;
-}
-
-/**
- *
- */
-void Cell::rotateFromFloorCenter(const short& degrees)
-{
-    transform.rotate(
-        degrees,
-        800,
-        498
-    );
 }
 
 }

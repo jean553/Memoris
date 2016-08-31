@@ -85,8 +85,15 @@ public:
      * @brief displays the cell according to the context
      *
      * @param context shared pointer to the context to use
+     * @param transform unique pointer to the transform to use, nullptr if no
+     * transform to use; the transform is a SFML object used for the animation
+     * of all the cells; if the transform is not null, the modification defined
+     * in this transform object is applied to every cell
      */
-    void display(const std::shared_ptr<utils::Context>& context);
+    void display(
+        const std::shared_ptr<utils::Context>& context,
+        const std::unique_ptr<sf::Transform>& transform = nullptr
+    );
 
     /**
      * @brief hide the cell, the sprite is replaced by the hidden cell texture
@@ -154,14 +161,6 @@ public:
      * @return const bool&
      */
     const bool& isVisible() const;
-
-    /**
-     * @brief rotate the cell with the given amount of degrees; the origin is
-     * the floor center; this is used for animations
-     *
-     * @param degrees amount of degrees of the animation
-     */
-    void rotateFromFloorCenter(const short& degrees);
 
 private:
 

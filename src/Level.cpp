@@ -27,6 +27,7 @@
 
 #include "Context.hpp"
 #include "cells.hpp"
+#include "allocators.hpp"
 
 #include <fstream>
 
@@ -195,7 +196,7 @@ void Level::display(
     )
     {
         /* get an unique pointer, get the cell object from this pointer */
-        (*cells[index]).display(context);
+        (*cells[index]).display(context, transform);
     }
 }
 
@@ -578,6 +579,40 @@ void Level::setCellsTransparency(
 const std::vector<std::unique_ptr<Cell>>& Level::getCells() const
 {
     return cells;
+}
+
+/**
+ *
+ */
+void Level::createTransform()
+{
+    /* create dynamically the SFML transform object; from this moment, the
+       transform is used to render the cells */
+    allocators::createDynamicObject(transform);
+}
+
+/**
+ *
+ */
+void Level::rotateAllCells(const short& degrees)
+{
+    /* the two last parameters represent the floor center; this is the center
+       of the rotation */
+    transform->rotate(
+        degrees,
+        800,
+        498
+    );
+}
+
+/**
+ *
+ */
+void Level::deleteTransform()
+{
+    /* call the reset() method with no parameter to set the transform pointer
+       to null and delete the pointed object */
+    allocators::deleteDynamicObject(transform);
 }
 
 }

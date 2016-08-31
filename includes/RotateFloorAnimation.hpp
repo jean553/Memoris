@@ -81,10 +81,6 @@ private:
         const unsigned short& floor
     ) override;
 
-    /* amount of rotation movements, used to calculate the end of the
-       animation */
-    unsigned short iterations {0};
-
     /* the rotation direction, negative or positive */
     short direction {1};
 };

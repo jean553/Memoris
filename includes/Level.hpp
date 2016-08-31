@@ -286,6 +286,29 @@ public:
      */
     const std::vector<std::unique_ptr<Cell>>& getCells() const;
 
+    /**
+     * @brief dynamically create a SFML transform object pointed by the
+     * 'transform' pointer, member of this class
+     */
+    void createTransform();
+
+    /**
+     * @brief dynamically delete the SFML transform object pointed by the
+     * 'transform' pointer, member of this class
+     */
+    void deleteTransform();
+
+    /**
+     * @brief rotate all the cells with the given amount of degrees; the
+     * center of the rotation is the level floor center
+     *
+     * @param degrees amount of degrees for the rotation
+     *
+     * NOTE: the function createTransform() has to be called AFTER the
+     * dynamic creation of a SFML transform object (createTransform()).
+     */
+    void rotateAllCells(const short& degrees);
+
 private:
 
     /* container of unique pointers of cells; we use unique pointers because
@@ -336,6 +359,12 @@ private:
     /* the current floor index is stored inside this variable when the switch
        floor animation occures; this is used by the animation; */
     unsigned short animationFloor {0};
+
+    /* we use an unique pointer here in order to load the transform and apply
+       it on the cells rending process only when necessary (only when an
+       animation that needs it is rendering); when the transform pointer is
+       null, the transform is simply not applied */
+    std::unique_ptr<sf::Transform> transform {nullptr};
 };
 
 }

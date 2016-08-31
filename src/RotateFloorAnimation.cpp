@@ -47,14 +47,16 @@ void RotateFloorAnimation::playNextAnimationStep(
     const unsigned short& floor
 )
 {
-    for (
-        unsigned short index = floor * 256;
-        index < (floor + 1) * 256;
-        index++
-    )
+    /* if the animation step is the first one, we create a sf::Transform object
+       pointed by the level transform unique pointer */
+    if (animationSteps == 0)
     {
-        level->getCells()[index]->rotateFromFloorCenter(5 * direction);
+        /* dynamically create the SFML transform object of the Level object */
+        level->createTransform();
     }
+
+    /* apply a rotation */
+    level->rotateAllCells(5 * direction);
 }
 
 /**
@@ -82,10 +84,12 @@ void RotateFloorAnimation::renderAnimation(
         floor
     );
 
-    iterations++;
-
-    if (iterations == 18)
+    if (animationSteps == 18)
     {
+        /* dynamically delete the SFML transform of the level object, we
+           do not need it anymore at the end of the animation */
+        level->deleteTransform();
+
         finished = true;
     }
 
