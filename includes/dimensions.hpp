@@ -44,6 +44,10 @@ constexpr float CELLS_PIXELS_SEPARATION = 1.f;
 constexpr float SELECTED_CELLS_BORDER_WIDTH = 3.f;
 constexpr float SELECTOR_CELLS_PIXELS_SEPARATION = 5.f;
 
+/* the center position of the cells rotation in the animations */
+constexpr float FLOOR_CENTER_X = 800.f;
+constexpr float FLOOR_CENTER_Y = 498.f;
+
 };
 }
 

@@ -28,6 +28,7 @@
 #include "Context.hpp"
 #include "cells.hpp"
 #include "allocators.hpp"
+#include "dimensions.hpp"
 
 #include <fstream>
 
@@ -600,8 +601,8 @@ void Level::rotateAllCells(const short& degrees)
        of the rotation */
     transform->rotate(
         degrees,
-        800,
-        498
+        dimensions::FLOOR_CENTER_X,
+        dimensions::FLOOR_CENTER_Y
     );
 }
 
