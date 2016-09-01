@@ -186,11 +186,6 @@ private:
        all the cells are hidden; this value is modified by the hide() and
        show() methods */
     bool visible {false};
-
-    /* SFML transform to apply on the cell sprite; this is used for rotation
-       animations */
-    /* TODO: #666 check if we can use a common unique transform object */
-    sf::Transform transform;
 };
 
 }
