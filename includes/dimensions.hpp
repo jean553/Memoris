@@ -30,23 +30,14 @@ namespace memoris
 namespace dimensions
 {
 
-constexpr unsigned short EDITOR_BUTTONS_WIDTH = 200;
-constexpr unsigned short LEVEL_CELLS_PER_FLOOR = 320;
-constexpr unsigned short LEVEL_FLOORS = 10;
-constexpr unsigned short POSITION_NAME_LABEL_Y = 0;
-constexpr unsigned short LEVEL_MAX_FLOOR_NUMBER = 9;
-constexpr unsigned short CELLS_PER_LEVEL = 3200;
-constexpr unsigned short CELLS_PER_COLUMN = 16;
-constexpr unsigned short CELLS_PER_LINE = 20;
-
-constexpr float CELL_PIXELS_DIMENSIONS = 49.f;
-constexpr float CELLS_PIXELS_SEPARATION = 1.f;
-constexpr float SELECTED_CELLS_BORDER_WIDTH = 3.f;
-constexpr float SELECTOR_CELLS_PIXELS_SEPARATION = 5.f;
-
 /* the center position of the cells rotation in the animations */
 constexpr float FLOOR_CENTER_X = 800.f;
 constexpr float FLOOR_CENTER_Y = 498.f;
+
+/* the dimensions of a cell in pixels and the separation between cells in
+   pixels */
+constexpr float CELL_PIXELS_DIMENSIONS = 49.f;
+constexpr float CELLS_PIXELS_SEPARATION = 1.f;
 
 };
 }
