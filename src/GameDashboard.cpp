@@ -35,7 +35,8 @@ namespace utils
 /**
  *
  */
-GameDashboard::GameDashboard(const std::shared_ptr<utils::Context>& context)
+GameDashboard::GameDashboard(const std::shared_ptr<utils::Context>& context) :
+    separators(context)
 {
     watchingTime = context->getPlayingSerieManager().getWatchingTime();
 
@@ -129,33 +130,6 @@ GameDashboard::GameDashboard(const std::shared_ptr<utils::Context>& context)
         1100.f,
         50.f
     );
-
-    /* initialize the graphical separators on both sides of the cells array */
-
-    leftSeparator.setSize(
-        sf::Vector2f(
-            1,
-            window::HEIGHT
-        )
-    );
-    leftSeparator.setPosition(
-        290.f,
-        0.f
-    );
-    leftSeparator.setFillColor(context->getColorsManager().getColorWhite());
-
-    rightSeparator.setSize(
-        sf::Vector2f(
-            1,
-            window::HEIGHT
-        )
-    );
-    rightSeparator.setPosition(
-        1308.f,
-        0.f
-    );
-    rightSeparator.setFillColor(context->getColorsManager().getColorWhite());
-
 }
 
 /**
@@ -177,9 +151,8 @@ void GameDashboard::display(const std::shared_ptr<utils::Context>& context)
     context->getSfmlWindow().draw(spriteTime);
     context->getSfmlWindow().draw(spriteFloor);
 
-    /* displays the separators on both sides of the cells array */
-    context->getSfmlWindow().draw(leftSeparator);
-    context->getSfmlWindow().draw(rightSeparator);
+    /* display the separators */
+    separators.display(context);
 }
 
 /**

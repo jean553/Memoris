@@ -29,6 +29,8 @@
 
 #include "Context.hpp"
 
+#include "LevelSeparators.hpp"
+
 #include <SFML/Graphics.hpp>
 
 namespace memoris
@@ -149,11 +151,6 @@ private:
     sf::Sprite spriteTime;
     sf::Sprite spriteFloor;
 
-    /* the two SFML surfaces that are the two separators on both sides of the
-       level cells */
-    sf::RectangleShape leftSeparator;
-    sf::RectangleShape rightSeparator;
-
     /* the amount of stars to display in the dashboard; set with 0 by default
        because when the level starts, the found stars amount is always 0 */
     unsigned short foundStars {0};
@@ -167,6 +164,9 @@ private:
 
     /* the amount of seconds the user can watch the level before hidding it */
     unsigned short watchingTime;
+
+    /* the separators at both sides of the level */
+    utils::LevelSeparators separators;
 };
 
 }
