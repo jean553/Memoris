@@ -41,6 +41,12 @@ EditorDashboard::EditorDashboard(
         400.f,
         10.f,
         context->getTexturesManager().getNewTexture()
+    ),
+    buttonOpen(
+        context,
+        480.f,
+        10.f,
+        context->getTexturesManager().getOpenTexture()
     )
 {
 }
@@ -56,6 +62,7 @@ const
 
     /* display the buttons */
     buttonNew.display(context);
+    buttonOpen.display(context);
 }
 
 }
