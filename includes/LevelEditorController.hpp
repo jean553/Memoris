@@ -74,6 +74,9 @@ private:
 
     /* custom cursor object */
     widgets::Cursor cursor;
+
+    /* SFML surface that contains the name of the level */
+    sf::Text levelNameSurface;
 };
 
 }

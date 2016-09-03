@@ -25,6 +25,7 @@
 #include "LevelEditorController.hpp"
 
 #include "controllers.hpp"
+#include "fonts.hpp"
 
 namespace memoris
 {
@@ -42,7 +43,19 @@ LevelEditorController::LevelEditorController(
     level(context),
     cursor(context)
 {
-    /* empty, just used to transfer the parameters to the parent class */
+    /* the default level name is 'unnamed' */
+    levelNameSurface.setString("unnamed");
+
+    levelNameSurface.setFont(context->getFontsManager().getTextFont());
+    levelNameSurface.setColor(context->getColorsManager().getColorWhite());
+    levelNameSurface.setCharacterSize(fonts::TEXT_SIZE);
+
+    /* set the position once the surface is created because we need the surface
+       width to find the surface horizontal position */
+    levelNameSurface.setPosition(
+        1200.f - levelNameSurface.getLocalBounds().width,
+        0.f
+    );
 }
 
 /**
@@ -61,7 +74,11 @@ unsigned short LevelEditorController::render(
         floor
     );
 
+    /* display the graphical cursor */
     cursor.render(context);
+
+    /* display the level name */
+    context->getSfmlWindow().draw(levelNameSurface);
 
     nextControllerId = animateScreenTransition(context);
 
