@@ -46,6 +46,7 @@ TexturesManager::TexturesManager()
     loadTexture(floorTexture, "res/images/floor.png");
     loadTexture(newTexture, "res/images/new.png");
     loadTexture(openTexture, "res/images/open.png");
+    loadTexture(saveTexture, "res/images/save.png");
 }
 
 /**
@@ -110,6 +111,14 @@ const sf::Texture& TexturesManager::getNewTexture() const
 const sf::Texture& TexturesManager::getOpenTexture() const
 {
     return openTexture;
+}
+
+/**
+ *
+ */
+const sf::Texture& TexturesManager::getSaveTexture() const
+{
+    return saveTexture;
 }
 
 }

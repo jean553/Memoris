@@ -47,6 +47,12 @@ EditorDashboard::EditorDashboard(
         480.f,
         10.f,
         context->getTexturesManager().getOpenTexture()
+    ),
+    buttonSave(
+        context,
+        560.f,
+        10.f,
+        context->getTexturesManager().getSaveTexture()
     )
 {
 }
@@ -63,6 +69,7 @@ const
     /* display the buttons */
     buttonNew.display(context);
     buttonOpen.display(context);
+    buttonSave.display(context);
 }
 
 }
