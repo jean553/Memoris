@@ -29,6 +29,7 @@
 #include "Controller.hpp"
 
 #include "EditorDashboard.hpp"
+#include "Level.hpp"
 
 namespace memoris
 {
@@ -63,6 +64,12 @@ private:
 
     /* the editor dashboard with all the tool buttons */
     utils::EditorDashboard dashboard;
+
+    /* the level to display */
+    entities::Level level;
+
+    /* the current level floor to display */
+    unsigned short floor {0};
 };
 
 }
