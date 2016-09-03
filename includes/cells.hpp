@@ -30,6 +30,8 @@
 #ifndef MEMORIS_CELLS_H_
 #define MEMORIS_CELLS_H_
 
+#include "Cell.hpp"
+
 namespace memoris
 {
 namespace cells
@@ -82,6 +84,28 @@ constexpr char LEFT_ROTATION_CELL {'('};
 
 /* right rotation animation */
 constexpr char RIGHT_ROTATION_CELL {')'};
+
+/**
+ * @brief create Cell unique pointers, usuable at a given position inside
+ * the level; the given positions are the positions of the cell *inside* the
+ * level (the level position is the origin of the cells positions); we use
+ * a template for the positions types (whatever the type, the position is
+ * cast to float)
+ *
+ * @param context shared pointer to the current context to use
+ * @param horizontalPosition the horizontal position of the cell
+ * @param verticalPosiition the vertical position of the cell
+ * @param type the cell type
+ *
+ * @return std::unique_ptr<entities::Cell>
+ */
+template<typename T>
+std::unique_ptr<entities::Cell> getCellByType(
+    const std::shared_ptr<utils::Context>& context,
+    const T& horizontalPosition,
+    const T& verticalPosition,
+    const char type
+);
 
 }
 }

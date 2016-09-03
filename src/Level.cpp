@@ -40,138 +40,24 @@ namespace entities
 /**
  *
  */
-Level::Level(const std::shared_ptr<utils::Context>& context)
+Level::Level(
+    const std::shared_ptr<utils::Context>& context,
+    const bool loadFromFile
+)
 {
-    /* create a file object to read the level file and load the cells */
-    std::ifstream file(context->getPlayingSerieManager().getNextLevelName());
-
-    /* check if the file is opened correctly */
-    if (!file.is_open())
+    /* check if the level has to be loaded from the level file in the next
+       item of the serie manager queue */
+    if(loadFromFile)
     {
-        /* TODO: #561 - check PlayingSerieManager.cpp for details */
-        throw std::invalid_argument("Cannot open the given level file");
+        loadLevelFromFile(context);
+    }
+    else
+    {
+
+        /* if no, load an empty level (used by the level editor) */
+        loadEmptyLevel(context);
     }
 
-    /* positions cursor used to keep trace of the initialized cell position
-       when initializing every cell one by one */
-    unsigned short horizontalPositionCursor {0}, verticalPositionCursor {0};
-
-    /* boolean used to remember if one cell is at least non empty on the
-       current loaded floor; used to increment the amount of playable floors */
-    bool emptyFloor = true;
-
-    /* save the minutes and seconds of the current level into the dedicated
-       attributes */
-
-    /* FIXME: if the minutes/seconds are not specified or partially specified,
-       the behavior is unmanaged */
-    file >> minutes;
-    file >> seconds;
-
-    /* there are 2560 cells per level, 256 per floor, there are 10 floors */
-    for(unsigned short index {0}; index < 2560; index++)
-    {
-        /* declare a new character at each loop iteration; initialize it with
-           an empty cell; this character contains the type of the current
-           iterated cell into the level file */
-        char cellType = cells::EMPTY_CELL;
-
-        /* check if the read of the file is finished; by doing this way, we are
-           sure that a valid level can still be loaded in memory (with empty
-           cells), even if the given file is damaged */
-        if (!file.eof())
-        {
-            /* if the file is not finished, read the next character from it */
-            cellType = file.get();
-        }
-
-        /* create an unique pointer to a cell object; the horizontal position
-           of a cell is equal to 300 (horizontal position of the grid) + 50
-           (cell width including separator) * the horizontal position cursor;
-           the vertical position of a cell is equal to 98 (vertical position of
-           the grid) + 50 (cell height including separator) * the vertical
-           position cursor; the data type expected by the Cell constructor for
-           the position is a float; this is faster to calculate positions with
-           unsigned shorts, and cast them to float at the end when setting
-           the data; this is not a problem to cast as we always manipulate
-           integer values anyway */
-        std::unique_ptr<Cell> cell(
-            std::make_unique<Cell>(
-                context,
-                400.f + 50.f * static_cast<float>(horizontalPositionCursor),
-                98.f + 50.f * static_cast<float>(verticalPositionCursor),
-                cellType
-            )
-        );
-
-        switch(cellType)
-        {
-        case cells::DEPARTURE_CELL:
-        {
-            /* store the current cell index into the player cell index if the
-               current cell is a departure cell; this will be the starting cell
-               of the player */
-            playerIndex = index;
-
-            break;
-        }
-        case cells::STAR_CELL:
-        {
-            /* increment the amount of stars on the level if the current cell
-               is a star cell */
-            starsAmount++;
-
-            break;
-        }
-        }
-
-        /* set the current floor as playable if the current cell is not
-           empty and if no non-empty cell has already been found */
-        if (cellType != cells::EMPTY_CELL && emptyFloor)
-        {
-            emptyFloor = false;
-        }
-
-        /* increment the horizontal position cursor */
-        horizontalPositionCursor++;
-
-        /* the cells are created line by line; when one line is finished
-           (modulo 16, there are 16 cells per line), jump to the next line
-           and reset the horizontal position cursor; we do not use !() but
-           == 0 instead: we really want make this test explicit */
-        if (horizontalPositionCursor % 16 == 0)
-        {
-            /* reset the horizontal position cursor */
-            horizontalPositionCursor = 0;
-
-            /* increment the vertical position cursor */
-            verticalPositionCursor++;
-
-            /* reset the vertical position cursor if the current vertical
-               position is equal to the last one (16) */
-            if (verticalPositionCursor % 16 == 0)
-            {
-                verticalPositionCursor = 0;
-
-                /* check if the floor is playable or not */
-                if (!emptyFloor)
-                {
-                    /* if the current floor is not empty, increment the amount
-                       of playable floors */
-                    playableFloors++;
-
-                    /* reset the boolean to check properly the next floor */
-                    emptyFloor = true;
-                }
-            }
-        }
-
-        /* move the unique pointer into the cells unique pointers container */
-        cells.push_back(std::move(cell));
-    }
-
-    /* we do not manually close the std::ifstream object, this object is
-       automatically destroyed when it goes out of the scope */
 }
 
 /**
@@ -614,6 +500,150 @@ void Level::deleteTransform()
     /* call the reset() method with no parameter to set the transform pointer
        to null and delete the pointed object */
     allocators::deleteDynamicObject(transform);
+}
+
+/**
+ *
+ */
+void Level::loadLevelFromFile(const std::shared_ptr<utils::Context>& context)
+{
+    /* create a file object to read the level file and load the cells */
+    std::ifstream file(context->getPlayingSerieManager().getNextLevelName());
+
+    /* check if the file is opened correctly */
+    if (!file.is_open())
+    {
+        /* TODO: #561 - check PlayingSerieManager.cpp for details */
+        throw std::invalid_argument("Cannot open the given level file");
+    }
+
+    /* FIXME: if the minutes/seconds are not specified or partially specified,
+       the behavior is unmanaged */
+    file >> minutes;
+    file >> seconds;
+
+    /* there are 2560 cells per level, 256 per floor, there are 10 floors */
+    for(unsigned short index {0}; index < 2560; index++)
+    {
+        /* declare a new character at each loop iteration; initialize it with
+           an empty cell; this character contains the type of the current
+           iterated cell into the level file */
+        char cellType = cells::EMPTY_CELL;
+
+        /* check if the read of the file is finished; by doing this way, we are
+           sure that a valid level can still be loaded in memory (with empty
+           cells), even if the given file is damaged */
+        if (!file.eof())
+        {
+            /* if the file is not finished, read the next character from it */
+            cellType = file.get();
+        }
+
+        std::unique_ptr<Cell> cell = cells::getCellByType(
+            context,
+            horizontalPositionCursor,
+            verticalPositionCursor,
+            cellType
+        );
+
+        switch(cellType)
+        {
+        case cells::DEPARTURE_CELL:
+        {
+            /* store the current cell index into the player cell index if the
+               current cell is a departure cell; this will be the starting cell
+               of the player */
+            playerIndex = index;
+
+            break;
+        }
+        case cells::STAR_CELL:
+        {
+            /* increment the amount of stars on the level if the current cell
+               is a star cell */
+            starsAmount++;
+
+            break;
+        }
+        }
+
+        /* set the current floor as playable if the current cell is not
+           empty and if no non-empty cell has already been found */
+        if (cellType != cells::EMPTY_CELL && emptyFloor)
+        {
+            emptyFloor = false;
+        }
+
+        updateCursors();
+
+        /* move the unique pointer into the cells unique pointers container */
+        cells.push_back(std::move(cell));
+    }
+
+    /* we do not manually close the std::ifstream object, this object is
+       automatically destroyed when it goes out of the scope */
+}
+
+/**
+ *
+ */
+void Level::loadEmptyLevel(const std::shared_ptr<utils::Context>& context)
+{
+    /* there are 2560 cells per level, 256 per floor, there are 10 floors */
+    for(unsigned short index {0}; index < 2560; index++)
+    {
+        std::unique_ptr<Cell> cell = cells::getCellByType(
+            context,
+            horizontalPositionCursor,
+            verticalPositionCursor,
+            cells::EMPTY_CELL
+        );
+
+        updateCursors();
+
+        /* move the unique pointer into the cells unique pointers container */
+        cells.push_back(std::move(cell));
+    }
+}
+
+/**
+ *
+ */
+void Level::updateCursors()
+{
+    /* increment the horizontal position of the cursor */
+    horizontalPositionCursor++;
+
+    /* the cells are created line by line; when one line is finished
+       (modulo 16, there are 16 cells per line), jump to the next line
+       and reset the horizontal position cursor; we do not use !() but
+       == 0 instead: we really want make this test explicit */
+    if (horizontalPositionCursor % 16 == 0)
+    {
+        /* reset the horizontal position cursor */
+        horizontalPositionCursor = 0;
+
+        /* increment the vertical position cursor */
+        verticalPositionCursor++;
+
+        /* reset the vertical position cursor if the current vertical
+           position is equal to the last one (16) */
+        if (verticalPositionCursor % 16 == 0)
+        {
+            verticalPositionCursor = 0;
+
+            /* check if the floor is playable or not */
+            if (!emptyFloor)
+            {
+                /* if the current floor is not empty, increment the amount
+                   of playable floors */
+                playableFloors++;
+
+                /* reset the boolean to check properly the next floor */
+                emptyFloor = true;
+            }
+        }
+    }
 }
 
 }

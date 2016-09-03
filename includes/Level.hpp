@@ -46,10 +46,17 @@ public:
      * the given level file path
      *
      * @param context shared pointer to the current context
+     * @param loadFromFile boolean false by default to indicate that the
+     * level content has to be loaded from the next file in the serie
+     * manager levels queue (false by default for safety). If the boolean is
+     * false, the level is empty
      *
      * @throw std::invalid_argument the level file cannot be opened
      */
-    Level(const std::shared_ptr<utils::Context>& context);
+    Level(
+        const std::shared_ptr<utils::Context>& context,
+        const bool loadFromFile = false
+    );
 
     /**
      * @brief render the level and all the cells of the given floor; this
@@ -311,6 +318,30 @@ public:
 
 private:
 
+    /**
+     * @brief private method called by the constructor to load a level from
+     * the next file in the serie manager queue
+     *
+     * @param context shared pointer to the current context
+     *
+     * @throw std::invalid_argument the level file cannot be opened
+     */
+    void loadLevelFromFile(const std::shared_ptr<utils::Context>& context);
+
+    /**
+     * @brief private method called by the constructor to load a level full
+     * of empty cells
+     *
+     * @param context shared pointer to the current context
+     */
+    void loadEmptyLevel(const std::shared_ptr<utils::Context>& context);
+
+    /**
+     * @brief called by the constructor to update the cursor position during
+     * the level creation
+     */
+    void updateCursors();
+
     /* container of unique pointers of cells; we use unique pointers because
        pointers are fast to copy/move instead of a whole cell object; we use
        a unique pointer to make the pointer as restrictif as possible, in fact,
@@ -365,6 +396,15 @@ private:
        animation that needs it is rendering); when the transform pointer is
        null, the transform is simply not applied */
     std::unique_ptr<sf::Transform> transform {nullptr};
+
+    /* positions cursor used to keep trace of the initialized cell position
+       when initializing every cell one by one */
+    unsigned short horizontalPositionCursor {0}, verticalPositionCursor {0};
+
+    /* boolean used to remember if one cell is at least non empty on the
+       current loaded floor; used to increment the amount of playable floors */
+    bool emptyFloor {true};
+
 };
 
 }
