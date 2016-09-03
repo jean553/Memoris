@@ -122,6 +122,13 @@ public:
      */
     const sf::Texture& getCursorTexture() const;
 
+    /**
+     * @brief getter for the exit texture
+     *
+     * @return const sf::Texture&
+     */
+    const sf::Texture& getExitTexture() const;
+
 private:
 
     /* cursor texture */
@@ -141,6 +148,7 @@ private:
     sf::Texture newTexture;
     sf::Texture openTexture;
     sf::Texture saveTexture;
+    sf::Texture exitTexture;
 };
 
 }

@@ -66,6 +66,13 @@ public:
      */
     void display(const std::shared_ptr<utils::Context>& context);
 
+    /**
+     * @brief boolean that indicates if the mouse is hover the button or not
+     *
+     * @return bool
+     */
+    bool isMouseHover() const;
+
 private:
 
     static constexpr float BUTTON_DIMENSION {70.f};

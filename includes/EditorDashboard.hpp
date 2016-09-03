@@ -41,6 +41,10 @@ class EditorDashboard
 
 public:
 
+    /* public actions ids used to communicate with the level editor */
+
+    static constexpr unsigned short EXIT_ACTION_ID {1};
+
     /**
      * @brief constructor, initializes the level separator
      *
@@ -55,6 +59,17 @@ public:
      */
     void display(const std::shared_ptr<utils::Context>& context);
 
+    /**
+     * @brief proxy method that returns an event id, this event id is got
+     * by the level editor; with this action id, the level id knows what to
+     * do (leave, display a popup, go to another controller...); the events
+     * ids are public constant expressions of this class; they are public
+     * to let the level editor use them; returns 0 if no button selected
+     *
+     * @return unsigned short
+     */
+    unsigned short getActionIdBySelectedButton() const;
+
 private:
 
     /* the vertical separators at both sides of the dashboard */
@@ -64,7 +79,7 @@ private:
     widgets::Button buttonNew;
     widgets::Button buttonOpen;
     widgets::Button buttonSave;
-
+    widgets::Button buttonExit;
 };
 
 }

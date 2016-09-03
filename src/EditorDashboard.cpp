@@ -53,6 +53,12 @@ EditorDashboard::EditorDashboard(
         560.f,
         10.f,
         context->getTexturesManager().getSaveTexture()
+    ),
+    buttonExit(
+        context,
+        640.f,
+        10.f,
+        context->getTexturesManager().getExitTexture()
     )
 {
 }
@@ -69,6 +75,20 @@ void EditorDashboard::display(const std::shared_ptr<utils::Context>& context)
     buttonNew.display(context);
     buttonOpen.display(context);
     buttonSave.display(context);
+    buttonExit.display(context);
+}
+
+/**
+ *
+ */
+unsigned short EditorDashboard::getActionIdBySelectedButton() const
+{
+    if (buttonExit.isMouseHover())
+    {
+        return EXIT_ACTION_ID;
+    }
+
+    return 0;
 }
 
 }

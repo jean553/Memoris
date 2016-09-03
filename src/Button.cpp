@@ -170,5 +170,13 @@ void Button::setBordersColor(const sf::Color& color)
     bottom.setFillColor(color);
 }
 
+/**
+ *
+ */
+bool Button::isMouseHover() const
+{
+    return mouseHover;
+}
+
 }
 }
