@@ -38,7 +38,8 @@ LevelEditorController::LevelEditorController(
     const std::shared_ptr<utils::Context>& context
 ) :
     Controller(context),
-    dashboard(context)
+    dashboard(context),
+    level(context)
 {
     /* empty, just used to transfer the parameters to the parent class */
 }
@@ -52,6 +53,12 @@ unsigned short LevelEditorController::render(
 {
     /* display the editor dashboard */
     dashboard.display(context);
+
+    /* display the level */
+    level.display(
+        context,
+        floor
+    );
 
     nextControllerId = animateScreenTransition(context);
 
