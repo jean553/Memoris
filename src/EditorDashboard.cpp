@@ -61,7 +61,6 @@ EditorDashboard::EditorDashboard(
  *
  */
 void EditorDashboard::display(const std::shared_ptr<utils::Context>& context)
-const
 {
     /* display the separators */
     separators.display(context);

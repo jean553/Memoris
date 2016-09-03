@@ -53,7 +53,7 @@ public:
      *
      * @param context shared pointer to the current context to use
      */
-    void display(const std::shared_ptr<utils::Context>& context) const;
+    void display(const std::shared_ptr<utils::Context>& context);
 
 private:
 
