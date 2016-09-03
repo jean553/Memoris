@@ -133,6 +133,8 @@ unsigned short LevelEditorController::render(
                 /* if the exit button is selected, just go back to the
                    editor main menu */
                 expectedControllerId = EDITOR_MENU_CONTROLLER_ID;
+
+                break;
             }
             case utils::EditorDashboard::SAVE_ACTION_ID:
             {
@@ -141,6 +143,8 @@ unsigned short LevelEditorController::render(
                     context,
                     popups::SAVE_LEVEL_POPUP_ID
                 );
+
+                break;
             }
             }
         }

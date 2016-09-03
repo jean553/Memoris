@@ -45,10 +45,10 @@ std::unique_ptr<popups::Dialog> getDialogById(
     {
         return std::make_unique<SaveLevelDialog>(
             context,
-            400.f,
-            300.f,
-            40.f,
-            40.f,
+            440.f,
+            220.f,
+            600.f,
+            200.f,
             "Save level"
         );
     }

@@ -158,9 +158,9 @@ private:
     static constexpr sf::Uint8 COLOR_LIGHT_BLUE_GREEN = 125;
     static constexpr sf::Uint8 COLOR_LIGHT_BLUE_BLUE = 255;
 
-    static constexpr sf::Uint8 COLOR_DARK_GREY_RED = 134;
-    static constexpr sf::Uint8 COLOR_DARK_GREY_GREEN = 134;
-    static constexpr sf::Uint8 COLOR_DARK_GREY_BLUE = 134;
+    static constexpr sf::Uint8 COLOR_DARK_GREY_RED = 50;
+    static constexpr sf::Uint8 COLOR_DARK_GREY_GREEN = 50;
+    static constexpr sf::Uint8 COLOR_DARK_GREY_BLUE = 50;
 
     static constexpr sf::Uint8 COLOR_BLACK_RED = 0;
     static constexpr sf::Uint8 COLOR_BLACK_GREEN = 0;

@@ -24,6 +24,8 @@
  
 #include "SaveLevelDialog.hpp"
 
+#include "fonts.hpp"
+
 namespace memoris
 {
 namespace popups
@@ -46,10 +48,26 @@ SaveLevelDialog::SaveLevelDialog(
         hPosition,
         vPosition,
         title
+    ),
+    input(
+        context,
+        hPosition + 25.f,
+        vPosition + 130.f,
+        380.f,
+        20
     )
 {
-    /* does nothing for now, just pass the parameters to the parent
-       constructor */
+    /* information text creation */
+    info.setString("Enter the level name:");
+    info.setPosition(
+        hPosition + 20.f,
+        vPosition + 70.f
+    );
+    info.setFont(
+        context->getFontsManager().getTextFont()
+    );
+    info.setCharacterSize(fonts::INFORMATION_SIZE);
+    info.setColor(context->getColorsManager().getColorWhite());
 }
 
 /**
@@ -59,6 +77,12 @@ void SaveLevelDialog::render(const std::shared_ptr<utils::Context>& context)
 {
     /* display the basic content of the dialog */
     displayParentContent(context);
+
+    /* display the input */
+    input.display(context);
+
+    /* display the information */
+    context->getSfmlWindow().draw(info);
 }
 
 }
