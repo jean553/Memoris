@@ -56,7 +56,22 @@ public:
 private:
 
     /* sprites of the cells */
+
     sf::Sprite emptyCell;
+    sf::Sprite departureCell;
+    sf::Sprite arrivalCell;
+    sf::Sprite starCell;
+    sf::Sprite moreLifeCell;
+    sf::Sprite lessLifeCell;
+    sf::Sprite moreTimeCell;
+    sf::Sprite lessTimeCell;
+    sf::Sprite wallCell;
+    sf::Sprite stairsUpCell;
+    sf::Sprite stairsDownCell;
+    sf::Sprite horizontalMirrorCell;
+    sf::Sprite verticalMirrorCell;
+    sf::Sprite leftRotationCell;
+    sf::Sprite rightRotationCell;
 };
 
 }
