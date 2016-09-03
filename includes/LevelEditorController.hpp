@@ -31,6 +31,7 @@
 #include "EditorDashboard.hpp"
 #include "Level.hpp"
 #include "Cursor.hpp"
+#include "CellsSelector.hpp"
 
 namespace memoris
 {
@@ -65,6 +66,9 @@ private:
 
     /* the editor dashboard with all the tool buttons */
     utils::EditorDashboard dashboard;
+
+    /* the cells selector, used to put the cells on the level */
+    utils::CellsSelector selector;
 
     /* the level to display */
     entities::Level level;
