@@ -36,7 +36,9 @@ namespace controllers
  */
 LevelEditorController::LevelEditorController(
     const std::shared_ptr<utils::Context>& context
-) : Controller(context)
+) :
+    Controller(context),
+    dashboard(context)
 {
     /* empty, just used to transfer the parameters to the parent class */
 }
@@ -48,6 +50,9 @@ unsigned short LevelEditorController::render(
     const std::shared_ptr<utils::Context>& context
 )
 {
+    /* display the editor dashboard */
+    dashboard.display(context);
+
     nextControllerId = animateScreenTransition(context);
 
     while(context->getSfmlWindow().pollEvent(event))
