@@ -47,6 +47,7 @@ TexturesManager::TexturesManager()
     loadTexture(newTexture, "res/images/new.png");
     loadTexture(openTexture, "res/images/open.png");
     loadTexture(saveTexture, "res/images/save.png");
+    loadTexture(cursorTexture, "res/images/cursor.png");
 }
 
 /**
@@ -119,6 +120,14 @@ const sf::Texture& TexturesManager::getOpenTexture() const
 const sf::Texture& TexturesManager::getSaveTexture() const
 {
     return saveTexture;
+}
+
+/**
+ *
+ */
+const sf::Texture& TexturesManager::getCursorTexture() const
+{
+    return cursorTexture;
 }
 
 }

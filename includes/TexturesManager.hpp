@@ -115,7 +115,17 @@ public:
      */
     const sf::Texture& getSaveTexture() const;
 
+    /**
+     * @brief getter for the cursor texture
+     *
+     * @return const sf::Texture&
+     */
+    const sf::Texture& getCursorTexture() const;
+
 private:
+
+    /* cursor texture */
+    sf::Texture cursorTexture;
 
     /* github texture displayed on the main menu */
     sf::Texture githubTexture;
