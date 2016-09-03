@@ -28,6 +28,7 @@
 #include "SerieMainMenuController.hpp"
 #include "OfficialSeriesMenuController.hpp"
 #include "GameController.hpp"
+#include "EditorMenuController.hpp"
 
 #include "Level.hpp"
 
@@ -91,6 +92,10 @@ std::unique_ptr<Controller> getControllerById(
     case ERROR_CONTROLLER_ID:
     {
         return getErrorController(context);
+    }
+    case EDITOR_MENU_CONTROLLER_ID:
+    {
+        return std::make_unique<EditorMenuController>(context);
     }
     }
 

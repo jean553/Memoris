@@ -290,6 +290,13 @@ void MainMenuController::selectMenuItem()
 
         break;
     }
+    /* the editor item is selected */
+    case 2:
+    {
+        expectedControllerId = EDITOR_MENU_CONTROLLER_ID;
+
+        break;
+    }
     /* the exit item is selected (or any other) */
     default:
     {
