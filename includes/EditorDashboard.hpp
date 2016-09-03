@@ -29,6 +29,7 @@
 #include "Context.hpp"
 
 #include "LevelSeparators.hpp"
+#include "Button.hpp"
 
 namespace memoris
 {
@@ -58,6 +59,9 @@ private:
 
     /* the vertical separators at both sides of the dashboard */
     utils::LevelSeparators separators;
+
+    /* buttons of the tool bar */
+    widgets::Button buttonNew;
 
 };
 
