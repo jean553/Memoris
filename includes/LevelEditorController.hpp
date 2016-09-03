@@ -30,6 +30,7 @@
 
 #include "EditorDashboard.hpp"
 #include "Level.hpp"
+#include "Cursor.hpp"
 
 namespace memoris
 {
@@ -70,6 +71,9 @@ private:
 
     /* the current level floor to display */
     unsigned short floor {0};
+
+    /* custom cursor object */
+    widgets::Cursor cursor;
 };
 
 }

@@ -39,7 +39,8 @@ LevelEditorController::LevelEditorController(
 ) :
     Controller(context),
     dashboard(context),
-    level(context)
+    level(context),
+    cursor(context)
 {
     /* empty, just used to transfer the parameters to the parent class */
 }
@@ -59,6 +60,8 @@ unsigned short LevelEditorController::render(
         context,
         floor
     );
+
+    cursor.render(context);
 
     nextControllerId = animateScreenTransition(context);
 
