@@ -148,6 +148,13 @@ void EditorMenuController::selectMenuItem()
 {
     switch(getSelectorPosition())
     {
+    /* display the level editor */
+    case 0:
+    {
+        expectedControllerId = LEVEL_EDITOR_CONTROLLER_ID;
+
+        break;
+    }
     /* go back to the main menu when select 'back' */
     case 2:
     {
