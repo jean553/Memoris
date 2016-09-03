@@ -26,6 +26,7 @@
 
 #include "controllers.hpp"
 #include "fonts.hpp"
+#include "dialogs.hpp"
 
 namespace memoris
 {
@@ -78,11 +79,17 @@ unsigned short LevelEditorController::render(
     /* display the cells selector */
     selector.display(context);
 
-    /* display the graphical cursor */
-    cursor.render(context);
-
     /* display the level name */
     context->getSfmlWindow().draw(levelNameSurface);
+
+    /* display the dialog window if the pointer is not null */
+    if (dialog != nullptr)
+    {
+        dialog->render(context);
+    }
+
+    /* display the graphical cursor */
+    cursor.render(context);
 
     nextControllerId = animateScreenTransition(context);
 
@@ -96,6 +103,16 @@ unsigned short LevelEditorController::render(
             {
             case sf::Keyboard::Escape:
             {
+                /* check if a dialog window is rendered, if yes, just destroy
+                   it */
+                if (dialog != nullptr)
+                {
+                    dialog.reset();
+
+                    /* force the process to finish here */
+                    break;
+                }
+
                 expectedControllerId = MAIN_MENU_CONTROLLER_ID;
 
                 break;
@@ -116,6 +133,14 @@ unsigned short LevelEditorController::render(
                 /* if the exit button is selected, just go back to the
                    editor main menu */
                 expectedControllerId = EDITOR_MENU_CONTROLLER_ID;
+            }
+            case utils::EditorDashboard::SAVE_ACTION_ID:
+            {
+                /* display the save level file popup */
+                dialog = popups::getDialogById(
+                    context,
+                    popups::SAVE_LEVEL_POPUP_ID
+                );
             }
             }
         }
