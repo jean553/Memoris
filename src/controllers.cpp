@@ -72,8 +72,13 @@ std::unique_ptr<Controller> getControllerById(
                std::shared_ptr<entities::Level>; create this pointer here
                instead of directly creating it inside the game controller makes
                the code easier to maintain; the level pointer is used in the
-               game controller and also in the LevelAnimation object */
-            auto level = std::make_shared<entities::Level>(context);
+               game controller and also in the LevelAnimation object; the
+               second parameter of the constructor is true, because we load the
+               level from a level file */
+            auto level = std::make_shared<entities::Level>(
+                             context,
+                             true
+                         );
 
             /* creates the game controller and pass the level pointer to it */
             return std::make_unique<GameController>(
