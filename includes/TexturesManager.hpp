@@ -101,6 +101,13 @@ public:
      */
     const sf::Texture& getNewTexture() const;
 
+    /**
+     * @brief getter for the open texture
+     *
+     * @return const sf::Texture&
+     */
+    const sf::Texture& getOpenTexture() const;
+
 private:
 
     /* github texture displayed on the main menu */
@@ -115,6 +122,7 @@ private:
 
     /* the textures of the level editor */
     sf::Texture newTexture;
+    sf::Texture openTexture;
 };
 
 }

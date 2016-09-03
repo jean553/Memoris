@@ -45,6 +45,7 @@ TexturesManager::TexturesManager()
     loadTexture(timeTexture, "res/images/timer.png");
     loadTexture(floorTexture, "res/images/floor.png");
     loadTexture(newTexture, "res/images/new.png");
+    loadTexture(openTexture, "res/images/open.png");
 }
 
 /**
@@ -101,6 +102,14 @@ const sf::Texture& TexturesManager::getFloorTexture() const
 const sf::Texture& TexturesManager::getNewTexture() const
 {
     return newTexture;
+}
+
+/**
+ *
+ */
+const sf::Texture& TexturesManager::getOpenTexture() const
+{
+    return openTexture;
 }
 
 }

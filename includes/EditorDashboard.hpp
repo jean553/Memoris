@@ -62,6 +62,7 @@ private:
 
     /* buttons of the tool bar */
     widgets::Button buttonNew;
+    widgets::Button buttonOpen;
 
 };
 
