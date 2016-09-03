@@ -17,36 +17,37 @@
 */
 
 /**
- * @file EditorMenuController.hpp
- * @brief render the editor menu where the user can select to start the level
- * editor or the serie editor
+ * @file LevelEditorController.hpp
+ * @package controllers
+ * @brief render the level editor
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef MEMORIS_EDITORMENUCONTROLLER_H_
-#define MEMORIS_EDITORMENUCONTROLLER_H_
+#ifndef MEMORIS_LEVELEDITORCONTROLLER_H_
+#define MEMORIS_LEVELEDITORCONTROLLER_H_
 
-#include "AbstractMenuController.hpp"
+#include "Controller.hpp"
 
 namespace memoris
 {
 namespace controllers
 {
 
-class EditorMenuController : public AbstractMenuController
+class LevelEditorController : public Controller
 {
 
 public:
 
     /**
-     * @brief constructor, initializes the title and the menu items
+     * @brief constructor, empty for now, just used to transfer parameters
+     * ot the parent class
      *
-     * @param context shared pointer to the current context to use
+     * @param context shared pointer to the current context
      */
-    EditorMenuController(const std::shared_ptr<utils::Context>& context);
+    LevelEditorController(const std::shared_ptr<utils::Context>& context);
 
     /**
-     * @brief render the editor menu controller, returns the id of the next
+     * @brief render the level editor controller, returns the id of the next
      * controller to render
      *
      * @param context shared pointer to the current context to use
@@ -55,16 +56,6 @@ public:
      */
     unsigned short render(const std::shared_ptr<utils::Context>& context)
     override;
-
-private:
-
-    /**
-     * @brief handles menu items selection, declared in the parent class
-     */
-    void selectMenuItem() override;
-
-    /* the SFML title surface of the menu */
-    sf::Text title;
 };
 
 }
