@@ -32,6 +32,7 @@
 #include "Level.hpp"
 #include "Cursor.hpp"
 #include "CellsSelector.hpp"
+#include "SaveLevelDialog.hpp"
 
 namespace memoris
 {
@@ -81,6 +82,10 @@ private:
 
     /* SFML surface that contains the name of the level */
     sf::Text levelNameSurface;
+
+    /* unique pointer to the current rendered dialog, set to null by default
+       and if there is no displayed dialog currently */
+    std::unique_ptr<popups::Dialog> dialog {nullptr};
 };
 
 }

@@ -44,6 +44,7 @@ public:
     /* public actions ids used to communicate with the level editor */
 
     static constexpr unsigned short EXIT_ACTION_ID {1};
+    static constexpr unsigned short SAVE_ACTION_ID {2};
 
     /**
      * @brief constructor, initializes the level separator

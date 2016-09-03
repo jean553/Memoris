@@ -87,6 +87,10 @@ unsigned short EditorDashboard::getActionIdBySelectedButton() const
     {
         return EXIT_ACTION_ID;
     }
+    else if (buttonSave.isMouseHover())
+    {
+        return SAVE_ACTION_ID;
+    }
 
     return 0;
 }
