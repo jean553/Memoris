@@ -40,6 +40,7 @@ LevelEditorController::LevelEditorController(
 ) :
     Controller(context),
     dashboard(context),
+    selector(context),
     level(context),
     cursor(context)
 {
@@ -73,6 +74,9 @@ unsigned short LevelEditorController::render(
         context,
         floor
     );
+
+    /* display the cells selector */
+    selector.display(context);
 
     /* display the graphical cursor */
     cursor.render(context);
