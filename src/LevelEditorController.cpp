@@ -102,6 +102,19 @@ unsigned short LevelEditorController::render(
             }
             }
         }
+        case sf::Event::MouseButtonPressed:
+        {
+            /* try to get the selected button from the dashboard */
+            switch(dashboard.getActionIdBySelectedButton())
+            {
+            case utils::EditorDashboard::EXIT_ACTION_ID:
+            {
+                /* if the exit button is selected, just go back to the
+                   editor main menu */
+                expectedControllerId = EDITOR_MENU_CONTROLLER_ID;
+            }
+            }
+        }
         default:
         {
             /* useless, added here to respect the syntax */
