@@ -48,7 +48,7 @@ void Cursor::render(const std::shared_ptr<utils::Context>& context)
 
     /* only move the cursor if more than 50 milliseconds elapsed */
     if (
-        context->getClockMillisecondsTime() - 
+        context->getClockMillisecondsTime() -
         lastCursorPositionUpdateTime < 50
     )
     {

@@ -37,7 +37,11 @@ Button::Button(
     const float& hPosition,
     const float& vPosition,
     const sf::Texture& texture
-)
+) :
+/* integers are saved, but float are applied to the SFML setPosition()
+   functions, as required; check header to know why we save integers */
+    horizontalPosition(static_cast<int>(hPosition)),
+    verticalPosition(static_cast<int>(vPosition))
 {
     back.setSize(
         sf::Vector2f(
@@ -49,8 +53,6 @@ Button::Button(
     back.setFillColor(
         context->getColorsManager().getColorDarkGrey()
     );
-
-    /* TODO: hPosition or horizontalPosition ? */
 
     back.setPosition(
         hPosition,
@@ -104,12 +106,14 @@ Button::Button(
         hPosition + ICON_POSITION_OFFSET,
         vPosition + ICON_POSITION_OFFSET
     );
+
+    setBordersColor(context->getColorsManager().getColorWhite());
 }
 
 /**
  *
  */
-void Button::display(const std::shared_ptr<utils::Context>& context) const
+void Button::display(const std::shared_ptr<utils::Context>& context)
 {
     /* draw the button background */
     context->getSfmlWindow().draw(back);
@@ -117,11 +121,53 @@ void Button::display(const std::shared_ptr<utils::Context>& context) const
     /* draw the button icon */
     context->getSfmlWindow().draw(icon);
 
+    /* get the current cursor position */
+    sf::Vector2<int> cursorPosition = sf::Mouse::getPosition();
+
+    /* change the color of the border if the mouse is hover the button */
+    if (
+        cursorPosition.x > horizontalPosition &&
+        cursorPosition.x < horizontalPosition + BUTTON_DIMENSION &&
+        cursorPosition.y > verticalPosition &&
+        cursorPosition.y < verticalPosition + BUTTON_DIMENSION &&
+        !mouseHover
+    )
+    {
+        mouseHover = true;
+
+        setBordersColor(context->getColorsManager().getColorRed());
+    }
+    else if (
+        (
+            cursorPosition.x < horizontalPosition ||
+            cursorPosition.x > horizontalPosition + BUTTON_DIMENSION ||
+            cursorPosition.y < verticalPosition ||
+            cursorPosition.y > verticalPosition + BUTTON_DIMENSION
+        ) &&
+        mouseHover
+    )
+    {
+        mouseHover = false;
+
+        setBordersColor(context->getColorsManager().getColorWhite());
+    }
+
     /* draw the button borders */
     context->getSfmlWindow().draw(left);
     context->getSfmlWindow().draw(top);
     context->getSfmlWindow().draw(right);
     context->getSfmlWindow().draw(bottom);
+}
+
+/**
+ *
+ */
+void Button::setBordersColor(const sf::Color& color)
+{
+    left.setFillColor(color);
+    right.setFillColor(color);
+    top.setFillColor(color);
+    bottom.setFillColor(color);
 }
 
 }

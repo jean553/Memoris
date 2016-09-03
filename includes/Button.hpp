@@ -59,13 +59,26 @@ public:
      * @brief display the button
      *
      * @param context shared pointer to the current context to use
+     *
+     * NOTE: usually, display() functions are const; not this one because the
+     * attributes of the button are modified inside this function if the mouse
+     * is hover the widget
      */
-    void display(const std::shared_ptr<utils::Context>& context) const;
+    void display(const std::shared_ptr<utils::Context>& context);
 
 private:
 
     static constexpr float BUTTON_DIMENSION {70.f};
     static constexpr float ICON_POSITION_OFFSET {3.f};
+
+    /**
+     * @brief private method to set the color of the borders surfaces; we use
+     * a specific function because the color of the borders change when the
+     * mouse is hover or not
+     *
+     * @param color constant reference to the color to apply
+     */
+    void setBordersColor(const sf::Color& color);
 
     /* SFML surface of the button background */
     sf::RectangleShape back;
@@ -78,6 +91,18 @@ private:
 
     /* unique pointer to the icon to display */
     sf::Sprite icon;
+
+    /* store integer for the position (and not float), because we use these
+       positions to check if the mouse is hover the widget, the returned
+       type of SFML is sf::Vector2<int> and not sf::Vector<float>; we improve
+       performances because we only perform a static cast one time (init) and
+       not everytime */
+    int horizontalPosition;
+    int verticalPosition;
+
+    /* boolean used to switch the color and not continually set the color
+       when the mouse stays hover the button or outside of the button */
+    bool mouseHover {false};
 };
 
 }
