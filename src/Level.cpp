@@ -540,11 +540,11 @@ void Level::loadLevelFromFile(const std::shared_ptr<utils::Context>& context)
         }
 
         std::unique_ptr<Cell> cell = cells::getCellByType(
-            context,
-            horizontalPositionCursor,
-            verticalPositionCursor,
-            cellType
-        );
+                                         context,
+                                         horizontalPositionCursor,
+                                         verticalPositionCursor,
+                                         cellType
+                                     );
 
         switch(cellType)
         {
@@ -593,11 +593,11 @@ void Level::loadEmptyLevel(const std::shared_ptr<utils::Context>& context)
     for(unsigned short index {0}; index < 2560; index++)
     {
         std::unique_ptr<Cell> cell = cells::getCellByType(
-            context,
-            horizontalPositionCursor,
-            verticalPositionCursor,
-            cells::EMPTY_CELL
-        );
+                                         context,
+                                         horizontalPositionCursor,
+                                         verticalPositionCursor,
+                                         cells::EMPTY_CELL
+                                     );
 
         updateCursors();
 

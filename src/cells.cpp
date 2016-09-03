@@ -51,11 +51,11 @@ std::unique_ptr<entities::Cell> getCellByType(
        the data; this is not a problem to cast as we always manipulate
        integer values anyway */
     return std::make_unique<entities::Cell>(
-        context,
-        400.f + 50.f * static_cast<float>(horizontalPosition),
-        98.f + 50.f * static_cast<float>(verticalPosition),
-        type
-    );
+               context,
+               400.f + 50.f * static_cast<float>(horizontalPosition),
+               98.f + 50.f * static_cast<float>(verticalPosition),
+               type
+           );
 }
 
 /* declared here because not specified into the header */

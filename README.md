@@ -101,6 +101,8 @@ https://www.iconfinder.com/icons/1055053/controller_game_controller_video_game_i
 
 http://code.google.com/u/newmooon/ - GNU GPL
 
+https://www.iconfinder.com/paomedia - CreativeCommons - BY 3.0 - https://creativecommons.org/licenses/by/3.0/ 
+
 ### Sounds
 
 All sounds files have been downloaded from www.universal-soundbank.com. They have

@@ -34,7 +34,14 @@ namespace utils
  */
 EditorDashboard::EditorDashboard(
     const std::shared_ptr<utils::Context>& context
-) : separators(context)
+) :
+    separators(context),
+    buttonNew(
+        context,
+        400.f,
+        10.f,
+        context->getTexturesManager().getNewTexture()
+    )
 {
 }
 
@@ -46,6 +53,9 @@ const
 {
     /* display the separators */
     separators.display(context);
+
+    /* display the buttons */
+    buttonNew.display(context);
 }
 
 }

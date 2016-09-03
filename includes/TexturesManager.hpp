@@ -94,6 +94,13 @@ public:
      */
     const sf::Texture& getHiddenTexture() const;
 
+    /**
+     * @brief getter for the new texture
+     *
+     * @return const sf::Texture&
+     */
+    const sf::Texture& getNewTexture() const;
+
 private:
 
     /* github texture displayed on the main menu */
@@ -105,6 +112,9 @@ private:
     sf::Texture targetTexture;
     sf::Texture timeTexture;
     sf::Texture floorTexture;
+
+    /* the textures of the level editor */
+    sf::Texture newTexture;
 };
 
 }
