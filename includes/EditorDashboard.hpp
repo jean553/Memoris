@@ -1,4 +1,4 @@
-/**
+/*
  * Memoris
  * Copyright (C) 2015  Jean LELIEVRE
  *
@@ -17,52 +17,48 @@
 */
 
 /**
- * @file LevelEditorController.hpp
- * @package controllers
- * @brief render the level editor
+ * @file EditorDashboard.hpp
+ * @brief dashboard displayed into the level editor
+ * @package utils
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef MEMORIS_LEVELEDITORCONTROLLER_H_
-#define MEMORIS_LEVELEDITORCONTROLLER_H_
+#ifndef MEMORIS_EDITORDASHBOARD_H_
+#define MEMORIS_EDITORDASHBOARD_H_
 
-#include "Controller.hpp"
+#include "Context.hpp"
 
-#include "EditorDashboard.hpp"
+#include "LevelSeparators.hpp"
 
 namespace memoris
 {
-namespace controllers
+namespace utils
 {
 
-class LevelEditorController : public Controller
+class EditorDashboard
 {
 
 public:
 
     /**
-     * @brief constructor, empty for now, just used to transfer parameters
-     * ot the parent class and initialize the objects
-     *
-     * @param context shared pointer to the current context
-     */
-    LevelEditorController(const std::shared_ptr<utils::Context>& context);
-
-    /**
-     * @brief render the level editor controller, returns the id of the next
-     * controller to render
+     * @brief constructor, initializes the level separator
      *
      * @param context shared pointer to the current context to use
-     *
-     * @return unsigned short
      */
-    unsigned short render(const std::shared_ptr<utils::Context>& context)
-    override;
+    EditorDashboard(const std::shared_ptr<utils::Context>& context);
+
+    /**
+     * @brief display the editor dashboard
+     *
+     * @param context shared pointer to the current context to use
+     */
+    void display(const std::shared_ptr<utils::Context>& context) const;
 
 private:
 
-    /* the editor dashboard with all the tool buttons */
-    utils::EditorDashboard dashboard;
+    /* the vertical separators at both sides of the dashboard */
+    utils::LevelSeparators separators;
+
 };
 
 }
