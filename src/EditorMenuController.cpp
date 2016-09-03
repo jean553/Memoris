@@ -107,12 +107,6 @@ unsigned short EditorMenuController::render(
         {
             switch(event.key.code)
             {
-            case sf::Keyboard::Escape:
-            {
-                expectedControllerId = MAIN_MENU_CONTROLLER_ID;
-
-                break;
-            }
             case sf::Keyboard::Up:
             {
                 moveUp(context);
@@ -152,7 +146,16 @@ unsigned short EditorMenuController::render(
  */
 void EditorMenuController::selectMenuItem()
 {
-    /* TODO */
+    switch(getSelectorPosition())
+    {
+    /* go back to the main menu when select 'back' */
+    case 2:
+    {
+        expectedControllerId = MAIN_MENU_CONTROLLER_ID;
+
+        break;
+    }
+    }
 }
 
 }
