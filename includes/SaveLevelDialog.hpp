@@ -29,6 +29,8 @@
 
 #include "Dialog.hpp"
 
+#include "InputTextWidget.hpp"
+
 namespace memoris
 {
 namespace popups
@@ -58,6 +60,14 @@ public:
      * @param context shared pointer to the current context to use
      */
     void render(const std::shared_ptr<utils::Context>& context) override;
+
+private:
+
+    /* the input text widget to let the player enters the name of the level */
+    widgets::InputTextWidget input;
+
+    /* displayed information */
+    sf::Text info;
 };
 
 }
