@@ -70,7 +70,8 @@ void RotateFloorAnimation::renderAnimation(
 {
     level->display(
         context,
-        floor
+        floor,
+        &entities::Cell::display
     );
 
     if (context->getClockMillisecondsTime() - lastAnimationUpdateTime < 50)

@@ -165,7 +165,8 @@ void DiagonalAnimation::displayLevelAndSeparator(
     /* render the level at the given floor */
     level->display(
         context,
-        floor
+        floor,
+        &entities::Cell::display
     );
 
     /* displays the separators */

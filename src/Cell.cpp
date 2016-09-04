@@ -108,7 +108,7 @@ void Cell::setPosition(
  */
 void Cell::display(
     aliases::ConstContextSharedPtrRef context,
-    const std::unique_ptr<sf::Transform>& transform
+    aliases::ConstTransformUniquePtrRef transform
 )
 {
     /* display the cell with a transform SFML object if an object is pointed
@@ -121,6 +121,30 @@ void Cell::display(
     {
         context->getSfmlWindow().draw(sprite);
     }
+}
+
+/**
+ *
+ */
+void Cell::displayWithMouseHover(
+    aliases::ConstContextSharedPtrRef context,
+    aliases::ConstTransformUniquePtrRef transform
+)
+{
+    if (isMouseHover() && !highlight)
+    {
+        highlight = true;
+
+        sprite.setColor(context->getColorsManager().getColorDarkGrey());
+    }
+    else if(!isMouseHover() && highlight)
+    {
+        highlight = false;
+
+        sprite.setColor(context->getColorsManager().getColorWhite());
+    }
+
+    context->getSfmlWindow().draw(sprite);
 }
 
 /**
@@ -210,6 +234,27 @@ void Cell::empty()
 const bool& Cell::isVisible() const
 {
     return visible;
+}
+
+/**
+ *
+ */
+const bool Cell::isMouseHover() const
+{
+    /* get the position of the cursor */
+    sf::Vector2<int> cursorPosition = sf::Mouse::getPosition();
+
+    if (
+        cursorPosition.x > horizontalPosition &&
+        cursorPosition.x < horizontalPosition + CELL_DIMENSION &&
+        cursorPosition.y > verticalPosition &&
+        cursorPosition.y < verticalPosition + CELL_DIMENSION
+    )
+    {
+        return true;
+    }
+
+    return false;
 }
 
 }

@@ -56,7 +56,8 @@ void StairsAnimation::renderAnimation(
 {
     level->display(
         context,
-        floor + transformation
+        floor + transformation,
+        &entities::Cell::display
     );
 
     /* the waiting time is 2 seconds; this is enough to let the player see

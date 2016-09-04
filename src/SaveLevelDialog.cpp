@@ -21,7 +21,7 @@
  * @package popups
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
- 
+
 #include "SaveLevelDialog.hpp"
 
 #include "fonts.hpp"

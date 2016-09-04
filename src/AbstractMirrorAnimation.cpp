@@ -75,7 +75,8 @@ void AbstractMirrorAnimation::displayLevelAndSeparator(
     /* render the given floor of the level */
     level->display(
         context,
-        floor
+        floor,
+        &entities::Cell::display
     );
 
     /* displays the mirror separator */

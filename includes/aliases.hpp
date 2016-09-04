@@ -36,6 +36,9 @@ namespace aliases
 /* reference of a shared pointer to the current context */
 using ConstContextSharedPtrRef = const std::shared_ptr<utils::Context>&;
 
+/* reference of an unique pointer to a SFML transform object */
+using ConstTransformUniquePtrRef = const std::unique_ptr<sf::Transform>&;
+
 }
 }
 
