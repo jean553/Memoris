@@ -171,7 +171,8 @@ unsigned short GameController::render(
         /* renders a static playable level->if no animation are playing */
         level->display(
             context,
-            floor
+            floor,
+            &entities::Cell::display
         );
     }
 

@@ -65,7 +65,11 @@ Level::Level(
  */
 void Level::display(
     const std::shared_ptr<utils::Context>& context,
-    const unsigned short& floor
+    const unsigned short& floor,
+    void (Cell::*display)(
+        aliases::ConstContextSharedPtrRef,
+        aliases::ConstTransformUniquePtrRef
+    )
 ) const
 {
     /* calculate the index of the first cell of the given floor */
@@ -82,8 +86,9 @@ void Level::display(
         index++
     )
     {
-        /* get an unique pointer, get the cell object from this pointer */
-        (*cells[index]).display(context, transform);
+        /* get an unique pointer, get the cell object from this pointer;
+           call the given method according to the display pointer */
+        ((*cells[index]).*display)(context, transform);
     }
 }
 

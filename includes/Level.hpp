@@ -28,6 +28,8 @@
 
 #include "Cell.hpp"
 
+#include "aliases.hpp"
+
 #include <vector>
 #include <memory>
 
@@ -65,10 +67,15 @@ public:
      *
      * @param context shared pointer to the current context to use
      * @param floor the floor to render
+     * @param Cell object method pointer to the cell display() method to use
      */
     void display(
         const std::shared_ptr<utils::Context>& context,
-        const unsigned short& floor
+        const unsigned short& floor,
+        void (Cell::*display)(
+            aliases::ConstContextSharedPtrRef,
+            aliases::ConstTransformUniquePtrRef
+        )
     ) const;
 
     /**

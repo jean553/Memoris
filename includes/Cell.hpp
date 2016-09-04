@@ -93,7 +93,24 @@ public:
      */
     void display(
         aliases::ConstContextSharedPtrRef context,
-        const std::unique_ptr<sf::Transform>& transform = nullptr
+        aliases::ConstTransformUniquePtrRef transform = nullptr
+    );
+
+    /**
+     * @brief displays the cell in the context and enable the mouse hover
+     * feature that highlight the cell when the mouse is hover; this function
+     * is used when rendering the level inside the level editor; we use a
+     * separated function to avoid adding logic just to choose if the cell
+     * must be highlighted
+     *
+     * @param context shared pointer to the context to use
+     * @param transform unique pointer reference to a transform
+     *
+     * TODO: #691 the transform is not used at all in this function
+     */
+    void displayWithMouseHover(
+        aliases::ConstContextSharedPtrRef context,
+        aliases::ConstTransformUniquePtrRef transform = nullptr
     );
 
     /**
@@ -163,7 +180,16 @@ public:
      */
     const bool& isVisible() const;
 
+    /**
+     * @brief indicates if the mouse is currently hover this cell
+     *
+     * @return const bool
+     */
+    const bool isMouseHover() const;
+
 private:
+
+    static constexpr float CELL_DIMENSION {49.f};
 
     /* the horizontal and vertical positions of the cell on the screen */
     /* NOTE: we do not initialize the positions here, because they have to
@@ -187,6 +213,10 @@ private:
        all the cells are hidden; this value is modified by the hide() and
        show() methods */
     bool visible {false};
+
+    /* used to know if the cell is current highlight or not to avoid
+       superfluous execution when rendering the level editor */
+    bool highlight {false};
 };
 
 }

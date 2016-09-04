@@ -73,7 +73,8 @@ unsigned short LevelEditorController::render(
     /* display the level */
     level.display(
         context,
-        floor
+        floor,
+        &entities::Cell::displayWithMouseHover
     );
 
     /* display the cells selector */
