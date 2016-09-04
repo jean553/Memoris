@@ -120,7 +120,15 @@ unsigned short LevelEditorController::render(
             }
             default:
             {
-                /* useless, added here to respect the syntax */
+                /* add input into the save dialog window */
+                if (
+                    currentActionId ==
+                    utils::EditorDashboard::SAVE_ACTION_ID &&
+                    dialog != nullptr
+                )
+                {
+                    dialog->getInputTextWidget().update(event);
+                }
             }
             }
         }
@@ -141,9 +149,11 @@ unsigned short LevelEditorController::render(
             {
                 /* display the save level file popup */
                 dialog = popups::getDialogById(
-                    context,
-                    popups::SAVE_LEVEL_POPUP_ID
-                );
+                             context,
+                             popups::SAVE_LEVEL_POPUP_ID
+                         );
+
+                currentActionId = utils::EditorDashboard::SAVE_ACTION_ID;
 
                 break;
             }

@@ -54,7 +54,7 @@ SaveLevelDialog::SaveLevelDialog(
         hPosition + 25.f,
         vPosition + 130.f,
         380.f,
-        20
+        10
     )
 {
     /* information text creation */
@@ -83,6 +83,14 @@ void SaveLevelDialog::render(const std::shared_ptr<utils::Context>& context)
 
     /* display the information */
     context->getSfmlWindow().draw(info);
+}
+
+/**
+ *
+ */
+widgets::InputTextWidget& SaveLevelDialog::getInputTextWidget()
+{
+    return input;
 }
 
 }

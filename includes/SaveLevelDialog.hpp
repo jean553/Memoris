@@ -61,6 +61,13 @@ public:
      */
     void render(const std::shared_ptr<utils::Context>& context) override;
 
+    /**
+     * @brief getter of the input text widget of the dialog if it has
+     *
+     * @return widgets::InputTextWidget&
+     */
+    widgets::InputTextWidget& getInputTextWidget() override;
+
 private:
 
     /* the input text widget to let the player enters the name of the level */
