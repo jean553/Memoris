@@ -651,5 +651,46 @@ void Level::updateCursors()
     }
 }
 
+/**
+ *
+ */
+void Level::updateSelectedCellType(
+    aliases::ConstContextSharedPtrRef context,
+    const unsigned short& floor,
+    const char& type
+)
+{
+    /* calculate the starting and ending cell of the floor */
+    const unsigned short firstCellIndex = floor * 256,
+    lastCellIndex = floor * 256 + 256;
+
+    /* constant iterator over the cells of the current floor only; we use
+       constant iteration because we won't modify the cell unique pointer;
+       we leave immediately when a cell is found */
+    for(
+        std::vector<std::unique_ptr<entities::Cell>>::const_iterator iterator =
+            cells.begin() + firstCellIndex;
+        iterator != cells.begin() + lastCellIndex;
+        iterator++
+    )
+    {
+        /* we use *iterator and not iterator directly because the container is
+           a vector of unique pointer */
+
+        /* directly iterate if the current cell has no mouse hover */
+        if (!(*iterator)->isMouseHover())
+        {
+            continue;
+        }
+
+        /* if the mouse is hover the cell, change the type and directly stop
+           the iteration */
+        (*iterator)->setType(type);
+        (*iterator)->show(context);
+
+        break;
+    }
+}
+
 }
 }

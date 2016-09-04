@@ -138,7 +138,7 @@ public:
      *
      * @return const char&
      */
-    const char& getType();
+    const char& getType() const;
 
     /**
      * @brief setter for the type of the cell

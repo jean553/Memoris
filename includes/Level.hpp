@@ -323,6 +323,20 @@ public:
      */
     void rotateAllCells(const short& degrees);
 
+    /**
+     * @brief check if the mouse is hover a cell on the current floor of the
+     * the level and replace it with the given type
+     *
+     * @param context current context
+     * @param floor the current level floor displayed
+     * @param type the type to apply on the 'mouse hover cell'
+     */
+    void updateSelectedCellType(
+        aliases::ConstContextSharedPtrRef context,
+        const unsigned short& floor,
+        const char& type
+    );
+
 private:
 
     /**

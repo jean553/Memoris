@@ -29,6 +29,7 @@
 #include "Context.hpp"
 
 #include "Cell.hpp"
+#include "aliases.hpp"
 
 namespace memoris
 {
@@ -46,34 +47,34 @@ public:
      *
      * @param context shared pointer to the current context to use
      */
-    CellsSelector(const std::shared_ptr<utils::Context>& context);
+    CellsSelector(aliases::ConstContextSharedPtrRef context);
 
     /**
      * @brief displays the cells selector
      *
      * @param context shared pointer to the current context to use
      */
-    void display(const std::shared_ptr<utils::Context>& context);
+    void display(aliases::ConstContextSharedPtrRef context);
+
+    /**
+     * @brief check if the mouse is hover a cell and set the current selected
+     * type with this cell type; optimized because the research stops when the
+     * concerned cell is found; this method should be called by the level
+     * editor
+     *
+     * @param context shared pointer to the current context to use
+     */
+    void selectCell(aliases::ConstContextSharedPtrRef context);
+
+    const char& getSelectedCellType() const;
 
 private:
 
-    /* sprites of the cells */
+    /* the cells container of the selector */
+    std::vector<entities::Cell> cells;
 
-    entities::Cell emptyCell;
-    entities::Cell departureCell;
-    entities::Cell arrivalCell;
-    entities::Cell starCell;
-    entities::Cell moreLifeCell;
-    entities::Cell lessLifeCell;
-    entities::Cell moreTimeCell;
-    entities::Cell lessTimeCell;
-    entities::Cell wallCell;
-    entities::Cell stairsUpCell;
-    entities::Cell stairsDownCell;
-    entities::Cell horizontalMirrorCell;
-    entities::Cell verticalMirrorCell;
-    entities::Cell leftRotationCell;
-    entities::Cell rightRotationCell;
+    /* the type of the current selected cell */
+    char selectedCellType {'e'};
 };
 
 }

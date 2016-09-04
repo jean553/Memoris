@@ -148,6 +148,16 @@ unsigned short LevelEditorController::render(
                 break;
             }
             }
+
+            /* try to select a cell into the selector */
+            selector.selectCell(context);
+
+            /* try to select a cell on the level */
+            level.updateSelectedCellType(
+                context,
+                floor,
+                selector.getSelectedCellType()
+            );
         }
         default:
         {
