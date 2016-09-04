@@ -36,7 +36,8 @@ namespace utils
  */
 CellsSelector::CellsSelector(aliases::ConstContextSharedPtrRef context)
 {
-    cells = {
+    cells =
+    {
         entities::Cell(
             context,
             320.f,
@@ -141,9 +142,9 @@ void CellsSelector::display(aliases::ConstContextSharedPtrRef context)
         cells.begin(),
         cells.end(),
         [&context](entities::Cell& cell)
-        {
-            cell.displayWithMouseHover(context);
-        }
+    {
+        cell.displayWithMouseHover(context);
+    }
     );
 }
 

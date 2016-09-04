@@ -662,7 +662,7 @@ void Level::updateSelectedCellType(
 {
     /* calculate the starting and ending cell of the floor */
     const unsigned short firstCellIndex = floor * 256,
-    lastCellIndex = floor * 256 + 256;
+                         lastCellIndex = floor * 256 + 256;
 
     /* constant iterator over the cells of the current floor only; we use
        constant iteration because we won't modify the cell unique pointer;

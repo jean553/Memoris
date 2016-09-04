@@ -77,6 +77,11 @@ private:
     /* the current level floor to display */
     unsigned short floor {0};
 
+    /* many actions can be returned by the dashboard; to keep trace of these
+       actions in the controller, we use this id; with this id, we can now
+       which dialog window is currently rendered */
+    unsigned short currentActionId {0};
+
     /* custom cursor object */
     widgets::Cursor cursor;
 

@@ -28,6 +28,8 @@
 
 #include "Context.hpp"
 
+#include "InputTextWidget.hpp"
+
 namespace memoris
 {
 namespace popups
@@ -44,6 +46,13 @@ public:
      * @param context shared pointer to the current context to use
      */
     virtual void render(const std::shared_ptr<utils::Context>& context) = 0;
+
+    /**
+     * @brief getter of the input text widget of the dialog if it has
+     *
+     * @return widgets::InputTextWidget&
+     */
+    virtual widgets::InputTextWidget& getInputTextWidget() = 0;
 
 protected:
 
