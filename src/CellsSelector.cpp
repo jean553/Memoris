@@ -34,162 +34,98 @@ namespace utils
 /**
  *
  */
-CellsSelector::CellsSelector(const std::shared_ptr<utils::Context>& context)
+CellsSelector::CellsSelector(const std::shared_ptr<utils::Context>& context) :
+    emptyCell(
+        context,
+        320.f,
+        98.f,
+        cells::EMPTY_CELL
+    ),
+    departureCell(
+        context,
+        320.f,
+        148.f,
+        cells::DEPARTURE_CELL
+    ),
+    arrivalCell(
+        context,
+        320.f,
+        198.f,
+        cells::ARRIVAL_CELL
+    ),
+    starCell(
+        context,
+        320.f,
+        248.f,
+        cells::STAR_CELL
+    ),
+    moreLifeCell(
+        context,
+        320.f,
+        298.f,
+        cells::MORE_LIFE_CELL
+    ),
+    lessLifeCell(
+        context,
+        320.f,
+        348.f,
+        cells::LESS_LIFE_CELL
+    ),
+    moreTimeCell(
+        context,
+        320.f,
+        398.f,
+        cells::MORE_TIME_CELL
+    ),
+    lessTimeCell(
+        context,
+        320.f,
+        448.f,
+        cells::LESS_TIME_CELL
+    ),
+    wallCell(
+        context,
+        320.f,
+        498.f,
+        cells::WALL_CELL
+    ),
+    stairsUpCell(
+        context,
+        320.f,
+        548.f,
+        cells::STAIRS_UP_CELL
+    ),
+    stairsDownCell(
+        context,
+        320.f,
+        598.f,
+        cells::STAIRS_DOWN_CELL
+    ),
+    horizontalMirrorCell(
+        context,
+        320.f,
+        648.f,
+        cells::HORIZONTAL_MIRROR_CELL
+    ),
+    verticalMirrorCell(
+        context,
+        320.f,
+        698.f,
+        cells::VERTICAL_MIRROR_CELL
+    ),
+    leftRotationCell(
+        context,
+        320.f,
+        748.f,
+        cells::LEFT_ROTATION_CELL
+    ),
+    rightRotationCell(
+        context,
+        320.f,
+        798.f,
+        cells::RIGHT_ROTATION_CELL
+    )
 {
-    /* load the SFML textures and set them as sprite textures */
-
-    emptyCell.setTexture(
-        context->getCellsTexturesManager().getTextureReferenceByCellType(
-            cells::EMPTY_CELL
-        )
-    );
-    departureCell.setTexture(
-        context->getCellsTexturesManager().getTextureReferenceByCellType(
-            cells::DEPARTURE_CELL
-        )
-    );
-    arrivalCell.setTexture(
-        context->getCellsTexturesManager().getTextureReferenceByCellType(
-            cells::ARRIVAL_CELL
-        )
-    );
-    starCell.setTexture(
-        context->getCellsTexturesManager().getTextureReferenceByCellType(
-            cells::STAR_CELL
-        )
-    );
-    moreLifeCell.setTexture(
-        context->getCellsTexturesManager().getTextureReferenceByCellType(
-            cells::MORE_LIFE_CELL
-        )
-    );
-    lessLifeCell.setTexture(
-        context->getCellsTexturesManager().getTextureReferenceByCellType(
-            cells::LESS_LIFE_CELL
-        )
-    );
-    moreTimeCell.setTexture(
-        context->getCellsTexturesManager().getTextureReferenceByCellType(
-            cells::MORE_TIME_CELL
-        )
-    );
-    lessTimeCell.setTexture(
-        context->getCellsTexturesManager().getTextureReferenceByCellType(
-            cells::LESS_TIME_CELL
-        )
-    );
-    wallCell.setTexture(
-        context->getCellsTexturesManager().getTextureReferenceByCellType(
-            cells::WALL_CELL
-        )
-    );
-    stairsUpCell.setTexture(
-        context->getCellsTexturesManager().getTextureReferenceByCellType(
-            cells::STAIRS_UP_CELL
-        )
-    );
-    stairsDownCell.setTexture(
-        context->getCellsTexturesManager().getTextureReferenceByCellType(
-            cells::STAIRS_DOWN_CELL
-        )
-    );
-    horizontalMirrorCell.setTexture(
-        context->getCellsTexturesManager().getTextureReferenceByCellType(
-            cells::HORIZONTAL_MIRROR_CELL
-        )
-    );
-    verticalMirrorCell.setTexture(
-        context->getCellsTexturesManager().getTextureReferenceByCellType(
-            cells::VERTICAL_MIRROR_CELL
-        )
-    );
-    leftRotationCell.setTexture(
-        context->getCellsTexturesManager().getTextureReferenceByCellType(
-            cells::LEFT_ROTATION_CELL
-        )
-    );
-    rightRotationCell.setTexture(
-        context->getCellsTexturesManager().getTextureReferenceByCellType(
-            cells::RIGHT_ROTATION_CELL
-        )
-    );
-
-    /* set the sprites positions */
-
-    emptyCell.setPosition(
-        320.f,
-        98.f
-    );
-
-    departureCell.setPosition(
-        320.f,
-        148.f
-    );
-
-    arrivalCell.setPosition(
-        320.f,
-        198.f
-    );
-
-    starCell.setPosition(
-        320.f,
-        248.f
-    );
-
-    moreLifeCell.setPosition(
-        320.f,
-        298.f
-    );
-
-    lessLifeCell.setPosition(
-        320.f,
-        348.f
-    );
-
-    moreTimeCell.setPosition(
-        320.f,
-        398.f
-    );
-
-    lessTimeCell.setPosition(
-        320.f,
-        448.f
-    );
-
-    wallCell.setPosition(
-        320.f,
-        498.f
-    );
-
-    stairsUpCell.setPosition(
-        320.f,
-        548.f
-    );
-
-    stairsDownCell.setPosition(
-        320.f,
-        598.f
-    );
-
-    horizontalMirrorCell.setPosition(
-        320.f,
-        648.f
-    );
-
-    verticalMirrorCell.setPosition(
-        320.f,
-        698.f
-    );
-
-    leftRotationCell.setPosition(
-        320.f,
-        748.f
-    );
-
-    rightRotationCell.setPosition(
-        320.f,
-        798.f
-    );
 }
 
 /**
@@ -197,21 +133,21 @@ CellsSelector::CellsSelector(const std::shared_ptr<utils::Context>& context)
  */
 void CellsSelector::display(const std::shared_ptr<utils::Context>& context)
 {
-    context->getSfmlWindow().draw(emptyCell);
-    context->getSfmlWindow().draw(departureCell);
-    context->getSfmlWindow().draw(arrivalCell);
-    context->getSfmlWindow().draw(starCell);
-    context->getSfmlWindow().draw(moreLifeCell);
-    context->getSfmlWindow().draw(lessLifeCell);
-    context->getSfmlWindow().draw(moreTimeCell);
-    context->getSfmlWindow().draw(lessTimeCell);
-    context->getSfmlWindow().draw(wallCell);
-    context->getSfmlWindow().draw(stairsUpCell);
-    context->getSfmlWindow().draw(stairsDownCell);
-    context->getSfmlWindow().draw(horizontalMirrorCell);
-    context->getSfmlWindow().draw(verticalMirrorCell);
-    context->getSfmlWindow().draw(leftRotationCell);
-    context->getSfmlWindow().draw(rightRotationCell);
+    emptyCell.displayWithMouseHover(context);
+    departureCell.displayWithMouseHover(context);
+    arrivalCell.displayWithMouseHover(context);
+    starCell.displayWithMouseHover(context);
+    moreLifeCell.displayWithMouseHover(context);
+    lessLifeCell.displayWithMouseHover(context);
+    moreTimeCell.displayWithMouseHover(context);
+    lessTimeCell.displayWithMouseHover(context);
+    wallCell.displayWithMouseHover(context);
+    stairsUpCell.displayWithMouseHover(context);
+    stairsDownCell.displayWithMouseHover(context);
+    horizontalMirrorCell.displayWithMouseHover(context);
+    verticalMirrorCell.displayWithMouseHover(context);
+    leftRotationCell.displayWithMouseHover(context);
+    rightRotationCell.displayWithMouseHover(context);
 }
 
 }

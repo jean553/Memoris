@@ -28,6 +28,8 @@
 
 #include "Context.hpp"
 
+#include "Cell.hpp"
+
 namespace memoris
 {
 namespace utils
@@ -57,21 +59,21 @@ private:
 
     /* sprites of the cells */
 
-    sf::Sprite emptyCell;
-    sf::Sprite departureCell;
-    sf::Sprite arrivalCell;
-    sf::Sprite starCell;
-    sf::Sprite moreLifeCell;
-    sf::Sprite lessLifeCell;
-    sf::Sprite moreTimeCell;
-    sf::Sprite lessTimeCell;
-    sf::Sprite wallCell;
-    sf::Sprite stairsUpCell;
-    sf::Sprite stairsDownCell;
-    sf::Sprite horizontalMirrorCell;
-    sf::Sprite verticalMirrorCell;
-    sf::Sprite leftRotationCell;
-    sf::Sprite rightRotationCell;
+    entities::Cell emptyCell;
+    entities::Cell departureCell;
+    entities::Cell arrivalCell;
+    entities::Cell starCell;
+    entities::Cell moreLifeCell;
+    entities::Cell lessLifeCell;
+    entities::Cell moreTimeCell;
+    entities::Cell lessTimeCell;
+    entities::Cell wallCell;
+    entities::Cell stairsUpCell;
+    entities::Cell stairsDownCell;
+    entities::Cell horizontalMirrorCell;
+    entities::Cell verticalMirrorCell;
+    entities::Cell leftRotationCell;
+    entities::Cell rightRotationCell;
 };
 
 }
