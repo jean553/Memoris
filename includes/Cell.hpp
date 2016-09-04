@@ -27,6 +27,7 @@
 #define MEMORIS_CELL_H_
 
 #include "Context.hpp"
+#include "aliases.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -53,7 +54,7 @@ public:
      * @param cellType the type of the cell, represented by a unique character
      */
     Cell(
-        const std::shared_ptr<utils::Context>& context,
+        aliases::ConstContextSharedPtrRef context,
         const float& hPosition,
         const float& vPosition,
         const char& cellType
@@ -91,7 +92,7 @@ public:
      * in this transform object is applied to every cell
      */
     void display(
-        const std::shared_ptr<utils::Context>& context,
+        aliases::ConstContextSharedPtrRef context,
         const std::unique_ptr<sf::Transform>& transform = nullptr
     );
 
@@ -100,7 +101,7 @@ public:
      *
      * @param context shared pointer to the context to use
      */
-    void hide(const std::shared_ptr<utils::Context>& context);
+    void hide(aliases::ConstContextSharedPtrRef context);
 
     /**
      * @brief show the cell, loads a reference of the texture to display
@@ -110,7 +111,7 @@ public:
      *
      * @param context shared pointer to the context to use
      */
-    void show(const std::shared_ptr<utils::Context>& context);
+    void show(aliases::ConstContextSharedPtrRef context);
 
     /**
      * @brief returns a reference to the current set cell type character; we
@@ -138,7 +139,7 @@ public:
      * @param alpha the SFML sf::Color oject transparency value
      */
     void setCellColorTransparency(
-        const std::shared_ptr<utils::Context>& context,
+        aliases::ConstContextSharedPtrRef context,
         const sf::Uint8& alpha
     );
 
