@@ -38,7 +38,7 @@ namespace entities
  *
  */
 Cell::Cell(
-    const std::shared_ptr<utils::Context>& context,
+    aliases::ConstContextSharedPtrRef context,
     const float& hPosition,
     const float& vPosition,
     const char& cellType
@@ -107,7 +107,7 @@ void Cell::setPosition(
  *
  */
 void Cell::display(
-    const std::shared_ptr<utils::Context>& context,
+    aliases::ConstContextSharedPtrRef context,
     const std::unique_ptr<sf::Transform>& transform
 )
 {
@@ -126,7 +126,7 @@ void Cell::display(
 /**
  *
  */
-void Cell::hide(const std::shared_ptr<utils::Context>& context)
+void Cell::hide(aliases::ConstContextSharedPtrRef context)
 {
     sprite.setTexture(
         context->getCellsTexturesManager().getHiddenCellTexture()
@@ -139,7 +139,7 @@ void Cell::hide(const std::shared_ptr<utils::Context>& context)
 /**
  *
  */
-void Cell::show(const std::shared_ptr<utils::Context>& context)
+void Cell::show(aliases::ConstContextSharedPtrRef context)
 {
     /* get the texture from the cells textures manager according to the type
        of cell; set this reference as a texture for the current cell object */
@@ -173,7 +173,7 @@ void Cell::setType(const char& typeChar)
  *
  */
 void Cell::setCellColorTransparency(
-    const std::shared_ptr<utils::Context>& context,
+    aliases::ConstContextSharedPtrRef context,
     const sf::Uint8& alpha
 )
 {
