@@ -34,120 +34,152 @@ namespace utils
 /**
  *
  */
-CellsSelector::CellsSelector(const std::shared_ptr<utils::Context>& context) :
-    emptyCell(
-        context,
-        320.f,
-        98.f,
-        cells::EMPTY_CELL
-    ),
-    departureCell(
-        context,
-        320.f,
-        148.f,
-        cells::DEPARTURE_CELL
-    ),
-    arrivalCell(
-        context,
-        320.f,
-        198.f,
-        cells::ARRIVAL_CELL
-    ),
-    starCell(
-        context,
-        320.f,
-        248.f,
-        cells::STAR_CELL
-    ),
-    moreLifeCell(
-        context,
-        320.f,
-        298.f,
-        cells::MORE_LIFE_CELL
-    ),
-    lessLifeCell(
-        context,
-        320.f,
-        348.f,
-        cells::LESS_LIFE_CELL
-    ),
-    moreTimeCell(
-        context,
-        320.f,
-        398.f,
-        cells::MORE_TIME_CELL
-    ),
-    lessTimeCell(
-        context,
-        320.f,
-        448.f,
-        cells::LESS_TIME_CELL
-    ),
-    wallCell(
-        context,
-        320.f,
-        498.f,
-        cells::WALL_CELL
-    ),
-    stairsUpCell(
-        context,
-        320.f,
-        548.f,
-        cells::STAIRS_UP_CELL
-    ),
-    stairsDownCell(
-        context,
-        320.f,
-        598.f,
-        cells::STAIRS_DOWN_CELL
-    ),
-    horizontalMirrorCell(
-        context,
-        320.f,
-        648.f,
-        cells::HORIZONTAL_MIRROR_CELL
-    ),
-    verticalMirrorCell(
-        context,
-        320.f,
-        698.f,
-        cells::VERTICAL_MIRROR_CELL
-    ),
-    leftRotationCell(
-        context,
-        320.f,
-        748.f,
-        cells::LEFT_ROTATION_CELL
-    ),
-    rightRotationCell(
-        context,
-        320.f,
-        798.f,
-        cells::RIGHT_ROTATION_CELL
-    )
+CellsSelector::CellsSelector(aliases::ConstContextSharedPtrRef context)
 {
+    cells = {
+        entities::Cell(
+            context,
+            320.f,
+            98.f,
+            cells::EMPTY_CELL
+        ),
+        entities::Cell(
+            context,
+            320.f,
+            148.f,
+            cells::DEPARTURE_CELL
+        ),
+        entities::Cell(
+            context,
+            320.f,
+            198.f,
+            cells::ARRIVAL_CELL
+        ),
+        entities::Cell(
+            context,
+            320.f,
+            248.f,
+            cells::STAR_CELL
+        ),
+        entities::Cell(
+            context,
+            320.f,
+            298.f,
+            cells::MORE_LIFE_CELL
+        ),
+        entities::Cell(
+            context,
+            320.f,
+            348.f,
+            cells::LESS_LIFE_CELL
+        ),
+        entities::Cell(
+            context,
+            320.f,
+            398.f,
+            cells::MORE_TIME_CELL
+        ),
+        entities::Cell(
+            context,
+            320.f,
+            448.f,
+            cells::LESS_TIME_CELL
+        ),
+        entities::Cell(
+            context,
+            320.f,
+            498.f,
+            cells::WALL_CELL
+        ),
+        entities::Cell(
+            context,
+            320.f,
+            548.f,
+            cells::STAIRS_UP_CELL
+        ),
+        entities::Cell(
+            context,
+            320.f,
+            598.f,
+            cells::STAIRS_DOWN_CELL
+        ),
+        entities::Cell(
+            context,
+            320.f,
+            648.f,
+            cells::HORIZONTAL_MIRROR_CELL
+        ),
+        entities::Cell(
+            context,
+            320.f,
+            698.f,
+            cells::VERTICAL_MIRROR_CELL
+        ),
+        entities::Cell(
+            context,
+            320.f,
+            748.f,
+            cells::LEFT_ROTATION_CELL
+        ),
+        entities::Cell(
+            context,
+            320.f,
+            798.f,
+            cells::RIGHT_ROTATION_CELL
+        )
+    };
 }
 
 /**
  *
  */
-void CellsSelector::display(const std::shared_ptr<utils::Context>& context)
+void CellsSelector::display(aliases::ConstContextSharedPtrRef context)
 {
-    emptyCell.displayWithMouseHover(context);
-    departureCell.displayWithMouseHover(context);
-    arrivalCell.displayWithMouseHover(context);
-    starCell.displayWithMouseHover(context);
-    moreLifeCell.displayWithMouseHover(context);
-    lessLifeCell.displayWithMouseHover(context);
-    moreTimeCell.displayWithMouseHover(context);
-    lessTimeCell.displayWithMouseHover(context);
-    wallCell.displayWithMouseHover(context);
-    stairsUpCell.displayWithMouseHover(context);
-    stairsDownCell.displayWithMouseHover(context);
-    horizontalMirrorCell.displayWithMouseHover(context);
-    verticalMirrorCell.displayWithMouseHover(context);
-    leftRotationCell.displayWithMouseHover(context);
-    rightRotationCell.displayWithMouseHover(context);
+    /* the STL for_each is the best solution here as we simply execute a
+       method for the whole container items */
+    std::for_each(
+        cells.begin(),
+        cells.end(),
+        [&context](entities::Cell& cell)
+        {
+            cell.displayWithMouseHover(context);
+        }
+    );
+}
+
+/**
+ *
+ */
+void CellsSelector::selectCell(aliases::ConstContextSharedPtrRef context)
+{
+    /* we use a const_iterator here to automatically return a reference to
+       a constant Cell object and because we want use break; and continue;
+       during the iteration */
+    for(
+        std::vector<entities::Cell>::const_iterator iterator = cells.begin();
+        iterator != cells.end();
+        iterator++
+    )
+    {
+        /* directly iterate if the current cell is not selected */
+        if (!iterator->isMouseHover())
+        {
+            continue;
+        }
+
+        /* if the current cell is selected, save the type and directly leave
+           the function */
+        selectedCellType = iterator->getType();
+        break;
+    }
+}
+
+/**
+ *
+ */
+const char& CellsSelector::getSelectedCellType() const
+{
+    return selectedCellType;
 }
 
 }

@@ -180,7 +180,7 @@ void Cell::show(aliases::ConstContextSharedPtrRef context)
 /**
  *
  */
-const char& Cell::getType()
+const char& Cell::getType() const
 {
     return type;
 }
