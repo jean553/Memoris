@@ -32,10 +32,14 @@ namespace animations
 /**
  *
  */
-RotateFloorAnimation::RotateFloorAnimation(const short& movementDirection) :
+RotateFloorAnimation::RotateFloorAnimation(
+    aliases::ConstContextSharedPtrRef context,
+    const short& movementDirection
+) :
     direction(movementDirection)
 {
-    /* useless constructor, only used to set attributes */
+    /* plays the floor movement animation */
+    context->getSoundsManager().getFloorMovementAnimationSound().play();
 }
 
 /**

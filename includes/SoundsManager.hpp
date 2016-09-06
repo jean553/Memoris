@@ -132,7 +132,7 @@ public:
      *
      * @return const Sound&
      */
-    const Sound& getDiagonalAnimationSound() const;
+    const Sound& getFloorMovementAnimationSound() const;
 
 private:
 
@@ -175,7 +175,7 @@ private:
     Sound winLevelSound;
 
     /* play this sound when the diagonal animation is played */
-    Sound diagonalAnimationSound;
+    Sound floorMovementAnimationSound;
 };
 
 }

@@ -50,8 +50,8 @@ DiagonalAnimation::DiagonalAnimation(
         verticalSeparator
     );
 
-    /* plays the mirror animation sound */
-    context->getSoundsManager().getDiagonalAnimationSound().play();
+    /* plays the floor movement animation */
+    context->getSoundsManager().getFloorMovementAnimationSound().play();
 }
 
 /**

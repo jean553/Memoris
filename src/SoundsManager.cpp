@@ -43,7 +43,7 @@ SoundsManager::SoundsManager() :
     timeOverSound("res/sounds/009.wav"),
     mirrorAnimationSound("res/sounds/010.wav"),
     winLevelSound("res/sounds/011.wav"),
-    diagonalAnimationSound("res/sounds/012.wav")
+    floorMovementAnimationSound("res/sounds/012.wav")
 {
     /* try to load each sound from their files, one by one; the game run
        even if some/all sounds cannot be loaded; if loading succeeds, we
@@ -146,9 +146,9 @@ const Sound& SoundsManager::getWinLevelSound() const
 /**
  *
  */
-const Sound& SoundsManager::getDiagonalAnimationSound() const
+const Sound& SoundsManager::getFloorMovementAnimationSound() const
 {
-    return diagonalAnimationSound;
+    return floorMovementAnimationSound;
 }
 
 }
