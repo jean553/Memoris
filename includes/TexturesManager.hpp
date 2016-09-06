@@ -132,6 +132,13 @@ public:
      */
     const sf::Texture& getExitTexture() const;
 
+    /**
+     * @brief getter for the time button texture
+     *
+     * @return const sf::Texture&
+     */
+    const sf::Texture& getTimeButtonTexture() const;
+
 private:
 
     /* cursor texture */
@@ -152,6 +159,7 @@ private:
     sf::Texture openTexture;
     sf::Texture saveTexture;
     sf::Texture exitTexture;
+    sf::Texture timeButtonTexture;
 };
 
 }

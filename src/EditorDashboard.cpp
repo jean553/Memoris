@@ -59,6 +59,12 @@ EditorDashboard::EditorDashboard(
         640.f,
         10.f,
         context->getTexturesManager().getExitTexture()
+    ),
+    buttonTime(
+        context,
+        720.f,
+        10.f,
+        context->getTexturesManager().getTimeButtonTexture()
     )
 {
 }
@@ -76,6 +82,7 @@ void EditorDashboard::display(const std::shared_ptr<utils::Context>& context)
     buttonOpen.display(context);
     buttonSave.display(context);
     buttonExit.display(context);
+    buttonTime.display(context);
 }
 
 /**
