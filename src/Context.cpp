@@ -23,6 +23,7 @@
  */
 
 #include "Context.hpp"
+
 #include "window.hpp"
 
 namespace memoris
@@ -31,18 +32,18 @@ namespace utils
 {
 
 /**
- * The constructor initializes the SFML window object: the dimensions,
- * the resolution, the title and the mode ( fullscreen ) are set
+ *
  */
-Context::Context() : sfmlWindow(
-        sf::VideoMode(
-            window::WIDTH,
-            window::HEIGHT,
-            window::RESOLUTION
-        ),
-        window::TITLE,
-        sf::Style::Fullscreen
-    )
+Context::Context() noexcept :
+sfmlWindow(
+    sf::VideoMode(
+        window::WIDTH,
+        window::HEIGHT,
+        window::RESOLUTION
+    ),
+    window::TITLE,
+    sf::Style::Fullscreen
+)
 {
     /* when the window is opened, the default SFML cursor is not displayed */
     sfmlWindow.setMouseCursorVisible(false);
@@ -55,15 +56,56 @@ Context::Context() : sfmlWindow(
 /**
  *
  */
-sf::RenderWindow& Context::getSfmlWindow()
+const textures::TexturesManager& Context::getTexturesManager() const & noexcept
 {
-    return sfmlWindow;
+    return texturesManager;
 }
 
 /**
  *
  */
-void Context::loadMusicFile(const std::string& path)
+const sounds::SoundsManager& Context::getSoundsManager() const & noexcept
+{
+    return soundsManager;
+}
+
+/**
+ *
+ */
+const colors::ColorsManager& Context::getColorsManager() const & noexcept
+{
+    return colorsManager;
+}
+
+/**
+ *
+ */
+const fonts::FontsManager& Context::getFontsManager() const & noexcept
+{
+    return fontsManager;
+}
+
+/**
+ *
+ */
+const textures::CellsTexturesManager& Context::getCellsTexturesManager() const
+& noexcept
+{
+    return cellsTexturesManager;
+}
+
+/**
+ *
+ */
+const sf::Int32 Context::getClockMillisecondsTime() const & noexcept
+{
+    return clock.getElapsedTime().asMilliseconds();
+}
+
+/**
+ *
+ */
+void Context::loadMusicFile(const std::string& path) & noexcept
 {
     /* ends the function immediately if the path is empty */
     if(path.empty())
@@ -87,7 +129,7 @@ void Context::loadMusicFile(const std::string& path)
 /**
  *
  */
-void Context::stopMusic()
+void Context::stopMusic() & noexcept
 {
     /* check if the music object is playing a music */
     if(music.getStatus() == sf::Sound::Playing)
@@ -100,15 +142,7 @@ void Context::stopMusic()
 /**
  *
  */
-sf::Int32 Context::getClockMillisecondsTime() const
-{
-    return clock.getElapsedTime().asMilliseconds();
-}
-
-/**
- *
- */
-void Context::restartClock()
+void Context::restartClock() & noexcept
 {
     clock.restart();
 }
@@ -116,49 +150,17 @@ void Context::restartClock()
 /**
  *
  */
-const textures::TexturesManager& Context::getTexturesManager() const
-{
-    return texturesManager;
-}
-
-/**
- *
- */
-const sounds::SoundsManager& Context::getSoundsManager() const
-{
-    return soundsManager;
-}
-
-/**
- *
- */
-const colors::ColorsManager& Context::getColorsManager() const
-{
-    return colorsManager;
-}
-
-/**
- *
- */
-const fonts::FontsManager& Context::getFontsManager() const
-{
-    return fontsManager;
-}
-
-/**
- *
- */
-const textures::CellsTexturesManager& Context::getCellsTexturesManager() const
-{
-    return cellsTexturesManager;
-}
-
-/**
- *
- */
-series::PlayingSerieManager& Context::getPlayingSerieManager()
+series::PlayingSerieManager& Context::getPlayingSerieManager() & noexcept
 {
     return playingSerieManager;
+}
+
+/**
+ *
+ */
+sf::RenderWindow& Context::getSfmlWindow() & noexcept
+{
+    return sfmlWindow;
 }
 
 }
