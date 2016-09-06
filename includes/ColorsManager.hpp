@@ -27,8 +27,6 @@
 #ifndef MEMORIS_COLORSMANAGER_H_
 #define MEMORIS_COLORSMANAGER_H_
 
-#include "NotCopiable.hpp"
-
 #include <SFML/Graphics.hpp>
 
 namespace memoris
@@ -36,10 +34,15 @@ namespace memoris
 namespace colors
 {
 
-class ColorsManager : public others::NotCopiable
+class ColorsManager
 {
 
 public:
+
+    /* declare deleted functions to prevent copy of object */
+
+    ColorsManager(const ColorsManager&) = delete;
+    ColorsManager operator=(const ColorsManager&) = delete;
 
     /**
      * @brief constructor, loads each color one by one

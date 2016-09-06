@@ -41,8 +41,7 @@ namespace utils
  */
 AnimatedBackground::AnimatedBackground(
     const std::shared_ptr<utils::Context>& context
-) :
-    others::NotCopiable()
+)
 {
     /* initialize all the cells */
     initializeCells(context);
