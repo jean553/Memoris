@@ -27,8 +27,6 @@
 #ifndef MEMORIS_MENUGARDIENT_H_
 #define MEMORIS_MENUGARDIENT_H_
 
-#include "NotCopiable.hpp"
-
 #include "Context.hpp"
 
 #include <SFML/Graphics.hpp>
@@ -40,10 +38,15 @@ namespace memoris
 namespace others
 {
 
-class MenuGradient : public others::NotCopiable
+class MenuGradient
 {
 
 public:
+
+    /* declare deleted functions to prevent copy of object */
+
+    MenuGradient(const MenuGradient&) = delete;
+    MenuGradient operator=(const MenuGradient&) = delete;
 
     /**
      * @brief constructor, loads the main surface and call a separated method

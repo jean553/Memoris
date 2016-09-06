@@ -28,8 +28,6 @@
 #ifndef MEMORIS_FONTSMANAGER_H_
 #define MEMORIS_FONTSMANAGER_H_
 
-#include "NotCopiable.hpp"
-
 #include <SFML/Graphics.hpp>
 
 namespace memoris
@@ -37,10 +35,15 @@ namespace memoris
 namespace fonts
 {
 
-class FontsManager : public others::NotCopiable
+class FontsManager
 {
 
 public:
+
+    /* declare deleted functions to prevent copy of object */
+
+    FontsManager(const FontsManager&) = delete;
+    FontsManager operator=(const FontsManager&) = delete;
 
     /**
      * @brief constructor, loads each font file one by one, throw an exception

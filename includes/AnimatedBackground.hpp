@@ -26,7 +26,6 @@
 #ifndef MEMORIS_ANIMATEDBACKGROUND_H_
 #define MEMORIS_ANIMATEDBACKGROUND_H_
 
-#include "NotCopiable.hpp"
 #include "Cell.hpp"
 #include "Context.hpp"
 
@@ -40,10 +39,14 @@ namespace memoris
 namespace utils
 {
 
-class AnimatedBackground : public others::NotCopiable
+class AnimatedBackground
 {
 
 public:
+    /* use deleted functions to prevent copy of class object */
+
+    AnimatedBackground(const AnimatedBackground&) = delete;
+    AnimatedBackground operator=(const AnimatedBackground&) = delete;
 
     /**
      * @brief constructor, does nothin except calling the function to

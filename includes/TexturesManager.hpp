@@ -25,8 +25,6 @@
 #ifndef MEMORIS_TEXTURESMANAGER_H_
 #define MEMORIS_TEXTURESMANAGER_H_
 
-#include "NotCopiable.hpp"
-
 #include <SFML/Graphics.hpp>
 
 namespace memoris
@@ -34,10 +32,15 @@ namespace memoris
 namespace textures
 {
 
-class TexturesManager : public others::NotCopiable
+class TexturesManager
 {
 
 public:
+
+    /* use deleted functions to prevent copy of object */
+
+    TexturesManager(const TexturesManager&) = delete;
+    TexturesManager operator=(const TexturesManager&) = delete;
 
     /**
      * @brief constructor, loads each texture one by one, stop if one texture

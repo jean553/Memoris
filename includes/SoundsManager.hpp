@@ -25,7 +25,6 @@
 #ifndef MEMORIS_SOUNDSMANAGER_H_
 #define MEMORIS_SOUNDSMANAGER_H_
 
-#include "NotCopiable.hpp"
 #include "Sound.hpp"
 
 namespace memoris
@@ -33,10 +32,15 @@ namespace memoris
 namespace sounds
 {
 
-class SoundsManager : public others::NotCopiable
+class SoundsManager
 {
 
 public:
+
+    /* declare deleted functions to prevent object copy */
+
+    SoundsManager(const SoundsManager&) = delete;
+    SoundsManager operator=(const SoundsManager&) = delete;
 
     /**
      * @brief constructor, loads each sound file one by one, silently

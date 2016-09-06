@@ -30,8 +30,6 @@
 #ifndef MEMORIS_PLAYINGSERIEMANAGER_H_
 #define MEMORIS_PLAYINGSERIEMANAGER_H_
 
-#include "NotCopiable.hpp"
-
 #include <string>
 #include <queue>
 
@@ -40,10 +38,19 @@ namespace memoris
 namespace series
 {
 
-class PlayingSerieManager : public others::NotCopiable
+class PlayingSerieManager
 {
 
 public:
+
+    /* declare deleted functions to prevent object copy */
+
+    PlayingSerieManager(const PlayingSerieManager&) = delete;
+    PlayingSerieManager operator=(const PlayingSerieManager&) = delete;
+
+    /* use the default constructor */
+
+    PlayingSerieManager() = default;
 
     /**
      * @brief loads all the level of a given serie file by path
