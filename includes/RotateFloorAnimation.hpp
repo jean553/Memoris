@@ -43,8 +43,12 @@ public:
      *
      * @param movementDirection indicates if the movement is clockwise or not;
      * usually contains 1 or -1
+     * @param context shared pointer reference to the current context
      */
-    RotateFloorAnimation(const short& movementDirection);
+    RotateFloorAnimation(
+        aliases::ConstContextSharedPtrRef context,
+        const short& movementDirection
+    );
 
     /**
      * @brief public function called from the game controller; this function
