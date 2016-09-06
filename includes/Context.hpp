@@ -34,13 +34,6 @@
 #include "CellsTexturesManager.hpp"
 #include "PlayingSerieManager.hpp"
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-
-#include <string>
-#include <map>
-#include <memory>
-
 namespace memoris
 {
 namespace utils
@@ -48,37 +41,60 @@ namespace utils
 
 class Context
 {
+
 public:
 
-    /* declared deleted functions to prevent copy */
+    /* declared deleted functions to prevent copy and assignment */
 
     Context(const Context&) = delete;
+
     Context operator=(const Context&) = delete;
 
     /**
      * @brief constructor, create and set the SFML window
      */
-    Context();
+    Context() noexcept;
+
+    /* getters of the resources managers; return constant references, as the
+       managers objects are unique in the whole application */
 
     /**
-     * @brief getter on the SFML window object
+     * @brief getter of the textures manager
      *
-     * @return reference to the SFML window object
+     * @return const textures::TexturesManager&
      */
-    sf::RenderWindow& getSfmlWindow();
+    const textures::TexturesManager& getTexturesManager() const & noexcept;
 
     /**
-     * @brief load a new music file and play it,
-     * silently fails if the music cannot be loaded
+     * @brief getter of the sounds manager
      *
-     * @param path file path of the music to play
+     * @return const sounds::SoundsManager&
      */
-    void loadMusicFile(const std::string& path);
+    const sounds::SoundsManager& getSoundsManager() const & noexcept;
 
     /**
-     * @brief check if a music is playing, if yes, stop it
+     * @brief getter of the colors manager
+     *
+     * @return const colors::ColorsManager&
      */
-    void stopMusic();
+    const colors::ColorsManager& getColorsManager() const & noexcept;
+
+    /**
+     * @brief getter of the fonts manager
+     *
+     * @return const fonts::FontsManager&
+     */
+    const fonts::FontsManager& getFontsManager() const & noexcept;
+
+    /**
+     * @brief getter of the cells textures manager
+     *
+     * @return const textures::CellsTexturesManager&
+     */
+    const textures::CellsTexturesManager& getCellsTexturesManager() const &
+    noexcept;
+
+    /* method to get SFML time; return a copy of the concerned value */
 
     /**
      * @brief return the elapsed time in milliseconds since
@@ -87,89 +103,89 @@ public:
      * to 49 days; we can considere that this "case won't never
      * happen"
      *
-     * @return sf::Int32
+     * @return const sf::Int32
+     *
+     * do not return a reference because returns a temporary rvalue from the
+     * SFML function getElapsedTime().asMilliseconds()
      */
-    sf::Int32 getClockMillisecondsTime() const;
+    const sf::Int32 getClockMillisecondsTime() const & noexcept;
+
+    /* public methods that affect the current object instance */
+
+    /**
+     * @brief load a new music file and play it,
+     * silently fails if the music cannot be loaded
+     *
+     * @param path file path of the music to play
+     *
+     * not constant method because it calls SFML openFromFile() which is not
+     * constant
+     */
+    void loadMusicFile(const std::string& path) & noexcept;
+
+    /**
+     * @brief check if a music is playing, if yes, stop it
+     *
+     * not constant method because it calls SFML stop() which is not constant
+     */
+    void stopMusic() & noexcept;
 
     /**
      * @brief restart the SFML clock; this function is called
      * everytime the screen is switched from one controller
      * to another
-     */
-    void restartClock();
-
-    /**
-     * @brief getter of the textures manager
      *
-     * @return const textures::TexturesManager&
+     * not constant method because SFML restart() is not constant
      */
-    const textures::TexturesManager& getTexturesManager() const;
-
-    /**
-     * @brief getter of the sounds manager
-     *
-     * @return const sounds::SoundsManager&
-     */
-    const sounds::SoundsManager& getSoundsManager() const;
-
-    /**
-     * @brief getter of the colors manager
-     *
-     * @return const colors::ColorsManager&
-     */
-    const colors::ColorsManager& getColorsManager() const;
-
-    /**
-     * @brief getter of the fonts manager
-     *
-     * @return const fonts::FontsManager&
-     */
-    const fonts::FontsManager& getFontsManager() const;
-
-    /**
-     * @brief getter of the cells textures manager
-     *
-     * @return const textures::CellsTexturesManager&
-     */
-    const textures::CellsTexturesManager& getCellsTexturesManager() const;
+    void restartClock() & noexcept;
 
     /**
      * @brief getter of the playing serie manager
      *
      * @return series::PlayingSerieManager&
      *
-     * NOTE: the returned reference is not constant, in fact, the manager is
-     * modified by the Level class when a level file is loaded
+     * do not return a constant reference, the manager is modified when
+     * a new serie is loaded by OfficialSeriesMenuController when calling
+     * loadSerieFileContent()
+     *
+     * not constant method because returns a reference
      */
-    series::PlayingSerieManager& getPlayingSerieManager();
+    series::PlayingSerieManager& getPlayingSerieManager() & noexcept;
+
+    /**
+     * @brief getter on the SFML window object
+     *
+     * @return sf::RenderWindow&
+     *
+     * do not return a constant reference, the SFML window object draw()
+     * method is called almost everywhere in the game, and this method
+     * is not constant
+     *
+     * not constant method because returns a reference
+     */
+    sf::RenderWindow& getSfmlWindow() & noexcept;
 
 private:
 
-    /* textures manager; handles all the textures (not cells textures) */
+    /* resources and assets managers */
+
     textures::TexturesManager texturesManager;
-
-    /* the sounds manager, handles all the sounds */
     sounds::SoundsManager soundsManager;
-
-    /* the colors manager, handles all the SFML colors */
     colors::ColorsManager colorsManager;
-
-    /* the fonts manager, handles all the SFML fonts */
     fonts::FontsManager fontsManager;
-
-    /* the manager for the textures of the cells */
     textures::CellsTexturesManager cellsTexturesManager;
 
-    /* the manager for the playing serie */
+    /* handles the levels execution of a serie, loads from the levels files */
     series::PlayingSerieManager playingSerieManager;
 
-    /* the main SFML window object */
+    /* main SFML window object */
     sf::RenderWindow sfmlWindow;
 
-    /* the SFML music to play */
+    /* SFML music to play */
     sf::Music music;
 
-    /* the unique SFML clock for time management in every controller
+    /* unique SFML clock for time management in every controller
+     *
      * NOTE: we use an unique clock for all the animation and time
      * management of the game; the clock is restarted everytime the
      * controller is modified; the maximum time returned in milliseconds
