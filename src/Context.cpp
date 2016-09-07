@@ -97,7 +97,23 @@ const textures::CellsTexturesManager& Context::getCellsTexturesManager() const
 /**
  *
  */
-const sf::Int32 Context::getClockMillisecondsTime() const & noexcept
+series::PlayingSerieManager& Context::getPlayingSerieManager() & noexcept
+{
+    return playingSerieManager;
+}
+
+/**
+ *
+ */
+sf::RenderWindow& Context::getSfmlWindow() & noexcept
+{
+    return sfmlWindow;
+}
+
+/**
+ *
+ */
+const sf::Int32 Context::getClockMillisecondsTime() const &
 {
     return clock.getElapsedTime().asMilliseconds();
 }
@@ -105,7 +121,7 @@ const sf::Int32 Context::getClockMillisecondsTime() const & noexcept
 /**
  *
  */
-void Context::loadMusicFile(const std::string& path) & noexcept
+void Context::loadMusicFile(const std::string& path) &
 {
     /* ends the function immediately if the path is empty */
     if(path.empty())
@@ -129,7 +145,7 @@ void Context::loadMusicFile(const std::string& path) & noexcept
 /**
  *
  */
-void Context::stopMusic() & noexcept
+void Context::stopMusic() &
 {
     /* check if the music object is playing a music */
     if(music.getStatus() == sf::Sound::Playing)
@@ -142,25 +158,9 @@ void Context::stopMusic() & noexcept
 /**
  *
  */
-void Context::restartClock() & noexcept
+void Context::restartClock() &
 {
     clock.restart();
-}
-
-/**
- *
- */
-series::PlayingSerieManager& Context::getPlayingSerieManager() & noexcept
-{
-    return playingSerieManager;
-}
-
-/**
- *
- */
-sf::RenderWindow& Context::getSfmlWindow() & noexcept
-{
-    return sfmlWindow;
 }
 
 }
