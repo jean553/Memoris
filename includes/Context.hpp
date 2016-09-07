@@ -94,51 +94,6 @@ public:
     const textures::CellsTexturesManager& getCellsTexturesManager() const &
     noexcept;
 
-    /* method to get SFML time; return a copy of the concerned value */
-
-    /**
-     * @brief return the elapsed time in milliseconds since
-     * the clock started or restarted; returns a SFML integer
-     * type for 32 bits integer; the maximum value is equivalent
-     * to 49 days; we can considere that this "case won't never
-     * happen"
-     *
-     * @return const sf::Int32
-     *
-     * do not return a reference because returns a temporary rvalue from the
-     * SFML function getElapsedTime().asMilliseconds()
-     */
-    const sf::Int32 getClockMillisecondsTime() const & noexcept;
-
-    /* public methods that affect the current object instance */
-
-    /**
-     * @brief load a new music file and play it,
-     * silently fails if the music cannot be loaded
-     *
-     * @param path file path of the music to play
-     *
-     * not constant method because it calls SFML openFromFile() which is not
-     * constant
-     */
-    void loadMusicFile(const std::string& path) & noexcept;
-
-    /**
-     * @brief check if a music is playing, if yes, stop it
-     *
-     * not constant method because it calls SFML stop() which is not constant
-     */
-    void stopMusic() & noexcept;
-
-    /**
-     * @brief restart the SFML clock; this function is called
-     * everytime the screen is switched from one controller
-     * to another
-     *
-     * not constant method because SFML restart() is not constant
-     */
-    void restartClock() & noexcept;
-
     /**
      * @brief getter of the playing serie manager
      *
@@ -164,6 +119,63 @@ public:
      * not constant method because returns a reference
      */
     sf::RenderWindow& getSfmlWindow() & noexcept;
+
+    /* method to get SFML time; return a copy of the concerned value */
+
+    /**
+     * @brief return the elapsed time in milliseconds since
+     * the clock started or restarted; returns a SFML integer
+     * type for 32 bits integer; the maximum value is equivalent
+     * to 49 days; we can considere that this "case won't never
+     * happen"
+     *
+     * @return const sf::Int32
+     *
+     * do not return a reference because returns a temporary rvalue from the
+     * SFML function getElapsedTime().asMilliseconds()
+     *
+     * no 'noexcept' because the method calls other functions that are not
+     * declared as noexcept
+     */
+    const sf::Int32 getClockMillisecondsTime() const &;
+
+    /* public methods that affect the current object instance */
+
+    /**
+     * @brief load a new music file and play it,
+     * silently fails if the music cannot be loaded
+     *
+     * @param path file path of the music to play
+     *
+     * not constant method because it calls SFML openFromFile() which is not
+     * constant
+     *
+     * no 'noexcept' because the method calls other functions that are not
+     * declared as noexcept
+     */
+    void loadMusicFile(const std::string& path) &;
+
+    /**
+     * @brief check if a music is playing, if yes, stop it
+     *
+     * not constant method because it calls SFML stop() which is not constant
+     *
+     * no 'noexcept' because the method calls other functions that are not
+     * declared as noexcept
+     */
+    void stopMusic() &;
+
+    /**
+     * @brief restart the SFML clock; this function is called
+     * everytime the screen is switched from one controller
+     * to another
+     *
+     * not constant method because SFML restart() is not constant
+     *
+     * no 'noexcept' because the method calls other functions that are not
+     * declared as noexcept
+     */
+    void restartClock() &;
 
 private:
 
