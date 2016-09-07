@@ -25,14 +25,14 @@
 #ifndef MEMORIS_TEXTURESMANAGER_H_
 #define MEMORIS_TEXTURESMANAGER_H_
 
-#include <SFML/Graphics.hpp>
+#include "AbstractTexturesManager.hpp"
 
 namespace memoris
 {
 namespace textures
 {
 
-class TexturesManager
+class TexturesManager : public AbstractTexturesManager
 {
 
 public:

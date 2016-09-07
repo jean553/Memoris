@@ -16,12 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/**
- * @file TexturesLoader.cpp
- * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
- */
-
-#include "TexturesLoader.hpp"
+#include "AbstractTexturesManager.hpp"
 
 namespace memoris
 {
@@ -31,16 +26,24 @@ namespace textures
 /**
  *
  */
-void loadTexture(
-    sf::Texture& sfmlTexture,
-    const std::string& filePath
+AbstractTexturesManager::~AbstractTexturesManager() noexcept
+{
+    /* pure virtual destructor must be defined and empty */
+}
+
+/**
+ *
+ */
+void AbstractTexturesManager::loadTexture(
+    sf::Texture& texture,
+    const std::string& path
 )
 {
-    /* try to open the given texture at the given file path; throw an
+    /* try to open the given texture at the given path path; throw an
        exception and terminates the program if the texture cannot be loaded */
-    if (!sfmlTexture.loadFromFile(filePath))
+    if (!texture.loadFromFile(path))
     {
-        throw std::invalid_argument("Cannot load texture : " + filePath);
+        throw std::invalid_argument("Cannot load texture : " + path);
     }
 }
 

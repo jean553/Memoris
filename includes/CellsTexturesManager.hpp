@@ -25,7 +25,7 @@
 #ifndef MEMORIS_CELLSTEXTURESMANAGER_H_
 #define MEMORIS_CELLSTEXTURESMANAGER_H_
 
-#include <SFML/Graphics.hpp>
+#include "AbstractTexturesManager.hpp"
 
 #include <string>
 
@@ -34,7 +34,7 @@ namespace memoris
 namespace textures
 {
 
-class CellsTexturesManager
+class CellsTexturesManager : public AbstractTexturesManager
 {
 
 public:
