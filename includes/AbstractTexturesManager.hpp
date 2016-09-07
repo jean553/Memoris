@@ -26,6 +26,8 @@
 #ifndef MEMORIS_ABSTRACTTEXTURESMANAGER_H_
 #define MEMORIS_ABSTRACTTEXTURESMANAGER_H_
 
+#include "NotCopiable.hpp"
+
 #include <SFML/Graphics.hpp>
 
 namespace memoris
@@ -33,7 +35,7 @@ namespace memoris
 namespace textures
 {
 
-class AbstractTexturesManager
+class AbstractTexturesManager : public utils::NotCopiable
 {
 
 protected:

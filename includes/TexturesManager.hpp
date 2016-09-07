@@ -37,11 +37,6 @@ class TexturesManager : public AbstractTexturesManager
 
 public:
 
-    /* use deleted functions to prevent copy of object */
-
-    TexturesManager(const TexturesManager&) = delete;
-    TexturesManager operator=(const TexturesManager&) = delete;
-
     /**
      * @brief constructor, loads each texture one by one, stop if one texture
      * cannot be loaded
