@@ -18,6 +18,7 @@
 
 /**
  * @file TexturesManager.cpp
+ * @package textures
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
@@ -33,7 +34,7 @@ namespace textures
  */
 TexturesManager::TexturesManager()
 {
-    /* load all the textures one by one; an exception is throw
+    /* load all the textures one by one; an exception is thrown
        and the program stop if one texture cannot be loaded */
 
     loadTexture(githubTexture, "res/images/fork-me.png");
@@ -53,7 +54,7 @@ TexturesManager::TexturesManager()
 /**
  *
  */
-const sf::Texture& TexturesManager::getGithubTexture() const
+const sf::Texture& TexturesManager::getGithubTexture() const noexcept
 {
     return githubTexture;
 }
@@ -61,7 +62,7 @@ const sf::Texture& TexturesManager::getGithubTexture() const
 /**
  *
  */
-const sf::Texture& TexturesManager::getStarTexture() const
+const sf::Texture& TexturesManager::getStarTexture() const noexcept
 {
     return starTexture;
 }
@@ -69,7 +70,7 @@ const sf::Texture& TexturesManager::getStarTexture() const
 /**
  *
  */
-const sf::Texture& TexturesManager::getLifeTexture() const
+const sf::Texture& TexturesManager::getLifeTexture() const noexcept
 {
     return lifeTexture;
 }
@@ -77,7 +78,7 @@ const sf::Texture& TexturesManager::getLifeTexture() const
 /**
  *
  */
-const sf::Texture& TexturesManager::getTargetTexture() const
+const sf::Texture& TexturesManager::getTargetTexture() const noexcept
 {
     return targetTexture;
 }
@@ -85,7 +86,7 @@ const sf::Texture& TexturesManager::getTargetTexture() const
 /**
  *
  */
-const sf::Texture& TexturesManager::getTimeTexture() const
+const sf::Texture& TexturesManager::getTimeTexture() const noexcept
 {
     return timeTexture;
 }
@@ -93,7 +94,7 @@ const sf::Texture& TexturesManager::getTimeTexture() const
 /**
  *
  */
-const sf::Texture& TexturesManager::getFloorTexture() const
+const sf::Texture& TexturesManager::getFloorTexture() const noexcept
 {
     return floorTexture;
 }
@@ -101,7 +102,7 @@ const sf::Texture& TexturesManager::getFloorTexture() const
 /**
  *
  */
-const sf::Texture& TexturesManager::getNewTexture() const
+const sf::Texture& TexturesManager::getNewTexture() const noexcept
 {
     return newTexture;
 }
@@ -109,7 +110,7 @@ const sf::Texture& TexturesManager::getNewTexture() const
 /**
  *
  */
-const sf::Texture& TexturesManager::getOpenTexture() const
+const sf::Texture& TexturesManager::getOpenTexture() const noexcept
 {
     return openTexture;
 }
@@ -117,7 +118,7 @@ const sf::Texture& TexturesManager::getOpenTexture() const
 /**
  *
  */
-const sf::Texture& TexturesManager::getSaveTexture() const
+const sf::Texture& TexturesManager::getSaveTexture() const noexcept
 {
     return saveTexture;
 }
@@ -125,7 +126,7 @@ const sf::Texture& TexturesManager::getSaveTexture() const
 /**
  *
  */
-const sf::Texture& TexturesManager::getCursorTexture() const
+const sf::Texture& TexturesManager::getCursorTexture() const noexcept
 {
     return cursorTexture;
 }
@@ -133,7 +134,7 @@ const sf::Texture& TexturesManager::getCursorTexture() const
 /**
  *
  */
-const sf::Texture& TexturesManager::getExitTexture() const
+const sf::Texture& TexturesManager::getExitTexture() const noexcept
 {
     return exitTexture;
 }
@@ -141,7 +142,7 @@ const sf::Texture& TexturesManager::getExitTexture() const
 /**
  *
  */
-const sf::Texture& TexturesManager::getTestTexture() const
+const sf::Texture& TexturesManager::getTestTexture() const noexcept
 {
     return testTexture;
 }

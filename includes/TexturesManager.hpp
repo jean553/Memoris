@@ -19,6 +19,7 @@
 /**
  * @file TexturesManager.hpp
  * @brief loads and provides the textures assets
+ * @package textures
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
@@ -39,7 +40,10 @@ public:
 
     /**
      * @brief constructor, loads each texture one by one, stop if one texture
-     * cannot be loaded
+     * cannot be loaded and throw an exception
+     *
+     * @throw std::invalid_argument thrown if the texture cannot be loaded,
+     * the exception is never caught to voluntary stop the program
      */
     TexturesManager();
 
@@ -48,108 +52,94 @@ public:
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getGithubTexture() const;
+    const sf::Texture& getGithubTexture() const noexcept; 
 
     /**
      * @brief getter for the star texture
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getStarTexture() const;
+    const sf::Texture& getStarTexture() const noexcept;
 
     /**
      * @brief getter for the life texture
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getLifeTexture() const;
+    const sf::Texture& getLifeTexture() const noexcept;
 
     /**
      * @brief getter for the target texture
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getTargetTexture() const;
+    const sf::Texture& getTargetTexture() const noexcept;
 
     /**
      * @brief getter for the time texture
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getTimeTexture() const;
+    const sf::Texture& getTimeTexture() const noexcept;
 
     /**
      * @brief getter for the floor texture
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getFloorTexture() const;
-
-    /**
-     * @brief getter for the hidden texture
-     *
-     * @return const sf::Texture&
-     */
-    const sf::Texture& getHiddenTexture() const;
+    const sf::Texture& getFloorTexture() const noexcept;
 
     /**
      * @brief getter for the new texture
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getNewTexture() const;
+    const sf::Texture& getNewTexture() const noexcept;
 
     /**
      * @brief getter for the open texture
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getOpenTexture() const;
+    const sf::Texture& getOpenTexture() const noexcept;
 
     /**
      * @brief getter for the save texture
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getSaveTexture() const;
+    const sf::Texture& getSaveTexture() const noexcept;
 
     /**
      * @brief getter for the cursor texture
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getCursorTexture() const;
+    const sf::Texture& getCursorTexture() const noexcept;
 
     /**
      * @brief getter for the exit texture
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getExitTexture() const;
+    const sf::Texture& getExitTexture() const noexcept;
 
     /**
      * @brief getter for the test texture
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getTestTexture() const;
+    const sf::Texture& getTestTexture() const noexcept;
 
 private:
 
-    /* cursor texture */
     sf::Texture cursorTexture;
-
-    /* github texture displayed on the main menu */
     sf::Texture githubTexture;
-
-    /* the textures of the game screen */
     sf::Texture starTexture;
     sf::Texture lifeTexture;
     sf::Texture targetTexture;
     sf::Texture timeTexture;
     sf::Texture floorTexture;
-
-    /* the textures of the level editor */
     sf::Texture newTexture;
     sf::Texture openTexture;
     sf::Texture saveTexture;
