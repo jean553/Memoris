@@ -23,7 +23,6 @@
 
 #include "CellsTexturesManager.hpp"
 
-#include "TexturesLoader.hpp"
 #include "cells.hpp"
 
 namespace memoris

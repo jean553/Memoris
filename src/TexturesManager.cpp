@@ -23,8 +23,6 @@
 
 #include "TexturesManager.hpp"
 
-#include "TexturesLoader.hpp"
-
 namespace memoris
 {
 namespace textures
