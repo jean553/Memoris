@@ -133,11 +133,11 @@ public:
     const sf::Texture& getExitTexture() const;
 
     /**
-     * @brief getter for the time button texture
+     * @brief getter for the test texture
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getTimeButtonTexture() const;
+    const sf::Texture& getTestTexture() const;
 
 private:
 
@@ -159,7 +159,7 @@ private:
     sf::Texture openTexture;
     sf::Texture saveTexture;
     sf::Texture exitTexture;
-    sf::Texture timeButtonTexture;
+    sf::Texture testTexture;
 };
 
 }

@@ -81,7 +81,7 @@ private:
     widgets::Button buttonOpen;
     widgets::Button buttonSave;
     widgets::Button buttonExit;
-    widgets::Button buttonTime;
+    widgets::Button buttonPlay;
 };
 
 }

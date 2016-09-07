@@ -47,7 +47,7 @@ TexturesManager::TexturesManager()
     loadTexture(saveTexture, "res/images/save.png");
     loadTexture(cursorTexture, "res/images/cursor.png");
     loadTexture(exitTexture, "res/images/exit.png");
-    loadTexture(timeButtonTexture, "res/images/time.png");
+    loadTexture(testTexture, "res/images/test.png");
 }
 
 /**
@@ -141,9 +141,9 @@ const sf::Texture& TexturesManager::getExitTexture() const
 /**
  *
  */
-const sf::Texture& TexturesManager::getTimeButtonTexture() const
+const sf::Texture& TexturesManager::getTestTexture() const
 {
-    return timeButtonTexture;
+    return testTexture;
 }
 
 }
