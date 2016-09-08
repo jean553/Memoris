@@ -75,7 +75,7 @@ EditorDashboard::EditorDashboard(
     buttonDown(
         context,
         1220.f,
-        450.f,
+        550.f,
         context->getTexturesManager().getArrowDownTexture()
     )
 {
