@@ -103,6 +103,8 @@ http://code.google.com/u/newmooon/ - GNU GPL
 
 https://www.iconfinder.com/paomedia - CreativeCommons - BY 3.0 - https://creativecommons.org/licenses/by/3.0/ 
 
+https://www.elegantthemes.com/ - https://www.iconfinder.com/iconsets/circle-icons-1 - GNU GPL
+
 ### Sounds
 
 All sounds files have been downloaded from www.universal-soundbank.com. They have

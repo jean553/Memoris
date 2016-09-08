@@ -65,6 +65,18 @@ EditorDashboard::EditorDashboard(
         720.f,
         10.f,
         context->getTexturesManager().getTestTexture()
+    ),
+    buttonUp(
+        context,
+        1220.f,
+        350.f,
+        context->getTexturesManager().getArrowUpTexture()
+    ),
+    buttonDown(
+        context,
+        1220.f,
+        450.f,
+        context->getTexturesManager().getArrowDownTexture()
     )
 {
 }
@@ -83,6 +95,8 @@ void EditorDashboard::display(const std::shared_ptr<utils::Context>& context)
     buttonSave.display(context);
     buttonExit.display(context);
     buttonPlay.display(context);
+    buttonUp.display(context);
+    buttonDown.display(context);
 }
 
 /**

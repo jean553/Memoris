@@ -131,6 +131,20 @@ public:
      */
     const sf::Texture& getTestTexture() const noexcept;
 
+    /**
+     * @brief getter for the arrow up texture
+     *
+     * @return const sf::Texture&
+     */
+    const sf::Texture& getArrowUpTexture() const noexcept;
+
+    /**
+     * @brief getter for the arrow down texture
+     *
+     * @return const sf::Texture&
+     */
+    const sf::Texture& getArrowDownTexture() const noexcept;
+
 private:
 
     sf::Texture cursorTexture;
@@ -145,6 +159,8 @@ private:
     sf::Texture saveTexture;
     sf::Texture exitTexture;
     sf::Texture testTexture;
+    sf::Texture arrowUpTexture;
+    sf::Texture arrowDownTexture;
 };
 
 }
