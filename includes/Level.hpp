@@ -43,6 +43,9 @@ class Level
 
 public:
 
+    static constexpr unsigned short MIN_FLOOR {0};
+    static constexpr unsigned short MAX_FLOOR {9};
+
     /**
      * @brief constructor, initialize all the cells of the level according to
      * the given level file path

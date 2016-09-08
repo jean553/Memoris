@@ -157,6 +157,26 @@ unsigned short LevelEditorController::render(
 
                 break;
             }
+            case utils::EditorDashboard::FLOOR_UP_ACTION_ID:
+            {
+                /* increment the current floor if not equal to 9 */
+                if (floor != entities::Level::MAX_FLOOR)
+                {
+                    floor++;
+                }
+
+                break;
+            }
+            case utils::EditorDashboard::FLOOR_DOWN_ACTION_ID:
+            {
+                /* increment the current floor if not equal to 9 */
+                if (floor != entities::Level::MIN_FLOOR)
+                {
+                    floor--;
+                }
+
+                break;
+            }
             }
 
             /* try to select a cell into the selector */
