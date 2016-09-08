@@ -49,6 +49,8 @@ TexturesManager::TexturesManager()
     loadTexture(cursorTexture, "res/images/cursor.png");
     loadTexture(exitTexture, "res/images/exit.png");
     loadTexture(testTexture, "res/images/test.png");
+    loadTexture(arrowUpTexture, "res/images/up.png");
+    loadTexture(arrowDownTexture, "res/images/down.png");
 }
 
 /**
@@ -145,6 +147,22 @@ const sf::Texture& TexturesManager::getExitTexture() const noexcept
 const sf::Texture& TexturesManager::getTestTexture() const noexcept
 {
     return testTexture;
+}
+
+/**
+ *
+ */
+const sf::Texture& TexturesManager::getArrowUpTexture() const noexcept
+{
+    return arrowUpTexture;
+}
+
+/**
+ *
+ */
+const sf::Texture& TexturesManager::getArrowDownTexture() const noexcept
+{
+    return arrowDownTexture;
 }
 
 }
