@@ -75,6 +75,9 @@ private:
 
     /* the type of the current selected cell */
     char selectedCellType {'e'};
+
+    /* separated sprite used to display the current selected cell picture */
+    sf::Sprite selectedCellImage;
 };
 
 }
