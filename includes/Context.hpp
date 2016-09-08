@@ -27,6 +27,8 @@
 #ifndef MEMORIS_CONTEXT_H_
 #define MEMORIS_CONTEXT_H_
 
+#include "NotCopiable.hpp"
+
 #include "TexturesManager.hpp"
 #include "SoundsManager.hpp"
 #include "ColorsManager.hpp"
@@ -39,16 +41,10 @@ namespace memoris
 namespace utils
 {
 
-class Context
+class Context : public utils::NotCopiable
 {
 
 public:
-
-    /* declared deleted functions to prevent copy and assignment */
-
-    Context(const Context&) = delete;
-
-    Context operator=(const Context&) = delete;
 
     /**
      * @brief constructor, create and set the SFML window
