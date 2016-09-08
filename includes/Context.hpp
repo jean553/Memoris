@@ -36,6 +36,8 @@
 #include "CellsTexturesManager.hpp"
 #include "PlayingSerieManager.hpp"
 
+#include <SFML/Audio/Music.hpp>
+
 namespace memoris
 {
 namespace utils
