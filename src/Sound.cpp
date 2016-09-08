@@ -18,6 +18,7 @@
 
 /**
  * @file Sound.cpp
+ * @package sounds
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
@@ -31,27 +32,26 @@ namespace sounds
 /**
  *
  */
-Sound::Sound(const std::string& filePath)
+Sound::Sound(const std::string& path) noexcept
 {
-    /* by default, the pointer is null; this is used for error management */
-    sound = nullptr;
+    buffer = std::make_unique<sf::SoundBuffer>();
 
-    /* try to load the sound from file; if it fails, the pointer remains
-       null, the sound won't be used */
-    if(buffer.loadFromFile(filePath))
+    if(buffer->loadFromFile(path))
     {
-        sound.reset(new sf::Sound());
-        sound->setBuffer(buffer);
+        sound = std::make_unique<sf::Sound>();
+        sound->setBuffer(*buffer);
+    }
+    else
+    {
+        buffer.reset();
     }
 }
 
 /**
  *
  */
-void Sound::play() const
+void Sound::play() const noexcept
 {
-    /* check if the sound has been loaded correctly;
-       if not loaded, the function silently fails */
     if (sound != nullptr)
     {
         sound->play();
