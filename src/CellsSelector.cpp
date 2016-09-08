@@ -129,6 +129,18 @@ CellsSelector::CellsSelector(aliases::ConstContextSharedPtrRef context)
             cells::RIGHT_ROTATION_CELL
         )
     };
+
+    /* by default, the selected cell picture is the empty cell */
+    selectedCellImage.setPosition(
+        320.f,
+        10.f
+    );
+
+    selectedCellImage.setTexture(
+        context->getCellsTexturesManager().getTextureReferenceByCellType(
+            cells::EMPTY_CELL
+        )
+    );
 }
 
 /**
@@ -146,6 +158,8 @@ void CellsSelector::display(aliases::ConstContextSharedPtrRef context)
         cell.displayWithMouseHover(context);
     }
     );
+
+    context->getSfmlWindow().draw(selectedCellImage);
 }
 
 /**
@@ -171,6 +185,15 @@ void CellsSelector::selectCell(aliases::ConstContextSharedPtrRef context)
         /* if the current cell is selected, save the type and directly leave
            the function */
         selectedCellType = iterator->getType();
+
+        /* update the selected cell image according the cell the user has just
+           selected */
+        selectedCellImage.setTexture(
+            context->getCellsTexturesManager().getTextureReferenceByCellType(
+                selectedCellType
+            )
+        );
+
         break;
     }
 }
