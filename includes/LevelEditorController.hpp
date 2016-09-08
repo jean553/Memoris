@@ -88,6 +88,9 @@ private:
     /* SFML surface that contains the name of the level */
     sf::Text levelNameSurface;
 
+    /* SFML surface that displays the current floor number */
+    sf::Text floorSurface;
+
     /* unique pointer to the current rendered dialog, set to null by default
        and if there is no displayed dialog currently */
     std::unique_ptr<popups::Dialog> dialog {nullptr};

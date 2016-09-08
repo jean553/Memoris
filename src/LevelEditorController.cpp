@@ -58,6 +58,16 @@ LevelEditorController::LevelEditorController(
         1200.f - levelNameSurface.getLocalBounds().width,
         0.f
     );
+
+    floorSurface.setFont(context->getFontsManager().getTextFont());
+    floorSurface.setColor(context->getColorsManager().getColorWhite());
+    floorSurface.setCharacterSize(fonts::TEXT_SIZE);
+    floorSurface.setString("1");
+
+    floorSurface.setPosition(
+        1240.f,
+        450.f
+    );
 }
 
 /**
@@ -82,6 +92,9 @@ unsigned short LevelEditorController::render(
 
     /* display the level name */
     context->getSfmlWindow().draw(levelNameSurface);
+
+    /* display the current floor */
+    context->getSfmlWindow().draw(floorSurface);
 
     /* display the dialog window if the pointer is not null */
     if (dialog != nullptr)
@@ -163,6 +176,9 @@ unsigned short LevelEditorController::render(
                 if (floor != entities::Level::MAX_FLOOR)
                 {
                     floor++;
+
+                    /* update the displayed floor */
+                    floorSurface.setString(std::to_string(floor + 1));
                 }
 
                 break;
@@ -173,6 +189,9 @@ unsigned short LevelEditorController::render(
                 if (floor != entities::Level::MIN_FLOOR)
                 {
                     floor--;
+
+                    /* update the displayed floor */
+                    floorSurface.setString(std::to_string(floor + 1));
                 }
 
                 break;
