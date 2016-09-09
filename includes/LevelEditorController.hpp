@@ -65,6 +65,35 @@ public:
 
 private:
 
+    /**
+     * @brief true if the current displayed dialog window is the save level
+     * window; this function is declared to refactor common code that is
+     * called at different locations
+     *
+     * @return const bool
+     *
+     * do not return a reference, because directly return a boolean using
+     * the 'return' instruction
+     */
+    const bool saveDialogIsActive() const noexcept;
+
+    /**
+     * @brief delete the displayed active dialog window; this function checks
+     * first if a dialog window is currently displayed; this function is
+     * declared for refactoring purposes
+     *
+     * not constant because it modifies the dialog pointer
+     */
+    void deleteActiveDialog() noexcept;
+
+    /**
+     * @brief update the level name surface position; the position of this
+     * surface is calculated according to its width
+     *
+     * not constant because it modifies the level name surface position
+     */
+    void updateLevelNameSurfacePosition() noexcept;
+
     /* the editor dashboard with all the tool buttons */
     utils::EditorDashboard dashboard;
 
