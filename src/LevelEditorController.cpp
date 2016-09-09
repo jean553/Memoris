@@ -45,25 +45,17 @@ LevelEditorController::LevelEditorController(
     level(context),
     cursor(context)
 {
-    /* the default level name is 'unnamed' */
     levelNameSurface.setString("unnamed");
-
     levelNameSurface.setFont(context->getFontsManager().getTextFont());
     levelNameSurface.setColor(context->getColorsManager().getColorWhite());
     levelNameSurface.setCharacterSize(fonts::TEXT_SIZE);
 
-    /* set the position once the surface is created because we need the surface
-       width to find the surface horizontal position */
-    levelNameSurface.setPosition(
-        1200.f - levelNameSurface.getLocalBounds().width,
-        0.f
-    );
+    updateLevelNameSurfacePosition();
 
     floorSurface.setFont(context->getFontsManager().getTextFont());
     floorSurface.setColor(context->getColorsManager().getColorWhite());
     floorSurface.setCharacterSize(fonts::TEXT_SIZE);
     floorSurface.setString("1");
-
     floorSurface.setPosition(
         1240.f,
         450.f
@@ -117,28 +109,37 @@ unsigned short LevelEditorController::render(
             {
             case sf::Keyboard::Escape:
             {
-                /* check if a dialog window is rendered, if yes, just destroy
-                   it */
-                if (dialog != nullptr)
-                {
-                    dialog.reset();
-
-                    /* force the process to finish here */
-                    break;
-                }
-
-                expectedControllerId = MAIN_MENU_CONTROLLER_ID;
+                deleteActiveDialog();
 
                 break;
+            }
+            case sf::Keyboard::Return:
+            {
+                /* if the current displayed dialog window is the save window,
+                   just update the level name */
+                if (saveDialogIsActive())
+                {
+                    /* check if the level name is empty */
+                    if (dialog->getInputTextWidget().isEmpty())
+                    {
+                        break;
+                    }
+
+                    levelNameSurface.setString(
+                        dialog->getInputTextWidget().getText()
+                    );
+
+                    /* as the width of the surface has changed, we have to
+                       update the position of the surface */
+                    updateLevelNameSurfacePosition();
+
+                    deleteActiveDialog();
+                }
             }
             default:
             {
                 /* add input into the save dialog window */
-                if (
-                    currentActionId ==
-                    utils::EditorDashboard::SAVE_ACTION_ID &&
-                    dialog != nullptr
-                )
+                if (saveDialogIsActive())
                 {
                     dialog->getInputTextWidget().update(event);
                 }
@@ -216,6 +217,44 @@ unsigned short LevelEditorController::render(
     }
 
     return nextControllerId;
+}
+
+const bool LevelEditorController::saveDialogIsActive() const noexcept
+{
+    if (
+        currentActionId ==
+        utils::EditorDashboard::SAVE_ACTION_ID &&
+        dialog != nullptr
+    )
+    {
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ *
+ */
+void LevelEditorController::deleteActiveDialog() noexcept
+{
+    if (dialog != nullptr)
+    {
+        dialog.reset();
+    }
+}
+
+/**
+ *
+ */
+void LevelEditorController::updateLevelNameSurfacePosition() noexcept
+{
+    /* set the position once the surface is created because we need the surface
+       width to find the surface horizontal position */
+    levelNameSurface.setPosition(
+        1200.f - levelNameSurface.getLocalBounds().width,
+        0.f
+    );
 }
 
 }
