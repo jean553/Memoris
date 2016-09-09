@@ -31,7 +31,7 @@ namespace sounds
 /**
  *
  */
-SoundsManager::SoundsManager() :
+SoundsManager::SoundsManager() noexcept :
     moveSelectorSound("res/sounds/001.wav"),
     screenTransitionSound("res/sounds/002.wav"),
     hideLevelSound("res/sounds/003.wav"),
@@ -45,20 +45,14 @@ SoundsManager::SoundsManager() :
     winLevelSound("res/sounds/011.wav"),
     floorMovementAnimationSound("res/sounds/012.wav")
 {
-    /* try to load each sound from their files, one by one; the game run
-       even if some/all sounds cannot be loaded; if loading succeeds, we
-       reset the null pointer with a pointed SFML sound object value,
-       the sound object is generated at this moment, only if the file is
-       opened successfully */
-
-    /* NOTE: the constructor body is empty, but this is required to
-       add it when using initialization list */
+    /* empty constructor as we try to initialize the sounds directly inside
+       the initialization list */
 }
 
 /**
  *
  */
-const Sound& SoundsManager::getMoveSelectorSound() const
+const Sound& SoundsManager::getMoveSelectorSound() const noexcept
 {
     return moveSelectorSound;
 }
@@ -66,7 +60,7 @@ const Sound& SoundsManager::getMoveSelectorSound() const
 /**
  *
  */
-const Sound& SoundsManager::getScreenTransitionSound() const
+const Sound& SoundsManager::getScreenTransitionSound() const noexcept
 {
     return screenTransitionSound;
 }
@@ -74,7 +68,7 @@ const Sound& SoundsManager::getScreenTransitionSound() const
 /**
  *
  */
-const Sound& SoundsManager::getHideLevelSound() const
+const Sound& SoundsManager::getHideLevelSound() const noexcept
 {
     return hideLevelSound;
 }
@@ -82,7 +76,7 @@ const Sound& SoundsManager::getHideLevelSound() const
 /**
  *
  */
-const Sound& SoundsManager::getFoundStarSound() const
+const Sound& SoundsManager::getFoundStarSound() const noexcept
 {
     return foundStarSound;
 }
@@ -90,7 +84,7 @@ const Sound& SoundsManager::getFoundStarSound() const
 /**
  *
  */
-const Sound& SoundsManager::getFoundLifeOrTimeSound() const
+const Sound& SoundsManager::getFoundLifeOrTimeSound() const noexcept
 {
     return foundLifeOrTimeSound;
 }
@@ -98,7 +92,7 @@ const Sound& SoundsManager::getFoundLifeOrTimeSound() const
 /**
  *
  */
-const Sound& SoundsManager::getFoundDeadOrLessTimeSound() const
+const Sound& SoundsManager::getFoundDeadOrLessTimeSound() const noexcept
 {
     return foundDeadOrLessTimeSound;
 }
@@ -106,7 +100,7 @@ const Sound& SoundsManager::getFoundDeadOrLessTimeSound() const
 /**
  *
  */
-const Sound& SoundsManager::getCollisionSound() const
+const Sound& SoundsManager::getCollisionSound() const noexcept
 {
     return collisionSound;
 }
@@ -114,7 +108,7 @@ const Sound& SoundsManager::getCollisionSound() const
 /**
  *
  */
-const Sound& SoundsManager::getFloorSwitchSound() const
+const Sound& SoundsManager::getFloorSwitchSound() const noexcept
 {
     return floorSwitchSound;
 }
@@ -122,7 +116,7 @@ const Sound& SoundsManager::getFloorSwitchSound() const
 /**
  *
  */
-const Sound& SoundsManager::getTimeOverSound() const
+const Sound& SoundsManager::getTimeOverSound() const noexcept
 {
     return timeOverSound;
 }
@@ -130,7 +124,7 @@ const Sound& SoundsManager::getTimeOverSound() const
 /**
  *
  */
-const Sound& SoundsManager::getMirrorAnimationSound() const
+const Sound& SoundsManager::getMirrorAnimationSound() const noexcept
 {
     return mirrorAnimationSound;
 }
@@ -138,7 +132,7 @@ const Sound& SoundsManager::getMirrorAnimationSound() const
 /**
  *
  */
-const Sound& SoundsManager::getWinLevelSound() const
+const Sound& SoundsManager::getWinLevelSound() const noexcept
 {
     return winLevelSound;
 }
@@ -146,7 +140,7 @@ const Sound& SoundsManager::getWinLevelSound() const
 /**
  *
  */
-const Sound& SoundsManager::getFloorMovementAnimationSound() const
+const Sound& SoundsManager::getFloorMovementAnimationSound() const noexcept
 {
     return floorMovementAnimationSound;
 }
