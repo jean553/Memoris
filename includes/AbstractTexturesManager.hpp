@@ -28,7 +28,9 @@
 
 #include "NotCopiable.hpp"
 
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Texture.hpp>
+
+#include <stdexcept>
 
 namespace memoris
 {
