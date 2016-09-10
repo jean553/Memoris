@@ -96,9 +96,102 @@ void RotateFloorAnimation::renderAnimation(
         level->deleteTransform();
 
         finished = true;
+
+        rotateCells(
+            context,
+            level,
+            floor
+        );
     }
 
     incrementAnimationStep(context);
+}
+
+/**
+ *
+ */
+void RotateFloorAnimation::rotateCells(
+    const std::shared_ptr<utils::Context>& context,
+    const std::shared_ptr<entities::Level>& level,
+    const unsigned short& floor
+)
+{
+    /* every line of the floor is stored into a dedicated container; each
+       container is stored into a parent container */
+    std::vector<std::vector<entities::Cell>> horizontalLines;
+
+    /* these local variables are used to transfer the cells from one location
+       to another one during the rotation */
+    unsigned short playerColumn = 0,
+                   playerIndex = 0,
+                   destination = floor * 256 + 240;
+
+    /* we browse every line of the floor one by one and store them inside
+       the container of containers */
+    for (
+        unsigned short lines = 0;
+        lines < 16;
+        lines++
+    )
+    {
+        /* container for every cell of the line */
+        std::vector<entities::Cell> line;
+
+        /* browse each cell of the line one by one */
+        for (
+            unsigned short index = 0;
+            index < 16;
+            index++
+        )
+        {
+            line.push_back((*level->getCells()[lines * 16 + index]));
+
+            /* save the location of the player cell if found */
+            if (lines * 16 + index == level->getPlayerCellIndex())
+            {
+                playerColumn = lines;
+                playerIndex = index;
+            }
+        }
+
+        horizontalLines.push_back(line);
+    }
+
+    /* copies every lines at columns in order to make the rotation */
+
+    for (unsigned short column = 0; column < 16; column++)
+    {
+        for (unsigned short index = 0; index < 16; index++)
+        {
+            level->getCells()[destination]->setType(
+                horizontalLines[column][index].getType()
+            );
+
+            if (horizontalLines[column][index].isVisible())
+            {
+                level->getCells()[destination]->show(context);
+            }
+            else
+            {
+                level->getCells()[destination]->hide(context);
+            }
+
+            if (column == playerColumn && index == playerIndex)
+            {
+                level->setPlayerCellIndex(destination);
+            }
+
+            if (destination >= 16)
+            {
+                destination -= 16;
+            }
+        }
+
+        if (destination != 15)
+        {
+            destination += 241;
+        }
+    }
 }
 
 }
