@@ -25,6 +25,8 @@
 #ifndef MEMORIS_SOUNDSMANAGER_H_
 #define MEMORIS_SOUNDSMANAGER_H_
 
+#include "NotCopiable.hpp"
+
 #include "Sound.hpp"
 
 namespace memoris
@@ -32,153 +34,119 @@ namespace memoris
 namespace sounds
 {
 
-class SoundsManager
+class SoundsManager : public utils::NotCopiable
 {
 
 public:
 
-    /* declare deleted functions to prevent object copy */
-
-    SoundsManager(const SoundsManager&) = delete;
-    SoundsManager operator=(const SoundsManager&) = delete;
-
     /**
      * @brief constructor, loads each sound file one by one, silently
-     * fails if the loading process fail; throw an exception and display
-     * a message in the console; the program continues even if one or many
-     * sounds file(s) cannot be loaded;
+     * fails if the loading process fail
      */
-    SoundsManager();
+    SoundsManager() noexcept;
+
+    /* all the sounds getters return constant references to improve
+       performances and prevent objects modification; each getter is
+       constant as it does not modify the current object instance; no one
+       of the getter throw an exception */
 
     /**
-     * @brief getter of the move selector sound if loaded
+     * @brief getter of the move selector sound
      *
      * @return const Sound&
      */
-    const Sound& getMoveSelectorSound() const;
+    const Sound& getMoveSelectorSound() const noexcept;
 
     /**
-     * @brief getter of the screen transition sound if loaded
+     * @brief getter of the screen transition sound
      *
      * @return const Sound&
      */
-    const Sound& getScreenTransitionSound() const;
+    const Sound& getScreenTransitionSound() const noexcept;
 
     /**
-     * @brief getter of the hide level sound if loaded
+     * @brief getter of the hide level sound
      *
      * @return const Sound&
      */
-    const Sound& getHideLevelSound() const;
+    const Sound& getHideLevelSound() const noexcept;
 
     /**
-     * @brief getter of the found star cell sound if loaded
+     * @brief getter of the found star cell sound
      *
      * @return const Sound&
      */
-    const Sound& getFoundStarSound() const;
+    const Sound& getFoundStarSound() const noexcept;
 
     /**
-     * @brief getter of the found life/time sound if loaded; the life and the
-     * time cell used the same sound
+     * @brief getter of the found life/time sound
      *
      * @return const Sound&
      */
-    const Sound& getFoundLifeOrTimeSound() const;
+    const Sound& getFoundLifeOrTimeSound() const noexcept;
 
     /**
-     * @brief getter of the found dead or less time sound if loaded; the dead
-     * and the less time cell use the same sound
+     * @brief getter of the found dead or less time sound
      *
      * @return const Sound&
      */
-    const Sound& getFoundDeadOrLessTimeSound() const;
+    const Sound& getFoundDeadOrLessTimeSound() const noexcept;
 
     /**
-     * @brief getter of the collision sound; this sound is played by the game
-     * controller when the player tries to make a forbidden movement and when
-     * a wall cell is found
+     * @brief getter of the collision sound
      *
      * @return const Sound&
      */
-    const Sound& getCollisionSound() const;
+    const Sound& getCollisionSound() const noexcept;
 
     /**
      * @brief getter of the floor switch animation sound
      *
      * @return const Sound&
      */
-    const Sound& getFloorSwitchSound() const;
+    const Sound& getFloorSwitchSound() const noexcept;
 
     /**
      * @brief getter of the time over sound
      *
      * @return const Sound&
      */
-    const Sound& getTimeOverSound() const;
+    const Sound& getTimeOverSound() const noexcept;
 
     /**
      * @brief getter of the mirror animation sound
      *
      * @return const Sound&
      */
-    const Sound& getMirrorAnimationSound() const;
+    const Sound& getMirrorAnimationSound() const noexcept;
 
     /**
      * @brief getter of the win level sound
      *
      * @return const Sound&
      */
-    const Sound& getWinLevelSound() const;
+    const Sound& getWinLevelSound() const noexcept;
 
     /**
      * @brief getter of the diagonal animation sound
      *
      * @return const Sound&
      */
-    const Sound& getFloorMovementAnimationSound() const;
+    const Sound& getFloorMovementAnimationSound() const noexcept;
 
 private:
 
-    /* play this sound when the menu selector
-       of any menu is moved up or down */
     Sound moveSelectorSound;
-
-    /* play this sound every time the current screen is switched */
     Sound screenTransitionSound;
-
-    /* play this sound when the game level is hidden */
     Sound hideLevelSound;
-
-    /* play this sound when one star cell is found in the game controller */
     Sound foundStarSound;
-
-    /* play this sound when one life cell or one time cell is found in the game
-       controller */
     Sound foundLifeOrTimeSound;
-
-    /* play this sound when one dead cell or one less time cell is found */
     Sound foundDeadOrLessTimeSound;
-
-    /* play this sound when the player tries to make a forbidden move or when
-       the player finds a wall */
     Sound collisionSound;
-
-    /* play this sound when the floor switch animation is played in the game
-       controller */
     Sound floorSwitchSound;
-
-    /* play this sound when game time is over */
     Sound timeOverSound;
-
-    /* play this sound when a horizontal or vertical mirror animation cell is
-       found */
     Sound mirrorAnimationSound;
-
-    /* play this sound when the player wins the current level */
     Sound winLevelSound;
-
-    /* play this sound when the diagonal animation is played */
     Sound floorMovementAnimationSound;
 };
 
