@@ -18,57 +18,31 @@
 
 /**
  * @file FontsManager.cpp
- * @brief a class for the unique fonts factory object of the game, all the
- * fonts are loaded from their files when the unique context object is created;
- * we do this to improve performances; each controller, through the context,
- * can get references to each font object, already loaded.
+ * @brief loads the fonts objects from the files and provides getters to them
+ * @package fonts
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
 #include "FontsManager.hpp"
-#include "errors.hpp"
 
 namespace memoris
 {
 namespace fonts
 {
 
-/* font used for main title and sub-titles */
-const std::string FontsManager::TITLE_FONT = "res/fonts/crystal_regular.ttf";
-
-/* font used for menu items, buttons and texts */
-const std::string FontsManager::TEXT_FONT = "res/fonts/hi.otf";
-
 /**
  *
  */
 FontsManager::FontsManager()
 {
-    /* try to open each font file one by one; in case
-       of an error, we stop immediately to try to open
-       and we directly throw an exception: the program
-       must be terminated immediately; that's why we
-       even do not try to open the next file; the
-       exception is not caught, the program stops
-       with the open font error message */
-    if(!titleFont.loadFromFile(TITLE_FONT))
-    {
-        throw std::invalid_argument(
-            errors::OPEN_FONT_ERROR_PREFIX + TITLE_FONT
-        );
-    }
-    if(!textFont.loadFromFile(TEXT_FONT))
-    {
-        throw std::invalid_argument(
-            errors::OPEN_FONT_ERROR_PREFIX + TEXT_FONT
-        );
-    }
+    loadFontFromFile(titleFont, "res/fonts/crystal_regular.ttf");
+    loadFontFromFile(textFont, "res/fonts/hi.otf");
 }
 
 /**
  *
  */
-const sf::Font& FontsManager::getTitleFont() const
+const sf::Font& FontsManager::getTitleFont() const noexcept
 {
     return titleFont;
 }
@@ -76,9 +50,23 @@ const sf::Font& FontsManager::getTitleFont() const
 /**
  *
  */
-const sf::Font& FontsManager::getTextFont() const
+const sf::Font& FontsManager::getTextFont() const noexcept
 {
     return textFont;
+}
+
+/**
+ *
+ */
+void FontsManager::loadFontFromFile(
+    sf::Font& font,
+    const std::string& path
+)
+{
+    if(!font.loadFromFile(path))
+    {
+        throw std::invalid_argument("Cannot load font " + path);
+    }
 }
 
 }

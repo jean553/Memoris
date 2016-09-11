@@ -34,7 +34,7 @@ namespace utils
 /**
  *
  */
-Context::Context() noexcept :
+Context::Context() :
 sfmlWindow(
     sf::VideoMode(
         window::WIDTH,
