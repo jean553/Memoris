@@ -61,14 +61,6 @@ public:
     );
 
     /**
-     * @brief copy constructor, used by the rotate floor animation to move
-     * the cells on the floor
-     *
-     * @brief constant reference to the cell to copy
-     */
-    Cell(const Cell& cell) noexcept;
-
-    /**
      * @brief move the cell to one pixel on the right; this method is used
      * with the animated background
      */
@@ -187,6 +179,16 @@ public:
      * @return const bool&
      */
     const bool& isVisible() const;
+
+    /**
+     * @brief setter for the visibility boolean of the cell
+     *
+     * @param visibility is the cell visible
+     *
+     * the method is not 'const' because it is a setter that modifies an
+     * attribute
+     */
+    void setIsVisible(const bool& visibility) noexcept;
 
     /**
      * @brief indicates if the mouse is currently hover this cell
