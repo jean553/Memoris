@@ -37,6 +37,12 @@
 #include "PlayingSerieManager.hpp"
 
 #include <SFML/Audio/Music.hpp>
+#include <SFML/System/Clock.hpp>
+
+/* TODO: delete this huge inclusion, only here because each object depends
+   of the context includes; to delete after whole refactoring of includes
+   in every headers */
+#include <SFML/Graphics.hpp>
 
 namespace memoris
 {
@@ -49,9 +55,14 @@ class Context : public utils::NotCopiable
 public:
 
     /**
-     * @brief constructor, create and set the SFML window
+     * @brief constructor, create and set the SFML window, initializes the
+     * resources managers
+     *
+     * @throw std::invalid_argument a texture resource or a font resource
+     * cannot be loaded correctly; the exception is never caught in order to
+     * stop the program
      */
-    Context() noexcept;
+    Context();
 
     /* getters of the resources managers; return constant references, as the
        managers objects are unique in the whole application */

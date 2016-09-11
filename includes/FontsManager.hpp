@@ -18,37 +18,34 @@
 
 /**
  * @file FontsManager.hpp
- * @brief a class for the fonts factory object of the game, all the
- * fonts are loaded from their files when the unique context object is created;
- * we do this to improve performances; each controller, through the context,
- * can get references to each font object, already loaded.
+ * @package fonts
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
 #ifndef MEMORIS_FONTSMANAGER_H_
 #define MEMORIS_FONTSMANAGER_H_
 
-#include <SFML/Graphics.hpp>
+#include "NotCopiable.hpp"
+
+#include <SFML/Graphics/Font.hpp>
 
 namespace memoris
 {
 namespace fonts
 {
 
-class FontsManager
+class FontsManager : public utils::NotCopiable
 {
 
 public:
-
-    /* declare deleted functions to prevent copy of object */
-
-    FontsManager(const FontsManager&) = delete;
-    FontsManager operator=(const FontsManager&) = delete;
 
     /**
      * @brief constructor, loads each font file one by one, throw an exception
      * if one loading process failed; the exception is not caught and stops
      * the program, an error message is displayed in the console
+     *
+     * @throw std::invalid_argument throw an exception if the file cannot
+     * be loaded
      */
     FontsManager();
 
@@ -57,27 +54,44 @@ public:
      *
      * @return const sf::Font&
      */
-    const sf::Font& getTitleFont() const;
+    const sf::Font& getTitleFont() const noexcept;
 
     /**
      * @brief get text font reference
      *
      * @return const sf::Font&
      */
-    const sf::Font& getTextFont() const;
+    const sf::Font& getTextFont() const noexcept;
 
 private:
 
-    /* font used for main title and sub-titles */
-    static const std::string TITLE_FONT;
+    /**
+     * @brief load the font file from the given path into the font object
+     * specified by reference
+     *
+     * @param font reference to the font object to set
+     * @param path constant string of the path to the file to load
+     *
+     * @throw std::invalid_argument throw an exception if the file cannot
+     * be loaded
+     *
+     * not 'const' because it modifies the SFML fonts attributes, the font
+     * parameter is not 'const' because it is modified by the function when
+     * loading the file
+     *
+     * declared static because this method is only internally used to load
+     * a font object from a file; it is not supposed to be call according to
+     * the instance
+     */
+    static void loadFontFromFile(
+        sf::Font& font,
+        const std::string& path
+    );
 
-    /* font used for menu items, buttons and texts */
-    static const std::string TEXT_FONT;
+    /* fonts objects, not pointer because the program cannot run if the
+       fonts are not loaded correctly */
 
-    /* SFML font object for the title and sub-titles */
     sf::Font titleFont;
-
-    /* SFML font object for all the texts, messages... */
     sf::Font textFont;
 };
 
