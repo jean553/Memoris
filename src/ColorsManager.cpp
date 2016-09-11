@@ -26,7 +26,7 @@
 
 namespace memoris
 {
-namespace colors
+namespace managers
 {
 
 /**

@@ -31,7 +31,7 @@
 
 namespace memoris
 {
-namespace textures
+namespace managers
 {
 
 class CellsTexturesManager : public AbstractTexturesManager

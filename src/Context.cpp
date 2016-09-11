@@ -56,7 +56,7 @@ sfmlWindow(
 /**
  *
  */
-const textures::TexturesManager& Context::getTexturesManager() const & noexcept
+const managers::TexturesManager& Context::getTexturesManager() const & noexcept
 {
     return texturesManager;
 }
@@ -64,7 +64,7 @@ const textures::TexturesManager& Context::getTexturesManager() const & noexcept
 /**
  *
  */
-const sounds::SoundsManager& Context::getSoundsManager() const & noexcept
+const managers::SoundsManager& Context::getSoundsManager() const & noexcept
 {
     return soundsManager;
 }
@@ -72,7 +72,7 @@ const sounds::SoundsManager& Context::getSoundsManager() const & noexcept
 /**
  *
  */
-const colors::ColorsManager& Context::getColorsManager() const & noexcept
+const managers::ColorsManager& Context::getColorsManager() const & noexcept
 {
     return colorsManager;
 }
@@ -80,7 +80,7 @@ const colors::ColorsManager& Context::getColorsManager() const & noexcept
 /**
  *
  */
-const fonts::FontsManager& Context::getFontsManager() const & noexcept
+const managers::FontsManager& Context::getFontsManager() const & noexcept
 {
     return fontsManager;
 }
@@ -88,7 +88,7 @@ const fonts::FontsManager& Context::getFontsManager() const & noexcept
 /**
  *
  */
-const textures::CellsTexturesManager& Context::getCellsTexturesManager() const
+const managers::CellsTexturesManager& Context::getCellsTexturesManager() const
 & noexcept
 {
     return cellsTexturesManager;
@@ -97,7 +97,7 @@ const textures::CellsTexturesManager& Context::getCellsTexturesManager() const
 /**
  *
  */
-series::PlayingSerieManager& Context::getPlayingSerieManager() & noexcept
+managers::PlayingSerieManager& Context::getPlayingSerieManager() & noexcept
 {
     return playingSerieManager;
 }

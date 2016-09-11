@@ -31,7 +31,7 @@
 
 namespace memoris
 {
-namespace sounds
+namespace managers
 {
 
 class SoundsManager : public utils::NotCopiable
@@ -53,101 +53,101 @@ public:
     /**
      * @brief getter of the move selector sound
      *
-     * @return const Sound&
+     * @return const sounds::Sound&
      */
-    const Sound& getMoveSelectorSound() const noexcept;
+    const sounds::Sound& getMoveSelectorSound() const noexcept;
 
     /**
      * @brief getter of the screen transition sound
      *
-     * @return const Sound&
+     * @return const sounds::Sound&
      */
-    const Sound& getScreenTransitionSound() const noexcept;
+    const sounds::Sound& getScreenTransitionSound() const noexcept;
 
     /**
      * @brief getter of the hide level sound
      *
-     * @return const Sound&
+     * @return const sounds::Sound&
      */
-    const Sound& getHideLevelSound() const noexcept;
+    const sounds::Sound& getHideLevelSound() const noexcept;
 
     /**
      * @brief getter of the found star cell sound
      *
-     * @return const Sound&
+     * @return const sounds::Sound&
      */
-    const Sound& getFoundStarSound() const noexcept;
+    const sounds::Sound& getFoundStarSound() const noexcept;
 
     /**
      * @brief getter of the found life/time sound
      *
-     * @return const Sound&
+     * @return const sounds::Sound&
      */
-    const Sound& getFoundLifeOrTimeSound() const noexcept;
+    const sounds::Sound& getFoundLifeOrTimeSound() const noexcept;
 
     /**
      * @brief getter of the found dead or less time sound
      *
-     * @return const Sound&
+     * @return const sounds::Sound&
      */
-    const Sound& getFoundDeadOrLessTimeSound() const noexcept;
+    const sounds::Sound& getFoundDeadOrLessTimeSound() const noexcept;
 
     /**
      * @brief getter of the collision sound
      *
-     * @return const Sound&
+     * @return const sounds::Sound&
      */
-    const Sound& getCollisionSound() const noexcept;
+    const sounds::Sound& getCollisionSound() const noexcept;
 
     /**
      * @brief getter of the floor switch animation sound
      *
-     * @return const Sound&
+     * @return const sounds::Sound&
      */
-    const Sound& getFloorSwitchSound() const noexcept;
+    const sounds::Sound& getFloorSwitchSound() const noexcept;
 
     /**
      * @brief getter of the time over sound
      *
-     * @return const Sound&
+     * @return const sounds::Sound&
      */
-    const Sound& getTimeOverSound() const noexcept;
+    const sounds::Sound& getTimeOverSound() const noexcept;
 
     /**
      * @brief getter of the mirror animation sound
      *
-     * @return const Sound&
+     * @return const sounds::Sound&
      */
-    const Sound& getMirrorAnimationSound() const noexcept;
+    const sounds::Sound& getMirrorAnimationSound() const noexcept;
 
     /**
      * @brief getter of the win level sound
      *
-     * @return const Sound&
+     * @return const sounds::Sound&
      */
-    const Sound& getWinLevelSound() const noexcept;
+    const sounds::Sound& getWinLevelSound() const noexcept;
 
     /**
      * @brief getter of the diagonal animation sound
      *
-     * @return const Sound&
+     * @return const sounds::Sound&
      */
-    const Sound& getFloorMovementAnimationSound() const noexcept;
+    const sounds::Sound& getFloorMovementAnimationSound() const noexcept;
 
 private:
 
-    Sound moveSelectorSound;
-    Sound screenTransitionSound;
-    Sound hideLevelSound;
-    Sound foundStarSound;
-    Sound foundLifeOrTimeSound;
-    Sound foundDeadOrLessTimeSound;
-    Sound collisionSound;
-    Sound floorSwitchSound;
-    Sound timeOverSound;
-    Sound mirrorAnimationSound;
-    Sound winLevelSound;
-    Sound floorMovementAnimationSound;
+    sounds::Sound moveSelectorSound;
+    sounds::Sound screenTransitionSound;
+    sounds::Sound hideLevelSound;
+    sounds::Sound foundStarSound;
+    sounds::Sound foundLifeOrTimeSound;
+    sounds::Sound foundDeadOrLessTimeSound;
+    sounds::Sound collisionSound;
+    sounds::Sound floorSwitchSound;
+    sounds::Sound timeOverSound;
+    sounds::Sound mirrorAnimationSound;
+    sounds::Sound winLevelSound;
+    sounds::Sound floorMovementAnimationSound;
 };
 
 }

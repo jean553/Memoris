@@ -73,35 +73,35 @@ public:
      *
      * @return const textures::TexturesManager&
      */
-    const textures::TexturesManager& getTexturesManager() const & noexcept;
+    const managers::TexturesManager& getTexturesManager() const & noexcept;
 
     /**
      * @brief getter of the sounds manager
      *
      * @return const sounds::SoundsManager&
      */
-    const sounds::SoundsManager& getSoundsManager() const & noexcept;
+    const managers::SoundsManager& getSoundsManager() const & noexcept;
 
     /**
      * @brief getter of the colors manager
      *
      * @return const colors::ColorsManager&
      */
-    const colors::ColorsManager& getColorsManager() const & noexcept;
+    const managers::ColorsManager& getColorsManager() const & noexcept;
 
     /**
      * @brief getter of the fonts manager
      *
      * @return const fonts::FontsManager&
      */
-    const fonts::FontsManager& getFontsManager() const & noexcept;
+    const managers::FontsManager& getFontsManager() const & noexcept;
 
     /**
      * @brief getter of the cells textures manager
      *
      * @return const textures::CellsTexturesManager&
      */
-    const textures::CellsTexturesManager& getCellsTexturesManager() const &
+    const managers::CellsTexturesManager& getCellsTexturesManager() const &
     noexcept;
 
     /**
@@ -115,7 +115,7 @@ public:
      *
      * not constant method because returns a reference
      */
-    series::PlayingSerieManager& getPlayingSerieManager() & noexcept;
+    managers::PlayingSerieManager& getPlayingSerieManager() & noexcept;
 
     /**
      * @brief getter on the SFML window object
@@ -191,15 +191,13 @@ private:
 
     /* resources and assets managers */
 
-    textures::TexturesManager texturesManager;
-    sounds::SoundsManager soundsManager;
-    colors::ColorsManager colorsManager;
-    fonts::FontsManager fontsManager;
-    textures::CellsTexturesManager cellsTexturesManager;
+    managers::TexturesManager texturesManager;
+    managers::SoundsManager soundsManager;
+    managers::ColorsManager colorsManager;
+    managers::FontsManager fontsManager;
+    managers::CellsTexturesManager cellsTexturesManager;
     managers::GameManager gameManager;
-
-    /* handles the levels execution of a serie, loads from the levels files */
-    series::PlayingSerieManager playingSerieManager;
+    managers::PlayingSerieManager playingSerieManager;
 
     /* main SFML window object */
     sf::RenderWindow sfmlWindow;

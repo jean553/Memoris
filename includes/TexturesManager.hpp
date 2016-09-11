@@ -30,7 +30,7 @@
 
 namespace memoris
 {
-namespace textures
+namespace managers
 {
 
 class TexturesManager : public AbstractTexturesManager

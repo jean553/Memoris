@@ -27,7 +27,7 @@
 
 namespace memoris
 {
-namespace fonts
+namespace managers
 {
 
 /**
