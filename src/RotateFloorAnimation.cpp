@@ -144,6 +144,17 @@ void RotateFloorAnimation::rotateCells(
             index++
         )
         {
+            entities::Cell cell(
+                context,
+                0.f,
+                0.f,
+                level->getCells()[lines * 16 + index]->getType()
+            );
+
+            cell.setIsVisible(
+                level->getCells()[lines * 16 + index]->isVisible()
+            );
+
             line.push_back((*level->getCells()[lines * 16 + index]));
 
             /* save the location of the player cell if found */
