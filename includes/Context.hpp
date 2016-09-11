@@ -35,6 +35,7 @@
 #include "FontsManager.hpp"
 #include "CellsTexturesManager.hpp"
 #include "PlayingSerieManager.hpp"
+#include "Game.hpp"
 
 #include <SFML/Audio/Music.hpp>
 #include <SFML/System/Clock.hpp>
@@ -195,6 +196,13 @@ private:
     colors::ColorsManager colorsManager;
     fonts::FontsManager fontsManager;
     textures::CellsTexturesManager cellsTexturesManager;
+
+    /* unique pointer to the current loaded game; this pointed object is
+       initialized when a new game is created or when an existing game is
+       loaded; if there is no need to have a game loaded at the moment,
+       the pointer is just null; when the context is created, the main menu
+       is rendered, at this moment, the game has no reason to be loaded */
+    std::unique_ptr<entities::Game> game {nullptr};
 
     /* handles the levels execution of a serie, loads from the levels files */
     series::PlayingSerieManager playingSerieManager;
