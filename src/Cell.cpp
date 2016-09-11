@@ -59,6 +59,15 @@ Cell::Cell(
 /**
  *
  */
+Cell::Cell(const Cell& cell) noexcept
+{
+    type = cell.getType();
+    visible = cell.isVisible();
+}
+
+/**
+ *
+ */
 void Cell::moveOnTheRight()
 {
     /* increment the horizontal position of the cell; we do

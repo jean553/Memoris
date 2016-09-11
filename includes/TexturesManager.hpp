@@ -52,7 +52,7 @@ public:
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getGithubTexture() const noexcept; 
+    const sf::Texture& getGithubTexture() const noexcept;
 
     /**
      * @brief getter for the star texture

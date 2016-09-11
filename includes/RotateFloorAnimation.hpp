@@ -85,6 +85,19 @@ private:
         const unsigned short& floor
     ) override;
 
+    /**
+     * @brief rotate the cells of the floor on the left
+     *
+     * @param context shared pointer to the current context to use
+     * @param level shared pointer to the level to animate
+     * @param floor the current floor to display in the animation
+     */
+    void rotateCells(
+        const std::shared_ptr<utils::Context>& context,
+        const std::shared_ptr<entities::Level>& level,
+        const unsigned short& floor
+    );
+
     /* the rotation direction, negative or positive */
     short direction {1};
 };
