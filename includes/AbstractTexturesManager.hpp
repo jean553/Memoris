@@ -34,7 +34,7 @@
 
 namespace memoris
 {
-namespace textures
+namespace managers
 {
 
 class AbstractTexturesManager : public utils::NotCopiable

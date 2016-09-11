@@ -25,7 +25,7 @@
 
 namespace memoris
 {
-namespace sounds
+namespace managers
 {
 
 /**
@@ -52,7 +52,7 @@ SoundsManager::SoundsManager() noexcept :
 /**
  *
  */
-const Sound& SoundsManager::getMoveSelectorSound() const noexcept
+const sounds::Sound& SoundsManager::getMoveSelectorSound() const noexcept
 {
     return moveSelectorSound;
 }
@@ -60,7 +60,7 @@ const Sound& SoundsManager::getMoveSelectorSound() const noexcept
 /**
  *
  */
-const Sound& SoundsManager::getScreenTransitionSound() const noexcept
+const sounds::Sound& SoundsManager::getScreenTransitionSound() const noexcept
 {
     return screenTransitionSound;
 }
@@ -68,7 +68,7 @@ const Sound& SoundsManager::getScreenTransitionSound() const noexcept
 /**
  *
  */
-const Sound& SoundsManager::getHideLevelSound() const noexcept
+const sounds::Sound& SoundsManager::getHideLevelSound() const noexcept
 {
     return hideLevelSound;
 }
@@ -76,7 +76,7 @@ const Sound& SoundsManager::getHideLevelSound() const noexcept
 /**
  *
  */
-const Sound& SoundsManager::getFoundStarSound() const noexcept
+const sounds::Sound& SoundsManager::getFoundStarSound() const noexcept
 {
     return foundStarSound;
 }
@@ -84,7 +84,7 @@ const Sound& SoundsManager::getFoundStarSound() const noexcept
 /**
  *
  */
-const Sound& SoundsManager::getFoundLifeOrTimeSound() const noexcept
+const sounds::Sound& SoundsManager::getFoundLifeOrTimeSound() const noexcept
 {
     return foundLifeOrTimeSound;
 }
@@ -92,7 +92,7 @@ const Sound& SoundsManager::getFoundLifeOrTimeSound() const noexcept
 /**
  *
  */
-const Sound& SoundsManager::getFoundDeadOrLessTimeSound() const noexcept
+const sounds::Sound& SoundsManager::getFoundDeadOrLessTimeSound() const noexcept
 {
     return foundDeadOrLessTimeSound;
 }
@@ -100,7 +100,7 @@ const Sound& SoundsManager::getFoundDeadOrLessTimeSound() const noexcept
 /**
  *
  */
-const Sound& SoundsManager::getCollisionSound() const noexcept
+const sounds::Sound& SoundsManager::getCollisionSound() const noexcept
 {
     return collisionSound;
 }
@@ -108,7 +108,7 @@ const Sound& SoundsManager::getCollisionSound() const noexcept
 /**
  *
  */
-const Sound& SoundsManager::getFloorSwitchSound() const noexcept
+const sounds::Sound& SoundsManager::getFloorSwitchSound() const noexcept
 {
     return floorSwitchSound;
 }
@@ -116,7 +116,7 @@ const Sound& SoundsManager::getFloorSwitchSound() const noexcept
 /**
  *
  */
-const Sound& SoundsManager::getTimeOverSound() const noexcept
+const sounds::Sound& SoundsManager::getTimeOverSound() const noexcept
 {
     return timeOverSound;
 }
@@ -124,7 +124,7 @@ const Sound& SoundsManager::getTimeOverSound() const noexcept
 /**
  *
  */
-const Sound& SoundsManager::getMirrorAnimationSound() const noexcept
+const sounds::Sound& SoundsManager::getMirrorAnimationSound() const noexcept
 {
     return mirrorAnimationSound;
 }
@@ -132,7 +132,7 @@ const Sound& SoundsManager::getMirrorAnimationSound() const noexcept
 /**
  *
  */
-const Sound& SoundsManager::getWinLevelSound() const noexcept
+const sounds::Sound& SoundsManager::getWinLevelSound() const noexcept
 {
     return winLevelSound;
 }
@@ -140,7 +140,7 @@ const Sound& SoundsManager::getWinLevelSound() const noexcept
 /**
  *
  */
-const Sound& SoundsManager::getFloorMovementAnimationSound() const noexcept
+const sounds::Sound& SoundsManager::getFloorMovementAnimationSound() const noexcept
 {
     return floorMovementAnimationSound;
 }

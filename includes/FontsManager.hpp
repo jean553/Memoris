@@ -31,7 +31,7 @@
 
 namespace memoris
 {
-namespace fonts
+namespace managers
 {
 
 class FontsManager : public utils::NotCopiable

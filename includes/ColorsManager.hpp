@@ -34,7 +34,7 @@
 
 namespace memoris
 {
-namespace colors
+namespace managers
 {
 
 class ColorsManager : public utils::NotCopiable

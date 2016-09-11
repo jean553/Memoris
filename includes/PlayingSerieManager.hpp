@@ -35,7 +35,7 @@
 
 namespace memoris
 {
-namespace series
+namespace managers
 {
 
 class PlayingSerieManager
