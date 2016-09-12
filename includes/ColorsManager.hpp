@@ -47,63 +47,63 @@ public:
      *
      * @return const sf::Color&
      */
-    const sf::Color& getColorWhite() const noexcept;
+    const sf::Color& getColorWhite() const & noexcept;
 
     /**
      * @brief returns a reference to the light blue color
      *
      * @return const sf::Color&
      */
-    const sf::Color& getColorLightBlue() const noexcept;
+    const sf::Color& getColorLightBlue() const & noexcept;
 
     /**
      * @brief returns a reference to the red color
      *
      * @return const sf::Color&
      */
-    const sf::Color& getColorRed() const noexcept;
+    const sf::Color& getColorRed() const & noexcept;
 
     /**
      * @brief returns a reference to the orange color
      *
      * @return const sf::Color&
      */
-    const sf::Color& getColorBlack() const noexcept;
+    const sf::Color& getColorBlack() const & noexcept;
 
     /**
      * @brief returns a reference to the partial dark grey color
      *
      * @return const sf::Color&
      */
-    const sf::Color& getColorPartialDarkGrey() const noexcept;
+    const sf::Color& getColorPartialDarkGrey() const & noexcept;
 
     /**
      * @brief returns a reference to the green color
      *
      * @return const sf::Color&
      */
-    const sf::Color& getColorGreen() const noexcept;
+    const sf::Color& getColorGreen() const & noexcept;
 
     /**
      * @brief returns a reference to the dark green color
      *
      * @return const sf::Color&
      */
-    const sf::Color& getColorDarkGreen() const noexcept;
+    const sf::Color& getColorDarkGreen() const & noexcept;
 
     /**
      * @brief returns a reference to the purple with low transparency color
      *
      * @return const sf::Color&
      */
-    const sf::Color& getColorPurpleLowAlpha() const noexcept;
+    const sf::Color& getColorPurpleLowAlpha() const & noexcept;
 
     /**
      * @brief returns a copy of the dark grey color
      *
      * @return sf::Color
      */
-    const sf::Color& getColorDarkGrey() const noexcept;
+    const sf::Color& getColorDarkGrey() const & noexcept;
 
     /* the getter by value do not return constant variables because when
        a color is got by copy, that means the color values will be updated
@@ -114,28 +114,28 @@ public:
      *
      * @return sf::Color
      */
-    sf::Color getColorBlueCopy() const noexcept;
+    sf::Color getColorBlueCopy() const & noexcept;
 
     /**
      * @brief returns a copy of the red color
      *
      * @return sf::Color
      */
-    sf::Color getColorRedCopy() const noexcept;
+    sf::Color getColorRedCopy() const & noexcept;
 
     /**
      * @brief returns a copy of the white color
      *
      * @return sf::Color
      */
-    sf::Color getColorWhiteCopy() const noexcept;
+    sf::Color getColorWhiteCopy() const & noexcept;
 
     /**
      * @brief returns a copy of the black color
      *
      * @return sf::Color
      */
-    sf::Color getColorBlackCopy() const noexcept;
+    sf::Color getColorBlackCopy() const & noexcept;
 
 private:
 
