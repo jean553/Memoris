@@ -42,6 +42,12 @@ public:
     /**
      * @brief constructor, loads each texture one by one, stop if one texture
      * cannot be loaded
+     *
+     * @throw std::invalid_argument if one of the image cannot be loaded, an
+     * exception is thrown and never caught to let the program stops
+     *
+     * not 'noexcept' because it throws an exception if one file cannot be
+     * loaded
      */
     CellsTexturesManager();
 
@@ -52,20 +58,11 @@ public:
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getTextureReferenceByCellType(const char& type) const;
-
-    /**
-     * @brief returns a texture reference of the hidden cell texture; this cell
-     * texture is special and is useless in the cells factory method; that's
-     * why we return this texture using a separated dedicated method
-     *
-     * @return const sf::Texture&
-     */
-    const sf::Texture& getHiddenCellTexture() const;
+    const sf::Texture& getTextureReferenceByCellType(const char& type) const &
+    noexcept ;
 
 private:
 
-    /* the textures of all the cells */
     sf::Texture emptyCellTexture;
     sf::Texture departureCellTexture;
     sf::Texture arrivalCellTexture;

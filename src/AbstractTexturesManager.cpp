@@ -26,7 +26,7 @@ namespace managers
 /**
  *
  */
-AbstractTexturesManager::~AbstractTexturesManager() noexcept
+AbstractTexturesManager::~AbstractTexturesManager()
 {
     /* pure virtual destructor must be defined and empty */
 }

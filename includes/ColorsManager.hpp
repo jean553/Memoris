@@ -184,70 +184,80 @@ private:
     /* SFML color cannot be declared as a constant expression, even if it
        is declared as static */
 
-    const sf::Color colorWhite {
-        COLOR_WHITE_RED, 
-        COLOR_WHITE_GREEN, 
-        COLOR_WHITE_BLUE, 
+    const sf::Color colorWhite
+    {
+        COLOR_WHITE_RED,
+        COLOR_WHITE_GREEN,
+        COLOR_WHITE_BLUE,
         COLOR_FULL_ALPHA
     };
 
-    const sf::Color colorBlue {
+    const sf::Color colorBlue
+    {
         COLOR_BLUE_RED,
         COLOR_BLUE_GREEN,
         COLOR_BLUE_BLUE,
         COLOR_FULL_ALPHA
     };
 
-    const sf::Color colorRed {
+    const sf::Color colorRed
+    {
         COLOR_RED_RED,
         COLOR_RED_GREEN,
         COLOR_RED_BLUE,
         COLOR_FULL_ALPHA
     };
 
-    const sf::Color colorLightBlue {
+    const sf::Color colorLightBlue
+    {
         COLOR_LIGHT_BLUE_RED,
         COLOR_LIGHT_BLUE_GREEN,
         COLOR_LIGHT_BLUE_BLUE,
         COLOR_FULL_ALPHA
     };
 
-    const sf::Color colorBlack {
+    const sf::Color colorBlack
+    {
         COLOR_BLACK_RED,
         COLOR_BLACK_GREEN,
         COLOR_BLACK_BLUE,
         COLOR_FULL_ALPHA
     };
 
-    const sf::Color colorPartialDarkGrey {
+    const sf::Color colorPartialDarkGrey
+    {
         COLOR_BLACK_RED,
         COLOR_BLACK_GREEN,
         COLOR_BLACK_BLUE,
         COLOR_FULL_ALPHA
     };
 
-    const sf::Color colorGreen {
+    const sf::Color colorGreen
+    {
         COLOR_GREEN_RED,
         COLOR_GREEN_GREEN,
         COLOR_GREEN_BLUE,
         COLOR_FULL_ALPHA
     };
 
-    const sf::Color colorDarkGreen {
+    const sf::Color colorDarkGreen
+    {
         COLOR_DARK_GREEN_RED,
         COLOR_DARK_GREEN_GREEN,
         COLOR_DARK_GREEN_BLUE,
         COLOR_FULL_ALPHA
     };
 
-    const sf::Color colorPurpleLowAlpha {
+    const sf::Color colorPurpleLowAlpha
+    {
         COLOR_PURPLE_RED,
         COLOR_PURPLE_GREEN,
         COLOR_PURPLE_BLUE,
         COLOR_PARTIAL_ALPHA
     };
 
-    const sf::Color colorDarkGrey {
+    const sf::Color colorDarkGrey
+    {
         COLOR_DARK_GREY_RED,
         COLOR_DARK_GREY_GREEN,
         COLOR_DARK_GREY_BLUE,
