@@ -71,35 +71,35 @@ public:
     /**
      * @brief getter of the textures manager
      *
-     * @return const textures::TexturesManager&
+     * @return const managers::TexturesManager&
      */
     const managers::TexturesManager& getTexturesManager() const & noexcept;
 
     /**
      * @brief getter of the sounds manager
      *
-     * @return const sounds::SoundsManager&
+     * @return const managers::SoundsManager&
      */
     const managers::SoundsManager& getSoundsManager() const & noexcept;
 
     /**
      * @brief getter of the colors manager
      *
-     * @return const colors::ColorsManager&
+     * @return const managers::ColorsManager&
      */
     const managers::ColorsManager& getColorsManager() const & noexcept;
 
     /**
      * @brief getter of the fonts manager
      *
-     * @return const fonts::FontsManager&
+     * @return const managers::FontsManager&
      */
     const managers::FontsManager& getFontsManager() const & noexcept;
 
     /**
      * @brief getter of the cells textures manager
      *
-     * @return const textures::CellsTexturesManager&
+     * @return const managers::CellsTexturesManager&
      */
     const managers::CellsTexturesManager& getCellsTexturesManager() const &
     noexcept;
@@ -107,7 +107,7 @@ public:
     /**
      * @brief getter of the playing serie manager
      *
-     * @return series::PlayingSerieManager&
+     * @return manager::PlayingSerieManager&
      *
      * do not return a constant reference, the manager is modified when
      * a new serie is loaded by OfficialSeriesMenuController when calling
