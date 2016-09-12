@@ -125,6 +125,11 @@ unsigned short NewGameController::render(
                     break;
                 }
 
+                /* creates the new game on disk and in memory */
+                context->getGameManager().createGame(
+                    inputTextGameName.getText()
+                );
+
                 expectedControllerId = SERIE_MAIN_MENU_CONTROLLER_ID;
 
                 break;
