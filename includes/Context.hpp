@@ -118,6 +118,18 @@ public:
     managers::PlayingSerieManager& getPlayingSerieManager() & noexcept;
 
     /**
+     * @brief getter of the game manager
+     *
+     * @return managers::GameManager&
+     *
+     * do not return a constant reference, the manager is modified when
+     * a new game is created or when an existing game is loaded
+     *
+     * not constant method because returns a reference
+     */
+    managers::GameManager& getGameManager() & noexcept;
+
+    /**
      * @brief getter on the SFML window object
      *
      * @return sf::RenderWindow&

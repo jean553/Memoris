@@ -105,6 +105,14 @@ managers::PlayingSerieManager& Context::getPlayingSerieManager() & noexcept
 /**
  *
  */
+managers::GameManager& Context::getGameManager() & noexcept
+{
+    return gameManager;
+}
+
+/**
+ *
+ */
 sf::RenderWindow& Context::getSfmlWindow() & noexcept
 {
     return sfmlWindow;
