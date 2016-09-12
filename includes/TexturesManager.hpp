@@ -52,98 +52,98 @@ public:
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getGithubTexture() const noexcept;
+    const sf::Texture& getGithubTexture() const & noexcept;
 
     /**
      * @brief getter for the star texture
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getStarTexture() const noexcept;
+    const sf::Texture& getStarTexture() const & noexcept;
 
     /**
      * @brief getter for the life texture
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getLifeTexture() const noexcept;
+    const sf::Texture& getLifeTexture() const & noexcept;
 
     /**
      * @brief getter for the target texture
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getTargetTexture() const noexcept;
+    const sf::Texture& getTargetTexture() const & noexcept;
 
     /**
      * @brief getter for the time texture
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getTimeTexture() const noexcept;
+    const sf::Texture& getTimeTexture() const & noexcept;
 
     /**
      * @brief getter for the floor texture
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getFloorTexture() const noexcept;
+    const sf::Texture& getFloorTexture() const & noexcept;
 
     /**
      * @brief getter for the new texture
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getNewTexture() const noexcept;
+    const sf::Texture& getNewTexture() const & noexcept;
 
     /**
      * @brief getter for the open texture
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getOpenTexture() const noexcept;
+    const sf::Texture& getOpenTexture() const & noexcept;
 
     /**
      * @brief getter for the save texture
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getSaveTexture() const noexcept;
+    const sf::Texture& getSaveTexture() const & noexcept;
 
     /**
      * @brief getter for the cursor texture
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getCursorTexture() const noexcept;
+    const sf::Texture& getCursorTexture() const & noexcept;
 
     /**
      * @brief getter for the exit texture
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getExitTexture() const noexcept;
+    const sf::Texture& getExitTexture() const & noexcept;
 
     /**
      * @brief getter for the test texture
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getTestTexture() const noexcept;
+    const sf::Texture& getTestTexture() const & noexcept;
 
     /**
      * @brief getter for the arrow up texture
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getArrowUpTexture() const noexcept;
+    const sf::Texture& getArrowUpTexture() const & noexcept;
 
     /**
      * @brief getter for the arrow down texture
      *
      * @return const sf::Texture&
      */
-    const sf::Texture& getArrowDownTexture() const noexcept;
+    const sf::Texture& getArrowDownTexture() const & noexcept;
 
 private:
 
