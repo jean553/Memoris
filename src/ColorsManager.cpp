@@ -32,7 +32,7 @@ namespace managers
 /**
  *
  */
-const sf::Color& ColorsManager::getColorWhite() const noexcept
+const sf::Color& ColorsManager::getColorWhite() const & noexcept
 {
     return colorWhite;
 }
@@ -40,7 +40,7 @@ const sf::Color& ColorsManager::getColorWhite() const noexcept
 /**
  *
  */
-const sf::Color& ColorsManager::getColorLightBlue() const noexcept
+const sf::Color& ColorsManager::getColorLightBlue() const & noexcept
 {
     return colorLightBlue;
 }
@@ -48,7 +48,7 @@ const sf::Color& ColorsManager::getColorLightBlue() const noexcept
 /**
  *
  */
-const sf::Color& ColorsManager::getColorRed() const noexcept
+const sf::Color& ColorsManager::getColorRed() const & noexcept
 {
     return colorRed;
 }
@@ -56,7 +56,7 @@ const sf::Color& ColorsManager::getColorRed() const noexcept
 /**
  *
  */
-const sf::Color& ColorsManager::getColorBlack() const noexcept
+const sf::Color& ColorsManager::getColorBlack() const & noexcept
 {
     return colorBlack;
 }
@@ -64,7 +64,7 @@ const sf::Color& ColorsManager::getColorBlack() const noexcept
 /**
  *
  */
-const sf::Color& ColorsManager::getColorPartialDarkGrey() const noexcept
+const sf::Color& ColorsManager::getColorPartialDarkGrey() const & noexcept
 {
     return colorPartialDarkGrey;
 }
@@ -72,7 +72,7 @@ const sf::Color& ColorsManager::getColorPartialDarkGrey() const noexcept
 /**
  *
  */
-const sf::Color& ColorsManager::getColorGreen() const noexcept
+const sf::Color& ColorsManager::getColorGreen() const & noexcept
 {
     return colorGreen;
 }
@@ -80,7 +80,7 @@ const sf::Color& ColorsManager::getColorGreen() const noexcept
 /**
  *
  */
-const sf::Color& ColorsManager::getColorDarkGreen() const noexcept
+const sf::Color& ColorsManager::getColorDarkGreen() const & noexcept
 {
     return colorDarkGreen;
 }
@@ -88,7 +88,7 @@ const sf::Color& ColorsManager::getColorDarkGreen() const noexcept
 /**
  *
  */
-const sf::Color& ColorsManager::getColorPurpleLowAlpha() const noexcept
+const sf::Color& ColorsManager::getColorPurpleLowAlpha() const & noexcept
 {
     return colorPurpleLowAlpha;
 }
@@ -96,7 +96,7 @@ const sf::Color& ColorsManager::getColorPurpleLowAlpha() const noexcept
 /**
  *
  */
-const sf::Color& ColorsManager::getColorDarkGrey() const noexcept
+const sf::Color& ColorsManager::getColorDarkGrey() const & noexcept
 {
     return colorDarkGrey;
 }
@@ -104,7 +104,7 @@ const sf::Color& ColorsManager::getColorDarkGrey() const noexcept
 /**
  *
  */
-sf::Color ColorsManager::getColorBlueCopy() const noexcept
+sf::Color ColorsManager::getColorBlueCopy() const & noexcept
 {
     return colorBlue;
 }
@@ -112,7 +112,7 @@ sf::Color ColorsManager::getColorBlueCopy() const noexcept
 /**
  *
  */
-sf::Color ColorsManager::getColorRedCopy() const noexcept
+sf::Color ColorsManager::getColorRedCopy() const & noexcept
 {
     return colorRed;
 }
@@ -120,7 +120,7 @@ sf::Color ColorsManager::getColorRedCopy() const noexcept
 /**
  *
  */
-sf::Color ColorsManager::getColorWhiteCopy() const noexcept
+sf::Color ColorsManager::getColorWhiteCopy() const & noexcept
 {
     return colorWhite;
 }
@@ -128,7 +128,7 @@ sf::Color ColorsManager::getColorWhiteCopy() const noexcept
 /**
  *
  */
-sf::Color ColorsManager::getColorBlackCopy() const noexcept
+sf::Color ColorsManager::getColorBlackCopy() const & noexcept
 {
     return colorBlack;
 }
