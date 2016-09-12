@@ -48,10 +48,10 @@ protected:
      * matter the child object, and because it makes no sense to simply
      * creates an object of the current class
      *
-     * noexcept, any child destructor can throw exceptions; nowehere in the
-     * code we handle exceptions that happen in textures managers destructor
+     * not 'noexcept' because the textures manager constructor throws
+     * exception if the texture file cannot be loaded
      */
-    virtual ~AbstractTexturesManager() noexcept = 0;
+    virtual ~AbstractTexturesManager() = 0;
 
     /**
      * @brief try to load the image at the given path into a SFML texture

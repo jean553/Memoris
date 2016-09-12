@@ -33,7 +33,7 @@ namespace entities
  *
  */
 Game::Game(const std::string& gameName) noexcept :
-    name(gameName)
+name(gameName)
 {
     /* does nothing, only used for attributes initialization */
 }

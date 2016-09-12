@@ -85,6 +85,9 @@ constexpr char LEFT_ROTATION_CELL {'('};
 /* right rotation animation */
 constexpr char RIGHT_ROTATION_CELL {')'};
 
+/* hidden cell */
+constexpr char HIDDEN_CELL {'h'};
+
 /**
  * @brief create Cell unique pointers, usuable at a given position inside
  * the level; the given positions are the positions of the cell *inside* the

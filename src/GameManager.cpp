@@ -43,7 +43,7 @@ void GameManager::createGame(const std::string& name) &
     file.exceptions(std::ofstream::failbit | std::ofstream::badbit);
 
     file.open(
-        "data/games/" + name + ".game", 
+        "data/games/" + name + ".game",
         std::fstream::out
     );
 

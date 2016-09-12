@@ -153,7 +153,9 @@ void Cell::displayWithMouseHover(
 void Cell::hide(aliases::ConstContextSharedPtrRef context)
 {
     sprite.setTexture(
-        context->getCellsTexturesManager().getHiddenCellTexture()
+        context->getCellsTexturesManager().getTextureReferenceByCellType(
+            cells::HIDDEN_CELL
+        )
     );
 
     /* the cell is hidden, so the boolean of visibility is updated to false */

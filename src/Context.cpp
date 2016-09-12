@@ -35,15 +35,15 @@ namespace utils
  *
  */
 Context::Context() :
-sfmlWindow(
-    sf::VideoMode(
-        window::WIDTH,
-        window::HEIGHT,
-        window::RESOLUTION
-    ),
-    window::TITLE,
-    sf::Style::Fullscreen
-)
+    sfmlWindow(
+        sf::VideoMode(
+            window::WIDTH,
+            window::HEIGHT,
+            window::RESOLUTION
+        ),
+        window::TITLE,
+        sf::Style::Fullscreen
+    )
 {
     /* when the window is opened, the default SFML cursor is not displayed */
     sfmlWindow.setMouseCursorVisible(false);

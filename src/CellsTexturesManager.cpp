@@ -35,32 +35,92 @@ namespace managers
  */
 CellsTexturesManager::CellsTexturesManager()
 {
-    /* load all the cells pictures one by one; throw an exception and stop
-       the game if one load fails */
+    const std::string directoryPath = "res/cells/";
 
-    loadTexture(emptyCellTexture, "res/cells/empty.png");
-    loadTexture(departureCellTexture, "res/cells/departure.png");
-    loadTexture(arrivalCellTexture, "res/cells/arrival.png");
-    loadTexture(starCellTexture, "res/cells/star.png");
-    loadTexture(moreLifeCellTexture, "res/cells/moreLife.png");
-    loadTexture(lessLifeCellTexture, "res/cells/lessLife.png");
-    loadTexture(moreTimeCellTexture, "res/cells/moreTime.png");
-    loadTexture(lessTimeCellTexture, "res/cells/lessTime.png");
-    loadTexture(wallCellTexture, "res/cells/wall.png");
-    loadTexture(hiddenCellTexture, "res/cells/hidden.png");
-    loadTexture(stairsUpCellTexture, "res/cells/stairs_up.png");
-    loadTexture(stairsDownCellTexture, "res/cells/stairs_down.png");
+    loadTexture(
+        emptyCellTexture,
+        directoryPath + "empty.png"
+    );
+
+    loadTexture(
+        departureCellTexture,
+        directoryPath + "departure.png"
+    );
+
+    loadTexture(
+        arrivalCellTexture,
+        directoryPath + "arrival.png"
+    );
+
+    loadTexture(
+        starCellTexture,
+        directoryPath + "star.png"
+    );
+
+    loadTexture(
+        moreLifeCellTexture,
+        directoryPath + "moreLife.png"
+    );
+
+    loadTexture(
+        lessLifeCellTexture,
+        directoryPath + "lessLife.png"
+    );
+
+    loadTexture(
+        moreTimeCellTexture,
+        directoryPath + "moreTime.png"
+    );
+
+    loadTexture(
+        lessTimeCellTexture,
+        directoryPath + "lessTime.png"
+    );
+
+    loadTexture(
+        wallCellTexture,
+        directoryPath + "wall.png"
+    );
+
+    loadTexture(
+        hiddenCellTexture,
+        directoryPath + "hidden.png"
+    );
+
+    loadTexture(
+        stairsUpCellTexture,
+        directoryPath + "stairs_up.png"
+    );
+
+    loadTexture(
+        stairsDownCellTexture,
+        directoryPath + "stairs_down.png"
+    );
+
     loadTexture(
         horizontalMirrorCellTexture,
-        "res/cells/horizontal_mirror.png"
+        directoryPath + "horizontal_mirror.png"
     );
+
     loadTexture(
         verticalMirrorCellTexture,
-        "res/cells/vertical_mirror.png"
+        directoryPath + "vertical_mirror.png"
     );
-    loadTexture(diagonalCellTexture, "res/cells/diagonal.png");
-    loadTexture(leftRotationCellTexture, "res/cells/rotate_left.png");
-    loadTexture(rightRotationCellTexture, "res/cells/rotate_right.png");
+
+    loadTexture(
+        diagonalCellTexture,
+        directoryPath + "diagonal.png"
+    );
+
+    loadTexture(
+        leftRotationCellTexture,
+        directoryPath + "rotate_left.png"
+    );
+
+    loadTexture(
+        rightRotationCellTexture,
+        directoryPath + "rotate_right.png"
+    );
 }
 
 /**
@@ -68,9 +128,8 @@ CellsTexturesManager::CellsTexturesManager()
  */
 const sf::Texture& CellsTexturesManager::getTextureReferenceByCellType(
     const char& type
-) const
+) const & noexcept
 {
-    /* returns the correct cell texture reference according to the type */
     switch(type)
     {
     case cells::WALL_CELL:
@@ -133,22 +192,13 @@ const sf::Texture& CellsTexturesManager::getTextureReferenceByCellType(
     {
         return rightRotationCellTexture;
     }
+    case cells::HIDDEN_CELL:
+    {
+        return hiddenCellTexture;
+    }
     }
 
-    /* by default, an empty cell texture reference is returned if the type
-       cannot be found; using this default way, we will return a reference
-       whatever the type character value; the process is safe and will never
-       file in a 'unknown' status */
     return emptyCellTexture;
 }
-
-/**
- *
- */
-const sf::Texture& CellsTexturesManager::getHiddenCellTexture() const
-{
-    return hiddenCellTexture;
-}
-
 }
 }
