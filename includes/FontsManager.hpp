@@ -54,14 +54,14 @@ public:
      *
      * @return const sf::Font&
      */
-    const sf::Font& getTitleFont() const noexcept;
+    const sf::Font& getTitleFont() const & noexcept;
 
     /**
      * @brief get text font reference
      *
      * @return const sf::Font&
      */
-    const sf::Font& getTextFont() const noexcept;
+    const sf::Font& getTextFont() const & noexcept;
 
 private:
 
