@@ -18,6 +18,7 @@
 
 /**
  * @file PlayingSerieManager.hpp
+ * @package managers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
@@ -34,64 +35,8 @@ namespace managers
 /**
  *
  */
-void PlayingSerieManager::loadSerieFileContent(const std::string& path)
+const bool PlayingSerieManager::hasNextLevel() const & noexcept
 {
-    /* simple way to clear the levels queue; checked with Valgrind, seems to
-       work without any leak or error... */
-    levels = std::queue<std::string>();
-
-    /* creates an object to read the file and pass the given path */
-    std::ifstream file(path);
-
-    /* check if the file has been opened correctly */
-    if (!file.is_open())
-    {
-        /* TODO: #561 throw std::invalid_argument if the file cannot be opened;
-           we could use file.exception(failbit) to directly throw an exception
-           if the file cannot be loaded, but the problem is that it also
-           throw an exception when the end of the file is found (eof); for now
-           I do not know how to walk-around this problem, but this second
-           solution would be better to also handle the file reading safely */
-        throw std::invalid_argument("Cannot open the given serie file.");
-    }
-
-    /* this string is a buffer used to store each line of the file one by
-       one */
-    std::string level;
-
-    /* read the file line by line */
-    while(std::getline(file, level))
-    {
-        /* insert each level string into the container */
-        levels.push(level);
-    }
-
-    /* this is useless to close the std::ifstream object, it is automatically
-       destroyed when the object goes out of the scope */
-}
-
-/**
- *
- */
-std::string PlayingSerieManager::getNextLevelName()
-{
-    /* returns the first item of the container without popping */
-    std::string level = levels.front();
-
-    /* delete the first item of the list; this is safe because we copied the
-       string into a dedicated variable */
-    levels.pop();
-
-    return level;
-}
-
-/**
- *
- */
-const bool PlayingSerieManager::hasNextLevel() const
-{
-    /* check if the queue is empty; in fact, if the queue is empty, for sure
-       there is no level to load anymore */
     if (levels.empty())
     {
         return false;
@@ -103,7 +48,7 @@ const bool PlayingSerieManager::hasNextLevel() const
 /**
  *
  */
-const unsigned short& PlayingSerieManager::getWatchingTime() const
+const unsigned short& PlayingSerieManager::getWatchingTime() const & noexcept
 {
     return watchingTime;
 }
@@ -111,7 +56,28 @@ const unsigned short& PlayingSerieManager::getWatchingTime() const
 /**
  *
  */
-void PlayingSerieManager::setWatchingTime(const unsigned short& time)
+const size_t PlayingSerieManager::getRemainingLevelsAmount() const & noexcept
+{
+    return levels.size();
+}
+
+/**
+ *
+ */
+const std::string PlayingSerieManager::getNextLevelName() & noexcept
+{
+    /* get the front item of the queue and delete it from the container */
+    std::string level = levels.front();
+    levels.pop();
+
+    return level;
+}
+
+/**
+ *
+ */
+void PlayingSerieManager::setWatchingTime(const unsigned short& time) &
+noexcept
 {
     watchingTime = time;
 }
@@ -119,9 +85,34 @@ void PlayingSerieManager::setWatchingTime(const unsigned short& time)
 /**
  *
  */
-const size_t PlayingSerieManager::getRemainingLevelsAmount() const
+void PlayingSerieManager::loadSerieFileContent(const std::string& path) &
 {
-    return levels.size();
+    /* clear the queue */
+    levels = std::queue<std::string>();
+
+    std::ifstream file(path);
+    if (!file.is_open())
+    {
+        /* TODO: #561 throw std::invalid_argument if the file cannot be opened;
+           we could use file.exception(failbit) to directly throw an exception
+           if the file cannot be loaded, but the problem is that it also
+           throw an exception when the end of the file is found (eof); for now
+           I do not know how to walk-around this problem, but this second
+           solution would be better to also handle the file reading safely */
+        throw std::invalid_argument("Cannot open the given serie file.");
+    }
+
+    /* string buffer */
+    std::string level;
+
+    /* read the file one by one and add the levels names into the queue */
+    while(std::getline(file, level))
+    {
+        levels.push(level);
+    }
+
+    /* this is useless to close the std::ifstream object, it is automatically
+       destroyed when the object goes out of the scope */
 }
 
 }

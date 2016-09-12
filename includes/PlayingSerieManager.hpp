@@ -18,17 +18,15 @@
 
 /**
  * @file PlayingSerieManager.hpp
- * @brief singleton object class used to load serie content from file and pass
- * the serie information from one game controller to another during the level
- * switchs
- * TODO: #560 this class is not "as necessary as" the textures manager or the
- * fonts manager; the scope should not be global;
- * @package series
+ * @brief manage how the levels are played one by one into one serie
+ * @package managers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
 #ifndef MEMORIS_PLAYINGSERIEMANAGER_H_
 #define MEMORIS_PLAYINGSERIEMANAGER_H_
+
+#include "NotCopiable.hpp"
 
 #include <string>
 #include <queue>
@@ -38,74 +36,78 @@ namespace memoris
 namespace managers
 {
 
-class PlayingSerieManager
+class PlayingSerieManager : public utils::NotCopiable
 {
 
 public:
 
-    /* declare deleted functions to prevent object copy */
-
-    PlayingSerieManager(const PlayingSerieManager&) = delete;
-    PlayingSerieManager operator=(const PlayingSerieManager&) = delete;
-
-    /* use the default constructor */
-
-    PlayingSerieManager() = default;
-
     /**
-     * @brief loads all the level of a given serie file by path
-     *
-     * @param path the path of the serie file
-     *
-     * @throw std::invalid_argument if the file cannot be loaded, this
-     * exception should be caught in order to display the error controller
-     */
-    void loadSerieFileContent(const std::string& path);
-
-    /**
-     * @brief returns the next (or the first) item of the levels container
-     * according to the FIFO specifications
-     *
-     * @return std::string
-     */
-    std::string getNextLevelName();
-
-    /**
-     * @brief checks if the levels queue has a next level or if the queue is
-     * empty; this is used by the game controller to know if a next level
-     * has to be loaded when the player wins the current level
+     * @brief checks if the levels queue has a next level or (if the queue
+     * is empty)
      *
      * @return const bool
+     *
+     * does not return a reference because the returned value only exists in
+     * the method scope
      */
-    const bool hasNextLevel() const;
+    const bool hasNextLevel() const & noexcept;
 
     /**
      * @brief getter for the current watching time for the level; used by the
-     * game controller to know the long of the watching period
+     * game controller to know how long the watching period is
      *
      * @return const unsigned short&
      */
-    const unsigned short& getWatchingTime() const;
-
-    /**
-     * @brief setter for the watching time; used by the game controller to
-     * set the next level watching time when the player wins the current level
-     *
-     * @param tim the time to set to the watching time
-     */
-    void setWatchingTime(const unsigned short& time);
+    const unsigned short& getWatchingTime() const & noexcept;
 
     /**
      * @brief getter for the amount of remaining levels in the serie
      *
      * @return const size_t
      *
-     * NOTE: we do not return a reference here but a copy of the variable; in
+     * does not return a reference here but a copy of the variable; in
      * fact, this method executes 'return queue.size()' which returns a copy
      * of a variable; this variable does not exist at the end of the function
      * execution, so we cannot return a reference
      */
-    const size_t getRemainingLevelsAmount() const;
+    const size_t getRemainingLevelsAmount() const & noexcept;
+
+    /**
+     * @brief returns the next item of the levels container according to the 
+     * FIFO specifications
+     *
+     * @return const std::string
+     *
+     * does not return a reference because it is the string which is popped
+     * from the front of the queue, this is a local variable in the method
+     * that does not exists outside of it
+     *
+     * not 'const' method because it modifies the levels strings queue
+     */
+    const std::string getNextLevelName() & noexcept;
+
+    /**
+     * @brief setter for the watching time; used by the game controller to
+     * set the next level watching time when the player wins the current level
+     *
+     * @param time the time to set to the watching time
+     */
+    void setWatchingTime(const unsigned short& time) & noexcept;
+
+    /**
+     * @brief loads all the levels of a given serie file by path
+     *
+     * @param path the path of the serie file
+     *
+     * @throw std::invalid_argument if the file cannot be loaded, this
+     * exception should be caught in order to display the error controller
+     *
+     * no 'const' because it modifies the levels queue attribute
+     *
+     * no 'noexcept' because it throws an exception if the serie file cannot
+     * be loaded
+     */
+    void loadSerieFileContent(const std::string& path) &;
 
 private:
 
