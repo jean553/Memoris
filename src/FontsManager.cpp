@@ -42,7 +42,7 @@ FontsManager::FontsManager()
 /**
  *
  */
-const sf::Font& FontsManager::getTitleFont() const noexcept
+const sf::Font& FontsManager::getTitleFont() const & noexcept
 {
     return titleFont;
 }
@@ -50,7 +50,7 @@ const sf::Font& FontsManager::getTitleFont() const noexcept
 /**
  *
  */
-const sf::Font& FontsManager::getTextFont() const noexcept
+const sf::Font& FontsManager::getTextFont() const & noexcept
 {
     return textFont;
 }
