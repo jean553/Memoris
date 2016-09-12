@@ -32,12 +32,25 @@
 
 namespace memoris
 {
-
 namespace managers
 {
 
 class GameManager
 {
+
+public:
+
+    /**
+     * @brief creates a new game file on disk with the given name; loads the
+     * game unique pointer with the created game
+     *
+     * @throw std::ios_base::failure thrown if the file manipulation failed;
+     * this exception is never caught by the program and the game directly
+     * stops
+     *
+     * the method is not constant because it modifies the Game unique pointer
+     */
+    void createGame(const std::string& name) &;
 
 private:
 
