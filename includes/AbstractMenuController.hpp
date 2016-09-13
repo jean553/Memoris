@@ -47,9 +47,9 @@ protected:
      * parent constructor of Controller; protected because only called during
      * children objects creation
      *
-     * @param context shared pointer to the current context
+     * @param context reference to the current context
      */
-    AbstractMenuController(const std::shared_ptr<utils::Context>& context);
+    AbstractMenuController(utils::Context& context);
 
     /**
      * @brief insert one menu item pointer inside the menu items list
@@ -67,7 +67,7 @@ protected:
      * @param context shared pointer to the context to use
      */
     void renderAllMenuItems(
-        const std::shared_ptr<utils::Context>& context
+        utils::Context& context
     );
 
     /**
@@ -81,17 +81,17 @@ protected:
      * @brief move up the selector, only if the selected item is not the first
      * one
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      */
-    void moveUp(const std::shared_ptr<utils::Context>& context);
+    void moveUp(utils::Context& context);
 
     /**
      * @brief move down the selector, only if the selected item is not the last
      * one
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      */
-    void moveDown(const std::shared_ptr<utils::Context>& context);
+    void moveDown(utils::Context& context);
 
     /**
      * @brief pure virtual method with empty definition; this method is used
@@ -116,9 +116,9 @@ private:
      * @brief update the colors of all the menu items; the current
      * selected item is colored by the red color
      *
-     * @param context shared pointer to the current context
+     * @param context reference to the current context
      */
-    void updateMenuSelection(const std::shared_ptr<utils::Context>& context);
+    void updateMenuSelection(utils::Context& context);
 
     /* the current position of the selector ( the current pointed item ); the
        default value is 0 */

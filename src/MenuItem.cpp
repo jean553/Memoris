@@ -36,7 +36,7 @@ namespace items
  *
  */
 MenuItem::MenuItem(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const std::string& label,
     const float& horizontalPosition,
     const float& verticalPosition
@@ -46,7 +46,7 @@ MenuItem::MenuItem(
     text.setString(label);
 
     /* set the common menu item font */
-    text.setFont(context->getFontsManager().getTextFont());
+    text.setFont(context.getFontsManager().getTextFont());
 
     /* common font size for all the menu items */
     text.setCharacterSize(fonts::ITEM_SIZE);
@@ -64,27 +64,27 @@ MenuItem::MenuItem(
 /**
  *
  */
-void MenuItem::render(const std::shared_ptr<utils::Context>& context)
+void MenuItem::render(utils::Context& context)
 {
-    context->getSfmlWindow().draw(text);
+    context.getSfmlWindow().draw(text);
 }
 
 /**
  *
  */
-void MenuItem::unselect(const std::shared_ptr<utils::Context>& context)
+void MenuItem::unselect(utils::Context& context)
 {
     /* the menu item is white when unselected */
-    text.setColor(context->getColorsManager().getColorWhite());
+    text.setColor(context.getColorsManager().getColorWhite());
 }
 
 /**
  *
  */
-void MenuItem::select(const std::shared_ptr<utils::Context>& context)
+void MenuItem::select(utils::Context& context)
 {
     /* the menu item is red when selected */
-    text.setColor(context->getColorsManager().getColorRed());
+    text.setColor(context.getColorsManager().getColorRed());
 }
 
 }

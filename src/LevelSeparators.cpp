@@ -35,7 +35,7 @@ namespace utils
  *
  */
 LevelSeparators::LevelSeparators(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     left.setSize(
@@ -60,19 +60,19 @@ LevelSeparators::LevelSeparators(
         0.f
     );
 
-    left.setFillColor(context->getColorsManager().getColorWhite());
-    right.setFillColor(context->getColorsManager().getColorWhite());
+    left.setFillColor(context.getColorsManager().getColorWhite());
+    right.setFillColor(context.getColorsManager().getColorWhite());
 }
 
 /**
  *
  */
 void LevelSeparators::display(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 ) const
 {
-    context->getSfmlWindow().draw(left);
-    context->getSfmlWindow().draw(right);
+    context.getSfmlWindow().draw(left);
+    context.getSfmlWindow().draw(right);
 }
 
 }

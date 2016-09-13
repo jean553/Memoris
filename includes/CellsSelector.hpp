@@ -45,16 +45,16 @@ public:
      * @brief constructor, loads the textures from the textures manager to
      * create the sprites
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      */
-    CellsSelector(aliases::ConstContextSharedPtrRef context);
+    CellsSelector(utils::Context& context);
 
     /**
      * @brief displays the cells selector
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      */
-    void display(aliases::ConstContextSharedPtrRef context);
+    void display(utils::Context& context);
 
     /**
      * @brief check if the mouse is hover a cell and set the current selected
@@ -62,9 +62,9 @@ public:
      * concerned cell is found; this method should be called by the level
      * editor
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      */
-    void selectCell(aliases::ConstContextSharedPtrRef context);
+    void selectCell(utils::Context& context);
 
     const char& getSelectedCellType() const;
 

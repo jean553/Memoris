@@ -38,7 +38,7 @@ namespace controllers
  *
  */
 LevelEditorController::LevelEditorController(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 ) :
     Controller(context),
     dashboard(context),
@@ -47,14 +47,14 @@ LevelEditorController::LevelEditorController(
     cursor(context)
 {
     levelNameSurface.setString("unnamed");
-    levelNameSurface.setFont(context->getFontsManager().getTextFont());
-    levelNameSurface.setColor(context->getColorsManager().getColorWhite());
+    levelNameSurface.setFont(context.getFontsManager().getTextFont());
+    levelNameSurface.setColor(context.getColorsManager().getColorWhite());
     levelNameSurface.setCharacterSize(fonts::TEXT_SIZE);
 
     updateLevelNameSurfacePosition();
 
-    floorSurface.setFont(context->getFontsManager().getTextFont());
-    floorSurface.setColor(context->getColorsManager().getColorWhite());
+    floorSurface.setFont(context.getFontsManager().getTextFont());
+    floorSurface.setColor(context.getColorsManager().getColorWhite());
     floorSurface.setCharacterSize(fonts::TEXT_SIZE);
     floorSurface.setString("1");
     floorSurface.setPosition(
@@ -67,7 +67,7 @@ LevelEditorController::LevelEditorController(
  *
  */
 unsigned short LevelEditorController::render(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* display the editor dashboard */
@@ -84,10 +84,10 @@ unsigned short LevelEditorController::render(
     selector.display(context);
 
     /* display the level name */
-    context->getSfmlWindow().draw(levelNameSurface);
+    context.getSfmlWindow().draw(levelNameSurface);
 
     /* display the current floor */
-    context->getSfmlWindow().draw(floorSurface);
+    context.getSfmlWindow().draw(floorSurface);
 
     /* display the dialog window if the pointer is not null */
     if (dialog != nullptr)
@@ -100,7 +100,7 @@ unsigned short LevelEditorController::render(
 
     nextControllerId = animateScreenTransition(context);
 
-    while(context->getSfmlWindow().pollEvent(event))
+    while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

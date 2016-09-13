@@ -42,7 +42,7 @@ namespace controllers
  *
  */
 std::unique_ptr<Controller> getControllerById(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const unsigned short& id
 )
 {
@@ -120,7 +120,7 @@ std::unique_ptr<Controller> getControllerById(
  *
  */
 std::unique_ptr<ErrorController> getErrorController(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     return std::make_unique<ErrorController>(context);

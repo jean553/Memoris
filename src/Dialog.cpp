@@ -35,7 +35,7 @@ namespace popups
  *
  */
 Dialog::Dialog(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const float& hSize,
     const float& vSize,
     const float& hPosition,
@@ -133,22 +133,22 @@ Dialog::Dialog(
 
     /* set the colors of the SFML surfaces */
 
-    background.setFillColor(context->getColorsManager().getColorDarkGrey());
+    background.setFillColor(context.getColorsManager().getColorDarkGrey());
 
     titleBackground.setFillColor(
-        context->getColorsManager().getColorLightBlue()
+        context.getColorsManager().getColorLightBlue()
     );
 
     titleSeparator.setFillColor(
-        context->getColorsManager().getColorWhite()
+        context.getColorsManager().getColorWhite()
     );
 
     /* set the dialog title */
 
     title.setString(text);
     title.setCharacterSize(fonts::TEXT_SIZE);
-    title.setFont(context->getFontsManager().getTextFont());
-    title.setColor(context->getColorsManager().getColorWhite());
+    title.setFont(context.getFontsManager().getTextFont());
+    title.setColor(context.getColorsManager().getColorWhite());
     title.setPosition(
         hPosition,
         vPosition - 10.f
@@ -159,20 +159,20 @@ Dialog::Dialog(
  *
  */
 void Dialog::displayParentContent(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 ) const
 {
-    context->getSfmlWindow().draw(background);
+    context.getSfmlWindow().draw(background);
 
-    context->getSfmlWindow().draw(titleBackground);
-    context->getSfmlWindow().draw(titleSeparator);
+    context.getSfmlWindow().draw(titleBackground);
+    context.getSfmlWindow().draw(titleSeparator);
 
-    context->getSfmlWindow().draw(top);
-    context->getSfmlWindow().draw(bottom);
-    context->getSfmlWindow().draw(left);
-    context->getSfmlWindow().draw(right);
+    context.getSfmlWindow().draw(top);
+    context.getSfmlWindow().draw(bottom);
+    context.getSfmlWindow().draw(left);
+    context.getSfmlWindow().draw(right);
 
-    context->getSfmlWindow().draw(title);
+    context.getSfmlWindow().draw(title);
 }
 
 }

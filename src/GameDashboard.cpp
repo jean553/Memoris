@@ -35,18 +35,18 @@ namespace utils
 /**
  *
  */
-GameDashboard::GameDashboard(const std::shared_ptr<utils::Context>& context) :
+GameDashboard::GameDashboard(utils::Context& context) :
     separators(context)
 {
-    watchingTime = context->getPlayingSerieManager().getWatchingTime();
+    watchingTime = context.getPlayingSerieManager().getWatchingTime();
 
     /* create the information label that displays the current amount of found
        stars into the current level */
-    foundStarsAmount.setFont(context->getFontsManager().getTextFont());
+    foundStarsAmount.setFont(context.getFontsManager().getTextFont());
     foundStarsAmount.setString("0");
     foundStarsAmount.setCharacterSize(fonts::TEXT_SIZE);
     foundStarsAmount.setColor(
-        context->getColorsManager().getColorWhite()
+        context.getColorsManager().getColorWhite()
     );
     foundStarsAmount.setPosition(
         1200.f,
@@ -55,10 +55,10 @@ GameDashboard::GameDashboard(const std::shared_ptr<utils::Context>& context) :
 
     /* creates the information label that displays the current lifes amount
        of the player */
-    lifesAmount.setFont(context->getFontsManager().getTextFont());
+    lifesAmount.setFont(context.getFontsManager().getTextFont());
     lifesAmount.setString("0");
     lifesAmount.setCharacterSize(fonts::TEXT_SIZE);
-    lifesAmount.setColor(context->getColorsManager().getColorWhite());
+    lifesAmount.setColor(context.getColorsManager().getColorWhite());
     lifesAmount.setPosition(
         1200.f,
         35.f
@@ -66,10 +66,10 @@ GameDashboard::GameDashboard(const std::shared_ptr<utils::Context>& context) :
 
     /* creates the information label that displays the watch time the player
        got until now */
-    time.setFont(context->getFontsManager().getTextFont());
+    time.setFont(context.getFontsManager().getTextFont());
     time.setString(std::to_string(watchingTime));
     time.setCharacterSize(fonts::TEXT_SIZE);
-    time.setColor(context->getColorsManager().getColorWhite());
+    time.setColor(context.getColorsManager().getColorWhite());
     time.setPosition(
         1050.f,
         35.f
@@ -77,10 +77,10 @@ GameDashboard::GameDashboard(const std::shared_ptr<utils::Context>& context) :
 
     /* creates the information label that displays the current player floor;
        the default displayed level is the first one */
-    floor.setFont(context->getFontsManager().getTextFont());
+    floor.setFont(context.getFontsManager().getTextFont());
     floor.setString("1");
     floor.setCharacterSize(fonts::TEXT_SIZE);
-    floor.setColor(context->getColorsManager().getColorWhite());
+    floor.setColor(context.getColorsManager().getColorWhite());
     floor.setPosition(
         900.f,
         -10.f
@@ -88,10 +88,10 @@ GameDashboard::GameDashboard(const std::shared_ptr<utils::Context>& context) :
 
     /* creates the information label that indicates the total amount of
        stars available into the level */
-    target.setFont(context->getFontsManager().getTextFont());
+    target.setFont(context.getFontsManager().getTextFont());
     target.setString("0");
     target.setCharacterSize(fonts::TEXT_SIZE);
-    target.setColor(context->getColorsManager().getColorWhite());
+    target.setColor(context.getColorsManager().getColorWhite());
     target.setPosition(
         1050.f,
         -10.f
@@ -99,33 +99,33 @@ GameDashboard::GameDashboard(const std::shared_ptr<utils::Context>& context) :
 
     /* initialize all the sprites of the dashboard with their textures */
 
-    spriteStar.setTexture(context->getTexturesManager().getStarTexture());
+    spriteStar.setTexture(context.getTexturesManager().getStarTexture());
     spriteStar.setPosition(
         1250.f,
         0.f
     );
 
-    spriteFloor.setTexture(context->getTexturesManager().getFloorTexture());
+    spriteFloor.setTexture(context.getTexturesManager().getFloorTexture());
     spriteFloor.setPosition(
         950.f,
         0.f
     );
 
-    spriteLife.setTexture(context->getTexturesManager().getLifeTexture());
+    spriteLife.setTexture(context.getTexturesManager().getLifeTexture());
     spriteLife.setPosition(
         1250.f,
         50.f
     );
 
     spriteTarget.setTexture(
-        context->getTexturesManager().getTargetTexture()
+        context.getTexturesManager().getTargetTexture()
     );
     spriteTarget.setPosition(
         1100.f,
         0.f
     );
 
-    spriteTime.setTexture(context->getTexturesManager().getTimeTexture());
+    spriteTime.setTexture(context.getTexturesManager().getTimeTexture());
     spriteTime.setPosition(
         1100.f,
         50.f
@@ -135,21 +135,21 @@ GameDashboard::GameDashboard(const std::shared_ptr<utils::Context>& context) :
 /**
  *
  */
-void GameDashboard::display(const std::shared_ptr<utils::Context>& context)
+void GameDashboard::display(utils::Context& context)
 {
     /* displays the information labels of the dashboard */
-    context->getSfmlWindow().draw(foundStarsAmount);
-    context->getSfmlWindow().draw(lifesAmount);
-    context->getSfmlWindow().draw(target);
-    context->getSfmlWindow().draw(time);
-    context->getSfmlWindow().draw(floor);
+    context.getSfmlWindow().draw(foundStarsAmount);
+    context.getSfmlWindow().draw(lifesAmount);
+    context.getSfmlWindow().draw(target);
+    context.getSfmlWindow().draw(time);
+    context.getSfmlWindow().draw(floor);
 
     /* displays the dashboard sprites */
-    context->getSfmlWindow().draw(spriteStar);
-    context->getSfmlWindow().draw(spriteLife);
-    context->getSfmlWindow().draw(spriteTarget);
-    context->getSfmlWindow().draw(spriteTime);
-    context->getSfmlWindow().draw(spriteFloor);
+    context.getSfmlWindow().draw(spriteStar);
+    context.getSfmlWindow().draw(spriteLife);
+    context.getSfmlWindow().draw(spriteTarget);
+    context.getSfmlWindow().draw(spriteTime);
+    context.getSfmlWindow().draw(spriteFloor);
 
     /* display the separators */
     separators.display(context);

@@ -95,7 +95,7 @@ constexpr char HIDDEN_CELL {'h'};
  * a template for the positions types (whatever the type, the position is
  * cast to float)
  *
- * @param context shared pointer to the current context to use
+ * @param context reference to the current context to use
  * @param horizontalPosition the horizontal position of the cell
  * @param verticalPosiition the vertical position of the cell
  * @param type the cell type
@@ -104,7 +104,7 @@ constexpr char HIDDEN_CELL {'h'};
  */
 template<typename T>
 std::unique_ptr<entities::Cell> getCellByType(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const T& horizontalPosition,
     const T& verticalPosition,
     const char type

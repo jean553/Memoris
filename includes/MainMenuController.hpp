@@ -44,19 +44,19 @@ public:
     /**
      * @brief constructor
      *
-     * @param context shared pointer to the current context
+     * @param context reference to the current context
      */
-    MainMenuController(const std::shared_ptr<utils::Context>& context);
+    MainMenuController(utils::Context& context);
 
     /**
      * @brief render the main menu controller
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      *
      * @return unsigned short id of the next screen controller
      */
     unsigned short render(
-        const std::shared_ptr<utils::Context>& context
+        utils::Context& context
     ) override;
 
 private:

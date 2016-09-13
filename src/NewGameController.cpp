@@ -36,7 +36,7 @@ namespace controllers
  *
  */
 NewGameController::NewGameController(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 ) :
     Controller(context),
     inputTextGameName(
@@ -49,10 +49,10 @@ NewGameController::NewGameController(
 {
     /* initialize the new game screen title; this title is horizontally
        centered and vertically in the top area of the screen */
-    title.setFont(context->getFontsManager().getTitleFont());
+    title.setFont(context.getFontsManager().getTitleFont());
     title.setString("New game");
     title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
-    title.setColor(context->getColorsManager().getColorLightBlue());
+    title.setColor(context.getColorsManager().getColorLightBlue());
     title.setPosition(
         620,
         200
@@ -61,11 +61,11 @@ NewGameController::NewGameController(
     /* initialize the new game label indicating the input text widget should
        contains the new game name; this text is located under the new game
        screen title and before the input text widget */
-    explanation.setFont(context->getFontsManager().getTextFont());
+    explanation.setFont(context.getFontsManager().getTextFont());
     explanation.setString("Your name :");
     explanation.setCharacterSize(memoris::fonts::TEXT_SIZE);
     explanation.setColor(
-        context->getColorsManager().getColorWhite()
+        context.getColorsManager().getColorWhite()
     );
     explanation.setPosition(
         645,
@@ -78,12 +78,12 @@ NewGameController::NewGameController(
  *
  */
 unsigned short NewGameController::render(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* display the title and the explanation labels */
-    context->getSfmlWindow().draw(title);
-    context->getSfmlWindow().draw(explanation);
+    context.getSfmlWindow().draw(title);
+    context.getSfmlWindow().draw(explanation);
 
     /* render the input text widget */
     inputTextGameName.display(context);
@@ -96,7 +96,7 @@ unsigned short NewGameController::render(
     /* new game controller events loop; update the text displayed inside the
        input text widget; go back to the main menu if the Escape key is
        pressed; directly go to the series menu if the Enter key is pressed */
-    while(context->getSfmlWindow().pollEvent(event))
+    while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {
@@ -126,7 +126,7 @@ unsigned short NewGameController::render(
                 }
 
                 /* creates the new game on disk and in memory */
-                context->getGameManager().createGame(
+                context.getGameManager().createGame(
                     inputTextGameName.getText()
                 );
 

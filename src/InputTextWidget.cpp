@@ -36,7 +36,7 @@ namespace widgets
  *
  */
 InputTextWidget::InputTextWidget(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const float& hPosition,
     const float& vPosition,
     const float& lineWidth,
@@ -54,7 +54,7 @@ InputTextWidget::InputTextWidget(
 
     /* the font of the displayed text is the normal text font; we get a
        reference of this font from the fonts manager */
-    displayedText.setFont(context->getFontsManager().getTextFont());
+    displayedText.setFont(context.getFontsManager().getTextFont());
 
     /* the font size is the one set in the fonts namespace; the input text
        widget has a font with a specific font size */
@@ -62,10 +62,10 @@ InputTextWidget::InputTextWidget(
 
     /* get a reference of the light blue color for the input text widget
        text color */
-    displayedText.setColor(context->getColorsManager().getColorLightBlue());
+    displayedText.setColor(context.getColorsManager().getColorLightBlue());
 
     /* set the widget border to light blue */
-    cursor.setFillColor(context->getColorsManager().getColorLightBlue());
+    cursor.setFillColor(context.getColorsManager().getColorLightBlue());
 
     /* the default position of the cursor surface is at the left side of the
        input text line; we set the same positions as the widget and add 5
@@ -139,10 +139,10 @@ InputTextWidget::InputTextWidget(
                      ));
 
     /* all the borders have the same light blue color */
-    boxRight.setFillColor(context->getColorsManager().getColorLightBlue());
-    boxTop.setFillColor(context->getColorsManager().getColorLightBlue());
-    boxBottom.setFillColor(context->getColorsManager().getColorLightBlue());
-    boxLeft.setFillColor(context->getColorsManager().getColorLightBlue());
+    boxRight.setFillColor(context.getColorsManager().getColorLightBlue());
+    boxTop.setFillColor(context.getColorsManager().getColorLightBlue());
+    boxBottom.setFillColor(context.getColorsManager().getColorLightBlue());
+    boxLeft.setFillColor(context.getColorsManager().getColorLightBlue());
 }
 
 /**
@@ -156,29 +156,29 @@ void InputTextWidget::setDisplayedText(const sf::String& inputTextData)
 /**
  *
  */
-void InputTextWidget::display(const std::shared_ptr<utils::Context>& context)
+void InputTextWidget::display(utils::Context& context)
 {
     /* display the widget borders */
-    context->getSfmlWindow().draw(boxTop);
-    context->getSfmlWindow().draw(boxBottom);
-    context->getSfmlWindow().draw(boxLeft);
-    context->getSfmlWindow().draw(boxRight);
+    context.getSfmlWindow().draw(boxTop);
+    context.getSfmlWindow().draw(boxBottom);
+    context.getSfmlWindow().draw(boxLeft);
+    context.getSfmlWindow().draw(boxRight);
 
     /* display the widget text */
-    context->getSfmlWindow().draw(displayedText);
+    context.getSfmlWindow().draw(displayedText);
 
     /* the widget cursor is animated; the displayedCursor boolean is used to
        check if the cursor has to be displayed or not */
     if(displayCursor)
     {
-        context->getSfmlWindow().draw(cursor);
+        context.getSfmlWindow().draw(cursor);
     }
 
     /* check if enough time elapsed since the last animation update of the
        cursor; the interval between each animation is 200 milliseconds */
     if(
         (
-            context->getClockMillisecondsTime() -
+            context.getClockMillisecondsTime() -
             cursorLastFlashAnimation
         ) > 200
     )
@@ -191,7 +191,7 @@ void InputTextWidget::display(const std::shared_ptr<utils::Context>& context)
         /* update the cursor animation time with the current time just after
            the animation */
         cursorLastFlashAnimation =
-            context->getClockMillisecondsTime();
+            context.getClockMillisecondsTime();
     }
 }
 

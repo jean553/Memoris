@@ -33,7 +33,7 @@ namespace others
 /**
  *
  */
-MenuGradient::MenuGradient(const std::shared_ptr<utils::Context>& context)
+MenuGradient::MenuGradient(utils::Context& context)
 {
     /* the width of the menuBackground surface is fixed and the height is equal
        to the window height */
@@ -49,7 +49,7 @@ MenuGradient::MenuGradient(const std::shared_ptr<utils::Context>& context)
     menuBackground.setPosition(480.f, 0);
 
     /* the menuBackground surface is full black */
-    menuBackground.setFillColor(context->getColorsManager().getColorBlack());
+    menuBackground.setFillColor(context.getColorsManager().getColorBlack());
 
     /* initialize all the rectangles that are necessary to make the gradient
        visual effect */
@@ -59,15 +59,15 @@ MenuGradient::MenuGradient(const std::shared_ptr<utils::Context>& context)
 /**
  *
  */
-void MenuGradient::display(const std::shared_ptr<utils::Context>& context)
+void MenuGradient::display(utils::Context& context)
 {
     /* display first the menu background */
-    context->getSfmlWindow().draw(menuBackground);
+    context.getSfmlWindow().draw(menuBackground);
 
     /* iterate the whole sides lines container and displays them one by one */
     for (const sf::RectangleShape& rectangle : sidesLines)
     {
-        context->getSfmlWindow().draw(rectangle);
+        context.getSfmlWindow().draw(rectangle);
     }
 }
 
@@ -75,7 +75,7 @@ void MenuGradient::display(const std::shared_ptr<utils::Context>& context)
  *
  */
 void MenuGradient::initializeGradientRectangles(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* NOTE: the creation of the rectangles can be done directly inside the
@@ -93,7 +93,7 @@ void MenuGradient::initializeGradientRectangles(
        value is continually modified to make the gradient effect; this color
        is copied first because we continually modify it and because we copy
        it to each created surface */
-    sf::Color effectColor = context->getColorsManager().getColorBlackCopy();
+    sf::Color effectColor = context.getColorsManager().getColorBlackCopy();
 
     /* iterate the loop 1020 times: this is the required amount of surfaces to
        make the gradient effect on both sides of the menu background */

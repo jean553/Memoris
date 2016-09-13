@@ -40,7 +40,7 @@ namespace utils
  *
  */
 AnimatedBackground::AnimatedBackground(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* initialize all the cells */
@@ -50,12 +50,12 @@ AnimatedBackground::AnimatedBackground(
 /**
  *
  */
-void AnimatedBackground::render(const std::shared_ptr<utils::Context>& context)
+void AnimatedBackground::render(utils::Context& context)
 {
     /* move the cells every 30 milliseconds */
     if(
         (
-            context->getClockMillisecondsTime() -
+            context.getClockMillisecondsTime() -
             cellsMovementLastAnimation
         ) > 10
     )
@@ -71,7 +71,7 @@ void AnimatedBackground::render(const std::shared_ptr<utils::Context>& context)
         }
 
         /* update the new cells movement animation time with the new time */
-        cellsMovementLastAnimation = context->getClockMillisecondsTime();
+        cellsMovementLastAnimation = context.getClockMillisecondsTime();
     }
 
     /* iterate all the cells and display them one by one; we use a reference
@@ -91,7 +91,7 @@ void AnimatedBackground::render(const std::shared_ptr<utils::Context>& context)
  *
  */
 void AnimatedBackground::initializeCells(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* a container containing all the cells characters that can be used to

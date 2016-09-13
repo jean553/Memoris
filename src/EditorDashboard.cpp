@@ -33,50 +33,50 @@ namespace utils
  *
  */
 EditorDashboard::EditorDashboard(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 ) :
     separators(context),
     buttonNew(
         context,
         400.f,
         10.f,
-        context->getTexturesManager().getNewTexture()
+        context.getTexturesManager().getNewTexture()
     ),
     buttonOpen(
         context,
         480.f,
         10.f,
-        context->getTexturesManager().getOpenTexture()
+        context.getTexturesManager().getOpenTexture()
     ),
     buttonSave(
         context,
         560.f,
         10.f,
-        context->getTexturesManager().getSaveTexture()
+        context.getTexturesManager().getSaveTexture()
     ),
     buttonExit(
         context,
         640.f,
         10.f,
-        context->getTexturesManager().getExitTexture()
+        context.getTexturesManager().getExitTexture()
     ),
     buttonPlay(
         context,
         720.f,
         10.f,
-        context->getTexturesManager().getTestTexture()
+        context.getTexturesManager().getTestTexture()
     ),
     buttonUp(
         context,
         1220.f,
         350.f,
-        context->getTexturesManager().getArrowUpTexture()
+        context.getTexturesManager().getArrowUpTexture()
     ),
     buttonDown(
         context,
         1220.f,
         550.f,
-        context->getTexturesManager().getArrowDownTexture()
+        context.getTexturesManager().getArrowDownTexture()
     )
 {
 }
@@ -84,7 +84,7 @@ EditorDashboard::EditorDashboard(
 /**
  *
  */
-void EditorDashboard::display(const std::shared_ptr<utils::Context>& context)
+void EditorDashboard::display(utils::Context& context)
 {
     /* display the separators */
     separators.display(context);

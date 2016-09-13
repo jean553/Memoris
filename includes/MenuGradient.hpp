@@ -54,7 +54,7 @@ public:
      *
      * @param context shared pointer to the context to use
      */
-    MenuGradient(const std::shared_ptr<utils::Context>& context);
+    MenuGradient(utils::Context& context);
 
     /**
      * @brief display the menu background and all the gradient effect lines
@@ -62,7 +62,7 @@ public:
      *
      * @param context shared pointer to the context to use
      */
-    void display(const std::shared_ptr<utils::Context>& context);
+    void display(utils::Context& context);
 
 private:
 
@@ -70,7 +70,7 @@ private:
      * @brief private method called by the constructor only to create the
      * background sides lines with the gradient effect
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      *
      * NOTE: the creation of the rectangles can be done directly inside the
      * constructor of the class; in fact, there are many local variables
@@ -79,7 +79,7 @@ private:
      * function.
      */
     void initializeGradientRectangles(
-        const std::shared_ptr<utils::Context>& context
+        utils::Context& context
     );
 
     /* the main rectangle shape is the black rectangle without any gradient

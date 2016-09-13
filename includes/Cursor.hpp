@@ -41,16 +41,16 @@ public:
     /**
      * @brief constructor, initialize the SFML sprite
      *
-     * @param context shared pointer to the current context
+     * @param context reference to the current context
      */
-    Cursor(const std::shared_ptr<utils::Context>& context);
+    Cursor(utils::Context& context);
 
     /**
      * @brief render the cursor on the screen
      *
-     * @param context shared pointer to the current context
+     * @param context reference to the current context
      */
-    void render(const std::shared_ptr<utils::Context>& context);
+    void render(utils::Context& context);
 
 private:
 

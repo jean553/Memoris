@@ -45,12 +45,12 @@ public:
      * game controller; handles the waiting time (animation update interval)
      * and call the pure virtual function render()
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param level shared pointer to the concerned level object
      * @param floor the level floor to render
      */
     void renderAnimation(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) override;
@@ -66,7 +66,7 @@ protected:
     /**
      * @brief changes the transparency of a set of cells on the level
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param level shared pointer to the concerned level object
      * @param startingCellIndex the index of the first cell transparency to
      * update
@@ -78,7 +78,7 @@ protected:
      * parameter is a reference)
      */
     virtual void setLevelSideCellsTransparency(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& startingCellIndex,
         const float difference
@@ -87,12 +87,12 @@ protected:
     /**
      * @brief declaration of the function to execute the mirror movement
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param level shared pointer to the level to use
      * @param floor the current floor to display in the animation
      */
     virtual void executeMirrorMovement(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) = 0;
@@ -101,12 +101,12 @@ protected:
      * @brief declaration of the function to execute the reverse mirror
      * movement
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param level shared pointer to the level to use
      * @param floor the current floor to display in the animation
      */
     virtual void executeReverseMirrorMovement(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) = 0;
@@ -115,12 +115,12 @@ protected:
      * @brief method used for code refactoring; render the level and displays
      * the separator
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param level shared pointer to the concerned level object
      * @param floor the floor to render
      */
     void displayLevelAndSeparator(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     );

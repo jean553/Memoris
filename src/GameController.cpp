@@ -39,7 +39,7 @@ namespace controllers
  *
  */
 GameController::GameController(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     std::shared_ptr<entities::Level> levelPtr
 ) :
     Controller(context),
@@ -81,14 +81,14 @@ GameController::GameController(
  *
  */
 unsigned short GameController::render(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* check if the display level->time is equal to 0; if it is equal to 0,
        that means the level->just opened and this level->time has to be set */
     if (displayLevelTime == 0)
     {
-        displayLevelTime = context->getClockMillisecondsTime();
+        displayLevelTime = context.getClockMillisecondsTime();
     }
 
     /* displays the game dashboard */
@@ -183,9 +183,9 @@ unsigned short GameController::render(
     if (
         watchingPeriod &&
         (
-            context->getClockMillisecondsTime() -
+            context.getClockMillisecondsTime() -
             displayLevelTime >
-            context->getPlayingSerieManager().getWatchingTime() * 1000
+            context.getPlayingSerieManager().getWatchingTime() * 1000
         )
     )
     {
@@ -202,7 +202,7 @@ unsigned short GameController::render(
         playingPeriod &&
         animation == nullptr &&
         (
-            context->getClockMillisecondsTime() -
+            context.getClockMillisecondsTime() -
             playerCellAnimationTime > 100
         )
     )
@@ -230,33 +230,33 @@ unsigned short GameController::render(
         /* save the time of the last player cell animation, for the next
            animation step */
         playerCellAnimationTime =
-            context->getClockMillisecondsTime();
+            context.getClockMillisecondsTime();
     }
 
     /* check if the current game status is the win phase */
     if (endPeriodStartTime)
     {
         /* display the grey filter */
-        context->getSfmlWindow().draw(greyFilter);
+        context.getSfmlWindow().draw(greyFilter);
 
         /* display the win text or the lose text */
         if (win)
         {
-            context->getSfmlWindow().draw(winText);
-            context->getSfmlWindow().draw(winInformationText);
+            context.getSfmlWindow().draw(winText);
+            context.getSfmlWindow().draw(winInformationText);
 
             /* animate the left levels amount surface */
             animateLeftLevelsAmount(context);
         }
         else
         {
-            context->getSfmlWindow().draw(loseText);
+            context.getSfmlWindow().draw(loseText);
         }
 
         /* check if the lose period is finished; the lose period duration is
            5 seconds */
         if (
-            context->getClockMillisecondsTime() -
+            context.getClockMillisecondsTime() -
             endPeriodStartTime > 5000
         )
         {
@@ -272,7 +272,7 @@ unsigned short GameController::render(
     nextControllerId = animateScreenTransition(context);
 
     /* the events loop of the game controller */
-    while(context->getSfmlWindow().pollEvent(event))
+    while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {
@@ -359,7 +359,7 @@ unsigned short GameController::render(
  *
  */
 void GameController::handlePlayerMovement(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const short& movement
 )
 {
@@ -387,7 +387,7 @@ void GameController::handlePlayerMovement(
     if (!level->allowPlayerMovement(movement, floor))
     {
         /* plays the collision sound */
-        context->getSoundsManager().getCollisionSound().play();
+        context.getSoundsManager().getCollisionSound().play();
 
         /* stop the process and do not move if the movement is not allowed */
         return;
@@ -399,7 +399,7 @@ void GameController::handlePlayerMovement(
     if (level->detectWalls(context, movement))
     {
         /* plays the collision sound */
-        context->getSoundsManager().getCollisionSound().play();
+        context.getSoundsManager().getCollisionSound().play();
 
         /* the movement is cancelled if the player is against a wall */
         return;
@@ -424,7 +424,7 @@ void GameController::handlePlayerMovement(
  *
  */
 void GameController::executePlayerCellAction(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* create an alias on the new player cell type, returned as a reference
@@ -439,7 +439,7 @@ void GameController::executePlayerCellAction(
     case cells::STAR_CELL:
     {
         /* plays the found star cell sound */
-        context->getSoundsManager().getFoundStarSound().play();
+        context.getSoundsManager().getFoundStarSound().play();
 
         /* increments the amount of found stars inside the dashboard */
         dashboard.incrementFoundStars();
@@ -449,7 +449,7 @@ void GameController::executePlayerCellAction(
     case cells::MORE_LIFE_CELL:
     {
         /* plays the found life cell sound */
-        context->getSoundsManager().getFoundLifeOrTimeSound().play();
+        context.getSoundsManager().getFoundLifeOrTimeSound().play();
 
         /* increments the amount of lifes inside the dashboard */
         dashboard.incrementLifes();
@@ -459,7 +459,7 @@ void GameController::executePlayerCellAction(
     case cells::LESS_LIFE_CELL:
     {
         /* plays the sound of a dead cell */
-        context->getSoundsManager().getFoundDeadOrLessTimeSound().play();
+        context.getSoundsManager().getFoundDeadOrLessTimeSound().play();
 
         /* check if the lose period must be started */
         if (dashboard.getLifesAmount() == 0)
@@ -475,7 +475,7 @@ void GameController::executePlayerCellAction(
     case cells::MORE_TIME_CELL:
     {
         /* plays the found time cell sound */
-        context->getSoundsManager().getFoundLifeOrTimeSound().play();
+        context.getSoundsManager().getFoundLifeOrTimeSound().play();
 
         /* increments the amount of watching time inside the dashboard */
         dashboard.increaseWatchingTime();
@@ -485,7 +485,7 @@ void GameController::executePlayerCellAction(
     case cells::LESS_TIME_CELL:
     {
         /* plays the found less time cell sound */
-        context->getSoundsManager().getFoundDeadOrLessTimeSound().play();
+        context.getSoundsManager().getFoundDeadOrLessTimeSound().play();
 
         /* decrease the amount of watching time inside the dasboard */
         dashboard.decreaseWatchingTime();
@@ -541,7 +541,7 @@ void GameController::executePlayerCellAction(
             win = true;
 
             /* check if the loaded serie has a next level->to play */
-            if (context->getPlayingSerieManager().hasNextLevel())
+            if (context.getPlayingSerieManager().hasNextLevel())
             {
                 /* displays the win level screen */
                 endLevel(context);
@@ -579,7 +579,7 @@ void GameController::executePlayerCellAction(
  *
  */
 void GameController::emptyPlayerCell(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* create an alias on the new player cell type, returned as a reference
@@ -615,7 +615,7 @@ void GameController::emptyPlayerCell(
  *
  */
 void GameController::initializeGreyFilter(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* create the grey rectangle shape that is displayed when the player loses
@@ -635,7 +635,7 @@ void GameController::initializeGreyFilter(
 
     /* the color of the grey filter is grey with a light transparency */
     greyFilter.setFillColor(
-        context->getColorsManager().getColorPartialDarkGrey()
+        context.getColorsManager().getColorPartialDarkGrey()
     );
 }
 
@@ -643,7 +643,7 @@ void GameController::initializeGreyFilter(
  *
  */
 void GameController::initializeLoseText(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* initialize the SFML text that is displayed when the player loses the
@@ -662,17 +662,17 @@ void GameController::initializeLoseText(
     loseText.setCharacterSize(fonts::TITLE_SIZE);
 
     /* the font of the lose message is the normal text font */
-    loseText.setFont(context->getFontsManager().getTextFont());
+    loseText.setFont(context.getFontsManager().getTextFont());
 
     /* the lose text is written in red color on the grey filter */
-    loseText.setColor(context->getColorsManager().getColorRed());
+    loseText.setColor(context.getColorsManager().getColorRed());
 }
 
 /**
  *
  */
 void GameController::initializeWinText(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* initialize the SFML text that is displayed when the player loses the
@@ -684,8 +684,8 @@ void GameController::initializeWinText(
     );
     winText.setString("You Win !");
     winText.setCharacterSize(fonts::TITLE_SIZE);
-    winText.setFont(context->getFontsManager().getTextFont());
-    winText.setColor(context->getColorsManager().getColorGreen());
+    winText.setFont(context.getFontsManager().getTextFont());
+    winText.setColor(context.getColorsManager().getColorGreen());
 
     leftLevelsAmountText.setPosition(
         700.f,
@@ -693,12 +693,12 @@ void GameController::initializeWinText(
     );
     leftLevelsAmountText.setString(
         std::to_string(
-            context->getPlayingSerieManager().getRemainingLevelsAmount()
+            context.getPlayingSerieManager().getRemainingLevelsAmount()
         )
     );
     leftLevelsAmountText.setCharacterSize(fonts::LEVELS_COUNTDOWN_SIZE);
-    leftLevelsAmountText.setFont(context->getFontsManager().getTextFont());
-    leftLevelsAmountText.setColor(context->getColorsManager().getColorWhite());
+    leftLevelsAmountText.setFont(context.getFontsManager().getTextFont());
+    leftLevelsAmountText.setColor(context.getColorsManager().getColorWhite());
 
     winInformationText.setPosition(
         560.f,
@@ -706,9 +706,9 @@ void GameController::initializeWinText(
     );
     winInformationText.setString("levels left");
     winInformationText.setCharacterSize(fonts::SUB_TITLE_SIZE);
-    winInformationText.setFont(context->getFontsManager().getTextFont());
+    winInformationText.setFont(context.getFontsManager().getTextFont());
     winInformationText.setColor(
-        context->getColorsManager().getColorDarkGreen()
+        context.getColorsManager().getColorDarkGreen()
     );
 }
 
@@ -716,7 +716,7 @@ void GameController::initializeWinText(
  *
  */
 void GameController::watchNextFloorOrHideLevel(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* check if the current displayed level->is the last one to display; the
@@ -731,7 +731,7 @@ void GameController::watchNextFloorOrHideLevel(
         level->setAnimateFloorTransition(true);
 
         /* play the floor switch animation sound */
-        context->getSoundsManager().getFloorSwitchSound().play();
+        context.getSoundsManager().getFloorSwitchSound().play();
 
         /* update the floor number inside the game dashboard */
         dashboard.updateCurrentFloor(floor);
@@ -739,7 +739,7 @@ void GameController::watchNextFloorOrHideLevel(
         /* reset the display level->time with the current time to allow more
            watching time for the next floor watching period */
         displayLevelTime =
-            context->getClockMillisecondsTime();
+            context.getClockMillisecondsTime();
 
         /* ends the process here */
         return;
@@ -749,7 +749,7 @@ void GameController::watchNextFloorOrHideLevel(
     level->hideAllCellsExceptDeparture(context);
 
     /* plays the hide level->sound */
-    context->getSoundsManager().getHideLevelSound().play();
+    context.getSoundsManager().getHideLevelSound().play();
 
     /* the watching mode is now terminated */
     watchingPeriod = false;
@@ -775,7 +775,7 @@ void GameController::watchNextFloorOrHideLevel(
  *
  */
 void GameController::endLevel(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* stop the music or play a specific sound according if the player has
@@ -783,38 +783,38 @@ void GameController::endLevel(
     if (win)
     {
         /* plays the win level sound */
-        context->getSoundsManager().getWinLevelSound().play();
+        context.getSoundsManager().getWinLevelSound().play();
     }
     else
     {
         /* force the music to stop */
-        context->stopMusic();
+        context.stopMusic();
 
         /* plays the time over sound */
-        context->getSoundsManager().getTimeOverSound().play();
+        context.getSoundsManager().getTimeOverSound().play();
     }
 
     /* call the method to stop the timer */
     timer.stop();
 
     /* save when started the lose period time */
-    endPeriodStartTime = context->getClockMillisecondsTime();
+    endPeriodStartTime = context.getClockMillisecondsTime();
 }
 
 /**
  *
  */
 void GameController::animateLeftLevelsAmount(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* display the amount of left levels */
-    context->getSfmlWindow().draw(leftLevelsAmountText);
+    context.getSfmlWindow().draw(leftLevelsAmountText);
 
     /* check if at least 50 milliseconds elapsed between the last animation
        of the text surface */
     if (
-        context->getClockMillisecondsTime() -
+        context.getClockMillisecondsTime() -
         leftLevelsAmountLastAnimationTime < 50
     )
     {
@@ -841,7 +841,7 @@ void GameController::animateLeftLevelsAmount(
     /* copy the color of the text from the colors manager; we have to do a
        copy because the transparency will be updated for the animation
        purposes */
-    sf::Color color = context->getColorsManager().getColorWhiteCopy();
+    sf::Color color = context.getColorsManager().getColorWhiteCopy();
 
     /* change the alpha value of the SFML color */
     color.a = leftLevelsAmountTransparency;
@@ -851,7 +851,7 @@ void GameController::animateLeftLevelsAmount(
 
     /* store the time of the end of the animation update for the next
        update */
-    leftLevelsAmountLastAnimationTime = context->getClockMillisecondsTime();
+    leftLevelsAmountLastAnimationTime = context.getClockMillisecondsTime();
 }
 
 }

@@ -35,7 +35,7 @@ namespace popups
  *
  */
 SaveLevelDialog::SaveLevelDialog(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const float& hSize,
     const float& vSize,
     const float& hPosition,
@@ -64,16 +64,16 @@ SaveLevelDialog::SaveLevelDialog(
         vPosition + 70.f
     );
     info.setFont(
-        context->getFontsManager().getTextFont()
+        context.getFontsManager().getTextFont()
     );
     info.setCharacterSize(fonts::INFORMATION_SIZE);
-    info.setColor(context->getColorsManager().getColorWhite());
+    info.setColor(context.getColorsManager().getColorWhite());
 }
 
 /**
  *
  */
-void SaveLevelDialog::render(const std::shared_ptr<utils::Context>& context)
+void SaveLevelDialog::render(utils::Context& context)
 {
     /* display the basic content of the dialog */
     displayParentContent(context);
@@ -82,7 +82,7 @@ void SaveLevelDialog::render(const std::shared_ptr<utils::Context>& context)
     input.display(context);
 
     /* display the information */
-    context->getSfmlWindow().draw(info);
+    context.getSfmlWindow().draw(info);
 }
 
 /**

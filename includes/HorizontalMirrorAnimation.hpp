@@ -44,18 +44,18 @@ public:
      * @param context shared pointer to the context to use
      */
     HorizontalMirrorAnimation(
-        const std::shared_ptr<utils::Context>& context
+        utils::Context& context
     );
 
     /**
      * @brief renders the animation
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param level shared pointer to the level to use
      * @param floor the current floor to display in the animation
      */
     void playNextAnimationStep(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) override;
@@ -67,14 +67,14 @@ private:
      * transparency value of 160 cells starting at the given index; the
      * modification to apply is specified by the 'difference' parameter
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param level shared pointer to the level to use
      * @param floor the current floor to display in the animation
      * @param difference the color transparency update to apply on the
      * transparency value of the cells textures
      */
     void setLevelSideCellsTransparency(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& startingCellIndex,
         const float difference
@@ -83,12 +83,12 @@ private:
     /**
      * @brief replace the high cells by the low cells
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param level shared pointer to the level to use
      * @param floor the current floor to display in the animation
      */
     void executeReverseMirrorMovement(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) override;
@@ -96,12 +96,12 @@ private:
     /**
      * @brief replace the low cells by the high cells
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param level shared pointer to the level to use
      * @param floor the current floor to display in the animation
      */
     void executeMirrorMovement(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) override;

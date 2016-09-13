@@ -41,21 +41,21 @@ public:
      * @brief constructor, generates the title of the screen; create unique
      * pointers of the menu items of this screen
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      */
     OfficialSeriesMenuController(
-        const std::shared_ptr<utils::Context>& context
+        utils::Context& context
     );
 
     /**
      * @brief rendering method
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      *
      * @return unsigned short id of the next screen
      */
     unsigned short render(
-        const std::shared_ptr<utils::Context>& context
+        utils::Context& context
     ) override;
 
 private:
@@ -74,7 +74,7 @@ private:
        all the others menus do not need this pointer in this method; we cannot
        overwritte the parameters of this function only into this class, so we
        create a separated pointer */
-    const std::shared_ptr<utils::Context>& contextPtr;
+    utils::Context& contextPtr;
 };
 
 }

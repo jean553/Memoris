@@ -40,7 +40,7 @@ namespace animations
  *
  */
 std::unique_ptr<LevelAnimation> getAnimationByCellType(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const char& cellType
 )
 {

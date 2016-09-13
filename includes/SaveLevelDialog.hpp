@@ -46,7 +46,7 @@ public:
      * the parent constructor
      */
     SaveLevelDialog(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const float& hSize,
         const float& vSize,
         const float& hPosition,
@@ -57,9 +57,9 @@ public:
     /**
      * @brief render the dialog window
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      */
-    void render(const std::shared_ptr<utils::Context>& context) override;
+    void render(utils::Context& context) override;
 
     /**
      * @brief getter of the input text widget of the dialog if it has

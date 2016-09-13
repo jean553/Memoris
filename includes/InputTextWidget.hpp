@@ -44,14 +44,14 @@ public:
      * @brief constructor, initialize the whole widget with the correct size,
      * at the correct given position; set the maximum character variable;
      *
-     * @param context shared pointer to the current context
+     * @param context reference to the current context
      * @param hPosition horizontal position
      * @param vPosition vertical position
      * @param lineWidth the width of the input text widget
      * @param maxCharacters the maximum amount of characters allowed
      */
     InputTextWidget(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const float& hPosition,
         const float& vPosition,
         const float& lineWidth,
@@ -73,7 +73,7 @@ public:
      *
      * @param context shared pointer to the context to use
      */
-    void display(const std::shared_ptr<utils::Context>& context);
+    void display(utils::Context& context);
 
     /**
      * @brief update the displayed text according to the user input

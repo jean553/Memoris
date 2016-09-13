@@ -43,13 +43,13 @@ public:
     /**
      * @brief constructor, creates the SFML surfaces at the given position
      *
-     * @param context shared pointer to the current context
+     * @param context reference to the current context
      * @param hPosition horizontal position of the button
      * @param vPosition vertical position of the button
      * @param texture constant reference to the SFML texture of the icon
      */
     Button(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const float& hPosition,
         const float& vPosition,
         const sf::Texture& texture
@@ -58,13 +58,13 @@ public:
     /**
      * @brief display the button
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      *
      * NOTE: usually, display() functions are const; not this one because the
      * attributes of the button are modified inside this function if the mouse
      * is hover the widget
      */
-    void display(const std::shared_ptr<utils::Context>& context);
+    void display(utils::Context& context);
 
     /**
      * @brief boolean that indicates if the mouse is hover the button or not

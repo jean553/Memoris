@@ -43,19 +43,19 @@ public:
     /**
      * @brief constructor, initializes the separators
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      */
-    DiagonalAnimation(const std::shared_ptr<utils::Context>& context);
+    DiagonalAnimation(utils::Context& context);
 
     /**
      * @brief renders the animation, overrided from the parent class
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param level shared pointer to the level to animate
      * @param floor the current floor to display in the animation
      */
     void renderAnimation(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) override;
@@ -66,12 +66,12 @@ private:
      * @brief switch to the next step of the animation, overrided from the
      * parent class
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param level shared pointer to the level to animate
      * @param floor the current floor to display in the animation
      */
     void playNextAnimationStep(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) override;
@@ -80,12 +80,12 @@ private:
      * @brief display the given floor of the level and the two separators
      * (both horizontal and vertical separators)
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param level shared pointer to the level to animate
      * @param floor the current floor to display in the animation
      */
     void displayLevelAndSeparator(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     );
@@ -94,13 +94,13 @@ private:
      * @brief applies the purple flashing on each side that will be inversed
      * by the animation
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param level shared pointer to the level to animate
      * @param floor the current floor to display in the animation
      * @param color the SFML color object to apply on the cells
      */
     void applyPurpleColorOnCellsQuarters(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor,
         const sf::Color& color
@@ -110,12 +110,12 @@ private:
      * @bried invert the cells of the top left corner with the cells of the
      * bottom right corner
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param level shared pointer to the level to animate
      * @param floor the current floor to display in the animation
      */
     void invertTopLeftWithBottomRight(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     );
@@ -124,12 +124,12 @@ private:
      * @brief invert the cells of the top right corner with the cells of the
      * bottom left corner
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param level shared pointer to the level to animate
      * @param floor the current floor to display in the animation
      */
     void invertBottomLeftWithTopRight(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     );
@@ -138,14 +138,14 @@ private:
      * @brief invert the cells of the top right corner with the cells of the
      * bottom left corner
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param level shared pointer to the level to animate
      * @param source the source cell index
      * @param destination the difference to apply on the source cell to get
      * the destination cell
      */
     void invertCells(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& source,
         const short& difference

@@ -42,7 +42,7 @@ namespace animations
  * attributes and methods; we create and destroy these animations dynamlically
  * during the game; unique pointer is restrictive and adapted in our case
  *
- * @param context shared pointer to the current context to use
+ * @param context reference to the current context to use
  * @param cellType the animation is returned according to the cell type; some
  * cells starts animation, this function directly returns the animation
  * according to the given type
@@ -50,7 +50,7 @@ namespace animations
  * @return std::unique_ptr<LevelAnimation>
  */
 std::unique_ptr<LevelAnimation> getAnimationByCellType(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const char& cellType
 );
 

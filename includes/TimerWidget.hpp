@@ -44,12 +44,12 @@ public:
     /**
      * @brief constructor, set the timer positions
      *
-     * @param context shared pointer to the current context
+     * @param context reference to the current context
      * @param hPosition the horizontal position
      * @param vPosition the vertical position
      */
     TimerWidget(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const float& hPosition,
         const float& vPosition
     );
@@ -59,7 +59,7 @@ public:
      *
      * @param context shared pointer to the context to use
      */
-    void display(const std::shared_ptr<utils::Context>& context);
+    void display(utils::Context& context);
 
     /**
      * @brief public method to stop the timer, used by the game controller to

@@ -43,9 +43,9 @@ public:
     /**
      * @brief render the dialog window
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      */
-    virtual void render(const std::shared_ptr<utils::Context>& context) = 0;
+    virtual void render(utils::Context& context) = 0;
 
     /**
      * @brief getter of the input text widget of the dialog if it has
@@ -59,7 +59,7 @@ protected:
     /**
      * @brief constructor, initializes all the dialog SFML surfaces
      *
-     * @param context shared pointer to the current context
+     * @param context reference to the current context
      * @param hSize horizontal size of the dialog window
      * @param vSize vertical size of the dialog window
      * @param hPosition horizontal position of the dialog window
@@ -67,7 +67,7 @@ protected:
      * @param text dialog window title
      */
     Dialog(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const float& hSize,
         const float& vSize,
         const float& hPosition,
@@ -79,10 +79,10 @@ protected:
      * @brief called by the child function, display all the basic surfaces
      * of the dialog window
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      */
     void displayParentContent(
-        const std::shared_ptr<utils::Context>& context
+        utils::Context& context
     ) const;
 
 private:

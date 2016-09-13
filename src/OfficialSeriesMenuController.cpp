@@ -36,7 +36,7 @@ namespace controllers
  *
  */
 OfficialSeriesMenuController::OfficialSeriesMenuController(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 ) :
     AbstractMenuController(context),
 /* this is specific to the official series menu controller, check the
@@ -44,10 +44,10 @@ OfficialSeriesMenuController::OfficialSeriesMenuController(
     contextPtr(context)
 {
     /* set the parameters of the title of the screen */
-    title.setFont(context->getFontsManager().getTitleFont());
+    title.setFont(context.getFontsManager().getTitleFont());
     title.setString("Official series");
     title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
-    title.setColor(context->getColorsManager().getColorLightBlue());
+    title.setColor(context.getColorsManager().getColorLightBlue());
     title.setPosition(
         550.f,
         50.f
@@ -135,16 +135,16 @@ OfficialSeriesMenuController::OfficialSeriesMenuController(
  *
  */
 unsigned short OfficialSeriesMenuController::render(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
-    context->getSfmlWindow().draw(title);
+    context.getSfmlWindow().draw(title);
 
     renderAllMenuItems(context);
 
     nextControllerId = animateScreenTransition(context);
 
-    while(context->getSfmlWindow().pollEvent(event))
+    while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {
@@ -206,7 +206,7 @@ void OfficialSeriesMenuController::selectMenuItem()
         /* use the playing serie manager to load the serie file content */
         /* TODO: #512 we use a fixed file name for now, of course, this
            parameter should change according to the selected menu item */
-        contextPtr->getPlayingSerieManager().loadSerieFileContent(
+        contextPtr.getPlayingSerieManager().loadSerieFileContent(
             "data/series/1.serie"
         );
 

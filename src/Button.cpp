@@ -33,7 +33,7 @@ namespace widgets
  *
  */
 Button::Button(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const float& hPosition,
     const float& vPosition,
     const sf::Texture& texture
@@ -51,7 +51,7 @@ Button::Button(
     );
 
     back.setFillColor(
-        context->getColorsManager().getColorDarkGrey()
+        context.getColorsManager().getColorDarkGrey()
     );
 
     back.setPosition(
@@ -107,19 +107,19 @@ Button::Button(
         vPosition + ICON_POSITION_OFFSET
     );
 
-    setBordersColor(context->getColorsManager().getColorWhite());
+    setBordersColor(context.getColorsManager().getColorWhite());
 }
 
 /**
  *
  */
-void Button::display(const std::shared_ptr<utils::Context>& context)
+void Button::display(utils::Context& context)
 {
     /* draw the button background */
-    context->getSfmlWindow().draw(back);
+    context.getSfmlWindow().draw(back);
 
     /* draw the button icon */
-    context->getSfmlWindow().draw(icon);
+    context.getSfmlWindow().draw(icon);
 
     /* get the current cursor position */
     sf::Vector2<int> cursorPosition = sf::Mouse::getPosition();
@@ -135,7 +135,7 @@ void Button::display(const std::shared_ptr<utils::Context>& context)
     {
         mouseHover = true;
 
-        setBordersColor(context->getColorsManager().getColorRed());
+        setBordersColor(context.getColorsManager().getColorRed());
     }
     else if (
         (
@@ -149,14 +149,14 @@ void Button::display(const std::shared_ptr<utils::Context>& context)
     {
         mouseHover = false;
 
-        setBordersColor(context->getColorsManager().getColorWhite());
+        setBordersColor(context.getColorsManager().getColorWhite());
     }
 
     /* draw the button borders */
-    context->getSfmlWindow().draw(left);
-    context->getSfmlWindow().draw(top);
-    context->getSfmlWindow().draw(right);
-    context->getSfmlWindow().draw(bottom);
+    context.getSfmlWindow().draw(left);
+    context.getSfmlWindow().draw(top);
+    context.getSfmlWindow().draw(right);
+    context.getSfmlWindow().draw(bottom);
 }
 
 /**

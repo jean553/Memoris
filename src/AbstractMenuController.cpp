@@ -35,7 +35,7 @@ namespace controllers
  *
  */
 AbstractMenuController::AbstractMenuController(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 ) :
     Controller(context)
 {
@@ -54,7 +54,7 @@ void AbstractMenuController::addMenuItem(std::unique_ptr<items::MenuItem> item)
  *
  */
 void AbstractMenuController::renderAllMenuItems(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* use a loop with iterator as the unique pointer is not moved or copied
@@ -97,7 +97,7 @@ unsigned short AbstractMenuController::getLastMenuItemIndex() const
  *
  */
 void AbstractMenuController::updateMenuSelection(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* browse all the menu items; use an iterator in order to calculate the
@@ -149,7 +149,7 @@ unsigned short AbstractMenuController::getSelectorPosition() const
  *
  */
 void AbstractMenuController::moveUp(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* move the selector only if the current position is not already the
@@ -165,14 +165,14 @@ void AbstractMenuController::moveUp(
     updateMenuSelection(context);
 
     /* play the move selector sound */
-    context->getSoundsManager().getMoveSelectorSound().play();
+    context.getSoundsManager().getMoveSelectorSound().play();
 }
 
 /**
  *
  */
 void AbstractMenuController::moveDown(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* move the selector only if the current selected item is not the last
@@ -188,7 +188,7 @@ void AbstractMenuController::moveDown(
     updateMenuSelection(context);
 
     /* play the move selector sound */
-    context->getSoundsManager().getMoveSelectorSound().play();
+    context.getSoundsManager().getMoveSelectorSound().play();
 }
 
 }

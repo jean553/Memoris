@@ -32,23 +32,23 @@ namespace widgets
 /**
  *
  */
-Cursor::Cursor(const std::shared_ptr<utils::Context>& context)
+Cursor::Cursor(utils::Context& context)
 {
     /* get the cursor texture from the textures manager */
-    sprite.setTexture(context->getTexturesManager().getCursorTexture());
+    sprite.setTexture(context.getTexturesManager().getCursorTexture());
 }
 
 /**
  *
  */
-void Cursor::render(const std::shared_ptr<utils::Context>& context)
+void Cursor::render(utils::Context& context)
 {
     /* display the cursor */
-    context->getSfmlWindow().draw(sprite);
+    context.getSfmlWindow().draw(sprite);
 
     /* only move the cursor if more than 50 milliseconds elapsed */
     if (
-        context->getClockMillisecondsTime() -
+        context.getClockMillisecondsTime() -
         lastCursorPositionUpdateTime < 50
     )
     {
