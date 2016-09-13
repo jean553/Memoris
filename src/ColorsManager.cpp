@@ -18,7 +18,7 @@
 
 /**
  * @file ColorsManager.cpp
- * @package colors
+ * @package managers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 

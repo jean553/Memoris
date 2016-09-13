@@ -18,6 +18,7 @@
 
 /**
  * @file SoundsManager.cpp
+ * @package managers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
@@ -32,18 +33,18 @@ namespace managers
  *
  */
 SoundsManager::SoundsManager() noexcept :
-    moveSelectorSound("res/sounds/001.wav"),
-    screenTransitionSound("res/sounds/002.wav"),
-    hideLevelSound("res/sounds/003.wav"),
-    foundStarSound("res/sounds/004.wav"),
-    foundLifeOrTimeSound("res/sounds/005.wav"),
-    foundDeadOrLessTimeSound("res/sounds/006.wav"),
-    collisionSound("res/sounds/007.wav"),
-    floorSwitchSound("res/sounds/008.wav"),
-    timeOverSound("res/sounds/009.wav"),
-    mirrorAnimationSound("res/sounds/010.wav"),
-    winLevelSound("res/sounds/011.wav"),
-    floorMovementAnimationSound("res/sounds/012.wav")
+    moveSelectorSound("001"),
+    screenTransitionSound("002"),
+    hideLevelSound("003"),
+    foundStarSound("004"),
+    foundLifeOrTimeSound("005"),
+    foundDeadOrLessTimeSound("006"),
+    collisionSound("007"),
+    floorSwitchSound("008"),
+    timeOverSound("009"),
+    mirrorAnimationSound("010"),
+    winLevelSound("011"),
+    floorMovementAnimationSound("012")
 {
     /* empty constructor as we try to initialize the sounds directly inside
        the initialization list */
