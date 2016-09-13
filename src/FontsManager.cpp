@@ -35,8 +35,8 @@ namespace managers
  */
 FontsManager::FontsManager()
 {
-    loadFontFromFile(titleFont, "res/fonts/crystal_regular.ttf");
-    loadFontFromFile(textFont, "res/fonts/hi.otf");
+    loadFontFromFile(titleFont, "crystal_regular.ttf");
+    loadFontFromFile(textFont, "hi.otf");
 }
 
 /**
@@ -63,7 +63,7 @@ void FontsManager::loadFontFromFile(
     const std::string& path
 )
 {
-    if(!font.loadFromFile(path))
+    if(!font.loadFromFile("res/fonts/" + path))
     {
         throw std::invalid_argument("Cannot load font " + path);
     }
