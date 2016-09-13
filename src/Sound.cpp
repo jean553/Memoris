@@ -24,6 +24,9 @@
 
 #include "Sound.hpp"
 
+#include <SFML/Audio/Sound.hpp>
+#include <SFML/Audio/SoundBuffer.hpp>
+
 namespace memoris
 {
 namespace sounds
@@ -32,10 +35,10 @@ namespace sounds
 /**
  *
  */
-Sound::Sound(const std::string& path) noexcept
+Sound::Sound(const std::string& path) noexcept :
+    sound(nullptr),
+    buffer(std::make_unique<sf::SoundBuffer>())
 {
-    buffer = std::make_unique<sf::SoundBuffer>();
-
     if(buffer->loadFromFile(path))
     {
         sound = std::make_unique<sf::Sound>();
@@ -45,6 +48,13 @@ Sound::Sound(const std::string& path) noexcept
     {
         buffer.reset();
     }
+}
+
+/**
+ *
+ */
+Sound::~Sound() noexcept
+{
 }
 
 /**
