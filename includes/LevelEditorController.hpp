@@ -49,19 +49,19 @@ public:
      * @brief constructor, empty for now, just used to transfer parameters
      * ot the parent class and initialize the objects
      *
-     * @param context shared pointer to the current context
+     * @param context reference to the current context
      */
-    LevelEditorController(const std::shared_ptr<utils::Context>& context);
+    LevelEditorController(utils::Context& context);
 
     /**
      * @brief render the level editor controller, returns the id of the next
      * controller to render
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      *
      * @return unsigned short
      */
-    unsigned short render(const std::shared_ptr<utils::Context>& context)
+    unsigned short render(utils::Context& context)
     override;
 
 private:

@@ -33,14 +33,14 @@ namespace animations
  *
  */
 void AbstractMirrorAnimation::renderAnimation(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 )
 {
     /* check if the animation interval time is elapsed; the animation step
        is incremented every 50 milliseconds */
-    if (context->getClockMillisecondsTime() - lastAnimationUpdateTime < 50)
+    if (context.getClockMillisecondsTime() - lastAnimationUpdateTime < 50)
     {
         /* just render the level and the animation separator */
         displayLevelAndSeparator(
@@ -67,7 +67,7 @@ void AbstractMirrorAnimation::renderAnimation(
  *
  */
 void AbstractMirrorAnimation::displayLevelAndSeparator(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 )
@@ -80,7 +80,7 @@ void AbstractMirrorAnimation::displayLevelAndSeparator(
     );
 
     /* displays the mirror separator */
-    context->getSfmlWindow().draw(separator);
+    context.getSfmlWindow().draw(separator);
 }
 
 }

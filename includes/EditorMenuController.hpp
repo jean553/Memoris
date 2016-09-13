@@ -41,19 +41,19 @@ public:
     /**
      * @brief constructor, initializes the title and the menu items
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      */
-    EditorMenuController(const std::shared_ptr<utils::Context>& context);
+    EditorMenuController(utils::Context& context);
 
     /**
      * @brief render the editor menu controller, returns the id of the next
      * controller to render
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      *
      * @return unsigned short
      */
-    unsigned short render(const std::shared_ptr<utils::Context>& context)
+    unsigned short render(utils::Context& context)
     override;
 
 private:

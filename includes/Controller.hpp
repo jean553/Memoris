@@ -62,7 +62,7 @@ public:
      * @return unsigned short
      */
     virtual unsigned short render(
-        const std::shared_ptr<utils::Context>& context
+        utils::Context& context
     ) = 0;
 
 protected:
@@ -71,9 +71,9 @@ protected:
      * @brief constructor, initialize variables and load in memory the
      * transition surface (used for screens transition animation)
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      */
-    Controller(const std::shared_ptr<utils::Context>& context);
+    Controller(utils::Context& context);
 
     /**
      * @brief render the controller switching animation (the animation that
@@ -87,7 +87,7 @@ protected:
      * animtation (opening or closing) is terminated; this id can be stored
      * in the nextControllerId and the screen can be switched.
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      *
      * @return unsigned short
      *
@@ -97,7 +97,7 @@ protected:
      * by this function
      */
     unsigned short animateScreenTransition(
-        const std::shared_ptr<utils::Context>& context
+        utils::Context& context
     );
 
     /* the controller SFML event manager; there is no need to declare a SFML

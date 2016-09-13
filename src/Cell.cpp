@@ -38,7 +38,7 @@ namespace entities
  *
  */
 Cell::Cell(
-    aliases::ConstContextSharedPtrRef context,
+    utils::Context& context,
     const float& hPosition,
     const float& vPosition,
     const char& cellType
@@ -107,7 +107,7 @@ void Cell::setPosition(
  *
  */
 void Cell::display(
-    aliases::ConstContextSharedPtrRef context,
+    utils::Context& context,
     aliases::ConstTransformUniquePtrRef transform
 )
 {
@@ -115,11 +115,11 @@ void Cell::display(
        by the given unique pointer reference */
     if (transform != nullptr)
     {
-        context->getSfmlWindow().draw(sprite, *transform);
+        context.getSfmlWindow().draw(sprite, *transform);
     }
     else
     {
-        context->getSfmlWindow().draw(sprite);
+        context.getSfmlWindow().draw(sprite);
     }
 }
 
@@ -127,7 +127,7 @@ void Cell::display(
  *
  */
 void Cell::displayWithMouseHover(
-    aliases::ConstContextSharedPtrRef context,
+    utils::Context& context,
     aliases::ConstTransformUniquePtrRef transform
 )
 {
@@ -135,25 +135,25 @@ void Cell::displayWithMouseHover(
     {
         highlight = true;
 
-        sprite.setColor(context->getColorsManager().getColorDarkGrey());
+        sprite.setColor(context.getColorsManager().getColorDarkGrey());
     }
     else if(!isMouseHover() && highlight)
     {
         highlight = false;
 
-        sprite.setColor(context->getColorsManager().getColorWhite());
+        sprite.setColor(context.getColorsManager().getColorWhite());
     }
 
-    context->getSfmlWindow().draw(sprite);
+    context.getSfmlWindow().draw(sprite);
 }
 
 /**
  *
  */
-void Cell::hide(aliases::ConstContextSharedPtrRef context)
+void Cell::hide(utils::Context& context)
 {
     sprite.setTexture(
-        context->getCellsTexturesManager().getTextureReferenceByCellType(
+        context.getCellsTexturesManager().getTextureReferenceByCellType(
             cells::HIDDEN_CELL
         )
     );
@@ -165,12 +165,12 @@ void Cell::hide(aliases::ConstContextSharedPtrRef context)
 /**
  *
  */
-void Cell::show(aliases::ConstContextSharedPtrRef context)
+void Cell::show(utils::Context& context)
 {
     /* get the texture from the cells textures manager according to the type
        of cell; set this reference as a texture for the current cell object */
     sprite.setTexture(
-        context->getCellsTexturesManager().getTextureReferenceByCellType(
+        context.getCellsTexturesManager().getTextureReferenceByCellType(
             type
         )
     );
@@ -199,12 +199,12 @@ void Cell::setType(const char& typeChar)
  *
  */
 void Cell::setCellColorTransparency(
-    aliases::ConstContextSharedPtrRef context,
+    utils::Context& context,
     const sf::Uint8& alpha
 )
 {
     /* get a copy of the white color from the colors manager */
-    sf::Color cellColor = context->getColorsManager().getColorWhiteCopy();
+    sf::Color cellColor = context.getColorsManager().getColorWhiteCopy();
 
     /* update the transparency of the color */
     cellColor.a = alpha;

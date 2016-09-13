@@ -51,16 +51,16 @@ public:
     /**
      * @brief constructor, initializes the level separator
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      */
-    EditorDashboard(const std::shared_ptr<utils::Context>& context);
+    EditorDashboard(utils::Context& context);
 
     /**
      * @brief display the editor dashboard
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      */
-    void display(const std::shared_ptr<utils::Context>& context);
+    void display(utils::Context& context);
 
     /**
      * @brief proxy method that returns an event id, this event id is got

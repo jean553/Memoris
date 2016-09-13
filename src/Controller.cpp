@@ -34,13 +34,13 @@ namespace controllers
 /**
  *
  */
-Controller::Controller(const std::shared_ptr<utils::Context>& context)
+Controller::Controller(utils::Context& context)
 {
     /* the screen transition color is continually modified
        when screens are switched, that's why we copy the
        default color from the black color */
     transitionSurfaceColor =
-        context->getColorsManager().getColorBlackCopy();
+        context.getColorsManager().getColorBlackCopy();
 
     /* the size of the screen transition surface is equal to the window
        dimension; in fact, the screen transition surface covers the whole
@@ -71,7 +71,7 @@ Controller::~Controller()
  *
  */
 unsigned short Controller::animateScreenTransition(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* the animation is rendered only if a new screen is called ( the program
@@ -92,11 +92,11 @@ unsigned short Controller::animateScreenTransition(
     transitionSurface.setFillColor(transitionSurfaceColor);
 
     /* draw the transition surface */
-    context->getSfmlWindow().draw(transitionSurface);
+    context.getSfmlWindow().draw(transitionSurface);
 
     /* animate the screen transition animation according to the last screen
        transition animation update time */
-    if (context->getClockMillisecondsTime() - lastScreenTransitionTime > 25)
+    if (context.getClockMillisecondsTime() - lastScreenTransitionTime > 25)
     {
         if (openingScreen)
         {
@@ -109,7 +109,7 @@ unsigned short Controller::animateScreenTransition(
 
         /* update the last screen transition time with the current time for
            the next animation step */
-        lastScreenTransitionTime = context->getClockMillisecondsTime();
+        lastScreenTransitionTime = context.getClockMillisecondsTime();
     }
 
     /* when the closing animation is finished, the color transparency value is

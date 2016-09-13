@@ -41,21 +41,21 @@ const bool& LevelAnimation::isFinished() const
  *
  */
 void LevelAnimation::incrementAnimationStep(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* increments the animations step */
     animationSteps++;
 
     /* update the last animation update time to calculate the next iteration */
-    lastAnimationUpdateTime = context->getClockMillisecondsTime();
+    lastAnimationUpdateTime = context.getClockMillisecondsTime();
 }
 
 /**
  *
  */
 void LevelAnimation::showOrHideCell(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& index,
     const bool& visible

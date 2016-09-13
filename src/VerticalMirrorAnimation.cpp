@@ -35,20 +35,20 @@ namespace animations
  *
  */
 VerticalMirrorAnimation::VerticalMirrorAnimation(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     initializeVerticalSeparator(context, separator);
 
     /* plays the mirror animation sound */
-    context->getSoundsManager().getMirrorAnimationSound().play();
+    context.getSoundsManager().getMirrorAnimationSound().play();
 }
 
 /**
  *
  */
 void VerticalMirrorAnimation::playNextAnimationStep(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 )
@@ -150,7 +150,7 @@ void VerticalMirrorAnimation::playNextAnimationStep(
  *
  */
 void VerticalMirrorAnimation::setLevelSideCellsTransparency(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& startingCellIndex,
     const float difference
@@ -180,7 +180,7 @@ void VerticalMirrorAnimation::setLevelSideCellsTransparency(
  *
  */
 void VerticalMirrorAnimation::executeMirrorMovement(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 )
@@ -231,7 +231,7 @@ void VerticalMirrorAnimation::executeMirrorMovement(
  *
  */
 void VerticalMirrorAnimation::executeReverseMirrorMovement(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 )

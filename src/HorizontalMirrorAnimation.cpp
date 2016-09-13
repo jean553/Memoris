@@ -35,7 +35,7 @@ namespace animations
  *
  */
 HorizontalMirrorAnimation::HorizontalMirrorAnimation(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     initializeHorizontalSeparator(
@@ -44,14 +44,14 @@ HorizontalMirrorAnimation::HorizontalMirrorAnimation(
     );
 
     /* plays the mirror animation sound */
-    context->getSoundsManager().getMirrorAnimationSound().play();
+    context.getSoundsManager().getMirrorAnimationSound().play();
 }
 
 /**
  *
  */
 void HorizontalMirrorAnimation::playNextAnimationStep(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 )
@@ -175,7 +175,7 @@ void HorizontalMirrorAnimation::playNextAnimationStep(
  *
  */
 void HorizontalMirrorAnimation::executeReverseMirrorMovement(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 )
@@ -227,7 +227,7 @@ void HorizontalMirrorAnimation::executeReverseMirrorMovement(
  *
  */
 void HorizontalMirrorAnimation::executeMirrorMovement(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 )
@@ -306,7 +306,7 @@ void HorizontalMirrorAnimation::executeMirrorMovement(
  *
  */
 void HorizontalMirrorAnimation::setLevelSideCellsTransparency(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& startingLowCellsIndex,
     const float difference

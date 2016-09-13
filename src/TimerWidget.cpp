@@ -36,15 +36,15 @@ namespace widgets
  *
  */
 TimerWidget::TimerWidget(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const float& hPosition,
     const float& vPosition
 )
 {
     /* initialize the timer text SFML surface */
-    text.setFont(context->getFontsManager().getTextFont());
+    text.setFont(context.getFontsManager().getTextFont());
     text.setCharacterSize(fonts::TEXT_SIZE);
-    text.setColor(context->getColorsManager().getColorWhite());
+    text.setColor(context.getColorsManager().getColorWhite());
     text.setPosition(
         hPosition,
         vPosition
@@ -57,7 +57,7 @@ TimerWidget::TimerWidget(
 /**
  *
  */
-void TimerWidget::display(const std::shared_ptr<utils::Context>& context)
+void TimerWidget::display(utils::Context& context)
 {
     /* check if the elapsed time since the last timer update is more than
        1000 milliseconds; if yes, the timer value is updated; also check if
@@ -65,7 +65,7 @@ void TimerWidget::display(const std::shared_ptr<utils::Context>& context)
     if (
         started &&
         (
-            context->getClockMillisecondsTime() -
+            context.getClockMillisecondsTime() -
             lastTimerUpdateTime > 1000
         )
     )
@@ -74,11 +74,11 @@ void TimerWidget::display(const std::shared_ptr<utils::Context>& context)
         updateTimerValues();
 
         /* save the last timer update time at the end of the animation */
-        lastTimerUpdateTime = context->getClockMillisecondsTime();
+        lastTimerUpdateTime = context.getClockMillisecondsTime();
     }
 
     /* display the SFML text surface */
-    context->getSfmlWindow().draw(text);
+    context.getSfmlWindow().draw(text);
 }
 
 /**

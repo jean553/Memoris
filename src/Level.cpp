@@ -41,7 +41,7 @@ namespace entities
  *
  */
 Level::Level(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const bool loadFromFile
 )
 {
@@ -64,10 +64,10 @@ Level::Level(
  *
  */
 void Level::display(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const unsigned short& floor,
     void (Cell::*display)(
-        aliases::ConstContextSharedPtrRef,
+        utils::Context&,
         aliases::ConstTransformUniquePtrRef
     )
 ) const
@@ -96,7 +96,7 @@ void Level::display(
  *
  */
 void Level::hideAllCellsExceptDeparture(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* use a for_each to browse all the unique pointers of the cells container;
@@ -131,7 +131,7 @@ void Level::hideAllCellsExceptDeparture(
  *
  */
 void Level::setPlayerCellTransparency(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const sf::Uint8& alpha
 )
 {
@@ -146,7 +146,7 @@ void Level::setPlayerCellTransparency(
  *
  */
 void Level::movePlayer(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const short& movement
 )
 {
@@ -195,7 +195,7 @@ bool Level::allowPlayerMovement(
  *
  */
 bool Level::detectWalls(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const short& movement
 ) const
 {
@@ -222,7 +222,7 @@ const char& Level::getPlayerCellType() const
 /**
  *
  */
-void Level::emptyPlayerCell(const std::shared_ptr<utils::Context>& context)
+void Level::emptyPlayerCell(utils::Context& context)
 {
     /* empty the player cell */
     (*cells[playerIndex]).empty();
@@ -235,7 +235,7 @@ void Level::emptyPlayerCell(const std::shared_ptr<utils::Context>& context)
  *
  */
 bool Level::movePlayerToNextFloor(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* calculate the expected new index of the player after his movement; use
@@ -264,7 +264,7 @@ bool Level::movePlayerToNextFloor(
  *
  */
 bool Level::movePlayerToPreviousFloor(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* calculate the expected new index of the player after his movement; use
@@ -319,7 +319,7 @@ const unsigned short Level::getPlayerFloor()
  *
  */
 void Level::playFloorTransitionAnimation(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* NOTE: this function only applies the horizontal transition animation
@@ -362,7 +362,7 @@ void Level::playFloorTransitionAnimation(
     /* the switch floor animation is updated every 25 milliseconds until the
        end of the animation */
     if (
-        context->getClockMillisecondsTime() -
+        context.getClockMillisecondsTime() -
         lastAnimationTime > 25
     )
     {
@@ -388,7 +388,7 @@ void Level::playFloorTransitionAnimation(
 
         /* update the last animation update time to ensure the whole animation
            rendering */
-        lastAnimationTime = context->getClockMillisecondsTime();
+        lastAnimationTime = context.getClockMillisecondsTime();
     }
 }
 
@@ -444,7 +444,7 @@ void Level::setPlayerCellIndex(const unsigned short& index)
  *
  */
 void Level::setCellsTransparency(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const float& transparency,
     const unsigned short& floor
 )
@@ -510,10 +510,10 @@ void Level::deleteTransform()
 /**
  *
  */
-void Level::loadLevelFromFile(const std::shared_ptr<utils::Context>& context)
+void Level::loadLevelFromFile(utils::Context& context)
 {
     /* create a file object to read the level file and load the cells */
-    std::ifstream file(context->getPlayingSerieManager().getNextLevelName());
+    std::ifstream file(context.getPlayingSerieManager().getNextLevelName());
 
     /* check if the file is opened correctly */
     if (!file.is_open())
@@ -592,7 +592,7 @@ void Level::loadLevelFromFile(const std::shared_ptr<utils::Context>& context)
 /**
  *
  */
-void Level::loadEmptyLevel(const std::shared_ptr<utils::Context>& context)
+void Level::loadEmptyLevel(utils::Context& context)
 {
     /* there are 2560 cells per level, 256 per floor, there are 10 floors */
     for(unsigned short index {0}; index < 2560; index++)
@@ -655,7 +655,7 @@ void Level::updateCursors()
  *
  */
 void Level::updateSelectedCellType(
-    aliases::ConstContextSharedPtrRef context,
+    utils::Context& context,
     const unsigned short& floor,
     const char& type
 )

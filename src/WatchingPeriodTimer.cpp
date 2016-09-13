@@ -35,10 +35,10 @@ namespace utils
  *
  */
 WatchingPeriodTimer::WatchingPeriodTimer(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
-    seconds = context->getPlayingSerieManager().getWatchingTime();
+    seconds = context.getPlayingSerieManager().getWatchingTime();
 
     /* initialize the two SFML surfaces used to display the left watching time
        of the current level */
@@ -61,18 +61,18 @@ WatchingPeriodTimer::WatchingPeriodTimer(
 /**
  *
  */
-void WatchingPeriodTimer::display(const std::shared_ptr<Context>& context)
+void WatchingPeriodTimer::display(Context& context)
 {
     /* display the SFML surfaces */
-    context->getSfmlWindow().draw(*leftText);
-    context->getSfmlWindow().draw(*rightText);
+    context.getSfmlWindow().draw(*leftText);
+    context.getSfmlWindow().draw(*rightText);
 
     /* check if the timer is started and if at least one second elapsed since
        the last timer value update; if yes, decrement the displayed value */
     if (
         started &&
         (
-            context->getClockMillisecondsTime() -
+            context.getClockMillisecondsTime() -
             lastUpdateTime > 1000
         )
     )
@@ -96,7 +96,7 @@ void WatchingPeriodTimer::display(const std::shared_ptr<Context>& context)
         updateDisplayedSurfaces();
 
         /* update the last update time */
-        lastUpdateTime = context->getClockMillisecondsTime();
+        lastUpdateTime = context.getClockMillisecondsTime();
     }
 }
 
@@ -112,7 +112,7 @@ const bool& WatchingPeriodTimer::isStarted() const
  *
  */
 std::unique_ptr<sf::Text> WatchingPeriodTimer::createWatchingPeriodTimerText(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const float& hPosition,
     const float& vPosition,
     const unsigned short& time
@@ -132,10 +132,10 @@ std::unique_ptr<sf::Text> WatchingPeriodTimer::createWatchingPeriodTimerText(
     sfmlText->setCharacterSize(fonts::TITLE_SIZE);
 
     /* the font of the counter is the normal font of the game */
-    sfmlText->setFont(context->getFontsManager().getTextFont());
+    sfmlText->setFont(context.getFontsManager().getTextFont());
 
     /* the color of the counter is a light blue color */
-    sfmlText->setColor(context->getColorsManager().getColorLightBlue());
+    sfmlText->setColor(context.getColorsManager().getColorLightBlue());
 
     /* transform the given unsigned short into a string to pass it to the
        SFML surface function */

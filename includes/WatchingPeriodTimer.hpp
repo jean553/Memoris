@@ -47,19 +47,19 @@ public:
      * @brief constructor, save the given time and initialize the SFML surfaces
      * according to this given time
      *
-     * @param context shared pointer to the current context
+     * @param context reference to the current context
      */
     WatchingPeriodTimer(
-        const std::shared_ptr<utils::Context>& context
+        utils::Context& context
     );
 
     /**
      * @brief displays the watching period timer SFML surfaces; automatically
      * updates the displayed value every seconds until the last one
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      */
-    void display(const std::shared_ptr<Context>& context);
+    void display(Context& context);
 
     /**
      * @brief returns true if the timer is started; used by the game controller
@@ -91,7 +91,7 @@ private:
      * instruction of this factory; this method is static because it is a
      * factory function, so it do not manipulate the object attributes
      *
-     * @param context shared pointer to the current context
+     * @param context reference to the current context
      * @param hPosition horizontal position of the counter
      * @param vPosition vertical position of the counter
      * @param time time to display inside the surface
@@ -99,7 +99,7 @@ private:
      * @return std::unique_ptr<sf::Text>
      */
     static std::unique_ptr<sf::Text> createWatchingPeriodTimerText(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const float& hPosition,
         const float& vPosition,
         const unsigned short& time

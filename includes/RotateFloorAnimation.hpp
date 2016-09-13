@@ -46,7 +46,7 @@ public:
      * @param context shared pointer reference to the current context
      */
     RotateFloorAnimation(
-        aliases::ConstContextSharedPtrRef context,
+        utils::Context& context,
         const short& movementDirection
     );
 
@@ -57,12 +57,12 @@ public:
      * public because this is the only interface accessible from the game
      * controller
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param level shared pointer to the level to animate
      * @param floor the current floor to display in the animation
      */
     void renderAnimation(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) override;
@@ -75,12 +75,12 @@ private:
      * according to the current animationSteps value; this method is protected
      * because called by the renderAnimation function
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param level shared pointer to the level to animate
      * @param floor the current floor to display in the animation
      */
     void playNextAnimationStep(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) override;
@@ -88,12 +88,12 @@ private:
     /**
      * @brief rotate the cells of the floor on the left
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param level shared pointer to the level to animate
      * @param floor the current floor to display in the animation
      */
     void rotateCells(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     );

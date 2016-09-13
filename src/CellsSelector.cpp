@@ -34,7 +34,7 @@ namespace utils
 /**
  *
  */
-CellsSelector::CellsSelector(aliases::ConstContextSharedPtrRef context)
+CellsSelector::CellsSelector(utils::Context& context)
 {
     cells =
     {
@@ -137,7 +137,7 @@ CellsSelector::CellsSelector(aliases::ConstContextSharedPtrRef context)
     );
 
     selectedCellImage.setTexture(
-        context->getCellsTexturesManager().getTextureReferenceByCellType(
+        context.getCellsTexturesManager().getTextureReferenceByCellType(
             cells::EMPTY_CELL
         )
     );
@@ -146,7 +146,7 @@ CellsSelector::CellsSelector(aliases::ConstContextSharedPtrRef context)
 /**
  *
  */
-void CellsSelector::display(aliases::ConstContextSharedPtrRef context)
+void CellsSelector::display(utils::Context& context)
 {
     /* the STL for_each is the best solution here as we simply execute a
        method for the whole container items */
@@ -159,13 +159,13 @@ void CellsSelector::display(aliases::ConstContextSharedPtrRef context)
     }
     );
 
-    context->getSfmlWindow().draw(selectedCellImage);
+    context.getSfmlWindow().draw(selectedCellImage);
 }
 
 /**
  *
  */
-void CellsSelector::selectCell(aliases::ConstContextSharedPtrRef context)
+void CellsSelector::selectCell(utils::Context& context)
 {
     /* we use a const_iterator here to automatically return a reference to
        a constant Cell object and because we want use break; and continue;
@@ -189,7 +189,7 @@ void CellsSelector::selectCell(aliases::ConstContextSharedPtrRef context)
         /* update the selected cell image according the cell the user has just
            selected */
         selectedCellImage.setTexture(
-            context->getCellsTexturesManager().getTextureReferenceByCellType(
+            context.getCellsTexturesManager().getTextureReferenceByCellType(
                 selectedCellType
             )
         );

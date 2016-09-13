@@ -33,20 +33,20 @@ namespace animations
  *
  */
 RotateFloorAnimation::RotateFloorAnimation(
-    aliases::ConstContextSharedPtrRef context,
+    utils::Context& context,
     const short& movementDirection
 ) :
     direction(movementDirection)
 {
     /* plays the floor movement animation */
-    context->getSoundsManager().getFloorMovementAnimationSound().play();
+    context.getSoundsManager().getFloorMovementAnimationSound().play();
 }
 
 /**
  *
  */
 void RotateFloorAnimation::playNextAnimationStep(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 )
@@ -67,7 +67,7 @@ void RotateFloorAnimation::playNextAnimationStep(
  *
  */
 void RotateFloorAnimation::renderAnimation(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 )
@@ -78,7 +78,7 @@ void RotateFloorAnimation::renderAnimation(
         &entities::Cell::display
     );
 
-    if (context->getClockMillisecondsTime() - lastAnimationUpdateTime < 50)
+    if (context.getClockMillisecondsTime() - lastAnimationUpdateTime < 50)
     {
         return;
     }
@@ -111,7 +111,7 @@ void RotateFloorAnimation::renderAnimation(
  *
  */
 void RotateFloorAnimation::rotateCells(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 )

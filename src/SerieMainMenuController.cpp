@@ -36,15 +36,15 @@ namespace controllers
  *
  */
 SerieMainMenuController::SerieMainMenuController(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 ) :
     AbstractMenuController(context)
 {
     /* set the properties of the series main menu title */
-    title.setFont(context->getFontsManager().getTitleFont());
+    title.setFont(context.getFontsManager().getTitleFont());
     title.setString("Series");
     title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
-    title.setColor(context->getColorsManager().getColorLightBlue());
+    title.setColor(context.getColorsManager().getColorLightBlue());
     title.setPosition(
         700.f,
         50.f
@@ -94,11 +94,11 @@ SerieMainMenuController::SerieMainMenuController(
  *
  */
 unsigned short SerieMainMenuController::render(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* display the serie main menu title */
-    context->getSfmlWindow().draw(title);
+    context.getSfmlWindow().draw(title);
 
     /* display all the menu items */
     renderAllMenuItems(context);
@@ -109,7 +109,7 @@ unsigned short SerieMainMenuController::render(
     /* series main menu events loop; the player can select between the
        official series item and the personal series item; the player can also
        go back to the main menu selecting the back button */
-    while (context->getSfmlWindow().pollEvent(event))
+    while (context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

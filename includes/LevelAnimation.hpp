@@ -45,12 +45,12 @@ public:
      * public because this is the only interface accessible from the game
      * controller
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param level shared pointer to the level to animate
      * @param floor the current floor to display in the animation
      */
     virtual void renderAnimation(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) = 0;
@@ -71,12 +71,12 @@ protected:
      * according to the current animationSteps value; this method is protected
      * because called by the renderAnimation function
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param level shared pointer to the level to animate
      * @param floor the current floor to display in the animation
      */
     virtual void playNextAnimationStep(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) = 0;
@@ -85,13 +85,13 @@ protected:
      * @brief hides or shows the given cell at the given index, used during the
      * animation
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param level shared pointer to the concerned level object
      * @param index the index of the cell to display or to hide
      * @param visible boolean that indicates if the cell has to be hide or not
      */
     void showOrHideCell(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& index,
         const bool& visible
@@ -101,10 +101,10 @@ protected:
      * @brief increments the animation steps counter and set the animation last
      * update time with the current time
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      */
     void incrementAnimationStep(
-        const std::shared_ptr<utils::Context>& context
+        utils::Context& context
     );
 
     /* used by the animation creator (game controller) to know if the animation

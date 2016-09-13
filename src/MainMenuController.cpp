@@ -35,7 +35,7 @@ namespace controllers
  *
  */
 MainMenuController::MainMenuController(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 ) :
     AbstractMenuController(context),
     animatedBackground(context),
@@ -43,10 +43,10 @@ MainMenuController::MainMenuController(
 {
     /* the title color and selector color are copies from
        manager colors, because they are updated continually */
-    colorTitle = context->getColorsManager().getColorBlueCopy();
+    colorTitle = context.getColorsManager().getColorBlueCopy();
 
     /* initialize the title text label, at the top center of the screen */
-    title.setFont(context->getFontsManager().getTitleFont());
+    title.setFont(context.getFontsManager().getTitleFont());
     title.setString("Memoris");
     title.setCharacterSize(fonts::TITLE_SIZE);
     title.setColor(colorTitle);
@@ -116,7 +116,7 @@ MainMenuController::MainMenuController(
     addMenuItem(std::move(exit));
 
     spriteGithub.setTexture(
-        context->getTexturesManager().getGithubTexture()
+        context.getTexturesManager().getGithubTexture()
     );
     spriteGithub.setPosition(
         1300.f,
@@ -132,7 +132,7 @@ MainMenuController::MainMenuController(
  *
  */
 unsigned short MainMenuController::render(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* animate the animated background */
@@ -143,7 +143,7 @@ unsigned short MainMenuController::render(
 
     /* animate the main menu title according to its last animation time */
     if(
-        context->getClockMillisecondsTime() -
+        context.getClockMillisecondsTime() -
         titleLastAnimationTime > 10
     )
     {
@@ -152,12 +152,12 @@ unsigned short MainMenuController::render(
         /* update the title animation time with the current time
            after the animation */
         titleLastAnimationTime =
-            context->getClockMillisecondsTime();
+            context.getClockMillisecondsTime();
     }
 
     /* render the title and the github picture */
-    context->getSfmlWindow().draw(title);
-    context->getSfmlWindow().draw(spriteGithub);
+    context.getSfmlWindow().draw(title);
+    context.getSfmlWindow().draw(spriteGithub);
 
     /* display all the menu items */
     renderAllMenuItems(context);
@@ -170,7 +170,7 @@ unsigned short MainMenuController::render(
     /* main menu controller events loop; changes the position of the menu
        selector according to the Up/Down keys; select a menu item when
        the Enter key is pressed */
-    while(context->getSfmlWindow().pollEvent(event))
+    while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

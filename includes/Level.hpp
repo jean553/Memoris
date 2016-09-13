@@ -50,7 +50,7 @@ public:
      * @brief constructor, initialize all the cells of the level according to
      * the given level file path
      *
-     * @param context shared pointer to the current context
+     * @param context reference to the current context
      * @param loadFromFile boolean false by default to indicate that the
      * level content has to be loaded from the next file in the serie
      * manager levels queue (false by default for safety). If the boolean is
@@ -59,7 +59,7 @@ public:
      * @throw std::invalid_argument the level file cannot be opened
      */
     Level(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const bool loadFromFile = false
     );
 
@@ -68,15 +68,15 @@ public:
      * method is optimized and only calculate/render/display the cells of
      * the given floor; the other cells are totally ignored
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param floor the floor to render
      * @param Cell object method pointer to the cell display() method to use
      */
     void display(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const unsigned short& floor,
         void (Cell::*display)(
-            aliases::ConstContextSharedPtrRef,
+            utils::Context&,
             aliases::ConstTransformUniquePtrRef
         )
     ) const;
@@ -85,22 +85,22 @@ public:
      * @brief hides all the cells of the level, call the method (hide()) for
      * all of them except for departure cell(s)
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      */
     void hideAllCellsExceptDeparture(
-        const std::shared_ptr<utils::Context>& context
+        utils::Context& context
     );
 
     /**
      * @brief update the transparency value of the current player color
      *
-     * @param context shared pointer to the current context
+     * @param context reference to the current context
      * @param alpha the current player cell transparency value; we use a
      * sf::Uint8 value as this is the type used to set the colors of a
      * sf::Color object
      */
     void setPlayerCellTransparency(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const sf::Uint8& alpha
     );
 
@@ -109,10 +109,10 @@ public:
      *
      * @param move the value (positive or negative) to apply on the current
      * player index; defines the mouvement of the player
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      */
     void movePlayer(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const short& movement
     );
 
@@ -148,13 +148,13 @@ public:
      * check if the user is currently in collision with a wall; if there is
      * a collision, the wall is shown
      *
-     * @param context shared pointer to the current context
+     * @param context reference to the current context
      * @param movement the movement direction, the same as movePlayer()
      *
      * @return bool
      */
     bool detectWalls(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const short& movement
     ) const;
 
@@ -164,10 +164,10 @@ public:
      * a cell when the player leaves it; this method automatically forces the
      * load of a new texture for the player cell
      *
-     * @param context shared pointer to the current context
+     * @param context reference to the current context
      */
     void emptyPlayerCell(
-        const std::shared_ptr<utils::Context>& context
+        utils::Context& context
     );
 
     /**
@@ -175,23 +175,23 @@ public:
      * returns true if the action has been executed, false if it is not
      * possible to move to the next floor
      *
-     * @param context shared pointer to the current context
+     * @param context reference to the current context
      *
      * @bool true if the player moved to the next floor
      */
-    bool movePlayerToNextFloor(const std::shared_ptr<utils::Context>& context);
+    bool movePlayerToNextFloor(utils::Context& context);
 
     /**
      * @brief moves the current player to the previous floor if possible,
      * returns true if the action has been executed, false if it is not
      * possible to move to the previous floor
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      *
      * @bool true if the player moved to the previous floor
      */
     bool movePlayerToPreviousFloor(
-        const std::shared_ptr<utils::Context>& context
+        utils::Context& context
     );
 
     /**
@@ -227,13 +227,13 @@ public:
      * animation renders a verical column that scroll the whole floor and
      * displays the next floor;
      *
-     * @param context shared pointer to the current context
+     * @param context reference to the current context
      *
      * NOTE: this method must be called instead of 'display()' during the
      * animation
      */
     void playFloorTransitionAnimation(
-        const std::shared_ptr<utils::Context>& context
+        utils::Context& context
     );
 
     /**
@@ -287,7 +287,7 @@ public:
      * @param floor the concerned floor index
      */
     void setCellsTransparency(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const float& transparency,
         const unsigned short& floor
     );
@@ -335,7 +335,7 @@ public:
      * @param type the type to apply on the 'mouse hover cell'
      */
     void updateSelectedCellType(
-        aliases::ConstContextSharedPtrRef context,
+        utils::Context& context,
         const unsigned short& floor,
         const char& type
     );
@@ -346,19 +346,19 @@ private:
      * @brief private method called by the constructor to load a level from
      * the next file in the serie manager queue
      *
-     * @param context shared pointer to the current context
+     * @param context reference to the current context
      *
      * @throw std::invalid_argument the level file cannot be opened
      */
-    void loadLevelFromFile(const std::shared_ptr<utils::Context>& context);
+    void loadLevelFromFile(utils::Context& context);
 
     /**
      * @brief private method called by the constructor to load a level full
      * of empty cells
      *
-     * @param context shared pointer to the current context
+     * @param context reference to the current context
      */
-    void loadEmptyLevel(const std::shared_ptr<utils::Context>& context);
+    void loadEmptyLevel(utils::Context& context);
 
     /**
      * @brief called by the constructor to update the cursor position during

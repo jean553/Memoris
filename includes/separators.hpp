@@ -40,7 +40,7 @@ namespace utils
  * @param separator reference to the separator SFML surface to initialize
  */
 void initializeHorizontalSeparator(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     sf::RectangleShape& separator
 );
 
@@ -52,7 +52,7 @@ void initializeHorizontalSeparator(
  * @param separator reference to the separator SFML surface to initialize
  */
 void initializeVerticalSeparator(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     sf::RectangleShape& separator
 );
 

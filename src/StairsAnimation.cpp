@@ -33,7 +33,7 @@ namespace animations
  *
  */
 StairsAnimation::StairsAnimation(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const short& dir
 ) :
     direction(dir)
@@ -42,14 +42,14 @@ StairsAnimation::StairsAnimation(
        appropriated time, we just save the current time once before the
        waiting period; if the animation just started, the last animation
        update time is equal to 0 */
-    lastAnimationUpdateTime = context->getClockMillisecondsTime();
+    lastAnimationUpdateTime = context.getClockMillisecondsTime();
 }
 
 /**
  *
  */
 void StairsAnimation::renderAnimation(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 )
@@ -62,7 +62,7 @@ void StairsAnimation::renderAnimation(
 
     /* the waiting time is 2 seconds; this is enough to let the player see
        which cell he's just found */
-    if (context->getClockMillisecondsTime() - lastAnimationUpdateTime < 50)
+    if (context.getClockMillisecondsTime() - lastAnimationUpdateTime < 50)
     {
         return;
     }
@@ -73,14 +73,14 @@ void StairsAnimation::renderAnimation(
         floor
     );
 
-    lastAnimationUpdateTime = context->getClockMillisecondsTime();
+    lastAnimationUpdateTime = context.getClockMillisecondsTime();
 }
 
 /**
  *
  */
 void StairsAnimation::playNextAnimationStep(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 )
@@ -90,13 +90,13 @@ void StairsAnimation::playNextAnimationStep(
     /* play the stop sound when the player just arrived on the cell */
     if (animationSteps == 0)
     {
-        context->getSoundsManager().getCollisionSound().play();
+        context.getSoundsManager().getCollisionSound().play();
     }
 
     /* play the floor switch sound when the floor starts to change */
     if (animationSteps == 10)
     {
-        context->getSoundsManager().getFloorSwitchSound().play();
+        context.getSoundsManager().getFloorSwitchSound().play();
     }
 
     if (animationSteps >= 10 && animationSteps < 25)

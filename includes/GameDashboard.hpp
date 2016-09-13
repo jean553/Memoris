@@ -47,16 +47,16 @@ public:
      * @brief constructor, initialize the timer widget, all the dashboard
      * informations labels and all the labels images
      *
-     * @param context shared pointer to the current context
+     * @param context reference to the current context
      */
-    GameDashboard(const std::shared_ptr<utils::Context>& context);
+    GameDashboard(utils::Context& context);
 
     /**
      * @brief overwritte the method to display the dashboard
      *
      * @param context shared pointer to the context to use
      */
-    void display(const std::shared_ptr<utils::Context>& context);
+    void display(utils::Context& context);
 
     /**
      * @brief increments the found stars amount and updates the displayed found

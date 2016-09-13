@@ -46,18 +46,18 @@ public:
      * the context shared pointer to the Controller constructor as it is the
      * parent class
      *
-     * @param context shared pointer to the current context
+     * @param context reference to the current context
      */
-    ErrorController(const std::shared_ptr<utils::Context>& context);
+    ErrorController(utils::Context& context);
 
     /**
      * @brief renders the error message screen
      *
-     * @param context shared pointer to the current context
+     * @param context reference to the current context
      *
      * @return unsigned short
      */
-    unsigned short render(const std::shared_ptr<utils::Context>& context);
+    unsigned short render(utils::Context& context);
 };
 
 }

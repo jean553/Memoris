@@ -33,12 +33,12 @@ namespace utils
  *
  */
 void initializeHorizontalSeparator(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     sf::RectangleShape& separator
 )
 {
     separator.setPosition(400.f, 495.f);
-    separator.setFillColor(context->getColorsManager().getColorRed());
+    separator.setFillColor(context.getColorsManager().getColorRed());
     separator.setSize(sf::Vector2f(800.f, 4.f));
 }
 
@@ -46,12 +46,12 @@ void initializeHorizontalSeparator(
  *
  */
 void initializeVerticalSeparator(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     sf::RectangleShape& separator
 )
 {
     separator.setPosition(798.f, 98.f);
-    separator.setFillColor(context->getColorsManager().getColorRed());
+    separator.setFillColor(context.getColorsManager().getColorRed());
     separator.setSize(sf::Vector2f(4.f, 800.f));
 }
 

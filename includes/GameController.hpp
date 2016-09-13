@@ -48,25 +48,25 @@ public:
      * @brief constructor, call the Level constructor that loads and create
      * the game level; initialize the watching time of the game
      *
-     * @param context shared pointer to the current context
+     * @param context reference to the current context
      * @param levelPtr shared pointer to the level object to use
      *
      * @throw std::invalid_argument the level file cannot be opened
      */
     GameController(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         std::shared_ptr<entities::Level> levelPtr
     );
 
     /**
      * @brief renders the game main screen
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      *
      * @return unsigned short id of the new screen controller
      */
     unsigned short render(
-        const std::shared_ptr<utils::Context>& context
+        utils::Context& context
     ) override;
 
 private:
@@ -77,7 +77,7 @@ private:
      * the level; it checks if the movement is allowed, move the player on
      * the level and executes the player's new cell action
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param the numeric representation of the movement's direction,
      * the delta between the current player cell and the destination cell
      *
@@ -86,7 +86,7 @@ private:
      * are not checked when the function is executed.
      */
     void handlePlayerMovement(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const short& movement
     );
 
@@ -97,7 +97,7 @@ private:
      * @param context shared pointer to the context to use
      */
     void executePlayerCellAction(
-        const std::shared_ptr<utils::Context>& context
+        utils::Context& context
     );
 
     /**
@@ -108,7 +108,7 @@ private:
      *
      * @param context shared pointer to the context to use
      */
-    void emptyPlayerCell(const std::shared_ptr<utils::Context>& context);
+    void emptyPlayerCell(utils::Context& context);
 
     /**
      * @brief initialize the grey filter surface that is displayed if the
@@ -116,9 +116,9 @@ private:
      * the content of this method could be inside the controller itself, but
      * we put it inside a separated method for better organization
      *
-     * @param context shared pointer to the current context of the game
+     * @param context reference to the current context of the game
      */
-    void initializeGreyFilter(const std::shared_ptr<utils::Context>& context);
+    void initializeGreyFilter(utils::Context& context);
 
     /**
      * @brief initialize the lose text that is displayed when the player loses
@@ -126,16 +126,16 @@ private:
      * the content of this method could be inside the controller itself, but
      * we put it inside a separated method for better organization
      *
-     * @param context shared pointer to the current context of the game
+     * @param context reference to the current context of the game
      */
-    void initializeLoseText(const std::shared_ptr<utils::Context>& context);
+    void initializeLoseText(utils::Context& context);
 
     /**
      * @brief initialize the win text that is displayed when the player wins
      *
-     * @param context shared pointer to the current context of the game
+     * @param context reference to the current context of the game
      */
-    void initializeWinText(const std::shared_ptr<utils::Context>& context);
+    void initializeWinText(utils::Context& context);
 
     /**
      * @brief this method is called during the watching mode by the main
@@ -146,7 +146,7 @@ private:
      * @param context shared pointer to the context to use
      */
     void watchNextFloorOrHideLevel(
-        const std::shared_ptr<utils::Context>& context
+        utils::Context& context
     );
 
     /**
@@ -155,7 +155,7 @@ private:
      *
      * @param context shared pointer to the context to use
      */
-    void endLevel(const std::shared_ptr<utils::Context>& context);
+    void endLevel(utils::Context& context);
 
     /**
      * @brief animate the displayed left level amount on the win screen
@@ -163,7 +163,7 @@ private:
      * @param context shared pointer to the context to use
      */
     void animateLeftLevelsAmount(
-        const std::shared_ptr<utils::Context>& context
+        utils::Context& context
     );
 
     /* the graphical timer widget of the game; renders the elapsed time since

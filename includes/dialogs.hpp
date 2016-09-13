@@ -41,7 +41,7 @@ constexpr unsigned short SAVE_LEVEL_POPUP_ID {1};
  * controllers
  */
 std::unique_ptr<popups::Dialog> getDialogById(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const unsigned short& id
 );
 

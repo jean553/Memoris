@@ -35,7 +35,7 @@ namespace animations
  *
  */
 DiagonalAnimation::DiagonalAnimation(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
     /* initializes both of the vertical and horizontal separator */
@@ -51,19 +51,19 @@ DiagonalAnimation::DiagonalAnimation(
     );
 
     /* plays the floor movement animation */
-    context->getSoundsManager().getFloorMovementAnimationSound().play();
+    context.getSoundsManager().getFloorMovementAnimationSound().play();
 }
 
 /**
  *
  */
 void DiagonalAnimation::renderAnimation(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 )
 {
-    if (context->getClockMillisecondsTime() - lastAnimationUpdateTime < 100)
+    if (context.getClockMillisecondsTime() - lastAnimationUpdateTime < 100)
     {
         displayLevelAndSeparator(
             context,
@@ -93,7 +93,7 @@ void DiagonalAnimation::renderAnimation(
  *
  */
 void DiagonalAnimation::playNextAnimationStep(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 )
@@ -104,11 +104,11 @@ void DiagonalAnimation::playNextAnimationStep(
 
     if (animationSteps % 2 == 0)
     {
-        color = context->getColorsManager().getColorPurpleLowAlpha();
+        color = context.getColorsManager().getColorPurpleLowAlpha();
     }
     else
     {
-        color = context->getColorsManager().getColorWhite();
+        color = context.getColorsManager().getColorWhite();
     }
 
     applyPurpleColorOnCellsQuarters(
@@ -157,7 +157,7 @@ void DiagonalAnimation::playNextAnimationStep(
  *
  */
 void DiagonalAnimation::displayLevelAndSeparator(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 )
@@ -170,15 +170,15 @@ void DiagonalAnimation::displayLevelAndSeparator(
     );
 
     /* displays the separators */
-    context->getSfmlWindow().draw(horizontalSeparator);
-    context->getSfmlWindow().draw(verticalSeparator);
+    context.getSfmlWindow().draw(horizontalSeparator);
+    context.getSfmlWindow().draw(verticalSeparator);
 }
 
 /**
  *
  */
 void DiagonalAnimation::applyPurpleColorOnCellsQuarters(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor,
     const sf::Color& color
@@ -229,7 +229,7 @@ void DiagonalAnimation::applyPurpleColorOnCellsQuarters(
  *
  */
 void DiagonalAnimation::invertTopLeftWithBottomRight(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 )
@@ -259,7 +259,7 @@ void DiagonalAnimation::invertTopLeftWithBottomRight(
  *
  */
 void DiagonalAnimation::invertBottomLeftWithTopRight(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 )
@@ -289,7 +289,7 @@ void DiagonalAnimation::invertBottomLeftWithTopRight(
  *
  */
 void DiagonalAnimation::invertCells(
-    const std::shared_ptr<utils::Context>& context,
+    utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& source,
     const short& difference

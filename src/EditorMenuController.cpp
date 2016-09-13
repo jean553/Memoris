@@ -36,14 +36,14 @@ namespace controllers
  *
  */
 EditorMenuController::EditorMenuController(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 ) : AbstractMenuController(context)
 {
     /* set the parameters of the title of the screen */
-    title.setFont(context->getFontsManager().getTitleFont());
+    title.setFont(context.getFontsManager().getTitleFont());
     title.setString("Editor");
     title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
-    title.setColor(context->getColorsManager().getColorLightBlue());
+    title.setColor(context.getColorsManager().getColorLightBlue());
     title.setPosition(
         710.f,
         50.f
@@ -90,16 +90,16 @@ EditorMenuController::EditorMenuController(
  *
  */
 unsigned short EditorMenuController::render(
-    const std::shared_ptr<utils::Context>& context
+    utils::Context& context
 )
 {
-    context->getSfmlWindow().draw(title);
+    context.getSfmlWindow().draw(title);
 
     renderAllMenuItems(context);
 
     nextControllerId = animateScreenTransition(context);
 
-    while(context->getSfmlWindow().pollEvent(event))
+    while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

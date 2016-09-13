@@ -43,16 +43,16 @@ public:
     /**
      * @brief constructor, initializes the two SFML surfaces
      *
-     * @param context shared pointer to the current context
+     * @param context reference to the current context
      */
-    LevelSeparators(const std::shared_ptr<utils::Context>& context);
+    LevelSeparators(utils::Context& context);
 
     /**
      * @brief renders the two SFML surfaces together
      *
-     * @param context shared pointer to the current context
+     * @param context reference to the current context
      */
-    void display(const std::shared_ptr<utils::Context>& context) const;
+    void display(utils::Context& context) const;
 
 private:
 

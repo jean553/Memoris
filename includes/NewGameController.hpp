@@ -48,19 +48,19 @@ public:
      * @brief constructor, creates the title surface and the explanation
      * label surface; creates the input text widget
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      */
-    NewGameController(const std::shared_ptr<utils::Context>& context);
+    NewGameController(utils::Context& context);
 
     /**
      * @brief render the new game screen
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      *
      * @return unsigned short id of the next screen controller
      */
     unsigned short render(
-        const std::shared_ptr<utils::Context>& context
+        utils::Context& context
     ) override;
 
 private:

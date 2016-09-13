@@ -43,33 +43,33 @@ public:
      * just before the animation starts; we use this saved value later to
      * know when the waiting time of the animation is terminated
      *
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param dir indicates in which direction is made the transition
      * (up/down), only equals to -1 or 1;
      */
     StairsAnimation(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const short& dir
     );
 
     /**
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param level shared pointer to the level to animate
      * @param floor the current floor to display in the animation
      */
     void renderAnimation(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     );
 
     /**
-     * @param context shared pointer to the current context to use
+     * @param context reference to the current context to use
      * @param level shared pointer to the level to animate
      * @param floor the current floor to display in the animation
      */
     void playNextAnimationStep(
-        const std::shared_ptr<utils::Context>& context,
+        utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     );
