@@ -68,12 +68,12 @@ private:
     /* the title of the official series list screen is a SFML text surface */
     sf::Text title;
 
-    /* this is specific to the official series menu controller; in fact, we
-       need to use the context pointer inside the selectMenuItem() method,
-       but this is a pure virtual method inherited from AbstractMenuController;
-       all the others menus do not need this pointer in this method; we cannot
-       overwritte the parameters of this function only into this class, so we
-       create a separated pointer */
+    /* we store a context reference as an attribute here; the method
+       selectMenuItem is overridden from the parent class; no one of the
+       children class needs this method with context usage inside, except this
+       class; that's why we keep a reference to the context, in order to use
+       it later; by doing like that, we do not need to change the declaration
+       of each overridden method and declare variadic parameters... */
     utils::Context& contextPtr;
 };
 
