@@ -73,7 +73,7 @@ public:
     const size_t getRemainingLevelsAmount() const & noexcept;
 
     /**
-     * @brief returns the next item of the levels container according to the 
+     * @brief returns the next item of the levels container according to the
      * FIFO specifications
      *
      * @return const std::string
