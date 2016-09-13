@@ -26,10 +26,13 @@
 #ifndef MEMORIS_SOUND_H_
 #define MEMORIS_SOUND_H_
 
-#include <SFML/Audio/Sound.hpp>
-#include <SFML/Audio/SoundBuffer.hpp>
-
 #include <memory>
+
+namespace sf
+{
+    class Sound;
+    class SoundBuffer;
+}
 
 namespace memoris
 {
@@ -55,6 +58,14 @@ public:
     Sound(const std::string& path) noexcept;
 
     /**
+     * @brief empty destructor declared here instead of the default one;
+     * by generating the default one, the compiler needs the whole definition
+     * of sf::Sound and sf::SoundBuffer, and they are not defined in this
+     * header
+     */
+    ~Sound() noexcept;
+
+    /**
      * @brief play the SFML sound if it has been loaded successfully
      *
      * declared public because can be called from any controller
@@ -67,9 +78,10 @@ private:
        better to use dynamic allocation here because if the objects cannot
        be created successfully, we just do not use memory for them */
 
-    /* pointer to the SFML sound to play, null by default because it is
-       dynamically created only if the SFML buffer is initialized */
-    std::unique_ptr<sf::Sound> sound {nullptr};
+    /* pointer to the SFML sound to play, initialized to nullptr directly
+       into the constructor; not here because the sf::Sound type is not
+       defined */
+    std::unique_ptr<sf::Sound> sound;
 
     /* pointer to the SFML buffer for the current sound; not initialized
        by default because we directly try to initialize it inside the

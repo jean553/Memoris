@@ -26,6 +26,8 @@
 
 #include "window.hpp"
 
+#include <SFML/Audio/Sound.hpp>
+
 namespace memoris
 {
 namespace utils
