@@ -26,10 +26,27 @@
 #ifndef MEMORIS_ALIASES_H_
 #define MEMORIS_ALIASES_H_
 
-#include "Context.hpp"
+#include <memory>
+#include <vector>
+
+namespace sf
+{
+    class Transform;
+}
 
 namespace memoris
 {
+
+namespace entities
+{
+    class Cell;
+}
+
+namespace utils
+{
+    class Context;
+}
+
 namespace aliases
 {
 
@@ -38,6 +55,10 @@ using ConstContextSharedPtrRef = const std::shared_ptr<utils::Context>&;
 
 /* reference of an unique pointer to a SFML transform object */
 using ConstTransformUniquePtrRef = const std::unique_ptr<sf::Transform>&;
+
+/* constant reference to a container of unique pointers on Cell objects */
+using ConstUniquePtrCellsContainerRef =
+    const std::vector<std::unique_ptr<entities::Cell>>&;
 
 }
 }

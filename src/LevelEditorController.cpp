@@ -27,6 +27,7 @@
 #include "controllers.hpp"
 #include "fonts.hpp"
 #include "dialogs.hpp"
+#include "files.hpp"
 
 namespace memoris
 {
@@ -127,6 +128,12 @@ unsigned short LevelEditorController::render(
 
                     levelNameSurface.setString(
                         dialog->getInputTextWidget().getText()
+                    );
+
+                    /* save the level file */
+                    saveLevelFile(
+                        dialog->getInputTextWidget().getText(),
+                        level.getCells()
                     );
 
                     /* as the width of the surface has changed, we have to
@@ -255,6 +262,41 @@ void LevelEditorController::updateLevelNameSurfacePosition() noexcept
         1200.f - levelNameSurface.getLocalBounds().width,
         0.f
     );
+}
+
+/**
+ *
+ */
+void LevelEditorController::saveLevelFile(
+    const std::string& name,
+        aliases::ConstUniquePtrCellsContainerRef cells
+) const &
+{
+    std::ofstream file;
+    utils::applyFailbitAndBadbitExceptions(file);
+
+    file.open(
+        "data/levels/" + name + ".level",
+        std::fstream::out
+    );
+
+    /* string representation of the cells */
+    std::string cellsStr;
+
+    for (
+        std::vector<std::unique_ptr<entities::Cell>>::const_iterator iterator =
+            cells.begin();
+        iterator != cells.end();
+        iterator++
+    )
+    {
+        cellsStr += (*iterator)->getType();
+    }
+
+    file << cellsStr;
+
+    /* manually close the file is not necessary as std::ofstream is
+       automatically destroyed when it leaves the current scope */
 }
 
 }

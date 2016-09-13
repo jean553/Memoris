@@ -17,41 +17,27 @@
 */
 
 /**
- * @file GameManager.hpp
- * @package managers
+ * @file files.cpp
+ * @package utils
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "GameManager.hpp"
-
-#include <fstream>
+#include "files.hpp"
 
 namespace memoris
 {
-namespace managers
+namespace utils
 {
 
 /**
  *
  */
-void GameManager::createGame(const std::string& name) &
+void applyFailbitAndBadbitExceptions(std::ofstream& file)
 {
-    std::ofstream file;
-
-    /* if an error occurs during the file manipulation, an exception is
-       thrown */
-    file.exceptions(std::ofstream::failbit | std::ofstream::badbit);
-
-    file.open(
-        "data/games/" + name + ".game",
-        std::fstream::out
+    file.exceptions(
+        std::ofstream::failbit |
+        std::ofstream::badbit
     );
-
-    /* the new game is loaded in memory dynamically */
-    game = std::make_unique<entities::Game>(name);
-
-    /* manually close the file is not necessary as std::ofstream is
-       automatically destroyed when it leaves the current scope */
 }
 
 }

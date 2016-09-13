@@ -33,6 +33,7 @@
 #include "Cursor.hpp"
 #include "CellsSelector.hpp"
 #include "SaveLevelDialog.hpp"
+#include "aliases.hpp"
 
 namespace memoris
 {
@@ -93,6 +94,22 @@ private:
      * not constant because it modifies the level name surface position
      */
     void updateLevelNameSurfacePosition() noexcept;
+
+    /**
+     * @brief save the current level cells type into a level file, creates a
+     * new level file with the given name or overwrittes the existing one
+     *
+     * @param name the name of the level to create
+     * @param cells constant reference to the container of cells pointers
+     *
+     * @throw std::ios_base::failure thrown if the file manipulation failed;
+     * this exception is never caught by the program and the game directly
+     * stops
+     */
+    void saveLevelFile(
+        const std::string& name,
+        aliases::ConstUniquePtrCellsContainerRef cells
+    ) const &;
 
     /* the editor dashboard with all the tool buttons */
     utils::EditorDashboard dashboard;
