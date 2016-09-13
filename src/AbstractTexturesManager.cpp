@@ -18,6 +18,8 @@
 
 #include "AbstractTexturesManager.hpp"
 
+#include <stdexcept>
+
 namespace memoris
 {
 namespace managers

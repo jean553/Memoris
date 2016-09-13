@@ -30,8 +30,6 @@
 
 #include <SFML/Graphics/Texture.hpp>
 
-#include <stdexcept>
-
 namespace memoris
 {
 namespace managers
@@ -67,6 +65,9 @@ protected:
      * texture at the given reference
      *
      * the method is not const because static a member cannot be constant
+     *
+     * the sf::Texture type has to be defined totally because it is used in
+     * the children classes (declared as private)
      */
     static void loadTexture(
         sf::Texture& texture,

@@ -18,12 +18,15 @@
 
 /**
  * @file CellsTexturesManager.cpp
+ * @package managers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
 #include "CellsTexturesManager.hpp"
 
 #include "cells.hpp"
+
+#include <string>
 
 namespace memoris
 {
