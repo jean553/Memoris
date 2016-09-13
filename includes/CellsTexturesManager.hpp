@@ -19,6 +19,7 @@
 /**
  * @file CellsTexturesManager.hpp
  * @brief loads the cells textures
+ * @package managers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
@@ -26,8 +27,6 @@
 #define MEMORIS_CELLSTEXTURESMANAGER_H_
 
 #include "AbstractTexturesManager.hpp"
-
-#include <string>
 
 namespace memoris
 {
