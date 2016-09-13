@@ -19,6 +19,7 @@
 /**
  * @file SoundsManager.hpp
  * @brief loads and provides the sounds assets
+ * @package managers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 

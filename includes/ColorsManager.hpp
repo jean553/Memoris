@@ -21,7 +21,7 @@
  * @brief a class for the colors manager of the game, all the
  * colors are loaded when the object is created; each controller,
  * through the context, can get the color object it needs
- * @package colors
+ * @package managers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 

@@ -39,7 +39,7 @@ Sound::Sound(const std::string& path) noexcept :
     sound(nullptr),
     buffer(std::make_unique<sf::SoundBuffer>())
 {
-    if(buffer->loadFromFile(path))
+    if(buffer->loadFromFile("res/sounds/" + path + ".wav"))
     {
         sound = std::make_unique<sf::Sound>();
         sound->setBuffer(*buffer);
