@@ -24,12 +24,27 @@
 
 #include "GameManager.hpp"
 
+#include "Game.hpp"
+
 #include <fstream>
 
 namespace memoris
 {
 namespace managers
 {
+
+/**
+ *
+ */
+GameManager::GameManager() noexcept :
+    game(nullptr)
+{
+}
+
+/**
+ *
+ */
+GameManager::~GameManager() noexcept = default;
 
 /**
  *
