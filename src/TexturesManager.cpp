@@ -24,6 +24,8 @@
 
 #include "TexturesManager.hpp"
 
+#include <stdexcept>
+
 namespace memoris
 {
 namespace managers
@@ -34,23 +36,20 @@ namespace managers
  */
 TexturesManager::TexturesManager()
 {
-    /* load all the textures one by one; an exception is thrown
-       and the program stop if one texture cannot be loaded */
-
-    loadTexture(githubTexture, "res/images/fork-me.png");
-    loadTexture(starTexture, "res/images/star.png");
-    loadTexture(lifeTexture, "res/images/life.png");
-    loadTexture(targetTexture, "res/images/target.png");
-    loadTexture(timeTexture, "res/images/timer.png");
-    loadTexture(floorTexture, "res/images/floor.png");
-    loadTexture(newTexture, "res/images/new.png");
-    loadTexture(openTexture, "res/images/open.png");
-    loadTexture(saveTexture, "res/images/save.png");
-    loadTexture(cursorTexture, "res/images/cursor.png");
-    loadTexture(exitTexture, "res/images/exit.png");
-    loadTexture(testTexture, "res/images/test.png");
-    loadTexture(arrowUpTexture, "res/images/up.png");
-    loadTexture(arrowDownTexture, "res/images/down.png");
+    loadTexture(githubTexture, "fork-me");
+    loadTexture(starTexture, "star");
+    loadTexture(lifeTexture, "life");
+    loadTexture(targetTexture, "target");
+    loadTexture(timeTexture, "timer");
+    loadTexture(floorTexture, "floor");
+    loadTexture(newTexture, "new");
+    loadTexture(openTexture, "open");
+    loadTexture(saveTexture, "save");
+    loadTexture(cursorTexture, "cursor");
+    loadTexture(exitTexture, "exit");
+    loadTexture(testTexture, "test");
+    loadTexture(arrowUpTexture, "up");
+    loadTexture(arrowDownTexture, "down");
 }
 
 /**
@@ -163,6 +162,20 @@ const sf::Texture& TexturesManager::getArrowUpTexture() const & noexcept
 const sf::Texture& TexturesManager::getArrowDownTexture() const & noexcept
 {
     return arrowDownTexture;
+}
+
+/**
+ *
+ */
+void TexturesManager::loadTexture(
+    sf::Texture& texture,
+    const std::string& path
+) &
+{
+    if (!texture.loadFromFile("res/images/" + path + ".png"))
+    {
+        throw std::invalid_argument("Cannot load texture : " + path);
+    }
 }
 
 }

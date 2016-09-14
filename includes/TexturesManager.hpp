@@ -19,21 +19,21 @@
 /**
  * @file TexturesManager.hpp
  * @brief loads and provides the textures assets
- * @package textures
+ * @package managers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
 #ifndef MEMORIS_TEXTURESMANAGER_H_
 #define MEMORIS_TEXTURESMANAGER_H_
 
-#include "AbstractTexturesManager.hpp"
+#include <SFML/Graphics/Texture.hpp>
 
 namespace memoris
 {
 namespace managers
 {
 
-class TexturesManager : public AbstractTexturesManager
+class TexturesManager
 {
 
 public:
@@ -146,6 +146,23 @@ public:
     const sf::Texture& getArrowDownTexture() const & noexcept;
 
 private:
+
+    /**
+     * @brief load a texture from the textures folder
+     *
+     * @param texture reference to the SFML texture object that has to be set
+     * @param path file path of the *.png picture to load
+     *
+     * @throw std::invalid_argument the given file cannot be opened; the
+     * exception is not caught in order to close the program directly if at
+     * least one texture cannot be loaded
+     *
+     * not 'const' because modifies the textures of the object
+     */
+    void loadTexture(
+        sf::Texture& texture,
+        const std::string& path
+    ) &;
 
     sf::Texture cursorTexture;
     sf::Texture githubTexture;
