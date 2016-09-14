@@ -26,14 +26,14 @@
 #ifndef MEMORIS_CELLSTEXTURESMANAGER_H_
 #define MEMORIS_CELLSTEXTURESMANAGER_H_
 
-#include "AbstractTexturesManager.hpp"
+#include <SFML/Graphics/Texture.hpp>
 
 namespace memoris
 {
 namespace managers
 {
 
-class CellsTexturesManager : public AbstractTexturesManager
+class CellsTexturesManager
 {
 
 public:
@@ -61,6 +61,23 @@ public:
     noexcept ;
 
 private:
+
+    /**
+     * @brief load a texture from the textures folder
+     *
+     * @param texture reference to the SFML texture object that has to be set
+     * @param path file path of the *.png picture to load
+     *
+     * @throw std::invalid_argument the given file cannot be opened; the
+     * exception is not caught in order to close the program directly if at
+     * least one texture cannot be loaded
+     *
+     * not 'const' because modifies the textures of the object
+     */
+    void loadTexture(
+        sf::Texture& texture,
+        const std::string& path
+    ) &;
 
     sf::Texture emptyCellTexture;
     sf::Texture departureCellTexture;

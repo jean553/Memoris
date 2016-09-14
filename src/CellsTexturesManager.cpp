@@ -38,92 +38,23 @@ namespace managers
  */
 CellsTexturesManager::CellsTexturesManager()
 {
-    const std::string directoryPath = "res/cells/";
-
-    loadTexture(
-        emptyCellTexture,
-        directoryPath + "empty.png"
-    );
-
-    loadTexture(
-        departureCellTexture,
-        directoryPath + "departure.png"
-    );
-
-    loadTexture(
-        arrivalCellTexture,
-        directoryPath + "arrival.png"
-    );
-
-    loadTexture(
-        starCellTexture,
-        directoryPath + "star.png"
-    );
-
-    loadTexture(
-        moreLifeCellTexture,
-        directoryPath + "moreLife.png"
-    );
-
-    loadTexture(
-        lessLifeCellTexture,
-        directoryPath + "lessLife.png"
-    );
-
-    loadTexture(
-        moreTimeCellTexture,
-        directoryPath + "moreTime.png"
-    );
-
-    loadTexture(
-        lessTimeCellTexture,
-        directoryPath + "lessTime.png"
-    );
-
-    loadTexture(
-        wallCellTexture,
-        directoryPath + "wall.png"
-    );
-
-    loadTexture(
-        hiddenCellTexture,
-        directoryPath + "hidden.png"
-    );
-
-    loadTexture(
-        stairsUpCellTexture,
-        directoryPath + "stairs_up.png"
-    );
-
-    loadTexture(
-        stairsDownCellTexture,
-        directoryPath + "stairs_down.png"
-    );
-
-    loadTexture(
-        horizontalMirrorCellTexture,
-        directoryPath + "horizontal_mirror.png"
-    );
-
-    loadTexture(
-        verticalMirrorCellTexture,
-        directoryPath + "vertical_mirror.png"
-    );
-
-    loadTexture(
-        diagonalCellTexture,
-        directoryPath + "diagonal.png"
-    );
-
-    loadTexture(
-        leftRotationCellTexture,
-        directoryPath + "rotate_left.png"
-    );
-
-    loadTexture(
-        rightRotationCellTexture,
-        directoryPath + "rotate_right.png"
-    );
+    loadTexture(emptyCellTexture, "empty");
+    loadTexture(departureCellTexture, "departure");
+    loadTexture(arrivalCellTexture, "arrival");
+    loadTexture(starCellTexture, "star");
+    loadTexture(moreLifeCellTexture, "moreLife");
+    loadTexture(lessLifeCellTexture, "lessLife");
+    loadTexture(moreTimeCellTexture, "moreTime");
+    loadTexture(lessTimeCellTexture, "lessTime");
+    loadTexture(wallCellTexture, "wall");
+    loadTexture(hiddenCellTexture, "hidden");
+    loadTexture(stairsUpCellTexture, "stairs_up");
+    loadTexture(stairsDownCellTexture, "stairs_down");
+    loadTexture(horizontalMirrorCellTexture, "horizontal_mirror");
+    loadTexture(verticalMirrorCellTexture, "vertical_mirror");
+    loadTexture(diagonalCellTexture, "diagonal");
+    loadTexture(leftRotationCellTexture, "rotate_left");
+    loadTexture(rightRotationCellTexture, "rotate_right");
 }
 
 /**
@@ -203,5 +134,20 @@ const sf::Texture& CellsTexturesManager::getTextureReferenceByCellType(
 
     return emptyCellTexture;
 }
+
+/**
+ *
+ */
+void CellsTexturesManager::loadTexture(
+    sf::Texture& texture,
+    const std::string& path
+) &
+{
+    if (!texture.loadFromFile("res/cells/" + path + ".png"))
+    {
+        throw std::invalid_argument("Cannot load texture : " + path);
+    }
+}
+
 }
 }
