@@ -26,7 +26,12 @@
 #ifndef MEMORIS_TEXTURESMANAGER_H_
 #define MEMORIS_TEXTURESMANAGER_H_
 
-#include <SFML/Graphics/Texture.hpp>
+#include <memory>
+
+namespace sf
+{
+    class Texture;
+}
 
 namespace memoris
 {
@@ -46,6 +51,12 @@ public:
      * the exception is never caught to voluntary stop the program
      */
     TexturesManager();
+
+    /**
+     * @brief default constructor, empty, only declared in order to use
+     * forwarding declaration
+     */
+    ~TexturesManager() noexcept;
 
     /**
      * @brief getter for the github texture
@@ -164,20 +175,8 @@ private:
         const std::string& path
     ) &;
 
-    sf::Texture cursorTexture;
-    sf::Texture githubTexture;
-    sf::Texture starTexture;
-    sf::Texture lifeTexture;
-    sf::Texture targetTexture;
-    sf::Texture timeTexture;
-    sf::Texture floorTexture;
-    sf::Texture newTexture;
-    sf::Texture openTexture;
-    sf::Texture saveTexture;
-    sf::Texture exitTexture;
-    sf::Texture testTexture;
-    sf::Texture arrowUpTexture;
-    sf::Texture arrowDownTexture;
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }
