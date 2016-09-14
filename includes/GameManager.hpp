@@ -26,12 +26,16 @@
 #ifndef MEMORIS_GAMEMANAGER_H_
 #define MEMORIS_GAMEMANAGER_H_
 
-#include "Game.hpp"
-
 #include <memory>
 
 namespace memoris
 {
+
+namespace entities
+{
+    class Game;
+}
+
 namespace managers
 {
 
@@ -39,6 +43,19 @@ class GameManager
 {
 
 public:
+
+    /**
+     * @brief constructor, empty, just declared to set the default value of
+     * the game unique pointer to nullptr; this is an incomplete type, so it
+     * cannot be initialized directly in the header
+     */
+    GameManager() noexcept;
+
+    /**
+     * @brief default destructor, only declared in this class in order to use
+     * the forwarding declaration of entities::Game
+     */
+    ~GameManager() noexcept;
 
     /**
      * @brief creates a new game file on disk with the given name; loads the
@@ -59,7 +76,7 @@ private:
        loaded; if there is no need to have a game loaded at the moment,
        the pointer is just null; when the context is created, the main menu
        is rendered, at this moment, the game has no reason to be loaded */
-    std::unique_ptr<entities::Game> game {nullptr};
+    std::unique_ptr<entities::Game> game;
 
 };
 
