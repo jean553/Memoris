@@ -53,9 +53,7 @@ Sound::Sound(const std::string& path) noexcept :
 /**
  *
  */
-Sound::~Sound() noexcept
-{
-}
+Sound::~Sound() noexcept = default;
 
 /**
  *
