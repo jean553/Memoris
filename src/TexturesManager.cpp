@@ -24,6 +24,8 @@
 
 #include "TexturesManager.hpp"
 
+#include <SFML/Graphics/Texture.hpp>
+
 #include <stdexcept>
 
 namespace memoris
@@ -31,33 +33,60 @@ namespace memoris
 namespace managers
 {
 
+class TexturesManager::Impl
+{
+
+public:
+
+    sf::Texture cursorTexture;
+    sf::Texture githubTexture;
+    sf::Texture starTexture;
+    sf::Texture lifeTexture;
+    sf::Texture targetTexture;
+    sf::Texture timeTexture;
+    sf::Texture floorTexture;
+    sf::Texture newTexture;
+    sf::Texture openTexture;
+    sf::Texture saveTexture;
+    sf::Texture exitTexture;
+    sf::Texture testTexture;
+    sf::Texture arrowUpTexture;
+    sf::Texture arrowDownTexture;
+};
+
 /**
  *
  */
-TexturesManager::TexturesManager()
+TexturesManager::TexturesManager() :
+    impl(std::make_unique<Impl>())
 {
-    loadTexture(githubTexture, "fork-me");
-    loadTexture(starTexture, "star");
-    loadTexture(lifeTexture, "life");
-    loadTexture(targetTexture, "target");
-    loadTexture(timeTexture, "timer");
-    loadTexture(floorTexture, "floor");
-    loadTexture(newTexture, "new");
-    loadTexture(openTexture, "open");
-    loadTexture(saveTexture, "save");
-    loadTexture(cursorTexture, "cursor");
-    loadTexture(exitTexture, "exit");
-    loadTexture(testTexture, "test");
-    loadTexture(arrowUpTexture, "up");
-    loadTexture(arrowDownTexture, "down");
+    loadTexture(impl->githubTexture, "fork-me");
+    loadTexture(impl->starTexture, "star");
+    loadTexture(impl->lifeTexture, "life");
+    loadTexture(impl->targetTexture, "target");
+    loadTexture(impl->timeTexture, "timer");
+    loadTexture(impl->floorTexture, "floor");
+    loadTexture(impl->newTexture, "new");
+    loadTexture(impl->openTexture, "open");
+    loadTexture(impl->saveTexture, "save");
+    loadTexture(impl->cursorTexture, "cursor");
+    loadTexture(impl->exitTexture, "exit");
+    loadTexture(impl->testTexture, "test");
+    loadTexture(impl->arrowUpTexture, "up");
+    loadTexture(impl->arrowDownTexture, "down");
 }
+
+/**
+ *
+ */
+TexturesManager::~TexturesManager() noexcept = default;
 
 /**
  *
  */
 const sf::Texture& TexturesManager::getGithubTexture() const & noexcept
 {
-    return githubTexture;
+    return impl->githubTexture;
 }
 
 /**
@@ -65,7 +94,7 @@ const sf::Texture& TexturesManager::getGithubTexture() const & noexcept
  */
 const sf::Texture& TexturesManager::getStarTexture() const & noexcept
 {
-    return starTexture;
+    return impl->starTexture;
 }
 
 /**
@@ -73,7 +102,7 @@ const sf::Texture& TexturesManager::getStarTexture() const & noexcept
  */
 const sf::Texture& TexturesManager::getLifeTexture() const & noexcept
 {
-    return lifeTexture;
+    return impl->lifeTexture;
 }
 
 /**
@@ -81,7 +110,7 @@ const sf::Texture& TexturesManager::getLifeTexture() const & noexcept
  */
 const sf::Texture& TexturesManager::getTargetTexture() const & noexcept
 {
-    return targetTexture;
+    return impl->targetTexture;
 }
 
 /**
@@ -89,7 +118,7 @@ const sf::Texture& TexturesManager::getTargetTexture() const & noexcept
  */
 const sf::Texture& TexturesManager::getTimeTexture() const & noexcept
 {
-    return timeTexture;
+    return impl->timeTexture;
 }
 
 /**
@@ -97,7 +126,7 @@ const sf::Texture& TexturesManager::getTimeTexture() const & noexcept
  */
 const sf::Texture& TexturesManager::getFloorTexture() const & noexcept
 {
-    return floorTexture;
+    return impl->floorTexture;
 }
 
 /**
@@ -105,7 +134,7 @@ const sf::Texture& TexturesManager::getFloorTexture() const & noexcept
  */
 const sf::Texture& TexturesManager::getNewTexture() const & noexcept
 {
-    return newTexture;
+    return impl->newTexture;
 }
 
 /**
@@ -113,7 +142,7 @@ const sf::Texture& TexturesManager::getNewTexture() const & noexcept
  */
 const sf::Texture& TexturesManager::getOpenTexture() const & noexcept
 {
-    return openTexture;
+    return impl->openTexture;
 }
 
 /**
@@ -121,7 +150,7 @@ const sf::Texture& TexturesManager::getOpenTexture() const & noexcept
  */
 const sf::Texture& TexturesManager::getSaveTexture() const & noexcept
 {
-    return saveTexture;
+    return impl->saveTexture;
 }
 
 /**
@@ -129,7 +158,7 @@ const sf::Texture& TexturesManager::getSaveTexture() const & noexcept
  */
 const sf::Texture& TexturesManager::getCursorTexture() const & noexcept
 {
-    return cursorTexture;
+    return impl->cursorTexture;
 }
 
 /**
@@ -137,7 +166,7 @@ const sf::Texture& TexturesManager::getCursorTexture() const & noexcept
  */
 const sf::Texture& TexturesManager::getExitTexture() const & noexcept
 {
-    return exitTexture;
+    return impl->exitTexture;
 }
 
 /**
@@ -145,7 +174,7 @@ const sf::Texture& TexturesManager::getExitTexture() const & noexcept
  */
 const sf::Texture& TexturesManager::getTestTexture() const & noexcept
 {
-    return testTexture;
+    return impl->testTexture;
 }
 
 /**
@@ -153,7 +182,7 @@ const sf::Texture& TexturesManager::getTestTexture() const & noexcept
  */
 const sf::Texture& TexturesManager::getArrowUpTexture() const & noexcept
 {
-    return arrowUpTexture;
+    return impl->arrowUpTexture;
 }
 
 /**
@@ -161,7 +190,7 @@ const sf::Texture& TexturesManager::getArrowUpTexture() const & noexcept
  */
 const sf::Texture& TexturesManager::getArrowDownTexture() const & noexcept
 {
-    return arrowDownTexture;
+    return impl->arrowDownTexture;
 }
 
 /**
