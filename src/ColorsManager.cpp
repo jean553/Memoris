@@ -24,17 +24,118 @@
 
 #include "ColorsManager.hpp"
 
+#include <SFML/Graphics/Color.hpp>
+
 namespace memoris
 {
 namespace managers
 {
+
+class ColorsManager::Impl
+{
+
+public:
+
+    const sf::Color colorWhite
+    {
+        255,
+        255,
+        255,
+        255
+    };
+
+    const sf::Color colorBlue
+    {
+        0,
+        0,
+        255,
+        255
+    };
+
+    const sf::Color colorRed
+    {
+        255,
+        0,
+        0,
+        255
+    };
+
+    const sf::Color colorLightBlue
+    {
+        105,
+        125,
+        255,
+        255
+    };
+
+    const sf::Color colorBlack
+    {
+        0,
+        0,
+        0,
+        255
+    };
+
+    const sf::Color colorPartialDarkGrey
+    {
+        50,
+        50,
+        50,
+        225
+    };
+
+    const sf::Color colorGreen
+    {
+        0,
+        192,
+        0,
+        255
+    };
+
+    const sf::Color colorDarkGreen
+    {
+        0,
+        100,
+        0,
+        255
+    };
+
+    const sf::Color colorPurpleLowAlpha
+    {
+        255,
+        0,
+        255,
+        255
+    };
+
+    const sf::Color colorDarkGrey
+    {
+        50,
+        50,
+        50,
+        255
+    };
+};
+
+/**
+ *
+ */
+ColorsManager::ColorsManager() noexcept :
+    impl(std::make_unique<Impl>())
+{
+}
+
+/**
+ *
+ */
+ColorsManager::~ColorsManager() noexcept = default;
 
 /**
  *
  */
 const sf::Color& ColorsManager::getColorWhite() const & noexcept
 {
-    return colorWhite;
+    return impl->colorWhite;
 }
 
 /**
@@ -42,7 +143,7 @@ const sf::Color& ColorsManager::getColorWhite() const & noexcept
  */
 const sf::Color& ColorsManager::getColorLightBlue() const & noexcept
 {
-    return colorLightBlue;
+    return impl->colorLightBlue;
 }
 
 /**
@@ -50,7 +151,7 @@ const sf::Color& ColorsManager::getColorLightBlue() const & noexcept
  */
 const sf::Color& ColorsManager::getColorRed() const & noexcept
 {
-    return colorRed;
+    return impl->colorRed;
 }
 
 /**
@@ -58,7 +159,7 @@ const sf::Color& ColorsManager::getColorRed() const & noexcept
  */
 const sf::Color& ColorsManager::getColorBlack() const & noexcept
 {
-    return colorBlack;
+    return impl->colorBlack;
 }
 
 /**
@@ -66,7 +167,7 @@ const sf::Color& ColorsManager::getColorBlack() const & noexcept
  */
 const sf::Color& ColorsManager::getColorPartialDarkGrey() const & noexcept
 {
-    return colorPartialDarkGrey;
+    return impl->colorPartialDarkGrey;
 }
 
 /**
@@ -74,7 +175,7 @@ const sf::Color& ColorsManager::getColorPartialDarkGrey() const & noexcept
  */
 const sf::Color& ColorsManager::getColorGreen() const & noexcept
 {
-    return colorGreen;
+    return impl->colorGreen;
 }
 
 /**
@@ -82,7 +183,7 @@ const sf::Color& ColorsManager::getColorGreen() const & noexcept
  */
 const sf::Color& ColorsManager::getColorDarkGreen() const & noexcept
 {
-    return colorDarkGreen;
+    return impl->colorDarkGreen;
 }
 
 /**
@@ -90,7 +191,7 @@ const sf::Color& ColorsManager::getColorDarkGreen() const & noexcept
  */
 const sf::Color& ColorsManager::getColorPurpleLowAlpha() const & noexcept
 {
-    return colorPurpleLowAlpha;
+    return impl->colorPurpleLowAlpha;
 }
 
 /**
@@ -98,7 +199,7 @@ const sf::Color& ColorsManager::getColorPurpleLowAlpha() const & noexcept
  */
 const sf::Color& ColorsManager::getColorDarkGrey() const & noexcept
 {
-    return colorDarkGrey;
+    return impl->colorDarkGrey;
 }
 
 /**
@@ -106,7 +207,7 @@ const sf::Color& ColorsManager::getColorDarkGrey() const & noexcept
  */
 sf::Color ColorsManager::getColorBlueCopy() const & noexcept
 {
-    return colorBlue;
+    return impl->colorBlue;
 }
 
 /**
@@ -114,7 +215,7 @@ sf::Color ColorsManager::getColorBlueCopy() const & noexcept
  */
 sf::Color ColorsManager::getColorRedCopy() const & noexcept
 {
-    return colorRed;
+    return impl->colorRed;
 }
 
 /**
@@ -122,7 +223,7 @@ sf::Color ColorsManager::getColorRedCopy() const & noexcept
  */
 sf::Color ColorsManager::getColorWhiteCopy() const & noexcept
 {
-    return colorWhite;
+    return impl->colorWhite;
 }
 
 /**
@@ -130,7 +231,7 @@ sf::Color ColorsManager::getColorWhiteCopy() const & noexcept
  */
 sf::Color ColorsManager::getColorBlackCopy() const & noexcept
 {
-    return colorBlack;
+    return impl->colorBlack;
 }
 
 }

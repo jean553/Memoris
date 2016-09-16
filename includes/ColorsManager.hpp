@@ -30,7 +30,12 @@
 
 #include "NotCopiable.hpp"
 
-#include <SFML/Graphics/Color.hpp>
+#include <memory>
+
+namespace sf
+{
+    class Color;
+}
 
 namespace memoris
 {
@@ -41,6 +46,16 @@ class ColorsManager : public utils::NotCopiable
 {
 
 public:
+
+    /**
+     * @brief constructor, empty, only used to create the implementation object
+     */
+    ColorsManager() noexcept;
+
+    /**
+     * @brief default destructor, empty, only used for forwarding declaration
+     */
+    ~ColorsManager() noexcept;
 
     /**
      * @brief returns a reference to the white color
@@ -139,130 +154,8 @@ public:
 
 private:
 
-    /* NOTE: sf::Uint8 type cannot be constant expressions if
-       they are not static. */
-
-    static constexpr sf::Uint8 COLOR_WHITE_RED {255};
-    static constexpr sf::Uint8 COLOR_WHITE_GREEN {255};
-    static constexpr sf::Uint8 COLOR_WHITE_BLUE {255};
-
-    static constexpr sf::Uint8 COLOR_BLUE_RED {0};
-    static constexpr sf::Uint8 COLOR_BLUE_GREEN {0};
-    static constexpr sf::Uint8 COLOR_BLUE_BLUE {255};
-
-    static constexpr sf::Uint8 COLOR_RED_RED {255};
-    static constexpr sf::Uint8 COLOR_RED_GREEN {0};
-    static constexpr sf::Uint8 COLOR_RED_BLUE {0};
-
-    static constexpr sf::Uint8 COLOR_LIGHT_BLUE_RED {105};
-    static constexpr sf::Uint8 COLOR_LIGHT_BLUE_GREEN {125};
-    static constexpr sf::Uint8 COLOR_LIGHT_BLUE_BLUE {255};
-
-    static constexpr sf::Uint8 COLOR_DARK_GREY_RED {50};
-    static constexpr sf::Uint8 COLOR_DARK_GREY_GREEN {50};
-    static constexpr sf::Uint8 COLOR_DARK_GREY_BLUE {50};
-
-    static constexpr sf::Uint8 COLOR_BLACK_RED {0};
-    static constexpr sf::Uint8 COLOR_BLACK_GREEN {0};
-    static constexpr sf::Uint8 COLOR_BLACK_BLUE {0};
-
-    static constexpr sf::Uint8 COLOR_GREEN_RED {0};
-    static constexpr sf::Uint8 COLOR_GREEN_GREEN {192};
-    static constexpr sf::Uint8 COLOR_GREEN_BLUE {0};
-
-    static constexpr sf::Uint8 COLOR_DARK_GREEN_RED {0};
-    static constexpr sf::Uint8 COLOR_DARK_GREEN_GREEN {100};
-    static constexpr sf::Uint8 COLOR_DARK_GREEN_BLUE {0};
-
-    static constexpr sf::Uint8 COLOR_PURPLE_RED {255};
-    static constexpr sf::Uint8 COLOR_PURPLE_GREEN {0};
-    static constexpr sf::Uint8 COLOR_PURPLE_BLUE {255};
-
-    static constexpr sf::Uint8 COLOR_FULL_ALPHA {255};
-    static constexpr sf::Uint8 COLOR_PARTIAL_ALPHA {225};
-
-    /* SFML color cannot be declared as a constant expression, even if it
-       is declared as static */
-
-    const sf::Color colorWhite
-    {
-        COLOR_WHITE_RED,
-        COLOR_WHITE_GREEN,
-        COLOR_WHITE_BLUE,
-        COLOR_FULL_ALPHA
-    };
-
-    const sf::Color colorBlue
-    {
-        COLOR_BLUE_RED,
-        COLOR_BLUE_GREEN,
-        COLOR_BLUE_BLUE,
-        COLOR_FULL_ALPHA
-    };
-
-    const sf::Color colorRed
-    {
-        COLOR_RED_RED,
-        COLOR_RED_GREEN,
-        COLOR_RED_BLUE,
-        COLOR_FULL_ALPHA
-    };
-
-    const sf::Color colorLightBlue
-    {
-        COLOR_LIGHT_BLUE_RED,
-        COLOR_LIGHT_BLUE_GREEN,
-        COLOR_LIGHT_BLUE_BLUE,
-        COLOR_FULL_ALPHA
-    };
-
-    const sf::Color colorBlack
-    {
-        COLOR_BLACK_RED,
-        COLOR_BLACK_GREEN,
-        COLOR_BLACK_BLUE,
-        COLOR_FULL_ALPHA
-    };
-
-    const sf::Color colorPartialDarkGrey
-    {
-        COLOR_BLACK_RED,
-        COLOR_BLACK_GREEN,
-        COLOR_BLACK_BLUE,
-        COLOR_FULL_ALPHA
-    };
-
-    const sf::Color colorGreen
-    {
-        COLOR_GREEN_RED,
-        COLOR_GREEN_GREEN,
-        COLOR_GREEN_BLUE,
-        COLOR_FULL_ALPHA
-    };
-
-    const sf::Color colorDarkGreen
-    {
-        COLOR_DARK_GREEN_RED,
-        COLOR_DARK_GREEN_GREEN,
-        COLOR_DARK_GREEN_BLUE,
-        COLOR_FULL_ALPHA
-    };
-
-    const sf::Color colorPurpleLowAlpha
-    {
-        COLOR_PURPLE_RED,
-        COLOR_PURPLE_GREEN,
-        COLOR_PURPLE_BLUE,
-        COLOR_PARTIAL_ALPHA
-    };
-
-    const sf::Color colorDarkGrey
-    {
-        COLOR_DARK_GREY_RED,
-        COLOR_DARK_GREY_GREEN,
-        COLOR_DARK_GREY_BLUE,
-        COLOR_FULL_ALPHA
-    };
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }
