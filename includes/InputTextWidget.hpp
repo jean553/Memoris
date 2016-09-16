@@ -28,6 +28,9 @@
 
 #include "Context.hpp"
 
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/Text.hpp>
+
 #include <string>
 
 namespace memoris

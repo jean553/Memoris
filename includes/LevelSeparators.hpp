@@ -30,6 +30,8 @@
 
 #include "Context.hpp"
 
+#include <SFML/Graphics/RectangleShape.hpp>
+
 namespace memoris
 {
 namespace utils

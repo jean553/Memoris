@@ -28,6 +28,9 @@
 
 #include "Context.hpp"
 
+#include <SFML/Window/Event.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
+
 namespace memoris
 {
 namespace controllers

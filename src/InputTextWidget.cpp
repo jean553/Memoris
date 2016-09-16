@@ -27,6 +27,8 @@
 #include "fonts.hpp"
 #include "Context.hpp"
 
+#include <SFML/Window/Event.hpp>
+
 namespace memoris
 {
 namespace widgets

@@ -30,6 +30,9 @@
 
 #include "InputTextWidget.hpp"
 
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/Text.hpp>
+
 namespace memoris
 {
 namespace popups
