@@ -17,7 +17,7 @@
 */
 
 /**
- * @file Game.hpp
+ * @file Game.cpp
  * @brief class that stores the properties of one game
  * @package entities
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
@@ -39,17 +39,22 @@ class Game
 public:
 
     /**
-     * @brief constructor, useless, only initialize the game name
+     * @brief constructor, creates the new game file
      *
      * @param gameName string that represents the name of the game; the user
      * uses this name to find an existing game or to create a new one
+     *
+     * @throw std::ios_base::failure thrown if the file manipulation failed;
+     * this exception is never caught by the program and the game directly
+     * stops
+     *
      */
-    Game(const std::string& gameName) noexcept;
+    Game(const std::string& gameName);
 
 private:
 
-    /* name of the current game (usually the player); not initialized here
-       because directly set by the constructor */
+    /* PIMPL is not used here: <string> is included in <memory> */
+
     std::string name;
 };
 
