@@ -26,7 +26,12 @@
 #ifndef MEMORIS_CELLSTEXTURESMANAGER_H_
 #define MEMORIS_CELLSTEXTURESMANAGER_H_
 
-#include <SFML/Graphics/Texture.hpp>
+#include <memory>
+
+namespace sf
+{
+    class Texture;
+};
 
 namespace memoris
 {
@@ -49,6 +54,12 @@ public:
      * loaded
      */
     CellsTexturesManager();
+
+    /**
+     * @brief default destructor, empty, declared in order to use forwarding
+     * declaration
+     */
+    ~CellsTexturesManager() noexcept;
 
     /**
      * @brief returns a texture reference corresponding to the given cell type
@@ -79,23 +90,8 @@ private:
         const std::string& path
     ) &;
 
-    sf::Texture emptyCellTexture;
-    sf::Texture departureCellTexture;
-    sf::Texture arrivalCellTexture;
-    sf::Texture starCellTexture;
-    sf::Texture moreLifeCellTexture;
-    sf::Texture lessLifeCellTexture;
-    sf::Texture moreTimeCellTexture;
-    sf::Texture lessTimeCellTexture;
-    sf::Texture wallCellTexture;
-    sf::Texture hiddenCellTexture;
-    sf::Texture stairsUpCellTexture;
-    sf::Texture stairsDownCellTexture;
-    sf::Texture horizontalMirrorCellTexture;
-    sf::Texture verticalMirrorCellTexture;
-    sf::Texture diagonalCellTexture;
-    sf::Texture leftRotationCellTexture;
-    sf::Texture rightRotationCellTexture;
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }

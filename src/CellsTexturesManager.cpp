@@ -26,36 +26,66 @@
 
 #include "cells.hpp"
 
-#include <string>
+#include <SFML/Graphics/Texture.hpp>
 
 namespace memoris
 {
 namespace managers
 {
 
+class CellsTexturesManager::Impl
+{
+
+public:
+
+    sf::Texture emptyCellTexture;
+    sf::Texture departureCellTexture;
+    sf::Texture arrivalCellTexture;
+    sf::Texture starCellTexture;
+    sf::Texture moreLifeCellTexture;
+    sf::Texture lessLifeCellTexture;
+    sf::Texture moreTimeCellTexture;
+    sf::Texture lessTimeCellTexture;
+    sf::Texture wallCellTexture;
+    sf::Texture hiddenCellTexture;
+    sf::Texture stairsUpCellTexture;
+    sf::Texture stairsDownCellTexture;
+    sf::Texture horizontalMirrorCellTexture;
+    sf::Texture verticalMirrorCellTexture;
+    sf::Texture diagonalCellTexture;
+    sf::Texture leftRotationCellTexture;
+    sf::Texture rightRotationCellTexture;
+};
+
 /**
  *
  */
-CellsTexturesManager::CellsTexturesManager()
+CellsTexturesManager::CellsTexturesManager() :
+    impl(std::make_unique<Impl>())
 {
-    loadTexture(emptyCellTexture, "empty");
-    loadTexture(departureCellTexture, "departure");
-    loadTexture(arrivalCellTexture, "arrival");
-    loadTexture(starCellTexture, "star");
-    loadTexture(moreLifeCellTexture, "moreLife");
-    loadTexture(lessLifeCellTexture, "lessLife");
-    loadTexture(moreTimeCellTexture, "moreTime");
-    loadTexture(lessTimeCellTexture, "lessTime");
-    loadTexture(wallCellTexture, "wall");
-    loadTexture(hiddenCellTexture, "hidden");
-    loadTexture(stairsUpCellTexture, "stairs_up");
-    loadTexture(stairsDownCellTexture, "stairs_down");
-    loadTexture(horizontalMirrorCellTexture, "horizontal_mirror");
-    loadTexture(verticalMirrorCellTexture, "vertical_mirror");
-    loadTexture(diagonalCellTexture, "diagonal");
-    loadTexture(leftRotationCellTexture, "rotate_left");
-    loadTexture(rightRotationCellTexture, "rotate_right");
+    loadTexture(impl->emptyCellTexture, "empty");
+    loadTexture(impl->departureCellTexture, "departure");
+    loadTexture(impl->arrivalCellTexture, "arrival");
+    loadTexture(impl->starCellTexture, "star");
+    loadTexture(impl->moreLifeCellTexture, "moreLife");
+    loadTexture(impl->lessLifeCellTexture, "lessLife");
+    loadTexture(impl->moreTimeCellTexture, "moreTime");
+    loadTexture(impl->lessTimeCellTexture, "lessTime");
+    loadTexture(impl->wallCellTexture, "wall");
+    loadTexture(impl->hiddenCellTexture, "hidden");
+    loadTexture(impl->stairsUpCellTexture, "stairs_up");
+    loadTexture(impl->stairsDownCellTexture, "stairs_down");
+    loadTexture(impl->horizontalMirrorCellTexture, "horizontal_mirror");
+    loadTexture(impl->verticalMirrorCellTexture, "vertical_mirror");
+    loadTexture(impl->diagonalCellTexture, "diagonal");
+    loadTexture(impl->leftRotationCellTexture, "rotate_left");
+    loadTexture(impl->rightRotationCellTexture, "rotate_right");
 }
+
+/**
+ *
+ */
+CellsTexturesManager::~CellsTexturesManager() noexcept = default;
 
 /**
  *
@@ -68,71 +98,71 @@ const sf::Texture& CellsTexturesManager::getTextureReferenceByCellType(
     {
     case cells::WALL_CELL:
     {
-        return wallCellTexture;
+        return impl->wallCellTexture;
     }
     case cells::DEPARTURE_CELL:
     {
-        return departureCellTexture;
+        return impl->departureCellTexture;
     }
     case cells::ARRIVAL_CELL:
     {
-        return arrivalCellTexture;
+        return impl->arrivalCellTexture;
     }
     case cells::STAR_CELL:
     {
-        return starCellTexture;
+        return impl->starCellTexture;
     }
     case cells::MORE_LIFE_CELL:
     {
-        return moreLifeCellTexture;
+        return impl->moreLifeCellTexture;
     }
     case cells::LESS_LIFE_CELL:
     {
-        return lessLifeCellTexture;
+        return impl->lessLifeCellTexture;
     }
     case cells::MORE_TIME_CELL:
     {
-        return moreTimeCellTexture;
+        return impl->moreTimeCellTexture;
     }
     case cells::LESS_TIME_CELL:
     {
-        return lessTimeCellTexture;
+        return impl->lessTimeCellTexture;
     }
     case cells::STAIRS_UP_CELL:
     {
-        return stairsUpCellTexture;
+        return impl->stairsUpCellTexture;
     }
     case cells::STAIRS_DOWN_CELL:
     {
-        return stairsDownCellTexture;
+        return impl->stairsDownCellTexture;
     }
     case cells::HORIZONTAL_MIRROR_CELL:
     {
-        return horizontalMirrorCellTexture;
+        return impl->horizontalMirrorCellTexture;
     }
     case cells::VERTICAL_MIRROR_CELL:
     {
-        return verticalMirrorCellTexture;
+        return impl->verticalMirrorCellTexture;
     }
     case cells::DIAGONAL_CELL:
     {
-        return diagonalCellTexture;
+        return impl->diagonalCellTexture;
     }
     case cells::LEFT_ROTATION_CELL:
     {
-        return leftRotationCellTexture;
+        return impl->leftRotationCellTexture;
     }
     case cells::RIGHT_ROTATION_CELL:
     {
-        return rightRotationCellTexture;
+        return impl->rightRotationCellTexture;
     }
     case cells::HIDDEN_CELL:
     {
-        return hiddenCellTexture;
+        return impl->hiddenCellTexture;
     }
     }
 
-    return emptyCellTexture;
+    return impl->emptyCellTexture;
 }
 
 /**
