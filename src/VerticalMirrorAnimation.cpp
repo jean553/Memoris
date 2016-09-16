@@ -41,7 +41,7 @@ VerticalMirrorAnimation::VerticalMirrorAnimation(
     initializeVerticalSeparator(context, separator);
 
     /* plays the mirror animation sound */
-    context.getSoundsManager().getMirrorAnimationSound().play();
+    context.getSoundsManager().playMirrorAnimationSound();
 }
 
 /**

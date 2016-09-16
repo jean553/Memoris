@@ -51,7 +51,7 @@ DiagonalAnimation::DiagonalAnimation(
     );
 
     /* plays the floor movement animation */
-    context.getSoundsManager().getFloorMovementAnimationSound().play();
+    context.getSoundsManager().playFloorMovementAnimationSound();
 }
 
 /**

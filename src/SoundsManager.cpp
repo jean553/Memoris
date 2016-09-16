@@ -24,127 +24,140 @@
 
 #include "SoundsManager.hpp"
 
+#include "Sound.hpp"
+
 namespace memoris
 {
 namespace managers
 {
 
+class SoundsManager::Impl
+{
+
+public:
+
+    sounds::Sound moveSelectorSound{"001"};
+    sounds::Sound screenTransitionSound{"002"};
+    sounds::Sound hideLevelSound{"003"};
+    sounds::Sound foundStarSound{"004"};
+    sounds::Sound foundLifeOrTimeSound{"005"};
+    sounds::Sound foundDeadOrLessTimeSound{"006"};
+    sounds::Sound collisionSound{"007"};
+    sounds::Sound floorSwitchSound{"008"};
+    sounds::Sound timeOverSound{"009"};
+    sounds::Sound mirrorAnimationSound{"010"};
+    sounds::Sound winLevelSound{"011"};
+    sounds::Sound floorMovementAnimationSound{"012"};
+};
+
 /**
  *
  */
 SoundsManager::SoundsManager() noexcept :
-    moveSelectorSound("001"),
-    screenTransitionSound("002"),
-    hideLevelSound("003"),
-    foundStarSound("004"),
-    foundLifeOrTimeSound("005"),
-    foundDeadOrLessTimeSound("006"),
-    collisionSound("007"),
-    floorSwitchSound("008"),
-    timeOverSound("009"),
-    mirrorAnimationSound("010"),
-    winLevelSound("011"),
-    floorMovementAnimationSound("012")
+    impl(std::make_unique<Impl>())
 {
-    /* empty constructor as we try to initialize the sounds directly inside
-       the initialization list */
 }
 
 /**
  *
  */
-const sounds::Sound& SoundsManager::getMoveSelectorSound() const & noexcept
+SoundsManager::~SoundsManager() noexcept = default;
+
+/**
+ *
+ */
+void SoundsManager::playMoveSelectorSound() const & noexcept
 {
-    return moveSelectorSound;
+    impl->moveSelectorSound.play();
 }
 
 /**
  *
  */
-const sounds::Sound& SoundsManager::getScreenTransitionSound() const & noexcept
+void SoundsManager::playScreenTransitionSound() const & noexcept
 {
-    return screenTransitionSound;
+    impl->screenTransitionSound.play();
 }
 
 /**
  *
  */
-const sounds::Sound& SoundsManager::getHideLevelSound() const & noexcept
+void SoundsManager::playHideLevelSound() const & noexcept
 {
-    return hideLevelSound;
+    impl->hideLevelSound.play();
 }
 
 /**
  *
  */
-const sounds::Sound& SoundsManager::getFoundStarSound() const & noexcept
+void SoundsManager::playFoundStarSound() const & noexcept
 {
-    return foundStarSound;
+    impl->foundStarSound.play();
 }
 
 /**
  *
  */
-const sounds::Sound& SoundsManager::getFoundLifeOrTimeSound() const & noexcept
+void SoundsManager::playFoundLifeOrTimeSound() const & noexcept
 {
-    return foundLifeOrTimeSound;
+    impl->foundLifeOrTimeSound.play();
 }
 
 /**
  *
  */
-const sounds::Sound& SoundsManager::getFoundDeadOrLessTimeSound() const & noexcept
+void SoundsManager::playFoundDeadOrLessTimeSound() const & noexcept
 {
-    return foundDeadOrLessTimeSound;
+    impl->foundDeadOrLessTimeSound.play();
 }
 
 /**
  *
  */
-const sounds::Sound& SoundsManager::getCollisionSound() const & noexcept
+void SoundsManager::playCollisionSound() const & noexcept
 {
-    return collisionSound;
+    impl->collisionSound.play();
 }
 
 /**
  *
  */
-const sounds::Sound& SoundsManager::getFloorSwitchSound() const & noexcept
+void SoundsManager::playFloorSwitchSound() const & noexcept
 {
-    return floorSwitchSound;
+    impl->floorSwitchSound.play();
 }
 
 /**
  *
  */
-const sounds::Sound& SoundsManager::getTimeOverSound() const & noexcept
+void SoundsManager::playTimeOverSound() const & noexcept
 {
-    return timeOverSound;
+    impl->timeOverSound.play();
 }
 
 /**
  *
  */
-const sounds::Sound& SoundsManager::getMirrorAnimationSound() const & noexcept
+void SoundsManager::playMirrorAnimationSound() const & noexcept
 {
-    return mirrorAnimationSound;
+    impl->mirrorAnimationSound.play();
 }
 
 /**
  *
  */
-const sounds::Sound& SoundsManager::getWinLevelSound() const & noexcept
+void SoundsManager::playWinLevelSound() const & noexcept
 {
-    return winLevelSound;
+    impl->winLevelSound.play();
 }
 
 /**
  *
  */
-const sounds::Sound& SoundsManager::getFloorMovementAnimationSound() const &
+void SoundsManager::playFloorMovementAnimationSound() const &
 noexcept
 {
-    return floorMovementAnimationSound;
+    impl->floorMovementAnimationSound.play();
 }
 
 }

@@ -387,7 +387,7 @@ void GameController::handlePlayerMovement(
     if (!level->allowPlayerMovement(movement, floor))
     {
         /* plays the collision sound */
-        context.getSoundsManager().getCollisionSound().play();
+        context.getSoundsManager().playCollisionSound();
 
         /* stop the process and do not move if the movement is not allowed */
         return;
@@ -399,7 +399,7 @@ void GameController::handlePlayerMovement(
     if (level->detectWalls(context, movement))
     {
         /* plays the collision sound */
-        context.getSoundsManager().getCollisionSound().play();
+        context.getSoundsManager().playCollisionSound();
 
         /* the movement is cancelled if the player is against a wall */
         return;
@@ -439,7 +439,7 @@ void GameController::executePlayerCellAction(
     case cells::STAR_CELL:
     {
         /* plays the found star cell sound */
-        context.getSoundsManager().getFoundStarSound().play();
+        context.getSoundsManager().playFoundStarSound();
 
         /* increments the amount of found stars inside the dashboard */
         dashboard.incrementFoundStars();
@@ -449,7 +449,7 @@ void GameController::executePlayerCellAction(
     case cells::MORE_LIFE_CELL:
     {
         /* plays the found life cell sound */
-        context.getSoundsManager().getFoundLifeOrTimeSound().play();
+        context.getSoundsManager().playFoundLifeOrTimeSound();
 
         /* increments the amount of lifes inside the dashboard */
         dashboard.incrementLifes();
@@ -459,7 +459,7 @@ void GameController::executePlayerCellAction(
     case cells::LESS_LIFE_CELL:
     {
         /* plays the sound of a dead cell */
-        context.getSoundsManager().getFoundDeadOrLessTimeSound().play();
+        context.getSoundsManager().playFoundDeadOrLessTimeSound();
 
         /* check if the lose period must be started */
         if (dashboard.getLifesAmount() == 0)
@@ -475,7 +475,7 @@ void GameController::executePlayerCellAction(
     case cells::MORE_TIME_CELL:
     {
         /* plays the found time cell sound */
-        context.getSoundsManager().getFoundLifeOrTimeSound().play();
+        context.getSoundsManager().playFoundLifeOrTimeSound();
 
         /* increments the amount of watching time inside the dashboard */
         dashboard.increaseWatchingTime();
@@ -485,7 +485,7 @@ void GameController::executePlayerCellAction(
     case cells::LESS_TIME_CELL:
     {
         /* plays the found less time cell sound */
-        context.getSoundsManager().getFoundDeadOrLessTimeSound().play();
+        context.getSoundsManager().playFoundDeadOrLessTimeSound();
 
         /* decrease the amount of watching time inside the dasboard */
         dashboard.decreaseWatchingTime();
@@ -731,7 +731,7 @@ void GameController::watchNextFloorOrHideLevel(
         level->setAnimateFloorTransition(true);
 
         /* play the floor switch animation sound */
-        context.getSoundsManager().getFloorSwitchSound().play();
+        context.getSoundsManager().playFloorSwitchSound();
 
         /* update the floor number inside the game dashboard */
         dashboard.updateCurrentFloor(floor);
@@ -749,7 +749,7 @@ void GameController::watchNextFloorOrHideLevel(
     level->hideAllCellsExceptDeparture(context);
 
     /* plays the hide level->sound */
-    context.getSoundsManager().getHideLevelSound().play();
+    context.getSoundsManager().playHideLevelSound();
 
     /* the watching mode is now terminated */
     watchingPeriod = false;
@@ -783,7 +783,7 @@ void GameController::endLevel(
     if (win)
     {
         /* plays the win level sound */
-        context.getSoundsManager().getWinLevelSound().play();
+        context.getSoundsManager().playWinLevelSound();
     }
     else
     {
@@ -791,7 +791,7 @@ void GameController::endLevel(
         context.stopMusic();
 
         /* plays the time over sound */
-        context.getSoundsManager().getTimeOverSound().play();
+        context.getSoundsManager().playTimeOverSound();
     }
 
     /* call the method to stop the timer */
