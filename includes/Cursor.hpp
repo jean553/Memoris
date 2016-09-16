@@ -28,6 +28,8 @@
 
 #include "Context.hpp"
 
+#include <SFML/Graphics/Sprite.hpp>
+
 namespace memoris
 {
 namespace widgets

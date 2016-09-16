@@ -39,11 +39,7 @@
 
 #include <SFML/Audio/Music.hpp>
 #include <SFML/System/Clock.hpp>
-
-/* TODO: delete this huge inclusion, only here because each object depends
-   of the context includes; to delete after whole refactoring of includes
-   in every headers */
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 namespace memoris
 {

@@ -24,6 +24,8 @@
 
 #include "Cursor.hpp"
 
+#include <SFML/Window/Mouse.hpp>
+
 namespace memoris
 {
 namespace widgets
