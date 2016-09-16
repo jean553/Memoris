@@ -165,7 +165,7 @@ void AbstractMenuController::moveUp(
     updateMenuSelection(context);
 
     /* play the move selector sound */
-    context.getSoundsManager().getMoveSelectorSound().play();
+    context.getSoundsManager().playMoveSelectorSound();
 }
 
 /**
@@ -188,7 +188,7 @@ void AbstractMenuController::moveDown(
     updateMenuSelection(context);
 
     /* play the move selector sound */
-    context.getSoundsManager().getMoveSelectorSound().play();
+    context.getSoundsManager().playMoveSelectorSound();
 }
 
 }

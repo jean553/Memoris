@@ -90,13 +90,13 @@ void StairsAnimation::playNextAnimationStep(
     /* play the stop sound when the player just arrived on the cell */
     if (animationSteps == 0)
     {
-        context.getSoundsManager().getCollisionSound().play();
+        context.getSoundsManager().playCollisionSound();
     }
 
     /* play the floor switch sound when the floor starts to change */
     if (animationSteps == 10)
     {
-        context.getSoundsManager().getFloorSwitchSound().play();
+        context.getSoundsManager().playFloorSwitchSound();
     }
 
     if (animationSteps >= 10 && animationSteps < 25)

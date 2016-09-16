@@ -28,7 +28,7 @@
 
 #include "NotCopiable.hpp"
 
-#include "Sound.hpp"
+#include <memory>
 
 namespace memoris
 {
@@ -46,109 +46,104 @@ public:
      */
     SoundsManager() noexcept;
 
-    /* all the sounds getters return constant references to improve
-       performances and prevent objects modification; each getter is
+    /**
+     *
+     */
+    ~SoundsManager() noexcept;
+
+    /* all the sounds playters return constant references to improve
+       performances and prevent objects modification; each method is
        constant as it does not modify the current object instance; no one
-       of the getter throw an exception */
+       of the method throw an exception */
 
     /**
-     * @brief getter of the move selector sound
+     * @brief plays the move selector sound
      *
-     * @return const sounds::Sound&
+     * @return void
      */
-    const sounds::Sound& getMoveSelectorSound() const & noexcept;
+    void playMoveSelectorSound() const & noexcept;
 
     /**
-     * @brief getter of the screen transition sound
+     * @brief plays the screen transition sound
      *
-     * @return const sounds::Sound&
+     * @return void
      */
-    const sounds::Sound& getScreenTransitionSound() const & noexcept;
+    void playScreenTransitionSound() const & noexcept;
 
     /**
-     * @brief getter of the hide level sound
+     * @brief plays the hide level sound
      *
-     * @return const sounds::Sound&
+     * @return void
      */
-    const sounds::Sound& getHideLevelSound() const & noexcept;
+    void playHideLevelSound() const & noexcept;
 
     /**
-     * @brief getter of the found star cell sound
+     * @brief plays the found star cell sound
      *
-     * @return const sounds::Sound&
+     * @return void
      */
-    const sounds::Sound& getFoundStarSound() const & noexcept;
+    void playFoundStarSound() const & noexcept;
 
     /**
-     * @brief getter of the found life/time sound
+     * @brief plays the found life/time sound
      *
-     * @return const sounds::Sound&
+     * @return void
      */
-    const sounds::Sound& getFoundLifeOrTimeSound() const & noexcept;
+    void playFoundLifeOrTimeSound() const & noexcept;
 
     /**
-     * @brief getter of the found dead or less time sound
+     * @brief plays the found dead or less time sound
      *
-     * @return const sounds::Sound&
+     * @return void
      */
-    const sounds::Sound& getFoundDeadOrLessTimeSound() const & noexcept;
+    void playFoundDeadOrLessTimeSound() const & noexcept;
 
     /**
-     * @brief getter of the collision sound
+     * @brief plays the collision sound
      *
-     * @return const sounds::Sound&
+     * @return void
      */
-    const sounds::Sound& getCollisionSound() const & noexcept;
+    void playCollisionSound() const & noexcept;
 
     /**
-     * @brief getter of the floor switch animation sound
+     * @brief plays the floor switch animation sound
      *
-     * @return const sounds::Sound&
+     * @return void
      */
-    const sounds::Sound& getFloorSwitchSound() const & noexcept;
+    void playFloorSwitchSound() const & noexcept;
 
     /**
-     * @brief getter of the time over sound
+     * @brief plays the time over sound
      *
-     * @return const sounds::Sound&
+     * @return void
      */
-    const sounds::Sound& getTimeOverSound() const & noexcept;
+    void playTimeOverSound() const & noexcept;
 
     /**
-     * @brief getter of the mirror animation sound
+     * @brief plays the mirror animation sound
      *
-     * @return const sounds::Sound&
+     * @return void
      */
-    const sounds::Sound& getMirrorAnimationSound() const & noexcept;
+    void playMirrorAnimationSound() const & noexcept;
 
     /**
-     * @brief getter of the win level sound
+     * @brief plays the win level sound
      *
-     * @return const sounds::Sound&
+     * @return void
      */
-    const sounds::Sound& getWinLevelSound() const & noexcept;
+    void playWinLevelSound() const & noexcept;
 
     /**
-     * @brief getter of the diagonal animation sound
+     * @brief plays the diagonal animation sound
      *
-     * @return const sounds::Sound&
+     * @return void
      */
-    const sounds::Sound& getFloorMovementAnimationSound() const & noexcept;
+    void playFloorMovementAnimationSound() const & noexcept;
 
 private:
 
-    sounds::Sound moveSelectorSound;
-    sounds::Sound screenTransitionSound;
-    sounds::Sound hideLevelSound;
-    sounds::Sound foundStarSound;
-    sounds::Sound foundLifeOrTimeSound;
-    sounds::Sound foundDeadOrLessTimeSound;
-    sounds::Sound collisionSound;
-    sounds::Sound floorSwitchSound;
-    sounds::Sound timeOverSound;
-    sounds::Sound mirrorAnimationSound;
-    sounds::Sound winLevelSound;
-    sounds::Sound floorMovementAnimationSound;
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }

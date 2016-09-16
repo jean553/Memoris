@@ -44,7 +44,7 @@ HorizontalMirrorAnimation::HorizontalMirrorAnimation(
     );
 
     /* plays the mirror animation sound */
-    context.getSoundsManager().getMirrorAnimationSound().play();
+    context.getSoundsManager().playMirrorAnimationSound();
 }
 
 /**

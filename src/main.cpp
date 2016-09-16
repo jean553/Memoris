@@ -135,7 +135,7 @@ int main()
             /* if the program is not supposed to be terminated, the screen
                content is updated: a common sound is played during the
                visual switch */
-            context.getSoundsManager().getScreenTransitionSound().play();
+            context.getSoundsManager().playScreenTransitionSound();
 
             /* restart the clock */
             context.restartClock();

@@ -39,7 +39,7 @@ RotateFloorAnimation::RotateFloorAnimation(
     direction(movementDirection)
 {
     /* plays the floor movement animation */
-    context.getSoundsManager().getFloorMovementAnimationSound().play();
+    context.getSoundsManager().playFloorMovementAnimationSound();
 }
 
 /**
