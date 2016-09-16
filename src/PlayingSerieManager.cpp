@@ -26,18 +26,51 @@
 
 #include <fstream>
 #include <stdexcept>
+#include <string>
+#include <queue>
 
 namespace memoris
 {
 namespace managers
 {
 
+class PlayingSerieManager::Impl
+{
+
+public:
+
+    /* we use the FIFO (first in first out) method to store the levels names;
+       in fact, we add all the levels one by one into the container when we
+       load a serie and we pop them one by one in the same order; the queue
+       container is directly optimized for that kind of operations */
+    std::queue<std::string> levels;
+
+    /* current watching time that will be given for the next level; this time
+       is the watching time *per floor*; this value is set to 6 by default
+       all the time when a serie starts; we set it here because this value
+       has to be transferred from one level to another */
+    unsigned short watchingTime {6};
+};
+
+/**
+ *
+ */
+PlayingSerieManager::PlayingSerieManager() noexcept :
+    impl(std::make_unique<Impl>())
+{
+}
+
+/**
+ *
+ */
+PlayingSerieManager::~PlayingSerieManager() noexcept = default;
+
 /**
  *
  */
 const bool PlayingSerieManager::hasNextLevel() const & noexcept
 {
-    if (levels.empty())
+    if (impl->levels.empty())
     {
         return false;
     }
@@ -50,7 +83,7 @@ const bool PlayingSerieManager::hasNextLevel() const & noexcept
  */
 const unsigned short& PlayingSerieManager::getWatchingTime() const & noexcept
 {
-    return watchingTime;
+    return impl->watchingTime;
 }
 
 /**
@@ -58,7 +91,7 @@ const unsigned short& PlayingSerieManager::getWatchingTime() const & noexcept
  */
 const size_t PlayingSerieManager::getRemainingLevelsAmount() const & noexcept
 {
-    return levels.size();
+    return impl->levels.size();
 }
 
 /**
@@ -67,8 +100,8 @@ const size_t PlayingSerieManager::getRemainingLevelsAmount() const & noexcept
 const std::string PlayingSerieManager::getNextLevelName() & noexcept
 {
     /* get the front item of the queue and delete it from the container */
-    std::string level = levels.front();
-    levels.pop();
+    std::string level = impl->levels.front();
+    impl->levels.pop();
 
     return level;
 }
@@ -79,7 +112,7 @@ const std::string PlayingSerieManager::getNextLevelName() & noexcept
 void PlayingSerieManager::setWatchingTime(const unsigned short& time) &
 noexcept
 {
-    watchingTime = time;
+    impl->watchingTime = time;
 }
 
 /**
@@ -88,7 +121,7 @@ noexcept
 void PlayingSerieManager::loadSerieFileContent(const std::string& path) &
 {
     /* clear the queue */
-    levels = std::queue<std::string>();
+    impl->levels = std::queue<std::string>();
 
     std::ifstream file(path);
     if (!file.is_open())
@@ -108,7 +141,7 @@ void PlayingSerieManager::loadSerieFileContent(const std::string& path) &
     /* read the file one by one and add the levels names into the queue */
     while(std::getline(file, level))
     {
-        levels.push(level);
+        impl->levels.push(level);
     }
 
     /* this is useless to close the std::ifstream object, it is automatically

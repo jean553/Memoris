@@ -30,6 +30,8 @@
 
 #include "Cell.hpp"
 
+#include <queue>
+
 namespace memoris
 {
 namespace animations

@@ -28,8 +28,7 @@
 
 #include "NotCopiable.hpp"
 
-#include <string>
-#include <queue>
+#include <memory>
 
 namespace memoris
 {
@@ -40,6 +39,16 @@ class PlayingSerieManager : public utils::NotCopiable
 {
 
 public:
+
+    /**
+     * @brief constructor, empty, only used to initialize the implementation
+     */
+    PlayingSerieManager() noexcept;
+
+    /**
+     * @brief default destructor, empty, only used for forwarding declaration
+     */
+    ~PlayingSerieManager() noexcept;
 
     /**
      * @brief checks if the levels queue has a next level or (if the queue
@@ -91,6 +100,8 @@ public:
      * set the next level watching time when the player wins the current level
      *
      * @param time the time to set to the watching time
+     *
+     * not 'const' because it modifies the value of the watching time attribute
      */
     void setWatchingTime(const unsigned short& time) & noexcept;
 
@@ -103,25 +114,13 @@ public:
      * exception should be caught in order to display the error controller
      *
      * no 'const' because it modifies the levels queue attribute
-     *
-     * no 'noexcept' because it throws an exception if the serie file cannot
-     * be loaded
      */
     void loadSerieFileContent(const std::string& path) &;
 
 private:
 
-    /* we use the FIFO (first in first out) method to store the levels names;
-       in fact, we add all the levels one by one into the container when we
-       load a serie and we pop them one by one in the same order; the queue
-       container is directly optimized for that kind of operations */
-    std::queue<std::string> levels;
-
-    /* current watching time that will be given for the next level; this time
-       is the watching time *per floor*; this value is set to 6 by default
-       all the time when a serie starts; we set it here because this value
-       has to be transferred from one level to another */
-    unsigned short watchingTime {6};
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }
