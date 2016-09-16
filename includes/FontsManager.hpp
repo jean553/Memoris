@@ -27,7 +27,12 @@
 
 #include "NotCopiable.hpp"
 
-#include <SFML/Graphics/Font.hpp>
+#include <memory>
+
+namespace sf
+{
+    class Font;
+}
 
 namespace memoris
 {
@@ -48,6 +53,11 @@ public:
      * be loaded
      */
     FontsManager();
+
+    /**
+     * @brief default destructor, empty, declared for forwarding declaration
+     */
+    ~FontsManager() noexcept;
 
     /**
      * @brief get title font reference
@@ -88,11 +98,8 @@ private:
         const std::string& path
     );
 
-    /* fonts objects, not pointer because the program cannot run if the
-       fonts are not loaded correctly */
-
-    sf::Font titleFont;
-    sf::Font textFont;
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }

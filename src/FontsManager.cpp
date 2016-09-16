@@ -25,26 +25,43 @@
 
 #include "FontsManager.hpp"
 
+#include <SFML/Graphics/Font.hpp>
+
 namespace memoris
 {
 namespace managers
 {
 
+class FontsManager::Impl
+{
+
+public:
+
+    sf::Font titleFont;
+    sf::Font textFont;
+};
+
 /**
  *
  */
-FontsManager::FontsManager()
+FontsManager::FontsManager() :
+    impl(std::make_unique<Impl>())
 {
-    loadFontFromFile(titleFont, "crystal_regular.ttf");
-    loadFontFromFile(textFont, "hi.otf");
+    loadFontFromFile(impl->titleFont, "crystal_regular.ttf");
+    loadFontFromFile(impl->textFont, "hi.otf");
 }
+
+/**
+ *
+ */
+FontsManager::~FontsManager() noexcept = default;
 
 /**
  *
  */
 const sf::Font& FontsManager::getTitleFont() const & noexcept
 {
-    return titleFont;
+    return impl->titleFont;
 }
 
 /**
@@ -52,7 +69,7 @@ const sf::Font& FontsManager::getTitleFont() const & noexcept
  */
 const sf::Font& FontsManager::getTextFont() const & noexcept
 {
-    return textFont;
+    return impl->textFont;
 }
 
 /**
