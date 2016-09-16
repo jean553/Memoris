@@ -107,14 +107,6 @@ managers::PlayingSerieManager& Context::getPlayingSerieManager() & noexcept
 /**
  *
  */
-managers::GameManager& Context::getGameManager() & noexcept
-{
-    return gameManager;
-}
-
-/**
- *
- */
 sf::RenderWindow& Context::getSfmlWindow() & noexcept
 {
     return sfmlWindow;
@@ -171,6 +163,20 @@ void Context::stopMusic() &
 void Context::restartClock() &
 {
     clock.restart();
+}
+
+/**
+ *
+ */
+void Context::createGame(const std::string& name) &
+{
+    /* delete the previously loaded game if one is already in memory */
+    if (game != nullptr)
+    {
+        game.reset();
+    }
+
+    game = std::make_unique<entities::Game>(name);
 }
 
 }

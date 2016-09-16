@@ -126,7 +126,7 @@ unsigned short NewGameController::render(
                 }
 
                 /* creates the new game on disk and in memory */
-                context.getGameManager().createGame(
+                context.createGame(
                     inputTextGameName.getText()
                 );
 

@@ -24,6 +24,8 @@
 
 #include "Game.hpp"
 
+#include <fstream>
+
 namespace memoris
 {
 namespace entities
@@ -32,10 +34,21 @@ namespace entities
 /**
  *
  */
-Game::Game(const std::string& gameName) noexcept :
-name(gameName)
+Game::Game(const std::string& gameName) :
+    name(gameName)
 {
-    /* does nothing, only used for attributes initialization */
+    std::ofstream file;
+
+    /* throw exception if IO error */
+    file.exceptions(std::ofstream::failbit | std::ofstream::badbit);
+
+    file.open(
+        "data/games/" + name + ".game",
+        std::fstream::out
+    );
+
+    /* manually close the file is not necessary as std::ofstream is
+       automatically destroyed when it leaves the current scope */
 }
 
 }

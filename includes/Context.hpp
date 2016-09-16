@@ -35,7 +35,7 @@
 #include "FontsManager.hpp"
 #include "CellsTexturesManager.hpp"
 #include "PlayingSerieManager.hpp"
-#include "GameManager.hpp"
+#include "Game.hpp"
 
 #include <SFML/Audio/Music.hpp>
 #include <SFML/System/Clock.hpp>
@@ -118,18 +118,6 @@ public:
     managers::PlayingSerieManager& getPlayingSerieManager() & noexcept;
 
     /**
-     * @brief getter of the game manager
-     *
-     * @return managers::GameManager&
-     *
-     * do not return a constant reference, the manager is modified when
-     * a new game is created or when an existing game is loaded
-     *
-     * not constant method because returns a reference
-     */
-    managers::GameManager& getGameManager() & noexcept;
-
-    /**
      * @brief getter on the SFML window object
      *
      * @return sf::RenderWindow&
@@ -199,6 +187,21 @@ public:
      */
     void restartClock() &;
 
+    /**
+     * @brief initializes the Game unique pointer, interface method used to
+     * load a game in memory; if a previous game has been loaded in memory,
+     * this previous object is dynamically deleted
+     *
+     * @param name the name of the game
+     *
+     * @throw std::ios_base::failure thrown if the file manipulation failed;
+     * this exception is never caught by the program and the game directly
+     * stops
+     *
+     * not 'const' because it modifies the game unique pointer attribute
+     */
+    void createGame(const std::string& name) &;
+
 private:
 
     /* resources and assets managers */
@@ -208,7 +211,6 @@ private:
     managers::ColorsManager colorsManager;
     managers::FontsManager fontsManager;
     managers::CellsTexturesManager cellsTexturesManager;
-    managers::GameManager gameManager;
     managers::PlayingSerieManager playingSerieManager;
 
     /* main SFML window object */
@@ -224,6 +226,14 @@ private:
      * controller is modified; the maximum time returned in milliseconds
      * is equal to 49 days... so this is a safe method */
     sf::Clock clock;
+
+    /* unique pointer to the current loaded game; this pointed object is
+       initialized when a new game is created or when an existing game is
+       loaded; if there is no need to have a game loaded at the moment,
+       the pointer is just null; when the context is created, the main menu
+       is rendered, at this moment, the game has no reason to be loaded;
+       initialized in the implementation to use forwarding declaration */
+    std::unique_ptr<entities::Game> game {nullptr};
 };
 
 }
