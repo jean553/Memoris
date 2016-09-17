@@ -169,10 +169,14 @@ unsigned short LevelEditorController::render(
             case utils::EditorDashboard::SAVE_ACTION_ID:
             {
                 /* display the save level file popup */
-                dialog = popups::getDialogById(
-                             context,
-                             popups::SAVE_LEVEL_POPUP_ID
-                         );
+                dialog = std::make_unique<popups::SaveLevelDialog>(
+                    context,
+                    440.f,
+                    220.f,
+                    600.f,
+                    200.f,
+                    "Save level"
+                );
 
                 currentActionId = utils::EditorDashboard::SAVE_ACTION_ID;
 

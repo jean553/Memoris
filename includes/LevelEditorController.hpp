@@ -139,7 +139,7 @@ private:
 
     /* unique pointer to the current rendered dialog, set to null by default
        and if there is no displayed dialog currently */
-    std::unique_ptr<popups::Dialog> dialog {nullptr};
+    std::unique_ptr<popups::SaveLevelDialog> dialog {nullptr};
 };
 
 }

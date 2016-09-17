@@ -19,7 +19,7 @@
 /**
  * @file dialogs.hpp
  * @package popups
- * @package contains the dialogs factory and identifiers
+ * @package contains the dialogs identifiers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
@@ -35,15 +35,6 @@ namespace popups
 
 /* identifiers of the popups, used by controllers */
 constexpr unsigned short SAVE_LEVEL_POPUP_ID {1};
-
-/**
- * @brief factory function for the unique pointers to dialog, used by the
- * controllers
- */
-std::unique_ptr<popups::Dialog> getDialogById(
-    utils::Context& context,
-    const unsigned short& id
-);
 
 }
 }
