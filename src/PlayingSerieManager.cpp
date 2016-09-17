@@ -56,7 +56,7 @@ public:
  *
  */
 PlayingSerieManager::PlayingSerieManager() noexcept :
-    impl(std::make_unique<Impl>())
+impl(std::make_unique<Impl>())
 {
 }
 

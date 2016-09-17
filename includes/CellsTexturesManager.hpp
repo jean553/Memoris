@@ -30,7 +30,7 @@
 
 namespace sf
 {
-    class Texture;
+class Texture;
 };
 
 namespace memoris

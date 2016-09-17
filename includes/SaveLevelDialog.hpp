@@ -59,14 +59,14 @@ public:
      *
      * @param context reference to the current context to use
      */
-    void render(utils::Context& context) override;
+    void render(utils::Context& context) & override;
 
     /**
      * @brief getter of the input text widget of the dialog if it has
      *
      * @return widgets::InputTextWidget&
      */
-    widgets::InputTextWidget& getInputTextWidget() override;
+    widgets::InputTextWidget& getInputTextWidget() & override;
 
 private:
 

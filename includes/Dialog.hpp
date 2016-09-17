@@ -26,15 +26,21 @@
 #ifndef MEMORIS_DIALOG_H_
 #define MEMORIS_DIALOG_H_
 
-#include "Context.hpp"
-
-#include "InputTextWidget.hpp"
-
-#include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/Graphics/Text.hpp>
+#include <memory>
 
 namespace memoris
 {
+
+namespace widgets
+{
+class InputTextWidget;
+}
+
+namespace utils
+{
+class Context;
+}
+
 namespace popups
 {
 
@@ -47,15 +53,29 @@ public:
      * @brief render the dialog window
      *
      * @param context reference to the current context to use
+     *
+     * not 'const' because implementation could modify the current dialog
+     * attributes
+     *
+     * not 'noexcept' because it calls the SFML functions that are not
+     * 'noexcept'
      */
-    virtual void render(utils::Context& context) = 0;
+    virtual void render(utils::Context& context) & = 0;
 
     /**
      * @brief getter of the input text widget of the dialog if it has
      *
      * @return widgets::InputTextWidget&
+     *
+     * not 'const' because implementation could modify the current dialog
+     * attributes
+     *
+     * not 'noexcept' because it calls the SFML functions that are not
+     * 'noexcept'
      */
-    virtual widgets::InputTextWidget& getInputTextWidget() = 0;
+    virtual widgets::InputTextWidget& getInputTextWidget() & = 0;
+
+    ~Dialog() noexcept;
 
 protected:
 
@@ -68,6 +88,8 @@ protected:
      * @param hPosition horizontal position of the dialog window
      * @param vPosition vertical position of the dialog window
      * @param text dialog window title
+     *
+     * 'protected' visibility because it can only be called by child object
      */
     Dialog(
         utils::Context& context,
@@ -83,28 +105,22 @@ protected:
      * of the dialog window
      *
      * @param context reference to the current context to use
+     *
+     * the context reference is not 'const' because the SFML window draw()
+     * method is called from this function; the draw method is not constant
+     *
+     * 'protected' visibility because it is supposed to be called by child
+     * object only
+     *
+     * no 'noexcept' because it calls the SFML window draw() method which is
+     * not noexcept
      */
-    void displayParentContent(
-        utils::Context& context
-    ) const;
+    void displayParentContent(utils::Context& context) const &;
 
 private:
 
-    /* the SFML surface of the background */
-    sf::RectangleShape background;
-
-    /* the SFML surfaces of the borders */
-    sf::RectangleShape top;
-    sf::RectangleShape bottom;
-    sf::RectangleShape left;
-    sf::RectangleShape right;
-
-    /* the SFML surfaces specific to a dialog popup */
-    sf::RectangleShape titleBackground;
-    sf::RectangleShape titleSeparator;
-
-    /* the dialog title */
-    sf::Text title;
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }

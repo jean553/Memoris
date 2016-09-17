@@ -36,8 +36,8 @@ namespace sounds
  *
  */
 Sound::Sound(const std::string& path) noexcept :
-    sound(nullptr),
-    buffer(std::make_unique<sf::SoundBuffer>())
+sound(nullptr),
+      buffer(std::make_unique<sf::SoundBuffer>())
 {
     if(buffer->loadFromFile("res/sounds/" + path + ".wav"))
     {
