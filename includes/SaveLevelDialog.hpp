@@ -29,10 +29,14 @@
 
 #include "Dialog.hpp"
 
-#include "InputTextWidget.hpp"
-
 namespace memoris
 {
+
+namespace widgets
+{
+class InputTextWidget;
+}
+
 namespace popups
 {
 
@@ -44,15 +48,18 @@ public:
     /**
      * @brief constructor, does nothing for now, only pass the variables to
      * the parent constructor
+     *
+     * @param context reference to the current context
      */
     SaveLevelDialog(
-        utils::Context& context,
-        const float& hSize,
-        const float& vSize,
-        const float& hPosition,
-        const float& vPosition,
-        const std::string& title
+        utils::Context& context
     );
+
+    /**
+     * @brief default constructor, empty, only declared in order to use
+     * forwarding declaration
+     */
+    ~SaveLevelDialog() noexcept;
 
     /**
      * @brief render the dialog window
@@ -62,7 +69,8 @@ public:
     void render(utils::Context& context) & override;
 
     /**
-     * @brief getter of the input text widget of the dialog if it has
+     * @brief getter of the input text widget, used in the level editor,
+     * returns a reference of the widget
      *
      * @return widgets::InputTextWidget&
      */
@@ -70,11 +78,8 @@ public:
 
 private:
 
-    /* the input text widget to let the player enters the name of the level */
-    widgets::InputTextWidget input;
-
-    /* displayed information */
-    sf::Text info;
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }
