@@ -66,7 +66,7 @@ public:
      *
      * @return widgets::InputTextWidget&
      */
-    widgets::InputTextWidget& getInputTextWidget() & override;
+    widgets::InputTextWidget& getInputTextWidget() &;
 
 private:
 

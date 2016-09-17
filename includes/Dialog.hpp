@@ -63,18 +63,8 @@ public:
     virtual void render(utils::Context& context) & = 0;
 
     /**
-     * @brief getter of the input text widget of the dialog if it has
-     *
-     * @return widgets::InputTextWidget&
-     *
-     * not 'const' because implementation could modify the current dialog
-     * attributes
-     *
-     * not 'noexcept' because it calls the SFML functions that are not
-     * 'noexcept'
+     * @brief default destructor, empty, declared for forwarding declaration
      */
-    virtual widgets::InputTextWidget& getInputTextWidget() & = 0;
-
     ~Dialog() noexcept;
 
 protected:
