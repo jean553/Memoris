@@ -25,64 +25,73 @@
 #include "SaveLevelDialog.hpp"
 
 #include "fonts.hpp"
+#include "InputTextWidget.hpp"
 
 namespace memoris
 {
 namespace popups
 {
 
-/**
- *
- */
-SaveLevelDialog::SaveLevelDialog(
-    utils::Context& context,
-    const float& hSize,
-    const float& vSize,
-    const float& hPosition,
-    const float& vPosition,
-    const std::string& title
-) : Dialog(
-        context,
-        hSize,
-        vSize,
-        hPosition,
-        vPosition,
-        title
-    ),
+class SaveLevelDialog::Impl
+{
+
+public:
+
+    Impl(utils::Context& context) : 
     input(
         context,
-        hPosition + 25.f,
-        vPosition + 130.f,
+        625.f,
+        350.f,
         380.f,
         10
     )
+    {
+    }
+
+    widgets::InputTextWidget input;
+
+    sf::Text info;
+};
+
+/**
+ *
+ */
+SaveLevelDialog::SaveLevelDialog(utils::Context& context) : 
+    Dialog(
+        context,
+        440.f,
+        220.f,
+        600.f,
+        200.f,
+        "Save level"
+    ),
+    impl(std::make_unique<Impl>(context))
 {
-    /* information text creation */
-    info.setString("Enter the level name:");
-    info.setPosition(
-        hPosition + 20.f,
-        vPosition + 70.f
+    impl->info.setString("Enter the level name:");
+    impl->info.setPosition(
+        625.f,
+        290.f
     );
-    info.setFont(
-        context.getFontsManager().getTextFont()
-    );
-    info.setCharacterSize(fonts::INFORMATION_SIZE);
-    info.setColor(context.getColorsManager().getColorWhite());
+    impl->info.setFont(context.getFontsManager().getTextFont());
+    impl->info.setCharacterSize(fonts::INFORMATION_SIZE);
+    impl->info.setColor(context.getColorsManager().getColorWhite());
 }
+
+/**
+ *
+ */
+SaveLevelDialog::~SaveLevelDialog() noexcept = default;
 
 /**
  *
  */
 void SaveLevelDialog::render(utils::Context& context) &
 {
-    /* display the basic content of the dialog */
     displayParentContent(context);
 
-    /* display the input */
-    input.display(context);
+    impl->input.display(context);
 
-    /* display the information */
-    context.getSfmlWindow().draw(info);
+    context.getSfmlWindow().draw(impl->info);
 }
 
 /**
@@ -90,7 +99,7 @@ void SaveLevelDialog::render(utils::Context& context) &
  */
 widgets::InputTextWidget& SaveLevelDialog::getInputTextWidget() &
 {
-    return input;
+    return impl->input;
 }
 
 }

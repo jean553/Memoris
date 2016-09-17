@@ -28,6 +28,7 @@
 #include "fonts.hpp"
 #include "dialogs.hpp"
 #include "files.hpp"
+#include "InputTextWidget.hpp"
 
 namespace memoris
 {
@@ -169,14 +170,7 @@ unsigned short LevelEditorController::render(
             case utils::EditorDashboard::SAVE_ACTION_ID:
             {
                 /* display the save level file popup */
-                dialog = std::make_unique<popups::SaveLevelDialog>(
-                    context,
-                    440.f,
-                    220.f,
-                    600.f,
-                    200.f,
-                    "Save level"
-                );
+                dialog = std::make_unique<popups::SaveLevelDialog>(context);
 
                 currentActionId = utils::EditorDashboard::SAVE_ACTION_ID;
 
