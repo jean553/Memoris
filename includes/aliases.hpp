@@ -31,7 +31,7 @@
 
 namespace sf
 {
-    class Transform;
+class Transform;
 }
 
 namespace memoris
@@ -39,7 +39,7 @@ namespace memoris
 
 namespace entities
 {
-    class Cell;
+class Cell;
 }
 
 namespace aliases

@@ -36,25 +36,25 @@ class SoundsManager::Impl
 
 public:
 
-    sounds::Sound moveSelectorSound{"001"};
-    sounds::Sound screenTransitionSound{"002"};
-    sounds::Sound hideLevelSound{"003"};
-    sounds::Sound foundStarSound{"004"};
-    sounds::Sound foundLifeOrTimeSound{"005"};
-    sounds::Sound foundDeadOrLessTimeSound{"006"};
-    sounds::Sound collisionSound{"007"};
-    sounds::Sound floorSwitchSound{"008"};
-    sounds::Sound timeOverSound{"009"};
-    sounds::Sound mirrorAnimationSound{"010"};
-    sounds::Sound winLevelSound{"011"};
-    sounds::Sound floorMovementAnimationSound{"012"};
+    sounds::Sound moveSelectorSound {"001"};
+    sounds::Sound screenTransitionSound {"002"};
+    sounds::Sound hideLevelSound {"003"};
+    sounds::Sound foundStarSound {"004"};
+    sounds::Sound foundLifeOrTimeSound {"005"};
+    sounds::Sound foundDeadOrLessTimeSound {"006"};
+    sounds::Sound collisionSound {"007"};
+    sounds::Sound floorSwitchSound {"008"};
+    sounds::Sound timeOverSound {"009"};
+    sounds::Sound mirrorAnimationSound {"010"};
+    sounds::Sound winLevelSound {"011"};
+    sounds::Sound floorMovementAnimationSound {"012"};
 };
 
 /**
  *
  */
 SoundsManager::SoundsManager() noexcept :
-    impl(std::make_unique<Impl>())
+impl(std::make_unique<Impl>())
 {
 }
 

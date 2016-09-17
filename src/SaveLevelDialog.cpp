@@ -73,7 +73,7 @@ SaveLevelDialog::SaveLevelDialog(
 /**
  *
  */
-void SaveLevelDialog::render(utils::Context& context)
+void SaveLevelDialog::render(utils::Context& context) &
 {
     /* display the basic content of the dialog */
     displayParentContent(context);
@@ -88,7 +88,7 @@ void SaveLevelDialog::render(utils::Context& context)
 /**
  *
  */
-widgets::InputTextWidget& SaveLevelDialog::getInputTextWidget()
+widgets::InputTextWidget& SaveLevelDialog::getInputTextWidget() &
 {
     return input;
 }

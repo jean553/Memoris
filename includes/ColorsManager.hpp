@@ -34,7 +34,7 @@
 
 namespace sf
 {
-    class Color;
+class Color;
 }
 
 namespace memoris

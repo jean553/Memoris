@@ -30,8 +30,8 @@
 
 namespace sf
 {
-    class Sound;
-    class SoundBuffer;
+class Sound;
+class SoundBuffer;
 }
 
 namespace memoris

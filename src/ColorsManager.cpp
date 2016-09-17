@@ -121,7 +121,7 @@ public:
  *
  */
 ColorsManager::ColorsManager() noexcept :
-    impl(std::make_unique<Impl>())
+impl(std::make_unique<Impl>())
 {
 }
 

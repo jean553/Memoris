@@ -25,11 +25,33 @@
 #include "Dialog.hpp"
 
 #include "fonts.hpp"
+#include "InputTextWidget.hpp"
+#include "Context.hpp"
+
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/Text.hpp>
+
 
 namespace memoris
 {
 namespace popups
 {
+
+class Dialog::Impl
+{
+
+public:
+
+    sf::RectangleShape background;
+    sf::RectangleShape top;
+    sf::RectangleShape bottom;
+    sf::RectangleShape left;
+    sf::RectangleShape right;
+    sf::RectangleShape titleBackground;
+    sf::RectangleShape titleSeparator;
+
+    sf::Text title;
+};
 
 /**
  *
@@ -41,53 +63,51 @@ Dialog::Dialog(
     const float& hPosition,
     const float& vPosition,
     const std::string& text
-)
+) : impl(std::make_unique<Impl>())
 {
-    /* set the SFML surfaces of the dialog widget */
-
-    background.setSize(
+    impl->background.setSize(
         sf::Vector2f(
             hSize,
             vSize
         )
     );
 
-    top.setSize(
+    impl->top.setSize(
         sf::Vector2f(
             hSize,
             1.f
         )
     );
 
-    bottom.setSize(
+    impl->bottom.setSize(
         sf::Vector2f(
             hSize,
             1.f
         )
     );
 
-    left.setSize(
+    impl->left.setSize(
         sf::Vector2f(
             1.f,
             vSize
         )
     );
 
-    right.setSize(
+    impl->right.setSize(
         sf::Vector2f(
             1.f,
             vSize
         )
     );
 
-    titleBackground.setSize(
+    impl->titleBackground.setSize(
         sf::Vector2f(
             hSize,
             50.f
         )
     );
 
-    titleSeparator.setSize(
+    impl->titleSeparator.setSize(
         sf::Vector2f(
             hSize,
             1.f
@@ -96,60 +116,58 @@ Dialog::Dialog(
 
     /* set the positions of the SFML surfaces */
 
-    background.setPosition(
+    impl->background.setPosition(
         hPosition,
         vPosition
     );
 
-    top.setPosition(
+    impl->top.setPosition(
         hPosition,
         vPosition
     );
 
-    bottom.setPosition(
+    impl->bottom.setPosition(
         hPosition,
         vPosition + vSize
     );
 
-    left.setPosition(
+    impl->left.setPosition(
         hPosition,
         vPosition
     );
 
-    right.setPosition(
+    impl->right.setPosition(
         hPosition + hSize,
         vPosition
     );
 
-    titleBackground.setPosition(
+    impl->titleBackground.setPosition(
         hPosition,
         vPosition
     );
 
-    titleSeparator.setPosition(
+    impl->titleSeparator.setPosition(
         hPosition,
         vPosition + 50.f
     );
 
-    /* set the colors of the SFML surfaces */
+    impl->background.setFillColor(
+        context.getColorsManager().getColorDarkGrey()
+    );
 
-    background.setFillColor(context.getColorsManager().getColorDarkGrey());
-
-    titleBackground.setFillColor(
+    impl->titleBackground.setFillColor(
         context.getColorsManager().getColorLightBlue()
     );
 
-    titleSeparator.setFillColor(
+    impl->titleSeparator.setFillColor(
         context.getColorsManager().getColorWhite()
     );
 
-    /* set the dialog title */
-
-    title.setString(text);
-    title.setCharacterSize(fonts::TEXT_SIZE);
-    title.setFont(context.getFontsManager().getTextFont());
-    title.setColor(context.getColorsManager().getColorWhite());
-    title.setPosition(
+    impl->title.setString(text);
+    impl->title.setCharacterSize(fonts::TEXT_SIZE);
+    impl->title.setFont(context.getFontsManager().getTextFont());
+    impl->title.setColor(context.getColorsManager().getColorWhite());
+    impl->title.setPosition(
         hPosition,
         vPosition - 10.f
     );
@@ -158,21 +176,26 @@ Dialog::Dialog(
 /**
  *
  */
+Dialog::~Dialog() noexcept = default;
+
+/**
+ *
+ */
 void Dialog::displayParentContent(
     utils::Context& context
-) const
+) const &
 {
-    context.getSfmlWindow().draw(background);
+    context.getSfmlWindow().draw(impl->background);
 
-    context.getSfmlWindow().draw(titleBackground);
-    context.getSfmlWindow().draw(titleSeparator);
+    context.getSfmlWindow().draw(impl->titleBackground);
+    context.getSfmlWindow().draw(impl->titleSeparator);
 
-    context.getSfmlWindow().draw(top);
-    context.getSfmlWindow().draw(bottom);
-    context.getSfmlWindow().draw(left);
-    context.getSfmlWindow().draw(right);
+    context.getSfmlWindow().draw(impl->top);
+    context.getSfmlWindow().draw(impl->bottom);
+    context.getSfmlWindow().draw(impl->left);
+    context.getSfmlWindow().draw(impl->right);
 
-    context.getSfmlWindow().draw(title);
+    context.getSfmlWindow().draw(impl->title);
 }
 
 }

@@ -31,7 +31,7 @@
 
 namespace sf
 {
-    class Font;
+class Font;
 }
 
 namespace memoris
