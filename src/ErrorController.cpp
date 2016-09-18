@@ -47,7 +47,7 @@ ErrorController::ErrorController(
  */
 unsigned short ErrorController::render(
     utils::Context& context
-)
+) &
 {
     /* used for screen switch animation */
     nextControllerId = animateScreenTransition(context);

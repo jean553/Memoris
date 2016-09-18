@@ -95,7 +95,7 @@ SerieMainMenuController::SerieMainMenuController(
  */
 unsigned short SerieMainMenuController::render(
     utils::Context& context
-)
+) &
 {
     /* display the serie main menu title */
     context.getSfmlWindow().draw(title);

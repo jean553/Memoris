@@ -133,7 +133,7 @@ MainMenuController::MainMenuController(
  */
 unsigned short MainMenuController::render(
     utils::Context& context
-)
+) &
 {
     /* animate the animated background */
     animatedBackground.render(context);

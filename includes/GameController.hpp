@@ -65,9 +65,7 @@ public:
      *
      * @return unsigned short id of the new screen controller
      */
-    unsigned short render(
-        utils::Context& context
-    ) override;
+    virtual unsigned short render(utils::Context& context) & override final;
 
 private:
 

@@ -82,7 +82,7 @@ GameController::GameController(
  */
 unsigned short GameController::render(
     utils::Context& context
-)
+) &
 {
     /* check if the display level->time is equal to 0; if it is equal to 0,
        that means the level->just opened and this level->time has to be set */

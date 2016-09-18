@@ -91,7 +91,7 @@ EditorMenuController::EditorMenuController(
  */
 unsigned short EditorMenuController::render(
     utils::Context& context
-)
+) &
 {
     context.getSfmlWindow().draw(title);
 

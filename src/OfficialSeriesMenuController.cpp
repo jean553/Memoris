@@ -136,7 +136,7 @@ OfficialSeriesMenuController::OfficialSeriesMenuController(
  */
 unsigned short OfficialSeriesMenuController::render(
     utils::Context& context
-)
+) &
 {
     context.getSfmlWindow().draw(title);
 
