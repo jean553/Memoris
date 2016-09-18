@@ -194,8 +194,16 @@ unsigned short LevelEditorController::render(
                 if (newDialogIsActive())
                 {
                     deleteActiveDialog();
+                    break;
+                }
+            }
+            case sf::Keyboard::Y:
+            {
+                if (newDialogIsActive())
+                {
+                    deleteActiveDialog();
 
-                    /* stop the process here */
+                    impl->level.refresh(context);
                     break;
                 }
             }

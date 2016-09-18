@@ -340,6 +340,26 @@ public:
         const char& type
     );
 
+    /**
+     * @brief refresh all the cells and reset them to empty cells
+     *
+     * @param context reference to the current context to use
+     *
+     * @throws std::terminate something wrong happened in the for_each
+     * algorithm (functions that are called there may throw exceptions as
+     * they are not declared noexcept)
+     * @throws std::bad_alloc for_each algorithm failed to allocate memory
+     *
+     * context is not const because the method calls other functions that
+     * modifies the SFML render window, which is a context attribute
+     *
+     * not 'const' because it modifies the cells inside the cells container
+     *
+     * not 'noexcept' because it could throw exceptions; those exceptions are
+     * never caught and the program just stops if it happens
+     */
+    void refresh(utils::Context& context) &;
+
 private:
 
     /**
