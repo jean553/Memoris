@@ -33,6 +33,7 @@
 #include "Cursor.hpp"
 #include "CellsSelector.hpp"
 #include "SaveLevelDialog.hpp"
+#include "NewLevelDialog.hpp"
 #include "aliases.hpp"
 
 namespace memoris
@@ -77,6 +78,18 @@ private:
      * the 'return' instruction
      */
     const bool saveDialogIsActive() const noexcept;
+
+    /**
+     * @brief true if the current displayed dialog window is the new level
+     * window; this function is declared to refactor common code that is
+     * called at different locations
+     *
+     * @return const bool
+     *
+     * do not return a reference, because directly return a boolean using
+     * the 'return' instruction
+     */
+    const bool newDialogIsActive() const & noexcept;
 
     /**
      * @brief delete the displayed active dialog window; this function checks
@@ -137,9 +150,8 @@ private:
     /* SFML surface that displays the current floor number */
     sf::Text floorSurface;
 
-    /* unique pointer to the current rendered dialog, set to null by default
-       and if there is no displayed dialog currently */
-    std::unique_ptr<popups::SaveLevelDialog> dialog {nullptr};
+    std::unique_ptr<popups::SaveLevelDialog> saveLevelDialog {nullptr};
+    std::unique_ptr<popups::NewLevelDialog> newLevelDialog {nullptr};
 };
 
 }

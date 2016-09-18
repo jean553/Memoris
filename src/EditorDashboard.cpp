@@ -112,6 +112,10 @@ unsigned short EditorDashboard::getActionIdBySelectedButton() const
     {
         return SAVE_ACTION_ID;
     }
+    else if (buttonNew.isMouseHover())
+    {
+        return NEW_ACTION_ID;
+    }
     else if (buttonUp.isMouseHover())
     {
         return FLOOR_UP_ACTION_ID;

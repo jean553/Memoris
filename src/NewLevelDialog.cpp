@@ -17,57 +17,47 @@
 */
 
 /**
- * @file SaveLevelDialog.cpp
+ * @file NewLevelDialog.cpp
  * @package popups
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "SaveLevelDialog.hpp"
+#include "NewLevelDialog.hpp"
 
+#include "Context.hpp"
 #include "fonts.hpp"
-#include "InputTextWidget.hpp"
+
+#include <SFML/Graphics/Text.hpp>
 
 namespace memoris
 {
 namespace popups
 {
 
-class SaveLevelDialog::Impl
+class NewLevelDialog::Impl
 {
 
 public:
 
-    Impl(utils::Context& context) :
-        input(
-            context,
-            625.f,
-            350.f,
-            380.f,
-            10
-        )
-    {
-    }
-
-    widgets::InputTextWidget input;
-
     sf::Text info;
+    sf::Text confirm;
 };
 
 /**
  *
  */
-SaveLevelDialog::SaveLevelDialog(utils::Context& context) :
+NewLevelDialog::NewLevelDialog(utils::Context& context) :
     Dialog(
         context,
         440.f,
         220.f,
         600.f,
         200.f,
-        "Save level"
+        "Confirm ?"
     ),
-    impl(std::make_unique<Impl>(context))
+    impl(std::make_unique<Impl>())
 {
-    impl->info.setString("Enter the level name:");
+    impl->info.setString("Changes will be lost !");
     impl->info.setPosition(
         625.f,
         290.f
@@ -75,31 +65,31 @@ SaveLevelDialog::SaveLevelDialog(utils::Context& context) :
     impl->info.setFont(context.getFontsManager().getTextFont());
     impl->info.setCharacterSize(fonts::INFORMATION_SIZE);
     impl->info.setColor(context.getColorsManager().getColorWhite());
+
+    impl->confirm.setString("Continue ? y/n");
+    impl->confirm.setPosition(
+        625.f,
+        350.f
+    );
+    impl->confirm.setFont(context.getFontsManager().getTextFont());
+    impl->confirm.setCharacterSize(fonts::INFORMATION_SIZE);
+    impl->confirm.setColor(context.getColorsManager().getColorWhite());
 }
 
 /**
  *
  */
-SaveLevelDialog::~SaveLevelDialog() noexcept = default;
+NewLevelDialog::~NewLevelDialog() noexcept = default;
 
 /**
  *
  */
-void SaveLevelDialog::render(utils::Context& context) &
+void NewLevelDialog::render(utils::Context& context) &
 {
     displayParentContent(context);
 
-    impl->input.display(context);
-
     context.getSfmlWindow().draw(impl->info);
-}
-
-/**
- *
- */
-widgets::InputTextWidget& SaveLevelDialog::getInputTextWidget() & noexcept
-{
-    return impl->input;
+    context.getSfmlWindow().draw(impl->confirm);
 }
 
 }

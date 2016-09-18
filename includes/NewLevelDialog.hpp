@@ -18,46 +18,39 @@
 
 /**
  * @file SaveLevelDialog.hpp
- * @brief dialog that is displayed when the 'save' button is pressed down
- * into the level editor
+ * @brief dialog that is displayed when the player clicks on 'new' button
+ * of the level editor
  * @package popups
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef MEMORIS_SAVELEVELDIALOG_H_
-#define MEMORIS_SAVELEVELDIALOG_H_
+#ifndef MEMORIS_NEWLEVELDIALOG_H_
+#define MEMORIS_NEWLEVELDIALOG_H_
 
 #include "Dialog.hpp"
 
+#include <memory>
+
 namespace memoris
 {
-
-namespace widgets
-{
-class InputTextWidget;
-}
-
 namespace popups
 {
 
-class SaveLevelDialog : public Dialog
+class NewLevelDialog : public Dialog
 {
 
 public:
 
     /**
-     * @brief constructor, does nothing for now, only pass the variables to
-     * the parent constructor
-     *
-     * @param context reference to the current context
+     * @brief constructor, initializes the SFML texture to display
      */
-    SaveLevelDialog(utils::Context& context);
+    NewLevelDialog(utils::Context& context);
 
     /**
-     * @brief default constructor, empty, only declared in order to use
-     * forwarding declaration
+     * @brief default destructor, empty, declared in order to use forwarding
+     * declaration
      */
-    ~SaveLevelDialog() noexcept;
+    ~NewLevelDialog() noexcept;
 
     /**
      * @brief render the dialog window
@@ -71,20 +64,7 @@ public:
      *
      * not 'noexcept' because it calls SFML functions that are not 'noexcept'
      */
-    void render(utils::Context& context) & override;
-
-    /**
-     * @brief getter of the input text widget, used in the level editor,
-     * returns a reference of the widget
-     *
-     * @return widgets::InputTextWidget&
-     *
-     * the returned reference is not 'const' because it can be modified by
-     * the level editor controller
-     *
-     * not 'const' because it returns a non-const reference of an attribute
-     */
-    widgets::InputTextWidget& getInputTextWidget() & noexcept;
+    virtual void render(utils::Context& context) & override final;
 
 private:
 
