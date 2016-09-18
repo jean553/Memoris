@@ -48,6 +48,7 @@ public:
     static constexpr unsigned short FLOOR_UP_ACTION_ID {3};
     static constexpr unsigned short FLOOR_DOWN_ACTION_ID {4};
     static constexpr unsigned short NEW_ACTION_ID {5};
+    static constexpr unsigned short OPEN_ACTION_ID {6};
 
     /**
      * @brief constructor, initializes the level separator

@@ -45,6 +45,7 @@ constexpr unsigned short OFFICIAL_SERIES_MENU_CONTROLLER_ID = 6;
 constexpr unsigned short ERROR_CONTROLLER_ID = 7;
 constexpr unsigned short EDITOR_MENU_CONTROLLER_ID = 8;
 constexpr unsigned short LEVEL_EDITOR_CONTROLLER_ID = 9;
+constexpr unsigned short OPEN_LEVEL_CONTROLLER_ID = 10;
 
 /**
  * @brief factory method to create controllers by id, each controller is linked
