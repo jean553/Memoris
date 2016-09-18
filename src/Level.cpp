@@ -707,10 +707,10 @@ void Level::refresh(utils::Context& context) &
         cells.begin(),
         cells.end(),
         [&context](const auto& cell) // auto -> std::unique_ptr<entities::Cell>
-        {
-            cell->setType(cells::EMPTY_CELL);
-            cell->show(context);
-        }
+    {
+        cell->setType(cells::EMPTY_CELL);
+        cell->show(context);
+    }
     );
 }
 

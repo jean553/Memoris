@@ -28,6 +28,7 @@
 #define MEMORIS_SELECTIONLISTWIDGET_H_
 
 #include <memory>
+#include <vector>
 
 namespace memoris
 {
@@ -70,7 +71,26 @@ public:
      */
     void display(utils::Context& context) const &;
 
+    /**
+     * @brief setter of the displayed items list
+     *
+     * @param context reference to the current context to use
+     * @param list a constant reference to a vector container of std::string
+     *
+     * not 'const' because it modifies the items container
+     */
+    void setList(
+        const utils::Context& context,
+        const std::vector<std::string>& list
+    ) & noexcept;
+
 private:
+
+    static constexpr float HORIZONTAL_POSITION {500.f};
+    static constexpr float VERTICAL_POSITION {200.f};
+    static constexpr float WIDTH {600.f};
+    static constexpr float HEIGHT {610.f};
+    static constexpr float ITEMS_SEPARATION {50.f};
 
     class Impl;
     std::unique_ptr<Impl> impl;

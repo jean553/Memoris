@@ -26,8 +26,11 @@
 
 #include "Context.hpp"
 #include "ColorsManager.hpp"
+#include "FontsManager.hpp"
+#include "fonts.hpp"
 
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/Text.hpp>
 
 namespace memoris
 {
@@ -89,15 +92,12 @@ public:
         bottom.setFillColor(context.getColorsManager().getColorLightBlue());
     }
 
-    static constexpr float HORIZONTAL_POSITION {500.f};
-    static constexpr float VERTICAL_POSITION {200.f};
-    static constexpr float WIDTH {600.f};
-    static constexpr float HEIGHT {600.f};
-
     sf::RectangleShape top;
     sf::RectangleShape bottom;
     sf::RectangleShape left;
     sf::RectangleShape right;
+
+    std::vector<sf::Text> texts;
 };
 
 /**
@@ -122,6 +122,53 @@ void SelectionListWidget::display(utils::Context& context) const &
     context.getSfmlWindow().draw(impl->left);
     context.getSfmlWindow().draw(impl->right);
     context.getSfmlWindow().draw(impl->bottom);
+
+    std::for_each(
+        impl->texts.begin(),
+        impl->texts.end(),
+        [&context](const sf::Text& text)
+    {
+        context.getSfmlWindow().draw(text);
+    }
+    );
+}
+
+/**
+ *
+ */
+void SelectionListWidget::setList(
+    const utils::Context& context,
+    const std::vector<std::string>& list
+) &
+noexcept
+{
+    float verticalPosition {VERTICAL_POSITION};
+
+    /* we capture 'this' because a lambda function does not capture anything
+       and we want access the 'impl' attribute */
+
+    std::for_each(
+        list.begin(),
+        list.end(),
+        [this, &context, &verticalPosition](const std::string& item)
+    {
+        sf::Text text(
+            item,
+            context.getFontsManager().getTextFont(),
+            fonts::TEXT_SIZE
+        );
+
+        text.setColor(context.getColorsManager().getColorWhite());
+        text.setPosition(
+        {HORIZONTAL_POSITION},
+        verticalPosition
+        );
+
+        impl->texts.push_back(text);
+
+        verticalPosition += ITEMS_SEPARATION;
+    }
+    );
 }
 
 }

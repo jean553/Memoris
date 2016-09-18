@@ -162,7 +162,7 @@ unsigned short LevelEditorController::render(
             }
             case sf::Keyboard::Return:
             {
-                /* if the current displayed saveLevelDialog window is the save 
+                /* if the current displayed saveLevelDialog window is the save
                    window, just update the level name */
                 if (saveDialogIsActive())
                 {
