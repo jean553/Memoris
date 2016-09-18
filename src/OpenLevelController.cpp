@@ -27,6 +27,7 @@
 #include "Context.hpp"
 #include "fonts.hpp"
 #include "controllers.hpp"
+#include "SelectionListWidget.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 
@@ -40,7 +41,8 @@ class OpenLevelController::Impl
 
 public:
 
-    Impl(utils::Context& context)
+    Impl(utils::Context& context) :
+        list(context)
     {
         title.setFont(context.getFontsManager().getTitleFont());
         title.setString("Open level");
@@ -53,6 +55,8 @@ public:
     }
 
     sf::Text title;
+
+    widgets::SelectionListWidget list;
 };
 
 /**
@@ -75,6 +79,8 @@ OpenLevelController::~OpenLevelController() noexcept = default;
 unsigned short OpenLevelController::render(utils::Context& context) &
 {
     context.getSfmlWindow().draw(impl->title);
+
+    impl->list.display(context);
 
     nextControllerId = animateScreenTransition(context);
 
