@@ -90,10 +90,14 @@ unsigned short LevelEditorController::render(
     /* display the current floor */
     context.getSfmlWindow().draw(floorSurface);
 
-    /* display the dialog window if the pointer is not null */
-    if (dialog != nullptr)
+    /* display the saveLevelDialog window if the pointer is not null */
+    if (saveLevelDialog != nullptr)
     {
-        dialog->render(context);
+        saveLevelDialog->render(context);
+    }
+    else if (newLevelDialog != nullptr)
+    {
+        newLevelDialog->render(context);
     }
 
     /* display the graphical cursor */
@@ -117,23 +121,23 @@ unsigned short LevelEditorController::render(
             }
             case sf::Keyboard::Return:
             {
-                /* if the current displayed dialog window is the save window,
+                /* if the current displayed saveLevelDialog window is the save window,
                    just update the level name */
                 if (saveDialogIsActive())
                 {
                     /* check if the level name is empty */
-                    if (dialog->getInputTextWidget().isEmpty())
+                    if (saveLevelDialog->getInputTextWidget().isEmpty())
                     {
                         break;
                     }
 
                     levelNameSurface.setString(
-                        dialog->getInputTextWidget().getText()
+                        saveLevelDialog->getInputTextWidget().getText()
                     );
 
                     /* save the level file */
                     saveLevelFile(
-                        dialog->getInputTextWidget().getText(),
+                        saveLevelDialog->getInputTextWidget().getText(),
                         level.getCells()
                     );
 
@@ -144,12 +148,22 @@ unsigned short LevelEditorController::render(
                     deleteActiveDialog();
                 }
             }
+            case sf::Keyboard::N:
+            {
+                if (newDialogIsActive())
+                {
+                    deleteActiveDialog();
+
+                    /* stop the process here */
+                    break;
+                }
+            }
             default:
             {
-                /* add input into the save dialog window */
+                /* add input into the save saveLevelDialog window */
                 if (saveDialogIsActive())
                 {
-                    dialog->getInputTextWidget().update(event);
+                    saveLevelDialog->getInputTextWidget().update(event);
                 }
             }
             }
@@ -169,10 +183,21 @@ unsigned short LevelEditorController::render(
             }
             case utils::EditorDashboard::SAVE_ACTION_ID:
             {
-                /* display the save level file popup */
-                dialog = std::make_unique<popups::SaveLevelDialog>(context);
+                saveLevelDialog = std::make_unique<popups::SaveLevelDialog>(
+                                      context
+                                  );
 
                 currentActionId = utils::EditorDashboard::SAVE_ACTION_ID;
+
+                break;
+            }
+            case utils::EditorDashboard::NEW_ACTION_ID:
+            {
+                newLevelDialog = std::make_unique<popups::NewLevelDialog>(
+                                     context
+                                 );
+
+                currentActionId = utils::EditorDashboard::NEW_ACTION_ID;
 
                 break;
             }
@@ -224,12 +249,32 @@ unsigned short LevelEditorController::render(
     return nextControllerId;
 }
 
+/**
+ *
+ */
 const bool LevelEditorController::saveDialogIsActive() const noexcept
 {
     if (
         currentActionId ==
         utils::EditorDashboard::SAVE_ACTION_ID &&
-        dialog != nullptr
+        saveLevelDialog != nullptr
+    )
+    {
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ *
+ */
+const bool LevelEditorController::newDialogIsActive() const & noexcept
+{
+    if (
+        currentActionId ==
+        utils::EditorDashboard::NEW_ACTION_ID &&
+        newLevelDialog != nullptr
     )
     {
         return true;
@@ -243,9 +288,13 @@ const bool LevelEditorController::saveDialogIsActive() const noexcept
  */
 void LevelEditorController::deleteActiveDialog() noexcept
 {
-    if (dialog != nullptr)
+    if (saveLevelDialog != nullptr)
     {
-        dialog.reset();
+        saveLevelDialog.reset();
+    }
+    else if (newLevelDialog != nullptr)
+    {
+        newLevelDialog.reset();
     }
 }
 

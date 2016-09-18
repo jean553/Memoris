@@ -33,8 +33,8 @@ namespace memoris
 namespace popups
 {
 
-/* identifiers of the popups, used by controllers */
 constexpr unsigned short SAVE_LEVEL_POPUP_ID {1};
+constexpr unsigned short NEW_LEVEL_POPUP_ID {2};
 
 }
 }
