@@ -63,10 +63,12 @@ public:
      * @param context shared pointer to the context to use
      *
      * @return unsigned short
+     *
+     * TODO: we could return a constant reference
      */
     virtual unsigned short render(
         utils::Context& context
-    ) = 0;
+    ) & = 0;
 
 protected:
 

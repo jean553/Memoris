@@ -79,7 +79,7 @@ NewGameController::NewGameController(
  */
 unsigned short NewGameController::render(
     utils::Context& context
-)
+) &
 {
     /* display the title and the explanation labels */
     context.getSfmlWindow().draw(title);

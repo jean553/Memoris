@@ -28,12 +28,6 @@
 
 #include "Controller.hpp"
 
-#include "EditorDashboard.hpp"
-#include "Level.hpp"
-#include "Cursor.hpp"
-#include "CellsSelector.hpp"
-#include "SaveLevelDialog.hpp"
-#include "NewLevelDialog.hpp"
 #include "aliases.hpp"
 
 namespace memoris
@@ -47,12 +41,17 @@ class LevelEditorController : public Controller
 public:
 
     /**
-     * @brief constructor, empty for now, just used to transfer parameters
-     * ot the parent class and initialize the objects
+     * @brief constructor, empty for now, just used to transfer parameter
      *
      * @param context reference to the current context
      */
     LevelEditorController(utils::Context& context);
+
+    /**
+     * @brief default destructor, empty, declared in order to use forwarding
+     * declaration
+     */
+    ~LevelEditorController() noexcept;
 
     /**
      * @brief render the level editor controller, returns the id of the next
@@ -62,8 +61,7 @@ public:
      *
      * @return unsigned short
      */
-    unsigned short render(utils::Context& context)
-    override;
+    virtual unsigned short render(utils::Context& context) & override final;
 
 private:
 
@@ -77,7 +75,7 @@ private:
      * do not return a reference, because directly return a boolean using
      * the 'return' instruction
      */
-    const bool saveDialogIsActive() const noexcept;
+    const bool saveDialogIsActive() const & noexcept;
 
     /**
      * @brief true if the current displayed dialog window is the new level
@@ -98,15 +96,17 @@ private:
      *
      * not constant because it modifies the dialog pointer
      */
-    void deleteActiveDialog() noexcept;
+    void deleteActiveDialog() & noexcept;
 
     /**
      * @brief update the level name surface position; the position of this
      * surface is calculated according to its width
      *
      * not constant because it modifies the level name surface position
+     *
+     * not 'noexcept' because it calls SFML functions that are not noexcept
      */
-    void updateLevelNameSurfacePosition() noexcept;
+    void updateLevelNameSurfacePosition() &;
 
     /**
      * @brief save the current level cells type into a level file, creates a
@@ -124,34 +124,8 @@ private:
         aliases::ConstUniquePtrCellsContainerRef cells
     ) const &;
 
-    /* the editor dashboard with all the tool buttons */
-    utils::EditorDashboard dashboard;
-
-    /* the cells selector, used to put the cells on the level */
-    utils::CellsSelector selector;
-
-    /* the level to display */
-    entities::Level level;
-
-    /* the current level floor to display */
-    unsigned short floor {0};
-
-    /* many actions can be returned by the dashboard; to keep trace of these
-       actions in the controller, we use this id; with this id, we can now
-       which dialog window is currently rendered */
-    unsigned short currentActionId {0};
-
-    /* custom cursor object */
-    widgets::Cursor cursor;
-
-    /* SFML surface that contains the name of the level */
-    sf::Text levelNameSurface;
-
-    /* SFML surface that displays the current floor number */
-    sf::Text floorSurface;
-
-    std::unique_ptr<popups::SaveLevelDialog> saveLevelDialog {nullptr};
-    std::unique_ptr<popups::NewLevelDialog> newLevelDialog {nullptr};
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }

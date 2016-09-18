@@ -29,11 +29,65 @@
 #include "dialogs.hpp"
 #include "files.hpp"
 #include "InputTextWidget.hpp"
+#include "EditorDashboard.hpp"
+#include "CellsSelector.hpp"
+#include "Level.hpp"
+#include "Cursor.hpp"
+#include "SaveLevelDialog.hpp"
+#include "NewLevelDialog.hpp"
 
 namespace memoris
 {
 namespace controllers
 {
+
+class LevelEditorController::Impl
+{
+
+public:
+
+    Impl(utils::Context& context) :
+        dashboard(context),
+        selector(context),
+        level(context),
+        cursor(context)
+    {
+        levelNameSurface.setString("unnamed");
+        levelNameSurface.setFont(context.getFontsManager().getTextFont());
+        levelNameSurface.setColor(context.getColorsManager().getColorWhite());
+        levelNameSurface.setCharacterSize(fonts::TEXT_SIZE);
+        levelNameSurface.setPosition(
+            1200.f - levelNameSurface.getLocalBounds().width,
+            0.f
+        );
+
+        floorSurface.setFont(context.getFontsManager().getTextFont());
+        floorSurface.setColor(context.getColorsManager().getColorWhite());
+        floorSurface.setCharacterSize(fonts::TEXT_SIZE);
+        floorSurface.setString("1");
+        floorSurface.setPosition(
+            1240.f,
+            450.f
+        );
+    }
+
+    utils::EditorDashboard dashboard;
+
+    utils::CellsSelector selector;
+
+    entities::Level level;
+
+    unsigned short floor {0};
+    unsigned short currentActionId {0};
+
+    widgets::Cursor cursor;
+
+    sf::Text levelNameSurface;
+    sf::Text floorSurface;
+
+    std::unique_ptr<popups::SaveLevelDialog> saveLevelDialog {nullptr};
+    std::unique_ptr<popups::NewLevelDialog> newLevelDialog {nullptr};
+};
 
 /**
  *
@@ -42,66 +96,53 @@ LevelEditorController::LevelEditorController(
     utils::Context& context
 ) :
     Controller(context),
-    dashboard(context),
-    selector(context),
-    level(context),
-    cursor(context)
+    impl(std::make_unique<Impl>(context))
 {
-    levelNameSurface.setString("unnamed");
-    levelNameSurface.setFont(context.getFontsManager().getTextFont());
-    levelNameSurface.setColor(context.getColorsManager().getColorWhite());
-    levelNameSurface.setCharacterSize(fonts::TEXT_SIZE);
-
-    updateLevelNameSurfacePosition();
-
-    floorSurface.setFont(context.getFontsManager().getTextFont());
-    floorSurface.setColor(context.getColorsManager().getColorWhite());
-    floorSurface.setCharacterSize(fonts::TEXT_SIZE);
-    floorSurface.setString("1");
-    floorSurface.setPosition(
-        1240.f,
-        450.f
-    );
 }
+
+/**
+ *
+ */
+LevelEditorController::~LevelEditorController() noexcept = default;
 
 /**
  *
  */
 unsigned short LevelEditorController::render(
     utils::Context& context
-)
+) &
 {
     /* display the editor dashboard */
-    dashboard.display(context);
+    impl->dashboard.display(context);
 
     /* display the level */
-    level.display(
+    impl->level.display(
         context,
-        floor,
+        impl->floor,
         &entities::Cell::displayWithMouseHover
     );
 
     /* display the cells selector */
-    selector.display(context);
+    impl->selector.display(context);
 
     /* display the level name */
-    context.getSfmlWindow().draw(levelNameSurface);
+    context.getSfmlWindow().draw(impl->levelNameSurface);
 
     /* display the current floor */
-    context.getSfmlWindow().draw(floorSurface);
+    context.getSfmlWindow().draw(impl->floorSurface);
 
     /* display the saveLevelDialog window if the pointer is not null */
-    if (saveLevelDialog != nullptr)
+    if (impl->saveLevelDialog != nullptr)
     {
-        saveLevelDialog->render(context);
+        impl->saveLevelDialog->render(context);
     }
-    else if (newLevelDialog != nullptr)
+    else if (impl->newLevelDialog != nullptr)
     {
-        newLevelDialog->render(context);
+        impl->newLevelDialog->render(context);
     }
 
     /* display the graphical cursor */
-    cursor.render(context);
+    impl->cursor.render(context);
 
     nextControllerId = animateScreenTransition(context);
 
@@ -121,24 +162,24 @@ unsigned short LevelEditorController::render(
             }
             case sf::Keyboard::Return:
             {
-                /* if the current displayed saveLevelDialog window is the save window,
-                   just update the level name */
+                /* if the current displayed saveLevelDialog window is the save 
+                   window, just update the level name */
                 if (saveDialogIsActive())
                 {
                     /* check if the level name is empty */
-                    if (saveLevelDialog->getInputTextWidget().isEmpty())
+                    if (impl->saveLevelDialog->getInputTextWidget().isEmpty())
                     {
                         break;
                     }
 
-                    levelNameSurface.setString(
-                        saveLevelDialog->getInputTextWidget().getText()
+                    impl->levelNameSurface.setString(
+                        impl->saveLevelDialog->getInputTextWidget().getText()
                     );
 
                     /* save the level file */
                     saveLevelFile(
-                        saveLevelDialog->getInputTextWidget().getText(),
-                        level.getCells()
+                        impl->saveLevelDialog->getInputTextWidget().getText(),
+                        impl->level.getCells()
                     );
 
                     /* as the width of the surface has changed, we have to
@@ -163,7 +204,7 @@ unsigned short LevelEditorController::render(
                 /* add input into the save saveLevelDialog window */
                 if (saveDialogIsActive())
                 {
-                    saveLevelDialog->getInputTextWidget().update(event);
+                    impl->saveLevelDialog->getInputTextWidget().update(event);
                 }
             }
             }
@@ -171,7 +212,7 @@ unsigned short LevelEditorController::render(
         case sf::Event::MouseButtonPressed:
         {
             /* try to get the selected button from the dashboard */
-            switch(dashboard.getActionIdBySelectedButton())
+            switch(impl->dashboard.getActionIdBySelectedButton())
             {
             case utils::EditorDashboard::EXIT_ACTION_ID:
             {
@@ -183,33 +224,37 @@ unsigned short LevelEditorController::render(
             }
             case utils::EditorDashboard::SAVE_ACTION_ID:
             {
-                saveLevelDialog = std::make_unique<popups::SaveLevelDialog>(
+                impl->saveLevelDialog = std::make_unique<popups::SaveLevelDialog>(
                                       context
                                   );
 
-                currentActionId = utils::EditorDashboard::SAVE_ACTION_ID;
+                impl->currentActionId = utils::EditorDashboard::SAVE_ACTION_ID;
 
                 break;
             }
             case utils::EditorDashboard::NEW_ACTION_ID:
             {
-                newLevelDialog = std::make_unique<popups::NewLevelDialog>(
+                impl->newLevelDialog = std::make_unique<popups::NewLevelDialog>(
                                      context
                                  );
 
-                currentActionId = utils::EditorDashboard::NEW_ACTION_ID;
+                impl->currentActionId = utils::EditorDashboard::NEW_ACTION_ID;
 
                 break;
             }
             case utils::EditorDashboard::FLOOR_UP_ACTION_ID:
             {
                 /* increment the current floor if not equal to 9 */
-                if (floor != entities::Level::MAX_FLOOR)
+                if (impl->floor != entities::Level::MAX_FLOOR)
                 {
-                    floor++;
+                    impl->floor++;
 
                     /* update the displayed floor */
-                    floorSurface.setString(std::to_string(floor + 1));
+                    impl->floorSurface.setString(
+                        std::to_string(
+                            impl->floor + 1
+                        )
+                    );
                 }
 
                 break;
@@ -217,12 +262,16 @@ unsigned short LevelEditorController::render(
             case utils::EditorDashboard::FLOOR_DOWN_ACTION_ID:
             {
                 /* increment the current floor if not equal to 9 */
-                if (floor != entities::Level::MIN_FLOOR)
+                if (impl->floor != entities::Level::MIN_FLOOR)
                 {
-                    floor--;
+                    impl->floor--;
 
                     /* update the displayed floor */
-                    floorSurface.setString(std::to_string(floor + 1));
+                    impl->floorSurface.setString(
+                        std::to_string(
+                            impl->floor + 1
+                        )
+                    );
                 }
 
                 break;
@@ -230,13 +279,13 @@ unsigned short LevelEditorController::render(
             }
 
             /* try to select a cell into the selector */
-            selector.selectCell(context);
+            impl->selector.selectCell(context);
 
             /* try to select a cell on the level */
-            level.updateSelectedCellType(
+            impl->level.updateSelectedCellType(
                 context,
-                floor,
-                selector.getSelectedCellType()
+                impl->floor,
+                impl->selector.getSelectedCellType()
             );
         }
         default:
@@ -252,12 +301,12 @@ unsigned short LevelEditorController::render(
 /**
  *
  */
-const bool LevelEditorController::saveDialogIsActive() const noexcept
+const bool LevelEditorController::saveDialogIsActive() const & noexcept
 {
     if (
-        currentActionId ==
+        impl->currentActionId ==
         utils::EditorDashboard::SAVE_ACTION_ID &&
-        saveLevelDialog != nullptr
+        impl->saveLevelDialog != nullptr
     )
     {
         return true;
@@ -272,9 +321,9 @@ const bool LevelEditorController::saveDialogIsActive() const noexcept
 const bool LevelEditorController::newDialogIsActive() const & noexcept
 {
     if (
-        currentActionId ==
+        impl->currentActionId ==
         utils::EditorDashboard::NEW_ACTION_ID &&
-        newLevelDialog != nullptr
+        impl->newLevelDialog != nullptr
     )
     {
         return true;
@@ -286,27 +335,27 @@ const bool LevelEditorController::newDialogIsActive() const & noexcept
 /**
  *
  */
-void LevelEditorController::deleteActiveDialog() noexcept
+void LevelEditorController::deleteActiveDialog() & noexcept
 {
-    if (saveLevelDialog != nullptr)
+    if (impl->saveLevelDialog != nullptr)
     {
-        saveLevelDialog.reset();
+        impl->saveLevelDialog.reset();
     }
-    else if (newLevelDialog != nullptr)
+    else if (impl->newLevelDialog != nullptr)
     {
-        newLevelDialog.reset();
+        impl->newLevelDialog.reset();
     }
 }
 
 /**
  *
  */
-void LevelEditorController::updateLevelNameSurfacePosition() noexcept
+void LevelEditorController::updateLevelNameSurfacePosition() &
 {
     /* set the position once the surface is created because we need the surface
        width to find the surface horizontal position */
-    levelNameSurface.setPosition(
-        1200.f - levelNameSurface.getLocalBounds().width,
+    impl->levelNameSurface.setPosition(
+        1200.f - impl->levelNameSurface.getLocalBounds().width,
         0.f
     );
 }

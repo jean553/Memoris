@@ -57,7 +57,7 @@ public:
      *
      * @return unsigned short
      */
-    unsigned short render(utils::Context& context);
+    virtual unsigned short render(utils::Context& context) & override final;
 };
 
 }
