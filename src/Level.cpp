@@ -692,5 +692,21 @@ void Level::updateSelectedCellType(
     }
 }
 
+/**
+ *
+ */
+void Level::refresh(utils::Context& context) &
+{
+    std::for_each(
+        cells.begin(),
+        cells.end(),
+        [&context](const auto& cell) // auto -> std::unique_ptr<entities::Cell>
+        {
+            cell->setType(cells::EMPTY_CELL);
+            cell->show(context);
+        }
+    );
+}
+
 }
 }
