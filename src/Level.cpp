@@ -524,8 +524,14 @@ void Level::loadLevelFromFile(utils::Context& context)
 
     /* FIXME: if the minutes/seconds are not specified or partially specified,
        the behavior is unmanaged */
-    file >> minutes;
-    file >> seconds;
+    std::string min, sec;
+    getline(file, min, '\n');
+    getline(file, sec, '\n');
+
+    /* getline is only able to get std::string, so we convert them to int,
+       then unsigned short */
+    minutes = static_cast<unsigned short>(std::stoi(min));
+    seconds = static_cast<unsigned short>(std::stoi(sec));
 
     /* there are 2560 cells per level, 256 per floor, there are 10 floors */
     for(unsigned short index {0}; index < 2560; index++)
