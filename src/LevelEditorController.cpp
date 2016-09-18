@@ -387,6 +387,10 @@ void LevelEditorController::saveLevelFile(
     /* string representation of the cells */
     std::string cellsStr;
 
+    /* add the seconds and minutes of playing time */
+    cellsStr += std::to_string(impl->level.getMinutes()) + '\n';
+    cellsStr += std::to_string(impl->level.getSeconds()) + '\n';
+
     for (
         std::vector<std::unique_ptr<entities::Cell>>::const_iterator iterator =
             cells.begin();
