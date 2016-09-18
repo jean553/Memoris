@@ -92,11 +92,6 @@ public:
         bottom.setFillColor(context.getColorsManager().getColorLightBlue());
     }
 
-    static constexpr float HORIZONTAL_POSITION {500.f};
-    static constexpr float VERTICAL_POSITION {200.f};
-    static constexpr float WIDTH {600.f};
-    static constexpr float HEIGHT {610.f};
-
     sf::RectangleShape top;
     sf::RectangleShape bottom;
     sf::RectangleShape left;
@@ -132,9 +127,9 @@ void SelectionListWidget::display(utils::Context& context) const &
         impl->texts.begin(),
         impl->texts.end(),
         [&context](const sf::Text& text)
-        {
-            context.getSfmlWindow().draw(text);
-        }
+    {
+        context.getSfmlWindow().draw(text);
+    }
     );
 }
 
@@ -142,37 +137,37 @@ void SelectionListWidget::display(utils::Context& context) const &
  *
  */
 void SelectionListWidget::setList(
-    utils::Context& context,
+    const utils::Context& context,
     const std::vector<std::string>& list
 ) &
-    noexcept
+noexcept
 {
-    /* we capture 'this' because a lambda function does not capture anything 
-       and we want access the 'impl' attribute */
+    float verticalPosition {VERTICAL_POSITION};
 
-    float verticalPosition {200.f};
+    /* we capture 'this' because a lambda function does not capture anything
+       and we want access the 'impl' attribute */
 
     std::for_each(
         list.begin(),
         list.end(),
         [this, &context, &verticalPosition](const std::string& item)
-        {
-            sf::Text text(
-                item,
-                context.getFontsManager().getTextFont(),
-                fonts::TEXT_SIZE
-            );
+    {
+        sf::Text text(
+            item,
+            context.getFontsManager().getTextFont(),
+            fonts::TEXT_SIZE
+        );
 
-            text.setColor(context.getColorsManager().getColorWhite());
-            text.setPosition(
-                520.f,
-                verticalPosition
-            );
+        text.setColor(context.getColorsManager().getColorWhite());
+        text.setPosition(
+        {HORIZONTAL_POSITION},
+        verticalPosition
+        );
 
-            impl->texts.push_back(text);
+        impl->texts.push_back(text);
 
-            verticalPosition += 50.f;
-        }
+        verticalPosition += ITEMS_SEPARATION;
+    }
     );
 }
 

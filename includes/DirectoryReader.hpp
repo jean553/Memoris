@@ -35,6 +35,23 @@ namespace memoris
 namespace utils
 {
 
+/**
+ * @brief returns a constant container with the name of all the files inside
+ * the given directory; automatically delete the file type from the name
+ *
+ * @param directory path/name of the given directory
+ *
+ * @return const std::vector<std::string>
+ *
+ * @throws std::invalid_argument throws an exception if the directory cannot
+ * be open or if an error occures (no matter what the error is); this
+ * exception is never caught and the program just stops
+ *
+ * the returned container is returned by copy and not by reference: this
+ * function is not a method and does not store the generated data; this method
+ * is only used in order to refactor the logic used to find the files of a
+ * directory
+ */
 const std::vector<std::string> getFilesFromDirectory(const char* directory);
 
 }

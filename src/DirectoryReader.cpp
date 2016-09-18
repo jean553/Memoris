@@ -25,6 +25,7 @@
 #include "DirectoryReader.hpp"
 
 #include <cstring>
+#include <stdexcept>
 
 namespace memoris
 {
@@ -36,18 +37,33 @@ const std::vector<std::string> getFilesFromDirectory(
 )
 {
     std::vector<std::string> list;
-    
-    struct dirent* reader = NULL; 
+
+    /* this function uses a C library (dirent.h), so it also uses old-C++
+       coding style (no smart pointer) */
+
+    /* pointer to a custom type of dirent.h used for reading steps */
+    struct dirent* reader = NULL;
+
+    /* pointer to the object managing the directory reading */
     DIR* dir = opendir(directory);
+
+    /* throw an exception if the directory cannot be opened */
+    if (dir == NULL)
+    {
+        throw std::invalid_argument("Cannot open the given directory");
+    }
 
     while((reader = readdir(dir)) != NULL)
     {
-        /* FIXME: not sure about cast here... */
+        /* std::string operator= accepts const char* types */
         std::string item = reader->d_name;
 
+        /* remove the file extension from the file name */
         size_t extensionPosition = item.find_last_of(".");
         item = item.substr(0, extensionPosition);
 
+        /* do not considere special returned values as the current folder and
+           the parent folder */
         if (
             item == ".." ||
             item == "." ||

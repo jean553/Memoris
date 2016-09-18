@@ -80,11 +80,17 @@ public:
      * not 'const' because it modifies the items container
      */
     void setList(
-        utils::Context& context,
+        const utils::Context& context,
         const std::vector<std::string>& list
     ) & noexcept;
 
 private:
+
+    static constexpr float HORIZONTAL_POSITION {500.f};
+    static constexpr float VERTICAL_POSITION {200.f};
+    static constexpr float WIDTH {600.f};
+    static constexpr float HEIGHT {610.f};
+    static constexpr float ITEMS_SEPARATION {50.f};
 
     class Impl;
     std::unique_ptr<Impl> impl;

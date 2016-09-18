@@ -53,14 +53,14 @@ public:
     OpenLevelController(utils::Context& context);
 
     /**
-     * @brief default destructor, empty, only declared for forwarding 
+     * @brief default destructor, empty, only declared for forwarding
      * declaration
      */
     ~OpenLevelController() noexcept;
 
     /**
      * @brief renders the open level controller
-     * 
+     *
      * @param context reference to the current context to use
      *
      * @return unsigned short
