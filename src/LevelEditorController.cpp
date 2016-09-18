@@ -188,23 +188,11 @@ unsigned short LevelEditorController::render(
 
                     deleteActiveDialog();
                 }
-            }
-            case sf::Keyboard::N:
-            {
-                if (newDialogIsActive())
-                {
-                    deleteActiveDialog();
-                    break;
-                }
-            }
-            case sf::Keyboard::Y:
-            {
-                if (newDialogIsActive())
+                else if (newDialogIsActive())
                 {
                     deleteActiveDialog();
 
                     impl->level.refresh(context);
-                    break;
                 }
             }
             default:
@@ -216,6 +204,8 @@ unsigned short LevelEditorController::render(
                 }
             }
             }
+
+            break;
         }
         case sf::Event::MouseButtonPressed:
         {
@@ -232,9 +222,8 @@ unsigned short LevelEditorController::render(
             }
             case utils::EditorDashboard::SAVE_ACTION_ID:
             {
-                impl->saveLevelDialog = std::make_unique<popups::SaveLevelDialog>(
-                                      context
-                                  );
+                impl->saveLevelDialog =
+                    std::make_unique<popups::SaveLevelDialog>(context);
 
                 impl->currentActionId = utils::EditorDashboard::SAVE_ACTION_ID;
 
@@ -242,9 +231,8 @@ unsigned short LevelEditorController::render(
             }
             case utils::EditorDashboard::NEW_ACTION_ID:
             {
-                impl->newLevelDialog = std::make_unique<popups::NewLevelDialog>(
-                                     context
-                                 );
+                impl->newLevelDialog =
+                    std::make_unique<popups::NewLevelDialog>(context);
 
                 impl->currentActionId = utils::EditorDashboard::NEW_ACTION_ID;
 

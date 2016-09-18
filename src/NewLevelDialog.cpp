@@ -66,7 +66,7 @@ NewLevelDialog::NewLevelDialog(utils::Context& context) :
     impl->info.setCharacterSize(fonts::INFORMATION_SIZE);
     impl->info.setColor(context.getColorsManager().getColorWhite());
 
-    impl->confirm.setString("Continue ? y/n");
+    impl->confirm.setString("Enter or escape");
     impl->confirm.setPosition(
         625.f,
         350.f
