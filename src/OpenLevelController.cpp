@@ -28,6 +28,7 @@
 #include "fonts.hpp"
 #include "controllers.hpp"
 #include "SelectionListWidget.hpp"
+#include "DirectoryReader.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 
@@ -51,6 +52,11 @@ public:
         title.setPosition(
             620.f,
             50.f
+        );
+
+        list.setList(
+            context,
+            utils::getFilesFromDirectory("data/levels")
         );
     }
 
