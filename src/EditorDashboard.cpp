@@ -124,6 +124,10 @@ unsigned short EditorDashboard::getActionIdBySelectedButton() const
     {
         return FLOOR_DOWN_ACTION_ID;
     }
+    else if (buttonOpen.isMouseHover())
+    {
+        return OPEN_ACTION_ID;
+    }
 
     return 0;
 }

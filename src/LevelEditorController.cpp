@@ -238,6 +238,12 @@ unsigned short LevelEditorController::render(
 
                 break;
             }
+            case utils::EditorDashboard::OPEN_ACTION_ID:
+            {
+                expectedControllerId = OPEN_LEVEL_CONTROLLER_ID;
+
+                break;
+            }
             case utils::EditorDashboard::FLOOR_UP_ACTION_ID:
             {
                 /* increment the current floor if not equal to 9 */
