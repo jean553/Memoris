@@ -112,6 +112,8 @@ public:
     sf::RectangleShape selector;
 
     std::vector<sf::Text> texts;
+
+    unsigned short selectorIndex {0};
 };
 
 /**
@@ -210,13 +212,13 @@ void SelectionListWidget::displaySelector(utils::Context& context) &
 
     /* explicit cast to only work with integers in the division; it prevents
        to get decimal results */
-    int selectorHorizontalPosition =
+    impl->selectorIndex =
         (mousePosition.y - static_cast<int>(VERTICAL_POSITION)) /
         static_cast<int>(ITEMS_SEPARATION);
 
     /* do not display the selection surface if there is no item under the
        cursor; implicit cast from size_t and int */
-    if (selectorHorizontalPosition >= impl->texts.size())
+    if (impl->selectorIndex >= impl->texts.size())
     {
         return;
     }
@@ -225,10 +227,23 @@ void SelectionListWidget::displaySelector(utils::Context& context) &
     impl->selector.setPosition(
         HORIZONTAL_POSITION + 1.f,
         VERTICAL_POSITION + 1.f +
-        static_cast<float>(selectorHorizontalPosition) * ITEMS_SEPARATION
+        static_cast<float>(impl->selectorIndex) * ITEMS_SEPARATION
     );
 
     context.getSfmlWindow().draw(impl->selector);
+}
+
+/**
+ *
+ */
+const std::string SelectionListWidget::getCurrentItem() const & noexcept
+{
+    if (impl->selectorIndex >= impl->texts.size())
+    {
+        return "";
+    }
+
+    return impl->texts[impl->selectorIndex].getString();
 }
 
 }

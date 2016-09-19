@@ -87,6 +87,17 @@ public:
         const std::vector<std::string>& list
     ) & noexcept;
 
+    /**
+     * @brief getter of the current pointed item string
+     *
+     * @return const std::string
+     *
+     * the returned value is a copy because even if this method returns 
+     * a container item, it could also return an empty string local literal
+     * (""), if the cursor is currently not pointing any item
+     */
+    const std::string getCurrentItem() const & noexcept;
+
 private:
 
     static constexpr float HORIZONTAL_POSITION {500.f};

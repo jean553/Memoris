@@ -42,7 +42,10 @@ public:
 /**
  *
  */
-EditingLevelManager::EditingLevelManager() noexcept = default;
+EditingLevelManager::EditingLevelManager() :
+    impl(std::make_unique<Impl>())
+{
+}
 
 /**
  *
