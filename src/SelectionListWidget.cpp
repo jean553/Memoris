@@ -214,6 +214,13 @@ void SelectionListWidget::displaySelector(utils::Context& context) &
         (mousePosition.y - static_cast<int>(VERTICAL_POSITION)) /
         static_cast<int>(ITEMS_SEPARATION);
 
+    /* do not display the selection surface if there is no item under the
+       cursor; implicit cast from size_t and int */
+    if (selectorHorizontalPosition >= impl->texts.size())
+    {
+        return;
+    }
+
     /* set the selector position */
     impl->selector.setPosition(
         HORIZONTAL_POSITION + 1.f,
