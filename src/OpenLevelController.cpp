@@ -29,6 +29,7 @@
 #include "controllers.hpp"
 #include "SelectionListWidget.hpp"
 #include "DirectoryReader.hpp"
+#include "Cursor.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 
@@ -43,7 +44,8 @@ class OpenLevelController::Impl
 public:
 
     Impl(utils::Context& context) :
-        list(context)
+        list(context),
+        cursor(context)
     {
         title.setFont(context.getFontsManager().getTitleFont());
         title.setString("Open level");
@@ -63,6 +65,8 @@ public:
     sf::Text title;
 
     widgets::SelectionListWidget list;
+
+    widgets::Cursor cursor;
 };
 
 /**
@@ -87,6 +91,8 @@ unsigned short OpenLevelController::render(utils::Context& context) &
     context.getSfmlWindow().draw(impl->title);
 
     impl->list.display(context);
+
+    impl->cursor.render(context);
 
     nextControllerId = animateScreenTransition(context);
 

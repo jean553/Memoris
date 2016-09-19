@@ -68,8 +68,11 @@ public:
      * const method of Context
      *
      * not 'noexcept' because it calls some SFML method that are not noexcept
+     *
+     * not 'const' because it calls the private method displaySelector()
+     * which modifies the object
      */
-    void display(utils::Context& context) const &;
+    void display(utils::Context& context) &;
 
     /**
      * @brief setter of the displayed items list
@@ -89,8 +92,22 @@ private:
     static constexpr float HORIZONTAL_POSITION {500.f};
     static constexpr float VERTICAL_POSITION {200.f};
     static constexpr float WIDTH {600.f};
-    static constexpr float HEIGHT {610.f};
+    static constexpr float HEIGHT {600.f};
     static constexpr float ITEMS_SEPARATION {50.f};
+
+    /**
+     * @brief move the visual selector according to the current cursor position
+     *
+     * @param context reference to the context object to use
+     *
+     * the context is not 'const' because the current method calls some not
+     * const method of Context
+     *
+     * not 'const' because it modifies the position of the selector
+     *
+     * not 'noexcept' because it calls SFML functions that are not noexcept
+     */
+    void displaySelector(utils::Context& context) &;
 
     class Impl;
     std::unique_ptr<Impl> impl;

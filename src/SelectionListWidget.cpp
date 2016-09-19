@@ -31,6 +31,7 @@
 
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/Window/Mouse.hpp>
 
 namespace memoris
 {
@@ -90,12 +91,25 @@ public:
         left.setFillColor(context.getColorsManager().getColorLightBlue());
         right.setFillColor(context.getColorsManager().getColorLightBlue());
         bottom.setFillColor(context.getColorsManager().getColorLightBlue());
+
+        /* we do not set the position of the selector here; it is directly
+           calculated according to the cursor position */
+        selector.setSize(
+            sf::Vector2f(
+                WIDTH - 1.f,
+                ITEMS_SEPARATION
+            )
+        );
+        selector.setFillColor(
+            context.getColorsManager().getColorPartialDarkGrey()
+        );
     }
 
     sf::RectangleShape top;
     sf::RectangleShape bottom;
     sf::RectangleShape left;
     sf::RectangleShape right;
+    sf::RectangleShape selector;
 
     std::vector<sf::Text> texts;
 };
@@ -116,12 +130,14 @@ SelectionListWidget::~SelectionListWidget() noexcept = default;
 /**
  *
  */
-void SelectionListWidget::display(utils::Context& context) const &
+void SelectionListWidget::display(utils::Context& context) &
 {
     context.getSfmlWindow().draw(impl->top);
     context.getSfmlWindow().draw(impl->left);
     context.getSfmlWindow().draw(impl->right);
     context.getSfmlWindow().draw(impl->bottom);
+
+    displaySelector(context);
 
     std::for_each(
         impl->texts.begin(),
@@ -169,6 +185,43 @@ noexcept
         verticalPosition += ITEMS_SEPARATION;
     }
     );
+}
+
+/**
+ *
+ */
+void SelectionListWidget::displaySelector(utils::Context& context) &
+{
+    sf::Vector2i mousePosition = sf::Mouse::getPosition();
+
+    /* explicit cast because sf::Mouse::getPosition() returns integers */
+    float mouseHorizontalPosition = static_cast<float>(mousePosition.x);
+    float mouseVerticalPosition = static_cast<float>(mousePosition.y);
+
+    if (
+        mouseHorizontalPosition < HORIZONTAL_POSITION ||
+        mouseHorizontalPosition > HORIZONTAL_POSITION + WIDTH ||
+        mouseVerticalPosition < VERTICAL_POSITION ||
+        mouseVerticalPosition > VERTICAL_POSITION + HEIGHT - 1.f
+    )
+    {
+        return;
+    }
+
+    /* explicit cast to only work with integers in the division; it prevents
+       to get decimal results */
+    int selectorHorizontalPosition =
+        (mousePosition.y - static_cast<int>(VERTICAL_POSITION)) /
+        static_cast<int>(ITEMS_SEPARATION);
+
+    /* set the selector position */
+    impl->selector.setPosition(
+        HORIZONTAL_POSITION + 1.f,
+        VERTICAL_POSITION + 1.f +
+        static_cast<float>(selectorHorizontalPosition) * ITEMS_SEPARATION
+    );
+
+    context.getSfmlWindow().draw(impl->selector);
 }
 
 }
