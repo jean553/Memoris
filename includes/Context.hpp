@@ -115,6 +115,19 @@ public:
     managers::PlayingSerieManager& getPlayingSerieManager() & noexcept;
 
     /**
+     * @brief getter of the editing level manager
+     *
+     * @return manager::EditingLevelManager&
+     *
+     * do not return a constant reference, the manager attributes are modified
+     * when a level file is opened from the editing level controller
+     *
+     * not 'const' because it returns a non constant reference to an object
+     * attribute
+     */
+    managers::EditingLevelManager& getEditingLevelManager() & noexcept;
+
+    /**
      * @brief getter on the SFML window object
      *
      * @return sf::RenderWindow&

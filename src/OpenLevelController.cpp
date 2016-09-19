@@ -115,6 +115,19 @@ unsigned short OpenLevelController::render(utils::Context& context) &
             }
             }
         }
+        case sf::Event::MouseButtonPressed:
+        {
+            std::string levelName = impl->list.getCurrentItem();
+
+            if (!levelName.empty())
+            {
+                context.getEditingLevelManager().setLevelName(levelName);
+
+                expectedControllerId = LEVEL_EDITOR_CONTROLLER_ID;
+            }
+
+            break;
+        }
         default:
         {
         }

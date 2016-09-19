@@ -40,10 +40,12 @@ class EditingLevelManager
 public:
 
     /**
-     * @brief default constructor, empty, only declared in order to use
-     * forwarding declaration
+     * @brief constructor, initializes the implementation
+     *
+     * @throw std::bad_alloc|std::length_error the string allocation failed;
+     * those exceptions are never caught and the program immeidately stops
      */
-    EditingLevelManager() noexcept;
+    EditingLevelManager();
 
     /**
      * @brief default destructor, empty, only declared in order to use

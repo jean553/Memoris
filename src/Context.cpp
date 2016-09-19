@@ -107,6 +107,14 @@ managers::PlayingSerieManager& Context::getPlayingSerieManager() & noexcept
 /**
  *
  */
+managers::EditingLevelManager& Context::getEditingLevelManager() & noexcept
+{
+    return editingLevelManager;
+}
+
+/**
+ *
+ */
 sf::RenderWindow& Context::getSfmlWindow() & noexcept
 {
     return sfmlWindow;
