@@ -35,6 +35,7 @@
 #include "FontsManager.hpp"
 #include "CellsTexturesManager.hpp"
 #include "PlayingSerieManager.hpp"
+#include "EditingLevelManager.hpp"
 #include "Game.hpp"
 
 #include <SFML/Audio/Music.hpp>
@@ -208,6 +209,7 @@ private:
     managers::FontsManager fontsManager;
     managers::CellsTexturesManager cellsTexturesManager;
     managers::PlayingSerieManager playingSerieManager;
+    managers::EditingLevelManager editingLevelManager;
 
     /* main SFML window object */
     sf::RenderWindow sfmlWindow;
