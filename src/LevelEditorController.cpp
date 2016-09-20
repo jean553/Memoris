@@ -296,11 +296,20 @@ unsigned short LevelEditorController::render(
             impl->selector.selectCell(context);
 
             /* try to select a cell on the level */
-            impl->level.updateSelectedCellType(
-                context,
-                impl->floor,
-                impl->selector.getSelectedCellType()
-            );
+            if(
+                impl->level.updateSelectedCellType(
+                    context,
+                    impl->floor,
+                    impl->selector.getSelectedCellType()
+                )
+            )
+            {
+                impl->levelNameSurface.setString(
+                    impl->levelNameSurface.getString() + "*"
+                );
+
+                updateLevelNameSurfacePosition();
+            }
         }
         default:
         {
