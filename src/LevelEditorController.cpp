@@ -35,6 +35,7 @@
 #include "Cursor.hpp"
 #include "SaveLevelDialog.hpp"
 #include "NewLevelDialog.hpp"
+#include "EditingLevelManager.hpp"
 
 namespace memoris
 {
@@ -52,7 +53,14 @@ public:
         level(context),
         cursor(context)
     {
-        levelNameSurface.setString("unnamed");
+        /* check if a name is already set for the edited level (ie, the user
+           comes from the OpenLevelController */
+        std::string levelName =
+            context.getEditingLevelManager().getLevelName().empty() ?
+            "unnamed" :
+            context.getEditingLevelManager().getLevelName();
+
+        levelNameSurface.setString(levelName);
         levelNameSurface.setFont(context.getFontsManager().getTextFont());
         levelNameSurface.setColor(context.getColorsManager().getColorWhite());
         levelNameSurface.setCharacterSize(fonts::TEXT_SIZE);
@@ -214,6 +222,10 @@ unsigned short LevelEditorController::render(
             {
             case utils::EditorDashboard::EXIT_ACTION_ID:
             {
+                /* the current edited level won't be loaded again if the
+                   user comes back to the editor */
+                context.getEditingLevelManager().setLevelName("");
+
                 /* if the exit button is selected, just go back to the
                    editor main menu */
                 expectedControllerId = EDITOR_MENU_CONTROLLER_ID;

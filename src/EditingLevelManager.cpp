@@ -60,5 +60,13 @@ void EditingLevelManager::setLevelName(const std::string& name) &
     impl->levelName = name;
 }
 
+/**
+ *
+ */
+const std::string& EditingLevelManager::getLevelName() const & noexcept
+{
+    return impl->levelName;
+}
+
 }
 }

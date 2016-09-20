@@ -65,6 +65,13 @@ public:
      */
     void setLevelName(const std::string& name) &;
 
+    /**
+     * @brief getter of the level name
+     *
+     * @return const std::string&
+     */
+    const std::string& getLevelName() const & noexcept;
+
 private:
 
     class Impl;
