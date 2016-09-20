@@ -328,13 +328,19 @@ public:
 
     /**
      * @brief check if the mouse is hover a cell on the current floor of the
-     * the level and replace it with the given type
+     * the level and replace it with the given type; returns a boolean that
+     * indicates if the level has been modified or not
      *
      * @param context current context
      * @param floor the current level floor displayed
      * @param type the type to apply on the 'mouse hover cell'
+     *
+     * @return const bool
+     *
+     * does not return a reference to a bool because the returned boolean is
+     * a local variable of the method
      */
-    void updateSelectedCellType(
+    const bool updateSelectedCellType(
         utils::Context& context,
         const unsigned short& floor,
         const char& type
