@@ -660,7 +660,7 @@ void Level::updateCursors()
 /**
  *
  */
-void Level::updateSelectedCellType(
+const bool Level::updateSelectedCellType(
     utils::Context& context,
     const unsigned short& floor,
     const char& type
@@ -669,6 +669,8 @@ void Level::updateSelectedCellType(
     /* calculate the starting and ending cell of the floor */
     const unsigned short firstCellIndex = floor * 256,
                          lastCellIndex = floor * 256 + 256;
+
+    bool updated = false;
 
     /* constant iterator over the cells of the current floor only; we use
        constant iteration because we won't modify the cell unique pointer;
@@ -694,8 +696,12 @@ void Level::updateSelectedCellType(
         (*iterator)->setType(type);
         (*iterator)->show(context);
 
+        updated = true;
+
         break;
     }
+
+    return updated;
 }
 
 /**
