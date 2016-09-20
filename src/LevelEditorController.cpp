@@ -190,6 +190,10 @@ unsigned short LevelEditorController::render(
                         impl->level.getCells()
                     );
 
+                    context.getEditingLevelManager().setLevelName(
+                        impl->saveLevelDialog->getInputTextWidget().getText()
+                    );
+
                     /* as the width of the surface has changed, we have to
                        update the position of the surface */
                     updateLevelNameSurfacePosition();
@@ -234,10 +238,34 @@ unsigned short LevelEditorController::render(
             }
             case utils::EditorDashboard::SAVE_ACTION_ID:
             {
+                std::string levelName =
+                    context.getEditingLevelManager().getLevelName();
+
+                if (
+                    !levelName.empty() &&
+                    impl->levelNameSurface.getString()
+                        .toAnsiString().back() == '*'
+                )
+                {
+                    saveLevelFile(
+                        levelName,
+                        impl->level.getCells()
+                    );
+
+                    /* remove the asterisk at the end of the displayed level
+                       name */
+                    impl->levelNameSurface.setString(levelName);
+
+                    updateLevelNameSurfacePosition();
+
+                    break;
+                }
+
                 impl->saveLevelDialog =
                     std::make_unique<popups::SaveLevelDialog>(context);
 
-                impl->currentActionId = utils::EditorDashboard::SAVE_ACTION_ID;
+                impl->currentActionId =
+                    utils::EditorDashboard::SAVE_ACTION_ID;
 
                 break;
             }
@@ -296,11 +324,21 @@ unsigned short LevelEditorController::render(
             impl->selector.selectCell(context);
 
             /* try to select a cell on the level */
-            impl->level.updateSelectedCellType(
-                context,
-                impl->floor,
-                impl->selector.getSelectedCellType()
-            );
+            if(
+                impl->level.updateSelectedCellType(
+                    context,
+                    impl->floor,
+                    impl->selector.getSelectedCellType()
+                ) &&
+                impl->levelNameSurface.getString().toAnsiString().back() != '*'
+            )
+            {
+                impl->levelNameSurface.setString(
+                    impl->levelNameSurface.getString() + "*"
+                );
+
+                updateLevelNameSurfacePosition();
+            }
         }
         default:
         {

@@ -691,6 +691,12 @@ const bool Level::updateSelectedCellType(
             continue;
         }
 
+        /* directly breaks if the type is already set with this value */
+        if ((*iterator)->getType() == type)
+        {
+            break;
+        }
+
         /* if the mouse is hover the cell, change the type and directly stop
            the iteration */
         (*iterator)->setType(type);
