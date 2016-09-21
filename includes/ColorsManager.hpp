@@ -72,6 +72,13 @@ public:
     const sf::Color& getColorLightBlue() const & noexcept;
 
     /**
+     * @brief returns a reference to the blue color
+     *
+     * @return const sf::Color&
+     */
+    const sf::Color& getColorBlue() const & noexcept;
+
+    /**
      * @brief returns a reference to the red color
      *
      * @return const sf::Color&

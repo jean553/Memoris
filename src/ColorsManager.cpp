@@ -149,6 +149,14 @@ const sf::Color& ColorsManager::getColorLightBlue() const & noexcept
 /**
  *
  */
+const sf::Color& ColorsManager::getColorBlue() const & noexcept
+{
+    return impl->colorBlue;
+}
+
+/**
+ *
+ */
 const sf::Color& ColorsManager::getColorRed() const & noexcept
 {
     return impl->colorRed;
