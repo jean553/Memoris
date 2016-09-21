@@ -33,6 +33,7 @@
 #include "Level.hpp"
 #include "WatchingPeriodTimer.hpp"
 #include "LevelAnimation.hpp"
+#include "TutorialWidget.hpp"
 
 namespace memoris
 {
@@ -266,6 +267,8 @@ private:
     sf::Text winText;
     sf::Text winInformationText;
     sf::Text leftLevelsAmountText;
+
+    std::unique_ptr<widgets::TutorialWidget> tutorialWidget {nullptr};
 };
 
 }
