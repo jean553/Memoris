@@ -106,16 +106,24 @@ public:
     void setWatchingTime(const unsigned short& time) & noexcept;
 
     /**
-     * @brief loads all the levels of a given serie file by path
+     * @brief loads all the levels of a given serie file by path, save the name
+     * of the serie if the file loading process succeeds
      *
-     * @param path the path of the serie file
+     * @param name the name of the serie to open (not the full path)
      *
      * @throw std::invalid_argument if the file cannot be loaded, this
      * exception should be caught in order to display the error controller
      *
      * no 'const' because it modifies the levels queue attribute
      */
-    void loadSerieFileContent(const std::string& path) &;
+    void loadSerieFileContent(const std::string& name) &;
+
+    /**
+     * @brief getter of the current loaded serie name
+     *
+     * @return const std::string&
+     */
+    const std::string& getSerieName() const & noexcept;
 
 private:
 

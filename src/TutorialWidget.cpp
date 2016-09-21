@@ -40,24 +40,66 @@ public:
 
     Impl(utils::Context& context)
     {
-        background.setSize(
+        back.setSize(
             sf::Vector2f(
                 WIDTH,
                 HEIGHT
             )
         );
+        top.setSize(
+            sf::Vector2f(
+                WIDTH,
+                BORDER_WIDTH
+            )
+        );
+        bottom.setSize(
+            sf::Vector2f(
+                WIDTH,
+                BORDER_WIDTH
+            )
+        );
+        left.setSize(
+            sf::Vector2f(
+                BORDER_WIDTH,
+                HEIGHT
+            )
+        );
+        right.setSize(
+            sf::Vector2f(
+                BORDER_WIDTH,
+                HEIGHT
+            )
+        );
 
-        background.setPosition(
+        back.setPosition(
             HORIZONTAL_POSITION,
             VERTICAL_POSITION
         );
-
-        background.setFillColor(
-            context.getColorsManager().getColorLightBlue()
+        top.setPosition(
+            HORIZONTAL_POSITION,
+            VERTICAL_POSITION
         );
+        left.setPosition(
+            HORIZONTAL_POSITION,
+            VERTICAL_POSITION
+        );
+        right.setPosition(
+            HORIZONTAL_POSITION + WIDTH - 1.f,
+            VERTICAL_POSITION
+        );
+        bottom.setPosition(
+            HORIZONTAL_POSITION,
+            VERTICAL_POSITION + HEIGHT
+        );
+
+        back.setFillColor(context.getColorsManager().getColorLightBlue());
+        top.setFillColor(context.getColorsManager().getColorWhite());
+        left.setFillColor(context.getColorsManager().getColorWhite());
+        right.setFillColor(context.getColorsManager().getColorWhite());
+        bottom.setFillColor(context.getColorsManager().getColorWhite());
     }
 
-    sf::RectangleShape background;
+    sf::RectangleShape back;
     sf::RectangleShape top;
     sf::RectangleShape bottom;
     sf::RectangleShape left;
@@ -82,7 +124,11 @@ TutorialWidget::~TutorialWidget() noexcept = default;
  */
 void TutorialWidget::display(utils::Context& context) const &
 {
-    context.getSfmlWindow().draw(impl->background);
+    context.getSfmlWindow().draw(impl->back);
+    context.getSfmlWindow().draw(impl->top);
+    context.getSfmlWindow().draw(impl->bottom);
+    context.getSfmlWindow().draw(impl->left);
+    context.getSfmlWindow().draw(impl->right);
 }
 
 }

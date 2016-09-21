@@ -50,6 +50,9 @@ public:
        all the time when a serie starts; we set it here because this value
        has to be transferred from one level to another */
     unsigned short watchingTime {6};
+
+    /* the name of the loaded serie */
+    std::string serieName;
 };
 
 /**
@@ -118,12 +121,12 @@ noexcept
 /**
  *
  */
-void PlayingSerieManager::loadSerieFileContent(const std::string& path) &
+void PlayingSerieManager::loadSerieFileContent(const std::string& name) &
 {
     /* clear the queue */
     impl->levels = std::queue<std::string>();
 
-    std::ifstream file(path);
+    std::ifstream file("data/series/" + name + ".serie");
     if (!file.is_open())
     {
         /* TODO: #561 throw std::invalid_argument if the file cannot be opened;
@@ -144,8 +147,18 @@ void PlayingSerieManager::loadSerieFileContent(const std::string& path) &
         impl->levels.push(level);
     }
 
+    impl->serieName = name;
+
     /* this is useless to close the std::ifstream object, it is automatically
        destroyed when the object goes out of the scope */
+}
+
+/**
+ *
+ */
+const std::string& PlayingSerieManager::getSerieName() const & noexcept
+{
+    return impl->serieName;
 }
 
 }

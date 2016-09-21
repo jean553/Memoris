@@ -29,6 +29,7 @@
 #include "fonts.hpp"
 #include "controllers.hpp"
 #include "animations.hpp"
+#include "PlayingSerieManager.hpp"
 
 namespace memoris
 {
@@ -75,6 +76,13 @@ GameController::GameController(
 
     /* apply the floors amount on the watching time */
     watchingPeriodTimer.applyFloorsAmount(level->getPlayableFloors());
+
+    /* dynamically load the tutorial widget if the serie is the tutorial 
+       serie */
+    if (context.getPlayingSerieManager().getSerieName() == "tutorial")
+    {
+        tutorialWidget = std::make_unique<widgets::TutorialWidget>(context);
+    }
 }
 
 /**
@@ -266,6 +274,12 @@ unsigned short GameController::render(
                                    controllers::GAME_CONTROLLER_ID:
                                    controllers::MAIN_MENU_CONTROLLER_ID;
         }
+    }
+
+    /* display the tutorial widget if necessary */
+    if (tutorialWidget != nullptr)
+    {
+        tutorialWidget->display(context);
     }
 
     /* used for the screen switch transition animation */
