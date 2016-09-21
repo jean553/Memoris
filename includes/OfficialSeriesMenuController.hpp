@@ -63,6 +63,17 @@ private:
      */
     void selectMenuItem() override;
 
+    /**
+     * @brief returns the name of the serie file to open according to the
+     * selected menu item
+     *
+     * @return const std::string
+     *
+     * does not return a constant because the returned string is a local
+     * literal directly created when return; is called
+     */
+    const std::string getSerieNameByItemId() const & noexcept;
+
     /* the title of the official series list screen is a SFML text surface */
     sf::Text title;
 
