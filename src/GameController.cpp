@@ -106,7 +106,10 @@ unsigned short GameController::render(
     timer.display(context);
 
     /* displays the watching period timer if started */
-    if (watchingPeriodTimer.isStarted())
+    if (
+        watchingPeriodTimer.isStarted() &&
+        tutorialWidget == nullptr
+    )
     {
         watchingPeriodTimer.display(context);
     }
@@ -194,7 +197,8 @@ unsigned short GameController::render(
             context.getClockMillisecondsTime() -
             displayLevelTime >
             context.getPlayingSerieManager().getWatchingTime() * 1000
-        )
+        ) &&
+        tutorialWidget == nullptr
     )
     {
         /* call the private method that display the next floor of the level
