@@ -204,9 +204,9 @@ void OfficialSeriesMenuController::selectMenuItem()
     try
     {
         /* use the playing serie manager to load the serie file content */
-        /* TODO: #512 we use a fixed file name for now, of course, this
-           parameter should change according to the selected menu item */
-        contextPtr.getPlayingSerieManager().loadSerieFileContent("tutorial");
+        contextPtr.getPlayingSerieManager().loadSerieFileContent(
+            getSerieNameByItemId()
+        );
 
         /* if no exception, we go to the game controller with the loaded
            serie */
@@ -222,6 +222,29 @@ void OfficialSeriesMenuController::selectMenuItem()
 
         /* if an error occured, we redirect to the error controller */
         expectedControllerId = ERROR_CONTROLLER_ID;
+    }
+}
+
+/**
+ *
+ */
+const std::string OfficialSeriesMenuController::getSerieNameByItemId() const &
+noexcept
+{
+    switch(getSelectorPosition())
+    {
+    case 1:
+    {
+        return "easy";
+
+        break;
+    }
+    default:
+    {
+        return "tutorial";
+
+        break;
+    }
     }
 }
 
