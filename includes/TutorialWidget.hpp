@@ -77,6 +77,7 @@ private:
     static constexpr float HEIGHT {100.f};
     static constexpr float HORIZONTAL_POSITION {10.f};
     static constexpr float VERTICAL_POSITION {10.f};
+    static constexpr float BORDER_WIDTH {1.f};
 
     class Impl;
     std::unique_ptr<Impl> impl;

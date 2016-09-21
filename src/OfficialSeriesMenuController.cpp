@@ -206,9 +206,7 @@ void OfficialSeriesMenuController::selectMenuItem()
         /* use the playing serie manager to load the serie file content */
         /* TODO: #512 we use a fixed file name for now, of course, this
            parameter should change according to the selected menu item */
-        contextPtr.getPlayingSerieManager().loadSerieFileContent(
-            "data/series/1.serie"
-        );
+        contextPtr.getPlayingSerieManager().loadSerieFileContent("tutorial");
 
         /* if no exception, we go to the game controller with the loaded
            serie */

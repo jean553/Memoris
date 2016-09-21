@@ -7,7 +7,7 @@ data/series/*
 data/games/*
 !data/levels/1.level
 !data/levels/2.level
-!data/series/1.serie
+!data/series/tutorial.serie
 !data/games/fake.game
 *.swp
 latex/
