@@ -29,6 +29,11 @@
 
 #include <memory>
 
+namespace sf
+{
+class Color;
+}
+
 namespace memoris
 {
 
@@ -68,16 +73,45 @@ public:
      *
      * not 'noexcept' because the method calls SFML functions that are not
      * noexcept
+     *
+     * not 'const' because it calls the animateFlashingAnimation() method
+     * which modifies the attributes
      */
-    void display(utils::Context& context) const &;
+    void display(utils::Context& context) &;
 
 private:
+
+    enum class FlashingColors {BLUE, WHITE};
 
     static constexpr float WIDTH {250.f};
     static constexpr float HEIGHT {100.f};
     static constexpr float HORIZONTAL_POSITION {10.f};
     static constexpr float VERTICAL_POSITION {10.f};
-    static constexpr float BORDER_WIDTH {1.f};
+    static constexpr float BORDER_WIDTH {2.f};
+
+    /**
+     * @brief render the flashing animation of the widget
+     *
+     * @param context reference to the current context to use
+     *
+     * not 'const' because it modifies some surfaces
+     *
+     * not 'noexcept' because it calls SFML methods that are not
+     * noexcept
+     */
+    void animateFlashingAnimation(utils::Context& context) &;
+
+    /**
+     * @brief update the color of all the border surfaces
+     *
+     * @param color constant reference to the new color to apply
+     *
+     * not 'const' because it modifies some surfaces
+     *
+     * not 'noexcept' because it calls SFML methods that are not
+     * noexcept
+     */
+    void setBorderColor(const sf::Color& color) &;
 
     class Impl;
     std::unique_ptr<Impl> impl;
