@@ -125,6 +125,13 @@ public:
      */
     const std::string& getSerieName() const & noexcept;
 
+    /**
+     * @brief getter of the current level index
+     *
+     * @return const unsigned short&
+     */
+    const unsigned short& getLevelIndex() const & noexcept;
+
 private:
 
     class Impl;

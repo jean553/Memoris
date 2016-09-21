@@ -28,6 +28,7 @@
 
 #include <memory>
 #include <vector>
+#include <queue>
 
 namespace sf
 {
@@ -42,6 +43,11 @@ namespace entities
 class Cell;
 }
 
+namespace widgets
+{
+class TutorialFrame;
+}
+
 namespace aliases
 {
 
@@ -52,6 +58,10 @@ using ConstTransformUniquePtrRef = const std::unique_ptr<sf::Transform>&;
 using ConstUniquePtrCellsContainerRef =
     const std::vector<std::unique_ptr<entities::Cell>>&;
 
+/* reference to a queue container containing the tutorial frames unique
+   pointers */
+using UniquePtrTutorialFramesContainerRef =
+    std::queue<std::unique_ptr<widgets::TutorialFrame>>&;
 }
 }
 

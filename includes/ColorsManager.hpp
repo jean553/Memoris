@@ -121,11 +121,18 @@ public:
     const sf::Color& getColorPurpleLowAlpha() const & noexcept;
 
     /**
-     * @brief returns a copy of the dark grey color
+     * @brief returns a reference of the dark grey color
      *
-     * @return sf::Color
+     * @return const sf::Color&
      */
     const sf::Color& getColorDarkGrey() const & noexcept;
+
+    /**
+     * @brief returns a reference to the alpha blue color
+     *
+     * @return const sf::Color&
+     */
+    const sf::Color& getColorBlueLowAlpha() const & noexcept;
 
     /* the getter by value do not return constant variables because when
        a color is got by copy, that means the color values will be updated

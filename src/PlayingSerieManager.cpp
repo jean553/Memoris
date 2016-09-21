@@ -53,6 +53,9 @@ public:
 
     /* the name of the loaded serie */
     std::string serieName;
+
+    /* the index of the current playing level */
+    unsigned short levelIndex {0};
 };
 
 /**
@@ -159,6 +162,14 @@ void PlayingSerieManager::loadSerieFileContent(const std::string& name) &
 const std::string& PlayingSerieManager::getSerieName() const & noexcept
 {
     return impl->serieName;
+}
+
+/**
+ *
+ */
+const unsigned short& PlayingSerieManager::getLevelIndex() const & noexcept
+{
+    return impl->levelIndex;
 }
 
 }
