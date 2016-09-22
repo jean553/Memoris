@@ -24,7 +24,6 @@
 
 #include "WelcomeTutorialFrame.hpp"
 
-#include "fonts.hpp"
 #include "Context.hpp"
 
 #include <SFML/Graphics/Text.hpp>
@@ -42,11 +41,8 @@ public:
     Impl(utils::Context& context)
     {
         title.setString("Welcome in Memoris !");
-        title.setCharacterSize(fonts::INFORMATION_SIZE);
-        title.setFont(context.getFontsManager().getTutorialFont());
-        title.setColor(context.getColorsManager().getColorWhite());
         title.setPosition(
-            60.f,
+            90.f,
             110.f
         );
     }

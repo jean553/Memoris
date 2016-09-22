@@ -28,6 +28,11 @@
 
 #include <memory>
 
+namespace sf
+{
+class Text;
+}
+
 namespace memoris
 {
 
@@ -102,6 +107,26 @@ protected:
         const float& frameWidth,
         const float& frameHeight
     ) noexcept;
+
+    /**
+     * @brief static method that applies the same properties to all the texts
+     * surfaces passed by reference (common text size, font and color)
+     *
+     * @param context reference to the current context to use
+     * @param text reference to the SFML text surface to edit
+     *
+     * this method is static because it never changes any attribute of the
+     * current instance; it applies a set of properties to a SFML text, but
+     * has no relationship with any specific frame; the method is declared
+     * here because those properties are only applied to SFML texts objects
+     * declared into Tutorial frames
+     *
+     * not 'noexcept' because it calls SFML functions that are not noexcept
+     */
+    static void applyPropertiesToText(
+        utils::Context& context,
+        sf::Text& text
+    );
 
 private:
 
