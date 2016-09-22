@@ -105,7 +105,7 @@ public:
         255,
         0,
         255,
-        255
+        75
     };
 
     const sf::Color colorDarkGrey
@@ -114,6 +114,14 @@ public:
         50,
         50,
         255
+    };
+
+    const sf::Color colorBlueLowAlpha
+    {
+        0,
+        0,
+        255,
+        75
     };
 };
 
@@ -208,6 +216,14 @@ const sf::Color& ColorsManager::getColorPurpleLowAlpha() const & noexcept
 const sf::Color& ColorsManager::getColorDarkGrey() const & noexcept
 {
     return impl->colorDarkGrey;
+}
+
+/**
+ *
+ */
+const sf::Color& ColorsManager::getColorBlueLowAlpha() const & noexcept
+{
+    return impl->colorBlueLowAlpha;
 }
 
 /**

@@ -79,14 +79,34 @@ public:
      */
     void display(utils::Context& context) &;
 
+    /**
+     * @brief displays the next frame, returns true if an item has been popped
+     * or false if the container is already empty; the container is not
+     * modified if the function returns false
+     *
+     * @return const bool
+     *
+     * the returned boolean is not a reference because there is no local
+     * variable returned inside the function, but directly a rvalue in the
+     * return; statement
+     *
+     * not 'const' because the method pop values from the frames queue, changes
+     * the widget dimensions according to the popped frame dimension; set the
+     * current frame unique pointer
+     *
+     * not 'noexcept' could be noexcept because we have the guarantee that
+     * no one of the std::queue::front, std::queue::pop, std::queue::empty
+     * will throw an exception (guarantee for non-empty containers, undefined
+     * behavior for empty containers), but the method also call SFML methods
+     * which are not marked as noexcept
+     */
+    const bool nextFrame() &;
+
 private:
 
     enum class FlashingColors {BLUE, WHITE};
 
-    static constexpr float WIDTH {250.f};
-    static constexpr float HEIGHT {100.f};
     static constexpr float HORIZONTAL_POSITION {10.f};
-    static constexpr float VERTICAL_POSITION {10.f};
     static constexpr float BORDER_WIDTH {2.f};
 
     /**
@@ -112,6 +132,16 @@ private:
      * noexcept
      */
     void setBorderColor(const sf::Color& color) &;
+
+    /**
+     * @brief set the widget dimensions with the dimensions of the current
+     * tutorial frame
+     *
+     * not 'const' because it updates the dimensions of the widget
+     *
+     * not 'noexcept' because it calls SFML functions that are not noexcept
+     */
+    void updateWidgetDimensions() &;
 
     class Impl;
     std::unique_ptr<Impl> impl;
