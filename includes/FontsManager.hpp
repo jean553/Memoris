@@ -73,6 +73,13 @@ public:
      */
     const sf::Font& getTextFont() const & noexcept;
 
+    /**
+     * @brief get tutorial font reference
+     *
+     * @return const sf::Font&
+     */
+    const sf::Font& getTutorialFont() const & noexcept;
+
 private:
 
     /**

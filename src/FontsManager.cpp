@@ -39,6 +39,7 @@ public:
 
     sf::Font titleFont;
     sf::Font textFont;
+    sf::Font tutorialFont;
 };
 
 /**
@@ -49,6 +50,7 @@ FontsManager::FontsManager() :
 {
     loadFontFromFile(impl->titleFont, "crystal_regular.ttf");
     loadFontFromFile(impl->textFont, "hi.otf");
+    loadFontFromFile(impl->tutorialFont, "Limousine.ttf");
 }
 
 /**
@@ -70,6 +72,14 @@ const sf::Font& FontsManager::getTitleFont() const & noexcept
 const sf::Font& FontsManager::getTextFont() const & noexcept
 {
     return impl->textFont;
+}
+
+/**
+ *
+ */
+const sf::Font& FontsManager::getTutorialFont() const & noexcept
+{
+    return impl->tutorialFont;
 }
 
 /**
