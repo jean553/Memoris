@@ -43,10 +43,10 @@ public:
     {
         title.setString("Welcome in Memoris !");
         title.setCharacterSize(fonts::INFORMATION_SIZE);
-        title.setFont(context.getFontsManager().getTextFont());
+        title.setFont(context.getFontsManager().getTutorialFont());
         title.setColor(context.getColorsManager().getColorWhite());
         title.setPosition(
-            20.f,
+            60.f,
             110.f
         );
     }

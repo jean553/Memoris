@@ -119,9 +119,9 @@ public:
     const sf::Color colorBlueLowAlpha
     {
         0,
-        0,
-        255,
-        75
+        17,
+        97,
+        200
     };
 };
 
