@@ -24,6 +24,11 @@
 
 #include "TutorialFrame.hpp"
 
+#include "fonts.hpp"
+#include "Context.hpp"
+
+#include <SFML/Graphics/Text.hpp>
+
 namespace memoris
 {
 namespace widgets
@@ -95,6 +100,19 @@ const float& TutorialFrame::getWidth() const & noexcept
 const float& TutorialFrame::getHeight() const & noexcept
 {
     return impl->height;
+}
+
+/**
+ *
+ */
+void TutorialFrame::applyPropertiesToText(
+    utils::Context& context,
+    sf::Text& text
+)
+{
+    text.setCharacterSize(fonts::TUTORIAL_SIZE);
+    text.setFont(context.getFontsManager().getTutorialFont());
+    text.setColor(context.getColorsManager().getColorWhite());
 }
 
 }

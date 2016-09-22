@@ -55,6 +55,9 @@ constexpr unsigned int INPUT_TEXT_SIZE = 45;
    the editors ( files errors, names errors... ) */
 constexpr unsigned int INFORMATION_SIZE = 30;
 
+/* used for text information displayed into the tutorial frames */
+constexpr unsigned int TUTORIAL_SIZE = 16;
+
 /* used to display the left levels amount in the serie
    when the player wins */
 constexpr unsigned int LEVELS_COUNTDOWN_SIZE = 400;
