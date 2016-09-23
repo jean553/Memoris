@@ -56,23 +56,6 @@ public:
      * forwarding declaration
      */
     ~WelcomeTutorialFrame() noexcept;
-
-    /**
-     * @brief render the welcome tutorial frame
-     *
-     * @param context reference to the current context to use
-     *
-     * the 'context' parameter is not a constant reference because the
-     * context contains the SFML window which will be modified
-     *
-     * not 'noexcept' because calls SFML surfaces
-     */
-    virtual void render(utils::Context& context) const & override;
-
-private:
-
-    class Impl;
-    std::unique_ptr<Impl> impl;
 };
 
 }

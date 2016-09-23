@@ -25,6 +25,7 @@
 #include "WelcomeTutorialFrame.hpp"
 
 #include "Context.hpp"
+#include "fonts.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 
@@ -33,48 +34,69 @@ namespace memoris
 namespace widgets
 {
 
-class WelcomeTutorialFrame::Impl
-{
-
-public:
-
-    Impl(utils::Context& context)
-    {
-        title.setString("Welcome in Memoris !");
-        title.setPosition(
-            90.f,
-            110.f
-        );
-    }
-
-    sf::Text title;
-};
-
 /**
  *
  */
 WelcomeTutorialFrame::WelcomeTutorialFrame(utils::Context& context) :
     TutorialFrame(
         100.f,
-        400.f,
-        200.f
-    ),
-    impl(std::make_unique<Impl>(context))
+        650.f,
+        150.f
+    )
 {
+    auto title = std::make_unique<sf::Text>(); // std::unique_ptr<sf::Text>
+    auto firstLine = std::make_unique<sf::Text>();
+    auto secondLine = std::make_unique<sf::Text>();
+
+    title->setString("Welcome in Memoris !");
+    firstLine->setString(
+        "This first serie is a set of tutorials teaching you how to play to "
+        "Memoris"
+    );
+    secondLine->setString(
+        "This popup displays the tutorial instruction. Press Enter to switch "
+        "to the next instruction."
+    );
+
+    title->setColor(context.getColorsManager().getColorWhite());
+    title->setCharacterSize(fonts::INFORMATION_SIZE);
+    title->setFont(context.getFontsManager().getTutorialFont());
+
+    applyPropertiesToText(
+        context,
+        firstLine
+    );
+    applyPropertiesToText(
+        context,
+        secondLine
+    );
+
+    title->setPosition(
+        200.f,
+        110.f
+    );
+
+    firstLine->setPosition(
+        20.f,
+        180.f
+    );
+
+    secondLine->setPosition(
+        20.f,
+        200.f
+    );
+
+    title->setColor(context.getColorsManager().getColorWhite());
+
+    insertItem(std::move(title));
+    insertItem(std::move(firstLine));
+    insertItem(std::move(secondLine));
 }
 
 /**
  *
  */
 WelcomeTutorialFrame::~WelcomeTutorialFrame() noexcept = default;
-
-/**
- *
- */
-void WelcomeTutorialFrame::render(utils::Context& context) const &
-{
-    context.getSfmlWindow().draw(impl->title);
-}
 
 }
 }

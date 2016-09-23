@@ -40,6 +40,8 @@ Game::Game(const std::string& gameName) :
     std::ofstream file;
 
     /* throw exception if IO error */
+    /* TODO: to check, but it seems that this code never throw any exception,
+       even if the file cannot be found */
     file.exceptions(std::ofstream::failbit | std::ofstream::badbit);
 
     file.open(

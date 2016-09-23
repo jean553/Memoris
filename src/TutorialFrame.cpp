@@ -28,6 +28,7 @@
 #include "Context.hpp"
 
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/Drawable.hpp>
 
 namespace memoris
 {
@@ -53,6 +54,13 @@ public:
     float verticalPosition;
     float width;
     float height;
+
+    /* vector container because there are many different items on a frame:
+       it makes items handling easier; unique pointers because we want use
+       polymorphism (sf::Text or sf::Sprite) stored here, and because we
+       use move sementics to create them in a dedicated container and insert
+       them here in the parent class without copy */
+    std::vector<std::unique_ptr<sf::Drawable>> items;
 };
 
 /**
@@ -107,12 +115,31 @@ const float& TutorialFrame::getHeight() const & noexcept
  */
 void TutorialFrame::applyPropertiesToText(
     utils::Context& context,
-    sf::Text& text
+    const std::unique_ptr<sf::Text>& text
 )
 {
-    text.setCharacterSize(fonts::TUTORIAL_SIZE);
-    text.setFont(context.getFontsManager().getTutorialFont());
-    text.setColor(context.getColorsManager().getColorWhite());
+    text->setCharacterSize(fonts::TUTORIAL_SIZE);
+    text->setFont(context.getFontsManager().getTutorialFont());
+    text->setColor(context.getColorsManager().getColorWhite());
+}
+
+/**
+ *
+ */
+void TutorialFrame::insertItem(std::unique_ptr<sf::Drawable> item) &
+{
+    impl->items.push_back(std::move(item));
+}
+
+/**
+ *
+ */
+void TutorialFrame::render(utils::Context& context) const &
+{
+    for(auto& item : impl->items) // item -> std::unique_ptr<sf::Drawable>&
+    {
+        context.getSfmlWindow().draw(*item);
+    }
 }
 
 }
