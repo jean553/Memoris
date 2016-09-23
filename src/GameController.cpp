@@ -93,7 +93,7 @@ unsigned short GameController::render(
 ) &
 {
     /* check if the display level->time is equal to 0; if it is equal to 0,
-       that means the level->just opened and this level->time has to be set */
+       that means the level has just opened and this time has to be set */
     if (displayLevelTime == 0)
     {
         displayLevelTime = context.getClockMillisecondsTime();
@@ -354,6 +354,14 @@ unsigned short GameController::render(
                 expectedControllerId = MAIN_MENU_CONTROLLER_ID;
 
                 break;
+            }
+            case sf::Keyboard::Return:
+            {
+                /* delete the tutorial widget if no frame in the queue */
+                if (!tutorialWidget->nextFrame())
+                {
+                    tutorialWidget.reset();
+                }
             }
             default:
             {

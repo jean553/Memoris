@@ -31,6 +31,7 @@
 namespace sf
 {
 class Text;
+class Drawable;
 }
 
 namespace memoris
@@ -59,8 +60,7 @@ public:
     ~TutorialFrame() noexcept;
 
     /**
-     * @brief pure virtual method used to make this base class abstract; this
-     * method is used to let each frame specifies the surfaces to render
+     * @brief render all the SFML drawable objects of the items container
      *
      * @param context reference to the current context to use
      *
@@ -70,7 +70,7 @@ public:
      * not 'noexcept' because the implementation will always call SFML methods
      * that are no noexcept
      */
-    virtual void render(utils::Context& context) const & = 0;
+    void render(utils::Context& context) const &;
 
     /**
      * @brief getter of the vertical position
@@ -109,11 +109,27 @@ protected:
     ) noexcept;
 
     /**
+     * @brief insert one item into the items container by move sementics
+     *
+     * @param item unique pointer to a SFML drawable object (text or sprite)
+     *
+     * item cannot be const because it is modified (moved) inside the method
+     *
+     * not 'const' because it modifies one attribute
+     *
+     * not 'noexcept' because it calls std::vector::push_back() which may
+     * throw an exception
+     *
+     * protected because only called by frames constructors
+     */
+    void insertItem(std::unique_ptr<sf::Drawable> item) &;
+
+    /**
      * @brief static method that applies the same properties to all the texts
      * surfaces passed by reference (common text size, font and color)
      *
      * @param context reference to the current context to use
-     * @param text reference to the SFML text surface to edit
+     * @param text constant unique pointer reference to a SFML text
      *
      * this method is static because it never changes any attribute of the
      * current instance; it applies a set of properties to a SFML text, but
@@ -125,7 +141,7 @@ protected:
      */
     static void applyPropertiesToText(
         utils::Context& context,
-        sf::Text& text
+        const std::unique_ptr<sf::Text>& text
     );
 
 private:
