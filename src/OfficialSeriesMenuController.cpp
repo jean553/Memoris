@@ -137,7 +137,7 @@ OfficialSeriesMenuController::OfficialSeriesMenuController(
 /**
  *
  */
-unsigned short OfficialSeriesMenuController::render(
+const unsigned short& OfficialSeriesMenuController::render(
     utils::Context& context
 ) &
 {

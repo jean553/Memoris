@@ -47,7 +47,7 @@ ErrorController::ErrorController(
 /**
  *
  */
-unsigned short ErrorController::render(
+const unsigned short& ErrorController::render(
     utils::Context& context
 ) &
 {

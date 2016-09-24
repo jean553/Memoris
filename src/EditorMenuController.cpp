@@ -91,7 +91,7 @@ EditorMenuController::EditorMenuController(
 /**
  *
  */
-unsigned short EditorMenuController::render(
+const unsigned short& EditorMenuController::render(
     utils::Context& context
 ) &
 {

@@ -91,7 +91,7 @@ GameController::GameController(
 /**
  *
  */
-unsigned short GameController::render(
+const unsigned short& GameController::render(
     utils::Context& context
 ) &
 {

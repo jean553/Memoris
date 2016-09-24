@@ -134,7 +134,7 @@ MainMenuController::MainMenuController(
 /**
  *
  */
-unsigned short MainMenuController::render(
+const unsigned short& MainMenuController::render(
     utils::Context& context
 ) &
 {

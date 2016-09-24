@@ -95,7 +95,7 @@ SerieMainMenuController::SerieMainMenuController(
 /**
  *
  */
-unsigned short SerieMainMenuController::render(
+const unsigned short& SerieMainMenuController::render(
     utils::Context& context
 ) &
 {

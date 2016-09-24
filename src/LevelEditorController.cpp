@@ -118,7 +118,7 @@ LevelEditorController::~LevelEditorController() noexcept = default;
 /**
  *
  */
-unsigned short LevelEditorController::render(
+const unsigned short& LevelEditorController::render(
     utils::Context& context
 ) &
 {
