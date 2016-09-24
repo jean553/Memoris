@@ -79,7 +79,7 @@ NewGameController::NewGameController(
 /**
  *
  */
-unsigned short NewGameController::render(
+const unsigned short& NewGameController::render(
     utils::Context& context
 ) &
 {

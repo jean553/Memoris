@@ -63,9 +63,10 @@ public:
      *
      * @param context reference to the current context to use
      *
-     * @return unsigned short
+     * @return const unsigned short&
      */
-    virtual unsigned short render(utils::Context& context) & override final;
+    virtual const unsigned short& render(utils::Context& context) & override 
+        final;
 
 private:
 

@@ -64,9 +64,10 @@ public:
      *
      * @param context reference to the current context to use
      *
-     * @return unsigned short id of the new screen controller
+     * @return const unsigned short& id of the new screen controller
      */
-    virtual unsigned short render(utils::Context& context) & override final;
+    virtual const unsigned short& render(utils::Context& context) & override 
+        final;
 
 private:
 

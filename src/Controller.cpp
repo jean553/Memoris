@@ -26,114 +26,105 @@
 
 #include "window.hpp"
 #include "ColorsManager.hpp"
+#include "Context.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 namespace memoris
 {
+
 namespace controllers
 {
 
+class Controller::Impl
+{
+
+public:
+
+    Impl(utils::Context& context)
+    {
+        transitionSurfaceColor = 
+            context.getColorsManager().getColorBlackCopy();
+
+        transitionSurface.setSize(
+            sf::Vector2f(
+                window::WIDTH,
+                window::HEIGHT
+            )
+        );
+
+        transitionSurface.setFillColor(transitionSurfaceColor);
+    }
+
+    sf::Int32 lastScreenTransitionTime {0};
+
+    sf::Uint8 transitionStep {5};
+
+    sf::Color transitionSurfaceColor;
+
+    sf::RectangleShape transitionSurface;
+
+    bool openingScreen {true};
+};
+
 /**
  *
  */
-Controller::Controller(utils::Context& context)
+Controller::Controller(utils::Context& context) : 
+    impl(std::make_unique<Impl>(context))
 {
-    /* the screen transition color is continually modified
-       when screens are switched, that's why we copy the
-       default color from the black color */
-    transitionSurfaceColor =
-        context.getColorsManager().getColorBlackCopy();
-
-    /* the size of the screen transition surface is equal to the window
-       dimension; in fact, the screen transition surface covers the whole
-       screen */
-    transitionSurface.setSize(
-        sf::Vector2f(
-            window::WIDTH,
-            window::HEIGHT
-        )
-    );
-
-    /* initialize the screen transition surface with a default color, this
-       color will change all the time during the animation */
-    transitionSurface.setFillColor(transitionSurfaceColor);
 }
 
 /**
  *
  */
-Controller::~Controller()
-{
-    /* virtual destructor that we have to declare in order to ensure that
-       the children destructors are called correctly when a child object
-       is pointed by a parent pointer and the pointed object is deleted */
-}
+Controller::~Controller() noexcept = default;
 
 /**
  *
  */
-unsigned short Controller::animateScreenTransition(
+const unsigned short Controller::animateScreenTransition(
     utils::Context& context
-)
+) &
 {
-    /* the animation is rendered only if a new screen is called ( the program
-       is closing the current screen ) or if the new called screen is
-       opening */
-    if (!expectedControllerId && !openingScreen)
+    if (!expectedControllerId && !impl->openingScreen)
     {
         return 0;
     }
 
-    /* update the transparency amount of the transition surface according
-       to the current animation duration; no need for casting here: sf::Uint8
-       is an unsigned char type on SFML side; the operation here is between
-       two values of the same type */
-    transitionSurfaceColor.a = transitionTime * 51;
+    impl->transitionSurfaceColor.a = impl->transitionStep * COLOR_UPDATE_STEP;
+    impl->transitionSurface.setFillColor(impl->transitionSurfaceColor);
 
-    /* update the whole animation color ( with the new transparency value ) */
-    transitionSurface.setFillColor(transitionSurfaceColor);
+    context.getSfmlWindow().draw(impl->transitionSurface);
 
-    /* draw the transition surface */
-    context.getSfmlWindow().draw(transitionSurface);
-
-    /* animate the screen transition animation according to the last screen
-       transition animation update time */
-    if (context.getClockMillisecondsTime() - lastScreenTransitionTime > 25)
+    if (
+        context.getClockMillisecondsTime() - 
+        impl->lastScreenTransitionTime > TRANSITION_ANIMATION_INTERVAL
+    )
     {
-        if (openingScreen)
+        if (impl->openingScreen)
         {
-            transitionTime--;
+            impl->transitionStep--;
         }
         else
         {
-            transitionTime++;
+            impl->transitionStep++;
         }
 
-        /* update the last screen transition time with the current time for
-           the next animation step */
-        lastScreenTransitionTime = context.getClockMillisecondsTime();
+        impl->lastScreenTransitionTime = context.getClockMillisecondsTime();
     }
 
-    /* when the closing animation is finished, the color transparency value is
-       equal to 255 ( 5 * 51 ). The expected controller id is returned and
-       the new controller can be rendered */
-    if (transitionTime > 5)
+    if (impl->transitionStep > TRANSITION_STEPS_MAX)
     {
         return expectedControllerId;
     }
 
-    /* when the opening animation is finished, the color transparency value is
-       equal to 0; the opening animation boolean is set to false; the
-       new controller is still rendered but without any animation */
-    if (transitionTime <= 0)
+    if (impl->transitionStep <= 0)
     {
-        openingScreen = false;
+        impl->openingScreen = false;
     }
 
-    /* if the screen is opening or closing, as long as the animation is not
-       finished, the function does not indicate that the controllers can be
-       really switched and just return 0 */
     return 0;
 }
 
