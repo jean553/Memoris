@@ -30,7 +30,11 @@
 #include "SelectionListWidget.hpp"
 #include "DirectoryReader.hpp"
 #include "Cursor.hpp"
+#include "FontsManager.hpp"
+#include "ColorsManager.hpp"
+#include "EditingLevelManager.hpp"
 
+#include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
 
 namespace memoris

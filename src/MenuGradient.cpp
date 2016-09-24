@@ -24,6 +24,7 @@
 #include "MenuGradient.hpp"
 
 #include "window.hpp"
+#include "ColorsManager.hpp"
 
 namespace memoris
 {

@@ -24,6 +24,8 @@
 
 #include "EditorDashboard.hpp"
 
+#include "TexturesManager.hpp"
+
 namespace memoris
 {
 namespace utils

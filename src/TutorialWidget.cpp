@@ -27,9 +27,12 @@
 #include "TutorialFrame.hpp"
 #include "Context.hpp"
 #include "tutorial_frames.hpp"
+#include "ColorsManager.hpp"
+#include "PlayingSerieManager.hpp"
 
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 #include <queue>
 

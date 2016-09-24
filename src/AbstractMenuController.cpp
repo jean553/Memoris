@@ -25,6 +25,7 @@
 #include "AbstractMenuController.hpp"
 
 #include "Context.hpp"
+#include "SoundsManager.hpp"
 
 namespace memoris
 {

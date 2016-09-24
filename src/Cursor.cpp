@@ -24,7 +24,10 @@
 
 #include "Cursor.hpp"
 
+#include "TexturesManager.hpp"
+
 #include <SFML/Window/Mouse.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 namespace memoris
 {

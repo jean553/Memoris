@@ -28,6 +28,8 @@
 #include "dimensions.hpp"
 #include "window.hpp"
 #include "cells.hpp"
+#include "ColorsManager.hpp"
+#include "CellsTexturesManager.hpp"
 
 namespace memoris
 {

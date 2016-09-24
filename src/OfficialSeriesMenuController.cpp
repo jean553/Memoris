@@ -26,6 +26,9 @@
 
 #include "fonts.hpp"
 #include "controllers.hpp"
+#include "FontsManager.hpp"
+#include "ColorsManager.hpp"
+#include "PlayingSerieManager.hpp"
 
 namespace memoris
 {

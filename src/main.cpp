@@ -25,6 +25,9 @@
 #include "Context.hpp"
 #include "controllers.hpp"
 #include "musics.hpp"
+#include "SoundsManager.hpp"
+
+#include <SFML/Graphics/RenderWindow.hpp>
 
 using namespace memoris;
 

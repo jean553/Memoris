@@ -29,6 +29,7 @@
 #include "cells.hpp"
 #include "allocators.hpp"
 #include "dimensions.hpp"
+#include "PlayingSerieManager.hpp"
 
 #include <fstream>
 

@@ -25,6 +25,9 @@
 #include "Controller.hpp"
 
 #include "window.hpp"
+#include "ColorsManager.hpp"
+
+#include <SFML/Graphics/RenderWindow.hpp>
 
 namespace memoris
 {
