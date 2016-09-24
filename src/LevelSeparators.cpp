@@ -24,7 +24,10 @@
 
 #include "LevelSeparators.hpp"
 
+#include "ColorsManager.hpp"
 #include "window.hpp"
+
+#include <SFML/Graphics/RenderWindow.hpp>
 
 namespace memoris
 {

@@ -29,21 +29,29 @@
 
 #include "NotCopiable.hpp"
 
-#include "TexturesManager.hpp"
-#include "SoundsManager.hpp"
-#include "ColorsManager.hpp"
-#include "FontsManager.hpp"
-#include "CellsTexturesManager.hpp"
-#include "PlayingSerieManager.hpp"
-#include "EditingLevelManager.hpp"
-#include "Game.hpp"
+#include <SFML/Config.hpp>
 
-#include <SFML/Audio/Music.hpp>
-#include <SFML/System/Clock.hpp>
-#include <SFML/Graphics/RenderWindow.hpp>
+#include <memory>
+
+namespace sf
+{
+class RenderWindow;
+}
 
 namespace memoris
 {
+
+namespace managers
+{
+class TexturesManager;
+class SoundsManager;
+class ColorsManager;
+class FontsManager;
+class CellsTexturesManager;
+class PlayingSerieManager;
+class EditingLevelManager;
+}
+
 namespace utils
 {
 
@@ -62,8 +70,14 @@ public:
      */
     Context();
 
-    /* getters of the resources managers; return constant references, as the
-       managers objects are unique in the whole application */
+    /**
+     * @brief default destructor, empty, declared in order to use the 
+     * forwarding declaration
+     */
+    ~Context() noexcept;
+
+    /* getters of the resources managers; they all return constant references,
+       the managers are never directly modified by the controllers */
 
     /**
      * @brief getter of the textures manager
@@ -109,10 +123,8 @@ public:
      * do not return a constant reference, the manager is modified when
      * a new serie is loaded by OfficialSeriesMenuController when calling
      * loadSerieFileContent()
-     *
-     * not constant method because returns a reference
      */
-    managers::PlayingSerieManager& getPlayingSerieManager() & noexcept;
+    managers::PlayingSerieManager& getPlayingSerieManager() const & noexcept;
 
     /**
      * @brief getter of the editing level manager
@@ -121,11 +133,8 @@ public:
      *
      * do not return a constant reference, the manager attributes are modified
      * when a level file is opened from the editing level controller
-     *
-     * not 'const' because it returns a non constant reference to an object
-     * attribute
      */
-    managers::EditingLevelManager& getEditingLevelManager() & noexcept;
+    managers::EditingLevelManager& getEditingLevelManager() const & noexcept;
 
     /**
      * @brief getter on the SFML window object
@@ -135,10 +144,8 @@ public:
      * do not return a constant reference, the SFML window object draw()
      * method is called almost everywhere in the game, and this method
      * is not constant
-     *
-     * not constant method because returns a reference
      */
-    sf::RenderWindow& getSfmlWindow() & noexcept;
+    sf::RenderWindow& getSfmlWindow() const & noexcept;
 
     /* method to get SFML time; return a copy of the concerned value */
 
@@ -151,7 +158,7 @@ public:
      *
      * @return const sf::Int32
      *
-     * do not return a reference because returns a temporary rvalue from the
+     * do not return a reference because returns a temporary value from the
      * SFML function getElapsedTime().asMilliseconds()
      *
      * no 'noexcept' because the method calls other functions that are not
@@ -167,8 +174,8 @@ public:
      *
      * @param path file path of the music to play
      *
-     * not constant method because it calls SFML openFromFile() which is not
-     * constant
+     * not 'const' method because it calls SFML openFromFile() on object 
+     * attribute; this SFML function is not constant
      *
      * no 'noexcept' because the method calls other functions that are not
      * declared as noexcept
@@ -178,7 +185,8 @@ public:
     /**
      * @brief check if a music is playing, if yes, stop it
      *
-     * not constant method because it calls SFML stop() which is not constant
+     * not 'const' method because it calls SFML stop() on object attribute; 
+     * this SFML function is not constant
      *
      * no 'noexcept' because the method calls other functions that are not
      * declared as noexcept
@@ -190,7 +198,8 @@ public:
      * everytime the screen is switched from one controller
      * to another
      *
-     * not constant method because SFML restart() is not constant
+     * not 'const' method because it calls SFML restart() on object attribute; 
+     * this SFML function is not constant
      *
      * no 'noexcept' because the method calls other functions that are not
      * declared as noexcept
@@ -214,37 +223,8 @@ public:
 
 private:
 
-    /* resources and assets managers */
-
-    managers::TexturesManager texturesManager;
-    managers::SoundsManager soundsManager;
-    managers::ColorsManager colorsManager;
-    managers::FontsManager fontsManager;
-    managers::CellsTexturesManager cellsTexturesManager;
-    managers::PlayingSerieManager playingSerieManager;
-    managers::EditingLevelManager editingLevelManager;
-
-    /* main SFML window object */
-    sf::RenderWindow sfmlWindow;
-
-    /* SFML music to play */
-    sf::Music music;
-
-    /* unique SFML clock for time management in every controller
-     *
-     * NOTE: we use an unique clock for all the animation and time
-     * management of the game; the clock is restarted everytime the
-     * controller is modified; the maximum time returned in milliseconds
-     * is equal to 49 days... so this is a safe method */
-    sf::Clock clock;
-
-    /* unique pointer to the current loaded game; this pointed object is
-       initialized when a new game is created or when an existing game is
-       loaded; if there is no need to have a game loaded at the moment,
-       the pointer is just null; when the context is created, the main menu
-       is rendered, at this moment, the game has no reason to be loaded;
-       initialized in the implementation to use forwarding declaration */
-    std::unique_ptr<entities::Game> game {nullptr};
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }

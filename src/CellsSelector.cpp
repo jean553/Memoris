@@ -24,6 +24,8 @@
 
 #include "CellsSelector.hpp"
 
+#include "CellsTexturesManager.hpp"
+
 #include "cells.hpp"
 
 namespace memoris

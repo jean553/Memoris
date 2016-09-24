@@ -30,6 +30,9 @@
 #include "controllers.hpp"
 #include "animations.hpp"
 #include "PlayingSerieManager.hpp"
+#include "SoundsManager.hpp"
+#include "FontsManager.hpp"
+#include "ColorsManager.hpp"
 
 namespace memoris
 {

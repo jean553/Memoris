@@ -26,6 +26,8 @@
 
 #include "fonts.hpp"
 #include "Context.hpp"
+#include "FontsManager.hpp"
+#include "ColorsManager.hpp"
 
 namespace memoris
 {

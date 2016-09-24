@@ -24,6 +24,8 @@
 
 #include "DiagonalAnimation.hpp"
 
+#include "SoundsManager.hpp"
+#include "ColorsManager.hpp"
 #include "separators.hpp"
 
 namespace memoris

@@ -24,8 +24,18 @@
 
 #include "Context.hpp"
 
+#include "TexturesManager.hpp"
+#include "SoundsManager.hpp"
+#include "ColorsManager.hpp"
+#include "FontsManager.hpp"
+#include "CellsTexturesManager.hpp"
+#include "PlayingSerieManager.hpp"
+#include "EditingLevelManager.hpp"
+#include "Game.hpp"
 #include "window.hpp"
 
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Audio/Music.hpp>
 #include <SFML/Audio/Sound.hpp>
 
 namespace memoris
@@ -33,11 +43,20 @@ namespace memoris
 namespace utils
 {
 
-/**
- *
- */
-Context::Context() :
-    sfmlWindow(
+class Context::Impl
+{
+
+public:
+
+    managers::TexturesManager texturesManager;
+    managers::SoundsManager soundsManager;
+    managers::ColorsManager colorsManager;
+    managers::FontsManager fontsManager;
+    managers::CellsTexturesManager cellsTexturesManager;
+    managers::PlayingSerieManager playingSerieManager;
+    managers::EditingLevelManager editingLevelManager;
+
+    sf::RenderWindow sfmlWindow = {
         sf::VideoMode(
             window::WIDTH,
             window::HEIGHT,
@@ -45,22 +64,51 @@ Context::Context() :
         ),
         window::TITLE,
         sf::Style::Fullscreen
-    )
+    };
+
+    sf::Music music;
+
+    /* unique SFML clock for time management in every controller
+     *
+     * NOTE: we use an unique clock for all the animation and time
+     * management of the game; the clock is restarted everytime the
+     * controller is modified; the maximum time returned in milliseconds
+     * is equal to 49 days... so this is a safe method */
+    sf::Clock clock;
+
+    /* unique pointer to the current loaded game; this pointed object is
+       initialized when a new game is created or when an existing game is
+       loaded; if there is no need to have a game loaded at the moment,
+       the pointer is just null; when the context is created, the main menu
+       is rendered, at this moment, the game has no reason to be loaded;
+       initialized in the implementation to use forwarding declaration */
+    std::unique_ptr<entities::Game> game {nullptr};
+};
+
+/**
+ *
+ */
+Context::Context() : impl(std::make_unique<Impl>())
 {
     /* when the window is opened, the default SFML cursor is not displayed */
-    sfmlWindow.setMouseCursorVisible(false);
+    impl->sfmlWindow.setMouseCursorVisible(false);
 
     /* prevent the user to keep a key pressed down: the events are only
        triggered one time during the first press down and not continually */
-    sfmlWindow.setKeyRepeatEnabled(false);
+    impl->sfmlWindow.setKeyRepeatEnabled(false);
 }
+
+/**
+ *
+ */
+Context::~Context() noexcept = default;
 
 /**
  *
  */
 const managers::TexturesManager& Context::getTexturesManager() const & noexcept
 {
-    return texturesManager;
+    return impl->texturesManager;
 }
 
 /**
@@ -68,7 +116,7 @@ const managers::TexturesManager& Context::getTexturesManager() const & noexcept
  */
 const managers::SoundsManager& Context::getSoundsManager() const & noexcept
 {
-    return soundsManager;
+    return impl->soundsManager;
 }
 
 /**
@@ -76,7 +124,7 @@ const managers::SoundsManager& Context::getSoundsManager() const & noexcept
  */
 const managers::ColorsManager& Context::getColorsManager() const & noexcept
 {
-    return colorsManager;
+    return impl->colorsManager;
 }
 
 /**
@@ -84,7 +132,7 @@ const managers::ColorsManager& Context::getColorsManager() const & noexcept
  */
 const managers::FontsManager& Context::getFontsManager() const & noexcept
 {
-    return fontsManager;
+    return impl->fontsManager;
 }
 
 /**
@@ -93,31 +141,33 @@ const managers::FontsManager& Context::getFontsManager() const & noexcept
 const managers::CellsTexturesManager& Context::getCellsTexturesManager() const
 & noexcept
 {
-    return cellsTexturesManager;
+    return impl->cellsTexturesManager;
 }
 
 /**
  *
  */
-managers::PlayingSerieManager& Context::getPlayingSerieManager() & noexcept
+managers::PlayingSerieManager& Context::getPlayingSerieManager() const & 
+noexcept
 {
-    return playingSerieManager;
+    return impl->playingSerieManager;
 }
 
 /**
  *
  */
-managers::EditingLevelManager& Context::getEditingLevelManager() & noexcept
+managers::EditingLevelManager& Context::getEditingLevelManager() const & 
+noexcept
 {
-    return editingLevelManager;
+    return impl->editingLevelManager;
 }
 
 /**
  *
  */
-sf::RenderWindow& Context::getSfmlWindow() & noexcept
+sf::RenderWindow& Context::getSfmlWindow() const & noexcept
 {
-    return sfmlWindow;
+    return impl->sfmlWindow;
 }
 
 /**
@@ -125,7 +175,7 @@ sf::RenderWindow& Context::getSfmlWindow() & noexcept
  */
 const sf::Int32 Context::getClockMillisecondsTime() const &
 {
-    return clock.getElapsedTime().asMilliseconds();
+    return impl->clock.getElapsedTime().asMilliseconds();
 }
 
 /**
@@ -133,22 +183,16 @@ const sf::Int32 Context::getClockMillisecondsTime() const &
  */
 void Context::loadMusicFile(const std::string& path) &
 {
-    /* ends the function immediately if the path is empty */
     if(path.empty())
     {
         return;
     }
 
-    /* stop the playing music before loading the new one */
     stopMusic();
 
-    /* open the new music from the given file */
-    if(music.openFromFile(path))
+    if(impl->music.openFromFile(path))
     {
-        /* the music is played only if the file can be opened, if no, the
-           program continues but the music is not played; this is not a problem
-           as the context check if the music is playing before stopping it */
-        music.play();
+        impl->music.play();
     }
 }
 
@@ -157,11 +201,9 @@ void Context::loadMusicFile(const std::string& path) &
  */
 void Context::stopMusic() &
 {
-    /* check if the music object is playing a music */
-    if(music.getStatus() == sf::Sound::Playing)
+    if(impl->music.getStatus() == sf::Sound::Playing)
     {
-        /* stop the SFML music */
-        music.stop();
+        impl->music.stop();
     }
 }
 
@@ -170,7 +212,7 @@ void Context::stopMusic() &
  */
 void Context::restartClock() &
 {
-    clock.restart();
+    impl->clock.restart();
 }
 
 /**
@@ -178,13 +220,12 @@ void Context::restartClock() &
  */
 void Context::createGame(const std::string& name) &
 {
-    /* delete the previously loaded game if one is already in memory */
-    if (game != nullptr)
+    if (impl->game != nullptr)
     {
-        game.reset();
+        impl->game.reset();
     }
 
-    game = std::make_unique<entities::Game>(name);
+    impl->game = std::make_unique<entities::Game>(name);
 }
 
 }

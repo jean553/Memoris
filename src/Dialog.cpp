@@ -27,10 +27,12 @@
 #include "fonts.hpp"
 #include "InputTextWidget.hpp"
 #include "Context.hpp"
+#include "ColorsManager.hpp"
+#include "FontsManager.hpp"
 
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Text.hpp>
-
+#include <SFML/Graphics/RenderWindow.hpp>
 
 namespace memoris
 {

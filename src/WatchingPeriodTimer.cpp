@@ -25,6 +25,9 @@
 #include "WatchingPeriodTimer.hpp"
 
 #include "fonts.hpp"
+#include "PlayingSerieManager.hpp"
+#include "FontsManager.hpp"
+#include "ColorsManager.hpp"
 
 namespace memoris
 {

@@ -26,6 +26,10 @@
 
 #include "window.hpp"
 #include "fonts.hpp"
+#include "PlayingSerieManager.hpp"
+#include "FontsManager.hpp"
+#include "ColorsManager.hpp"
+#include "TexturesManager.hpp"
 
 namespace memoris
 {

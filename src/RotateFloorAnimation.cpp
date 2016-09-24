@@ -24,6 +24,8 @@
 
 #include "RotateFloorAnimation.hpp"
 
+#include "SoundsManager.hpp"
+
 namespace memoris
 {
 namespace animations

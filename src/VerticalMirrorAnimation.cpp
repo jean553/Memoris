@@ -25,6 +25,7 @@
 #include "VerticalMirrorAnimation.hpp"
 
 #include "separators.hpp"
+#include "SoundsManager.hpp"
 
 namespace memoris
 {

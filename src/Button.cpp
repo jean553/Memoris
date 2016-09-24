@@ -24,6 +24,8 @@
 
 #include "Button.hpp"
 
+#include "ColorsManager.hpp"
+
 namespace memoris
 {
 namespace widgets

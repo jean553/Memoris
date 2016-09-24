@@ -26,9 +26,12 @@
 
 #include "fonts.hpp"
 #include "Context.hpp"
+#include "FontsManager.hpp"
+#include "ColorsManager.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 namespace memoris
 {

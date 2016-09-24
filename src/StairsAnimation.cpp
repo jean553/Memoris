@@ -24,6 +24,8 @@
 
 #include "StairsAnimation.hpp"
 
+#include "SoundsManager.hpp"
+
 namespace memoris
 {
 namespace animations

@@ -25,8 +25,11 @@
 #include "NewLevelDialog.hpp"
 
 #include "Context.hpp"
+#include "ColorsManager.hpp"
+#include "FontsManager.hpp"
 #include "fonts.hpp"
 
+#include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
 
 namespace memoris

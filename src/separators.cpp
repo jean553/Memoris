@@ -24,6 +24,8 @@
 
 #include "separators.hpp"
 
+#include "ColorsManager.hpp"
+
 namespace memoris
 {
 namespace utils

@@ -36,6 +36,8 @@
 #include "SaveLevelDialog.hpp"
 #include "NewLevelDialog.hpp"
 #include "EditingLevelManager.hpp"
+#include "ColorsManager.hpp"
+#include "FontsManager.hpp"
 
 namespace memoris
 {
