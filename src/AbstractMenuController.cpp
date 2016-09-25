@@ -26,11 +26,25 @@
 
 #include "Context.hpp"
 #include "SoundsManager.hpp"
+#include "MenuItem.hpp"
+
+using UniquePtrMenuItemContainer = 
+    std::vector<std::unique_ptr<memoris::items::MenuItem>>;
 
 namespace memoris
 {
 namespace controllers
 {
+
+class AbstractMenuController::Impl
+{
+
+public:
+
+    unsigned short selectorPosition {0};
+
+    UniquePtrMenuItemContainer items;
+};
 
 /**
  *
@@ -38,17 +52,24 @@ namespace controllers
 AbstractMenuController::AbstractMenuController(
     utils::Context& context
 ) :
-    Controller(context)
+    Controller(context),
+    impl(std::make_unique<Impl>())
 {
-    /* does nothing, just passed arguments from one controller to another */
 }
 
 /**
  *
  */
-void AbstractMenuController::addMenuItem(std::unique_ptr<items::MenuItem> item)
+AbstractMenuController::~AbstractMenuController() noexcept = default;
+
+/**
+ *
+ */
+void AbstractMenuController::addMenuItem(
+    std::unique_ptr<items::MenuItem> item
+) &
 {
-    items.push_back(std::move(item));
+    impl->items.push_back(std::move(item));
 }
 
 /**
@@ -56,57 +77,75 @@ void AbstractMenuController::addMenuItem(std::unique_ptr<items::MenuItem> item)
  */
 void AbstractMenuController::renderAllMenuItems(
     utils::Context& context
-)
+) const &
 {
-    /* use a loop with iterator as the unique pointer is not moved or copied
-       during the loop iteration; that's why we use an iterator to point on
-       each loop item one by one */
-    for(
-        std::vector<std::unique_ptr<items::MenuItem>>::iterator item =
-            items.begin();
-        item != items.end();
-        ++item
-    )
+    for (auto& item : impl->items) // item -> std::unique_ptr<items::MenuItem>&
     {
-        /* the item iterator is a pointer to an unique pointer; that's why
-           whe use the double dereference to manipulate the object */
-        (**item).render(context);
+        item->render(context);
     }
 }
 
 /**
  *
  */
-unsigned short AbstractMenuController::getLastMenuItemIndex() const
+const unsigned short& AbstractMenuController::getSelectorPosition() const &
+    noexcept
 {
-    /* convert the size_t to unsigned short for future usage; unsigned
-       short has usually a maximum value of 31767; we use this function
-       for menu items; we can considere this method as a safe method;
-       there is a very small risk of unexpected behavior */
-    unsigned short size = static_cast<unsigned short>(items.size());
+    return impl->selectorPosition;
+}
 
-    /* substract one if the size is more than 0 to get the last item index */
-    if (size > 0)
+/**
+ *
+ */
+void AbstractMenuController::moveUp(
+    const utils::Context& context
+) &
+{
+    if (impl->selectorPosition == 0)
     {
-        return size - 1;
+        return;
     }
 
-    return size;
+    impl->selectorPosition--;
+
+    updateMenuSelection(context);
+}
+
+/**
+ *
+ */
+void AbstractMenuController::moveDown(
+    utils::Context& context
+) &
+{
+    /* static cast because std::vector::size() returns a size_t and
+       selectorPosition is an unsigned short */
+    if (
+        impl->selectorPosition == 
+            static_cast<unsigned short>(impl->items.size() - 1)
+    )
+    {
+        return;
+    }
+
+    impl->selectorPosition++;
+
+    updateMenuSelection(context);
 }
 
 /**
  *
  */
 void AbstractMenuController::updateMenuSelection(
-    utils::Context& context
-)
+    const utils::Context& context
+) &
 {
     /* browse all the menu items; use an iterator in order to calculate the
        current index during each iteration */
     for(
-        std::vector<std::unique_ptr<items::MenuItem>>::iterator iterator =
-            items.begin();
-        iterator != items.end();
+        UniquePtrMenuItemContainer::iterator iterator =
+            impl->items.begin();
+        iterator != impl->items.end();
         ++iterator
     )
     {
@@ -119,76 +158,20 @@ void AbstractMenuController::updateMenuSelection(
             static_cast<unsigned short>(
                 std::abs(
                     std::distance(
-                        items.begin(),
+                        impl->items.begin(),
                         iterator
                     )
                 )
-            ) == selectorPosition
+            ) == impl->selectorPosition
         )
         {
-            /* the item iterator is a pointer to an unique pointer; that's why
-               whe use the double dereference to manipulate the object */
             (**iterator).select(context);
-
             continue;
         }
 
-        /* unselect all the others items */
         (**iterator).unselect(context);
     }
-}
 
-/**
- *
- */
-unsigned short AbstractMenuController::getSelectorPosition() const
-{
-    return selectorPosition;
-}
-
-/**
- *
- */
-void AbstractMenuController::moveUp(
-    utils::Context& context
-)
-{
-    /* move the selector only if the current position is not already the
-       first one */
-    if (selectorPosition == 0)
-    {
-        return;
-    }
-
-    selectorPosition--;
-
-    /* graphically update the selector position */
-    updateMenuSelection(context);
-
-    /* play the move selector sound */
-    context.getSoundsManager().playMoveSelectorSound();
-}
-
-/**
- *
- */
-void AbstractMenuController::moveDown(
-    utils::Context& context
-)
-{
-    /* move the selector only if the current selected item is not the last
-       one */
-    if (selectorPosition == getLastMenuItemIndex())
-    {
-        return;
-    }
-
-    selectorPosition++;
-
-    /* graphically update the selector position */
-    updateMenuSelection(context);
-
-    /* play the move selector sound */
     context.getSoundsManager().playMoveSelectorSound();
 }
 

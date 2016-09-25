@@ -28,6 +28,8 @@
 
 #include "AbstractMenuController.hpp"
 
+#include <SFML/Graphics/Text.hpp>
+
 namespace memoris
 {
 namespace controllers
@@ -61,7 +63,7 @@ private:
     /**
      * @brief handles menu items selection, declared in the parent class
      */
-    void selectMenuItem() override;
+    virtual void selectMenuItem() & noexcept override;
 
     /* the SFML title surface of the menu */
     sf::Text title;

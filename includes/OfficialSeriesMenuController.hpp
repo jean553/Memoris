@@ -28,6 +28,8 @@
 
 #include "AbstractMenuController.hpp"
 
+#include <SFML/Graphics/Text.hpp>
+
 namespace memoris
 {
 namespace controllers
@@ -62,7 +64,7 @@ private:
     /**
      * @brief defines what to do when the menu items are selected
      */
-    void selectMenuItem() override;
+    virtual void selectMenuItem() & noexcept override;
 
     /**
      * @brief returns the name of the serie file to open according to the

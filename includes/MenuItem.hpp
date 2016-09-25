@@ -63,21 +63,21 @@ public:
      *
      * @param context shared pointer ot the current context to use
      */
-    void render(utils::Context& context);
+    void render(utils::Context& context) const &;
 
     /**
      * @brief unselect the menu item, make it white
      *
      * @param context reference to the current context
      */
-    void unselect(utils::Context& context);
+    void unselect(const utils::Context& context) &;
 
     /**
      * @brief select the menu item, make it red
      *
      * @param context reference to the current context
      */
-    void select(utils::Context& context);
+    void select(const utils::Context& context) &;
 
 private:
 

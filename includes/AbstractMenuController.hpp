@@ -28,12 +28,14 @@
 
 #include "Controller.hpp"
 
-#include "MenuItem.hpp"
-
-#include <vector>
-
 namespace memoris
 {
+
+namespace items
+{
+class MenuItem;
+}
+
 namespace controllers
 {
 
@@ -43,91 +45,126 @@ class AbstractMenuController : public Controller
 protected:
 
     /**
-     * @brief constructor, does nothing; only used to pass arguments to the
-     * parent constructor of Controller; protected because only called during
-     * children objects creation
+     * @brief constructor, pass the parameters to the parent object and
+     * initialize the implementation; protected because only called by a
+     * child of this class
      *
      * @param context reference to the current context
+     *
+     * @throw std::bad_alloc cannot initialize the implementation unique
+     * pointer; this exception is never caught and the program stops
      */
     AbstractMenuController(utils::Context& context);
 
     /**
+     * @brief default destructor, empty, only declared in order to use
+     * forwarding declaration
+     */
+    ~AbstractMenuController() noexcept;
+
+    /**
      * @brief insert one menu item pointer inside the menu items list
      *
-     * @param unique pointer to the item to add; this is required to use
-     * pointers to avoid to create two objects; this is better to have
-     * two pointers pointing on the same object; we also use pointers
-     * because references cannot be added into containers
+     * @param item unique pointer to the menu item to insert;
+     *
+     * NOTE: we move the unique pointer here from the child object to the
+     * parent object's container instead of using move sementics directly on
+     * the object. In fact, moving a pointer to the object runs faster than
+     * moving a MenuItem object directly (measured). This is because the
+     * menu item object contains a sf::Text object, and this object has no
+     * movement constructor in SFML. So when moving directly the object, the
+     * SFML sf::Text object is copied anyway. This copy is not necessary when
+     * working at the pointer level.
+     *
+     * the item parameters is not 'const' because it is an unique pointer
+     * which is moved inside the method when calling push_back(std::move(item))
+     * this is moved because an unique_ptr cannot be copied anyway
+     *
+     * not 'const' because it adds data into the items container
+     *
+     * not 'noexcept' because even if the std::unique_ptr move constructor
+     * is not supposed to throw exceptions, push_back can still throw
+     * exceptions for other reasons
      */
-    void addMenuItem(std::unique_ptr<items::MenuItem> item);
+    void addMenuItem(std::unique_ptr<items::MenuItem> item) &;
 
     /**
      * @brief display all the menu items
      *
      * @param context shared pointer to the context to use
+     *
+     * not 'noexcept' because this method calls the render() method of the
+     * menu item and this last function calls SFML functions that are not
+     * noexcept
      */
     void renderAllMenuItems(
         utils::Context& context
-    );
+    ) const &;
 
     /**
      * @brief getter of the selector position
      *
-     * @return unsigned short
+     * @return const unsigned short&
      */
-    unsigned short getSelectorPosition() const;
+    const unsigned short& getSelectorPosition() const & noexcept;
 
     /**
      * @brief move up the selector, only if the selected item is not the first
      * one
      *
      * @param context reference to the current context to use
+     *
+     * not 'const' because it modifies the selectorPosition value
+     *
+     * not 'noexcept' because it calls menu item methods that calls SFML
+     * functions and these functions are not noexcept
      */
-    void moveUp(utils::Context& context);
+    void moveUp(const utils::Context& context) &;
 
     /**
      * @brief move down the selector, only if the selected item is not the last
      * one
      *
      * @param context reference to the current context to use
+     *
+     * not 'const' because it modifies the selectorPosition value
+     *
+     * not 'noexcept' because it calls menu item methods that calls SFML
+     * functions and these functions are not noexcept
      */
-    void moveDown(utils::Context& context);
+    void moveDown(utils::Context& context) &;
 
     /**
-     * @brief pure virtual method with empty definition; this method is used
-     * to make the class abstract; this method has to be overwritted by all
-     * children classes to define what happens when menu items are selected
-     * by definition; this method can also be used in any other menu purpose
+     * @brief pure virtual method used to make this class abstract; this
+     * method is defined in the children objects and describes what happens
+     * when an item of the menu is selected, according to which item has
+     * been selected
+     *
+     * not 'const' because definition usually set nextControllerId and
+     * expectedControllerId attributes
+     *
+     * NOTE: noexcept because each definition is noexcept guarantee (one
+     * method handles exceptions but a try/catch is used there)
      */
-    virtual void selectMenuItem() = 0;
+    virtual void selectMenuItem() & noexcept = 0;
 
 private:
-
-    /**
-     * @brief returns the highest item index from the menu items list;
-     * returns also 0 if the list is empty or if the list only contains
-     * one item
-     *
-     * @return unsigned short
-     */
-    unsigned short getLastMenuItemIndex() const;
 
     /**
      * @brief update the colors of all the menu items; the current
      * selected item is colored by the red color
      *
      * @param context reference to the current context
+     *
+     * not 'const' because it modifies items inside the items container
+     *
+     * not 'noexcept' because calls STL and SFML functions that are not
+     * noexcept
      */
-    void updateMenuSelection(utils::Context& context);
+    void updateMenuSelection(const utils::Context& context) &;
 
-    /* the current position of the selector ( the current pointed item ); the
-       default value is 0 */
-    unsigned short selectorPosition {0};
-
-    /* the container of menu items; we use a vector because we have to handle
-       order, keys management ( indexes ), we have to be able to find by index,
-       we insert at the end and the size won't change at all after creation */
-    std::vector<std::unique_ptr<items::MenuItem>> items;
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }

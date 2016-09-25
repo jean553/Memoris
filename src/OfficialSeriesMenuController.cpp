@@ -29,6 +29,7 @@
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "PlayingSerieManager.hpp"
+#include "MenuItem.hpp"
 
 namespace memoris
 {
@@ -200,7 +201,7 @@ const unsigned short& OfficialSeriesMenuController::render(
 /**
  *
  */
-void OfficialSeriesMenuController::selectMenuItem()
+void OfficialSeriesMenuController::selectMenuItem() & noexcept
 {
     /* load the content of the serie file into a serie object and insert into
        the game context */
