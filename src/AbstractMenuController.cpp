@@ -28,6 +28,9 @@
 #include "SoundsManager.hpp"
 #include "MenuItem.hpp"
 
+#include <vector>
+#include <cstdlib>
+
 using UniquePtrMenuItemContainer = 
     std::vector<std::unique_ptr<memoris::items::MenuItem>>;
 

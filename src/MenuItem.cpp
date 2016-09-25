@@ -29,46 +29,70 @@
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+
 namespace memoris
 {
 namespace items
 {
 
+class MenuItem::Impl
+{
+
+public:
+    
+    Impl(
+        const utils::Context& context,
+        const std::string& label,
+        const float& horizontalPosition,
+        const float& verticalPosition
+    )
+    {
+        text.setString(label);
+        text.setFont(context.getFontsManager().getTextFont());
+        text.setCharacterSize(fonts::ITEM_SIZE);
+        text.setPosition(
+            horizontalPosition,
+            verticalPosition
+        );
+    }
+
+    sf::Text text;
+};
+
 /**
  *
  */
 MenuItem::MenuItem(
-    utils::Context& context,
+    const utils::Context& context,
     const std::string& label,
     const float& horizontalPosition,
     const float& verticalPosition
-)
+) :
+    impl(
+        std::make_unique<Impl>(
+            context,
+            label,
+            horizontalPosition,
+            verticalPosition
+        )
+    )
 {
-    /* the displayed text of the item is the given label */
-    text.setString(label);
-
-    /* set the common menu item font */
-    text.setFont(context.getFontsManager().getTextFont());
-
-    /* common font size for all the menu items */
-    text.setCharacterSize(fonts::ITEM_SIZE);
-
-    /* the position of the text is the given one */
-    text.setPosition(
-        horizontalPosition,
-        verticalPosition
-    );
-
-    /* the default color when the item is unselected is white */
     unselect(context);
 }
 
 /**
  *
  */
-void MenuItem::render(utils::Context& context) const &
+MenuItem::~MenuItem() noexcept = default;
+
+/**
+ *
+ */
+void MenuItem::render(const utils::Context& context) const &
 {
-    context.getSfmlWindow().draw(text);
+    context.getSfmlWindow().draw(impl->text);
 }
 
 /**
@@ -76,8 +100,7 @@ void MenuItem::render(utils::Context& context) const &
  */
 void MenuItem::unselect(const utils::Context& context) &
 {
-    /* the menu item is white when unselected */
-    text.setColor(context.getColorsManager().getColorWhite());
+    impl->text.setColor(context.getColorsManager().getColorWhite());
 }
 
 /**
@@ -85,8 +108,7 @@ void MenuItem::unselect(const utils::Context& context) &
  */
 void MenuItem::select(const utils::Context& context) &
 {
-    /* the menu item is red when selected */
-    text.setColor(context.getColorsManager().getColorRed());
+    impl->text.setColor(context.getColorsManager().getColorRed());
 }
 
 }
