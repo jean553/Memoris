@@ -31,6 +31,8 @@
 #include "PlayingSerieManager.hpp"
 #include "MenuItem.hpp"
 
+#include <SFML/Graphics/RenderWindow.hpp>
+
 namespace memoris
 {
 namespace controllers

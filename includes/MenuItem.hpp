@@ -26,12 +26,16 @@
 #ifndef MEMORIS_MENUITEM_H_
 #define MEMORIS_MENUITEM_H_
 
-#include "Context.hpp"
-
-#include <SFML/Graphics.hpp>
+#include <memory>
 
 namespace memoris
 {
+
+namespace utils
+{
+class Context;
+}
+
 namespace items
 {
 
@@ -51,24 +55,36 @@ public:
      * @param verticalPosition the vertical position of the text
      */
     MenuItem(
-        utils::Context& context,
+        const utils::Context& context,
         const std::string& label,
         const float& horizontalPosition,
         const float& verticalPosition
     );
 
     /**
+     * @brief default destructor, empty, only declared in order to use
+     * forwarding declaration
+     */
+    ~MenuItem() noexcept;
+
+    /**
      * @brief display the menu item inside the given context; displays the
      * item in the correct color
      *
      * @param context shared pointer ot the current context to use
+     *
+     * not 'noexcept' because it calls SFML methods that are not noexcept
      */
-    void render(utils::Context& context) const &;
+    void render(const utils::Context& context) const &;
 
     /**
      * @brief unselect the menu item, make it white
      *
      * @param context reference to the current context
+     *
+     * not 'const' because it modifies the color of the text attribute
+     *
+     * not 'noexcept' because it calls SFML methods that are not noexcept
      */
     void unselect(const utils::Context& context) &;
 
@@ -76,14 +92,17 @@ public:
      * @brief select the menu item, make it red
      *
      * @param context reference to the current context
+     *
+     * not 'const' because it modifies the color of the text attribute
+     *
+     * not 'noexcept' because it calls SFML methods that are not noexcept
      */
     void select(const utils::Context& context) &;
 
 private:
 
-    /* the SFML text object; a menu item is a SFML text with specific
-       properties */
-    sf::Text text;
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }
