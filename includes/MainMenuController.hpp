@@ -69,7 +69,7 @@ private:
      * @brief overwrite the parent method, defines which controller
      * is called when one menu item is selected
      */
-    void selectMenuItem() override;
+    virtual void selectMenuItem() & noexcept override;
 
     /* animated background of the main menu */
     utils::AnimatedBackground animatedBackground;

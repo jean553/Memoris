@@ -28,6 +28,7 @@
 #include "controllers.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
+#include "MenuItem.hpp"
 
 namespace memoris
 {
@@ -164,7 +165,7 @@ const unsigned short& SerieMainMenuController::render(
 /**
  *
  */
-void SerieMainMenuController::selectMenuItem()
+void SerieMainMenuController::selectMenuItem() & noexcept
 {
     /* TODO: nothing happens for now when the personal series item is selected,
        we have to define a behavior and call the expected controller */

@@ -28,6 +28,7 @@
 #include "ColorsManager.hpp"
 #include "FontsManager.hpp"
 #include "TexturesManager.hpp"
+#include "MenuItem.hpp"
 
 namespace memoris
 {
@@ -281,7 +282,7 @@ void MainMenuController::animateTitleColor()
 /**
  *
  */
-void MainMenuController::selectMenuItem()
+void MainMenuController::selectMenuItem() & noexcept
 {
     /* call the correct controller according to the current selected item */
     switch(getSelectorPosition())

@@ -29,6 +29,8 @@
 
 #include "AbstractMenuController.hpp"
 
+#include <SFML/Graphics/Text.hpp>
+
 namespace memoris
 {
 namespace controllers
@@ -66,7 +68,7 @@ private:
      * @brief overwrite the parent method; defines which constroller is called
      * when one menu item is selected
      */
-    void selectMenuItem() override;
+    virtual void selectMenuItem() & noexcept override;
 };
 
 }

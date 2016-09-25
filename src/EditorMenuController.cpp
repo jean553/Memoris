@@ -28,6 +28,7 @@
 #include "controllers.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
+#include "MenuItem.hpp"
 
 namespace memoris
 {
@@ -146,7 +147,7 @@ const unsigned short& EditorMenuController::render(
 /**
  *
  */
-void EditorMenuController::selectMenuItem()
+void EditorMenuController::selectMenuItem() & noexcept
 {
     switch(getSelectorPosition())
     {

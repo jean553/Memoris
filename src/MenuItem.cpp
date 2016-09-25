@@ -66,7 +66,7 @@ MenuItem::MenuItem(
 /**
  *
  */
-void MenuItem::render(utils::Context& context)
+void MenuItem::render(utils::Context& context) const &
 {
     context.getSfmlWindow().draw(text);
 }
@@ -74,7 +74,7 @@ void MenuItem::render(utils::Context& context)
 /**
  *
  */
-void MenuItem::unselect(utils::Context& context)
+void MenuItem::unselect(const utils::Context& context) &
 {
     /* the menu item is white when unselected */
     text.setColor(context.getColorsManager().getColorWhite());
@@ -83,7 +83,7 @@ void MenuItem::unselect(utils::Context& context)
 /**
  *
  */
-void MenuItem::select(utils::Context& context)
+void MenuItem::select(const utils::Context& context) &
 {
     /* the menu item is red when selected */
     text.setColor(context.getColorsManager().getColorRed());
