@@ -28,11 +28,9 @@
 
 #include "AbstractMenuController.hpp"
 
-#include "AnimatedBackground.hpp"
-#include "MenuGradient.hpp"
-
 namespace memoris
 {
+
 namespace controllers
 {
 
@@ -49,60 +47,42 @@ public:
     MainMenuController(utils::Context& context);
 
     /**
+     * @brief default destructor, empty, only declared here in order to use
+     * forwarding declaration
+     */
+    ~MainMenuController() noexcept;
+
+    /**
      * @brief render the main menu controller
      *
      * @param context reference to the current context to use
      *
-     * @return const unsigned short& id of the next screen controller
+     * @return const unsigned short&
      */
-    virtual const unsigned short& render(utils::Context& context) & override 
-        final;
+    virtual const unsigned short& render(utils::Context& context) & override;
 
 private:
 
     /**
      * @brief update the color of the title
+     *
+     * not 'const' because the colors attributes are modified
+     *
+     * not 'noexcept' because it calls the SFML function setColor() which is
+     * not noexcept
      */
-    void animateTitleColor();
+    void animateTitleColor() &;
 
     /**
      * @brief overwrite the parent method, defines which controller
      * is called when one menu item is selected
+     *
+     * not 'const' because it modifies the expected controller id
      */
     virtual void selectMenuItem() & noexcept override;
 
-    /* animated background of the main menu */
-    utils::AnimatedBackground animatedBackground;
-
-    /* menu gradient effect */
-    others::MenuGradient menuGradient;
-
-    /* NOTE: we use SFML 32 bits long integers to save the
-       last updated time of each animation; we use this
-       data type as it is the one used by SFML clock */
-
-    /* save the last time the title color has been modified; the default
-       value is 0 */
-    sf::Int32 titleLastAnimationTime {0};
-
-    /* booleans used to indicate if we have to increment or decrement each
-       color value (rgb) of the main menu title color animation; we use
-       booleans instead of having signed numbers to indicate the direction
-       (increment or decrement) : in fact, we avoid to mix signed numbers
-       with sf::Uint8 (color number type) */
-    bool incrementTitleRedColor;
-    bool incrementTitleGreenColor;
-    bool incrementTitleBlueColor;
-
-    /* the main menu 'Memoris' animated title color, copied here because
-       this color is animated and change all the time */
-    sf::Color colorTitle;
-
-    /* the main menu 'Memoris' animated title */
-    sf::Text title;
-
-    /* the displayed github texture sprite, in the top right corner */
-    sf::Sprite spriteGithub;
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }

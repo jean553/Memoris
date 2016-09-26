@@ -29,37 +29,62 @@
 #include "FontsManager.hpp"
 #include "TexturesManager.hpp"
 #include "MenuItem.hpp"
+#include "AnimatedBackground.hpp"
+#include "MenuGradient.hpp"
 
 namespace memoris
 {
 namespace controllers
 {
 
+class MainMenuController::Impl
+{
+
+public:
+
+    Impl(utils::Context& context) :
+        animatedBackground(context),
+        menuGradient(context)
+    {
+    }
+
+    utils::AnimatedBackground animatedBackground;
+    others::MenuGradient menuGradient;
+
+    /* we use SFML 32 bits long integers to save the
+       last updated time of each animation; we use this
+       data type as it is the one used by SFML clock */
+    sf::Int32 titleLastAnimationTime {0};
+
+    bool incrementTitleRedColor {true};
+    bool incrementTitleGreenColor {true};
+    bool incrementTitleBlueColor {false};
+
+    sf::Color colorTitle;
+
+    sf::Text title;
+
+    sf::Sprite spriteGithub;
+};
+
 /**
  *
  */
-MainMenuController::MainMenuController(
-    utils::Context& context
-) :
+MainMenuController::MainMenuController(utils::Context& context) :
     AbstractMenuController(context),
-    animatedBackground(context),
-    menuGradient(context)
+    impl(std::make_unique<Impl>(context))
 {
-    /* the title color and selector color are copies from
-       manager colors, because they are updated continually */
-    colorTitle = context.getColorsManager().getColorBlueCopy();
+    impl->colorTitle = context.getColorsManager().getColorBlueCopy();
 
-    /* initialize the title text label, at the top center of the screen */
-    title.setFont(context.getFontsManager().getTitleFont());
-    title.setString("Memoris");
-    title.setCharacterSize(fonts::TITLE_SIZE);
-    title.setColor(colorTitle);
-    title.setPosition(
+    impl->title.setFont(context.getFontsManager().getTitleFont());
+    impl->title.setString("Memoris");
+    impl->title.setCharacterSize(fonts::TITLE_SIZE);
+    impl->title.setColor(impl->colorTitle);
+    impl->title.setPosition(
         480.f,
         100.f
     );
 
-    /* initialize the new game menu item */
     std::unique_ptr<items::MenuItem> newGame(
         std::make_unique<items::MenuItem>(
             context,
@@ -69,7 +94,6 @@ MainMenuController::MainMenuController(
         )
     );
 
-    /* initialize the open game menu item */
     std::unique_ptr<items::MenuItem> loadGame(
         std::make_unique<items::MenuItem>(
             context,
@@ -79,7 +103,6 @@ MainMenuController::MainMenuController(
         )
     );
 
-    /* initialize the editor menu item */
     std::unique_ptr<items::MenuItem> editor (
         std::make_unique<items::MenuItem>(
             context,
@@ -89,7 +112,6 @@ MainMenuController::MainMenuController(
         )
     );
 
-    /* initialize the options menu item */
     std::unique_ptr<items::MenuItem> options(
         std::make_unique<items::MenuItem>(
             context,
@@ -99,7 +121,6 @@ MainMenuController::MainMenuController(
         )
     );
 
-    /* initialize the exit menu item */
     std::unique_ptr<items::MenuItem> exit(
         std::make_unique<items::MenuItem>(
             context,
@@ -109,28 +130,27 @@ MainMenuController::MainMenuController(
         )
     );
 
-    /* select the first item of the menu */
     newGame->select(context);
 
-    /* add the menu items inside the menu items list */
     addMenuItem(std::move(newGame));
     addMenuItem(std::move(loadGame));
     addMenuItem(std::move(editor));
     addMenuItem(std::move(options));
     addMenuItem(std::move(exit));
 
-    spriteGithub.setTexture(
+    impl->spriteGithub.setTexture(
         context.getTexturesManager().getGithubTexture()
     );
-    spriteGithub.setPosition(
+    impl->spriteGithub.setPosition(
         1300.f,
         0.f
     );
-
-    incrementTitleRedColor = true;
-    incrementTitleGreenColor = true;
-    incrementTitleBlueColor = false;
 }
+
+/**
+ *
+ */
+MainMenuController::~MainMenuController() noexcept = default;
 
 /**
  *
@@ -139,41 +159,26 @@ const unsigned short& MainMenuController::render(
     utils::Context& context
 ) &
 {
-    /* animate the animated background */
-    animatedBackground.render(context);
+    impl->animatedBackground.render(context);
+    impl->menuGradient.display(context);
 
-    /* apply the menu sub-surface */
-    menuGradient.display(context);
-
-    /* animate the main menu title according to its last animation time */
     if(
         context.getClockMillisecondsTime() -
-        titleLastAnimationTime > 10
+        impl->titleLastAnimationTime > 10
     )
     {
         animateTitleColor();
 
-        /* update the title animation time with the current time
-           after the animation */
-        titleLastAnimationTime =
-            context.getClockMillisecondsTime();
+        impl->titleLastAnimationTime = context.getClockMillisecondsTime();
     }
 
-    /* render the title and the github picture */
-    context.getSfmlWindow().draw(title);
-    context.getSfmlWindow().draw(spriteGithub);
+    context.getSfmlWindow().draw(impl->title);
+    context.getSfmlWindow().draw(impl->spriteGithub);
 
-    /* display all the menu items */
     renderAllMenuItems(context);
 
-    /* render the opening/closing animation if necessary, get the next
-       controller id at the end of the closing animation if the expected
-       controller id has been modified */
     nextControllerId = animateScreenTransition(context);
 
-    /* main menu controller events loop; changes the position of the menu
-       selector according to the Up/Down keys; select a menu item when
-       the Enter key is pressed */
     while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
@@ -202,14 +207,12 @@ const unsigned short& MainMenuController::render(
             }
             default:
             {
-                /* empty default block for coding style requirements */
                 break;
             }
             }
         }
         default:
         {
-            /* empty default block for coding style requirements */
             break;
         }
         }
@@ -221,62 +224,60 @@ const unsigned short& MainMenuController::render(
 /**
  *
  */
-void MainMenuController::animateTitleColor()
+void MainMenuController::animateTitleColor() &
 {
-    /* update the color of the title over time */
-
-    if (incrementTitleRedColor)
+    if (impl->incrementTitleRedColor)
     {
-        colorTitle.r++;
+        impl->colorTitle.r++;
     }
     else
     {
-        colorTitle.r--;
+        impl->colorTitle.r--;
     }
 
-    if (incrementTitleGreenColor)
+    if (impl->incrementTitleGreenColor)
     {
-        colorTitle.g++;
+        impl->colorTitle.g++;
     }
     else
     {
-        colorTitle.g--;
+        impl->colorTitle.g--;
     }
 
-    if (incrementTitleBlueColor)
+    if (impl->incrementTitleBlueColor)
     {
-        colorTitle.b++;
+        impl->colorTitle.b++;
     }
     else
     {
-        colorTitle.b--;
+        impl->colorTitle.b--;
     }
 
     if(
-        colorTitle.r == 255 ||
-        colorTitle.r == 0
+        impl->colorTitle.r == 255 ||
+        impl->colorTitle.r == 0
     )
     {
-        incrementTitleRedColor = !incrementTitleRedColor;
+        impl->incrementTitleRedColor = !impl->incrementTitleRedColor;
     }
 
     if(
-        colorTitle.g == 180 ||
-        colorTitle.g == 0
+        impl->colorTitle.g == 180 ||
+        impl->colorTitle.g == 0
     )
     {
-        incrementTitleGreenColor = !incrementTitleGreenColor;
+        impl->incrementTitleGreenColor = !impl->incrementTitleGreenColor;
     }
 
     if(
-        colorTitle.b == 255 ||
-        colorTitle.b == 0
+        impl->colorTitle.b == 255 ||
+        impl->colorTitle.b == 0
     )
     {
-        incrementTitleBlueColor = !incrementTitleBlueColor;
+        impl->incrementTitleBlueColor = !impl->incrementTitleBlueColor;
     }
 
-    title.setColor(colorTitle);
+    impl->title.setColor(impl->colorTitle);
 }
 
 /**
@@ -284,24 +285,20 @@ void MainMenuController::animateTitleColor()
  */
 void MainMenuController::selectMenuItem() & noexcept
 {
-    /* call the correct controller according to the current selected item */
     switch(getSelectorPosition())
     {
-    /* the new game item is selected */
     case 0:
     {
         expectedControllerId = NEW_GAME_CONTROLLER_ID;
 
         break;
     }
-    /* the editor item is selected */
     case 2:
     {
         expectedControllerId = EDITOR_MENU_CONTROLLER_ID;
 
         break;
     }
-    /* the exit item is selected (or any other) */
     default:
     {
         nextControllerId = EXIT;
