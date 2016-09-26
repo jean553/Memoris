@@ -42,7 +42,7 @@ class Controller::Impl
 
 public:
 
-    Impl(utils::Context& context)
+    Impl(const utils::Context& context)
     {
         transitionSurfaceColor = 
             context.getColorsManager().getColorBlackCopy();
@@ -71,7 +71,7 @@ public:
 /**
  *
  */
-Controller::Controller(utils::Context& context) : 
+Controller::Controller(const utils::Context& context) : 
     impl(std::make_unique<Impl>(context))
 {
 }

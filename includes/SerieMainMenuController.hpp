@@ -29,8 +29,6 @@
 
 #include "AbstractMenuController.hpp"
 
-#include <SFML/Graphics/Text.hpp>
-
 namespace memoris
 {
 namespace controllers
@@ -42,33 +40,48 @@ class SerieMainMenuController : public AbstractMenuController
 public:
 
     /**
-     * @brief constructor, creates the title surface and generate the
-     * menu items unique pointers of the menu
+     * @brief constructor, initializes the implementation
      *
      * @param context reference to the current context to use
+     *
+     * not 'noexcept' because calls SFML methods that are not noexcept
      */
-    SerieMainMenuController(utils::Context& context);
+    SerieMainMenuController(const utils::Context& context);
+
+    /**
+     * @brief default destructor, empty, only declared in order to use
+     * forwarding declaration
+     */
+    ~SerieMainMenuController() noexcept;
 
     /**
      * @brief render the serie editor screen
      *
      * @param context reference to the current context to use
      *
-     * @return const unsigned short& id of the next screen controller
+     * @return const unsigned short&
+     *
+     * not 'const' because this method modifies the value of some attributes
+     * like the expected controller id
+     *
+     * not 'noexcept' because the parent function is not noexcept (there are
+     * too many calls to noexcept functions in all the implementation of this
+     * method)
      */
-    virtual const unsigned short& render(utils::Context& context) & override 
-        final;
+    virtual const unsigned short& render(utils::Context& context) & override; 
 
 private:
-
-    /* the serie main menu controller main SFML title */
-    sf::Text title;
 
     /**
      * @brief overwrite the parent method; defines which constroller is called
      * when one menu item is selected
+     *
+     * not 'const' because it modifies the expected controller id attribute
      */
     virtual void selectMenuItem() & noexcept override;
+
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }
