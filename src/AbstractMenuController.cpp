@@ -52,9 +52,7 @@ public:
 /**
  *
  */
-AbstractMenuController::AbstractMenuController(
-    utils::Context& context
-) :
+AbstractMenuController::AbstractMenuController(const utils::Context& context) :
     Controller(context),
     impl(std::make_unique<Impl>())
 {

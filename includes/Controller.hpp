@@ -80,7 +80,7 @@ protected:
      *
      * not 'noexcept' because it calls SFML methods that are not noexcept
      */
-    Controller(utils::Context& context);
+    Controller(const utils::Context& context);
 
     /**
      * @brief render the controller switching animation (the animation that

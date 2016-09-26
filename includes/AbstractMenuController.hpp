@@ -54,7 +54,7 @@ protected:
      * @throw std::bad_alloc cannot initialize the implementation unique
      * pointer; this exception is never caught and the program stops
      */
-    AbstractMenuController(utils::Context& context);
+    AbstractMenuController(const utils::Context& context);
 
     /**
      * @brief default destructor, empty, only declared in order to use
