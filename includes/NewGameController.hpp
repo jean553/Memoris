@@ -30,10 +30,6 @@
 
 #include "Controller.hpp"
 
-#include <SFML/Graphics.hpp>
-
-#include "InputTextWidget.hpp"
-
 namespace memoris
 {
 namespace controllers
@@ -49,18 +45,25 @@ public:
      * label surface; creates the input text widget
      *
      * @param context reference to the current context to use
+     *
+     * not 'noexcept' because it calls SFML functions that are not noexcept
      */
     NewGameController(utils::Context& context);
+
+    /**
+     * @brief default destructor, empty, only declared here in order to use
+     * forwarding declaration
+     */
+    ~NewGameController() noexcept;
 
     /**
      * @brief render the new game screen
      *
      * @param context reference to the current context to use
      *
-     * @return const unsigned short& id of the next screen controller
+     * @return const unsigned short&
      */
-    virtual const unsigned short& render(utils::Context& context) & override 
-        final;
+    virtual const unsigned short& render(utils::Context& context) & override;
 
 private:
 
@@ -70,19 +73,17 @@ private:
      * created or not
      *
      * @return bool
+     *
+     * the returned value is not a reference because this is the result of
+     * a SFML function and this result is already passed by copy
+     *
+     * not 'noexcept' because the function calls a sub-function that calls a
+     * SFML function that is not marked as noexcept
      */
-    bool validateGameName() const;
+    const bool validateGameName() const &;
 
-    /* the new game screen title */
-    sf::Text title;
-
-    /* the new game screen short explanation indicating the text input widget
-       is used to specify the name of the game */
-    sf::Text explanation;
-
-    /* the input text widget is used to let the user enter the name of the
-       new game to create */
-    widgets::InputTextWidget inputTextGameName;
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }

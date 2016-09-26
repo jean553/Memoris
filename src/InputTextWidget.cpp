@@ -249,7 +249,7 @@ sf::String InputTextWidget::getText() const
 /**
  *
  */
-bool InputTextWidget::isEmpty() const
+const bool InputTextWidget::isEmpty() const &
 {
     /* use directly the SFML string function */
     return displayedText.getString().isEmpty();

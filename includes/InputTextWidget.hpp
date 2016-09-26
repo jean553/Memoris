@@ -104,8 +104,11 @@ public:
      * game only if the name is not empty
      *
      * @return bool
+     *
+     * not 'noexcept' because it calls isEmpty() function of the SFML and this
+     * method is not marked as noexcept
      */
-    bool isEmpty() const;
+    const bool isEmpty() const &;
 
 private:
 
