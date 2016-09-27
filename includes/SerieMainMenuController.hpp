@@ -68,7 +68,7 @@ public:
      * too many calls to noexcept functions in all the implementation of this
      * method)
      */
-    virtual const unsigned short& render(utils::Context& context) & override; 
+    virtual const unsigned short& render(utils::Context& context) & override;
 
 private:
 

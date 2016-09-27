@@ -54,7 +54,7 @@ public:
             50.f
         );
     }
-    
+
     sf::Text title;
 };
 

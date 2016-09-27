@@ -72,16 +72,16 @@ std::unique_ptr<LevelAnimation> getAnimationByCellType(
     case cells::LEFT_ROTATION_CELL:
     {
         return std::make_unique<RotateFloorAnimation>(
-            context,
-            -1
-        );
+                   context,
+                   -1
+               );
     }
     case cells::RIGHT_ROTATION_CELL:
     {
         return std::make_unique<RotateFloorAnimation>(
-            context,
-            1
-        );
+                   context,
+                   1
+               );
     }
     default:
     {

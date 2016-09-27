@@ -80,7 +80,7 @@ GameController::GameController(
     /* apply the floors amount on the watching time */
     watchingPeriodTimer.applyFloorsAmount(level->getPlayableFloors());
 
-    /* dynamically load the tutorial widget if the serie is the tutorial 
+    /* dynamically load the tutorial widget if the serie is the tutorial
        serie */
     if (context.getPlayingSerieManager().getSerieName() == "tutorial")
     {

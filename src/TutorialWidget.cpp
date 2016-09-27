@@ -142,7 +142,7 @@ void TutorialWidget::animateFlashingAnimation(utils::Context& context) &
 {
     if (
         context.getClockMillisecondsTime() -
-            impl->lastFlashAnimationTime < 500
+        impl->lastFlashAnimationTime < 500
     )
     {
         return;

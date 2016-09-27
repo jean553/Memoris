@@ -246,7 +246,7 @@ const unsigned short& LevelEditorController::render(
                 if (
                     !levelName.empty() &&
                     impl->levelNameSurface.getString()
-                        .toAnsiString().back() == '*'
+                    .toAnsiString().back() == '*'
                 )
                 {
                     saveLevelFile(

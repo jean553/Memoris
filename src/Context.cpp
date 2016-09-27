@@ -56,7 +56,8 @@ public:
     managers::PlayingSerieManager playingSerieManager;
     managers::EditingLevelManager editingLevelManager;
 
-    sf::RenderWindow sfmlWindow = {
+    sf::RenderWindow sfmlWindow =
+    {
         sf::VideoMode(
             window::WIDTH,
             window::HEIGHT,
@@ -147,7 +148,7 @@ const managers::CellsTexturesManager& Context::getCellsTexturesManager() const
 /**
  *
  */
-managers::PlayingSerieManager& Context::getPlayingSerieManager() const & 
+managers::PlayingSerieManager& Context::getPlayingSerieManager() const &
 noexcept
 {
     return impl->playingSerieManager;
@@ -156,7 +157,7 @@ noexcept
 /**
  *
  */
-managers::EditingLevelManager& Context::getEditingLevelManager() const & 
+managers::EditingLevelManager& Context::getEditingLevelManager() const &
 noexcept
 {
     return impl->editingLevelManager;
