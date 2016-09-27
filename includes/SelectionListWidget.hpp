@@ -92,7 +92,7 @@ public:
      *
      * @return const std::string
      *
-     * the returned value is a copy because even if this method returns 
+     * the returned value is a copy because even if this method returns
      * a container item, it could also return an empty string local literal
      * (""), if the cursor is currently not pointing any item
      */

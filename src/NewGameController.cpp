@@ -117,7 +117,7 @@ const unsigned short& NewGameController::render(
             case sf::Keyboard::Escape:
             {
                 expectedControllerId =
-                    MAIN_MENU_CONTROLLER_ID;
+                MAIN_MENU_CONTROLLER_ID;
 
                 break;
             }

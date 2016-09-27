@@ -71,7 +71,7 @@ public:
     Context();
 
     /**
-     * @brief default destructor, empty, declared in order to use the 
+     * @brief default destructor, empty, declared in order to use the
      * forwarding declaration
      */
     ~Context() noexcept;
@@ -174,7 +174,7 @@ public:
      *
      * @param path file path of the music to play
      *
-     * not 'const' method because it calls SFML openFromFile() on object 
+     * not 'const' method because it calls SFML openFromFile() on object
      * attribute; this SFML function is not constant
      *
      * no 'noexcept' because the method calls other functions that are not
@@ -185,7 +185,7 @@ public:
     /**
      * @brief check if a music is playing, if yes, stop it
      *
-     * not 'const' method because it calls SFML stop() on object attribute; 
+     * not 'const' method because it calls SFML stop() on object attribute;
      * this SFML function is not constant
      *
      * no 'noexcept' because the method calls other functions that are not
@@ -198,7 +198,7 @@ public:
      * everytime the screen is switched from one controller
      * to another
      *
-     * not 'const' method because it calls SFML restart() on object attribute; 
+     * not 'const' method because it calls SFML restart() on object attribute;
      * this SFML function is not constant
      *
      * no 'noexcept' because the method calls other functions that are not

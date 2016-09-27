@@ -47,10 +47,10 @@ public:
         const float& frameVerticalPosition,
         const float& frameWidth,
         const float& frameHeight
-    ) noexcept : 
-        verticalPosition(frameVerticalPosition),
-        width(frameWidth),
-        height(frameHeight)
+) noexcept :
+    verticalPosition(frameVerticalPosition),
+                     width(frameWidth),
+                     height(frameHeight)
     {
     }
 
@@ -74,13 +74,13 @@ TutorialFrame::TutorialFrame(
     const float& frameWidth,
     const float& frameHeight
 ) noexcept :
-    impl(
-        std::make_unique<Impl>(
-            frameVerticalPosition,
-            frameWidth,
-            frameHeight
-        )
+impl(
+    std::make_unique<Impl>(
+        frameVerticalPosition,
+        frameWidth,
+        frameHeight
     )
+)
 {
 }
 

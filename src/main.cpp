@@ -37,9 +37,9 @@ using namespace memoris;
 int main()
 {
     unsigned short currentControllerId {controllers::MAIN_MENU_CONTROLLER_ID},
-        nextControllerId {0};
+             nextControllerId {0};
 
-    std::string currentMusicPath = 
+    std::string currentMusicPath =
         musics::getMusicPathById(currentControllerId),
         nextMusicPath;
 

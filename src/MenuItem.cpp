@@ -41,7 +41,7 @@ class MenuItem::Impl
 {
 
 public:
-    
+
     Impl(
         const utils::Context& context,
         const std::string& label,

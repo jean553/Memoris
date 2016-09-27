@@ -31,7 +31,7 @@
 #include <vector>
 #include <cstdlib>
 
-using UniquePtrMenuItemContainer = 
+using UniquePtrMenuItemContainer =
     std::vector<std::unique_ptr<memoris::items::MenuItem>>;
 
 namespace memoris
@@ -90,7 +90,7 @@ void AbstractMenuController::renderAllMenuItems(
  *
  */
 const unsigned short& AbstractMenuController::getSelectorPosition() const &
-    noexcept
+noexcept
 {
     return impl->selectorPosition;
 }
@@ -122,8 +122,8 @@ void AbstractMenuController::moveDown(
     /* static cast because std::vector::size() returns a size_t and
        selectorPosition is an unsigned short */
     if (
-        impl->selectorPosition == 
-            static_cast<unsigned short>(impl->items.size() - 1)
+        impl->selectorPosition ==
+        static_cast<unsigned short>(impl->items.size() - 1)
     )
     {
         return;
@@ -145,7 +145,7 @@ void AbstractMenuController::updateMenuSelection(
        current index during each iteration */
     for(
         UniquePtrMenuItemContainer::iterator iterator =
-            impl->items.begin();
+        impl->items.begin();
         iterator != impl->items.end();
         ++iterator
     )

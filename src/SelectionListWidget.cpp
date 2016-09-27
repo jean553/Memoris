@@ -214,8 +214,8 @@ void SelectionListWidget::displaySelector(utils::Context& context) &
     /* explicit cast to only work with integers in the division; it prevents
        to get decimal results */
     impl->selectorIndex =
-        (mousePosition.y - static_cast<int>(VERTICAL_POSITION)) /
-        static_cast<int>(ITEMS_SEPARATION);
+    (mousePosition.y - static_cast<int>(VERTICAL_POSITION)) /
+    static_cast<int>(ITEMS_SEPARATION);
 
     /* do not display the selection surface if there is no item under the
        cursor; implicit cast from size_t and int */

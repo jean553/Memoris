@@ -44,7 +44,7 @@ public:
 
     Impl(const utils::Context& context)
     {
-        transitionSurfaceColor = 
+        transitionSurfaceColor =
             context.getColorsManager().getColorBlackCopy();
 
         transitionSurface.setSize(
@@ -71,7 +71,7 @@ public:
 /**
  *
  */
-Controller::Controller(const utils::Context& context) : 
+Controller::Controller(const utils::Context& context) :
     impl(std::make_unique<Impl>(context))
 {
 }
@@ -99,7 +99,7 @@ const unsigned short Controller::animateScreenTransition(
     context.getSfmlWindow().draw(impl->transitionSurface);
 
     if (
-        context.getClockMillisecondsTime() - 
+        context.getClockMillisecondsTime() -
         impl->lastScreenTransitionTime > TRANSITION_ANIMATION_INTERVAL
     )
     {

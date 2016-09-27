@@ -101,7 +101,7 @@ protected:
      * does not return a reference because the function can directly return
      * a value using return; in some cases
      *
-     * not 'const' because it modifies some attributes of the current 
+     * not 'const' because it modifies some attributes of the current
      * controller
      *
      * not 'noexcept' because it calls SFML methods that are not noexcept

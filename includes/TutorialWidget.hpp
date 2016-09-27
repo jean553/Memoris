@@ -51,7 +51,7 @@ class TutorialWidget
 public:
 
     /**
-     * @brief constructor, empty, only used to initialize the implementation 
+     * @brief constructor, empty, only used to initialize the implementation
      *
      * @param context reference to the current context to use
      *
@@ -104,7 +104,10 @@ public:
 
 private:
 
-    enum class FlashingColors {BLUE, WHITE};
+    enum class FlashingColors
+    {
+        BLUE, WHITE
+    };
 
     static constexpr float HORIZONTAL_POSITION {10.f};
     static constexpr float BORDER_WIDTH {2.f};
