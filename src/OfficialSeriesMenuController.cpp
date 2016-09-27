@@ -32,35 +32,53 @@
 #include "MenuItem.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Text.hpp>
 
 namespace memoris
 {
+
 namespace controllers
 {
+
+class OfficialSeriesMenuController::Impl
+{
+
+public:
+
+    Impl(const utils::Context& context) :
+        ctx(context)
+    {
+        title.setFont(context.getFontsManager().getTitleFont());
+        title.setString("Official series");
+        title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
+        title.setColor(context.getColorsManager().getColorLightBlue());
+        title.setPosition(
+            550.f,
+            50.f
+        );
+    }
+
+    sf::Text title;
+
+    /* we use a constant reference here because we want to be able to access
+       the context in the selectMenuItem() method; but this method is
+       override from AbstractMenuController and does not have any
+       utils::Context& parameter; we use a constant reference here instead
+       of changing all the declarations/definitions of selectMenuItem()
+       because only one implementation uses it;
+       TODO: #793 do not use this constant reference here */
+    const utils::Context& ctx;
+};
 
 /**
  *
  */
 OfficialSeriesMenuController::OfficialSeriesMenuController(
-    utils::Context& context
+    const utils::Context& context
 ) :
     AbstractMenuController(context),
-/* this is specific to the official series menu controller, check the
-   header for more details */
-    contextPtr(context)
+    impl(std::make_unique<Impl>(context))
 {
-    /* set the parameters of the title of the screen */
-    title.setFont(context.getFontsManager().getTitleFont());
-    title.setString("Official series");
-    title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
-    title.setColor(context.getColorsManager().getColorLightBlue());
-    title.setPosition(
-        550.f,
-        50.f
-    );
-
-    /* initialize all the official series menu items unique pointers for the
-       menu construction */
     std::unique_ptr<items::MenuItem> tutorial(
         std::make_unique<items::MenuItem>(
             context,
@@ -124,10 +142,8 @@ OfficialSeriesMenuController::OfficialSeriesMenuController(
         )
     );
 
-    /* select the first official serie name */
     tutorial->select(context);
 
-    /* add all the series names into the menu */
     addMenuItem(std::move(tutorial));
     addMenuItem(std::move(easy));
     addMenuItem(std::move(medium));
@@ -140,11 +156,17 @@ OfficialSeriesMenuController::OfficialSeriesMenuController(
 /**
  *
  */
+OfficialSeriesMenuController::~OfficialSeriesMenuController() noexcept =
+    default;
+
+/**
+ *
+ */
 const unsigned short& OfficialSeriesMenuController::render(
     utils::Context& context
 ) &
 {
-    context.getSfmlWindow().draw(title);
+    context.getSfmlWindow().draw(impl->title);
 
     renderAllMenuItems(context);
 
@@ -184,14 +206,12 @@ const unsigned short& OfficialSeriesMenuController::render(
             }
             default:
             {
-                /* useless, added here to respect the syntax */
                 break;
             }
             }
         }
         default:
         {
-            /* useless, added here to respect the syntax */
             break;
         }
         }
@@ -205,28 +225,18 @@ const unsigned short& OfficialSeriesMenuController::render(
  */
 void OfficialSeriesMenuController::selectMenuItem() & noexcept
 {
-    /* load the content of the serie file into a serie object and insert into
-       the game context */
     try
     {
-        /* use the playing serie manager to load the serie file content */
-        contextPtr.getPlayingSerieManager().loadSerieFileContent(
+        impl->ctx.getPlayingSerieManager().loadSerieFileContent(
             getSerieNameByItemId()
         );
 
-        /* if no exception, we go to the game controller with the loaded
-           serie */
         expectedControllerId = GAME_CONTROLLER_ID;
 
     }
-    /* catch a std::invalid_arguments exception if the file cannot be found;
-       we use a reference here to avoid copy, but this is only for optimization
-       in that case */
     catch(std::invalid_argument&)
     {
         /* TODO: #559 the error controller should display the error message */
-
-        /* if an error occured, we redirect to the error controller */
         expectedControllerId = ERROR_CONTROLLER_ID;
     }
 }
