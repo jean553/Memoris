@@ -28,41 +28,55 @@
 
 #include "AbstractMenuController.hpp"
 
-#include <SFML/Graphics/Text.hpp>
+#include <memory>
+
+namespace sf
+{
+class Text;
+}
 
 namespace memoris
 {
+
 namespace controllers
 {
 
 class OfficialSeriesMenuController : public AbstractMenuController
 {
+
 public:
 
     /**
-     * @brief constructor, generates the title of the screen; create unique
-     * pointers of the menu items of this screen
+     * @brief constructor, initializes the implementation
      *
-     * @param context reference to the current context to use
+     * @param context reference to the context to use
+     *
+     * not 'noexcept' because the constructor calls SFML functions that are
+     * not noexcept
      */
-    OfficialSeriesMenuController(
-        utils::Context& context
-    );
+    OfficialSeriesMenuController(const utils::Context& context);
 
     /**
-     * @brief rendering method
+     * @brief default destructor, empty, declared only in order to use
+     * forwarding declaration
+     */
+    ~OfficialSeriesMenuController() noexcept;
+
+    /**
+     * @brief renders the controller
      *
      * @param context reference to the current context to use
      *
-     * @return const unsigned short& id of the next screen
+     * @return const unsigned short&
      */
-    virtual const unsigned short& render(utils::Context& context) & override
-    final;
+    virtual const unsigned short& render(utils::Context& context) & override;
 
 private:
 
     /**
-     * @brief defines what to do when the menu items are selected
+     * @brief defines what happens when a menu item is selected
+     *
+     * not 'const' because the the expected controller id is modified
      */
     virtual void selectMenuItem() & noexcept override;
 
@@ -77,16 +91,8 @@ private:
      */
     const std::string getSerieNameByItemId() const & noexcept;
 
-    /* the title of the official series list screen is a SFML text surface */
-    sf::Text title;
-
-    /* we store a context reference as an attribute here; the method
-       selectMenuItem is overridden from the parent class; no one of the
-       children class needs this method with context usage inside, except this
-       class; that's why we keep a reference to the context, in order to use
-       it later; by doing like that, we do not need to change the declaration
-       of each overridden method and declare variadic parameters... */
-    utils::Context& contextPtr;
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }
