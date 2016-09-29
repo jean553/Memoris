@@ -27,44 +27,59 @@
 #ifndef MEMORIS_MENUGARDIENT_H_
 #define MEMORIS_MENUGARDIENT_H_
 
-#include "Context.hpp"
+#include "NotCopiable.hpp"
 
-#include <SFML/Graphics.hpp>
-
-#include <vector>
+#include <memory>
 
 namespace memoris
 {
+
+namespace utils
+{
+class Context;
+}
+
 namespace others
 {
 
-class MenuGradient
+class MenuGradient : public utils::NotCopiable
 {
 
 public:
 
-    /* declare deleted functions to prevent copy of object */
-
-    MenuGradient(const MenuGradient&) = delete;
-    MenuGradient operator=(const MenuGradient&) = delete;
-
     /**
-     * @brief constructor, loads the main surface and call a separated method
-     * to initialize all the gradient rectangles
+     * @brief constructor, initializes the implementation
      *
-     * @param context shared pointer to the context to use
+     * @param context reference to the current context to use
+     *
+     * not 'noexcept' because it calls SFML functions that are not noexcept
      */
     MenuGradient(utils::Context& context);
 
     /**
-     * @brief display the menu background and all the gradient effect lines
-     * surfaces
-     *
-     * @param context shared pointer to the context to use
+     * @brief default constructor, empty, only declared in order to use the
+     * forwarding declarations
      */
-    void display(utils::Context& context);
+    ~MenuGradient() noexcept;
+
+    /**
+     * @brief displays all the surfaces of the menu gradient
+     *
+     * @param context reference to the current context to use
+     *
+     * not 'noexcept' because it calls SFML methods that are not noexcept
+     */
+    void display(utils::Context& context) const &;
 
 private:
+
+    /* use constant expressions here because the intialization value of the
+       variables in the gradient effect generation algorithm are a little bit
+       difficult to understand if there is no label explaining them */
+    static constexpr unsigned short SURFACES_AMOUNT {1020};
+    static constexpr unsigned short SIDE_SURFACES_AMOUNT {510};
+    static constexpr float LEFT_SIDE_HORIZONTAL_POSITION {479.f};
+    static constexpr float RIGHT_SIDE_HORIZONTAL_POSITION {1099.f};
 
     /**
      * @brief private method called by the constructor only to create the
@@ -72,28 +87,14 @@ private:
      *
      * @param context reference to the current context to use
      *
-     * NOTE: the creation of the rectangles can be done directly inside the
-     * constructor of the class; in fact, there are many local variables
-     * to use to create these surfaces; in order to improve the code
-     * organization and clarity, we create these surfaces into a dedicated
-     * function.
+     * not 'const' because it modifies the gradient effect surfaces container
+     *
+     * not 'noexcept' because it calls SFML methods that are not noexcept
      */
-    void initializeGradientRectangles(
-        utils::Context& context
-    );
+    void initializeGradientRectangles(utils::Context& context) &;
 
-    /* the main rectangle shape is the black rectangle without any gradient
-       that is directly the background of the menu items; the gradient
-       surfaces are at both left and right sides of this rectangle */
-    sf::RectangleShape menuBackground;
-
-    /* the sides rectangles are vertical lines displayed on both of the menu
-       background; they all have the same color but a different alpha value
-       to create the gradient visual effect; we use a simple container of
-       objects : in fact, no need for pointers here, the objects are all
-       created one time and copied one by one into the container; we do not
-       need to delete them manually */
-    std::vector<sf::RectangleShape> sidesLines;
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }

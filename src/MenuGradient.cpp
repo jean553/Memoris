@@ -18,111 +18,110 @@
 
 /**
  * @file MenuGradient.cpp
+ * @package others
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
 #include "MenuGradient.hpp"
 
+#include "Context.hpp"
 #include "window.hpp"
 #include "ColorsManager.hpp"
+
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 namespace memoris
 {
 namespace others
 {
 
+class MenuGradient::Impl
+{
+
+public:
+
+    Impl(utils::Context& context)
+    {
+        menuBackground.setSize(
+            sf::Vector2f(
+                620.f,
+                window::HEIGHT
+            )
+        );
+
+        menuBackground.setPosition(480.f, 0);
+        menuBackground.setFillColor(
+            context.getColorsManager().getColorBlack()
+        );
+    }
+
+    sf::RectangleShape menuBackground;
+
+    std::vector<std::unique_ptr<sf::RectangleShape>> sidesLines;
+};
+
 /**
  *
  */
-MenuGradient::MenuGradient(utils::Context& context)
+MenuGradient::MenuGradient(utils::Context& context) :
+    impl(std::make_unique<Impl>(context))
 {
-    /* the width of the menuBackground surface is fixed and the height is equal
-       to the window height */
-    menuBackground.setSize(
-        sf::Vector2f(
-            620.f,
-            window::HEIGHT
-        )
-    );
-
-    /* the menuBackground surface is graphically displayed at the horizontal
-       center of the screen */
-    menuBackground.setPosition(480.f, 0);
-
-    /* the menuBackground surface is full black */
-    menuBackground.setFillColor(context.getColorsManager().getColorBlack());
-
-    /* initialize all the rectangles that are necessary to make the gradient
-       visual effect */
+    /** the creation of the rectangles can be done directly inside the
+     * constructor of the class; in fact, there are many local variables
+     * to use to create these surfaces; in order to improve the code
+     * organization and clarity, we create these surfaces into a dedicated
+     * function. */
     initializeGradientRectangles(context);
 }
 
 /**
  *
  */
-void MenuGradient::display(utils::Context& context)
-{
-    /* display first the menu background */
-    context.getSfmlWindow().draw(menuBackground);
+MenuGradient::~MenuGradient() noexcept = default;
 
-    /* iterate the whole sides lines container and displays them one by one */
-    for (const sf::RectangleShape& rectangle : sidesLines)
+/**
+ *
+ */
+void MenuGradient::display(utils::Context& context) const &
+{
+    context.getSfmlWindow().draw(impl->menuBackground);
+
+    // auto -> std::unique_ptr<sf::RectangleShape>&
+    for (auto& rectangle : impl->sidesLines)
     {
-        context.getSfmlWindow().draw(rectangle);
+        context.getSfmlWindow().draw(*rectangle);
     }
 }
 
 /**
  *
  */
-void MenuGradient::initializeGradientRectangles(
-    utils::Context& context
-)
+void MenuGradient::initializeGradientRectangles(utils::Context& context) &
 {
-    /* NOTE: the creation of the rectangles can be done directly inside the
-      constructor of the class; in fact, there are many local variables
-      to use to create these surfaces; in order to improve the code
-      organization and clarity, we create these surfaces into a dedicated
-      function. */
+    float horizontalPosition = LEFT_SIDE_HORIZONTAL_POSITION;
 
-    /* horizontal position of the current created line; this cursor is edited,
-       incremented and decremented continually during the gradient lines
-       creation */
-    float horizontalPosition = 479.f;
-
-    /* this color is continually updated for each created line; the alpha
-       value is continually modified to make the gradient effect; this color
-       is copied first because we continually modify it and because we copy
-       it to each created surface */
+    /* we make a copy of the black color in order to apply a different alpha
+       composant during each loop iteration */
     sf::Color effectColor = context.getColorsManager().getColorBlackCopy();
 
-    /* iterate the loop 1020 times: this is the required amount of surfaces to
-       make the gradient effect on both sides of the menu background */
-    for (unsigned long index = 1020; index > 0; index--)
+    for (unsigned short index = SURFACES_AMOUNT; index > 0; index--)
     {
-        /* create a temporary object that exists only during the loop
-           iteration; set all the values of the SFML rectangle in order to
-           add it into the rectangles container */
-        sf::RectangleShape rectangle;
+        // auto -> std::unique_ptr<sf::RectangleShape>
+        auto rectangle = std::make_unique<sf::RectangleShape>();
 
-        /* the position of the current created rectangle is always vertically
-           null and horizontally equals to the current horizontal position
-           cursor value */
-        rectangle.setPosition(horizontalPosition, 0);
+        rectangle->setPosition(horizontalPosition, 0);
 
-        /* the gradient lines all have the same surface size; the width is one
-           pixel and the height is equal to the window height */
-        rectangle.setSize(
-            sf::Vector2f(1, window::HEIGHT)
+        rectangle->setSize(
+            sf::Vector2f(
+                1,
+                window::HEIGHT
+            )
         );
 
-        /* set the current calculated color to the surface */
-        rectangle.setFillColor(effectColor);
+        rectangle->setFillColor(effectColor);
 
-        /* we increment or decrement the current horizontal position cursor
-           according to the current iteration index; in fact, we have to check
-           if we are creating the left side or the right side of the menu */
-        if(index >= 510)
+        if(index >= SIDE_SURFACES_AMOUNT)
         {
             horizontalPosition--;
         }
@@ -131,26 +130,18 @@ void MenuGradient::initializeGradientRectangles(
             horizontalPosition++;
         }
 
-        /* when we are in the middle of the iteration, update the horizontal
-           position and reset the alpha value; we switch from the left side
-           to the right side */
-        if (index == 510)
+        if (index == SIDE_SURFACES_AMOUNT)
         {
-            horizontalPosition = 1099.f; // 480 + 620 - 1
+            horizontalPosition = RIGHT_SIDE_HORIZONTAL_POSITION;
             effectColor.a = 255;
         }
 
-        /* the alpha value of the color is decremented each time we create two
-           lines of the gradient surface */
         if (index % 2 == 0)
         {
-            /* update the alpha value */
             effectColor.a--;
         }
 
-        /* append the new created rectangle inside the container used for the
-           the gradient effect creation */
-        sidesLines.push_back(rectangle);
+        impl->sidesLines.push_back(std::move(rectangle));
     }
 }
 
