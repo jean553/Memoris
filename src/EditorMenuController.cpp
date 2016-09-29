@@ -31,31 +31,40 @@
 #include "MenuItem.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Text.hpp>
 
 namespace memoris
 {
 namespace controllers
 {
 
+class EditorMenuController::Impl
+{
+
+public:
+
+    Impl(utils::Context& context)
+    {
+        title.setFont(context.getFontsManager().getTitleFont());
+        title.setString("Editor");
+        title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
+        title.setColor(context.getColorsManager().getColorLightBlue());
+        title.setPosition(
+            710.f,
+            50.f
+        );
+    }
+
+    sf::Text title;
+};
+
 /**
  *
  */
-EditorMenuController::EditorMenuController(
-    utils::Context& context
-) : AbstractMenuController(context)
+EditorMenuController::EditorMenuController(utils::Context& context) :
+    AbstractMenuController(context),
+    impl(std::make_unique<Impl>(context))
 {
-    /* set the parameters of the title of the screen */
-    title.setFont(context.getFontsManager().getTitleFont());
-    title.setString("Editor");
-    title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
-    title.setColor(context.getColorsManager().getColorLightBlue());
-    title.setPosition(
-        710.f,
-        50.f
-    );
-
-    /* creates the menu items */
-
     std::unique_ptr<items::MenuItem> level(
         std::make_unique<items::MenuItem>(
             context,
@@ -83,7 +92,6 @@ EditorMenuController::EditorMenuController(
         )
     );
 
-    /* the level item is selected by default */
     level->select(context);
 
     addMenuItem(std::move(level));
@@ -94,11 +102,14 @@ EditorMenuController::EditorMenuController(
 /**
  *
  */
-const unsigned short& EditorMenuController::render(
-    utils::Context& context
-) &
+EditorMenuController::~EditorMenuController() noexcept = default;
+
+/**
+ *
+ */
+const unsigned short& EditorMenuController::render(utils::Context& context) &
 {
-    context.getSfmlWindow().draw(title);
+    context.getSfmlWindow().draw(impl->title);
 
     renderAllMenuItems(context);
 
@@ -132,13 +143,11 @@ const unsigned short& EditorMenuController::render(
             }
             default:
             {
-                /* useless, added here to respect the syntax */
             }
             }
         }
         default:
         {
-            /* useless, added here to respect the syntax */
         }
         }
     }
@@ -153,14 +162,12 @@ void EditorMenuController::selectMenuItem() & noexcept
 {
     switch(getSelectorPosition())
     {
-    /* display the level editor */
     case 0:
     {
         expectedControllerId = LEVEL_EDITOR_CONTROLLER_ID;
 
         break;
     }
-    /* go back to the main menu when select 'back' */
     case 2:
     {
         expectedControllerId = MAIN_MENU_CONTROLLER_ID;
