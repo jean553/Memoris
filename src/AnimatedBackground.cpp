@@ -18,7 +18,6 @@
 
 /**
  * @file AnimatedBackground.cpp
- * @brief background animation
  * @package utils
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -36,69 +35,61 @@ namespace memoris
 namespace utils
 {
 
+class AnimatedBackground::Impl
+{
+
+public:
+
+    std::vector<std::unique_ptr<entities::Cell>> cells;
+
+    sf::Uint32 cellsMovementLastAnimation {0};
+};
+
 /**
  *
  */
-AnimatedBackground::AnimatedBackground(
-    utils::Context& context
-)
+AnimatedBackground::AnimatedBackground(utils::Context& context) :
+    impl(std::make_unique<Impl>())
 {
-    /* initialize all the cells */
     initializeCells(context);
 }
 
 /**
  *
  */
-void AnimatedBackground::render(utils::Context& context)
+AnimatedBackground::~AnimatedBackground() noexcept = default;
+
+/**
+ *
+ */
+void AnimatedBackground::render(utils::Context& context) const &
 {
-    /* move the cells every 30 milliseconds */
     if(
         (
             context.getClockMillisecondsTime() -
-            cellsMovementLastAnimation
+            impl->cellsMovementLastAnimation
         ) > 10
     )
     {
-        for(
-            std::vector<std::unique_ptr<entities::Cell>>::iterator cell =
-                cells.begin();
-            cell != cells.end();
-            ++cell
-        )
+        for(auto& cell : impl->cells) // auto->std::unique_ptr<entities::Cell>&
         {
-            (**cell).moveOnTheRight();
+            (*cell).moveOnTheRight();
         }
 
-        /* update the new cells movement animation time with the new time */
-        cellsMovementLastAnimation = context.getClockMillisecondsTime();
+        impl->cellsMovementLastAnimation = context.getClockMillisecondsTime();
     }
 
-    /* iterate all the cells and display them one by one; we use a reference
-       because we do not copy the cells during the iteration */
-    for(
-        std::vector<std::unique_ptr<entities::Cell>>::iterator cell =
-            cells.begin();
-        cell != cells.end();
-        ++cell
-    )
+    for(auto& cell : impl->cells) // auto->std::unique_ptr<entities::Cell>&
     {
-        (**cell).display(context);
+        (*cell).display(context);
     }
 }
 
 /**
  *
  */
-void AnimatedBackground::initializeCells(
-    utils::Context& context
-)
+void AnimatedBackground::initializeCells(utils::Context& context) &
 {
-    /* a container containing all the cells characters that can be used to
-       randomly select the animated background cells; we declare this array
-       using the annotation const char name[]: this creates only one object
-       containing all the cells characters, existing only in the current
-       variable scope and not in read-only */
     /* TODO: #488 bad idea, we have to update this container manually everytime
        we add new cells types */
     const char cellsLib[] =
@@ -116,9 +107,6 @@ void AnimatedBackground::initializeCells(
         cells::STAIRS_DOWN_CELL
     };
 
-    /* the current line and the current column are used during the generation
-       of all the cells of the background; they indicate the current address
-       of the generated cell */
     unsigned short currentLine {0}, currentColumn {0};
 
     /* the rand() function to generate random numbers return an integer; we
@@ -127,12 +115,8 @@ void AnimatedBackground::initializeCells(
        and the available cells array size (unsigned integer) */
     unsigned int randomNumber {0};
 
-    /* initialize the random seed */
     srand(time(NULL));
 
-    /* we browse the array of cells; there are 575 cells to create ( 576 (the
-       total of displayed cells on the screen) - 1 because the first one is
-       never drawn (top left corner) */
     for (unsigned int i = 0; i < 575; i++)
     {
         /* select a cell randomly; the maximum value of the generated number
@@ -143,18 +127,12 @@ void AnimatedBackground::initializeCells(
            beautiful background */
         randomNumber = rand() % 17;
 
-        /* increment the current line */
         currentLine++;
 
-        /* the the current line is equal to the last line index, we reset the
-           line index and we increment the column index; in fact, we start to
-           generate cells in the next column */
         if (currentLine == 18)
         {
-            /* reset the current line index */
             currentLine = 0;
 
-            /* increment the current column */
             currentColumn++;
         }
 
@@ -172,7 +150,6 @@ void AnimatedBackground::initializeCells(
             continue;
         }
 
-        /* generate a new cell object, pointed by an unique pointer */
         std::unique_ptr<entities::Cell> cell(
             new entities::Cell(
                 context,
@@ -190,8 +167,7 @@ void AnimatedBackground::initializeCells(
             )
         );
 
-        /* move the cell object unique pointer into the container */
-        cells.push_back(std::move(cell));
+        impl->cells.push_back(std::move(cell));
     }
 }
 
