@@ -32,6 +32,11 @@
 #include "AnimatedBackground.hpp"
 #include "MenuGradient.hpp"
 
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+
 namespace memoris
 {
 namespace controllers
