@@ -28,8 +28,6 @@
 
 #include "AbstractMenuController.hpp"
 
-#include <SFML/Graphics/Text.hpp>
-
 namespace memoris
 {
 namespace controllers
@@ -41,32 +39,50 @@ class EditorMenuController : public AbstractMenuController
 public:
 
     /**
-     * @brief constructor, initializes the title and the menu items
+     * @brief constructor, initializes the implementation
      *
      * @param context reference to the current context to use
+     *
+     * context reference is not 'const' because it calls methods that takes
+     * a non-const context reference
+     *
+     * not 'noexcept' because it calls SFML methods that are not noexcept
      */
     EditorMenuController(utils::Context& context);
 
     /**
-     * @brief render the editor menu controller, returns the id of the next
-     * controller to render
+     * @brief default destructor, empty, only declared in order to use
+     * forwarding declaration
+     */
+    ~EditorMenuController() noexcept;
+
+    /**
+     * @brief render the editor menu controller
      *
      * @param context reference to the current context to use
      *
      * @return const unsigned short&
+     *
+     * context reference is not 'const' because it calls methods that takes
+     * a non-const context reference
+     *
+     * not 'const' because it modifies the next controller id attribute
+     *
+     * not 'noexcept' because it calls SFML methods that are not noexcept
      */
-    virtual const unsigned short& render(utils::Context& context) & override
-    final;
+    virtual const unsigned short& render(utils::Context& context) & override;
 
 private:
 
     /**
      * @brief handles menu items selection, declared in the parent class
+     *
+     * not 'const' because it modifies the expected controller id
      */
     virtual void selectMenuItem() & noexcept override;
 
-    /* the SFML title surface of the menu */
-    sf::Text title;
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }
