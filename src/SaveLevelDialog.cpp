@@ -28,8 +28,10 @@
 #include "InputTextWidget.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
+#include "Context.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Text.hpp>
 
 namespace memoris
 {
