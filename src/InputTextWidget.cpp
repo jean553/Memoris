@@ -28,13 +28,128 @@
 #include "Context.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
+#include "Context.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Window/Event.hpp>
 
 namespace memoris
 {
 namespace widgets
 {
+
+class InputTextWidget::Impl
+{
+
+public:
+
+    Impl(
+        utils::Context& context,
+        const float& hPosition,
+        const float& vPosition,
+        const float& lineWidth,
+        const size_t& maxCharacters
+    ) :
+        maximumCharacters(maxCharacters),
+        horizontalPosition(hPosition),
+        verticalPosition(vPosition),
+        width(lineWidth)
+    {
+        displayedText.setFont(context.getFontsManager().getTextFont());
+        displayedText.setCharacterSize(fonts::INPUT_TEXT_SIZE);
+        displayedText.setColor(context.getColorsManager().getColorLightBlue());
+
+        cursor.setFillColor(context.getColorsManager().getColorLightBlue());
+        cursor.setPosition(
+            horizontalPosition + 5,
+            verticalPosition + 5
+        );
+        cursor.setSize(
+            sf::Vector2f(
+                25,
+                50
+            )
+        );
+
+        displayedText.setPosition(
+            horizontalPosition + 5,
+            verticalPosition
+        );
+
+        boxTop.setPosition(
+            horizontalPosition,
+            verticalPosition
+        );
+
+        boxBottom.setPosition(
+            horizontalPosition,
+            verticalPosition + 60
+        );
+
+        boxLeft.setPosition(
+            horizontalPosition,
+            verticalPosition
+        );
+
+        boxRight.setPosition(
+            horizontalPosition + width,
+            verticalPosition
+        );
+
+        boxTop.setSize(
+            sf::Vector2f(
+                width,
+                1
+            )
+        );
+
+        boxBottom.setSize(
+            sf::Vector2f(
+                width,
+                1
+            )
+        );
+
+        boxLeft.setSize(
+            sf::Vector2f(
+                1,
+                60
+            )
+        );
+
+        boxRight.setSize(
+            sf::Vector2f(
+                1,
+                60
+            )
+        );
+
+        boxRight.setFillColor(context.getColorsManager().getColorLightBlue());
+        boxTop.setFillColor(context.getColorsManager().getColorLightBlue());
+        boxBottom.setFillColor(context.getColorsManager().getColorLightBlue());
+        boxLeft.setFillColor(context.getColorsManager().getColorLightBlue());
+    }
+
+    sf::Int32 cursorLastFlashAnimation {0};
+
+    bool displayCursor {true};
+
+    size_t maximumCharacters;
+
+    float horizontalPosition;
+    float verticalPosition;
+    float width;
+
+    sf::Text displayedText;
+
+    sf::RectangleShape boxTop;
+    sf::RectangleShape boxBottom;
+    sf::RectangleShape boxLeft;
+    sf::RectangleShape boxRight;
+    sf::RectangleShape cursor;
+};
 
 /**
  *
@@ -45,205 +160,93 @@ InputTextWidget::InputTextWidget(
     const float& vPosition,
     const float& lineWidth,
     const size_t& maxCharacters
-) :
-    horizontalPosition(hPosition),
-    verticalPosition(vPosition)
+) noexcept :
+    impl(
+        std::make_unique<Impl>(
+            context,
+            hPosition,
+            vPosition,
+            maxCharacters,
+            lineWidth
+        )
+    )
 {
-    /* set the maximum characters amount allowed in the input
-       text widget according to the given parameter value */
-    maximumCharacters = maxCharacters;
-
-    /* set the width of the widget according to the given parameter */
-    width = lineWidth;
-
-    /* the font of the displayed text is the normal text font; we get a
-       reference of this font from the fonts manager */
-    displayedText.setFont(context.getFontsManager().getTextFont());
-
-    /* the font size is the one set in the fonts namespace; the input text
-       widget has a font with a specific font size */
-    displayedText.setCharacterSize(fonts::INPUT_TEXT_SIZE);
-
-    /* get a reference of the light blue color for the input text widget
-       text color */
-    displayedText.setColor(context.getColorsManager().getColorLightBlue());
-
-    /* set the widget border to light blue */
-    cursor.setFillColor(context.getColorsManager().getColorLightBlue());
-
-    /* the default position of the cursor surface is at the left side of the
-       input text line; we set the same positions as the widget and add 5
-       to put it into the borders rectangle */
-    cursor.setPosition(
-        horizontalPosition + 5,
-        verticalPosition + 5
-    );
-
-    /* the size of the flashing cursor has a width of 25 pixels and a height
-       of 50 pixels; this cursor size matches with the font size */
-    cursor.setSize(sf::Vector2f(
-                       25,
-                       50
-                   ));
-
-    /* set the position of the displayed text; by default, the displayed text
-       position is the same one as the cursor one; to match with the container
-       size, the vertical position is the same as the widget */
-    displayedText.setPosition(
-        horizontalPosition + 5,
-        verticalPosition
-    );
-
-    /* the position of the top border is the same as the widget */
-    boxTop.setPosition(
-        horizontalPosition,
-        verticalPosition
-    );
-
-    /* the position of the bottom border is 60 pixels under the top border */
-    boxBottom.setPosition(
-        horizontalPosition,
-        verticalPosition + 60
-    );
-
-    /* the position of the left border is the same as the widget */
-    boxLeft.setPosition(
-        horizontalPosition,
-        verticalPosition
-    );
-
-    /* to find the horizontal position of the right border, we add the width
-       value to the widget horizontal position */
-    boxRight.setPosition(
-        horizontalPosition + width,
-        verticalPosition
-    );
-
-    /* the width of the horizontal borders are equals to the widgets widths */
-    boxTop.setSize(sf::Vector2f(
-                       width,
-                       1
-                   ));
-
-    boxBottom.setSize(sf::Vector2f(
-                          width,
-                          1
-                      ));
-
-    /* the height of the vertical borders are equals to the widget fixed
-       height */
-    boxLeft.setSize(sf::Vector2f(
-                        1,
-                        60
-                    ));
-
-    boxRight.setSize(sf::Vector2f(
-                         1,
-                         60
-                     ));
-
-    /* all the borders have the same light blue color */
-    boxRight.setFillColor(context.getColorsManager().getColorLightBlue());
-    boxTop.setFillColor(context.getColorsManager().getColorLightBlue());
-    boxBottom.setFillColor(context.getColorsManager().getColorLightBlue());
-    boxLeft.setFillColor(context.getColorsManager().getColorLightBlue());
 }
 
 /**
  *
  */
-void InputTextWidget::setDisplayedText(const sf::String& inputTextData)
+InputTextWidget::~InputTextWidget() noexcept = default;
+
+/**
+ *
+ */
+void InputTextWidget::setDisplayedText(const sf::String& inputTextData) &
 {
-    displayedText.setString(inputTextData);
+    impl->displayedText.setString(inputTextData);
 }
 
 /**
  *
  */
-void InputTextWidget::display(utils::Context& context)
+void InputTextWidget::display(const utils::Context& context) &
 {
-    /* display the widget borders */
-    context.getSfmlWindow().draw(boxTop);
-    context.getSfmlWindow().draw(boxBottom);
-    context.getSfmlWindow().draw(boxLeft);
-    context.getSfmlWindow().draw(boxRight);
+    context.getSfmlWindow().draw(impl->boxTop);
+    context.getSfmlWindow().draw(impl->boxBottom);
+    context.getSfmlWindow().draw(impl->boxLeft);
+    context.getSfmlWindow().draw(impl->boxRight);
+    context.getSfmlWindow().draw(impl->displayedText);
 
-    /* display the widget text */
-    context.getSfmlWindow().draw(displayedText);
-
-    /* the widget cursor is animated; the displayedCursor boolean is used to
-       check if the cursor has to be displayed or not */
-    if(displayCursor)
+    if(impl->displayCursor)
     {
-        context.getSfmlWindow().draw(cursor);
+        context.getSfmlWindow().draw(impl->cursor);
     }
 
-    /* check if enough time elapsed since the last animation update of the
-       cursor; the interval between each animation is 200 milliseconds */
     if(
         (
             context.getClockMillisecondsTime() -
-            cursorLastFlashAnimation
+            impl->cursorLastFlashAnimation
         ) > 200
     )
     {
+        impl->displayCursor = !impl->displayCursor;
 
-        /* if the cursor was displayed, we hide it; if the cursor was hidden,
-           we show it */
-        displayCursor = !displayCursor;
-
-        /* update the cursor animation time with the current time just after
-           the animation */
-        cursorLastFlashAnimation =
-            context.getClockMillisecondsTime();
+        impl->cursorLastFlashAnimation = context.getClockMillisecondsTime();
     }
 }
 
 /**
  *
  */
-void InputTextWidget::update(const sf::Event& event)
+void InputTextWidget::update(const sf::Event& event) &
 {
-    /* check if the pressed key is the backspace; in that case, just empty
-       the whole field */
     if (backspaceIsPressedDown(event))
     {
-        /* clear the widget content; set an empty string as the SFML text
-           surface content */
-        displayedText.setString("");
+        impl->displayedText.setString("");
 
-        /* update the cursor position */
         updateCursorPosition();
 
         return;
     }
 
-    /* do not allow to continue to write content if the input text widget
-       already contains the maximum amount of characters allowed */
-    if (
-        (displayedText.getString()).getSize() ==
-        maximumCharacters
-    )
+    if ((impl->displayedText.getString()).getSize() == impl->maximumCharacters)
     {
         return;
     }
 
-    /* make a concatenation of the existing SFML string with the new added
-       string; save it as the new displayed string */
-    displayedText.setString(
-        displayedText.getString() + getInputLetter(event)
+    impl->displayedText.setString(
+        impl->displayedText.getString() + getInputLetter(event)
     );
 
-    /* update the cursor position */
     updateCursorPosition();
 }
 
 /**
  *
  */
-sf::String InputTextWidget::getText() const
+const sf::String& InputTextWidget::getText() const
 {
-    return displayedText.getString();
+    return impl->displayedText.getString();
 }
 
 /**
@@ -251,16 +254,14 @@ sf::String InputTextWidget::getText() const
  */
 const bool InputTextWidget::isEmpty() const &
 {
-    /* use directly the SFML string function */
-    return displayedText.getString().isEmpty();
+    return impl->displayedText.getString().isEmpty();
 }
 
 /**
  *
  */
-sf::String InputTextWidget::getInputLetter(const sf::Event& event)
+const sf::String InputTextWidget::getInputLetter(const sf::Event& event) &
 {
-    /* creates an empty SFML string */
     sf::String character;
 
     switch(event.key.code)
@@ -397,7 +398,6 @@ sf::String InputTextWidget::getInputLetter(const sf::Event& event)
     }
     default:
     {
-        /* does nothing, added for best practices */
         break;
     }
     }
@@ -408,7 +408,8 @@ sf::String InputTextWidget::getInputLetter(const sf::Event& event)
 /**
  *
  */
-const bool InputTextWidget::backspaceIsPressedDown(const sf::Event& event)
+const bool InputTextWidget::backspaceIsPressedDown(const sf::Event& event) &
+noexcept
 {
     return event.key.code == sf::Keyboard::BackSpace;
 }
@@ -416,7 +417,7 @@ const bool InputTextWidget::backspaceIsPressedDown(const sf::Event& event)
 /**
  *
  */
-void InputTextWidget::updateCursorPosition()
+void InputTextWidget::updateCursorPosition() &
 {
     /* update the position of the cursor according to the new SFML text surface
        width; add 5 pixels everytime horizontaly and verticaly; we set the
@@ -424,12 +425,10 @@ void InputTextWidget::updateCursorPosition()
        character width, because it is different for all of them, so we use
        getLocalBounds() to calculate the "real" text surface width and add
        the cursor directly right after */
-    cursor.setPosition(
-        horizontalPosition +
-        5 +
-        displayedText.getLocalBounds().width,
-        verticalPosition +
-        5
+    impl->cursor.setPosition(
+        impl->horizontalPosition + 5 +
+        impl->displayedText.getLocalBounds().width,
+        impl->verticalPosition + 5
     );
 }
 
