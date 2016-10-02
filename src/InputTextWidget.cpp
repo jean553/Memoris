@@ -166,8 +166,8 @@ InputTextWidget::InputTextWidget(
             context,
             hPosition,
             vPosition,
-            maxCharacters,
-            lineWidth
+            lineWidth,
+            maxCharacters
         )
     )
 {
