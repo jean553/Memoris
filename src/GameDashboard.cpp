@@ -32,6 +32,7 @@
 #include "TexturesManager.hpp"
 #include "LevelSeparators.hpp"
 #include "TimerWidget.hpp"
+#include "WatchingPeriodTimer.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Sprite.hpp>
@@ -53,7 +54,8 @@ public:
             context,
             295.f,
             10.f
-        )
+        ),
+        watchingPeriodTimer(context)
     {
         watchingTime = context.getPlayingSerieManager().getWatchingTime();
 
@@ -160,6 +162,8 @@ public:
     utils::LevelSeparators separators;
 
     widgets::TimerWidget timer;
+
+    utils::WatchingPeriodTimer watchingPeriodTimer;
 };
 
 /**
@@ -313,9 +317,18 @@ const unsigned short& GameDashboard::getWatchingTime() const
 /**
  *
  */
-widgets::TimerWidget& GameDashboard::getTimerWidget() const &
+widgets::TimerWidget& GameDashboard::getTimerWidget() const & noexcept
 {
     return impl->timer;
+}
+
+/**
+ *
+ */
+utils::WatchingPeriodTimer& GameDashboard::getWatchingPeriodTimer() const &
+noexcept
+{
+    return impl->watchingPeriodTimer;
 }
 
 }

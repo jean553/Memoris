@@ -53,7 +53,6 @@ public:
         std::shared_ptr<entities::Level> levelPtr
     ) :
         dashboard(context),
-        watchingPeriodTimer(context),
         level(levelPtr)
     {
     }
@@ -64,8 +63,6 @@ public:
     sf::Uint32 endPeriodStartTime {0};
 
     utils::GameDashboard dashboard;
-
-    utils::WatchingPeriodTimer watchingPeriodTimer;
 
     std::shared_ptr<entities::Level> level;
 
@@ -123,7 +120,7 @@ GameController::GameController(
     initializeLoseText(context);
     initializeWinText(context);
 
-    impl->watchingPeriodTimer.applyFloorsAmount(
+    impl->dashboard.getWatchingPeriodTimer().applyFloorsAmount(
         impl->level->getPlayableFloors()
     );
 
@@ -156,11 +153,11 @@ const unsigned short& GameController::render(
     impl->dashboard.getTimerWidget().display(context);
 
     if (
-        impl->watchingPeriodTimer.isStarted() &&
+        impl->dashboard.getWatchingPeriodTimer().isStarted() &&
         impl->tutorialWidget == nullptr
     )
     {
-        impl->watchingPeriodTimer.display(context);
+        impl->dashboard.getWatchingPeriodTimer().display(context);
     }
 
     if (
