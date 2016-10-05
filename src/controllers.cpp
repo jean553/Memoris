@@ -31,6 +31,7 @@
 #include "EditorMenuController.hpp"
 #include "LevelEditorController.hpp"
 #include "OpenLevelController.hpp"
+#include "OpenGameController.hpp"
 
 #include "Level.hpp"
 
@@ -111,6 +112,10 @@ std::unique_ptr<Controller> getControllerById(
     case OPEN_LEVEL_CONTROLLER_ID:
     {
         return std::make_unique<OpenLevelController>(context);
+    }
+    case OPEN_GAME_CONTROLLER_ID:
+    {
+        return std::make_unique<OpenGameController>(context);
     }
     }
 

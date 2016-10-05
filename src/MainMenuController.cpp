@@ -298,6 +298,12 @@ void MainMenuController::selectMenuItem() & noexcept
 
         break;
     }
+    case 1:
+    {
+        expectedControllerId = OPEN_GAME_CONTROLLER_ID;
+
+        break;
+    }
     case 2:
     {
         expectedControllerId = EDITOR_MENU_CONTROLLER_ID;
