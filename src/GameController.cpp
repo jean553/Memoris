@@ -360,6 +360,11 @@ const unsigned short& GameController::render(
             }
             case sf::Keyboard::Return:
             {
+                if (tutorialWidget == nullptr)
+                {
+                    break;
+                }
+
                 /* delete the tutorial widget if no frame in the queue */
                 if (!tutorialWidget->nextFrame())
                 {
