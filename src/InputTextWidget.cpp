@@ -161,15 +161,15 @@ InputTextWidget::InputTextWidget(
     const float& lineWidth,
     const size_t& maxCharacters
 ) noexcept :
-    impl(
-        std::make_unique<Impl>(
-            context,
-            hPosition,
-            vPosition,
-            lineWidth,
-            maxCharacters
-        )
+impl(
+    std::make_unique<Impl>(
+        context,
+        hPosition,
+        vPosition,
+        lineWidth,
+        maxCharacters
     )
+)
 {
 }
 

@@ -38,7 +38,7 @@ namespace utils
  *
  */
 LevelSeparators::LevelSeparators(
-    utils::Context& context
+    const utils::Context& context
 )
 {
     left.setSize(
@@ -71,7 +71,7 @@ LevelSeparators::LevelSeparators(
  *
  */
 void LevelSeparators::display(
-    utils::Context& context
+    const utils::Context& context
 ) const
 {
     context.getSfmlWindow().draw(left);

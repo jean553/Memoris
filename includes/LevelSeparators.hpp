@@ -47,14 +47,14 @@ public:
      *
      * @param context reference to the current context
      */
-    LevelSeparators(utils::Context& context);
+    LevelSeparators(const utils::Context& context);
 
     /**
      * @brief renders the two SFML surfaces together
      *
      * @param context reference to the current context
      */
-    void display(utils::Context& context) const;
+    void display(const utils::Context& context) const;
 
 private:
 

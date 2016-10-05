@@ -49,7 +49,7 @@ public:
      * @param texture constant reference to the SFML texture of the icon
      */
     Button(
-        utils::Context& context,
+        const utils::Context& context,
         const float& hPosition,
         const float& vPosition,
         const sf::Texture& texture
@@ -64,7 +64,7 @@ public:
      * attributes of the button are modified inside this function if the mouse
      * is hover the widget
      */
-    void display(utils::Context& context);
+    void display(const utils::Context& context);
 
     /**
      * @brief boolean that indicates if the mouse is hover the button or not
