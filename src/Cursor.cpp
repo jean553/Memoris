@@ -37,7 +37,7 @@ namespace widgets
 /**
  *
  */
-Cursor::Cursor(utils::Context& context)
+Cursor::Cursor(const utils::Context& context)
 {
     /* get the cursor texture from the textures manager */
     sprite.setTexture(context.getTexturesManager().getCursorTexture());

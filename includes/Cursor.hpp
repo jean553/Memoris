@@ -45,7 +45,7 @@ public:
      *
      * @param context reference to the current context
      */
-    Cursor(utils::Context& context);
+    Cursor(const utils::Context& context);
 
     /**
      * @brief render the cursor on the screen

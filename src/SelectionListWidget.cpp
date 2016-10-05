@@ -44,7 +44,7 @@ class SelectionListWidget::Impl
 
 public:
 
-    Impl(utils::Context& context)
+    Impl(const utils::Context& context)
     {
         top.setPosition(
             HORIZONTAL_POSITION,
@@ -120,7 +120,7 @@ public:
 /**
  *
  */
-SelectionListWidget::SelectionListWidget(utils::Context& context) :
+SelectionListWidget::SelectionListWidget(const utils::Context& context) :
     impl(std::make_unique<Impl>(context))
 {
 }
