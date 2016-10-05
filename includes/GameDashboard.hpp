@@ -27,16 +27,14 @@
 #ifndef MEMORIS_GAMEDASHBOARD_H_
 #define MEMORIS_GAMEDASHBOARD_H_
 
-#include "Context.hpp"
-
-#include "LevelSeparators.hpp"
-
-#include <SFML/Graphics.hpp>
+#include <memory>
 
 namespace memoris
 {
 namespace utils
 {
+
+class Context;
 
 class GameDashboard
 {
@@ -50,6 +48,12 @@ public:
      * @param context reference to the current context
      */
     GameDashboard(utils::Context& context);
+
+    /**
+     * @brief default destructor, empty, only declared in order to use
+     * forwarding declaration
+     */
+    ~GameDashboard() noexcept;
 
     /**
      * @brief overwritte the method to display the dashboard
@@ -129,44 +133,8 @@ public:
 
 private:
 
-    /* displays the amount of found stars in the current level */
-    sf::Text foundStarsAmount;
-
-    /* displays the amount of lifes the user got until now */
-    sf::Text lifesAmount;
-
-    /* displays the total amount of stars to find on this level */
-    sf::Text target;
-
-    /* displays the watch time the user has when a new level starts */
-    sf::Text time;
-
-    /* displays the current player level */
-    sf::Text floor;
-
-    /* the sprites for all the information labels images of the dashboard */
-    sf::Sprite spriteStar;
-    sf::Sprite spriteLife;
-    sf::Sprite spriteTarget;
-    sf::Sprite spriteTime;
-    sf::Sprite spriteFloor;
-
-    /* the amount of stars to display in the dashboard; set with 0 by default
-       because when the level starts, the found stars amount is always 0 */
-    unsigned short foundStars {0};
-
-    /* the amount of lifes to display in the dashboard */
-    /* TODO: #579 this amount is 0 by default for now, but the default value
-       should be extracted from the serie file if the level is the first one of
-       the serie; it it is not the first one, the amount of lifes should be the
-       lifes left the user has */
-    unsigned short lifes {0};
-
-    /* the amount of seconds the user can watch the level before hidding it */
-    unsigned short watchingTime;
-
-    /* the separators at both sides of the level */
-    utils::LevelSeparators separators;
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }

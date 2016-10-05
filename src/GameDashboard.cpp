@@ -30,133 +30,161 @@
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "TexturesManager.hpp"
+#include "LevelSeparators.hpp"
+
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 namespace memoris
 {
 namespace utils
 {
 
+class GameDashboard::Impl
+{
+
+public:
+
+    Impl(utils::Context& context) :
+        separators(context)
+    {
+        watchingTime = context.getPlayingSerieManager().getWatchingTime();
+
+        foundStarsAmount.setFont(context.getFontsManager().getTextFont());
+        foundStarsAmount.setString("0");
+        foundStarsAmount.setCharacterSize(fonts::TEXT_SIZE);
+        foundStarsAmount.setColor(
+            context.getColorsManager().getColorWhite()
+        );
+        foundStarsAmount.setPosition(
+            1200.f,
+            -10.f
+        );
+
+        lifesAmount.setFont(context.getFontsManager().getTextFont());
+        lifesAmount.setString("0");
+        lifesAmount.setCharacterSize(fonts::TEXT_SIZE);
+        lifesAmount.setColor(context.getColorsManager().getColorWhite());
+        lifesAmount.setPosition(
+            1200.f,
+            35.f
+        );
+
+        time.setFont(context.getFontsManager().getTextFont());
+        time.setString(std::to_string(watchingTime));
+        time.setCharacterSize(fonts::TEXT_SIZE);
+        time.setColor(context.getColorsManager().getColorWhite());
+        time.setPosition(
+            1050.f,
+            35.f
+        );
+
+        floor.setFont(context.getFontsManager().getTextFont());
+        floor.setString("1");
+        floor.setCharacterSize(fonts::TEXT_SIZE);
+        floor.setColor(context.getColorsManager().getColorWhite());
+        floor.setPosition(
+            900.f,
+            -10.f
+        );
+
+        target.setFont(context.getFontsManager().getTextFont());
+        target.setString("0");
+        target.setCharacterSize(fonts::TEXT_SIZE);
+        target.setColor(context.getColorsManager().getColorWhite());
+        target.setPosition(
+            1050.f,
+            -10.f
+        );
+
+        spriteStar.setTexture(context.getTexturesManager().getStarTexture());
+        spriteStar.setPosition(
+            1250.f,
+            0.f
+        );
+
+        spriteFloor.setTexture(context.getTexturesManager().getFloorTexture());
+        spriteFloor.setPosition(
+            950.f,
+            0.f
+        );
+
+        spriteLife.setTexture(context.getTexturesManager().getLifeTexture());
+        spriteLife.setPosition(
+            1250.f,
+            50.f
+        );
+
+        spriteTarget.setTexture(
+            context.getTexturesManager().getTargetTexture()
+        );
+        spriteTarget.setPosition(
+            1100.f,
+            0.f
+        );
+
+        spriteTime.setTexture(context.getTexturesManager().getTimeTexture());
+        spriteTime.setPosition(
+            1100.f,
+            50.f
+        );
+    }
+
+    sf::Text foundStarsAmount;
+    sf::Text lifesAmount;
+    sf::Text target;
+    sf::Text time;
+    sf::Text floor;
+
+    sf::Sprite spriteStar;
+    sf::Sprite spriteLife;
+    sf::Sprite spriteTarget;
+    sf::Sprite spriteTime;
+    sf::Sprite spriteFloor;
+
+    /* TODO: #579 this amount is 0 by default for now, but the default value
+       should be extracted from the serie file if the level is the first one of
+       the serie; it it is not the first one, the amount of lifes should be the
+       lifes left the user has */
+    unsigned short lifes {0};
+    unsigned short watchingTime;
+    unsigned short foundStars {0};
+
+    utils::LevelSeparators separators;
+};
+
 /**
  *
  */
 GameDashboard::GameDashboard(utils::Context& context) :
-    separators(context)
+    impl(std::make_unique<Impl>(context))
 {
-    watchingTime = context.getPlayingSerieManager().getWatchingTime();
-
-    /* create the information label that displays the current amount of found
-       stars into the current level */
-    foundStarsAmount.setFont(context.getFontsManager().getTextFont());
-    foundStarsAmount.setString("0");
-    foundStarsAmount.setCharacterSize(fonts::TEXT_SIZE);
-    foundStarsAmount.setColor(
-        context.getColorsManager().getColorWhite()
-    );
-    foundStarsAmount.setPosition(
-        1200.f,
-        -10.f
-    );
-
-    /* creates the information label that displays the current lifes amount
-       of the player */
-    lifesAmount.setFont(context.getFontsManager().getTextFont());
-    lifesAmount.setString("0");
-    lifesAmount.setCharacterSize(fonts::TEXT_SIZE);
-    lifesAmount.setColor(context.getColorsManager().getColorWhite());
-    lifesAmount.setPosition(
-        1200.f,
-        35.f
-    );
-
-    /* creates the information label that displays the watch time the player
-       got until now */
-    time.setFont(context.getFontsManager().getTextFont());
-    time.setString(std::to_string(watchingTime));
-    time.setCharacterSize(fonts::TEXT_SIZE);
-    time.setColor(context.getColorsManager().getColorWhite());
-    time.setPosition(
-        1050.f,
-        35.f
-    );
-
-    /* creates the information label that displays the current player floor;
-       the default displayed level is the first one */
-    floor.setFont(context.getFontsManager().getTextFont());
-    floor.setString("1");
-    floor.setCharacterSize(fonts::TEXT_SIZE);
-    floor.setColor(context.getColorsManager().getColorWhite());
-    floor.setPosition(
-        900.f,
-        -10.f
-    );
-
-    /* creates the information label that indicates the total amount of
-       stars available into the level */
-    target.setFont(context.getFontsManager().getTextFont());
-    target.setString("0");
-    target.setCharacterSize(fonts::TEXT_SIZE);
-    target.setColor(context.getColorsManager().getColorWhite());
-    target.setPosition(
-        1050.f,
-        -10.f
-    );
-
-    /* initialize all the sprites of the dashboard with their textures */
-
-    spriteStar.setTexture(context.getTexturesManager().getStarTexture());
-    spriteStar.setPosition(
-        1250.f,
-        0.f
-    );
-
-    spriteFloor.setTexture(context.getTexturesManager().getFloorTexture());
-    spriteFloor.setPosition(
-        950.f,
-        0.f
-    );
-
-    spriteLife.setTexture(context.getTexturesManager().getLifeTexture());
-    spriteLife.setPosition(
-        1250.f,
-        50.f
-    );
-
-    spriteTarget.setTexture(
-        context.getTexturesManager().getTargetTexture()
-    );
-    spriteTarget.setPosition(
-        1100.f,
-        0.f
-    );
-
-    spriteTime.setTexture(context.getTexturesManager().getTimeTexture());
-    spriteTime.setPosition(
-        1100.f,
-        50.f
-    );
 }
+
+/**
+ *
+ */
+GameDashboard::~GameDashboard() noexcept = default;
 
 /**
  *
  */
 void GameDashboard::display(utils::Context& context)
 {
-    /* displays the information labels of the dashboard */
-    context.getSfmlWindow().draw(foundStarsAmount);
-    context.getSfmlWindow().draw(lifesAmount);
-    context.getSfmlWindow().draw(target);
-    context.getSfmlWindow().draw(time);
-    context.getSfmlWindow().draw(floor);
+    context.getSfmlWindow().draw(impl->foundStarsAmount);
+    context.getSfmlWindow().draw(impl->lifesAmount);
+    context.getSfmlWindow().draw(impl->target);
+    context.getSfmlWindow().draw(impl->time);
+    context.getSfmlWindow().draw(impl->floor);
 
-    /* displays the dashboard sprites */
-    context.getSfmlWindow().draw(spriteStar);
-    context.getSfmlWindow().draw(spriteLife);
-    context.getSfmlWindow().draw(spriteTarget);
-    context.getSfmlWindow().draw(spriteTime);
-    context.getSfmlWindow().draw(spriteFloor);
+    context.getSfmlWindow().draw(impl->spriteStar);
+    context.getSfmlWindow().draw(impl->spriteLife);
+    context.getSfmlWindow().draw(impl->spriteTarget);
+    context.getSfmlWindow().draw(impl->spriteTime);
+    context.getSfmlWindow().draw(impl->spriteFloor);
 
-    /* display the separators */
-    separators.display(context);
+    impl->separators.display(context);
 }
 
 /**
@@ -164,11 +192,11 @@ void GameDashboard::display(utils::Context& context)
  */
 void GameDashboard::incrementFoundStars()
 {
-    /* increment the amount of found stars */
-    foundStars++;
+    impl->foundStars++;
 
-    /* update the SFML text surface that displays the amount of found stars */
-    foundStarsAmount.setString(std::to_string(foundStars));
+    impl->foundStarsAmount.setString(
+        std::to_string(impl->foundStars)
+    );
 }
 
 /**
@@ -176,11 +204,11 @@ void GameDashboard::incrementFoundStars()
  */
 void GameDashboard::incrementLifes()
 {
-    /* increment the lifes amount */
-    lifes++;
+    impl->lifes++;
 
-    /* update the SFML text surface that displays the amount of lifes */
-    lifesAmount.setString(std::to_string(lifes));
+    impl->lifesAmount.setString(
+        std::to_string(impl->lifes)
+    );
 }
 
 /**
@@ -193,16 +221,16 @@ void GameDashboard::decrementLifes()
        automatically set to 65665 if the lifes amount is already equal to 0;
        the 'lose' process should be called instead and the game should
        finish */
-    if (lifes == 0)
+    if (impl->lifes == 0)
     {
         return;
     }
 
-    /* decrement the lifes amount */
-    lifes--;
+    impl->lifes--;
 
-    /* update the SFML text surface that displays the amount of lifes */
-    lifesAmount.setString(std::to_string(lifes));
+    impl->lifesAmount.setString(
+        std::to_string(impl->lifes)
+    );
 }
 
 /**
@@ -210,12 +238,11 @@ void GameDashboard::decrementLifes()
  */
 void GameDashboard::increaseWatchingTime()
 {
-    /* increase the amount of watching time; this amount of 3 seconds; */
-    watchingTime += 3;
+    impl->watchingTime += 3;
 
-    /* update the SFML text surface that displays the amount of watching
-       time */
-    time.setString(std::to_string(watchingTime));
+    impl->time.setString(
+        std::to_string(impl->watchingTime)
+    );
 }
 
 /**
@@ -223,20 +250,16 @@ void GameDashboard::increaseWatchingTime()
  */
 void GameDashboard::decreaseWatchingTime()
 {
-    /* do not decrease the amount of watching time if this watching time
-       is already equal to 3; the minimum watching time is 3 */
-    if (watchingTime == 3)
+    if (impl->watchingTime == 3)
     {
-        /* ends the process */
         return;
     }
 
-    /* decrease the amount of watching time */
-    watchingTime -= 3;
+    impl->watchingTime -= 3;
 
-    /* update the SFML text surface that displays the amount of watching
-       time */
-    time.setString(std::to_string(watchingTime));
+    impl->time.setString(
+        std::to_string(impl->watchingTime)
+    );
 }
 
 /**
@@ -244,7 +267,7 @@ void GameDashboard::decreaseWatchingTime()
  */
 const unsigned short& GameDashboard::getFoundStarsAmount()
 {
-    return foundStars;
+    return impl->foundStars;
 }
 
 /**
@@ -252,9 +275,7 @@ const unsigned short& GameDashboard::getFoundStarsAmount()
  */
 void GameDashboard::updateTotalStarsAmountSurface(const unsigned short& amount)
 {
-    /* update the displayed stars amount inside the game dashboard according
-       to the passed amount */
-    target.setString(std::to_string(amount));
+    impl->target.setString(std::to_string(amount));
 }
 
 /**
@@ -262,7 +283,7 @@ void GameDashboard::updateTotalStarsAmountSurface(const unsigned short& amount)
  */
 const unsigned short& GameDashboard::getLifesAmount()
 {
-    return lifes;
+    return impl->lifes;
 }
 
 /**
@@ -270,7 +291,7 @@ const unsigned short& GameDashboard::getLifesAmount()
  */
 void GameDashboard::updateCurrentFloor(const unsigned short& floorIndex)
 {
-    floor.setString(std::to_string(floorIndex + 1));
+    impl->floor.setString(std::to_string(floorIndex + 1));
 }
 
 /**
@@ -278,7 +299,7 @@ void GameDashboard::updateCurrentFloor(const unsigned short& floorIndex)
  */
 const unsigned short& GameDashboard::getWatchingTime() const
 {
-    return watchingTime;
+    return impl->watchingTime;
 }
 
 }
