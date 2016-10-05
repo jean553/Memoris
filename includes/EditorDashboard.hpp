@@ -26,22 +26,22 @@
 #ifndef MEMORIS_EDITORDASHBOARD_H_
 #define MEMORIS_EDITORDASHBOARD_H_
 
-#include "Context.hpp"
-
-#include "LevelSeparators.hpp"
-#include "Button.hpp"
+#include <memory>
 
 namespace memoris
 {
 namespace utils
 {
 
+class Context;
+
 class EditorDashboard
 {
 
 public:
 
-    /* public actions ids used to communicate with the level editor */
+    /* public static constant expressions used by the level editor controller
+       in order to know which button has been selected */
 
     static constexpr unsigned short EXIT_ACTION_ID {1};
     static constexpr unsigned short SAVE_ACTION_ID {2};
@@ -51,43 +51,46 @@ public:
     static constexpr unsigned short OPEN_ACTION_ID {6};
 
     /**
-     * @brief constructor, initializes the level separator
+     * @brief constructor, initializes the implementation
      *
-     * @param context reference to the current context to use
+     * @param context constant reference to the context object to use
+     *
+     * not 'noexcept' because it calls SFML methods that are not noexcept
      */
-    EditorDashboard(utils::Context& context);
+    EditorDashboard(const utils::Context& context);
+
+    /**
+     * @brief default destructor, empty, only declared here in order to use
+     * forwarding declaration
+     */
+    ~EditorDashboard() noexcept;
 
     /**
      * @brief display the editor dashboard
      *
-     * @param context reference to the current context to use
+     * @param context constant reference to the current context to use
+     *
+     * not 'noexcept' because it calls SFML methods that are not noexcept
      */
-    void display(utils::Context& context);
+    void display(const utils::Context& context) const &;
 
     /**
-     * @brief proxy method that returns an event id, this event id is got
-     * by the level editor; with this action id, the level id knows what to
-     * do (leave, display a popup, go to another controller...); the events
-     * ids are public constant expressions of this class; they are public
-     * to let the level editor use them; returns 0 if no button selected
+     * @brief returns an action id according to the tool bar selected button
      *
-     * @return unsigned short
+     * @return const unsigned short
+     *
+     * the returned value is not a reference because we return constant
+     * expressions values and rvalue
+     *
+     * not 'noexcept' because it contains sub-functions that calls SFML methods
+     * that are not noexcept
      */
-    unsigned short getActionIdBySelectedButton() const;
+    const unsigned short getActionIdBySelectedButton() const &;
 
 private:
 
-    /* the vertical separators at both sides of the dashboard */
-    utils::LevelSeparators separators;
-
-    /* buttons of the tool bar */
-    widgets::Button buttonNew;
-    widgets::Button buttonOpen;
-    widgets::Button buttonSave;
-    widgets::Button buttonExit;
-    widgets::Button buttonPlay;
-    widgets::Button buttonUp;
-    widgets::Button buttonDown;
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }

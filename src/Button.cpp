@@ -35,7 +35,7 @@ namespace widgets
  *
  */
 Button::Button(
-    utils::Context& context,
+    const utils::Context& context,
     const float& hPosition,
     const float& vPosition,
     const sf::Texture& texture
@@ -115,7 +115,7 @@ Button::Button(
 /**
  *
  */
-void Button::display(utils::Context& context)
+void Button::display(const utils::Context& context)
 {
     /* draw the button background */
     context.getSfmlWindow().draw(back);
