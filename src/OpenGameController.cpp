@@ -17,71 +17,51 @@
 */
 
 /**
- * @file NewGameController.cpp
+ * @file OpenGameController.cpp
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "NewGameController.hpp"
+#include "OpenGameController.hpp"
 
-#include "fonts.hpp"
-#include "controllers.hpp"
+#include "Context.hpp"
 #include "FontsManager.hpp"
+#include "fonts.hpp"
 #include "ColorsManager.hpp"
-#include "InputTextWidget.hpp"
+#include "controllers.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
 namespace memoris
 {
-
 namespace controllers
 {
 
-class NewGameController::Impl
+class OpenGameController::Impl
 {
 
 public:
 
-    Impl(utils::Context& context) :
-        inputTextGameName(
-            context,
-            500.f,
-            450.f,
-            600.f,
-            15
-        )
+    Impl(const utils::Context& context)
     {
         title.setFont(context.getFontsManager().getTitleFont());
-        title.setString("New game");
+        title.setString("Open game");
         title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
         title.setColor(context.getColorsManager().getColorLightBlue());
         title.setPosition(
             620.f,
-            200.f
-        );
-
-        explanation.setFont(context.getFontsManager().getTextFont());
-        explanation.setString("Your name :");
-        explanation.setCharacterSize(memoris::fonts::TEXT_SIZE);
-        explanation.setColor(context.getColorsManager().getColorWhite());
-        explanation.setPosition(
-            645.f,
-            380.f
+            100.f
         );
     }
 
     sf::Text title;
-    sf::Text explanation;
-
-    widgets::InputTextWidget inputTextGameName;
 };
 
 /**
  *
  */
-NewGameController::NewGameController(utils::Context& context) :
+OpenGameController::OpenGameController(const utils::Context& context) :
     Controller(context),
     impl(std::make_unique<Impl>(context))
 {
@@ -90,19 +70,14 @@ NewGameController::NewGameController(utils::Context& context) :
 /**
  *
  */
-NewGameController::~NewGameController() noexcept = default;
+OpenGameController::~OpenGameController() noexcept = default;
 
 /**
  *
  */
-const unsigned short& NewGameController::render(
-    utils::Context& context
-) &
+const unsigned short& OpenGameController::render(utils::Context& context) &
 {
     context.getSfmlWindow().draw(impl->title);
-    context.getSfmlWindow().draw(impl->explanation);
-
-    impl->inputTextGameName.display(context);
 
     nextControllerId = animateScreenTransition(context);
 
@@ -116,49 +91,22 @@ const unsigned short& NewGameController::render(
             {
             case sf::Keyboard::Escape:
             {
-                expectedControllerId =
-                MAIN_MENU_CONTROLLER_ID;
-
-                break;
-            }
-            /* TODO: #498 should not be allowed if the name already exists */
-            case sf::Keyboard::Return:
-            {
-                if (!validateGameName())
-                {
-                    break;
-                }
-
-                context.createGame(impl->inputTextGameName.getText());
-
-                expectedControllerId = SERIE_MAIN_MENU_CONTROLLER_ID;
+                expectedControllerId = MAIN_MENU_CONTROLLER_ID;
 
                 break;
             }
             default:
             {
-                impl->inputTextGameName.update(event);
-
-                break;
             }
             }
         }
         default:
         {
-            break;
         }
         }
     }
 
     return nextControllerId;
-}
-
-/**
- *
- */
-const bool NewGameController::validateGameName() const &
-{
-    return !impl->inputTextGameName.isEmpty();
 }
 
 }
