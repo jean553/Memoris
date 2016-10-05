@@ -33,11 +33,72 @@
 #include "SoundsManager.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
+#include "GameDashboard.hpp"
+#include "TimerWidget.hpp"
+#include "WatchingPeriodTimer.hpp"
+#include "TutorialWidget.hpp"
 
 namespace memoris
 {
 namespace controllers
 {
+
+class GameController::Impl
+{
+
+public:
+
+    Impl(
+        utils::Context& context,
+        std::shared_ptr<entities::Level> levelPtr
+    ) :
+        timer(
+            context,
+            295.f,
+            10.f
+        ),
+        dashboard(context),
+        watchingPeriodTimer(context),
+        level(levelPtr)
+    {
+    }
+
+    widgets::TimerWidget timer;
+
+    sf::Uint32 displayLevelTime {0};
+    sf::Uint32 playerCellAnimationTime {0};
+    sf::Uint32 leftLevelsAmountLastAnimationTime {0};
+    sf::Uint32 endPeriodStartTime {0};
+
+    utils::GameDashboard dashboard;
+
+    utils::WatchingPeriodTimer watchingPeriodTimer;
+
+    std::shared_ptr<entities::Level> level;
+
+    std::unique_ptr<animations::LevelAnimation> animation {nullptr};
+    std::unique_ptr<widgets::TutorialWidget> tutorialWidget {nullptr};
+
+    bool watchingPeriod {true};
+    bool playingPeriod {false};
+    bool movePlayerToNextFloor {false};
+    bool movePlayerToPreviousFloor {false};
+    bool win {false};
+
+    sf::Uint8 playerCellTransparency {64};
+    sf::Uint8 leftLevelsAmountTransparency {255};
+
+    sf::Int8 leftLevelsAmountDirection {-17};
+
+    unsigned short floor {0};
+
+    sf::RectangleShape greyFilter;
+
+    sf::Text loseText;
+    sf::Text winText;
+    sf::Text winInformationText;
+    sf::Text leftLevelsAmountText;
+};
 
 /**
  *
@@ -47,46 +108,43 @@ GameController::GameController(
     std::shared_ptr<entities::Level> levelPtr
 ) :
     Controller(context),
-    timer(
-        context,
-        295.f,
-        10.f
-    ),
-    dashboard(context),
-    watchingPeriodTimer(context),
-    level(levelPtr)
+    impl(
+        std::make_unique<Impl>(
+            context,
+            levelPtr
+        )
+    )
 {
-    /* update the dashboard total stars amount according to the value returned
-       by the level->object */
     /* TODO: #592 this way to do is bad: we got data from one object to
        directly set it as a value of another object, should be refactored */
-    dashboard.updateTotalStarsAmountSurface(level->getStarsAmount());
-
-    /* set the values inside the game timer countdown */
-    timer.setMinutesAndSeconds(
-        level->getMinutes(),
-        level->getSeconds()
+    impl->dashboard.updateTotalStarsAmountSurface(
+        impl->level->getStarsAmount()
     );
 
-    /* initialize the lose grey filter surface */
+    impl->timer.setMinutesAndSeconds(
+        impl->level->getMinutes(),
+        impl->level->getSeconds()
+    );
+
     initializeGreyFilter(context);
-
-    /* initialize the lose text */
     initializeLoseText(context);
-
-    /* initialize the win text */
     initializeWinText(context);
 
-    /* apply the floors amount on the watching time */
-    watchingPeriodTimer.applyFloorsAmount(level->getPlayableFloors());
+    impl->watchingPeriodTimer.applyFloorsAmount(
+        impl->level->getPlayableFloors()
+    );
 
-    /* dynamically load the tutorial widget if the serie is the tutorial
-       serie */
     if (context.getPlayingSerieManager().getSerieName() == "tutorial")
     {
-        tutorialWidget = std::make_unique<widgets::TutorialWidget>(context);
+        impl->tutorialWidget =
+            std::make_unique<widgets::TutorialWidget>(context);
     }
 }
+
+/**
+ *
+ */
+GameController::~GameController() noexcept = default;
 
 /**
  *
@@ -95,214 +153,156 @@ const unsigned short& GameController::render(
     utils::Context& context
 ) &
 {
-    /* check if the display level->time is equal to 0; if it is equal to 0,
-       that means the level has just opened and this time has to be set */
-    if (displayLevelTime == 0)
+    if (impl->displayLevelTime == 0)
     {
-        displayLevelTime = context.getClockMillisecondsTime();
+        impl->displayLevelTime = context.getClockMillisecondsTime();
     }
 
-    /* displays the game dashboard */
-    dashboard.display(context);
+    impl->dashboard.display(context);
 
-    /* displays the countdown widget */
-    timer.display(context);
+    impl->timer.display(context);
 
-    /* displays the watching period timer if started */
     if (
-        watchingPeriodTimer.isStarted() &&
-        tutorialWidget == nullptr
+        impl->watchingPeriodTimer.isStarted() &&
+        impl->tutorialWidget == nullptr
     )
     {
-        watchingPeriodTimer.display(context);
+        impl->watchingPeriodTimer.display(context);
     }
 
-    /* starts the lose period if the countdown is finished; checks that the
-       starting lose period time has not been set yet */
-    if (timer.isFinished() && endPeriodStartTime == 0)
+    if (
+        impl->timer.isFinished() &&
+        impl->endPeriodStartTime == 0
+    )
     {
-        /* ends the level with the lose period */
         endLevel(context);
     }
 
-    /* check if the level is currently rendering a floor switch animation */
-    if (level->getAnimateFloorTransition())
+    if (impl->level->getAnimateFloorTransition())
     {
-        /* renders the floor animation */
-        level->playFloorTransitionAnimation(context);
+        impl->level->playFloorTransitionAnimation(context);
     }
-    /* if an animation is currently rendering, the rendering animation has to
-       display the level during the whole animation time, that's why we do
-       not call the display() function of the level but the display()
-       method of the animation instead; if an animation is rendering, the
-       animation pointer is pointing on something */
-    else if (animation != nullptr)
+    else if (impl->animation != nullptr)
     {
-        /* the animation rendering method is called instead of the level
-           rendering method; the animation has to handle this task during the
-           whole animation process */
-        animation->renderAnimation(
+        impl->animation->renderAnimation(
             context,
-            level,
-            floor
+            impl->level,
+            impl->floor
         );
 
-        /* checks if the animation is terminated, if yes delete the
-           animation */
-        if (animation->isFinished())
+        if (impl->animation->isFinished())
         {
-            /* some animations require a specific end */
-            if (movePlayerToNextFloor)
+            if (impl->movePlayerToNextFloor)
             {
-                /* increments the floor value */
-                floor++;
+                impl->floor++;
 
-                /* update the displayed floor value on the game dashboard */
-                dashboard.updateCurrentFloor(floor);
+                impl->dashboard.updateCurrentFloor(impl->floor);
 
-                /* reset the boolean */
-                movePlayerToNextFloor = false;
+                impl->movePlayerToNextFloor = false;
             }
-            else if (movePlayerToPreviousFloor)
+            else if (impl->movePlayerToPreviousFloor)
             {
-                /* increments the floor value */
-                floor--;
+                impl->floor--;
 
-                /* update the displayed floor value on the game dashboard */
-                dashboard.updateCurrentFloor(floor);
+                impl->dashboard.updateCurrentFloor(impl->floor);
 
-                /* reset the boolean */
-                movePlayerToPreviousFloor = false;
+                impl->movePlayerToPreviousFloor = false;
             }
 
-            /* reset() deletes the pointed object and set back the unique
-               pointer to nullptr */
-            animation.reset();
+            impl->animation.reset();
         }
     }
     else
     {
-        /* renders a static playable level->if no animation are playing */
-        level->display(
+        impl->level->display(
             context,
-            floor,
+            impl->floor,
             &entities::Cell::display
         );
     }
 
-    /* displays all the cells of the level during the time of the watching
-       period */
     /* TODO: #547 6000 ms is a default value, should be the actual bonus
        watching time of the player */
     if (
-        watchingPeriod &&
+        impl->watchingPeriod &&
         (
             context.getClockMillisecondsTime() -
-            displayLevelTime >
+            impl->displayLevelTime >
             context.getPlayingSerieManager().getWatchingTime() * 1000
         ) &&
-        tutorialWidget == nullptr
+        impl->tutorialWidget == nullptr
     )
     {
-        /* call the private method that display the next floor of the level
-           in watching mode if necessary or stops the watching mode if all
-           the playable floors have been watched */
         watchNextFloorOrHideLevel(context);
     }
 
-    /* if the current game status is playing, the player cell has to be
-       animated; we check if no animation is currently played; if an animation
-       is playing, the player cursor is not animated at all */
     if (
-        playingPeriod &&
-        animation == nullptr &&
+        impl->playingPeriod &&
+        impl->animation == nullptr &&
         (
             context.getClockMillisecondsTime() -
-            playerCellAnimationTime > 100
+            impl->playerCellAnimationTime > 100
         )
     )
     {
-        /* increment the value of the transparency with the value 64; */
-        playerCellTransparency += 64;
+        impl->playerCellTransparency += 64;
 
-        /* modifies the transparency of the player cell color */
-        level->setPlayerCellTransparency(
+        impl->level->setPlayerCellTransparency(
             context,
-            playerCellTransparency
+            impl->playerCellTransparency
         );
 
-        /* check if the current value is more than 128; in fact, the
-           transparency value can only be located between 64 and 128 */
-        if (playerCellTransparency > 128)
+        if (impl->playerCellTransparency > 128)
         {
-            /* reset the player cell transparency; this value will be set to
-               64 during the next incrementation; I use this method to avoid
-               to have the same constant expression at different locations in
-               the code */
-            playerCellTransparency = 0;
+            impl->playerCellTransparency = 0;
         }
 
-        /* save the time of the last player cell animation, for the next
-           animation step */
-        playerCellAnimationTime =
+        impl->playerCellAnimationTime =
             context.getClockMillisecondsTime();
     }
 
-    /* check if the current game status is the win phase */
-    if (endPeriodStartTime)
+    if (impl->endPeriodStartTime)
     {
-        /* display the grey filter */
-        context.getSfmlWindow().draw(greyFilter);
+        context.getSfmlWindow().draw(impl->greyFilter);
 
-        /* display the win text or the lose text */
-        if (win)
+        if (impl->win)
         {
-            context.getSfmlWindow().draw(winText);
-            context.getSfmlWindow().draw(winInformationText);
+            context.getSfmlWindow().draw(impl->winText);
+            context.getSfmlWindow().draw(impl->winInformationText);
 
-            /* animate the left levels amount surface */
             animateLeftLevelsAmount(context);
         }
         else
         {
-            context.getSfmlWindow().draw(loseText);
+            context.getSfmlWindow().draw(impl->loseText);
         }
 
-        /* check if the lose period is finished; the lose period duration is
-           5 seconds */
         if (
             context.getClockMillisecondsTime() -
-            endPeriodStartTime > 5000
+            impl->endPeriodStartTime > 5000
         )
         {
-            /* change the expected controller id according to the level
-               status */
-            expectedControllerId = win ?
+            expectedControllerId = impl->win ?
                                    controllers::GAME_CONTROLLER_ID:
                                    controllers::MAIN_MENU_CONTROLLER_ID;
         }
     }
 
-    /* display the tutorial widget if necessary */
-    if (tutorialWidget != nullptr)
+    if (impl->tutorialWidget != nullptr)
     {
-        tutorialWidget->display(context);
+        impl->tutorialWidget->display(context);
     }
 
-    /* used for the screen switch transition animation */
     nextControllerId = animateScreenTransition(context);
 
-    /* the events loop of the game controller */
     while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {
-        /* a key is pressed on the keyboard */
         case sf::Event::KeyPressed:
         {
             switch(event.key.code)
             {
-            /* the up key is pressed down */
             case sf::Keyboard::Up:
             {
                 handlePlayerMovement(
@@ -312,7 +312,6 @@ const unsigned short& GameController::render(
 
                 break;
             }
-            /* the down key is pressed down */
             case sf::Keyboard::Down:
             {
                 handlePlayerMovement(
@@ -322,7 +321,6 @@ const unsigned short& GameController::render(
 
                 break;
             }
-            /* the left key is pressed down */
             case sf::Keyboard::Left:
             {
                 handlePlayerMovement(
@@ -332,7 +330,6 @@ const unsigned short& GameController::render(
 
                 break;
             }
-            /* the right key is pressed down */
             case sf::Keyboard::Right:
             {
                 handlePlayerMovement(
@@ -342,45 +339,32 @@ const unsigned short& GameController::render(
 
                 break;
             }
-            /* the escape key is pressed down */
             case sf::Keyboard::Escape:
             {
-                /* the game is terminated and the called controller is the
-                   main menu controller */
-
-                /* NOTE: the game does not ask for confirmation to the player
-                   when he pressed the espace key; in fact, this feature does
-                   not exist in Memoris: this would give to the player some
-                   'relax' time and more time to thinks about how to finish
-                   the level-> even if the cells are not displayed during the
-                   pause time */
                 expectedControllerId = MAIN_MENU_CONTROLLER_ID;
 
                 break;
             }
             case sf::Keyboard::Return:
             {
-                if (tutorialWidget == nullptr)
+                if (impl->tutorialWidget == nullptr)
                 {
                     break;
                 }
 
-                /* delete the tutorial widget if no frame in the queue */
-                if (!tutorialWidget->nextFrame())
+                if (!impl->tutorialWidget->nextFrame())
                 {
-                    tutorialWidget.reset();
+                    impl->tutorialWidget.reset();
                 }
             }
             default:
             {
-                /* useless, added here to respect syntax */
                 break;
             }
             }
         }
         default:
         {
-            /* useless, added here to respect syntax */
             break;
         }
         }
@@ -397,60 +381,41 @@ void GameController::handlePlayerMovement(
     const short& movement
 )
 {
-    /* NOTE: we voluntary do not refactor the two following conditions or use
-       short-circuiting on them; in fact, we really want check the movement
-       allowance first and end the function if the movement cannot be perfored,
-       without starting to check the second condition */
-
-    /* check if the game is in watching or lose period; in both cases, the
-       movement is directly canceled; if an animation is currently rendering,
-       the movement is forbidden too */
     if (
-        watchingPeriod ||
-        endPeriodStartTime ||
-        animation != nullptr
+        impl->watchingPeriod ||
+        impl->endPeriodStartTime ||
+        impl->animation != nullptr
     )
     {
-        /* ends the current function and the movement is not allowed */
         return;
     }
 
-    /* checks if the movement is actually allowed before performing it; we
-       check if the player is not already on level->borders and is trying to
-       move to the outside of the playable area */
-    if (!level->allowPlayerMovement(movement, floor))
+    if (
+        !impl->level->allowPlayerMovement(
+            movement,
+            impl->floor
+        )
+    )
     {
-        /* plays the collision sound */
         context.getSoundsManager().playCollisionSound();
 
-        /* stop the process and do not move if the movement is not allowed */
         return;
     }
 
-    /* check if the player is against a wall during the movement; if there is
-       a collision, the wall is displayed by the condition function and the
-       movement is cancelled */
-    if (level->detectWalls(context, movement))
+    if (impl->level->detectWalls(context, movement))
     {
-        /* plays the collision sound */
         context.getSoundsManager().playCollisionSound();
 
-        /* the movement is cancelled if the player is against a wall */
         return;
     }
 
-    /* empty the current player cell before moving; some types are not cleared,
-       that's what the function has to check */
     emptyPlayerCell(context);
 
-    /* move the player, display walls if there are some collisions and show
-       the new cell */
-    level->movePlayer(
+    impl->level->movePlayer(
         context,
         movement
     );
 
-    /* execute the action of the new player cell right after the movement */
     executePlayerCellAction(context);
 }
 
@@ -461,148 +426,114 @@ void GameController::executePlayerCellAction(
     utils::Context& context
 )
 {
-    /* create an alias on the new player cell type, returned as a reference
-       by the level->getter */
-    const char& newPlayerCellType = level->getPlayerCellType();
-
-    /* NOTE: this switch only contains one case for now but expects to get
-       almost one case per cell type */
+    const char& newPlayerCellType = impl->level->getPlayerCellType();
 
     switch(newPlayerCellType)
     {
     case cells::STAR_CELL:
     {
-        /* plays the found star cell sound */
         context.getSoundsManager().playFoundStarSound();
 
-        /* increments the amount of found stars inside the dashboard */
-        dashboard.incrementFoundStars();
+        impl->dashboard.incrementFoundStars();
 
         break;
     }
     case cells::MORE_LIFE_CELL:
     {
-        /* plays the found life cell sound */
         context.getSoundsManager().playFoundLifeOrTimeSound();
 
-        /* increments the amount of lifes inside the dashboard */
-        dashboard.incrementLifes();
+        impl->dashboard.incrementLifes();
 
         break;
     }
     case cells::LESS_LIFE_CELL:
     {
-        /* plays the sound of a dead cell */
         context.getSoundsManager().playFoundDeadOrLessTimeSound();
 
-        /* check if the lose period must be started */
-        if (dashboard.getLifesAmount() == 0)
+        if (impl->dashboard.getLifesAmount() == 0)
         {
             endLevel(context);
         }
 
-        /* decrement the amount of lifes */
-        dashboard.decrementLifes();
+        impl->dashboard.decrementLifes();
 
         break;
     }
     case cells::MORE_TIME_CELL:
     {
-        /* plays the found time cell sound */
         context.getSoundsManager().playFoundLifeOrTimeSound();
 
-        /* increments the amount of watching time inside the dashboard */
-        dashboard.increaseWatchingTime();
+        impl->dashboard.increaseWatchingTime();
 
         break;
     }
     case cells::LESS_TIME_CELL:
     {
-        /* plays the found less time cell sound */
         context.getSoundsManager().playFoundDeadOrLessTimeSound();
 
-        /* decrease the amount of watching time inside the dasboard */
-        dashboard.decreaseWatchingTime();
+        impl->dashboard.decreaseWatchingTime();
 
         break;
     }
     case cells::STAIRS_UP_CELL:
     {
-        /* check if the player can be moved to the next floor (maybe it cannot
-           because he is already on the last floor) */
-        if (level->movePlayerToNextFloor(context))
+        if (impl->level->movePlayerToNextFloor(context))
         {
-            /* set the animation value; for the stairs cells, the animation
-               is a simple waiting period */
-            animation = animations::getAnimationByCellType(
-                            context,
-                            newPlayerCellType
-                        );
+            impl->animation = animations::getAnimationByCellType(
+                                  context,
+                                  newPlayerCellType
+                              );
 
-            /* remember that we have ot move the player on the next floor at
-               the end of the animation */
-            movePlayerToNextFloor = true;
+            impl->movePlayerToNextFloor = true;
         }
 
         break;
     }
     case cells::STAIRS_DOWN_CELL:
     {
-        /* check if the player can be moved to the previous floor (maybe it
-           cannot because he is already on the first floor) */
-        if (level->movePlayerToPreviousFloor(context))
+        if (impl->level->movePlayerToPreviousFloor(context))
         {
-            /* set the animation value; for the stairs cells, the animation
-               is a simple waiting period */
-            animation = animations::getAnimationByCellType(
-                            context,
-                            newPlayerCellType
-                        );
+            impl->animation = animations::getAnimationByCellType(
+                                  context,
+                                  newPlayerCellType
+                              );
 
-            /* remember that we have ot move the player on the next floor at
-               the end of the animation */
-            movePlayerToPreviousFloor = true;
+            impl->movePlayerToPreviousFloor = true;
         }
 
         break;
     }
     case cells::ARRIVAL_CELL:
     {
-        /* check if the all the star cells have been found */
-        if (dashboard.getFoundStarsAmount() == level->getStarsAmount())
+        if (
+            impl->dashboard.getFoundStarsAmount() ==
+            impl->level->getStarsAmount()
+        )
         {
-            /* set the level as won */
-            win = true;
+            impl->win = true;
 
-            /* check if the loaded serie has a next level->to play */
             if (context.getPlayingSerieManager().hasNextLevel())
             {
-                /* displays the win level screen */
                 endLevel(context);
             }
             else
             {
-                /* if the serie is finished, go back to the main menu */
-                /* TODO: should go to another screen as a win screen */
                 expectedControllerId = controllers::MAIN_MENU_CONTROLLER_ID;
             }
         }
 
         break;
     }
-    /* all the animation cells are specified into this case; we do not create
-       a case for each animation cell */
     case cells::HORIZONTAL_MIRROR_CELL:
     case cells::VERTICAL_MIRROR_CELL:
     case cells::DIAGONAL_CELL:
     case cells::LEFT_ROTATION_CELL:
     case cells::RIGHT_ROTATION_CELL:
     {
-        /* starts the level animation according to the current player cell */
-        animation = animations::getAnimationByCellType(
-                        context,
-                        newPlayerCellType
-                    );
+        impl->animation = animations::getAnimationByCellType(
+                              context,
+                              newPlayerCellType
+                          );
 
         break;
     }
@@ -616,13 +547,8 @@ void GameController::emptyPlayerCell(
     utils::Context& context
 )
 {
-    /* create an alias on the new player cell type, returned as a reference
-       by the level->getter */
-    const char& playerCellType = level->getPlayerCellType();
+    const char& playerCellType = impl->level->getPlayerCellType();
 
-    /* check if the player cell is one of the types that are never deleted; we
-       could use a test on an array here, but in order to improve visibility,
-       we prefer these multiple conditions */
     if (
         playerCellType == cells::EMPTY_CELL ||
         playerCellType == cells::DEPARTURE_CELL ||
@@ -636,13 +562,10 @@ void GameController::emptyPlayerCell(
         playerCellType == cells::RIGHT_ROTATION_CELL
     )
     {
-        /* immediately ends the function; the current cell does not need to
-           be empty even if the player is leaving it */
         return;
     }
 
-    /* empty the player cell type */
-    level->emptyPlayerCell(context);
+    impl->level->emptyPlayerCell(context);
 }
 
 /**
@@ -652,23 +575,16 @@ void GameController::initializeGreyFilter(
     utils::Context& context
 )
 {
-    /* create the grey rectangle shape that is displayed when the player loses
-       the current game */
+    impl->greyFilter.setPosition(0.f, 0.f);
 
-    /* the position of the filter is the left top corner as it is displayed on
-       the whole screen */
-    greyFilter.setPosition(0.f, 0.f);
-
-    /* the size of the filter is the whole window size */
-    greyFilter.setSize(
+    impl->greyFilter.setSize(
         sf::Vector2f(
             window::WIDTH,
             window::HEIGHT
         )
     );
 
-    /* the color of the grey filter is grey with a light transparency */
-    greyFilter.setFillColor(
+    impl->greyFilter.setFillColor(
         context.getColorsManager().getColorPartialDarkGrey()
     );
 }
@@ -680,26 +596,15 @@ void GameController::initializeLoseText(
     utils::Context& context
 )
 {
-    /* initialize the SFML text that is displayed when the player loses the
-       game */
-
-    /* the text is aligned at the center of the window */
-    loseText.setPosition(
+    impl->loseText.setPosition(
         400.f,
         200.f
     );
 
-    /* the text contains the lose message */
-    loseText.setString("You Lose !");
-
-    /* the size of the lose message is the same as the title items sizes */
-    loseText.setCharacterSize(fonts::TITLE_SIZE);
-
-    /* the font of the lose message is the normal text font */
-    loseText.setFont(context.getFontsManager().getTextFont());
-
-    /* the lose text is written in red color on the grey filter */
-    loseText.setColor(context.getColorsManager().getColorRed());
+    impl->loseText.setString("You Lose !");
+    impl->loseText.setCharacterSize(fonts::TITLE_SIZE);
+    impl->loseText.setFont(context.getFontsManager().getTextFont());
+    impl->loseText.setColor(context.getColorsManager().getColorRed());
 }
 
 /**
@@ -709,39 +614,40 @@ void GameController::initializeWinText(
     utils::Context& context
 )
 {
-    /* initialize the SFML text that is displayed when the player loses the
-       game */
-
-    winText.setPosition(
+    impl->winText.setPosition(
         480.f,
         100.f
     );
-    winText.setString("You Win !");
-    winText.setCharacterSize(fonts::TITLE_SIZE);
-    winText.setFont(context.getFontsManager().getTextFont());
-    winText.setColor(context.getColorsManager().getColorGreen());
+    impl->winText.setString("You Win !");
+    impl->winText.setCharacterSize(fonts::TITLE_SIZE);
+    impl->winText.setFont(context.getFontsManager().getTextFont());
+    impl->winText.setColor(context.getColorsManager().getColorGreen());
 
-    leftLevelsAmountText.setPosition(
+    impl->leftLevelsAmountText.setPosition(
         700.f,
         200.f
     );
-    leftLevelsAmountText.setString(
+    impl->leftLevelsAmountText.setString(
         std::to_string(
             context.getPlayingSerieManager().getRemainingLevelsAmount()
         )
     );
-    leftLevelsAmountText.setCharacterSize(fonts::LEVELS_COUNTDOWN_SIZE);
-    leftLevelsAmountText.setFont(context.getFontsManager().getTextFont());
-    leftLevelsAmountText.setColor(context.getColorsManager().getColorWhite());
+    impl->leftLevelsAmountText.setCharacterSize(fonts::LEVELS_COUNTDOWN_SIZE);
+    impl->leftLevelsAmountText.setFont(
+        context.getFontsManager().getTextFont()
+    );
+    impl->leftLevelsAmountText.setColor(
+        context.getColorsManager().getColorWhite()
+    );
 
-    winInformationText.setPosition(
+    impl->winInformationText.setPosition(
         560.f,
         650.f
     );
-    winInformationText.setString("levels left");
-    winInformationText.setCharacterSize(fonts::SUB_TITLE_SIZE);
-    winInformationText.setFont(context.getFontsManager().getTextFont());
-    winInformationText.setColor(
+    impl->winInformationText.setString("levels left");
+    impl->winInformationText.setCharacterSize(fonts::SUB_TITLE_SIZE);
+    impl->winInformationText.setFont(context.getFontsManager().getTextFont());
+    impl->winInformationText.setColor(
         context.getColorsManager().getColorDarkGreen()
     );
 }
@@ -753,56 +659,35 @@ void GameController::watchNextFloorOrHideLevel(
     utils::Context& context
 )
 {
-    /* check if the current displayed level->is the last one to display; the
-       'floor' variable contains the current floor index, the level->public
-       method returns an amount of floors, that's why we substract one */
-    if (floor != level->getPlayableFloors() - 1)
+    if (impl->floor != impl->level->getPlayableFloors() - 1)
     {
-        /* increment the floor index to display the next floor cells */
-        floor++;
+        impl->floor++;
 
-        /* enable the animation of the floor transition */
-        level->setAnimateFloorTransition(true);
+        impl->level->setAnimateFloorTransition(true);
 
-        /* play the floor switch animation sound */
         context.getSoundsManager().playFloorSwitchSound();
 
-        /* update the floor number inside the game dashboard */
-        dashboard.updateCurrentFloor(floor);
+        impl->dashboard.updateCurrentFloor(impl->floor);
 
-        /* reset the display level->time with the current time to allow more
-           watching time for the next floor watching period */
-        displayLevelTime =
+        impl->displayLevelTime =
             context.getClockMillisecondsTime();
 
-        /* ends the process here */
         return;
     }
 
-    /* hide all the cells of the level->*/
-    level->hideAllCellsExceptDeparture(context);
+    impl->level->hideAllCellsExceptDeparture(context);
 
-    /* plays the hide level->sound */
     context.getSoundsManager().playHideLevelSound();
 
-    /* the watching mode is now terminated */
-    watchingPeriod = false;
+    impl->watchingPeriod = false;
 
-    /* the playing period starts now */
-    playingPeriod = true;
+    impl->playingPeriod = true;
 
-    /* get the player floor index from the level->*/
-    floor = level->getPlayerFloor();
+    impl->floor = impl->level->getPlayerFloor();
 
-    /* update the floor number inside the game dashboard */
-    dashboard.updateCurrentFloor(floor);
+    impl->dashboard.updateCurrentFloor(impl->floor);
 
-    /* starts the countdown */
-    timer.start();
-
-    /* at this moment, we do not save the moment the animation ends; in
-       fact, this is not a repeated action, there is no need to save
-       the current time here */
+    impl->timer.start();
 }
 
 /**
@@ -812,27 +697,20 @@ void GameController::endLevel(
     utils::Context& context
 )
 {
-    /* stop the music or play a specific sound according if the player has
-       just won or lost */
-    if (win)
+    if (impl->win)
     {
-        /* plays the win level sound */
         context.getSoundsManager().playWinLevelSound();
     }
     else
     {
-        /* force the music to stop */
         context.stopMusic();
 
-        /* plays the time over sound */
         context.getSoundsManager().playTimeOverSound();
     }
 
-    /* call the method to stop the timer */
-    timer.stop();
+    impl->timer.stop();
 
-    /* save when started the lose period time */
-    endPeriodStartTime = context.getClockMillisecondsTime();
+    impl->endPeriodStartTime = context.getClockMillisecondsTime();
 }
 
 /**
@@ -842,50 +720,34 @@ void GameController::animateLeftLevelsAmount(
     utils::Context& context
 )
 {
-    /* display the amount of left levels */
-    context.getSfmlWindow().draw(leftLevelsAmountText);
+    context.getSfmlWindow().draw(impl->leftLevelsAmountText);
 
-    /* check if at least 50 milliseconds elapsed between the last animation
-       of the text surface */
     if (
         context.getClockMillisecondsTime() -
-        leftLevelsAmountLastAnimationTime < 50
+        impl->leftLevelsAmountLastAnimationTime < 50
     )
     {
-        /* does nothing if not enough time elapsed */
         return;
     }
 
-    /* this part updates the transparency of the SFML surface */
+    impl->leftLevelsAmountTransparency += impl->leftLevelsAmountDirection;
 
-    /* update the transparency of the surface, add or substract the current
-       left amount animation direction */
-    leftLevelsAmountTransparency += leftLevelsAmountDirection;
-
-    /* toggle the direction of the animation if the alpha value is equal to 0
-       or 255 (borders values) */
     if (
-        leftLevelsAmountTransparency == 0 ||
-        leftLevelsAmountTransparency == 255
+        impl->leftLevelsAmountTransparency == 0 ||
+        impl->leftLevelsAmountTransparency == 255
     )
     {
-        leftLevelsAmountDirection *= -1;
+        impl->leftLevelsAmountDirection *= -1;
     }
 
-    /* copy the color of the text from the colors manager; we have to do a
-       copy because the transparency will be updated for the animation
-       purposes */
     sf::Color color = context.getColorsManager().getColorWhiteCopy();
 
-    /* change the alpha value of the SFML color */
-    color.a = leftLevelsAmountTransparency;
+    color.a = impl->leftLevelsAmountTransparency;
 
-    /* update the color */
-    leftLevelsAmountText.setColor(color);
+    impl->leftLevelsAmountText.setColor(color);
 
-    /* store the time of the end of the animation update for the next
-       update */
-    leftLevelsAmountLastAnimationTime = context.getClockMillisecondsTime();
+    impl->leftLevelsAmountLastAnimationTime =
+        context.getClockMillisecondsTime();
 }
 
 }
