@@ -53,7 +53,7 @@ public:
      *
      * not 'noexcept' because it calls SFML function that are not noexcept
      */
-    SelectionListWidget(utils::Context& context);
+    SelectionListWidget(const utils::Context& context);
 
     /**
      * @brief default destructor, empty, only declared in order to use

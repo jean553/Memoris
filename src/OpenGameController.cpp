@@ -29,6 +29,9 @@
 #include "fonts.hpp"
 #include "ColorsManager.hpp"
 #include "controllers.hpp"
+#include "SelectionListWidget.hpp"
+#include "Cursor.hpp"
+#include "DirectoryReader.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -43,7 +46,9 @@ class OpenGameController::Impl
 
 public:
 
-    Impl(const utils::Context& context)
+    Impl(const utils::Context& context) :
+        list(context),
+        cursor(context)
     {
         title.setFont(context.getFontsManager().getTitleFont());
         title.setString("Open game");
@@ -53,9 +58,18 @@ public:
             620.f,
             100.f
         );
+
+        list.setList(
+            context,
+            utils::getFilesFromDirectory("data/games")
+        );
     }
 
     sf::Text title;
+
+    widgets::SelectionListWidget list;
+
+    widgets::Cursor cursor;
 };
 
 /**
@@ -78,6 +92,10 @@ OpenGameController::~OpenGameController() noexcept = default;
 const unsigned short& OpenGameController::render(utils::Context& context) &
 {
     context.getSfmlWindow().draw(impl->title);
+
+    impl->list.display(context);
+
+    impl->cursor.render(context);
 
     nextControllerId = animateScreenTransition(context);
 
