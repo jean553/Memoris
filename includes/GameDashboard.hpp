@@ -31,6 +31,12 @@
 
 namespace memoris
 {
+
+namespace widgets
+{
+class TimerWidget;
+}
+
 namespace utils
 {
 
@@ -130,6 +136,16 @@ public:
      * @return const unsigned short&
      */
     const unsigned short& getWatchingTime() const;
+
+    /**
+     * @brief getter for the timer widget
+     *
+     * @return utils::TimerWidget&
+     *
+     * the returned reference is not constant because the caller (game
+     * controller) directly updates the object
+     */
+    widgets::TimerWidget& getTimerWidget() const &;
 
 private:
 

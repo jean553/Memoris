@@ -31,6 +31,7 @@
 #include "ColorsManager.hpp"
 #include "TexturesManager.hpp"
 #include "LevelSeparators.hpp"
+#include "TimerWidget.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Sprite.hpp>
@@ -47,7 +48,12 @@ class GameDashboard::Impl
 public:
 
     Impl(utils::Context& context) :
-        separators(context)
+        separators(context),
+        timer(
+            context,
+            295.f,
+            10.f
+        )
     {
         watchingTime = context.getPlayingSerieManager().getWatchingTime();
 
@@ -152,6 +158,8 @@ public:
     unsigned short foundStars {0};
 
     utils::LevelSeparators separators;
+
+    widgets::TimerWidget timer;
 };
 
 /**
@@ -300,6 +308,14 @@ void GameDashboard::updateCurrentFloor(const unsigned short& floorIndex)
 const unsigned short& GameDashboard::getWatchingTime() const
 {
     return impl->watchingTime;
+}
+
+/**
+ *
+ */
+widgets::TimerWidget& GameDashboard::getTimerWidget() const &
+{
+    return impl->timer;
 }
 
 }

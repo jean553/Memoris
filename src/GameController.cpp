@@ -34,9 +34,9 @@
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "GameDashboard.hpp"
-#include "TimerWidget.hpp"
 #include "WatchingPeriodTimer.hpp"
 #include "TutorialWidget.hpp"
+#include "TimerWidget.hpp"
 
 namespace memoris
 {
@@ -52,18 +52,11 @@ public:
         utils::Context& context,
         std::shared_ptr<entities::Level> levelPtr
     ) :
-        timer(
-            context,
-            295.f,
-            10.f
-        ),
         dashboard(context),
         watchingPeriodTimer(context),
         level(levelPtr)
     {
     }
-
-    widgets::TimerWidget timer;
 
     sf::Uint32 displayLevelTime {0};
     sf::Uint32 playerCellAnimationTime {0};
@@ -121,7 +114,7 @@ GameController::GameController(
         impl->level->getStarsAmount()
     );
 
-    impl->timer.setMinutesAndSeconds(
+    impl->dashboard.getTimerWidget().setMinutesAndSeconds(
         impl->level->getMinutes(),
         impl->level->getSeconds()
     );
@@ -160,7 +153,7 @@ const unsigned short& GameController::render(
 
     impl->dashboard.display(context);
 
-    impl->timer.display(context);
+    impl->dashboard.getTimerWidget().display(context);
 
     if (
         impl->watchingPeriodTimer.isStarted() &&
@@ -171,7 +164,7 @@ const unsigned short& GameController::render(
     }
 
     if (
-        impl->timer.isFinished() &&
+        impl->dashboard.getTimerWidget().isFinished() &&
         impl->endPeriodStartTime == 0
     )
     {
@@ -687,7 +680,7 @@ void GameController::watchNextFloorOrHideLevel(
 
     impl->dashboard.updateCurrentFloor(impl->floor);
 
-    impl->timer.start();
+    impl->dashboard.getTimerWidget().start();
 }
 
 /**
@@ -708,7 +701,7 @@ void GameController::endLevel(
         context.getSoundsManager().playTimeOverSound();
     }
 
-    impl->timer.stop();
+    impl->dashboard.getTimerWidget().stop();
 
     impl->endPeriodStartTime = context.getClockMillisecondsTime();
 }
