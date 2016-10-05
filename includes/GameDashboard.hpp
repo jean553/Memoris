@@ -41,6 +41,7 @@ namespace utils
 {
 
 class Context;
+class WatchingPeriodTimer;
 
 class GameDashboard
 {
@@ -140,12 +141,22 @@ public:
     /**
      * @brief getter for the timer widget
      *
-     * @return utils::TimerWidget&
+     * @return widgets::TimerWidget&
      *
      * the returned reference is not constant because the caller (game
      * controller) directly updates the object
      */
-    widgets::TimerWidget& getTimerWidget() const &;
+    widgets::TimerWidget& getTimerWidget() const & noexcept;
+
+    /**
+     * @brief getter of the watching period timer
+     *
+     * @return utils::WatchingPeriodTimer&
+     *
+     * the returned reference is not constant because the caller (game
+     * controller) directly updates the object
+     */
+    utils::WatchingPeriodTimer& getWatchingPeriodTimer() const & noexcept;
 
 private:
 
