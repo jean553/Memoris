@@ -118,33 +118,6 @@ private:
     void emptyPlayerCell(utils::Context& context);
 
     /**
-     * @brief initialize the grey filter surface that is displayed if the
-     * player loses the game; this private method is called by the constructor;
-     * the content of this method could be inside the controller itself, but
-     * we put it inside a separated method for better organization
-     *
-     * @param context reference to the current context of the game
-     */
-    void initializeGreyFilter(utils::Context& context);
-
-    /**
-     * @brief initialize the lose text that is displayed when the player loses
-     * the current game; this private method is called by the constructor;
-     * the content of this method could be inside the controller itself, but
-     * we put it inside a separated method for better organization
-     *
-     * @param context reference to the current context of the game
-     */
-    void initializeLoseText(utils::Context& context);
-
-    /**
-     * @brief initialize the win text that is displayed when the player wins
-     *
-     * @param context reference to the current context of the game
-     */
-    void initializeWinText(utils::Context& context);
-
-    /**
      * @brief this method is called during the watching mode by the main
      * display method to jump to the next floor if the next floor is a playable
      * floor or to stop the watching period if there is no playable floor
@@ -163,15 +136,6 @@ private:
      * @param context shared pointer to the context to use
      */
     void endLevel(utils::Context& context);
-
-    /**
-     * @brief animate the displayed left level amount on the win screen
-     *
-     * @param context shared pointer to the context to use
-     */
-    void animateLeftLevelsAmount(
-        utils::Context& context
-    );
 
     class Impl;
     std::unique_ptr<Impl> impl;
