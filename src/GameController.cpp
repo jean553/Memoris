@@ -37,6 +37,8 @@
 #include "WatchingPeriodTimer.hpp"
 #include "TutorialWidget.hpp"
 #include "TimerWidget.hpp"
+#include "WinLevelEndingScreen.hpp"
+#include "LoseLevelEndingScreen.hpp"
 
 namespace memoris
 {
@@ -82,12 +84,7 @@ public:
 
     unsigned short floor {0};
 
-    sf::RectangleShape greyFilter;
-
-    sf::Text loseText;
-    sf::Text winText;
-    sf::Text winInformationText;
-    sf::Text leftLevelsAmountText;
+    std::unique_ptr<utils::LevelEndingScreen> endingScreen {nullptr};
 };
 
 /**
@@ -115,10 +112,6 @@ GameController::GameController(
         impl->level->getMinutes(),
         impl->level->getSeconds()
     );
-
-    initializeGreyFilter(context);
-    initializeLoseText(context);
-    initializeWinText(context);
 
     impl->dashboard.getWatchingPeriodTimer().applyFloorsAmount(
         impl->level->getPlayableFloors()
@@ -251,21 +244,9 @@ const unsigned short& GameController::render(
             context.getClockMillisecondsTime();
     }
 
-    if (impl->endPeriodStartTime)
+    if (impl->endingScreen != nullptr)
     {
-        context.getSfmlWindow().draw(impl->greyFilter);
-
-        if (impl->win)
-        {
-            context.getSfmlWindow().draw(impl->winText);
-            context.getSfmlWindow().draw(impl->winInformationText);
-
-            animateLeftLevelsAmount(context);
-        }
-        else
-        {
-            context.getSfmlWindow().draw(impl->loseText);
-        }
+        impl->endingScreen->render(context);
 
         if (
             context.getClockMillisecondsTime() -
@@ -561,90 +542,6 @@ void GameController::emptyPlayerCell(
 /**
  *
  */
-void GameController::initializeGreyFilter(
-    utils::Context& context
-)
-{
-    impl->greyFilter.setPosition(0.f, 0.f);
-
-    impl->greyFilter.setSize(
-        sf::Vector2f(
-            window::WIDTH,
-            window::HEIGHT
-        )
-    );
-
-    impl->greyFilter.setFillColor(
-        context.getColorsManager().getColorPartialDarkGrey()
-    );
-}
-
-/**
- *
- */
-void GameController::initializeLoseText(
-    utils::Context& context
-)
-{
-    impl->loseText.setPosition(
-        400.f,
-        200.f
-    );
-
-    impl->loseText.setString("You Lose !");
-    impl->loseText.setCharacterSize(fonts::TITLE_SIZE);
-    impl->loseText.setFont(context.getFontsManager().getTextFont());
-    impl->loseText.setColor(context.getColorsManager().getColorRed());
-}
-
-/**
- *
- */
-void GameController::initializeWinText(
-    utils::Context& context
-)
-{
-    impl->winText.setPosition(
-        480.f,
-        100.f
-    );
-    impl->winText.setString("You Win !");
-    impl->winText.setCharacterSize(fonts::TITLE_SIZE);
-    impl->winText.setFont(context.getFontsManager().getTextFont());
-    impl->winText.setColor(context.getColorsManager().getColorGreen());
-
-    impl->leftLevelsAmountText.setPosition(
-        700.f,
-        200.f
-    );
-    impl->leftLevelsAmountText.setString(
-        std::to_string(
-            context.getPlayingSerieManager().getRemainingLevelsAmount()
-        )
-    );
-    impl->leftLevelsAmountText.setCharacterSize(fonts::LEVELS_COUNTDOWN_SIZE);
-    impl->leftLevelsAmountText.setFont(
-        context.getFontsManager().getTextFont()
-    );
-    impl->leftLevelsAmountText.setColor(
-        context.getColorsManager().getColorWhite()
-    );
-
-    impl->winInformationText.setPosition(
-        560.f,
-        650.f
-    );
-    impl->winInformationText.setString("levels left");
-    impl->winInformationText.setCharacterSize(fonts::SUB_TITLE_SIZE);
-    impl->winInformationText.setFont(context.getFontsManager().getTextFont());
-    impl->winInformationText.setColor(
-        context.getColorsManager().getColorDarkGreen()
-    );
-}
-
-/**
- *
- */
 void GameController::watchNextFloorOrHideLevel(
     utils::Context& context
 )
@@ -690,54 +587,23 @@ void GameController::endLevel(
     if (impl->win)
     {
         context.getSoundsManager().playWinLevelSound();
+
+        impl->endingScreen =
+            std::make_unique<utils::WinLevelEndingScreen>(context);
     }
     else
     {
         context.stopMusic();
 
         context.getSoundsManager().playTimeOverSound();
+
+        impl->endingScreen =
+            std::make_unique<utils::LoseLevelEndingScreen>(context);
     }
 
     impl->dashboard.getTimerWidget().stop();
 
     impl->endPeriodStartTime = context.getClockMillisecondsTime();
-}
-
-/**
- *
- */
-void GameController::animateLeftLevelsAmount(
-    utils::Context& context
-)
-{
-    context.getSfmlWindow().draw(impl->leftLevelsAmountText);
-
-    if (
-        context.getClockMillisecondsTime() -
-        impl->leftLevelsAmountLastAnimationTime < 50
-    )
-    {
-        return;
-    }
-
-    impl->leftLevelsAmountTransparency += impl->leftLevelsAmountDirection;
-
-    if (
-        impl->leftLevelsAmountTransparency == 0 ||
-        impl->leftLevelsAmountTransparency == 255
-    )
-    {
-        impl->leftLevelsAmountDirection *= -1;
-    }
-
-    sf::Color color = context.getColorsManager().getColorWhiteCopy();
-
-    color.a = impl->leftLevelsAmountTransparency;
-
-    impl->leftLevelsAmountText.setColor(color);
-
-    impl->leftLevelsAmountLastAnimationTime =
-        context.getClockMillisecondsTime();
 }
 
 }
