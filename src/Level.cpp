@@ -38,28 +38,57 @@ namespace memoris
 namespace entities
 {
 
+class Level::Impl
+{
+
+public:
+
+    std::vector<std::unique_ptr<Cell>> cells;
+
+    unsigned short playerIndex {0};
+    unsigned short starsAmount {0};
+    unsigned short playableFloors {0};
+    unsigned short minutes {0};
+    unsigned short seconds {0};
+
+    bool animateFloorTransition {false};
+
+    sf::Uint32 lastAnimationTime {0};
+
+    unsigned short animationColumn {0};
+    unsigned short animationFloor {0};
+    unsigned short horizontalPositionCursor {0};
+    unsigned short verticalPositionCursor {0};
+
+    std::unique_ptr<sf::Transform> transform {nullptr};
+
+    bool emptyFloor {true};
+};
+
 /**
  *
  */
 Level::Level(
     utils::Context& context,
     const bool loadFromFile
-)
+) :
+    impl(std::make_unique<Impl>())
 {
-    /* check if the level has to be loaded from the level file in the next
-       item of the serie manager queue */
     if(loadFromFile)
     {
         loadLevelFromFile(context);
     }
     else
     {
-
-        /* if no, load an empty level (used by the level editor) */
         loadEmptyLevel(context);
     }
 
 }
+
+/**
+ *
+ */
+Level::~Level() noexcept = default;
 
 /**
  *
@@ -73,23 +102,17 @@ void Level::display(
     )
 ) const
 {
-    /* calculate the index of the first cell of the given floor */
     const unsigned short firstCellIndex = floor * 256;
 
-    /* calculate the index of the last cell of the given floor */
     const unsigned short lastCellIndex = floor * 256 + 256;
 
-    /* only display the cells of the given floor; all the other cells of the
-       level are ignored */
     for(
         unsigned short index = firstCellIndex;
         index < lastCellIndex;
         index++
     )
     {
-        /* get an unique pointer, get the cell object from this pointer;
-           call the given method according to the display pointer */
-        ((*cells[index]).*display)(context, transform);
+        ((*impl->cells[index]).*display)(context, impl->transform);
     }
 }
 
@@ -100,26 +123,15 @@ void Level::hideAllCellsExceptDeparture(
     utils::Context& context
 )
 {
-    /* use a for_each to browse all the unique pointers of the cells container;
-       send a reference to the pointer as a lambda function parameter at each
-       iteration; capture the context shared pointer by reference; */
     std::for_each(
-        cells.begin(),
-        cells.end(),
+        impl->cells.begin(),
+        impl->cells.end(),
         [&context](const std::unique_ptr<Cell>& cell)
     {
-        /* check if the type of the current cell is the departure cell
-           type */
         if (cell->getType() == cells::DEPARTURE_CELL)
         {
-            /* force the cell to be shown; this is to ensure that whatever
-               happened to the level before (animation, floor switch) that
-               occured hide/show cells actions, we still show the departure
-               cell anyway */
             cell->show(context);
 
-            /* do nothing and continue to iterate if the type is the
-               departure cell; in fact, any departure cell stays visible */
             return;
         }
 
@@ -136,8 +148,7 @@ void Level::setPlayerCellTransparency(
     const sf::Uint8& alpha
 )
 {
-    /* update the cell color with the index equals to the player index */
-    (*cells[playerIndex]).setCellColorTransparency(
+    (*impl->cells[impl->playerIndex]).setCellColorTransparency(
         context,
         alpha
     );
@@ -151,18 +162,14 @@ void Level::movePlayer(
     const short& movement
 )
 {
-    /* reset the current player cell transparency */
     setPlayerCellTransparency(
         context,
         255
     );
 
-    /* apply the movement value to the current player index to change his
-       position on the level */
-    playerIndex += movement;
+    impl->playerIndex += movement;
 
-    /* show the player cell */
-    (*cells[playerIndex]).show(context);
+    (*impl->cells[impl->playerIndex]).show(context);
 }
 
 /**
@@ -173,17 +180,13 @@ bool Level::allowPlayerMovement(
     const unsigned short& floor
 ) const
 {
-    /* calculate the expected new player position */
-    short expectedIndex = playerIndex + movement;
+    short expectedIndex = impl->playerIndex + movement;
 
-    /* we check if the player does not move up if already at the top; cannot
-       move down if already at the bottom; cannot move left if already on the
-       left; cannot move right if already on the right */
     if (
         expectedIndex < 256 * floor ||
         expectedIndex >= (256 * floor) + 256 ||
-        (playerIndex % 16 == 19 && movement == 1) ||
-        (playerIndex % 16 == 0 && movement == -1)
+        (impl->playerIndex % 16 == 19 && movement == 1) ||
+        (impl->playerIndex % 16 == 0 && movement == -1)
     )
     {
         return false;
@@ -200,11 +203,12 @@ bool Level::detectWalls(
     const short& movement
 ) const
 {
-    /* check if the expected cell is a wall cell */
-    if((*cells[playerIndex + movement]).getType() == cells::WALL_CELL)
+    if(
+        (*impl->cells[impl->playerIndex + movement]).getType() ==
+        cells::WALL_CELL
+    )
     {
-        /* show the concerned wall cell */
-        (*cells[playerIndex + movement]).show(context);
+        (*impl->cells[impl->playerIndex + movement]).show(context);
 
         return true;
     }
@@ -217,7 +221,7 @@ bool Level::detectWalls(
  */
 const char& Level::getPlayerCellType() const
 {
-    return (*cells[playerIndex]).getType();
+    return (*impl->cells[impl->playerIndex]).getType();
 }
 
 /**
@@ -225,11 +229,8 @@ const char& Level::getPlayerCellType() const
  */
 void Level::emptyPlayerCell(utils::Context& context)
 {
-    /* empty the player cell */
-    (*cells[playerIndex]).empty();
-
-    /* reload the cell texture reference */
-    (*cells[playerIndex]).show(context);
+    (*impl->cells[impl->playerIndex]).empty();
+    (*impl->cells[impl->playerIndex]).show(context);
 }
 
 /**
@@ -239,24 +240,16 @@ bool Level::movePlayerToNextFloor(
     utils::Context& context
 )
 {
-    /* calculate the expected new index of the player after his movement; use
-       an unsigned variable as the user cannot have an index less than 0 at
-       this moment and because this is the expected data type for the player
-       index */
-    unsigned short newIndex = playerIndex + 256;
+    unsigned short newIndex = impl->playerIndex + 256;
 
-    /* check if the expected index is less than 2560 (outside of the level) */
     if (newIndex > 2560)
     {
-        /* if the next index is too hight, the player is not moved */
         return false;
     }
 
-    /* if the player can be moved, the index is updated */
-    playerIndex = newIndex;
+    impl->playerIndex = newIndex;
 
-    /* the texture of the new player cell is loaded */
-    (*cells[playerIndex]).show(context);
+    (*impl->cells[impl->playerIndex]).show(context);
 
     return true;
 }
@@ -268,24 +261,16 @@ bool Level::movePlayerToPreviousFloor(
     utils::Context& context
 )
 {
-    /* calculate the expected new index of the player after his movement; use
-       a signed variable because at this moment, the player can be on the
-       first level and the expected index can be less than 0 */
-    short newIndex = playerIndex - 256;
+    short newIndex = impl->playerIndex - 256;
 
-    /* check if the expected new cell is less than 0 */
     if (newIndex < 0)
     {
-        /* if the next index is too low, the player is not moved */
         return false;
     }
 
-    /* no problem to cast the value; this variable is never less than 0 here
-       and cannot be more than ~25600 (65536/2) anyway */
-    playerIndex = static_cast<unsigned short>(newIndex);
+    impl->playerIndex = static_cast<unsigned short>(newIndex);
 
-    /* the texture of the new player cell is loaded */
-    (*cells[playerIndex]).show(context);
+    (*impl->cells[impl->playerIndex]).show(context);
 
     return true;
 }
@@ -295,7 +280,7 @@ bool Level::movePlayerToPreviousFloor(
  */
 const unsigned short& Level::getStarsAmount()
 {
-    return starsAmount;
+    return impl->starsAmount;
 }
 
 /**
@@ -303,7 +288,7 @@ const unsigned short& Level::getStarsAmount()
  */
 const unsigned short& Level::getPlayableFloors()
 {
-    return playableFloors;
+    return impl->playableFloors;
 }
 
 /**
@@ -311,9 +296,7 @@ const unsigned short& Level::getPlayableFloors()
  */
 const unsigned short Level::getPlayerFloor()
 {
-    /* divide the current player index by 256 (cells per floor) and truncate
-       the result as the result type is an unsigned short */
-    return playerIndex / 256;
+    return impl->playerIndex / 256;
 }
 
 /**
@@ -323,73 +306,44 @@ void Level::playFloorTransitionAnimation(
     utils::Context& context
 )
 {
-    /* NOTE: this function only applies the horizontal transition animation
-       for now */
-
-    /* browse the 256 cells of the current floor */
     for(
         unsigned short i = 0;
-        animationFloor * 256 + i < animationFloor * 256 + 256;
+        impl->animationFloor * 256 + i < impl->animationFloor * 256 + 256;
         i++
     )
     {
-        /* check if the cell is on the left side of the limit column; in that
-           case, the displayed cell must be the one at the same position on
-           the next level */
-        if (i % 16 < animationColumn)
+        if (i % 16 < impl->animationColumn)
         {
-            /* displays the cell at the same position but on the next level;
-               each level contains 256 cell, so the cell at the same position
-               that this one on the next level is 256 cells after... */
-            (*cells[animationFloor * 256 + i + 256]).display(context);
+            (*impl->cells[impl->animationFloor * 256 + i + 256]).display(context);
 
-            /* directly increment the loop from here */
             continue;
         }
 
-        /* check if the cell is on the limit column; in that case, the current
-           cell is hidden to display the limitation column */
-        if (i % 16 == animationColumn)
+        if (i % 16 == impl->animationColumn)
         {
-            (*cells[animationFloor * 256 + i]).hide(context);
+            (*impl->cells[impl->animationFloor * 256 + i]).hide(context);
         }
 
-        /* if the cell is on the limitation column or if the cell is on the
-           right of the limitation column (current floor), the current cell
-           is just displayed */
-        (*cells[animationFloor * 256 + i]).display(context);
+        (*impl->cells[impl->animationFloor * 256 + i]).display(context);
     }
 
-    /* the switch floor animation is updated every 25 milliseconds until the
-       end of the animation */
     if (
         context.getClockMillisecondsTime() -
-        lastAnimationTime > 25
+        impl->lastAnimationTime > 25
     )
     {
-        /* increment the animation column; this column is used as a limitation
-           column and this variable is its index; we increment the index to
-           move the current limitation column on the floor */
-        animationColumn++;
+        impl->animationColumn++;
 
-        /* the animation stops when the animation column is 16: means outside
-           of the level */
-        if (animationColumn == 16)
+        if (impl->animationColumn == 16)
         {
-            /* stops the floor transition animation */
-            animateFloorTransition = false;
+            impl->animateFloorTransition = false;
 
-            /* reset the animation column for a future animation if it
-               happens... */
-            animationColumn = 0;
+            impl->animationColumn = 0;
 
-            /* increments the animation floor for a future animation */
-            animationFloor++;
+            impl->animationFloor++;
         }
 
-        /* update the last animation update time to ensure the whole animation
-           rendering */
-        lastAnimationTime = context.getClockMillisecondsTime();
+        impl->lastAnimationTime = context.getClockMillisecondsTime();
     }
 }
 
@@ -398,7 +352,7 @@ void Level::playFloorTransitionAnimation(
  */
 void Level::setAnimateFloorTransition(const bool& animate)
 {
-    animateFloorTransition = animate;
+    impl->animateFloorTransition = animate;
 }
 
 /**
@@ -406,7 +360,7 @@ void Level::setAnimateFloorTransition(const bool& animate)
  */
 const bool& Level::getAnimateFloorTransition()
 {
-    return animateFloorTransition;
+    return impl->animateFloorTransition;
 }
 
 /**
@@ -414,7 +368,7 @@ const bool& Level::getAnimateFloorTransition()
  */
 const unsigned short& Level::getMinutes() const
 {
-    return minutes;
+    return impl->minutes;
 }
 
 /**
@@ -422,7 +376,7 @@ const unsigned short& Level::getMinutes() const
  */
 const unsigned short& Level::getSeconds() const
 {
-    return seconds;
+    return impl->seconds;
 }
 
 /**
@@ -430,7 +384,7 @@ const unsigned short& Level::getSeconds() const
  */
 const unsigned short& Level::getPlayerCellIndex() const
 {
-    return playerIndex;
+    return impl->playerIndex;
 }
 
 /**
@@ -438,7 +392,7 @@ const unsigned short& Level::getPlayerCellIndex() const
  */
 void Level::setPlayerCellIndex(const unsigned short& index)
 {
-    playerIndex = index;
+    impl->playerIndex = index;
 }
 
 /**
@@ -459,7 +413,7 @@ void Level::setCellsTransparency(
         index++
     )
     {
-        cells[index]->setCellColorTransparency(
+        impl->cells[index]->setCellColorTransparency(
             context,
             transparency
         );
@@ -471,7 +425,7 @@ void Level::setCellsTransparency(
  */
 const std::vector<std::unique_ptr<Cell>>& Level::getCells() const
 {
-    return cells;
+    return impl->cells;
 }
 
 /**
@@ -479,9 +433,7 @@ const std::vector<std::unique_ptr<Cell>>& Level::getCells() const
  */
 void Level::createTransform()
 {
-    /* create dynamically the SFML transform object; from this moment, the
-       transform is used to render the cells */
-    allocators::createDynamicObject(transform);
+    allocators::createDynamicObject(impl->transform);
 }
 
 /**
@@ -489,9 +441,7 @@ void Level::createTransform()
  */
 void Level::rotateAllCells(const short& degrees)
 {
-    /* the two last parameters represent the floor center; this is the center
-       of the rotation */
-    transform->rotate(
+    impl->transform->rotate(
         degrees,
         dimensions::FLOOR_CENTER_X,
         dimensions::FLOOR_CENTER_Y
@@ -503,9 +453,7 @@ void Level::rotateAllCells(const short& degrees)
  */
 void Level::deleteTransform()
 {
-    /* call the reset() method with no parameter to set the transform pointer
-       to null and delete the pointed object */
-    allocators::deleteDynamicObject(transform);
+    allocators::deleteDynamicObject(impl->transform);
 }
 
 /**
@@ -513,10 +461,8 @@ void Level::deleteTransform()
  */
 void Level::loadLevelFromFile(utils::Context& context)
 {
-    /* create a file object to read the level file and load the cells */
     std::ifstream file(context.getPlayingSerieManager().getNextLevelName());
 
-    /* check if the file is opened correctly */
     if (!file.is_open())
     {
         /* TODO: #561 - check PlayingSerieManager.cpp for details */
@@ -529,32 +475,22 @@ void Level::loadLevelFromFile(utils::Context& context)
     getline(file, min, '\n');
     getline(file, sec, '\n');
 
-    /* getline is only able to get std::string, so we convert them to int,
-       then unsigned short */
-    minutes = static_cast<unsigned short>(std::stoi(min));
-    seconds = static_cast<unsigned short>(std::stoi(sec));
+    impl->minutes = static_cast<unsigned short>(std::stoi(min));
+    impl->seconds = static_cast<unsigned short>(std::stoi(sec));
 
-    /* there are 2560 cells per level, 256 per floor, there are 10 floors */
     for(unsigned short index {0}; index < 2560; index++)
     {
-        /* declare a new character at each loop iteration; initialize it with
-           an empty cell; this character contains the type of the current
-           iterated cell into the level file */
         char cellType = cells::EMPTY_CELL;
 
-        /* check if the read of the file is finished; by doing this way, we are
-           sure that a valid level can still be loaded in memory (with empty
-           cells), even if the given file is damaged */
         if (!file.eof())
         {
-            /* if the file is not finished, read the next character from it */
             cellType = file.get();
         }
 
         std::unique_ptr<Cell> cell = cells::getCellByType(
                                          context,
-                                         horizontalPositionCursor,
-                                         verticalPositionCursor,
+                                         impl->horizontalPositionCursor,
+                                         impl->verticalPositionCursor,
                                          cellType
                                      );
 
@@ -562,34 +498,26 @@ void Level::loadLevelFromFile(utils::Context& context)
         {
         case cells::DEPARTURE_CELL:
         {
-            /* store the current cell index into the player cell index if the
-               current cell is a departure cell; this will be the starting cell
-               of the player */
-            playerIndex = index;
+            impl->playerIndex = index;
 
             break;
         }
         case cells::STAR_CELL:
         {
-            /* increment the amount of stars on the level if the current cell
-               is a star cell */
-            starsAmount++;
+            impl->starsAmount++;
 
             break;
         }
         }
 
-        /* set the current floor as playable if the current cell is not
-           empty and if no non-empty cell has already been found */
-        if (cellType != cells::EMPTY_CELL && emptyFloor)
+        if (cellType != cells::EMPTY_CELL && impl->emptyFloor)
         {
-            emptyFloor = false;
+            impl->emptyFloor = false;
         }
 
         updateCursors();
 
-        /* move the unique pointer into the cells unique pointers container */
-        cells.push_back(std::move(cell));
+        impl->cells.push_back(std::move(cell));
     }
 
     /* we do not manually close the std::ifstream object, this object is
@@ -601,20 +529,18 @@ void Level::loadLevelFromFile(utils::Context& context)
  */
 void Level::loadEmptyLevel(utils::Context& context)
 {
-    /* there are 2560 cells per level, 256 per floor, there are 10 floors */
     for(unsigned short index {0}; index < 2560; index++)
     {
         std::unique_ptr<Cell> cell = cells::getCellByType(
                                          context,
-                                         horizontalPositionCursor,
-                                         verticalPositionCursor,
+                                         impl->horizontalPositionCursor,
+                                         impl->verticalPositionCursor,
                                          cells::EMPTY_CELL
                                      );
 
         updateCursors();
 
-        /* move the unique pointer into the cells unique pointers container */
-        cells.push_back(std::move(cell));
+        impl->cells.push_back(std::move(cell));
     }
 }
 
@@ -623,36 +549,23 @@ void Level::loadEmptyLevel(utils::Context& context)
  */
 void Level::updateCursors()
 {
-    /* increment the horizontal position of the cursor */
-    horizontalPositionCursor++;
+    impl->horizontalPositionCursor++;
 
-    /* the cells are created line by line; when one line is finished
-       (modulo 16, there are 16 cells per line), jump to the next line
-       and reset the horizontal position cursor; we do not use !() but
-       == 0 instead: we really want make this test explicit */
-    if (horizontalPositionCursor % 16 == 0)
+    if (impl->horizontalPositionCursor % 16 == 0)
     {
-        /* reset the horizontal position cursor */
-        horizontalPositionCursor = 0;
+        impl->horizontalPositionCursor = 0;
 
-        /* increment the vertical position cursor */
-        verticalPositionCursor++;
+        impl->verticalPositionCursor++;
 
-        /* reset the vertical position cursor if the current vertical
-           position is equal to the last one (16) */
-        if (verticalPositionCursor % 16 == 0)
+        if (impl->verticalPositionCursor % 16 == 0)
         {
-            verticalPositionCursor = 0;
+            impl->verticalPositionCursor = 0;
 
-            /* check if the floor is playable or not */
-            if (!emptyFloor)
+            if (!impl->emptyFloor)
             {
-                /* if the current floor is not empty, increment the amount
-                   of playable floors */
-                playableFloors++;
+                impl->playableFloors++;
 
-                /* reset the boolean to check properly the next floor */
-                emptyFloor = true;
+                impl->emptyFloor = true;
             }
         }
     }
@@ -667,39 +580,28 @@ const bool Level::updateSelectedCellType(
     const char& type
 )
 {
-    /* calculate the starting and ending cell of the floor */
     const unsigned short firstCellIndex = floor * 256,
                          lastCellIndex = floor * 256 + 256;
 
     bool updated = false;
 
-    /* constant iterator over the cells of the current floor only; we use
-       constant iteration because we won't modify the cell unique pointer;
-       we leave immediately when a cell is found */
     for(
         std::vector<std::unique_ptr<entities::Cell>>::const_iterator iterator =
-            cells.begin() + firstCellIndex;
-        iterator != cells.begin() + lastCellIndex;
+            impl->cells.begin() + firstCellIndex;
+        iterator != impl->cells.begin() + lastCellIndex;
         iterator++
     )
     {
-        /* we use *iterator and not iterator directly because the container is
-           a vector of unique pointer */
-
-        /* directly iterate if the current cell has no mouse hover */
         if (!(*iterator)->isMouseHover())
         {
             continue;
         }
 
-        /* directly breaks if the type is already set with this value */
         if ((*iterator)->getType() == type)
         {
             break;
         }
 
-        /* if the mouse is hover the cell, change the type and directly stop
-           the iteration */
         (*iterator)->setType(type);
         (*iterator)->show(context);
 
@@ -717,8 +619,8 @@ const bool Level::updateSelectedCellType(
 void Level::refresh(utils::Context& context) &
 {
     std::for_each(
-        cells.begin(),
-        cells.end(),
+        impl->cells.begin(),
+        impl->cells.end(),
         [&context](const auto& cell) // auto -> std::unique_ptr<entities::Cell>
     {
         cell->setType(cells::EMPTY_CELL);

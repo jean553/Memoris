@@ -25,6 +25,8 @@
 #include "RotateFloorAnimation.hpp"
 
 #include "SoundsManager.hpp"
+#include "Context.hpp"
+#include "Cell.hpp"
 
 namespace memoris
 {

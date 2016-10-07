@@ -24,6 +24,9 @@
 
 #include "LevelAnimation.hpp"
 
+#include "Context.hpp"
+#include "Cell.hpp"
+
 namespace memoris
 {
 namespace animations

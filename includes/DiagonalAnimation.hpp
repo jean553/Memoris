@@ -30,6 +30,13 @@
 
 #include "LevelAnimation.hpp"
 
+#include <SFML/Graphics/RectangleShape.hpp>
+
+namespace sf
+{
+class Color;
+}
+
 namespace memoris
 {
 namespace animations
