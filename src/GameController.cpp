@@ -68,9 +68,6 @@ public:
 
     std::shared_ptr<entities::Level> level;
 
-    std::unique_ptr<animations::LevelAnimation> animation {nullptr};
-    std::unique_ptr<widgets::TutorialWidget> tutorialWidget {nullptr};
-
     bool watchingPeriod {true};
     bool playingPeriod {false};
     bool movePlayerToNextFloor {false};
@@ -85,6 +82,8 @@ public:
     unsigned short floor {0};
 
     std::unique_ptr<utils::LevelEndingScreen> endingScreen {nullptr};
+    std::unique_ptr<animations::LevelAnimation> animation {nullptr};
+    std::unique_ptr<widgets::TutorialWidget> tutorialWidget {nullptr};
 };
 
 /**
