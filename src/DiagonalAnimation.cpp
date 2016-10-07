@@ -27,6 +27,7 @@
 #include "SoundsManager.hpp"
 #include "ColorsManager.hpp"
 #include "separators.hpp"
+#include "Cell.hpp"
 
 namespace memoris
 {

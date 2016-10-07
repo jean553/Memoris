@@ -26,15 +26,25 @@
 #ifndef MEMORIS_LEVEL_H_
 #define MEMORIS_LEVEL_H_
 
-#include "Cell.hpp"
+#include <memory>
 
 #include "aliases.hpp"
 
-#include <vector>
-#include <memory>
+#include <SFML/Config.hpp>
 
 namespace memoris
 {
+
+namespace entities
+{
+class Cell;
+}
+
+namespace utils
+{
+class Context;
+}
+
 namespace entities
 {
 
@@ -62,6 +72,12 @@ public:
         utils::Context& context,
         const bool loadFromFile = false
     );
+
+    /**
+     * @brief default destructor, empty, only declared in order to use
+     * forwarding declaration
+     */
+    ~Level() noexcept;
 
     /**
      * @brief render the level and all the cells of the given floor; this
@@ -392,69 +408,8 @@ private:
      */
     void updateCursors();
 
-    /* container of unique pointers of cells; we use unique pointers because
-       pointers are fast to copy/move instead of a whole cell object; we use
-       a unique pointer to make the pointer as restrictif as possible, in fact,
-       we only use dynamic allocation to make the program run faster, so this
-       is always better to limit the freedom of variables */
-    std::vector<std::unique_ptr<Cell>> cells;
-
-    /* the index of the current player cell; the position of the player in
-       the level; the variable is 0 by default; */
-    unsigned short playerIndex {0};
-
-    /* the total amount of stars on the level; the default amount is 0 before
-       the level file is loaded */
-    unsigned short starsAmount {0};
-
-    /* contains the amount of floors that are playable in this level; a
-       playable floor is a floor with at least one cell non empty; this is
-       used to select which floor to display during the watching period */
-    unsigned short playableFloors {0};
-
-    /* the amount of minutes loaded from the file for the current level */
-    unsigned short minutes {0};
-
-    /* the amount of seconds loaded from the file for the current level */
-    unsigned short seconds {0};
-
-    /* this boolean is true when a switch level animation is currently playing;
-       this boolean is used by the game controller to starts the floor switch
-       animation but also to know when the animate has been terminated by the
-       level (using setter and getter) */
-    bool animateFloorTransition {false};
-
-    /* this is a SFML unsigned integer used to store the last update time of
-       the current level animation; this variable can be used for any kind
-       of level animation as only one animation can occure at a time */
-    sf::Uint32 lastAnimationTime {0};
-
-    /* the following variables are used for level animation and effects */
-
-    /* the current column index on which one the animation occures; for
-       example, during a floor switch animation, each column is hidden one
-       by one and the content of the next level progressively appears; this
-       variable is used to store the current 'breaking' column of the effect */
-    unsigned short animationColumn {0};
-
-    /* the current floor index is stored inside this variable when the switch
-       floor animation occures; this is used by the animation; */
-    unsigned short animationFloor {0};
-
-    /* we use an unique pointer here in order to load the transform and apply
-       it on the cells rending process only when necessary (only when an
-       animation that needs it is rendering); when the transform pointer is
-       null, the transform is simply not applied */
-    std::unique_ptr<sf::Transform> transform {nullptr};
-
-    /* positions cursor used to keep trace of the initialized cell position
-       when initializing every cell one by one */
-    unsigned short horizontalPositionCursor {0}, verticalPositionCursor {0};
-
-    /* boolean used to remember if one cell is at least non empty on the
-       current loaded floor; used to increment the amount of playable floors */
-    bool emptyFloor {true};
-
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }
