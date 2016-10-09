@@ -117,7 +117,7 @@ const float& TutorialFrame::getHeight() const & noexcept
  *
  */
 void TutorialFrame::applyPropertiesToText(
-    utils::Context& context,
+    const utils::Context& context,
     const std::unique_ptr<sf::Text>& text
 )
 {

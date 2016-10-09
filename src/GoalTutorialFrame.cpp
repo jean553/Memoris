@@ -17,82 +17,102 @@
 */
 
 /**
- * @file WelcomeTutorialFrame.cpp
+ * @file GoalTutorialFrame.cpp
  * @package widgets
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "WelcomeTutorialFrame.hpp"
+#include "GoalTutorialFrame.hpp"
 
 #include "Context.hpp"
-#include "fonts.hpp"
-#include "ColorsManager.hpp"
-#include "FontsManager.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 
 namespace memoris
 {
+
 namespace widgets
 {
 
 /**
  *
  */
-WelcomeTutorialFrame::WelcomeTutorialFrame(const utils::Context& context) :
+GoalTutorialFrame::GoalTutorialFrame(const utils::Context& context) :
     TutorialFrame(
         100.f,
         650.f,
-        150.f
+        110.f
     )
 {
-    auto title = std::make_unique<sf::Text>(); // std::unique_ptr<sf::Text>
     auto firstLine = std::make_unique<sf::Text>();
     auto secondLine = std::make_unique<sf::Text>();
+    auto thirdLine = std::make_unique<sf::Text>();
+    auto fourthLine = std::make_unique<sf::Text>();
 
-    title->setString("Welcome in Memoris !");
     firstLine->setString(
-        "This first serie is a set of tutorials teaching you how to play to "
-        "Memoris"
-    );
-    secondLine->setString(
-        "This popup displays the tutorial instruction. Press Enter to switch "
-        "to the next instruction."
+        "The game is divided into series. There are two types of series :" 
+        "the officials and"
     );
 
-    title->setColor(context.getColorsManager().getColorWhite());
-    title->setCharacterSize(fonts::INFORMATION_SIZE);
-    title->setFont(context.getFontsManager().getTutorialFont());
+    secondLine->setString(
+        "the personal series. The official series are the default ones "
+        "available in the"
+    );
+
+    thirdLine->setString(
+        "game by default. The personal series are the ones created by "
+        "you. Yes, you can"
+    );
+
+    fourthLine->setString(
+        "create you own series/levels and play to it..."
+    );
+
+
+    firstLine->setPosition(
+        20.f,
+        110.f
+    );
+
+    secondLine->setPosition(
+        20.f,
+        130.f
+    );
+
+    thirdLine->setPosition(
+        20.f,
+        150.f
+    );
+
+    fourthLine->setPosition(
+        20.f,
+        170.f
+    );
 
     applyPropertiesToText(
         context,
         firstLine
     );
+
     applyPropertiesToText(
         context,
         secondLine
     );
 
-    title->setPosition(
-        200.f,
-        110.f
+    applyPropertiesToText(
+        context,
+        thirdLine
     );
 
-    firstLine->setPosition(
-        20.f,
-        180.f
+    applyPropertiesToText(
+        context,
+        fourthLine
     );
 
-    secondLine->setPosition(
-        20.f,
-        200.f
-    );
-
-    title->setColor(context.getColorsManager().getColorWhite());
-
-    insertItem(std::move(title));
     insertItem(std::move(firstLine));
     insertItem(std::move(secondLine));
+    insertItem(std::move(thirdLine));
+    insertItem(std::move(fourthLine));
 }
 
 }
