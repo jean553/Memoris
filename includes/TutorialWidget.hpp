@@ -111,6 +111,7 @@ private:
 
     static constexpr float HORIZONTAL_POSITION {10.f};
     static constexpr float BORDER_WIDTH {2.f};
+    static constexpr float DIMENSION_UPDATE_STEP {10.f};
 
     /**
      * @brief render the flashing animation of the widget
@@ -140,11 +141,41 @@ private:
      * @brief set the widget dimensions with the dimensions of the current
      * tutorial frame
      *
+     * @param width expected widget width
+     * @param height expected widget height
+     * @param position expected widget vertical position
+     *
      * not 'const' because it updates the dimensions of the widget
      *
      * not 'noexcept' because it calls SFML functions that are not noexcept
      */
-    void updateWidgetDimensions() &;
+    void updateWidgetDimensions(
+        const float& width,
+        const float& height,
+        const float& position
+    ) &;
+
+    /**
+     * @brief played when switching from one frame to another one; create a
+     * smooth dimensions animation effect
+     *
+     * @param context reference to the current context to use
+     *
+     * not 'const' because it modifies the dimensions of the widget
+     *
+     * not 'noexcept' because it calls SFML methods that are not noexcept
+     */
+    void animateDimensions(const utils::Context& context) &;
+
+    /**
+     * @brief set the current frame value with the next frame of the frames
+     * queue
+     *
+     * not 'const' because it modifies the current frame value
+     *
+     * not 'noexcept' because it calls SFML methods that are not noexcept
+     */
+    void loadFrame() &;
 
     class Impl;
     std::unique_ptr<Impl> impl;

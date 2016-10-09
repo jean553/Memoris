@@ -48,6 +48,8 @@ public:
      * @brief constructor, initializes the parent with dimensions
      *
      * @param context current context reference
+     *
+     * not 'noexcept' because it calls SFML methods that are not noexcept
      */
     WelcomeTutorialFrame(const utils::Context& context);
 };
