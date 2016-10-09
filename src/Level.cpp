@@ -314,7 +314,9 @@ void Level::playFloorTransitionAnimation(
     {
         if (i % 16 < impl->animationColumn)
         {
-            (*impl->cells[impl->animationFloor * 256 + i + 256]).display(context);
+            (*impl->cells[impl->animationFloor * 256 + i + 256]).display(
+                context
+            );
 
             continue;
         }

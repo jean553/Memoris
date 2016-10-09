@@ -68,6 +68,7 @@ public:
     sf::RectangleShape right;
 
     sf::Uint32 lastFlashAnimationTime {0};
+    sf::Uint32 lastUpdateDimensionAnimationTime {0};
 
     FlashingColors flashingColor {FlashingColors::WHITE};
 
@@ -82,6 +83,8 @@ public:
        frame pointer; the memory is dynamically managed and it could be any
        kind of tutorial frame child (polymorphism) */
     std::unique_ptr<widgets::TutorialFrame> currentFrame;
+
+    bool animated {false};
 };
 
 /**
@@ -91,7 +94,13 @@ TutorialWidget::TutorialWidget(utils::Context& context) :
     impl(std::make_unique<Impl>(context))
 {
     /* directly force to pop the first item of the queue */
-    nextFrame();
+    loadFrame();
+
+    updateWidgetDimensions(
+        impl->currentFrame->getWidth(),
+        impl->currentFrame->getHeight(),
+        impl->currentFrame->getVerticalPosition()
+    );
 }
 
 /**
@@ -106,13 +115,23 @@ void TutorialWidget::display(utils::Context& context) &
 {
     animateFlashingAnimation(context);
 
+    if (impl->animated)
+    {
+        animateDimensions(context);
+    }
+
     context.getSfmlWindow().draw(impl->back);
     context.getSfmlWindow().draw(impl->top);
     context.getSfmlWindow().draw(impl->bottom);
     context.getSfmlWindow().draw(impl->left);
     context.getSfmlWindow().draw(impl->right);
 
-    impl->currentFrame->render(context);
+    /* two times the same conditional test in the same method; we have no
+       choice anyway to render the frame after the background */
+    if (!impl->animated)
+    {
+        impl->currentFrame->render(context);
+    }
 }
 
 /**
@@ -125,12 +144,9 @@ const bool TutorialWidget::nextFrame() &
         return false;
     }
 
-    /* move the next unique pointer of the frames container into the current
-       frame pointer */
-    impl->currentFrame = std::move(impl->frames.front());
-    impl->frames.pop();
+    impl->animated = true;
 
-    updateWidgetDimensions();
+    loadFrame();
 
     return true;
 }
@@ -176,25 +192,29 @@ void TutorialWidget::setBorderColor(const sf::Color& color) &
 /**
  *
  */
-void TutorialWidget::updateWidgetDimensions() &
+void TutorialWidget::updateWidgetDimensions(
+    const float& width,
+    const float& height,
+    const float& position
+) &
 {
     impl->back.setSize(
         sf::Vector2f(
-            impl->currentFrame->getWidth(),
-            impl->currentFrame->getHeight()
+            width,
+            height
         )
     );
 
     impl->top.setSize(
         sf::Vector2f(
-            impl->currentFrame->getWidth(),
+            width,
             BORDER_WIDTH
         )
     );
 
     impl->bottom.setSize(
         sf::Vector2f(
-            impl->currentFrame->getWidth(),
+            width,
             BORDER_WIDTH
         )
     );
@@ -202,14 +222,14 @@ void TutorialWidget::updateWidgetDimensions() &
     impl->left.setSize(
         sf::Vector2f(
             BORDER_WIDTH,
-            impl->currentFrame->getHeight()
+            height
         )
     );
 
     impl->right.setSize(
         sf::Vector2f(
             BORDER_WIDTH,
-            impl->currentFrame->getHeight()
+            height
         )
     );
 
@@ -229,15 +249,93 @@ void TutorialWidget::updateWidgetDimensions() &
     );
 
     impl->right.setPosition(
-        HORIZONTAL_POSITION + impl->currentFrame->getWidth() - 2.f,
+        HORIZONTAL_POSITION + width - 2.f,
         impl->currentFrame->getVerticalPosition()
     );
 
     impl->bottom.setPosition(
         HORIZONTAL_POSITION,
         impl->currentFrame->getVerticalPosition() +
-        impl->currentFrame->getHeight() - 2.f
+        height - 2.f
     );
+}
+
+/**
+ *
+ */
+void TutorialWidget::animateDimensions(const utils::Context& context) &
+{
+    if (
+        context.getClockMillisecondsTime() -
+        impl->lastUpdateDimensionAnimationTime < 50
+    )
+    {
+        return;
+    }
+
+    /* these SFML getters do not necessarely return float types */
+    float height = static_cast<float>(impl->back.getGlobalBounds().height);
+    float width = static_cast<float>(impl->back.getGlobalBounds().width);
+    float verticalPosition = static_cast<float>(impl->back.getPosition().y);
+    float frameHeight = static_cast<float>(impl->currentFrame->getHeight());
+    float frameWidth = static_cast<float>(impl->currentFrame->getWidth());
+    float framePosition = static_cast<float>(
+        impl->currentFrame->getVerticalPosition()
+    );
+
+    if (frameHeight < height)
+    {
+        height -= DIMENSION_UPDATE_STEP;
+    }
+    else if (frameHeight > height)
+    {
+        height += DIMENSION_UPDATE_STEP;
+    }
+
+    if (frameWidth < width)
+    {
+        width -= DIMENSION_UPDATE_STEP;
+    }
+    else if (frameWidth > width)
+    {
+        width += DIMENSION_UPDATE_STEP;
+    }
+
+    if (framePosition < verticalPosition)
+    {
+        verticalPosition -= DIMENSION_UPDATE_STEP;
+    }
+    else if (framePosition > verticalPosition)
+    {
+        verticalPosition += DIMENSION_UPDATE_STEP;
+    }
+
+    updateWidgetDimensions(
+        width,
+        height,
+        verticalPosition
+    );
+
+    if (
+        height == frameHeight and
+        width == frameWidth and
+        verticalPosition == framePosition
+    )
+    {
+        impl->animated = false;
+    }
+
+    impl->lastUpdateDimensionAnimationTime =
+    context.getClockMillisecondsTime();
+}
+
+/**
+ *
+ */
+void TutorialWidget::loadFrame() &
+{
+    impl->currentFrame = std::move(impl->frames.front());
+    impl->frames.pop();
 }
 
 }

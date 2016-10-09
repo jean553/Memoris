@@ -50,7 +50,7 @@ GoalTutorialFrame::GoalTutorialFrame(const utils::Context& context) :
     auto fourthLine = std::make_unique<sf::Text>();
 
     firstLine->setString(
-        "The game is divided into series. There are two types of series :" 
+        "The game is divided into series. There are two types of series :"
         "the officials and"
     );
 

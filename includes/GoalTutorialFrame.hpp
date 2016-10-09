@@ -46,6 +46,11 @@ class GoalTutorialFrame : public TutorialFrame
 public:
 
     /**
+     * @brief constructor, initializes the item of the frame
+     *
+     * @param context constant reference to the current context to use
+     *
+     * not 'noexcept' because it calls SFML methods that are not noexcept
      */
     GoalTutorialFrame(const utils::Context& context);
 };
