@@ -17,14 +17,15 @@
 */
 
 /**
- * @file WelcomeTutorialFrame.hpp
- * @brief tutorial frame with the welcome message
+ * @file GoalTutorialFrame.hpp
+ * @brief tutorial frame that displays the main explanation about the Memoris
+ * level main goal
  * @package widgets
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef MEMORIS_WELCOMETUTORIALFRAME_H_
-#define MEMORIS_WELCOMETUTORIALFRAME_H_
+#ifndef MEMORIS_GOALTUTORIALFRAME_H_
+#define MEMORIS_GOALTUTORIALFRAME_H_
 
 #include "TutorialFrame.hpp"
 
@@ -39,17 +40,14 @@ class Context;
 namespace widgets
 {
 
-class WelcomeTutorialFrame : public TutorialFrame
+class GoalTutorialFrame : public TutorialFrame
 {
 
 public:
 
     /**
-     * @brief constructor, initializes the parent with dimensions
-     *
-     * @param context current context reference
      */
-    WelcomeTutorialFrame(const utils::Context& context);
+    GoalTutorialFrame(const utils::Context& context);
 };
 
 }

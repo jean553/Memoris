@@ -25,6 +25,7 @@
 #include "tutorial_frames.hpp"
 
 #include "WelcomeTutorialFrame.hpp"
+#include "GoalTutorialFrame.hpp"
 
 #include <memory>
 
@@ -48,6 +49,7 @@ void attachFramesToTutorial(
     default:
     {
         frames.push(std::make_unique<widgets::WelcomeTutorialFrame>(context));
+        frames.push(std::make_unique<widgets::GoalTutorialFrame>(context));
     }
     }
 }

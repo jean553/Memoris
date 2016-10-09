@@ -137,7 +137,7 @@ protected:
      * not 'noexcept' because it calls SFML functions that are not noexcept
      */
     static void applyPropertiesToText(
-        utils::Context& context,
+        const utils::Context& context,
         const std::unique_ptr<sf::Text>& text
     );
 
