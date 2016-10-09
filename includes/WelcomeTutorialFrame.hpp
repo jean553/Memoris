@@ -45,17 +45,11 @@ class WelcomeTutorialFrame : public TutorialFrame
 public:
 
     /**
-     * @brief destructor, initializes the parent with dimensions
+     * @brief constructor, initializes the parent with dimensions
      *
      * @param context current context reference
      */
     WelcomeTutorialFrame(utils::Context& context);
-
-    /**
-     * @brief default constructor, empty, only declared in order to use the
-     * forwarding declaration
-     */
-    ~WelcomeTutorialFrame() noexcept;
 };
 
 }
