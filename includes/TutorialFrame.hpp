@@ -53,9 +53,6 @@ public:
     /**
      * @brief default destructor, empty, only declared in order to use
      * forwarding declaration
-     *
-     * @throw std::bad_alloc thrown by std::make_unique if an allocation
-     * error occurs
      */
     ~TutorialFrame() noexcept;
 

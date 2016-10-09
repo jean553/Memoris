@@ -95,10 +95,5 @@ WelcomeTutorialFrame::WelcomeTutorialFrame(utils::Context& context) :
     insertItem(std::move(secondLine));
 }
 
-/**
- *
- */
-WelcomeTutorialFrame::~WelcomeTutorialFrame() noexcept = default;
-
 }
 }
