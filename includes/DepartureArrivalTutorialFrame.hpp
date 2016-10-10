@@ -17,46 +17,40 @@
 */
 
 /**
- * @file tutorial_frames.cpp
- * @package utils
+ * @file DepartureArrivalTutorialFrame.hpp
+ * @brief tutorial frame that explains that the user has to go from the
+ * departure cell to the arrival cell
+ * @package widgets
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "tutorial_frames.hpp"
+#ifndef MEMORIS_DEPARTUREARRIVALTUTORIALFRAME_H_
+#define MEMORIS_DEPARTUREARRIVALTUTORIALFRAME_H_
 
-#include "WelcomeTutorialFrame.hpp"
-#include "GoalTutorialFrame.hpp"
-#include "DepartureArrivalTutorialFrame.hpp"
-
-#include <memory>
+#include "TutorialFrame.hpp"
 
 namespace memoris
 {
-namespace utils
+namespace widgets
 {
 
-
-/**
- *
- */
-void attachFramesToTutorial(
-    utils::Context& context,
-    aliases::UniquePtrTutorialFramesContainerRef frames,
-    const unsigned short& levelId
-)
+class DepartureArrivalTutorialFrame : public TutorialFrame
 {
-    switch(levelId)
-    {
-    default:
-    {
-        frames.push(std::make_unique<widgets::WelcomeTutorialFrame>(context));
-        frames.push(std::make_unique<widgets::GoalTutorialFrame>(context));
-        frames.push(
-            std::make_unique<widgets::DepartureArrivalTutorialFrame>(context)
-        );
-    }
-    }
-}
+
+public:
+
+    /**
+     * @brief constructor, initializes the item of the frame
+     *
+     * @param context constant reference to the current context to use
+     *
+     * not 'noexcept' because it calls SFML methods that are not noexcept
+     */
+    DepartureArrivalTutorialFrame(const utils::Context& context);
+
+};
 
 }
 }
+
+#endif

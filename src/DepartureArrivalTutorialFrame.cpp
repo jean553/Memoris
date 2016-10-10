@@ -17,16 +17,18 @@
 */
 
 /**
- * @file GoalTutorialFrame.cpp
+ * @file DepartureArrivalTutorialFrame.cpp
  * @package widgets
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "GoalTutorialFrame.hpp"
+#include "DepartureArrivalTutorialFrame.hpp"
 
-#include "Context.hpp"
+#include "CellsTexturesManager.hpp"
+#include "cells.hpp"
 
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 
 namespace memoris
 {
@@ -36,7 +38,9 @@ namespace widgets
 /**
  *
  */
-GoalTutorialFrame::GoalTutorialFrame(const utils::Context& context) :
+DepartureArrivalTutorialFrame::DepartureArrivalTutorialFrame(
+    const utils::Context& context
+) :
     TutorialFrame(
         100.f,
         610.f,
@@ -46,43 +50,31 @@ GoalTutorialFrame::GoalTutorialFrame(const utils::Context& context) :
     auto firstLine = std::make_unique<sf::Text>(); // std::unique_ptr<sf::Text>
     auto secondLine = std::make_unique<sf::Text>();
     auto thirdLine = std::make_unique<sf::Text>();
-    auto fourthLine = std::make_unique<sf::Text>();
-    auto fifthLine = std::make_unique<sf::Text>();
-    auto sixthLine = std::make_unique<sf::Text>();
-    auto seventhLine = std::make_unique<sf::Text>();
+    auto departureCellText = std::make_unique<sf::Text>();
+
+    auto departureCell = std::make_unique<sf::Sprite>();
+    // std::unique_ptr<sf::Sprite>
 
     firstLine->setString(
-        "The game is divided into series. There are two types of series :"
-        "the officials and"
+        "Your goal during one level is to move a pin from the departure "
+        "cell to the "
     );
 
     secondLine->setString(
-        "the personal series. The official series are the default ones "
-        "available in the"
+        "arrival cell. When the level starts, the player pin position "
+        "is set on the "
     );
 
     thirdLine->setString(
-        "game by default. The personal series are the ones created by "
-        "you. Yes, you can"
+        "departure cell."
     );
 
-    fourthLine->setString(
-        "create you own series/levels and play to it..."
-    );
+    departureCellText->setString("Departure cell");
 
-    fifthLine->setString(
-        "Each serie is a set of levels. To win a serie, you have to win "
-        "all the levels"
-    );
-
-    sixthLine->setString(
-        "of this serie. When you win a level, you switch to the next one."
-        "When you lose a "
-    );
-
-    seventhLine->setString(
-        "level, you immediately lose the whole serie, and you have to "
-        "start over."
+    departureCell->setTexture(
+        context.getCellsTexturesManager().getTextureReferenceByCellType(
+            cells::DEPARTURE_CELL
+        )
     );
 
     firstLine->setPosition(
@@ -100,24 +92,14 @@ GoalTutorialFrame::GoalTutorialFrame(const utils::Context& context) :
         150.f
     );
 
-    fourthLine->setPosition(
-        20.f,
-        170.f
+    departureCell->setPosition(
+        100.f,
+        200.f
     );
 
-    fifthLine->setPosition(
-        20.f,
-        210.f
-    );
-
-    sixthLine->setPosition(
-        20.f,
-        230.f
-    );
-
-    seventhLine->setPosition(
-        20.f,
-        250.f
+    departureCellText->setPosition(
+        70.f,
+        260.f
     );
 
     applyPropertiesToText(
@@ -137,31 +119,14 @@ GoalTutorialFrame::GoalTutorialFrame(const utils::Context& context) :
 
     applyPropertiesToText(
         context,
-        fourthLine
-    );
-
-    applyPropertiesToText(
-        context,
-        fifthLine
-    );
-
-    applyPropertiesToText(
-        context,
-        sixthLine
-    );
-
-    applyPropertiesToText(
-        context,
-        seventhLine
+        departureCellText
     );
 
     insertItem(std::move(firstLine));
     insertItem(std::move(secondLine));
     insertItem(std::move(thirdLine));
-    insertItem(std::move(fourthLine));
-    insertItem(std::move(fifthLine));
-    insertItem(std::move(sixthLine));
-    insertItem(std::move(seventhLine));
+    insertItem(std::move(departureCell));
+    insertItem(std::move(departureCellText));
 }
 
 }
