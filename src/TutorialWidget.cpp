@@ -267,7 +267,7 @@ void TutorialWidget::animateDimensions(const utils::Context& context) &
 {
     if (
         context.getClockMillisecondsTime() -
-        impl->lastUpdateDimensionAnimationTime < 50
+        impl->lastUpdateDimensionAnimationTime < 25
     )
     {
         return;
