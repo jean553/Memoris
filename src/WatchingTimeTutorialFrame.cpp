@@ -47,7 +47,7 @@ WatchingTimeTutorialFrame::WatchingTimeTutorialFrame(
     TutorialFrame(
         100.f,
         650.f,
-        400.f
+        340.f
     )
 {
     auto firstLine = std::make_unique<sf::Text>();
@@ -55,6 +55,9 @@ WatchingTimeTutorialFrame::WatchingTimeTutorialFrame(
     auto thirdLine = std::make_unique<sf::Text>();
     auto fourthLine = std::make_unique<sf::Text>();
     auto fifthLine = std::make_unique<sf::Text>();
+    auto sixthLine = std::make_unique<sf::Text>();
+    auto seventhLine = std::make_unique<sf::Text>();
+    auto heigthLine = std::make_unique<sf::Text>();
     auto clockIcon = std::make_unique<sf::Sprite>();
     auto watchingTime = std::make_unique<sf::Text>();
 
@@ -80,6 +83,20 @@ WatchingTimeTutorialFrame::WatchingTimeTutorialFrame(
     fifthLine->setString(
         "of watching time seconds is displayed at the top of the screen, "
         "next to the clock icon."
+    );
+
+    sixthLine->setString(
+        "During the watching time, the left amount of seconds is displayed "
+        "on both sides of the "
+    );
+
+    seventhLine->setString(
+        "map. When the watching time is elapsed, all the cells are "
+        "suddenly hidden and "
+    );
+
+    heigthLine->setString(
+        "you can start to move the pin."
     );
 
     watchingTime->setString("6");
@@ -114,6 +131,21 @@ WatchingTimeTutorialFrame::WatchingTimeTutorialFrame(
     fifthLine->setPosition(
         20.f,
         220.f
+    );
+
+    sixthLine->setPosition(
+        20.f,
+        340.f
+    );
+
+    seventhLine->setPosition(
+        20.f,
+        360.f
+    );
+
+    heigthLine->setPosition(
+        20.f,
+        380.f
     );
 
     clockIcon->setPosition(
@@ -151,11 +183,29 @@ WatchingTimeTutorialFrame::WatchingTimeTutorialFrame(
         fifthLine
     );
 
+    applyPropertiesToText(
+        context,
+        sixthLine
+    );
+
+    applyPropertiesToText(
+        context,
+        seventhLine
+    );
+
+    applyPropertiesToText(
+        context,
+        heigthLine
+    );
+
     insertItem(std::move(firstLine));
     insertItem(std::move(secondLine));
     insertItem(std::move(thirdLine));
     insertItem(std::move(fourthLine));
     insertItem(std::move(fifthLine));
+    insertItem(std::move(sixthLine));
+    insertItem(std::move(seventhLine));
+    insertItem(std::move(heigthLine));
     insertItem(std::move(clockIcon));
     insertItem(std::move(watchingTime));
 }
