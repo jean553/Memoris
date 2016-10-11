@@ -28,6 +28,7 @@
 #include "GoalTutorialFrame.hpp"
 #include "DepartureArrivalTutorialFrame.hpp"
 #include "WatchingTimeTutorialFrame.hpp"
+#include "LimitTimeTutorialFrame.hpp"
 
 #include <memory>
 
@@ -57,6 +58,9 @@ void attachFramesToTutorial(
         );
         frames.push(
             std::make_unique<widgets::WatchingTimeTutorialFrame>(context)
+        );
+        frames.push(
+            std::make_unique<widgets::LimitTimeTutorialFrame>(context)
         );
     }
     }
