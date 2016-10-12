@@ -34,11 +34,11 @@
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "GameDashboard.hpp"
-#include "WatchingPeriodTimer.hpp"
 #include "TutorialWidget.hpp"
 #include "TimerWidget.hpp"
 #include "WinLevelEndingScreen.hpp"
 #include "LoseLevelEndingScreen.hpp"
+#include "WatchingTimer.hpp"
 
 namespace memoris
 {
@@ -55,11 +55,11 @@ public:
         std::shared_ptr<entities::Level> levelPtr
     ) :
         dashboard(context),
-        level(levelPtr)
+        level(levelPtr),
+        watchingTimer(context)
     {
     }
 
-    sf::Uint32 displayLevelTime {0};
     sf::Uint32 playerCellAnimationTime {0};
     sf::Uint32 leftLevelsAmountLastAnimationTime {0};
     sf::Uint32 endPeriodStartTime {0};
@@ -84,6 +84,11 @@ public:
     std::unique_ptr<utils::LevelEndingScreen> endingScreen {nullptr};
     std::unique_ptr<animations::LevelAnimation> animation {nullptr};
     std::unique_ptr<widgets::TutorialWidget> tutorialWidget {nullptr};
+
+    widgets::WatchingTimer watchingTimer;
+
+    unsigned short displayedWatchingTime {0};
+    sf::Uint32 lastWatchingTimeUpdate {0};
 };
 
 /**
@@ -107,13 +112,14 @@ GameController::GameController(
         impl->level->getStarsAmount()
     );
 
+    impl->displayedWatchingTime =
+        context.getPlayingSerieManager().getWatchingTime();
+
+    impl->watchingTimer.updateDisplayedAmount(impl->displayedWatchingTime);
+
     impl->dashboard.getTimerWidget().setMinutesAndSeconds(
         impl->level->getMinutes(),
         impl->level->getSeconds()
-    );
-
-    impl->dashboard.getWatchingPeriodTimer().applyFloorsAmount(
-        impl->level->getPlayableFloors()
     );
 
     if (context.getPlayingSerieManager().getSerieName() == "tutorial")
@@ -135,33 +141,14 @@ const unsigned short& GameController::render(
     utils::Context& context
 ) &
 {
-    if (
-        impl->displayLevelTime == 0 &&
-        impl->tutorialWidget == nullptr
-    )
+    if (impl->watchingPeriod)
     {
-        impl->displayLevelTime = context.getClockMillisecondsTime();
+        impl->watchingTimer.display(context);
     }
 
     impl->dashboard.display(context);
 
     impl->dashboard.getTimerWidget().display(context);
-
-    if (
-        impl->dashboard.getWatchingPeriodTimer().isStarted() &&
-        impl->tutorialWidget == nullptr
-    )
-    {
-        impl->dashboard.getWatchingPeriodTimer().display(context);
-    }
-
-    if (
-        impl->dashboard.getTimerWidget().isFinished() &&
-        impl->endPeriodStartTime == 0
-    )
-    {
-        endLevel(context);
-    }
 
     if (impl->level->getAnimateFloorTransition())
     {
@@ -204,22 +191,6 @@ const unsigned short& GameController::render(
             impl->floor,
             &entities::Cell::display
         );
-    }
-
-    /* TODO: #547 6000 ms is a default value, should be the actual bonus
-       watching time of the player */
-    /* TODO: quick fix on watching time management, should be refactored */
-    if (
-        impl->watchingPeriod &&
-        (
-            context.getClockMillisecondsTime() -
-            impl->displayLevelTime  >
-            (context.getPlayingSerieManager().getWatchingTime() - 1) * 1000
-        ) &&
-        impl->tutorialWidget == nullptr
-    )
-    {
-        watchNextFloorOrHideLevel(context);
     }
 
     if (
@@ -265,6 +236,25 @@ const unsigned short& GameController::render(
     if (impl->tutorialWidget != nullptr)
     {
         impl->tutorialWidget->display(context);
+    }
+
+    if (
+        impl->watchingPeriod &&
+        context.getClockMillisecondsTime() -
+        impl->lastWatchingTimeUpdate > 1000 &&
+        impl->tutorialWidget == nullptr
+    )
+    {
+        if (impl->displayedWatchingTime == 1)
+        {
+            watchNextFloorOrHideLevel(context);
+        } else {
+            impl->displayedWatchingTime--;
+        }
+
+        impl->watchingTimer.updateDisplayedAmount(impl->displayedWatchingTime);
+
+        impl->lastWatchingTimeUpdate = context.getClockMillisecondsTime();
     }
 
     nextControllerId = animateScreenTransition(context);
@@ -559,8 +549,8 @@ void GameController::watchNextFloorOrHideLevel(
 
         impl->dashboard.updateCurrentFloor(impl->floor);
 
-        impl->displayLevelTime =
-            context.getClockMillisecondsTime();
+        impl->displayedWatchingTime =
+            context.getPlayingSerieManager().getWatchingTime();
 
         return;
     }
