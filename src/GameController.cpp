@@ -135,7 +135,10 @@ const unsigned short& GameController::render(
     utils::Context& context
 ) &
 {
-    if (impl->displayLevelTime == 0)
+    if (
+        impl->displayLevelTime == 0 &&
+        impl->tutorialWidget == nullptr
+    )
     {
         impl->displayLevelTime = context.getClockMillisecondsTime();
     }
@@ -205,12 +208,13 @@ const unsigned short& GameController::render(
 
     /* TODO: #547 6000 ms is a default value, should be the actual bonus
        watching time of the player */
+    /* TODO: quick fix on watching time management, should be refactored */
     if (
         impl->watchingPeriod &&
         (
             context.getClockMillisecondsTime() -
-            impl->displayLevelTime >
-            context.getPlayingSerieManager().getWatchingTime() * 1000
+            impl->displayLevelTime  >
+            (context.getPlayingSerieManager().getWatchingTime() - 1) * 1000
         ) &&
         impl->tutorialWidget == nullptr
     )
