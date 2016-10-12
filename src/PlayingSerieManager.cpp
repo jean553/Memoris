@@ -172,5 +172,13 @@ const unsigned short& PlayingSerieManager::getLevelIndex() const & noexcept
     return impl->levelIndex;
 }
 
+/**
+ *
+ */
+void PlayingSerieManager::incrementLevelIndex() const & noexcept
+{
+    impl->levelIndex++;
+}
+
 }
 }

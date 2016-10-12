@@ -132,6 +132,11 @@ public:
      */
     const unsigned short& getLevelIndex() const & noexcept;
 
+    /**
+     * @brief increments the current level index
+     */
+    void incrementLevelIndex() const & noexcept;
+
 private:
 
     class Impl;
