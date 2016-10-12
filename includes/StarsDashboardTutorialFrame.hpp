@@ -17,15 +17,14 @@
 */
 
 /**
- * @file DepartureArrivalTutorialFrame.hpp
- * @brief tutorial frame that explains that the user has to go from the
- * departure cell to the arrival cell
+ * @file StarsDashboardTutorialFrame.hpp
+ * @brief tutorial frame that explains the meaning of two dashboard icons
  * @package widgets
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef MEMORIS_DEPARTUREARRIVALTUTORIALFRAME_H_
-#define MEMORIS_DEPARTUREARRIVALTUTORIALFRAME_H_
+#ifndef MEMORIS_STARSDASHBOARDTUTORIALFRAME_H_
+#define MEMORIS_STARSDASHBOARDTUTORIALFRAME_H_
 
 #include "TutorialFrame.hpp"
 
@@ -34,7 +33,7 @@ namespace memoris
 namespace widgets
 {
 
-class DepartureArrivalTutorialFrame : public TutorialFrame
+class StarsDashboardTutorialFrame : public TutorialFrame
 {
 
 public:
@@ -46,7 +45,7 @@ public:
      *
      * not 'noexcept' because it calls SFML methods that are not noexcept
      */
-    DepartureArrivalTutorialFrame(const utils::Context& context);
+    StarsDashboardTutorialFrame(const utils::Context& context);
 };
 
 }

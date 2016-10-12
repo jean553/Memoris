@@ -248,7 +248,9 @@ const unsigned short& GameController::render(
         if (impl->displayedWatchingTime == 1)
         {
             watchNextFloorOrHideLevel(context);
-        } else {
+        }
+        else
+        {
             impl->displayedWatchingTime--;
         }
 
