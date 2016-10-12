@@ -309,6 +309,15 @@ const unsigned short& GameController::render(
 
                 break;
             }
+            /* TODO: #825 for cheating and dev purposes ;) */
+            case sf::Keyboard::P:
+            {
+                expectedControllerId = controllers::GAME_CONTROLLER_ID;
+
+                context.getPlayingSerieManager().incrementLevelIndex();
+
+                break;
+            }
             case sf::Keyboard::Return:
             {
                 if (impl->tutorialWidget == nullptr)
@@ -583,6 +592,8 @@ void GameController::endLevel(
 
         impl->endingScreen =
             std::make_unique<utils::WinLevelEndingScreen>(context);
+
+        context.getPlayingSerieManager().incrementLevelIndex();
     }
     else
     {

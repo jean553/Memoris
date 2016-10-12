@@ -29,6 +29,7 @@
 #include "DepartureArrivalTutorialFrame.hpp"
 #include "WatchingTimeTutorialFrame.hpp"
 #include "LimitTimeTutorialFrame.hpp"
+#include "StarsTutorialFrame.hpp"
 
 #include <memory>
 
@@ -49,7 +50,7 @@ void attachFramesToTutorial(
 {
     switch(levelId)
     {
-    default:
+    case 0:
     {
         frames.push(std::make_unique<widgets::WelcomeTutorialFrame>(context));
         frames.push(std::make_unique<widgets::GoalTutorialFrame>(context));
@@ -62,6 +63,17 @@ void attachFramesToTutorial(
         frames.push(
             std::make_unique<widgets::LimitTimeTutorialFrame>(context)
         );
+
+        break;
+    }
+    case 1:
+    {
+        frames.push(std::make_unique<widgets::StarsTutorialFrame>(context));
+
+        break;
+    }
+    default:
+    {
     }
     }
 }
