@@ -60,7 +60,6 @@ public:
     {
     }
 
-    sf::Uint32 displayLevelTime {0};
     sf::Uint32 playerCellAnimationTime {0};
     sf::Uint32 leftLevelsAmountLastAnimationTime {0};
     sf::Uint32 endPeriodStartTime {0};
@@ -549,9 +548,6 @@ void GameController::watchNextFloorOrHideLevel(
         context.getSoundsManager().playFloorSwitchSound();
 
         impl->dashboard.updateCurrentFloor(impl->floor);
-
-        impl->displayLevelTime =
-            context.getClockMillisecondsTime();
 
         impl->displayedWatchingTime =
             context.getPlayingSerieManager().getWatchingTime();
