@@ -17,16 +17,18 @@
 */
 
 /**
- * @file StarsTutorialFrame.cpp
- * @package widgets
+ * @file StarsDashboardTutorialFrame.cpp
+ *ÜB[MaÚE @package widgets
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "StarsTutorialFrame.hpp"
+#include "StarsDashboardTutorialFrame.hpp"
 
 #include "Context.hpp"
-#include "CellsTexturesManager.hpp"
-#include "cells.hpp"
+#include "TexturesManager.hpp"
+#include "FontsManager.hpp"
+#include "fonts.hpp"
+#include "ColorsManager.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Sprite.hpp>
@@ -39,11 +41,13 @@ namespace widgets
 /**
  *
  */
-StarsTutorialFrame::StarsTutorialFrame(const utils::Context& context) :
+StarsDashboardTutorialFrame::StarsDashboardTutorialFrame(
+    const utils::Context& context
+) :
     TutorialFrame(
         100.f,
         560.f,
-        280.f
+        240.f
     )
 {
     auto firstLine = std::make_unique<sf::Text>();
@@ -51,47 +55,51 @@ StarsTutorialFrame::StarsTutorialFrame(const utils::Context& context) :
     auto thirdLine = std::make_unique<sf::Text>();
     auto fourthLine = std::make_unique<sf::Text>();
     auto fifthLine = std::make_unique<sf::Text>();
-    auto sixthLine = std::make_unique<sf::Text>();
-    auto seventhLine = std::make_unique<sf::Text>();
+    auto totalStarsAmount = std::make_unique<sf::Text>();
+    auto foundStarsAmount = std::make_unique<sf::Text>();
 
-    auto starCell = std::make_unique<sf::Sprite>();
+    auto targetIcon = std::make_unique<sf::Sprite>();
+    auto starIcon = std::make_unique<sf::Sprite>();
 
     firstLine->setString(
-        "Good ! You have just won the first Memoris level. "
+        "The total amount of stars on the current level is displayed "
+        "next to the target "
     );
 
     secondLine->setString(
-        "Your goal is not only going from the departure cell "
-        "to the arrival one."
+        "icon at the top of the screen. The current found stars "
+        "amount is displayed "
     );
 
     thirdLine->setString(
-        "Before going to the arrival, you have to take all the stars "
-        "on the map."
+        "next to the star icon."
     );
 
     fourthLine->setString(
-        "Each time you go on a star cell, you pick the star on this "
-        "cell. You have to "
+        "In this level, you have to find four stars in total. The "
+        "game starts right after "
     );
 
     fifthLine->setString(
-        "take all the stars to finish the level. If you go on the "
-        "arrival call without "
+        "you press Enter."
     );
 
-    sixthLine->setString(
-        "having them all, nothing will happen and you will have to "
-        "continue to play."
+    totalStarsAmount->setString("4");
+    totalStarsAmount->setFont(context.getFontsManager().getTextFont());
+    totalStarsAmount->setCharacterSize(fonts::TEXT_SIZE);
+    totalStarsAmount->setColor(
+        context.getColorsManager().getColorWhite()
     );
 
-    seventhLine->setString("Star cell");
-
-    starCell->setTexture(
-        context.getCellsTexturesManager().getTextureReferenceByCellType(
-            cells::STAR_CELL
-        )
+    foundStarsAmount->setString("0");
+    foundStarsAmount->setFont(context.getFontsManager().getTextFont());
+    foundStarsAmount->setCharacterSize(fonts::TEXT_SIZE);
+    foundStarsAmount->setColor(
+        context.getColorsManager().getColorWhite()
     );
+
+    targetIcon->setTexture(context.getTexturesManager().getTargetTexture());
+    starIcon->setTexture(context.getTexturesManager().getStarTexture());
 
     firstLine->setPosition(
         20.f,
@@ -100,37 +108,42 @@ StarsTutorialFrame::StarsTutorialFrame(const utils::Context& context) :
 
     secondLine->setPosition(
         20.f,
-        160.f
+        140.f
     );
 
     thirdLine->setPosition(
         20.f,
-        180.f
+        160.f
     );
 
     fourthLine->setPosition(
         20.f,
-        200.f
+        280.f
     );
 
     fifthLine->setPosition(
         20.f,
-        220.f
+        300.f
     );
 
-    sixthLine->setPosition(
-        20.f,
-        240.f
+    totalStarsAmount->setPosition(
+        150.f,
+        200.f
     );
 
-    seventhLine->setPosition(
-        270.f,
-        340.f
+    foundStarsAmount->setPosition(
+        350.f,
+        200.f
     );
 
-    starCell->setPosition(
-        275.f,
-        280.f
+    targetIcon->setPosition(
+        190.f,
+        210.f
+    );
+
+    starIcon->setPosition(
+        390.f,
+        210.f
     );
 
     applyPropertiesToText(
@@ -158,24 +171,15 @@ StarsTutorialFrame::StarsTutorialFrame(const utils::Context& context) :
         fifthLine
     );
 
-    applyPropertiesToText(
-        context,
-        sixthLine
-    );
-
-    applyPropertiesToText(
-        context,
-        seventhLine
-    );
-
     insertItem(std::move(firstLine));
     insertItem(std::move(secondLine));
     insertItem(std::move(thirdLine));
     insertItem(std::move(fourthLine));
     insertItem(std::move(fifthLine));
-    insertItem(std::move(sixthLine));
-    insertItem(std::move(seventhLine));
-    insertItem(std::move(starCell));
+    insertItem(std::move(targetIcon));
+    insertItem(std::move(starIcon));
+    insertItem(std::move(totalStarsAmount));
+    insertItem(std::move(foundStarsAmount));
 }
 
 }

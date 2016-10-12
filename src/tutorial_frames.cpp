@@ -30,6 +30,7 @@
 #include "WatchingTimeTutorialFrame.hpp"
 #include "LimitTimeTutorialFrame.hpp"
 #include "StarsTutorialFrame.hpp"
+#include "StarsDashboardTutorialFrame.hpp"
 
 #include <memory>
 
@@ -69,6 +70,9 @@ void attachFramesToTutorial(
     case 1:
     {
         frames.push(std::make_unique<widgets::StarsTutorialFrame>(context));
+        frames.push(
+            std::make_unique<widgets::StarsDashboardTutorialFrame>(context)
+        );
 
         break;
     }
