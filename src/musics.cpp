@@ -41,7 +41,7 @@ const std::string getMusicPathById(const unsigned short& id)
     {
     case controllers::GAME_CONTROLLER_ID:
     {
-        return "res/musics/J.O.R.B.I_-_2.Dancing_of_the_Night.ogg";
+        return "res/musics/Zeropage_-_Void_Sensor.ogg";
     }
     break;
     /* by default, if the controller id does not exist, the main
