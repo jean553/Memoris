@@ -39,6 +39,7 @@
 #include "WinLevelEndingScreen.hpp"
 #include "LoseLevelEndingScreen.hpp"
 #include "WatchingTimer.hpp"
+#include "PickUpEffect.hpp"
 
 namespace memoris
 {
@@ -54,19 +55,19 @@ public:
         utils::Context& context,
         std::shared_ptr<entities::Level> levelPtr
     ) :
-        dashboard(context),
         level(levelPtr),
-        watchingTimer(context)
+        watchingTimer(context),
+        dashboard(context)
     {
     }
 
     sf::Uint32 playerCellAnimationTime {0};
     sf::Uint32 leftLevelsAmountLastAnimationTime {0};
     sf::Uint32 endPeriodStartTime {0};
+    sf::Uint32 lastWatchingTimeUpdate {0};
 
-    utils::GameDashboard dashboard;
-
-    std::shared_ptr<entities::Level> level;
+    unsigned short floor {0};
+    unsigned short displayedWatchingTime {0};
 
     bool watchingPeriod {true};
     bool playingPeriod {false};
@@ -79,16 +80,15 @@ public:
 
     sf::Int8 leftLevelsAmountDirection {-17};
 
-    unsigned short floor {0};
-
     std::unique_ptr<utils::LevelEndingScreen> endingScreen {nullptr};
     std::unique_ptr<animations::LevelAnimation> animation {nullptr};
     std::unique_ptr<widgets::TutorialWidget> tutorialWidget {nullptr};
 
+    std::shared_ptr<entities::Level> level;
+
     widgets::WatchingTimer watchingTimer;
 
-    unsigned short displayedWatchingTime {0};
-    sf::Uint32 lastWatchingTimeUpdate {0};
+    utils::GameDashboard dashboard;
 };
 
 /**
