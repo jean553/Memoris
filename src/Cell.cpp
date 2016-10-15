@@ -108,6 +108,22 @@ void Cell::setPosition(
 /**
  *
  */
+const float& Cell::getHorizontalPosition() const & noexcept
+{
+    return horizontalPosition;
+}
+
+/**
+ *
+ */
+const float& Cell::getVerticalPosition() const & noexcept
+{
+    return verticalPosition;
+}
+
+/**
+ *
+ */
 void Cell::display(
     utils::Context& context,
     aliases::ConstTransformUniquePtrRef transform

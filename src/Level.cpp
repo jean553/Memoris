@@ -631,5 +631,21 @@ void Level::refresh(utils::Context& context) &
     );
 }
 
+/**
+ *
+ */
+const float& Level::getPlayerCellHorizontalPosition() const & noexcept
+{
+    return (*impl->cells[impl->playerIndex]).getHorizontalPosition();
+}
+
+/**
+ *
+ */
+const float& Level::getPlayerCellVerticalPosition() const & noexcept
+{
+    return (*impl->cells[impl->playerIndex]).getVerticalPosition();
+}
+
 }
 }

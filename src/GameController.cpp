@@ -39,7 +39,8 @@
 #include "WinLevelEndingScreen.hpp"
 #include "LoseLevelEndingScreen.hpp"
 #include "WatchingTimer.hpp"
-#include "PickUpEffect.hpp"
+#include "PickUpEffectsManager.hpp"
+#include "TexturesManager.hpp"
 
 namespace memoris
 {
@@ -89,6 +90,8 @@ public:
     widgets::WatchingTimer watchingTimer;
 
     utils::GameDashboard dashboard;
+
+    utils::PickUpEffectsManager pickUpEffectsManager;
 };
 
 /**
@@ -259,6 +262,8 @@ const unsigned short& GameController::render(
         impl->lastWatchingTimeUpdate = context.getClockMillisecondsTime();
     }
 
+    impl->pickUpEffectsManager.renderAllEffects(context);
+
     nextControllerId = animateScreenTransition(context);
 
     while(context.getSfmlWindow().pollEvent(event))
@@ -410,6 +415,12 @@ void GameController::executePlayerCellAction(
         context.getSoundsManager().playFoundStarSound();
 
         impl->dashboard.incrementFoundStars();
+
+        impl->pickUpEffectsManager.addPickUpEffect(
+            context.getTexturesManager().getStarTexture(),
+            impl->level->getPlayerCellHorizontalPosition(),
+            impl->level->getPlayerCellVerticalPosition()
+        );
 
         break;
     }
