@@ -83,6 +83,20 @@ public:
     );
 
     /**
+     * @brief returns the horizontal position of the cell
+     *
+     * @return const float&
+     */
+    const float& getHorizontalPosition() const & noexcept;
+
+    /**
+     * @brief returns the vertical position of the cell
+     *
+     * @return const float&
+     */
+    const float& getVerticalPosition() const & noexcept;
+
+    /**
      * @brief displays the cell according to the context
      *
      * @param context shared pointer to the context to use

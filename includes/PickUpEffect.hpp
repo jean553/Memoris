@@ -39,6 +39,8 @@ namespace memoris
 namespace utils
 {
 
+class Context;
+
 class PickUpEffect
 {
 
@@ -59,6 +61,31 @@ public:
         const float& hPosition,
         const float& vPosition
     );
+
+    /**
+     * @brief default destructor, empty, only declared in order to use
+     * forwarding declaration
+     */
+    ~PickUpEffect() noexcept;
+
+    /**
+     * @brief renders the current pick up effect
+     *
+     * @param context constant reference to the current context to use
+     *
+     * not 'const' because it modifies the animation properties (position,
+     * size and transparency)
+     *
+     * not 'noexcept' because it calls SFML methods that are not noexcept
+     */
+    void render(const utils::Context& context) &;
+
+    /**
+     * @brief getter of the current effect animation status
+     *
+     * @return const bool
+     */
+    const bool isFinished() const & noexcept;
 
 private:
 

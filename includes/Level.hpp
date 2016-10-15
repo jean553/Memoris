@@ -382,6 +382,20 @@ public:
      */
     void refresh(utils::Context& context) &;
 
+    /**
+     * @brief getter of the player cell horizontal position
+     *
+     * @return const float&
+     */
+    const float& getPlayerCellHorizontalPosition() const & noexcept;
+
+    /**
+     * @brief getter of the player cell vertical position
+     *
+     * @return const float&
+     */
+    const float& getPlayerCellVerticalPosition() const & noexcept;
+
 private:
 
     /**

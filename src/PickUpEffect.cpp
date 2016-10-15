@@ -24,8 +24,11 @@
 
 #include "PickUpEffect.hpp"
 
+#include "Context.hpp"
+
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 namespace memoris
 {
@@ -54,8 +57,7 @@ public:
 
     sf::Uint32 animationLastUpdateTime {0};
 
-    float size {1.f};
-    float positionOffset {0.f};
+    sf::Uint8 alpha {255};
 };
 
 /**
@@ -74,6 +76,58 @@ PickUpEffect::PickUpEffect(
         )
     )
 {
+}
+
+/**
+ *
+ */
+PickUpEffect::~PickUpEffect() noexcept = default;
+
+/**
+ *
+ */
+void PickUpEffect::render(const utils::Context& context) &
+{
+    context.getSfmlWindow().draw(impl->sprite);
+
+    if (
+        context.getClockMillisecondsTime() -
+        impl->animationLastUpdateTime < 50
+    )
+    {
+        return;
+    }
+
+    impl->sprite.move(
+        -2.5f,
+        -2.5f
+    );
+
+    impl->sprite.scale(
+        1.1f,
+        1.1f
+    );
+
+    impl->sprite.setColor(
+        sf::Color(
+            255,
+            255,
+            255,
+            impl->alpha
+        )
+    );
+
+    impl->alpha -= 17;
+
+    impl->animationLastUpdateTime = context.getClockMillisecondsTime();
+}
+
+/**
+ *
+ */
+const bool PickUpEffect::isFinished() const & noexcept
+{
+    return !impl->alpha;
 }
 
 }
