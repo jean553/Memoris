@@ -33,6 +33,7 @@
 #include "StarsDashboardTutorialFrame.hpp"
 #include "LifesTutorialFrame.hpp"
 #include "LifesDeadsCellsTutorialFrame.hpp"
+#include "LifesDashboardTutorialFrame.hpp"
 
 #include <memory>
 
@@ -83,6 +84,9 @@ void attachFramesToTutorial(
         frames.push(std::make_unique<widgets::LifesTutorialFrame>(context));
         frames.push(
             std::make_unique<widgets::LifesDeadsCellsTutorialFrame>(context)
+        );
+        frames.push(
+            std::make_unique<widgets::LifesDashboardTutorialFrame>(context)
         );
 
         break;
