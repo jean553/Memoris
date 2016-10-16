@@ -17,19 +17,21 @@
 */
 
 /**
- * @file WelcomeTutorialFrame.cpp
+ * @file LifesDashboardTutorialFrame.cpp
  * @package widgets
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "WelcomeTutorialFrame.hpp"
+#include "LifesDashboardTutorialFrame.hpp"
 
+#include "TexturesManager.hpp"
 #include "Context.hpp"
+#include "FontsManager.hpp"
 #include "fonts.hpp"
 #include "ColorsManager.hpp"
-#include "FontsManager.hpp"
 
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 
 namespace memoris
 {
@@ -39,30 +41,45 @@ namespace widgets
 /**
  *
  */
-WelcomeTutorialFrame::WelcomeTutorialFrame(const utils::Context& context) :
+LifesDashboardTutorialFrame::LifesDashboardTutorialFrame(
+    const utils::Context& context
+) :
     TutorialFrame(
-        100.f,
-        650.f,
-        150.f
+        200.f,
+        500.f,
+        160.f
     )
 {
-    auto title = std::make_unique<sf::Text>(); // std::unique_ptr<sf::Text>
     auto firstLine = std::make_unique<sf::Text>();
     auto secondLine = std::make_unique<sf::Text>();
+    auto thirdLine = std::make_unique<sf::Text>();
+    auto lifesAmount = std::make_unique<sf::Text>();
 
-    title->setString("Welcome in Memoris !");
+    auto lifesIcon = std::make_unique<sf::Sprite>();
+
     firstLine->setString(
-        "This first serie is a set of tutorials teaching you how to play to "
-        "Memoris"
-    );
-    secondLine->setString(
-        "This popup displays the tutorial instruction. Press Enter to switch "
-        "to the next instruction."
+        "The current amount of lifes you have is displayed "
+        "at the top of "
     );
 
-    title->setColor(context.getColorsManager().getColorWhite());
-    title->setCharacterSize(fonts::INFORMATION_SIZE);
-    title->setFont(context.getFontsManager().getTutorialFont());
+    secondLine->setString(
+        "the map next to the lifes icon."
+    );
+
+    thirdLine->setString(
+        "The level starts when you press Enter."
+    );
+
+    lifesAmount->setString("0");
+    lifesAmount->setFont(context.getFontsManager().getTextFont());
+    lifesAmount->setCharacterSize(fonts::TEXT_SIZE);
+    lifesAmount->setColor(
+        context.getColorsManager().getColorWhite()
+    );
+
+    lifesIcon->setTexture(
+        context.getTexturesManager().getLifeTexture()
+    );
 
     applyPropertiesToText(
         context,
@@ -74,26 +91,41 @@ WelcomeTutorialFrame::WelcomeTutorialFrame(const utils::Context& context) :
         secondLine
     );
 
-    title->setPosition(
-        200.f,
-        110.f
+    applyPropertiesToText(
+        context,
+        thirdLine
     );
 
     firstLine->setPosition(
         20.f,
-        180.f
+        210.f
     );
 
     secondLine->setPosition(
         20.f,
-        200.f
+        230.f
     );
 
-    title->setColor(context.getColorsManager().getColorWhite());
+    thirdLine->setPosition(
+        20.f,
+        320.f
+    );
 
-    insertItem(std::move(title));
+    lifesIcon->setPosition(
+        250.f,
+        260.f
+    );
+
+    lifesAmount->setPosition(
+        200.f,
+        250.f
+    );
+
     insertItem(std::move(firstLine));
     insertItem(std::move(secondLine));
+    insertItem(std::move(lifesIcon));
+    insertItem(std::move(lifesAmount));
+    insertItem(std::move(thirdLine));
 }
 
 }
