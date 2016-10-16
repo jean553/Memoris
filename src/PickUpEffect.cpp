@@ -99,13 +99,13 @@ void PickUpEffect::render(const utils::Context& context) &
     }
 
     impl->sprite.move(
-        -2.5f,
-        -2.5f
+        -1.f,
+        -1.f
     );
 
     impl->sprite.scale(
-        1.1f,
-        1.1f
+        1.05f,
+        1.05f
     );
 
     impl->sprite.setColor(
