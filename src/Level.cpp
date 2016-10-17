@@ -537,7 +537,7 @@ void Level::loadEmptyLevel(utils::Context& context)
                                          context,
                                          impl->horizontalPositionCursor,
                                          impl->verticalPositionCursor,
-                                         cells::EMPTY_CELL
+                                         cells::WALL_CELL
                                      );
 
         updateCursors();
