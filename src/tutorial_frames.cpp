@@ -35,6 +35,7 @@
 #include "LifesDeadsCellsTutorialFrame.hpp"
 #include "LifesDashboardTutorialFrame.hpp"
 #include "MoreLessTimeCellsTutorialFrame.hpp"
+#include "WatchingTimeDashboardTutorialFrame.hpp"
 
 #include <memory>
 
@@ -97,6 +98,11 @@ void attachFramesToTutorial(
         frames.push(std::make_unique<widgets::MoreLessTimeCellsTutorialFrame>(
             context
         ));
+        frames.push(
+            std::make_unique<widgets::WatchingTimeDashboardTutorialFrame>(
+                context
+            )
+        );
     }
     default:
     {
