@@ -38,6 +38,7 @@
 #include "WatchingTimeDashboardTutorialFrame.hpp"
 #include "FloorsTutorialFrame.hpp"
 #include "StairsCellsTutorialFrame.hpp"
+#include "FloorDashboardTutorialFrame.hpp"
 
 #include <memory>
 
@@ -111,6 +112,9 @@ void attachFramesToTutorial(
         frames.push(std::make_unique<widgets::FloorsTutorialFrame>(context));
         frames.push(
             std::make_unique<widgets::StairsCellsTutorialFrame>(context)
+        );
+        frames.push(
+            std::make_unique<widgets::FloorDashboardTutorialFrame>(context)
         );
     }
     default:
