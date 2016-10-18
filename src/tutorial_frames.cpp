@@ -99,8 +99,8 @@ void attachFramesToTutorial(
     case 3:
     {
         frames.push(std::make_unique<widgets::MoreLessTimeCellsTutorialFrame>(
-            context
-        ));
+                        context
+                    ));
         frames.push(
             std::make_unique<widgets::WatchingTimeDashboardTutorialFrame>(
                 context

@@ -40,7 +40,7 @@ namespace entities
  *
  */
 Cell::Cell(
-    utils::Context& context,
+    const utils::Context& context,
     const float& hPosition,
     const float& vPosition,
     const char& cellType
@@ -125,7 +125,7 @@ const float& Cell::getVerticalPosition() const & noexcept
  *
  */
 void Cell::display(
-    utils::Context& context,
+    const utils::Context& context,
     aliases::ConstTransformUniquePtrRef transform
 )
 {
@@ -145,7 +145,7 @@ void Cell::display(
  *
  */
 void Cell::displayWithMouseHover(
-    utils::Context& context,
+    const utils::Context& context,
     aliases::ConstTransformUniquePtrRef transform
 )
 {
@@ -183,7 +183,7 @@ void Cell::hide(utils::Context& context)
 /**
  *
  */
-void Cell::show(utils::Context& context)
+void Cell::show(const utils::Context& context)
 {
     /* get the texture from the cells textures manager according to the type
        of cell; set this reference as a texture for the current cell object */

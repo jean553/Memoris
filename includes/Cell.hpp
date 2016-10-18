@@ -54,7 +54,7 @@ public:
      * @param cellType the type of the cell, represented by a unique character
      */
     Cell(
-        utils::Context& context,
+        const utils::Context& context,
         const float& hPosition,
         const float& vPosition,
         const char& cellType
@@ -106,7 +106,7 @@ public:
      * in this transform object is applied to every cell
      */
     void display(
-        utils::Context& context,
+        const utils::Context& context,
         aliases::ConstTransformUniquePtrRef transform = nullptr
     );
 
@@ -123,7 +123,7 @@ public:
      * TODO: #691 the transform is not used at all in this function
      */
     void displayWithMouseHover(
-        utils::Context& context,
+        const utils::Context& context,
         aliases::ConstTransformUniquePtrRef transform = nullptr
     );
 
@@ -142,7 +142,7 @@ public:
      *
      * @param context shared pointer to the context to use
      */
-    void show(utils::Context& context);
+    void show(const utils::Context& context);
 
     /**
      * @brief returns a reference to the current set cell type character; we

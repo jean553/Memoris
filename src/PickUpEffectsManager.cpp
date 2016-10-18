@@ -50,7 +50,7 @@ public:
  *
  */
 PickUpEffectsManager::PickUpEffectsManager() noexcept :
-    impl(std::make_unique<Impl>())
+impl(std::make_unique<Impl>())
 {
 }
 
@@ -82,8 +82,8 @@ void PickUpEffectsManager::addPickUpEffect(
  */
 void PickUpEffectsManager::renderAllEffects(const utils::Context& context) &
 {
-    for (auto& effect : impl->effects) 
-    // auto -> std::unique_ptr<PickUpEffect>&
+    for (auto& effect : impl->effects)
+        // auto -> std::unique_ptr<PickUpEffect>&
     {
         if (effect->isFinished())
         {
