@@ -60,7 +60,8 @@ public:
 CellsSelector::CellsSelector(const utils::Context& context) :
     impl(std::make_unique<Impl>(context))
 {
-    constexpr float CELLS_HORIZONTAL_POSITION {150.f};
+    constexpr float FIRST_COLUMN_CELLS_HORIZONTAL_POSITION {150.f};
+    constexpr float SECOND_COLUMN_CELLS_HORIZONTAL_POSITION {200.f};
 
     /* initialized here and not the implementation because needs access to
        constant */
@@ -68,98 +69,110 @@ CellsSelector::CellsSelector(const utils::Context& context) :
     {
         entities::Cell(
             context,
-            CELLS_HORIZONTAL_POSITION,
+            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
             98.f,
             cells::EMPTY_CELL
         ),
         entities::Cell(
             context,
-            CELLS_HORIZONTAL_POSITION,
+            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
             148.f,
             cells::DEPARTURE_CELL
         ),
         entities::Cell(
             context,
-            CELLS_HORIZONTAL_POSITION,
+            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
             198.f,
             cells::ARRIVAL_CELL
         ),
         entities::Cell(
             context,
-            CELLS_HORIZONTAL_POSITION,
+            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
             248.f,
             cells::STAR_CELL
         ),
         entities::Cell(
             context,
-            CELLS_HORIZONTAL_POSITION,
+            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
             298.f,
             cells::MORE_LIFE_CELL
         ),
         entities::Cell(
             context,
-            CELLS_HORIZONTAL_POSITION,
+            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
             348.f,
             cells::LESS_LIFE_CELL
         ),
         entities::Cell(
             context,
-            CELLS_HORIZONTAL_POSITION,
+            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
             398.f,
             cells::MORE_TIME_CELL
         ),
         entities::Cell(
             context,
-            CELLS_HORIZONTAL_POSITION,
+            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
             448.f,
             cells::LESS_TIME_CELL
         ),
         entities::Cell(
             context,
-            CELLS_HORIZONTAL_POSITION,
+            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
             498.f,
             cells::WALL_CELL
         ),
         entities::Cell(
             context,
-            CELLS_HORIZONTAL_POSITION,
+            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
             548.f,
             cells::STAIRS_UP_CELL
         ),
         entities::Cell(
             context,
-            CELLS_HORIZONTAL_POSITION,
+            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
             598.f,
             cells::STAIRS_DOWN_CELL
         ),
         entities::Cell(
             context,
-            CELLS_HORIZONTAL_POSITION,
+            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
             648.f,
             cells::HORIZONTAL_MIRROR_CELL
         ),
         entities::Cell(
             context,
-            CELLS_HORIZONTAL_POSITION,
+            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
             698.f,
             cells::VERTICAL_MIRROR_CELL
         ),
         entities::Cell(
             context,
-            CELLS_HORIZONTAL_POSITION,
+            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
             748.f,
             cells::LEFT_ROTATION_CELL
         ),
         entities::Cell(
             context,
-            CELLS_HORIZONTAL_POSITION,
+            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
             798.f,
             cells::RIGHT_ROTATION_CELL
+        ),
+        entities::Cell(
+            context,
+            SECOND_COLUMN_CELLS_HORIZONTAL_POSITION,
+            98.f,
+            cells::ELEVATOR_UP_CELL
+        ),
+        entities::Cell(
+            context,
+            SECOND_COLUMN_CELLS_HORIZONTAL_POSITION,
+            148.f,
+            cells::ELEVATOR_DOWN_CELL
         )
     };
 
     impl->selectedCellImage.setPosition(
-        CELLS_HORIZONTAL_POSITION,
+        FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
         10.f
     );
 }

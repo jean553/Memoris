@@ -40,22 +40,14 @@ std::unique_ptr<entities::Cell> getCellByType(
     const char type
 )
 {
-    /* create an unique pointer to a cell object; the horizontal position
-       of a cell is equal to 400 (horizontal position of the grid) + 50
-       (cell width including separator) * the horizontal position cursor;
-       the vertical position of a cell is equal to 98 (vertical position of
-       the grid) + 50 (cell height including separator) * the vertical
-       position cursor; the data type expected by the Cell constructor for
-       the position is a float; this is faster to calculate positions with
-       unsigned shorts, and cast them to float at the end when setting
-       the data; this is not a problem to cast as we always manipulate
-       integer values anyway */
     return std::make_unique<entities::Cell>(
-               context,
-               400.f + 50.f * static_cast<float>(horizontalPosition),
-               98.f + 50.f * static_cast<float>(verticalPosition),
-               type
-           );
+        context,
+        HORIZONTAL_POSITION_ORIGIN +
+        CELL_DIMENSIONS * static_cast<float>(horizontalPosition),
+        VERTICAL_POSITION_ORIGIN +
+        CELL_DIMENSIONS * static_cast<float>(verticalPosition),
+        type
+    );
 }
 
 /* declared here because not specified into the header */
