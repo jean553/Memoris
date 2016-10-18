@@ -37,6 +37,7 @@
 #include "MoreLessTimeCellsTutorialFrame.hpp"
 #include "WatchingTimeDashboardTutorialFrame.hpp"
 #include "FloorsTutorialFrame.hpp"
+#include "StairsCellsTutorialFrame.hpp"
 
 #include <memory>
 
@@ -108,6 +109,9 @@ void attachFramesToTutorial(
     case 4:
     {
         frames.push(std::make_unique<widgets::FloorsTutorialFrame>(context));
+        frames.push(
+            std::make_unique<widgets::StairsCellsTutorialFrame>(context)
+        );
     }
     default:
     {
