@@ -39,6 +39,7 @@
 #include "FloorsTutorialFrame.hpp"
 #include "StairsCellsTutorialFrame.hpp"
 #include "FloorDashboardTutorialFrame.hpp"
+#include "ElevatorsTutorialFrame.hpp"
 
 #include <memory>
 
@@ -106,6 +107,8 @@ void attachFramesToTutorial(
                 context
             )
         );
+
+        break;
     }
     case 4:
     {
@@ -116,6 +119,16 @@ void attachFramesToTutorial(
         frames.push(
             std::make_unique<widgets::FloorDashboardTutorialFrame>(context)
         );
+
+        break;
+    }
+    case 5:
+    {
+        frames.push(
+            std::make_unique<widgets::ElevatorsTutorialFrame>(context)
+        );
+
+        break;
     }
     default:
     {
