@@ -38,6 +38,9 @@
 #include "EditingLevelManager.hpp"
 #include "ColorsManager.hpp"
 #include "FontsManager.hpp"
+#include "Cell.hpp"
+
+#include <SFML/Graphics/Text.hpp>
 
 namespace memoris
 {

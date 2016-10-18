@@ -26,15 +26,14 @@
 #ifndef MEMORIS_CELLSSELECTOR_H_
 #define MEMORIS_CELLSSELECTOR_H_
 
-#include "Context.hpp"
-
-#include "Cell.hpp"
-#include "aliases.hpp"
+#include <memory>
 
 namespace memoris
 {
 namespace utils
 {
+
+class Context;
 
 class CellsSelector
 {
@@ -43,18 +42,30 @@ public:
 
     /**
      * @brief constructor, loads the textures from the textures manager to
-     * create the sprites
+     * create the sprites (this is done by the initialized implementation)
      *
      * @param context reference to the current context to use
+     *
+     * not 'noexcept' because it calls SFML functions that are not noexcept
      */
-    CellsSelector(utils::Context& context);
+    CellsSelector(const utils::Context& context);
+
+    /**
+     * @brief default destructor, empty, only used in order to use forwarding
+     * declaration
+     */
+    ~CellsSelector() noexcept;
 
     /**
      * @brief displays the cells selector
      *
-     * @param context reference to the current context to use
+     * @param context constant reference to the current context to use
+     *
+     * not 'const' because it modifies the cells color if the mouse is hover
+     *
+     * not 'noexcept' because it calls SFML functions that are not noexcept
      */
-    void display(utils::Context& context);
+    void display(const utils::Context& context) &;
 
     /**
      * @brief check if the mouse is hover a cell and set the current selected
@@ -63,21 +74,24 @@ public:
      * editor
      *
      * @param context reference to the current context to use
+     *
+     * not 'const' because it modifies the selected cell type and image
+     *
+     * not 'noexcept' because it calls SFML functions that are not noexcept
      */
-    void selectCell(utils::Context& context);
+    void selectCell(const utils::Context& context) &;
 
-    const char& getSelectedCellType() const;
+    /**
+     * @brief getter of the selected cell type
+     *
+     * @return const char&
+     */
+    const char& getSelectedCellType() const & noexcept;
 
 private:
 
-    /* the cells container of the selector */
-    std::vector<entities::Cell> cells;
-
-    /* the type of the current selected cell */
-    char selectedCellType {'e'};
-
-    /* separated sprite used to display the current selected cell picture */
-    sf::Sprite selectedCellImage;
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }

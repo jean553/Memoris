@@ -124,12 +124,12 @@ StairsCellsTutorialFrame::StairsCellsTutorialFrame(
 
     applyPropertiesToText(
         context,
-        moveUp 
+        moveUp
     );
 
     applyPropertiesToText(
         context,
-        moveDown        
+        moveDown
     );
 
     firstLine->setPosition(

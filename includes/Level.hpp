@@ -92,7 +92,7 @@ public:
         utils::Context& context,
         const unsigned short& floor,
         void (Cell::*display)(
-            utils::Context&,
+            const utils::Context&,
             aliases::ConstTransformUniquePtrRef
         )
     ) const;
