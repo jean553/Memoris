@@ -55,6 +55,8 @@ public:
     sf::Texture diagonalCellTexture;
     sf::Texture leftRotationCellTexture;
     sf::Texture rightRotationCellTexture;
+    sf::Texture elevatorUpCellTexture;
+    sf::Texture elevatorDownCellTexture;
 };
 
 /**
@@ -80,6 +82,8 @@ CellsTexturesManager::CellsTexturesManager() :
     loadTexture(impl->diagonalCellTexture, "diagonal");
     loadTexture(impl->leftRotationCellTexture, "rotate_left");
     loadTexture(impl->rightRotationCellTexture, "rotate_right");
+    loadTexture(impl->elevatorUpCellTexture, "elevator_up");
+    loadTexture(impl->elevatorDownCellTexture, "elevator_down");
 }
 
 /**
@@ -159,6 +163,14 @@ const sf::Texture& CellsTexturesManager::getTextureReferenceByCellType(
     case cells::HIDDEN_CELL:
     {
         return impl->hiddenCellTexture;
+    }
+    case cells::ELEVATOR_UP_CELL:
+    {
+        return impl->elevatorUpCellTexture;
+    }
+    case cells::ELEVATOR_DOWN_CELL:
+    {
+        return impl->elevatorDownCellTexture;
     }
     }
 
