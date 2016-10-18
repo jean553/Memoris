@@ -36,6 +36,7 @@
 #include "LifesDashboardTutorialFrame.hpp"
 #include "MoreLessTimeCellsTutorialFrame.hpp"
 #include "WatchingTimeDashboardTutorialFrame.hpp"
+#include "FloorsTutorialFrame.hpp"
 
 #include <memory>
 
@@ -103,6 +104,10 @@ void attachFramesToTutorial(
                 context
             )
         );
+    }
+    case 4:
+    {
+        frames.push(std::make_unique<widgets::FloorsTutorialFrame>(context));
     }
     default:
     {
