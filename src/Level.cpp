@@ -512,7 +512,12 @@ void Level::loadLevelFromFile(utils::Context& context)
         }
         }
 
-        if (cellType != cells::EMPTY_CELL && impl->emptyFloor)
+        if (
+            (
+                cellType != cells::EMPTY_CELL &&
+                cellType != cells::WALL_CELL
+            ) && impl->emptyFloor
+        )
         {
             impl->emptyFloor = false;
         }
