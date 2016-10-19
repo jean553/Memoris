@@ -40,6 +40,7 @@
 #include "StairsCellsTutorialFrame.hpp"
 #include "FloorDashboardTutorialFrame.hpp"
 #include "ElevatorsTutorialFrame.hpp"
+#include "ElevatorsCellsTutorialFrame.hpp"
 
 #include <memory>
 
@@ -126,6 +127,9 @@ void attachFramesToTutorial(
     {
         frames.push(
             std::make_unique<widgets::ElevatorsTutorialFrame>(context)
+        );
+        frames.push(
+            std::make_unique<widgets::ElevatorsCellsTutorialFrame>(context)
         );
 
         break;
