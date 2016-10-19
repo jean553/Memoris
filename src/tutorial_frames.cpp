@@ -44,6 +44,7 @@
 #include "MirrorTutorialFrame.hpp"
 #include "MirrorsCellsTutorialFrame.hpp"
 #include "RotationTutorialFrame.hpp"
+#include "RotationCellsTutorialFrame.hpp"
 
 #include <memory>
 
@@ -152,6 +153,9 @@ void attachFramesToTutorial(
     {
         frames.push(
             std::make_unique<widgets::RotationTutorialFrame>(context)
+        );
+        frames.push(
+            std::make_unique<widgets::RotationCellsTutorialFrame>(context)
         );
     }
     default:
