@@ -462,6 +462,7 @@ void GameController::executePlayerCellAction(
         break;
     }
     case cells::STAIRS_UP_CELL:
+    case cells::ELEVATOR_UP_CELL:
     {
         if (impl->level->movePlayerToNextFloor(context))
         {
@@ -476,6 +477,7 @@ void GameController::executePlayerCellAction(
         break;
     }
     case cells::STAIRS_DOWN_CELL:
+    case cells::ELEVATOR_DOWN_CELL:
     {
         if (impl->level->movePlayerToPreviousFloor(context))
         {
