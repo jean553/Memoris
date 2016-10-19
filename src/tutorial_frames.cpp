@@ -43,6 +43,7 @@
 #include "ElevatorsCellsTutorialFrame.hpp"
 #include "MirrorTutorialFrame.hpp"
 #include "MirrorsCellsTutorialFrame.hpp"
+#include "RotationTutorialFrame.hpp"
 
 #include <memory>
 
@@ -146,6 +147,12 @@ void attachFramesToTutorial(
         );
 
         break;
+    }
+    case 7:
+    {
+        frames.push(
+            std::make_unique<widgets::RotationTutorialFrame>(context)
+        );
     }
     default:
     {
