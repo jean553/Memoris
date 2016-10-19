@@ -542,12 +542,7 @@ void GameController::emptyPlayerCell(
         playerCellType == cells::DEPARTURE_CELL ||
         playerCellType == cells::STAIRS_UP_CELL ||
         playerCellType == cells::STAIRS_DOWN_CELL ||
-        playerCellType == cells::ARRIVAL_CELL ||
-        playerCellType == cells::HORIZONTAL_MIRROR_CELL ||
-        playerCellType == cells::VERTICAL_MIRROR_CELL ||
-        playerCellType == cells::DIAGONAL_CELL ||
-        playerCellType == cells::LEFT_ROTATION_CELL ||
-        playerCellType == cells::RIGHT_ROTATION_CELL
+        playerCellType == cells::ARRIVAL_CELL
     )
     {
         return;
