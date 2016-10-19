@@ -17,16 +17,19 @@
 */
 
 /**
- * @file MirrorTutorialFrame.cpp
+ * @file MirrorsCellsTutorialFrame.cpp
  * @package widgets
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "MirrorTutorialFrame.hpp"
+#include "MirrorsCellsTutorialFrame.hpp"
 
 #include "Context.hpp"
+#include "CellsTexturesManager.hpp"
+#include "cells.hpp"
 
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 
 namespace memoris
 {
@@ -36,44 +39,55 @@ namespace widgets
 /**
  *
  */
-MirrorTutorialFrame::MirrorTutorialFrame(
+MirrorsCellsTutorialFrame::MirrorsCellsTutorialFrame(
     const utils::Context& context
 ) :
     TutorialFrame(
         200.f,
-        600.f,
-        140.f
+        530.f,
+        200.f
     )
 {
     auto firstLine = std::make_unique<sf::Text>();
     auto secondLine = std::make_unique<sf::Text>();
     auto thirdLine = std::make_unique<sf::Text>();
-    auto fourthLine = std::make_unique<sf::Text>();
-    auto fifthLine = std::make_unique<sf::Text>();
+    auto horizontalLine = std::make_unique<sf::Text>();
+    auto verticalLine = std::make_unique<sf::Text>();
+
+    auto horizontalCell = std::make_unique<sf::Sprite>();
+    auto verticalCell = std::make_unique<sf::Sprite>();
 
     firstLine->setString(
-        "Some cells contains events. Those events may change the "
-        "current position of "
+        "There is a horizontal mirror effect cell, and a "
+        "vertical mirror effect "
     );
 
     secondLine->setString(
-        "the player and even change the cells disposition. For "
-        "example, there are "
+        "cell."
     );
 
     thirdLine->setString(
-        "two mirror cells. The horizontal mirror cell divides "
-        "horizontaly the map "
+        "The game starts when you press Enter."
     );
 
-    fourthLine->setString(
-        "in the middle with an axe, and symmetrically inverts "
-        "cells disposition."
+    horizontalLine->setString(
+        "Horizontal mirror"
     );
 
-    fifthLine->setString(
-        "The effect only happens on the cells of the current "
-        "floor."
+    verticalLine->setString(
+        "Vertical mirror"
+    );
+
+    horizontalCell->setTexture(
+        context.getCellsTexturesManager().getTextureReferenceByCellType(
+            cells::HORIZONTAL_MIRROR_CELL
+        )
+    );
+
+    verticalCell->setTexture(
+        context.getCellsTexturesManager().getTextureReferenceByCellType(
+            cells::VERTICAL_MIRROR_CELL
+        )
     );
 
     applyPropertiesToText(
@@ -93,12 +107,12 @@ MirrorTutorialFrame::MirrorTutorialFrame(
 
     applyPropertiesToText(
         context,
-        fourthLine
+        horizontalLine
     );
 
     applyPropertiesToText(
         context,
-        fifthLine
+        verticalLine
     );
 
     firstLine->setPosition(
@@ -111,26 +125,38 @@ MirrorTutorialFrame::MirrorTutorialFrame(
         230.f
     );
 
+    horizontalCell->setPosition(
+        120.f,
+        260.f
+    );
+
+    verticalCell->setPosition(
+        320.f,
+        260.f
+    );
+
+    horizontalLine->setPosition(
+        90.f,
+        320.f
+    );
+
+    verticalLine->setPosition(
+        295.f,
+        320.f
+    );
+
     thirdLine->setPosition(
         20.f,
-        250.f
-    );
-
-    fourthLine->setPosition(
-        20.f,
-        270.f
-    );
-
-    fifthLine->setPosition(
-        20.f,
-        290.f
+        350.f
     );
 
     insertItem(std::move(firstLine));
     insertItem(std::move(secondLine));
+    insertItem(std::move(horizontalCell));
+    insertItem(std::move(verticalCell));
+    insertItem(std::move(horizontalLine));
+    insertItem(std::move(verticalLine));
     insertItem(std::move(thirdLine));
-    insertItem(std::move(fourthLine));
-    insertItem(std::move(fifthLine));
 }
 
 }
