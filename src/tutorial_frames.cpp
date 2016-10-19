@@ -41,6 +41,7 @@
 #include "FloorDashboardTutorialFrame.hpp"
 #include "ElevatorsTutorialFrame.hpp"
 #include "ElevatorsCellsTutorialFrame.hpp"
+#include "MirrorTutorialFrame.hpp"
 
 #include <memory>
 
@@ -130,6 +131,14 @@ void attachFramesToTutorial(
         );
         frames.push(
             std::make_unique<widgets::ElevatorsCellsTutorialFrame>(context)
+        );
+
+        break;
+    }
+    case 6:
+    {
+        frames.push(
+            std::make_unique<widgets::MirrorTutorialFrame>(context)
         );
 
         break;
