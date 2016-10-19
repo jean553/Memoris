@@ -42,6 +42,7 @@
 #include "ElevatorsTutorialFrame.hpp"
 #include "ElevatorsCellsTutorialFrame.hpp"
 #include "MirrorTutorialFrame.hpp"
+#include "MirrorsCellsTutorialFrame.hpp"
 
 #include <memory>
 
@@ -139,6 +140,9 @@ void attachFramesToTutorial(
     {
         frames.push(
             std::make_unique<widgets::MirrorTutorialFrame>(context)
+        );
+        frames.push(
+            std::make_unique<widgets::MirrorsCellsTutorialFrame>(context)
         );
 
         break;
