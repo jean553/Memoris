@@ -168,7 +168,7 @@ void Cell::displayWithMouseHover(
 /**
  *
  */
-void Cell::hide(utils::Context& context)
+void Cell::hide(const utils::Context& context)
 {
     sprite.setTexture(
         context.getCellsTexturesManager().getTextureReferenceByCellType(
@@ -217,9 +217,9 @@ void Cell::setType(const char& typeChar)
  *
  */
 void Cell::setCellColorTransparency(
-    utils::Context& context,
+    const utils::Context& context,
     const sf::Uint8& alpha
-)
+) &
 {
     /* get a copy of the white color from the colors manager */
     sf::Color cellColor = context.getColorsManager().getColorWhiteCopy();

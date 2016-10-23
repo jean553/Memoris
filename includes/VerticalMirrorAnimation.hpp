@@ -52,10 +52,10 @@ public:
      * @param floor the current floor to display in the animation
      */
     void playNextAnimationStep(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    ) override;
+    ) & override;
 
 private:
 
@@ -71,11 +71,11 @@ private:
      * transparency value of the cells textures
      */
     void setLevelSideCellsTransparency(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& startingCellIndex,
         const float difference
-    ) override;
+    ) & override;
 
     /**
      * @brief replace the left side cells by the right side cells
@@ -85,10 +85,10 @@ private:
      * @param floor the current floor to display in the animation
      */
     void executeMirrorMovement(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    ) override;
+    ) & override;
 
     /**
      * @brief replace the right side cells by the left side cells
@@ -98,10 +98,10 @@ private:
      * @param floor the current floor to display in the animation
      */
     void executeReverseMirrorMovement(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    ) override;
+    ) & override;
 
     /* use to know when the end of the line of the current
        animated side has been reached; this is used to know

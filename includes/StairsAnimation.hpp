@@ -53,26 +53,30 @@ public:
     );
 
     /**
+     * @brief render the animation
+     *
      * @param context reference to the current context to use
      * @param level shared pointer to the level to animate
      * @param floor the current floor to display in the animation
      */
     void renderAnimation(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    );
+    ) & override;
 
     /**
+     * @brief execute action by jumping to the next animation step
+     *
      * @param context reference to the current context to use
      * @param level shared pointer to the level to animate
      * @param floor the current floor to display in the animation
      */
     void playNextAnimationStep(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    );
+    ) & override;
 
 private:
 

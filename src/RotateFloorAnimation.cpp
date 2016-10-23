@@ -27,54 +27,67 @@
 #include "SoundsManager.hpp"
 #include "Context.hpp"
 #include "Cell.hpp"
+#include "Level.hpp"
 
 namespace memoris
 {
 namespace animations
 {
 
+class RotateFloorAnimation::Impl
+{
+
+public:
+
+    Impl(const short& movementDirection) :
+        direction(movementDirection)
+    {
+    }
+
+    short direction;
+};
+
 /**
  *
  */
 RotateFloorAnimation::RotateFloorAnimation(
-    utils::Context& context,
     const short& movementDirection
-) :
-    direction(movementDirection)
+) noexcept : impl(std::make_unique<Impl>(movementDirection))
 {
-    /* plays the floor movement animation */
-    context.getSoundsManager().playFloorMovementAnimationSound();
 }
 
 /**
  *
  */
+RotateFloorAnimation::~RotateFloorAnimation() noexcept = default;
+
+/**
+ *
+ */
 void RotateFloorAnimation::playNextAnimationStep(
-    utils::Context& context,
+    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
-)
+) &
 {
-    /* if the animation step is the first one, we create a sf::Transform object
-       pointed by the level transform unique pointer */
     if (animationSteps == 0)
     {
-        /* dynamically create the SFML transform object of the Level object */
+        context.getSoundsManager().playFloorMovementAnimationSound();
+
         level->createTransform();
     }
 
-    /* apply a rotation */
-    level->rotateAllCells(5 * direction);
+    level->rotateAllCells(5 * impl->direction);
 }
 
 /**
  *
  */
 void RotateFloorAnimation::renderAnimation(
-    utils::Context& context,
+    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
-)
+) &
 {
     level->display(
         context,
@@ -95,8 +108,6 @@ void RotateFloorAnimation::renderAnimation(
 
     if (animationSteps == 18)
     {
-        /* dynamically delete the SFML transform of the level object, we
-           do not need it anymore at the end of the animation */
         level->deleteTransform();
 
         finished = true;
@@ -115,96 +126,170 @@ void RotateFloorAnimation::renderAnimation(
  *
  */
 void RotateFloorAnimation::rotateCells(
-    utils::Context& context,
+    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
-)
+) &
 {
-    /* every line of the floor is stored into a dedicated container; each
-       container is stored into a parent container */
     std::vector<std::vector<entities::Cell>> horizontalLines;
 
-    /* these local variables are used to transfer the cells from one location
-       to another one during the rotation */
     unsigned short playerColumn = 0,
-                   playerIndex = 0,
-                   destination = floor * 256 + 240;
+                   playerIndex = 0;
 
-    /* we browse every line of the floor one by one and store them inside
-       the container of containers */
-    for (
-        unsigned short lines = 0;
-        lines < 16;
-        lines++
-    )
+    unsigned short destination = floor * 256 + 255;
+
+    if(impl->direction == -1)
     {
-        /* container for every cell of the line */
-        std::vector<entities::Cell> line;
+        destination = floor * 256 + 240;
 
-        /* browse each cell of the line one by one */
         for (
-            unsigned short index = 0;
-            index < 16;
-            index++
+            unsigned short lines = 0;
+            lines < 16;
+            lines++
         )
         {
-            entities::Cell cell(
-                context,
-                0.f,
-                0.f,
-                level->getCells()[lines * 16 + index]->getType()
-            );
+            std::vector<entities::Cell> line;
 
-            cell.setIsVisible(
-                level->getCells()[lines * 16 + index]->isVisible()
-            );
-
-            line.push_back((*level->getCells()[lines * 16 + index]));
-
-            /* save the location of the player cell if found */
-            if (lines * 16 + index == level->getPlayerCellIndex())
+            for (
+                unsigned short index = 0;
+                index < 16;
+                index++
+            )
             {
-                playerColumn = lines;
-                playerIndex = index;
+                entities::Cell cell(
+                    context,
+                    0.f,
+                    0.f,
+                    level->getCells()[lines * 16 + index]->getType()
+                );
+
+                cell.setIsVisible(
+                    level->getCells()[lines * 16 + index]->isVisible()
+                );
+
+                line.push_back((*level->getCells()[lines * 16 + index]));
+
+                if (lines * 16 + index == level->getPlayerCellIndex())
+                {
+                    playerColumn = lines;
+                    playerIndex = index;
+                }
             }
+
+            horizontalLines.push_back(line);
         }
 
-        horizontalLines.push_back(line);
+        for (unsigned short column = 0; column < 16; column++)
+        {
+            for (unsigned short index = 0; index < 16; index++)
+            {
+                level->getCells()[destination]->setType(
+                    horizontalLines[column][index].getType()
+                );
+
+                if (horizontalLines[column][index].isVisible())
+                {
+                    level->getCells()[destination]->show(context);
+                }
+                else
+                {
+                    level->getCells()[destination]->hide(context);
+                }
+
+                if (column == playerColumn && index == playerIndex)
+                {
+                    level->setPlayerCellIndex(destination);
+                }
+
+                if (destination >= 16)
+                {
+                    destination -= 16;
+                }
+            }
+
+            if (destination != 15)
+            {
+                destination += 241;
+            }
+        }
     }
-
-    /* copies every lines at columns in order to make the rotation */
-
-    for (unsigned short column = 0; column < 16; column++)
+    else
     {
-        for (unsigned short index = 0; index < 16; index++)
+        destination = floor * 256 + 255;
+
+        for (
+            unsigned short lines = 0;
+            lines < 16;
+            lines++
+        )
         {
-            level->getCells()[destination]->setType(
-                horizontalLines[column][index].getType()
-            );
+            unsigned short offset = 0;
 
-            if (horizontalLines[column][index].isVisible())
+            std::vector<entities::Cell> line;
+
+            for (
+                short index = 15;
+                index >= 0;
+                index--
+            )
             {
-                level->getCells()[destination]->show(context);
-            }
-            else
-            {
-                level->getCells()[destination]->hide(context);
+                entities::Cell cell(
+                    context,
+                    0.f,
+                    0.f,
+                    level->getCells()[lines * 16 + index]->getType()
+                );
+
+                cell.setIsVisible(
+                    level->getCells()[lines * 16 + index]->isVisible()
+                );
+
+                line.push_back((*level->getCells()[lines * 16 + index]));
+
+                if (lines * 16 + index == level->getPlayerCellIndex())
+                {
+                    playerColumn = lines;
+                    playerIndex = offset;
+                }
+
+                offset++;
             }
 
-            if (column == playerColumn && index == playerIndex)
-            {
-                level->setPlayerCellIndex(destination);
-            }
-
-            if (destination >= 16)
-            {
-                destination -= 16;
-            }
+            horizontalLines.push_back(line);
         }
 
-        if (destination != 15)
+        for (short column = 0; column < 16; column++)
         {
-            destination += 241;
+            for (unsigned short index = 0; index < 16; index++)
+            {
+                level->getCells()[destination]->setType(
+                    horizontalLines[column][index].getType()
+                );
+
+                if (horizontalLines[column][index].isVisible())
+                {
+                    level->getCells()[destination]->show(context);
+                }
+                else
+                {
+                    level->getCells()[destination]->hide(context);
+                }
+
+                if (column == playerColumn && index == playerIndex)
+                {
+                    level->setPlayerCellIndex(destination);
+                }
+
+                if (destination >= 16)
+                {
+                    destination -= 16;
+                }
+            }
+
+            if (destination != 0)
+            {
+                destination += 239;
+            }
         }
     }
 }

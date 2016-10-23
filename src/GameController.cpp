@@ -41,6 +41,7 @@
 #include "WatchingTimer.hpp"
 #include "PickUpEffectsManager.hpp"
 #include "TexturesManager.hpp"
+#include "Level.hpp"
 
 namespace memoris
 {

@@ -28,6 +28,8 @@
 
 #include "LevelAnimation.hpp"
 
+#include <memory>
+
 namespace memoris
 {
 namespace animations
@@ -43,12 +45,14 @@ public:
      *
      * @param movementDirection indicates if the movement is clockwise or not;
      * usually contains 1 or -1
-     * @param context shared pointer reference to the current context
      */
-    RotateFloorAnimation(
-        utils::Context& context,
-        const short& movementDirection
-    );
+    RotateFloorAnimation(const short& movementDirection) noexcept;
+
+    /**
+     * @brief default destructor, empty, only declared in order to use
+     * forwarding declaration
+     */
+    ~RotateFloorAnimation() noexcept;
 
     /**
      * @brief public function called from the game controller; this function
@@ -62,10 +66,10 @@ public:
      * @param floor the current floor to display in the animation
      */
     void renderAnimation(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    ) override;
+    ) & override;
 
 private:
 
@@ -80,10 +84,10 @@ private:
      * @param floor the current floor to display in the animation
      */
     void playNextAnimationStep(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    ) override;
+    ) & override;
 
     /**
      * @brief rotate the cells of the floor on the left
@@ -93,13 +97,13 @@ private:
      * @param floor the current floor to display in the animation
      */
     void rotateCells(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    );
+    ) &;
 
-    /* the rotation direction, negative or positive */
-    short direction {1};
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }

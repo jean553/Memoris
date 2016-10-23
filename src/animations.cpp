@@ -44,7 +44,6 @@ std::unique_ptr<LevelAnimation> getAnimationByCellType(
     const char& cellType
 )
 {
-    /* creates the animation according to the given cell type */
     switch(cellType)
     {
     case cells::VERTICAL_MIRROR_CELL:
@@ -73,22 +72,14 @@ std::unique_ptr<LevelAnimation> getAnimationByCellType(
     }
     case cells::LEFT_ROTATION_CELL:
     {
-        return std::make_unique<RotateFloorAnimation>(
-                   context,
-                   -1
-               );
+        return std::make_unique<RotateFloorAnimation>(-1);
     }
     case cells::RIGHT_ROTATION_CELL:
     {
-        return std::make_unique<RotateFloorAnimation>(
-                   context,
-                   1
-               );
+        return std::make_unique<RotateFloorAnimation>(1);
     }
     default:
     {
-        /* by default, the horizontal mirror animation is created */
-
         return std::make_unique<HorizontalMirrorAnimation>(context);
     }
     }

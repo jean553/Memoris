@@ -27,6 +27,7 @@
 #include "SoundsManager.hpp"
 #include "Context.hpp"
 #include "Cell.hpp"
+#include "Level.hpp"
 
 namespace memoris
 {
@@ -53,10 +54,10 @@ StairsAnimation::StairsAnimation(
  *
  */
 void StairsAnimation::renderAnimation(
-    utils::Context& context,
+    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
-)
+) &
 {
     level->display(
         context,
@@ -84,10 +85,10 @@ void StairsAnimation::renderAnimation(
  *
  */
 void StairsAnimation::playNextAnimationStep(
-    utils::Context& context,
+    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
-)
+) &
 {
     /* the animation does nothing during the 10 first steps (first second) */
 

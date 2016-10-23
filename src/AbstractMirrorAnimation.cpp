@@ -24,6 +24,8 @@
 
 #include "AbstractMirrorAnimation.hpp"
 
+#include "Level.hpp"
+
 namespace memoris
 {
 namespace animations
@@ -33,10 +35,10 @@ namespace animations
  *
  */
 void AbstractMirrorAnimation::renderAnimation(
-    utils::Context& context,
+    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
-)
+) &
 {
     /* check if the animation interval time is elapsed; the animation step
        is incremented every 50 milliseconds */
@@ -67,10 +69,10 @@ void AbstractMirrorAnimation::renderAnimation(
  *
  */
 void AbstractMirrorAnimation::displayLevelAndSeparator(
-    utils::Context& context,
+    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
-)
+) &
 {
     /* render the given floor of the level */
     level->display(

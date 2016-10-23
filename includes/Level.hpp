@@ -89,7 +89,7 @@ public:
      * @param Cell object method pointer to the cell display() method to use
      */
     void display(
-        utils::Context& context,
+        const utils::Context& context,
         const unsigned short& floor,
         void (Cell::*display)(
             const utils::Context&,
@@ -303,10 +303,10 @@ public:
      * @param floor the concerned floor index
      */
     void setCellsTransparency(
-        utils::Context& context,
+        const utils::Context& context,
         const float& transparency,
         const unsigned short& floor
-    );
+    ) &;
 
     /**
      * @brief getter of the cells container; returns a reference to the

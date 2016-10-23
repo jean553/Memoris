@@ -26,6 +26,7 @@
 
 #include "separators.hpp"
 #include "SoundsManager.hpp"
+#include "Level.hpp"
 
 namespace memoris
 {
@@ -52,10 +53,10 @@ HorizontalMirrorAnimation::HorizontalMirrorAnimation(
  *
  */
 void HorizontalMirrorAnimation::playNextAnimationStep(
-    utils::Context& context,
+    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
-)
+) &
 {
     unsigned short startingHighCellsIndex = floor * 256,
                    startingLowCellsIndex = startingHighCellsIndex + 128;
@@ -176,10 +177,10 @@ void HorizontalMirrorAnimation::playNextAnimationStep(
  *
  */
 void HorizontalMirrorAnimation::executeReverseMirrorMovement(
-    utils::Context& context,
+    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
-)
+) &
 {
     /* this part replace all the cells of the top side of the floor by the
        cells contained into the lowCells container; visibility is also copied
@@ -228,10 +229,10 @@ void HorizontalMirrorAnimation::executeReverseMirrorMovement(
  *
  */
 void HorizontalMirrorAnimation::executeMirrorMovement(
-    utils::Context& context,
+    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
-)
+) &
 {
     /* this part browse the bottom side of the floor and save all the cells
        , their disposition and their visibility inside two containers; these
@@ -307,11 +308,11 @@ void HorizontalMirrorAnimation::executeMirrorMovement(
  *
  */
 void HorizontalMirrorAnimation::setLevelSideCellsTransparency(
-    utils::Context& context,
+    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& startingLowCellsIndex,
     const float difference
-)
+) &
 {
     animatedSideTransparency += difference;
 

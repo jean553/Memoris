@@ -28,6 +28,7 @@
 #include "ColorsManager.hpp"
 #include "separators.hpp"
 #include "Cell.hpp"
+#include "Level.hpp"
 
 namespace memoris
 {
@@ -61,10 +62,10 @@ DiagonalAnimation::DiagonalAnimation(
  *
  */
 void DiagonalAnimation::renderAnimation(
-    utils::Context& context,
+    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
-)
+) &
 {
     if (context.getClockMillisecondsTime() - lastAnimationUpdateTime < 100)
     {
@@ -96,10 +97,10 @@ void DiagonalAnimation::renderAnimation(
  *
  */
 void DiagonalAnimation::playNextAnimationStep(
-    utils::Context& context,
+    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
-)
+) &
 {
     /* declare a SFML color object; we use this object to create the flashing
        effect on the different parts of the cells */
@@ -160,10 +161,10 @@ void DiagonalAnimation::playNextAnimationStep(
  *
  */
 void DiagonalAnimation::displayLevelAndSeparator(
-    utils::Context& context,
+    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
-)
+) &
 {
     /* render the level at the given floor */
     level->display(
@@ -181,11 +182,11 @@ void DiagonalAnimation::displayLevelAndSeparator(
  *
  */
 void DiagonalAnimation::applyPurpleColorOnCellsQuarters(
-    utils::Context& context,
+    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor,
     const sf::Color& color
-)
+) &
 {
     for(
         unsigned short index = 256 * floor;
@@ -232,10 +233,10 @@ void DiagonalAnimation::applyPurpleColorOnCellsQuarters(
  *
  */
 void DiagonalAnimation::invertTopLeftWithBottomRight(
-    utils::Context& context,
+    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
-)
+) &
 {
     unsigned short index = floor * 256;
 
@@ -262,10 +263,10 @@ void DiagonalAnimation::invertTopLeftWithBottomRight(
  *
  */
 void DiagonalAnimation::invertBottomLeftWithTopRight(
-    utils::Context& context,
+    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
-)
+) &
 {
     unsigned short index = floor * 256 + 128;
 
@@ -292,11 +293,11 @@ void DiagonalAnimation::invertBottomLeftWithTopRight(
  *
  */
 void DiagonalAnimation::invertCells(
-    utils::Context& context,
+    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& source,
     const short& difference
-)
+) &
 {
     char type = level->getCells()[source + difference]->getType();
     bool visible = level->getCells()[source + difference]->isVisible();
