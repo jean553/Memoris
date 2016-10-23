@@ -26,6 +26,7 @@
 
 #include "Context.hpp"
 #include "Cell.hpp"
+#include "Level.hpp"
 
 namespace memoris
 {
@@ -35,7 +36,7 @@ namespace animations
 /**
  *
  */
-const bool& LevelAnimation::isFinished() const
+const bool& LevelAnimation::isFinished() const & noexcept
 {
     return finished;
 }
@@ -43,26 +44,12 @@ const bool& LevelAnimation::isFinished() const
 /**
  *
  */
-void LevelAnimation::incrementAnimationStep(
-    utils::Context& context
-)
-{
-    /* increments the animations step */
-    animationSteps++;
-
-    /* update the last animation update time to calculate the next iteration */
-    lastAnimationUpdateTime = context.getClockMillisecondsTime();
-}
-
-/**
- *
- */
 void LevelAnimation::showOrHideCell(
-    utils::Context& context,
+    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& index,
     const bool& visible
-)
+) const &
 {
     if (visible)
     {
@@ -72,6 +59,16 @@ void LevelAnimation::showOrHideCell(
     {
         level->getCells()[index]->hide(context);
     }
+}
+
+/**
+ *
+ */
+void LevelAnimation::incrementAnimationStep(const utils::Context& context) &
+{
+    animationSteps++;
+
+    lastAnimationUpdateTime = context.getClockMillisecondsTime();
 }
 
 }

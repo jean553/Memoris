@@ -132,7 +132,7 @@ public:
      *
      * @param context shared pointer to the context to use
      */
-    void hide(utils::Context& context);
+    void hide(const utils::Context& context);
 
     /**
      * @brief show the cell, loads a reference of the texture to display
@@ -170,9 +170,9 @@ public:
      * @param alpha the SFML sf::Color oject transparency value
      */
     void setCellColorTransparency(
-        utils::Context& context,
+        const utils::Context& context,
         const sf::Uint8& alpha
-    );
+    ) &;
 
     /**
      * @brief color to apply on the cell

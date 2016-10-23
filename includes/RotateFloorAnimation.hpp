@@ -66,10 +66,10 @@ public:
      * @param floor the current floor to display in the animation
      */
     void renderAnimation(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    ) override;
+    ) & override;
 
 private:
 
@@ -84,10 +84,10 @@ private:
      * @param floor the current floor to display in the animation
      */
     void playNextAnimationStep(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    ) override;
+    ) & override;
 
     /**
      * @brief rotate the cells of the floor on the left
@@ -97,10 +97,10 @@ private:
      * @param floor the current floor to display in the animation
      */
     void rotateCells(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    );
+    ) &;
 
     class Impl;
     std::unique_ptr<Impl> impl;

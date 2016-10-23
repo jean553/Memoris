@@ -62,10 +62,10 @@ public:
      * @param floor the current floor to display in the animation
      */
     void renderAnimation(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    ) override;
+    ) & override;
 
 private:
 
@@ -78,10 +78,10 @@ private:
      * @param floor the current floor to display in the animation
      */
     void playNextAnimationStep(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    ) override;
+    ) & override;
 
     /**
      * @brief display the given floor of the level and the two separators
@@ -92,10 +92,10 @@ private:
      * @param floor the current floor to display in the animation
      */
     void displayLevelAndSeparator(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    );
+    ) &;
 
     /**
      * @brief applies the purple flashing on each side that will be inversed
@@ -107,11 +107,11 @@ private:
      * @param color the SFML color object to apply on the cells
      */
     void applyPurpleColorOnCellsQuarters(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor,
         const sf::Color& color
-    );
+    ) &;
 
     /**
      * @bried invert the cells of the top left corner with the cells of the
@@ -122,10 +122,10 @@ private:
      * @param floor the current floor to display in the animation
      */
     void invertTopLeftWithBottomRight(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    );
+    ) &;
 
     /**
      * @brief invert the cells of the top right corner with the cells of the
@@ -136,10 +136,10 @@ private:
      * @param floor the current floor to display in the animation
      */
     void invertBottomLeftWithTopRight(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    );
+    ) &;
 
     /**
      * @brief invert the cells of the top right corner with the cells of the
@@ -152,11 +152,11 @@ private:
      * the destination cell
      */
     void invertCells(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& source,
         const short& difference
-    );
+    ) &;
 
     /* the vertical and horizontal separators */
     sf::RectangleShape verticalSeparator;

@@ -26,10 +26,23 @@
 #ifndef MEMORIS_LEVELANIMATION_H_
 #define MEMORIS_LEVELANIMATION_H_
 
-#include "Level.hpp"
+#include <SFML/Config.hpp>
+
+#include <memory>
 
 namespace memoris
 {
+
+namespace utils
+{
+class Context;
+}
+
+namespace entities
+{
+class Level;
+}
+
 namespace animations
 {
 
@@ -39,29 +52,29 @@ class LevelAnimation
 public:
 
     /**
-     * @brief public function called from the game controller; this function
-     * handles the time management (interval) of the animation and call the
-     * animation step incrementation method at each interval. This function is
-     * public because this is the only interface accessible from the game
-     * controller
+     * @brief renders the animation, called by the game controller
      *
-     * @param context reference to the current context to use
+     * @param context constant reference to the current context to use
      * @param level shared pointer to the level to animate
      * @param floor the current floor to display in the animation
+     *
+     * not 'const' because definitions updates object attributes
+     *
+     * not 'noexcept' because definitions calls SFML functions that are not
+     * noexcept
      */
     virtual void renderAnimation(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    ) = 0;
+    ) & = 0;
 
     /**
-     * @brief getter of the 'finished' boolean, true is the animation is
-     * finished
+     * @brief true if the animation is finished
      *
      * @return const bool&
      */
-    const bool& isFinished() const;
+    const bool& isFinished() const & noexcept;
 
 protected:
 
@@ -74,12 +87,17 @@ protected:
      * @param context reference to the current context to use
      * @param level shared pointer to the level to animate
      * @param floor the current floor to display in the animation
+     *
+     * not 'const' because definitions modify instance attributes
+     *
+     * not 'noexcept' because definitions call SFML functions that are not
+     * noexcept
      */
     virtual void playNextAnimationStep(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    ) = 0;
+    ) & = 0;
 
     /**
      * @brief hides or shows the given cell at the given index, used during the
@@ -89,45 +107,37 @@ protected:
      * @param level shared pointer to the concerned level object
      * @param index the index of the cell to display or to hide
      * @param visible boolean that indicates if the cell has to be hide or not
+     *
+     * not 'noexcept' because it calls SFML functions
      */
     void showOrHideCell(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& index,
         const bool& visible
-    );
+    ) const &;
 
     /**
-     * @brief increments the animation steps counter and set the animation last
-     * update time with the current time
+     * @brief increments the animation step
      *
-     * @param context reference to the current context to use
+     * @param context constant reference to the current context to use
+     *
+     * not 'const' because it modifies the animation step attribute
+     *
+     * not 'noexcept' because it calls SFML functions that are not noexcept
      */
-    void incrementAnimationStep(
-        utils::Context& context
-    );
+    void incrementAnimationStep(const utils::Context& context) &;
 
-    /* used by the animation creator (game controller) to know if the animation
-       is terminated; in fact, the animation object sets it to false when all
-       the animation has been rendered; this is use to know when the animation
-       object can be deleted */
-    bool finished {false};
+    /* these attributes are protected, so we do not set them into an
+       implementation */
 
-    /* we use a SFML unsigned integer to stop the last animation time; we use
-       a SFML type to be complient with the SFML clock; when the animation is
-       created, this value is equal to 0 */
     sf::Uint32 lastAnimationUpdateTime {0};
 
-    /* an animation is divided into steps; these steps value is incremented
-       every x seconds/milliseconds/minutes and is used to manage the
-       animation rendering; every animation have it; */
     unsigned short animationSteps {0};
 
-    /* this variable is the index of the new player cell at the end of the
-       animation; the default value is -1, which means that the next player
-       cell has not been calculated yet */
     short playerCellIndexAfterAnimation {-1};
 
+    bool finished {false};
 };
 
 }

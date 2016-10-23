@@ -94,7 +94,7 @@ Level::~Level() noexcept = default;
  *
  */
 void Level::display(
-    utils::Context& context,
+    const utils::Context& context,
     const unsigned short& floor,
     void (Cell::*display)(
         const utils::Context&,
@@ -401,10 +401,10 @@ void Level::setPlayerCellIndex(const unsigned short& index)
  *
  */
 void Level::setCellsTransparency(
-    utils::Context& context,
+    const utils::Context& context,
     const float& transparency,
     const unsigned short& floor
-)
+) &
 {
     const unsigned short firstCellIndex = floor * 256;
     const unsigned short lastCellIndex = firstCellIndex + 256;

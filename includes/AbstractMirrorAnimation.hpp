@@ -52,10 +52,10 @@ public:
      * @param floor the level floor to render
      */
     void renderAnimation(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    ) override;
+    ) & override;
 
 protected:
 
@@ -80,11 +80,11 @@ protected:
      * parameter is a reference)
      */
     virtual void setLevelSideCellsTransparency(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& startingCellIndex,
         const float difference
-    ) = 0;
+    ) & = 0;
 
     /**
      * @brief declaration of the function to execute the mirror movement
@@ -94,10 +94,10 @@ protected:
      * @param floor the current floor to display in the animation
      */
     virtual void executeMirrorMovement(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    ) = 0;
+    ) & = 0;
 
     /**
      * @brief declaration of the function to execute the reverse mirror
@@ -108,10 +108,10 @@ protected:
      * @param floor the current floor to display in the animation
      */
     virtual void executeReverseMirrorMovement(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    ) = 0;
+    ) & = 0;
 
     /**
      * @brief method used for code refactoring; render the level and displays
@@ -122,10 +122,10 @@ protected:
      * @param floor the floor to render
      */
     void displayLevelAndSeparator(
-        utils::Context& context,
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    );
+    ) &;
 
     /* the transparency of the animated side during the animation; the default
        value is 255 as the side is totally visible */

@@ -26,6 +26,7 @@
 
 #include "separators.hpp"
 #include "SoundsManager.hpp"
+#include "Level.hpp"
 
 namespace memoris
 {
@@ -49,10 +50,10 @@ VerticalMirrorAnimation::VerticalMirrorAnimation(
  *
  */
 void VerticalMirrorAnimation::playNextAnimationStep(
-    utils::Context& context,
+    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
-)
+) &
 {
     unsigned short startingLeftSideCellIndex = floor * 256,
                    startingRightSideCellIndex = startingLeftSideCellIndex + 8;
@@ -151,11 +152,11 @@ void VerticalMirrorAnimation::playNextAnimationStep(
  *
  */
 void VerticalMirrorAnimation::setLevelSideCellsTransparency(
-    utils::Context& context,
+    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& startingCellIndex,
     const float difference
-)
+) &
 {
     unsigned short index = startingCellIndex;
 
@@ -181,10 +182,10 @@ void VerticalMirrorAnimation::setLevelSideCellsTransparency(
  *
  */
 void VerticalMirrorAnimation::executeMirrorMovement(
-    utils::Context& context,
+    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
-)
+) &
 {
     unsigned short index = floor * 256 + 8,
                    difference = 1,
@@ -232,10 +233,10 @@ void VerticalMirrorAnimation::executeMirrorMovement(
  *
  */
 void VerticalMirrorAnimation::executeReverseMirrorMovement(
-    utils::Context& context,
+    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
-)
+) &
 {
     unsigned short index = floor * 256 + 8,
                    it = 0,

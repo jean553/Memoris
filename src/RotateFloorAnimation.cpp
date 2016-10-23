@@ -27,6 +27,7 @@
 #include "SoundsManager.hpp"
 #include "Context.hpp"
 #include "Cell.hpp"
+#include "Level.hpp"
 
 namespace memoris
 {
@@ -64,10 +65,10 @@ RotateFloorAnimation::~RotateFloorAnimation() noexcept = default;
  *
  */
 void RotateFloorAnimation::playNextAnimationStep(
-    utils::Context& context,
+    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
-)
+) &
 {
     if (animationSteps == 0)
     {
@@ -83,10 +84,10 @@ void RotateFloorAnimation::playNextAnimationStep(
  *
  */
 void RotateFloorAnimation::renderAnimation(
-    utils::Context& context,
+    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
-)
+) &
 {
     level->display(
         context,
@@ -125,10 +126,10 @@ void RotateFloorAnimation::renderAnimation(
  *
  */
 void RotateFloorAnimation::rotateCells(
-    utils::Context& context,
+    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
-)
+) &
 {
     std::vector<std::vector<entities::Cell>> horizontalLines;
 
