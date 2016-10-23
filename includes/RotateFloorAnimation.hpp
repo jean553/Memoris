@@ -28,6 +28,8 @@
 
 #include "LevelAnimation.hpp"
 
+#include <memory>
+
 namespace memoris
 {
 namespace animations
@@ -43,12 +45,14 @@ public:
      *
      * @param movementDirection indicates if the movement is clockwise or not;
      * usually contains 1 or -1
-     * @param context shared pointer reference to the current context
      */
-    RotateFloorAnimation(
-        utils::Context& context,
-        const short& movementDirection
-    );
+    RotateFloorAnimation(const short& movementDirection) noexcept;
+
+    /**
+     * @brief default destructor, empty, only declared in order to use
+     * forwarding declaration
+     */
+    ~RotateFloorAnimation() noexcept;
 
     /**
      * @brief public function called from the game controller; this function
@@ -98,8 +102,8 @@ private:
         const unsigned short& floor
     );
 
-    /* the rotation direction, negative or positive */
-    short direction {1};
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }
