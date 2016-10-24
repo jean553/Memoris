@@ -59,12 +59,6 @@ public:
 
 protected:
 
-    /* during the animation, the transparency of the cells is modified
-       progressively; the amount of transparency value update at each iteration
-       is always the same and equal to 51.f, so we just refactor it in the
-       code segment */
-    static constexpr float TRANSPARENCY_UPDATE_AMOUNT {51.f};
-
     /**
      * @brief changes the transparency of a set of cells on the level
      *
@@ -74,16 +68,12 @@ protected:
      * update
      * @param difference the positive or negative transparency amount to
      * add or substract
-     *
-     * NOTE: the 'difference' parameter is passed by copy. This is mandatory
-     * to use the variadic parameters (va_list does not work if the previous
-     * parameter is a reference)
      */
     virtual void setLevelSideCellsTransparency(
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& startingCellIndex,
-        const float difference
+        const float& difference
     ) & = 0;
 
     /**

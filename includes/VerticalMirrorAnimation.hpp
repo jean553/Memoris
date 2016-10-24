@@ -74,7 +74,7 @@ private:
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& startingCellIndex,
-        const float difference
+        const float& difference
     ) & override;
 
     /**
