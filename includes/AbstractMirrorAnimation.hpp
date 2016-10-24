@@ -130,6 +130,10 @@ protected:
        side are replaced by the cells of another side; that means we have to
        save a copy of the cells of the first side before we overwritte it */
     std::queue<entities::Cell> savedCells;
+
+private:
+
+    static constexpr sf::Uint32 ANIMATION_STEPS_INTERVAL {50};
 };
 
 }

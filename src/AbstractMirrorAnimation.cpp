@@ -41,8 +41,8 @@ void AbstractMirrorAnimation::renderAnimation(
 ) &
 {
     if (
-        context.getClockMillisecondsTime() - 
-        lastAnimationUpdateTime < 50
+        context.getClockMillisecondsTime() -
+        lastAnimationUpdateTime < ANIMATION_STEPS_INTERVAL
     )
     {
         displayLevelAndSeparator(
