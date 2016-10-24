@@ -72,13 +72,13 @@ void HorizontalMirrorAnimation::playNextAnimationStep(
     if (animationSteps < 15 && animationSteps >= 10)
     {
         /* we start at the index 128 * level (bottom side) and we reduce the
-           alpha value of all the cells by TRANSPARENCY_UPDATE_AMOUNT at each
+           alpha value of all the cells by 51.f at each
            iteration */
         setLevelSideCellsTransparency(
             context,
             level,
             startingLowCellsIndex,
-            -TRANSPARENCY_UPDATE_AMOUNT
+            -51.f
         );
     }
     /* when the bottom side is totally hidden, replace all the bottom side
@@ -97,13 +97,13 @@ void HorizontalMirrorAnimation::playNextAnimationStep(
     else if (animationSteps >= 16 && animationSteps < 21)
     {
         /* we start at the index 128 * floor (bottom side) and we increase the
-           alpha value of all the cells by TRANSPARENCY_UPDATE_AMOUNT at each
+           alpha value of all the cells by 51.f at each
            iteration */
         setLevelSideCellsTransparency(
             context,
             level,
             startingLowCellsIndex,
-            TRANSPARENCY_UPDATE_AMOUNT
+            51.f
         );
     }
     /* between the steps 21 and 26, progressively hide the top side of the
@@ -111,13 +111,13 @@ void HorizontalMirrorAnimation::playNextAnimationStep(
     else if (animationSteps >= 21 && animationSteps < 26)
     {
         /* starts at the cell 0 + floor * 256 (top side) and decrease the
-           transparency value by TRANSPARENCY_UPDATE_AMOUNT at each iteration
+           transparency value by 51.f at each iteration
            */
         setLevelSideCellsTransparency(
             context,
             level,
             startingHighCellsIndex,
-            -TRANSPARENCY_UPDATE_AMOUNT
+            -51.f
         );
     }
     /* replace all the cells of the top by the cells of the bottom when the
@@ -136,13 +136,13 @@ void HorizontalMirrorAnimation::playNextAnimationStep(
     else if (animationSteps >= 26 && animationSteps < 32)
     {
         /* starts at the cell 0 + floor * 256 (top side) and increase the
-           transparency value by TRANSPARENCY_UPDATE_AMOUNT at each iteration
+           transparency value by 51.f at each iteration
            */
         setLevelSideCellsTransparency(
             context,
             level,
             startingHighCellsIndex,
-            TRANSPARENCY_UPDATE_AMOUNT
+            51.f
         );
     }
     /* during the last step of the animation, the new player cell is
@@ -311,7 +311,7 @@ void HorizontalMirrorAnimation::setLevelSideCellsTransparency(
     const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& startingLowCellsIndex,
-    const float difference
+    const float& difference
 ) &
 {
     animatedSideTransparency += difference;

@@ -67,7 +67,7 @@ void VerticalMirrorAnimation::playNextAnimationStep(
             context,
             level,
             startingLeftSideCellIndex,
-            -TRANSPARENCY_UPDATE_AMOUNT
+            -51.f
         );
     }
     else if (animationSteps == 15)
@@ -86,7 +86,7 @@ void VerticalMirrorAnimation::playNextAnimationStep(
             context,
             level,
             startingLeftSideCellIndex,
-            TRANSPARENCY_UPDATE_AMOUNT
+            51.f
         );
     }
     else if (animationSteps >= 21 && animationSteps < 26)
@@ -100,7 +100,7 @@ void VerticalMirrorAnimation::playNextAnimationStep(
             context,
             level,
             startingRightSideCellIndex,
-            -TRANSPARENCY_UPDATE_AMOUNT
+            -51.f
         );
     }
     else if (animationSteps == 26)
@@ -115,13 +115,13 @@ void VerticalMirrorAnimation::playNextAnimationStep(
     else if (animationSteps >= 26 && animationSteps < 32)
     {
         /* starts at the cell 0 + floor * 256 (top side) and increase the
-           transparency value by TRANSPARENCY_UPDATE_AMOUNT at each iteration
+           transparency value by 51.f at each iteration
            */
         setLevelSideCellsTransparency(
             context,
             level,
             startingRightSideCellIndex,
-            TRANSPARENCY_UPDATE_AMOUNT
+            51.f
         );
     }
     else if (animationSteps == 33)
@@ -155,7 +155,7 @@ void VerticalMirrorAnimation::setLevelSideCellsTransparency(
     const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& startingCellIndex,
-    const float difference
+    const float& difference
 ) &
 {
     unsigned short index = startingCellIndex;

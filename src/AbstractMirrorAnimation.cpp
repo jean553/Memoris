@@ -40,24 +40,20 @@ void AbstractMirrorAnimation::renderAnimation(
     const unsigned short& floor
 ) &
 {
-    /* check if the animation interval time is elapsed; the animation step
-       is incremented every 50 milliseconds */
-    if (context.getClockMillisecondsTime() - lastAnimationUpdateTime < 50)
+    if (
+        context.getClockMillisecondsTime() -
+        lastAnimationUpdateTime < ANIMATION_STEPS_INTERVAL
+    )
     {
-        /* just render the level and the animation separator */
         displayLevelAndSeparator(
             context,
             level,
             floor
         );
 
-        /* ends immedialely the animation process */
         return;
     }
 
-    /* increment the animation step, this method is virtual and defined in
-       both of the vertical and horizontal class definitions; so according
-       to the current object type, the correct function is always called */
     playNextAnimationStep(
         context,
         level,
@@ -74,14 +70,12 @@ void AbstractMirrorAnimation::displayLevelAndSeparator(
     const unsigned short& floor
 ) &
 {
-    /* render the given floor of the level */
     level->display(
         context,
         floor,
         &entities::Cell::display
     );
 
-    /* displays the mirror separator */
     context.getSfmlWindow().draw(separator);
 }
 
