@@ -29,6 +29,7 @@
 #include "ColorsManager.hpp"
 #include "FontsManager.hpp"
 #include "CellsTexturesManager.hpp"
+#include "ShapesManager.hpp"
 #include "PlayingSerieManager.hpp"
 #include "EditingLevelManager.hpp"
 #include "Game.hpp"
@@ -53,6 +54,7 @@ public:
     managers::ColorsManager colorsManager;
     managers::FontsManager fontsManager;
     managers::CellsTexturesManager cellsTexturesManager;
+    managers::ShapesManager shapesManager;
     managers::PlayingSerieManager playingSerieManager;
     managers::EditingLevelManager editingLevelManager;
 
@@ -143,6 +145,14 @@ const managers::CellsTexturesManager& Context::getCellsTexturesManager() const
 & noexcept
 {
     return impl->cellsTexturesManager;
+}
+
+/**
+ *
+ */
+const managers::ShapesManager& Context::getShapesManager() const & noexcept
+{
+    return impl->shapesManager;
 }
 
 /**

@@ -43,9 +43,7 @@ public:
      *
      * @param context shared pointer to the context to use
      */
-    HorizontalMirrorAnimation(
-        utils::Context& context
-    );
+    HorizontalMirrorAnimation(const utils::Context& context);
 
     /**
      * @brief renders the animation

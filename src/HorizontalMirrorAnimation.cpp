@@ -24,8 +24,8 @@
 
 #include "HorizontalMirrorAnimation.hpp"
 
-#include "separators.hpp"
 #include "SoundsManager.hpp"
+#include "ShapesManager.hpp"
 #include "Level.hpp"
 
 namespace memoris
@@ -37,15 +37,9 @@ namespace animations
  *
  */
 HorizontalMirrorAnimation::HorizontalMirrorAnimation(
-    utils::Context& context
+    const utils::Context& context
 )
 {
-    initializeHorizontalSeparator(
-        context,
-        separator
-    );
-
-    /* plays the mirror animation sound */
     context.getSoundsManager().playMirrorAnimationSound();
 }
 
@@ -161,11 +155,14 @@ void HorizontalMirrorAnimation::playNextAnimationStep(
         finished = true;
     }
 
-    /* displays the level and the animation separator */
-    displayLevelAndSeparator(
+    level->display(
         context,
-        level,
-        floor
+        floor,
+        &entities::Cell::display
+    );
+
+    context.getSfmlWindow().draw(
+        context.getShapesManager().getHorizontalSeparator()
     );
 
     /* increments the animation step and update the last animation update

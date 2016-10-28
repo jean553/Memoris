@@ -48,6 +48,7 @@ class SoundsManager;
 class ColorsManager;
 class FontsManager;
 class CellsTexturesManager;
+class ShapesManager;
 class PlayingSerieManager;
 class EditingLevelManager;
 }
@@ -113,6 +114,14 @@ public:
      * @return const managers::CellsTexturesManager&
      */
     const managers::CellsTexturesManager& getCellsTexturesManager() const &
+    noexcept;
+
+    /**
+     * @brief getter of the cells shapes manager
+     *
+     * @return const managers::ShapesManager&
+     */
+    const managers::ShapesManager& getShapesManager() const &
     noexcept;
 
     /**
