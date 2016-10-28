@@ -39,7 +39,7 @@ Successfully executed on :
 ### Requirements
 
 ```
-sudo apt-get install libsfml-dev cmake
+sudo apt-get install libsfml-dev cmake clang-3.5
 ```
 
 ### Compilation
