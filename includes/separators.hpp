@@ -36,18 +36,6 @@ namespace utils
 
 /**
  * @brief takes a reference to a rectangle shape and initializes it as a
- * horizontal separator of the level
- *
- * @param context shared pointer to the context to use
- * @param separator reference to the separator SFML surface to initialize
- */
-void initializeHorizontalSeparator(
-    const utils::Context& context,
-    sf::RectangleShape& separator
-);
-
-/**
- * @brief takes a reference to a rectangle shape and initializes it as a
  * vertical separator of the level
  *
  * @param context shared pointer to the context to use
