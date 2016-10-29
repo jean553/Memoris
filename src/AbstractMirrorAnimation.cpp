@@ -69,19 +69,32 @@ void AbstractMirrorAnimation::renderAnimation(
 /**
  *
  */
-void AbstractMirrorAnimation::displayLevelAndSeparator(
+void AbstractMirrorAnimation::increaseTransparency() & noexcept
+{
+    animatedSideTransparency += TRANSPARENCY_INTERVAL;
+}
+
+/**
+ *
+ */
+void AbstractMirrorAnimation::decreaseTransparency() & noexcept
+{
+    animatedSideTransparency -= TRANSPARENCY_INTERVAL;
+}
+
+/**
+ *
+ */
+void AbstractMirrorAnimation::applyTransparencyOnOneCell(
     const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
-    const unsigned short& floor
-) &
+    const unsigned short& index
+) const &
 {
-    level->display(
+    level->getCells()[index]->setCellColorTransparency(
         context,
-        floor,
-        &entities::Cell::display
+        animatedSideTransparency
     );
-
-    context.getSfmlWindow().draw(separator);
 }
 
 }

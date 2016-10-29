@@ -60,18 +60,14 @@ protected:
     /**
      * @brief changes the transparency of a set of cells on the level
      *
-     * @param context reference to the current context to use
-     * @param level shared pointer to the concerned level object
+     * @param context constant reference to the current context to use
+     * @param level constant shared pointer to the concerned level object
      * @param startingCellIndex the index of the first cell transparency to
-     * update
-     * @param difference the positive or negative transparency amount to
-     * add or substract
      */
     virtual void setLevelSideCellsTransparency(
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
-        const unsigned short& startingCellIndex,
-        const float& difference
+        const unsigned short& startIndex
     ) & = 0;
 
     /**
@@ -102,31 +98,46 @@ protected:
     ) & = 0;
 
     /**
-     * @brief method used for code refactoring; render the level and displays
-     * the separator
+     * @brief increases the transparency
      *
-     * @param context reference to the current context to use
-     * @param level shared pointer to the concerned level object
-     * @param floor the floor to render
+     * not 'const' because it modifies the animated side transparency
      */
-    void displayLevelAndSeparator(
+    void increaseTransparency() & noexcept;
+
+    /**
+     * @brief increases the transparency
+     *
+     * not 'const' because it modifies the animated side transparency
+     */
+    void decreaseTransparency() & noexcept;
+
+    /**
+     * @brief applies the current animated side transparency on the given cell
+     *
+     * @param context constant reference to the current context to use
+     * @param level constant reference to a shared pointer on the level
+     *
+     * not 'noexcept' because it calls SFML methods that are not noexcept
+     */
+    void applyTransparencyOnOneCell(
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) &;
+        const unsigned short& index
+    ) const &;
 
     /* these attributes are not inside an
        implementation as they are protected */
 
-    float animatedSideTransparency {255.f};
-
-    sf::RectangleShape separator;
-
+    /* TODO: check if can be deleted */
     std::queue<entities::Cell> savedCells;
+
+    /* TODO: move it in private attributes */
+    float animatedSideTransparency {255.f};
 
 private:
 
     static constexpr sf::Uint32 ANIMATION_STEPS_INTERVAL {50};
+    static constexpr float TRANSPARENCY_INTERVAL {51.f};
 };
 
 }

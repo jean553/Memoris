@@ -41,8 +41,8 @@ public:
     /**
      * @brief renders the animation
      *
-     * @param context reference to the current context to use
-     * @param level shared pointer to the level to use
+     * @param context constant reference to the current context to use
+     * @param level constant reference to shared pointer on the level to use
      * @param floor the current floor to display in the animation
      */
     void playNextAnimationStep(
@@ -53,22 +53,18 @@ public:
 
 private:
 
+    static constexpr unsigned short TOP_SIDE_FIRST_CELL_INDEX {0};
+    static constexpr unsigned short TOP_SIDE_LAST_CELL_INDEX {128};
+    static constexpr unsigned short BOTTOM_SIDE_LAST_CELL_INDEX {255};
+    static constexpr unsigned short CELLS_PER_FLOOR {256};
+
     /**
-     * @brief used for the animation of the grid; this function updates the
-     * transparency value of 160 cells starting at the given index; the
-     * modification to apply is specified by the 'difference' parameter
-     *
-     * @param context reference to the current context to use
-     * @param level shared pointer to the level to use
-     * @param floor the current floor to display in the animation
-     * @param difference the color transparency update to apply on the
-     * transparency value of the cells textures
+     * TODO: to delete, only declared to respect interface requirements
      */
     void setLevelSideCellsTransparency(
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
-        const unsigned short& startingCellIndex,
-        const float& difference
+        const unsigned short& startingCellIndex
     ) & override;
 
     /**
@@ -96,6 +92,36 @@ private:
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) & override;
+
+    /**
+     * @brief changes the transparency of the top side of the level
+     *
+     * @param context constant reference to the current context to use
+     * @param level constant reference to a shared pointer on the level
+     * @param floor constant reference indicating which floor to animate
+     *
+     * not 'noexcept' because it calls SFML methods
+     */
+    void updateTopSideTransparency(
+        const utils::Context& context,
+        const std::shared_ptr<entities::Level>& level,
+        const unsigned short& floor
+    ) const &;
+
+    /**
+     * @brief changes the transparency of the top bottom of the level
+     *
+     * @param context constant reference to the current context to use
+     * @param level constant reference to a shared pointer on the level
+     * @param floor constant reference indicating which floor to animate
+     *
+     * not 'noexcept' because it calls SFML methods
+     */
+    void updateBottomSideTransparency(
+        const utils::Context& context,
+        const std::shared_ptr<entities::Level>& level,
+        const unsigned short& floor
+    ) const &;
 };
 
 }
