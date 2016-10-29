@@ -80,7 +80,7 @@ std::unique_ptr<LevelAnimation> getAnimationByCellType(
     }
     default:
     {
-        return std::make_unique<HorizontalMirrorAnimation>(context);
+        return std::make_unique<HorizontalMirrorAnimation>();
     }
     }
 }

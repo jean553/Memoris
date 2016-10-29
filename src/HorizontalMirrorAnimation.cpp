@@ -36,16 +36,6 @@ namespace animations
 /**
  *
  */
-HorizontalMirrorAnimation::HorizontalMirrorAnimation(
-    const utils::Context& context
-)
-{
-    context.getSoundsManager().playMirrorAnimationSound();
-}
-
-/**
- *
- */
 void HorizontalMirrorAnimation::playNextAnimationStep(
     const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
@@ -63,7 +53,11 @@ void HorizontalMirrorAnimation::playNextAnimationStep(
 
     /* progressively hides the bottom side of the level between the step 10
        and 15 */
-    if (animationSteps < 15 && animationSteps >= 10)
+    if (animationSteps == 0)
+    {
+        context.getSoundsManager().playMirrorAnimationSound();
+    }
+    else if (animationSteps < 15 && animationSteps >= 10)
     {
         /* we start at the index 128 * level (bottom side) and we reduce the
            alpha value of all the cells by 51.f at each
