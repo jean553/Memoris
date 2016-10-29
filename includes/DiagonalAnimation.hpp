@@ -48,13 +48,6 @@ class DiagonalAnimation : public LevelAnimation
 public:
 
     /**
-     * @brief constructor, initializes the separators
-     *
-     * @param context reference to the current context to use
-     */
-    DiagonalAnimation(utils::Context& context);
-
-    /**
      * @brief renders the animation, overrided from the parent class
      *
      * @param context reference to the current context to use
