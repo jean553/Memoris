@@ -165,8 +165,6 @@ void HorizontalMirrorAnimation::playNextAnimationStep(
         context.getShapesManager().getHorizontalSeparator()
     );
 
-    /* increments the animation step and update the last animation update
-       time */
     incrementAnimationStep(context);
 }
 
