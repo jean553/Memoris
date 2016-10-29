@@ -46,19 +46,25 @@ public:
             495.f
         );
 
+        verticalSeparator.setPosition(
+            798.f,
+            98.f
+        );
+
         /* we directly set the color instead of using the colors manager; in
            fact, the context object has not totally finished to build the
            context object when this constructor is executed, so it cannot be
            used */
 
-        horizontalSeparator.setFillColor(
-            sf::Color(
-                255.f,
-                0.f,
-                0.f,
-                255.f
-            )
+        sf::Color redColor = sf::Color(
+            255.f,
+            0.f,
+            0.f,
+            255.f
         );
+
+        horizontalSeparator.setFillColor(redColor);
+        verticalSeparator.setFillColor(redColor);
 
         horizontalSeparator.setSize(
             sf::Vector2f(
@@ -66,9 +72,17 @@ public:
                 4.f
             )
         );
+
+        verticalSeparator.setSize(
+            sf::Vector2f(
+                4.f,
+                800.f
+            )
+        );
     }
 
     sf::RectangleShape horizontalSeparator;
+    sf::RectangleShape verticalSeparator;
 };
 
 /**
@@ -91,6 +105,15 @@ const sf::RectangleShape& ShapesManager::getHorizontalSeparator() const &
 noexcept
 {
     return impl->horizontalSeparator;
+}
+
+/**
+ *
+ */
+const sf::RectangleShape& ShapesManager::getVerticalSeparator() const &
+noexcept
+{
+    return impl->verticalSeparator;
 }
 
 }

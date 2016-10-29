@@ -71,6 +71,13 @@ public:
      */
     const sf::RectangleShape& getHorizontalSeparator() const & noexcept;
 
+    /**
+     * @brief getter for the vertical mirror animation separator shape
+     *
+     * @return const sf::RectangleShape&
+     */
+    const sf::RectangleShape& getVerticalSeparator() const & noexcept;
+
 private:
 
     class Impl;

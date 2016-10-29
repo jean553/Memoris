@@ -24,8 +24,8 @@
 
 #include "VerticalMirrorAnimation.hpp"
 
-#include "separators.hpp"
 #include "SoundsManager.hpp"
+#include "ShapesManager.hpp"
 #include "Level.hpp"
 
 namespace memoris
@@ -40,9 +40,6 @@ VerticalMirrorAnimation::VerticalMirrorAnimation(
     utils::Context& context
 )
 {
-    initializeVerticalSeparator(context, separator);
-
-    /* plays the mirror animation sound */
     context.getSoundsManager().playMirrorAnimationSound();
 }
 
@@ -136,11 +133,14 @@ void VerticalMirrorAnimation::playNextAnimationStep(
         finished = true;
     }
 
-    /* displays the level and the animation separator */
-    displayLevelAndSeparator(
+    level->display(
         context,
-        level,
-        floor
+        floor,
+        &entities::Cell::display
+    );
+
+    context.getSfmlWindow().draw(
+        context.getShapesManager().getVerticalSeparator()
     );
 
     /* increments the animation step and update the last animation update
