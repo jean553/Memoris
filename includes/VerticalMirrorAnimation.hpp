@@ -51,21 +51,6 @@ public:
 private:
 
     /**
-     * @brief used for the animation of the grid; this function updates the
-     * transparency value of 160 cells starting at the given index; the
-     * modification to apply is specified by the 'difference' parameter
-     *
-     * @param context reference to the current context to use
-     * @param level shared pointer to the level to use
-     * @param floor the current floor to display in the animation
-     */
-    void setLevelSideCellsTransparency(
-        const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& startingCellIndex
-    ) & override;
-
-    /**
      * @brief replace the left side cells by the right side cells
      *
      * @param context reference to the current context to use
@@ -90,6 +75,36 @@ private:
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) & override;
+
+    /**
+     * @brief changes the transparency of the left side of the level
+     *
+     * @param context constant reference to the current context to use
+     * @param level constant reference to a shared pointer on the level
+     * @param floor constant reference indicating which floor to animate
+     *
+     * not 'noexcept' because it calls SFML methods that are not noexcept
+     */
+    void updateLeftSideTransparency(
+        const utils::Context& context,
+        const std::shared_ptr<entities::Level>& level,
+        const unsigned short& floor
+    ) const &;
+
+    /**
+     * @brief changes the transparency of the right side of the level
+     *
+     * @param context constant reference to the current context to use
+     * @param level constant reference to a shared pointer on the level
+     * @param floor constant reference indicating which floor to animate
+     *
+     * not 'noexcept' because it calls SFML methods that are not noexcept
+     */
+    void updateRightSideTransparency(
+        const utils::Context& context,
+        const std::shared_ptr<entities::Level>& level,
+        const unsigned short& floor
+    ) const &;
 
     /* use to know when the end of the line of the current
        animated side has been reached; this is used to know

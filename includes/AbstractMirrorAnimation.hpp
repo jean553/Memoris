@@ -58,19 +58,6 @@ public:
 protected:
 
     /**
-     * @brief changes the transparency of a set of cells on the level
-     *
-     * @param context constant reference to the current context to use
-     * @param level constant shared pointer to the concerned level object
-     * @param startingCellIndex the index of the first cell transparency to
-     */
-    virtual void setLevelSideCellsTransparency(
-        const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& startIndex
-    ) & = 0;
-
-    /**
      * @brief declaration of the function to execute the mirror movement
      *
      * @param context reference to the current context to use
@@ -131,13 +118,12 @@ protected:
     /* TODO: check if can be deleted */
     std::queue<entities::Cell> savedCells;
 
-    /* TODO: move it in private attributes */
-    float animatedSideTransparency {255.f};
-
 private:
 
     static constexpr sf::Uint32 ANIMATION_STEPS_INTERVAL {50};
     static constexpr float TRANSPARENCY_INTERVAL {51.f};
+
+    float animatedSideTransparency {255.f};
 };
 
 }

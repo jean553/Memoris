@@ -264,18 +264,6 @@ void HorizontalMirrorAnimation::executeMirrorMovement(
 /**
  *
  */
-void HorizontalMirrorAnimation::setLevelSideCellsTransparency(
-    const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& startingLowCellsIndex
-) &
-{
-    /* TODO: to delete */
-}
-
-/**
- *
- */
 void HorizontalMirrorAnimation::updateTopSideTransparency(
     const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
