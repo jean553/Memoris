@@ -106,7 +106,8 @@ private:
 
     enum class FlashingColors
     {
-        BLUE, WHITE
+        BLUE,
+        WHITE
     };
 
     static constexpr float HORIZONTAL_POSITION {10.f};

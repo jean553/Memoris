@@ -58,14 +58,11 @@ private:
      * @param context reference to the current context to use
      * @param level shared pointer to the level to use
      * @param floor the current floor to display in the animation
-     * @param difference the color transparency update to apply on the
-     * transparency value of the cells textures
      */
     void setLevelSideCellsTransparency(
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
-        const unsigned short& startingCellIndex,
-        const float& difference
+        const unsigned short& startingCellIndex
     ) & override;
 
     /**

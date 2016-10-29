@@ -42,35 +42,26 @@ void HorizontalMirrorAnimation::playNextAnimationStep(
     const unsigned short& floor
 ) &
 {
-    unsigned short startingHighCellsIndex = floor * 256,
-                   startingLowCellsIndex = startingHighCellsIndex + 128;
-
-    /* NOTE: we do not use a switch/case here because we create conditions on
+    /* we do not use a switch/case here because we create conditions on
        ranges of steps, which is not handled by switch/case instructions */
 
-    /* NOTE: during the 10 first steps, the animation does nothing except
+    /* during the 10 first steps, the animation does nothing except
        displaying the level with the red separator */
 
-    /* progressively hides the bottom side of the level between the step 10
-       and 15 */
     if (animationSteps == 0)
     {
         context.getSoundsManager().playMirrorAnimationSound();
     }
-    else if (animationSteps < 15 && animationSteps >= 10)
+    else if (animationSteps >= 10 && animationSteps < 15)
     {
-        /* we start at the index 128 * level (bottom side) and we reduce the
-           alpha value of all the cells by 51.f at each
-           iteration */
-        setLevelSideCellsTransparency(
+        decreaseTransparency();
+
+        updateBottomSideTransparency(
             context,
             level,
-            startingLowCellsIndex,
-            -51.f
+            floor
         );
     }
-    /* when the bottom side is totally hidden, replace all the bottom side
-       cells by the top side cells */
     else if (animationSteps == 15)
     {
         executeMirrorMovement(
@@ -79,73 +70,50 @@ void HorizontalMirrorAnimation::playNextAnimationStep(
             floor
         );
     }
-    /* between the steps 16 and 21, progressively show back the bottom side
-       cells with their new value; a mirror effect is visible for the user at
-       this moment */
     else if (animationSteps >= 16 && animationSteps < 21)
     {
-        /* we start at the index 128 * floor (bottom side) and we increase the
-           alpha value of all the cells by 51.f at each
-           iteration */
-        setLevelSideCellsTransparency(
+        increaseTransparency();
+
+        updateBottomSideTransparency(
             context,
             level,
-            startingLowCellsIndex,
-            51.f
+            floor
         );
     }
-    /* between the steps 21 and 26, progressively hide the top side of the
-       floor */
     else if (animationSteps >= 21 && animationSteps < 26)
     {
-        /* starts at the cell 0 + floor * 256 (top side) and decrease the
-           transparency value by 51.f at each iteration
-           */
-        setLevelSideCellsTransparency(
+        decreaseTransparency();
+
+        updateTopSideTransparency(
             context,
             level,
-            startingHighCellsIndex,
-            -51.f
+            floor
         );
     }
-    /* replace all the cells of the top by the cells of the bottom when the
-       top side is hidden */
     else if (animationSteps == 26)
     {
-        /* replace the top cells by the bottom cells */
         executeReverseMirrorMovement(
             context,
             level,
             floor
         );
     }
-    /* between the step 26 and 32, progressively show the top cells with their
-       new textures */
     else if (animationSteps >= 26 && animationSteps < 32)
     {
-        /* starts at the cell 0 + floor * 256 (top side) and increase the
-           transparency value by 51.f at each iteration
-           */
-        setLevelSideCellsTransparency(
+        increaseTransparency();
+
+        updateTopSideTransparency(
             context,
             level,
-            startingHighCellsIndex,
-            51.f
+            floor
         );
     }
-    /* during the last step of the animation, the new player cell is
-       displayed */
     else if (animationSteps == 33)
     {
-        /* set the new player cell index */
         level->setPlayerCellIndex(playerCellIndexAfterAnimation);
 
-        /* force the new player cell to be shown, no matter if this cell was
-           shown or hidden */
         level->getCells()[playerCellIndexAfterAnimation]->show(context);
 
-        /* set finished to true, the animation is terminated, no new iteration
-           will be triggered */
         finished = true;
     }
 
@@ -299,21 +267,63 @@ void HorizontalMirrorAnimation::executeMirrorMovement(
 void HorizontalMirrorAnimation::setLevelSideCellsTransparency(
     const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
-    const unsigned short& startingLowCellsIndex,
-    const float& difference
+    const unsigned short& startingLowCellsIndex
 ) &
 {
-    animatedSideTransparency += difference;
+    /* TODO: to delete */
+}
+
+/**
+ *
+ */
+void HorizontalMirrorAnimation::updateTopSideTransparency(
+    const utils::Context& context,
+    const std::shared_ptr<entities::Level>& level,
+    const unsigned short& floor
+) const &
+{
+    const unsigned short floorFirstCellIndex = floor * CELLS_PER_FLOOR;
+    const unsigned short floorLastCellIndex =
+        floorFirstCellIndex + TOP_SIDE_LAST_CELL_INDEX;
 
     for (
-        unsigned short index = startingLowCellsIndex;
-        index < startingLowCellsIndex + 128;
+        unsigned short index = floorFirstCellIndex;
+        index < floorLastCellIndex;
         index++
     )
     {
-        level->getCells()[index]->setCellColorTransparency(
+        applyTransparencyOnOneCell(
             context,
-            animatedSideTransparency
+            level,
+            index
+        );
+    }
+}
+
+/**
+ *
+ */
+void HorizontalMirrorAnimation::updateBottomSideTransparency(
+    const utils::Context& context,
+    const std::shared_ptr<entities::Level>& level,
+    const unsigned short& floor
+) const &
+{
+    const unsigned short floorSideFirstCellIndex =
+        floor * CELLS_PER_FLOOR + TOP_SIDE_LAST_CELL_INDEX;
+    const unsigned short floorSideLastCellIndex =
+        floor * CELLS_PER_FLOOR + BOTTOM_SIDE_LAST_CELL_INDEX;
+
+    for (
+        unsigned short index = floorSideFirstCellIndex;
+        index <= floorSideLastCellIndex;
+        index++
+    )
+    {
+        applyTransparencyOnOneCell(
+            context,
+            level,
+            index
         );
     }
 }
