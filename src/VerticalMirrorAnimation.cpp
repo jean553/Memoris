@@ -42,22 +42,18 @@ void VerticalMirrorAnimation::playNextAnimationStep(
     const unsigned short& floor
 ) &
 {
-    unsigned short startingLeftSideCellIndex = floor * 256,
-                   startingRightSideCellIndex = startingLeftSideCellIndex + 8;
-
     if (animationSteps == 0)
     {
         context.getSoundsManager().playMirrorAnimationSound();
     }
     else if (animationSteps < 15 && animationSteps >= 10)
     {
-        /* make the left side transparent; decrement the alpha value of all
-           the side cells by 51; starts from the cell 0 of the given floor;
-           go back to the next line every 8 cells */
-        setLevelSideCellsTransparency(
+        decreaseTransparency();
+
+        updateLeftSideTransparency(
             context,
             level,
-            startingLeftSideCellIndex
+            floor
         );
     }
     else if (animationSteps == 15)
@@ -71,29 +67,28 @@ void VerticalMirrorAnimation::playNextAnimationStep(
     }
     else if (animationSteps >= 16 && animationSteps < 21)
     {
-        /* show back the left side cells */
-        setLevelSideCellsTransparency(
+        increaseTransparency();
+
+        updateLeftSideTransparency(
             context,
             level,
-            startingLeftSideCellIndex
+            floor
         );
     }
     else if (animationSteps >= 21 && animationSteps < 26)
     {
-        /* switch from one side to another, so change the maximum step */
         sideMax = 16;
 
-        /* make the cells of the right side transparent progressively, by
-           step of 51 alpha value */
-        setLevelSideCellsTransparency(
+        decreaseTransparency();
+
+        updateRightSideTransparency(
             context,
             level,
-            startingRightSideCellIndex
+            floor
         );
     }
     else if (animationSteps == 26)
     {
-        /* show back the right side cells */
         executeReverseMirrorMovement(
             context,
             level,
@@ -102,13 +97,12 @@ void VerticalMirrorAnimation::playNextAnimationStep(
     }
     else if (animationSteps >= 26 && animationSteps < 32)
     {
-        /* starts at the cell 0 + floor * 256 (top side) and increase the
-           transparency value by 51.f at each iteration
-           */
-        setLevelSideCellsTransparency(
+        increaseTransparency();
+
+        updateRightSideTransparency(
             context,
             level,
-            startingRightSideCellIndex
+            floor
         );
     }
     else if (animationSteps == 33)
@@ -136,33 +130,6 @@ void VerticalMirrorAnimation::playNextAnimationStep(
     /* increments the animation step and update the last animation update
        time */
     incrementAnimationStep(context);
-}
-
-/**
- *
- */
-void VerticalMirrorAnimation::setLevelSideCellsTransparency(
-    const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& startingCellIndex
-) &
-{
-    unsigned short index = startingCellIndex;
-
-    while(index <= startingCellIndex + 247)
-    {
-        level->getCells()[index]->setCellColorTransparency(
-            context,
-            animatedSideTransparency
-        );
-
-        index++;
-
-        if(index % sideMax == 0 && index != 0)
-        {
-            index += 8;
-        }
-    }
 }
 
 /**
@@ -248,6 +215,62 @@ void VerticalMirrorAnimation::executeReverseMirrorMovement(
         it++;
 
         if (index % 16 == 0)
+        {
+            index += 8;
+        }
+    }
+}
+
+/**
+ *
+ */
+void VerticalMirrorAnimation::updateLeftSideTransparency(
+    const utils::Context& context,
+    const std::shared_ptr<entities::Level>& level,
+    const unsigned short& floor
+) const &
+{
+    unsigned short index = 256 * floor;
+
+    while(index <= 256 * floor + 247)
+    {
+        applyTransparencyOnOneCell(
+            context,
+            level,
+            index
+        );
+
+        index++;
+
+        if(index % sideMax == 0 && index != 0)
+        {
+            index += 8;
+        }
+    }
+}
+
+/**
+ *
+ */
+void VerticalMirrorAnimation::updateRightSideTransparency(
+    const utils::Context& context,
+    const std::shared_ptr<entities::Level>& level,
+    const unsigned short& floor
+) const &
+{
+    unsigned short index = 256 * floor + 8;
+
+    while(index <= 256 * floor + 255)
+    {
+        applyTransparencyOnOneCell(
+            context,
+            level,
+            index
+        );
+
+        index++;
+
+        if(index % sideMax == 0 && index != 0)
         {
             index += 8;
         }

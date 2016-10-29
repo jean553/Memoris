@@ -52,8 +52,15 @@ void AbstractMirrorAnimation::renderAnimation(
             &entities::Cell::display
         );
 
+        /* TODO: only the horizontal or vertical separator should be
+           rendered */
+
         context.getSfmlWindow().draw(
             context.getShapesManager().getHorizontalSeparator()
+        );
+
+        context.getSfmlWindow().draw(
+            context.getShapesManager().getVerticalSeparator()
         );
 
         return;

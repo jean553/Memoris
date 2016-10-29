@@ -59,15 +59,6 @@ private:
     static constexpr unsigned short CELLS_PER_FLOOR {256};
 
     /**
-     * TODO: to delete, only declared to respect interface requirements
-     */
-    void setLevelSideCellsTransparency(
-        const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& startingCellIndex
-    ) & override;
-
-    /**
      * @brief replace the high cells by the low cells
      *
      * @param context reference to the current context to use
@@ -109,7 +100,7 @@ private:
     ) const &;
 
     /**
-     * @brief changes the transparency of the top bottom of the level
+     * @brief changes the transparency of the bottom side of the level
      *
      * @param context constant reference to the current context to use
      * @param level constant reference to a shared pointer on the level
