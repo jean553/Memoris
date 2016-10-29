@@ -35,7 +35,7 @@ namespace utils
  *
  */
 void initializeHorizontalSeparator(
-    utils::Context& context,
+    const utils::Context& context,
     sf::RectangleShape& separator
 )
 {

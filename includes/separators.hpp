@@ -42,7 +42,7 @@ namespace utils
  * @param separator reference to the separator SFML surface to initialize
  */
 void initializeHorizontalSeparator(
-    utils::Context& context,
+    const utils::Context& context,
     sf::RectangleShape& separator
 );
 

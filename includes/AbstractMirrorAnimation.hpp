@@ -43,13 +43,11 @@ class AbstractMirrorAnimation : public LevelAnimation
 public:
 
     /**
-     * @brief renders the animation, this function has to be called by the
-     * game controller; handles the waiting time (animation update interval)
-     * and call the pure virtual function render()
+     * @brief renders the animation
      *
-     * @param context reference to the current context to use
-     * @param level shared pointer to the concerned level object
-     * @param floor the level floor to render
+     * @param context constant reference to the current context to use
+     * @param level constant reference on shared pointer to the concerned level
+     * @param floor constant unsigned integer to the level floor to render
      */
     void renderAnimation(
         const utils::Context& context,
@@ -117,18 +115,13 @@ protected:
         const unsigned short& floor
     ) &;
 
-    /* the transparency of the animated side during the animation; the default
-       value is 255 as the side is totally visible */
+    /* these attributes are not inside an
+       implementation as they are protected */
+
     float animatedSideTransparency {255.f};
 
-    /* the SFML surface that represent the red color separator between the
-       two mirrored areas; this surface is initialized inside the constructor
-       (horizontal or vertical according to the constructor) */
     sf::RectangleShape separator;
 
-    /* a container for the saved cells; during the animation, the cells of one
-       side are replaced by the cells of another side; that means we have to
-       save a copy of the cells of the first side before we overwritte it */
     std::queue<entities::Cell> savedCells;
 
 private:

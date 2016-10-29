@@ -25,6 +25,7 @@
 #include "AbstractMirrorAnimation.hpp"
 
 #include "Level.hpp"
+#include "ShapesManager.hpp"
 
 namespace memoris
 {
@@ -45,10 +46,14 @@ void AbstractMirrorAnimation::renderAnimation(
         lastAnimationUpdateTime < ANIMATION_STEPS_INTERVAL
     )
     {
-        displayLevelAndSeparator(
+        level->display(
             context,
-            level,
-            floor
+            floor,
+            &entities::Cell::display
+        );
+
+        context.getSfmlWindow().draw(
+            context.getShapesManager().getHorizontalSeparator()
         );
 
         return;
