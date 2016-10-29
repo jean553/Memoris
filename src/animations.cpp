@@ -68,7 +68,7 @@ std::unique_ptr<LevelAnimation> getAnimationByCellType(
     }
     case cells::DIAGONAL_CELL:
     {
-        return std::make_unique<DiagonalAnimation>(context);
+        return std::make_unique<DiagonalAnimation>();
     }
     case cells::LEFT_ROTATION_CELL:
     {

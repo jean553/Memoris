@@ -38,17 +38,6 @@ namespace animations
 /**
  *
  */
-DiagonalAnimation::DiagonalAnimation(
-    utils::Context& context
-)
-{
-    /* plays the floor movement animation */
-    context.getSoundsManager().playFloorMovementAnimationSound();
-}
-
-/**
- *
- */
 void DiagonalAnimation::renderAnimation(
     const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
@@ -93,6 +82,11 @@ void DiagonalAnimation::playNextAnimationStep(
     /* declare a SFML color object; we use this object to create the flashing
        effect on the different parts of the cells */
     sf::Color color;
+
+    if (animationSteps == 0)
+    {
+        context.getSoundsManager().playFloorMovementAnimationSound();
+    }
 
     if (animationSteps % 2 == 0)
     {
@@ -154,7 +148,6 @@ void DiagonalAnimation::displayLevelAndSeparator(
     const unsigned short& floor
 ) &
 {
-    /* render the level at the given floor */
     level->display(
         context,
         floor,
