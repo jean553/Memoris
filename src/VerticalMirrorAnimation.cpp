@@ -36,16 +36,6 @@ namespace animations
 /**
  *
  */
-VerticalMirrorAnimation::VerticalMirrorAnimation(
-    utils::Context& context
-)
-{
-    context.getSoundsManager().playMirrorAnimationSound();
-}
-
-/**
- *
- */
 void VerticalMirrorAnimation::playNextAnimationStep(
     const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
@@ -55,7 +45,11 @@ void VerticalMirrorAnimation::playNextAnimationStep(
     unsigned short startingLeftSideCellIndex = floor * 256,
                    startingRightSideCellIndex = startingLeftSideCellIndex + 8;
 
-    if (animationSteps < 15 && animationSteps >= 10)
+    if (animationSteps == 0)
+    {
+        context.getSoundsManager().playMirrorAnimationSound();
+    }
+    else if (animationSteps < 15 && animationSteps >= 10)
     {
         /* make the left side transparent; decrement the alpha value of all
            the side cells by 51; starts from the cell 0 of the given floor;

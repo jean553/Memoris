@@ -36,15 +36,6 @@ class VerticalMirrorAnimation : public AbstractMirrorAnimation
 public:
 
     /**
-     * @brief constructor, initializes the separator
-     *
-     * @param context shared pointer to the context to use
-     */
-    VerticalMirrorAnimation(
-        utils::Context& context
-    );
-
-    /**
      * @brief renders the animation
      *
      * @param context reference to the current context to use

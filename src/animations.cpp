@@ -48,7 +48,7 @@ std::unique_ptr<LevelAnimation> getAnimationByCellType(
     {
     case cells::VERTICAL_MIRROR_CELL:
     {
-        return std::make_unique<VerticalMirrorAnimation>(context);
+        return std::make_unique<VerticalMirrorAnimation>();
     }
     case cells::STAIRS_UP_CELL:
     case cells::ELEVATOR_UP_CELL:
