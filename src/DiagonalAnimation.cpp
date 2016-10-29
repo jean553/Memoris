@@ -26,6 +26,7 @@
 
 #include "SoundsManager.hpp"
 #include "ColorsManager.hpp"
+#include "ShapesManager.hpp"
 #include "separators.hpp"
 #include "Cell.hpp"
 #include "Level.hpp"
@@ -43,11 +44,6 @@ DiagonalAnimation::DiagonalAnimation(
 )
 {
     /* initializes both of the vertical and horizontal separator */
-
-    initializeHorizontalSeparator(
-        context,
-        horizontalSeparator
-    );
 
     initializeVerticalSeparator(
         context,
@@ -174,7 +170,9 @@ void DiagonalAnimation::displayLevelAndSeparator(
     );
 
     /* displays the separators */
-    context.getSfmlWindow().draw(horizontalSeparator);
+    context.getSfmlWindow().draw(
+        context.getShapesManager().getHorizontalSeparator()
+    );
     context.getSfmlWindow().draw(verticalSeparator);
 }
 
