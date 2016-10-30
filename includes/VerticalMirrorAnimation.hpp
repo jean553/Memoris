@@ -38,6 +38,19 @@ public:
     /**
      * @brief renders the animation
      *
+     * @param context constant reference to the current context to use
+     * @param level constant reference on shared pointer to the concerned level
+     * @param floor constant unsigned integer to the level floor to render
+     */
+    void renderAnimation(
+        const utils::Context& context,
+        const std::shared_ptr<entities::Level>& level,
+        const unsigned short& floor
+    ) & override;
+
+    /**
+     * @brief renders the animation
+     *
      * @param context reference to the current context to use
      * @param level shared pointer to the level to use
      * @param floor the current floor to display in the animation

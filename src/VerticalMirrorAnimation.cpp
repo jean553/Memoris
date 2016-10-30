@@ -35,6 +35,40 @@ namespace animations
 /**
  *
  */
+void VerticalMirrorAnimation::renderAnimation(
+    const utils::Context& context,
+    const std::shared_ptr<entities::Level>& level,
+    const unsigned short& floor
+) &
+{
+    if (
+        context.getClockMillisecondsTime() -
+        lastAnimationUpdateTime < ANIMATION_STEPS_INTERVAL
+    )
+    {
+        level->display(
+            context,
+            floor,
+            &entities::Cell::display
+        );
+
+        /* TODO: #863 displays the vertical or horizontal separator; we do not
+           display them for now because we have no way here to know if the
+           child is a horizontal or vertical animation */
+
+        return;
+    }
+
+    playNextAnimationStep(
+        context,
+        level,
+        floor
+    );
+}
+
+/**
+ *
+ */
 void VerticalMirrorAnimation::playNextAnimationStep(
     const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
