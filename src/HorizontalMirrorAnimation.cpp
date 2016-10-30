@@ -25,7 +25,6 @@
 #include "HorizontalMirrorAnimation.hpp"
 
 #include "SoundsManager.hpp"
-#include "ShapesManager.hpp"
 #include "Level.hpp"
 
 namespace memoris
@@ -121,10 +120,6 @@ void HorizontalMirrorAnimation::playNextAnimationStep(
         context,
         floor,
         &entities::Cell::display
-    );
-
-    context.getSfmlWindow().draw(
-        context.getShapesManager().getHorizontalSeparator()
     );
 
     incrementAnimationStep(context);
