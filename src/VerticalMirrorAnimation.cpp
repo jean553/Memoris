@@ -25,6 +25,7 @@
 #include "VerticalMirrorAnimation.hpp"
 
 #include "SoundsManager.hpp"
+#include "ShapesManager.hpp"
 #include "Level.hpp"
 
 namespace memoris
@@ -52,9 +53,9 @@ void VerticalMirrorAnimation::renderAnimation(
             &entities::Cell::display
         );
 
-        /* TODO: #863 displays the vertical or horizontal separator; we do not
-           display them for now because we have no way here to know if the
-           child is a horizontal or vertical animation */
+        context.getSfmlWindow().draw(
+            context.getShapesManager().getHorizontalSeparator()
+        );
 
         return;
     }
@@ -154,6 +155,10 @@ void VerticalMirrorAnimation::playNextAnimationStep(
         context,
         floor,
         &entities::Cell::display
+    );
+
+    context.getSfmlWindow().draw(
+        context.getShapesManager().getHorizontalSeparator()
     );
 
     /* increments the animation step and update the last animation update
