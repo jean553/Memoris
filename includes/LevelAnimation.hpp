@@ -79,27 +79,6 @@ public:
 protected:
 
     /**
-     * @brief protected virtual method that contains the animation flow with
-     * the different animation steps; it defines what does the animation
-     * according to the current animationSteps value; this method is protected
-     * because called by the renderAnimation function
-     *
-     * @param context reference to the current context to use
-     * @param level shared pointer to the level to animate
-     * @param floor the current floor to display in the animation
-     *
-     * not 'const' because definitions modify instance attributes
-     *
-     * not 'noexcept' because definitions call SFML functions that are not
-     * noexcept
-     */
-    virtual void playNextAnimationStep(
-        const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) & = 0;
-
-    /**
      * @brief hides or shows the given cell at the given index, used during the
      * animation
      *

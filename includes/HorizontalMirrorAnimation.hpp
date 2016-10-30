@@ -51,20 +51,6 @@ public:
         const unsigned short& floor
     ) & override;
 
-    /**
-     * @brief plays the next step of the animation according to the
-     * LevelAnimation logic
-     *
-     * @param context constant reference to the current context to use
-     * @param level constant reference to shared pointer on the level to use
-     * @param floor the current floor to display in the animation
-     */
-    void playNextAnimationStep(
-        const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) & override;
-
 private:
 
     static constexpr unsigned short TOP_SIDE_FIRST_CELL_INDEX {0};
@@ -123,6 +109,23 @@ private:
      * not 'noexcept' because it calls SFML methods
      */
     void updateBottomSideTransparency(
+        const utils::Context& context,
+        const std::shared_ptr<entities::Level>& level,
+        const unsigned short& floor
+    ) const &;
+
+    /**
+     * @brief displays the level and the horizontal separator; method created
+     * only for refactor purposes as it is called two times at two different
+     * moments in the script
+     *
+     * @param context constant reference to the current context to use
+     * @param level constant reference to a shared pointer on the level
+     * @param floor constant reference indicating which floor to animate
+     *
+     * not 'noexcept' because it calls SFML methods that are not noexcept
+     */
+    void displaysLevelAndHorizontalSeparator(
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor

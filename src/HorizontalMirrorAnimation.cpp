@@ -47,36 +47,15 @@ void HorizontalMirrorAnimation::renderAnimation(
         lastAnimationUpdateTime < ANIMATION_STEPS_INTERVAL
     )
     {
-        level->display(
+        displaysLevelAndHorizontalSeparator(
             context,
-            floor,
-            &entities::Cell::display
-        );
-
-        context.getSfmlWindow().draw(
-            context.getShapesManager().getHorizontalSeparator()
+            level,
+            floor
         );
 
         return;
     }
 
-    playNextAnimationStep(
-        context,
-        level,
-        floor
-    );
-}
-
-
-/**
- *
- */
-void HorizontalMirrorAnimation::playNextAnimationStep(
-    const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& floor
-) &
-{
     /* we do not use a switch/case here because we create conditions on
        ranges of steps, which is not handled by switch/case instructions */
 
@@ -152,14 +131,10 @@ void HorizontalMirrorAnimation::playNextAnimationStep(
         finished = true;
     }
 
-    level->display(
+    displaysLevelAndHorizontalSeparator(
         context,
-        floor,
-        &entities::Cell::display
-    );
-
-    context.getSfmlWindow().draw(
-        context.getShapesManager().getHorizontalSeparator()
+        level,
+        floor
     );
 
     incrementAnimationStep(context);
@@ -349,6 +324,26 @@ void HorizontalMirrorAnimation::updateBottomSideTransparency(
             index
         );
     }
+}
+
+/**
+ *
+ */
+void HorizontalMirrorAnimation::displaysLevelAndHorizontalSeparator(
+    const utils::Context& context,
+    const std::shared_ptr<entities::Level>& level,
+    const unsigned short& floor
+) const &
+{
+    level->display(
+        context,
+        floor,
+        &entities::Cell::display
+    );
+
+    context.getSfmlWindow().draw(
+        context.getShapesManager().getHorizontalSeparator()
+    );
 }
 
 }

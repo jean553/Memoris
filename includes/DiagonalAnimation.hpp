@@ -74,7 +74,7 @@ private:
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    ) & override;
+    ) &;
 
     /**
      * @brief display the given floor of the level and the two separators
