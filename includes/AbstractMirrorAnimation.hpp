@@ -40,22 +40,9 @@ namespace animations
 class AbstractMirrorAnimation : public LevelAnimation
 {
 
-public:
-
-    /**
-     * @brief renders the animation
-     *
-     * @param context constant reference to the current context to use
-     * @param level constant reference on shared pointer to the concerned level
-     * @param floor constant unsigned integer to the level floor to render
-     */
-    void renderAnimation(
-        const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) & override;
-
 protected:
+
+    static constexpr sf::Uint32 ANIMATION_STEPS_INTERVAL {50};
 
     /**
      * @brief declaration of the function to execute the mirror movement
@@ -120,7 +107,6 @@ protected:
 
 private:
 
-    static constexpr sf::Uint32 ANIMATION_STEPS_INTERVAL {50};
     static constexpr float TRANSPARENCY_INTERVAL {51.f};
 
     float animatedSideTransparency {255.f};
