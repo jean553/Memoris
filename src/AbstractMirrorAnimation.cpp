@@ -25,7 +25,6 @@
 #include "AbstractMirrorAnimation.hpp"
 
 #include "Level.hpp"
-#include "ShapesManager.hpp"
 
 namespace memoris
 {
@@ -52,16 +51,9 @@ void AbstractMirrorAnimation::renderAnimation(
             &entities::Cell::display
         );
 
-        /* TODO: only the horizontal or vertical separator should be
-           rendered */
-
-        context.getSfmlWindow().draw(
-            context.getShapesManager().getHorizontalSeparator()
-        );
-
-        context.getSfmlWindow().draw(
-            context.getShapesManager().getVerticalSeparator()
-        );
+        /* TODO: #863 displays the vertical or horizontal separator; we do not
+           display them for now because we have no way here to know if the
+           child is a horizontal or vertical animation */
 
         return;
     }

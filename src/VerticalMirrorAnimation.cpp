@@ -25,7 +25,6 @@
 #include "VerticalMirrorAnimation.hpp"
 
 #include "SoundsManager.hpp"
-#include "ShapesManager.hpp"
 #include "Level.hpp"
 
 namespace memoris
@@ -121,10 +120,6 @@ void VerticalMirrorAnimation::playNextAnimationStep(
         context,
         floor,
         &entities::Cell::display
-    );
-
-    context.getSfmlWindow().draw(
-        context.getShapesManager().getVerticalSeparator()
     );
 
     /* increments the animation step and update the last animation update
