@@ -87,7 +87,7 @@ private:
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    ) & override;
+    ) &;
 
     /**
      * @brief rotate the cells of the floor on the left
