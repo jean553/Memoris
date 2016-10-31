@@ -78,23 +78,9 @@ void HorizontalMirrorAnimation::renderAnimation(
     }
     else if (animationSteps == 15)
     {
-        executeMirrorMovement(
-            context,
-            level,
-            floor
-        );
+        setNoTransparent();
     }
     else if (animationSteps >= 16 && animationSteps < 21)
-    {
-        increaseTransparency();
-
-        updateBottomSideTransparency(
-            context,
-            level,
-            floor
-        );
-    }
-    else if (animationSteps >= 21 && animationSteps < 26)
     {
         decreaseTransparency();
 
@@ -104,15 +90,17 @@ void HorizontalMirrorAnimation::renderAnimation(
             floor
         );
     }
-    else if (animationSteps == 26)
+    else if (animationSteps == 21)
     {
-        executeReverseMirrorMovement(
+        invertSides(
             context,
             level,
             floor
         );
+
+        setFullTransparent();
     }
-    else if (animationSteps >= 26 && animationSteps < 32)
+    else if (animationSteps >= 22 && animationSteps < 27)
     {
         increaseTransparency();
 
@@ -122,10 +110,23 @@ void HorizontalMirrorAnimation::renderAnimation(
             floor
         );
     }
+    else if (animationSteps == 27)
+    {
+        setFullTransparent();
+    }
+    else if (animationSteps >= 28 && animationSteps < 33)
+    {
+        increaseTransparency();
+
+        updateBottomSideTransparency(
+            context,
+            level,
+            floor
+        );
+    }
     else if (animationSteps == 33)
     {
         level->setPlayerCellIndex(playerCellIndexAfterAnimation);
-
         level->getCells()[playerCellIndexAfterAnimation]->show(context);
 
         finished = true;
@@ -149,47 +150,7 @@ void HorizontalMirrorAnimation::executeReverseMirrorMovement(
     const unsigned short& floor
 ) &
 {
-    /* this part replace all the cells of the top side of the floor by the
-       cells contained into the lowCells container; visibility is also copied
-    */
-
-    unsigned short cursor = floor * 256 + 112, offset = 0;
-
-    for (
-        unsigned short index = 0;
-        index < 128;
-        index++
-    )
-    {
-        if (offset == 16)
-        {
-            offset = 0;
-            cursor -= 16;
-        }
-
-        level->getCells()[cursor + offset]->setType(
-            savedCells.front().getType()
-        );
-
-        showOrHideCell(
-            context,
-            level,
-            cursor + offset,
-            savedCells.front().isVisible()
-        );
-
-        savedCells.pop();
-
-        if (
-            cursor + offset == playerCellIndexAfterAnimation &&
-            playerCellIndexAfterAnimation != -1
-        )
-        {
-            playerCellIndexAfterAnimation = cursor + offset;
-        }
-
-        offset++;
-    }
+    /* TODO: to delete */
 }
 
 /**
@@ -201,73 +162,80 @@ void HorizontalMirrorAnimation::executeMirrorMovement(
     const unsigned short& floor
 ) &
 {
-    /* this part browse the bottom side of the floor and save all the cells
-       , their disposition and their visibility inside two containers; these
-       containers are used to copy the cells in the top side */
+    /* TODO: to delete */
+}
 
-    unsigned short startingHighCellIndex = floor * 256,
-                   cursor = startingHighCellIndex + 240,
-                   startingLowCellIndex = startingHighCellIndex + 128,
-                   endingLowCellIndex = 256 * (floor + 1),
-                   offset = 0,
-                   diff = 16;
+/**
+ *
+ */
+void HorizontalMirrorAnimation::invertSides(
+    const utils::Context& context,
+    const std::shared_ptr<entities::Level>& level,
+    const unsigned short& floor
+) &
+{
+    const unsigned short firstIndex = floor * CELLS_PER_FLOOR;
+    const unsigned short lastIndex = firstIndex + TOP_SIDE_LAST_CELL_INDEX;
+
+    unsigned short previousPlayerCell = level->getPlayerCellIndex();
+    unsigned short line = 0;
 
     for (
-        unsigned short index = startingLowCellIndex;
-        index < endingLowCellIndex;
+        unsigned short index = firstIndex;
+        index < lastIndex;
         index++
     )
     {
-        if (offset == 16)
-        {
-            offset = 0;
-            diff += 32;
-        }
+        char type = level->getCells()[index]->getType();
+        bool visible = level->getCells()[index]->isVisible();
+        short invertedIndex =
+            findInvertedIndex(
+                line,
+                index
+            );
 
-        savedCells.push(*(level->getCells()[index]));
-
-        if (index == level->getPlayerCellIndex())
-        {
-            playerCellIndexAfterAnimation = index - diff;
-        }
-
-        offset++;
-    }
-
-    /* this part replaces the cells of the bottom part by the cells of the
-       top part */
-
-    offset = 0;
-
-    for (
-        unsigned short index = startingHighCellIndex;
-        index < startingLowCellIndex;
-        index++
-    )
-    {
-        if (offset == 16)
-        {
-            offset = 0;
-            cursor -= 16;
-        }
-
-        level->getCells()[cursor + offset]->setType(
-            level->getCells()[index]->getType()
+        level->getCells()[index]->setType(
+            level->getCells()[invertedIndex]->getType()
         );
 
         showOrHideCell(
             context,
             level,
-            cursor + offset,
-            level->getCells()[index]->isVisible()
+            index,
+            level->getCells()[invertedIndex]->isVisible()
         );
 
-        if (index == level->getPlayerCellIndex())
+        level->getCells()[invertedIndex]->setType(type);
+
+        showOrHideCell(
+            context,
+            level,
+            invertedIndex,
+            visible
+        );
+
+        if (previousPlayerCell == index)
         {
-            playerCellIndexAfterAnimation = cursor + offset;
+            playerCellIndexAfterAnimation =
+                findInvertedIndex(
+                    line,
+                    index
+                );
+        } else if (
+            previousPlayerCell ==
+                findInvertedIndex(
+                    line,
+                    index
+                )
+        )
+        {
+            playerCellIndexAfterAnimation = index;
         }
 
-        offset++;
+        if (index != 0 && index % CELLS_PER_LINE == 0)
+        {
+            line++;
+        }
     }
 }
 
@@ -344,6 +312,19 @@ void HorizontalMirrorAnimation::displaysLevelAndHorizontalSeparator(
     context.getSfmlWindow().draw(
         context.getShapesManager().getHorizontalSeparator()
     );
+}
+
+/**
+ *
+ */
+const unsigned short HorizontalMirrorAnimation::findInvertedIndex(
+    const unsigned short& line,
+    const unsigned short& index
+) const & noexcept
+{
+    /* this calculation can work with negative value, but at the end,
+       the result should always be more than 0 to prevent seg fault */
+    return INVERTED_CELL_INDEX_OFFSET - LINE_CELLS_FACTOR * line + index;
 }
 
 }
