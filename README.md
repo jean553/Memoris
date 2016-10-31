@@ -36,13 +36,28 @@ Successfully executed on :
 
 ## Installation on Ubuntu 14.04 LTS
 
-### Requirements
+Requirements to compile C++14 code:
 
 ```
-sudo apt-get install libsfml-dev cmake clang-3.5
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update
 ```
 
-### Compilation
+Install compilation tools:
+
+```
+sudo apt-get install g++-4.9 libsfml-dev cmake clang-3.5
+```
+
+## Execution
+
+Execute the game from the root directory :
+
+```
+./bin/Memoris
+```
+
+## Development
 
 Memoris is developed into a dedicated Docker container including all the required tools and development facilities.
 Available here : [memoris-dev](https://github.com/jean553/memoris-dev)
@@ -55,22 +70,14 @@ cmake ..
 make
 ```
 
-### Execution
-
-Execute the game from the root directory :
-
-```
-./bin/Memoris
-```
-
-### Documentation
+## Documentation
 
 ```
 sudo apt-get install doxygen
 doxygen
 ```
 
-### Apply Allman coding style
+## Apply Allman coding style
 
 ```
 ./style.sh
