@@ -50,6 +50,22 @@ void AbstractMirrorAnimation::decreaseTransparency() & noexcept
 /**
  *
  */
+void AbstractMirrorAnimation::setFullTransparent() & noexcept
+{
+    animatedSideTransparency = 0.f;
+}
+
+/**
+ *
+ */
+void AbstractMirrorAnimation::setNoTransparent() & noexcept
+{
+    animatedSideTransparency = 255.f;
+}
+
+/**
+ *
+ */
 void AbstractMirrorAnimation::applyTransparencyOnOneCell(
     const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,

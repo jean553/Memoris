@@ -57,13 +57,12 @@ private:
     static constexpr unsigned short TOP_SIDE_LAST_CELL_INDEX {128};
     static constexpr unsigned short BOTTOM_SIDE_LAST_CELL_INDEX {255};
     static constexpr unsigned short CELLS_PER_FLOOR {256};
+    static constexpr unsigned short INVERTED_CELL_INDEX_OFFSET {240};
+    static constexpr unsigned short LINE_CELLS_FACTOR {32};
+    static constexpr unsigned short CELLS_PER_LINE {16};
 
     /**
-     * @brief replace the high cells by the low cells
-     *
-     * @param context reference to the current context to use
-     * @param level shared pointer to the level to use
-     * @param floor the current floor to display in the animation
+     * TODO: to delete
      */
     void executeReverseMirrorMovement(
         const utils::Context& context,
@@ -72,17 +71,26 @@ private:
     ) & override;
 
     /**
-     * @brief replace the low cells by the high cells
-     *
-     * @param context reference to the current context to use
-     * @param level shared pointer to the level to use
-     * @param floor the current floor to display in the animation
+     * TODO: to delete
      */
     void executeMirrorMovement(
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) & override;
+
+    /**
+     * @brief invert the top side cells with the bottom side cells
+     *
+     * @param context constant reference to the current context to use
+     * @param level constant reference to shared pointer on the level to use
+     * @param floor the current floor to display in the animation
+     */
+    void invertSides(
+        const utils::Context& context,
+        const std::shared_ptr<entities::Level>& level,
+        const unsigned short& floor
+    ) &;
 
     /**
      * @brief changes the transparency of the top side of the level
@@ -130,6 +138,24 @@ private:
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) const &;
+
+    /**
+     * @brief calculates the interved index of the horizontal mirror for the
+     * given index
+     *
+     * @param line constant reference to the current line of the cell (0...15)
+     * @param index constant reference to the current index of the cell
+     * (0...255) (considere the current floor factor)
+     *
+     * @return const unsigned short
+     *
+     * does not return a reference because it directly returns the result of
+     * the calculation without storing it
+     */
+    const unsigned short findInvertedIndex(
+        const unsigned short& line,
+        const unsigned short& index
+    ) const & noexcept;
 };
 
 }

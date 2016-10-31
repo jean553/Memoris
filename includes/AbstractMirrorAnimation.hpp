@@ -86,6 +86,20 @@ protected:
     void decreaseTransparency() & noexcept;
 
     /**
+     * @brief set the transparency to fully transparent
+     *
+     * not 'const' because it modifies the animated side transparency
+     */
+    void setFullTransparent() & noexcept;
+
+    /**
+     * @brief set the transparency to no transparent
+     *
+     * not 'const' because it modifies the animated side transparency
+     */
+    void setNoTransparent() & noexcept;
+
+    /**
      * @brief applies the current animated side transparency on the given cell
      *
      * @param context constant reference to the current context to use
