@@ -74,7 +74,7 @@ private:
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    ) & override;
+    ) &;
 
     /**
      * @brief replace the right side cells by the left side cells
@@ -87,7 +87,7 @@ private:
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    ) & override;
+    ) &;
 
     /**
      * @brief changes the transparency of the left side of the level

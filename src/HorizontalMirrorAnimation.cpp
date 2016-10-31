@@ -144,30 +144,6 @@ void HorizontalMirrorAnimation::renderAnimation(
 /**
  *
  */
-void HorizontalMirrorAnimation::executeReverseMirrorMovement(
-    const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& floor
-) &
-{
-    /* TODO: to delete */
-}
-
-/**
- *
- */
-void HorizontalMirrorAnimation::executeMirrorMovement(
-    const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& floor
-) &
-{
-    /* TODO: to delete */
-}
-
-/**
- *
- */
 void HorizontalMirrorAnimation::invertSides(
     const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,

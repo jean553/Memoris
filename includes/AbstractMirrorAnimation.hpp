@@ -45,33 +45,6 @@ protected:
     static constexpr sf::Uint32 ANIMATION_STEPS_INTERVAL {50};
 
     /**
-     * @brief declaration of the function to execute the mirror movement
-     *
-     * @param context reference to the current context to use
-     * @param level shared pointer to the level to use
-     * @param floor the current floor to display in the animation
-     */
-    virtual void executeMirrorMovement(
-        const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) & = 0;
-
-    /**
-     * @brief declaration of the function to execute the reverse mirror
-     * movement
-     *
-     * @param context reference to the current context to use
-     * @param level shared pointer to the level to use
-     * @param floor the current floor to display in the animation
-     */
-    virtual void executeReverseMirrorMovement(
-        const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) & = 0;
-
-    /**
      * @brief increases the transparency
      *
      * not 'const' because it modifies the animated side transparency

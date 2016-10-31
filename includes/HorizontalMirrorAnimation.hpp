@@ -62,24 +62,6 @@ private:
     static constexpr unsigned short CELLS_PER_LINE {16};
 
     /**
-     * TODO: to delete
-     */
-    void executeReverseMirrorMovement(
-        const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) & override;
-
-    /**
-     * TODO: to delete
-     */
-    void executeMirrorMovement(
-        const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) & override;
-
-    /**
      * @brief invert the top side cells with the bottom side cells
      *
      * @param context constant reference to the current context to use
