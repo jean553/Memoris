@@ -254,11 +254,11 @@ void HorizontalMirrorAnimation::updateBottomSideTransparency(
     const unsigned short floorSideFirstCellIndex =
         floor * CELLS_PER_FLOOR + TOP_SIDE_LAST_CELL_INDEX;
     const unsigned short floorSideLastCellIndex =
-        floor * CELLS_PER_FLOOR + BOTTOM_SIDE_LAST_CELL_INDEX;
+        (floor + 1) * CELLS_PER_FLOOR;
 
     for (
         unsigned short index = floorSideFirstCellIndex;
-        index <= floorSideLastCellIndex;
+        index < floorSideLastCellIndex;
         index++
     )
     {

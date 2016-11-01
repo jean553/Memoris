@@ -55,7 +55,6 @@ private:
 
     static constexpr unsigned short TOP_SIDE_FIRST_CELL_INDEX {0};
     static constexpr unsigned short TOP_SIDE_LAST_CELL_INDEX {128};
-    static constexpr unsigned short BOTTOM_SIDE_LAST_CELL_INDEX {255};
     static constexpr unsigned short CELLS_PER_FLOOR {256};
     static constexpr unsigned short INVERTED_CELL_INDEX_OFFSET {240};
     static constexpr unsigned short LINE_CELLS_FACTOR {32};
