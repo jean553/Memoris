@@ -152,8 +152,8 @@ void HorizontalMirrorAnimation::invertSides(
 {
     const unsigned short firstIndex = floor * CELLS_PER_FLOOR;
     const unsigned short lastIndex = firstIndex + TOP_SIDE_LAST_CELL_INDEX;
+    const unsigned short previousPlayerCell = level->getPlayerCellIndex();
 
-    unsigned short previousPlayerCell = level->getPlayerCellIndex();
     unsigned short line = 0;
 
     for (
@@ -162,9 +162,9 @@ void HorizontalMirrorAnimation::invertSides(
         index++
     )
     {
-        char type = level->getCells()[index]->getType();
-        bool visible = level->getCells()[index]->isVisible();
-        short invertedIndex =
+        const char type = level->getCells()[index]->getType();
+        const bool visible = level->getCells()[index]->isVisible();
+        const unsigned short invertedIndex =
             findInvertedIndex(
                 line,
                 index
