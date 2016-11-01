@@ -71,5 +71,17 @@ void LevelAnimation::incrementAnimationStep(const utils::Context& context) &
     lastAnimationUpdateTime = context.getClockMillisecondsTime();
 }
 
+/**
+ *
+ */
+void LevelAnimation::movePlayer(
+    const utils::Context& context,
+    const std::shared_ptr<entities::Level>& level
+) const &
+{
+    level->setPlayerCellIndex(updatedPlayerIndex);
+    level->getCells()[updatedPlayerIndex]->show(context);
+}
+
 }
 }
