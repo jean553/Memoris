@@ -51,15 +51,11 @@ class TutorialFrame;
 namespace aliases
 {
 
-/* reference of an unique pointer to a SFML transform object */
 using ConstTransformUniquePtrRef = const std::unique_ptr<sf::Transform>&;
 
-/* constant reference to a container of unique pointers on Cell objects */
 using ConstUniquePtrCellsContainerRef =
     const std::vector<std::unique_ptr<entities::Cell>>&;
 
-/* reference to a queue container containing the tutorial frames unique
-   pointers */
 using UniquePtrTutorialFramesContainerRef =
     std::queue<std::unique_ptr<widgets::TutorialFrame>>&;
 }
