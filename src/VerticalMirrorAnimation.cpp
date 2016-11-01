@@ -142,11 +142,11 @@ void VerticalMirrorAnimation::playNextAnimationStep(
     else if (animationSteps == 33)
     {
         /* set the new player cell index */
-        level->setPlayerCellIndex(playerCellIndexAfterAnimation);
+        level->setPlayerCellIndex(updatedPlayerIndex);
 
         /* force the new player cell to be shown, no matter if this cell was
            shown or hidden */
-        level->getCells()[playerCellIndexAfterAnimation]->show(context);
+        level->getCells()[updatedPlayerIndex]->show(context);
 
         finished = true;
     }
@@ -187,12 +187,12 @@ void VerticalMirrorAnimation::executeMirrorMovement(
 
         if (index - difference == level->getPlayerCellIndex())
         {
-            playerCellIndexAfterAnimation = index;
+            updatedPlayerIndex = index;
         }
 
         if (index  == level->getPlayerCellIndex())
         {
-            playerCellIndexAfterAnimation = index - difference;
+            updatedPlayerIndex = index - difference;
         }
 
         level->getCells()[index - difference]->setType(

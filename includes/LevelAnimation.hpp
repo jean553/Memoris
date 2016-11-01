@@ -107,6 +107,21 @@ protected:
      */
     void incrementAnimationStep(const utils::Context& context) &;
 
+    /**
+     * @brief moves the player on a new cell according to the updated player
+     * cell index value
+
+     * @param context reference to the current context to use
+     * @param level constant reference on a shared pointer to the concerned 
+     * level object
+     *
+     * not 'noexcept' because it calls SFML methods that are not noexcept
+     */
+    void movePlayer(
+        const utils::Context& context,
+        const std::shared_ptr<entities::Level>& level
+    ) const &;
+
     /* these attributes are protected, so we do not set them into an
        implementation */
 
@@ -114,9 +129,9 @@ protected:
 
     unsigned short animationSteps {0};
 
-    short playerCellIndexAfterAnimation {-1};
-
     bool finished {false};
+
+    short updatedPlayerIndex {-1};
 };
 
 }

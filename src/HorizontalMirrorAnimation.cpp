@@ -126,8 +126,10 @@ void HorizontalMirrorAnimation::renderAnimation(
     }
     else if (animationSteps == 33)
     {
-        level->setPlayerCellIndex(playerCellIndexAfterAnimation);
-        level->getCells()[playerCellIndexAfterAnimation]->show(context);
+        movePlayer(
+            context,
+            level
+        );
 
         finished = true;
     }
@@ -192,7 +194,7 @@ void HorizontalMirrorAnimation::invertSides(
 
         if (previousPlayerCell == index)
         {
-            playerCellIndexAfterAnimation =
+            updatedPlayerIndex =
                 findInvertedIndex(
                     line,
                     index
@@ -205,7 +207,7 @@ void HorizontalMirrorAnimation::invertSides(
                 )
         )
         {
-            playerCellIndexAfterAnimation = index;
+            updatedPlayerIndex = index;
         }
 
         if (index != 0 && index % CELLS_PER_LINE == 0)

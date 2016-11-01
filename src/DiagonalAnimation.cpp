@@ -132,7 +132,7 @@ void DiagonalAnimation::playNextAnimationStep(
         finished = true;
 
         /* put the player on his new cell */
-        level->setPlayerCellIndex(playerCellIndexAfterAnimation);
+        level->setPlayerCellIndex(updatedPlayerIndex);
 
         break;
     }
@@ -308,11 +308,11 @@ void DiagonalAnimation::invertCells(
 
     if (source == level->getPlayerCellIndex())
     {
-        playerCellIndexAfterAnimation = source + difference;
+        updatedPlayerIndex = source + difference;
     }
     else if (source + difference == level->getPlayerCellIndex())
     {
-        playerCellIndexAfterAnimation = source;
+        updatedPlayerIndex = source;
     }
 }
 
