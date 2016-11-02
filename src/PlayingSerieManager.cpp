@@ -129,6 +129,8 @@ void PlayingSerieManager::loadSerieFileContent(const std::string& name) &
     /* clear the queue */
     impl->levels = std::queue<std::string>();
 
+    impl->levelIndex = 0;
+
     std::ifstream file("data/series/" + name + ".serie");
     if (!file.is_open())
     {
