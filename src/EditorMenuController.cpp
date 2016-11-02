@@ -168,6 +168,12 @@ void EditorMenuController::selectMenuItem() & noexcept
 
         break;
     }
+    case 1:
+    {
+        expectedControllerId = SERIE_EDITOR_CONTROLLER_ID;
+
+        break;
+    }
     case 2:
     {
         expectedControllerId = MAIN_MENU_CONTROLLER_ID;

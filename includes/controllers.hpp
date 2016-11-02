@@ -36,6 +36,8 @@ namespace controllers
 {
 
 /* all the controllers ids */
+
+/* TODO: #875 no need to store integers here, try to use an enumeration ? */
 constexpr unsigned short EXIT = 1;
 constexpr unsigned short MAIN_MENU_CONTROLLER_ID = 2;
 constexpr unsigned short NEW_GAME_CONTROLLER_ID = 3;
@@ -47,6 +49,7 @@ constexpr unsigned short EDITOR_MENU_CONTROLLER_ID = 8;
 constexpr unsigned short LEVEL_EDITOR_CONTROLLER_ID = 9;
 constexpr unsigned short OPEN_LEVEL_CONTROLLER_ID = 10;
 constexpr unsigned short OPEN_GAME_CONTROLLER_ID = 11;
+constexpr unsigned short SERIE_EDITOR_CONTROLLER_ID = 12;
 
 /**
  * @brief factory method to create controllers by id, each controller is linked
