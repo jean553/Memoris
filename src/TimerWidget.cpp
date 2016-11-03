@@ -59,7 +59,7 @@ TimerWidget::TimerWidget(
 /**
  *
  */
-void TimerWidget::display(utils::Context& context)
+void TimerWidget::display(const utils::Context& context)
 {
     /* check if the elapsed time since the last timer update is more than
        1000 milliseconds; if yes, the timer value is updated; also check if

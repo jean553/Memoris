@@ -63,24 +63,11 @@ public:
      *
      * @return const unsigned short&
      */
-    virtual const unsigned short& render(utils::Context& context) & override;
+    virtual const unsigned short& render(
+        const utils::Context& context
+    ) & override;
 
 private:
-
-    /**
-     * @brief validate the input text widget content; check if the game name
-     * is not empty; return a boolean indicating if the new game can be
-     * created or not
-     *
-     * @return bool
-     *
-     * the returned value is not a reference because this is the result of
-     * a SFML function and this result is already passed by copy
-     *
-     * not 'noexcept' because the function calls a sub-function that calls a
-     * SFML function that is not marked as noexcept
-     */
-    const bool validateGameName() const &;
 
     class Impl;
     std::unique_ptr<Impl> impl;

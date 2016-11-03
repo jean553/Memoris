@@ -60,7 +60,7 @@ public:
      * not 'noexcept' because it calls the SFML functions that are not
      * 'noexcept'
      */
-    virtual void render(utils::Context& context) & = 0;
+    virtual void render(const utils::Context& context) & = 0;
 
     /**
      * @brief default destructor, empty, declared for forwarding declaration
@@ -82,7 +82,7 @@ protected:
      * 'protected' visibility because it can only be called by child object
      */
     Dialog(
-        utils::Context& context,
+        const utils::Context& context,
         const float& hSize,
         const float& vSize,
         const float& hPosition,
@@ -96,16 +96,13 @@ protected:
      *
      * @param context reference to the current context to use
      *
-     * the context reference is not 'const' because the SFML window draw()
-     * method is called from this function; the draw method is not constant
-     *
      * 'protected' visibility because it is supposed to be called by child
      * object only
      *
      * no 'noexcept' because it calls the SFML window draw() method which is
      * not noexcept
      */
-    void displayParentContent(utils::Context& context) const &;
+    void displayParentContent(const utils::Context& context) const &;
 
 private:
 

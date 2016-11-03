@@ -52,7 +52,7 @@ public:
      *
      * @param context reference to the current context
      */
-    void render(utils::Context& context);
+    void render(const utils::Context& context);
 
 private:
 

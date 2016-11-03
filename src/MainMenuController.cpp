@@ -161,7 +161,7 @@ MainMenuController::~MainMenuController() noexcept = default;
  *
  */
 const unsigned short& MainMenuController::render(
-    utils::Context& context
+    const utils::Context& context
 ) &
 {
     impl->animatedBackground.render(context);

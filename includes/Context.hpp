@@ -183,52 +183,28 @@ public:
      *
      * @param path file path of the music to play
      *
-     * not 'const' method because it calls SFML openFromFile() on object
-     * attribute; this SFML function is not constant
-     *
      * no 'noexcept' because the method calls other functions that are not
      * declared as noexcept
      */
-    void loadMusicFile(const std::string& path) &;
+    void loadMusicFile(const std::string& path) const &;
 
     /**
      * @brief check if a music is playing, if yes, stop it
      *
-     * not 'const' method because it calls SFML stop() on object attribute;
-     * this SFML function is not constant
-     *
      * no 'noexcept' because the method calls other functions that are not
      * declared as noexcept
      */
-    void stopMusic() &;
+    void stopMusic() const &;
 
     /**
      * @brief restart the SFML clock; this function is called
      * everytime the screen is switched from one controller
      * to another
      *
-     * not 'const' method because it calls SFML restart() on object attribute;
-     * this SFML function is not constant
-     *
      * no 'noexcept' because the method calls other functions that are not
      * declared as noexcept
      */
-    void restartClock() &;
-
-    /**
-     * @brief initializes the Game unique pointer, interface method used to
-     * load a game in memory; if a previous game has been loaded in memory,
-     * this previous object is dynamically deleted
-     *
-     * @param name the name of the game
-     *
-     * @throw std::ios_base::failure thrown if the file manipulation failed;
-     * this exception is never caught by the program and the game directly
-     * stops
-     *
-     * not 'const' because it modifies the game unique pointer attribute
-     */
-    void createGame(const std::string& name) &;
+    void restartClock() const &;
 
 private:
 

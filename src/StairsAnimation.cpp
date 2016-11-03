@@ -38,7 +38,7 @@ namespace animations
  *
  */
 StairsAnimation::StairsAnimation(
-    utils::Context& context,
+    const utils::Context& context,
     const short& dir
 ) :
     direction(dir)

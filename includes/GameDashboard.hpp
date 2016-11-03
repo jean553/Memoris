@@ -67,7 +67,7 @@ public:
      *
      * @param context shared pointer to the context to use
      */
-    void display(utils::Context& context);
+    void display(const utils::Context& context);
 
     /**
      * @brief increments the found stars amount and updates the displayed found

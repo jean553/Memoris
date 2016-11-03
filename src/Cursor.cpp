@@ -46,7 +46,7 @@ Cursor::Cursor(const utils::Context& context)
 /**
  *
  */
-void Cursor::render(utils::Context& context)
+void Cursor::render(const utils::Context& context)
 {
     /* display the cursor */
     context.getSfmlWindow().draw(sprite);

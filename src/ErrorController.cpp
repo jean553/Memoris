@@ -37,7 +37,7 @@ namespace controllers
  *
  */
 ErrorController::ErrorController(
-    utils::Context& context
+    const utils::Context& context
 ) :
     Controller(context)
 {
@@ -48,7 +48,7 @@ ErrorController::ErrorController(
  *
  */
 const unsigned short& ErrorController::render(
-    utils::Context& context
+    const utils::Context& context
 ) &
 {
     /* used for screen switch animation */

@@ -43,8 +43,10 @@ public:
 
     /**
      * @brief constructor, initializes the SFML texture to display
+     *
+     * @param context constant reference to the current context to use
      */
-    NewLevelDialog(utils::Context& context);
+    NewLevelDialog(const utils::Context& context);
 
     /**
      * @brief default destructor, empty, declared in order to use forwarding
@@ -64,7 +66,7 @@ public:
      *
      * not 'noexcept' because it calls SFML functions that are not 'noexcept'
      */
-    virtual void render(utils::Context& context) & override final;
+    virtual void render(const utils::Context& context) & override final;
 
 private:
 

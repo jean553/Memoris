@@ -133,7 +133,7 @@ SelectionListWidget::~SelectionListWidget() noexcept = default;
 /**
  *
  */
-void SelectionListWidget::display(utils::Context& context) &
+void SelectionListWidget::display(const utils::Context& context) &
 {
     context.getSfmlWindow().draw(impl->top);
     context.getSfmlWindow().draw(impl->left);
@@ -193,7 +193,7 @@ noexcept
 /**
  *
  */
-void SelectionListWidget::displaySelector(utils::Context& context) &
+void SelectionListWidget::displaySelector(const utils::Context& context) &
 {
     sf::Vector2i mousePosition = sf::Mouse::getPosition();
 

@@ -69,7 +69,7 @@ public:
      *
      * not 'noexcept' because it calls SFML methods that are not noexcept
      */
-    void display(utils::Context& context) const &;
+    void display(const utils::Context& context) const &;
 
 private:
 

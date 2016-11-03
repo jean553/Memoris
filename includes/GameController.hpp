@@ -73,8 +73,9 @@ public:
      *
      * @return const unsigned short& id of the new screen controller
      */
-    virtual const unsigned short& render(utils::Context& context) & override
-    final;
+    virtual const unsigned short& render(
+        const utils::Context& context
+    ) & override final;
 
 private:
 
@@ -93,7 +94,7 @@ private:
      * are not checked when the function is executed.
      */
     void handlePlayerMovement(
-        utils::Context& context,
+        const utils::Context& context,
         const short& movement
     );
 
@@ -101,11 +102,9 @@ private:
      * @brief applies the action of the new player cell; this method is called
      * immediately after the player moved
      *
-     * @param context shared pointer to the context to use
+     * @param context constant reference to the context to use
      */
-    void executePlayerCellAction(
-        utils::Context& context
-    );
+    void executePlayerCellAction(const utils::Context& context);
 
     /**
      * @brief empties the player cell (the current player cell is switched to
@@ -115,7 +114,7 @@ private:
      *
      * @param context shared pointer to the context to use
      */
-    void emptyPlayerCell(utils::Context& context);
+    void emptyPlayerCell(const utils::Context& context);
 
     /**
      * @brief this method is called during the watching mode by the main
@@ -125,17 +124,15 @@ private:
      *
      * @param context shared pointer to the context to use
      */
-    void watchNextFloorOrHideLevel(
-        utils::Context& context
-    );
+    void watchNextFloorOrHideLevel(const utils::Context& context);
 
     /**
      * @brief this method ends the level, it displays the win or lose screen
      * according if the player has just won or lost the current level
      *
-     * @param context shared pointer to the context to use
+     * @param context constant reference to the current context to use
      */
-    void endLevel(utils::Context& context);
+    void endLevel(const utils::Context& context);
 
     class Impl;
     std::unique_ptr<Impl> impl;

@@ -46,7 +46,7 @@ class InputTextWidget::Impl
 public:
 
     Impl(
-        utils::Context& context,
+        const utils::Context& context,
         const float& hPosition,
         const float& vPosition,
         const float& lineWidth,
@@ -155,7 +155,7 @@ public:
  *
  */
 InputTextWidget::InputTextWidget(
-    utils::Context& context,
+    const utils::Context& context,
     const float& hPosition,
     const float& vPosition,
     const float& lineWidth,

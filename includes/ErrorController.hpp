@@ -48,7 +48,7 @@ public:
      *
      * @param context reference to the current context
      */
-    ErrorController(utils::Context& context);
+    ErrorController(const utils::Context& context);
 
     /**
      * @brief renders the error message screen
@@ -57,8 +57,9 @@ public:
      *
      * @return const unsigned short&
      */
-    virtual const unsigned short& render(utils::Context& context) & override
-    final;
+    virtual const unsigned short& render(
+        const utils::Context& context
+    ) & override final;
 };
 
 }

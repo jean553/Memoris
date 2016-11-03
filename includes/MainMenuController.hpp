@@ -59,7 +59,7 @@ public:
      *
      * @return const unsigned short&
      */
-    virtual const unsigned short& render(utils::Context& context) & override;
+    virtual const unsigned short& render(const utils::Context& context) & override;
 
 private:
 

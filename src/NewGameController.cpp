@@ -96,7 +96,7 @@ NewGameController::~NewGameController() noexcept = default;
  *
  */
 const unsigned short& NewGameController::render(
-    utils::Context& context
+    const utils::Context& context
 ) &
 {
     context.getSfmlWindow().draw(impl->title);
@@ -124,12 +124,10 @@ const unsigned short& NewGameController::render(
             /* TODO: #498 should not be allowed if the name already exists */
             case sf::Keyboard::Return:
             {
-                if (!validateGameName())
+                if (impl->inputTextGameName.isEmpty())
                 {
                     break;
                 }
-
-                context.createGame(impl->inputTextGameName.getText());
 
                 expectedControllerId = SERIE_MAIN_MENU_CONTROLLER_ID;
 
@@ -151,14 +149,6 @@ const unsigned short& NewGameController::render(
     }
 
     return nextControllerId;
-}
-
-/**
- *
- */
-const bool NewGameController::validateGameName() const &
-{
-    return !impl->inputTextGameName.isEmpty();
 }
 
 }

@@ -43,7 +43,7 @@ class SaveLevelDialog::Impl
 
 public:
 
-    Impl(utils::Context& context) :
+    Impl(const utils::Context& context) :
         input(
             context,
             625.f,
@@ -62,7 +62,7 @@ public:
 /**
  *
  */
-SaveLevelDialog::SaveLevelDialog(utils::Context& context) :
+SaveLevelDialog::SaveLevelDialog(const utils::Context& context) :
     Dialog(
         context,
         440.f,
@@ -91,7 +91,7 @@ SaveLevelDialog::~SaveLevelDialog() noexcept = default;
 /**
  *
  */
-void SaveLevelDialog::render(utils::Context& context) &
+void SaveLevelDialog::render(const utils::Context& context) &
 {
     displayParentContent(context);
 

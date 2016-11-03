@@ -45,7 +45,7 @@ SerieEditorController::SerieEditorController(const utils::Context& context) :
 /**
  *
  */
-const unsigned short& SerieEditorController::render(utils::Context& context) &
+const unsigned short& SerieEditorController::render(const utils::Context& context) &
 {
     nextControllerId = animateScreenTransition(context);
 

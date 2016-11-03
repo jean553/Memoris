@@ -65,7 +65,7 @@ public:
      * @param maxCharacters the maximum amount of characters allowed
      */
     InputTextWidget(
-        utils::Context& context,
+        const utils::Context& context,
         const float& hPosition,
         const float& vPosition,
         const float& lineWidth,

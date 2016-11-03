@@ -90,7 +90,7 @@ OpenLevelController::~OpenLevelController() noexcept = default;
 /**
  *
  */
-const unsigned short& OpenLevelController::render(utils::Context& context) &
+const unsigned short& OpenLevelController::render(const utils::Context& context) &
 {
     context.getSfmlWindow().draw(impl->title);
 

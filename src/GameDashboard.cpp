@@ -178,7 +178,7 @@ GameDashboard::~GameDashboard() noexcept = default;
 /**
  *
  */
-void GameDashboard::display(utils::Context& context)
+void GameDashboard::display(const utils::Context& context)
 {
     context.getSfmlWindow().draw(impl->foundStarsAmount);
     context.getSfmlWindow().draw(impl->lifesAmount);

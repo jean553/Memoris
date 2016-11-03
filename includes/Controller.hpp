@@ -68,7 +68,7 @@ public:
      * calls that may throw exceptions
      */
     virtual const unsigned short& render(
-        utils::Context& context
+        const utils::Context& context
     ) & = 0;
 
 protected:
@@ -94,7 +94,7 @@ protected:
      * animation (opening or closing) is terminated; this id can be stored
      * in the nextControllerId and the screen can be switched.
      *
-     * @param context reference to the current context to use
+     * @param context constant reference to the current context to use
      *
      * @return const unsigned short
      *
@@ -107,7 +107,7 @@ protected:
      * not 'noexcept' because it calls SFML methods that are not noexcept
      */
     const unsigned short animateScreenTransition(
-        utils::Context& context
+        const utils::Context& context
     ) &;
 
     /* TODO: #784 not included in the implementation because used by the
