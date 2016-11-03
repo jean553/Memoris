@@ -77,7 +77,7 @@ void AbstractMenuController::addMenuItem(
  *
  */
 void AbstractMenuController::renderAllMenuItems(
-    utils::Context& context
+    const utils::Context& context
 ) const &
 {
     for (auto& item : impl->items) // item -> std::unique_ptr<items::MenuItem>&
@@ -116,7 +116,7 @@ void AbstractMenuController::moveUp(
  *
  */
 void AbstractMenuController::moveDown(
-    utils::Context& context
+    const utils::Context& context
 ) &
 {
     /* static cast because std::vector::size() returns a size_t and

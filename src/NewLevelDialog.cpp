@@ -49,7 +49,7 @@ public:
 /**
  *
  */
-NewLevelDialog::NewLevelDialog(utils::Context& context) :
+NewLevelDialog::NewLevelDialog(const utils::Context& context) :
     Dialog(
         context,
         440.f,
@@ -87,7 +87,7 @@ NewLevelDialog::~NewLevelDialog() noexcept = default;
 /**
  *
  */
-void NewLevelDialog::render(utils::Context& context) &
+void NewLevelDialog::render(const utils::Context& context) &
 {
     displayParentContent(context);
 

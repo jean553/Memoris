@@ -83,7 +83,7 @@ MenuGradient::~MenuGradient() noexcept = default;
 /**
  *
  */
-void MenuGradient::display(utils::Context& context) const &
+void MenuGradient::display(const utils::Context& context) const &
 {
     context.getSfmlWindow().draw(impl->menuBackground);
 

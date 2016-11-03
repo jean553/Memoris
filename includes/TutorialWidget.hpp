@@ -69,7 +69,7 @@ public:
     /**
      * @brief display the tutorial widget
      *
-     * @param context reference to the current context to use
+     * @param context constant reference to the current context to use
      *
      * not 'noexcept' because the method calls SFML functions that are not
      * noexcept
@@ -77,7 +77,7 @@ public:
      * not 'const' because it calls the animateFlashingAnimation() method
      * which modifies the attributes
      */
-    void display(utils::Context& context) &;
+    void display(const utils::Context& context) &;
 
     /**
      * @brief displays the next frame, returns true if an item has been popped
@@ -124,7 +124,7 @@ private:
      * not 'noexcept' because it calls SFML methods that are not
      * noexcept
      */
-    void animateFlashingAnimation(utils::Context& context) &;
+    void animateFlashingAnimation(const utils::Context& context) &;
 
     /**
      * @brief update the color of all the border surfaces

@@ -163,7 +163,7 @@ OfficialSeriesMenuController::~OfficialSeriesMenuController() noexcept =
  *
  */
 const unsigned short& OfficialSeriesMenuController::render(
-    utils::Context& context
+    const utils::Context& context
 ) &
 {
     context.getSfmlWindow().draw(impl->title);

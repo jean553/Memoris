@@ -62,7 +62,7 @@ AnimatedBackground::~AnimatedBackground() noexcept = default;
 /**
  *
  */
-void AnimatedBackground::render(utils::Context& context) const &
+void AnimatedBackground::render(const utils::Context& context) const &
 {
     if(
         (

@@ -57,9 +57,9 @@ public:
     /**
      * @brief overwritte the display method to render the widget
      *
-     * @param context shared pointer to the context to use
+     * @param constant reference to the current context to use
      */
-    void display(utils::Context& context);
+    void display(const utils::Context& context);
 
     /**
      * @brief public method to stop the timer, used by the game controller to

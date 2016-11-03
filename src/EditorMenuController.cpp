@@ -107,7 +107,7 @@ EditorMenuController::~EditorMenuController() noexcept = default;
 /**
  *
  */
-const unsigned short& EditorMenuController::render(utils::Context& context) &
+const unsigned short& EditorMenuController::render(const utils::Context& context) &
 {
     context.getSfmlWindow().draw(impl->title);
 

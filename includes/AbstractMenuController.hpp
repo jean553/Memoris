@@ -97,9 +97,7 @@ protected:
      * menu item and this last function calls SFML functions that are not
      * noexcept
      */
-    void renderAllMenuItems(
-        utils::Context& context
-    ) const &;
+    void renderAllMenuItems(const utils::Context& context) const &;
 
     /**
      * @brief getter of the selector position
@@ -132,7 +130,7 @@ protected:
      * not 'noexcept' because it calls menu item methods that calls SFML
      * functions and these functions are not noexcept
      */
-    void moveDown(utils::Context& context) &;
+    void moveDown(const utils::Context& context) &;
 
     /**
      * @brief pure virtual method used to make this class abstract; this

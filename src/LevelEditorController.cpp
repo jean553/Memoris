@@ -122,7 +122,7 @@ LevelEditorController::~LevelEditorController() noexcept = default;
  *
  */
 const unsigned short& LevelEditorController::render(
-    utils::Context& context
+    const utils::Context& context
 ) &
 {
     /* display the editor dashboard */

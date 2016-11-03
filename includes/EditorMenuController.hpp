@@ -70,7 +70,7 @@ public:
      *
      * not 'noexcept' because it calls SFML methods that are not noexcept
      */
-    virtual const unsigned short& render(utils::Context& context) & override;
+    virtual const unsigned short& render(const utils::Context& context) & override;
 
 private:
 

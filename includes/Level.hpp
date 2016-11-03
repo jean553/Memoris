@@ -104,7 +104,7 @@ public:
      * @param context reference to the current context to use
      */
     void hideAllCellsExceptDeparture(
-        utils::Context& context
+        const utils::Context& context
     );
 
     /**
@@ -116,7 +116,7 @@ public:
      * sf::Color object
      */
     void setPlayerCellTransparency(
-        utils::Context& context,
+        const utils::Context& context,
         const sf::Uint8& alpha
     );
 
@@ -128,7 +128,7 @@ public:
      * @param context reference to the current context to use
      */
     void movePlayer(
-        utils::Context& context,
+        const utils::Context& context,
         const short& movement
     );
 
@@ -170,7 +170,7 @@ public:
      * @return bool
      */
     bool detectWalls(
-        utils::Context& context,
+        const utils::Context& context,
         const short& movement
     ) const;
 
@@ -183,7 +183,7 @@ public:
      * @param context reference to the current context
      */
     void emptyPlayerCell(
-        utils::Context& context
+        const utils::Context& context
     );
 
     /**
@@ -195,7 +195,7 @@ public:
      *
      * @bool true if the player moved to the next floor
      */
-    bool movePlayerToNextFloor(utils::Context& context);
+    bool movePlayerToNextFloor(const utils::Context& context);
 
     /**
      * @brief moves the current player to the previous floor if possible,
@@ -207,7 +207,7 @@ public:
      * @bool true if the player moved to the previous floor
      */
     bool movePlayerToPreviousFloor(
-        utils::Context& context
+        const utils::Context& context
     );
 
     /**
@@ -248,9 +248,7 @@ public:
      * NOTE: this method must be called instead of 'display()' during the
      * animation
      */
-    void playFloorTransitionAnimation(
-        utils::Context& context
-    );
+    void playFloorTransitionAnimation(const utils::Context& context);
 
     /**
      * @brief setter for the animation boolean
@@ -357,7 +355,7 @@ public:
      * a local variable of the method
      */
     const bool updateSelectedCellType(
-        utils::Context& context,
+        const utils::Context& context,
         const unsigned short& floor,
         const char& type
     );
@@ -372,15 +370,12 @@ public:
      * they are not declared noexcept)
      * @throws std::bad_alloc for_each algorithm failed to allocate memory
      *
-     * context is not const because the method calls other functions that
-     * modifies the SFML render window, which is a context attribute
-     *
      * not 'const' because it modifies the cells inside the cells container
      *
      * not 'noexcept' because it could throw exceptions; those exceptions are
      * never caught and the program just stops if it happens
      */
-    void refresh(utils::Context& context) &;
+    void refresh(const utils::Context& context) &;
 
     /**
      * @brief getter of the player cell horizontal position

@@ -64,15 +64,12 @@ public:
     /**
      * @brief displays the widget
      *
-     * the context is not 'const' because the current method calls some not
-     * const method of Context
-     *
      * not 'noexcept' because it calls some SFML method that are not noexcept
      *
      * not 'const' because it calls the private method displaySelector()
      * which modifies the object
      */
-    void display(utils::Context& context) &;
+    void display(const utils::Context& context) &;
 
     /**
      * @brief setter of the displayed items list
@@ -111,14 +108,11 @@ private:
      *
      * @param context reference to the context object to use
      *
-     * the context is not 'const' because the current method calls some not
-     * const method of Context
-     *
      * not 'const' because it modifies the position of the selector
      *
      * not 'noexcept' because it calls SFML functions that are not noexcept
      */
-    void displaySelector(utils::Context& context) &;
+    void displaySelector(const utils::Context& context) &;
 
     class Impl;
     std::unique_ptr<Impl> impl;

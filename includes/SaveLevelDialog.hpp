@@ -51,7 +51,7 @@ public:
      *
      * @param context reference to the current context
      */
-    SaveLevelDialog(utils::Context& context);
+    SaveLevelDialog(const utils::Context& context);
 
     /**
      * @brief default constructor, empty, only declared in order to use
@@ -71,7 +71,7 @@ public:
      *
      * not 'noexcept' because it calls SFML functions that are not 'noexcept'
      */
-    void render(utils::Context& context) & override;
+    void render(const utils::Context& context) & override;
 
     /**
      * @brief getter of the input text widget, used in the level editor,

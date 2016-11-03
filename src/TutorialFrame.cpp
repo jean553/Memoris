@@ -137,7 +137,7 @@ void TutorialFrame::insertItem(std::unique_ptr<sf::Drawable> item) &
 /**
  *
  */
-void TutorialFrame::render(utils::Context& context) const &
+void TutorialFrame::render(const utils::Context& context) const &
 {
     for(auto& item : impl->items) // item -> std::unique_ptr<sf::Drawable>&
     {

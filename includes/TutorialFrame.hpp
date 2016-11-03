@@ -67,7 +67,7 @@ public:
      * not 'noexcept' because the implementation will always call SFML methods
      * that are no noexcept
      */
-    void render(utils::Context& context) const &;
+    void render(const utils::Context& context) const &;
 
     /**
      * @brief getter of the vertical position

@@ -48,7 +48,7 @@ public:
      * (up/down), only equals to -1 or 1;
      */
     StairsAnimation(
-        utils::Context& context,
+        const utils::Context& context,
         const short& dir
     );
 

@@ -32,7 +32,6 @@
 #include "ShapesManager.hpp"
 #include "PlayingSerieManager.hpp"
 #include "EditingLevelManager.hpp"
-#include "Game.hpp"
 #include "window.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -78,14 +77,6 @@ public:
      * controller is modified; the maximum time returned in milliseconds
      * is equal to 49 days... so this is a safe method */
     sf::Clock clock;
-
-    /* unique pointer to the current loaded game; this pointed object is
-       initialized when a new game is created or when an existing game is
-       loaded; if there is no need to have a game loaded at the moment,
-       the pointer is just null; when the context is created, the main menu
-       is rendered, at this moment, the game has no reason to be loaded;
-       initialized in the implementation to use forwarding declaration */
-    std::unique_ptr<entities::Game> game {nullptr};
 };
 
 /**
@@ -192,7 +183,7 @@ const sf::Int32 Context::getClockMillisecondsTime() const &
 /**
  *
  */
-void Context::loadMusicFile(const std::string& path) &
+void Context::loadMusicFile(const std::string& path) const &
 {
     if(path.empty())
     {
@@ -210,7 +201,7 @@ void Context::loadMusicFile(const std::string& path) &
 /**
  *
  */
-void Context::stopMusic() &
+void Context::stopMusic() const &
 {
     if(impl->music.getStatus() == sf::Sound::Playing)
     {
@@ -221,22 +212,9 @@ void Context::stopMusic() &
 /**
  *
  */
-void Context::restartClock() &
+void Context::restartClock() const &
 {
     impl->clock.restart();
-}
-
-/**
- *
- */
-void Context::createGame(const std::string& name) &
-{
-    if (impl->game != nullptr)
-    {
-        impl->game.reset();
-    }
-
-    impl->game = std::make_unique<entities::Game>(name);
 }
 
 }

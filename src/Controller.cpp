@@ -85,7 +85,7 @@ Controller::~Controller() noexcept = default;
  *
  */
 const unsigned short Controller::animateScreenTransition(
-    utils::Context& context
+    const utils::Context& context
 ) &
 {
     if (!expectedControllerId && !impl->openingScreen)

@@ -111,7 +111,7 @@ TutorialWidget::~TutorialWidget() noexcept = default;
 /**
  *
  */
-void TutorialWidget::display(utils::Context& context) &
+void TutorialWidget::display(const utils::Context& context) &
 {
     animateFlashingAnimation(context);
 
@@ -154,7 +154,7 @@ const bool TutorialWidget::nextFrame() &
 /**
  *
  */
-void TutorialWidget::animateFlashingAnimation(utils::Context& context) &
+void TutorialWidget::animateFlashingAnimation(const utils::Context& context) &
 {
     if (
         context.getClockMillisecondsTime() -

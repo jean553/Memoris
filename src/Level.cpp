@@ -120,7 +120,7 @@ void Level::display(
  *
  */
 void Level::hideAllCellsExceptDeparture(
-    utils::Context& context
+    const utils::Context& context
 )
 {
     std::for_each(
@@ -144,7 +144,7 @@ void Level::hideAllCellsExceptDeparture(
  *
  */
 void Level::setPlayerCellTransparency(
-    utils::Context& context,
+    const utils::Context& context,
     const sf::Uint8& alpha
 )
 {
@@ -158,7 +158,7 @@ void Level::setPlayerCellTransparency(
  *
  */
 void Level::movePlayer(
-    utils::Context& context,
+    const utils::Context& context,
     const short& movement
 )
 {
@@ -199,7 +199,7 @@ bool Level::allowPlayerMovement(
  *
  */
 bool Level::detectWalls(
-    utils::Context& context,
+    const utils::Context& context,
     const short& movement
 ) const
 {
@@ -227,7 +227,7 @@ const char& Level::getPlayerCellType() const
 /**
  *
  */
-void Level::emptyPlayerCell(utils::Context& context)
+void Level::emptyPlayerCell(const utils::Context& context)
 {
     (*impl->cells[impl->playerIndex]).empty();
     (*impl->cells[impl->playerIndex]).show(context);
@@ -237,7 +237,7 @@ void Level::emptyPlayerCell(utils::Context& context)
  *
  */
 bool Level::movePlayerToNextFloor(
-    utils::Context& context
+    const utils::Context& context
 )
 {
     unsigned short newIndex = impl->playerIndex + 256;
@@ -258,7 +258,7 @@ bool Level::movePlayerToNextFloor(
  *
  */
 bool Level::movePlayerToPreviousFloor(
-    utils::Context& context
+    const utils::Context& context
 )
 {
     short newIndex = impl->playerIndex - 256;
@@ -303,7 +303,7 @@ const unsigned short Level::getPlayerFloor()
  *
  */
 void Level::playFloorTransitionAnimation(
-    utils::Context& context
+    const utils::Context& context
 )
 {
     for(
@@ -582,7 +582,7 @@ void Level::updateCursors()
  *
  */
 const bool Level::updateSelectedCellType(
-    utils::Context& context,
+    const utils::Context& context,
     const unsigned short& floor,
     const char& type
 )
@@ -623,7 +623,7 @@ const bool Level::updateSelectedCellType(
 /**
  *
  */
-void Level::refresh(utils::Context& context) &
+void Level::refresh(const utils::Context& context) &
 {
     std::for_each(
         impl->cells.begin(),

@@ -59,7 +59,7 @@ public:
  *
  */
 Dialog::Dialog(
-    utils::Context& context,
+    const utils::Context& context,
     const float& hSize,
     const float& vSize,
     const float& hPosition,
@@ -184,7 +184,7 @@ Dialog::~Dialog() noexcept = default;
  *
  */
 void Dialog::displayParentContent(
-    utils::Context& context
+    const utils::Context& context
 ) const &
 {
     context.getSfmlWindow().draw(impl->background);
