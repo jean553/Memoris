@@ -66,14 +66,13 @@ public:
      *
      * @return const unsigned short&
      *
-     * the context parameter is not a constant reference to keep compliance
-     * with based virtual function declaration
-     *
      * not 'const' to match with the parent virtual function
      *
      * not 'noexcept' because it calls SFML functions that are not noexcept
      */
-    virtual const unsigned short& render(const utils::Context& context) & override;
+    virtual const unsigned short& render(
+        const utils::Context& context
+    ) & override;
 
 private:
 
