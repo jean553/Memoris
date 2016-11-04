@@ -156,7 +156,7 @@ void HorizontalMirrorAnimation::invertSides(
     const unsigned short lastIndex = firstIndex + TOP_SIDE_LAST_CELL_INDEX;
     const unsigned short previousPlayerCell = level->getPlayerCellIndex();
 
-    unsigned short line = 0;
+    unsigned short line {0};
 
     for (
         unsigned short index = firstIndex;
