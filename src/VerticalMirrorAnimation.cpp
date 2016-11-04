@@ -54,28 +54,12 @@ void VerticalMirrorAnimation::renderAnimation(
         );
 
         context.getSfmlWindow().draw(
-            context.getShapesManager().getHorizontalSeparator()
+            context.getShapesManager().getVerticalSeparator()
         );
 
         return;
     }
 
-    playNextAnimationStep(
-        context,
-        level,
-        floor
-    );
-}
-
-/**
- *
- */
-void VerticalMirrorAnimation::playNextAnimationStep(
-    const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& floor
-) &
-{
     if (animationSteps == 0)
     {
         context.getSoundsManager().playMirrorAnimationSound();
@@ -92,7 +76,6 @@ void VerticalMirrorAnimation::playNextAnimationStep(
     }
     else if (animationSteps == 15)
     {
-        /* copy the right cells on the left side */
         executeMirrorMovement(
             context,
             level,
@@ -141,11 +124,7 @@ void VerticalMirrorAnimation::playNextAnimationStep(
     }
     else if (animationSteps == 33)
     {
-        /* set the new player cell index */
         level->setPlayerCellIndex(updatedPlayerIndex);
-
-        /* force the new player cell to be shown, no matter if this cell was
-           shown or hidden */
         level->getCells()[updatedPlayerIndex]->show(context);
 
         finished = true;
@@ -158,11 +137,9 @@ void VerticalMirrorAnimation::playNextAnimationStep(
     );
 
     context.getSfmlWindow().draw(
-        context.getShapesManager().getHorizontalSeparator()
+        context.getShapesManager().getVerticalSeparator()
     );
 
-    /* increments the animation step and update the last animation update
-       time */
     incrementAnimationStep(context);
 }
 
