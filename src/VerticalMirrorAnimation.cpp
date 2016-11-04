@@ -72,13 +72,37 @@ void VerticalMirrorAnimation::renderAnimation(
     }
     else if (animationSteps == 15)
     {
-        executeMirrorMovement(
+        setNoTransparent();
+    }
+    else if (animationSteps >= 16 && animationSteps < 21)
+    {
+        decreaseTransparency();
+
+        updateRightSideTransparency(
             context,
             level,
             floor
         );
     }
-    else if (animationSteps >= 16 && animationSteps < 21)
+    else if (animationSteps == 21)
+    {
+        executeMirrorMovement(
+            context,
+            level,
+            floor
+        );
+
+        sideMax = 16;
+
+        executeReverseMirrorMovement(
+            context,
+            level,
+            floor
+        );
+
+        setFullTransparent();
+    }
+    else if (animationSteps >= 22 && animationSteps < 27)
     {
         increaseTransparency();
 
@@ -88,27 +112,11 @@ void VerticalMirrorAnimation::renderAnimation(
             floor
         );
     }
-    else if (animationSteps >= 21 && animationSteps < 26)
+    else if (animationSteps == 27)
     {
-        sideMax = 16;
-
-        decreaseTransparency();
-
-        updateRightSideTransparency(
-            context,
-            level,
-            floor
-        );
+        setFullTransparent();
     }
-    else if (animationSteps == 26)
-    {
-        executeReverseMirrorMovement(
-            context,
-            level,
-            floor
-        );
-    }
-    else if (animationSteps >= 26 && animationSteps < 32)
+    else if (animationSteps >= 28 && animationSteps < 33)
     {
         increaseTransparency();
 
