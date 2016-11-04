@@ -46,7 +46,7 @@ class OfficialSeriesMenuController::Impl
 public:
 
     Impl(const utils::Context& context) :
-        ctx(context)
+        contextReference(context)
     {
         title.setFont(context.getFontsManager().getTitleFont());
         title.setString("Official series");
@@ -67,7 +67,7 @@ public:
        of changing all the declarations/definitions of selectMenuItem()
        because only one implementation uses it;
        TODO: #793 do not use this constant reference here */
-    const utils::Context& ctx;
+    const utils::Context& contextReference;
 };
 
 /**
@@ -225,10 +225,21 @@ const unsigned short& OfficialSeriesMenuController::render(
  */
 void OfficialSeriesMenuController::selectMenuItem() & noexcept
 {
+    const std::string serie = getSerieNameByItemId();
+
+    /* TODO: #890 the locked list should be loaded from the game file; this
+       condition is a temporary solution for tests only; to delete */
+    if (serie == "easy")
+    {
+        expectedControllerId = ERROR_CONTROLLER_ID;
+
+        return;
+    }
+
     try
     {
-        impl->ctx.getPlayingSerieManager().loadSerieFileContent(
-            getSerieNameByItemId()
+        impl->contextReference.getPlayingSerieManager().loadSerieFileContent(
+            serie
         );
 
         expectedControllerId = GAME_CONTROLLER_ID;
