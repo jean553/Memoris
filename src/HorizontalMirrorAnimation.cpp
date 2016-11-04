@@ -47,7 +47,7 @@ void HorizontalMirrorAnimation::renderAnimation(
         lastAnimationUpdateTime < ANIMATION_STEPS_INTERVAL
     )
     {
-        displaysLevelAndHorizontalSeparator(
+        displayLevelAndHorizontalSeparator(
             context,
             level,
             floor
@@ -134,7 +134,7 @@ void HorizontalMirrorAnimation::renderAnimation(
         finished = true;
     }
 
-    displaysLevelAndHorizontalSeparator(
+    displayLevelAndHorizontalSeparator(
         context,
         level,
         floor
@@ -275,7 +275,7 @@ void HorizontalMirrorAnimation::updateBottomSideTransparency(
 /**
  *
  */
-void HorizontalMirrorAnimation::displaysLevelAndHorizontalSeparator(
+void HorizontalMirrorAnimation::displayLevelAndHorizontalSeparator(
     const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor

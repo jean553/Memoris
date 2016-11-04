@@ -106,6 +106,21 @@ private:
         const unsigned short& floor
     ) const &;
 
+    /**
+     * @brief displays the level and the vertical separator surface
+     *
+     * @param context constant reference to the current context to use
+     * @param level constant reference to a shared pointer on the level
+     * @param floor constant reference indicating which floor to animate
+     *
+     * not 'noexcept' because it calls SFML methods that are not noexcept
+     */
+    void displayLevelAndVerticalSeparator(
+        const utils::Context& context,
+        const std::shared_ptr<entities::Level>& level,
+        const unsigned short& floor
+    ) const &;
+
     /* use to know when the end of the line of the current
        animated side has been reached; this is used to know
        when the animation is switched to the next line without
