@@ -20,8 +20,6 @@
  * @file ErrorController.hpp
  * @brief display exceptions messages in a dedicated screen (resources cannot
  * be found, level/serie cannot be found... etc...)
- * TODO: #559 this controller is partially developped and only display a black
- * screen for now...
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -39,21 +37,23 @@ namespace controllers
 class ErrorController : public Controller
 {
 
+    /* TODO: #559 this controller should display a custom message according
+       to the error */
+
 public:
 
     /**
-     * @brief constructor, does nothing, just declared and defined to pass
-     * the context shared pointer to the Controller constructor as it is the
-     * parent class
+     * @brief constructor, empty, only declared here in order to call the
+     * parent class constructor
      *
-     * @param context reference to the current context
+     * @param context constant reference to the current context
      */
     ErrorController(const utils::Context& context);
 
     /**
      * @brief renders the error message screen
      *
-     * @param context reference to the current context
+     * @param context constant reference to the current context
      *
      * @return const unsigned short&
      */
