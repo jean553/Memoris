@@ -56,9 +56,22 @@ public:
             horizontalPosition,
             verticalPosition
         );
+
+        selectedColor.r = 255;
+        selectedColor.g = 0;
+        selectedColor.b = 0;
+        selectedColor.a = 255;
     }
 
     sf::Text text;
+
+    bool selected {false};
+
+    sf::Uint32 lastUpdateTime {0};
+
+    sf::Color selectedColor;
+
+    short colorUpdateStep {17}; // (15 steps) 255 / 15 = 17
 };
 
 /**
@@ -92,23 +105,58 @@ MenuItem::~MenuItem() noexcept = default;
  */
 void MenuItem::render(const utils::Context& context) const &
 {
-    context.getSfmlWindow().draw(impl->text);
+    if (
+        !impl->selected or
+        context.getClockMillisecondsTime() - 
+            impl->lastUpdateTime > ANIMATION_INTERVAL
+    )
+    {
+        display(context);
+
+        return;
+    }
+
+    impl->selectedColor.g += impl->colorUpdateStep;
+    impl->selectedColor.b += impl->colorUpdateStep;
+
+    if (impl->selectedColor.g == 0 or impl->selectedColor.g == 255)
+    {
+        impl->colorUpdateStep *= -1;
+    }
+
+    impl->text.setColor(impl->selectedColor);
+
+    display(context);
+
+    impl->lastUpdateTime = context.getClockMillisecondsTime();
 }
 
 /**
  *
  */
-void MenuItem::unselect(const utils::Context& context) &
+void MenuItem::unselect(const utils::Context& context) const &
 {
     impl->text.setColor(context.getColorsManager().getColorWhite());
+
+    impl->selected = false;
 }
 
 /**
  *
  */
-void MenuItem::select(const utils::Context& context) &
+void MenuItem::select(const utils::Context& context) const &
 {
-    impl->text.setColor(context.getColorsManager().getColorRed());
+    impl->lastUpdateTime = context.getClockMillisecondsTime();
+
+    impl->selected = true;
+}
+
+/**
+ *
+ */
+void MenuItem::display(const utils::Context& context) const &
+{
+    context.getSfmlWindow().draw(impl->text);
 }
 
 }
