@@ -50,6 +50,8 @@ public:
 
 private:
 
+    static constexpr unsigned short CELLS_PER_LINE_PER_SIDE {8};
+
     /**
      * @brief replace the left side cells by the right side cells
      *

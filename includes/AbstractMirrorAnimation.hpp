@@ -44,6 +44,9 @@ protected:
 
     static constexpr sf::Uint32 ANIMATION_STEPS_INTERVAL {50};
 
+    static constexpr unsigned short CELLS_PER_FLOOR {256};
+    static constexpr unsigned short CELLS_PER_LINE {16};
+
     /**
      * @brief increases the transparency
      *
