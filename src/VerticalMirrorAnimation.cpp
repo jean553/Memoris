@@ -47,14 +47,10 @@ void VerticalMirrorAnimation::renderAnimation(
         lastAnimationUpdateTime < ANIMATION_STEPS_INTERVAL
     )
     {
-        level->display(
+        displayLevelAndVerticalSeparator(
             context,
-            floor,
-            &entities::Cell::display
-        );
-
-        context.getSfmlWindow().draw(
-            context.getShapesManager().getVerticalSeparator()
+            level,
+            floor
         );
 
         return;
@@ -130,14 +126,10 @@ void VerticalMirrorAnimation::renderAnimation(
         finished = true;
     }
 
-    level->display(
+    displayLevelAndVerticalSeparator(
         context,
-        floor,
-        &entities::Cell::display
-    );
-
-    context.getSfmlWindow().draw(
-        context.getShapesManager().getVerticalSeparator()
+        level,
+        floor
     );
 
     incrementAnimationStep(context);
@@ -286,6 +278,26 @@ void VerticalMirrorAnimation::updateRightSideTransparency(
             index += 8;
         }
     }
+}
+
+/**
+ *
+ */
+void VerticalMirrorAnimation::displayLevelAndVerticalSeparator(
+    const utils::Context& context,
+    const std::shared_ptr<entities::Level>& level,
+    const unsigned short& floor
+) const &
+{
+    level->display(
+        context,
+        floor,
+        &entities::Cell::display
+    );
+
+    context.getSfmlWindow().draw(
+        context.getShapesManager().getVerticalSeparator()
+    );
 }
 
 }

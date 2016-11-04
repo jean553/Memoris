@@ -114,7 +114,7 @@ private:
      *
      * not 'noexcept' because it calls SFML methods that are not noexcept
      */
-    void displaysLevelAndHorizontalSeparator(
+    void displayLevelAndHorizontalSeparator(
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
