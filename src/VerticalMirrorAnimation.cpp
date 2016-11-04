@@ -86,15 +86,7 @@ void VerticalMirrorAnimation::renderAnimation(
     }
     else if (animationSteps == 21)
     {
-        executeMirrorMovement(
-            context,
-            level,
-            floor
-        );
-
-        sideMax = 16;
-
-        executeReverseMirrorMovement(
+        invertSides(
             context,
             level,
             floor
@@ -146,7 +138,7 @@ void VerticalMirrorAnimation::renderAnimation(
 /**
  *
  */
-void VerticalMirrorAnimation::executeMirrorMovement(
+void VerticalMirrorAnimation::invertSides(
     const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
@@ -192,20 +184,12 @@ void VerticalMirrorAnimation::executeMirrorMovement(
             difference = 1;
         }
     }
-}
 
-/**
- *
- */
-void VerticalMirrorAnimation::executeReverseMirrorMovement(
-    const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& floor
-) &
-{
-    unsigned short index = floor * 256 + 8,
-                   it = 0,
-                   end = floor * 256 + 255;
+    sideMax = 16;
+
+    index = floor * 256 + 8;
+    end = floor * 256 + 255;
+    unsigned short it = 0;
 
     while(index <= end)
     {
