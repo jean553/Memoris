@@ -72,6 +72,10 @@ public:
 
 private:
 
+    static constexpr unsigned short BACKGROUND_CELLS_AMOUNT {575};
+    static constexpr unsigned short MAXIMUM_RANDOM_NUMBER {28};
+    static constexpr unsigned short CELLS_PER_COLUMN {18};
+
     /**
      * @brief initialize all the cells of the animated background; this
      * method is the unique function that is called by the animated background
