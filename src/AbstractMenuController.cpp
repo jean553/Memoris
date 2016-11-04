@@ -144,8 +144,7 @@ void AbstractMenuController::updateMenuSelection(
     /* browse all the menu items; use an iterator in order to calculate the
        current index during each iteration */
     for(
-        UniquePtrMenuItemContainer::iterator iterator =
-        impl->items.begin();
+        UniquePtrMenuItemContainer::iterator iterator = impl->items.begin();
         iterator != impl->items.end();
         ++iterator
     )

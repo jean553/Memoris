@@ -28,6 +28,8 @@
 
 #include <memory>
 
+#include <SFML/Config.hpp>
+
 namespace memoris
 {
 
@@ -69,7 +71,7 @@ public:
 
     /**
      * @brief display the menu item inside the given context; displays the
-     * item in the correct color
+     * item in the correct color and handles the item animation if selected
      *
      * @param context shared pointer ot the current context to use
      *
@@ -82,24 +84,32 @@ public:
      *
      * @param context reference to the current context
      *
-     * not 'const' because it modifies the color of the text attribute
-     *
      * not 'noexcept' because it calls SFML methods that are not noexcept
      */
-    void unselect(const utils::Context& context) &;
+    void unselect(const utils::Context& context) const &;
 
     /**
      * @brief select the menu item, make it red
      *
      * @param context reference to the current context
      *
-     * not 'const' because it modifies the color of the text attribute
+     * not 'noexcept' because it calls SFML methods that are not noexcept
+     */
+    void select(const utils::Context& context) const &;
+
+private:
+
+    static constexpr sf::Uint32 ANIMATION_INTERVAL {500};
+
+    /**
+     * @brief display the menu item on the SFML window; this action is
+     * required multiple times, so, it is refactored into this private method
+     *
+     * @param context constant reference to the current context to use
      *
      * not 'noexcept' because it calls SFML methods that are not noexcept
      */
-    void select(const utils::Context& context) &;
-
-private:
+    void display(const utils::Context& context) const &;
 
     class Impl;
     std::unique_ptr<Impl> impl;
