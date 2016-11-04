@@ -36,35 +36,26 @@ namespace controllers
 /**
  *
  */
-ErrorController::ErrorController(
-    const utils::Context& context
-) :
+ErrorController::ErrorController(const utils::Context& context) :
     Controller(context)
 {
-    /* does nothing, only used to pass parameters to the parent class */
 }
 
 /**
  *
  */
-const unsigned short& ErrorController::render(
-    const utils::Context& context
-) &
+const unsigned short& ErrorController::render(const utils::Context& context) &
 {
-    /* used for screen switch animation */
     nextControllerId = animateScreenTransition(context);
 
-    /* main loop event of the error controller */
     while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {
-        /* a key is pressed down */
         case sf::Event::KeyPressed:
         {
             switch(event.key.code)
             {
-            /* the escape key has been pressed down */
             case sf::Keyboard::Escape:
             {
                 /* TODO: #532 return to the official series menu screen for
@@ -77,15 +68,12 @@ const unsigned short& ErrorController::render(
             }
             default:
             {
-                /* useless, only added here in order to have a correct
-                   syntax */
                 break;
             }
             }
         }
         default:
         {
-            /* useless, only added here in order to have a correct syntax */
             break;
         }
         }
