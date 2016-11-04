@@ -262,21 +262,22 @@ void VerticalMirrorAnimation::updateRightSideTransparency(
     const unsigned short& floor
 ) const &
 {
-    unsigned short index = 256 * floor + 8;
+    const unsigned short firstIndex = CELLS_PER_FLOOR * floor;
+    const unsigned short lastIndex = firstIndex + CELLS_PER_FLOOR;
 
-    while(index <= 256 * floor + 255)
+    for(
+        unsigned short index = firstIndex;
+        index < lastIndex;
+        index++
+    )
     {
-        applyTransparencyOnOneCell(
-            context,
-            level,
-            index
-        );
-
-        index++;
-
-        if(index % sideMax == 0 && index != 0)
+        if (index % CELLS_PER_LINE >= CELLS_PER_LINE_PER_SIDE)
         {
-            index += 8;
+            applyTransparencyOnOneCell(
+                context,
+                level,
+                index
+            );
         }
     }
 }

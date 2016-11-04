@@ -55,7 +55,7 @@ private:
     /**
      * @brief replace the left side cells by the right side cells
      *
-     * @param context reference to the current context to use
+     * @param context constant reference to the current context to use
      * @param level shared pointer to the level to use
      * @param floor the current floor to display in the animation
      */
@@ -68,7 +68,7 @@ private:
     /**
      * @brief replace the right side cells by the left side cells
      *
-     * @param context reference to the current context to use
+     * @param context constant reference to the current context to use
      * @param level shared pointer to the level to use
      * @param floor the current floor to display in the animation
      */
