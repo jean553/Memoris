@@ -144,74 +144,72 @@ void VerticalMirrorAnimation::invertSides(
     const unsigned short& floor
 ) &
 {
-    unsigned short index = floor * 256 + 8,
-                   difference = 1,
-                   end = floor * 256 + 255;
+    const unsigned short firstIndex = floor * CELLS_PER_FLOOR;
+    const unsigned short lastIndex = firstIndex + LEFT_SIDE_LAST_CELL_INDEX;
+    const unsigned short previousPlayerCell = level->getPlayerCellIndex();
 
-    while(index <= end)
+    unsigned short line = 0;
+
+    for (
+        unsigned short index = firstIndex;
+        index < lastIndex;
+        index++
+    )
     {
-        /* the 'cells' array of the Level entity is a container of pointers;
-           we really want to 'copy' the cells here, so we have to use '*' */
-        savedCells.push(*(level->getCells()[index - difference]));
-
-        if (index - difference == level->getPlayerCellIndex())
+        if (index % CELLS_PER_LINE >= CELLS_PER_LINE_PER_SIDE)
         {
-            updatedPlayerIndex = index;
+            continue;
         }
 
-        if (index  == level->getPlayerCellIndex())
-        {
-            updatedPlayerIndex = index - difference;
-        }
+        const char type = level->getCells()[index]->getType();
+        const bool visible = level->getCells()[index]->isVisible();
+        const unsigned short invertedIndex =
+            findInvertedIndex(
+                line,
+                index
+            );
 
-        level->getCells()[index - difference]->setType(
-            level->getCells()[index]->getType()
-        );
-
-        showOrHideCell(
-            context,
-            level,
-            index - difference,
-            level->getCells()[index]->isVisible()
-        );
-
-        index++;
-        difference += 2;
-
-        if (index % 16 == 0)
-        {
-            index += 8;
-            difference = 1;
-        }
-    }
-
-    sideMax = 16;
-
-    index = floor * 256 + 8;
-    end = floor * 256 + 255;
-    unsigned short it = 0;
-
-    while(index <= end)
-    {
         level->getCells()[index]->setType(
-            savedCells.front().getType()
+            level->getCells()[invertedIndex]->getType()
         );
 
         showOrHideCell(
             context,
             level,
             index,
-            savedCells.front().isVisible()
+            level->getCells()[invertedIndex]->isVisible()
         );
 
-        savedCells.pop();
+        level->getCells()[invertedIndex]->setType(type);
 
-        index++;
-        it++;
+        showOrHideCell(
+            context,
+            level,
+            invertedIndex,
+            visible
+        );
 
-        if (index % 16 == 0)
+        if (previousPlayerCell == index)
         {
-            index += 8;
+            updatedPlayerIndex =
+                findInvertedIndex(
+                    line,
+                    index
+                );
+        } else if (
+            previousPlayerCell ==
+                findInvertedIndex(
+                    line,
+                    index
+                )
+        )
+        {
+            updatedPlayerIndex = index;
+        }
+
+        if (index != 0 && index % CELLS_PER_LINE == 0)
+        {
+            line++;
         }
     }
 }
@@ -292,6 +290,18 @@ void VerticalMirrorAnimation::displayLevelAndVerticalSeparator(
     context.getSfmlWindow().draw(
         context.getShapesManager().getVerticalSeparator()
     );
+}
+
+/**
+ *
+ */
+const unsigned short VerticalMirrorAnimation::findInvertedIndex(
+    const unsigned short& line,
+    const unsigned short& index
+) const & noexcept
+{
+    return CELLS_PER_LINE * line +
+        (LINE_LAST_CELL_INDEX - index % CELLS_PER_LINE);
 }
 
 }

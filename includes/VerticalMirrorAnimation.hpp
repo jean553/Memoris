@@ -51,6 +51,8 @@ public:
 private:
 
     static constexpr unsigned short CELLS_PER_LINE_PER_SIDE {8};
+    static constexpr unsigned short LEFT_SIDE_LAST_CELL_INDEX {247};
+    static constexpr unsigned short LINE_LAST_CELL_INDEX {15};
 
     /**
      * @brief replace the left side cells by the right side cells
@@ -110,12 +112,21 @@ private:
         const unsigned short& floor
     ) const &;
 
-    /* use to know when the end of the line of the current
-       animated side has been reached; this is used to know
-       when the animation is switched to the next line without
-       animating the other side; check the code of
-       setLevelSideCellsTransparency for more details */
-    unsigned short sideMax {8};
+    /**
+     * @brief returns the inverted index of the vertical mirror animation
+     *
+     * @param line constant reference to the current line
+     * @param index constant reference to the current index
+     *
+     * @return const unsigned short
+     *
+     * does not return a constant reference because the method directly returns
+     * the calculated value and not an object attribute
+     */
+    const unsigned short findInvertedIndex(
+        const unsigned short& line,
+        const unsigned short& index
+    ) const & noexcept;
 };
 
 }
