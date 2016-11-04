@@ -59,20 +59,7 @@ private:
      * @param level shared pointer to the level to use
      * @param floor the current floor to display in the animation
      */
-    void executeMirrorMovement(
-        const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) &;
-
-    /**
-     * @brief replace the right side cells by the left side cells
-     *
-     * @param context constant reference to the current context to use
-     * @param level shared pointer to the level to use
-     * @param floor the current floor to display in the animation
-     */
-    void executeReverseMirrorMovement(
+    void invertSides(
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
