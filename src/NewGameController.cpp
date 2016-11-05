@@ -44,7 +44,7 @@ class NewGameController::Impl
 
 public:
 
-    Impl(utils::Context& context) :
+    Impl(const utils::Context& context) :
         inputTextGameName(
             context,
             500.f,
@@ -81,7 +81,7 @@ public:
 /**
  *
  */
-NewGameController::NewGameController(utils::Context& context) :
+NewGameController::NewGameController(const utils::Context& context) :
     Controller(context),
     impl(std::make_unique<Impl>(context))
 {

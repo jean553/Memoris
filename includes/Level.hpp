@@ -69,7 +69,7 @@ public:
      * @throw std::invalid_argument the level file cannot be opened
      */
     Level(
-        utils::Context& context,
+        const utils::Context& context,
         const bool loadFromFile = false
     );
 
@@ -401,7 +401,7 @@ private:
      *
      * @throw std::invalid_argument the level file cannot be opened
      */
-    void loadLevelFromFile(utils::Context& context);
+    void loadLevelFromFile(const utils::Context& context);
 
     /**
      * @brief private method called by the constructor to load a level full
@@ -409,7 +409,7 @@ private:
      *
      * @param context reference to the current context
      */
-    void loadEmptyLevel(utils::Context& context);
+    void loadEmptyLevel(const utils::Context& context);
 
     /**
      * @brief called by the constructor to update the cursor position during

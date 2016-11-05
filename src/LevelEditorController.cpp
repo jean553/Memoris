@@ -52,7 +52,7 @@ class LevelEditorController::Impl
 
 public:
 
-    Impl(utils::Context& context) :
+    Impl(const utils::Context& context) :
         dashboard(context),
         selector(context),
         level(context),
@@ -105,9 +105,7 @@ public:
 /**
  *
  */
-LevelEditorController::LevelEditorController(
-    utils::Context& context
-) :
+LevelEditorController::LevelEditorController(const utils::Context& context) :
     Controller(context),
     impl(std::make_unique<Impl>(context))
 {

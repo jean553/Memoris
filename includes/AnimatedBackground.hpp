@@ -52,7 +52,7 @@ public:
      *
      * @param context reference to the current context to use
      */
-    AnimatedBackground(utils::Context& context);
+    AnimatedBackground(const utils::Context& context);
 
     /**
      * @brief default destructor, empty, only declared in order to use
@@ -85,11 +85,9 @@ private:
      *
      * @param context reference to the current context to use
      *
-     * not 'const' because it modifies the cells container
-     *
      * not 'noexcept' because it calls SFML functions that are not noexcept
      */
-    void initializeCells(utils::Context& context) &;
+    void initializeCells(const utils::Context& context) &;
 
     class Impl;
     std::unique_ptr<Impl> impl;

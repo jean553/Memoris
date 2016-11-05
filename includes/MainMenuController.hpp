@@ -44,7 +44,7 @@ public:
      *
      * @param context reference to the current context
      */
-    MainMenuController(utils::Context& context);
+    MainMenuController(const utils::Context& context);
 
     /**
      * @brief default destructor, empty, only declared here in order to use

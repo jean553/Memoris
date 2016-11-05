@@ -45,7 +45,7 @@ namespace controllers
  *
  */
 std::unique_ptr<Controller> getControllerById(
-    utils::Context& context,
+    const utils::Context& context,
     const unsigned short& id
 )
 {

@@ -41,7 +41,7 @@ class MenuGradient::Impl
 
 public:
 
-    Impl(utils::Context& context)
+    Impl(const utils::Context& context)
     {
         menuBackground.setSize(
             sf::Vector2f(
@@ -64,7 +64,7 @@ public:
 /**
  *
  */
-MenuGradient::MenuGradient(utils::Context& context) :
+MenuGradient::MenuGradient(const utils::Context& context) :
     impl(std::make_unique<Impl>(context))
 {
     /** the creation of the rectangles can be done directly inside the
@@ -97,7 +97,9 @@ void MenuGradient::display(const utils::Context& context) const &
 /**
  *
  */
-void MenuGradient::initializeGradientRectangles(utils::Context& context) &
+void MenuGradient::initializeGradientRectangles(
+    const utils::Context& context
+) &
 {
     float horizontalPosition = LEFT_SIDE_HORIZONTAL_POSITION;
 

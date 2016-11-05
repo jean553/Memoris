@@ -47,7 +47,7 @@ class OpenLevelController::Impl
 
 public:
 
-    Impl(utils::Context& context) :
+    Impl(const utils::Context& context) :
         list(context),
         cursor(context)
     {
@@ -76,7 +76,7 @@ public:
 /**
  *
  */
-OpenLevelController::OpenLevelController(utils::Context& context) :
+OpenLevelController::OpenLevelController(const utils::Context& context) :
     Controller(context),
     impl(std::make_unique<Impl>(context))
 {

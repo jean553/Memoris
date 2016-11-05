@@ -48,7 +48,7 @@ public:
 /**
  *
  */
-AnimatedBackground::AnimatedBackground(utils::Context& context) :
+AnimatedBackground::AnimatedBackground(const utils::Context& context) :
     impl(std::make_unique<Impl>())
 {
     initializeCells(context);
@@ -88,7 +88,7 @@ void AnimatedBackground::render(const utils::Context& context) const &
 /**
  *
  */
-void AnimatedBackground::initializeCells(utils::Context& context) &
+void AnimatedBackground::initializeCells(const utils::Context& context) &
 {
     /* TODO: #488 bad idea, we have to update this container manually everytime
        we add new cells types */

@@ -60,7 +60,7 @@ namespace utils
  *
  */
 void attachFramesToTutorial(
-    utils::Context& context,
+    const utils::Context& context,
     aliases::UniquePtrTutorialFramesContainerRef frames,
     const unsigned short& levelId
 )

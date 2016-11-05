@@ -58,7 +58,7 @@ public:
      * not 'noexcept' because the method calls SFML functions that are not
      * noexcept
      */
-    TutorialWidget(utils::Context& context);
+    TutorialWidget(const utils::Context& context);
 
     /**
      * @brief default destructor, empty, only declared in order to use the
