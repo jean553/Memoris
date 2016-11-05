@@ -231,7 +231,7 @@ void OfficialSeriesMenuController::selectMenuItem() & noexcept
        condition is a temporary solution for tests only; to delete */
     if (serie == "easy")
     {
-        expectedControllerId = ERROR_CONTROLLER_ID;
+        expectedControllerId = UNLOCKED_SERIE_ERROR_CONTROLLER_ID;
 
         return;
     }

@@ -29,6 +29,11 @@
 
 #include "Controller.hpp"
 
+namespace sf
+{
+class String;
+}
+
 namespace memoris
 {
 namespace controllers
@@ -37,9 +42,6 @@ namespace controllers
 class ErrorController : public Controller
 {
 
-    /* TODO: #559 this controller should display a custom message according
-       to the error */
-
 public:
 
     /**
@@ -47,8 +49,18 @@ public:
      * parent class constructor
      *
      * @param context constant reference to the current context
+     * @param message constant reference to the SFML string to render
      */
-    ErrorController(const utils::Context& context);
+    ErrorController(
+        const utils::Context& context,
+        const sf::String& message
+    );
+
+    /**
+     * @brief default destructor, empty, only declared in order to use
+     * forwarding declaration
+     */
+    ~ErrorController() noexcept;
 
     /**
      * @brief renders the error message screen
@@ -60,6 +72,13 @@ public:
     virtual const unsigned short& render(
         const utils::Context& context
     ) & override final;
+
+private:
+
+    static constexpr float MESSAGE_VERTICAL_POSITION {300.f};
+
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }

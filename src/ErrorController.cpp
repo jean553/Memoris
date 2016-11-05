@@ -24,28 +24,76 @@
 
 #include "ErrorController.hpp"
 
+#include "ColorsManager.hpp"
+#include "FontsManager.hpp"
+#include "fonts.hpp"
 #include "controllers.hpp"
+#include "window.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Text.hpp>
 
 namespace memoris
 {
 namespace controllers
 {
 
+class ErrorController::Impl
+{
+
+public:
+
+    Impl(
+        const utils::Context& context,
+        const sf::String& message
+    )
+    {
+        text.setString(message);
+        text.setColor(context.getColorsManager().getColorWhite());
+        text.setFont(context.getFontsManager().getTextFont());
+        text.setCharacterSize(fonts::TEXT_SIZE);
+
+        /* window::WIDTH is an unsigned int, and there is guarantee about the
+           getLocalBounds().width type */
+        text.setPosition(
+            static_cast<float>(window::WIDTH) / 2 - 
+            static_cast<float>(text.getLocalBounds().width) / 2,
+            MESSAGE_VERTICAL_POSITION
+        );
+    }
+
+    sf::Text text;
+};
+
 /**
  *
  */
-ErrorController::ErrorController(const utils::Context& context) :
-    Controller(context)
+ErrorController::ErrorController(
+    const utils::Context& context,
+    const sf::String& message
+) :
+    Controller(context),
+    impl(
+        std::make_unique<Impl>(
+            context,
+            message
+        )
+    )
 {
 }
 
 /**
  *
  */
+ErrorController::~ErrorController() noexcept = default;
+
+/**
+ *
+ */
 const unsigned short& ErrorController::render(const utils::Context& context) &
 {
+    context.getSfmlWindow().draw(impl->text);
+
     nextControllerId = animateScreenTransition(context);
 
     while(context.getSfmlWindow().pollEvent(event))
