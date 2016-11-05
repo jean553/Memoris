@@ -77,7 +77,7 @@ constexpr char ELEVATOR_DOWN_CELL {'V'};
  */
 template<typename T>
 std::unique_ptr<entities::Cell> getCellByType(
-    utils::Context& context,
+    const utils::Context& context,
     const T& horizontalPosition,
     const T& verticalPosition,
     const char type

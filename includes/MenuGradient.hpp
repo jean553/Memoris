@@ -54,7 +54,7 @@ public:
      *
      * not 'noexcept' because it calls SFML functions that are not noexcept
      */
-    MenuGradient(utils::Context& context);
+    MenuGradient(const utils::Context& context);
 
     /**
      * @brief default constructor, empty, only declared in order to use the
@@ -87,11 +87,9 @@ private:
      *
      * @param context reference to the current context to use
      *
-     * not 'const' because it modifies the gradient effect surfaces container
-     *
      * not 'noexcept' because it calls SFML methods that are not noexcept
      */
-    void initializeGradientRectangles(utils::Context& context) &;
+    void initializeGradientRectangles(const utils::Context& context) &;
 
     class Impl;
     std::unique_ptr<Impl> impl;

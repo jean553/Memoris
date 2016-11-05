@@ -44,11 +44,11 @@ public:
      * @brief constructor, creates the title surface and the explanation
      * label surface; creates the input text widget
      *
-     * @param context reference to the current context to use
+     * @param context constant reference to the current context to use
      *
      * not 'noexcept' because it calls SFML functions that are not noexcept
      */
-    NewGameController(utils::Context& context);
+    NewGameController(const utils::Context& context);
 
     /**
      * @brief default destructor, empty, only declared here in order to use

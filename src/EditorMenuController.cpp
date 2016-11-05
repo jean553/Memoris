@@ -43,7 +43,7 @@ class EditorMenuController::Impl
 
 public:
 
-    Impl(utils::Context& context)
+    Impl(const utils::Context& context)
     {
         title.setFont(context.getFontsManager().getTitleFont());
         title.setString("Editor");
@@ -61,7 +61,7 @@ public:
 /**
  *
  */
-EditorMenuController::EditorMenuController(utils::Context& context) :
+EditorMenuController::EditorMenuController(const utils::Context& context) :
     AbstractMenuController(context),
     impl(std::make_unique<Impl>(context))
 {

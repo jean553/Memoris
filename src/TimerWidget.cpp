@@ -38,7 +38,7 @@ namespace widgets
  *
  */
 TimerWidget::TimerWidget(
-    utils::Context& context,
+    const utils::Context& context,
     const float& hPosition,
     const float& vPosition
 )

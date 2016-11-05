@@ -45,12 +45,10 @@ public:
      *
      * @param context reference to the current context to use
      *
-     * the context is not 'const' because its SFML attributes are modified
-     *
      * not 'noexcept' because calls SFML methods (through implementation) that
      * are not noexcept
      */
-    OpenLevelController(utils::Context& context);
+    OpenLevelController(const utils::Context& context);
 
     /**
      * @brief default destructor, empty, only declared for forwarding

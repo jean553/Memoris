@@ -45,7 +45,7 @@ public:
      *
      * @param context reference to the current context
      */
-    LevelEditorController(utils::Context& context);
+    LevelEditorController(const utils::Context& context);
 
     /**
      * @brief default destructor, empty, declared in order to use forwarding

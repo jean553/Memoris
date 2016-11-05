@@ -54,7 +54,7 @@ class GameController::Impl
 public:
 
     Impl(
-        utils::Context& context,
+        const utils::Context& context,
         std::shared_ptr<entities::Level> levelPtr
     ) :
         level(levelPtr),
@@ -99,7 +99,7 @@ public:
  *
  */
 GameController::GameController(
-    utils::Context& context,
+    const utils::Context& context,
     std::shared_ptr<entities::Level> levelPtr
 ) :
     Controller(context),

@@ -34,7 +34,7 @@ namespace cells
  */
 template<typename T>
 std::unique_ptr<entities::Cell> getCellByType(
-    utils::Context& context,
+    const utils::Context& context,
     const T& horizontalPosition,
     const T& verticalPosition,
     const char type
@@ -53,7 +53,7 @@ std::unique_ptr<entities::Cell> getCellByType(
 /* declared here because not specified into the header */
 
 template std::unique_ptr<entities::Cell> getCellByType(
-    utils::Context& context,
+    const utils::Context& context,
     const unsigned short& horizontalPosition,
     const unsigned short& verticalPosition,
     const char type

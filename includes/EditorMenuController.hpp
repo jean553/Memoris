@@ -48,7 +48,7 @@ public:
      *
      * not 'noexcept' because it calls SFML methods that are not noexcept
      */
-    EditorMenuController(utils::Context& context);
+    EditorMenuController(const utils::Context& context);
 
     /**
      * @brief default destructor, empty, only declared in order to use

@@ -47,7 +47,7 @@ class MainMenuController::Impl
 
 public:
 
-    Impl(utils::Context& context) :
+    Impl(const utils::Context& context) :
         animatedBackground(context),
         menuGradient(context)
     {
@@ -75,7 +75,7 @@ public:
 /**
  *
  */
-MainMenuController::MainMenuController(utils::Context& context) :
+MainMenuController::MainMenuController(const utils::Context& context) :
     AbstractMenuController(context),
     impl(std::make_unique<Impl>(context))
 {

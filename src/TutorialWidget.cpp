@@ -46,7 +46,7 @@ class TutorialWidget::Impl
 
 public:
 
-    Impl(utils::Context& context)
+    Impl(const utils::Context& context)
     {
         back.setFillColor(context.getColorsManager().getColorBlueLowAlpha());
         top.setFillColor(context.getColorsManager().getColorWhite());
@@ -90,7 +90,7 @@ public:
 /**
  *
  */
-TutorialWidget::TutorialWidget(utils::Context& context) :
+TutorialWidget::TutorialWidget(const utils::Context& context) :
     impl(std::make_unique<Impl>(context))
 {
     /* directly force to pop the first item of the queue */

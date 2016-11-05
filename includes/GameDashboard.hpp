@@ -54,7 +54,7 @@ public:
      *
      * @param context reference to the current context
      */
-    GameDashboard(utils::Context& context);
+    GameDashboard(const utils::Context& context);
 
     /**
      * @brief default destructor, empty, only declared in order to use

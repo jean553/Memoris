@@ -69,7 +69,7 @@ public:
  *
  */
 Level::Level(
-    utils::Context& context,
+    const utils::Context& context,
     const bool loadFromFile
 ) :
     impl(std::make_unique<Impl>())
@@ -461,7 +461,7 @@ void Level::deleteTransform()
 /**
  *
  */
-void Level::loadLevelFromFile(utils::Context& context)
+void Level::loadLevelFromFile(const utils::Context& context)
 {
     std::ifstream file(context.getPlayingSerieManager().getNextLevelName());
 
@@ -534,7 +534,7 @@ void Level::loadLevelFromFile(utils::Context& context)
 /**
  *
  */
-void Level::loadEmptyLevel(utils::Context& context)
+void Level::loadEmptyLevel(const utils::Context& context)
 {
     for(unsigned short index {0}; index < 2560; index++)
     {

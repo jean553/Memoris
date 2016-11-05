@@ -49,7 +49,7 @@ public:
      * @param vPosition the vertical position
      */
     TimerWidget(
-        utils::Context& context,
+        const utils::Context& context,
         const float& hPosition,
         const float& vPosition
     );

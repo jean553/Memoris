@@ -47,7 +47,7 @@ class GameDashboard::Impl
 
 public:
 
-    Impl(utils::Context& context) :
+    Impl(const utils::Context& context) :
         separators(context),
         timer(
             context,
@@ -165,7 +165,7 @@ public:
 /**
  *
  */
-GameDashboard::GameDashboard(utils::Context& context) :
+GameDashboard::GameDashboard(const utils::Context& context) :
     impl(std::make_unique<Impl>(context))
 {
 }
