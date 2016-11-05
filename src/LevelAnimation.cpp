@@ -36,6 +36,11 @@ namespace animations
 /**
  *
  */
+LevelAnimation::~LevelAnimation() noexcept = default;
+
+/**
+ *
+ */
 const bool& LevelAnimation::isFinished() const & noexcept
 {
     return finished;
