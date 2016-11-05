@@ -69,6 +69,15 @@ public:
 
 private:
 
+    static constexpr float LEFT_LEVELS_LABEL_VERTICAL_POSITION {200.f};
+    static constexpr float LEFT_LEVELS_PREFIX_VERTICAL_POSITION {150.f};
+    static constexpr float LEFT_LEVELS_SUFFIX_HORIZONTAL_POSITION {560.f};
+    static constexpr float LEFT_LEVELS_SUFFIX_VERTICAL_POSITION {650.f};
+
+    static constexpr sf::Uint32 ANIMATION_INTERVAL {50};
+
+    static constexpr sf::Uint8 MAXIMUM_TRANSPARENCY {255};
+
     /**
      * @brief render the flashing animation of the left levels amount text
      *

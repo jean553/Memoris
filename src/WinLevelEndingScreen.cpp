@@ -29,6 +29,7 @@
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "PlayingSerieManager.hpp"
+#include "window.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
@@ -44,10 +45,6 @@ public:
 
     Impl(const Context& context)
     {
-        leftLevelsAmount.setPosition(
-            700.f,
-            200.f
-        );
         leftLevelsAmount.setString(
             std::to_string(
                 context.getPlayingSerieManager().getRemainingLevelsAmount()
@@ -60,16 +57,21 @@ public:
         leftLevelsAmount.setColor(
             context.getColorsManager().getColorWhite()
         );
+        leftLevelsAmount.setPosition(
+            static_cast<float>(window::WIDTH) / 2 -
+            static_cast<float>(leftLevelsAmount.getLocalBounds().width) / 2,
+            LEFT_LEVELS_LABEL_VERTICAL_POSITION
+        );
 
         leftLevelsSuffix.setPosition(
-            560.f,
-            650.f
+            LEFT_LEVELS_SUFFIX_HORIZONTAL_POSITION,
+            LEFT_LEVELS_SUFFIX_VERTICAL_POSITION
         );
         leftLevelsSuffix.setString("levels left");
         leftLevelsSuffix.setCharacterSize(fonts::SUB_TITLE_SIZE);
         leftLevelsSuffix.setFont(context.getFontsManager().getTextFont());
         leftLevelsSuffix.setColor(
-            context.getColorsManager().getColorDarkGreen()
+            context.getColorsManager().getColorWhite()
         );
     }
 
@@ -80,9 +82,7 @@ public:
 
     sf::Uint8 leftLevelsAmountTransparency {255};
 
-    /* 17 because this is the increment/decrement step of transparency to
-       create the flashing animation ( 255 / 5 = 17 ) */
-    sf::Int8 leftLevelsAmountDirection {-17};
+    sf::Int8 leftLevelsAmountDirection {-17}; // (17 steps) 255 / 15 = 17
 };
 
 /**
@@ -92,12 +92,13 @@ WinLevelEndingScreen::WinLevelEndingScreen(const Context& context) :
     LevelEndingScreen(context),
     impl(std::make_unique<Impl>(context))
 {
-    text.setPosition(
-        480.f,
-        150.f
-    );
     text.setString("You Win !");
     text.setColor(context.getColorsManager().getColorGreen());
+    text.setPosition(
+        static_cast<float>(window::WIDTH) / 2 -
+        static_cast<float>(text.getLocalBounds().width) / 2,
+        LEFT_LEVELS_PREFIX_VERTICAL_POSITION
+    );
 }
 
 /**
@@ -110,11 +111,8 @@ WinLevelEndingScreen::~WinLevelEndingScreen() noexcept = default;
  */
 void WinLevelEndingScreen::render(const Context& context) &
 {
-    /* already done in the derivated function, but we want add aditional
-       actions for this class */
     context.getSfmlWindow().draw(filter);
     context.getSfmlWindow().draw(text);
-
     context.getSfmlWindow().draw(impl->leftLevelsSuffix);
 
     animateLeftLevelsAmount(context);
@@ -129,7 +127,7 @@ void WinLevelEndingScreen::animateLeftLevelsAmount(const Context& context) &
 
     if (
         context.getClockMillisecondsTime() -
-        impl->lastAnimationUpdateTime < 50
+        impl->lastAnimationUpdateTime < ANIMATION_INTERVAL
     )
     {
         return;
@@ -139,7 +137,7 @@ void WinLevelEndingScreen::animateLeftLevelsAmount(const Context& context) &
 
     if (
         impl->leftLevelsAmountTransparency == 0 ||
-        impl->leftLevelsAmountTransparency == 255
+        impl->leftLevelsAmountTransparency == MAXIMUM_TRANSPARENCY
     )
     {
         impl->leftLevelsAmountDirection *= -1;

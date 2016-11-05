@@ -52,6 +52,12 @@ class LevelAnimation
 public:
 
     /**
+     * @brief destructor, only declared here to be virtual and ensure correct
+     * objects destruction
+     */
+    virtual ~LevelAnimation() noexcept;
+
+    /**
      * @brief renders the animation, called by the game controller
      *
      * @param context constant reference to the current context to use
