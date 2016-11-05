@@ -25,13 +25,20 @@
 #ifndef MEMORIS_ERRORS_H_
 #define MEMORIS_ERRORS_H_
 
+#include <SFML/System/String.hpp>
+
 namespace memoris
 {
 namespace errors
 {
-/* NOTE: the strings cannot be declared as constant expressions */
 
-const std::string OPEN_FONT_ERROR_PREFIX = "Cannot open the font ";
+/* SFML strings objects cannot be declared as constant expressions */
+
+const sf::String UNLOCKED_SERIE = "This serie is locked. \
+    Finish the previous series first.";
+
+const sf::String CANNOT_OPEN_LEVEL = "Cannot open level file.";
+
 }
 }
 

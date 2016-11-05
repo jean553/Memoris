@@ -30,6 +30,8 @@
 #include "ErrorController.hpp"
 #include "Context.hpp"
 
+#include <SFML/System/String.hpp>
+
 namespace memoris
 {
 namespace controllers
@@ -44,12 +46,15 @@ constexpr unsigned short NEW_GAME_CONTROLLER_ID = 3;
 constexpr unsigned short GAME_CONTROLLER_ID = 4;
 constexpr unsigned short SERIE_MAIN_MENU_CONTROLLER_ID = 5;
 constexpr unsigned short OFFICIAL_SERIES_MENU_CONTROLLER_ID = 6;
-constexpr unsigned short ERROR_CONTROLLER_ID = 7;
 constexpr unsigned short EDITOR_MENU_CONTROLLER_ID = 8;
 constexpr unsigned short LEVEL_EDITOR_CONTROLLER_ID = 9;
 constexpr unsigned short OPEN_LEVEL_CONTROLLER_ID = 10;
 constexpr unsigned short OPEN_GAME_CONTROLLER_ID = 11;
 constexpr unsigned short SERIE_EDITOR_CONTROLLER_ID = 12;
+
+/* TODO: #894 delete this id when each error controller has his own message */
+constexpr unsigned short ERROR_CONTROLLER_ID = 7;
+constexpr unsigned short UNLOCKED_SERIE_ERROR_CONTROLLER_ID = 13;
 
 /**
  * @brief factory method to create controllers by id, each controller is linked
@@ -61,7 +66,7 @@ constexpr unsigned short SERIE_EDITOR_CONTROLLER_ID = 12;
  * @return std::unique_ptr<Controller>
  */
 std::unique_ptr<Controller> getControllerById(
-    utils::Context& context,
+    const utils::Context& context,
     const unsigned short& id
 );
 
@@ -70,10 +75,14 @@ std::unique_ptr<Controller> getControllerById(
  * this controller is needed in different cases, that's why it is refactored
  * here
  *
+ * @param context constant reference to the current context to use
+ * @param message constant reference to the SFML string to display
+ *
  * @return std::unique_ptr<ErrorController>
  */
 std::unique_ptr<ErrorController> getErrorController(
-    utils::Context& context
+    const utils::Context& context,
+    const sf::String& message
 );
 
 }

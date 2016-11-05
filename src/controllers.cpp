@@ -33,8 +33,8 @@
 #include "OpenLevelController.hpp"
 #include "OpenGameController.hpp"
 #include "SerieEditorController.hpp"
-
 #include "Level.hpp"
+#include "errors.hpp"
 
 namespace memoris
 {
@@ -83,24 +83,27 @@ std::unique_ptr<Controller> getControllerById(
                              true
                          );
 
-            /* creates the game controller and pass the level pointer to it */
             return std::make_unique<GameController>(
                        context,
                        level
                    );
-
-            /* catch the invalid argument exception if the game cannot start;
-               we get it as a reference to make the program runs faster */
         }
         catch(std::invalid_argument&)
         {
-            /* render the error controller instead of the game controller */
-            return getErrorController(context);
+            return getErrorController(
+                context,
+                errors::CANNOT_OPEN_LEVEL
+            );
         }
     }
+    /* TODO: #894 to delete, an empty error controller is never called; it
+       always contains a message */
     case ERROR_CONTROLLER_ID:
     {
-        return getErrorController(context);
+        return getErrorController(
+            context,
+            errors::CANNOT_OPEN_LEVEL
+        );
     }
     case EDITOR_MENU_CONTROLLER_ID:
     {
@@ -122,6 +125,13 @@ std::unique_ptr<Controller> getControllerById(
     {
         return std::make_unique<SerieEditorController>(context);
     }
+    case UNLOCKED_SERIE_ERROR_CONTROLLER_ID:
+    {
+        return getErrorController(
+            context,
+            errors::UNLOCKED_SERIE
+        );
+    }
     }
 
     /* by default, if the controller id does not exist, the main
@@ -135,10 +145,14 @@ std::unique_ptr<Controller> getControllerById(
  *
  */
 std::unique_ptr<ErrorController> getErrorController(
-    utils::Context& context
+    const utils::Context& context,
+    const sf::String& message
 )
 {
-    return std::make_unique<ErrorController>(context);
+    return std::make_unique<ErrorController>(
+        context,
+        message
+    );
 }
 
 }

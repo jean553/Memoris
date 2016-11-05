@@ -32,19 +32,14 @@ namespace memoris
 namespace window
 {
 
-/* NOTE: the strings are declared as extern, like that we are sure they are
-   only defined one time, and all the scripts that need them use the sames */
+/* unsigned int because the RenderWindow constructor excepts unsigned int */
 
-/* width of the SFML window */
-constexpr unsigned short WIDTH = 1600;
+constexpr unsigned int WIDTH = 1600;
+constexpr unsigned int HEIGHT = 900;
+constexpr unsigned int RESOLUTION = 32;
 
-/* height of the SFML window */
-constexpr unsigned short HEIGHT = 900;
+/* extern to be sure that we only declare them one time */
 
-/* resolution of the SFML window */
-constexpr unsigned short RESOLUTION = 32;
-
-/* the title of the SFML window */
 extern const std::string TITLE;
 
 }
