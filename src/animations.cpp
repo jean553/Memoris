@@ -29,6 +29,7 @@
 #include "StairsAnimation.hpp"
 #include "DiagonalAnimation.hpp"
 #include "RotateFloorAnimation.hpp"
+#include "QuarterRotationAnimation.hpp"
 #include "cells.hpp"
 
 namespace memoris
@@ -77,6 +78,10 @@ std::unique_ptr<LevelAnimation> getAnimationByCellType(
     case cells::RIGHT_ROTATION_CELL:
     {
         return std::make_unique<RotateFloorAnimation>(1);
+    }
+    case cells::QUARTER_ROTATION_CELL:
+    {
+        return std::make_unique<QuarterRotationAnimation>();
     }
     default:
     {
