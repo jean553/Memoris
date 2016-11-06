@@ -174,6 +174,12 @@ CellsSelector::CellsSelector(const utils::Context& context) :
             SECOND_COLUMN_CELLS_HORIZONTAL_POSITION,
             198.f,
             cells::DIAGONAL_CELL
+        ),
+        entities::Cell(
+            context,
+            SECOND_COLUMN_CELLS_HORIZONTAL_POSITION,
+            248.f,
+            cells::QUARTER_ROTATION_CELL
         )
     };
 
