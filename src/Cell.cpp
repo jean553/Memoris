@@ -221,13 +221,10 @@ void Cell::setCellColorTransparency(
     const sf::Uint8& alpha
 ) &
 {
-    /* get a copy of the white color from the colors manager */
     sf::Color cellColor = context.getColorsManager().getColorWhiteCopy();
 
-    /* update the transparency of the color */
     cellColor.a = alpha;
 
-    /* update the color of the cell */
     sprite.setColor(cellColor);
 }
 

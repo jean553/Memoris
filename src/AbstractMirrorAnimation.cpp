@@ -25,18 +25,42 @@
 #include "AbstractMirrorAnimation.hpp"
 
 #include "Level.hpp"
+#include "Cell.hpp"
+
+#include <SFML/Config.hpp>
 
 namespace memoris
 {
 namespace animations
 {
 
+class AbstractMirrorAnimation::Impl
+{
+
+public:
+
+    sf::Uint8 animatedSideTransparency {255};
+};
+
+/**
+ *
+ */
+AbstractMirrorAnimation::AbstractMirrorAnimation() :
+    impl(std::make_unique<Impl>())
+{
+}
+
+/**
+ *
+ */
+AbstractMirrorAnimation::~AbstractMirrorAnimation() noexcept = default;
+
 /**
  *
  */
 void AbstractMirrorAnimation::increaseTransparency() & noexcept
 {
-    animatedSideTransparency += TRANSPARENCY_INTERVAL;
+    impl->animatedSideTransparency += TRANSPARENCY_INTERVAL;
 }
 
 /**
@@ -44,7 +68,7 @@ void AbstractMirrorAnimation::increaseTransparency() & noexcept
  */
 void AbstractMirrorAnimation::decreaseTransparency() & noexcept
 {
-    animatedSideTransparency -= TRANSPARENCY_INTERVAL;
+    impl->animatedSideTransparency -= TRANSPARENCY_INTERVAL;
 }
 
 /**
@@ -52,7 +76,7 @@ void AbstractMirrorAnimation::decreaseTransparency() & noexcept
  */
 void AbstractMirrorAnimation::setFullTransparent() & noexcept
 {
-    animatedSideTransparency = 0.f;
+    impl->animatedSideTransparency = 0.f;
 }
 
 /**
@@ -60,7 +84,7 @@ void AbstractMirrorAnimation::setFullTransparent() & noexcept
  */
 void AbstractMirrorAnimation::setNoTransparent() & noexcept
 {
-    animatedSideTransparency = 255.f;
+    impl->animatedSideTransparency = MAXIMUM_TRANSPARENCY;
 }
 
 /**
@@ -74,7 +98,7 @@ void AbstractMirrorAnimation::applyTransparencyOnOneCell(
 {
     level->getCells()[index]->setCellColorTransparency(
         context,
-        animatedSideTransparency
+        impl->animatedSideTransparency
     );
 }
 
