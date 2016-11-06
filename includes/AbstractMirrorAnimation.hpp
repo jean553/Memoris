@@ -28,10 +28,6 @@
 
 #include "LevelAnimation.hpp"
 
-#include "Cell.hpp"
-
-#include <queue>
-
 namespace memoris
 {
 namespace animations
@@ -40,12 +36,27 @@ namespace animations
 class AbstractMirrorAnimation : public LevelAnimation
 {
 
+public:
+
+    /**
+     * @brief default destructor, empty, only used for forwarding declaration
+     */
+    ~AbstractMirrorAnimation() noexcept;
+
 protected:
 
     static constexpr sf::Uint32 ANIMATION_STEPS_INTERVAL {50};
 
     static constexpr unsigned short CELLS_PER_FLOOR {256};
     static constexpr unsigned short CELLS_PER_LINE {16};
+
+    /**
+     * @brief constructor, empty, only declared in order to initialize the
+     * implementation
+     *
+     * protected because this class is abstract
+     */
+    AbstractMirrorAnimation();
 
     /**
      * @brief increases the transparency
@@ -89,17 +100,14 @@ protected:
         const unsigned short& index
     ) const &;
 
-    /* these attributes are not inside an
-       implementation as they are protected */
-
-    /* TODO: check if can be deleted */
-    std::queue<entities::Cell> savedCells;
-
 private:
 
     static constexpr float TRANSPARENCY_INTERVAL {51.f};
 
-    float animatedSideTransparency {255.f};
+    static constexpr sf::Uint8 MAXIMUM_TRANSPARENCY {255};
+
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }
