@@ -69,7 +69,6 @@ EditorMenuController::EditorMenuController(const utils::Context& context) :
         std::make_unique<items::MenuItem>(
             context,
             "Level",
-            710.f,
             200.f
         )
     );
@@ -78,7 +77,6 @@ EditorMenuController::EditorMenuController(const utils::Context& context) :
         std::make_unique<items::MenuItem>(
             context,
             "Serie",
-            710.f,
             350.f
         )
     );
@@ -87,7 +85,6 @@ EditorMenuController::EditorMenuController(const utils::Context& context) :
         std::make_unique<items::MenuItem>(
             context,
             "Back",
-            720.f,
             800.f
         )
     );

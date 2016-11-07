@@ -27,11 +27,6 @@
 
 #include <string>
 
-namespace sf
-{
-class Text;
-}
-
 namespace memoris
 {
 namespace window
@@ -46,19 +41,6 @@ constexpr unsigned int RESOLUTION = 32;
 /* extern to be sure that we only declare them one time */
 
 extern const std::string TITLE;
-
-/**
- * @brief returns the horizontal position of a centered text on the screen
- *
- * @param text constant reference to a SFML text
- *
- * @return const float
- *
- * does not return a reference because does not return an attribute value
- *
- * not 'noexcept' because it calls SFML methods that are not noexcept
- */
-const float getCenteredTextHorizontalPosition(const sf::Text& text);
 
 }
 }

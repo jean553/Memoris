@@ -83,7 +83,6 @@ OfficialSeriesMenuController::OfficialSeriesMenuController(
         std::make_unique<items::MenuItem>(
             context,
             "Tutorial",
-            660.f,
             200.f
         )
     );
@@ -92,7 +91,6 @@ OfficialSeriesMenuController::OfficialSeriesMenuController(
         std::make_unique<items::MenuItem>(
             context,
             "Easy",
-            710.f,
             270.f
         )
     );
@@ -101,7 +99,6 @@ OfficialSeriesMenuController::OfficialSeriesMenuController(
         std::make_unique<items::MenuItem>(
             context,
             "Medium",
-            670.f,
             340.f
         )
     );
@@ -110,7 +107,6 @@ OfficialSeriesMenuController::OfficialSeriesMenuController(
         std::make_unique<items::MenuItem>(
             context,
             "Difficult",
-            650.f,
             410.f
         )
     );
@@ -119,7 +115,6 @@ OfficialSeriesMenuController::OfficialSeriesMenuController(
         std::make_unique<items::MenuItem>(
             context,
             "Hard",
-            710.f,
             480.f
         )
     );
@@ -128,7 +123,6 @@ OfficialSeriesMenuController::OfficialSeriesMenuController(
         std::make_unique<items::MenuItem>(
             context,
             "Very Hard",
-            640.f,
             560.f
         )
     );
@@ -137,7 +131,6 @@ OfficialSeriesMenuController::OfficialSeriesMenuController(
         std::make_unique<items::MenuItem>(
             context,
             "Hazardous",
-            615.f,
             630.f
         )
     );
