@@ -31,6 +31,7 @@
 #include "MenuItem.hpp"
 #include "AnimatedBackground.hpp"
 #include "MenuGradient.hpp"
+#include "window.hpp"
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -86,7 +87,7 @@ MainMenuController::MainMenuController(const utils::Context& context) :
     impl->title.setCharacterSize(fonts::TITLE_SIZE);
     impl->title.setColor(impl->colorTitle);
     impl->title.setPosition(
-        480.f,
+        window::getCenteredTextHorizontalPosition(impl->title),
         100.f
     );
 

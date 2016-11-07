@@ -24,12 +24,25 @@
 
 #include "window.hpp"
 
+#include <SFML/Graphics/Text.hpp>
+
 namespace memoris
 {
 namespace window
 {
 
 const std::string TITLE = "Memoris";
+
+/**
+ *
+ */
+const float getCenteredTextHorizontalPosition(const sf::Text& text)
+{
+    /* the window::WIDTH variable is an unsigned int and this is not
+       guarantee that getLocalBounds().width returns a float */
+    return static_cast<float>(window::WIDTH) / 2 -
+        static_cast<float>(text.getLocalBounds().width) / 2;
+}
 
 }
 }
