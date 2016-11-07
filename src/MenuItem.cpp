@@ -28,6 +28,7 @@
 #include "Context.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
+#include "window.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -45,17 +46,12 @@ public:
     Impl(
         const utils::Context& context,
         const std::string& label,
-        const float& horizontalPosition,
         const float& verticalPosition
     )
     {
         text.setString(label);
         text.setFont(context.getFontsManager().getTextFont());
         text.setCharacterSize(fonts::ITEM_SIZE);
-        text.setPosition(
-            horizontalPosition,
-            verticalPosition
-        );
 
         selectedColor.r = 255;
         selectedColor.g = 0;
@@ -80,18 +76,21 @@ public:
 MenuItem::MenuItem(
     const utils::Context& context,
     const std::string& label,
-    const float& horizontalPosition,
     const float& verticalPosition
 ) :
     impl(
         std::make_unique<Impl>(
             context,
             label,
-            horizontalPosition,
             verticalPosition
         )
     )
 {
+    impl->text.setPosition(
+        getCenteredTextHorizontalPosition(impl->text),
+        verticalPosition
+    );
+
     unselect(context);
 }
 
@@ -157,6 +156,17 @@ void MenuItem::select(const utils::Context& context) const &
 void MenuItem::display(const utils::Context& context) const &
 {
     context.getSfmlWindow().draw(impl->text);
+}
+
+/**
+ *
+ */
+const float MenuItem::getCenteredTextHorizontalPosition(const sf::Text& text)
+{
+    /* the window::WIDTH variable is an unsigned int and this is not
+       guarantee that getLocalBounds().width returns a float */
+    return static_cast<float>(window::WIDTH) / 2 -
+        static_cast<float>(text.getLocalBounds().width) / 2;
 }
 
 }

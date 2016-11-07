@@ -71,7 +71,6 @@ SerieMainMenuController::SerieMainMenuController(
         std::make_unique<items::MenuItem>(
             context,
             "Official series",
-            550.f,
             250.f
         )
     );
@@ -80,7 +79,6 @@ SerieMainMenuController::SerieMainMenuController(
         std::make_unique<items::MenuItem>(
             context,
             "Personal series",
-            520.f,
             470.f
         )
     );
@@ -89,7 +87,6 @@ SerieMainMenuController::SerieMainMenuController(
         std::make_unique<items::MenuItem>(
             context,
             "Back",
-            720.f,
             800.f
         )
     );

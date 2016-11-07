@@ -31,7 +31,6 @@
 #include "MenuItem.hpp"
 #include "AnimatedBackground.hpp"
 #include "MenuGradient.hpp"
-#include "window.hpp"
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -87,7 +86,7 @@ MainMenuController::MainMenuController(const utils::Context& context) :
     impl->title.setCharacterSize(fonts::TITLE_SIZE);
     impl->title.setColor(impl->colorTitle);
     impl->title.setPosition(
-        window::getCenteredTextHorizontalPosition(impl->title),
+        480.f,
         100.f
     );
 
@@ -95,7 +94,6 @@ MainMenuController::MainMenuController(const utils::Context& context) :
         std::make_unique<items::MenuItem>(
             context,
             "New game",
-            615.f,
             300.f
         )
     );
@@ -104,7 +102,6 @@ MainMenuController::MainMenuController(const utils::Context& context) :
         std::make_unique<items::MenuItem>(
             context,
             "Load game",
-            605.f,
             400.f
         )
     );
@@ -113,7 +110,6 @@ MainMenuController::MainMenuController(const utils::Context& context) :
         std::make_unique<items::MenuItem>(
             context,
             "Editor",
-            685.f,
             500.f
         )
     );
@@ -122,7 +118,6 @@ MainMenuController::MainMenuController(const utils::Context& context) :
         std::make_unique<items::MenuItem>(
             context,
             "Options",
-            660.f,
             600.f
         )
     );
@@ -131,7 +126,6 @@ MainMenuController::MainMenuController(const utils::Context& context) :
         std::make_unique<items::MenuItem>(
             context,
             "Exit",
-            725.f,
             700.f
         )
     );
