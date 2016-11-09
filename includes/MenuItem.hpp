@@ -114,19 +114,6 @@ private:
      */
     void display(const utils::Context& context) const &;
 
-    /**
-     * @brief returns the horizontal position of a centered text on the screen
-     *
-     * @param text constant reference to a SFML text
-     *
-     * @return const float
-     *
-     * does not return a reference because does not return an attribute value
-     *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
-     */
-    const float getCenteredTextHorizontalPosition(const sf::Text& text);
-
     class Impl;
     std::unique_ptr<Impl> impl;
 };

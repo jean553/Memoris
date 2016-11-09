@@ -26,6 +26,7 @@
 
 #include "Context.hpp"
 #include "ColorsManager.hpp"
+#include "window.hpp"
 
 namespace memoris
 {
@@ -38,12 +39,16 @@ namespace utils
 LoseLevelEndingScreen::LoseLevelEndingScreen(const Context& context) :
     LevelEndingScreen(context)
 {
-    text.setPosition(
-        400.f,
-        200.f
-    );
     text.setString("You Lose !");
     text.setColor(context.getColorsManager().getColorRed());
+
+    /* the position is not set in the parent controller because we need to
+       know the surface width before setting the horizontal position */
+
+    text.setPosition(
+        window::getCenteredSfmlSurfaceHorizontalPosition(text),
+        200.f
+    );
 }
 
 }

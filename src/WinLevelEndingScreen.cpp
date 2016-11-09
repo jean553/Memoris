@@ -58,20 +58,19 @@ public:
             context.getColorsManager().getColorWhite()
         );
         leftLevelsAmount.setPosition(
-            static_cast<float>(window::WIDTH) / 2 -
-            static_cast<float>(leftLevelsAmount.getLocalBounds().width) / 2,
+            window::getCenteredSfmlSurfaceHorizontalPosition(leftLevelsAmount),
             LEFT_LEVELS_LABEL_VERTICAL_POSITION
         );
 
-        leftLevelsSuffix.setPosition(
-            LEFT_LEVELS_SUFFIX_HORIZONTAL_POSITION,
-            LEFT_LEVELS_SUFFIX_VERTICAL_POSITION
-        );
         leftLevelsSuffix.setString("levels left");
         leftLevelsSuffix.setCharacterSize(fonts::SUB_TITLE_SIZE);
         leftLevelsSuffix.setFont(context.getFontsManager().getTextFont());
         leftLevelsSuffix.setColor(
             context.getColorsManager().getColorWhite()
+        );
+        leftLevelsSuffix.setPosition(
+            window::getCenteredSfmlSurfaceHorizontalPosition(leftLevelsSuffix),
+            LEFT_LEVELS_SUFFIX_VERTICAL_POSITION
         );
     }
 
@@ -94,9 +93,12 @@ WinLevelEndingScreen::WinLevelEndingScreen(const Context& context) :
 {
     text.setString("You Win !");
     text.setColor(context.getColorsManager().getColorGreen());
+
+    /* the position is not set in the parent controller because we need to
+       know the surface width before setting the horizontal position */
+
     text.setPosition(
-        static_cast<float>(window::WIDTH) / 2 -
-        static_cast<float>(text.getLocalBounds().width) / 2,
+        window::getCenteredSfmlSurfaceHorizontalPosition(text),
         LEFT_LEVELS_PREFIX_VERTICAL_POSITION
     );
 }

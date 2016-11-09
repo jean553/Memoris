@@ -29,6 +29,7 @@
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "MenuItem.hpp"
+#include "window.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -50,7 +51,7 @@ public:
         title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
         title.setColor(context.getColorsManager().getColorLightBlue());
         title.setPosition(
-            710.f,
+            window::getCenteredSfmlSurfaceHorizontalPosition(title),
             50.f
         );
     }

@@ -87,7 +87,7 @@ MenuItem::MenuItem(
     )
 {
     impl->text.setPosition(
-        getCenteredTextHorizontalPosition(impl->text),
+        window::getCenteredSfmlSurfaceHorizontalPosition(impl->text),
         verticalPosition
     );
 
@@ -156,17 +156,6 @@ void MenuItem::select(const utils::Context& context) const &
 void MenuItem::display(const utils::Context& context) const &
 {
     context.getSfmlWindow().draw(impl->text);
-}
-
-/**
- *
- */
-const float MenuItem::getCenteredTextHorizontalPosition(const sf::Text& text)
-{
-    /* the window::WIDTH variable is an unsigned int and this is not
-       guarantee that getLocalBounds().width returns a float */
-    return static_cast<float>(window::WIDTH) / 2 -
-        static_cast<float>(text.getLocalBounds().width) / 2;
 }
 
 }
