@@ -29,6 +29,7 @@
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "InputTextWidget.hpp"
+#include "window.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -44,6 +45,9 @@ class NewGameController::Impl
 
 public:
 
+    /* we voluntary do not use the getCenteredSfmlSurfaceHorizontalPosition()
+       refactored method to center the input text line */
+
     Impl(const utils::Context& context) :
         inputTextGameName(
             context,
@@ -58,7 +62,7 @@ public:
         title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
         title.setColor(context.getColorsManager().getColorLightBlue());
         title.setPosition(
-            620.f,
+            window::getCenteredSfmlSurfaceHorizontalPosition(title),
             200.f
         );
 
@@ -67,7 +71,7 @@ public:
         explanation.setCharacterSize(memoris::fonts::TEXT_SIZE);
         explanation.setColor(context.getColorsManager().getColorWhite());
         explanation.setPosition(
-            645.f,
+            window::getCenteredSfmlSurfaceHorizontalPosition(explanation),
             380.f
         );
     }
