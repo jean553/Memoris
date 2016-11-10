@@ -89,16 +89,53 @@ void Cell::moveOnTheRight()
 /**
  *
  */
+void Cell::moveInDirection(const MovementDirection& direction) &
+{
+    switch(direction)
+    {
+    case MovementDirection::UP:
+    {
+        verticalPosition -= POSITION_UPDATE_STEP;
+
+        break;
+    }
+    case MovementDirection::DOWN:
+    {
+        verticalPosition += POSITION_UPDATE_STEP;
+
+        break;
+    }
+    case MovementDirection::LEFT:
+    {
+        horizontalPosition -= POSITION_UPDATE_STEP;
+
+        break;
+    }
+    case MovementDirection::RIGHT:
+    {
+        horizontalPosition += POSITION_UPDATE_STEP;
+
+        break;
+    }
+    }
+
+    setPosition(
+        horizontalPosition,
+        verticalPosition
+    );
+}
+
+/**
+ *
+ */
 void Cell::setPosition(
     const float& hPosition,
     const float& vPosition
 )
 {
-    /* save the given values */
     horizontalPosition = hPosition;
     verticalPosition = vPosition;
 
-    /* set the new position of the SFML surface */
     sprite.setPosition(
         horizontalPosition,
         verticalPosition

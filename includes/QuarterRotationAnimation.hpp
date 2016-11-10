@@ -39,6 +39,17 @@ class QuarterRotationAnimation : public LevelAnimation
 public:
 
     /**
+     * @brief constructor, initializes the implementation
+     */
+    QuarterRotationAnimation() noexcept;
+
+    /**
+     * @brief default destructor, empty, only declared in order to use
+     * forwarding declaration
+     */
+    ~QuarterRotationAnimation() noexcept;
+
+    /**
      * @brief renders the animation
      *
      * @param context constant reference to the current context to use
@@ -50,6 +61,31 @@ public:
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) & override;
+
+private:
+
+    static constexpr sf::Uint32 ANIMATION_STEPS_INTERVAL {50};
+
+    static constexpr unsigned short ANIMATION_STEPS {40};
+    static constexpr unsigned short HALF_CELLS_PER_LINE {8};
+
+    /**
+     * @brief move all the quarters at the same time in the expected direction
+     *
+     * @param context constant reference to the current context to use
+     * @param level constant reference on shared pointer to the concerned level
+     * @param floor constant unsigned integer to the level floor to render
+     *
+     * not 'noexcept' because it calls SFML methods that are not noexcept
+     */
+    void moveAllQuarters(
+        const utils::Context& context,
+        const std::shared_ptr<entities::Level>& level,
+        const unsigned short& floor
+    ) const &;
+
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }
