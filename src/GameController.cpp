@@ -492,6 +492,15 @@ void GameController::executePlayerCellAction(
 
         break;
     }
+    case cells::QUARTER_ROTATION_CELL:
+    {
+        impl->animation = animations::getAnimationByCellType(
+            context,
+            newPlayerCellType
+        );
+
+        break;
+    }
     case cells::ARRIVAL_CELL:
     {
         if (

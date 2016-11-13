@@ -44,6 +44,17 @@ class Cell
 public:
 
     /**
+     * public because used by the quarter rotation animation
+     */
+    enum class MovementDirection
+    {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT
+    };
+
+    /**
      * @brief cell constructor, get the horizontal and vertical position of
      * the cell, get the type of the cell. Set the cell at the given
      * position, set the cell type
@@ -65,6 +76,19 @@ public:
      * with the animated background
      */
     void moveOnTheRight();
+
+    /**
+     * @brief move the cells into the given direction; used by the quarter
+     * rotate animation
+     *
+     * @param direction the expected direction of the movement
+     *
+     * not 'const' because modifies the position
+     * TODO: this const should be added when adding impl idiom in the class
+     *
+     * not 'noexcept' because it calls SFML methods that are not noexcept
+     */
+    void moveInDirection(const MovementDirection& direction) &;
 
     /**
      * @brief setter for the position
@@ -214,6 +238,7 @@ public:
 private:
 
     static constexpr float CELL_DIMENSION {49.f};
+    static constexpr float POSITION_UPDATE_STEP {10.f};
 
     /* the horizontal and vertical positions of the cell on the screen */
     /* NOTE: we do not initialize the positions here, because they have to
