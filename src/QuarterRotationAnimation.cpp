@@ -94,6 +94,11 @@ void QuarterRotationAnimation::renderAnimation(
 
     if (impl->translationSteps == ANIMATION_STEPS)
     {
+        updateCells(
+            level,
+            floor
+        );
+
         finished = true;
     }
 
@@ -155,6 +160,91 @@ void QuarterRotationAnimation::moveAllQuarters(
 
         level->getCells()[index]->moveInDirection(direction);
     }
+}
+
+/**
+ *
+ */
+void QuarterRotationAnimation::updateCells(
+    const std::shared_ptr<entities::Level>& level,
+    const unsigned short& floor
+) const & noexcept
+{
+    const unsigned short firstIndex = CELLS_PER_FLOOR * floor;
+    const unsigned short lastIndex = firstIndex + CELLS_PER_FLOOR;
+    const unsigned short topSideLastIndex =
+        firstIndex + TOP_SIDE_LAST_CELL_INDEX;
+
+    for (
+        unsigned short index = firstIndex;
+        index < lastIndex;
+        index++
+    )
+    {
+        const unsigned short horizontalSide = index % CELLS_PER_LINE;
+
+        if (
+            horizontalSide < HALF_CELLS_PER_LINE and
+            index < topSideLastIndex
+        )
+        {
+            invertCells(
+                level,
+                index,
+                TOP_SIDE_LAST_CELL_INDEX
+            );
+        }
+        else if (
+            horizontalSide >= HALF_CELLS_PER_LINE and
+            index >= topSideLastIndex
+        )
+        {
+            invertCells(
+                level,
+                index,
+                -TOP_SIDE_LAST_CELL_INDEX
+            );
+        }
+        else if (
+            horizontalSide < HALF_CELLS_PER_LINE and
+            index >= topSideLastIndex
+        )
+        {
+            invertCells(
+                level,
+                index,
+                CELLS_PER_LINE
+            );
+        }
+        else
+        {
+            invertCells(
+                level,
+                index,
+                -CELLS_PER_LINE
+            );
+        }
+    }
+}
+
+/**
+ *
+ */
+void QuarterRotationAnimation::invertCells(
+    const std::shared_ptr<entities::Level>& level,
+    const unsigned short& index,
+    const unsigned short& modification
+) const & noexcept
+{
+    const unsigned short newIndex = index + modification;
+
+    level->getCells()[newIndex]->setType(
+        level->getCells()[newIndex]->getType()
+    );
+
+    level->getCells()[newIndex]->setIsVisible(
+        level->getCells()[newIndex]->isVisible()
+    );
 }
 
 }

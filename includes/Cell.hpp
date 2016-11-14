@@ -176,14 +176,16 @@ public:
      *
      * @return const char&
      */
-    const char& getType() const;
+    const char& getType() const & noexcept;
 
     /**
      * @brief setter for the type of the cell
      *
      * @param typeChar character representation of the type
+     *
+     * TODO: should be const after integration of pimpl idiom
      */
-    void setType(const char& typeChar);
+    void setType(const char& typeChar) & noexcept;
 
     /**
      * @brief get a copy of the white color from the colors manager; apply
@@ -216,7 +218,7 @@ public:
      *
      * @return const bool&
      */
-    const bool& isVisible() const;
+    const bool& isVisible() const & noexcept;
 
     /**
      * @brief setter for the visibility boolean of the cell
@@ -225,8 +227,10 @@ public:
      *
      * the method is not 'const' because it is a setter that modifies an
      * attribute
+     *
+     * TODO: should be const after integration of pimpl idiom
      */
-    void setIsVisible(const bool& visibility) noexcept;
+    void setIsVisible(const bool& visibility) & noexcept;
 
     /**
      * @brief indicates if the mouse is currently hover this cell
