@@ -38,6 +38,11 @@ namespace animations
 constexpr unsigned short LevelAnimation::TOP_SIDE_LAST_CELL_INDEX;
 constexpr unsigned short LevelAnimation::CELLS_PER_LINE;
 
+constexpr sf::Uint32 QuarterRotationAnimation::ANIMATION_STEPS_INTERVAL;
+
+constexpr unsigned short QuarterRotationAnimation::HALF_CELLS_PER_LINE;
+constexpr unsigned short QuarterRotationAnimation::ANIMATION_STEPS;
+
 class QuarterRotationAnimation::Impl
 {
 
@@ -216,15 +221,18 @@ void QuarterRotationAnimation::updateCells(
             invertCells(
                 level,
                 index,
-                CELLS_PER_LINE
+                HALF_CELLS_PER_LINE
             );
         }
-        else
+        else if (
+            horizontalSide >= HALF_CELLS_PER_LINE and
+            index < topSideLastIndex
+        )
         {
             invertCells(
                 level,
                 index,
-                -CELLS_PER_LINE
+                -HALF_CELLS_PER_LINE
             );
         }
     }
