@@ -35,6 +35,9 @@ namespace memoris
 namespace animations
 {
 
+constexpr unsigned short LevelAnimation::TOP_SIDE_LAST_CELL_INDEX;
+constexpr unsigned short LevelAnimation::CELLS_PER_LINE;
+
 class QuarterRotationAnimation::Impl
 {
 
