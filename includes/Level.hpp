@@ -315,7 +315,7 @@ public:
      *
      * @return const std::vector<std::unique_ptr<Cell>>&
      */
-    const std::vector<std::unique_ptr<Cell>>& getCells() const;
+    const std::vector<std::unique_ptr<Cell>>& getCells() const & noexcept;
 
     /**
      * @brief dynamically create a SFML transform object pointed by the

@@ -237,7 +237,7 @@ void Cell::show(const utils::Context& context)
 /**
  *
  */
-const char& Cell::getType() const
+const char& Cell::getType() const & noexcept
 {
     return type;
 }
@@ -245,7 +245,7 @@ const char& Cell::getType() const
 /**
  *
  */
-void Cell::setType(const char& typeChar)
+void Cell::setType(const char& typeChar) & noexcept
 {
     type = typeChar;
 }
@@ -285,7 +285,7 @@ void Cell::empty()
 /**
  *
  */
-const bool& Cell::isVisible() const
+const bool& Cell::isVisible() const & noexcept
 {
     return visible;
 }
@@ -293,7 +293,7 @@ const bool& Cell::isVisible() const
 /**
  *
  */
-void Cell::setIsVisible(const bool& visibility) noexcept
+void Cell::setIsVisible(const bool& visibility) & noexcept
 {
     visible = visibility;
 }

@@ -84,6 +84,30 @@ private:
         const unsigned short& floor
     ) const &;
 
+    /**
+     * @brief invert the cells after the animation; update the position of all
+     * the floor cells at the same time
+     *
+     * @param level constant reference on shared pointer to the concerned level
+     * @param floor constant unsigned integer to the level floor to render
+     */
+    void updateCells(
+        const std::shared_ptr<entities::Level>& level,
+        const unsigned short& floor
+    ) const & noexcept;
+
+    /**
+     * @brief apply the given modification on the given cell index
+     *
+     * @param level constant reference on shared pointer to the concerned level
+     */
+    void invertCells(
+        const std::shared_ptr<entities::Level>& level,
+        const unsigned short& index,
+        const unsigned short& modification
+    ) const & noexcept;
+
+
     class Impl;
     std::unique_ptr<Impl> impl;
 };
