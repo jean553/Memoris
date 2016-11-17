@@ -34,6 +34,11 @@ Successfully executed on :
  * Ubuntu 14.04 LTS
  * Debian 8
 
+## Compile and run
+```
+curl https://github.com/jean553/Memoris/raw/master/install.sh | sudo bash
+```
+
 ## Installation on Ubuntu 14.04 LTS
 
 Requirements to compile C++14 code:
