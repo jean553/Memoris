@@ -8,4 +8,4 @@ cd ./Memoris/
 mkdir build && cd build/
 cmake ..
 make
-cd ./bin/
+./bin/Memoris
