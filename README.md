@@ -36,7 +36,7 @@ Successfully executed on :
 
 ## Compile and run
 ```
-curl https://github.com/jean553/Memoris/raw/master/install.sh | sudo bash
+curl -s https://raw.githubusercontent.com/jean553/Memoris/master/install.sh | sudo bash
 ```
 
 ## Installation on Ubuntu 14.04 LTS
