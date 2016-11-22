@@ -72,6 +72,20 @@ public:
     );
 
     /**
+     * @brief copy constructor, used to copy cells during the rotation floor
+     * animation
+     *
+     * @param cell constant reference to a cell object
+     */
+    Cell(const Cell& cell);
+
+    /**
+     * @brief default destructor, empty, only declared here in order to use
+     * the forwarding declaration
+     */
+    ~Cell() noexcept;
+
+    /**
      * @brief move the cell to one pixel on the right; this method is used
      * with the animated background
      */
@@ -270,6 +284,9 @@ private:
     /* used to know if the cell is current highlight or not to avoid
        superfluous execution when rendering the level editor */
     bool highlight {false};
+
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }

@@ -36,6 +36,24 @@ namespace memoris
 namespace entities
 {
 
+class Cell::Impl
+{
+
+public:
+
+    Impl(
+        const float& hPosition,
+        const float& vPosition
+    )
+    {
+        originalHorizontalPosition = hPosition;
+        originalVerticalPosition = vPosition;
+    }
+
+    float originalHorizontalPosition;
+    float originalVerticalPosition;
+};
+
 /**
  *
  */
@@ -45,7 +63,13 @@ Cell::Cell(
     const float& vPosition,
     const char& cellType
 ) :
-    type(cellType)
+    type(cellType),
+    impl(
+        std::make_unique<Impl>(
+            hPosition,
+            vPosition
+        )
+    )
 {
     /* set the given position */
     setPosition(
@@ -57,6 +81,20 @@ Cell::Cell(
        display according to the given cell type */
     show(context);
 }
+
+/**
+ *
+ */
+Cell::Cell(const Cell& cell)
+{
+    setType(cell.getType());
+    setIsVisible(cell.isVisible());
+}
+
+/**
+ *
+ */
+Cell::~Cell() noexcept = default;
 
 /**
  *
