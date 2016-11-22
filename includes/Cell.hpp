@@ -253,6 +253,18 @@ public:
      */
     const bool isMouseHover() const;
 
+    /**
+     * @brief reset the graphical position of the cell to the original one
+     *
+     * not const because it mofifies the current position of the cell
+     *
+     * not noexcept because it calls SFML functions that are not noexcept
+     *
+     * public because it is called by the quarter rotation animations in order
+     * to graphically refresh the positions of the cells
+     */
+    void resetPosition() &;
+
 private:
 
     static constexpr float CELL_DIMENSION {49.f};

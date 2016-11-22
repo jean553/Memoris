@@ -393,6 +393,9 @@ public:
 
 private:
 
+    static constexpr unsigned short CELLS_PER_FLOOR {256};
+    static constexpr unsigned short CELLS_PER_LINE {16};
+
     /**
      * @brief private method called by the constructor to load a level from
      * the next file in the serie manager queue

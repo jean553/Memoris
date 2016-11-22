@@ -183,10 +183,13 @@ bool Level::allowPlayerMovement(
     short expectedIndex = impl->playerIndex + movement;
 
     if (
-        expectedIndex < 256 * floor ||
-        expectedIndex >= (256 * floor) + 256 ||
-        (impl->playerIndex % 16 == 19 && movement == 1) ||
-        (impl->playerIndex % 16 == 0 && movement == -1)
+        expectedIndex < CELLS_PER_FLOOR * floor or
+        expectedIndex >= CELLS_PER_FLOOR * (floor + 1) or
+        (
+            impl->playerIndex % CELLS_PER_LINE == CELLS_PER_LINE - 1 and
+            movement == 1
+        ) or
+        (impl->playerIndex % CELLS_PER_LINE == 0 && movement == -1)
     )
     {
         return false;
