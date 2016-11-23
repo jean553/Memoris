@@ -100,10 +100,8 @@ public:
      * set the next level watching time when the player wins the current level
      *
      * @param time the time to set to the watching time
-     *
-     * not 'const' because it modifies the value of the watching time attribute
      */
-    void setWatchingTime(const unsigned short& time) & noexcept;
+    void setWatchingTime(const unsigned short& time) const & noexcept;
 
     /**
      * @brief loads all the levels of a given serie file by path, save the name
