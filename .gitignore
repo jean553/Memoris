@@ -14,6 +14,7 @@ data/games/*
 !data/levels/7.level
 !data/levels/8.level
 !data/levels/9.level
+!data/levels/10.level
 !data/series/tutorial.serie
 !data/games/fake.game
 *.swp
