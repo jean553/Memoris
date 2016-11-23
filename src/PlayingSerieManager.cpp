@@ -48,8 +48,9 @@ public:
     /* current watching time that will be given for the next level; this time
        is the watching time *per floor*; this value is set to 6 by default
        all the time when a serie starts; we set it here because this value
-       has to be transferred from one level to another */
+       has to be transferred from one level to another; idem for lifes */
     unsigned short watchingTime {6};
+    unsigned short lifes {0};
     unsigned short levelIndex {0};
 
     std::string serieName;
@@ -177,6 +178,23 @@ const unsigned short& PlayingSerieManager::getLevelIndex() const & noexcept
 void PlayingSerieManager::incrementLevelIndex() const & noexcept
 {
     impl->levelIndex++;
+}
+
+/**
+ *
+ */
+void PlayingSerieManager::setLifesAmount(const unsigned short& lifes) const &
+    noexcept
+{
+    impl->lifes = lifes;
+}
+
+/**
+ *
+ */
+const unsigned short& PlayingSerieManager::getLifesAmount() const & noexcept
+{
+    return impl->lifes;
 }
 
 }
