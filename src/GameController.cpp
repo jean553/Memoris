@@ -606,12 +606,18 @@ void GameController::endLevel(const utils::Context& context)
 {
     if (impl->win)
     {
+        // auto -> const managers::PlayingSerieManager&
+        const auto& serieManager = context.getPlayingSerieManager();
+
         context.getSoundsManager().playWinLevelSound();
 
         impl->endingScreen =
             std::make_unique<utils::WinLevelEndingScreen>(context);
 
-        context.getPlayingSerieManager().incrementLevelIndex();
+        serieManager.incrementLevelIndex();
+        serieManager.setWatchingTime(
+            impl->dashboard.getWatchingTime()
+        );
     }
     else
     {

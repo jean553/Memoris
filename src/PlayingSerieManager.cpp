@@ -50,19 +50,16 @@ public:
        all the time when a serie starts; we set it here because this value
        has to be transferred from one level to another */
     unsigned short watchingTime {6};
-
-    /* the name of the loaded serie */
-    std::string serieName;
-
-    /* the index of the current playing level */
     unsigned short levelIndex {0};
+
+    std::string serieName;
 };
 
 /**
  *
  */
 PlayingSerieManager::PlayingSerieManager() noexcept :
-impl(std::make_unique<Impl>())
+    impl(std::make_unique<Impl>())
 {
 }
 
@@ -115,7 +112,7 @@ const std::string PlayingSerieManager::getNextLevelName() & noexcept
 /**
  *
  */
-void PlayingSerieManager::setWatchingTime(const unsigned short& time) &
+void PlayingSerieManager::setWatchingTime(const unsigned short& time) const &
 noexcept
 {
     impl->watchingTime = time;
