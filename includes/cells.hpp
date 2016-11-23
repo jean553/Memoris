@@ -61,6 +61,7 @@ constexpr char HIDDEN_CELL {'h'};
 constexpr char ELEVATOR_UP_CELL {'U'};
 constexpr char ELEVATOR_DOWN_CELL {'V'};
 constexpr char QUARTER_ROTATION_CELL {'q'};
+constexpr char INVERTED_QUARTER_ROTATION_CELL {'Q'};
 
 /**
  * @brief create Cell unique pointers, usuable at a given position inside

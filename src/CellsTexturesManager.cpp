@@ -58,6 +58,7 @@ public:
     sf::Texture elevatorUpCellTexture;
     sf::Texture elevatorDownCellTexture;
     sf::Texture quarterRotationCellTexture;
+    sf::Texture invertedQuarterRotationCellTexture;
 };
 
 /**
@@ -86,6 +87,10 @@ CellsTexturesManager::CellsTexturesManager() :
     loadTexture(impl->elevatorUpCellTexture, "elevator_up");
     loadTexture(impl->elevatorDownCellTexture, "elevator_down");
     loadTexture(impl->quarterRotationCellTexture, "quarter_rotation");
+    loadTexture(
+        impl->invertedQuarterRotationCellTexture,
+        "inverted_quarter_rotation"
+    );
 }
 
 /**
@@ -177,6 +182,10 @@ const sf::Texture& CellsTexturesManager::getTextureReferenceByCellType(
     case cells::QUARTER_ROTATION_CELL:
     {
         return impl->quarterRotationCellTexture;
+    }
+    case cells::INVERTED_QUARTER_ROTATION_CELL:
+    {
+        return impl->invertedQuarterRotationCellTexture;
     }
     }
 
