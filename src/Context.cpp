@@ -195,6 +195,7 @@ void Context::loadMusicFile(const std::string& path) const &
     if(impl->music.openFromFile(path))
     {
         impl->music.play();
+        impl->music.setLoop(true);
     }
 }
 
