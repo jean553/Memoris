@@ -243,6 +243,8 @@ void CellsSelector::selectCell(const utils::Context& context) &
                 cells::EMPTY_CELL
             )
         );
+
+        impl->selectedCellType = cells::EMPTY_CELL;
     }
     else if (impl->departureCell.isMouseHover())
     {

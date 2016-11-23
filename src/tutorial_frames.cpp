@@ -47,6 +47,7 @@
 #include "RotationCellsTutorialFrame.hpp"
 #include "DiagonalCellTutorialFrame.hpp"
 #include "DiagonalCellSpriteTutorialFrame.hpp"
+#include "QuarterRotationTutorialFrame.hpp"
 
 #include <memory>
 
@@ -169,6 +170,14 @@ void attachFramesToTutorial(
         );
         frames.push(
             std::make_unique<widgets::DiagonalCellSpriteTutorialFrame>(context)
+        );
+
+        break;
+    }
+    case 9:
+    {
+        frames.push(
+            std::make_unique<widgets::QuarterRotationTutorialFrame>(context)
         );
 
         break;
