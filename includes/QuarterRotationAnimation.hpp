@@ -90,22 +90,29 @@ private:
      *
      * @param level constant reference on shared pointer to the concerned level
      * @param floor constant unsigned integer to the level floor to render
+     *
+     * not const because it modifies the current player cell
      */
     void updateCells(
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
-    ) const & noexcept;
+    ) & noexcept;
 
     /**
      * @brief apply the given modification on the given cell index
      *
      * @param level constant reference on shared pointer to the concerned level
+     *
+     * not const because it modifies the current player cell
      */
     void invertCells(
+        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& index,
-        const unsigned short& modification
-    ) const & noexcept;
+        const unsigned short& modification,
+        const unsigned short& floor
+    ) & noexcept;
 
 
     class Impl;

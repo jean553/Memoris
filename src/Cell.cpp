@@ -357,5 +357,16 @@ const bool Cell::isMouseHover() const
     return false;
 }
 
+/**
+ *
+ */
+void Cell::resetPosition() &
+{
+    setPosition(
+        impl->originalHorizontalPosition,
+        impl->originalVerticalPosition
+    );
+}
+
 }
 }
