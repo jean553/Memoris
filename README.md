@@ -99,6 +99,10 @@ Zeropage - Ambient Pills Update - Ambient Dance - CreativeCommons 3.0 BY (https:
 
 Zeropage - Ambient Pills - Void Sensor - CreativeCommons 3.0 BY (https://www.jamendo.com/track/20233/void-sensor) (https://creativecommons.org/licenses/by/3.0/)
 
+Zeropage - Ambient Pills - Ambiose - CreativeCommons BY (https://www.jamendo.com/track/20235/ambiose) (https://creativecommons.org/licenses/by/3.0/)
+
+Jamendo licenses information note: https://www.jamendo.com/legal/licenses
+
 Music files have been converted from MP3 to OGG format. This is the only modification.
 
 ### Icons

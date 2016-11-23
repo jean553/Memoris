@@ -33,6 +33,8 @@ namespace memoris
 namespace musics
 {
 
+constexpr unsigned int MAXIMUM_RANDOM_GAME_MUSIC {2};
+
 /**
  * @brief returns the path of the music according to the controller id;
  * each controller has a specific music, this music is found using
@@ -43,6 +45,15 @@ namespace musics
  * @return const std::string
  */
 const std::string getMusicPathById(const unsigned short& id);
+
+/**
+ * @brief returns the path of one game music; this function is used by
+ * getMusicPathById() to return a music for the game and also used directly
+ * to change the game music when the previous one finished
+ *
+ * @return const std::string
+ */
+const std::string getRandomGameMusicPath();
 
 }
 }
