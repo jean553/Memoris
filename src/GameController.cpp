@@ -609,15 +609,17 @@ void GameController::endLevel(const utils::Context& context)
         // auto -> const managers::PlayingSerieManager&
         const auto& serieManager = context.getPlayingSerieManager();
 
+        // auto -> const utils::GameDashboard&
+        const auto& dashboard = impl->dashboard;
+
         context.getSoundsManager().playWinLevelSound();
 
         impl->endingScreen =
             std::make_unique<utils::WinLevelEndingScreen>(context);
 
         serieManager.incrementLevelIndex();
-        serieManager.setWatchingTime(
-            impl->dashboard.getWatchingTime()
-        );
+        serieManager.setWatchingTime(dashboard.getWatchingTime());
+        serieManager.setLifesAmount(dashboard.getLifesAmount());
     }
     else
     {

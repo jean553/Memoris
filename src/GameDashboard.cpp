@@ -56,6 +56,7 @@ public:
         )
     {
         watchingTime = context.getPlayingSerieManager().getWatchingTime();
+        lifes = context.getPlayingSerieManager().getLifesAmount();
 
         foundStarsAmount.setFont(context.getFontsManager().getTextFont());
         foundStarsAmount.setString("0");
@@ -69,7 +70,7 @@ public:
         );
 
         lifesAmount.setFont(context.getFontsManager().getTextFont());
-        lifesAmount.setString("0");
+        lifesAmount.setString(std::to_string(lifes));
         lifesAmount.setCharacterSize(fonts::TEXT_SIZE);
         lifesAmount.setColor(context.getColorsManager().getColorWhite());
         lifesAmount.setPosition(
@@ -289,7 +290,7 @@ void GameDashboard::updateTotalStarsAmountSurface(const unsigned short& amount)
 /**
  *
  */
-const unsigned short& GameDashboard::getLifesAmount()
+const unsigned short& GameDashboard::getLifesAmount() const & noexcept
 {
     return impl->lifes;
 }

@@ -135,6 +135,21 @@ public:
      */
     void incrementLevelIndex() const & noexcept;
 
+    /**
+     * @brief set the amount of lifes (used to transfer this amount from one
+     * level to another one)
+     *
+     * @param lifes constant reference to the amount of lifes to save
+     */
+    void setLifesAmount(const unsigned short& lifes) const & noexcept;
+
+    /**
+     * @brief returns the amount of lifes
+     *
+     * @return const unsigned short&
+     */
+    const unsigned short& getLifesAmount() const & noexcept;
+
 private:
 
     class Impl;

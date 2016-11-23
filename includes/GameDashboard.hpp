@@ -119,7 +119,7 @@ public:
      *
      * @return const unsigned short&
      */
-    const unsigned short& getLifesAmount();
+    const unsigned short& getLifesAmount() const & noexcept;
 
     /**
      * @brief update the displayed floor index
