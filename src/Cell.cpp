@@ -71,14 +71,11 @@ Cell::Cell(
         )
     )
 {
-    /* set the given position */
     setPosition(
         hPosition,
         vPosition
     );
 
-    /* the cell is shown by default; we get the reference of the texture to
-       display according to the given cell type */
     show(context);
 }
 

@@ -68,21 +68,25 @@ public:
 /**
  *
  */
+Level::Level(const utils::Context& context) :
+    impl(std::make_unique<Impl>())
+{
+    loadEmptyLevel(context);
+}
+
+/**
+ *
+ */
 Level::Level(
     const utils::Context& context,
-    const bool loadFromFile
+    const std::string& fileName
 ) :
     impl(std::make_unique<Impl>())
 {
-    if(loadFromFile)
-    {
-        loadLevelFromFile(context);
-    }
-    else
-    {
-        loadEmptyLevel(context);
-    }
-
+    loadLevelFromFile(
+        context,
+        fileName
+    );
 }
 
 /**
@@ -464,9 +468,13 @@ void Level::deleteTransform()
 /**
  *
  */
-void Level::loadLevelFromFile(const utils::Context& context)
+void Level::loadLevelFromFile(
+    const utils::Context& context,
+    const std::string& fileName
+) &
 {
-    std::ifstream file(context.getPlayingSerieManager().getNextLevelName());
+    std::ifstream file(fileName);
+
 
     if (!file.is_open())
     {

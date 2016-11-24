@@ -35,6 +35,8 @@
 #include "SerieEditorController.hpp"
 #include "Level.hpp"
 #include "errors.hpp"
+#include "PlayingSerieManager.hpp"
+#include "EditingLevelManager.hpp"
 
 namespace memoris
 {
@@ -79,9 +81,9 @@ std::unique_ptr<Controller> getControllerById(
                second parameter of the constructor is true, because we load the
                level from a level file */
             auto level = std::make_shared<entities::Level>(
-                             context,
-                             true
-                         );
+                context,
+                context.getPlayingSerieManager().getNextLevelName()
+            );
 
             return std::make_unique<GameController>(
                        context,
@@ -111,7 +113,22 @@ std::unique_ptr<Controller> getControllerById(
     }
     case LEVEL_EDITOR_CONTROLLER_ID:
     {
-        return std::make_unique<LevelEditorController>(context);
+        try
+        {
+            auto level = std::make_shared<entities::Level>(
+                context,
+                context.getEditingLevelManager().getLevelName()
+            );
+
+            return std::make_unique<LevelEditorController>(context);
+        }
+        catch(std::invalid_argument&)
+        {
+            return getErrorController(
+                context,
+                errors::CANNOT_OPEN_LEVEL
+            );
+        }
     }
     case OPEN_LEVEL_CONTROLLER_ID:
     {

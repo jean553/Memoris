@@ -57,20 +57,24 @@ public:
     static constexpr unsigned short MAX_FLOOR {9};
 
     /**
-     * @brief constructor, initialize all the cells of the level according to
-     * the given level file path
+     * @brief constructor that initializes a level full of wall cells
      *
-     * @param context reference to the current context
-     * @param loadFromFile boolean false by default to indicate that the
-     * level content has to be loaded from the next file in the serie
-     * manager levels queue (false by default for safety). If the boolean is
-     * false, the level is empty
+     * @param context constant reference to the current context
+     */
+    Level(const utils::Context& context);
+
+    /**
+     * @brief constructor that initializes a level from a specific file
+     *
+     * @param context constant reference to the current context
+     * @param fileName constant reference to a string that contains the file
+     * name
      *
      * @throw std::invalid_argument the level file cannot be opened
      */
     Level(
         const utils::Context& context,
-        const bool loadFromFile = false
+        const std::string& fileName
     );
 
     /**
@@ -401,10 +405,15 @@ private:
      * the next file in the serie manager queue
      *
      * @param context reference to the current context
+     * @param fileName constant reference to a string that contains the file
+     * name
      *
      * @throw std::invalid_argument the level file cannot be opened
      */
-    void loadLevelFromFile(const utils::Context& context);
+    void loadLevelFromFile(
+        const utils::Context& context,
+        const std::string& fileName
+    ) &;
 
     /**
      * @brief private method called by the constructor to load a level full
