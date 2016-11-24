@@ -69,6 +69,9 @@ public:
 
 private:
 
+    static constexpr float TITLE_HORIZONTAL_POSITION {620.f};
+    static constexpr float TITLE_VERTICAL_POSITION {50.f};
+
     class Impl;
     std::unique_ptr<Impl> impl;
 };
