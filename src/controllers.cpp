@@ -82,7 +82,9 @@ std::unique_ptr<Controller> getControllerById(
                level from a level file */
             auto level = std::make_shared<entities::Level>(
                 context,
-                context.getPlayingSerieManager().getNextLevelName()
+                getLevelFilePath(
+                    context.getPlayingSerieManager().getNextLevelName()
+                )
             );
 
             return std::make_unique<GameController>(
@@ -115,12 +117,27 @@ std::unique_ptr<Controller> getControllerById(
     {
         try
         {
-            auto level = std::make_shared<entities::Level>(
-                context,
-                context.getEditingLevelManager().getLevelName()
-            );
+            std::string levelName =
+                context.getEditingLevelManager().getLevelName();
 
-            return std::make_unique<LevelEditorController>(context);
+            std::shared_ptr<entities::Level> level;
+
+            if (!levelName.empty())
+            {
+                level = std::make_shared<entities::Level>(
+                    context,
+                    getLevelFilePath(levelName)
+                );
+            }
+            else
+            {
+                level = std::make_shared<entities::Level>(context);
+            }
+
+            return std::make_unique<LevelEditorController>(
+                context,
+                level
+            );
         }
         catch(std::invalid_argument&)
         {
@@ -170,6 +187,14 @@ std::unique_ptr<ErrorController> getErrorController(
         context,
         message
     );
+}
+
+/**
+ *
+ */
+const std::string getLevelFilePath(const std::string& levelName)
+{
+    return "data/levels/" + levelName + ".level";
 }
 
 }

@@ -32,6 +32,12 @@
 
 namespace memoris
 {
+
+namespace entities
+{
+class Level;
+}
+
 namespace controllers
 {
 
@@ -45,7 +51,10 @@ public:
      *
      * @param context reference to the current context
      */
-    LevelEditorController(const utils::Context& context);
+    LevelEditorController(
+        const utils::Context& context,
+        const std::shared_ptr<entities::Level>& level
+    );
 
     /**
      * @brief default destructor, empty, declared in order to use forwarding

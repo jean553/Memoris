@@ -85,6 +85,15 @@ std::unique_ptr<ErrorController> getErrorController(
     const sf::String& message
 );
 
+/**
+ * @brief returns the full path of a level file, including the file extension
+ *
+ * @param levelName constant reference to the level name
+ *
+ * @return const std::string&
+ */
+const std::string getLevelFilePath(const std::string& levelName);
+
 }
 }
 
