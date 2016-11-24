@@ -75,7 +75,12 @@ int main()
         nextMusicPath =
             musics::getMusicPathById(nextControllerId);
 
-        if(currentMusicPath != nextMusicPath)
+        /* does not reload a different music when go from one game controller
+           to another one */
+        if(
+            currentMusicPath != nextMusicPath and
+            currentControllerId != nextControllerId
+        )
         {
             context.loadMusicFile(nextMusicPath);
             currentMusicPath = nextMusicPath;
