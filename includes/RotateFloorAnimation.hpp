@@ -37,6 +37,7 @@ namespace animations
 
 class RotateFloorAnimation : public LevelAnimation
 {
+    using Level = std::unique_ptr<entities::Level>;
 
 public:
 
@@ -67,7 +68,7 @@ public:
      */
     void renderAnimation(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& floor
     ) & override;
 
@@ -85,7 +86,7 @@ private:
      */
     void playNextAnimationStep(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& floor
     ) &;
 
@@ -98,7 +99,7 @@ private:
      */
     void rotateCells(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& floor
     ) &;
 

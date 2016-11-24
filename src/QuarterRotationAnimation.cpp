@@ -76,7 +76,7 @@ QuarterRotationAnimation::~QuarterRotationAnimation() noexcept = default;
  */
 void QuarterRotationAnimation::renderAnimation(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) &
 {
@@ -132,7 +132,7 @@ void QuarterRotationAnimation::renderAnimation(
  */
 void QuarterRotationAnimation::moveAllQuarters(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) const &
 {
@@ -191,7 +191,7 @@ void QuarterRotationAnimation::moveAllQuarters(
  */
 void QuarterRotationAnimation::updateCells(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) & noexcept
 {
@@ -308,7 +308,7 @@ void QuarterRotationAnimation::updateCells(
  */
 void QuarterRotationAnimation::invertCells(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& index,
     const unsigned short& modification,
     const unsigned short& floor

@@ -71,7 +71,23 @@ public:
 Level::Level(const utils::Context& context) :
     impl(std::make_unique<Impl>())
 {
-    loadEmptyLevel(context);
+    for(
+        unsigned short index {0};
+        index < CELLS_PER_LEVEL;
+        index++
+    )
+    {
+        std::unique_ptr<Cell> cell = cells::getCellByType(
+            context,
+            impl->horizontalPositionCursor,
+            impl->verticalPositionCursor,
+            cells::WALL_CELL
+        );
+
+        updateCursors();
+
+        impl->cells.push_back(std::move(cell));
+    }
 }
 
 /**
@@ -83,10 +99,73 @@ Level::Level(
 ) :
     impl(std::make_unique<Impl>())
 {
-    loadLevelFromFile(
-        context,
-        fileName
-    );
+    std::ifstream file(fileName);
+
+    if (!file.is_open())
+    {
+        /* TODO: #561 - check PlayingSerieManager.cpp for details */
+        throw std::invalid_argument("Cannot open the given level file");
+    }
+
+    /* FIXME: if the minutes/seconds are not specified or partially specified,
+       the behavior is unmanaged */
+    std::string min, sec;
+    getline(file, min, '\n');
+    getline(file, sec, '\n');
+
+    impl->minutes = static_cast<unsigned short>(std::stoi(min));
+    impl->seconds = static_cast<unsigned short>(std::stoi(sec));
+
+    for(
+        unsigned short index {0}; 
+        index < CELLS_PER_LEVEL; 
+        index++
+    )
+    {
+        char cellType = cells::EMPTY_CELL;
+
+        if (!file.eof())
+        {
+            cellType = file.get();
+        }
+
+        std::unique_ptr<Cell> cell = cells::getCellByType(
+            context,
+            impl->horizontalPositionCursor,
+            impl->verticalPositionCursor,
+            cellType
+        );
+
+        switch(cellType)
+        {
+        case cells::DEPARTURE_CELL:
+        {
+            impl->playerIndex = index;
+
+            break;
+        }
+        case cells::STAR_CELL:
+        {
+            impl->starsAmount++;
+
+            break;
+        }
+        }
+
+        if (
+            (
+                cellType != cells::EMPTY_CELL &&
+                cellType != cells::WALL_CELL
+            ) && impl->emptyFloor
+        )
+        {
+            impl->emptyFloor = false;
+        }
+
+        updateCursors();
+
+        impl->cells.push_back(std::move(cell));
+    }
 }
 
 /**
@@ -468,114 +547,17 @@ void Level::deleteTransform()
 /**
  *
  */
-void Level::loadLevelFromFile(
-    const utils::Context& context,
-    const std::string& fileName
-) &
-{
-    std::ifstream file(fileName);
-
-
-    if (!file.is_open())
-    {
-        /* TODO: #561 - check PlayingSerieManager.cpp for details */
-        throw std::invalid_argument("Cannot open the given level file");
-    }
-
-    /* FIXME: if the minutes/seconds are not specified or partially specified,
-       the behavior is unmanaged */
-    std::string min, sec;
-    getline(file, min, '\n');
-    getline(file, sec, '\n');
-
-    impl->minutes = static_cast<unsigned short>(std::stoi(min));
-    impl->seconds = static_cast<unsigned short>(std::stoi(sec));
-
-    for(unsigned short index {0}; index < 2560; index++)
-    {
-        char cellType = cells::EMPTY_CELL;
-
-        if (!file.eof())
-        {
-            cellType = file.get();
-        }
-
-        std::unique_ptr<Cell> cell = cells::getCellByType(
-                                         context,
-                                         impl->horizontalPositionCursor,
-                                         impl->verticalPositionCursor,
-                                         cellType
-                                     );
-
-        switch(cellType)
-        {
-        case cells::DEPARTURE_CELL:
-        {
-            impl->playerIndex = index;
-
-            break;
-        }
-        case cells::STAR_CELL:
-        {
-            impl->starsAmount++;
-
-            break;
-        }
-        }
-
-        if (
-            (
-                cellType != cells::EMPTY_CELL &&
-                cellType != cells::WALL_CELL
-            ) && impl->emptyFloor
-        )
-        {
-            impl->emptyFloor = false;
-        }
-
-        updateCursors();
-
-        impl->cells.push_back(std::move(cell));
-    }
-
-    /* we do not manually close the std::ifstream object, this object is
-       automatically destroyed when it goes out of the scope */
-}
-
-/**
- *
- */
-void Level::loadEmptyLevel(const utils::Context& context)
-{
-    for(unsigned short index {0}; index < 2560; index++)
-    {
-        std::unique_ptr<Cell> cell = cells::getCellByType(
-                                         context,
-                                         impl->horizontalPositionCursor,
-                                         impl->verticalPositionCursor,
-                                         cells::WALL_CELL
-                                     );
-
-        updateCursors();
-
-        impl->cells.push_back(std::move(cell));
-    }
-}
-
-/**
- *
- */
-void Level::updateCursors()
+void Level::updateCursors() const & noexcept
 {
     impl->horizontalPositionCursor++;
 
-    if (impl->horizontalPositionCursor % 16 == 0)
+    if (impl->horizontalPositionCursor % CELLS_PER_LINE == 0)
     {
         impl->horizontalPositionCursor = 0;
 
         impl->verticalPositionCursor++;
 
-        if (impl->verticalPositionCursor % 16 == 0)
+        if (impl->verticalPositionCursor % CELLS_PER_LINE == 0)
         {
             impl->verticalPositionCursor = 0;
 

@@ -80,16 +80,16 @@ std::unique_ptr<Controller> getControllerById(
                game controller and also in the LevelAnimation object; the
                second parameter of the constructor is true, because we load the
                level from a level file */
-            auto level = std::make_shared<entities::Level>(
+            auto level = std::make_unique<entities::Level>(
                 context,
                 getLevelFilePath(
                     context.getPlayingSerieManager().getNextLevelName()
                 )
-            );
+            ); // auto -> std::unique_ptr<entities::Level>
 
             return std::make_unique<GameController>(
                        context,
-                       level
+                       std::move(level)
                    );
         }
         catch(std::invalid_argument&)
@@ -120,23 +120,23 @@ std::unique_ptr<Controller> getControllerById(
             std::string levelName =
                 context.getEditingLevelManager().getLevelName();
 
-            std::shared_ptr<entities::Level> level;
+            std::unique_ptr<entities::Level> level;
 
             if (!levelName.empty())
             {
-                level = std::make_shared<entities::Level>(
+                level = std::make_unique<entities::Level>(
                     context,
                     getLevelFilePath(levelName)
                 );
             }
             else
             {
-                level = std::make_shared<entities::Level>(context);
+                level = std::make_unique<entities::Level>(context);
             }
 
             return std::make_unique<LevelEditorController>(
                 context,
-                level
+                std::move(level)
             );
         }
         catch(std::invalid_argument&)

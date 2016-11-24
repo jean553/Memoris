@@ -43,6 +43,7 @@ namespace controllers
 
 class LevelEditorController : public Controller
 {
+    using Level = std::unique_ptr<entities::Level>;
 
 public:
 
@@ -53,7 +54,7 @@ public:
      */
     LevelEditorController(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level
+        Level level
     );
 
     /**

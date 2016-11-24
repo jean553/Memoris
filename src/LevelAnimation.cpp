@@ -51,7 +51,7 @@ const bool& LevelAnimation::isFinished() const & noexcept
  */
 void LevelAnimation::showOrHideCell(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& index,
     const bool& visible
 ) const &
@@ -81,7 +81,7 @@ void LevelAnimation::incrementAnimationStep(const utils::Context& context) &
  */
 void LevelAnimation::movePlayer(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level
+    const Level& level
 ) const &
 {
     level->setPlayerCellIndex(updatedPlayerIndex);

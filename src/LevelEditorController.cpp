@@ -54,11 +54,11 @@ public:
 
     Impl(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& levelPtr
+        Level levelPtr
     ) :
         dashboard(context),
         selector(context),
-        level(levelPtr),
+        level(std::move(levelPtr)),
         cursor(context)
     {
         /* check if a name is already set for the edited level (ie, the user
@@ -91,7 +91,12 @@ public:
 
     utils::CellsSelector selector;
 
-    std::shared_ptr<entities::Level> level;
+    /* use a pointer here for two reasons: this is faster to copy from one
+       method to another, especially after creation into controllers.cpp; we
+       have no other choice that creating the Level object into controllers.cpp
+       and we still want access it into the controller, so we can not use a
+       simple Level reference as the original object would be destroyed */
+    std::unique_ptr<entities::Level> level;
 
     unsigned short floor {0};
     unsigned short currentActionId {0};
@@ -110,13 +115,13 @@ public:
  */
 LevelEditorController::LevelEditorController(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level
+    Level level
 ) :
     Controller(context),
     impl(
         std::make_unique<Impl>(
             context,
-            level
+            std::move(level)
         )
     )
 {
@@ -460,9 +465,6 @@ void LevelEditorController::saveLevelFile(
     }
 
     file << cellsStr;
-
-    /* manually close the file is not necessary as std::ofstream is
-       automatically destroyed when it leaves the current scope */
 }
 
 }

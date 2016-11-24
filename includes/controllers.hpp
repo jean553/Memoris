@@ -91,6 +91,8 @@ std::unique_ptr<ErrorController> getErrorController(
  * @param levelName constant reference to the level name
  *
  * @return const std::string&
+ *
+ * returns by copy because directly returns the calculated result
  */
 const std::string getLevelFilePath(const std::string& levelName);
 

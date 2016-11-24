@@ -32,6 +32,7 @@ namespace animations
 
 class VerticalMirrorAnimation : public AbstractMirrorAnimation
 {
+    using Level = std::unique_ptr<entities::Level>;
 
 public:
 
@@ -44,7 +45,7 @@ public:
      */
     void renderAnimation(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& floor
     ) & override;
 
@@ -63,7 +64,7 @@ private:
      */
     void invertSides(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& floor
     ) &;
 
@@ -78,7 +79,7 @@ private:
      */
     void updateLeftSideTransparency(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& floor
     ) const &;
 
@@ -93,7 +94,7 @@ private:
      */
     void updateRightSideTransparency(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& floor
     ) const &;
 
@@ -108,7 +109,7 @@ private:
      */
     void displayLevelAndVerticalSeparator(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& floor
     ) const &;
 

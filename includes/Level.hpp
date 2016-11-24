@@ -399,35 +399,13 @@ private:
 
     static constexpr unsigned short CELLS_PER_FLOOR {256};
     static constexpr unsigned short CELLS_PER_LINE {16};
-
-    /**
-     * @brief private method called by the constructor to load a level from
-     * the next file in the serie manager queue
-     *
-     * @param context reference to the current context
-     * @param fileName constant reference to a string that contains the file
-     * name
-     *
-     * @throw std::invalid_argument the level file cannot be opened
-     */
-    void loadLevelFromFile(
-        const utils::Context& context,
-        const std::string& fileName
-    ) &;
-
-    /**
-     * @brief private method called by the constructor to load a level full
-     * of empty cells
-     *
-     * @param context reference to the current context
-     */
-    void loadEmptyLevel(const utils::Context& context);
+    static constexpr unsigned short CELLS_PER_LEVEL {2560};
 
     /**
      * @brief called by the constructor to update the cursor position during
      * the level creation
      */
-    void updateCursors();
+    void updateCursors() const & noexcept;
 
     class Impl;
     std::unique_ptr<Impl> impl;

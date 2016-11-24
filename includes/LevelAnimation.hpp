@@ -48,6 +48,7 @@ namespace animations
 
 class LevelAnimation
 {
+    using Level = std::unique_ptr<entities::Level>;
 
 public:
 
@@ -71,7 +72,7 @@ public:
      */
     virtual void renderAnimation(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& floor
     ) & = 0;
 
@@ -101,7 +102,7 @@ protected:
      */
     void showOrHideCell(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& index,
         const bool& visible
     ) const &;
@@ -129,7 +130,7 @@ protected:
      */
     void movePlayer(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level
+        const Level& level
     ) const &;
 
     /* these attributes are protected, so we do not set them into an
