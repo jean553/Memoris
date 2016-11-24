@@ -56,8 +56,8 @@ public:
         title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
         title.setColor(context.getColorsManager().getColorLightBlue());
         title.setPosition(
-            620.f,
-            50.f
+            TITLE_HORIZONTAL_POSITION,
+            TITLE_VERTICAL_POSITION
         );
 
         list.setList(
