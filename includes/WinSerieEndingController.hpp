@@ -52,11 +52,17 @@ public:
     ~WinSerieEndingController() noexcept;
 
     /**
+     * @brief overrides the render() method of the Controller parent class
      *
+     * @param context constant reference to the current context to use
+     *
+     * @return const unsigned short&
      */
-    const unsigned short& render(const utils::Context& context) &;
+    const unsigned short& render(const utils::Context& context) & override;
 
 private:
+
+    static constexpr float TITLE_VERTICAL_POSITION {100.f};
 
     class Impl;
     std::unique_ptr<Impl> impl;
