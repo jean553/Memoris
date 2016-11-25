@@ -24,29 +24,111 @@
 
 #include "SerieEditorController.hpp"
 
+#include "ColorsManager.hpp"
+#include "FontsManager.hpp"
+#include "TexturesManager.hpp"
 #include "Context.hpp"
 #include "controllers.hpp"
+#include "fonts.hpp"
+#include "Button.hpp"
+#include "Cursor.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Text.hpp>
 
 namespace memoris
 {
 namespace controllers
 {
 
+constexpr float SerieEditorController::BUTTONS_VERTICAL_POSITION;
+constexpr float SerieEditorController::NEW_BUTTON_HORIZONTAL_POSITION;
+constexpr float SerieEditorController::OPEN_BUTTON_HORIZONTAL_POSITION;
+constexpr float SerieEditorController::SAVE_BUTTON_HORIZONTAL_POSITION;
+constexpr float SerieEditorController::EXIT_BUTTON_HORIZONTAL_POSITION;
+
+class SerieEditorController::Impl
+{
+
+public:
+
+    Impl(const utils::Context& context) : 
+        buttonNew(
+            context,
+            NEW_BUTTON_HORIZONTAL_POSITION,
+            BUTTONS_VERTICAL_POSITION,
+            context.getTexturesManager().getNewTexture()
+        ),
+        buttonOpen(
+            context,
+            OPEN_BUTTON_HORIZONTAL_POSITION,
+            BUTTONS_VERTICAL_POSITION,
+            context.getTexturesManager().getOpenTexture()
+        ),
+        buttonSave(
+            context,
+            SAVE_BUTTON_HORIZONTAL_POSITION,
+            BUTTONS_VERTICAL_POSITION,
+            context.getTexturesManager().getSaveTexture()
+        ),
+        buttonExit(
+            context,
+            EXIT_BUTTON_HORIZONTAL_POSITION,
+            BUTTONS_VERTICAL_POSITION,
+            context.getTexturesManager().getExitTexture()
+        ),
+        cursor(context)
+    {
+        serieName.setString("untitled");
+        serieName.setFont(context.getFontsManager().getTextFont());
+        serieName.setColor(context.getColorsManager().getColorWhite());
+        serieName.setCharacterSize(fonts::TEXT_SIZE);
+        serieName.setPosition(
+            SERIE_NAME_POSITION - serieName.getLocalBounds().width,
+            0.f
+        );
+    }
+
+    sf::Text serieName;
+
+    widgets::Button buttonNew;
+    widgets::Button buttonOpen;
+    widgets::Button buttonSave;
+    widgets::Button buttonExit;
+
+    widgets::Cursor cursor;
+};
+
 /**
  *
  */
 SerieEditorController::SerieEditorController(const utils::Context& context) :
-    Controller(context)
+    Controller(context),
+    impl(std::make_unique<Impl>(context))
 {
 }
 
 /**
  *
  */
-const unsigned short& SerieEditorController::render(const utils::Context& context) &
+SerieEditorController::~SerieEditorController() noexcept = default;
+
+/**
+ *
+ */
+const unsigned short& SerieEditorController::render(
+    const utils::Context& context
+) &
 {
+    context.getSfmlWindow().draw(impl->serieName);
+
+    impl->buttonNew.display(context);
+    impl->buttonOpen.display(context);
+    impl->buttonSave.display(context);
+    impl->buttonExit.display(context);
+
+    impl->cursor.render(context);
+
     nextControllerId = animateScreenTransition(context);
 
     while(context.getSfmlWindow().pollEvent(event))
