@@ -37,6 +37,7 @@
 #include "errors.hpp"
 #include "PlayingSerieManager.hpp"
 #include "EditingLevelManager.hpp"
+#include "WinSerieEndingController.hpp"
 
 namespace memoris
 {
@@ -165,6 +166,10 @@ std::unique_ptr<Controller> getControllerById(
             context,
             errors::UNLOCKED_SERIE
         );
+    }
+    case WIN_SERIE_CONTROLLER_ID:
+    {
+        return std::make_unique<WinSerieEndingController>(context);
     }
     }
 

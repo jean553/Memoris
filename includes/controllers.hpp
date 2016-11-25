@@ -56,6 +56,8 @@ constexpr unsigned short SERIE_EDITOR_CONTROLLER_ID = 12;
 constexpr unsigned short ERROR_CONTROLLER_ID = 7;
 constexpr unsigned short UNLOCKED_SERIE_ERROR_CONTROLLER_ID = 13;
 
+constexpr unsigned short WIN_SERIE_CONTROLLER_ID = 14;
+
 /**
  * @brief factory method to create controllers by id, each controller is linked
  * to an unique id; this method returns a pointer to a Controller child object

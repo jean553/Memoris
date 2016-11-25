@@ -521,7 +521,7 @@ void GameController::executePlayerCellAction(
             }
             else
             {
-                expectedControllerId = controllers::MAIN_MENU_CONTROLLER_ID;
+                expectedControllerId = controllers::WIN_SERIE_CONTROLLER_ID;
             }
         }
 
