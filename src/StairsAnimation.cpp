@@ -55,7 +55,7 @@ StairsAnimation::StairsAnimation(
  */
 void StairsAnimation::renderAnimation(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) &
 {
@@ -86,7 +86,7 @@ void StairsAnimation::renderAnimation(
  */
 void StairsAnimation::playNextAnimationStep(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) &
 {

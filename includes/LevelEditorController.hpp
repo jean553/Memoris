@@ -32,11 +32,18 @@
 
 namespace memoris
 {
+
+namespace entities
+{
+class Level;
+}
+
 namespace controllers
 {
 
 class LevelEditorController : public Controller
 {
+    using Level = std::unique_ptr<entities::Level>;
 
 public:
 
@@ -45,7 +52,10 @@ public:
      *
      * @param context reference to the current context
      */
-    LevelEditorController(const utils::Context& context);
+    LevelEditorController(
+        const utils::Context& context,
+        Level level
+    );
 
     /**
      * @brief default destructor, empty, declared in order to use forwarding

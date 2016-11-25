@@ -35,6 +35,7 @@ namespace animations
 
 class AbstractMirrorAnimation : public LevelAnimation
 {
+    using Level = std::unique_ptr<entities::Level>;
 
 public:
 
@@ -93,7 +94,7 @@ protected:
      */
     void applyTransparencyOnOneCell(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& index
     ) const &;
 

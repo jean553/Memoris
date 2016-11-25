@@ -40,7 +40,7 @@ namespace animations
  */
 void VerticalMirrorAnimation::renderAnimation(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) &
 {
@@ -142,7 +142,7 @@ void VerticalMirrorAnimation::renderAnimation(
  */
 void VerticalMirrorAnimation::invertSides(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) &
 {
@@ -221,7 +221,7 @@ void VerticalMirrorAnimation::invertSides(
  */
 void VerticalMirrorAnimation::updateLeftSideTransparency(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) const &
 {
@@ -250,7 +250,7 @@ void VerticalMirrorAnimation::updateLeftSideTransparency(
  */
 void VerticalMirrorAnimation::updateRightSideTransparency(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) const &
 {
@@ -279,7 +279,7 @@ void VerticalMirrorAnimation::updateRightSideTransparency(
  */
 void VerticalMirrorAnimation::displayLevelAndVerticalSeparator(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) const &
 {

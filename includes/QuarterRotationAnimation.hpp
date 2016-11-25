@@ -35,6 +35,7 @@ namespace animations
 
 class QuarterRotationAnimation : public LevelAnimation
 {
+    using Level = std::unique_ptr<entities::Level>;
 
 public:
 
@@ -58,7 +59,7 @@ public:
      */
     void renderAnimation(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& floor
     ) & override;
 
@@ -80,7 +81,7 @@ private:
      */
     void moveAllQuarters(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& floor
     ) const &;
 
@@ -95,7 +96,7 @@ private:
      */
     void updateCells(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& floor
     ) & noexcept;
 
@@ -108,7 +109,7 @@ private:
      */
     void invertCells(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& index,
         const unsigned short& modification,
         const unsigned short& floor

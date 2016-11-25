@@ -44,6 +44,7 @@ namespace animations
 
 class DiagonalAnimation : public LevelAnimation
 {
+    using Level = std::unique_ptr<entities::Level>;
 
 public:
 
@@ -56,7 +57,7 @@ public:
      */
     void renderAnimation(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& floor
     ) & override;
 
@@ -72,7 +73,7 @@ private:
      */
     void playNextAnimationStep(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& floor
     ) &;
 
@@ -86,7 +87,7 @@ private:
      */
     void displayLevelAndSeparator(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& floor
     ) &;
 
@@ -101,7 +102,7 @@ private:
      */
     void applyPurpleColorOnCellsQuarters(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& floor,
         const sf::Color& color
     ) &;
@@ -116,7 +117,7 @@ private:
      */
     void invertTopLeftWithBottomRight(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& floor
     ) &;
 
@@ -130,7 +131,7 @@ private:
      */
     void invertBottomLeftWithTopRight(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& floor
     ) &;
 
@@ -146,7 +147,7 @@ private:
      */
     void invertCells(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& source,
         const short& difference
     ) &;

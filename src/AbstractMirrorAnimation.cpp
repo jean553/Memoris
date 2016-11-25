@@ -92,7 +92,7 @@ void AbstractMirrorAnimation::setNoTransparent() & noexcept
  */
 void AbstractMirrorAnimation::applyTransparencyOnOneCell(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& index
 ) const &
 {

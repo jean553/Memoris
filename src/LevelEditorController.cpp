@@ -52,10 +52,13 @@ class LevelEditorController::Impl
 
 public:
 
-    Impl(const utils::Context& context) :
+    Impl(
+        const utils::Context& context,
+        Level levelPtr
+    ) :
         dashboard(context),
         selector(context),
-        level(context),
+        level(std::move(levelPtr)),
         cursor(context)
     {
         /* check if a name is already set for the edited level (ie, the user
@@ -88,7 +91,12 @@ public:
 
     utils::CellsSelector selector;
 
-    entities::Level level;
+    /* use a pointer here for two reasons: this is faster to copy from one
+       method to another, especially after creation into controllers.cpp; we
+       have no other choice that creating the Level object into controllers.cpp
+       and we still want access it into the controller, so we can not use a
+       simple Level reference as the original object would be destroyed */
+    std::unique_ptr<entities::Level> level;
 
     unsigned short floor {0};
     unsigned short currentActionId {0};
@@ -105,9 +113,17 @@ public:
 /**
  *
  */
-LevelEditorController::LevelEditorController(const utils::Context& context) :
+LevelEditorController::LevelEditorController(
+    const utils::Context& context,
+    Level level
+) :
     Controller(context),
-    impl(std::make_unique<Impl>(context))
+    impl(
+        std::make_unique<Impl>(
+            context,
+            std::move(level)
+        )
+    )
 {
 }
 
@@ -127,7 +143,7 @@ const unsigned short& LevelEditorController::render(
     impl->dashboard.display(context);
 
     /* display the level */
-    impl->level.display(
+    impl->level->display(
         context,
         impl->floor,
         &entities::Cell::displayWithMouseHover
@@ -190,7 +206,7 @@ const unsigned short& LevelEditorController::render(
                     /* save the level file */
                     saveLevelFile(
                         impl->saveLevelDialog->getInputTextWidget().getText(),
-                        impl->level.getCells()
+                        impl->level->getCells()
                     );
 
                     context.getEditingLevelManager().setLevelName(
@@ -207,7 +223,7 @@ const unsigned short& LevelEditorController::render(
                 {
                     deleteActiveDialog();
 
-                    impl->level.refresh(context);
+                    impl->level->refresh(context);
                 }
             }
             default:
@@ -252,7 +268,7 @@ const unsigned short& LevelEditorController::render(
                 {
                     saveLevelFile(
                         levelName,
-                        impl->level.getCells()
+                        impl->level->getCells()
                     );
 
                     /* remove the asterisk at the end of the displayed level
@@ -328,7 +344,7 @@ const unsigned short& LevelEditorController::render(
 
             /* try to select a cell on the level */
             if(
-                impl->level.updateSelectedCellType(
+                impl->level->updateSelectedCellType(
                     context,
                     impl->floor,
                     impl->selector.getSelectedCellType()
@@ -435,8 +451,8 @@ void LevelEditorController::saveLevelFile(
     std::string cellsStr;
 
     /* add the seconds and minutes of playing time */
-    cellsStr += std::to_string(impl->level.getMinutes()) + '\n';
-    cellsStr += std::to_string(impl->level.getSeconds()) + '\n';
+    cellsStr += std::to_string(impl->level->getMinutes()) + '\n';
+    cellsStr += std::to_string(impl->level->getSeconds()) + '\n';
 
     for (
         std::vector<std::unique_ptr<entities::Cell>>::const_iterator iterator =
@@ -449,9 +465,6 @@ void LevelEditorController::saveLevelFile(
     }
 
     file << cellsStr;
-
-    /* manually close the file is not necessary as std::ofstream is
-       automatically destroyed when it leaves the current scope */
 }
 
 }

@@ -90,7 +90,9 @@ OpenLevelController::~OpenLevelController() noexcept = default;
 /**
  *
  */
-const unsigned short& OpenLevelController::render(const utils::Context& context) &
+const unsigned short& OpenLevelController::render(
+    const utils::Context& context
+) &
 {
     context.getSfmlWindow().draw(impl->title);
 
@@ -110,7 +112,13 @@ const unsigned short& OpenLevelController::render(const utils::Context& context)
             {
             case sf::Keyboard::Escape:
             {
-                expectedControllerId = MAIN_MENU_CONTROLLER_ID;
+
+                /* TODO: force the selected level to empty in order to reset
+                   the whole level content; this behavior should be changed,
+                   we should get back the previously edited level */
+                context.getEditingLevelManager().setLevelName("");
+
+                expectedControllerId = LEVEL_EDITOR_CONTROLLER_ID;
 
                 break;
             }
@@ -118,6 +126,7 @@ const unsigned short& OpenLevelController::render(const utils::Context& context)
             {
             }
             }
+            break;
         }
         case sf::Event::MouseButtonPressed:
         {
@@ -136,6 +145,7 @@ const unsigned short& OpenLevelController::render(const utils::Context& context)
         {
         }
         }
+        break;
     }
 
     return nextControllerId;
