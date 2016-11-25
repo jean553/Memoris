@@ -26,8 +26,13 @@
 
 #include "Context.hpp"
 #include "controllers.hpp"
+#include "fonts.hpp"
+#include "FontsManager.hpp"
+#include "ColorsManager.hpp"
+#include "window.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Text.hpp>
 
 namespace memoris
 {
@@ -39,6 +44,19 @@ class WinSerieEndingController::Impl
 
 public:
 
+    Impl(const utils::Context& context)
+    {
+        title.setString("Serie finished !");
+        title.setCharacterSize(fonts::TITLE_SIZE);
+        title.setFont(context.getFontsManager().getTextFont());
+        title.setColor(context.getColorsManager().getColorLightBlue());
+        title.setPosition(
+            window::getCenteredSfmlSurfaceHorizontalPosition(title),
+            TITLE_VERTICAL_POSITION
+        );
+    }
+
+    sf::Text title;
 };
 
 /**
@@ -48,7 +66,7 @@ WinSerieEndingController::WinSerieEndingController(
     const utils::Context& context
 ) :
     Controller(context),
-    impl(std::make_unique<Impl>())
+    impl(std::make_unique<Impl>(context))
 {
 }
 
@@ -64,6 +82,8 @@ const unsigned short& WinSerieEndingController::render(
     const utils::Context& context
 ) &
 {
+    context.getSfmlWindow().draw(impl->title);
+
     nextControllerId = animateScreenTransition(context);
 
     while(context.getSfmlWindow().pollEvent(event))
