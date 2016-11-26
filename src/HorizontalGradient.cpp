@@ -17,12 +17,12 @@
 */
 
 /**
- * @file MenuGradient.cpp
+ * @file HorizontalGradient.cpp
  * @package others
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "MenuGradient.hpp"
+#include "HorizontalGradient.hpp"
 
 #include "Context.hpp"
 #include "window.hpp"
@@ -36,33 +36,34 @@ namespace memoris
 namespace others
 {
 
-class MenuGradient::Impl
+class HorizontalGradient::Impl
 {
 
 public:
 
     Impl(const utils::Context& context)
     {
-        menuBackground.setSize(
+        background.setSize(
             sf::Vector2f(
-                BACKGROUND_WIDTH,
-                window::HEIGHT
+                window::WIDTH,
+                BACKGROUND_HEIGHT
             )
         );
 
-        menuBackground.setPosition(
-            BACKGROUND_HORIZONTAL_POSITION,
-            0.f
+        background.setPosition(
+            0.f,
+            BACKGROUND_VERTICAL_POSITION
         );
-        menuBackground.setFillColor(
+
+        background.setFillColor(
             context.getColorsManager().getColorBlack()
         );
     }
 
-    sf::RectangleShape menuBackground;
+    sf::RectangleShape background;
 
-    /* we use pointers in order to accelerate the execution (no object copy);
-       we could have used move sementics, but SFML does not provides move
+    /* we use pointers in order to accelerate the execution (no object copy); 
+       we could have used move sementics, but SFML does not provides move 
        constructors for rectangle shapes */
     std::vector<std::unique_ptr<sf::RectangleShape>> sidesLines;
 };
@@ -70,28 +71,23 @@ public:
 /**
  *
  */
-MenuGradient::MenuGradient(const utils::Context& context) :
+HorizontalGradient::HorizontalGradient(const utils::Context& context) :
     impl(std::make_unique<Impl>(context))
 {
-    /** the creation of the rectangles can be done directly inside the
-     * constructor of the class; in fact, there are many local variables
-     * to use to create these surfaces; in order to improve the code
-     * organization and clarity, we create these surfaces into a dedicated
-     * function. */
     initializeGradientRectangles(context);
 }
 
 /**
  *
  */
-MenuGradient::~MenuGradient() noexcept = default;
+HorizontalGradient::~HorizontalGradient() noexcept = default;
 
 /**
  *
  */
-void MenuGradient::display(const utils::Context& context) const &
+void HorizontalGradient::render(const utils::Context& context) const &
 {
-    context.getSfmlWindow().draw(impl->menuBackground);
+    context.getSfmlWindow().draw(impl->background);
 
     // auto -> std::unique_ptr<sf::RectangleShape>&
     for (auto& rectangle : impl->sidesLines)
@@ -103,48 +99,49 @@ void MenuGradient::display(const utils::Context& context) const &
 /**
  *
  */
-void MenuGradient::initializeGradientRectangles(
+void HorizontalGradient::initializeGradientRectangles(
     const utils::Context& context
-) &
+) const &
 {
-    float horizontalPosition = LEFT_SIDE_HORIZONTAL_POSITION;
+    float verticalPosition = BACKGROUND_VERTICAL_POSITION;
     sf::Color effectColor = context.getColorsManager().getColorBlackCopy();
 
     for (
-        unsigned short index = SURFACES_AMOUNT;
-        index > 0;
-        index--
+        unsigned short index = 0;
+        index < SURFACES_AMOUNT;
+        index++
     )
     {
         // auto -> std::unique_ptr<sf::RectangleShape>
         auto rectangle = std::make_unique<sf::RectangleShape>();
 
         rectangle->setPosition(
-            horizontalPosition,
-            0.f
+            0.f,
+            verticalPosition
         );
 
         rectangle->setSize(
             sf::Vector2f(
-                1.f,
-                window::HEIGHT
+                window::WIDTH,
+                1.f
             )
         );
 
         rectangle->setFillColor(effectColor);
 
-        if(index >= SIDE_SURFACES_AMOUNT)
+        if(index < SIDE_SURFACES_AMOUNT)
         {
-            horizontalPosition--;
+            verticalPosition--;
         }
         else
         {
-            horizontalPosition++;
+            verticalPosition++;
         }
 
         if (index == SIDE_SURFACES_AMOUNT)
         {
-            horizontalPosition = RIGHT_SIDE_HORIZONTAL_POSITION;
+            verticalPosition = 
+                BACKGROUND_VERTICAL_POSITION + BACKGROUND_HEIGHT;
             effectColor.a = DEFAULT_EFFECT_COLOR_ALPHA;
         }
 
