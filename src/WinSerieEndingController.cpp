@@ -30,6 +30,8 @@
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "window.hpp"
+#include "AnimatedBackground.hpp"
+#include "HorizontalGradient.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -44,7 +46,9 @@ class WinSerieEndingController::Impl
 
 public:
 
-    Impl(const utils::Context& context)
+    Impl(const utils::Context& context) :
+        background(context),
+        gradient(context)
     {
         title.setString("Serie finished !");
         title.setCharacterSize(fonts::TITLE_SIZE);
@@ -54,9 +58,23 @@ public:
             window::getCenteredSfmlSurfaceHorizontalPosition(title),
             TITLE_VERTICAL_POSITION
         );
+
+        time.setString("00 : 00 : 00");
+        time.setCharacterSize(fonts::TITLE_SIZE);
+        time.setFont(context.getFontsManager().getTextFont());
+        time.setColor(context.getColorsManager().getColorWhite());
+        time.setPosition(
+            window::getCenteredSfmlSurfaceHorizontalPosition(time),
+            TIME_VERTICAL_POSITION
+        );
     }
 
     sf::Text title;
+    sf::Text time;
+
+    utils::AnimatedBackground background;
+
+    others::HorizontalGradient gradient;
 };
 
 /**
@@ -82,7 +100,11 @@ const unsigned short& WinSerieEndingController::render(
     const utils::Context& context
 ) &
 {
+    impl->background.render(context);
+    impl->gradient.render(context);
+
     context.getSfmlWindow().draw(impl->title);
+    context.getSfmlWindow().draw(impl->time);
 
     nextControllerId = animateScreenTransition(context);
 
