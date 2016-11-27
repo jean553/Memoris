@@ -52,6 +52,7 @@ public:
     unsigned short watchingTime {6};
     unsigned short lifes {0};
     unsigned short levelIndex {0};
+    unsigned short totalSeriePlayingTime {0};
 
     std::string serieName;
 };
@@ -195,6 +196,22 @@ void PlayingSerieManager::setLifesAmount(const unsigned short& lifes) const &
 const unsigned short& PlayingSerieManager::getLifesAmount() const & noexcept
 {
     return impl->lifes;
+}
+
+/**
+ *
+ */
+void PlayingSerieManager::incrementPlayingTime() const & noexcept
+{
+    impl->totalSeriePlayingTime += 1;
+}
+
+/**
+ *
+ */
+const unsigned short& PlayingSerieManager::getPlayingTime() const & noexcept
+{
+    return impl->totalSeriePlayingTime;
 }
 
 }

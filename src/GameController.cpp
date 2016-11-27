@@ -327,8 +327,6 @@ const unsigned short& GameController::render(
             {
                 expectedControllerId = controllers::GAME_CONTROLLER_ID;
 
-                context.getPlayingSerieManager().incrementLevelIndex();
-
                 break;
             }
             case sf::Keyboard::Return:

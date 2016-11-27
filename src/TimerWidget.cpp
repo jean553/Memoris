@@ -28,6 +28,7 @@
 #include "Context.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
+#include "PlayingSerieManager.hpp"
 
 namespace memoris
 {
@@ -61,68 +62,48 @@ TimerWidget::TimerWidget(
  */
 void TimerWidget::display(const utils::Context& context)
 {
-    /* check if the elapsed time since the last timer update is more than
-       1000 milliseconds; if yes, the timer value is updated; also check if
-       the timer is started */
     if (
-        started &&
-        (
-            context.getClockMillisecondsTime() -
-            lastTimerUpdateTime > 1000
+        !(
+            started and
+            (
+                context.getClockMillisecondsTime() -
+                lastTimerUpdateTime > ONE_SECOND
+            )
         )
     )
     {
-        /* call the separated private method to update all the timer values */
-        updateTimerValues();
+        context.getSfmlWindow().draw(text);
 
-        /* save the last timer update time at the end of the animation */
-        lastTimerUpdateTime = context.getClockMillisecondsTime();
+        return;
     }
 
-    /* display the SFML text surface */
-    context.getSfmlWindow().draw(text);
-}
-
-/**
- *
- */
-void TimerWidget::updateTimerValues()
-{
-    /* adapt the values of other timer variables */
-
-    /* check if the countdown seconds is equal to 0, if yes, switch to the
-       next minute of the countdown */
     if (seconds == 0)
     {
         if (minutes == 0)
         {
-            /* if the amount of seconds and the amount of minutes are both
-               equals to 0, just stop the countdown */
             started = false;
-
-            /* set the finished boolean as true */
             finished = true;
         }
         else
         {
-
-            /* if the amount of minutes is more than 0, just decrement it */
             minutes--;
-
-            /* reset the amount of seconds to 59 in order to countdown the
-               next minute */
-            seconds = 59;
+            seconds = FIRST_SECOND_IN_MINUTE;
         }
     }
     else
     {
-        /* if the amount of seconds is more than 0, just decrement the
-           countdown */
         seconds--;
     }
 
-    /* update the displayed timer string */
     updateDisplayedString();
+
+    /* TODO: this should be done into the game controller because this is not
+       specific to the timer widget but to the game */
+    context.getPlayingSerieManager().incrementPlayingTime();
+
+    context.getSfmlWindow().draw(text);
+
+    lastTimerUpdateTime = context.getClockMillisecondsTime();
 }
 
 /**
