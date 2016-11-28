@@ -96,12 +96,8 @@ public:
 
 private:
 
-    /**
-     * @brief increments the amount of seconds to the current timer time;
-     * increments the seconds and minutes variables if necessary; reset the
-     * seconds variable if necessary
-     */
-    void updateTimerValues();
+    static constexpr unsigned short ONE_SECOND {1000};
+    static constexpr unsigned short FIRST_SECOND_IN_MINUTE {59};
 
     /**
      * @brief update the displayed timer string; add a 0 to second or minute

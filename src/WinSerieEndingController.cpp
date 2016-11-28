@@ -32,6 +32,7 @@
 #include "window.hpp"
 #include "AnimatedBackground.hpp"
 #include "HorizontalGradient.hpp"
+#include "PlayingSerieManager.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -59,7 +60,18 @@ public:
             TITLE_VERTICAL_POSITION
         );
 
-        time.setString("00 : 00 : 00");
+        const unsigned short totalTime = 
+            context.getPlayingSerieManager().getPlayingTime();
+
+        sf::String secondsString = fillMissingTimeDigits(
+            totalTime % SECONDS_IN_ONE_MINUTE
+        );
+
+        sf::String minutesString = fillMissingTimeDigits(
+            totalTime / SECONDS_IN_ONE_MINUTE
+        );
+
+        time.setString(minutesString + " : " + secondsString);
         time.setCharacterSize(fonts::TITLE_SIZE);
         time.setFont(context.getFontsManager().getTextFont());
         time.setColor(context.getColorsManager().getColorWhite());
@@ -75,6 +87,31 @@ public:
     utils::AnimatedBackground background;
 
     others::HorizontalGradient gradient;
+
+private:
+
+    /**
+     * @brief add a 0 into a time number string if the number is less than 0
+     *
+     * @param numericValue constant reference to the numeric value
+     *
+     * @return const sf::String
+     *
+     * this function is only declared here for refactoring purposes: the
+     * constructor of the implementation needs this feature more than one time
+     */
+    const sf::String fillMissingTimeDigits(const unsigned short& numericValue)
+        const & noexcept
+    {
+        sf::String timeNumber = std::to_string(numericValue);
+
+        if (numericValue < 10)
+        {
+            timeNumber.insert(0, "0");
+        }
+
+        return timeNumber;
+    }
 };
 
 /**

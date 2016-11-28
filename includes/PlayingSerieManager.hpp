@@ -150,6 +150,21 @@ public:
      */
     const unsigned short& getLifesAmount() const & noexcept;
 
+    /**
+     * @brief add the level playing time to the total serie playing time
+     *
+     * @param levelPlayingTime constant reference to the current level playing
+     * time
+     */
+    void incrementPlayingTime() const & noexcept;
+
+    /**
+     * @brief getter of the total playing time
+     *
+     * @return const unsigned short&
+     */
+    const unsigned short& getPlayingTime() const & noexcept;
+
 private:
 
     class Impl;
