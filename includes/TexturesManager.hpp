@@ -156,6 +156,20 @@ public:
      */
     const sf::Texture& getArrowDownTexture() const & noexcept;
 
+    /**
+     * @brief getter for the scroll arrow down texture
+     *
+     * @return const sf::Texture&
+     */
+    const sf::Texture& getScrollArrowDownTexture() const & noexcept;
+
+    /**
+     * @brief getter for the scroll arrow up texture
+     *
+     * @return const sf::Texture&
+     */
+    const sf::Texture& getScrollArrowUpTexture() const & noexcept;
+
 private:
 
     /**
