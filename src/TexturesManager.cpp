@@ -52,6 +52,8 @@ public:
     sf::Texture testTexture;
     sf::Texture arrowUpTexture;
     sf::Texture arrowDownTexture;
+    sf::Texture scrollArrowDownTexture;
+    sf::Texture scrollArrowUpTexture;
 };
 
 /**
@@ -74,6 +76,8 @@ TexturesManager::TexturesManager() :
     loadTexture(impl->testTexture, "test");
     loadTexture(impl->arrowUpTexture, "up");
     loadTexture(impl->arrowDownTexture, "down");
+    loadTexture(impl->scrollArrowDownTexture, "scroll_down");
+    loadTexture(impl->scrollArrowUpTexture, "scroll_up");
 }
 
 /**
@@ -191,6 +195,23 @@ const sf::Texture& TexturesManager::getArrowUpTexture() const & noexcept
 const sf::Texture& TexturesManager::getArrowDownTexture() const & noexcept
 {
     return impl->arrowDownTexture;
+}
+
+/**
+ *
+ */
+const sf::Texture& TexturesManager::getScrollArrowDownTexture() const &
+    noexcept
+{
+    return impl->scrollArrowDownTexture;
+}
+
+/**
+ *
+ */
+const sf::Texture& TexturesManager::getScrollArrowUpTexture() const & noexcept
+{
+    return impl->scrollArrowUpTexture;
 }
 
 /**

@@ -28,8 +28,10 @@
 #include "ColorsManager.hpp"
 #include "FontsManager.hpp"
 #include "fonts.hpp"
+#include "TexturesManager.hpp"
 
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Mouse.hpp>
@@ -104,13 +106,39 @@ public:
         selector.setFillColor(
             context.getColorsManager().getColorPartialDarkGrey()
         );
+
+        arrowUp.setTexture(
+            context.getTexturesManager().getScrollArrowUpTexture()
+        );
+
+        arrowDown.setTexture(
+            context.getTexturesManager().getScrollArrowDownTexture()
+        );
+
+        float horizontalPositionBase = HORIZONTAL_POSITION + WIDTH / 2;
+        float verticalPositionBase = VERTICAL_POSITION + HEIGHT;
+
+        arrowUp.setPosition(
+            horizontalPositionBase - 2 * ARROW_SPACE,
+            verticalPositionBase
+        );
+
+        arrowDown.setPosition(
+            horizontalPositionBase + ARROW_SPACE,
+            verticalPositionBase
+        );
     }
+
+    static constexpr float ARROW_SPACE {64.f};
 
     sf::RectangleShape top;
     sf::RectangleShape bottom;
     sf::RectangleShape left;
     sf::RectangleShape right;
     sf::RectangleShape selector;
+
+    sf::Sprite arrowUp;
+    sf::Sprite arrowDown;
 
     std::vector<sf::Text> texts;
 
@@ -139,6 +167,8 @@ void SelectionListWidget::display(const utils::Context& context) &
     context.getSfmlWindow().draw(impl->left);
     context.getSfmlWindow().draw(impl->right);
     context.getSfmlWindow().draw(impl->bottom);
+    context.getSfmlWindow().draw(impl->arrowUp);
+    context.getSfmlWindow().draw(impl->arrowDown);
 
     displaySelector(context);
 
@@ -179,8 +209,8 @@ noexcept
 
         text.setColor(context.getColorsManager().getColorWhite());
         text.setPosition(
-        {HORIZONTAL_POSITION},
-        verticalPosition
+            HORIZONTAL_POSITION,
+            verticalPosition
         );
 
         impl->texts.push_back(text);
@@ -214,8 +244,8 @@ void SelectionListWidget::displaySelector(const utils::Context& context) &
     /* explicit cast to only work with integers in the division; it prevents
        to get decimal results */
     impl->selectorIndex =
-    (mousePosition.y - static_cast<int>(VERTICAL_POSITION)) /
-    static_cast<int>(ITEMS_SEPARATION);
+        (mousePosition.y - static_cast<int>(VERTICAL_POSITION)) /
+        static_cast<int>(ITEMS_SEPARATION);
 
     /* do not display the selection surface if there is no item under the
        cursor; implicit cast from size_t and int */
