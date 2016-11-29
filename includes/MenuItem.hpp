@@ -52,6 +52,18 @@ class MenuItem
 public:
 
     /**
+     * @enum MenuItem::HorizontalPosition
+     * @brief used to specify the horizontal position of the menu item, which
+     * can be centered or on the left
+     *
+     * public because it may be accessed from menus controllers
+     */
+    enum class HorizontalPosition {
+        Center, /** < the position is centered (default) */
+        Left /** < the position is left */
+    };
+
+    /**
      * @brief constructor, generates a SFML text object with the given
      * string label at the specified location; automatically applies the
      * default color, font and font size ( same for all the menu items )
@@ -59,11 +71,13 @@ public:
      * @param context reference to the current context
      * @param label the menu item text label
      * @param verticalPosition the vertical position of the text
+     * @param position horizontal position of the item (centered by default)
      */
     MenuItem(
         const utils::Context& context,
         const std::string& label,
-        const float& verticalPosition
+        const float& verticalPosition,
+        const HorizontalPosition& position = HorizontalPosition::Center
     );
 
     /**
@@ -103,6 +117,8 @@ public:
 private:
 
     static constexpr sf::Uint32 ANIMATION_INTERVAL {500};
+
+    static constexpr float LEFT_HORIZONTAL_POSITION {10.f};
 
     /**
      * @brief display the menu item on the SFML window; this action is
