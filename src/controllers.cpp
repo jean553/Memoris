@@ -172,7 +172,7 @@ std::unique_ptr<Controller> getControllerById(
     {
         return std::make_unique<WinSerieEndingController>(context);
     }
-    case REMOVE_GAME_CONFIRMATION_CONTROLLER_ID:
+    case REMOVE_GAME_CONTROLLER_ID:
     {
         return std::make_unique<RemoveGameController>(context);
     }
