@@ -38,6 +38,7 @@
 #include "PlayingSerieManager.hpp"
 #include "EditingLevelManager.hpp"
 #include "WinSerieEndingController.hpp"
+#include "RemoveGameController.hpp"
 
 namespace memoris
 {
@@ -170,6 +171,10 @@ std::unique_ptr<Controller> getControllerById(
     case WIN_SERIE_CONTROLLER_ID:
     {
         return std::make_unique<WinSerieEndingController>(context);
+    }
+    case REMOVE_GAME_CONFIRMATION_CONTROLLER_ID:
+    {
+        return std::make_unique<RemoveGameController>(context);
     }
     }
 

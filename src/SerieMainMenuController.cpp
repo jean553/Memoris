@@ -194,6 +194,12 @@ void SerieMainMenuController::selectMenuItem() & noexcept
 
         break;
     }
+    case 3:
+    {
+        expectedControllerId = REMOVE_GAME_CONTROLLER_ID;
+
+        break;
+    }
     }
 }
 
