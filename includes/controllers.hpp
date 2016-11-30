@@ -57,7 +57,7 @@ constexpr unsigned short ERROR_CONTROLLER_ID {7};
 constexpr unsigned short UNLOCKED_SERIE_ERROR_CONTROLLER_ID {13};
 
 constexpr unsigned short WIN_SERIE_CONTROLLER_ID {14};
-constexpr unsigned short REMOVE_GAME_CONFIRMATION_CONTROLLER_ID {15};
+constexpr unsigned short REMOVE_GAME_CONTROLLER_ID {15};
 
 /**
  * @brief factory method to create controllers by id, each controller is linked
