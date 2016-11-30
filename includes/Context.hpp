@@ -53,6 +53,11 @@ class PlayingSerieManager;
 class EditingLevelManager;
 }
 
+namespace entities
+{
+class Game;
+}
+
 namespace utils
 {
 
@@ -205,6 +210,13 @@ public:
      * declared as noexcept
      */
     void restartClock() const &;
+
+    /**
+     * @brief getter of the game entity
+     *
+     * @return const entities::Game&
+     */
+    const entities::Game& getGame() const & noexcept;
 
 private:
 

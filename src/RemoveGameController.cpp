@@ -29,6 +29,7 @@
 #include "controllers.hpp"
 #include "fonts.hpp"
 #include "window.hpp"
+#include "Game.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -98,6 +99,14 @@ const unsigned short& RemoveGameController::render(
             case sf::Keyboard::N:
             {
                 expectedControllerId = SERIE_MAIN_MENU_CONTROLLER_ID;
+
+                break;
+            }
+            case sf::Keyboard::Y:
+            {
+                context.getGame().deleteGameFile();
+
+                expectedControllerId = MAIN_MENU_CONTROLLER_ID;
 
                 break;
             }

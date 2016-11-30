@@ -33,6 +33,7 @@
 #include "PlayingSerieManager.hpp"
 #include "EditingLevelManager.hpp"
 #include "window.hpp"
+#include "Game.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Audio/Music.hpp>
@@ -77,6 +78,12 @@ public:
      * controller is modified; the maximum time returned in milliseconds
      * is equal to 49 days... so this is a safe method */
     sf::Clock clock;
+
+    /* we could use a pointer to dynamically creates the game object only
+       when it is really necessary during the program execution; in order to
+       avoid multiple tests on existing pointers, we just create a permanent
+       game object */
+    entities::Game game;
 };
 
 /**
@@ -216,6 +223,14 @@ void Context::stopMusic() const &
 void Context::restartClock() const &
 {
     impl->clock.restart();
+}
+
+/**
+ *
+ */
+const entities::Game& Context::getGame() const & noexcept
+{
+    return impl->game;
 }
 
 }

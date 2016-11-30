@@ -30,6 +30,7 @@
 #include "ColorsManager.hpp"
 #include "InputTextWidget.hpp"
 #include "window.hpp"
+#include "Game.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -132,6 +133,10 @@ const unsigned short& NewGameController::render(
                 {
                     break;
                 }
+
+                context.getGame().createGame(
+                    impl->inputTextGameName.getText()
+                );
 
                 expectedControllerId = SERIE_MAIN_MENU_CONTROLLER_ID;
 
