@@ -80,7 +80,7 @@ SerieMainMenuController::SerieMainMenuController(
         std::make_unique<items::MenuItem>(
             context,
             "Personal series",
-            470.f
+            350.f
         )
     );
 
@@ -88,7 +88,16 @@ SerieMainMenuController::SerieMainMenuController(
         std::make_unique<items::MenuItem>(
             context,
             "Back",
-            800.f
+            650.f
+        )
+    );
+
+    std::unique_ptr<items::MenuItem> remove(
+        std::make_unique<items::MenuItem>(
+            context,
+            "Remove",
+            810.f,
+            items::MenuItem::HorizontalPosition::Left
         )
     );
 
@@ -97,6 +106,7 @@ SerieMainMenuController::SerieMainMenuController(
     addMenuItem(std::move(officialSeries));
     addMenuItem(std::move(personalSeries));
     addMenuItem(std::move(back));
+    addMenuItem(std::move(remove));
 }
 
 /**
