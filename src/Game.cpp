@@ -33,14 +33,6 @@ namespace memoris
 namespace entities
 {
 
-class Game::Impl
-{
-
-public:
-
-    std::string gameName;
-};
-
 constexpr char Game::GAMES_FILES_DIRECTORY[];
 constexpr char Game::GAMES_FILES_EXTENSION[];
 
@@ -55,11 +47,6 @@ Game::Game() :
 /**
  *
  */
-Game::~Game() noexcept = default;
-
-/**
- *
- */
 void Game::loadGameFromFile(const std::string& gameName) const & noexcept
 {
     impl->gameName = gameName;
@@ -70,7 +57,7 @@ void Game::loadGameFromFile(const std::string& gameName) const & noexcept
  */
 void Game::deleteGameFile() const &
 {
-    std::string filePath = 
+    std::string filePath =
         GAMES_FILES_DIRECTORY + impl->gameName + GAMES_FILES_EXTENSION;
 
     /* TODO: #931 check if the file deletion succeeds */
@@ -80,11 +67,8 @@ void Game::deleteGameFile() const &
 /**
  *
  */
-void Game::createGame(const std::string&& gameName) const &
+void Game::createFile() const &
 {
-    /* use std::string& operator=(std::string&& str) */
-    impl->gameName = std::move(gameName);
-
     std::ofstream file;
     utils::applyFailbitAndBadbitExceptions(file);
 

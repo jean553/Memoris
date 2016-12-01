@@ -28,6 +28,8 @@
 
 #include <memory>
 
+#include <string>
+
 namespace memoris
 {
 namespace entities
@@ -42,12 +44,6 @@ public:
      * @brief game entity constructor
      */
     Game();
-
-    /**
-     * @brief default destructor, only declared in order to use forwarding
-     * declaration
-     */
-    ~Game() noexcept;
 
     /**
      * @brief game loader function, loads all the parameters in memory
@@ -65,19 +61,48 @@ public:
     /**
      * @brief creates a new file for a new game
      *
-     * @param gameName constant rvalue reference to a string to use 
+     * @param gameName universal reference to the name of the game string
+     *
+     * @throw std::ios_base::failure the file cannot be written; the exception
+     * is never caught and the program stops
+     *
+     * not defined inside the source file as it is a function template that
+     * has universal references as parameters
+     */
+    template<typename T>
+    void createGame(T&& gameName) const &
+    {
+        /* call std::string& operator=(std::string&&) or
+           std::string& operator=(std::string&) */
+        impl->gameName = std::forward<T>(gameName);
+
+        createFile();
+    }
+
+private:
+
+    /**
+     * @brief open the file using the given file name; only used internally
+     * by the two definitions of createGame()
      *
      * @throw std::ios_base::failure the file cannot be written; the exception
      * is never caught and the program stops
      */
-    void createGame(const std::string&& gameName) const &;
-
-private:
+    void createFile() const &;
 
     static constexpr char GAMES_FILES_DIRECTORY[] {"data/games/"};
     static constexpr char GAMES_FILES_EXTENSION[] {".game"};
 
-    class Impl;
+    /* the implementation definition is inside the header instead of the
+       source file because createGame() needs it and createGame() cannot
+       be defined inside the source file */
+    class Impl
+    {
+    public:
+
+        std::string gameName;
+    };
+
     std::unique_ptr<Impl> impl;
 };
 
