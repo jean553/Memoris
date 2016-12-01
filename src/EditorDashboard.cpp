@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -129,34 +129,39 @@ void EditorDashboard::display(const utils::Context& context) const &
 /**
  *
  */
-const unsigned short EditorDashboard::getActionIdBySelectedButton() const &
+const EditorDashboard::Action EditorDashboard::getActionIdBySelectedButton() 
+    const &
 {
     if (impl->buttonExit.isMouseHover())
     {
-        return EXIT_ACTION_ID;
+        return Action::EXIT;
     }
     else if (impl->buttonSave.isMouseHover())
     {
-        return SAVE_ACTION_ID;
+        return Action::SAVE;
     }
     else if (impl->buttonNew.isMouseHover())
     {
-        return NEW_ACTION_ID;
+        return Action::NEW;
     }
     else if (impl->buttonUp.isMouseHover())
     {
-        return FLOOR_UP_ACTION_ID;
+        return Action::UP;
     }
     else if (impl->buttonDown.isMouseHover())
     {
-        return FLOOR_DOWN_ACTION_ID;
+        return Action::DOWN;
     }
     else if (impl->buttonOpen.isMouseHover())
     {
-        return OPEN_ACTION_ID;
+        return Action::OPEN;
+    }
+    else if (impl->buttonPlay.isMouseHover())
+    {
+        return Action::PLAY;
     }
 
-    return 0;
+    return Action::NO_ACTION;
 }
 
 }
