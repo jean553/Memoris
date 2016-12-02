@@ -1,6 +1,6 @@
 /**
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,6 +47,8 @@ namespace memoris
 namespace controllers
 {
 
+using Action = utils::EditorDashboard::Action;
+
 class LevelEditorController::Impl
 {
 
@@ -61,8 +63,6 @@ public:
         level(std::move(levelPtr)),
         cursor(context)
     {
-        /* check if a name is already set for the edited level (ie, the user
-           comes from the OpenLevelController */
         std::string levelName =
             context.getEditingLevelManager().getLevelName().empty() ?
             "unnamed" :
@@ -99,7 +99,8 @@ public:
     std::unique_ptr<entities::Level> level;
 
     unsigned short floor {0};
-    unsigned short currentActionId {0};
+
+    Action currentActionId {Action::EXIT};
 
     widgets::Cursor cursor;
 
@@ -139,26 +140,19 @@ const unsigned short& LevelEditorController::render(
     const utils::Context& context
 ) &
 {
-    /* display the editor dashboard */
     impl->dashboard.display(context);
 
-    /* display the level */
     impl->level->display(
         context,
         impl->floor,
         &entities::Cell::displayWithMouseHover
     );
 
-    /* display the cells selector */
     impl->selector.display(context);
 
-    /* display the level name */
     context.getSfmlWindow().draw(impl->levelNameSurface);
-
-    /* display the current floor */
     context.getSfmlWindow().draw(impl->floorSurface);
 
-    /* display the saveLevelDialog window if the pointer is not null */
     if (impl->saveLevelDialog != nullptr)
     {
         impl->saveLevelDialog->render(context);
@@ -168,7 +162,6 @@ const unsigned short& LevelEditorController::render(
         impl->newLevelDialog->render(context);
     }
 
-    /* display the graphical cursor */
     impl->cursor.render(context);
 
     nextControllerId = animateScreenTransition(context);
@@ -193,28 +186,23 @@ const unsigned short& LevelEditorController::render(
                    window, just update the level name */
                 if (saveDialogIsActive())
                 {
-                    /* check if the level name is empty */
                     if (impl->saveLevelDialog->getInputTextWidget().isEmpty())
                     {
                         break;
                     }
 
-                    impl->levelNameSurface.setString(
-                        impl->saveLevelDialog->getInputTextWidget().getText()
-                    );
+                    const std::string levelName =
+                        impl->saveLevelDialog->getInputTextWidget().getText();
 
-                    /* save the level file */
+                    impl->levelNameSurface.setString(levelName);
+
                     saveLevelFile(
-                        impl->saveLevelDialog->getInputTextWidget().getText(),
+                        levelName,
                         impl->level->getCells()
                     );
 
-                    context.getEditingLevelManager().setLevelName(
-                        impl->saveLevelDialog->getInputTextWidget().getText()
-                    );
+                    context.getEditingLevelManager().setLevelName(levelName);
 
-                    /* as the width of the surface has changed, we have to
-                       update the position of the surface */
                     updateLevelNameSurfacePosition();
 
                     deleteActiveDialog();
@@ -228,7 +216,6 @@ const unsigned short& LevelEditorController::render(
             }
             default:
             {
-                /* add input into the save saveLevelDialog window */
                 if (saveDialogIsActive())
                 {
                     impl->saveLevelDialog->getInputTextWidget().update(event);
@@ -240,22 +227,17 @@ const unsigned short& LevelEditorController::render(
         }
         case sf::Event::MouseButtonPressed:
         {
-            /* try to get the selected button from the dashboard */
             switch(impl->dashboard.getActionIdBySelectedButton())
             {
-            case utils::EditorDashboard::EXIT_ACTION_ID:
+            case Action::EXIT:
             {
-                /* the current edited level won't be loaded again if the
-                   user comes back to the editor */
                 context.getEditingLevelManager().setLevelName("");
 
-                /* if the exit button is selected, just go back to the
-                   editor main menu */
                 expectedControllerId = EDITOR_MENU_CONTROLLER_ID;
 
                 break;
             }
-            case utils::EditorDashboard::SAVE_ACTION_ID:
+            case Action::SAVE:
             {
                 std::string levelName =
                     context.getEditingLevelManager().getLevelName();
@@ -283,34 +265,31 @@ const unsigned short& LevelEditorController::render(
                 impl->saveLevelDialog =
                     std::make_unique<popups::SaveLevelDialog>(context);
 
-                impl->currentActionId =
-                    utils::EditorDashboard::SAVE_ACTION_ID;
+                impl->currentActionId = Action::SAVE;
 
                 break;
             }
-            case utils::EditorDashboard::NEW_ACTION_ID:
+            case Action::NEW:
             {
                 impl->newLevelDialog =
                     std::make_unique<popups::NewLevelDialog>(context);
 
-                impl->currentActionId = utils::EditorDashboard::NEW_ACTION_ID;
+                impl->currentActionId = Action::NEW;
 
                 break;
             }
-            case utils::EditorDashboard::OPEN_ACTION_ID:
+            case Action::OPEN:
             {
                 expectedControllerId = OPEN_LEVEL_CONTROLLER_ID;
 
                 break;
             }
-            case utils::EditorDashboard::FLOOR_UP_ACTION_ID:
+            case Action::UP:
             {
-                /* increment the current floor if not equal to 9 */
                 if (impl->floor != entities::Level::MAX_FLOOR)
                 {
                     impl->floor++;
 
-                    /* update the displayed floor */
                     impl->floorSurface.setString(
                         std::to_string(
                             impl->floor + 1
@@ -320,14 +299,12 @@ const unsigned short& LevelEditorController::render(
 
                 break;
             }
-            case utils::EditorDashboard::FLOOR_DOWN_ACTION_ID:
+            case Action::DOWN:
             {
-                /* increment the current floor if not equal to 9 */
                 if (impl->floor != entities::Level::MIN_FLOOR)
                 {
                     impl->floor--;
 
-                    /* update the displayed floor */
                     impl->floorSurface.setString(
                         std::to_string(
                             impl->floor + 1
@@ -337,12 +314,13 @@ const unsigned short& LevelEditorController::render(
 
                 break;
             }
+            default:
+            {
+            }
             }
 
-            /* try to select a cell into the selector */
             impl->selector.selectCell(context);
 
-            /* try to select a cell on the level */
             if(
                 impl->level->updateSelectedCellType(
                     context,
@@ -361,7 +339,6 @@ const unsigned short& LevelEditorController::render(
         }
         default:
         {
-            /* useless, added here to respect the syntax */
         }
         }
     }
@@ -376,7 +353,7 @@ const bool LevelEditorController::saveDialogIsActive() const & noexcept
 {
     if (
         impl->currentActionId ==
-        utils::EditorDashboard::SAVE_ACTION_ID &&
+        Action::SAVE &&
         impl->saveLevelDialog != nullptr
     )
     {
@@ -393,7 +370,7 @@ const bool LevelEditorController::newDialogIsActive() const & noexcept
 {
     if (
         impl->currentActionId ==
-        utils::EditorDashboard::NEW_ACTION_ID &&
+        Action::NEW &&
         impl->newLevelDialog != nullptr
     )
     {
@@ -423,8 +400,6 @@ void LevelEditorController::deleteActiveDialog() & noexcept
  */
 void LevelEditorController::updateLevelNameSurfacePosition() &
 {
-    /* set the position once the surface is created because we need the surface
-       width to find the surface horizontal position */
     impl->levelNameSurface.setPosition(
         1200.f - impl->levelNameSurface.getLocalBounds().width,
         0.f
@@ -447,10 +422,8 @@ void LevelEditorController::saveLevelFile(
         std::fstream::out
     );
 
-    /* string representation of the cells */
     std::string cellsStr;
 
-    /* add the seconds and minutes of playing time */
     cellsStr += std::to_string(impl->level->getMinutes()) + '\n';
     cellsStr += std::to_string(impl->level->getSeconds()) + '\n';
 
