@@ -37,7 +37,6 @@
 
 namespace memoris
 {
-
 namespace controllers
 {
 
