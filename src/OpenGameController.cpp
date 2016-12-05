@@ -120,6 +120,8 @@ const unsigned short& OpenGameController::render(
             {
             }
             }
+
+            break;
         }
         case sf::Event::MouseButtonPressed:
         {
