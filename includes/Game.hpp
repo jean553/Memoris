@@ -79,6 +79,13 @@ public:
         createFile();
     }
 
+    /**
+     * @brief getter of the game name
+     *
+     * @return the name of the current loaded game
+     */
+    const std::string& getName() const & noexcept;
+
 private:
 
     /**

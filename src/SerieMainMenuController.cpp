@@ -30,6 +30,7 @@
 #include "ColorsManager.hpp"
 #include "MenuItem.hpp"
 #include "window.hpp"
+#include "Game.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -54,9 +55,22 @@ public:
             window::getCenteredSfmlSurfaceHorizontalPosition(title),
             50.f
         );
+
+        gameName.setFont(context.getFontsManager().getTextFont());
+        gameName.setString(context.getGame().getName());
+        gameName.setCharacterSize(memoris::fonts::TEXT_SIZE);
+        gameName.setColor(context.getColorsManager().getColorLightBlue());
+        gameName.setPosition(
+            window::WIDTH - gameName.getLocalBounds().width -
+                GAME_NAME_RIGHT_PADDING,
+            810.f
+        );
     }
 
+    static constexpr float GAME_NAME_RIGHT_PADDING {20.f};
+
     sf::Text title;
+    sf::Text gameName;
 };
 
 /**
@@ -124,6 +138,8 @@ const unsigned short& SerieMainMenuController::render(
     context.getSfmlWindow().draw(impl->title);
 
     renderAllMenuItems(context);
+
+    context.getSfmlWindow().draw(impl->gameName);
 
     nextControllerId = animateScreenTransition(context);
 
