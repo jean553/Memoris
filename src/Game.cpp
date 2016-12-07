@@ -80,5 +80,13 @@ void Game::createFile() const &
     /* std::ofstream is automatically closed at the end of the context */
 }
 
+/**
+ *
+ */
+const std::string& Game::getName() const & noexcept
+{
+    return impl->gameName;
+}
+
 }
 }
