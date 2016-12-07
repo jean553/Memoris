@@ -150,6 +150,15 @@ const unsigned short& SerieEditorController::render(
             }
             }
         }
+        case sf::Event::MouseButtonPressed:
+        {
+            if (impl->buttonExit.isMouseHover())
+            {
+                expectedControllerId = EDITOR_MENU_CONTROLLER_ID;
+            }
+
+            break;
+        }
         default:
         {
         }
