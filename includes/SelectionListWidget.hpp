@@ -30,6 +30,11 @@
 #include <memory>
 #include <vector>
 
+namespace sf
+{
+class Sprite;
+}
+
 namespace memoris
 {
 
@@ -103,6 +108,8 @@ private:
     static constexpr float HEIGHT {600.f};
     static constexpr float ITEMS_SEPARATION {50.f};
 
+    static constexpr unsigned short ARROW_DIMENSION {64};
+
     /**
      * @brief move the visual selector according to the current cursor position
      *
@@ -113,6 +120,24 @@ private:
      * not 'noexcept' because it calls SFML functions that are not noexcept
      */
     void displaySelector(const utils::Context& context) &;
+
+    /**
+     * @brief selects an arrow if the mouse is hover
+     * 
+     * @param context constant reference to the current context
+     * @param horizontalPosition horizontal position of the arrow
+     * @param arrowSprite reference to the arrow sprite,
+     * not constant as the color might be changed
+     * @param selected reference to the selection boolean to update
+     *
+     * not noexcept as it calls SFML functions that are not noexcept
+     */
+    void selectArrowWhenMouseHover(
+        const utils::Context& context,
+        const unsigned short& horizontalPosition,
+        sf::Sprite& arrowSprite,
+        bool& selected
+    ) const &;
 
     class Impl;
     std::unique_ptr<Impl> impl;
