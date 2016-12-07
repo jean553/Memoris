@@ -116,7 +116,11 @@ public:
         );
 
         float horizontalPositionBase = HORIZONTAL_POSITION + WIDTH / 2;
-        float verticalPositionBase = VERTICAL_POSITION + HEIGHT;
+
+        leftArrowHorizontalPosition = horizontalPositionBase - 2 * ARROW_SPACE;
+        rightArrowHorizontalPosition = horizontalPositionBase + ARROW_SPACE;
+
+        verticalPositionBase = VERTICAL_POSITION + HEIGHT;
 
         arrowUp.setPosition(
             horizontalPositionBase - 2 * ARROW_SPACE,
@@ -143,6 +147,27 @@ public:
     std::vector<sf::Text> texts;
 
     unsigned short selectorIndex {0};
+
+    bool mouseHoverLeftArrow {false};
+    bool mouseHoverRightArrow {false};
+
+    float leftArrowHorizontalPosition {0.f};
+    float rightArrowHorizontalPosition {0.f};
+    float verticalPositionBase {0.f};
+
+    sf::Color selectedArrowColor {
+        255,
+        255,
+        255,
+        128
+    };
+
+    sf::Color unselectedArrowColor {
+        255,
+        255,
+        255,
+        255
+    };
 };
 
 /**
@@ -179,6 +204,20 @@ void SelectionListWidget::display(const utils::Context& context) &
     {
         context.getSfmlWindow().draw(text);
     }
+    );
+
+    selectArrowWhenMouseHover(
+        context,
+        impl->leftArrowHorizontalPosition,
+        impl->arrowUp,
+        impl->mouseHoverLeftArrow
+    );
+
+    selectArrowWhenMouseHover(
+        context,
+        impl->rightArrowHorizontalPosition,
+        impl->arrowDown,
+        impl->mouseHoverRightArrow
     );
 }
 
@@ -275,6 +314,45 @@ const std::string SelectionListWidget::getCurrentItem() const & noexcept
     }
 
     return impl->texts[impl->selectorIndex].getString();
+}
+
+/**
+ *
+ */
+void SelectionListWidget::selectArrowWhenMouseHover(
+    const utils::Context& context,
+    const unsigned short& horizontalPosition,
+    sf::Sprite& arrowSprite,
+    bool& selected
+) const &
+{
+    sf::Vector2<int> mousePosition = sf::Mouse::getPosition();
+
+    if (
+        mousePosition.x > horizontalPosition and
+        mousePosition.x < horizontalPosition + ARROW_DIMENSION and
+        mousePosition.y > impl->verticalPositionBase and
+        mousePosition.y < impl->verticalPositionBase + ARROW_DIMENSION and
+        not selected
+    )
+    {
+        arrowSprite.setColor(impl->selectedArrowColor);
+
+        selected = true;
+    }
+    else if (
+        (
+            mousePosition.x < horizontalPosition or
+            mousePosition.x > horizontalPosition + ARROW_DIMENSION or
+            mousePosition.y < impl->verticalPositionBase or
+            mousePosition.y > impl->verticalPositionBase + ARROW_DIMENSION
+        ) and selected
+    )
+    {
+        arrowSprite.setColor(impl->unselectedArrowColor);
+
+        selected = false;
+    }
 }
 
 }
