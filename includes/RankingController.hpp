@@ -17,23 +17,29 @@
 */
 
 /**
- * @file WinSerieEndingController.hpp
- * @brief the wining screen that is displayed when the user wins the serie
+ * @file RankingController.hpp
+ * @brief renders the three best times for the current serie
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef MEMORIS_WINSERIEENDINGCONTROLLER_H_
-#define MEMORIS_WINSERIEENDINGCONTROLLER_H_
+#ifndef MEMORIS_RANKINGCONTROLLER_H_
+#define MEMORIS_RANKINGCONTROLLER_H_
 
 #include "Controller.hpp"
 
 namespace memoris
 {
+
+namespace utils
+{
+class Context;
+}
+
 namespace controllers
 {
 
-class WinSerieEndingController : public Controller
+class RankingController : public Controller
 {
 
 public:
@@ -43,13 +49,13 @@ public:
      *
      * @param constant reference to the current context to use
      */
-    WinSerieEndingController(const utils::Context& context);
+    RankingController(const utils::Context& context);
 
     /**
-     * @brief default destructor, empty, only declared in order to use
-     * forwarding declaration
+     * @brief destructor, empty, only declared in order to use forwarding
+     * declaration
      */
-    ~WinSerieEndingController() noexcept;
+    ~RankingController() noexcept;
 
     /**
      * @brief overrides the render() method of the Controller parent class
@@ -61,11 +67,6 @@ public:
     const unsigned short& render(const utils::Context& context) & override;
 
 private:
-
-    static constexpr float TITLE_VERTICAL_POSITION {200.f};
-    static constexpr float TIME_VERTICAL_POSITION {400.f};
-
-    static constexpr unsigned short SECONDS_IN_ONE_MINUTE {60};
 
     class Impl;
     std::unique_ptr<Impl> impl;

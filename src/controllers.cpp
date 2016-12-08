@@ -40,6 +40,7 @@
 #include "WinSerieEndingController.hpp"
 #include "RemoveGameController.hpp"
 #include "PersonalSeriesMenuController.hpp"
+#include "RankingController.hpp"
 
 namespace memoris
 {
@@ -180,6 +181,10 @@ std::unique_ptr<Controller> getControllerById(
     case PERSONAL_SERIES_MENU_CONTROLLER_ID:
     {
         return std::make_unique<PersonalSeriesMenuController>(context);
+    }
+    case RANKING_CONTROLLER_ID:
+    {
+        return std::make_unique<RankingController>(context);
     }
     }
 

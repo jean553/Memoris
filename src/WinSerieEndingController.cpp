@@ -153,9 +153,9 @@ const unsigned short& WinSerieEndingController::render(
         {
             switch(event.key.code)
             {
-            case sf::Keyboard::Escape:
+            case sf::Keyboard::Return:
             {
-                expectedControllerId = MAIN_MENU_CONTROLLER_ID;
+                expectedControllerId = RANKING_CONTROLLER_ID;
 
                 break;
             }
