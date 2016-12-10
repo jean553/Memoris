@@ -125,7 +125,7 @@ noexcept
  */
 void PlayingSerieManager::loadSerieFileContent(const std::string& name) &
 {
-    /* clear the queue */
+    /* clear the queue containing the levels of the previous serie */
     impl->levels = std::queue<std::string>();
 
     impl->levelIndex = 0;
@@ -142,19 +142,26 @@ void PlayingSerieManager::loadSerieFileContent(const std::string& name) &
         throw std::invalid_argument("Cannot open the given serie file.");
     }
 
-    /* string buffer */
     std::string level;
+    unsigned short index {0};
 
-    /* read the file one by one and add the levels names into the queue */
     while(std::getline(file, level))
     {
+        index++;
+
+        /* skip the three first lines as they are
+           used to store the best results */
+        if (index <= BEST_RESULTS_PER_SERIE_FILE_AMOUNT)
+        {
+            continue;
+        }
+
         impl->levels.push(level);
     }
 
     impl->serieName = name;
 
-    /* this is useless to close the std::ifstream object, it is automatically
-       destroyed when the object goes out of the scope */
+    /* std::ifstream object is automatically closed at the end of the scope */
 }
 
 /**

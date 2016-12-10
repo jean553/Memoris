@@ -167,6 +167,8 @@ public:
 
 private:
 
+    static constexpr unsigned short BEST_RESULTS_PER_SERIE_FILE_AMOUNT {3};
+
     class Impl;
     std::unique_ptr<Impl> impl;
 };
