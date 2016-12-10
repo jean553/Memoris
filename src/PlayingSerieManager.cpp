@@ -28,6 +28,7 @@
 #include <stdexcept>
 #include <string>
 #include <queue>
+#include <array>
 
 namespace memoris
 {
@@ -55,6 +56,8 @@ public:
     unsigned short totalSeriePlayingTime {0};
 
     std::string serieName;
+
+    std::array<std::string, RESULTS_PER_SERIE_FILE_AMOUNT> results;
 };
 
 /**
@@ -142,20 +145,16 @@ void PlayingSerieManager::loadSerieFileContent(const std::string& name) &
         throw std::invalid_argument("Cannot open the given serie file.");
     }
 
+    /* get the best results of the serie first */
+    for (std::string& result : impl->results)
+    {
+        std::getline(file, result);
+    }
+
     std::string level;
-    unsigned short index {0};
 
     while(std::getline(file, level))
     {
-        index++;
-
-        /* skip the three first lines as they are
-           used to store the best results */
-        if (index <= BEST_RESULTS_PER_SERIE_FILE_AMOUNT)
-        {
-            continue;
-        }
-
         impl->levels.push(level);
     }
 
@@ -219,6 +218,15 @@ void PlayingSerieManager::incrementPlayingTime() const & noexcept
 const unsigned short& PlayingSerieManager::getPlayingTime() const & noexcept
 {
     return impl->totalSeriePlayingTime;
+}
+
+/**
+ *
+ */
+const PlayingSerieManager::Results& PlayingSerieManager::getResults() const &
+    noexcept
+{
+    return impl->results;
 }
 
 }

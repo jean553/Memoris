@@ -68,6 +68,9 @@ public:
 
 private:
 
+    static constexpr float RESULTS_FIRST_ITEM_VERTICAL_POSITION {100.f};
+    static constexpr float RESULTS_INTERVAL {50.f};
+
     class Impl;
     std::unique_ptr<Impl> impl;
 };

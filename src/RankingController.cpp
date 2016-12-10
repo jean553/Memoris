@@ -26,8 +26,18 @@
 
 #include "Context.hpp"
 #include "controllers.hpp"
+#include "PlayingSerieManager.hpp"
+#include "FontsManager.hpp"
+#include "fonts.hpp"
+#include "window.hpp"
 
+#include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+
+#include <vector>
+#include <array>
+#include <string>
+#include <memory>
 
 namespace memoris
 {
@@ -41,7 +51,45 @@ public:
 
     Impl(const utils::Context& context)
     {
+        // const std::array<std::string, N>&
+        auto& results = context.getPlayingSerieManager().getResults();
+
+        // const sf::Font&
+        const auto& font = context.getFontsManager().getTextFont();
+
+        for (
+            managers::PlayingSerieManager::Results::const_iterator it =
+                results.begin();
+            it != results.end();
+            ++it
+        )
+        {
+            /* skip undefined result */
+            if (*it == ".")
+            {
+                continue;
+            }
+
+            // std::unique_ptr<sf::Text>
+            auto resultText = std::make_unique<sf::Text>(
+                *it,
+                font,
+                fonts::TEXT_SIZE
+            );
+
+            resultText->setPosition(
+                window::getCenteredSfmlSurfaceHorizontalPosition(*resultText),
+                RESULTS_FIRST_ITEM_VERTICAL_POSITION +
+                    RESULTS_INTERVAL * std::distance(results.begin(), it)
+            );
+
+            resultsTexts.push_back(std::move(resultText));
+        }
     }
+
+    /* use pointers instead of plain objects in order to accelerate the copy
+       process (sf::Text has no move constructor) */
+    std::vector<std::unique_ptr<sf::Text>> resultsTexts;
 };
 
 /**
@@ -67,6 +115,12 @@ const unsigned short& RankingController::render(
     const utils::Context& context
 ) &
 {
+    // const std::unique_ptr<sf::Text>&
+    for (const auto& resultText : impl->resultsTexts)
+    {
+        context.getSfmlWindow().draw(*resultText);
+    }
+
     nextControllerId = animateScreenTransition(context);
 
     while(context.getSfmlWindow().pollEvent(event))

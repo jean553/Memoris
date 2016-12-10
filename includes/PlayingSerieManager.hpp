@@ -37,8 +37,12 @@ namespace managers
 
 class PlayingSerieManager : public utils::NotCopiable
 {
+    /* declared here because used in an alias */
+    static constexpr unsigned short RESULTS_PER_SERIE_FILE_AMOUNT {3};
 
 public:
+
+    using Results = std::array<std::string, RESULTS_PER_SERIE_FILE_AMOUNT>;
 
     /**
      * @brief constructor, empty, only used to initialize the implementation
@@ -165,9 +169,14 @@ public:
      */
     const unsigned short& getPlayingTime() const & noexcept;
 
-private:
+    /**
+     * @brief getter of the results list loaded from the serie file
+     *
+     * @return const std::array<std::string, N>&
+     */
+    const Results& getResults() const & noexcept;
 
-    static constexpr unsigned short BEST_RESULTS_PER_SERIE_FILE_AMOUNT {3};
+private:
 
     class Impl;
     std::unique_ptr<Impl> impl;
