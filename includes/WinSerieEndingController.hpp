@@ -64,6 +64,8 @@ private:
 
     static constexpr float TITLE_VERTICAL_POSITION {200.f};
     static constexpr float TIME_VERTICAL_POSITION {400.f};
+    static constexpr float RESULTS_FIRST_ITEM_VERTICAL_POSITION {600.f};
+    static constexpr float RESULTS_INTERVAL {50.f};
 
     static constexpr unsigned short SECONDS_IN_ONE_MINUTE {60};
 

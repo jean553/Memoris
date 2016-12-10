@@ -37,6 +37,8 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
 
+#include <array>
+
 namespace memoris
 {
 namespace controllers
@@ -79,6 +81,42 @@ public:
             window::getCenteredSfmlSurfaceHorizontalPosition(time),
             TIME_VERTICAL_POSITION
         );
+
+        // const std::array<std::string, N>&
+        auto& results = context.getPlayingSerieManager().getResults();
+
+        // const sf::Font&
+        const auto& font = context.getFontsManager().getTextFont();
+
+        for (
+            managers::PlayingSerieManager::Results::const_iterator it =
+                results.begin();
+            it != results.end();
+            ++it
+        )
+        {
+            /* skip undefined result */
+            if (*it == ".")
+            {
+                continue;
+            }
+
+            // std::unique_ptr<sf::Text>
+            auto resultText = std::make_unique<sf::Text>(
+                *it,
+                font,
+                fonts::TEXT_SIZE
+            );
+
+            resultText->setPosition(
+                window::getCenteredSfmlSurfaceHorizontalPosition(*resultText),
+                RESULTS_FIRST_ITEM_VERTICAL_POSITION +
+                    RESULTS_INTERVAL * std::distance(results.begin(), it)
+            );
+
+            resultsTexts.push_back(std::move(resultText));
+        }
+
     }
 
     sf::Text title;
@@ -87,6 +125,10 @@ public:
     utils::AnimatedBackground background;
 
     others::HorizontalGradient gradient;
+
+    /* use pointers instead of plain objects in order to accelerate the copy
+       process (sf::Text has no move constructor) */
+    std::vector<std::unique_ptr<sf::Text>> resultsTexts;
 
 private:
 
@@ -142,6 +184,12 @@ const unsigned short& WinSerieEndingController::render(
 
     context.getSfmlWindow().draw(impl->title);
     context.getSfmlWindow().draw(impl->time);
+
+    // const std::unique_ptr<sf::Text>&
+    for (const auto& resultText : impl->resultsTexts)
+    {
+        context.getSfmlWindow().draw(*resultText);
+    }
 
     nextControllerId = animateScreenTransition(context);
 
