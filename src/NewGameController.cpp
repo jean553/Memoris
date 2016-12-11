@@ -104,14 +104,14 @@ const unsigned short& NewGameController::render(
     const utils::Context& context
 ) &
 {
-    context.getSfmlWindow().draw(impl->title);
-    context.getSfmlWindow().draw(impl->explanation);
+    window.draw(impl->title);
+    window.draw(impl->explanation);
 
     impl->inputTextGameName.display(context);
 
     nextControllerId = animateScreenTransition(context);
 
-    while(context.getSfmlWindow().pollEvent(event))
+    while(window.pollEvent(event))
     {
         switch(event.type)
         {
@@ -121,8 +121,7 @@ const unsigned short& NewGameController::render(
             {
             case sf::Keyboard::Escape:
             {
-                expectedControllerId =
-                MAIN_MENU_CONTROLLER_ID;
+                expectedControllerId = MAIN_MENU_CONTROLLER_ID;
 
                 break;
             }

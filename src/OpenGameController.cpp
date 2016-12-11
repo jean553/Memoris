@@ -94,7 +94,7 @@ const unsigned short& OpenGameController::render(
     const utils::Context& context
 ) &
 {
-    context.getSfmlWindow().draw(impl->title);
+    window.draw(impl->title);
 
     impl->list.display(context);
 
@@ -102,7 +102,7 @@ const unsigned short& OpenGameController::render(
 
     nextControllerId = animateScreenTransition(context);
 
-    while(context.getSfmlWindow().pollEvent(event))
+    while(window.pollEvent(event))
     {
         switch(event.type)
         {

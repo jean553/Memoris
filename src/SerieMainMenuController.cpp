@@ -135,15 +135,15 @@ const unsigned short& SerieMainMenuController::render(
     const utils::Context& context
 ) &
 {
-    context.getSfmlWindow().draw(impl->title);
+    window.draw(impl->title);
 
     renderAllMenuItems(context);
 
-    context.getSfmlWindow().draw(impl->gameName);
+    window.draw(impl->gameName);
 
     nextControllerId = animateScreenTransition(context);
 
-    while (context.getSfmlWindow().pollEvent(event))
+    while (window.pollEvent(event))
     {
         switch(event.type)
         {

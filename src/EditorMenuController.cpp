@@ -107,13 +107,13 @@ EditorMenuController::~EditorMenuController() noexcept = default;
  */
 const unsigned short& EditorMenuController::render(const utils::Context& context) &
 {
-    context.getSfmlWindow().draw(impl->title);
+    window.draw(impl->title);
 
     renderAllMenuItems(context);
 
     nextControllerId = animateScreenTransition(context);
 
-    while(context.getSfmlWindow().pollEvent(event))
+    while(window.pollEvent(event))
     {
         switch(event.type)
         {
