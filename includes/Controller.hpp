@@ -30,6 +30,11 @@
 
 #include <SFML/Window/Event.hpp>
 
+namespace sf
+{
+class RenderWindow;
+}
+
 namespace memoris
 {
 
@@ -113,7 +118,10 @@ protected:
     /* TODO: #784 not included in the implementation because used by the
        children objects, this should be refactored */
     unsigned short nextControllerId {0}, expectedControllerId {0};
+
     sf::Event event;
+
+    sf::RenderWindow& window;
 
 private:
 

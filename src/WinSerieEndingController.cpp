@@ -184,8 +184,6 @@ const unsigned short& WinSerieEndingController::render(
     impl->background.render(context);
     impl->gradient.render(context);
 
-    auto& window = context.getSfmlWindow(); // sf::RenderWindow&
-
     if (impl->displayRanking)
     {
         // const std::unique_ptr<sf::Text>&

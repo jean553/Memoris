@@ -120,7 +120,7 @@ const unsigned short& SerieEditorController::render(
     const utils::Context& context
 ) &
 {
-    context.getSfmlWindow().draw(impl->serieName);
+    window.draw(impl->serieName);
 
     impl->buttonNew.display(context);
     impl->buttonOpen.display(context);
@@ -131,7 +131,7 @@ const unsigned short& SerieEditorController::render(
 
     nextControllerId = animateScreenTransition(context);
 
-    while(context.getSfmlWindow().pollEvent(event))
+    while(window.pollEvent(event))
     {
         switch(event.type)
         {

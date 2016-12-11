@@ -150,8 +150,8 @@ const unsigned short& LevelEditorController::render(
 
     impl->selector.display(context);
 
-    context.getSfmlWindow().draw(impl->levelNameSurface);
-    context.getSfmlWindow().draw(impl->floorSurface);
+    window.draw(impl->levelNameSurface);
+    window.draw(impl->floorSurface);
 
     if (impl->saveLevelDialog != nullptr)
     {
@@ -166,7 +166,7 @@ const unsigned short& LevelEditorController::render(
 
     nextControllerId = animateScreenTransition(context);
 
-    while(context.getSfmlWindow().pollEvent(event))
+    while(window.pollEvent(event))
     {
         switch(event.type)
         {
