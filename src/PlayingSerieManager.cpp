@@ -24,9 +24,10 @@
 
 #include "PlayingSerieManager.hpp"
 
+#include "SerieResult.hpp"
+
 #include <fstream>
 #include <stdexcept>
-#include <string>
 #include <queue>
 #include <array>
 
@@ -57,7 +58,7 @@ public:
 
     std::string serieName;
 
-    std::array<std::string, RESULTS_PER_SERIE_FILE_AMOUNT> results;
+    std::array<entities::SerieResult, RESULTS_PER_SERIE_FILE_AMOUNT> results;
 };
 
 /**
@@ -146,9 +147,24 @@ void PlayingSerieManager::loadSerieFileContent(const std::string& name) &
     }
 
     /* get the best results of the serie first */
-    for (std::string& result : impl->results)
+    for (entities::SerieResult& result : impl->results)
     {
-        std::getline(file, result);
+        std::string& line = result.getString();
+
+        std::getline(file, line);
+
+        /* if the line is just a dot that means there is no record yet */
+        if (line == ".")
+        {
+            continue;
+        }
+
+        /* generates the total time of the SerieResult
+           object in integer format; not done directly
+           into a setter as we do not use setter to
+           set the std::string record attribute of the
+           SerieResult objects */
+        result.calculateTime();
     }
 
     std::string level;

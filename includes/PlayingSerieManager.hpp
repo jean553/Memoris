@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,6 +32,12 @@
 
 namespace memoris
 {
+
+namespace entities
+{
+class SerieResult;
+}
+
 namespace managers
 {
 
@@ -42,7 +48,7 @@ class PlayingSerieManager : public utils::NotCopiable
 
 public:
 
-    using Results = std::array<std::string, RESULTS_PER_SERIE_FILE_AMOUNT>;
+    using Results = std::array<entities::SerieResult, RESULTS_PER_SERIE_FILE_AMOUNT>;
 
     /**
      * @brief constructor, empty, only used to initialize the implementation
