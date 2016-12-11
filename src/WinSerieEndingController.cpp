@@ -88,6 +88,10 @@ public:
         // const sf::Font&
         const auto& font = context.getFontsManager().getTextFont();
 
+        sf::Color colorResults =
+            context.getColorsManager().getColorWhiteCopy();
+        colorResults.a = 0;
+
         for (
             managers::PlayingSerieManager::Results::const_iterator it =
                 results.begin();
@@ -114,9 +118,12 @@ public:
                     RESULTS_INTERVAL * std::distance(results.begin(), it)
             );
 
+            resultText->setColor(colorResults);
+
             resultsTexts.push_back(std::move(resultText));
         }
 
+        colorWhite = context.getColorsManager().getColorWhiteCopy();
     }
 
     sf::Text title;
@@ -131,6 +138,11 @@ public:
     std::vector<std::unique_ptr<sf::Text>> resultsTexts;
 
     bool displayRanking {false};
+    bool switchingDisplayedContent {false};
+
+    sf::Int32 lastAnimationUpdateTime {0};
+
+    sf::Color colorWhite;
 
 private:
 
@@ -184,6 +196,50 @@ const unsigned short& WinSerieEndingController::render(
     impl->background.render(context);
     impl->gradient.render(context);
 
+    sf::Int32 currentTime = context.getClockMillisecondsTime();
+
+    if (
+        impl->switchingDisplayedContent and
+        currentTime - impl->lastAnimationUpdateTime > SWITCH_ANIMATION_INTERVAL
+    )
+    {
+        if (!impl->displayRanking)
+        {
+            /* create a new object and do not use references here; the function
+               sf::Color::getColor() returns a constant reference but we want
+               update the opacity */
+            sf::Color titleColor = impl->title.getColor();
+
+            titleColor.a -= OPACITY_UPDATE_INTERVAL;
+            impl->colorWhite.a -= OPACITY_UPDATE_INTERVAL;
+
+            impl->title.setColor(titleColor);
+            impl->time.setColor(impl->colorWhite);
+
+            if (titleColor.a == 0)
+            {
+                impl->displayRanking = true;
+            }
+        }
+        else
+        {
+            impl->colorWhite.a += OPACITY_UPDATE_INTERVAL;
+
+            // const std::unique_ptr<sf::Text>&
+            for (const auto& resultText : impl->resultsTexts)
+            {
+                (*resultText).setColor(impl->colorWhite);
+            }
+
+            if (impl->colorWhite.a == COLOR_WHITE_MAX_OPACITY)
+            {
+                impl->switchingDisplayedContent = false;
+            }
+        }
+
+        impl->lastAnimationUpdateTime = currentTime;
+    }
+
     if (impl->displayRanking)
     {
         // const std::unique_ptr<sf::Text>&
@@ -212,7 +268,7 @@ const unsigned short& WinSerieEndingController::render(
             {
                 if (!impl->displayRanking)
                 {
-                    impl->displayRanking = true;
+                    impl->switchingDisplayedContent = true;
 
                     break;
                 }
