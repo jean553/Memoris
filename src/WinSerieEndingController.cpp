@@ -33,6 +33,7 @@
 #include "AnimatedBackground.hpp"
 #include "HorizontalGradient.hpp"
 #include "PlayingSerieManager.hpp"
+#include "SerieResult.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -82,7 +83,7 @@ public:
             TIME_VERTICAL_POSITION
         );
 
-        // const std::array<std::string, N>&
+        // const std::array<entities::SerieResult, N>&
         auto& results = context.getPlayingSerieManager().getResults();
 
         // const sf::Font&
@@ -92,35 +93,44 @@ public:
             context.getColorsManager().getColorWhiteCopy();
         colorResults.a = 0;
 
-        for (
-            managers::PlayingSerieManager::Results::const_iterator it =
-                results.begin();
-            it != results.end();
-            ++it
-        )
+        unsigned short index {0};
+
+        for (const entities::SerieResult& result : results)
         {
+            std::string resultString = result.getString();
+
             /* skip undefined result */
-            if (*it == ".")
+            if (resultString == ".")
             {
                 continue;
             }
 
+            /* replace commas by space for graphical reasons; I got some
+               problem by adding the space character directly into the file */
+            std::replace(
+                resultString.begin(),
+                resultString.end(),
+                ',',
+                ' '
+            );
+
             // std::unique_ptr<sf::Text>
             auto resultText = std::make_unique<sf::Text>(
-                *it,
+                resultString,
                 font,
                 fonts::TEXT_SIZE
             );
 
             resultText->setPosition(
                 window::getCenteredSfmlSurfaceHorizontalPosition(*resultText),
-                RESULTS_FIRST_ITEM_VERTICAL_POSITION +
-                    RESULTS_INTERVAL * std::distance(results.begin(), it)
+                RESULTS_FIRST_ITEM_VERTICAL_POSITION + RESULTS_INTERVAL * index
             );
 
             resultText->setColor(colorResults);
 
             resultsTexts.push_back(std::move(resultText));
+
+            index++;
         }
 
         colorWhite = context.getColorsManager().getColorWhiteCopy();
