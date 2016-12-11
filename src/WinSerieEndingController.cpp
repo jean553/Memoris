@@ -130,6 +130,8 @@ public:
        process (sf::Text has no move constructor) */
     std::vector<std::unique_ptr<sf::Text>> resultsTexts;
 
+    bool displayRanking {false};
+
 private:
 
     /**
@@ -184,13 +186,18 @@ const unsigned short& WinSerieEndingController::render(
 
     auto& window = context.getSfmlWindow(); // sf::RenderWindow&
 
-    window.draw(impl->title);
-    window.draw(impl->time);
-
-    // const std::unique_ptr<sf::Text>&
-    for (const auto& resultText : impl->resultsTexts)
+    if (impl->displayRanking)
     {
-        window.draw(*resultText);
+        // const std::unique_ptr<sf::Text>&
+        for (const auto& resultText : impl->resultsTexts)
+        {
+            window.draw(*resultText);
+        }
+    }
+    else
+    {
+        window.draw(impl->title);
+        window.draw(impl->time);
     }
 
     nextControllerId = animateScreenTransition(context);
@@ -205,6 +212,13 @@ const unsigned short& WinSerieEndingController::render(
             {
             case sf::Keyboard::Return:
             {
+                if (!impl->displayRanking)
+                {
+                    impl->displayRanking = true;
+
+                    break;
+                }
+
                 expectedControllerId = RANKING_CONTROLLER_ID;
 
                 break;
