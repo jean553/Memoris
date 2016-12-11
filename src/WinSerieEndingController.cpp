@@ -182,18 +182,20 @@ const unsigned short& WinSerieEndingController::render(
     impl->background.render(context);
     impl->gradient.render(context);
 
-    context.getSfmlWindow().draw(impl->title);
-    context.getSfmlWindow().draw(impl->time);
+    auto& window = context.getSfmlWindow(); // sf::RenderWindow&
+
+    window.draw(impl->title);
+    window.draw(impl->time);
 
     // const std::unique_ptr<sf::Text>&
     for (const auto& resultText : impl->resultsTexts)
     {
-        context.getSfmlWindow().draw(*resultText);
+        window.draw(*resultText);
     }
 
     nextControllerId = animateScreenTransition(context);
 
-    while(context.getSfmlWindow().pollEvent(event))
+    while(window.pollEvent(event))
     {
         switch(event.type)
         {
