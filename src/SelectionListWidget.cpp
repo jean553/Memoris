@@ -150,6 +150,10 @@ public:
     /* signed because equals to -1 when nothing is selected */
     short selectorIndex {0};
 
+    /* first index to display in the list; changes when the arrows are
+       clicked */
+    unsigned short offset {0};
+
     bool mouseHoverLeftArrow {false};
     bool mouseHoverRightArrow {false};
 
@@ -207,9 +211,14 @@ void SelectionListWidget::display(const utils::Context& context) &
         ++iterator
     )
     {
-        if (iterator - impl->texts.begin() == VISIBLE_ITEMS)
+        const float& itemVerticalPosition = iterator->getPosition().y;
+
+        if (
+            itemVerticalPosition < VERTICAL_POSITION or
+            itemVerticalPosition >= VERTICAL_POSITION + HEIGHT
+        )
         {
-            break;
+            continue;
         }
 
         impl->window.draw(*iterator);
@@ -327,7 +336,7 @@ const std::string SelectionListWidget::getCurrentItem() const & noexcept
         return "";
     }
 
-    return impl->texts[impl->selectorIndex].getString();
+    return impl->texts[impl->selectorIndex + impl->offset].getString();
 }
 
 /**
@@ -366,6 +375,48 @@ void SelectionListWidget::selectArrowWhenMouseHover(
         arrowSprite.setColor(impl->unselectedArrowColor);
 
         selected = false;
+    }
+}
+
+/**
+ *
+ */
+void SelectionListWidget::updateList() const &
+{
+    constexpr float DISPLAY_NEXT_ITEM_STEP {-1.f};
+    constexpr float DISPLAY_PREVIOUS_ITEM_STEP {1.f};
+
+    if (
+        impl->mouseHoverLeftArrow and
+        impl->offset != 0
+    )
+    {
+        impl->offset--;
+
+        updateAllItemsPosition(DISPLAY_PREVIOUS_ITEM_STEP);
+    }
+    else if (
+        impl->mouseHoverRightArrow and
+        impl->offset + VISIBLE_ITEMS != impl->texts.size()
+    )
+    {
+        impl->offset++;
+
+        updateAllItemsPosition(DISPLAY_NEXT_ITEM_STEP);
+    }
+}
+
+/**
+ *
+ */
+void SelectionListWidget::updateAllItemsPosition(const float& movement) const &
+{
+    for (sf::Text& text : impl->texts)
+    {
+        text.setPosition(
+            HORIZONTAL_POSITION,
+            text.getPosition().y + ITEMS_SEPARATION * movement
+        );
     }
 }
 

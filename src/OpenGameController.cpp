@@ -125,14 +125,20 @@ const unsigned short& OpenGameController::render(
         }
         case sf::Event::MouseButtonPressed:
         {
-            std::string gameName = impl->list.getCurrentItem();
+            // const widgets::SelectionListWidget&
+            const auto& list = impl->list;
+            std::string gameName = list.getCurrentItem();
 
             if (!gameName.empty())
             {
                 context.getGame().createGame(gameName);
 
                 expectedControllerId = SERIE_MAIN_MENU_CONTROLLER_ID;
+
+                break;
             }
+
+            list.updateList();
 
             break;
         }
