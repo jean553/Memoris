@@ -147,7 +147,8 @@ public:
 
     std::vector<sf::Text> texts;
 
-    unsigned short selectorIndex {0};
+    /* signed because equals to -1 when nothing is selected */
+    short selectorIndex {0};
 
     bool mouseHoverLeftArrow {false};
     bool mouseHoverRightArrow {false};
@@ -279,12 +280,14 @@ void SelectionListWidget::displaySelector(const utils::Context& context) &
     float mouseVerticalPosition = static_cast<float>(mousePosition.y);
 
     if (
-        mouseHorizontalPosition < HORIZONTAL_POSITION ||
-        mouseHorizontalPosition > HORIZONTAL_POSITION + WIDTH ||
-        mouseVerticalPosition < VERTICAL_POSITION ||
+        mouseHorizontalPosition < HORIZONTAL_POSITION or
+        mouseHorizontalPosition > HORIZONTAL_POSITION + WIDTH or
+        mouseVerticalPosition < VERTICAL_POSITION or
         mouseVerticalPosition > VERTICAL_POSITION + HEIGHT - 1.f
     )
     {
+        impl->selectorIndex = NO_SELECTION_INDEX;
+
         return;
     }
 
@@ -316,7 +319,10 @@ void SelectionListWidget::displaySelector(const utils::Context& context) &
  */
 const std::string SelectionListWidget::getCurrentItem() const & noexcept
 {
-    if (impl->selectorIndex >= impl->texts.size())
+    if (
+        impl->selectorIndex >= impl->texts.size() or
+        impl->selectorIndex == NO_SELECTION_INDEX
+    )
     {
         return "";
     }
