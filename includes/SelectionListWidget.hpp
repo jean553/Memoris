@@ -100,6 +100,13 @@ public:
      */
     const std::string getCurrentItem() const & noexcept;
 
+    /**
+     * @brief updates the displayed items list if an arrow is clicked
+     *
+     * not noexcept because it calls SFML functions that are not noexcept
+     */
+    void updateList() const &;
+
 private:
 
     static constexpr float HORIZONTAL_POSITION {500.f};
@@ -141,6 +148,16 @@ private:
         sf::Sprite& arrowSprite,
         bool& selected
     ) const &;
+
+    /**
+     * @brief updates the position of all the items on the list according
+     * to the user clicks on the arrow buttons
+     *
+     * @param movement constant reference to the movement (1 or -1)
+     *
+     * not noexcept because it calls SFML functions that are not noexcept
+     */
+    void updateAllItemsPosition(const float& movement) const &;
 
     class Impl;
     std::unique_ptr<Impl> impl;
