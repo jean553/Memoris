@@ -109,8 +109,9 @@ private:
     static constexpr float ITEMS_SEPARATION {50.f};
 
     static constexpr unsigned short ARROW_DIMENSION {64};
+    static constexpr unsigned short VISIBLE_ITEMS {12};
 
-    static constexpr size_t VISIBLE_ITEMS {12};
+    static constexpr short NO_SELECTION_INDEX {-1};
 
     /**
      * @brief move the visual selector according to the current cursor position
