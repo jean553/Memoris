@@ -46,7 +46,8 @@ class SelectionListWidget::Impl
 
 public:
 
-    Impl(const utils::Context& context)
+    Impl(const utils::Context& context) :
+        window(context.getSfmlWindow())
     {
         top.setPosition(
             HORIZONTAL_POSITION,
@@ -168,6 +169,8 @@ public:
         255,
         255
     };
+
+    sf::RenderWindow& window;
 };
 
 /**
@@ -188,12 +191,12 @@ SelectionListWidget::~SelectionListWidget() noexcept = default;
  */
 void SelectionListWidget::display(const utils::Context& context) &
 {
-    context.getSfmlWindow().draw(impl->top);
-    context.getSfmlWindow().draw(impl->left);
-    context.getSfmlWindow().draw(impl->right);
-    context.getSfmlWindow().draw(impl->bottom);
-    context.getSfmlWindow().draw(impl->arrowUp);
-    context.getSfmlWindow().draw(impl->arrowDown);
+    impl->window.draw(impl->top);
+    impl->window.draw(impl->left);
+    impl->window.draw(impl->right);
+    impl->window.draw(impl->bottom);
+    impl->window.draw(impl->arrowUp);
+    impl->window.draw(impl->arrowDown);
 
     displaySelector(context);
 
@@ -208,7 +211,7 @@ void SelectionListWidget::display(const utils::Context& context) &
             break;
         }
 
-        context.getSfmlWindow().draw(*iterator);
+        impl->window.draw(*iterator);
     }
 
     selectArrowWhenMouseHover(
@@ -305,7 +308,7 @@ void SelectionListWidget::displaySelector(const utils::Context& context) &
         static_cast<float>(impl->selectorIndex) * ITEMS_SEPARATION
     );
 
-    context.getSfmlWindow().draw(impl->selector);
+    impl->window.draw(impl->selector);
 }
 
 /**
