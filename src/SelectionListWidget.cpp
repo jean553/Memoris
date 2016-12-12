@@ -197,14 +197,19 @@ void SelectionListWidget::display(const utils::Context& context) &
 
     displaySelector(context);
 
-    std::for_each(
-        impl->texts.begin(),
-        impl->texts.end(),
-        [&context](const sf::Text& text)
+    for (
+        std::vector<sf::Text>::const_iterator iterator = impl->texts.begin();
+        iterator < impl->texts.end();
+        ++iterator
+    )
     {
-        context.getSfmlWindow().draw(text);
+        if (iterator - impl->texts.begin() == VISIBLE_ITEMS)
+        {
+            break;
+        }
+
+        context.getSfmlWindow().draw(*iterator);
     }
-    );
 
     selectArrowWhenMouseHover(
         context,

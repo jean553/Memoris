@@ -110,6 +110,8 @@ private:
 
     static constexpr unsigned short ARROW_DIMENSION {64};
 
+    static constexpr size_t VISIBLE_ITEMS {12};
+
     /**
      * @brief move the visual selector according to the current cursor position
      *
