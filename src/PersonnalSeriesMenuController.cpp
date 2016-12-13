@@ -64,7 +64,7 @@ public:
 PersonalSeriesMenuController::PersonalSeriesMenuController(
     const utils::Context& context
 ) :
-    AbstractMenuController(context),
+    Controller(context),
     impl(std::make_unique<Impl>(context))
 {
 }
@@ -114,14 +114,6 @@ const unsigned short& PersonalSeriesMenuController::render(
     }
 
     return nextControllerId;
-}
-
-/**
- *
- */
-void PersonalSeriesMenuController::selectMenuItem() & noexcept
-{
-    /* TODO */
 }
 
 }

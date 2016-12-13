@@ -26,16 +26,22 @@
 #ifndef MEMORIS_PERSONALSERIESMENUCONTROLLER_H_
 #define MEMORIS_PERSONALSERIESMENUCONTROLLER_H_
 
-#include "AbstractMenuController.hpp"
+#include "Controller.hpp"
 
 #include <memory>
 
 namespace memoris
 {
+
+namespace utils
+{
+class Context;
+}
+
 namespace controllers
 {
 
-class PersonalSeriesMenuController : public AbstractMenuController
+class PersonalSeriesMenuController : public Controller
 {
 
 public:
@@ -62,18 +68,9 @@ public:
      *
      * @return const unsigned short&
      */
-    virtual const unsigned short& render(
-        const utils::Context& context
-    ) & override;
+    virtual const unsigned short& render(const utils::Context& context) &;
 
 private:
-
-    /**
-     * @brief defines what happens when a menu item is selected
-     *
-     * not 'const' because the the expected controller id is modified
-     */
-    virtual void selectMenuItem() & noexcept override;
 
     class Impl;
     std::unique_ptr<Impl> impl;
