@@ -32,6 +32,9 @@ namespace memoris
 namespace utils
 {
 
+/**
+ *
+ */
 const std::vector<std::string> getFilesFromDirectory(
     const char* directory
 )
@@ -47,7 +50,6 @@ const std::vector<std::string> getFilesFromDirectory(
     /* pointer to the object managing the directory reading */
     DIR* dir = opendir(directory);
 
-    /* throw an exception if the directory cannot be opened */
     if (dir == NULL)
     {
         throw std::invalid_argument("Cannot open the given directory");

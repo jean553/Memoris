@@ -31,6 +31,7 @@
 #include "window.hpp"
 #include "SelectionListWidget.hpp"
 #include "Cursor.hpp"
+#include "DirectoryReader.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -56,6 +57,11 @@ public:
         title.setPosition(
             window::getCenteredSfmlSurfaceHorizontalPosition(title),
             50.f
+        );
+
+        list.setList(
+            context,
+            utils::getFilesFromDirectory("data/series")
         );
     }
 
