@@ -1,6 +1,6 @@
 /**
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistdibute it and/or modify
  * it under the terms of the GNU General Public License as published by
