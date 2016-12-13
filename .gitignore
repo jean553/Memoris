@@ -3,7 +3,6 @@ build/
 *.orig
 errors.log
 data/levels/*
-data/series/*
 data/games/*
 !data/levels/1.level
 !data/levels/2.level
@@ -15,7 +14,6 @@ data/games/*
 !data/levels/8.level
 !data/levels/9.level
 !data/levels/10.level
-!data/series/tutorial.serie
 !data/games/fake.game
 *.swp
 latex/
