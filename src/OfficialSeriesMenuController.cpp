@@ -241,7 +241,7 @@ void OfficialSeriesMenuController::selectMenuItem() & noexcept
     catch(std::invalid_argument&)
     {
         /* TODO: #559 the error controller should display the error message */
-        expectedControllerId = ERROR_CONTROLLER_ID;
+        expectedControllerId = OPEN_FILE_ERROR_CONTROLLER_ID;
     }
 }
 
