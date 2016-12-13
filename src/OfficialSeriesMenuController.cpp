@@ -232,7 +232,7 @@ void OfficialSeriesMenuController::selectMenuItem() & noexcept
     try
     {
         impl->contextReference.getPlayingSerieManager().loadSerieFileContent(
-            serie
+            "officials/" + serie
         );
 
         expectedControllerId = GAME_CONTROLLER_ID;
