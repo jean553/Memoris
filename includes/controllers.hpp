@@ -53,7 +53,7 @@ constexpr unsigned short OPEN_GAME_CONTROLLER_ID {11};
 constexpr unsigned short SERIE_EDITOR_CONTROLLER_ID {12};
 
 /* TODO: #894 delete this id when each error controller has his own message */
-constexpr unsigned short ERROR_CONTROLLER_ID {7};
+constexpr unsigned short OPEN_FILE_ERROR_CONTROLLER_ID {7};
 constexpr unsigned short UNLOCKED_SERIE_ERROR_CONTROLLER_ID {13};
 
 constexpr unsigned short WIN_SERIE_CONTROLLER_ID {14};
