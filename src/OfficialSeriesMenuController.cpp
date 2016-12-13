@@ -65,8 +65,7 @@ public:
        override from AbstractMenuController and does not have any
        utils::Context& parameter; we use a constant reference here instead
        of changing all the declarations/definitions of selectMenuItem()
-       because only one implementation uses it;
-       TODO: #793 do not use this constant reference here */
+       because only one implementation uses it */;
     const utils::Context& contextReference;
 };
 
