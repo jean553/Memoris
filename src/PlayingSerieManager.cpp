@@ -134,7 +134,7 @@ void PlayingSerieManager::loadSerieFileContent(const std::string& name) &
 
     impl->levelIndex = 0;
 
-    std::ifstream file("data/series/" + name + ".serie");
+    std::ifstream file("data/series/officials/" + name + ".serie");
     if (!file.is_open())
     {
         /* TODO: #561 throw std::invalid_argument if the file cannot be opened;

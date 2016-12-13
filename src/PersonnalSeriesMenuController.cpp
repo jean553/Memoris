@@ -61,7 +61,7 @@ public:
 
         list.setList(
             context,
-            utils::getFilesFromDirectory("data/series")
+            utils::getFilesFromDirectory("data/series/personals")
         );
     }
 
