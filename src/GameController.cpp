@@ -131,7 +131,10 @@ GameController::GameController(
         impl->level->getSeconds()
     );
 
-    if (context.getPlayingSerieManager().getSerieName() == "tutorial")
+    if (
+        context.getPlayingSerieManager().getSerieName() ==
+            "officials/tutorial"
+    )
     {
         impl->tutorialWidget =
             std::make_unique<widgets::TutorialWidget>(context);

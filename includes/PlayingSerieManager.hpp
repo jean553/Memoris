@@ -118,6 +118,7 @@ public:
      * of the serie if the file loading process succeeds
      *
      * @param name the name of the serie to open (not the full path)
+     * IMPORTANT: the format of the string must be [personals|officials]/name
      *
      * @throw std::invalid_argument if the file cannot be loaded, this
      * exception should be caught in order to display the error controller

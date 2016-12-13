@@ -32,6 +32,7 @@
 #include "SelectionListWidget.hpp"
 #include "Cursor.hpp"
 #include "DirectoryReader.hpp"
+#include "PlayingSerieManager.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -123,6 +124,37 @@ const unsigned short& PersonalSeriesMenuController::render(
                 break;
             }
             }
+        }
+        case sf::Event::MouseButtonPressed:
+        {
+            // const widgets::SelectionListWidget&
+            const auto& list = impl->list;
+            std::string serieName = list.getCurrentItem();
+
+            if (!serieName.empty())
+            {
+                try
+                {
+                    context.getPlayingSerieManager().loadSerieFileContent(
+                        "personals/" + serieName
+                    );
+
+                    expectedControllerId = GAME_CONTROLLER_ID;
+
+                }
+                catch(std::invalid_argument&)
+                {
+                    /* TODO: #559 the error controller
+                       should display the error message */
+                    expectedControllerId = ERROR_CONTROLLER_ID;
+                }
+
+                break;
+            }
+
+            list.updateList();
+
+            break;
         }
         default:
         {
