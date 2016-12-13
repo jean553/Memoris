@@ -209,7 +209,7 @@ std::unique_ptr<ErrorController> getErrorController(
  */
 const std::string getLevelFilePath(const std::string& levelName)
 {
-    return "data/levels/" + levelName + ".level";
+    return "data/levels/officials/" + levelName + ".level";
 }
 
 }

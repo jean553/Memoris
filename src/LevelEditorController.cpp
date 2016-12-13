@@ -418,7 +418,7 @@ void LevelEditorController::saveLevelFile(
     utils::applyFailbitAndBadbitExceptions(file);
 
     file.open(
-        "data/levels/" + name + ".level",
+        "data/levels/personals/" + name + ".level",
         std::fstream::out
     );
 
