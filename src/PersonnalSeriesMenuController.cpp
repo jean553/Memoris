@@ -29,6 +29,8 @@
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "window.hpp"
+#include "SelectionListWidget.hpp"
+#include "Cursor.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -43,7 +45,9 @@ class PersonalSeriesMenuController::Impl
 
 public:
 
-    Impl(const utils::Context& context)
+    Impl(const utils::Context& context) :
+        list(context),
+        cursor(context)
     {
         title.setFont(context.getFontsManager().getTitleFont());
         title.setString("Personal series");
@@ -56,6 +60,10 @@ public:
     }
 
     sf::Text title;
+
+    widgets::SelectionListWidget list;
+
+    widgets::Cursor cursor;
 };
 
 /**
@@ -83,6 +91,10 @@ const unsigned short& PersonalSeriesMenuController::render(
 ) &
 {
     window.draw(impl->title);
+
+    impl->list.display(context);
+
+    impl->cursor.render(context);
 
     nextControllerId = animateScreenTransition(context);
 
