@@ -62,7 +62,7 @@ public:
 
         list.setList(
             context,
-            utils::getFilesFromDirectory("data/levels")
+            utils::getFilesFromDirectory("data/levels/personals")
         );
     }
 
