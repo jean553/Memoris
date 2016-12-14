@@ -90,18 +90,6 @@ private:
     const bool saveDialogIsActive() const & noexcept;
 
     /**
-     * @brief true if the current displayed dialog window is the new level
-     * window; this function is declared to refactor common code that is
-     * called at different locations
-     *
-     * @return const bool
-     *
-     * do not return a reference, because directly return a boolean using
-     * the 'return' instruction
-     */
-    const bool newDialogIsActive() const & noexcept;
-
-    /**
      * @brief delete the displayed active dialog window; this function checks
      * first if a dialog window is currently displayed; this function is
      * declared for refactoring purposes
