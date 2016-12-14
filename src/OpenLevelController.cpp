@@ -134,7 +134,9 @@ const unsigned short& OpenLevelController::render(
 
             if (!levelName.empty())
             {
-                context.getEditingLevelManager().setLevelName(levelName);
+                context.getEditingLevelManager().setLevelName(
+                    "personals/" + levelName
+                );
 
                 expectedControllerId = LEVEL_EDITOR_CONTROLLER_ID;
             }

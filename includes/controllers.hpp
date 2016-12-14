@@ -94,6 +94,7 @@ std::unique_ptr<ErrorController> getErrorController(
  * @brief returns the full path of a level file, including the file extension
  *
  * @param levelName constant reference to the level name
+ * IMPORTANT: the level name format is [officials|personals]/name
  *
  * @return const std::string&
  *
