@@ -86,7 +86,8 @@ std::unique_ptr<Controller> getControllerById(
             auto level = std::make_unique<entities::Level>(
                 context,
                 getLevelFilePath(
-                    context.getPlayingSerieManager().getNextLevelName()
+                    "officials/" +
+                        context.getPlayingSerieManager().getNextLevelName()
                 )
             ); // auto -> std::unique_ptr<entities::Level>
 
@@ -209,7 +210,7 @@ std::unique_ptr<ErrorController> getErrorController(
  */
 const std::string getLevelFilePath(const std::string& levelName)
 {
-    return "data/levels/officials/" + levelName + ".level";
+    return "data/levels/" + levelName + ".level";
 }
 
 }
