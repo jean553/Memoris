@@ -38,6 +38,7 @@
 #include "ColorsManager.hpp"
 #include "FontsManager.hpp"
 #include "Cell.hpp"
+#include "NewLevelForeground.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 
@@ -107,6 +108,9 @@ public:
     sf::Text floorSurface;
 
     std::unique_ptr<popups::SaveLevelDialog> saveLevelDialog {nullptr};
+
+    std::unique_ptr<foregrounds::NewLevelForeground>
+        newLevelForeground {nullptr};
 };
 
 /**
@@ -138,25 +142,34 @@ const unsigned short& LevelEditorController::render(
     const utils::Context& context
 ) &
 {
-    impl->dashboard.display(context);
+    // std::unique_ptr<NewLevelForeground>&
+    auto& newLevelForeground = impl->newLevelForeground;
 
-    impl->level->display(
-        context,
-        impl->floor,
-        &entities::Cell::displayWithMouseHover
-    );
+    if (newLevelForeground != nullptr)
+    {
+        newLevelForeground->render(context);
+    }
+    else
+    {
+        impl->dashboard.display(context);
+        impl->selector.display(context);
 
-    impl->selector.display(context);
+        impl->level->display(
+            context,
+            impl->floor,
+            &entities::Cell::displayWithMouseHover
+        );
 
-    window.draw(impl->levelNameSurface);
-    window.draw(impl->floorSurface);
+        window.draw(impl->levelNameSurface);
+        window.draw(impl->floorSurface);
+
+        impl->cursor.render(context);
+    }
 
     if (impl->saveLevelDialog != nullptr)
     {
         impl->saveLevelDialog->render(context);
     }
-
-    impl->cursor.render(context);
 
     nextControllerId = animateScreenTransition(context);
 
@@ -170,6 +183,13 @@ const unsigned short& LevelEditorController::render(
             {
             case sf::Keyboard::Escape:
             {
+                if (newLevelForeground != nullptr)
+                {
+                    newLevelForeground.reset();
+
+                    break;
+                }
+
                 deleteActiveDialog();
 
                 break;
@@ -217,6 +237,13 @@ const unsigned short& LevelEditorController::render(
         {
             switch(impl->dashboard.getActionIdBySelectedButton())
             {
+            case Action::NEW:
+            {
+                impl->newLevelForeground =
+                    std::make_unique<foregrounds::NewLevelForeground>(context);
+
+                break;
+            }
             case Action::EXIT:
             {
                 context.getEditingLevelManager().setLevelName("");
@@ -255,10 +282,6 @@ const unsigned short& LevelEditorController::render(
 
                 impl->currentActionId = Action::SAVE;
 
-                break;
-            }
-            case Action::NEW:
-            {
                 break;
             }
             case Action::OPEN:
