@@ -623,7 +623,7 @@ void Level::refresh(const utils::Context& context) &
         impl->cells.end(),
         [&context](const auto& cell) // auto -> std::unique_ptr<entities::Cell>
     {
-        cell->setType(cells::EMPTY_CELL);
+        cell->setType(cells::WALL_CELL);
         cell->show(context);
     }
     );

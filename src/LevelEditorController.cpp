@@ -142,6 +142,9 @@ const unsigned short& LevelEditorController::render(
     const utils::Context& context
 ) &
 {
+    // std::unique_ptr<Level>&
+    auto& level = impl->level;
+
     // std::unique_ptr<NewLevelForeground>&
     auto& newLevelForeground = impl->newLevelForeground;
 
@@ -154,7 +157,7 @@ const unsigned short& LevelEditorController::render(
         impl->dashboard.display(context);
         impl->selector.display(context);
 
-        impl->level->display(
+        level->display(
             context,
             impl->floor,
             &entities::Cell::displayWithMouseHover
@@ -181,15 +184,28 @@ const unsigned short& LevelEditorController::render(
         {
             switch(event.key.code)
             {
-            case sf::Keyboard::Escape:
+            case sf::Keyboard::Y:
+            {
+                if (newLevelForeground != nullptr)
+                {
+                    level->refresh(context);
+
+                    newLevelForeground.reset();
+                }
+
+                break;
+            }
+            case sf::Keyboard::N:
             {
                 if (newLevelForeground != nullptr)
                 {
                     newLevelForeground.reset();
-
-                    break;
                 }
 
+                break;
+            }
+            case sf::Keyboard::Escape:
+            {
                 deleteActiveDialog();
 
                 break;
@@ -212,7 +228,7 @@ const unsigned short& LevelEditorController::render(
 
                     saveLevelFile(
                         levelName,
-                        impl->level->getCells()
+                        level->getCells()
                     );
 
                     context.getEditingLevelManager().setLevelName(levelName);
@@ -265,7 +281,7 @@ const unsigned short& LevelEditorController::render(
                 {
                     saveLevelFile(
                         levelName,
-                        impl->level->getCells()
+                        level->getCells()
                     );
 
                     /* remove the asterisk at the end of the displayed level
@@ -328,7 +344,7 @@ const unsigned short& LevelEditorController::render(
             impl->selector.selectCell(context);
 
             if(
-                impl->level->updateSelectedCellType(
+                level->updateSelectedCellType(
                     context,
                     impl->floor,
                     impl->selector.getSelectedCellType()

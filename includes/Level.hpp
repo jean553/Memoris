@@ -365,7 +365,7 @@ public:
     );
 
     /**
-     * @brief refresh all the cells and reset them to empty cells
+     * @brief refresh all the cells and reset them to wall cells
      *
      * @param context reference to the current context to use
      *
