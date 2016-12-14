@@ -24,7 +24,6 @@
 
 #include "NewLevelForeground.hpp"
 
-#include "InputTextWidget.hpp"
 #include "Context.hpp"
 #include "ColorsManager.hpp"
 #include "FontsManager.hpp"
@@ -44,17 +43,10 @@ class NewLevelForeground::Impl
 
 public:
 
-    Impl(const utils::Context& context) :
-        levelName(
-            context,
-            500.f,
-            450.f,
-            600.f,
-            15
-        )
+    Impl(const utils::Context& context)
     {
         explanation.setFont(context.getFontsManager().getTextFont());
-        explanation.setString("Level name :");
+        explanation.setString("Are you sure ? Y / N");
         explanation.setCharacterSize(memoris::fonts::TEXT_SIZE);
         explanation.setColor(context.getColorsManager().getColorWhite());
         explanation.setPosition(
@@ -62,8 +54,6 @@ public:
             380.f
         );
     }
-
-    widgets::InputTextWidget levelName;
 
     sf::Text explanation;
 };
@@ -87,8 +77,6 @@ NewLevelForeground::~NewLevelForeground() noexcept = default;
 void NewLevelForeground::render(const utils::Context& context) const &
 {
     context.getSfmlWindow().draw(impl->explanation);
-
-    impl->levelName.display(context);
 }
 
 }
