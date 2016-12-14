@@ -34,7 +34,6 @@
 #include "Level.hpp"
 #include "Cursor.hpp"
 #include "SaveLevelDialog.hpp"
-#include "NewLevelDialog.hpp"
 #include "EditingLevelManager.hpp"
 #include "ColorsManager.hpp"
 #include "FontsManager.hpp"
@@ -108,7 +107,6 @@ public:
     sf::Text floorSurface;
 
     std::unique_ptr<popups::SaveLevelDialog> saveLevelDialog {nullptr};
-    std::unique_ptr<popups::NewLevelDialog> newLevelDialog {nullptr};
 };
 
 /**
@@ -157,10 +155,6 @@ const unsigned short& LevelEditorController::render(
     {
         impl->saveLevelDialog->render(context);
     }
-    else if (impl->newLevelDialog != nullptr)
-    {
-        impl->newLevelDialog->render(context);
-    }
 
     impl->cursor.render(context);
 
@@ -206,12 +200,6 @@ const unsigned short& LevelEditorController::render(
                     updateLevelNameSurfacePosition();
 
                     deleteActiveDialog();
-                }
-                else if (newDialogIsActive())
-                {
-                    deleteActiveDialog();
-
-                    impl->level->refresh(context);
                 }
             }
             default:
@@ -271,11 +259,6 @@ const unsigned short& LevelEditorController::render(
             }
             case Action::NEW:
             {
-                impl->newLevelDialog =
-                    std::make_unique<popups::NewLevelDialog>(context);
-
-                impl->currentActionId = Action::NEW;
-
                 break;
             }
             case Action::OPEN:
@@ -366,32 +349,11 @@ const bool LevelEditorController::saveDialogIsActive() const & noexcept
 /**
  *
  */
-const bool LevelEditorController::newDialogIsActive() const & noexcept
-{
-    if (
-        impl->currentActionId ==
-        Action::NEW &&
-        impl->newLevelDialog != nullptr
-    )
-    {
-        return true;
-    }
-
-    return false;
-}
-
-/**
- *
- */
 void LevelEditorController::deleteActiveDialog() & noexcept
 {
     if (impl->saveLevelDialog != nullptr)
     {
         impl->saveLevelDialog.reset();
-    }
-    else if (impl->newLevelDialog != nullptr)
-    {
-        impl->newLevelDialog.reset();
     }
 }
 
