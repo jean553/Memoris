@@ -51,10 +51,9 @@ void Cursor::render(const utils::Context& context)
     /* display the cursor */
     context.getSfmlWindow().draw(sprite);
 
-    /* only move the cursor if more than 50 milliseconds elapsed */
     if (
         context.getClockMillisecondsTime() -
-        lastCursorPositionUpdateTime < 50
+        lastCursorPositionUpdateTime < 30
     )
     {
         return;
@@ -65,6 +64,8 @@ void Cursor::render(const utils::Context& context)
         sf::Mouse::getPosition().x,
         sf::Mouse::getPosition().y
     );
+
+    lastCursorPositionUpdateTime = context.getClockMillisecondsTime();
 }
 
 }
