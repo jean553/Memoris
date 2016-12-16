@@ -265,6 +265,15 @@ const unsigned short& LevelEditorController::render(
         }
         case sf::Event::MouseButtonPressed:
         {
+            /* the mouse is not used if a foreground is displayed */
+            if (
+                newLevelForeground != nullptr or
+                openLevelForeground != nullptr
+            )
+            {
+                break;
+            }
+
             switch(impl->dashboard.getActionIdBySelectedButton())
             {
             case Action::NEW:
