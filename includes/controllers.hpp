@@ -48,7 +48,6 @@ constexpr unsigned short SERIE_MAIN_MENU_CONTROLLER_ID {5};
 constexpr unsigned short OFFICIAL_SERIES_MENU_CONTROLLER_ID {6};
 constexpr unsigned short EDITOR_MENU_CONTROLLER_ID {8};
 constexpr unsigned short LEVEL_EDITOR_CONTROLLER_ID {9};
-constexpr unsigned short OPEN_LEVEL_CONTROLLER_ID {10};
 constexpr unsigned short OPEN_GAME_CONTROLLER_ID {11};
 constexpr unsigned short SERIE_EDITOR_CONTROLLER_ID {12};
 
