@@ -29,6 +29,8 @@
 #include "FontsManager.hpp"
 #include "fonts.hpp"
 #include "window.hpp"
+#include "SelectionListWidget.hpp"
+#include "Cursor.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -43,7 +45,9 @@ class OpenLevelForeground::Impl
 
 public:
 
-    Impl(const utils::Context& context)
+    Impl(const utils::Context& context) :
+        list(context),
+        cursor(context)
     {
         explanation.setFont(context.getFontsManager().getTextFont());
         explanation.setString("Select file");
@@ -56,6 +60,10 @@ public:
     }
 
     sf::Text explanation;
+
+    widgets::SelectionListWidget list;
+
+    widgets::Cursor cursor;
 };
 
 /**
@@ -77,6 +85,10 @@ OpenLevelForeground::~OpenLevelForeground() noexcept = default;
 void OpenLevelForeground::render(const utils::Context& context) const &
 {
     context.getSfmlWindow().draw(impl->explanation);
+
+    impl->list.display(context);
+
+    impl->cursor.render(context);
 }
 
 }
