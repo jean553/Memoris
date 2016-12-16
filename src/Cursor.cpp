@@ -25,8 +25,10 @@
 #include "Cursor.hpp"
 
 #include "TexturesManager.hpp"
+#include "Context.hpp"
 
 #include <SFML/Window/Mouse.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
 namespace memoris
@@ -34,38 +36,69 @@ namespace memoris
 namespace widgets
 {
 
+class Cursor::Impl
+{
+
+public:
+
+    Impl(const utils::Context& context)
+    {
+        sprite.setTexture(context.getTexturesManager().getCursorTexture());
+    }
+
+    sf::Sprite sprite;
+
+    sf::Uint32 lastCursorPositionUpdateTime {0};
+};
+
 /**
  *
  */
-Cursor::Cursor(const utils::Context& context)
+Cursor::Cursor(const utils::Context& context) :
+    impl(std::make_unique<Impl>(context))
 {
-    /* get the cursor texture from the textures manager */
-    sprite.setTexture(context.getTexturesManager().getCursorTexture());
+    /* we force the position of the cursor surface during the initialization;
+       the surface is visually directly at the same position as the real
+       cursor one */
+    updateCursorPosition();
 }
+
+/**
+ *
+ */
+Cursor::~Cursor() noexcept = default;
 
 /**
  *
  */
 void Cursor::render(const utils::Context& context)
 {
-    /* display the cursor */
+    auto& sprite = impl->sprite;
+
     context.getSfmlWindow().draw(sprite);
 
-    if (
-        context.getClockMillisecondsTime() -
-        lastCursorPositionUpdateTime < 30
-    )
+    const auto& currentTime = context.getClockMillisecondsTime();
+    auto& lastCursorPositionUpdateTime = impl->lastCursorPositionUpdateTime;
+
+    if (currentTime - lastCursorPositionUpdateTime < 30)
     {
         return;
     }
 
-    /* the cursor position is now the mouse position */
-    sprite.setPosition(
+    updateCursorPosition();
+
+    lastCursorPositionUpdateTime = currentTime;
+}
+
+/**
+ *
+ */
+void Cursor::updateCursorPosition() const &
+{
+    impl->sprite.setPosition(
         sf::Mouse::getPosition().x,
         sf::Mouse::getPosition().y
     );
-
-    lastCursorPositionUpdateTime = context.getClockMillisecondsTime();
 }
 
 }
