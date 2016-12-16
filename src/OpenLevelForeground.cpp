@@ -31,6 +31,7 @@
 #include "window.hpp"
 #include "SelectionListWidget.hpp"
 #include "Cursor.hpp"
+#include "DirectoryReader.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -56,6 +57,11 @@ public:
         explanation.setPosition(
             window::getCenteredSfmlSurfaceHorizontalPosition(explanation),
             50.f
+        );
+
+        list.setList(
+            context,
+            utils::getFilesFromDirectory("data/levels/personals")
         );
     }
 
