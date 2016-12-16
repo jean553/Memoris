@@ -39,6 +39,7 @@
 #include "FontsManager.hpp"
 #include "Cell.hpp"
 #include "NewLevelForeground.hpp"
+#include "OpenLevelForeground.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 
@@ -111,6 +112,9 @@ public:
 
     std::unique_ptr<foregrounds::NewLevelForeground>
         newLevelForeground {nullptr};
+
+    std::unique_ptr<foregrounds::OpenLevelForeground>
+        openLevelForeground {nullptr};
 };
 
 /**
@@ -147,10 +151,15 @@ const unsigned short& LevelEditorController::render(
 
     // std::unique_ptr<NewLevelForeground>&
     auto& newLevelForeground = impl->newLevelForeground;
+    auto& openLevelForeground = impl->openLevelForeground;
 
     if (newLevelForeground != nullptr)
     {
         newLevelForeground->render(context);
+    }
+    else if (openLevelForeground != nullptr)
+    {
+        openLevelForeground->render(context);
     }
     else
     {
@@ -206,6 +215,11 @@ const unsigned short& LevelEditorController::render(
             }
             case sf::Keyboard::Escape:
             {
+                if (openLevelForeground != nullptr)
+                {
+                    openLevelForeground.reset();
+                }
+
                 deleteActiveDialog();
 
                 break;
@@ -302,7 +316,10 @@ const unsigned short& LevelEditorController::render(
             }
             case Action::OPEN:
             {
-                expectedControllerId = OPEN_LEVEL_CONTROLLER_ID;
+                impl->openLevelForeground =
+                    std::make_unique<foregrounds::OpenLevelForeground>(
+                        context
+                    );
 
                 break;
             }
