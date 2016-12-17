@@ -213,6 +213,8 @@ const unsigned short& LevelEditorController::render(
                         context,
                         UNNAMED_LEVEL
                     );
+
+                    newFile = false;
                 }
 
                 break;
@@ -299,7 +301,11 @@ const unsigned short& LevelEditorController::render(
                         context,
                         levelName
                     );
+
+                    break;
                 }
+
+                openLevelForeground->getList().updateList();
 
                 break;
             }
