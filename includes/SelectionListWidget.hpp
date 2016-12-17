@@ -54,11 +54,16 @@ public:
     /**
      * @brief constructor, initialize the implementation
      *
-     * @param context reference to the context to use
+     * @param context constant reference to the context to use
+     * @param horizontalPosition constant reference to the expected
+     * horizontal position
      *
      * not 'noexcept' because it calls SFML function that are not noexcept
      */
-    SelectionListWidget(const utils::Context& context);
+    SelectionListWidget(
+        const utils::Context& context,
+        const float& horizontalPosition = 500.f
+    );
 
     /**
      * @brief default destructor, empty, only declared in order to use

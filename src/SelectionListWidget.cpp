@@ -46,23 +46,26 @@ class SelectionListWidget::Impl
 
 public:
 
-    Impl(const utils::Context& context) :
+    Impl(
+        const utils::Context& context,
+        const float& horizontalPosition
+    ) :
         window(context.getSfmlWindow())
     {
         top.setPosition(
-            HORIZONTAL_POSITION,
+            horizontalPosition,
             VERTICAL_POSITION
         );
         left.setPosition(
-            HORIZONTAL_POSITION,
+            horizontalPosition,
             VERTICAL_POSITION
         );
         right.setPosition(
-            HORIZONTAL_POSITION + WIDTH,
+            horizontalPosition + WIDTH,
             VERTICAL_POSITION
         );
         bottom.setPosition(
-            HORIZONTAL_POSITION,
+            horizontalPosition,
             VERTICAL_POSITION + HEIGHT
         );
 
@@ -116,7 +119,7 @@ public:
             context.getTexturesManager().getScrollArrowDownTexture()
         );
 
-        float horizontalPositionBase = HORIZONTAL_POSITION + WIDTH / 2;
+        float horizontalPositionBase = horizontalPosition + WIDTH / 2;
 
         leftArrowHorizontalPosition = horizontalPositionBase - 2 * ARROW_SPACE;
         rightArrowHorizontalPosition = horizontalPositionBase + ARROW_SPACE;
@@ -181,8 +184,16 @@ public:
 /**
  *
  */
-SelectionListWidget::SelectionListWidget(const utils::Context& context) :
-    impl(std::make_unique<Impl>(context))
+SelectionListWidget::SelectionListWidget(
+    const utils::Context& context,
+    const float& horizontalPosition
+) :
+    impl(
+        std::make_unique<Impl>(
+            context,
+            horizontalPosition
+        )
+    )
 {
 }
 
