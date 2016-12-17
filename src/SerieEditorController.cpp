@@ -32,6 +32,7 @@
 #include "fonts.hpp"
 #include "Button.hpp"
 #include "Cursor.hpp"
+#include "DoubleSelectionListWidget.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -77,7 +78,8 @@ public:
             BUTTONS_VERTICAL_POSITION,
             context.getTexturesManager().getExitTexture()
         ),
-        cursor(context)
+        cursor(context),
+        lists(context)
     {
         serieName.setString("untitled");
         serieName.setFont(context.getFontsManager().getTextFont());
@@ -97,6 +99,8 @@ public:
     widgets::Button buttonExit;
 
     widgets::Cursor cursor;
+
+    widgets::DoubleSelectionListWidget lists;
 };
 
 /**
@@ -126,6 +130,8 @@ const unsigned short& SerieEditorController::render(
     impl->buttonOpen.display(context);
     impl->buttonSave.display(context);
     impl->buttonExit.display(context);
+
+    impl->lists.display(context);
 
     impl->cursor.render(context);
 
