@@ -68,12 +68,13 @@ public:
 private:
 
     static constexpr float SERIE_NAME_POSITION {1550.f};
-
     static constexpr float BUTTONS_VERTICAL_POSITION {10.f};
     static constexpr float NEW_BUTTON_HORIZONTAL_POSITION {10.f};
     static constexpr float OPEN_BUTTON_HORIZONTAL_POSITION {90.f};
     static constexpr float SAVE_BUTTON_HORIZONTAL_POSITION {170.f};
     static constexpr float EXIT_BUTTON_HORIZONTAL_POSITION {250.f};
+
+    static constexpr const char SAVE_SERIE_MESSAGE[] {"Save serie"};
 
     class Impl;
     std::unique_ptr<Impl> impl;

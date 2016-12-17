@@ -46,7 +46,7 @@ public:
 
     Impl(
         const utils::Context& context,
-        const std::string& message
+        const std::string&& message
     ) :
         inputTextLevelName(
             context,
@@ -76,12 +76,12 @@ public:
  */
 InputTextForeground::InputTextForeground(
     const utils::Context& context,
-    const std::string& message
+    const std::string&& message
 ) :
     impl(
         std::make_unique<Impl>(
             context,
-            message
+            std::move(message)
         )
     )
 {
