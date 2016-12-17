@@ -37,6 +37,11 @@ namespace utils
 class Context;
 }
 
+namespace widgets
+{
+class SelectionListWidget;
+}
+
 namespace foregrounds
 {
 
@@ -68,6 +73,13 @@ public:
      * not noexcept because it calls SFML methods that are not noexcept
      */
     void render(const utils::Context& context) const &;
+
+    /**
+     * @brief getter of a constant reference to the list widget
+     *
+     * @return const widgets::SelectionListWidget&
+     */
+    const widgets::SelectionListWidget& getList() const & noexcept;
 
 private:
 
