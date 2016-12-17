@@ -97,5 +97,14 @@ void OpenLevelForeground::render(const utils::Context& context) const &
     impl->cursor.render(context);
 }
 
+/**
+ *
+ */
+const widgets::SelectionListWidget& OpenLevelForeground::getList() const &
+    noexcept
+{
+    return impl->list;
+}
+
 }
 }

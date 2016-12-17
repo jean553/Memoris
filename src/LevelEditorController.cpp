@@ -40,6 +40,7 @@
 #include "Cell.hpp"
 #include "NewLevelForeground.hpp"
 #include "OpenLevelForeground.hpp"
+#include "SelectionListWidget.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 
@@ -153,6 +154,8 @@ const unsigned short& LevelEditorController::render(
     auto& newLevelForeground = impl->newLevelForeground;
     auto& openLevelForeground = impl->openLevelForeground;
 
+    auto& levelNameSurface = impl->levelNameSurface;
+
     if (newLevelForeground != nullptr)
     {
         newLevelForeground->render(context);
@@ -238,7 +241,7 @@ const unsigned short& LevelEditorController::render(
                     const std::string levelName =
                         impl->saveLevelDialog->getInputTextWidget().getText();
 
-                    impl->levelNameSurface.setString(levelName);
+                    levelNameSurface.setString(levelName);
 
                     saveLevelFile(
                         levelName,
@@ -265,11 +268,35 @@ const unsigned short& LevelEditorController::render(
         }
         case sf::Event::MouseButtonPressed:
         {
+            if (openLevelForeground != nullptr)
+            {
+                const auto& list = openLevelForeground->getList();
+                const auto levelName = list.getCurrentItem();
+
+                if (!levelName.empty())
+                {
+                    context.getEditingLevelManager().setLevelName(levelName);
+
+                    /* TODO: #972 can throw a std::invalid_argument exception,
+                       should be handled as well */
+                    impl->level.reset(
+                        new entities::Level(
+                            context,
+                            "data/levels/personals/" + levelName + ".level"
+                        )
+                    );
+
+                    openLevelForeground.reset();
+
+                    levelNameSurface.setString(levelName);
+                    updateLevelNameSurfacePosition();
+                }
+
+                break;
+            }
+
             /* the mouse is not used if a foreground is displayed */
-            if (
-                newLevelForeground != nullptr or
-                openLevelForeground != nullptr
-            )
+            if (newLevelForeground != nullptr)
             {
                 break;
             }
