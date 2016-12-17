@@ -33,6 +33,7 @@
 #include "Button.hpp"
 #include "Cursor.hpp"
 #include "DoubleSelectionListWidget.hpp"
+#include "SelectionListWidget.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -162,6 +163,8 @@ const unsigned short& SerieEditorController::render(
             {
                 expectedControllerId = EDITOR_MENU_CONTROLLER_ID;
             }
+
+            impl->lists.getLevelsList().updateList();
 
             break;
         }

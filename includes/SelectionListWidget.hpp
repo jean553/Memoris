@@ -114,7 +114,6 @@ public:
 
 private:
 
-    static constexpr float HORIZONTAL_POSITION {500.f};
     static constexpr float VERTICAL_POSITION {200.f};
     static constexpr float WIDTH {600.f};
     static constexpr float HEIGHT {600.f};

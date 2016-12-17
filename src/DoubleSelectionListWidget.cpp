@@ -25,6 +25,7 @@
 #include "DoubleSelectionListWidget.hpp"
 
 #include "SelectionListWidget.hpp"
+#include "DirectoryReader.hpp"
 
 namespace memoris
 {
@@ -46,6 +47,12 @@ public:
             890.f
         )
     {
+        /* this class is generic for any kind of double selection list,
+           for organization purposes, we just load the lists content here */
+        allLevelsList.setList(
+            context,
+            utils::getFilesFromDirectory("data/games")
+        );
     }
 
     widgets::SelectionListWidget allLevelsList;
@@ -75,6 +82,15 @@ void DoubleSelectionListWidget::display(const utils::Context& context)
 {
     impl->allLevelsList.display(context);
     impl->serieLevelsList.display(context);
+}
+
+/**
+ *
+ */
+const widgets::SelectionListWidget& DoubleSelectionListWidget::getLevelsList()
+    const & noexcept
+{
+    return impl->allLevelsList;
 }
 
 }
