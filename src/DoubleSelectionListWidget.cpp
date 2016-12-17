@@ -37,12 +37,19 @@ class DoubleSelectionListWidget::Impl
 public:
 
     Impl(const utils::Context& context) :
-        list(context)
+        allLevelsList(
+            context,
+            100.f
+        ),
+        serieLevelsList(
+            context,
+            890.f
+        )
     {
     }
 
-    /* TODO: add a second selection list; an array should be better */
-    widgets::SelectionListWidget list;
+    widgets::SelectionListWidget allLevelsList;
+    widgets::SelectionListWidget serieLevelsList;
 };
 
 /**
@@ -66,7 +73,8 @@ DoubleSelectionListWidget::~DoubleSelectionListWidget() noexcept = default;
 void DoubleSelectionListWidget::display(const utils::Context& context)
     const &
 {
-    impl->list.display(context);
+    impl->allLevelsList.display(context);
+    impl->serieLevelsList.display(context);
 }
 
 }
