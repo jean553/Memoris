@@ -40,6 +40,7 @@
 #include "Cell.hpp"
 #include "NewLevelForeground.hpp"
 #include "OpenLevelForeground.hpp"
+#include "SaveLevelForeground.hpp"
 #include "SelectionListWidget.hpp"
 
 #include <SFML/Graphics/Text.hpp>
@@ -116,6 +117,9 @@ public:
 
     std::unique_ptr<foregrounds::OpenLevelForeground>
         openLevelForeground {nullptr};
+
+    std::unique_ptr<foregrounds::SaveLevelForeground>
+        saveLevelForeground {nullptr};
 };
 
 /**
@@ -153,6 +157,7 @@ const unsigned short& LevelEditorController::render(
     // std::unique_ptr<NewLevelForeground>&
     auto& newLevelForeground = impl->newLevelForeground;
     auto& openLevelForeground = impl->openLevelForeground;
+    auto& saveLevelForeground = impl->saveLevelForeground;
 
     auto& levelNameSurface = impl->levelNameSurface;
 
@@ -163,6 +168,10 @@ const unsigned short& LevelEditorController::render(
     else if (openLevelForeground != nullptr)
     {
         openLevelForeground->render(context);
+    }
+    else if (saveLevelForeground != nullptr)
+    {
+        saveLevelForeground->render(context);
     }
     else
     {
@@ -227,8 +236,10 @@ const unsigned short& LevelEditorController::render(
                 {
                     openLevelForeground.reset();
                 }
-
-                deleteActiveDialog();
+                else if (saveLevelForeground != nullptr)
+                {
+                    saveLevelForeground.reset();
+                }
 
                 break;
             }
@@ -347,8 +358,10 @@ const unsigned short& LevelEditorController::render(
                     break;
                 }
 
-                impl->saveLevelDialog =
-                    std::make_unique<popups::SaveLevelDialog>(context);
+                saveLevelForeground =
+                    std::make_unique<foregrounds::SaveLevelForeground>(
+                        context
+                    );
 
                 impl->currentActionId = Action::SAVE;
 
