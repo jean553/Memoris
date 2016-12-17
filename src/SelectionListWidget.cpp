@@ -48,8 +48,9 @@ public:
 
     Impl(
         const utils::Context& context,
-        const float& horizontalPosition
+        const float& originHorizontalPosition
     ) :
+        horizontalPosition(originHorizontalPosition),
         window(context.getSfmlWindow())
     {
         top.setPosition(
@@ -163,6 +164,7 @@ public:
     float leftArrowHorizontalPosition {0.f};
     float rightArrowHorizontalPosition {0.f};
     float verticalPositionBase {0.f};
+    float horizontalPosition;
 
     sf::Color selectedArrowColor {
         255,
@@ -277,7 +279,7 @@ noexcept
 
         text.setColor(context.getColorsManager().getColorWhite());
         text.setPosition(
-            HORIZONTAL_POSITION,
+            impl->horizontalPosition,
             verticalPosition
         );
 
@@ -300,8 +302,8 @@ void SelectionListWidget::displaySelector(const utils::Context& context) &
     float mouseVerticalPosition = static_cast<float>(mousePosition.y);
 
     if (
-        mouseHorizontalPosition < HORIZONTAL_POSITION or
-        mouseHorizontalPosition > HORIZONTAL_POSITION + WIDTH or
+        mouseHorizontalPosition < impl->horizontalPosition or
+        mouseHorizontalPosition > impl->horizontalPosition + WIDTH or
         mouseVerticalPosition < VERTICAL_POSITION or
         mouseVerticalPosition > VERTICAL_POSITION + HEIGHT - 1.f
     )
@@ -326,7 +328,7 @@ void SelectionListWidget::displaySelector(const utils::Context& context) &
 
     /* set the selector position */
     impl->selector.setPosition(
-        HORIZONTAL_POSITION + 1.f,
+        impl->horizontalPosition + 1.f,
         VERTICAL_POSITION + 1.f +
         static_cast<float>(impl->selectorIndex) * ITEMS_SEPARATION
     );
@@ -425,7 +427,7 @@ void SelectionListWidget::updateAllItemsPosition(const float& movement) const &
     for (sf::Text& text : impl->texts)
     {
         text.setPosition(
-            HORIZONTAL_POSITION,
+            impl->horizontalPosition,
             text.getPosition().y + ITEMS_SEPARATION * movement
         );
     }

@@ -40,6 +40,8 @@ class Context;
 namespace widgets
 {
 
+class SelectionListWidget;
+
 class DoubleSelectionListWidget
 {
 
@@ -68,6 +70,13 @@ public:
      * not 'noexcept' because it calls some SFML method that are not noexcept
      */
     void display(const utils::Context& context) const &;
+
+    /**
+     * @brief getter for the list that contains all the levels
+     *
+     * @return const widget::SelectionListWidget&
+     */
+    const widgets::SelectionListWidget& getLevelsList() const & noexcept;
 
 private:
 
