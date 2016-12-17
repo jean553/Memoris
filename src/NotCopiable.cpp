@@ -30,12 +30,10 @@ namespace utils
 {
 
 /**
- *
+ * we separate the definition from the declaration; there
+ * is no other way to declare a default pure virtual destructor
  */
-NotCopiable::~NotCopiable()
-{
-    /* pure virtual destructor must be defined and empty */
-}
+NotCopiable::~NotCopiable() = default;
 
 }
 }

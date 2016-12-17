@@ -27,6 +27,8 @@
 #ifndef MEMORIS_NEWLEVELFOREGROUND_H_
 #define MEMORIS_NEWLEVELFOREGROUND_H_
 
+#include "AbstractForeground.hpp"
+
 #include <memory>
 
 namespace memoris
@@ -40,7 +42,7 @@ class Context;
 namespace foregrounds
 {
 
-class NewLevelForeground
+class NewLevelForeground : public AbstractForeground
 {
 
 public:
@@ -67,7 +69,7 @@ public:
      *
      * not noexcept because it calls SFML methods that are not noexcept
      */
-    void render(const utils::Context& context) const &;
+    virtual void render(const utils::Context& context) const & override final;
 
 private:
 
