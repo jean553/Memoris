@@ -17,14 +17,14 @@
 */
 
 /**
- * @file SaveLevelForeground.hpp
+ * @file InputTextForeground.hpp
  * @brief contains one text line widget to let the user inputs one level name
  * @package foregrounds
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef MEMORIS_SAVELEVELFOREGROUND_H_
-#define MEMORIS_SAVELEVELFOREGROUND_H_
+#ifndef MEMORIS_INPUTTEXTFOREGROUND_H_
+#define MEMORIS_INPUTTEXTFOREGROUND_H_
 
 #include "AbstractForeground.hpp"
 
@@ -41,7 +41,7 @@ class InputTextWidget;
 namespace foregrounds
 {
 
-class SaveLevelForeground : public AbstractForeground
+class InputTextForeground : public AbstractForeground
 {
 
 public:
@@ -50,16 +50,20 @@ public:
      * @brief constructor, initializes the implementation
      *
      * @param context constant reference to the context to use
+     * @param message constant reference to the message to display
      *
      * not noexcept because it calls SFML methods that are not noexcept
      */
-    SaveLevelForeground(const utils::Context& context);
+    InputTextForeground(
+        const utils::Context& context,
+        const std::string& message
+    );
 
     /**
      * @brief default destructor, declared in order to use forwarding
      * declaration
      */
-    ~SaveLevelForeground() noexcept;
+    ~InputTextForeground() noexcept;
 
     /**
      * @brief renders the foreground in front of the controller screen

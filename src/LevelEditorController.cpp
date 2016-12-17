@@ -39,7 +39,7 @@
 #include "Cell.hpp"
 #include "NewLevelForeground.hpp"
 #include "OpenLevelForeground.hpp"
-#include "SaveLevelForeground.hpp"
+#include "InputTextForeground.hpp"
 #include "SelectionListWidget.hpp"
 
 #include <SFML/Graphics/Text.hpp>
@@ -50,6 +50,9 @@ namespace controllers
 {
 
 using Action = utils::EditorDashboard::Action;
+
+constexpr const char LevelEditorController::UNNAMED_LEVEL[];
+constexpr const char LevelEditorController::SAVE_LEVEL_NAME_MESSAGE[];
 
 class LevelEditorController::Impl
 {
@@ -115,7 +118,7 @@ public:
     std::unique_ptr<foregrounds::OpenLevelForeground>
         openLevelForeground {nullptr};
 
-    std::unique_ptr<foregrounds::SaveLevelForeground>
+    std::unique_ptr<foregrounds::InputTextForeground>
         saveLevelForeground {nullptr};
 
     bool newFile {false};
@@ -360,8 +363,9 @@ const unsigned short& LevelEditorController::render(
                 }
 
                 saveLevelForeground =
-                    std::make_unique<foregrounds::SaveLevelForeground>(
-                        context
+                    std::make_unique<foregrounds::InputTextForeground>(
+                        context,
+                        SAVE_LEVEL_NAME_MESSAGE
                     );
 
                 newFile = true;

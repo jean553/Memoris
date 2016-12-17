@@ -77,7 +77,8 @@ public:
 
 private:
 
-    static constexpr const char* const UNNAMED_LEVEL {"unnamed"};
+    static constexpr const char UNNAMED_LEVEL[] {"unnamed"};
+    static constexpr const char SAVE_LEVEL_NAME_MESSAGE[] {"Level name"};
 
     /**
      * @brief update the level name surface position; the position of this
