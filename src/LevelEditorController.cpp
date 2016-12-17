@@ -67,7 +67,7 @@ public:
     {
         std::string levelName =
             context.getEditingLevelManager().getLevelName().empty() ?
-            "unnamed" :
+            UNNAMED_LEVEL :
             context.getEditingLevelManager().getLevelName();
 
         levelNameSurface.setString(levelName);
@@ -175,7 +175,7 @@ const unsigned short& LevelEditorController::render(
             &entities::Cell::displayWithMouseHover
         );
 
-        window.draw(impl->levelNameSurface);
+        window.draw(levelNameSurface);
         window.draw(impl->floorSurface);
 
         impl->cursor.render(context);
@@ -203,6 +203,11 @@ const unsigned short& LevelEditorController::render(
                     level->refresh(context);
 
                     newLevelForeground.reset();
+
+                    changeLevelName(
+                        context,
+                        UNNAMED_LEVEL
+                    );
                 }
 
                 break;
@@ -241,16 +246,15 @@ const unsigned short& LevelEditorController::render(
                     const std::string levelName =
                         impl->saveLevelDialog->getInputTextWidget().getText();
 
-                    levelNameSurface.setString(levelName);
-
                     saveLevelFile(
                         levelName,
                         level->getCells()
                     );
 
-                    context.getEditingLevelManager().setLevelName(levelName);
-
-                    updateLevelNameSurfacePosition();
+                    changeLevelName(
+                        context,
+                        levelName
+                    );
 
                     deleteActiveDialog();
                 }
@@ -275,8 +279,6 @@ const unsigned short& LevelEditorController::render(
 
                 if (!levelName.empty())
                 {
-                    context.getEditingLevelManager().setLevelName(levelName);
-
                     /* TODO: #972 can throw a std::invalid_argument exception,
                        should be handled as well */
                     impl->level.reset(
@@ -288,8 +290,10 @@ const unsigned short& LevelEditorController::render(
 
                     openLevelForeground.reset();
 
-                    levelNameSurface.setString(levelName);
-                    updateLevelNameSurfacePosition();
+                    changeLevelName(
+                        context,
+                        levelName
+                    );
                 }
 
                 break;
@@ -325,7 +329,7 @@ const unsigned short& LevelEditorController::render(
 
                 if (
                     !levelName.empty() &&
-                    impl->levelNameSurface.getString()
+                    levelNameSurface.getString()
                     .toAnsiString().back() == '*'
                 )
                 {
@@ -336,7 +340,7 @@ const unsigned short& LevelEditorController::render(
 
                     /* remove the asterisk at the end of the displayed level
                        name */
-                    impl->levelNameSurface.setString(levelName);
+                    levelNameSurface.setString(levelName);
 
                     updateLevelNameSurfacePosition();
 
@@ -402,11 +406,11 @@ const unsigned short& LevelEditorController::render(
                     impl->floor,
                     impl->selector.getSelectedCellType()
                 ) &&
-                impl->levelNameSurface.getString().toAnsiString().back() != '*'
+                levelNameSurface.getString().toAnsiString().back() != '*'
             )
             {
-                impl->levelNameSurface.setString(
-                    impl->levelNameSurface.getString() + "*"
+                levelNameSurface.setString(
+                    levelNameSurface.getString() + "*"
                 );
 
                 updateLevelNameSurfacePosition();
@@ -452,7 +456,7 @@ void LevelEditorController::deleteActiveDialog() & noexcept
 /**
  *
  */
-void LevelEditorController::updateLevelNameSurfacePosition() &
+void LevelEditorController::updateLevelNameSurfacePosition() const &
 {
     impl->levelNameSurface.setPosition(
         1200.f - impl->levelNameSurface.getLocalBounds().width,
@@ -492,6 +496,23 @@ void LevelEditorController::saveLevelFile(
     }
 
     file << cellsStr;
+}
+
+/**
+ *
+ */
+void LevelEditorController::changeLevelName(
+    const utils::Context& context,
+    const std::string& levelName
+) const &
+{
+    impl->levelNameSurface.setString(levelName);
+
+    context.getEditingLevelManager().setLevelName(
+        levelName
+    );
+
+    updateLevelNameSurfacePosition();
 }
 
 }

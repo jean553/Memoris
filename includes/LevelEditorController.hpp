@@ -77,6 +77,8 @@ public:
 
 private:
 
+    static constexpr const char* const UNNAMED_LEVEL {"unnamed"};
+
     /**
      * @brief true if the current displayed dialog window is the save level
      * window; this function is declared to refactor common code that is
@@ -102,11 +104,9 @@ private:
      * @brief update the level name surface position; the position of this
      * surface is calculated according to its width
      *
-     * not constant because it modifies the level name surface position
-     *
      * not 'noexcept' because it calls SFML functions that are not noexcept
      */
-    void updateLevelNameSurfacePosition() &;
+    void updateLevelNameSurfacePosition() const &;
 
     /**
      * @brief save the current level cells type into a level file, creates a
@@ -122,6 +122,20 @@ private:
     void saveLevelFile(
         const std::string& name,
         aliases::ConstUniquePtrCellsContainerRef cells
+    ) const &;
+
+    /**
+     * @brief updates the name of the level in the editing level context
+     * manager and also updates the level name surface in the level editor
+     *
+     * @param context constant reference to the current context to use
+     * @param levelName constant reference to the actuel level name
+     *
+     * not 'noexcept' because it calls SFML functions that are not noexcept
+     */
+    void changeLevelName(
+        const utils::Context& context,
+        const std::string& levelName
     ) const &;
 
     class Impl;
