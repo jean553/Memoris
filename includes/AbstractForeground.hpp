@@ -17,19 +17,14 @@
 */
 
 /**
- * @file OpenLevelForeground.hpp
- * @brief contains one input text widget to let the user sets the new level
- * name
+ * @file AbstractForeground.hpp
+ * @brief parent interface for foregrounds
  * @package foregrounds
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef MEMORIS_OPENLEVELFOREGROUND_H_
-#define MEMORIS_OPENLEVELFOREGROUND_H_
-
-#include "AbstractForeground.hpp"
-
-#include <memory>
+#ifndef MEMORIS_ABSTRACTFOREGROUND_H_
+#define MEMORIS_ABSTRACTFOREGROUND_H_
 
 namespace memoris
 {
@@ -39,33 +34,19 @@ namespace utils
 class Context;
 }
 
-namespace widgets
-{
-class SelectionListWidget;
-}
-
 namespace foregrounds
 {
 
-class OpenLevelForeground : public AbstractForeground
+class AbstractForeground
 {
 
-public:
+protected:
 
     /**
-     * @brief constructor, initializes the implementation
-     *
-     * @param context constant reference to the context to use
-     *
-     * not noexcept because it calls SFML methods that are not noexcept
+     * @brief default destructor, useless, only declared here as virtual
+     * in order to handle polymorphism issues
      */
-    OpenLevelForeground(const utils::Context& context);
-
-    /**
-     * @brief default destructor, declared in order to use forwarding
-     * declaration
-     */
-    ~OpenLevelForeground() noexcept;
+    virtual ~AbstractForeground() = default;
 
     /**
      * @brief renders the foreground in front of the controller screen
@@ -74,19 +55,7 @@ public:
      *
      * not noexcept because it calls SFML methods that are not noexcept
      */
-    virtual void render(const utils::Context& context) const & override final;
-
-    /**
-     * @brief getter of a constant reference to the list widget
-     *
-     * @return const widgets::SelectionListWidget&
-     */
-    const widgets::SelectionListWidget& getList() const & noexcept;
-
-private:
-
-    class Impl;
-    std::unique_ptr<Impl> impl;
+    virtual void render(const utils::Context& context) const & = 0;
 };
 
 }
