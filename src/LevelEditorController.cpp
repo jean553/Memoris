@@ -33,7 +33,6 @@
 #include "CellsSelector.hpp"
 #include "Level.hpp"
 #include "Cursor.hpp"
-#include "SaveLevelDialog.hpp"
 #include "EditingLevelManager.hpp"
 #include "ColorsManager.hpp"
 #include "FontsManager.hpp"
@@ -110,8 +109,6 @@ public:
     sf::Text levelNameSurface;
     sf::Text floorSurface;
 
-    std::unique_ptr<popups::SaveLevelDialog> saveLevelDialog {nullptr};
-
     std::unique_ptr<foregrounds::NewLevelForeground>
         newLevelForeground {nullptr};
 
@@ -120,6 +117,8 @@ public:
 
     std::unique_ptr<foregrounds::SaveLevelForeground>
         saveLevelForeground {nullptr};
+
+    bool newFile {false};
 };
 
 /**
@@ -161,6 +160,8 @@ const unsigned short& LevelEditorController::render(
 
     auto& levelNameSurface = impl->levelNameSurface;
 
+    auto& newFile = impl->newFile;
+
     if (newLevelForeground != nullptr)
     {
         newLevelForeground->render(context);
@@ -188,11 +189,6 @@ const unsigned short& LevelEditorController::render(
         window.draw(impl->floorSurface);
 
         impl->cursor.render(context);
-    }
-
-    if (impl->saveLevelDialog != nullptr)
-    {
-        impl->saveLevelDialog->render(context);
     }
 
     nextControllerId = animateScreenTransition(context);
@@ -245,17 +241,15 @@ const unsigned short& LevelEditorController::render(
             }
             case sf::Keyboard::Return:
             {
-                /* if the current displayed saveLevelDialog window is the save
-                   window, just update the level name */
-                if (saveDialogIsActive())
+                if (saveLevelForeground != nullptr)
                 {
-                    if (impl->saveLevelDialog->getInputTextWidget().isEmpty())
+                    const std::string& levelName =
+                        saveLevelForeground->getInputTextWidget().getText();
+
+                    if (levelName.empty())
                     {
                         break;
                     }
-
-                    const std::string levelName =
-                        impl->saveLevelDialog->getInputTextWidget().getText();
 
                     saveLevelFile(
                         levelName,
@@ -267,14 +261,14 @@ const unsigned short& LevelEditorController::render(
                         levelName
                     );
 
-                    deleteActiveDialog();
+                    saveLevelForeground.reset();
                 }
             }
             default:
             {
-                if (saveDialogIsActive())
+                if (saveLevelForeground != nullptr)
                 {
-                    impl->saveLevelDialog->getInputTextWidget().update(event);
+                    saveLevelForeground->getInputTextWidget().update(event);
                 }
             }
             }
@@ -338,19 +332,20 @@ const unsigned short& LevelEditorController::render(
                 std::string levelName =
                     context.getEditingLevelManager().getLevelName();
 
-                if (
-                    !levelName.empty() &&
-                    levelNameSurface.getString()
-                    .toAnsiString().back() == '*'
-                )
+                const bool updatedLevel =
+                    levelNameSurface.getString().toAnsiString().back() == '*';
+
+                /* if the level is not saved yet,
+                   a star is displayed after the name */
+                if ((not levelName.empty() and updatedLevel) or newFile)
                 {
                     saveLevelFile(
                         levelName,
                         level->getCells()
                     );
 
-                    /* remove the asterisk at the end of the displayed level
-                       name */
+                    /* remove the asterisk at the end
+                       of the displayed level name */
                     levelNameSurface.setString(levelName);
 
                     updateLevelNameSurfacePosition();
@@ -362,6 +357,8 @@ const unsigned short& LevelEditorController::render(
                     std::make_unique<foregrounds::SaveLevelForeground>(
                         context
                     );
+
+                newFile = true;
 
                 impl->currentActionId = Action::SAVE;
 
@@ -436,34 +433,6 @@ const unsigned short& LevelEditorController::render(
     }
 
     return nextControllerId;
-}
-
-/**
- *
- */
-const bool LevelEditorController::saveDialogIsActive() const & noexcept
-{
-    if (
-        impl->currentActionId ==
-        Action::SAVE &&
-        impl->saveLevelDialog != nullptr
-    )
-    {
-        return true;
-    }
-
-    return false;
-}
-
-/**
- *
- */
-void LevelEditorController::deleteActiveDialog() & noexcept
-{
-    if (impl->saveLevelDialog != nullptr)
-    {
-        impl->saveLevelDialog.reset();
-    }
 }
 
 /**

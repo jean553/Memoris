@@ -91,5 +91,14 @@ void SaveLevelForeground::render(const utils::Context& context) const &
     impl->inputTextLevelName.display(context);
 }
 
+/**
+ *
+ */
+widgets::InputTextWidget& SaveLevelForeground::getInputTextWidget() const &
+    noexcept
+{
+    return impl->inputTextLevelName;
+}
+
 }
 }

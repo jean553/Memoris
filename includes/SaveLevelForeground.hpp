@@ -32,6 +32,12 @@
 
 namespace memoris
 {
+
+namespace widgets
+{
+class InputTextWidget;
+}
+
 namespace foregrounds
 {
 
@@ -63,6 +69,16 @@ public:
      * not noexcept because it calls SFML methods that are not noexcept
      */
     void render(const utils::Context& context) const & override final;
+
+    /**
+     * @brief getter of the input text widget that contains the level name
+     *
+     * @return widgets::InputTextWidget&
+     *
+     * returned reference is not constant as it is updated in the main event
+     * loop
+     */
+    widgets::InputTextWidget& getInputTextWidget() const & noexcept;
 
 private:
 
