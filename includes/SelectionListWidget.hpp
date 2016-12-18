@@ -112,6 +112,14 @@ public:
      */
     void updateList() const &;
 
+    /**
+     * @brief deletes the selected item
+     *
+     * not noexcept because it calls SFML methods, STL containers and iterators
+     * methods that are not noexcept
+     */
+    void deleteSelectedItem() const &;
+
 private:
 
     static constexpr float VERTICAL_POSITION {200.f};

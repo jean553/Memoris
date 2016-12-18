@@ -301,11 +301,17 @@ void SelectionListWidget::displaySelector(const utils::Context& context) &
     float mouseHorizontalPosition = static_cast<float>(mousePosition.x);
     float mouseVerticalPosition = static_cast<float>(mousePosition.y);
 
+    const auto& texts = impl->texts;
+
     if (
         mouseHorizontalPosition < impl->horizontalPosition or
         mouseHorizontalPosition > impl->horizontalPosition + WIDTH or
         mouseVerticalPosition < VERTICAL_POSITION or
-        mouseVerticalPosition > VERTICAL_POSITION + HEIGHT - 1.f
+        (
+            mouseVerticalPosition >
+                texts[texts.size() - 1].getPosition().y + ITEMS_SEPARATION or
+            mouseVerticalPosition > VERTICAL_POSITION + HEIGHT - 1.f
+        )
     )
     {
         impl->selectorIndex = NO_SELECTION_INDEX;
@@ -429,6 +435,41 @@ void SelectionListWidget::updateAllItemsPosition(const float& movement) const &
         text.setPosition(
             impl->horizontalPosition,
             text.getPosition().y + ITEMS_SEPARATION * movement
+        );
+    }
+}
+
+/**
+ *
+ */
+void SelectionListWidget::deleteSelectedItem() const &
+{
+    // std::vector<sf::Text>&
+    auto& texts = impl->texts;
+
+    /* we can use the operator + here between
+       integers and iterator because it is a random access iterator; we
+       explicitly declare the type to prevent oversights */
+    const std::vector<sf::Text>::iterator offsetIndex =
+        texts.begin() + impl->selectorIndex + impl->offset;
+
+    /* erase guarantees no exception */
+    texts.erase(offsetIndex);
+
+    // const float&
+    const auto& horizontalPosition = impl->horizontalPosition;
+
+    /* not a const_iterator because setPosition
+       modifies the iterated objects */
+    for (
+        auto it = offsetIndex; // std::vector<sf::Text>::iterator
+        it != texts.end();
+        ++it
+    )
+    {
+        it->setPosition(
+            horizontalPosition,
+            it->getPosition().y - ITEMS_SEPARATION
         );
     }
 }

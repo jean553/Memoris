@@ -300,7 +300,15 @@ const unsigned short& SerieEditorController::render(
                     );
             }
 
-            impl->lists.getLevelsList().updateList();
+            // const std::vector<sf::Text>&
+            const auto& levelsList = impl->lists.getLevelsList();
+
+            if (!levelsList.getCurrentItem().empty())
+            {
+                levelsList.deleteSelectedItem();
+            }
+
+            levelsList.updateList();
 
             break;
         }
