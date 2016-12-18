@@ -48,10 +48,6 @@ namespace controllers
 {
 
 constexpr float SerieEditorController::BUTTONS_VERTICAL_POSITION;
-constexpr float SerieEditorController::NEW_BUTTON_HORIZONTAL_POSITION;
-constexpr float SerieEditorController::OPEN_BUTTON_HORIZONTAL_POSITION;
-constexpr float SerieEditorController::SAVE_BUTTON_HORIZONTAL_POSITION;
-constexpr float SerieEditorController::EXIT_BUTTON_HORIZONTAL_POSITION;
 
 constexpr const char SerieEditorController::SAVE_SERIE_MESSAGE[];
 
@@ -63,25 +59,25 @@ public:
     Impl(const utils::Context& context) : 
         buttonNew(
             context,
-            NEW_BUTTON_HORIZONTAL_POSITION,
+            10.f,
             BUTTONS_VERTICAL_POSITION,
             context.getTexturesManager().getNewTexture()
         ),
         buttonOpen(
             context,
-            OPEN_BUTTON_HORIZONTAL_POSITION,
+            90.f,
             BUTTONS_VERTICAL_POSITION,
             context.getTexturesManager().getOpenTexture()
         ),
         buttonSave(
             context,
-            SAVE_BUTTON_HORIZONTAL_POSITION,
+            170.f,
             BUTTONS_VERTICAL_POSITION,
             context.getTexturesManager().getSaveTexture()
         ),
         buttonExit(
             context,
-            EXIT_BUTTON_HORIZONTAL_POSITION,
+            250.f,
             BUTTONS_VERTICAL_POSITION,
             context.getTexturesManager().getExitTexture()
         ),
@@ -99,7 +95,7 @@ public:
         serieName.setColor(context.getColorsManager().getColorWhite());
         serieName.setCharacterSize(fonts::TEXT_SIZE);
         serieName.setPosition(
-            SERIE_NAME_POSITION - serieName.getLocalBounds().width,
+            1550.f - serieName.getLocalBounds().width,
             0.f
         );
     }
