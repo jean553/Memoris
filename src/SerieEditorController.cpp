@@ -98,9 +98,29 @@ public:
             1550.f - serieName.getLocalBounds().width,
             0.f
         );
+
+        allLevels.setString("Available levels");
+        allLevels.setFont(context.getFontsManager().getTextFont());
+        allLevels.setColor(context.getColorsManager().getColorWhite());
+        allLevels.setCharacterSize(fonts::INFORMATION_SIZE);
+        allLevels.setPosition(
+            230.f,
+            INFORMATION_VERTICAL_POSITION
+        );
+
+        serieLevels.setString("Serie levels");
+        serieLevels.setFont(context.getFontsManager().getTextFont());
+        serieLevels.setColor(context.getColorsManager().getColorWhite());
+        serieLevels.setCharacterSize(fonts::INFORMATION_SIZE);
+        serieLevels.setPosition(
+            1080.f,
+            INFORMATION_VERTICAL_POSITION
+        );
     }
 
     sf::Text serieName;
+    sf::Text allLevels;
+    sf::Text serieLevels;
 
     widgets::Button buttonNew;
     widgets::Button buttonOpen;
@@ -162,6 +182,8 @@ const unsigned short& SerieEditorController::render(
     else
     {
         window.draw(impl->serieName);
+        window.draw(impl->allLevels);
+        window.draw(impl->serieLevels);
 
         impl->buttonNew.display(context);
         impl->buttonOpen.display(context);
