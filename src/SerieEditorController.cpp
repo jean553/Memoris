@@ -37,6 +37,7 @@
 #include "InputTextForeground.hpp"
 #include "NewFileForeground.hpp"
 #include "InputTextWidget.hpp"
+#include "OpenFileForeground.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -113,6 +114,9 @@ public:
 
     std::unique_ptr<foregrounds::NewFileForeground> newSerieForeground
         {nullptr};
+
+    std::unique_ptr<foregrounds::OpenFileForeground> openSerieForeground
+        {nullptr};
 };
 
 /**
@@ -138,6 +142,7 @@ const unsigned short& SerieEditorController::render(
 {
     auto& saveSerieForeground = impl->saveSerieForeground;
     auto& newSerieForeground = impl->newSerieForeground;
+    auto& openSerieForeground = impl->openSerieForeground;
 
     if (saveSerieForeground != nullptr)
     {
@@ -146,6 +151,10 @@ const unsigned short& SerieEditorController::render(
     else if (newSerieForeground != nullptr)
     {
         newSerieForeground->render(context);
+    }
+    else if (openSerieForeground != nullptr)
+    {
+        openSerieForeground->render(context);
     }
     else
     {
@@ -190,6 +199,13 @@ const unsigned short& SerieEditorController::render(
                     break;
                 }
 
+                if (openSerieForeground != nullptr)
+                {
+                    openSerieForeground.reset();
+
+                    break;
+                }
+
                 expectedControllerId = EDITOR_MENU_CONTROLLER_ID;
 
                 break;
@@ -207,16 +223,29 @@ const unsigned short& SerieEditorController::render(
         }
         case sf::Event::MouseButtonPressed:
         {
-            if (impl->buttonNew.isMouseHover())
+            if (impl->buttonExit.isMouseHover())
+            {
+                expectedControllerId = EDITOR_MENU_CONTROLLER_ID;
+            }
+            else if (
+                impl->buttonNew.isMouseHover() and
+                newSerieForeground == nullptr
+            )
             {
                 newSerieForeground =
                     std::make_unique<foregrounds::NewFileForeground>(
                         context
                     );
             }
-            else if (impl->buttonExit.isMouseHover())
+            else if (
+                impl->buttonOpen.isMouseHover() and
+                openSerieForeground == nullptr
+            )
             {
-                expectedControllerId = EDITOR_MENU_CONTROLLER_ID;
+                openSerieForeground =
+                    std::make_unique<foregrounds::OpenFileForeground>(
+                        context
+                    );
             }
             else if (
                 impl->buttonSave.isMouseHover() and
