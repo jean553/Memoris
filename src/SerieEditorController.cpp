@@ -34,6 +34,8 @@
 #include "Cursor.hpp"
 #include "DoubleSelectionListWidget.hpp"
 #include "SelectionListWidget.hpp"
+#include "InputTextForeground.hpp"
+#include "InputTextWidget.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -48,6 +50,8 @@ constexpr float SerieEditorController::NEW_BUTTON_HORIZONTAL_POSITION;
 constexpr float SerieEditorController::OPEN_BUTTON_HORIZONTAL_POSITION;
 constexpr float SerieEditorController::SAVE_BUTTON_HORIZONTAL_POSITION;
 constexpr float SerieEditorController::EXIT_BUTTON_HORIZONTAL_POSITION;
+
+constexpr const char SerieEditorController::SAVE_SERIE_MESSAGE[];
 
 class SerieEditorController::Impl
 {
@@ -102,6 +106,9 @@ public:
     widgets::Cursor cursor;
 
     widgets::DoubleSelectionListWidget lists;
+
+    std::unique_ptr<foregrounds::InputTextForeground> saveSerieForeground
+        {nullptr};
 };
 
 /**
@@ -125,16 +132,25 @@ const unsigned short& SerieEditorController::render(
     const utils::Context& context
 ) &
 {
-    window.draw(impl->serieName);
+    auto& saveSerieForeground = impl->saveSerieForeground;
 
-    impl->buttonNew.display(context);
-    impl->buttonOpen.display(context);
-    impl->buttonSave.display(context);
-    impl->buttonExit.display(context);
+    if (saveSerieForeground != nullptr)
+    {
+        saveSerieForeground->render(context);
+    }
+    else
+    {
+        window.draw(impl->serieName);
 
-    impl->lists.display(context);
+        impl->buttonNew.display(context);
+        impl->buttonOpen.display(context);
+        impl->buttonSave.display(context);
+        impl->buttonExit.display(context);
 
-    impl->cursor.render(context);
+        impl->lists.display(context);
+
+        impl->cursor.render(context);
+    }
 
     nextControllerId = animateScreenTransition(context);
 
@@ -148,20 +164,44 @@ const unsigned short& SerieEditorController::render(
             {
             case sf::Keyboard::Escape:
             {
+                if (saveSerieForeground != nullptr)
+                {
+                    saveSerieForeground.reset();
+
+                    break;
+                }
+
                 expectedControllerId = EDITOR_MENU_CONTROLLER_ID;
 
                 break;
             }
             default:
             {
+                if (saveSerieForeground != nullptr)
+                {
+                    saveSerieForeground->getInputTextWidget().update(event);
+                }
             }
             }
+
+            break;
         }
         case sf::Event::MouseButtonPressed:
         {
             if (impl->buttonExit.isMouseHover())
             {
                 expectedControllerId = EDITOR_MENU_CONTROLLER_ID;
+            }
+            else if (
+                impl->buttonSave.isMouseHover() and
+                saveSerieForeground == nullptr
+            )
+            {
+                saveSerieForeground =
+                    std::make_unique<foregrounds::InputTextForeground>(
+                        context,
+                        SAVE_SERIE_MESSAGE
+                    );
             }
 
             impl->lists.getLevelsList().updateList();

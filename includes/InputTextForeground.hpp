@@ -50,13 +50,13 @@ public:
      * @brief constructor, initializes the implementation
      *
      * @param context constant reference to the context to use
-     * @param message constant reference to the message to display
+     * @param message constant rvalue reference to the message to display
      *
      * not noexcept because it calls SFML methods that are not noexcept
      */
     InputTextForeground(
         const utils::Context& context,
-        const std::string& message
+        const std::string&& message
     );
 
     /**
