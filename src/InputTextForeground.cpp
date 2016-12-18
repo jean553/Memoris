@@ -17,12 +17,12 @@
 */
 
 /**
- * @file SaveLevelForeground.hpp
+ * @file InputTextForeground.hpp
  * @package foregrounds
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "SaveLevelForeground.hpp"
+#include "InputTextForeground.hpp"
 
 #include "InputTextWidget.hpp"
 #include "Context.hpp"
@@ -39,12 +39,15 @@ namespace memoris
 namespace foregrounds
 {
 
-class SaveLevelForeground::Impl
+class InputTextForeground::Impl
 {
 
 public:
 
-    Impl(const utils::Context& context) :
+    Impl(
+        const utils::Context& context,
+        const std::string& message
+    ) :
         inputTextLevelName(
             context,
             500.f,
@@ -54,7 +57,7 @@ public:
         )
     {
         explanation.setFont(context.getFontsManager().getTextFont());
-        explanation.setString("Level name");
+        explanation.setString(message);
         explanation.setCharacterSize(memoris::fonts::TEXT_SIZE);
         explanation.setColor(context.getColorsManager().getColorWhite());
         explanation.setPosition(
@@ -71,20 +74,28 @@ public:
 /**
  *
  */
-SaveLevelForeground::SaveLevelForeground(const utils::Context& context) :
-    impl(std::make_unique<Impl>(context))
+InputTextForeground::InputTextForeground(
+    const utils::Context& context,
+    const std::string& message
+) :
+    impl(
+        std::make_unique<Impl>(
+            context,
+            message
+        )
+    )
 {
 }
 
 /**
  *
  */
-SaveLevelForeground::~SaveLevelForeground() noexcept = default;
+InputTextForeground::~InputTextForeground() noexcept = default;
 
 /**
  *
  */
-void SaveLevelForeground::render(const utils::Context& context) const &
+void InputTextForeground::render(const utils::Context& context) const &
 {
     context.getSfmlWindow().draw(impl->explanation);
 
@@ -94,7 +105,7 @@ void SaveLevelForeground::render(const utils::Context& context) const &
 /**
  *
  */
-widgets::InputTextWidget& SaveLevelForeground::getInputTextWidget() const &
+widgets::InputTextWidget& InputTextForeground::getInputTextWidget() const &
     noexcept
 {
     return impl->inputTextLevelName;
