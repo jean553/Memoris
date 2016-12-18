@@ -38,6 +38,7 @@
 #include "NewFileForeground.hpp"
 #include "InputTextWidget.hpp"
 #include "OpenFileForeground.hpp"
+#include "window.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -116,11 +117,24 @@ public:
             1080.f,
             INFORMATION_VERTICAL_POSITION
         );
+
+        explanations.setString(
+            "Click on a level name in order to switch it from one list to "
+            "another."
+        );
+        explanations.setFont(context.getFontsManager().getTextFont());
+        explanations.setColor(context.getColorsManager().getColorWhite());
+        explanations.setCharacterSize(fonts::INFORMATION_SIZE);
+        explanations.setPosition(
+            window::getCenteredSfmlSurfaceHorizontalPosition(explanations),
+            850.f
+        );
     }
 
     sf::Text serieName;
     sf::Text allLevels;
     sf::Text serieLevels;
+    sf::Text explanations;
 
     widgets::Button buttonNew;
     widgets::Button buttonOpen;
@@ -184,6 +198,7 @@ const unsigned short& SerieEditorController::render(
         window.draw(impl->serieName);
         window.draw(impl->allLevels);
         window.draw(impl->serieLevels);
+        window.draw(impl->explanations);
 
         impl->buttonNew.display(context);
         impl->buttonOpen.display(context);
