@@ -301,11 +301,17 @@ void SelectionListWidget::displaySelector(const utils::Context& context) &
     float mouseHorizontalPosition = static_cast<float>(mousePosition.x);
     float mouseVerticalPosition = static_cast<float>(mousePosition.y);
 
+    const auto& texts = impl->texts;
+
     if (
         mouseHorizontalPosition < impl->horizontalPosition or
         mouseHorizontalPosition > impl->horizontalPosition + WIDTH or
         mouseVerticalPosition < VERTICAL_POSITION or
-        mouseVerticalPosition > VERTICAL_POSITION + HEIGHT - 1.f
+        (
+            mouseVerticalPosition >
+                texts[texts.size() - 1].getPosition().y + ITEMS_SEPARATION or
+            mouseVerticalPosition > VERTICAL_POSITION + HEIGHT - 1.f
+        )
     )
     {
         impl->selectorIndex = NO_SELECTION_INDEX;

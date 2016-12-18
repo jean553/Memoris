@@ -300,6 +300,7 @@ const unsigned short& SerieEditorController::render(
                     );
             }
 
+            // const std::vector<sf::Text>&
             const auto& levelsList = impl->lists.getLevelsList();
 
             if (!levelsList.getCurrentItem().empty())
