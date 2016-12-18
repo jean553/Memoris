@@ -38,7 +38,7 @@
 #include "FontsManager.hpp"
 #include "Cell.hpp"
 #include "NewFileForeground.hpp"
-#include "OpenLevelForeground.hpp"
+#include "OpenFileForeground.hpp"
 #include "InputTextForeground.hpp"
 #include "SelectionListWidget.hpp"
 
@@ -115,7 +115,7 @@ public:
     std::unique_ptr<foregrounds::NewFileForeground>
         newLevelForeground {nullptr};
 
-    std::unique_ptr<foregrounds::OpenLevelForeground>
+    std::unique_ptr<foregrounds::OpenFileForeground>
         openLevelForeground {nullptr};
 
     std::unique_ptr<foregrounds::InputTextForeground>
@@ -377,7 +377,7 @@ const unsigned short& LevelEditorController::render(
             case Action::OPEN:
             {
                 impl->openLevelForeground =
-                    std::make_unique<foregrounds::OpenLevelForeground>(
+                    std::make_unique<foregrounds::OpenFileForeground>(
                         context
                     );
 

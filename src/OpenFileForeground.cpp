@@ -17,12 +17,12 @@
 */
 
 /**
- * @file OpenLevelForeground.cpp
+ * @file OpenFileForeground.cpp
  * @package foregrounds
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "OpenLevelForeground.hpp"
+#include "OpenFileForeground.hpp"
 
 #include "Context.hpp"
 #include "ColorsManager.hpp"
@@ -41,7 +41,7 @@ namespace memoris
 namespace foregrounds
 {
 
-class OpenLevelForeground::Impl
+class OpenFileForeground::Impl
 {
 
 public:
@@ -75,7 +75,7 @@ public:
 /**
  *
  */
-OpenLevelForeground::OpenLevelForeground(const utils::Context& context) :
+OpenFileForeground::OpenFileForeground(const utils::Context& context) :
     impl(std::make_unique<Impl>(context))
 {
 }
@@ -83,12 +83,12 @@ OpenLevelForeground::OpenLevelForeground(const utils::Context& context) :
 /**
  *
  */
-OpenLevelForeground::~OpenLevelForeground() noexcept = default;
+OpenFileForeground::~OpenFileForeground() noexcept = default;
 
 /**
  *
  */
-void OpenLevelForeground::render(const utils::Context& context) const &
+void OpenFileForeground::render(const utils::Context& context) const &
 {
     context.getSfmlWindow().draw(impl->explanation);
 
@@ -100,7 +100,7 @@ void OpenLevelForeground::render(const utils::Context& context) const &
 /**
  *
  */
-const widgets::SelectionListWidget& OpenLevelForeground::getList() const &
+const widgets::SelectionListWidget& OpenFileForeground::getList() const &
     noexcept
 {
     return impl->list;
