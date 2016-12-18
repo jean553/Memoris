@@ -85,6 +85,12 @@ public:
             BUTTONS_VERTICAL_POSITION,
             context.getTexturesManager().getExitTexture()
         ),
+        buttonSwitch(
+            context,
+            760.f,
+            450.f,
+            context.getTexturesManager().getSwitchTexture()
+        ),
         cursor(context),
         lists(context)
     {
@@ -104,6 +110,7 @@ public:
     widgets::Button buttonOpen;
     widgets::Button buttonSave;
     widgets::Button buttonExit;
+    widgets::Button buttonSwitch;
 
     widgets::Cursor cursor;
 
@@ -164,6 +171,7 @@ const unsigned short& SerieEditorController::render(
         impl->buttonOpen.display(context);
         impl->buttonSave.display(context);
         impl->buttonExit.display(context);
+        impl->buttonSwitch.display(context);
 
         impl->lists.display(context);
 
