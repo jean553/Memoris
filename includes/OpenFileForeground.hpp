@@ -17,15 +17,14 @@
 */
 
 /**
- * @file OpenLevelForeground.hpp
- * @brief contains one input text widget to let the user sets the new level
- * name
+ * @file OpenFileForeground.hpp
+ * @brief contains one selection list widget
  * @package foregrounds
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef MEMORIS_OPENLEVELFOREGROUND_H_
-#define MEMORIS_OPENLEVELFOREGROUND_H_
+#ifndef MEMORIS_OPENFILEFOREGROUND_H_
+#define MEMORIS_OPENFILEFOREGROUND_H_
 
 #include "AbstractForeground.hpp"
 
@@ -47,7 +46,7 @@ class SelectionListWidget;
 namespace foregrounds
 {
 
-class OpenLevelForeground : public AbstractForeground
+class OpenFileForeground : public AbstractForeground
 {
 
 public:
@@ -59,13 +58,13 @@ public:
      *
      * not noexcept because it calls SFML methods that are not noexcept
      */
-    OpenLevelForeground(const utils::Context& context);
+    OpenFileForeground(const utils::Context& context);
 
     /**
      * @brief default destructor, declared in order to use forwarding
      * declaration
      */
-    ~OpenLevelForeground() noexcept;
+    ~OpenFileForeground() noexcept;
 
     /**
      * @brief renders the foreground in front of the controller screen
