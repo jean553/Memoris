@@ -35,6 +35,7 @@
 #include "DoubleSelectionListWidget.hpp"
 #include "SelectionListWidget.hpp"
 #include "InputTextForeground.hpp"
+#include "NewFileForeground.hpp"
 #include "InputTextWidget.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -109,6 +110,9 @@ public:
 
     std::unique_ptr<foregrounds::InputTextForeground> saveSerieForeground
         {nullptr};
+
+    std::unique_ptr<foregrounds::NewFileForeground> newSerieForeground
+        {nullptr};
 };
 
 /**
@@ -133,10 +137,15 @@ const unsigned short& SerieEditorController::render(
 ) &
 {
     auto& saveSerieForeground = impl->saveSerieForeground;
+    auto& newSerieForeground = impl->newSerieForeground;
 
     if (saveSerieForeground != nullptr)
     {
         saveSerieForeground->render(context);
+    }
+    else if (newSerieForeground != nullptr)
+    {
+        newSerieForeground->render(context);
     }
     else
     {
@@ -162,6 +171,16 @@ const unsigned short& SerieEditorController::render(
         {
             switch(event.key.code)
             {
+            case sf::Keyboard::Y:
+            case sf::Keyboard::N:
+            {
+                if (newSerieForeground != nullptr)
+                {
+                    newSerieForeground.reset();
+
+                    break;
+                }
+            }
             case sf::Keyboard::Escape:
             {
                 if (saveSerieForeground != nullptr)
@@ -188,7 +207,14 @@ const unsigned short& SerieEditorController::render(
         }
         case sf::Event::MouseButtonPressed:
         {
-            if (impl->buttonExit.isMouseHover())
+            if (impl->buttonNew.isMouseHover())
+            {
+                newSerieForeground =
+                    std::make_unique<foregrounds::NewFileForeground>(
+                        context
+                    );
+            }
+            else if (impl->buttonExit.isMouseHover())
             {
                 expectedControllerId = EDITOR_MENU_CONTROLLER_ID;
             }
