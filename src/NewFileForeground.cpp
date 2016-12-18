@@ -17,12 +17,12 @@
 */
 
 /**
- * @file NewLevelForeground.cpp
+ * @file NewFileForeground.cpp
  * @package foregrounds
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "NewLevelForeground.hpp"
+#include "NewFileForeground.hpp"
 
 #include "Context.hpp"
 #include "ColorsManager.hpp"
@@ -38,7 +38,7 @@ namespace memoris
 namespace foregrounds
 {
 
-class NewLevelForeground::Impl
+class NewFileForeground::Impl
 {
 
 public:
@@ -61,7 +61,7 @@ public:
 /**
  *
  */
-NewLevelForeground::NewLevelForeground(const utils::Context& context) :
+NewFileForeground::NewFileForeground(const utils::Context& context) :
     impl(std::make_unique<Impl>(context))
 {
 }
@@ -69,12 +69,12 @@ NewLevelForeground::NewLevelForeground(const utils::Context& context) :
 /**
  *
  */
-NewLevelForeground::~NewLevelForeground() noexcept = default;
+NewFileForeground::~NewFileForeground() noexcept = default;
 
 /**
  *
  */
-void NewLevelForeground::render(const utils::Context& context) const &
+void NewFileForeground::render(const utils::Context& context) const &
 {
     context.getSfmlWindow().draw(impl->explanation);
 }

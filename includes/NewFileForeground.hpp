@@ -17,15 +17,15 @@
 */
 
 /**
- * @file NewLevelForeground.hpp
+ * @file NewFileForeground.hpp
  * @brief contains one input text widget to let the user sets the new level
  * name
  * @package foregrounds
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef MEMORIS_NEWLEVELFOREGROUND_H_
-#define MEMORIS_NEWLEVELFOREGROUND_H_
+#ifndef MEMORIS_NEWFILEFOREGROUND_H_
+#define MEMORIS_NEWFILEFOREGROUND_H_
 
 #include "AbstractForeground.hpp"
 
@@ -42,7 +42,7 @@ class Context;
 namespace foregrounds
 {
 
-class NewLevelForeground : public AbstractForeground
+class NewFileForeground : public AbstractForeground
 {
 
 public:
@@ -54,13 +54,13 @@ public:
      *
      * not noexcept because it calls SFML methods that are not noexcept
      */
-    NewLevelForeground(const utils::Context& context);
+    NewFileForeground(const utils::Context& context);
 
     /**
      * @brief default destructor, declared in order to use forwarding
      * declaration
      */
-    ~NewLevelForeground() noexcept;
+    ~NewFileForeground() noexcept;
 
     /**
      * @brief renders the foreground in front of the controller screen
