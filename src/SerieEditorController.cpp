@@ -233,6 +233,13 @@ const unsigned short& SerieEditorController::render(
             }
             case sf::Keyboard::Escape:
             {
+                if (newSerieForeground != nullptr)
+                {
+                    newSerieForeground.reset();
+
+                    break;
+                }
+
                 if (saveSerieForeground != nullptr)
                 {
                     saveSerieForeground.reset();

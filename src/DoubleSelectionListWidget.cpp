@@ -51,7 +51,7 @@ public:
            for organization purposes, we just load the lists content here */
         allLevelsList.setList(
             context,
-            utils::getFilesFromDirectory("data/games")
+            utils::getFilesFromDirectory("data/levels/personals")
         );
     }
 

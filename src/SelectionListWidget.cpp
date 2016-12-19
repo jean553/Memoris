@@ -216,11 +216,19 @@ void SelectionListWidget::display(const utils::Context& context) &
     impl->window.draw(impl->arrowUp);
     impl->window.draw(impl->arrowDown);
 
+    // std::vector<sf::Text>&
+    auto& texts = impl->texts;
+
+    if (impl->texts.size() == 0)
+    {
+        return;
+    }
+
     displaySelector(context);
 
     for (
-        std::vector<sf::Text>::const_iterator iterator = impl->texts.begin();
-        iterator < impl->texts.end();
+        std::vector<sf::Text>::const_iterator iterator = texts.begin();
+        iterator < texts.end();
         ++iterator
     )
     {
