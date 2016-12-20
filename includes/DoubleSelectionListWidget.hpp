@@ -78,6 +78,13 @@ public:
      */
     const widgets::SelectionListWidget& getLevelsList() const & noexcept;
 
+    /**
+     * @brief getter for the list that contains all the levels of the serie
+     *
+     * @return const widget::SelectionListWidget&
+     */
+    const widgets::SelectionListWidget& getSerieLevelsList() const & noexcept;
+
 private:
 
     class Impl;

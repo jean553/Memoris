@@ -482,5 +482,32 @@ void SelectionListWidget::deleteSelectedItem() const &
     }
 }
 
+/**
+ *
+ */
+void SelectionListWidget::addItem(
+    const utils::Context& context,
+    const std::string& item
+) const &
+{
+    sf::Text text(
+        item,
+        context.getFontsManager().getTextFont(),
+        fonts::TEXT_SIZE
+    );
+
+    text.setColor(context.getColorsManager().getColorWhite());
+
+    // std::vector<sf::Text>&
+    auto& texts = impl->texts;
+
+    text.setPosition(
+        impl->horizontalPosition,
+        VERTICAL_POSITION + ITEMS_SEPARATION * texts.size()
+    );
+
+    texts.push_back(text);
+}
+
 }
 }

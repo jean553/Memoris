@@ -120,6 +120,17 @@ public:
      */
     void deleteSelectedItem() const &;
 
+    /**
+     * @brief add one string into the displayed list
+     *
+     * @param context constant reference to the current context to use
+     * @param item constant reference to the string to insert
+     */
+    void addItem(
+        const utils::Context& context,
+        const std::string& item
+    ) const &;
+
 private:
 
     static constexpr float VERTICAL_POSITION {200.f};

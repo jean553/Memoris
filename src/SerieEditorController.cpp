@@ -309,10 +309,16 @@ const unsigned short& SerieEditorController::render(
 
             // const std::vector<sf::Text>&
             const auto& levelsList = impl->lists.getLevelsList();
+            const auto& selectedItem = levelsList.getCurrentItem();
 
-            if (!levelsList.getCurrentItem().empty())
+            if (!selectedItem.empty())
             {
                 levelsList.deleteSelectedItem();
+
+                impl->lists.getSerieLevelsList().addItem(
+                    context,
+                    selectedItem
+                );
             }
 
             levelsList.updateList();
