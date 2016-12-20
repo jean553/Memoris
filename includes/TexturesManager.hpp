@@ -170,13 +170,6 @@ public:
      */
     const sf::Texture& getScrollArrowUpTexture() const & noexcept;
 
-    /**
-     * @brief getter for the invert texture
-     *
-     * @return const sf::Texture&
-     */
-    const sf::Texture& getSwitchTexture() const & noexcept;
-
 private:
 
     /**

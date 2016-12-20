@@ -82,12 +82,6 @@ public:
             BUTTONS_VERTICAL_POSITION,
             context.getTexturesManager().getExitTexture()
         ),
-        buttonSwitch(
-            context,
-            760.f,
-            450.f,
-            context.getTexturesManager().getSwitchTexture()
-        ),
         cursor(context),
         lists(context)
     {
@@ -140,7 +134,6 @@ public:
     widgets::Button buttonOpen;
     widgets::Button buttonSave;
     widgets::Button buttonExit;
-    widgets::Button buttonSwitch;
 
     widgets::Cursor cursor;
 
@@ -204,7 +197,6 @@ const unsigned short& SerieEditorController::render(
         impl->buttonOpen.display(context);
         impl->buttonSave.display(context);
         impl->buttonExit.display(context);
-        impl->buttonSwitch.display(context);
 
         impl->lists.display(context);
 
@@ -309,19 +301,32 @@ const unsigned short& SerieEditorController::render(
 
             // const std::vector<sf::Text>&
             const auto& levelsList = impl->lists.getLevelsList();
-            const auto& selectedItem = levelsList.getCurrentItem();
+            const auto& seriesList = impl->lists.getSerieLevelsList();
 
-            if (!selectedItem.empty())
+            const auto& selectedLevelItem = levelsList.getCurrentItem();
+            const auto& selectedSerieItem = seriesList.getCurrentItem();
+
+            if (!selectedLevelItem.empty())
             {
                 levelsList.deleteSelectedItem();
 
                 impl->lists.getSerieLevelsList().addItem(
                     context,
-                    selectedItem
+                    selectedLevelItem
+                );
+            }
+            else if (!selectedSerieItem.empty())
+            {
+                seriesList.deleteSelectedItem();
+
+                impl->lists.getLevelsList().addItem(
+                    context,
+                    selectedSerieItem
                 );
             }
 
             levelsList.updateList();
+            seriesList.updateList();
 
             break;
         }
