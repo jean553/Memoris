@@ -93,5 +93,14 @@ const widgets::SelectionListWidget& DoubleSelectionListWidget::getLevelsList()
     return impl->allLevelsList;
 }
 
+/**
+ *
+ */
+const widgets::SelectionListWidget& DoubleSelectionListWidget::getSerieLevelsList()
+    const & noexcept
+{
+    return impl->serieLevelsList;
+}
+
 }
 }
