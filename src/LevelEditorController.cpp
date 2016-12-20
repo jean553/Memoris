@@ -204,7 +204,24 @@ const unsigned short& LevelEditorController::render(
         {
             switch(event.key.code)
             {
-            case sf::Keyboard::Y:
+            case sf::Keyboard::Escape:
+            {
+                if (newLevelForeground != nullptr)
+                {
+                    newLevelForeground.reset();
+                }
+                else if (openLevelForeground != nullptr)
+                {
+                    openLevelForeground.reset();
+                }
+                else if (saveLevelForeground != nullptr)
+                {
+                    saveLevelForeground.reset();
+                }
+
+                break;
+            }
+            case sf::Keyboard::Return:
             {
                 if (newLevelForeground != nullptr)
                 {
@@ -220,33 +237,7 @@ const unsigned short& LevelEditorController::render(
                     newFile = false;
                 }
 
-                break;
-            }
-            case sf::Keyboard::N:
-            {
-                if (newLevelForeground != nullptr)
-                {
-                    newLevelForeground.reset();
-                }
-
-                break;
-            }
-            case sf::Keyboard::Escape:
-            {
-                if (openLevelForeground != nullptr)
-                {
-                    openLevelForeground.reset();
-                }
                 else if (saveLevelForeground != nullptr)
-                {
-                    saveLevelForeground.reset();
-                }
-
-                break;
-            }
-            case sf::Keyboard::Return:
-            {
-                if (saveLevelForeground != nullptr)
                 {
                     const std::string& levelName =
                         saveLevelForeground->getInputTextWidget().getText();

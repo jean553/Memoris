@@ -46,7 +46,7 @@ public:
     Impl(const utils::Context& context)
     {
         explanation.setFont(context.getFontsManager().getTextFont());
-        explanation.setString("Are you sure ? Y / N");
+        explanation.setString("Are you sure ? Enter / Escape");
         explanation.setCharacterSize(memoris::fonts::TEXT_SIZE);
         explanation.setColor(context.getColorsManager().getColorWhite());
         explanation.setPosition(
