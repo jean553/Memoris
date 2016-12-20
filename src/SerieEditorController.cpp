@@ -213,16 +213,6 @@ const unsigned short& SerieEditorController::render(
         {
             switch(event.key.code)
             {
-            case sf::Keyboard::Y:
-            case sf::Keyboard::N:
-            {
-                if (newSerieForeground != nullptr)
-                {
-                    newSerieForeground.reset();
-
-                    break;
-                }
-            }
             case sf::Keyboard::Escape:
             {
                 if (newSerieForeground != nullptr)
