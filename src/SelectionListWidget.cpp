@@ -509,5 +509,13 @@ void SelectionListWidget::addItem(
     texts.push_back(text);
 }
 
+/**
+ *
+ */
+const std::vector<sf::Text>& SelectionListWidget::getTexts() const & noexcept
+{
+    return impl->texts;
+}
+
 }
 }

@@ -124,6 +124,12 @@ public:
      * NOTE: the string we return is not an attribute of the widget class
      * but directly the string contained inside the SFML text object; this
      * avoid duplication of identical data
+     *
+     * we do not return a std::string object because we would be mandatory to
+     * use the toAnsiString() method of sf::String. This function returns a
+     * copy of the string (not a reference). That means a call to a getter
+     * would generate two copies of the same string: we just avoid it, client
+     * code will call toAnsiString() itself if necessary.
      */
     const sf::String& getText() const;
 

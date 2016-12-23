@@ -239,8 +239,10 @@ const unsigned short& LevelEditorController::render(
 
                 else if (saveLevelForeground != nullptr)
                 {
-                    const std::string& levelName =
-                        saveLevelForeground->getInputTextWidget().getText();
+                    // const std::string&
+                    const auto& levelName =
+                        saveLevelForeground->getInputTextWidget().getText()
+                            .toAnsiString();
 
                     if (levelName.empty())
                     {

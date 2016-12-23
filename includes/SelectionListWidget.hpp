@@ -33,6 +33,7 @@
 namespace sf
 {
 class Sprite;
+class Text;
 }
 
 namespace memoris
@@ -130,6 +131,13 @@ public:
         const utils::Context& context,
         const std::string& item
     ) const &;
+
+    /**
+     * @brief getter of the stored values in the list
+     *
+     * @return const std::vector<sf::Text>&
+     */
+    const std::vector<sf::Text>& getTexts() const & noexcept;
 
 private:
 
