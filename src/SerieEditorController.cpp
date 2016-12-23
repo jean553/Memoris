@@ -39,6 +39,7 @@
 #include "InputTextWidget.hpp"
 #include "OpenFileForeground.hpp"
 #include "window.hpp"
+#include "files.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -213,6 +214,27 @@ const unsigned short& SerieEditorController::render(
         {
             switch(event.key.code)
             {
+            case sf::Keyboard::Return:
+            {
+                if (saveSerieForeground != nullptr)
+                {
+                    // const std::string&
+                    const auto& serieName =
+                        saveSerieForeground->getInputTextWidget().getText()
+                            .toAnsiString();
+
+                    if (serieName.empty())
+                    {
+                        break;
+                    }
+
+                    saveSerieFile(serieName);
+
+                    saveSerieForeground.reset();
+
+                    break;
+                }
+            }
             case sf::Keyboard::Escape:
             {
                 if (newSerieForeground != nullptr)
@@ -327,6 +349,32 @@ const unsigned short& SerieEditorController::render(
     }
 
     return nextControllerId;
+}
+
+/**
+ *
+ */
+void SerieEditorController::saveSerieFile(const std::string& name) const &
+{
+    std::ofstream file;
+    utils::applyFailbitAndBadbitExceptions(file);
+
+    file.open(
+        "data/series/personals/" + name + ".serie",
+        std::fstream::out
+    );
+
+    /* write three empty best scores */
+    file << "." << std::endl << "." << std::endl << "." << std::endl;
+
+    // const std::vector<sf::Text>&
+    const auto& texts = impl->lists.getSerieLevelsList().getTexts();
+
+    // const sf::Text&
+    for (const auto& text : texts)
+    {
+        file << text.getString().toAnsiString() << std::endl;
+    }
 }
 
 }

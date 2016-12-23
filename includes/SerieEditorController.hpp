@@ -65,6 +65,18 @@ public:
         const utils::Context& context
     ) & override;
 
+    /**
+     * @brief save the current serie file according to the given serie name
+     * and the levels of the serie levels list
+     *
+     * @param name the name of the level to create
+     *
+     * @throw std::ios_base::failure thrown if the file manipulation failed;
+     * this exception is never caught by the program and the game directly
+     * stops
+     */
+    void saveSerieFile(const std::string& name) const &;
+
 private:
 
     static constexpr float BUTTONS_VERTICAL_POSITION {10.f};
