@@ -55,7 +55,7 @@ EditingLevelManager::~EditingLevelManager() noexcept = default;
 /**
  *
  */
-void EditingLevelManager::setLevelName(const std::string& name) &
+void EditingLevelManager::setLevelName(const std::string& name) const &
 {
     impl->levelName = name;
 }

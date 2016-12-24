@@ -230,6 +230,16 @@ const unsigned short& SerieEditorController::render(
 
                     saveSerieFile(serieName);
 
+                    auto& serieNameSurface = impl->serieName;
+
+                    serieNameSurface.setString(serieName);
+
+                    serieNameSurface.setPosition(
+                        window::WIDTH -
+                            serieNameSurface.getLocalBounds().width,
+                        0.f
+                    );
+
                     saveSerieForeground.reset();
 
                     break;

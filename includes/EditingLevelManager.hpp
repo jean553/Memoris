@@ -60,10 +60,8 @@ public:
      * @param name the name of the level to save into the manager
      *
      * @throw std::bad_alloc the string allocation failed
-     *
-     * not 'const' because it modifies the levelName attribute
      */
-    void setLevelName(const std::string& name) &;
+    void setLevelName(const std::string& name) const &;
 
     /**
      * @brief getter of the level name
