@@ -101,6 +101,7 @@ private:
     static constexpr float INFORMATION_VERTICAL_POSITION {140.f};
 
     static constexpr const char SAVE_SERIE_MESSAGE[] {"Save serie"};
+    static constexpr const char UNTITLED_SERIE[] {"untitled"};
 
     class Impl;
     std::unique_ptr<Impl> impl;
