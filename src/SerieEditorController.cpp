@@ -219,7 +219,15 @@ const unsigned short& SerieEditorController::render(
             {
             case sf::Keyboard::Return:
             {
-                if (saveSerieForeground != nullptr)
+                if (newSerieForeground != nullptr)
+                {
+                    impl->lists.resetLists(context);
+
+                    impl->serieNameText.setString(UNTITLED_SERIE);
+
+                    updateSerieNamePosition();
+                }
+                else if (saveSerieForeground != nullptr)
                 {
                     // const std::string&
                     const auto& serieNameText =

@@ -266,8 +266,7 @@ void SelectionListWidget::display(const utils::Context& context) &
 void SelectionListWidget::setList(
     const utils::Context& context,
     const std::vector<std::string>& list
-) &
-noexcept
+) const &
 {
     float verticalPosition {VERTICAL_POSITION};
 
@@ -515,6 +514,14 @@ void SelectionListWidget::addItem(
 const std::vector<sf::Text>& SelectionListWidget::getTexts() const & noexcept
 {
     return impl->texts;
+}
+
+/**
+ *
+ */
+void SelectionListWidget::deleteAllItems() const & noexcept
+{
+    impl->texts.clear();
 }
 
 }

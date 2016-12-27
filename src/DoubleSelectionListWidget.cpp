@@ -32,6 +32,8 @@ namespace memoris
 namespace widgets
 {
 
+constexpr char DoubleSelectionListWidget::PERSONAL_LEVELS_PATH[];
+
 class DoubleSelectionListWidget::Impl
 {
 
@@ -51,7 +53,7 @@ public:
            for organization purposes, we just load the lists content here */
         allLevelsList.setList(
             context,
-            utils::getFilesFromDirectory("data/levels/personals")
+            utils::getFilesFromDirectory(PERSONAL_LEVELS_PATH)
         );
     }
 
@@ -100,6 +102,23 @@ const widgets::SelectionListWidget& DoubleSelectionListWidget::getSerieLevelsLis
     const & noexcept
 {
     return impl->serieLevelsList;
+}
+
+/**
+ *
+ */
+void DoubleSelectionListWidget::resetLists(const utils::Context& context) const
+    &
+{
+    auto& allLevelsList = impl->allLevelsList;
+
+    impl->serieLevelsList.deleteAllItems();
+
+    allLevelsList.deleteAllItems();
+    allLevelsList.setList(
+        context,
+        utils::getFilesFromDirectory(PERSONAL_LEVELS_PATH)
+    );
 }
 
 }
