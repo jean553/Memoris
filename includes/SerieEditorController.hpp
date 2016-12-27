@@ -79,6 +79,24 @@ public:
 
 private:
 
+    /**
+     * @brief add a star at the end of the serie name; we created this method
+     * in order to refactor this feature code, required at different locations
+     * into the script
+     *
+     * not noexcept because it calls SFML functions that are not noexcept
+     */
+    void markSerieUnsaved() const &;
+
+    /**
+     * @brief updates the serie name position according to the width of the
+     * surface; this method has been created in order to handle the same
+     * feature at different locations in the script
+     *
+     * not noexcept because it calls SFML functions that are not noexcept
+     */
+    void updateSerieNamePosition() const &;
+
     static constexpr float BUTTONS_VERTICAL_POSITION {10.f};
     static constexpr float INFORMATION_VERTICAL_POSITION {140.f};
 
