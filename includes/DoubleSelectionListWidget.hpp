@@ -85,7 +85,20 @@ public:
      */
     const widgets::SelectionListWidget& getSerieLevelsList() const & noexcept;
 
+    /**
+     * @brief reset the two lists; the 'all levels' list is refreshed with an
+     * updated list of containing the levels and the serie levels list is 
+     * cleared
+     *
+     * @param context constant reference to the context to use
+     *
+     * not noexcept because it calls functions that are not noexcept
+     */
+    void resetLists(const utils::Context& context) const &;
+
 private:
+
+    static constexpr char PERSONAL_LEVELS_PATH[] {"data/levels/personals"};
 
     class Impl;
     std::unique_ptr<Impl> impl;

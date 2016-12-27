@@ -88,12 +88,12 @@ public:
      * @param context reference to the current context to use
      * @param list a constant reference to a vector container of std::string
      *
-     * not 'const' because it modifies the items container
+     * not noexcept because it calls SFML functions that are not noexcept
      */
     void setList(
         const utils::Context& context,
         const std::vector<std::string>& list
-    ) & noexcept;
+    ) const &;
 
     /**
      * @brief getter of the current pointed item string
@@ -138,6 +138,12 @@ public:
      * @return const std::vector<sf::Text>&
      */
     const std::vector<sf::Text>& getTexts() const & noexcept;
+
+    /**
+     * @brief deletes all the items from the list; use std::vector<T>::clear()
+     * which does not throw any exception
+     */
+    void deleteAllItems() const & noexcept;
 
 private:
 
