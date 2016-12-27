@@ -587,8 +587,8 @@ const bool Level::updateSelectedCellType(
 
     for(
         std::vector<std::unique_ptr<entities::Cell>>::const_iterator iterator =
-            impl->cells.begin() + firstCellIndex;
-        iterator != impl->cells.begin() + lastCellIndex;
+            impl->cells.cbegin() + firstCellIndex;
+        iterator != impl->cells.cbegin() + lastCellIndex;
         iterator++
     )
     {
