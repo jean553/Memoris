@@ -52,6 +52,7 @@ namespace controllers
 constexpr float SerieEditorController::BUTTONS_VERTICAL_POSITION;
 
 constexpr const char SerieEditorController::SAVE_SERIE_MESSAGE[];
+constexpr const char SerieEditorController::UNTITLED_SERIE[];
 
 class SerieEditorController::Impl
 {
@@ -86,7 +87,7 @@ public:
         cursor(context),
         lists(context)
     {
-        serieNameText.setString("untitled");
+        serieNameText.setString(UNTITLED_SERIE);
         serieNameText.setFont(context.getFontsManager().getTextFont());
         serieNameText.setColor(context.getColorsManager().getColorWhite());
         serieNameText.setCharacterSize(fonts::TEXT_SIZE);
@@ -225,7 +226,10 @@ const unsigned short& SerieEditorController::render(
                         saveSerieForeground->getInputTextWidget().getText()
                             .toAnsiString();
 
-                    if (serieNameText.empty())
+                    if (
+                        serieNameText.empty() or
+                        serieNameText == UNTITLED_SERIE
+                    )
                     {
                         break;
                     }
@@ -312,15 +316,18 @@ const unsigned short& SerieEditorController::render(
                 saveSerieForeground == nullptr
             )
             {
-                auto serieNameText = impl->serieNameText.getString().toAnsiString();
+                auto serieNameText =
+                    impl->serieNameText.getString().toAnsiString();
 
-                if (serieNameText != "untitled")
+                if (serieNameText != UNTITLED_SERIE)
                 {
                     if (serieNameText.back() == '*')
                     {
-                        /* TODO: #7 waiting for the saving
-                           feature to be added */
-                        impl->serieNameText.setString(impl->serieName);
+                        const auto& serieName = impl->serieName;
+
+                        saveSerieFile(serieName);
+
+                        impl->serieNameText.setString(serieName);
 
                         updateSerieNamePosition();
                     }
@@ -418,7 +425,7 @@ void SerieEditorController::markSerieUnsaved() const &
 
     if (
         serieNameText.back() == '*' or
-        serieNameText == "untitled"
+        serieNameText == UNTITLED_SERIE
     )
     {
         return;
