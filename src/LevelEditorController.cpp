@@ -472,8 +472,8 @@ void LevelEditorController::saveLevelFile(
 
     for (
         std::vector<std::unique_ptr<entities::Cell>>::const_iterator iterator =
-            cells.begin();
-        iterator != cells.end();
+            cells.cbegin();
+        iterator != cells.cend();
         iterator++
     )
     {
