@@ -86,12 +86,12 @@ public:
         cursor(context),
         lists(context)
     {
-        serieName.setString("untitled");
-        serieName.setFont(context.getFontsManager().getTextFont());
-        serieName.setColor(context.getColorsManager().getColorWhite());
-        serieName.setCharacterSize(fonts::TEXT_SIZE);
-        serieName.setPosition(
-            1550.f - serieName.getLocalBounds().width,
+        serieNameText.setString("untitled");
+        serieNameText.setFont(context.getFontsManager().getTextFont());
+        serieNameText.setColor(context.getColorsManager().getColorWhite());
+        serieNameText.setCharacterSize(fonts::TEXT_SIZE);
+        serieNameText.setPosition(
+            1550.f - serieNameText.getLocalBounds().width,
             0.f
         );
 
@@ -126,7 +126,7 @@ public:
         );
     }
 
-    sf::Text serieName;
+    sf::Text serieNameText;
     sf::Text allLevels;
     sf::Text serieLevels;
     sf::Text explanations;
@@ -148,6 +148,8 @@ public:
 
     std::unique_ptr<foregrounds::OpenFileForeground> openSerieForeground
         {nullptr};
+
+    std::string serieName;
 };
 
 /**
@@ -189,7 +191,7 @@ const unsigned short& SerieEditorController::render(
     }
     else
     {
-        window.draw(impl->serieName);
+        window.draw(impl->serieNameText);
         window.draw(impl->allLevels);
         window.draw(impl->serieLevels);
         window.draw(impl->explanations);
@@ -219,26 +221,22 @@ const unsigned short& SerieEditorController::render(
                 if (saveSerieForeground != nullptr)
                 {
                     // const std::string&
-                    const auto& serieName =
+                    const auto& serieNameText =
                         saveSerieForeground->getInputTextWidget().getText()
                             .toAnsiString();
 
-                    if (serieName.empty())
+                    if (serieNameText.empty())
                     {
                         break;
                     }
 
-                    saveSerieFile(serieName);
+                    saveSerieFile(serieNameText);
 
-                    auto& serieNameSurface = impl->serieName;
+                    impl->serieNameText.setString(serieNameText);
 
-                    serieNameSurface.setString(serieName);
+                    updateSerieNamePosition();
 
-                    serieNameSurface.setPosition(
-                        window::WIDTH -
-                            serieNameSurface.getLocalBounds().width,
-                        0.f
-                    );
+                    impl->serieName = serieNameText;
 
                     saveSerieForeground.reset();
 
@@ -314,6 +312,22 @@ const unsigned short& SerieEditorController::render(
                 saveSerieForeground == nullptr
             )
             {
+                auto serieNameText = impl->serieNameText.getString().toAnsiString();
+
+                if (serieNameText != "untitled")
+                {
+                    if (serieNameText.back() == '*')
+                    {
+                        /* TODO: #7 waiting for the saving
+                           feature to be added */
+                        impl->serieNameText.setString(impl->serieName);
+
+                        updateSerieNamePosition();
+                    }
+
+                    break;
+                }
+
                 saveSerieForeground =
                     std::make_unique<foregrounds::InputTextForeground>(
                         context,
@@ -336,6 +350,8 @@ const unsigned short& SerieEditorController::render(
                     context,
                     selectedLevelItem
                 );
+
+                markSerieUnsaved();
             }
             else if (!selectedSerieItem.empty())
             {
@@ -345,6 +361,8 @@ const unsigned short& SerieEditorController::render(
                     context,
                     selectedSerieItem
                 );
+
+                markSerieUnsaved();
             }
 
             levelsList.updateList();
@@ -385,6 +403,44 @@ void SerieEditorController::saveSerieFile(const std::string& name) const &
     {
         file << text.getString().toAnsiString() << std::endl;
     }
+}
+
+/**
+ *
+ */
+void SerieEditorController::markSerieUnsaved() const &
+{
+    // sf::Text&
+    auto& serieNameTextSurface = impl->serieNameText;
+
+    // std::string
+    auto serieNameText = serieNameTextSurface.getString().toAnsiString();
+
+    if (
+        serieNameText.back() == '*' or
+        serieNameText == "untitled"
+    )
+    {
+        return;
+    }
+
+    serieNameTextSurface.setString(serieNameText + "*");
+
+    updateSerieNamePosition();
+}
+
+/**
+ *
+ */
+void SerieEditorController::updateSerieNamePosition() const &
+{
+    auto& serieNameText = impl->serieNameText;
+
+    serieNameText.setPosition(
+        window::WIDTH -
+            serieNameText.getLocalBounds().width,
+        0.f
+    );
 }
 
 }
