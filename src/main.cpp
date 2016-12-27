@@ -56,9 +56,12 @@ int main()
 
         do
         {
-            /* NOTE: this instruction generates memory leaks; this error comes
-               from OpenGL libraries; we do not handle this error; the leak is
-               deleted if we delete this line */
+            /* NOTE: this instruction generates memory leaks; as it comes from
+               the external dynamic library and because it is an insignificant
+               amount of memory (63 bytes), I just ignore it; the generated
+               error is (Valgrind) :
+               by 0x527434E: sf::RenderTarget::clear(sf::Color const&)
+               (in /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.1) */
             context.getSfmlWindow().clear();
 
             nextControllerId = pCurrentController->render(context);
