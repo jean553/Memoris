@@ -136,8 +136,3 @@ https://www.iconfinder.com/paomedia - CreativeCommons - BY 3.0 - https://creativ
 https://www.elegantthemes.com/ - https://www.iconfinder.com/iconsets/circle-icons-1 - GNU GPL
 
 https://www.iconfinder.com/icons/186411/arrow_down_icon#size=64 - Free for commercial use
-
-### Sounds
-
-All sounds files have been downloaded from www.universal-soundbank.com. They have
-been converted from .mp3 to .wav. This is the only modification.

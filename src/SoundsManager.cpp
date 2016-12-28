@@ -20,6 +20,9 @@
  * @file SoundsManager.cpp
  * @package managers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
+ *
+ * TODO: #1006 add sounds files; I kept the sounds manager because the
+ * expected sounds are still the sames
  */
 
 #include "SoundsManager.hpp"
