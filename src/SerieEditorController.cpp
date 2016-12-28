@@ -316,7 +316,8 @@ const unsigned short& SerieEditorController::render(
             {
                 openSerieForeground =
                     std::make_unique<foregrounds::OpenFileForeground>(
-                        context
+                        context,
+                        "data/series/personals"
                     );
             }
             else if (

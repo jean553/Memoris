@@ -371,7 +371,8 @@ const unsigned short& LevelEditorController::render(
             {
                 impl->openLevelForeground =
                     std::make_unique<foregrounds::OpenFileForeground>(
-                        context
+                        context,
+                        "data/levels/personals"
                     );
 
                 break;
