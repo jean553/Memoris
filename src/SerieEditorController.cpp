@@ -37,7 +37,6 @@
 #include "InputTextForeground.hpp"
 #include "NewFileForeground.hpp"
 #include "InputTextWidget.hpp"
-#include "OpenFileForeground.hpp"
 #include "window.hpp"
 #include "files.hpp"
 
@@ -66,21 +65,15 @@ public:
             BUTTONS_VERTICAL_POSITION,
             context.getTexturesManager().getNewTexture()
         ),
-        buttonOpen(
-            context,
-            90.f,
-            BUTTONS_VERTICAL_POSITION,
-            context.getTexturesManager().getOpenTexture()
-        ),
         buttonSave(
             context,
-            170.f,
+            90.f,
             BUTTONS_VERTICAL_POSITION,
             context.getTexturesManager().getSaveTexture()
         ),
         buttonExit(
             context,
-            250.f,
+            170.f,
             BUTTONS_VERTICAL_POSITION,
             context.getTexturesManager().getExitTexture()
         ),
@@ -133,7 +126,6 @@ public:
     sf::Text explanations;
 
     widgets::Button buttonNew;
-    widgets::Button buttonOpen;
     widgets::Button buttonSave;
     widgets::Button buttonExit;
 
@@ -145,9 +137,6 @@ public:
         {nullptr};
 
     std::unique_ptr<foregrounds::NewFileForeground> newSerieForeground
-        {nullptr};
-
-    std::unique_ptr<foregrounds::OpenFileForeground> openSerieForeground
         {nullptr};
 
     std::string serieName;
@@ -176,7 +165,6 @@ const unsigned short& SerieEditorController::render(
 {
     auto& saveSerieForeground = impl->saveSerieForeground;
     auto& newSerieForeground = impl->newSerieForeground;
-    auto& openSerieForeground = impl->openSerieForeground;
 
     if (saveSerieForeground != nullptr)
     {
@@ -186,10 +174,6 @@ const unsigned short& SerieEditorController::render(
     {
         newSerieForeground->render(context);
     }
-    else if (openSerieForeground != nullptr)
-    {
-        openSerieForeground->render(context);
-    }
     else
     {
         window.draw(impl->serieNameText);
@@ -198,7 +182,6 @@ const unsigned short& SerieEditorController::render(
         window.draw(impl->explanations);
 
         impl->buttonNew.display(context);
-        impl->buttonOpen.display(context);
         impl->buttonSave.display(context);
         impl->buttonExit.display(context);
 
@@ -271,13 +254,6 @@ const unsigned short& SerieEditorController::render(
                     break;
                 }
 
-                if (openSerieForeground != nullptr)
-                {
-                    openSerieForeground.reset();
-
-                    break;
-                }
-
                 expectedControllerId = EDITOR_MENU_CONTROLLER_ID;
 
                 break;
@@ -307,17 +283,6 @@ const unsigned short& SerieEditorController::render(
                 newSerieForeground =
                     std::make_unique<foregrounds::NewFileForeground>(
                         context
-                    );
-            }
-            else if (
-                impl->buttonOpen.isMouseHover() and
-                openSerieForeground == nullptr
-            )
-            {
-                openSerieForeground =
-                    std::make_unique<foregrounds::OpenFileForeground>(
-                        context,
-                        "data/series/personals"
                     );
             }
             else if (
