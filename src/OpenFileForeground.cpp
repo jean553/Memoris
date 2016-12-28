@@ -46,7 +46,10 @@ class OpenFileForeground::Impl
 
 public:
 
-    Impl(const utils::Context& context) :
+    Impl(
+        const utils::Context& context,
+        const std::string&& path
+    ) :
         list(context),
         cursor(context)
     {
@@ -59,9 +62,13 @@ public:
             50.f
         );
 
+        /* getFilesFromDirectory() excepts the first parameter to be an array
+           of characters, that's why I use c_str(); I could directly send
+           an array of characters, but I avoid useless copies of *strings* by
+           using the std::string move constructor instead */
         list.setList(
             context,
-            utils::getFilesFromDirectory("data/levels/personals")
+            utils::getFilesFromDirectory(path.c_str())
         );
     }
 
@@ -75,8 +82,16 @@ public:
 /**
  *
  */
-OpenFileForeground::OpenFileForeground(const utils::Context& context) :
-    impl(std::make_unique<Impl>(context))
+OpenFileForeground::OpenFileForeground(
+    const utils::Context& context,
+    const std::string&& path
+) :
+    impl(
+        std::make_unique<Impl>(
+            context,
+            std::move(path)
+        )
+    )
 {
 }
 

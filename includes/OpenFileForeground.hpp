@@ -55,10 +55,15 @@ public:
      * @brief constructor, initializes the implementation
      *
      * @param context constant reference to the context to use
+     * @param path constant rvalue reference to the directory of the files
+     * to list
      *
      * not noexcept because it calls SFML methods that are not noexcept
      */
-    OpenFileForeground(const utils::Context& context);
+    OpenFileForeground(
+        const utils::Context& context,
+        const std::string&& path
+    );
 
     /**
      * @brief default destructor, declared in order to use forwarding
