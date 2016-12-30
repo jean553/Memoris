@@ -135,9 +135,10 @@ const unsigned short& PersonalSeriesMenuController::render(
             {
                 try
                 {
-                    context.getPlayingSerieManager().loadSerieFileContent(
-                        "personals/" + serieName
-                    );
+                    auto& manager = context.getPlayingSerieManager();
+
+                    manager.loadSerieFileContent("personals/" + serieName);
+                    manager.setIsOfficialSerie(false);
 
                     expectedControllerId = GAME_CONTROLLER_ID;
 

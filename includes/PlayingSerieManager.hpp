@@ -183,7 +183,28 @@ public:
      */
     const Results& getResults() const & noexcept;
 
+    /**
+     * @brief setter that specifies if the serie is official or not; we use
+     * a boolean to set if the serie is official or not, even if we store
+     * a string in playing serie manager (officials|personals). In fact, this
+     * string is directly used later in the purpose of building the levels
+     * paths.
+     *
+     * @param official constant reference to boolean
+     */
+    void setIsOfficialSerie(const bool& official) const & noexcept;
+
+    /**
+     * @brief getter that specifies if the serie is official or not
+     *
+     * @return const std::string&
+     */
+    const std::string& getSerieType() const & noexcept;
+
 private:
+
+    static constexpr const char* OFFICIALS_SERIE_DIRECTORY_NAME {"officials"};
+    static constexpr const char* PERSONALS_SERIE_DIRECTORY_NAME {"personals"};
 
     class Impl;
     std::unique_ptr<Impl> impl;
