@@ -74,19 +74,20 @@ std::unique_ptr<Controller> getControllerById(
         {
             /* creates a level object using the next level file path; this path
                is located inside the context object; this part of the code
-               throw an exception if an error occures during the file reading
+               throws an exception if an error occures during the file reading
                process; we use auto, the generates type is
                std::shared_ptr<entities::Level>; create this pointer here
                instead of directly creating it inside the game controller makes
                the code easier to maintain; the level pointer is used in the
-               game controller and also in the LevelAnimation object; the
-               second parameter of the constructor is true, because we load the
-               level from a level file */
+               game controller and also in the LevelAnimation object; */
+
+            auto& serieManager = context.getPlayingSerieManager();
+
             auto level = std::make_unique<entities::Level>(
                 context,
                 getLevelFilePath(
-                    "officials/" +
-                        context.getPlayingSerieManager().getNextLevelName()
+                    serieManager.getSerieType() + "/" +
+                        serieManager.getNextLevelName()
                 )
             ); // auto -> std::unique_ptr<entities::Level>
 

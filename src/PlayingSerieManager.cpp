@@ -57,6 +57,7 @@ public:
     unsigned short totalSeriePlayingTime {0};
 
     std::string serieName;
+    std::string serieType {OFFICIALS_SERIE_DIRECTORY_NAME};
 
     std::array<entities::SerieResult, RESULTS_PER_SERIE_FILE_AMOUNT> results;
 };
@@ -244,6 +245,32 @@ const PlayingSerieManager::Results& PlayingSerieManager::getResults() const &
     noexcept
 {
     return impl->results;
+}
+
+/**
+ *
+ */
+void PlayingSerieManager::setIsOfficialSerie(const bool& official) const &
+    noexcept
+{
+    auto& serieType = impl->serieType;
+
+    if (official)
+    {
+        serieType = OFFICIALS_SERIE_DIRECTORY_NAME;
+
+        return;
+    }
+
+    serieType = PERSONALS_SERIE_DIRECTORY_NAME;
+}
+
+/**
+ *
+ */
+const std::string& PlayingSerieManager::getSerieType() const & noexcept
+{
+    return impl->serieType;
 }
 
 }
