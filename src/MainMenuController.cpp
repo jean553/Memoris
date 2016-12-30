@@ -95,7 +95,7 @@ MainMenuController::MainMenuController(const utils::Context& context) :
         std::make_unique<items::MenuItem>(
             context,
             "New game",
-            350.f
+            320.f
         )
     );
 
@@ -111,7 +111,7 @@ MainMenuController::MainMenuController(const utils::Context& context) :
         std::make_unique<items::MenuItem>(
             context,
             "Editor",
-            550.f
+            580.f
         )
     );
 
@@ -119,7 +119,7 @@ MainMenuController::MainMenuController(const utils::Context& context) :
         std::make_unique<items::MenuItem>(
             context,
             "Exit",
-            650.f
+            710.f
         )
     );
 
