@@ -379,7 +379,6 @@ void SerieEditorController::saveSerieFile(const std::string& name) const &
     // const std::vector<sf::Text>&
     const auto& texts = impl->lists.getSerieLevelsList().getTexts();
 
-    // const sf::Text&
     for (const auto& text : texts)
     {
         file << text.getString().toAnsiString() << std::endl;
@@ -391,10 +390,8 @@ void SerieEditorController::saveSerieFile(const std::string& name) const &
  */
 void SerieEditorController::markSerieUnsaved() const &
 {
-    // sf::Text&
     auto& serieNameTextSurface = impl->serieNameText;
 
-    // std::string
     auto serieNameText = serieNameTextSurface.getString().toAnsiString();
 
     if (
