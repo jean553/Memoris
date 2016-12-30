@@ -51,8 +51,8 @@ namespace controllers
 
 using Action = utils::EditorDashboard::Action;
 
-constexpr const char LevelEditorController::UNNAMED_LEVEL[];
-constexpr const char LevelEditorController::SAVE_LEVEL_NAME_MESSAGE[];
+constexpr const char* LevelEditorController::UNNAMED_LEVEL;
+constexpr const char* LevelEditorController::SAVE_LEVEL_NAME_MESSAGE;
 
 class LevelEditorController::Impl
 {
