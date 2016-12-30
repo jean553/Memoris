@@ -51,8 +51,8 @@ namespace controllers
 
 using Action = utils::EditorDashboard::Action;
 
-constexpr const char LevelEditorController::UNNAMED_LEVEL[];
-constexpr const char LevelEditorController::SAVE_LEVEL_NAME_MESSAGE[];
+constexpr const char* LevelEditorController::UNNAMED_LEVEL;
+constexpr const char* LevelEditorController::SAVE_LEVEL_NAME_MESSAGE;
 
 class LevelEditorController::Impl
 {
@@ -312,6 +312,9 @@ const unsigned short& LevelEditorController::render(
                 break;
             }
 
+            const auto displayedName =
+                levelNameSurface.getString().toAnsiString();
+
             switch(impl->dashboard.getActionIdBySelectedButton())
             {
             case Action::NEW:
@@ -334,23 +337,25 @@ const unsigned short& LevelEditorController::render(
                 std::string levelName =
                     context.getEditingLevelManager().getLevelName();
 
-                const bool updatedLevel =
-                    levelNameSurface.getString().toAnsiString().back() == '*';
-
-                /* if the level is not saved yet,
-                   a star is displayed after the name */
-                if ((not levelName.empty() and updatedLevel) or newFile)
+                if (displayedName != UNNAMED_LEVEL)
                 {
-                    saveLevelFile(
-                        levelName,
-                        level->getCells()
-                    );
+                    const bool updatedLevel = displayedName.back() == '*';
 
-                    /* remove the asterisk at the end
-                       of the displayed level name */
-                    levelNameSurface.setString(levelName);
+                    /* if the level is not saved yet,
+                       a star is displayed after the name */
+                    if ((not levelName.empty() and updatedLevel) or newFile)
+                    {
+                        saveLevelFile(
+                            levelName,
+                            level->getCells()
+                        );
 
-                    updateLevelNameSurfacePosition();
+                        /* remove the asterisk at the end
+                           of the displayed level name */
+                        levelNameSurface.setString(levelName);
+
+                        updateLevelNameSurfacePosition();
+                    }
 
                     break;
                 }
@@ -419,8 +424,9 @@ const unsigned short& LevelEditorController::render(
                     context,
                     impl->floor,
                     impl->selector.getSelectedCellType()
-                ) &&
-                levelNameSurface.getString().toAnsiString().back() != '*'
+                ) and
+                displayedName.back() != '*' and
+                displayedName != UNNAMED_LEVEL
             )
             {
                 levelNameSurface.setString(
