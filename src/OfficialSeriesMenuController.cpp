@@ -221,7 +221,7 @@ void OfficialSeriesMenuController::selectMenuItem() & noexcept
 
     /* TODO: #890 the locked list should be loaded from the game file; this
        condition is a temporary solution for tests only; to delete */
-    if (serie == "easy")
+    if (serie == MEDIUM)
     {
         expectedControllerId = UNLOCKED_SERIE_ERROR_CONTROLLER_ID;
 
@@ -252,15 +252,21 @@ noexcept
 {
     switch(getSelectorPosition())
     {
+    case 2:
+    {
+        return MEDIUM;
+
+        break;
+    }
     case 1:
     {
-        return "easy";
+        return EASY;
 
         break;
     }
     default:
     {
-        return "tutorial";
+        return TUTORIAL;
 
         break;
     }
