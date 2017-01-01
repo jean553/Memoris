@@ -91,8 +91,6 @@ std::unique_ptr<Controller> getControllerById(
                 )
             ); // auto -> std::unique_ptr<entities::Level>
 
-            serieManager.reinitialize();
-
             return std::make_unique<GameController>(
                        context,
                        std::move(level)

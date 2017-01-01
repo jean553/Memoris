@@ -82,6 +82,7 @@ PersonalSeriesMenuController::PersonalSeriesMenuController(
     Controller(context),
     impl(std::make_unique<Impl>(context))
 {
+    context.getPlayingSerieManager().reinitialize();
 }
 
 /**
