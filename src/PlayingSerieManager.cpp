@@ -47,14 +47,10 @@ public:
        container is directly optimized for that kind of operations */
     std::queue<std::string> levels;
 
-    /* current watching time that will be given for the next level; this time
-       is the watching time *per floor*; this value is set to 6 by default
-       all the time when a serie starts; we set it here because this value
-       has to be transferred from one level to another; idem for lifes */
-    unsigned short watchingTime {6};
-    unsigned short lifes {0};
+    unsigned short watchingTime {DEFAULT_WATCHING_TIME};
+    unsigned short lifes {DEFAULT_LIFES};
+    unsigned short totalSeriePlayingTime {DEFAULT_SERIE_PLAYING_TIME};
     unsigned short levelIndex {0};
-    unsigned short totalSeriePlayingTime {0};
 
     std::string serieName;
     std::string serieType {OFFICIALS_SERIE_DIRECTORY_NAME};
@@ -271,6 +267,16 @@ void PlayingSerieManager::setIsOfficialSerie(const bool& official) const &
 const std::string& PlayingSerieManager::getSerieType() const & noexcept
 {
     return impl->serieType;
+}
+
+/**
+ *
+ */
+void PlayingSerieManager::reinitialize() const & noexcept
+{
+    impl->watchingTime = DEFAULT_WATCHING_TIME;
+    impl->lifes = DEFAULT_LIFES;
+    impl->totalSeriePlayingTime = DEFAULT_SERIE_PLAYING_TIME;
 }
 
 }
