@@ -143,6 +143,8 @@ OfficialSeriesMenuController::OfficialSeriesMenuController(
     addMenuItem(std::move(hard));
     addMenuItem(std::move(veryHard));
     addMenuItem(std::move(hazardous));
+
+    context.getPlayingSerieManager().reinitialize();
 }
 
 /**
