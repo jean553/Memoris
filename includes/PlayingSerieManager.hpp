@@ -201,10 +201,20 @@ public:
      */
     const std::string& getSerieType() const & noexcept;
 
+    /**
+     * @brief force manager initialization; this method is used when we
+     * switch from one serie to another
+     */
+    void reinitialize() const & noexcept;
+
 private:
 
     static constexpr const char* OFFICIALS_SERIE_DIRECTORY_NAME {"officials"};
     static constexpr const char* PERSONALS_SERIE_DIRECTORY_NAME {"personals"};
+
+    static constexpr unsigned short DEFAULT_WATCHING_TIME {6};
+    static constexpr unsigned short DEFAULT_LIFES {0};
+    static constexpr unsigned short DEFAULT_SERIE_PLAYING_TIME {0};
 
     class Impl;
     std::unique_ptr<Impl> impl;

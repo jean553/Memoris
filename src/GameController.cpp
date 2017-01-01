@@ -273,6 +273,11 @@ const unsigned short& GameController::render(
 
     impl->pickUpEffectsManager.renderAllEffects(context);
 
+    if(impl->dashboard.getTimerWidget().isFinished())
+    {
+        endLevel(context);
+    }
+
     nextControllerId = animateScreenTransition(context);
 
     while(window.pollEvent(event))
