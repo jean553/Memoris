@@ -35,7 +35,6 @@ namespace animations
 
 class StairsAnimation : public LevelAnimation
 {
-    using Level = std::unique_ptr<entities::Level>;
 
 public:
 

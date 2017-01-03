@@ -48,7 +48,6 @@ namespace animations
 
 class LevelAnimation
 {
-    using Level = std::unique_ptr<entities::Level>;
 
 public:
 
@@ -62,7 +61,9 @@ public:
      * @brief renders the animation, called by the game controller
      *
      * @param context constant reference to the current context to use
-     * @param level shared pointer to the level to animate
+     * @param level shared pointer to the level to animate; do not use the
+     * alias declared below because the alias is still not available at this
+     * moment of the compilation (the alias is protected)
      * @param floor the current floor to display in the animation
      *
      * not 'const' because definitions updates object attributes
@@ -72,7 +73,7 @@ public:
      */
     virtual void renderAnimation(
         const utils::Context& context,
-        const Level& level,
+        const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) & = 0;
 
@@ -84,6 +85,8 @@ public:
     const bool& isFinished() const & noexcept;
 
 protected:
+
+    using Level = std::shared_ptr<entities::Level>;
 
     static constexpr unsigned short TOP_SIDE_LAST_CELL_INDEX {128};
     static constexpr unsigned short CELLS_PER_LINE {16};

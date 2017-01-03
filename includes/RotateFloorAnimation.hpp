@@ -37,7 +37,7 @@ namespace animations
 
 class RotateFloorAnimation : public LevelAnimation
 {
-    using Level = std::unique_ptr<entities::Level>;
+    using Level = std::shared_ptr<entities::Level>;
 
 public:
 

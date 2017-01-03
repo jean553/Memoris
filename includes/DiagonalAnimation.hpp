@@ -44,7 +44,6 @@ namespace animations
 
 class DiagonalAnimation : public LevelAnimation
 {
-    using Level = std::unique_ptr<entities::Level>;
 
 public:
 
