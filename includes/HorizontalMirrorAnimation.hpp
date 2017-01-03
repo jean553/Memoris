@@ -35,7 +35,6 @@ namespace animations
 
 class HorizontalMirrorAnimation : public AbstractMirrorAnimation
 {
-    using Level = std::unique_ptr<entities::Level>;
 
 public:
 

@@ -83,18 +83,18 @@ std::unique_ptr<Controller> getControllerById(
 
             auto& serieManager = context.getPlayingSerieManager();
 
-            auto level = std::make_unique<entities::Level>(
+            auto level = std::make_shared<entities::Level>(
                 context,
                 getLevelFilePath(
                     serieManager.getSerieType() + "/" +
                         serieManager.getNextLevelName()
                 )
-            ); // auto -> std::unique_ptr<entities::Level>
+            );
 
             return std::make_unique<GameController>(
-                       context,
-                       std::move(level)
-                   );
+                context,
+                level
+            );
         }
         catch(std::invalid_argument&)
         {

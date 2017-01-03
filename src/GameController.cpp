@@ -55,9 +55,9 @@ public:
 
     Impl(
         const utils::Context& context,
-        Level levelPtr
+        const Level& levelPtr
     ) :
-        level(std::move(levelPtr)),
+        level(levelPtr),
         watchingTimer(context),
         dashboard(context)
     {
@@ -105,13 +105,13 @@ public:
  */
 GameController::GameController(
     const utils::Context& context,
-    Level levelPtr
+    const Level& levelPtr
 ) :
     Controller(context),
     impl(
         std::make_unique<Impl>(
             context,
-            std::move(levelPtr)
+            levelPtr
         )
     )
 {

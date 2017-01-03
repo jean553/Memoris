@@ -35,7 +35,6 @@ namespace animations
 
 class QuarterRotationAnimation : public LevelAnimation
 {
-    using Level = std::unique_ptr<entities::Level>;
 
 public:
 
