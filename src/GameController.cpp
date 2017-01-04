@@ -553,8 +553,6 @@ void GameController::executePlayerCellAction(
             {
                 expectedControllerId = LEVEL_EDITOR_CONTROLLER_ID;
 
-                editingLevelManager.refreshLevel();
-
                 return;
             }
 
