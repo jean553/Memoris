@@ -101,7 +101,7 @@ public:
        have no other choice that creating the Level object into controllers.cpp
        and we still want access it into the controller, so we can not use a
        simple Level reference as the original object would be destroyed */
-    std::unique_ptr<entities::Level> level;
+    std::shared_ptr<entities::Level> level;
 
     unsigned short floor {0};
 
@@ -315,6 +315,8 @@ const unsigned short& LevelEditorController::render(
             const auto displayedName =
                 levelNameSurface.getString().toAnsiString();
 
+            const auto& levelManager = context.getEditingLevelManager();
+
             switch(impl->dashboard.getActionIdBySelectedButton())
             {
             case Action::NEW:
@@ -326,7 +328,8 @@ const unsigned short& LevelEditorController::render(
             }
             case Action::EXIT:
             {
-                context.getEditingLevelManager().setLevelName("");
+                levelManager.setLevelName("");
+                levelManager.setLevel(nullptr);
 
                 expectedControllerId = EDITOR_MENU_CONTROLLER_ID;
 
@@ -409,6 +412,14 @@ const unsigned short& LevelEditorController::render(
                         )
                     );
                 }
+
+                break;
+            }
+            case Action::PLAY:
+            {
+                expectedControllerId = GAME_CONTROLLER_ID;
+
+                levelManager.setLevel(impl->level);
 
                 break;
             }

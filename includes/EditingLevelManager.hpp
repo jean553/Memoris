@@ -31,11 +31,19 @@
 
 namespace memoris
 {
+
+namespace entities
+{
+class Level;
+}
+
 namespace managers
 {
 
 class EditingLevelManager
 {
+
+using Level = std::shared_ptr<entities::Level>;
 
 public:
 
@@ -69,6 +77,28 @@ public:
      * @return const std::string&
      */
     const std::string& getLevelName() const & noexcept;
+
+    /**
+     * @brief setter of the Level shared pointer; used in order to switch
+     * between the level editor and the game controller
+     *
+     * @param levelPointer constant reference to a shared pointer pointing
+     * to the current level to save
+     */
+    void setLevel(const Level& levelPointer) const & noexcept;
+
+    /**
+     * @brief getter of the shared pointer to the level
+     *
+     * @return const std::shared_ptr<entities::Level>&
+     */
+    const Level& getLevel() const & noexcept;
+
+    /**
+     * @brief refresh the level pointer; used by the game controller when
+     * a tested level is finished
+     */
+    void refreshLevel() const & noexcept;
 
 private:
 
