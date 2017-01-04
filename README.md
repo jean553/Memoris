@@ -6,7 +6,7 @@ License : GNU GPL v3
 
 ![Image 1](github/readme.png)
 
-Taiga taskboard : https://tree.taiga.io/project/jean553-memoris/taskboard/memoris-main-sprint
+Taiga taskboard : https://tree.taiga.io/project/jean553-memoris/
 
 Memoris is a C++ 14 video game developed using the SFML. The main goal is to move a pin on a grid of cells, from the departure to the arrival.
 The player has to find all the stars on the map before going to the arrival cell. The whole map is only visible a few seconds before the game
