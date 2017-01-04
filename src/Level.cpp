@@ -653,5 +653,18 @@ const float& Level::getPlayerCellVerticalPosition() const & noexcept
     return (*impl->cells[impl->playerIndex]).getVerticalPosition();
 }
 
+/**
+ *
+ */
+void Level::showAllCells(const utils::Context& context) const &
+{
+    auto& cells = impl->cells;
+
+    for (auto& cell : cells)
+    {
+        cell->show(context);
+    }
+}
+
 }
 }

@@ -395,6 +395,17 @@ public:
      */
     const float& getPlayerCellVerticalPosition() const & noexcept;
 
+    /**
+     * @brief show all the cells (this is used by the level editor, just
+     * after a level has been tested; in fact, the level object is the same,
+     * so some cells have been hidden during the game)
+     *
+     * @param context constant reference to the current context to use
+     *
+     * not noexcept because it calls SFML functions that are not noexcept
+     */
+    void showAllCells(const utils::Context& context) const &;
+
 private:
 
     static constexpr unsigned short CELLS_PER_FLOOR {256};

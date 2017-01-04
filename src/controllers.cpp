@@ -132,12 +132,22 @@ std::unique_ptr<Controller> getControllerById(
     }
     case LEVEL_EDITOR_CONTROLLER_ID:
     {
+        const auto& editedLevel = context.getEditingLevelManager().getLevel();
+
+        if (editedLevel != nullptr)
+        {
+            return std::make_unique<LevelEditorController>(
+                context,
+                editedLevel
+            );
+        }
+
         try
         {
             std::string levelName =
                 context.getEditingLevelManager().getLevelName();
 
-            std::unique_ptr<entities::Level> level;
+            std::shared_ptr<entities::Level> level;
 
             if (!levelName.empty())
             {
@@ -148,12 +158,12 @@ std::unique_ptr<Controller> getControllerById(
             }
             else
             {
-                level = std::make_unique<entities::Level>(context);
+                level = std::make_shared<entities::Level>(context);
             }
 
             return std::make_unique<LevelEditorController>(
                 context,
-                std::move(level)
+                level
             );
         }
         catch(std::invalid_argument&)

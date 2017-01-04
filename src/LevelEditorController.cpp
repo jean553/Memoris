@@ -90,6 +90,11 @@ public:
             1240.f,
             450.f
         );
+
+        /* if the previous controller was the game controller, so some cells
+           have been hidden during the game; this function is useless when
+           the editor is loaded from the menu */
+        level->showAllCells(context);
     }
 
     utils::EditorDashboard dashboard;
@@ -330,6 +335,8 @@ const unsigned short& LevelEditorController::render(
             {
                 levelManager.setLevelName("");
                 levelManager.setLevel(nullptr);
+
+                levelManager.refreshLevel();
 
                 expectedControllerId = EDITOR_MENU_CONTROLLER_ID;
 
