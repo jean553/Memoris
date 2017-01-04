@@ -42,6 +42,7 @@
 #include "PickUpEffectsManager.hpp"
 #include "TexturesManager.hpp"
 #include "Level.hpp"
+#include "EditingLevelManager.hpp"
 
 namespace memoris
 {
@@ -55,8 +56,10 @@ public:
 
     Impl(
         const utils::Context& context,
-        const Level& levelPtr
+        const Level& levelPtr,
+        const bool& watchLevel
     ) :
+        watchingPeriod(watchLevel),
         level(levelPtr),
         watchingTimer(context),
         dashboard(context)
@@ -105,20 +108,24 @@ public:
  */
 GameController::GameController(
     const utils::Context& context,
-    const Level& levelPtr
+    const Level& levelPtr,
+    const bool& watchLevel
 ) :
     Controller(context),
     impl(
         std::make_unique<Impl>(
             context,
-            levelPtr
+            levelPtr,
+            watchLevel
         )
     )
 {
+    auto& level = impl->level;
+
     /* TODO: #592 this way to do is bad: we got data from one object to
        directly set it as a value of another object, should be refactored */
     impl->dashboard.updateTotalStarsAmountSurface(
-        impl->level->getStarsAmount()
+        level->getStarsAmount()
     );
 
     impl->displayedWatchingTime =
@@ -127,8 +134,8 @@ GameController::GameController(
     impl->watchingTimer.updateDisplayedAmount(impl->displayedWatchingTime);
 
     impl->dashboard.getTimerWidget().setMinutesAndSeconds(
-        impl->level->getMinutes(),
-        impl->level->getSeconds()
+        level->getMinutes(),
+        level->getSeconds()
     );
 
     if (
@@ -138,6 +145,17 @@ GameController::GameController(
     {
         impl->tutorialWidget =
             std::make_unique<widgets::TutorialWidget>(context);
+    }
+
+    if (not watchLevel)
+    {
+        level->hideAllCellsExceptDeparture(context);
+
+        impl->playingPeriod = true;
+
+        auto& floor = impl->floor;
+        floor = level->getPlayerFloor();
+        impl->dashboard.updateCurrentFloor(floor);
     }
 }
 
@@ -326,6 +344,13 @@ const unsigned short& GameController::render(
             }
             case sf::Keyboard::Escape:
             {
+                if (context.getEditingLevelManager().getLevel() != nullptr)
+                {
+                    expectedControllerId = LEVEL_EDITOR_CONTROLLER_ID;
+
+                    break;
+                }
+
                 expectedControllerId = MAIN_MENU_CONTROLLER_ID;
 
                 break;
@@ -520,6 +545,18 @@ void GameController::executePlayerCellAction(
         )
         {
             impl->win = true;
+
+            const auto& editingLevelManager = context.getEditingLevelManager();
+            const auto& editedLevel = editingLevelManager.getLevel();
+
+            if (editedLevel != nullptr)
+            {
+                expectedControllerId = LEVEL_EDITOR_CONTROLLER_ID;
+
+                editingLevelManager.refreshLevel();
+
+                return;
+            }
 
             if (context.getPlayingSerieManager().hasNextLevel())
             {

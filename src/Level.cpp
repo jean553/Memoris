@@ -602,6 +602,14 @@ const bool Level::updateSelectedCellType(
             break;
         }
 
+        if (type == cells::DEPARTURE_CELL)
+        {
+            impl->playerIndex = std::distance(
+                impl->cells.cbegin(),
+                iterator
+            );
+        }
+
         (*iterator)->setType(type);
         (*iterator)->show(context);
 

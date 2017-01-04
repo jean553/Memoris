@@ -23,6 +23,7 @@
  */
 
 #include "EditingLevelManager.hpp"
+#include "Level.hpp"
 
 #include <string>
 
@@ -37,6 +38,8 @@ class EditingLevelManager::Impl
 public:
 
     std::string levelName;
+
+    Level level {nullptr};
 };
 
 /**
@@ -66,6 +69,32 @@ void EditingLevelManager::setLevelName(const std::string& name) const &
 const std::string& EditingLevelManager::getLevelName() const & noexcept
 {
     return impl->levelName;
+}
+
+/**
+ *
+ */
+void EditingLevelManager::setLevel(const Level& levelPointer)
+    const & noexcept
+{
+    impl->level = levelPointer;
+}
+
+/**
+ *
+ */
+const EditingLevelManager::Level& EditingLevelManager::getLevel()
+    const & noexcept
+{
+    return impl->level;
+}
+
+/**
+ *
+ */
+void EditingLevelManager::refreshLevel() const & noexcept
+{
+    impl->level.reset();
 }
 
 }

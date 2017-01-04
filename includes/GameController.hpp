@@ -53,12 +53,15 @@ public:
      *
      * @param context constant reference to the current context
      * @param levelPtr shared pointer to the level object to use
+     * @param watchLevel indicates if there is a watching period or not (there
+     * is no watching period if the level is started from the editor)
      *
      * @throw std::invalid_argument the level file cannot be opened
      */
     GameController(
         const utils::Context& context,
-        const Level& levelPtr
+        const Level& levelPtr,
+        const bool& watchLevel = true
     );
 
     /**
