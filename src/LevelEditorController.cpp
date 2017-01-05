@@ -54,6 +54,10 @@ using Action = utils::EditorDashboard::Action;
 constexpr const char* LevelEditorController::UNNAMED_LEVEL;
 constexpr const char* LevelEditorController::SAVE_LEVEL_NAME_MESSAGE;
 
+constexpr float LevelEditorController::CELLS_DEFAULT_TRANSPARENCY;
+
+constexpr unsigned short LevelEditorController::FIRST_FLOOR_INDEX;
+
 class LevelEditorController::Impl
 {
 
@@ -95,6 +99,12 @@ public:
            have been hidden during the game; this function is useless when
            the editor is loaded from the menu */
         level->showAllCells(context);
+
+        level->setCellsTransparency(
+            context,
+            CELLS_DEFAULT_TRANSPARENCY,
+            FIRST_FLOOR_INDEX
+        );
     }
 
     utils::EditorDashboard dashboard;
@@ -140,7 +150,7 @@ LevelEditorController::LevelEditorController(
     impl(
         std::make_unique<Impl>(
             context,
-            std::move(level)
+            level
         )
     )
 {
