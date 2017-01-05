@@ -81,6 +81,7 @@ private:
     static constexpr const char* SAVE_LEVEL_NAME_MESSAGE {"Level name"};
 
     static constexpr float CELLS_DEFAULT_TRANSPARENCY {255.f};
+    static constexpr float TITLES_HORIZONTAL_POSITION {1200.f};
 
     static constexpr unsigned short FIRST_FLOOR_INDEX {0};
 
