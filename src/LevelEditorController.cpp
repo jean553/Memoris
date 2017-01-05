@@ -150,7 +150,7 @@ LevelEditorController::LevelEditorController(
     impl(
         std::make_unique<Impl>(
             context,
-            std::move(level)
+            level
         )
     )
 {
