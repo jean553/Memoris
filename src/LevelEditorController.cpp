@@ -41,6 +41,7 @@
 #include "OpenFileForeground.hpp"
 #include "InputTextForeground.hpp"
 #include "SelectionListWidget.hpp"
+#include "PlayingSerieManager.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 
@@ -72,27 +73,41 @@ public:
         level(std::move(levelPtr)),
         cursor(context)
     {
-        std::string levelName =
-            context.getEditingLevelManager().getLevelName().empty() ?
-            UNNAMED_LEVEL :
-            context.getEditingLevelManager().getLevelName();
+        const auto& name = context.getEditingLevelManager().getLevelName();
+        const auto& font = context.getFontsManager().getTextFont();
+        const auto& colorsManager = context.getColorsManager();
+        const auto& white = colorsManager.getColorWhite();
+
+        std::string levelName = name.empty() ? UNNAMED_LEVEL : name;
 
         levelNameSurface.setString(levelName);
-        levelNameSurface.setFont(context.getFontsManager().getTextFont());
-        levelNameSurface.setColor(context.getColorsManager().getColorWhite());
+        levelNameSurface.setFont(font);
+        levelNameSurface.setColor(white);
         levelNameSurface.setCharacterSize(fonts::TEXT_SIZE);
         levelNameSurface.setPosition(
-            1200.f - levelNameSurface.getLocalBounds().width,
+            TITLES_HORIZONTAL_POSITION - 
+                levelNameSurface.getLocalBounds().width,
             0.f
         );
 
-        floorSurface.setFont(context.getFontsManager().getTextFont());
-        floorSurface.setColor(context.getColorsManager().getColorWhite());
+        floorSurface.setFont(font);
+        floorSurface.setColor(white);
         floorSurface.setCharacterSize(fonts::TEXT_SIZE);
         floorSurface.setString("1");
         floorSurface.setPosition(
             1240.f,
             450.f
+        );
+
+        const auto& red = colorsManager.getColorRed();
+
+        testedTime.setFont(font);
+        testedTime.setColor(red);
+        testedTime.setCharacterSize(fonts::INFORMATION_SIZE);
+        testedTime.setString("Not tested yet");
+        testedTime.setPosition(
+            TITLES_HORIZONTAL_POSITION - testedTime.getLocalBounds().width,
+            50.f
         );
 
         /* if the previous controller was the game controller, so some cells
@@ -126,6 +141,7 @@ public:
 
     sf::Text levelNameSurface;
     sf::Text floorSurface;
+    sf::Text testedTime;
 
     std::unique_ptr<foregrounds::NewFileForeground>
         newLevelForeground {nullptr};
@@ -205,6 +221,7 @@ const unsigned short& LevelEditorController::render(
 
         window.draw(levelNameSurface);
         window.draw(impl->floorSurface);
+        window.draw(impl->testedTime);
 
         impl->cursor.render(context);
     }
@@ -437,6 +454,8 @@ const unsigned short& LevelEditorController::render(
                 expectedControllerId = GAME_CONTROLLER_ID;
 
                 levelManager.setLevel(impl->level);
+
+                context.getPlayingSerieManager().reinitialize();
 
                 break;
             }
