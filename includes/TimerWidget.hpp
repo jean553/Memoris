@@ -29,6 +29,11 @@
 
 #include <memory>
 
+namespace sf
+{
+class Text;
+}
+
 namespace memoris
 {
 
@@ -69,23 +74,22 @@ public:
     ~TimerWidget();
 
     /**
-     * @brief overwritte the display method to render the widget
-     *
-     * @param constant reference to the current context to use
+     * @brief changes the value of the timer widget; this method is executed
+     * only if the played level is not an edited one
      */
-    void display(const utils::Context& context);
+    void render() const &;
 
     /**
      * @brief public method to stop the timer, used by the game controller to
      * stop the timer when the lose period starts
      */
-    void stop();
+    void stop() const & noexcept;
 
     /**
      * @brief public method to start the timer, used by the game controller to
      * start the timer when the watching period is finished
      */
-    void start();
+    void start() const & noexcept;
 
     /**
      * @brief setter of the minutes and seconds amount to display; the function
@@ -98,7 +102,7 @@ public:
     void setMinutesAndSeconds(
         const unsigned short& minutesAmount,
         const unsigned short& secondsAmount
-    );
+    ) const &;
 
     /**
      * @brief getter used by the game controller to know if the countdown
@@ -106,7 +110,17 @@ public:
      *
      * @return const bool&
      */
-    const bool& isFinished() const;
+    const bool& isFinished() const &;
+
+    /**
+     * @brief the SFML surface that displays the text is the only displayed
+     * attribute of the widget; so we provides a direct access to its
+     * reference in order to save a reference in a controller (it avoids
+     * to create a functions call tree)
+     *
+     * @return const sf::Text&
+     */
+    const sf::Text& getTextSurface() const & noexcept;
 
 private:
 
@@ -116,8 +130,10 @@ private:
     /**
      * @brief update the displayed timer string; add a 0 to second or minute
      * value if it contains only one digit to make a better graphical effect
+     *
+     * not noexcept because some SFML methods are not noexcept
      */
-    void updateDisplayedString();
+    void updateDisplayedString() const &;
 
     class Impl;
     std::unique_ptr<Impl> impl;

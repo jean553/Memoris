@@ -99,28 +99,11 @@ TimerWidget::~TimerWidget() = default;
 /**
  *
  */
-void TimerWidget::display(const utils::Context& context)
+void TimerWidget::render() const &
 {
     auto& started = impl->started;
     auto& seconds = impl->seconds;
     auto& minutes = impl->minutes;
-    auto& lastTimerUpdateTime = impl->lastTimerUpdateTime;
-    auto& text = impl->text;
-
-    if (
-        !(
-            started and
-            (
-                context.getClockMillisecondsTime() -
-                lastTimerUpdateTime > ONE_SECOND
-            )
-        )
-    )
-    {
-        context.getSfmlWindow().draw(text);
-
-        return;
-    }
 
     if (seconds == 0)
     {
@@ -141,16 +124,12 @@ void TimerWidget::display(const utils::Context& context)
     }
 
     updateDisplayedString();
-
-    context.getSfmlWindow().draw(text);
-
-    lastTimerUpdateTime = context.getClockMillisecondsTime();
 }
 
 /**
  *
  */
-void TimerWidget::updateDisplayedString()
+void TimerWidget::updateDisplayedString() const &
 {
     auto& seconds = impl->seconds;
     auto& minutes = impl->minutes;
@@ -183,7 +162,7 @@ void TimerWidget::updateDisplayedString()
 /**
  *
  */
-void TimerWidget::stop()
+void TimerWidget::stop() const & noexcept
 {
     impl->started = false;
 }
@@ -191,7 +170,7 @@ void TimerWidget::stop()
 /**
  *
  */
-void TimerWidget::start()
+void TimerWidget::start() const & noexcept
 {
     impl->started = true;
 }
@@ -202,7 +181,7 @@ void TimerWidget::start()
 void TimerWidget::setMinutesAndSeconds(
     const unsigned short& minutesAmount,
     const unsigned short& secondsAmount
-)
+) const &
 {
     impl->minutes = minutesAmount;
     impl->seconds = secondsAmount;
@@ -213,9 +192,17 @@ void TimerWidget::setMinutesAndSeconds(
 /**
  *
  */
-const bool& TimerWidget::isFinished() const
+const bool& TimerWidget::isFinished() const &
 {
     return impl->finished;
+}
+
+/**
+ *
+ */
+const sf::Text& TimerWidget::getTextSurface() const & noexcept
+{
+    return impl->text;
 }
 
 }

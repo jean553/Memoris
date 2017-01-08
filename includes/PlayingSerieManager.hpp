@@ -217,6 +217,17 @@ public:
      */
     const sf::String getPlayingTimeAsString() const &;
 
+    /**
+     * @brief add the given seconds amount to the total amount of seconds
+     * for the serie play time; this function is called at the end of every
+     * level in order to make the total serie playing time
+     *
+     * @param levelPlayingTime constant reference to the level playing time;
+     * the given number is the seconds amount
+     */
+    void addSecondsToPlayingSerieTime(const unsigned short& levelPlayingTime)
+        const & noexcept;
+
 private:
 
     static constexpr const char* OFFICIALS_SERIE_DIRECTORY_NAME {"officials"};

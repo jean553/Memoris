@@ -87,6 +87,10 @@ private:
 
     static constexpr unsigned short FIRST_FLOOR_INDEX {0};
 
+    /* use the sf::Int32 type to avoid types conversions (this attribute is
+       only used with sf::Int32 variables) */
+    static constexpr sf::Int32 ONE_SECOND {1000};
+
     /**
      * @brief function that refectors all the management related to the player
      * movement; this action is called everytime the player makes a move on

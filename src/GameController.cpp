@@ -64,6 +64,7 @@ public:
         const bool& watchLevel
     ) :
         watchingPeriod(watchLevel),
+        watchLevel(watchLevel),
         level(levelPtr),
         watchingTimer(context),
         dashboard(context)
@@ -77,17 +78,21 @@ public:
 
     unsigned short floor {0};
     unsigned short displayedWatchingTime {0};
+    unsigned short playingTime {0};
 
     bool watchingPeriod {true};
     bool playingPeriod {false};
     bool movePlayerToNextFloor {false};
     bool movePlayerToPreviousFloor {false};
     bool win {false};
+    bool watchLevel;
 
     sf::Uint8 playerCellTransparency {64};
     sf::Uint8 leftLevelsAmountTransparency {255};
 
     sf::Int8 leftLevelsAmountDirection {-17};
+
+    sf::Int32 lastTimerUpdateTime {0};
 
     std::unique_ptr<utils::LevelEndingScreen> endingScreen {nullptr};
     std::unique_ptr<animations::LevelAnimation> animation {nullptr};
@@ -105,6 +110,10 @@ public:
     utils::GameDashboard dashboard;
 
     utils::PickUpEffectsManager pickUpEffectsManager;
+
+    /* TODO: check if it is correct to use dashboard methods directly to
+       build a reference here */
+    const sf::Text& timerText {dashboard.getTimerWidget().getTextSurface()};
 };
 
 /**
@@ -132,8 +141,9 @@ GameController::GameController(
         level->getStarsAmount()
     );
 
-    impl->displayedWatchingTime =
-        context.getPlayingSerieManager().getWatchingTime();
+    auto& playingSerieManager = context.getPlayingSerieManager();
+
+    impl->displayedWatchingTime = playingSerieManager.getWatchingTime();
 
     impl->watchingTimer.updateDisplayedAmount(impl->displayedWatchingTime);
 
@@ -186,9 +196,31 @@ const unsigned short& GameController::render(
         impl->watchingTimer.display(context);
     }
 
-    impl->dashboard.display(context);
+    auto& dashboard = impl->dashboard;
+    dashboard.display(context);
 
-    impl->dashboard.getTimerWidget().display(context);
+    auto& timerWidget = dashboard.getTimerWidget();
+    auto& lastTimerUpdateTime = impl->lastTimerUpdateTime;
+
+    if (
+        impl->playingPeriod and
+        (
+            context.getClockMillisecondsTime() -
+            lastTimerUpdateTime > ONE_SECOND
+        )
+    )
+    {
+        if (impl->watchLevel)
+        {
+            timerWidget.render();
+        }
+
+        impl->playingTime++;
+
+        lastTimerUpdateTime = context.getClockMillisecondsTime();
+    }
+
+    context.getSfmlWindow().draw(impl->timerText);
 
     if (impl->level->getAnimateFloorTransition())
     {
@@ -559,6 +591,11 @@ void GameController::executePlayerCellAction(
             const auto& editingLevelManager = context.getEditingLevelManager();
             const auto& editedLevel = editingLevelManager.getLevel();
 
+            const auto& playingSerieManager = context.getPlayingSerieManager();
+            playingSerieManager.addSecondsToPlayingSerieTime(
+                impl->playingTime
+            );
+
             if (editedLevel != nullptr)
             {
                 expectedControllerId = LEVEL_EDITOR_CONTROLLER_ID;
@@ -566,7 +603,7 @@ void GameController::executePlayerCellAction(
                 return;
             }
 
-            if (context.getPlayingSerieManager().hasNextLevel())
+            if (playingSerieManager.hasNextLevel())
             {
                 endLevel(context);
             }

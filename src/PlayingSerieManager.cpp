@@ -308,5 +308,15 @@ const sf::String PlayingSerieManager::fillMissingTimeDigits(
     return timeNumber;
 }
 
+/**
+ *
+ */
+void PlayingSerieManager::addSecondsToPlayingSerieTime(
+    const unsigned short& levelPlayingTime
+) const & noexcept
+{
+    impl->totalSeriePlayingTime += levelPlayingTime;
+}
+
 }
 }
