@@ -225,14 +225,6 @@ const unsigned short& PlayingSerieManager::getLifesAmount() const & noexcept
 /**
  *
  */
-void PlayingSerieManager::incrementPlayingTime() const & noexcept
-{
-    impl->totalSeriePlayingTime += 1;
-}
-
-/**
- *
- */
 const unsigned short& PlayingSerieManager::getPlayingTime() const & noexcept
 {
     return impl->totalSeriePlayingTime;
