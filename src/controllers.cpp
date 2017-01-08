@@ -139,7 +139,7 @@ std::unique_ptr<Controller> getControllerById(
             return std::make_unique<LevelEditorController>(
                 context,
                 editedLevel,
-                true
+                true // display the tested time
             );
         }
 
