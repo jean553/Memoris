@@ -97,10 +97,6 @@ void TimerWidget::display(const utils::Context& context)
 
     updateDisplayedString();
 
-    /* TODO: this should be done into the game controller because this is not
-       specific to the timer widget but to the game */
-    context.getPlayingSerieManager().incrementPlayingTime();
-
     context.getSfmlWindow().draw(text);
 
     lastTimerUpdateTime = context.getClockMillisecondsTime();
