@@ -27,12 +27,16 @@
 #ifndef MEMORIS_TIMERWIDGET_H_
 #define MEMORIS_TIMERWIDGET_H_
 
-#include "Context.hpp"
-
-#include <SFML/Graphics.hpp>
+#include <memory>
 
 namespace memoris
 {
+
+namespace utils
+{
+class Context;
+}
+
 namespace widgets
 {
 
@@ -53,6 +57,16 @@ public:
         const float& hPosition,
         const float& vPosition
     );
+
+    /**
+     * @brief default destructor, empty, only declared in order to use
+     * forwarding declaration
+     *
+     * a destructor cannot be const
+     *
+     * no noexcept here, default destructors are noexcept
+     */
+    ~TimerWidget();
 
     /**
      * @brief overwritte the display method to render the widget
@@ -105,30 +119,8 @@ private:
      */
     void updateDisplayedString();
 
-    /* the time of the last update of the timer; we use this variable to
-       animate the timer; by default, the value is equal to 0 */
-    sf::Uint32 lastTimerUpdateTime {0};
-
-    /* SFML text surface object to render the time */
-    sf::Text text;
-
-    /* unsigned shorts to store the minutes and seconds */
-    /* NOTE: we do not work with milliseconds, we do not display milliseconds;
-       using milliseconds, the time step is too small and we cannot measure it
-       properly */
-    unsigned short minutes {0};
-    unsigned short seconds {0};
-
-    /* determinates if the timer is started or not; this is used by the game
-       controller to stop the timer during the lose period for example; the
-       timer is stopped and the player does not see the animation anymore;
-       during the watching time, the timer is stopped by default */
-    bool started {false};
-
-    /* determinates if the countdown is finished; false when the game starts
-       and become false when the last second of the last minute has been
-       elapsed */
-    bool finished {false};
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }
