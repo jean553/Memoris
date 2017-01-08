@@ -26,6 +26,8 @@
 
 #include "SerieResult.hpp"
 
+#include <SFML/System/String.hpp>
+
 #include <fstream>
 #include <stdexcept>
 #include <queue>
@@ -35,6 +37,8 @@ namespace memoris
 {
 namespace managers
 {
+
+constexpr unsigned short PlayingSerieManager::SECONDS_IN_ONE_MINUTE;
 
 class PlayingSerieManager::Impl
 {
@@ -277,6 +281,39 @@ void PlayingSerieManager::reinitialize() const & noexcept
     impl->watchingTime = DEFAULT_WATCHING_TIME;
     impl->lifes = DEFAULT_LIFES;
     impl->totalSeriePlayingTime = DEFAULT_SERIE_PLAYING_TIME;
+}
+
+/**
+ *
+ */
+const sf::String PlayingSerieManager::getPlayingTimeAsString() const &
+{
+    sf::String secondsString = fillMissingTimeDigits(
+        impl->totalSeriePlayingTime % SECONDS_IN_ONE_MINUTE
+    );
+
+    sf::String minutesString = fillMissingTimeDigits(
+        impl->totalSeriePlayingTime / SECONDS_IN_ONE_MINUTE
+    );
+
+    return minutesString + ":" + secondsString;
+}
+
+/**
+ *
+ */
+const sf::String PlayingSerieManager::fillMissingTimeDigits(
+    const unsigned short& numericValue
+) const &
+{
+    sf::String timeNumber = std::to_string(numericValue);
+
+    if (numericValue < 10)
+    {
+        timeNumber.insert(0, "0");
+    }
+
+    return timeNumber;
 }
 
 }

@@ -51,10 +51,16 @@ public:
      * @brief constructor, empty for now, just used to transfer parameter
      *
      * @param context reference to the current context
+     * @param level constant reference to the shared pointer that contains
+     * a level to use
+     * @param displayTime boolean that indicates if the tested time must
+     * be displayed; this boolean is false by default and true if the level
+     * has just been tested
      */
     LevelEditorController(
         const utils::Context& context,
-        Level level
+        const Level& level,
+        const bool& displayTime = false
     );
 
     /**
