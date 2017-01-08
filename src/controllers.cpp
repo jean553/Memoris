@@ -138,7 +138,8 @@ std::unique_ptr<Controller> getControllerById(
         {
             return std::make_unique<LevelEditorController>(
                 context,
-                editedLevel
+                editedLevel,
+                true
             );
         }
 

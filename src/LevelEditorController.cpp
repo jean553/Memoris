@@ -66,11 +66,12 @@ public:
 
     Impl(
         const utils::Context& context,
-        Level levelPtr
+        const Level& levelPtr,
+        const bool& displayTime
     ) :
         dashboard(context),
         selector(context),
-        level(std::move(levelPtr)),
+        level(levelPtr),
         cursor(context)
     {
         const auto& name = context.getEditingLevelManager().getLevelName();
@@ -99,12 +100,21 @@ public:
             450.f
         );
 
-        const auto& red = colorsManager.getColorRed();
+        if (displayTime)
+        {
+            testedTime.setColor(white);
+            testedTime.setString(
+                context.getPlayingSerieManager().getPlayingTimeAsString()
+            );
+        }
+        else
+        {
+            testedTime.setColor(colorsManager.getColorRed());
+            testedTime.setString("Not tested yet");
+        }
 
         testedTime.setFont(font);
-        testedTime.setColor(red);
         testedTime.setCharacterSize(fonts::INFORMATION_SIZE);
-        testedTime.setString("Not tested yet");
         testedTime.setPosition(
             TITLES_HORIZONTAL_POSITION - testedTime.getLocalBounds().width,
             50.f
@@ -160,13 +170,15 @@ public:
  */
 LevelEditorController::LevelEditorController(
     const utils::Context& context,
-    Level level
+    const Level& level,
+    const bool& displayTime
 ) :
     Controller(context),
     impl(
         std::make_unique<Impl>(
             context,
-            level
+            level,
+            displayTime
         )
     )
 {
