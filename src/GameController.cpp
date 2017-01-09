@@ -67,7 +67,8 @@ public:
         watchLevel(watchLevel),
         level(levelPtr),
         watchingTimer(context),
-        dashboard(context)
+        dashboard(context),
+        timerText(dashboard.getTimerWidget().getTextSurface())
     {
     }
 
@@ -111,9 +112,7 @@ public:
 
     utils::PickUpEffectsManager pickUpEffectsManager;
 
-    /* TODO: check if it is correct to use dashboard methods directly to
-       build a reference here */
-    const sf::Text& timerText {dashboard.getTimerWidget().getTextSurface()};
+    const sf::Text& timerText;
 };
 
 /**
