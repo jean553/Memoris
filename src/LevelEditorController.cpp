@@ -72,7 +72,8 @@ public:
         dashboard(context),
         selector(context),
         level(levelPtr),
-        cursor(context)
+        cursor(context),
+        displayTime(displayTime)
     {
         const auto& name = context.getEditingLevelManager().getLevelName();
         const auto& font = context.getFontsManager().getTextFont();
@@ -163,6 +164,7 @@ public:
         saveLevelForeground {nullptr};
 
     bool newFile {false};
+    bool displayTime;
 };
 
 /**
@@ -383,6 +385,11 @@ const unsigned short& LevelEditorController::render(
             }
             case Action::SAVE:
             {
+                if (not impl->displayTime)
+                {
+                    break;
+                }
+
                 std::string levelName =
                     context.getEditingLevelManager().getLevelName();
 
