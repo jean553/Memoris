@@ -37,7 +37,7 @@
 #include "ColorsManager.hpp"
 #include "FontsManager.hpp"
 #include "Cell.hpp"
-#include "NewFileForeground.hpp"
+#include "MessageForeground.hpp"
 #include "OpenFileForeground.hpp"
 #include "InputTextForeground.hpp"
 #include "SelectionListWidget.hpp"
@@ -54,6 +54,7 @@ using Action = utils::EditorDashboard::Action;
 
 constexpr const char* LevelEditorController::UNNAMED_LEVEL;
 constexpr const char* LevelEditorController::SAVE_LEVEL_NAME_MESSAGE;
+constexpr const char* LevelEditorController::ERASE_LEVEL_MESSAGE;
 
 constexpr float LevelEditorController::CELLS_DEFAULT_TRANSPARENCY;
 
@@ -154,7 +155,7 @@ public:
     sf::Text floorSurface;
     sf::Text testedTime;
 
-    std::unique_ptr<foregrounds::NewFileForeground>
+    std::unique_ptr<foregrounds::MessageForeground>
         newLevelForeground {nullptr};
 
     std::unique_ptr<foregrounds::OpenFileForeground>
@@ -368,7 +369,10 @@ const unsigned short& LevelEditorController::render(
             case Action::NEW:
             {
                 impl->newLevelForeground =
-                    std::make_unique<foregrounds::NewFileForeground>(context);
+                    std::make_unique<foregrounds::MessageForeground>(
+                        context,
+                        ERASE_LEVEL_MESSAGE
+                    );
 
                 break;
             }

@@ -35,7 +35,7 @@
 #include "DoubleSelectionListWidget.hpp"
 #include "SelectionListWidget.hpp"
 #include "InputTextForeground.hpp"
-#include "NewFileForeground.hpp"
+#include "MessageForeground.hpp"
 #include "InputTextWidget.hpp"
 #include "window.hpp"
 #include "files.hpp"
@@ -50,8 +50,9 @@ namespace controllers
 
 constexpr float SerieEditorController::BUTTONS_VERTICAL_POSITION;
 
-constexpr const char SerieEditorController::SAVE_SERIE_MESSAGE[];
-constexpr const char SerieEditorController::UNTITLED_SERIE[];
+constexpr const char* SerieEditorController::SAVE_SERIE_MESSAGE;
+constexpr const char* SerieEditorController::UNTITLED_SERIE;
+constexpr const char* SerieEditorController::ERASE_SERIE_MESSAGE;
 
 class SerieEditorController::Impl
 {
@@ -136,7 +137,7 @@ public:
     std::unique_ptr<foregrounds::InputTextForeground> saveSerieForeground
         {nullptr};
 
-    std::unique_ptr<foregrounds::NewFileForeground> newSerieForeground
+    std::unique_ptr<foregrounds::MessageForeground> newSerieForeground
         {nullptr};
 
     std::string serieName;
@@ -281,8 +282,9 @@ const unsigned short& SerieEditorController::render(
             )
             {
                 newSerieForeground =
-                    std::make_unique<foregrounds::NewFileForeground>(
-                        context
+                    std::make_unique<foregrounds::MessageForeground>(
+                        context,
+                        ERASE_SERIE_MESSAGE
                     );
             }
             else if (

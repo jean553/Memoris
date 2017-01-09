@@ -17,15 +17,14 @@
 */
 
 /**
- * @file NewFileForeground.hpp
- * @brief contains one input text widget to let the user sets the new level
- * name
+ * @file MessageForeground.hpp
+ * @brief contains a simple message
  * @package foregrounds
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef MEMORIS_NEWFILEFOREGROUND_H_
-#define MEMORIS_NEWFILEFOREGROUND_H_
+#ifndef MEMORIS_MESSAGEFOREGROUND_H_
+#define MEMORIS_MESSAGEFOREGROUND_H_
 
 #include "AbstractForeground.hpp"
 
@@ -42,7 +41,7 @@ class Context;
 namespace foregrounds
 {
 
-class NewFileForeground : public AbstractForeground
+class MessageForeground : public AbstractForeground
 {
 
 public:
@@ -50,28 +49,34 @@ public:
     /**
      * @brief constructor, initializes the implementation
      *
-     * @param context constant reference to the context to use
+     * @param context context to use
+     * @param message message to display
      *
      * not noexcept because it calls SFML methods that are not noexcept
      */
-    NewFileForeground(const utils::Context& context);
+    MessageForeground(
+        const utils::Context& context,
+        const std::string&& message
+    );
 
     /**
      * @brief default destructor, declared in order to use forwarding
      * declaration
      */
-    ~NewFileForeground() noexcept;
+    ~MessageForeground();
 
     /**
      * @brief renders the foreground in front of the controller screen
      *
-     * @param context constant reference to the context to use
+     * @param context context to use
      *
      * not noexcept because it calls SFML methods that are not noexcept
      */
     virtual void render(const utils::Context& context) const & override final;
 
 private:
+
+    static constexpr float EXPLANATION_VERTICAL_POSITION {380.f};
 
     class Impl;
     std::unique_ptr<Impl> impl;
