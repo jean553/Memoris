@@ -17,12 +17,12 @@
 */
 
 /**
- * @file NewFileForeground.cpp
+ * @file MessageForeground.cpp
  * @package foregrounds
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "NewFileForeground.hpp"
+#include "MessageForeground.hpp"
 
 #include "Context.hpp"
 #include "ColorsManager.hpp"
@@ -38,20 +38,25 @@ namespace memoris
 namespace foregrounds
 {
 
-class NewFileForeground::Impl
+constexpr float MessageForeground::EXPLANATION_VERTICAL_POSITION;
+
+class MessageForeground::Impl
 {
 
 public:
 
-    Impl(const utils::Context& context)
+    Impl(
+        const utils::Context& context,
+        const std::string&& message
+    )
     {
         explanation.setFont(context.getFontsManager().getTextFont());
-        explanation.setString("Are you sure ? Enter / Escape");
+        explanation.setString(message);
         explanation.setCharacterSize(memoris::fonts::TEXT_SIZE);
         explanation.setColor(context.getColorsManager().getColorWhite());
         explanation.setPosition(
             window::getCenteredSfmlSurfaceHorizontalPosition(explanation),
-            380.f
+            EXPLANATION_VERTICAL_POSITION
         );
     }
 
@@ -61,20 +66,28 @@ public:
 /**
  *
  */
-NewFileForeground::NewFileForeground(const utils::Context& context) :
-    impl(std::make_unique<Impl>(context))
+MessageForeground::MessageForeground(
+    const utils::Context& context,
+    const std::string&& message
+) :
+    impl(
+        std::make_unique<Impl>(
+            context,
+            std::move(message)
+        )
+    )
 {
 }
 
 /**
  *
  */
-NewFileForeground::~NewFileForeground() noexcept = default;
+MessageForeground::~MessageForeground() = default;
 
 /**
  *
  */
-void NewFileForeground::render(const utils::Context& context) const &
+void MessageForeground::render(const utils::Context& context) const &
 {
     context.getSfmlWindow().draw(impl->explanation);
 }

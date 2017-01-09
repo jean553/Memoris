@@ -100,8 +100,10 @@ private:
     static constexpr float BUTTONS_VERTICAL_POSITION {10.f};
     static constexpr float INFORMATION_VERTICAL_POSITION {140.f};
 
-    static constexpr const char SAVE_SERIE_MESSAGE[] {"Save serie"};
-    static constexpr const char UNTITLED_SERIE[] {"untitled"};
+    static constexpr const char* SAVE_SERIE_MESSAGE {"Save serie"};
+    static constexpr const char* UNTITLED_SERIE {"untitled"};
+    static constexpr const char* ERASE_SERIE_MESSAGE
+        {"Erase the current serie ? y / n"};
 
     class Impl;
     std::unique_ptr<Impl> impl;
