@@ -38,7 +38,6 @@
 #include "FontsManager.hpp"
 #include "Cell.hpp"
 #include "MessageForeground.hpp"
-#include "OpenFileForeground.hpp"
 #include "InputTextForeground.hpp"
 #include "SelectionListWidget.hpp"
 #include "PlayingSerieManager.hpp"
@@ -158,9 +157,6 @@ public:
     std::unique_ptr<foregrounds::MessageForeground>
         newLevelForeground {nullptr};
 
-    std::unique_ptr<foregrounds::OpenFileForeground>
-        openLevelForeground {nullptr};
-
     std::unique_ptr<foregrounds::InputTextForeground>
         saveLevelForeground {nullptr};
 
@@ -204,7 +200,6 @@ const unsigned short& LevelEditorController::render(
 
     // std::unique_ptr<NewLevelForeground>&
     auto& newLevelForeground = impl->newLevelForeground;
-    auto& openLevelForeground = impl->openLevelForeground;
     auto& saveLevelForeground = impl->saveLevelForeground;
 
     auto& levelNameSurface = impl->levelNameSurface;
@@ -214,10 +209,6 @@ const unsigned short& LevelEditorController::render(
     if (newLevelForeground != nullptr)
     {
         newLevelForeground->render(context);
-    }
-    else if (openLevelForeground != nullptr)
-    {
-        openLevelForeground->render(context);
     }
     else if (saveLevelForeground != nullptr)
     {
@@ -256,10 +247,6 @@ const unsigned short& LevelEditorController::render(
                 if (newLevelForeground != nullptr)
                 {
                     newLevelForeground.reset();
-                }
-                else if (openLevelForeground != nullptr)
-                {
-                    openLevelForeground.reset();
                 }
                 else if (saveLevelForeground != nullptr)
                 {
@@ -322,37 +309,6 @@ const unsigned short& LevelEditorController::render(
         }
         case sf::Event::MouseButtonPressed:
         {
-            if (openLevelForeground != nullptr)
-            {
-                const auto& list = openLevelForeground->getList();
-                const auto levelName = list.getCurrentItem();
-
-                if (!levelName.empty())
-                {
-                    /* TODO: #972 can throw a std::invalid_argument exception,
-                       should be handled as well */
-                    impl->level.reset(
-                        new entities::Level(
-                            context,
-                            "data/levels/personals/" + levelName + ".level"
-                        )
-                    );
-
-                    openLevelForeground.reset();
-
-                    changeLevelName(
-                        context,
-                        levelName
-                    );
-
-                    break;
-                }
-
-                openLevelForeground->getList().updateList();
-
-                break;
-            }
-
             /* the mouse is not used if a foreground is displayed */
             if (newLevelForeground != nullptr)
             {
@@ -429,16 +385,6 @@ const unsigned short& LevelEditorController::render(
                 newFile = true;
 
                 impl->currentActionId = Action::SAVE;
-
-                break;
-            }
-            case Action::OPEN:
-            {
-                impl->openLevelForeground =
-                    std::make_unique<foregrounds::OpenFileForeground>(
-                        context,
-                        "data/levels/personals"
-                    );
 
                 break;
             }
