@@ -34,7 +34,6 @@
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "GameDashboard.hpp"
-#include "TutorialWidget.hpp"
 #include "TimerWidget.hpp"
 #include "WinLevelEndingScreen.hpp"
 #include "LoseLevelEndingScreen.hpp"
@@ -97,7 +96,6 @@ public:
 
     std::unique_ptr<utils::LevelEndingScreen> endingScreen {nullptr};
     std::unique_ptr<animations::LevelAnimation> animation {nullptr};
-    std::unique_ptr<widgets::TutorialWidget> tutorialWidget {nullptr};
 
     /* use a pointer here for two reasons: this is faster to copy from one
        method to another, especially after creation into controllers.cpp; we
@@ -150,15 +148,6 @@ GameController::GameController(
         level->getMinutes(),
         level->getSeconds()
     );
-
-    if (
-        context.getPlayingSerieManager().getSerieName() ==
-            "officials/tutorial"
-    )
-    {
-        impl->tutorialWidget =
-            std::make_unique<widgets::TutorialWidget>(context);
-    }
 
     if (not watchLevel)
     {
@@ -304,16 +293,10 @@ const unsigned short& GameController::render(
         }
     }
 
-    if (impl->tutorialWidget != nullptr)
-    {
-        impl->tutorialWidget->display(context);
-    }
-
     if (
-        impl->watchingPeriod &&
+        impl->watchingPeriod and
         context.getClockMillisecondsTime() -
-        impl->lastWatchingTimeUpdate > 1000 &&
-        impl->tutorialWidget == nullptr
+        impl->lastWatchingTimeUpdate > 1000
     )
     {
         if (impl->displayedWatchingTime == 1)
@@ -402,18 +385,6 @@ const unsigned short& GameController::render(
                 expectedControllerId = controllers::GAME_CONTROLLER_ID;
 
                 break;
-            }
-            case sf::Keyboard::Return:
-            {
-                if (impl->tutorialWidget == nullptr)
-                {
-                    break;
-                }
-
-                if (!impl->tutorialWidget->nextFrame())
-                {
-                    impl->tutorialWidget.reset();
-                }
             }
             default:
             {
