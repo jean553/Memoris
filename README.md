@@ -84,10 +84,10 @@ doxygen
 ### Fonts
 
 "Crystal" - http://openfontlibrary.org/en/font/crystal#CRYSTAL-Regular - Felipe Munoz - CreativeCommons BY 3.0 ( https://creativecommons.org/licenses/by/3.0/ )
+This font is distributed under the CreativeCommons BY 3.0 terms (check licenses/cc_by_3.txt for details)
 
 "Hi" - http://openfontlibrary.org/en/font/hi - Mew Too, Robert Jablonski - SIL Open Font License ( http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL )
-
-"Limousine" - https://fontlibrary.org/en/font/limousine - OSP - GNU General Public License ( http://www.gnu.org/copyleft/gpl.html )
+This font is distributed under the SIL Open Font License terms (check licenses/hi_font_sil_ofl.txt for details)
 
 ### Musics
 
