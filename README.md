@@ -79,12 +79,6 @@ sudo apt-get install doxygen
 doxygen
 ```
 
-## Apply Allman coding style
-
-```
-./style.sh
-```
-
 ## Credits
 
 ### Fonts
