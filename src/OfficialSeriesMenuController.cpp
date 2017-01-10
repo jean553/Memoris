@@ -78,14 +78,6 @@ OfficialSeriesMenuController::OfficialSeriesMenuController(
     AbstractMenuController(context),
     impl(std::make_unique<Impl>(context))
 {
-    std::unique_ptr<items::MenuItem> tutorial(
-        std::make_unique<items::MenuItem>(
-            context,
-            "Tutorial",
-            200.f
-        )
-    );
-
     std::unique_ptr<items::MenuItem> easy(
         std::make_unique<items::MenuItem>(
             context,
@@ -134,9 +126,8 @@ OfficialSeriesMenuController::OfficialSeriesMenuController(
         )
     );
 
-    tutorial->select(context);
+    easy->select(context);
 
-    addMenuItem(std::move(tutorial));
     addMenuItem(std::move(easy));
     addMenuItem(std::move(medium));
     addMenuItem(std::move(difficult));
@@ -254,21 +245,15 @@ noexcept
 {
     switch(getSelectorPosition())
     {
-    case 2:
+    case 1:
     {
         return MEDIUM;
 
         break;
     }
-    case 1:
-    {
-        return EASY;
-
-        break;
-    }
     default:
     {
-        return TUTORIAL;
+        return EASY;
 
         break;
     }
