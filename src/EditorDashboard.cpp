@@ -47,27 +47,21 @@ public:
             10.f,
             context.getTexturesManager().getNewTexture()
         ),
-        buttonOpen(
-            context,
-            480.f,
-            10.f,
-            context.getTexturesManager().getOpenTexture()
-        ),
         buttonSave(
             context,
-            560.f,
+            480.f,
             10.f,
             context.getTexturesManager().getSaveTexture()
         ),
         buttonExit(
             context,
-            640.f,
+            560.f,
             10.f,
             context.getTexturesManager().getExitTexture()
         ),
         buttonPlay(
             context,
-            720.f,
+            640.f,
             10.f,
             context.getTexturesManager().getTestTexture()
         ),
@@ -89,7 +83,6 @@ public:
     utils::LevelSeparators separators;
 
     widgets::Button buttonNew;
-    widgets::Button buttonOpen;
     widgets::Button buttonSave;
     widgets::Button buttonExit;
     widgets::Button buttonPlay;
@@ -118,7 +111,6 @@ void EditorDashboard::display(const utils::Context& context) const &
     impl->separators.display(context);
 
     impl->buttonNew.display(context);
-    impl->buttonOpen.display(context);
     impl->buttonSave.display(context);
     impl->buttonExit.display(context);
     impl->buttonPlay.display(context);
@@ -151,10 +143,6 @@ const EditorDashboard::Action EditorDashboard::getActionIdBySelectedButton()
     else if (impl->buttonDown.isMouseHover())
     {
         return Action::DOWN;
-    }
-    else if (impl->buttonOpen.isMouseHover())
-    {
-        return Action::OPEN;
     }
     else if (impl->buttonPlay.isMouseHover())
     {

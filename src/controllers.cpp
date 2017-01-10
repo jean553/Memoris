@@ -145,22 +145,7 @@ std::unique_ptr<Controller> getControllerById(
 
         try
         {
-            std::string levelName =
-                context.getEditingLevelManager().getLevelName();
-
-            std::shared_ptr<entities::Level> level;
-
-            if (!levelName.empty())
-            {
-                level = std::make_unique<entities::Level>(
-                    context,
-                    getLevelFilePath(levelName)
-                );
-            }
-            else
-            {
-                level = std::make_shared<entities::Level>(context);
-            }
+            auto level = std::make_shared<entities::Level>(context);
 
             return std::make_unique<LevelEditorController>(
                 context,
