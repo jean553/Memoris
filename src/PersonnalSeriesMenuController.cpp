@@ -98,7 +98,7 @@ const unsigned short& PersonalSeriesMenuController::render(
     const utils::Context& context
 ) &
 {
-    window.draw(impl->title);
+    context.getSfmlWindow().draw(impl->title);
 
     impl->list.display(context);
 
@@ -106,7 +106,7 @@ const unsigned short& PersonalSeriesMenuController::render(
 
     nextControllerId = animateScreenTransition(context);
 
-    while(window.pollEvent(event))
+    while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

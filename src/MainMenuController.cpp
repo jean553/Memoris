@@ -164,14 +164,14 @@ const unsigned short& MainMenuController::render(
         impl->titleLastAnimationTime = context.getClockMillisecondsTime();
     }
 
-    window.draw(impl->title);
-    window.draw(impl->spriteGithub);
+    context.getSfmlWindow().draw(impl->title);
+    context.getSfmlWindow().draw(impl->spriteGithub);
 
     renderAllMenuItems(context);
 
     nextControllerId = animateScreenTransition(context);
 
-    while(window.pollEvent(event))
+    while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

@@ -121,8 +121,6 @@ protected:
 
     sf::Event event;
 
-    sf::RenderWindow& window;
-
 private:
 
     static constexpr sf::Uint32 TRANSITION_ANIMATION_INTERVAL {25};
