@@ -151,13 +151,13 @@ const unsigned short& OfficialSeriesMenuController::render(
     const utils::Context& context
 ) &
 {
-    window.draw(impl->title);
+    context.getSfmlWindow().draw(impl->title);
 
     renderAllMenuItems(context);
 
     nextControllerId = animateScreenTransition(context);
 
-    while(window.pollEvent(event))
+    while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

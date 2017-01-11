@@ -72,7 +72,6 @@ public:
  *
  */
 Controller::Controller(const utils::Context& context) :
-    window(context.getSfmlWindow()),
     impl(std::make_unique<Impl>(context))
 {
 }
@@ -97,7 +96,7 @@ const unsigned short Controller::animateScreenTransition(
     impl->transitionSurfaceColor.a = impl->transitionStep * COLOR_UPDATE_STEP;
     impl->transitionSurface.setFillColor(impl->transitionSurfaceColor);
 
-    window.draw(impl->transitionSurface);
+    context.getSfmlWindow().draw(impl->transitionSurface);
 
     if (
         context.getClockMillisecondsTime() -

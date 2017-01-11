@@ -221,18 +221,18 @@ const unsigned short& WinSerieEndingController::render(
         // const std::unique_ptr<sf::Text>&
         for (const auto& resultText : impl->resultsTexts)
         {
-            window.draw(*resultText);
+            context.getSfmlWindow().draw(*resultText);
         }
     }
     else
     {
-        window.draw(impl->title);
-        window.draw(impl->time);
+        context.getSfmlWindow().draw(impl->title);
+        context.getSfmlWindow().draw(impl->time);
     }
 
     nextControllerId = animateScreenTransition(context);
 
-    while(window.pollEvent(event))
+    while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

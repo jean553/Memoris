@@ -104,14 +104,14 @@ const unsigned short& NewGameController::render(
     const utils::Context& context
 ) &
 {
-    window.draw(impl->title);
-    window.draw(impl->explanation);
+    context.getSfmlWindow().draw(impl->title);
+    context.getSfmlWindow().draw(impl->explanation);
 
     impl->inputTextGameName.display(context);
 
     nextControllerId = animateScreenTransition(context);
 
-    while(window.pollEvent(event))
+    while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

@@ -322,7 +322,7 @@ const unsigned short& GameController::render(
 
     nextControllerId = animateScreenTransition(context);
 
-    while(window.pollEvent(event))
+    while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

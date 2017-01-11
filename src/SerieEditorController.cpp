@@ -177,10 +177,10 @@ const unsigned short& SerieEditorController::render(
     }
     else
     {
-        window.draw(impl->serieNameText);
-        window.draw(impl->allLevels);
-        window.draw(impl->serieLevels);
-        window.draw(impl->explanations);
+        context.getSfmlWindow().draw(impl->serieNameText);
+        context.getSfmlWindow().draw(impl->allLevels);
+        context.getSfmlWindow().draw(impl->serieLevels);
+        context.getSfmlWindow().draw(impl->explanations);
 
         impl->buttonNew.display(context);
         impl->buttonSave.display(context);
@@ -193,7 +193,7 @@ const unsigned short& SerieEditorController::render(
 
     nextControllerId = animateScreenTransition(context);
 
-    while(window.pollEvent(event))
+    while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

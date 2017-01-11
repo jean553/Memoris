@@ -92,11 +92,11 @@ ErrorController::~ErrorController() noexcept = default;
  */
 const unsigned short& ErrorController::render(const utils::Context& context) &
 {
-    window.draw(impl->text);
+    context.getSfmlWindow().draw(impl->text);
 
     nextControllerId = animateScreenTransition(context);
 
-    while(window.pollEvent(event))
+    while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {

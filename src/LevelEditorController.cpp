@@ -225,16 +225,16 @@ const unsigned short& LevelEditorController::render(
             &entities::Cell::displayWithMouseHover
         );
 
-        window.draw(levelNameSurface);
-        window.draw(impl->floorSurface);
-        window.draw(impl->testedTime);
+        context.getSfmlWindow().draw(levelNameSurface);
+        context.getSfmlWindow().draw(impl->floorSurface);
+        context.getSfmlWindow().draw(impl->testedTime);
 
         impl->cursor.render(context);
     }
 
     nextControllerId = animateScreenTransition(context);
 
-    while(window.pollEvent(event))
+    while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
         {
