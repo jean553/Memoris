@@ -230,7 +230,7 @@ GameDashboard::GameDashboard(const utils::Context& context) :
 /**
  *
  */
-GameDashboard::~GameDashboard() noexcept = default;
+GameDashboard::~GameDashboard() = default;
 
 /**
  *

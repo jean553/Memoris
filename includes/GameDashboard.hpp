@@ -65,7 +65,7 @@ public:
      * @brief default destructor, empty, only declared in order to use
      * forwarding declaration
      */
-    ~GameDashboard() noexcept;
+    ~GameDashboard();
 
     /**
      * @brief overwritte the method to display the dashboard
