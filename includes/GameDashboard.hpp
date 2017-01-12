@@ -18,8 +18,7 @@
 
 /**
  * @file GameDashboard.hpp
- * @brief the displayed dashboard inside the game controller, containing the
- * countdown and all the information labels
+ * @brief the displayed dashboard inside the game controller
  * @package utils
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -54,37 +53,36 @@ class GameDashboard
 public:
 
     /**
-     * @brief constructor, initialize the timer widget, all the dashboard
-     * informations labels and all the labels images
+     * @brief constructor
      *
      * @param context the current context
      */
     GameDashboard(const utils::Context& context);
 
     /**
-     * @brief default destructor, empty, only declared in order to use
-     * forwarding declaration
+     * @brief default destructor, empty, only declared 
+     * in order to use forwarding declaration
      */
     ~GameDashboard();
 
     /**
      * @brief overwritte the method to display the dashboard
+     *
+     * call SFML functions that are not noexcept
      */
     void display() const &;
 
+    /* all the following public methods are used by the game controller */
+
     /**
-     * @brief returns the current amount of lifes; this is used by the game
-     * controller to know if the lifes amount is equal to 0 before
-     * decrementing the value
+     * @brief returns the current amount of lifes
      *
      * @return const unsigned short&
      */
     const unsigned short& getLifes() const & noexcept;
 
     /**
-     * @brief returns the current watching time amount; this is used by the
-     * game controller to know the current watching time before decrementing
-     * it by 3
+     * @brief returns the current watching time amount
      *
      * @return const unsigned short&
      */
@@ -99,43 +97,54 @@ public:
 
     /**
      * @brief increments the found stars amount and update the SFML surface
+     *
+     * call SFML functions that are not noexcept
      */
     void incrementFoundStars() const &;
 
     /**
      * @brief increments the lifes amount and update the SFML surface
+     *
+     * call SFML functions that are not noexcept
      */
     void incrementLifes() const &;
 
     /**
      * @brief decrement the lifes amount and update the SFML surface
+     *
+     * call SFML functions that are not noexcept
      */
     void decrementLifes() const &;
 
     /**
      * @brief increase the watching time seconds by 3
+     *
+     * call SFML functions that are not noexcept
      */
     void increaseWatchingTime() const &;
 
     /**
      * @brief decrease the amount of seconds of the watching time by 3 seconds
+     *
+     * call SFML functions that are not noexcept
      */
     void decreaseWatchingTime() const &;
 
     /**
      * @brief updates the SFML surface that displays the total amount of cells
-     * on the level; this method is called directly after the end of the level
-     * loading process;
      *
      * @param amount the amount to display in the dashboard
+     *
+     * call SFML functions that are not noexcept
      */
     void updateTotalStarsAmountSurface(const unsigned short& amount) const &;
 
     /**
-     * @brief update the displayed floor index
+     * @brief updates the SFML surface that displays the current floor index
      *
-     * @param floor the current floor index, the method will automatically
-     * increment it to make it human readable
+     * @param amount the amount to display in the dashboard
+     *
+     * call SFML functions that are not noexcept
      */
     void updateCurrentFloor(const unsigned short& floorIndex) const &;
 
@@ -144,8 +153,7 @@ public:
      *
      * @return widgets::TimerWidget&
      *
-     * the returned reference is not constant because the caller (game
-     * controller) directly updates the object
+     * the returned value is not constant as the game controller modifies it
      */
     widgets::TimerWidget& getTimerWidget() const & noexcept;
 
@@ -154,8 +162,7 @@ public:
      *
      * @return utils::WatchingPeriodTimer&
      *
-     * the returned reference is not constant because the caller (game
-     * controller) directly updates the object
+     * the returned value is not constant as the game controller modifies it
      */
     utils::WatchingPeriodTimer& getWatchingPeriodTimer() const & noexcept;
 
@@ -183,6 +190,8 @@ private:
      *
      * @param sfmlText SFML text surface to update
      * @param numericValue the numeric value
+     *
+     * call SFML functions that are not noexcept
      */
     void updateSfmlTextByNumericValue(
         sf::Text& sfmlText,
