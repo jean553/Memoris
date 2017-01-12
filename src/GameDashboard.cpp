@@ -257,6 +257,30 @@ void GameDashboard::display() const &
 /**
  *
  */
+const unsigned short& GameDashboard::getLifes() const & noexcept
+{
+    return impl->lifes;
+}
+
+/**
+ *
+ */
+const unsigned short& GameDashboard::getWatchingTime() const & noexcept
+{
+    return impl->watchingTime;
+}
+
+/**
+ *
+ */
+const unsigned short& GameDashboard::getFoundStarsAmount() const & noexcept
+{
+    return impl->foundStars;
+}
+
+/**
+ *
+ */
 void GameDashboard::incrementFoundStars() const &
 {
     auto& foundStars = impl->foundStars;
@@ -287,60 +311,46 @@ void GameDashboard::incrementLifes() const &
 /**
  *
  */
-void GameDashboard::decrementLifes()
+void GameDashboard::decrementLifes() const &
 {
-    /* TODO: #587 we check if the amount of lifes is equal to 0 but we should
-       not do it this way and here; we only prevent the value to be
-       automatically set to 65665 if the lifes amount is already equal to 0;
-       the 'lose' process should be called instead and the game should
-       finish */
-    if (impl->lifes == 0)
-    {
-        return;
-    }
+    auto& lifes = impl->lifes;
+    lifes--;
 
-    impl->lifes--;
-
-    impl->lifesAmount.setString(
-        std::to_string(impl->lifes)
+    auto& lifesAmount = impl->lifesAmount;
+    updateSfmlTextByNumericValue(
+        lifesAmount,
+        lifes
     );
 }
 
 /**
  *
  */
-void GameDashboard::increaseWatchingTime()
+void GameDashboard::increaseWatchingTime() const &
 {
-    impl->watchingTime += 3;
+    auto& watchingTime = impl->watchingTime;
+    watchingTime += WATCHING_TIME_UPDATE_STEP;
 
-    impl->time.setString(
-        std::to_string(impl->watchingTime)
+    auto& time = impl->time;
+    updateSfmlTextByNumericValue(
+        time,
+        watchingTime
     );
 }
 
 /**
  *
  */
-void GameDashboard::decreaseWatchingTime()
+void GameDashboard::decreaseWatchingTime() const &
 {
-    if (impl->watchingTime == 3)
-    {
-        return;
-    }
+    auto& watchingTime = impl->watchingTime;
+    watchingTime -= WATCHING_TIME_UPDATE_STEP;
 
-    impl->watchingTime -= 3;
-
-    impl->time.setString(
-        std::to_string(impl->watchingTime)
+    auto& time = impl->time;
+    updateSfmlTextByNumericValue(
+        time,
+        watchingTime
     );
-}
-
-/**
- *
- */
-const unsigned short& GameDashboard::getFoundStarsAmount()
-{
-    return impl->foundStars;
 }
 
 /**
@@ -354,25 +364,9 @@ void GameDashboard::updateTotalStarsAmountSurface(const unsigned short& amount)
 /**
  *
  */
-const unsigned short& GameDashboard::getLifesAmount() const & noexcept
-{
-    return impl->lifes;
-}
-
-/**
- *
- */
 void GameDashboard::updateCurrentFloor(const unsigned short& floorIndex)
 {
     impl->floor.setString(std::to_string(floorIndex + 1));
-}
-
-/**
- *
- */
-const unsigned short& GameDashboard::getWatchingTime() const
-{
-    return impl->watchingTime;
 }
 
 /**
