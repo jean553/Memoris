@@ -257,24 +257,30 @@ void GameDashboard::display() const &
 /**
  *
  */
-void GameDashboard::incrementFoundStars()
+void GameDashboard::incrementFoundStars() const &
 {
-    impl->foundStars++;
+    auto& foundStars = impl->foundStars;
+    foundStars++;
 
-    impl->foundStarsAmount.setString(
-        std::to_string(impl->foundStars)
+    auto& foundStarsAmount = impl->foundStarsAmount;
+    updateSfmlTextByNumericValue(
+        foundStarsAmount,
+        foundStars
     );
 }
 
 /**
  *
  */
-void GameDashboard::incrementLifes()
+void GameDashboard::incrementLifes() const &
 {
-    impl->lifes++;
+    auto& lifes = impl->lifes;
+    lifes++;
 
-    impl->lifesAmount.setString(
-        std::to_string(impl->lifes)
+    auto& lifesAmount = impl->lifesAmount;
+    updateSfmlTextByNumericValue(
+        lifesAmount,
+        lifes
     );
 }
 
@@ -386,6 +392,17 @@ const float GameDashboard::getHorizontalPositionLessWidth(
 ) const &
 {
     return rightSideHorizontalPosition - sfmlSurface.getLocalBounds().width;
+}
+
+/**
+ *
+ */
+void GameDashboard::updateSfmlTextByNumericValue(
+    sf::Text& sfmlText,
+    const unsigned short& numericValue
+) const &
+{
+    sfmlText.setString(std::to_string(numericValue));
 }
 
 }

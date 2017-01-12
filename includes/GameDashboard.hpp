@@ -57,7 +57,7 @@ public:
      * @brief constructor, initialize the timer widget, all the dashboard
      * informations labels and all the labels images
      *
-     * @param context reference to the current context
+     * @param context the current context
      */
     GameDashboard(const utils::Context& context);
 
@@ -73,17 +73,14 @@ public:
     void display() const &;
 
     /**
-     * @brief increments the found stars amount and updates the displayed found
-     * stars amount text; this function is called by the game controller when
-     * one new star is found by the player
+     * @brief increments the found stars amount and update the SFML surface
      */
-    void incrementFoundStars();
+    void incrementFoundStars() const &;
 
     /**
-     * @brief increments the found lifes amount and updates the displayed found
-     * lifes amount text; this action is called by the game controller
+     * @brief increments the lifes amount and update the SFML surface
      */
-    void incrementLifes();
+    void incrementLifes() const &;
 
     /**
      * @brief decrements the amount of lifes and update the displayed lifes
@@ -161,6 +158,8 @@ public:
      */
     utils::WatchingPeriodTimer& getWatchingPeriodTimer() const & noexcept;
 
+private:
+
     /**
      * @brief returns the horizontal position less the surface width
      *
@@ -176,7 +175,16 @@ public:
         const sf::Text& sfmlSurface
     ) const &;
 
-private:
+    /**
+     * @brief replace SFML text surface content by numeric content
+     *
+     * @param sfmlText SFML text surface to update
+     * @param numericValue the numeric value
+     */
+    void updateSfmlTextByNumericValue(
+        sf::Text& sfmlText,
+        const unsigned short& numericValue
+    ) const &;
 
     class Impl;
     std::unique_ptr<Impl> impl;
