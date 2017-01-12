@@ -108,7 +108,7 @@ EditorDashboard::~EditorDashboard() noexcept = default;
  */
 void EditorDashboard::display(const utils::Context& context) const &
 {
-    impl->separators.display(context);
+    impl->separators.display();
 
     impl->buttonNew.display(context);
     impl->buttonSave.display(context);

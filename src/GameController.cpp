@@ -185,7 +185,7 @@ const unsigned short& GameController::render(
     }
 
     auto& dashboard = impl->dashboard;
-    dashboard.display(context);
+    dashboard.display();
 
     auto& timerWidget = dashboard.getTimerWidget();
     auto& lastTimerUpdateTime = impl->lastTimerUpdateTime;

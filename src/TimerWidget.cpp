@@ -43,18 +43,17 @@ class TimerWidget::Impl
 
 public:
 
-    Impl(
-        const utils::Context& context,
-        const float& hPosition,
-        const float& vPosition
-    )
+    Impl(const utils::Context& context)
     {
         text.setFont(context.getFontsManager().getTextFont());
         text.setCharacterSize(fonts::TEXT_SIZE);
         text.setColor(context.getColorsManager().getColorWhite());
+
+        constexpr float WIDGET_HORIZONTAL_POSITION {295.f};
+        constexpr float WIDGET_VERTICAL_POSITION {10.f};
         text.setPosition(
-            hPosition,
-            vPosition
+            WIDGET_HORIZONTAL_POSITION,
+            WIDGET_VERTICAL_POSITION
         );
     }
 
@@ -75,18 +74,8 @@ public:
 /**
  *
  */
-TimerWidget::TimerWidget(
-    const utils::Context& context,
-    const float& hPosition,
-    const float& vPosition
-) : 
-    impl(
-        std::make_unique<Impl>(
-            context,
-            hPosition,
-            vPosition
-        )
-    )
+TimerWidget::TimerWidget(const utils::Context& context) : 
+    impl(std::make_unique<Impl>(context))
 {
     updateDisplayedString();
 }

@@ -69,10 +69,8 @@ public:
 
     /**
      * @brief overwritte the method to display the dashboard
-     *
-     * @param context shared pointer to the context to use
      */
-    void display(const utils::Context& context);
+    void display() const &;
 
     /**
      * @brief increments the found stars amount and updates the displayed found

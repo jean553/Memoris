@@ -24,6 +24,7 @@
 
 #include "GameDashboard.hpp"
 
+#include "Context.hpp"
 #include "window.hpp"
 #include "fonts.hpp"
 #include "PlayingSerieManager.hpp"
@@ -48,12 +49,9 @@ class GameDashboard::Impl
 public:
 
     Impl(const utils::Context& context) :
+        window(context.getSfmlWindow()),
         separators(context),
-        timer(
-            context,
-            295.f,
-            10.f
-        )
+        timer(context)
     {
         foundStarsAmount.setString("0");
         target.setString("0");
@@ -128,6 +126,8 @@ public:
             SECOND_LINE_ITEMS_VERTICAL_POSITION
         );
     }
+
+    sf::RenderWindow& window;
 
     sf::Text foundStarsAmount;
     sf::Text target;
@@ -235,21 +235,23 @@ GameDashboard::~GameDashboard() = default;
 /**
  *
  */
-void GameDashboard::display(const utils::Context& context)
+void GameDashboard::display() const &
 {
-    context.getSfmlWindow().draw(impl->foundStarsAmount);
-    context.getSfmlWindow().draw(impl->lifesAmount);
-    context.getSfmlWindow().draw(impl->target);
-    context.getSfmlWindow().draw(impl->time);
-    context.getSfmlWindow().draw(impl->floor);
+    auto& window = impl->window;
 
-    context.getSfmlWindow().draw(impl->spriteStar);
-    context.getSfmlWindow().draw(impl->spriteLife);
-    context.getSfmlWindow().draw(impl->spriteTarget);
-    context.getSfmlWindow().draw(impl->spriteTime);
-    context.getSfmlWindow().draw(impl->spriteFloor);
+    window.draw(impl->foundStarsAmount);
+    window.draw(impl->lifesAmount);
+    window.draw(impl->target);
+    window.draw(impl->time);
+    window.draw(impl->floor);
 
-    impl->separators.display(context);
+    window.draw(impl->spriteStar);
+    window.draw(impl->spriteLife);
+    window.draw(impl->spriteTarget);
+    window.draw(impl->spriteTime);
+    window.draw(impl->spriteFloor);
+
+    impl->separators.display();
 }
 
 /**

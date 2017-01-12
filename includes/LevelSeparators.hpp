@@ -28,14 +28,14 @@
 #ifndef MEMORIS_LEVELSEPARATORS_H_
 #define MEMORIS_LEVELSEPARATORS_H_
 
-#include "Context.hpp"
-
-#include <SFML/Graphics/RectangleShape.hpp>
+#include <memory>
 
 namespace memoris
 {
 namespace utils
 {
+
+class Context;
 
 class LevelSeparators
 {
@@ -45,23 +45,25 @@ public:
     /**
      * @brief constructor, initializes the two SFML surfaces
      *
-     * @param context reference to the current context
+     * @param context the current context
      */
     LevelSeparators(const utils::Context& context);
 
     /**
-     * @brief renders the two SFML surfaces together
-     *
-     * @param context reference to the current context
+     * @brief destructor, empty, declared
+     * in order to use forwarding declaration
      */
-    void display(const utils::Context& context) const;
+    ~LevelSeparators();
+
+    /**
+     * @brief renders the two SFML surfaces together
+     */
+    void display() const &;
 
 private:
 
-    /* SFML surfaces used for the separator */
-
-    sf::RectangleShape left;
-    sf::RectangleShape right;
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }
