@@ -129,7 +129,7 @@ public:
      *
      * @param amount the amount to display in the dashboard
      */
-    void updateTotalStarsAmountSurface(const unsigned short& amount);
+    void updateTotalStarsAmountSurface(const unsigned short& amount) const &;
 
     /**
      * @brief update the displayed floor index
@@ -137,7 +137,7 @@ public:
      * @param floor the current floor index, the method will automatically
      * increment it to make it human readable
      */
-    void updateCurrentFloor(const unsigned short& floorIndex);
+    void updateCurrentFloor(const unsigned short& floorIndex) const &;
 
     /**
      * @brief getter for the timer widget
