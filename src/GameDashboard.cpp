@@ -25,7 +25,6 @@
 #include "GameDashboard.hpp"
 
 #include "Context.hpp"
-#include "window.hpp"
 #include "fonts.hpp"
 #include "PlayingSerieManager.hpp"
 #include "FontsManager.hpp"
