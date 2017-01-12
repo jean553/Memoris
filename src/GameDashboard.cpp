@@ -357,16 +357,25 @@ void GameDashboard::decreaseWatchingTime() const &
  *
  */
 void GameDashboard::updateTotalStarsAmountSurface(const unsigned short& amount)
+    const &
 {
-    impl->target.setString(std::to_string(amount));
+    updateSfmlTextByNumericValue(
+        impl->target,
+        amount
+    );
 }
 
 /**
  *
  */
 void GameDashboard::updateCurrentFloor(const unsigned short& floorIndex)
+    const &
 {
-    impl->floor.setString(std::to_string(floorIndex + 1));
+    constexpr unsigned short DISPLAYED_FLOOR_OFFSET {1};
+    updateSfmlTextByNumericValue(
+        impl->floor,
+        floorIndex + DISPLAYED_FLOOR_OFFSET
+    );
 }
 
 /**
