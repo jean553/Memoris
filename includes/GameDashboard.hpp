@@ -57,7 +57,7 @@ public:
      * @brief constructor, initialize the timer widget, all the dashboard
      * informations labels and all the labels images
      *
-     * @param context reference to the current context
+     * @param context the current context
      */
     GameDashboard(const utils::Context& context);
 
@@ -65,50 +65,62 @@ public:
      * @brief default destructor, empty, only declared in order to use
      * forwarding declaration
      */
-    ~GameDashboard() noexcept;
+    ~GameDashboard();
 
     /**
      * @brief overwritte the method to display the dashboard
+     */
+    void display() const &;
+
+    /**
+     * @brief returns the current amount of lifes; this is used by the game
+     * controller to know if the lifes amount is equal to 0 before
+     * decrementing the value
      *
-     * @param context shared pointer to the context to use
+     * @return const unsigned short&
      */
-    void display(const utils::Context& context);
+    const unsigned short& getLifes() const & noexcept;
 
     /**
-     * @brief increments the found stars amount and updates the displayed found
-     * stars amount text; this function is called by the game controller when
-     * one new star is found by the player
+     * @brief returns the current watching time amount; this is used by the
+     * game controller to know the current watching time before decrementing
+     * it by 3
+     *
+     * @return const unsigned short&
      */
-    void incrementFoundStars();
-
-    /**
-     * @brief increments the found lifes amount and updates the displayed found
-     * lifes amount text; this action is called by the game controller
-     */
-    void incrementLifes();
-
-    /**
-     * @brief decrements the amount of lifes and update the displayed lifes
-     * amount; this action is called by the game controller
-     */
-    void decrementLifes();
-
-    /**
-     * @brief increase the amount of seconds of the watching time by 3 seconds
-     */
-    void increaseWatchingTime();
-
-    /**
-     * @brief decrease the amount of seconds of the watching time by 3 seconds
-     */
-    void decreaseWatchingTime();
+    const unsigned short& getWatchingTime() const & noexcept;
 
     /**
      * @brief getter of the found star(s) amount
      *
      * @return const unsigned short&
      */
-    const unsigned short& getFoundStarsAmount();
+    const unsigned short& getFoundStarsAmount() const & noexcept;
+
+    /**
+     * @brief increments the found stars amount and update the SFML surface
+     */
+    void incrementFoundStars() const &;
+
+    /**
+     * @brief increments the lifes amount and update the SFML surface
+     */
+    void incrementLifes() const &;
+
+    /**
+     * @brief decrement the lifes amount and update the SFML surface
+     */
+    void decrementLifes() const &;
+
+    /**
+     * @brief increase the watching time seconds by 3
+     */
+    void increaseWatchingTime() const &;
+
+    /**
+     * @brief decrease the amount of seconds of the watching time by 3 seconds
+     */
+    void decreaseWatchingTime() const &;
 
     /**
      * @brief updates the SFML surface that displays the total amount of cells
@@ -120,28 +132,12 @@ public:
     void updateTotalStarsAmountSurface(const unsigned short& amount);
 
     /**
-     * @brief getter for the lifes amount (the amount of lifes the user has)
-     *
-     * @return const unsigned short&
-     */
-    const unsigned short& getLifesAmount() const & noexcept;
-
-    /**
      * @brief update the displayed floor index
      *
      * @param floor the current floor index, the method will automatically
      * increment it to make it human readable
      */
     void updateCurrentFloor(const unsigned short& floorIndex);
-
-    /**
-     * @brief getter for the watching time in the current level; this is used
-     * by the game controller to get the modification of the previous
-     * watching time and update it inside the current playing serie context
-     *
-     * @return const unsigned short&
-     */
-    const unsigned short& getWatchingTime() const;
 
     /**
      * @brief getter for the timer widget
@@ -163,6 +159,10 @@ public:
      */
     utils::WatchingPeriodTimer& getWatchingPeriodTimer() const & noexcept;
 
+private:
+
+    static constexpr unsigned short WATCHING_TIME_UPDATE_STEP {3};
+
     /**
      * @brief returns the horizontal position less the surface width
      *
@@ -178,7 +178,16 @@ public:
         const sf::Text& sfmlSurface
     ) const &;
 
-private:
+    /**
+     * @brief replace SFML text surface content by numeric content
+     *
+     * @param sfmlText SFML text surface to update
+     * @param numericValue the numeric value
+     */
+    void updateSfmlTextByNumericValue(
+        sf::Text& sfmlText,
+        const unsigned short& numericValue
+    ) const &;
 
     class Impl;
     std::unique_ptr<Impl> impl;

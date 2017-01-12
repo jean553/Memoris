@@ -24,6 +24,7 @@
 
 #include "GameDashboard.hpp"
 
+#include "Context.hpp"
 #include "window.hpp"
 #include "fonts.hpp"
 #include "PlayingSerieManager.hpp"
@@ -48,12 +49,9 @@ class GameDashboard::Impl
 public:
 
     Impl(const utils::Context& context) :
+        window(context.getSfmlWindow()),
         separators(context),
-        timer(
-            context,
-            295.f,
-            10.f
-        )
+        timer(context)
     {
         foundStarsAmount.setString("0");
         target.setString("0");
@@ -128,6 +126,8 @@ public:
             SECOND_LINE_ITEMS_VERTICAL_POSITION
         );
     }
+
+    sf::RenderWindow& window;
 
     sf::Text foundStarsAmount;
     sf::Text target;
@@ -230,109 +230,127 @@ GameDashboard::GameDashboard(const utils::Context& context) :
 /**
  *
  */
-GameDashboard::~GameDashboard() noexcept = default;
+GameDashboard::~GameDashboard() = default;
 
 /**
  *
  */
-void GameDashboard::display(const utils::Context& context)
+void GameDashboard::display() const &
 {
-    context.getSfmlWindow().draw(impl->foundStarsAmount);
-    context.getSfmlWindow().draw(impl->lifesAmount);
-    context.getSfmlWindow().draw(impl->target);
-    context.getSfmlWindow().draw(impl->time);
-    context.getSfmlWindow().draw(impl->floor);
+    auto& window = impl->window;
 
-    context.getSfmlWindow().draw(impl->spriteStar);
-    context.getSfmlWindow().draw(impl->spriteLife);
-    context.getSfmlWindow().draw(impl->spriteTarget);
-    context.getSfmlWindow().draw(impl->spriteTime);
-    context.getSfmlWindow().draw(impl->spriteFloor);
+    window.draw(impl->foundStarsAmount);
+    window.draw(impl->lifesAmount);
+    window.draw(impl->target);
+    window.draw(impl->time);
+    window.draw(impl->floor);
 
-    impl->separators.display(context);
+    window.draw(impl->spriteStar);
+    window.draw(impl->spriteLife);
+    window.draw(impl->spriteTarget);
+    window.draw(impl->spriteTime);
+    window.draw(impl->spriteFloor);
+
+    impl->separators.display();
 }
 
 /**
  *
  */
-void GameDashboard::incrementFoundStars()
+const unsigned short& GameDashboard::getLifes() const & noexcept
 {
-    impl->foundStars++;
-
-    impl->foundStarsAmount.setString(
-        std::to_string(impl->foundStars)
-    );
+    return impl->lifes;
 }
 
 /**
  *
  */
-void GameDashboard::incrementLifes()
+const unsigned short& GameDashboard::getWatchingTime() const & noexcept
 {
-    impl->lifes++;
-
-    impl->lifesAmount.setString(
-        std::to_string(impl->lifes)
-    );
+    return impl->watchingTime;
 }
 
 /**
  *
  */
-void GameDashboard::decrementLifes()
-{
-    /* TODO: #587 we check if the amount of lifes is equal to 0 but we should
-       not do it this way and here; we only prevent the value to be
-       automatically set to 65665 if the lifes amount is already equal to 0;
-       the 'lose' process should be called instead and the game should
-       finish */
-    if (impl->lifes == 0)
-    {
-        return;
-    }
-
-    impl->lifes--;
-
-    impl->lifesAmount.setString(
-        std::to_string(impl->lifes)
-    );
-}
-
-/**
- *
- */
-void GameDashboard::increaseWatchingTime()
-{
-    impl->watchingTime += 3;
-
-    impl->time.setString(
-        std::to_string(impl->watchingTime)
-    );
-}
-
-/**
- *
- */
-void GameDashboard::decreaseWatchingTime()
-{
-    if (impl->watchingTime == 3)
-    {
-        return;
-    }
-
-    impl->watchingTime -= 3;
-
-    impl->time.setString(
-        std::to_string(impl->watchingTime)
-    );
-}
-
-/**
- *
- */
-const unsigned short& GameDashboard::getFoundStarsAmount()
+const unsigned short& GameDashboard::getFoundStarsAmount() const & noexcept
 {
     return impl->foundStars;
+}
+
+/**
+ *
+ */
+void GameDashboard::incrementFoundStars() const &
+{
+    auto& foundStars = impl->foundStars;
+    foundStars++;
+
+    auto& foundStarsAmount = impl->foundStarsAmount;
+    updateSfmlTextByNumericValue(
+        foundStarsAmount,
+        foundStars
+    );
+}
+
+/**
+ *
+ */
+void GameDashboard::incrementLifes() const &
+{
+    auto& lifes = impl->lifes;
+    lifes++;
+
+    auto& lifesAmount = impl->lifesAmount;
+    updateSfmlTextByNumericValue(
+        lifesAmount,
+        lifes
+    );
+}
+
+/**
+ *
+ */
+void GameDashboard::decrementLifes() const &
+{
+    auto& lifes = impl->lifes;
+    lifes--;
+
+    auto& lifesAmount = impl->lifesAmount;
+    updateSfmlTextByNumericValue(
+        lifesAmount,
+        lifes
+    );
+}
+
+/**
+ *
+ */
+void GameDashboard::increaseWatchingTime() const &
+{
+    auto& watchingTime = impl->watchingTime;
+    watchingTime += WATCHING_TIME_UPDATE_STEP;
+
+    auto& time = impl->time;
+    updateSfmlTextByNumericValue(
+        time,
+        watchingTime
+    );
+}
+
+/**
+ *
+ */
+void GameDashboard::decreaseWatchingTime() const &
+{
+    auto& watchingTime = impl->watchingTime;
+    watchingTime -= WATCHING_TIME_UPDATE_STEP;
+
+    auto& time = impl->time;
+    updateSfmlTextByNumericValue(
+        time,
+        watchingTime
+    );
 }
 
 /**
@@ -346,25 +364,9 @@ void GameDashboard::updateTotalStarsAmountSurface(const unsigned short& amount)
 /**
  *
  */
-const unsigned short& GameDashboard::getLifesAmount() const & noexcept
-{
-    return impl->lifes;
-}
-
-/**
- *
- */
 void GameDashboard::updateCurrentFloor(const unsigned short& floorIndex)
 {
     impl->floor.setString(std::to_string(floorIndex + 1));
-}
-
-/**
- *
- */
-const unsigned short& GameDashboard::getWatchingTime() const
-{
-    return impl->watchingTime;
 }
 
 /**
@@ -384,6 +386,17 @@ const float GameDashboard::getHorizontalPositionLessWidth(
 ) const &
 {
     return rightSideHorizontalPosition - sfmlSurface.getLocalBounds().width;
+}
+
+/**
+ *
+ */
+void GameDashboard::updateSfmlTextByNumericValue(
+    sf::Text& sfmlText,
+    const unsigned short& numericValue
+) const &
+{
+    sfmlText.setString(std::to_string(numericValue));
 }
 
 }

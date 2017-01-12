@@ -54,14 +54,8 @@ public:
      * @brief constructor, set the timer positions
      *
      * @param context reference to the current context
-     * @param hPosition the horizontal position
-     * @param vPosition the vertical position
      */
-    TimerWidget(
-        const utils::Context& context,
-        const float& hPosition,
-        const float& vPosition
-    );
+    TimerWidget(const utils::Context& context);
 
     /**
      * @brief default destructor, empty, only declared in order to use

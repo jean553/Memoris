@@ -24,58 +24,81 @@
 
 #include "LevelSeparators.hpp"
 
+#include "Context.hpp"
 #include "ColorsManager.hpp"
 #include "window.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 namespace memoris
 {
 namespace utils
 {
 
+class LevelSeparators::Impl
+{
+
+public:
+
+    Impl(const utils::Context& context) :
+        window(context.getSfmlWindow())
+    {
+        constexpr float SEPARATORS_WIDTH {1.f};
+        const auto separatorsSize = sf::Vector2f(
+            SEPARATORS_WIDTH,
+            window::HEIGHT
+        );
+        left.setSize(separatorsSize);
+        right.setSize(separatorsSize);
+
+        constexpr float SEPARATORS_VERTICAL_POSITION {0.f};
+
+        constexpr float LEFT_SEPARATOR_HORIZONTAL_POSITION {290.f};
+        left.setPosition(
+            LEFT_SEPARATOR_HORIZONTAL_POSITION,
+            SEPARATORS_VERTICAL_POSITION
+        );
+
+        constexpr float RIGHT_SEPARATOR_HORIZONTAL_POSITION {1308.f};
+        right.setPosition(
+            RIGHT_SEPARATOR_HORIZONTAL_POSITION,
+            SEPARATORS_VERTICAL_POSITION
+        );
+
+        const auto& white = context.getColorsManager().getColorWhite();
+        left.setFillColor(white);
+        right.setFillColor(white);
+    }
+
+    sf::RenderWindow& window;
+
+    sf::RectangleShape left;
+    sf::RectangleShape right;
+};
+
+/**
+ *
+ */
+LevelSeparators::~LevelSeparators() = default;
+
 /**
  *
  */
 LevelSeparators::LevelSeparators(
     const utils::Context& context
-)
+) : impl(std::make_unique<Impl>(context))
 {
-    left.setSize(
-        sf::Vector2f(
-            1,
-            window::HEIGHT
-        )
-    );
-    right.setSize(
-        sf::Vector2f(
-            1,
-            window::HEIGHT
-        )
-    );
-
-    left.setPosition(
-        290.f,
-        0.f
-    );
-    right.setPosition(
-        1308.f,
-        0.f
-    );
-
-    left.setFillColor(context.getColorsManager().getColorWhite());
-    right.setFillColor(context.getColorsManager().getColorWhite());
 }
 
 /**
  *
  */
-void LevelSeparators::display(
-    const utils::Context& context
-) const
+void LevelSeparators::display() const &
 {
-    context.getSfmlWindow().draw(left);
-    context.getSfmlWindow().draw(right);
+    auto& window = impl->window;
+    window.draw(impl->left);
+    window.draw(impl->right);
 }
 
 }

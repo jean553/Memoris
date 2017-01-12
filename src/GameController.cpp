@@ -185,7 +185,7 @@ const unsigned short& GameController::render(
     }
 
     auto& dashboard = impl->dashboard;
-    dashboard.display(context);
+    dashboard.display();
 
     auto& timerWidget = dashboard.getTimerWidget();
     auto& lastTimerUpdateTime = impl->lastTimerUpdateTime;
@@ -490,7 +490,10 @@ void GameController::executePlayerCellAction(
             endLevel(context);
         }
 
-        impl->dashboard.decrementLifes();
+        if (impl->dashboard.getLifes())
+        {
+            impl->dashboard.decrementLifes();
+        }
 
         break;
     }
@@ -506,7 +509,11 @@ void GameController::executePlayerCellAction(
     {
         context.getSoundsManager().playFoundDeadOrLessTimeSound();
 
-        impl->dashboard.decreaseWatchingTime();
+        constexpr unsigned short MINIMUM_WATCHING_TIME {3};
+        if (impl->dashboard.getWatchingTime() != MINIMUM_WATCHING_TIME)
+        {
+            impl->dashboard.decreaseWatchingTime();
+        }
 
         break;
     }
