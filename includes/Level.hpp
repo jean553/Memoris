@@ -406,6 +406,17 @@ public:
      */
     void showAllCells(const utils::Context& context) const &;
 
+    /**
+     * @brief checks if the level has exactly one departure and one arrival;
+     * this method is used to check if the level can be tested in the
+     * level editor
+     *
+     * @return const bool
+     *
+     * the returned value is directly created into the method
+     */
+    const bool hasOneDepartureAndOneArrival() const & noexcept;
+
 private:
 
     static constexpr unsigned short CELLS_PER_FLOOR {256};
