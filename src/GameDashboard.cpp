@@ -64,46 +64,26 @@ public:
         foundStarsAmount.setColor(
             context.getColorsManager().getColorWhite()
         );
-        foundStarsAmount.setPosition(
-            1200.f,
-            -10.f
-        );
 
         lifesAmount.setFont(context.getFontsManager().getTextFont());
         lifesAmount.setString(std::to_string(lifes));
         lifesAmount.setCharacterSize(fonts::TEXT_SIZE);
         lifesAmount.setColor(context.getColorsManager().getColorWhite());
-        lifesAmount.setPosition(
-            1200.f,
-            35.f
-        );
 
         time.setFont(context.getFontsManager().getTextFont());
         time.setString(std::to_string(watchingTime));
         time.setCharacterSize(fonts::TEXT_SIZE);
         time.setColor(context.getColorsManager().getColorWhite());
-        time.setPosition(
-            1050.f,
-            35.f
-        );
 
         floor.setFont(context.getFontsManager().getTextFont());
         floor.setString("1");
         floor.setCharacterSize(fonts::TEXT_SIZE);
         floor.setColor(context.getColorsManager().getColorWhite());
-        floor.setPosition(
-            900.f,
-            -10.f
-        );
 
         target.setFont(context.getFontsManager().getTextFont());
         target.setString("0");
         target.setCharacterSize(fonts::TEXT_SIZE);
         target.setColor(context.getColorsManager().getColorWhite());
-        target.setPosition(
-            1050.f,
-            -10.f
-        );
 
         spriteStar.setTexture(context.getTexturesManager().getStarTexture());
         spriteStar.setPosition(
@@ -169,6 +149,75 @@ public:
 GameDashboard::GameDashboard(const utils::Context& context) :
     impl(std::make_unique<Impl>(context))
 {
+    /* we set the positions of the text surfaces in this class constructor
+       and not in the implementation constructor; in fact, the method
+       getHorizontalPositionLessWidth() is necessary for this horizontal
+       position calculation; this method is also necessary as a class method
+       in order to be used when the content of the surface changes */
+
+    auto& foundStarsAmount = impl->foundStarsAmount;
+    constexpr float FOUND_STARS_HORIZONTAL_POSITION {1230.f};
+    const auto foundStarsHorizontalPosition = getHorizontalPositionLessWidth(
+        FOUND_STARS_HORIZONTAL_POSITION,
+        foundStarsAmount
+    );
+
+    auto& target = impl->target;
+    constexpr float TARGET_STARS_HORIZONTAL_POSITION {1080.f};
+    const auto targetHorizontalPosition = getHorizontalPositionLessWidth(
+        TARGET_STARS_HORIZONTAL_POSITION,
+        target
+    );
+
+    auto& lifesAmount = impl->lifesAmount;
+    constexpr float LIFES_AMOUNT_HORIZONTAL_POSITION {1230.f};
+    const auto lifesAmountHorizontalPosition = getHorizontalPositionLessWidth(
+        LIFES_AMOUNT_HORIZONTAL_POSITION,
+        lifesAmount
+    );
+
+    auto& time = impl->time;
+    constexpr float TIME_HORIZONTAL_POSITION {1080.f};
+    const auto timeHorizontalPosition = getHorizontalPositionLessWidth(
+        TIME_HORIZONTAL_POSITION,
+        time
+    );
+
+    auto& floor = impl->floor;
+    constexpr float FLOOR_HORIZONTAL_POSITION {900.f};
+    const auto floorHorizontalPosition = getHorizontalPositionLessWidth(
+        FLOOR_HORIZONTAL_POSITION,
+        floor
+    );
+
+    constexpr float FIRST_LINE_TEXTS_VERTICAL_POSITION {-10.f};
+
+    foundStarsAmount.setPosition(
+        foundStarsHorizontalPosition,
+        FIRST_LINE_TEXTS_VERTICAL_POSITION
+    );
+
+    target.setPosition(
+        targetHorizontalPosition,
+        FIRST_LINE_TEXTS_VERTICAL_POSITION
+    );
+
+    floor.setPosition(
+        floorHorizontalPosition,
+        FIRST_LINE_TEXTS_VERTICAL_POSITION
+    );
+
+    constexpr float SECOND_LINE_TEXTS_VERTICAL_POSITION {35.f};
+
+    lifesAmount.setPosition(
+        lifesAmountHorizontalPosition,
+        SECOND_LINE_TEXTS_VERTICAL_POSITION
+    );
+
+    time.setPosition(
+        timeHorizontalPosition,
+        SECOND_LINE_TEXTS_VERTICAL_POSITION
+    );
 }
 
 /**
@@ -317,6 +366,17 @@ const unsigned short& GameDashboard::getWatchingTime() const
 widgets::TimerWidget& GameDashboard::getTimerWidget() const & noexcept
 {
     return impl->timer;
+}
+
+/**
+ *
+ */
+const float GameDashboard::getHorizontalPositionLessWidth(
+    const float& rightSideHorizontalPosition,
+    const sf::Text& sfmlSurface
+) const &
+{
+    return rightSideHorizontalPosition - sfmlSurface.getLocalBounds().width;
 }
 
 }
