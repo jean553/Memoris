@@ -55,112 +55,99 @@ public:
             10.f
         )
     {
-        watchingTime = context.getPlayingSerieManager().getWatchingTime();
-        lifes = context.getPlayingSerieManager().getLifesAmount();
-
-        foundStarsAmount.setFont(context.getFontsManager().getTextFont());
         foundStarsAmount.setString("0");
-        foundStarsAmount.setCharacterSize(fonts::TEXT_SIZE);
-        foundStarsAmount.setColor(
-            context.getColorsManager().getColorWhite()
-        );
-        foundStarsAmount.setPosition(
-            1200.f,
-            -10.f
-        );
-
-        lifesAmount.setFont(context.getFontsManager().getTextFont());
-        lifesAmount.setString(std::to_string(lifes));
-        lifesAmount.setCharacterSize(fonts::TEXT_SIZE);
-        lifesAmount.setColor(context.getColorsManager().getColorWhite());
-        lifesAmount.setPosition(
-            1200.f,
-            35.f
-        );
-
-        time.setFont(context.getFontsManager().getTextFont());
-        time.setString(std::to_string(watchingTime));
-        time.setCharacterSize(fonts::TEXT_SIZE);
-        time.setColor(context.getColorsManager().getColorWhite());
-        time.setPosition(
-            1050.f,
-            35.f
-        );
-
-        floor.setFont(context.getFontsManager().getTextFont());
-        floor.setString("1");
-        floor.setCharacterSize(fonts::TEXT_SIZE);
-        floor.setColor(context.getColorsManager().getColorWhite());
-        floor.setPosition(
-            900.f,
-            -10.f
-        );
-
-        target.setFont(context.getFontsManager().getTextFont());
         target.setString("0");
-        target.setCharacterSize(fonts::TEXT_SIZE);
-        target.setColor(context.getColorsManager().getColorWhite());
-        target.setPosition(
-            1050.f,
-            -10.f
-        );
+        floor.setString("1");
 
-        spriteStar.setTexture(context.getTexturesManager().getStarTexture());
+        const auto& white = context.getColorsManager().getColorWhite();
+        foundStarsAmount.setColor(white);
+        lifesAmount.setColor(white);
+        target.setColor(white);
+        time.setColor(white);
+        floor.setColor(white);
+
+        const auto& fontSize = fonts::TEXT_SIZE;
+        foundStarsAmount.setCharacterSize(fontSize);
+        lifesAmount.setCharacterSize(fontSize);
+        target.setCharacterSize(fontSize);
+        time.setCharacterSize(fontSize);
+        floor.setCharacterSize(fontSize);
+
+        const auto& font = context.getFontsManager().getTextFont();
+        foundStarsAmount.setFont(font);
+        lifesAmount.setFont(font);
+        target.setFont(font);
+        time.setFont(font);
+        floor.setFont(font);
+
+        const auto& playingSerie = context.getPlayingSerieManager();
+        watchingTime = playingSerie.getWatchingTime();
+        lifes = playingSerie.getLifesAmount();
+
+        lifesAmount.setString(std::to_string(lifes));
+        time.setString(std::to_string(watchingTime));
+
+        const auto& texturesManager = context.getTexturesManager();
+        spriteStar.setTexture(texturesManager.getStarTexture());
+        spriteLife.setTexture(texturesManager.getLifeTexture());
+        spriteTarget.setTexture(texturesManager.getTargetTexture());
+        spriteTime.setTexture(texturesManager.getTimeTexture());
+        spriteFloor.setTexture(texturesManager.getFloorTexture());
+
+        constexpr float FIRST_LINE_ITEMS_VERTICAL_POSITION {0.f};
+
+        constexpr float STAR_SPRITE_HORIZONTAL_POSITION {1250.f};
         spriteStar.setPosition(
-            1250.f,
-            0.f
+            STAR_SPRITE_HORIZONTAL_POSITION,
+            FIRST_LINE_ITEMS_VERTICAL_POSITION
         );
 
-        spriteFloor.setTexture(context.getTexturesManager().getFloorTexture());
-        spriteFloor.setPosition(
-            950.f,
-            0.f
-        );
-
-        spriteLife.setTexture(context.getTexturesManager().getLifeTexture());
-        spriteLife.setPosition(
-            1250.f,
-            50.f
-        );
-
-        spriteTarget.setTexture(
-            context.getTexturesManager().getTargetTexture()
-        );
+        constexpr float TARGET_SPRITE_HORIZONTAL_POSITION {1100.f};
         spriteTarget.setPosition(
-            1100.f,
-            0.f
+            TARGET_SPRITE_HORIZONTAL_POSITION,
+            FIRST_LINE_ITEMS_VERTICAL_POSITION
         );
 
-        spriteTime.setTexture(context.getTexturesManager().getTimeTexture());
+        constexpr float FLOOR_SPRITE_HORIZONTAL_POSITION {950.f};
+        spriteFloor.setPosition(
+            FLOOR_SPRITE_HORIZONTAL_POSITION,
+            FIRST_LINE_ITEMS_VERTICAL_POSITION
+        );
+
+        constexpr float SECOND_LINE_ITEMS_VERTICAL_POSITION {50.f};
+
+        constexpr float TIME_SPRITE_HORIZONTAL_POSITION {1100.f};
         spriteTime.setPosition(
-            1100.f,
-            50.f
+            TIME_SPRITE_HORIZONTAL_POSITION,
+            SECOND_LINE_ITEMS_VERTICAL_POSITION
+        );
+
+        constexpr float LIFE_SPRITE_HORIZONTAL_POSITION {1250.f};
+        spriteLife.setPosition(
+            LIFE_SPRITE_HORIZONTAL_POSITION,
+            SECOND_LINE_ITEMS_VERTICAL_POSITION
         );
     }
 
     sf::Text foundStarsAmount;
-    sf::Text lifesAmount;
     sf::Text target;
-    sf::Text time;
     sf::Text floor;
+    sf::Text lifesAmount;
+    sf::Text time;
 
     sf::Sprite spriteStar;
-    sf::Sprite spriteLife;
     sf::Sprite spriteTarget;
-    sf::Sprite spriteTime;
     sf::Sprite spriteFloor;
-
-    /* TODO: #579 this amount is 0 by default for now, but the default value
-       should be extracted from the serie file if the level is the first one of
-       the serie; it it is not the first one, the amount of lifes should be the
-       lifes left the user has */
-    unsigned short lifes {0};
-    unsigned short watchingTime;
-    unsigned short foundStars {0};
+    sf::Sprite spriteTime;
+    sf::Sprite spriteLife;
 
     utils::LevelSeparators separators;
 
     widgets::TimerWidget timer;
+
+    unsigned short lifes {0};
+    unsigned short watchingTime {0};
+    unsigned short foundStars {0};
 };
 
 /**
@@ -169,6 +156,75 @@ public:
 GameDashboard::GameDashboard(const utils::Context& context) :
     impl(std::make_unique<Impl>(context))
 {
+    /* we set the positions of the text surfaces in this class constructor
+       and not in the implementation constructor; in fact, the method
+       getHorizontalPositionLessWidth() is necessary for this horizontal
+       position calculation; this method is also necessary as a class method
+       in order to be used when the content of the surface changes */
+
+    auto& foundStarsAmount = impl->foundStarsAmount;
+    constexpr float FOUND_STARS_HORIZONTAL_POSITION {1230.f};
+    const auto foundStarsHorizontalPosition = getHorizontalPositionLessWidth(
+        FOUND_STARS_HORIZONTAL_POSITION,
+        foundStarsAmount
+    );
+
+    auto& target = impl->target;
+    constexpr float TARGET_STARS_HORIZONTAL_POSITION {1080.f};
+    const auto targetHorizontalPosition = getHorizontalPositionLessWidth(
+        TARGET_STARS_HORIZONTAL_POSITION,
+        target
+    );
+
+    auto& floor = impl->floor;
+    constexpr float FLOOR_HORIZONTAL_POSITION {900.f};
+    const auto floorHorizontalPosition = getHorizontalPositionLessWidth(
+        FLOOR_HORIZONTAL_POSITION,
+        floor
+    );
+
+    auto& lifesAmount = impl->lifesAmount;
+    constexpr float LIFES_AMOUNT_HORIZONTAL_POSITION {1230.f};
+    const auto lifesAmountHorizontalPosition = getHorizontalPositionLessWidth(
+        LIFES_AMOUNT_HORIZONTAL_POSITION,
+        lifesAmount
+    );
+
+    auto& time = impl->time;
+    constexpr float TIME_HORIZONTAL_POSITION {1080.f};
+    const auto timeHorizontalPosition = getHorizontalPositionLessWidth(
+        TIME_HORIZONTAL_POSITION,
+        time
+    );
+
+    constexpr float FIRST_LINE_TEXTS_VERTICAL_POSITION {-10.f};
+
+    foundStarsAmount.setPosition(
+        foundStarsHorizontalPosition,
+        FIRST_LINE_TEXTS_VERTICAL_POSITION
+    );
+
+    target.setPosition(
+        targetHorizontalPosition,
+        FIRST_LINE_TEXTS_VERTICAL_POSITION
+    );
+
+    floor.setPosition(
+        floorHorizontalPosition,
+        FIRST_LINE_TEXTS_VERTICAL_POSITION
+    );
+
+    constexpr float SECOND_LINE_TEXTS_VERTICAL_POSITION {35.f};
+
+    lifesAmount.setPosition(
+        lifesAmountHorizontalPosition,
+        SECOND_LINE_TEXTS_VERTICAL_POSITION
+    );
+
+    time.setPosition(
+        timeHorizontalPosition,
+        SECOND_LINE_TEXTS_VERTICAL_POSITION
+    );
 }
 
 /**
@@ -317,6 +373,17 @@ const unsigned short& GameDashboard::getWatchingTime() const
 widgets::TimerWidget& GameDashboard::getTimerWidget() const & noexcept
 {
     return impl->timer;
+}
+
+/**
+ *
+ */
+const float GameDashboard::getHorizontalPositionLessWidth(
+    const float& rightSideHorizontalPosition,
+    const sf::Text& sfmlSurface
+) const &
+{
+    return rightSideHorizontalPosition - sfmlSurface.getLocalBounds().width;
 }
 
 }

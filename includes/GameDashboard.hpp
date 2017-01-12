@@ -29,6 +29,11 @@
 
 #include <memory>
 
+namespace sf
+{
+class Text;
+}
+
 namespace memoris
 {
 
@@ -157,6 +162,21 @@ public:
      * controller) directly updates the object
      */
     utils::WatchingPeriodTimer& getWatchingPeriodTimer() const & noexcept;
+
+    /**
+     * @brief returns the horizontal position less the surface width
+     *
+     * @param rightSideHorizontalPosition horizontal position of the surface
+     * @param sfmlSurface SFML texture
+     *
+     * @return const float
+     *
+     * call sf::Rect::getLocalBounds() method which is not noexcept
+     */
+    const float getHorizontalPositionLessWidth(
+        const float& rightSideHorizontalPosition,
+        const sf::Text& sfmlSurface
+    ) const &;
 
 private:
 
