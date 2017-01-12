@@ -420,6 +420,11 @@ const unsigned short& LevelEditorController::render(
             }
             case Action::PLAY:
             {
+                if (not level->hasOneDepartureAndOneArrival())
+                {
+                    break;
+                }
+
                 expectedControllerId = GAME_CONTROLLER_ID;
 
                 levelManager.setLevel(impl->level);

@@ -666,5 +666,34 @@ void Level::showAllCells(const utils::Context& context) const &
     }
 }
 
+/**
+ *
+ */
+const bool Level::hasOneDepartureAndOneArrival() const & noexcept
+{
+    unsigned short departureCellsAmount {0};
+    unsigned short arrivalCellsAmount {0};
+
+    const auto& cells = impl->cells;
+    for (const auto& cell : cells)
+    {
+        const auto& type = cell->getType();
+
+        if (type == cells::DEPARTURE_CELL)
+        {
+            departureCellsAmount++;
+        }
+        else if (type == cells::ARRIVAL_CELL)
+        {
+            arrivalCellsAmount++;
+        }
+    }
+
+    return (
+        departureCellsAmount == 1 and
+        arrivalCellsAmount == 1
+    );
+}
+
 }
 }
