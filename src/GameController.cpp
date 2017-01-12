@@ -485,7 +485,7 @@ void GameController::executePlayerCellAction(
     {
         context.getSoundsManager().playFoundDeadOrLessTimeSound();
 
-        if (impl->dashboard.getLifesAmount() == 0)
+        if (impl->dashboard.getLifes() == 0)
         {
             endLevel(context);
         }
@@ -689,7 +689,7 @@ void GameController::endLevel(const utils::Context& context)
 
         serieManager.incrementLevelIndex();
         serieManager.setWatchingTime(dashboard.getWatchingTime());
-        serieManager.setLifesAmount(dashboard.getLifesAmount());
+        serieManager.setLifesAmount(dashboard.getLifes());
     }
     else
     {
