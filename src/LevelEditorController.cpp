@@ -425,6 +425,8 @@ const unsigned short& LevelEditorController::render(
                     break;
                 }
 
+                level->setPlayerOnDepartureCell();
+
                 expectedControllerId = GAME_CONTROLLER_ID;
 
                 levelManager.setLevel(impl->level);

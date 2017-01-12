@@ -32,6 +32,7 @@
 #include "PlayingSerieManager.hpp"
 
 #include <fstream>
+#include <algorithm>
 
 namespace memoris
 {
@@ -692,6 +693,32 @@ const bool Level::hasOneDepartureAndOneArrival() const & noexcept
     return (
         departureCellsAmount == 1 and
         arrivalCellsAmount == 1
+    );
+}
+
+/**
+ *
+ */
+void Level::setPlayerOnDepartureCell() const & noexcept
+{
+    auto& cells = impl->cells;
+    auto iterator = std::find_if(
+        cells.begin(),
+        cells.end(),
+        [](const auto& cell)
+        {
+            return cell->getType() == cells::DEPARTURE_CELL;
+        }
+    );
+
+    if (iterator == cells.end())
+    {
+        return;
+    }
+
+    impl->playerIndex = std::distance(
+        cells.begin(),
+        iterator
     );
 }
 

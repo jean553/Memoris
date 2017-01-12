@@ -417,6 +417,11 @@ public:
      */
     const bool hasOneDepartureAndOneArrival() const & noexcept;
 
+    /**
+     * @brief set the player on the departure cell if it exists
+     */
+    void setPlayerOnDepartureCell() const & noexcept;
+
 private:
 
     static constexpr unsigned short CELLS_PER_FLOOR {256};
