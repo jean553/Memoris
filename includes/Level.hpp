@@ -418,9 +418,11 @@ public:
     const bool hasOneDepartureAndOneArrival() const & noexcept;
 
     /**
-     * @brief set the player on the departure cell if it exists
+     * @brief set the player on the departure cell if it exists; counts the
+     * total amount of stars on the level; this method is used by the game
+     * controller in order to initialize a level that is edited
      */
-    void setPlayerOnDepartureCell() const & noexcept;
+    void initializeEditedLevel() const & noexcept;
 
 private:
 

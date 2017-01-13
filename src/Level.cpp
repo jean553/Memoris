@@ -699,27 +699,41 @@ const bool Level::hasOneDepartureAndOneArrival() const & noexcept
 /**
  *
  */
-void Level::setPlayerOnDepartureCell() const & noexcept
+void Level::initializeEditedLevel() const & noexcept
 {
+    using CellsIterator =
+        std::vector<std::unique_ptr<entities::Cell>>::const_iterator;
+
     auto& cells = impl->cells;
-    auto iterator = std::find_if(
-        cells.begin(),
-        cells.end(),
-        [](const auto& cell)
-        {
-            return cell->getType() == cells::DEPARTURE_CELL;
-        }
-    );
 
-    if (iterator == cells.end())
+    for (
+        CellsIterator iterator = cells.cbegin();
+        iterator != cells.cend();
+        ++iterator
+    )
     {
-        return;
-    }
+        switch((*iterator)->getType())
+        {
+        case cells::DEPARTURE_CELL:
+        {
+            impl->playerIndex = std::distance(
+                cells.cbegin(),
+                iterator
+            );
 
-    impl->playerIndex = std::distance(
-        cells.begin(),
-        iterator
-    );
+            break;
+        }
+        case cells::STAR_CELL:
+        {
+            impl->starsAmount++;
+
+            break;
+        }
+        default:
+        {
+        }
+        }
+    }
 }
 
 }
