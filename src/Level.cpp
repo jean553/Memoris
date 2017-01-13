@@ -704,6 +704,9 @@ void Level::initializeEditedLevel() const & noexcept
     using CellsIterator =
         std::vector<std::unique_ptr<entities::Cell>>::const_iterator;
 
+    auto& starsAmount = impl->starsAmount;
+    starsAmount = 0;
+
     auto& cells = impl->cells;
 
     for (
@@ -725,7 +728,7 @@ void Level::initializeEditedLevel() const & noexcept
         }
         case cells::STAR_CELL:
         {
-            impl->starsAmount++;
+            starsAmount++;
 
             break;
         }
