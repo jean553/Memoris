@@ -736,5 +736,41 @@ void Level::initializeEditedLevel() const & noexcept
     }
 }
 
+/**
+ *
+ */
+const std::vector<char> Level::getCharactersList() const & noexcept
+{
+    std::vector<char> characters;
+
+    const auto& cells = impl->cells;
+    for (const auto& cell : cells)
+    {
+        characters.push_back(cell->getType());
+    }
+
+    return characters;
+}
+
+/**
+ *
+ */
+void Level::setCellsFromCharactersList(const std::vector<char>& characters)
+    const &
+{
+    unsigned short index {0};
+
+    auto& cells = impl->cells;
+    std::for_each(
+        characters.cbegin(),
+        characters.cend(),
+        [&index, &cells](const char& character)
+        {
+            cells[index]->setType(character);
+            index++;
+        }
+    );
+}
+
 }
 }

@@ -40,6 +40,8 @@ public:
     std::string levelName;
 
     Level level {nullptr};
+
+    std::vector<char> cells;
 };
 
 /**
@@ -95,6 +97,23 @@ const EditingLevelManager::Level& EditingLevelManager::getLevel()
 void EditingLevelManager::refreshLevel() const & noexcept
 {
     impl->level.reset();
+}
+
+/**
+ *
+ */
+void EditingLevelManager::setCellsBackup(const std::vector<char>& cells)
+    const & noexcept
+{
+    impl->cells = cells;
+}
+
+/**
+ *
+ */
+const std::vector<char>& EditingLevelManager::getCellsBackup() const & noexcept
+{
+    return impl->cells;
 }
 
 }
