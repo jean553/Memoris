@@ -136,10 +136,13 @@ std::unique_ptr<Controller> getControllerById(
 
         if (editedLevel != nullptr)
         {
+            const auto& playingTime =
+                context.getPlayingSerieManager().getPlayingTime();
+
             return std::make_unique<LevelEditorController>(
                 context,
                 editedLevel,
-                true // display the tested time
+                static_cast<bool>(playingTime)
             );
         }
 
