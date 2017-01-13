@@ -75,9 +75,9 @@ public:
 
 private:
 
-    static constexpr const char* TUTORIAL {"tutorial"};
     static constexpr const char* EASY {"easy"};
     static constexpr const char* MEDIUM {"medium"};
+    static constexpr const char* DIFFICULT {"difficult"};
 
     /**
      * @brief defines what happens when a menu item is selected
