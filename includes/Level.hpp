@@ -424,6 +424,25 @@ public:
      */
     void initializeEditedLevel() const & noexcept;
 
+    /**
+     * @brief creates and returns an array of characters representing the level
+     *
+     * @return const std::vector<char>
+     *
+     * the returned value is directly created into the method, so the function
+     * does not return a reference
+     */
+    const std::vector<char> getCharactersList() const & noexcept;
+
+    /**
+     * @brief update the cells of the level according to a given list
+     * of characters
+     *
+     * @param characters array of characters
+     */
+    void setCellsFromCharactersList(const std::vector<char>& characters)
+        const &;
+
 private:
 
     static constexpr unsigned short CELLS_PER_FLOOR {256};

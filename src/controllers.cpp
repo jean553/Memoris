@@ -139,6 +139,12 @@ std::unique_ptr<Controller> getControllerById(
             const auto& playingTime =
                 context.getPlayingSerieManager().getPlayingTime();
 
+            const auto& levelManager = context.getEditingLevelManager();
+
+            editedLevel->setCellsFromCharactersList(
+                levelManager.getCellsBackup()
+            );
+
             return std::make_unique<LevelEditorController>(
                 context,
                 editedLevel,

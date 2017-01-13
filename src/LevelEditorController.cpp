@@ -429,7 +429,11 @@ const unsigned short& LevelEditorController::render(
 
                 expectedControllerId = GAME_CONTROLLER_ID;
 
-                levelManager.setLevel(impl->level);
+                auto& level = impl->level;
+                levelManager.setLevel(level);
+                levelManager.setCellsBackup(
+                    level->getCharactersList()
+                );
 
                 context.getPlayingSerieManager().reinitialize();
 

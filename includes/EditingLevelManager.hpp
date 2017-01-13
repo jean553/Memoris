@@ -28,6 +28,7 @@
 #define MEMORIS_EDITINGLEVELMANAGER_H_
 
 #include <memory>
+#include <vector>
 
 namespace memoris
 {
@@ -99,6 +100,21 @@ public:
      * a tested level is finished
      */
     void refreshLevel() const & noexcept;
+
+    /**
+     * @brief make a copy of an array of cells (used after level test in order
+     * to restablish initial level)
+     *
+     * @param cells array of characters (list of cells types)
+     */
+    void setCellsBackup(const std::vector<char>& cells) const & noexcept;
+
+    /**
+     * @brief returns a list of characters representing each level cell
+     *
+     * @return const std::vector<char>&
+     */
+    const std::vector<char>& getCellsBackup() const & noexcept;
 
 private:
 
