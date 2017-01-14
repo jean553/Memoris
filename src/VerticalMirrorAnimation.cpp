@@ -209,7 +209,11 @@ void VerticalMirrorAnimation::invertSides(
             updatedPlayerIndex = index;
         }
 
-        if (index != 0 && index % CELLS_PER_LINE == 0)
+        constexpr unsigned short CELLS_PER_LINE_OFFSET {7};
+        if (
+            index and
+            (index - CELLS_PER_LINE_OFFSET) % CELLS_PER_LINE_PER_SIDE == 0
+        )
         {
             line++;
         }
