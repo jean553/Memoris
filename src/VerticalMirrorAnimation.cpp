@@ -147,7 +147,10 @@ void VerticalMirrorAnimation::invertSides(
 ) &
 {
     const unsigned short firstIndex = floor * CELLS_PER_FLOOR;
-    const unsigned short lastIndex = firstIndex + LEFT_SIDE_LAST_CELL_INDEX;
+
+    constexpr unsigned short LAST_FLOOR_CELL_INDEX {255};
+    const unsigned short lastIndex = firstIndex + LAST_FLOOR_CELL_INDEX;
+
     const unsigned short previousPlayerCell = level->getPlayerCellIndex();
 
     unsigned short line {0};
