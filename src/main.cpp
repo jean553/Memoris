@@ -39,20 +39,19 @@ int main()
     unsigned short currentControllerId {controllers::MAIN_MENU_CONTROLLER_ID},
              nextControllerId {0};
 
-    std::string currentMusicPath =
-        musics::getMusicPathById(currentControllerId),
-        nextMusicPath;
-
     utils::Context context;
+
+    auto currentMusicPath = musics::getMusicPathById(currentControllerId);
     context.loadMusicFile(currentMusicPath);
 
     do
     {
+        /* get a std::unique_ptr<controllers::Controller> */
         auto pCurrentController =
             controllers::getControllerById(
                 context,
                 currentControllerId
-            ); // auto -> std::unique_ptr<controllers::Controller>
+            );
 
         do
         {
@@ -68,18 +67,15 @@ int main()
 
             context.getSfmlWindow().display();
         }
-        while (!nextControllerId);
+        while (not nextControllerId);
 
         if (currentControllerId == controllers::EXIT)
         {
             continue;
         }
 
-        nextMusicPath =
-            musics::getMusicPathById(nextControllerId);
+        std::string nextMusicPath {musics::getMusicPathById(nextControllerId)};
 
-        /* does not reload a different music when go from one game controller
-           to another one */
         if(
             currentMusicPath != nextMusicPath and
             currentControllerId != nextControllerId
