@@ -18,8 +18,7 @@
 
 /**
  * @file Context.hpp
- * @brief class for the unique context object of the program, contains data
- * supposed to be transfered from one controller to another
+ * @brief unique context, forwarded from one controller to another one
  * @package utils
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -67,23 +66,17 @@ class Context : public utils::NotCopiable
 public:
 
     /**
-     * @brief constructor, create and set the SFML window, initializes the
-     * resources managers
+     * @brief constructor
      *
      * @throw std::invalid_argument a texture resource or a font resource
-     * cannot be loaded correctly; the exception is never caught in order to
-     * stop the program
+     * cannot be loaded; the exception is never caught in order to finish
      */
     Context();
 
     /**
-     * @brief default destructor, empty, declared in order to use the
-     * forwarding declaration
+     * @brief default destructor to use declaration forwarding
      */
-    ~Context() noexcept;
-
-    /* getters of the resources managers; they all return constant references,
-       the managers are never directly modified by the controllers */
+    ~Context();
 
     /**
      * @brief getter of the textures manager
@@ -134,9 +127,7 @@ public:
      *
      * @return manager::PlayingSerieManager&
      *
-     * do not return a constant reference, the manager is modified when
-     * a new serie is loaded by OfficialSeriesMenuController when calling
-     * loadSerieFileContent()
+     * the manager is modified when calling loadSerieFileContent()
      */
     managers::PlayingSerieManager& getPlayingSerieManager() const & noexcept;
 
@@ -145,8 +136,7 @@ public:
      *
      * @return manager::EditingLevelManager&
      *
-     * do not return a constant reference, the manager attributes are modified
-     * when a level file is opened from the editing level controller
+     * the manager is modified when a level is loaded into the level editor
      */
     managers::EditingLevelManager& getEditingLevelManager() const & noexcept;
 
@@ -161,26 +151,15 @@ public:
      */
     sf::RenderWindow& getSfmlWindow() const & noexcept;
 
-    /* method to get SFML time; return a copy of the concerned value */
-
     /**
-     * @brief return the elapsed time in milliseconds since
-     * the clock started or restarted; returns a SFML integer
-     * type for 32 bits integer; the maximum value is equivalent
-     * to 49 days; we can considere that this "case won't never
-     * happen"
+     * @brief return the elapsed time (milliseconds) since the clock started
+     * or restarted (maximum value is 49 days, this behavior is undefined)
      *
      * @return const sf::Int32
      *
-     * do not return a reference because returns a temporary value from the
-     * SFML function getElapsedTime().asMilliseconds()
-     *
-     * no 'noexcept' because the method calls other functions that are not
-     * declared as noexcept
+     * some called SFML functions are not noexcept
      */
     const sf::Int32 getClockMillisecondsTime() const &;
-
-    /* public methods that affect the current object instance */
 
     /**
      * @brief load a new music file and play it,
@@ -188,16 +167,14 @@ public:
      *
      * @param path file path of the music to play
      *
-     * no 'noexcept' because the method calls other functions that are not
-     * declared as noexcept
+     * some called SFML functions are not noexcept
      */
     void loadMusicFile(const std::string& path) const &;
 
     /**
-     * @brief check if a music is playing, if yes, stop it
+     * @brief stop the playing music
      *
-     * no 'noexcept' because the method calls other functions that are not
-     * declared as noexcept
+     * some called SFML functions are not noexcept
      */
     void stopMusic() const &;
 
@@ -206,8 +183,7 @@ public:
      * everytime the screen is switched from one controller
      * to another
      *
-     * no 'noexcept' because the method calls other functions that are not
-     * declared as noexcept
+     * some called SFML functions are not noexcept
      */
     void restartClock() const &;
 

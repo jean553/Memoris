@@ -91,18 +91,17 @@ public:
  */
 Context::Context() : impl(std::make_unique<Impl>())
 {
-    /* when the window is opened, the default SFML cursor is not displayed */
     impl->sfmlWindow.setMouseCursorVisible(false);
 
     /* prevent the user to keep a key pressed down: the events are only
-       triggered one time during the first press down and not continually */
+       triggered one time during the first press down and not continuously */
     impl->sfmlWindow.setKeyRepeatEnabled(false);
 }
 
 /**
  *
  */
-Context::~Context() noexcept = default;
+Context::~Context() = default;
 
 /**
  *
