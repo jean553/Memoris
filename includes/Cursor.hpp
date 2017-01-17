@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,12 +26,16 @@
 #ifndef MEMORIS_CURSOR_H_
 #define MEMORIS_CURSOR_H_
 
-#include "Context.hpp"
-
-#include <SFML/Graphics/Sprite.hpp>
+#include <memory>
 
 namespace memoris
 {
+
+namespace utils
+{
+class Context;
+}
+
 namespace widgets
 {
 
@@ -41,11 +45,17 @@ class Cursor
 public:
 
     /**
-     * @brief constructor, initialize the SFML sprite
+     * @brief constructor, initializes the implementation
      *
-     * @param context reference to the current context
+     * @param context constant reference to the current context
      */
     Cursor(const utils::Context& context);
+
+    /**
+     * @brief default destructor, empty, only declared in order to use
+     * forwarding declaration
+     */
+    ~Cursor() noexcept;
 
     /**
      * @brief render the cursor on the screen
@@ -56,11 +66,17 @@ public:
 
 private:
 
-    /* the SFML sprite that contains the cursor arrow */
-    sf::Sprite sprite;
+    /**
+     * @brief updates position of the cursor SFML surface according to the
+     * real cursor position; this function has been created for organization
+     * purposes as it is called from two different locations in the code
+     *
+     * not noexcept because it calls SFML functions that are not noexcept
+     */
+    void updateCursorPosition() const &;
 
-    /* used for timing in cursor movement */
-    sf::Uint32 lastCursorPositionUpdateTime {0};
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }

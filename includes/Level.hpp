@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -57,20 +57,24 @@ public:
     static constexpr unsigned short MAX_FLOOR {9};
 
     /**
-     * @brief constructor, initialize all the cells of the level according to
-     * the given level file path
+     * @brief constructor that initializes a level full of wall cells
      *
-     * @param context reference to the current context
-     * @param loadFromFile boolean false by default to indicate that the
-     * level content has to be loaded from the next file in the serie
-     * manager levels queue (false by default for safety). If the boolean is
-     * false, the level is empty
+     * @param context constant reference to the current context
+     */
+    Level(const utils::Context& context);
+
+    /**
+     * @brief constructor that initializes a level from a specific file
+     *
+     * @param context constant reference to the current context
+     * @param fileName constant reference to a string that contains the file
+     * name
      *
      * @throw std::invalid_argument the level file cannot be opened
      */
     Level(
         const utils::Context& context,
-        const bool loadFromFile = false
+        const std::string& fileName
     );
 
     /**
@@ -361,7 +365,7 @@ public:
     );
 
     /**
-     * @brief refresh all the cells and reset them to empty cells
+     * @brief refresh all the cells and reset them to wall cells
      *
      * @param context reference to the current context to use
      *
@@ -391,31 +395,65 @@ public:
      */
     const float& getPlayerCellVerticalPosition() const & noexcept;
 
+    /**
+     * @brief show all the cells (this is used by the level editor, just
+     * after a level has been tested; in fact, the level object is the same,
+     * so some cells have been hidden during the game)
+     *
+     * @param context constant reference to the current context to use
+     *
+     * not noexcept because it calls SFML functions that are not noexcept
+     */
+    void showAllCells(const utils::Context& context) const &;
+
+    /**
+     * @brief checks if the level has exactly one departure and one arrival;
+     * this method is used to check if the level can be tested in the
+     * level editor
+     *
+     * @return const bool
+     *
+     * the returned value is directly created into the method
+     */
+    const bool hasOneDepartureAndOneArrival() const & noexcept;
+
+    /**
+     * @brief set the player on the departure cell if it exists; counts the
+     * total amount of stars on the level; this method is used by the game
+     * controller in order to initialize a level that is edited
+     */
+    void initializeEditedLevel() const & noexcept;
+
+    /**
+     * @brief creates and returns an array of characters representing the level
+     *
+     * @return const std::vector<char>
+     *
+     * the returned value is directly created into the method, so the function
+     * does not return a reference
+     */
+    const std::vector<char> getCharactersList() const & noexcept;
+
+    /**
+     * @brief update the cells of the level according to a given list
+     * of characters
+     *
+     * @param characters array of characters
+     */
+    void setCellsFromCharactersList(const std::vector<char>& characters)
+        const &;
+
 private:
 
-    /**
-     * @brief private method called by the constructor to load a level from
-     * the next file in the serie manager queue
-     *
-     * @param context reference to the current context
-     *
-     * @throw std::invalid_argument the level file cannot be opened
-     */
-    void loadLevelFromFile(const utils::Context& context);
-
-    /**
-     * @brief private method called by the constructor to load a level full
-     * of empty cells
-     *
-     * @param context reference to the current context
-     */
-    void loadEmptyLevel(const utils::Context& context);
+    static constexpr unsigned short CELLS_PER_FLOOR {256};
+    static constexpr unsigned short CELLS_PER_LINE {16};
+    static constexpr unsigned short CELLS_PER_LEVEL {2560};
 
     /**
      * @brief called by the constructor to update the cursor position during
      * the level creation
      */
-    void updateCursors();
+    void updateCursors() const & noexcept;
 
     class Impl;
     std::unique_ptr<Impl> impl;

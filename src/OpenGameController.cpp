@@ -1,6 +1,6 @@
 /**
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,6 +32,7 @@
 #include "SelectionListWidget.hpp"
 #include "Cursor.hpp"
 #include "DirectoryReader.hpp"
+#include "Game.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -89,7 +90,9 @@ OpenGameController::~OpenGameController() noexcept = default;
 /**
  *
  */
-const unsigned short& OpenGameController::render(const utils::Context& context) &
+const unsigned short& OpenGameController::render(
+    const utils::Context& context
+) &
 {
     context.getSfmlWindow().draw(impl->title);
 
@@ -117,6 +120,27 @@ const unsigned short& OpenGameController::render(const utils::Context& context) 
             {
             }
             }
+
+            break;
+        }
+        case sf::Event::MouseButtonPressed:
+        {
+            // const widgets::SelectionListWidget&
+            const auto& list = impl->list;
+            std::string gameName = list.getCurrentItem();
+
+            if (!gameName.empty())
+            {
+                context.getGame().createGame(gameName);
+
+                expectedControllerId = SERIE_MAIN_MENU_CONTROLLER_ID;
+
+                break;
+            }
+
+            list.updateList();
+
+            break;
         }
         default:
         {

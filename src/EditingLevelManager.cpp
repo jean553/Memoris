@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@
  */
 
 #include "EditingLevelManager.hpp"
+#include "Level.hpp"
 
 #include <string>
 
@@ -37,6 +38,10 @@ class EditingLevelManager::Impl
 public:
 
     std::string levelName;
+
+    Level level {nullptr};
+
+    std::vector<char> cells;
 };
 
 /**
@@ -55,7 +60,7 @@ EditingLevelManager::~EditingLevelManager() noexcept = default;
 /**
  *
  */
-void EditingLevelManager::setLevelName(const std::string& name) &
+void EditingLevelManager::setLevelName(const std::string& name) const &
 {
     impl->levelName = name;
 }
@@ -66,6 +71,49 @@ void EditingLevelManager::setLevelName(const std::string& name) &
 const std::string& EditingLevelManager::getLevelName() const & noexcept
 {
     return impl->levelName;
+}
+
+/**
+ *
+ */
+void EditingLevelManager::setLevel(const Level& levelPointer)
+    const & noexcept
+{
+    impl->level = levelPointer;
+}
+
+/**
+ *
+ */
+const EditingLevelManager::Level& EditingLevelManager::getLevel()
+    const & noexcept
+{
+    return impl->level;
+}
+
+/**
+ *
+ */
+void EditingLevelManager::refreshLevel() const & noexcept
+{
+    impl->level.reset();
+}
+
+/**
+ *
+ */
+void EditingLevelManager::setCellsBackup(const std::vector<char>& cells)
+    const & noexcept
+{
+    impl->cells = cells;
+}
+
+/**
+ *
+ */
+const std::vector<char>& EditingLevelManager::getCellsBackup() const & noexcept
+{
+    return impl->cells;
 }
 
 }

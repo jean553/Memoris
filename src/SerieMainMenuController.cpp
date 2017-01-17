@@ -1,6 +1,6 @@
 /**
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,6 +30,7 @@
 #include "ColorsManager.hpp"
 #include "MenuItem.hpp"
 #include "window.hpp"
+#include "Game.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -54,9 +55,22 @@ public:
             window::getCenteredSfmlSurfaceHorizontalPosition(title),
             50.f
         );
+
+        gameName.setFont(context.getFontsManager().getTextFont());
+        gameName.setString(context.getGame().getName());
+        gameName.setCharacterSize(memoris::fonts::TEXT_SIZE);
+        gameName.setColor(context.getColorsManager().getColorLightBlue());
+        gameName.setPosition(
+            window::WIDTH - gameName.getLocalBounds().width -
+                GAME_NAME_RIGHT_PADDING,
+            810.f
+        );
     }
 
+    static constexpr float GAME_NAME_RIGHT_PADDING {20.f};
+
     sf::Text title;
+    sf::Text gameName;
 };
 
 /**
@@ -80,7 +94,7 @@ SerieMainMenuController::SerieMainMenuController(
         std::make_unique<items::MenuItem>(
             context,
             "Personal series",
-            470.f
+            350.f
         )
     );
 
@@ -88,7 +102,16 @@ SerieMainMenuController::SerieMainMenuController(
         std::make_unique<items::MenuItem>(
             context,
             "Back",
-            800.f
+            650.f
+        )
+    );
+
+    std::unique_ptr<items::MenuItem> remove(
+        std::make_unique<items::MenuItem>(
+            context,
+            "Remove",
+            810.f,
+            items::MenuItem::HorizontalPosition::Left
         )
     );
 
@@ -97,6 +120,7 @@ SerieMainMenuController::SerieMainMenuController(
     addMenuItem(std::move(officialSeries));
     addMenuItem(std::move(personalSeries));
     addMenuItem(std::move(back));
+    addMenuItem(std::move(remove));
 }
 
 /**
@@ -114,6 +138,8 @@ const unsigned short& SerieMainMenuController::render(
     context.getSfmlWindow().draw(impl->title);
 
     renderAllMenuItems(context);
+
+    context.getSfmlWindow().draw(impl->gameName);
 
     nextControllerId = animateScreenTransition(context);
 
@@ -178,9 +204,21 @@ void SerieMainMenuController::selectMenuItem() & noexcept
 
         break;
     }
+    case 1:
+    {
+        expectedControllerId = PERSONAL_SERIES_MENU_CONTROLLER_ID;
+
+        break;
+    }
     case 2:
     {
         expectedControllerId = MAIN_MENU_CONTROLLER_ID;
+
+        break;
+    }
+    case 3:
+    {
+        expectedControllerId = REMOVE_GAME_CONTROLLER_ID;
 
         break;
     }

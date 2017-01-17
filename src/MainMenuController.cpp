@@ -1,6 +1,6 @@
 /**
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -95,7 +95,7 @@ MainMenuController::MainMenuController(const utils::Context& context) :
         std::make_unique<items::MenuItem>(
             context,
             "New game",
-            300.f
+            320.f
         )
     );
 
@@ -103,7 +103,7 @@ MainMenuController::MainMenuController(const utils::Context& context) :
         std::make_unique<items::MenuItem>(
             context,
             "Load game",
-            400.f
+            450.f
         )
     );
 
@@ -111,15 +111,7 @@ MainMenuController::MainMenuController(const utils::Context& context) :
         std::make_unique<items::MenuItem>(
             context,
             "Editor",
-            500.f
-        )
-    );
-
-    std::unique_ptr<items::MenuItem> options(
-        std::make_unique<items::MenuItem>(
-            context,
-            "Options",
-            600.f
+            580.f
         )
     );
 
@@ -127,7 +119,7 @@ MainMenuController::MainMenuController(const utils::Context& context) :
         std::make_unique<items::MenuItem>(
             context,
             "Exit",
-            700.f
+            710.f
         )
     );
 
@@ -136,7 +128,6 @@ MainMenuController::MainMenuController(const utils::Context& context) :
     addMenuItem(std::move(newGame));
     addMenuItem(std::move(loadGame));
     addMenuItem(std::move(editor));
-    addMenuItem(std::move(options));
     addMenuItem(std::move(exit));
 
     impl->spriteGithub.setTexture(

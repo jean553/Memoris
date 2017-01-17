@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,15 +24,21 @@
 
 #include "PlayingSerieManager.hpp"
 
+#include "SerieResult.hpp"
+
+#include <SFML/System/String.hpp>
+
 #include <fstream>
 #include <stdexcept>
-#include <string>
 #include <queue>
+#include <array>
 
 namespace memoris
 {
 namespace managers
 {
+
+constexpr unsigned short PlayingSerieManager::SECONDS_IN_ONE_MINUTE;
 
 class PlayingSerieManager::Impl
 {
@@ -45,24 +51,22 @@ public:
        container is directly optimized for that kind of operations */
     std::queue<std::string> levels;
 
-    /* current watching time that will be given for the next level; this time
-       is the watching time *per floor*; this value is set to 6 by default
-       all the time when a serie starts; we set it here because this value
-       has to be transferred from one level to another */
-    unsigned short watchingTime {6};
-
-    /* the name of the loaded serie */
-    std::string serieName;
-
-    /* the index of the current playing level */
+    unsigned short watchingTime {DEFAULT_WATCHING_TIME};
+    unsigned short lifes {DEFAULT_LIFES};
+    unsigned short totalSeriePlayingTime {DEFAULT_SERIE_PLAYING_TIME};
     unsigned short levelIndex {0};
+
+    std::string serieName;
+    std::string serieType {OFFICIALS_SERIE_DIRECTORY_NAME};
+
+    std::array<entities::SerieResult, RESULTS_PER_SERIE_FILE_AMOUNT> results;
 };
 
 /**
  *
  */
 PlayingSerieManager::PlayingSerieManager() noexcept :
-impl(std::make_unique<Impl>())
+    impl(std::make_unique<Impl>())
 {
 }
 
@@ -115,7 +119,7 @@ const std::string PlayingSerieManager::getNextLevelName() & noexcept
 /**
  *
  */
-void PlayingSerieManager::setWatchingTime(const unsigned short& time) &
+void PlayingSerieManager::setWatchingTime(const unsigned short& time) const &
 noexcept
 {
     impl->watchingTime = time;
@@ -126,11 +130,12 @@ noexcept
  */
 void PlayingSerieManager::loadSerieFileContent(const std::string& name) &
 {
-    /* clear the queue */
+    /* clear the queue containing the levels of the previous serie */
     impl->levels = std::queue<std::string>();
 
     impl->levelIndex = 0;
 
+    /* the name parameter is in the [personals|officials]/name format */
     std::ifstream file("data/series/" + name + ".serie");
     if (!file.is_open())
     {
@@ -143,10 +148,29 @@ void PlayingSerieManager::loadSerieFileContent(const std::string& name) &
         throw std::invalid_argument("Cannot open the given serie file.");
     }
 
-    /* string buffer */
+    /* get the best results of the serie first */
+    for (entities::SerieResult& result : impl->results)
+    {
+        std::string& line = result.getString();
+
+        std::getline(file, line);
+
+        /* if the line is just a dot that means there is no record yet */
+        if (line == ".")
+        {
+            continue;
+        }
+
+        /* generates the total time of the SerieResult
+           object in integer format; not done directly
+           into a setter as we do not use setter to
+           set the std::string record attribute of the
+           SerieResult objects */
+        result.calculateTime();
+    }
+
     std::string level;
 
-    /* read the file one by one and add the levels names into the queue */
     while(std::getline(file, level))
     {
         impl->levels.push(level);
@@ -154,8 +178,7 @@ void PlayingSerieManager::loadSerieFileContent(const std::string& name) &
 
     impl->serieName = name;
 
-    /* this is useless to close the std::ifstream object, it is automatically
-       destroyed when the object goes out of the scope */
+    /* std::ifstream object is automatically closed at the end of the scope */
 }
 
 /**
@@ -180,6 +203,119 @@ const unsigned short& PlayingSerieManager::getLevelIndex() const & noexcept
 void PlayingSerieManager::incrementLevelIndex() const & noexcept
 {
     impl->levelIndex++;
+}
+
+/**
+ *
+ */
+void PlayingSerieManager::setLifesAmount(const unsigned short& lifes) const &
+    noexcept
+{
+    impl->lifes = lifes;
+}
+
+/**
+ *
+ */
+const unsigned short& PlayingSerieManager::getLifesAmount() const & noexcept
+{
+    return impl->lifes;
+}
+
+/**
+ *
+ */
+const unsigned short& PlayingSerieManager::getPlayingTime() const & noexcept
+{
+    return impl->totalSeriePlayingTime;
+}
+
+/**
+ *
+ */
+const PlayingSerieManager::Results& PlayingSerieManager::getResults() const &
+    noexcept
+{
+    return impl->results;
+}
+
+/**
+ *
+ */
+void PlayingSerieManager::setIsOfficialSerie(const bool& official) const &
+    noexcept
+{
+    auto& serieType = impl->serieType;
+
+    if (official)
+    {
+        serieType = OFFICIALS_SERIE_DIRECTORY_NAME;
+
+        return;
+    }
+
+    serieType = PERSONALS_SERIE_DIRECTORY_NAME;
+}
+
+/**
+ *
+ */
+const std::string& PlayingSerieManager::getSerieType() const & noexcept
+{
+    return impl->serieType;
+}
+
+/**
+ *
+ */
+void PlayingSerieManager::reinitialize() const & noexcept
+{
+    impl->watchingTime = DEFAULT_WATCHING_TIME;
+    impl->lifes = DEFAULT_LIFES;
+    impl->totalSeriePlayingTime = DEFAULT_SERIE_PLAYING_TIME;
+}
+
+/**
+ *
+ */
+const sf::String PlayingSerieManager::getPlayingTimeAsString() const &
+{
+    sf::String secondsString = fillMissingTimeDigits(
+        impl->totalSeriePlayingTime % SECONDS_IN_ONE_MINUTE
+    );
+
+    sf::String minutesString = fillMissingTimeDigits(
+        impl->totalSeriePlayingTime / SECONDS_IN_ONE_MINUTE
+    );
+
+    return minutesString + ":" + secondsString;
+}
+
+/**
+ *
+ */
+const sf::String PlayingSerieManager::fillMissingTimeDigits(
+    const unsigned short& numericValue
+) const &
+{
+    sf::String timeNumber = std::to_string(numericValue);
+
+    if (numericValue < 10)
+    {
+        timeNumber.insert(0, "0");
+    }
+
+    return timeNumber;
+}
+
+/**
+ *
+ */
+void PlayingSerieManager::addSecondsToPlayingSerieTime(
+    const unsigned short& levelPlayingTime
+) const & noexcept
+{
+    impl->totalSeriePlayingTime += levelPlayingTime;
 }
 
 }

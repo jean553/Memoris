@@ -1,6 +1,6 @@
 /**
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,12 +30,10 @@ namespace utils
 {
 
 /**
- *
+ * we separate the definition from the declaration; there
+ * is no other way to declare a default pure virtual destructor
  */
-NotCopiable::~NotCopiable()
-{
-    /* pure virtual destructor must be defined and empty */
-}
+NotCopiable::~NotCopiable() = default;
 
 }
 }

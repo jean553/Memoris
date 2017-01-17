@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,12 +45,15 @@ public:
     {
         menuBackground.setSize(
             sf::Vector2f(
-                620.f,
+                BACKGROUND_WIDTH,
                 window::HEIGHT
             )
         );
 
-        menuBackground.setPosition(480.f, 0);
+        menuBackground.setPosition(
+            BACKGROUND_HORIZONTAL_POSITION,
+            0.f
+        );
         menuBackground.setFillColor(
             context.getColorsManager().getColorBlack()
         );
@@ -58,6 +61,9 @@ public:
 
     sf::RectangleShape menuBackground;
 
+    /* we use pointers in order to accelerate the execution (no object copy);
+       we could have used move sementics, but SFML does not provides move
+       constructors for rectangle shapes */
     std::vector<std::unique_ptr<sf::RectangleShape>> sidesLines;
 };
 
@@ -102,21 +108,25 @@ void MenuGradient::initializeGradientRectangles(
 ) &
 {
     float horizontalPosition = LEFT_SIDE_HORIZONTAL_POSITION;
-
-    /* we make a copy of the black color in order to apply a different alpha
-       composant during each loop iteration */
     sf::Color effectColor = context.getColorsManager().getColorBlackCopy();
 
-    for (unsigned short index = SURFACES_AMOUNT; index > 0; index--)
+    for (
+        unsigned short index = SURFACES_AMOUNT;
+        index > 0;
+        index--
+    )
     {
         // auto -> std::unique_ptr<sf::RectangleShape>
         auto rectangle = std::make_unique<sf::RectangleShape>();
 
-        rectangle->setPosition(horizontalPosition, 0);
+        rectangle->setPosition(
+            horizontalPosition,
+            0.f
+        );
 
         rectangle->setSize(
             sf::Vector2f(
-                1,
+                1.f,
                 window::HEIGHT
             )
         );
@@ -135,7 +145,7 @@ void MenuGradient::initializeGradientRectangles(
         if (index == SIDE_SURFACES_AMOUNT)
         {
             horizontalPosition = RIGHT_SIDE_HORIZONTAL_POSITION;
-            effectColor.a = 255;
+            effectColor.a = DEFAULT_EFFECT_COLOR_ALPHA;
         }
 
         if (index % 2 == 0)

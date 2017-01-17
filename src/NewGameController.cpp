@@ -1,6 +1,6 @@
 /**
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,6 +30,7 @@
 #include "ColorsManager.hpp"
 #include "InputTextWidget.hpp"
 #include "window.hpp"
+#include "Game.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -120,8 +121,7 @@ const unsigned short& NewGameController::render(
             {
             case sf::Keyboard::Escape:
             {
-                expectedControllerId =
-                MAIN_MENU_CONTROLLER_ID;
+                expectedControllerId = MAIN_MENU_CONTROLLER_ID;
 
                 break;
             }
@@ -132,6 +132,10 @@ const unsigned short& NewGameController::render(
                 {
                     break;
                 }
+
+                context.getGame().createGame(
+                    impl->inputTextGameName.getText()
+                );
 
                 expectedControllerId = SERIE_MAIN_MENU_CONTROLLER_ID;
 

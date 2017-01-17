@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -55,7 +55,7 @@ StairsAnimation::StairsAnimation(
  */
 void StairsAnimation::renderAnimation(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) &
 {
@@ -86,7 +86,7 @@ void StairsAnimation::renderAnimation(
  */
 void StairsAnimation::playNextAnimationStep(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) &
 {

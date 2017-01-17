@@ -1,6 +1,6 @@
 /**
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,11 +32,18 @@
 
 namespace memoris
 {
+
+namespace entities
+{
+class Level;
+}
+
 namespace controllers
 {
 
 class LevelEditorController : public Controller
 {
+    using Level = std::shared_ptr<entities::Level>;
 
 public:
 
@@ -44,8 +51,17 @@ public:
      * @brief constructor, empty for now, just used to transfer parameter
      *
      * @param context reference to the current context
+     * @param level constant reference to the shared pointer that contains
+     * a level to use
+     * @param displayTime boolean that indicates if the tested time must
+     * be displayed; this boolean is false by default and true if the level
+     * has just been tested
      */
-    LevelEditorController(const utils::Context& context);
+    LevelEditorController(
+        const utils::Context& context,
+        const Level& level,
+        const bool& displayTime = false
+    );
 
     /**
      * @brief default destructor, empty, declared in order to use forwarding
@@ -67,48 +83,23 @@ public:
 
 private:
 
-    /**
-     * @brief true if the current displayed dialog window is the save level
-     * window; this function is declared to refactor common code that is
-     * called at different locations
-     *
-     * @return const bool
-     *
-     * do not return a reference, because directly return a boolean using
-     * the 'return' instruction
-     */
-    const bool saveDialogIsActive() const & noexcept;
+    static constexpr const char* UNNAMED_LEVEL {"unnamed"};
+    static constexpr const char* SAVE_LEVEL_NAME_MESSAGE {"Level name"};
+    static constexpr const char* ERASE_LEVEL_MESSAGE
+        {"Erase the current level ? y / n"};
 
-    /**
-     * @brief true if the current displayed dialog window is the new level
-     * window; this function is declared to refactor common code that is
-     * called at different locations
-     *
-     * @return const bool
-     *
-     * do not return a reference, because directly return a boolean using
-     * the 'return' instruction
-     */
-    const bool newDialogIsActive() const & noexcept;
+    static constexpr float CELLS_DEFAULT_TRANSPARENCY {255.f};
+    static constexpr float TITLES_HORIZONTAL_POSITION {1200.f};
 
-    /**
-     * @brief delete the displayed active dialog window; this function checks
-     * first if a dialog window is currently displayed; this function is
-     * declared for refactoring purposes
-     *
-     * not constant because it modifies the dialog pointer
-     */
-    void deleteActiveDialog() & noexcept;
+    static constexpr unsigned short FIRST_FLOOR_INDEX {0};
 
     /**
      * @brief update the level name surface position; the position of this
      * surface is calculated according to its width
      *
-     * not constant because it modifies the level name surface position
-     *
      * not 'noexcept' because it calls SFML functions that are not noexcept
      */
-    void updateLevelNameSurfacePosition() &;
+    void updateLevelNameSurfacePosition() const &;
 
     /**
      * @brief save the current level cells type into a level file, creates a
@@ -124,6 +115,20 @@ private:
     void saveLevelFile(
         const std::string& name,
         aliases::ConstUniquePtrCellsContainerRef cells
+    ) const &;
+
+    /**
+     * @brief updates the name of the level in the editing level context
+     * manager and also updates the level name surface in the level editor
+     *
+     * @param context constant reference to the current context to use
+     * @param levelName constant reference to the actuel level name
+     *
+     * not 'noexcept' because it calls SFML functions that are not noexcept
+     */
+    void changeLevelName(
+        const utils::Context& context,
+        const std::string& levelName
     ) const &;
 
     class Impl;

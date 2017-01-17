@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ namespace animations
  */
 void DiagonalAnimation::renderAnimation(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) &
 {
@@ -75,7 +75,7 @@ void DiagonalAnimation::renderAnimation(
  */
 void DiagonalAnimation::playNextAnimationStep(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) &
 {
@@ -144,7 +144,7 @@ void DiagonalAnimation::playNextAnimationStep(
  */
 void DiagonalAnimation::displayLevelAndSeparator(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) &
 {
@@ -167,7 +167,7 @@ void DiagonalAnimation::displayLevelAndSeparator(
  */
 void DiagonalAnimation::applyPurpleColorOnCellsQuarters(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor,
     const sf::Color& color
 ) &
@@ -218,7 +218,7 @@ void DiagonalAnimation::applyPurpleColorOnCellsQuarters(
  */
 void DiagonalAnimation::invertTopLeftWithBottomRight(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) &
 {
@@ -248,7 +248,7 @@ void DiagonalAnimation::invertTopLeftWithBottomRight(
  */
 void DiagonalAnimation::invertBottomLeftWithTopRight(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) &
 {
@@ -278,7 +278,7 @@ void DiagonalAnimation::invertBottomLeftWithTopRight(
  */
 void DiagonalAnimation::invertCells(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& source,
     const short& difference
 ) &

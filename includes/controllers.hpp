@@ -1,6 +1,6 @@
 /**
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,21 +40,25 @@ namespace controllers
 /* all the controllers ids */
 
 /* TODO: #875 no need to store integers here, try to use an enumeration ? */
-constexpr unsigned short EXIT = 1;
-constexpr unsigned short MAIN_MENU_CONTROLLER_ID = 2;
-constexpr unsigned short NEW_GAME_CONTROLLER_ID = 3;
-constexpr unsigned short GAME_CONTROLLER_ID = 4;
-constexpr unsigned short SERIE_MAIN_MENU_CONTROLLER_ID = 5;
-constexpr unsigned short OFFICIAL_SERIES_MENU_CONTROLLER_ID = 6;
-constexpr unsigned short EDITOR_MENU_CONTROLLER_ID = 8;
-constexpr unsigned short LEVEL_EDITOR_CONTROLLER_ID = 9;
-constexpr unsigned short OPEN_LEVEL_CONTROLLER_ID = 10;
-constexpr unsigned short OPEN_GAME_CONTROLLER_ID = 11;
-constexpr unsigned short SERIE_EDITOR_CONTROLLER_ID = 12;
+constexpr unsigned short EXIT {1};
+constexpr unsigned short MAIN_MENU_CONTROLLER_ID {2};
+constexpr unsigned short NEW_GAME_CONTROLLER_ID {3};
+constexpr unsigned short GAME_CONTROLLER_ID {4};
+constexpr unsigned short SERIE_MAIN_MENU_CONTROLLER_ID {5};
+constexpr unsigned short OFFICIAL_SERIES_MENU_CONTROLLER_ID {6};
+constexpr unsigned short EDITOR_MENU_CONTROLLER_ID {8};
+constexpr unsigned short LEVEL_EDITOR_CONTROLLER_ID {9};
+constexpr unsigned short OPEN_GAME_CONTROLLER_ID {11};
+constexpr unsigned short SERIE_EDITOR_CONTROLLER_ID {12};
 
 /* TODO: #894 delete this id when each error controller has his own message */
-constexpr unsigned short ERROR_CONTROLLER_ID = 7;
-constexpr unsigned short UNLOCKED_SERIE_ERROR_CONTROLLER_ID = 13;
+constexpr unsigned short OPEN_FILE_ERROR_CONTROLLER_ID {7};
+constexpr unsigned short UNLOCKED_SERIE_ERROR_CONTROLLER_ID {13};
+
+constexpr unsigned short WIN_SERIE_CONTROLLER_ID {14};
+constexpr unsigned short REMOVE_GAME_CONTROLLER_ID {15};
+constexpr unsigned short PERSONAL_SERIES_MENU_CONTROLLER_ID {16};
+constexpr unsigned short RANKING_CONTROLLER_ID {17};
 
 /**
  * @brief factory method to create controllers by id, each controller is linked
@@ -84,6 +88,18 @@ std::unique_ptr<ErrorController> getErrorController(
     const utils::Context& context,
     const sf::String& message
 );
+
+/**
+ * @brief returns the full path of a level file, including the file extension
+ *
+ * @param levelName constant reference to the level name
+ * IMPORTANT: the level name format is [officials|personals]/name
+ *
+ * @return const std::string&
+ *
+ * returns by copy because directly returns the calculated result
+ */
+const std::string getLevelFilePath(const std::string& levelName);
 
 }
 }

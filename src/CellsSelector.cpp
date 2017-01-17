@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,7 +38,121 @@ class CellsSelector::Impl
 
 public:
 
-    Impl(const utils::Context& context)
+    Impl(const utils::Context& context) :
+        emptyCell(
+            context,
+            150.f,
+            98.f,
+            cells::EMPTY_CELL
+        ),
+        departureCell(
+            context,
+            150.f,
+            148.f,
+            cells::DEPARTURE_CELL
+        ),
+        arrivalCell(
+            context,
+            150.f,
+            198.f,
+            cells::ARRIVAL_CELL
+        ),
+        starCell(
+            context,
+            150.f,
+            248.f,
+            cells::STAR_CELL
+        ),
+        moreLifeCell(
+            context,
+            150.f,
+            298.f,
+            cells::MORE_LIFE_CELL
+        ),
+        lessLifeCell(
+            context,
+            150.f,
+            348.f,
+            cells::LESS_LIFE_CELL
+        ),
+        moreTimeCell(
+            context,
+            150.f,
+            398.f,
+            cells::MORE_TIME_CELL
+        ),
+        lessTimeCell(
+            context,
+            150.f,
+            448.f,
+            cells::LESS_TIME_CELL
+        ),
+        wallCell(
+            context,
+            150.f,
+            498.f,
+            cells::WALL_CELL
+        ),
+        stairsUpCell(
+            context,
+            150.f,
+            548.f,
+            cells::STAIRS_UP_CELL
+        ),
+        stairsDownCell(
+            context,
+            150.f,
+            598.f,
+            cells::STAIRS_DOWN_CELL
+        ),
+        horizontalMirrorCell(
+            context,
+            150.f,
+            648.f,
+            cells::HORIZONTAL_MIRROR_CELL
+        ),
+        verticalMirrorCell(
+            context,
+            150.f,
+            698.f,
+            cells::VERTICAL_MIRROR_CELL
+        ),
+        leftRotationCell(
+            context,
+            150.f,
+            748.f,
+            cells::LEFT_ROTATION_CELL
+        ),
+        rightRotationCell(
+            context,
+            150.f,
+            798.f,
+            cells::RIGHT_ROTATION_CELL
+        ),
+        elevatorUpCell(
+            context,
+            200.f,
+            98.f,
+            cells::ELEVATOR_UP_CELL
+        ),
+        elevatorDownCell(
+            context,
+            200.f,
+            148.f,
+            cells::ELEVATOR_DOWN_CELL
+        ),
+        diagonalCell(
+            context,
+            200.f,
+            198.f,
+            cells::DIAGONAL_CELL
+        ),
+        quarterRotationCell(
+            context,
+            200.f,
+            248.f,
+            cells::QUARTER_ROTATION_CELL
+        )
     {
         selectedCellImage.setTexture(
             context.getCellsTexturesManager().getTextureReferenceByCellType(
@@ -47,7 +161,25 @@ public:
         );
     }
 
-    std::vector<entities::Cell> cells;
+    entities::Cell emptyCell;
+    entities::Cell departureCell;
+    entities::Cell arrivalCell;
+    entities::Cell starCell;
+    entities::Cell moreLifeCell;
+    entities::Cell lessLifeCell;
+    entities::Cell moreTimeCell;
+    entities::Cell lessTimeCell;
+    entities::Cell wallCell;
+    entities::Cell stairsUpCell;
+    entities::Cell stairsDownCell;
+    entities::Cell horizontalMirrorCell;
+    entities::Cell verticalMirrorCell;
+    entities::Cell leftRotationCell;
+    entities::Cell rightRotationCell;
+    entities::Cell elevatorUpCell;
+    entities::Cell elevatorDownCell;
+    entities::Cell diagonalCell;
+    entities::Cell quarterRotationCell;
 
     char selectedCellType {'e'};
 
@@ -60,131 +192,8 @@ public:
 CellsSelector::CellsSelector(const utils::Context& context) :
     impl(std::make_unique<Impl>(context))
 {
-    constexpr float FIRST_COLUMN_CELLS_HORIZONTAL_POSITION {150.f};
-    constexpr float SECOND_COLUMN_CELLS_HORIZONTAL_POSITION {200.f};
-
-    /* initialized here and not the implementation because needs access to
-       constant */
-    impl->cells =
-    {
-        entities::Cell(
-            context,
-            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
-            98.f,
-            cells::EMPTY_CELL
-        ),
-        entities::Cell(
-            context,
-            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
-            148.f,
-            cells::DEPARTURE_CELL
-        ),
-        entities::Cell(
-            context,
-            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
-            198.f,
-            cells::ARRIVAL_CELL
-        ),
-        entities::Cell(
-            context,
-            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
-            248.f,
-            cells::STAR_CELL
-        ),
-        entities::Cell(
-            context,
-            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
-            298.f,
-            cells::MORE_LIFE_CELL
-        ),
-        entities::Cell(
-            context,
-            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
-            348.f,
-            cells::LESS_LIFE_CELL
-        ),
-        entities::Cell(
-            context,
-            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
-            398.f,
-            cells::MORE_TIME_CELL
-        ),
-        entities::Cell(
-            context,
-            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
-            448.f,
-            cells::LESS_TIME_CELL
-        ),
-        entities::Cell(
-            context,
-            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
-            498.f,
-            cells::WALL_CELL
-        ),
-        entities::Cell(
-            context,
-            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
-            548.f,
-            cells::STAIRS_UP_CELL
-        ),
-        entities::Cell(
-            context,
-            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
-            598.f,
-            cells::STAIRS_DOWN_CELL
-        ),
-        entities::Cell(
-            context,
-            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
-            648.f,
-            cells::HORIZONTAL_MIRROR_CELL
-        ),
-        entities::Cell(
-            context,
-            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
-            698.f,
-            cells::VERTICAL_MIRROR_CELL
-        ),
-        entities::Cell(
-            context,
-            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
-            748.f,
-            cells::LEFT_ROTATION_CELL
-        ),
-        entities::Cell(
-            context,
-            FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
-            798.f,
-            cells::RIGHT_ROTATION_CELL
-        ),
-        entities::Cell(
-            context,
-            SECOND_COLUMN_CELLS_HORIZONTAL_POSITION,
-            98.f,
-            cells::ELEVATOR_UP_CELL
-        ),
-        entities::Cell(
-            context,
-            SECOND_COLUMN_CELLS_HORIZONTAL_POSITION,
-            148.f,
-            cells::ELEVATOR_DOWN_CELL
-        ),
-        entities::Cell(
-            context,
-            SECOND_COLUMN_CELLS_HORIZONTAL_POSITION,
-            198.f,
-            cells::DIAGONAL_CELL
-        ),
-        entities::Cell(
-            context,
-            SECOND_COLUMN_CELLS_HORIZONTAL_POSITION,
-            248.f,
-            cells::QUARTER_ROTATION_CELL
-        )
-    };
-
     impl->selectedCellImage.setPosition(
-        FIRST_COLUMN_CELLS_HORIZONTAL_POSITION,
+        150.f,
         10.f
     );
 }
@@ -199,17 +208,25 @@ CellsSelector::~CellsSelector() noexcept = default;
  */
 void CellsSelector::display(const utils::Context& context) &
 {
-    /* the STL for_each is the best solution here as we simply execute a
-       method for the whole container items; do not deduce constant reference
-       because we maybe modify the cell */
-    std::for_each(
-        impl->cells.begin(),
-        impl->cells.end(),
-        [&context](auto& cell) // entities::Cell&
-    {
-        cell.displayWithMouseHover(context);
-    }
-    );
+    impl->emptyCell.displayWithMouseHover(context);
+    impl->departureCell.displayWithMouseHover(context);
+    impl->arrivalCell.displayWithMouseHover(context);
+    impl->starCell.displayWithMouseHover(context);
+    impl->moreLifeCell.displayWithMouseHover(context);
+    impl->lessLifeCell.displayWithMouseHover(context);
+    impl->moreTimeCell.displayWithMouseHover(context);
+    impl->lessTimeCell.displayWithMouseHover(context);
+    impl->wallCell.displayWithMouseHover(context);
+    impl->stairsUpCell.displayWithMouseHover(context);
+    impl->stairsDownCell.displayWithMouseHover(context);
+    impl->horizontalMirrorCell.displayWithMouseHover(context);
+    impl->verticalMirrorCell.displayWithMouseHover(context);
+    impl->leftRotationCell.displayWithMouseHover(context);
+    impl->rightRotationCell.displayWithMouseHover(context);
+    impl->elevatorUpCell.displayWithMouseHover(context);
+    impl->elevatorDownCell.displayWithMouseHover(context);
+    impl->diagonalCell.displayWithMouseHover(context);
+    impl->quarterRotationCell.displayWithMouseHover(context);
 
     context.getSfmlWindow().draw(impl->selectedCellImage);
 }
@@ -219,30 +236,195 @@ void CellsSelector::display(const utils::Context& context) &
  */
 void CellsSelector::selectCell(const utils::Context& context) &
 {
-    /* we use a const_iterator here to automatically return a reference to
-       a constant Cell object and because we want use break; and continue;
-       during the iteration */
-    for(
-        std::vector<entities::Cell>::const_iterator iterator =
-        impl->cells.begin();
-        iterator != impl->cells.end();
-        iterator++
-    )
+    if (impl->emptyCell.isMouseHover())
     {
-        if (!iterator->isMouseHover())
-        {
-            continue;
-        }
-
-        impl->selectedCellType = iterator->getType();
-
         impl->selectedCellImage.setTexture(
             context.getCellsTexturesManager().getTextureReferenceByCellType(
-                impl->selectedCellType
+                cells::EMPTY_CELL
             )
         );
 
-        break;
+        impl->selectedCellType = cells::EMPTY_CELL;
+    }
+    else if (impl->departureCell.isMouseHover())
+    {
+        impl->selectedCellImage.setTexture(
+            context.getCellsTexturesManager().getTextureReferenceByCellType(
+                cells::DEPARTURE_CELL
+            )
+        );
+
+        impl->selectedCellType = cells::DEPARTURE_CELL;
+    }
+    else if (impl->arrivalCell.isMouseHover())
+    {
+        impl->selectedCellImage.setTexture(
+            context.getCellsTexturesManager().getTextureReferenceByCellType(
+                cells::ARRIVAL_CELL
+            )
+        );
+
+        impl->selectedCellType = cells::ARRIVAL_CELL;
+    }
+    else if (impl->starCell.isMouseHover())
+    {
+        impl->selectedCellImage.setTexture(
+            context.getCellsTexturesManager().getTextureReferenceByCellType(
+                cells::STAR_CELL
+            )
+        );
+
+        impl->selectedCellType = cells::STAR_CELL;
+    }
+    else if (impl->moreLifeCell.isMouseHover())
+    {
+        impl->selectedCellImage.setTexture(
+            context.getCellsTexturesManager().getTextureReferenceByCellType(
+                cells::MORE_LIFE_CELL
+            )
+        );
+
+        impl->selectedCellType = cells::MORE_LIFE_CELL;
+    }
+    else if (impl->lessLifeCell.isMouseHover())
+    {
+        impl->selectedCellImage.setTexture(
+            context.getCellsTexturesManager().getTextureReferenceByCellType(
+                cells::LESS_LIFE_CELL
+            )
+        );
+
+        impl->selectedCellType = cells::LESS_LIFE_CELL;
+    }
+    else if (impl->moreTimeCell.isMouseHover())
+    {
+        impl->selectedCellImage.setTexture(
+            context.getCellsTexturesManager().getTextureReferenceByCellType(
+                cells::MORE_TIME_CELL
+            )
+        );
+
+        impl->selectedCellType = cells::MORE_TIME_CELL;
+    }
+    else if (impl->lessTimeCell.isMouseHover())
+    {
+        impl->selectedCellImage.setTexture(
+            context.getCellsTexturesManager().getTextureReferenceByCellType(
+                cells::LESS_TIME_CELL
+            )
+        );
+
+        impl->selectedCellType = cells::LESS_TIME_CELL;
+    }
+    else if (impl->wallCell.isMouseHover())
+    {
+        impl->selectedCellImage.setTexture(
+            context.getCellsTexturesManager().getTextureReferenceByCellType(
+                cells::WALL_CELL
+            )
+        );
+
+        impl->selectedCellType = cells::WALL_CELL;
+    }
+    else if (impl->stairsUpCell.isMouseHover())
+    {
+        impl->selectedCellImage.setTexture(
+            context.getCellsTexturesManager().getTextureReferenceByCellType(
+                cells::STAIRS_UP_CELL
+            )
+        );
+
+        impl->selectedCellType = cells::STAIRS_UP_CELL;
+    }
+    else if (impl->stairsDownCell.isMouseHover())
+    {
+        impl->selectedCellImage.setTexture(
+            context.getCellsTexturesManager().getTextureReferenceByCellType(
+                cells::STAIRS_DOWN_CELL
+            )
+        );
+
+        impl->selectedCellType = cells::STAIRS_DOWN_CELL;
+    }
+    else if (impl->horizontalMirrorCell.isMouseHover())
+    {
+        impl->selectedCellImage.setTexture(
+            context.getCellsTexturesManager().getTextureReferenceByCellType(
+                cells::HORIZONTAL_MIRROR_CELL
+            )
+        );
+
+        impl->selectedCellType = cells::HORIZONTAL_MIRROR_CELL;
+    }
+    else if (impl->verticalMirrorCell.isMouseHover())
+    {
+        impl->selectedCellImage.setTexture(
+            context.getCellsTexturesManager().getTextureReferenceByCellType(
+                cells::VERTICAL_MIRROR_CELL
+            )
+        );
+
+        impl->selectedCellType = cells::VERTICAL_MIRROR_CELL;
+    }
+    else if (impl->leftRotationCell.isMouseHover())
+    {
+        impl->selectedCellImage.setTexture(
+            context.getCellsTexturesManager().getTextureReferenceByCellType(
+                cells::LEFT_ROTATION_CELL
+            )
+        );
+
+        impl->selectedCellType = cells::LEFT_ROTATION_CELL;
+    }
+    else if (impl->rightRotationCell.isMouseHover())
+    {
+        impl->selectedCellImage.setTexture(
+            context.getCellsTexturesManager().getTextureReferenceByCellType(
+                cells::RIGHT_ROTATION_CELL
+            )
+        );
+
+        impl->selectedCellType = cells::RIGHT_ROTATION_CELL;
+    }
+    else if (impl->elevatorUpCell.isMouseHover())
+    {
+        impl->selectedCellImage.setTexture(
+            context.getCellsTexturesManager().getTextureReferenceByCellType(
+                cells::ELEVATOR_UP_CELL
+            )
+        );
+
+        impl->selectedCellType = cells::ELEVATOR_UP_CELL;
+    }
+    else if (impl->elevatorDownCell.isMouseHover())
+    {
+        impl->selectedCellImage.setTexture(
+            context.getCellsTexturesManager().getTextureReferenceByCellType(
+                cells::ELEVATOR_DOWN_CELL
+            )
+        );
+
+        impl->selectedCellType = cells::ELEVATOR_DOWN_CELL;
+    }
+    else if (impl->diagonalCell.isMouseHover())
+    {
+        impl->selectedCellImage.setTexture(
+            context.getCellsTexturesManager().getTextureReferenceByCellType(
+                cells::DIAGONAL_CELL
+            )
+        );
+
+        impl->selectedCellType = cells::DIAGONAL_CELL;
+    }
+    else if (impl->quarterRotationCell.isMouseHover())
+    {
+        impl->selectedCellImage.setTexture(
+            context.getCellsTexturesManager().getTextureReferenceByCellType(
+                cells::QUARTER_ROTATION_CELL
+            )
+        );
+
+        impl->selectedCellType = cells::QUARTER_ROTATION_CELL;
     }
 }
 

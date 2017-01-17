@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,6 +36,24 @@ namespace memoris
 namespace entities
 {
 
+class Cell::Impl
+{
+
+public:
+
+    Impl(
+        const float& hPosition,
+        const float& vPosition
+    )
+    {
+        originalHorizontalPosition = hPosition;
+        originalVerticalPosition = vPosition;
+    }
+
+    float originalHorizontalPosition;
+    float originalVerticalPosition;
+};
+
 /**
  *
  */
@@ -45,18 +63,35 @@ Cell::Cell(
     const float& vPosition,
     const char& cellType
 ) :
-    type(cellType)
+    type(cellType),
+    impl(
+        std::make_unique<Impl>(
+            hPosition,
+            vPosition
+        )
+    )
 {
-    /* set the given position */
     setPosition(
         hPosition,
         vPosition
     );
 
-    /* the cell is shown by default; we get the reference of the texture to
-       display according to the given cell type */
     show(context);
 }
+
+/**
+ *
+ */
+Cell::Cell(const Cell& cell)
+{
+    setType(cell.getType());
+    setIsVisible(cell.isVisible());
+}
+
+/**
+ *
+ */
+Cell::~Cell() noexcept = default;
 
 /**
  *
@@ -317,6 +352,17 @@ const bool Cell::isMouseHover() const
     }
 
     return false;
+}
+
+/**
+ *
+ */
+void Cell::resetPosition() &
+{
+    setPosition(
+        impl->originalHorizontalPosition,
+        impl->originalVerticalPosition
+    );
 }
 
 }

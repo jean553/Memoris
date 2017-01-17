@@ -1,6 +1,6 @@
 /**
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,11 +30,15 @@
 #include "GameController.hpp"
 #include "EditorMenuController.hpp"
 #include "LevelEditorController.hpp"
-#include "OpenLevelController.hpp"
 #include "OpenGameController.hpp"
 #include "SerieEditorController.hpp"
 #include "Level.hpp"
 #include "errors.hpp"
+#include "PlayingSerieManager.hpp"
+#include "EditingLevelManager.hpp"
+#include "WinSerieEndingController.hpp"
+#include "RemoveGameController.hpp"
+#include "PersonalSeriesMenuController.hpp"
 
 namespace memoris
 {
@@ -68,25 +72,42 @@ std::unique_ptr<Controller> getControllerById(
     {
         try
         {
+            const auto& editedLevel =
+                context.getEditingLevelManager().getLevel();
+
+            auto& serieManager = context.getPlayingSerieManager();
+
+            if (editedLevel != nullptr)
+            {
+                serieManager.reinitialize();
+
+                return std::make_unique<GameController>(
+                    context,
+                    editedLevel,
+                    false
+                );
+            }
+
             /* creates a level object using the next level file path; this path
                is located inside the context object; this part of the code
-               throw an exception if an error occures during the file reading
+               throws an exception if an error occures during the file reading
                process; we use auto, the generates type is
                std::shared_ptr<entities::Level>; create this pointer here
                instead of directly creating it inside the game controller makes
                the code easier to maintain; the level pointer is used in the
-               game controller and also in the LevelAnimation object; the
-               second parameter of the constructor is true, because we load the
-               level from a level file */
+               game controller and also in the LevelAnimation object; */
             auto level = std::make_shared<entities::Level>(
-                             context,
-                             true
-                         );
+                context,
+                getLevelFilePath(
+                    serieManager.getSerieType() + "/" +
+                        serieManager.getNextLevelName()
+                )
+            );
 
             return std::make_unique<GameController>(
-                       context,
-                       level
-                   );
+                context,
+                level
+            );
         }
         catch(std::invalid_argument&)
         {
@@ -98,7 +119,7 @@ std::unique_ptr<Controller> getControllerById(
     }
     /* TODO: #894 to delete, an empty error controller is never called; it
        always contains a message */
-    case ERROR_CONTROLLER_ID:
+    case OPEN_FILE_ERROR_CONTROLLER_ID:
     {
         return getErrorController(
             context,
@@ -111,11 +132,42 @@ std::unique_ptr<Controller> getControllerById(
     }
     case LEVEL_EDITOR_CONTROLLER_ID:
     {
-        return std::make_unique<LevelEditorController>(context);
-    }
-    case OPEN_LEVEL_CONTROLLER_ID:
-    {
-        return std::make_unique<OpenLevelController>(context);
+        const auto& editedLevel = context.getEditingLevelManager().getLevel();
+
+        if (editedLevel != nullptr)
+        {
+            const auto& playingTime =
+                context.getPlayingSerieManager().getPlayingTime();
+
+            const auto& levelManager = context.getEditingLevelManager();
+
+            editedLevel->setCellsFromCharactersList(
+                levelManager.getCellsBackup()
+            );
+
+            return std::make_unique<LevelEditorController>(
+                context,
+                editedLevel,
+                static_cast<bool>(playingTime)
+            );
+        }
+
+        try
+        {
+            auto level = std::make_shared<entities::Level>(context);
+
+            return std::make_unique<LevelEditorController>(
+                context,
+                level
+            );
+        }
+        catch(std::invalid_argument&)
+        {
+            return getErrorController(
+                context,
+                errors::CANNOT_OPEN_LEVEL
+            );
+        }
     }
     case OPEN_GAME_CONTROLLER_ID:
     {
@@ -131,6 +183,18 @@ std::unique_ptr<Controller> getControllerById(
             context,
             errors::UNLOCKED_SERIE
         );
+    }
+    case WIN_SERIE_CONTROLLER_ID:
+    {
+        return std::make_unique<WinSerieEndingController>(context);
+    }
+    case REMOVE_GAME_CONTROLLER_ID:
+    {
+        return std::make_unique<RemoveGameController>(context);
+    }
+    case PERSONAL_SERIES_MENU_CONTROLLER_ID:
+    {
+        return std::make_unique<PersonalSeriesMenuController>(context);
     }
     }
 
@@ -153,6 +217,14 @@ std::unique_ptr<ErrorController> getErrorController(
         context,
         message
     );
+}
+
+/**
+ *
+ */
+const std::string getLevelFilePath(const std::string& levelName)
+{
+    return "data/levels/" + levelName + ".level";
 }
 
 }

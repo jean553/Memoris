@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,6 +32,7 @@
 #include "PlayingSerieManager.hpp"
 
 #include <fstream>
+#include <algorithm>
 
 namespace memoris
 {
@@ -68,21 +69,104 @@ public:
 /**
  *
  */
+Level::Level(const utils::Context& context) :
+    impl(std::make_unique<Impl>())
+{
+    for(
+        unsigned short index {0};
+        index < CELLS_PER_LEVEL;
+        index++
+    )
+    {
+        std::unique_ptr<Cell> cell = cells::getCellByType(
+            context,
+            impl->horizontalPositionCursor,
+            impl->verticalPositionCursor,
+            cells::WALL_CELL
+        );
+
+        updateCursors();
+
+        impl->cells.push_back(std::move(cell));
+    }
+}
+
+/**
+ *
+ */
 Level::Level(
     const utils::Context& context,
-    const bool loadFromFile
+    const std::string& fileName
 ) :
     impl(std::make_unique<Impl>())
 {
-    if(loadFromFile)
+    std::ifstream file(fileName);
+
+    if (!file.is_open())
     {
-        loadLevelFromFile(context);
-    }
-    else
-    {
-        loadEmptyLevel(context);
+        /* TODO: #561 - check PlayingSerieManager.cpp for details */
+        throw std::invalid_argument("Cannot open the given level file");
     }
 
+    /* FIXME: if the minutes/seconds are not specified or partially specified,
+       the behavior is unmanaged */
+    std::string min, sec;
+    getline(file, min, '\n');
+    getline(file, sec, '\n');
+
+    impl->minutes = static_cast<unsigned short>(std::stoi(min));
+    impl->seconds = static_cast<unsigned short>(std::stoi(sec));
+
+    for(
+        unsigned short index {0}; 
+        index < CELLS_PER_LEVEL; 
+        index++
+    )
+    {
+        char cellType = cells::EMPTY_CELL;
+
+        if (!file.eof())
+        {
+            cellType = file.get();
+        }
+
+        std::unique_ptr<Cell> cell = cells::getCellByType(
+            context,
+            impl->horizontalPositionCursor,
+            impl->verticalPositionCursor,
+            cellType
+        );
+
+        switch(cellType)
+        {
+        case cells::DEPARTURE_CELL:
+        {
+            impl->playerIndex = index;
+
+            break;
+        }
+        case cells::STAR_CELL:
+        {
+            impl->starsAmount++;
+
+            break;
+        }
+        }
+
+        if (
+            (
+                cellType != cells::EMPTY_CELL &&
+                cellType != cells::WALL_CELL
+            ) && impl->emptyFloor
+        )
+        {
+            impl->emptyFloor = false;
+        }
+
+        updateCursors();
+
+        impl->cells.push_back(std::move(cell));
+    }
 }
 
 /**
@@ -183,10 +267,13 @@ bool Level::allowPlayerMovement(
     short expectedIndex = impl->playerIndex + movement;
 
     if (
-        expectedIndex < 256 * floor ||
-        expectedIndex >= (256 * floor) + 256 ||
-        (impl->playerIndex % 16 == 19 && movement == 1) ||
-        (impl->playerIndex % 16 == 0 && movement == -1)
+        expectedIndex < CELLS_PER_FLOOR * floor or
+        expectedIndex >= CELLS_PER_FLOOR * (floor + 1) or
+        (
+            impl->playerIndex % CELLS_PER_LINE == CELLS_PER_LINE - 1 and
+            movement == 1
+        ) or
+        (impl->playerIndex % CELLS_PER_LINE == 0 && movement == -1)
     )
     {
         return false;
@@ -461,110 +548,17 @@ void Level::deleteTransform()
 /**
  *
  */
-void Level::loadLevelFromFile(const utils::Context& context)
-{
-    std::ifstream file(context.getPlayingSerieManager().getNextLevelName());
-
-    if (!file.is_open())
-    {
-        /* TODO: #561 - check PlayingSerieManager.cpp for details */
-        throw std::invalid_argument("Cannot open the given level file");
-    }
-
-    /* FIXME: if the minutes/seconds are not specified or partially specified,
-       the behavior is unmanaged */
-    std::string min, sec;
-    getline(file, min, '\n');
-    getline(file, sec, '\n');
-
-    impl->minutes = static_cast<unsigned short>(std::stoi(min));
-    impl->seconds = static_cast<unsigned short>(std::stoi(sec));
-
-    for(unsigned short index {0}; index < 2560; index++)
-    {
-        char cellType = cells::EMPTY_CELL;
-
-        if (!file.eof())
-        {
-            cellType = file.get();
-        }
-
-        std::unique_ptr<Cell> cell = cells::getCellByType(
-                                         context,
-                                         impl->horizontalPositionCursor,
-                                         impl->verticalPositionCursor,
-                                         cellType
-                                     );
-
-        switch(cellType)
-        {
-        case cells::DEPARTURE_CELL:
-        {
-            impl->playerIndex = index;
-
-            break;
-        }
-        case cells::STAR_CELL:
-        {
-            impl->starsAmount++;
-
-            break;
-        }
-        }
-
-        if (
-            (
-                cellType != cells::EMPTY_CELL &&
-                cellType != cells::WALL_CELL
-            ) && impl->emptyFloor
-        )
-        {
-            impl->emptyFloor = false;
-        }
-
-        updateCursors();
-
-        impl->cells.push_back(std::move(cell));
-    }
-
-    /* we do not manually close the std::ifstream object, this object is
-       automatically destroyed when it goes out of the scope */
-}
-
-/**
- *
- */
-void Level::loadEmptyLevel(const utils::Context& context)
-{
-    for(unsigned short index {0}; index < 2560; index++)
-    {
-        std::unique_ptr<Cell> cell = cells::getCellByType(
-                                         context,
-                                         impl->horizontalPositionCursor,
-                                         impl->verticalPositionCursor,
-                                         cells::WALL_CELL
-                                     );
-
-        updateCursors();
-
-        impl->cells.push_back(std::move(cell));
-    }
-}
-
-/**
- *
- */
-void Level::updateCursors()
+void Level::updateCursors() const & noexcept
 {
     impl->horizontalPositionCursor++;
 
-    if (impl->horizontalPositionCursor % 16 == 0)
+    if (impl->horizontalPositionCursor % CELLS_PER_LINE == 0)
     {
         impl->horizontalPositionCursor = 0;
 
         impl->verticalPositionCursor++;
 
-        if (impl->verticalPositionCursor % 16 == 0)
+        if (impl->verticalPositionCursor % CELLS_PER_LINE == 0)
         {
             impl->verticalPositionCursor = 0;
 
@@ -594,8 +588,8 @@ const bool Level::updateSelectedCellType(
 
     for(
         std::vector<std::unique_ptr<entities::Cell>>::const_iterator iterator =
-            impl->cells.begin() + firstCellIndex;
-        iterator != impl->cells.begin() + lastCellIndex;
+            impl->cells.cbegin() + firstCellIndex;
+        iterator != impl->cells.cbegin() + lastCellIndex;
         iterator++
     )
     {
@@ -607,6 +601,14 @@ const bool Level::updateSelectedCellType(
         if ((*iterator)->getType() == type)
         {
             break;
+        }
+
+        if (type == cells::DEPARTURE_CELL)
+        {
+            impl->playerIndex = std::distance(
+                impl->cells.cbegin(),
+                iterator
+            );
         }
 
         (*iterator)->setType(type);
@@ -630,7 +632,7 @@ void Level::refresh(const utils::Context& context) &
         impl->cells.end(),
         [&context](const auto& cell) // auto -> std::unique_ptr<entities::Cell>
     {
-        cell->setType(cells::EMPTY_CELL);
+        cell->setType(cells::WALL_CELL);
         cell->show(context);
     }
     );
@@ -650,6 +652,127 @@ const float& Level::getPlayerCellHorizontalPosition() const & noexcept
 const float& Level::getPlayerCellVerticalPosition() const & noexcept
 {
     return (*impl->cells[impl->playerIndex]).getVerticalPosition();
+}
+
+/**
+ *
+ */
+void Level::showAllCells(const utils::Context& context) const &
+{
+    auto& cells = impl->cells;
+
+    for (auto& cell : cells)
+    {
+        cell->show(context);
+    }
+}
+
+/**
+ *
+ */
+const bool Level::hasOneDepartureAndOneArrival() const & noexcept
+{
+    unsigned short departureCellsAmount {0};
+    unsigned short arrivalCellsAmount {0};
+
+    const auto& cells = impl->cells;
+    for (const auto& cell : cells)
+    {
+        const auto& type = cell->getType();
+
+        if (type == cells::DEPARTURE_CELL)
+        {
+            departureCellsAmount++;
+        }
+        else if (type == cells::ARRIVAL_CELL)
+        {
+            arrivalCellsAmount++;
+        }
+    }
+
+    return (
+        departureCellsAmount == 1 and
+        arrivalCellsAmount == 1
+    );
+}
+
+/**
+ *
+ */
+void Level::initializeEditedLevel() const & noexcept
+{
+    using CellsIterator =
+        std::vector<std::unique_ptr<entities::Cell>>::const_iterator;
+
+    auto& starsAmount = impl->starsAmount;
+    starsAmount = 0;
+
+    auto& cells = impl->cells;
+
+    for (
+        CellsIterator iterator = cells.cbegin();
+        iterator != cells.cend();
+        ++iterator
+    )
+    {
+        switch((*iterator)->getType())
+        {
+        case cells::DEPARTURE_CELL:
+        {
+            impl->playerIndex = std::distance(
+                cells.cbegin(),
+                iterator
+            );
+
+            break;
+        }
+        case cells::STAR_CELL:
+        {
+            starsAmount++;
+
+            break;
+        }
+        default:
+        {
+        }
+        }
+    }
+}
+
+/**
+ *
+ */
+const std::vector<char> Level::getCharactersList() const & noexcept
+{
+    std::vector<char> characters;
+
+    const auto& cells = impl->cells;
+    for (const auto& cell : cells)
+    {
+        characters.push_back(cell->getType());
+    }
+
+    return characters;
+}
+
+/**
+ *
+ */
+void Level::setCellsFromCharactersList(const std::vector<char>& characters)
+    const &
+{
+    unsigned short index {0};
+
+    auto& cells = impl->cells;
+    std::for_each(
+        characters.cbegin(),
+        characters.cend(),
+        [&index, &cells](const char& character)
+        {
+            cells[index]->setType(character);
+            index++;
+        }
+    );
 }
 
 }

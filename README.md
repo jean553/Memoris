@@ -6,6 +6,8 @@ License : GNU GPL v3
 
 ![Image 1](github/readme.png)
 
+Taiga taskboard : https://tree.taiga.io/project/jean553-memoris/
+
 Memoris is a C++ 14 video game developed using the SFML. The main goal is to move a pin on a grid of cells, from the departure to the arrival.
 The player has to find all the stars on the map before going to the arrival cell. The whole map is only visible a few seconds before the game
 starts and all the cells are suddently hidden. The player has to "memorize" the cells disposition before playing.
@@ -82,27 +84,25 @@ sudo apt-get install doxygen
 doxygen
 ```
 
-## Apply Allman coding style
-
-```
-./style.sh
-```
-
 ## Credits
 
 ### Fonts
 
 "Crystal" - http://openfontlibrary.org/en/font/crystal#CRYSTAL-Regular - Felipe Munoz - CreativeCommons BY 3.0 ( https://creativecommons.org/licenses/by/3.0/ )
+This font is distributed under the CreativeCommons BY 3.0 terms (check licenses/cc_by_3.txt for details)
 
 "Hi" - http://openfontlibrary.org/en/font/hi - Mew Too, Robert Jablonski - SIL Open Font License ( http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL )
-
-"Limousine" - https://fontlibrary.org/en/font/limousine - OSP - GNU General Public License ( http://www.gnu.org/copyleft/gpl.html )
+This font is distributed under the SIL Open Font License terms (check licenses/hi_font_sil_ofl.txt for details)
 
 ### Musics
 
 Zeropage - Ambient Pills Update - Ambient Dance - CreativeCommons 3.0 BY (https://www.jamendo.com/track/23557/ambient-dance) (https://creativecommons.org/licenses/by/3.0/)
 
 Zeropage - Ambient Pills - Void Sensor - CreativeCommons 3.0 BY (https://www.jamendo.com/track/20233/void-sensor) (https://creativecommons.org/licenses/by/3.0/)
+
+Zeropage - Ambient Pills - Ambiose - CreativeCommons BY (https://www.jamendo.com/track/20235/ambiose) (https://creativecommons.org/licenses/by/3.0/)
+
+Jamendo licenses information note: https://www.jamendo.com/legal/licenses
 
 Music files have been converted from MP3 to OGG format. This is the only modification.
 
@@ -134,7 +134,4 @@ https://www.iconfinder.com/paomedia - CreativeCommons - BY 3.0 - https://creativ
 
 https://www.elegantthemes.com/ - https://www.iconfinder.com/iconsets/circle-icons-1 - GNU GPL
 
-### Sounds
-
-All sounds files have been downloaded from www.universal-soundbank.com. They have
-been converted from .mp3 to .wav. This is the only modification.
+https://www.iconfinder.com/icons/186411/arrow_down_icon#size=64 - Free for commercial use

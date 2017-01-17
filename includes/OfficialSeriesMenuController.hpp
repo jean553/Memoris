@@ -1,6 +1,6 @@
 /**
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -74,6 +74,10 @@ public:
     ) & override;
 
 private:
+
+    static constexpr const char* EASY {"easy"};
+    static constexpr const char* MEDIUM {"medium"};
+    static constexpr const char* DIFFICULT {"difficult"};
 
     /**
      * @brief defines what happens when a menu item is selected

@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,7 +47,7 @@ public:
      */
     void renderAnimation(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& floor
     ) & override;
 
@@ -66,7 +66,7 @@ private:
      */
     void invertSides(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& floor
     ) &;
 
@@ -81,7 +81,7 @@ private:
      */
     void updateTopSideTransparency(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& floor
     ) const &;
 
@@ -96,7 +96,7 @@ private:
      */
     void updateBottomSideTransparency(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& floor
     ) const &;
 
@@ -113,7 +113,7 @@ private:
      */
     void displayLevelAndHorizontalSeparator(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& floor
     ) const &;
 

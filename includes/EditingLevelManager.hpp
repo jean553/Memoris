@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,14 +28,23 @@
 #define MEMORIS_EDITINGLEVELMANAGER_H_
 
 #include <memory>
+#include <vector>
 
 namespace memoris
 {
+
+namespace entities
+{
+class Level;
+}
+
 namespace managers
 {
 
 class EditingLevelManager
 {
+
+using Level = std::shared_ptr<entities::Level>;
 
 public:
 
@@ -60,10 +69,8 @@ public:
      * @param name the name of the level to save into the manager
      *
      * @throw std::bad_alloc the string allocation failed
-     *
-     * not 'const' because it modifies the levelName attribute
      */
-    void setLevelName(const std::string& name) &;
+    void setLevelName(const std::string& name) const &;
 
     /**
      * @brief getter of the level name
@@ -71,6 +78,43 @@ public:
      * @return const std::string&
      */
     const std::string& getLevelName() const & noexcept;
+
+    /**
+     * @brief setter of the Level shared pointer; used in order to switch
+     * between the level editor and the game controller
+     *
+     * @param levelPointer constant reference to a shared pointer pointing
+     * to the current level to save
+     */
+    void setLevel(const Level& levelPointer) const & noexcept;
+
+    /**
+     * @brief getter of the shared pointer to the level
+     *
+     * @return const std::shared_ptr<entities::Level>&
+     */
+    const Level& getLevel() const & noexcept;
+
+    /**
+     * @brief refresh the level pointer; used by the game controller when
+     * a tested level is finished
+     */
+    void refreshLevel() const & noexcept;
+
+    /**
+     * @brief make a copy of an array of cells (used after level test in order
+     * to restablish initial level)
+     *
+     * @param cells array of characters (list of cells types)
+     */
+    void setCellsBackup(const std::vector<char>& cells) const & noexcept;
+
+    /**
+     * @brief returns a list of characters representing each level cell
+     *
+     * @return const std::vector<char>&
+     */
+    const std::vector<char>& getCellsBackup() const & noexcept;
 
 private:
 

@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,6 +48,13 @@ class QuarterRotationAnimation::Impl
 
 public:
 
+    /* store one quarter of the cells floor that has to be saved when the
+       quarters rotation is applied; we could use a std::queue to automatically
+       free the space when the cells are written back on the floor, but the
+       container is directly deleted by the animation destructor when the
+       animation is finished */
+    std::vector<entities::Cell> temporaryCells;
+
     unsigned short translationSteps {0};
 };
 
@@ -69,7 +76,7 @@ QuarterRotationAnimation::~QuarterRotationAnimation() noexcept = default;
  */
 void QuarterRotationAnimation::renderAnimation(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) &
 {
@@ -103,6 +110,7 @@ void QuarterRotationAnimation::renderAnimation(
     if (impl->translationSteps == ANIMATION_STEPS)
     {
         updateCells(
+            context,
             level,
             floor
         );
@@ -124,7 +132,7 @@ void QuarterRotationAnimation::renderAnimation(
  */
 void QuarterRotationAnimation::moveAllQuarters(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) const &
 {
@@ -150,6 +158,7 @@ void QuarterRotationAnimation::moveAllQuarters(
         )
         {
             direction = MovementDirection::DOWN;
+            level->getCells()[index]->moveInDirection(direction);
         }
         else if (
             horizontalSide >= HALF_CELLS_PER_LINE and
@@ -157,6 +166,7 @@ void QuarterRotationAnimation::moveAllQuarters(
         )
         {
             direction = MovementDirection::UP;
+            level->getCells()[index]->moveInDirection(direction);
         }
         else if (
             horizontalSide < HALF_CELLS_PER_LINE and
@@ -164,9 +174,15 @@ void QuarterRotationAnimation::moveAllQuarters(
         )
         {
             direction = MovementDirection::RIGHT;
+            level->getCells()[index]->moveInDirection(direction);
         }
-
-        level->getCells()[index]->moveInDirection(direction);
+        else if (
+            horizontalSide >= HALF_CELLS_PER_LINE and
+            index < topSideLastIndex
+        )
+        {
+            level->getCells()[index]->moveInDirection(direction);
+        }
     }
 }
 
@@ -174,87 +190,166 @@ void QuarterRotationAnimation::moveAllQuarters(
  *
  */
 void QuarterRotationAnimation::updateCells(
-    const std::shared_ptr<entities::Level>& level,
+    const utils::Context& context,
+    const Level& level,
     const unsigned short& floor
-) const & noexcept
+) & noexcept
 {
-    const unsigned short firstIndex = CELLS_PER_FLOOR * floor;
-    const unsigned short lastIndex = firstIndex + CELLS_PER_FLOOR;
+    const unsigned short firstIndex = floor * CELLS_PER_FLOOR;
     const unsigned short topSideLastIndex =
         firstIndex + TOP_SIDE_LAST_CELL_INDEX;
 
     for (
         unsigned short index = firstIndex;
-        index < lastIndex;
+        index < topSideLastIndex;
         index++
     )
     {
         const unsigned short horizontalSide = index % CELLS_PER_LINE;
 
-        if (
-            horizontalSide < HALF_CELLS_PER_LINE and
-            index < topSideLastIndex
-        )
+        if (horizontalSide >= HALF_CELLS_PER_LINE)
         {
             invertCells(
+                context,
                 level,
                 index,
-                TOP_SIDE_LAST_CELL_INDEX
-            );
-        }
-        else if (
-            horizontalSide >= HALF_CELLS_PER_LINE and
-            index >= topSideLastIndex
-        )
-        {
-            invertCells(
-                level,
-                index,
-                -TOP_SIDE_LAST_CELL_INDEX
-            );
-        }
-        else if (
-            horizontalSide < HALF_CELLS_PER_LINE and
-            index >= topSideLastIndex
-        )
-        {
-            invertCells(
-                level,
-                index,
-                HALF_CELLS_PER_LINE
-            );
-        }
-        else if (
-            horizontalSide >= HALF_CELLS_PER_LINE and
-            index < topSideLastIndex
-        )
-        {
-            invertCells(
-                level,
-                index,
-                -HALF_CELLS_PER_LINE
+                -HALF_CELLS_PER_LINE,
+                floor
             );
         }
     }
+
+    const unsigned short floorLastIndex = firstIndex + CELLS_PER_FLOOR;
+
+    for (
+        unsigned short index = topSideLastIndex;
+        index < floorLastIndex;
+        index++
+    )
+    {
+        const unsigned short horizontalSide = index % CELLS_PER_LINE;
+
+        if (horizontalSide >= HALF_CELLS_PER_LINE)
+        {
+            invertCells(
+                context,
+                level,
+                index,
+                -TOP_SIDE_LAST_CELL_INDEX,
+                floor
+            );
+        }
+    }
+
+    for (
+        unsigned short index = topSideLastIndex;
+        index < floorLastIndex;
+        index++
+    )
+    {
+        const unsigned short horizontalSide = index % CELLS_PER_LINE;
+
+        if (horizontalSide < HALF_CELLS_PER_LINE)
+        {
+            invertCells(
+                context,
+                level,
+                index,
+                HALF_CELLS_PER_LINE,
+                floor
+            );
+        }
+    }
+
+    unsigned short index = floor * CELLS_PER_FLOOR;
+
+    for (const entities::Cell& cell : impl->temporaryCells)
+    {
+        const unsigned short newIndex = index + TOP_SIDE_LAST_CELL_INDEX;
+
+        level->getCells()[index]->resetPosition();
+
+        level->getCells()[newIndex]->setType(
+            cell.getType()
+        );
+
+        level->getCells()[newIndex]->setIsVisible(
+            cell.isVisible()
+        );
+
+        if (index == level->getPlayerCellIndex())
+        {
+            updatedPlayerIndex = newIndex;
+        }
+
+        showOrHideCell(
+            context,
+            level,
+            newIndex,
+            cell.isVisible()
+        );
+
+        index++;
+
+        if (index % CELLS_PER_LINE >= HALF_CELLS_PER_LINE)
+        {
+            index += HALF_CELLS_PER_LINE;
+        }
+    }
+
+    movePlayer(
+        context,
+        level
+    );
 }
 
 /**
  *
  */
 void QuarterRotationAnimation::invertCells(
-    const std::shared_ptr<entities::Level>& level,
+    const utils::Context& context,
+    const Level& level,
     const unsigned short& index,
-    const unsigned short& modification
-) const & noexcept
+    const unsigned short& modification,
+    const unsigned short& floor
+) & noexcept
 {
     const unsigned short newIndex = index + modification;
 
-    level->getCells()[newIndex]->setType(
-        level->getCells()[newIndex]->getType()
-    );
+    /* TODO: this pointer declaration is bad regarding to C++14 specifications;
+       the problem is that level->getCells() is an array of unique pointers
+       that we cannot copy, and we do not want move the ownership either; as
+       we do not want do multiple calls like level->getCells()[newIndex] in the
+       body of this function, we just store the pointer this way; a solution
+       should be find for this */
+    entities::Cell* sourceCell = level->getCells().at(index).get();
+    entities::Cell* destinationCell = level->getCells().at(newIndex).get();
 
-    level->getCells()[newIndex]->setIsVisible(
-        level->getCells()[newIndex]->isVisible()
+    /* if the destination quarter is the top left one,
+       save the old cells of this quarter */
+    if (
+        newIndex < floor * CELLS_PER_FLOOR + TOP_SIDE_LAST_CELL_INDEX and
+        newIndex % CELLS_PER_LINE < HALF_CELLS_PER_LINE
+    )
+    {
+        impl->temporaryCells.push_back(*destinationCell);
+    }
+
+    if (index == level->getPlayerCellIndex())
+    {
+        updatedPlayerIndex = newIndex;
+    }
+
+    destinationCell->setType(sourceCell->getType());
+    destinationCell->setIsVisible(sourceCell->isVisible());
+
+    sourceCell->resetPosition();
+
+    showOrHideCell(
+        context,
+        level,
+        newIndex,
+        sourceCell->isVisible()
     );
 }
 

@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,6 +28,8 @@
 #define MEMORIS_MENUGARDIENT_H_
 
 #include "NotCopiable.hpp"
+
+#include <SFML/Config.hpp>
 
 #include <memory>
 
@@ -73,13 +75,15 @@ public:
 
 private:
 
-    /* use constant expressions here because the intialization value of the
-       variables in the gradient effect generation algorithm are a little bit
-       difficult to understand if there is no label explaining them */
     static constexpr unsigned short SURFACES_AMOUNT {1020};
     static constexpr unsigned short SIDE_SURFACES_AMOUNT {510};
+
     static constexpr float LEFT_SIDE_HORIZONTAL_POSITION {479.f};
     static constexpr float RIGHT_SIDE_HORIZONTAL_POSITION {1099.f};
+    static constexpr float BACKGROUND_WIDTH {620.f};
+    static constexpr float BACKGROUND_HORIZONTAL_POSITION {480.f};
+
+    static constexpr sf::Uint8 DEFAULT_EFFECT_COLOR_ALPHA {255};
 
     /**
      * @brief private method called by the constructor only to create the

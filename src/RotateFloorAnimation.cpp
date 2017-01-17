@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -66,7 +66,7 @@ RotateFloorAnimation::~RotateFloorAnimation() noexcept = default;
  */
 void RotateFloorAnimation::playNextAnimationStep(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) &
 {
@@ -85,7 +85,7 @@ void RotateFloorAnimation::playNextAnimationStep(
  */
 void RotateFloorAnimation::renderAnimation(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) &
 {
@@ -127,7 +127,7 @@ void RotateFloorAnimation::renderAnimation(
  */
 void RotateFloorAnimation::rotateCells(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) &
 {

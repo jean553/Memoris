@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,27 +47,21 @@ public:
             10.f,
             context.getTexturesManager().getNewTexture()
         ),
-        buttonOpen(
-            context,
-            480.f,
-            10.f,
-            context.getTexturesManager().getOpenTexture()
-        ),
         buttonSave(
             context,
-            560.f,
+            480.f,
             10.f,
             context.getTexturesManager().getSaveTexture()
         ),
         buttonExit(
             context,
-            640.f,
+            560.f,
             10.f,
             context.getTexturesManager().getExitTexture()
         ),
         buttonPlay(
             context,
-            720.f,
+            640.f,
             10.f,
             context.getTexturesManager().getTestTexture()
         ),
@@ -89,7 +83,6 @@ public:
     utils::LevelSeparators separators;
 
     widgets::Button buttonNew;
-    widgets::Button buttonOpen;
     widgets::Button buttonSave;
     widgets::Button buttonExit;
     widgets::Button buttonPlay;
@@ -115,10 +108,9 @@ EditorDashboard::~EditorDashboard() noexcept = default;
  */
 void EditorDashboard::display(const utils::Context& context) const &
 {
-    impl->separators.display(context);
+    impl->separators.display();
 
     impl->buttonNew.display(context);
-    impl->buttonOpen.display(context);
     impl->buttonSave.display(context);
     impl->buttonExit.display(context);
     impl->buttonPlay.display(context);
@@ -129,34 +121,35 @@ void EditorDashboard::display(const utils::Context& context) const &
 /**
  *
  */
-const unsigned short EditorDashboard::getActionIdBySelectedButton() const &
+const EditorDashboard::Action EditorDashboard::getActionIdBySelectedButton() 
+    const &
 {
     if (impl->buttonExit.isMouseHover())
     {
-        return EXIT_ACTION_ID;
+        return Action::EXIT;
     }
     else if (impl->buttonSave.isMouseHover())
     {
-        return SAVE_ACTION_ID;
+        return Action::SAVE;
     }
     else if (impl->buttonNew.isMouseHover())
     {
-        return NEW_ACTION_ID;
+        return Action::NEW;
     }
     else if (impl->buttonUp.isMouseHover())
     {
-        return FLOOR_UP_ACTION_ID;
+        return Action::UP;
     }
     else if (impl->buttonDown.isMouseHover())
     {
-        return FLOOR_DOWN_ACTION_ID;
+        return Action::DOWN;
     }
-    else if (impl->buttonOpen.isMouseHover())
+    else if (impl->buttonPlay.isMouseHover())
     {
-        return OPEN_ACTION_ID;
+        return Action::PLAY;
     }
 
-    return 0;
+    return Action::NO_ACTION;
 }
 
 }

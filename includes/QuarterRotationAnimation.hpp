@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -58,7 +58,7 @@ public:
      */
     void renderAnimation(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& floor
     ) & override;
 
@@ -80,7 +80,7 @@ private:
      */
     void moveAllQuarters(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& floor
     ) const &;
 
@@ -90,22 +90,29 @@ private:
      *
      * @param level constant reference on shared pointer to the concerned level
      * @param floor constant unsigned integer to the level floor to render
+     *
+     * not const because it modifies the current player cell
      */
     void updateCells(
-        const std::shared_ptr<entities::Level>& level,
+        const utils::Context& context,
+        const Level& level,
         const unsigned short& floor
-    ) const & noexcept;
+    ) & noexcept;
 
     /**
      * @brief apply the given modification on the given cell index
      *
      * @param level constant reference on shared pointer to the concerned level
+     *
+     * not const because it modifies the current player cell
      */
     void invertCells(
-        const std::shared_ptr<entities::Level>& level,
+        const utils::Context& context,
+        const Level& level,
         const unsigned short& index,
-        const unsigned short& modification
-    ) const & noexcept;
+        const unsigned short& modification,
+        const unsigned short& floor
+    ) & noexcept;
 
 
     class Impl;

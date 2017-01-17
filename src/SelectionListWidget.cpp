@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,8 +28,10 @@
 #include "ColorsManager.hpp"
 #include "FontsManager.hpp"
 #include "fonts.hpp"
+#include "TexturesManager.hpp"
 
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Mouse.hpp>
@@ -44,22 +46,27 @@ class SelectionListWidget::Impl
 
 public:
 
-    Impl(const utils::Context& context)
+    Impl(
+        const utils::Context& context,
+        const float& originHorizontalPosition
+    ) :
+        horizontalPosition(originHorizontalPosition),
+        window(context.getSfmlWindow())
     {
         top.setPosition(
-            HORIZONTAL_POSITION,
+            horizontalPosition,
             VERTICAL_POSITION
         );
         left.setPosition(
-            HORIZONTAL_POSITION,
+            horizontalPosition,
             VERTICAL_POSITION
         );
         right.setPosition(
-            HORIZONTAL_POSITION + WIDTH,
+            horizontalPosition + WIDTH,
             VERTICAL_POSITION
         );
         bottom.setPosition(
-            HORIZONTAL_POSITION,
+            horizontalPosition,
             VERTICAL_POSITION + HEIGHT
         );
 
@@ -104,7 +111,34 @@ public:
         selector.setFillColor(
             context.getColorsManager().getColorPartialDarkGrey()
         );
+
+        arrowUp.setTexture(
+            context.getTexturesManager().getScrollArrowUpTexture()
+        );
+
+        arrowDown.setTexture(
+            context.getTexturesManager().getScrollArrowDownTexture()
+        );
+
+        float horizontalPositionBase = horizontalPosition + WIDTH / 2;
+
+        leftArrowHorizontalPosition = horizontalPositionBase - 2 * ARROW_SPACE;
+        rightArrowHorizontalPosition = horizontalPositionBase + ARROW_SPACE;
+
+        verticalPositionBase = VERTICAL_POSITION + HEIGHT;
+
+        arrowUp.setPosition(
+            horizontalPositionBase - 2 * ARROW_SPACE,
+            verticalPositionBase
+        );
+
+        arrowDown.setPosition(
+            horizontalPositionBase + ARROW_SPACE,
+            verticalPositionBase
+        );
     }
+
+    static constexpr float ARROW_SPACE {64.f};
 
     sf::RectangleShape top;
     sf::RectangleShape bottom;
@@ -112,16 +146,56 @@ public:
     sf::RectangleShape right;
     sf::RectangleShape selector;
 
+    sf::Sprite arrowUp;
+    sf::Sprite arrowDown;
+
     std::vector<sf::Text> texts;
 
-    unsigned short selectorIndex {0};
+    /* signed because equals to -1 when nothing is selected */
+    short selectorIndex {0};
+
+    /* first index to display in the list; changes when the arrows are
+       clicked */
+    unsigned short offset {0};
+
+    bool mouseHoverLeftArrow {false};
+    bool mouseHoverRightArrow {false};
+
+    float leftArrowHorizontalPosition {0.f};
+    float rightArrowHorizontalPosition {0.f};
+    float verticalPositionBase {0.f};
+    float horizontalPosition;
+
+    sf::Color selectedArrowColor {
+        255,
+        255,
+        255,
+        128
+    };
+
+    sf::Color unselectedArrowColor {
+        255,
+        255,
+        255,
+        255
+    };
+
+    sf::RenderWindow& window;
 };
 
 /**
  *
  */
-SelectionListWidget::SelectionListWidget(const utils::Context& context) :
-    impl(std::make_unique<Impl>(context))
+SelectionListWidget::SelectionListWidget(
+    const utils::Context& context,
+    const float& horizontalPosition
+) :
+    impl(
+        std::make_unique<Impl>(
+            context,
+            horizontalPosition
+        )
+    )
 {
 }
 
@@ -135,20 +209,54 @@ SelectionListWidget::~SelectionListWidget() noexcept = default;
  */
 void SelectionListWidget::display(const utils::Context& context) &
 {
-    context.getSfmlWindow().draw(impl->top);
-    context.getSfmlWindow().draw(impl->left);
-    context.getSfmlWindow().draw(impl->right);
-    context.getSfmlWindow().draw(impl->bottom);
+    impl->window.draw(impl->top);
+    impl->window.draw(impl->left);
+    impl->window.draw(impl->right);
+    impl->window.draw(impl->bottom);
+    impl->window.draw(impl->arrowUp);
+    impl->window.draw(impl->arrowDown);
+
+    // std::vector<sf::Text>&
+    auto& texts = impl->texts;
+
+    if (impl->texts.size() == 0)
+    {
+        return;
+    }
 
     displaySelector(context);
 
-    std::for_each(
-        impl->texts.begin(),
-        impl->texts.end(),
-        [&context](const sf::Text& text)
+    for (
+        std::vector<sf::Text>::const_iterator iterator = texts.begin();
+        iterator < texts.end();
+        ++iterator
+    )
     {
-        context.getSfmlWindow().draw(text);
+        const float& itemVerticalPosition = iterator->getPosition().y;
+
+        if (
+            itemVerticalPosition < VERTICAL_POSITION or
+            itemVerticalPosition >= VERTICAL_POSITION + HEIGHT
+        )
+        {
+            continue;
+        }
+
+        impl->window.draw(*iterator);
     }
+
+    selectArrowWhenMouseHover(
+        context,
+        impl->leftArrowHorizontalPosition,
+        impl->arrowUp,
+        impl->mouseHoverLeftArrow
+    );
+
+    selectArrowWhenMouseHover(
+        context,
+        impl->rightArrowHorizontalPosition,
+        impl->arrowDown,
+        impl->mouseHoverRightArrow
     );
 }
 
@@ -158,8 +266,7 @@ void SelectionListWidget::display(const utils::Context& context) &
 void SelectionListWidget::setList(
     const utils::Context& context,
     const std::vector<std::string>& list
-) &
-noexcept
+) const &
 {
     float verticalPosition {VERTICAL_POSITION};
 
@@ -179,8 +286,8 @@ noexcept
 
         text.setColor(context.getColorsManager().getColorWhite());
         text.setPosition(
-        {HORIZONTAL_POSITION},
-        verticalPosition
+            impl->horizontalPosition,
+            verticalPosition
         );
 
         impl->texts.push_back(text);
@@ -201,21 +308,29 @@ void SelectionListWidget::displaySelector(const utils::Context& context) &
     float mouseHorizontalPosition = static_cast<float>(mousePosition.x);
     float mouseVerticalPosition = static_cast<float>(mousePosition.y);
 
+    const auto& texts = impl->texts;
+
     if (
-        mouseHorizontalPosition < HORIZONTAL_POSITION ||
-        mouseHorizontalPosition > HORIZONTAL_POSITION + WIDTH ||
-        mouseVerticalPosition < VERTICAL_POSITION ||
-        mouseVerticalPosition > VERTICAL_POSITION + HEIGHT - 1.f
+        mouseHorizontalPosition < impl->horizontalPosition or
+        mouseHorizontalPosition > impl->horizontalPosition + WIDTH or
+        mouseVerticalPosition < VERTICAL_POSITION or
+        (
+            mouseVerticalPosition >
+                texts[texts.size() - 1].getPosition().y + ITEMS_SEPARATION or
+            mouseVerticalPosition > VERTICAL_POSITION + HEIGHT - 1.f
+        )
     )
     {
+        impl->selectorIndex = NO_SELECTION_INDEX;
+
         return;
     }
 
     /* explicit cast to only work with integers in the division; it prevents
        to get decimal results */
     impl->selectorIndex =
-    (mousePosition.y - static_cast<int>(VERTICAL_POSITION)) /
-    static_cast<int>(ITEMS_SEPARATION);
+        (mousePosition.y - static_cast<int>(VERTICAL_POSITION)) /
+        static_cast<int>(ITEMS_SEPARATION);
 
     /* do not display the selection surface if there is no item under the
        cursor; implicit cast from size_t and int */
@@ -226,12 +341,12 @@ void SelectionListWidget::displaySelector(const utils::Context& context) &
 
     /* set the selector position */
     impl->selector.setPosition(
-        HORIZONTAL_POSITION + 1.f,
+        impl->horizontalPosition + 1.f,
         VERTICAL_POSITION + 1.f +
         static_cast<float>(impl->selectorIndex) * ITEMS_SEPARATION
     );
 
-    context.getSfmlWindow().draw(impl->selector);
+    impl->window.draw(impl->selector);
 }
 
 /**
@@ -239,12 +354,174 @@ void SelectionListWidget::displaySelector(const utils::Context& context) &
  */
 const std::string SelectionListWidget::getCurrentItem() const & noexcept
 {
-    if (impl->selectorIndex >= impl->texts.size())
+    if (
+        impl->selectorIndex >= impl->texts.size() or
+        impl->selectorIndex == NO_SELECTION_INDEX
+    )
     {
         return "";
     }
 
-    return impl->texts[impl->selectorIndex].getString();
+    return impl->texts[impl->selectorIndex + impl->offset].getString();
+}
+
+/**
+ *
+ */
+void SelectionListWidget::selectArrowWhenMouseHover(
+    const utils::Context& context,
+    const unsigned short& horizontalPosition,
+    sf::Sprite& arrowSprite,
+    bool& selected
+) const &
+{
+    sf::Vector2<int> mousePosition = sf::Mouse::getPosition();
+
+    if (
+        mousePosition.x > horizontalPosition and
+        mousePosition.x < horizontalPosition + ARROW_DIMENSION and
+        mousePosition.y > impl->verticalPositionBase and
+        mousePosition.y < impl->verticalPositionBase + ARROW_DIMENSION and
+        not selected
+    )
+    {
+        arrowSprite.setColor(impl->selectedArrowColor);
+
+        selected = true;
+    }
+    else if (
+        (
+            mousePosition.x < horizontalPosition or
+            mousePosition.x > horizontalPosition + ARROW_DIMENSION or
+            mousePosition.y < impl->verticalPositionBase or
+            mousePosition.y > impl->verticalPositionBase + ARROW_DIMENSION
+        ) and selected
+    )
+    {
+        arrowSprite.setColor(impl->unselectedArrowColor);
+
+        selected = false;
+    }
+}
+
+/**
+ *
+ */
+void SelectionListWidget::updateList() const &
+{
+    constexpr float DISPLAY_NEXT_ITEM_STEP {-1.f};
+    constexpr float DISPLAY_PREVIOUS_ITEM_STEP {1.f};
+
+    if (
+        impl->mouseHoverLeftArrow and
+        impl->offset != 0
+    )
+    {
+        impl->offset--;
+
+        updateAllItemsPosition(DISPLAY_PREVIOUS_ITEM_STEP);
+    }
+    else if (
+        impl->mouseHoverRightArrow and
+        impl->offset + VISIBLE_ITEMS != impl->texts.size()
+    )
+    {
+        impl->offset++;
+
+        updateAllItemsPosition(DISPLAY_NEXT_ITEM_STEP);
+    }
+}
+
+/**
+ *
+ */
+void SelectionListWidget::updateAllItemsPosition(const float& movement) const &
+{
+    for (sf::Text& text : impl->texts)
+    {
+        text.setPosition(
+            impl->horizontalPosition,
+            text.getPosition().y + ITEMS_SEPARATION * movement
+        );
+    }
+}
+
+/**
+ *
+ */
+void SelectionListWidget::deleteSelectedItem() const &
+{
+    // std::vector<sf::Text>&
+    auto& texts = impl->texts;
+
+    /* we can use the operator + here between
+       integers and iterator because it is a random access iterator; we
+       explicitly declare the type to prevent oversights */
+    const std::vector<sf::Text>::iterator offsetIndex =
+        texts.begin() + impl->selectorIndex + impl->offset;
+
+    /* erase guarantees no exception */
+    texts.erase(offsetIndex);
+
+    // const float&
+    const auto& horizontalPosition = impl->horizontalPosition;
+
+    /* not a const_iterator because setPosition
+       modifies the iterated objects */
+    for (
+        auto it = offsetIndex; // std::vector<sf::Text>::iterator
+        it != texts.end();
+        ++it
+    )
+    {
+        it->setPosition(
+            horizontalPosition,
+            it->getPosition().y - ITEMS_SEPARATION
+        );
+    }
+}
+
+/**
+ *
+ */
+void SelectionListWidget::addItem(
+    const utils::Context& context,
+    const std::string& item
+) const &
+{
+    sf::Text text(
+        item,
+        context.getFontsManager().getTextFont(),
+        fonts::TEXT_SIZE
+    );
+
+    text.setColor(context.getColorsManager().getColorWhite());
+
+    // std::vector<sf::Text>&
+    auto& texts = impl->texts;
+
+    text.setPosition(
+        impl->horizontalPosition,
+        VERTICAL_POSITION + ITEMS_SEPARATION * texts.size()
+    );
+
+    texts.push_back(text);
+}
+
+/**
+ *
+ */
+const std::vector<sf::Text>& SelectionListWidget::getTexts() const & noexcept
+{
+    return impl->texts;
+}
+
+/**
+ *
+ */
+void SelectionListWidget::deleteAllItems() const & noexcept
+{
+    impl->texts.clear();
 }
 
 }

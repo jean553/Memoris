@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -76,7 +76,8 @@ public:
 MenuItem::MenuItem(
     const utils::Context& context,
     const std::string& label,
-    const float& verticalPosition
+    const float& verticalPosition,
+    const HorizontalPosition& position
 ) :
     impl(
         std::make_unique<Impl>(
@@ -87,7 +88,10 @@ MenuItem::MenuItem(
     )
 {
     impl->text.setPosition(
-        window::getCenteredSfmlSurfaceHorizontalPosition(impl->text),
+        position == HorizontalPosition::Center ?
+            window::getCenteredSfmlSurfaceHorizontalPosition(impl->text) :
+            LEFT_HORIZONTAL_POSITION
+            ,
         verticalPosition
     );
 

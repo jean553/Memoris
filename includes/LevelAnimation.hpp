@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -61,7 +61,9 @@ public:
      * @brief renders the animation, called by the game controller
      *
      * @param context constant reference to the current context to use
-     * @param level shared pointer to the level to animate
+     * @param level shared pointer to the level to animate; do not use the
+     * alias declared below because the alias is still not available at this
+     * moment of the compilation (the alias is protected)
      * @param floor the current floor to display in the animation
      *
      * not 'const' because definitions updates object attributes
@@ -84,6 +86,8 @@ public:
 
 protected:
 
+    using Level = std::shared_ptr<entities::Level>;
+
     static constexpr unsigned short TOP_SIDE_LAST_CELL_INDEX {128};
     static constexpr unsigned short CELLS_PER_LINE {16};
     static constexpr unsigned short CELLS_PER_FLOOR {256};
@@ -101,7 +105,7 @@ protected:
      */
     void showOrHideCell(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level,
+        const Level& level,
         const unsigned short& index,
         const bool& visible
     ) const &;
@@ -129,7 +133,7 @@ protected:
      */
     void movePlayer(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level
+        const Level& level
     ) const &;
 
     /* these attributes are protected, so we do not set them into an

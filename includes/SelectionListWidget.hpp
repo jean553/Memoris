@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,6 +30,12 @@
 #include <memory>
 #include <vector>
 
+namespace sf
+{
+class Sprite;
+class Text;
+}
+
 namespace memoris
 {
 
@@ -49,11 +55,16 @@ public:
     /**
      * @brief constructor, initialize the implementation
      *
-     * @param context reference to the context to use
+     * @param context constant reference to the context to use
+     * @param horizontalPosition constant reference to the expected
+     * horizontal position
      *
      * not 'noexcept' because it calls SFML function that are not noexcept
      */
-    SelectionListWidget(const utils::Context& context);
+    SelectionListWidget(
+        const utils::Context& context,
+        const float& horizontalPosition = 500.f
+    );
 
     /**
      * @brief default destructor, empty, only declared in order to use
@@ -77,12 +88,12 @@ public:
      * @param context reference to the current context to use
      * @param list a constant reference to a vector container of std::string
      *
-     * not 'const' because it modifies the items container
+     * not noexcept because it calls SFML functions that are not noexcept
      */
     void setList(
         const utils::Context& context,
         const std::vector<std::string>& list
-    ) & noexcept;
+    ) const &;
 
     /**
      * @brief getter of the current pointed item string
@@ -95,13 +106,56 @@ public:
      */
     const std::string getCurrentItem() const & noexcept;
 
+    /**
+     * @brief updates the displayed items list if an arrow is clicked
+     *
+     * not noexcept because it calls SFML functions that are not noexcept
+     */
+    void updateList() const &;
+
+    /**
+     * @brief deletes the selected item
+     *
+     * not noexcept because it calls SFML methods, STL containers and iterators
+     * methods that are not noexcept
+     */
+    void deleteSelectedItem() const &;
+
+    /**
+     * @brief add one string into the displayed list
+     *
+     * @param context constant reference to the current context to use
+     * @param item constant reference to the string to insert
+     */
+    void addItem(
+        const utils::Context& context,
+        const std::string& item
+    ) const &;
+
+    /**
+     * @brief getter of the stored values in the list
+     *
+     * @return const std::vector<sf::Text>&
+     */
+    const std::vector<sf::Text>& getTexts() const & noexcept;
+
+    /**
+     * @brief deletes all the items from the list; use std::vector<T>::clear()
+     * which does not throw any exception
+     */
+    void deleteAllItems() const & noexcept;
+
 private:
 
-    static constexpr float HORIZONTAL_POSITION {500.f};
     static constexpr float VERTICAL_POSITION {200.f};
     static constexpr float WIDTH {600.f};
     static constexpr float HEIGHT {600.f};
     static constexpr float ITEMS_SEPARATION {50.f};
+
+    static constexpr unsigned short ARROW_DIMENSION {64};
+    static constexpr unsigned short VISIBLE_ITEMS {12};
+
+    static constexpr short NO_SELECTION_INDEX {-1};
 
     /**
      * @brief move the visual selector according to the current cursor position
@@ -113,6 +167,34 @@ private:
      * not 'noexcept' because it calls SFML functions that are not noexcept
      */
     void displaySelector(const utils::Context& context) &;
+
+    /**
+     * @brief selects an arrow if the mouse is hover
+     * 
+     * @param context constant reference to the current context
+     * @param horizontalPosition horizontal position of the arrow
+     * @param arrowSprite reference to the arrow sprite,
+     * not constant as the color might be changed
+     * @param selected reference to the selection boolean to update
+     *
+     * not noexcept as it calls SFML functions that are not noexcept
+     */
+    void selectArrowWhenMouseHover(
+        const utils::Context& context,
+        const unsigned short& horizontalPosition,
+        sf::Sprite& arrowSprite,
+        bool& selected
+    ) const &;
+
+    /**
+     * @brief updates the position of all the items on the list according
+     * to the user clicks on the arrow buttons
+     *
+     * @param movement constant reference to the movement (1 or -1)
+     *
+     * not noexcept because it calls SFML functions that are not noexcept
+     */
+    void updateAllItemsPosition(const float& movement) const &;
 
     class Impl;
     std::unique_ptr<Impl> impl;

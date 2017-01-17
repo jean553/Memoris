@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -61,6 +61,7 @@ constexpr char HIDDEN_CELL {'h'};
 constexpr char ELEVATOR_UP_CELL {'U'};
 constexpr char ELEVATOR_DOWN_CELL {'V'};
 constexpr char QUARTER_ROTATION_CELL {'q'};
+constexpr char INVERTED_QUARTER_ROTATION_CELL {'Q'};
 
 /**
  * @brief create Cell unique pointers, usuable at a given position inside

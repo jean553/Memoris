@@ -1,6 +1,6 @@
 /**
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -72,13 +72,6 @@ public:
      * @return const sf::Font&
      */
     const sf::Font& getTextFont() const & noexcept;
-
-    /**
-     * @brief get tutorial font reference
-     *
-     * @return const sf::Font&
-     */
-    const sf::Font& getTutorialFont() const & noexcept;
 
 private:
 

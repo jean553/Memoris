@@ -1,6 +1,6 @@
 /**
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,6 +20,9 @@
  * @file SoundsManager.cpp
  * @package managers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
+ *
+ * TODO: #1006 add sounds files; I kept the sounds manager because the
+ * expected sounds are still the sames
  */
 
 #include "SoundsManager.hpp"

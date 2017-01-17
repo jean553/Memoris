@@ -1,6 +1,6 @@
 /**
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,6 +33,7 @@
 #include "PlayingSerieManager.hpp"
 #include "EditingLevelManager.hpp"
 #include "window.hpp"
+#include "Game.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Audio/Music.hpp>
@@ -77,6 +78,12 @@ public:
      * controller is modified; the maximum time returned in milliseconds
      * is equal to 49 days... so this is a safe method */
     sf::Clock clock;
+
+    /* we could use a pointer to dynamically creates the game object only
+       when it is really necessary during the program execution; in order to
+       avoid multiple tests on existing pointers, we just create a permanent
+       game object */
+    entities::Game game;
 };
 
 /**
@@ -84,18 +91,17 @@ public:
  */
 Context::Context() : impl(std::make_unique<Impl>())
 {
-    /* when the window is opened, the default SFML cursor is not displayed */
     impl->sfmlWindow.setMouseCursorVisible(false);
 
     /* prevent the user to keep a key pressed down: the events are only
-       triggered one time during the first press down and not continually */
+       triggered one time during the first press down and not continuously */
     impl->sfmlWindow.setKeyRepeatEnabled(false);
 }
 
 /**
  *
  */
-Context::~Context() noexcept = default;
+Context::~Context() = default;
 
 /**
  *
@@ -195,6 +201,7 @@ void Context::loadMusicFile(const std::string& path) const &
     if(impl->music.openFromFile(path))
     {
         impl->music.play();
+        impl->music.setLoop(true);
     }
 }
 
@@ -215,6 +222,14 @@ void Context::stopMusic() const &
 void Context::restartClock() const &
 {
     impl->clock.restart();
+}
+
+/**
+ *
+ */
+const entities::Game& Context::getGame() const & noexcept
+{
+    return impl->game;
 }
 
 }

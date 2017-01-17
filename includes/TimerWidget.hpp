@@ -1,6 +1,6 @@
 /**
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,12 +27,21 @@
 #ifndef MEMORIS_TIMERWIDGET_H_
 #define MEMORIS_TIMERWIDGET_H_
 
-#include "Context.hpp"
+#include <memory>
 
-#include <SFML/Graphics.hpp>
+namespace sf
+{
+class Text;
+}
 
 namespace memoris
 {
+
+namespace utils
+{
+class Context;
+}
+
 namespace widgets
 {
 
@@ -45,33 +54,36 @@ public:
      * @brief constructor, set the timer positions
      *
      * @param context reference to the current context
-     * @param hPosition the horizontal position
-     * @param vPosition the vertical position
      */
-    TimerWidget(
-        const utils::Context& context,
-        const float& hPosition,
-        const float& vPosition
-    );
+    TimerWidget(const utils::Context& context);
 
     /**
-     * @brief overwritte the display method to render the widget
+     * @brief default destructor, empty, only declared in order to use
+     * forwarding declaration
      *
-     * @param constant reference to the current context to use
+     * a destructor cannot be const
+     *
+     * no noexcept here, default destructors are noexcept
      */
-    void display(const utils::Context& context);
+    ~TimerWidget();
+
+    /**
+     * @brief changes the value of the timer widget; this method is executed
+     * only if the played level is not an edited one
+     */
+    void render() const &;
 
     /**
      * @brief public method to stop the timer, used by the game controller to
      * stop the timer when the lose period starts
      */
-    void stop();
+    void stop() const & noexcept;
 
     /**
      * @brief public method to start the timer, used by the game controller to
      * start the timer when the watching period is finished
      */
-    void start();
+    void start() const & noexcept;
 
     /**
      * @brief setter of the minutes and seconds amount to display; the function
@@ -84,7 +96,7 @@ public:
     void setMinutesAndSeconds(
         const unsigned short& minutesAmount,
         const unsigned short& secondsAmount
-    );
+    ) const &;
 
     /**
      * @brief getter used by the game controller to know if the countdown
@@ -92,47 +104,33 @@ public:
      *
      * @return const bool&
      */
-    const bool& isFinished() const;
+    const bool& isFinished() const &;
+
+    /**
+     * @brief the SFML surface that displays the text is the only displayed
+     * attribute of the widget; so we provides a direct access to its
+     * reference in order to save a reference in a controller (it avoids
+     * to create a functions call tree)
+     *
+     * @return const sf::Text&
+     */
+    const sf::Text& getTextSurface() const & noexcept;
 
 private:
 
-    /**
-     * @brief increments the amount of seconds to the current timer time;
-     * increments the seconds and minutes variables if necessary; reset the
-     * seconds variable if necessary
-     */
-    void updateTimerValues();
+    static constexpr unsigned short ONE_SECOND {1000};
+    static constexpr unsigned short FIRST_SECOND_IN_MINUTE {59};
 
     /**
      * @brief update the displayed timer string; add a 0 to second or minute
      * value if it contains only one digit to make a better graphical effect
+     *
+     * not noexcept because some SFML methods are not noexcept
      */
-    void updateDisplayedString();
+    void updateDisplayedString() const &;
 
-    /* the time of the last update of the timer; we use this variable to
-       animate the timer; by default, the value is equal to 0 */
-    sf::Uint32 lastTimerUpdateTime {0};
-
-    /* SFML text surface object to render the time */
-    sf::Text text;
-
-    /* unsigned shorts to store the minutes and seconds */
-    /* NOTE: we do not work with milliseconds, we do not display milliseconds;
-       using milliseconds, the time step is too small and we cannot measure it
-       properly */
-    unsigned short minutes {0};
-    unsigned short seconds {0};
-
-    /* determinates if the timer is started or not; this is used by the game
-       controller to stop the timer during the lose period for example; the
-       timer is stopped and the player does not see the animation anymore;
-       during the watching time, the timer is stopped by default */
-    bool started {false};
-
-    /* determinates if the countdown is finished; false when the game starts
-       and become false when the last second of the last minute has been
-       elapsed */
-    bool finished {false};
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }

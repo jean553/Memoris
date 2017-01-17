@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,15 +40,23 @@ class EditorDashboard
 
 public:
 
-    /* public static constant expressions used by the level editor controller
-       in order to know which button has been selected */
-
-    static constexpr unsigned short EXIT_ACTION_ID {1};
-    static constexpr unsigned short SAVE_ACTION_ID {2};
-    static constexpr unsigned short FLOOR_UP_ACTION_ID {3};
-    static constexpr unsigned short FLOOR_DOWN_ACTION_ID {4};
-    static constexpr unsigned short NEW_ACTION_ID {5};
-    static constexpr unsigned short OPEN_ACTION_ID {6};
+    /**
+     * @enum EditorDashboard::Action
+     * @brief the action selected by the user from the editor dashboard
+     *
+     * public because accessed from the level editor controller
+     */
+    enum class Action
+    {
+        EXIT,
+        NEW,
+        SAVE,
+        OPEN,
+        PLAY,
+        UP,
+        DOWN,
+        NO_ACTION /** < used when nothing is selected */
+    };
 
     /**
      * @brief constructor, initializes the implementation
@@ -77,15 +85,12 @@ public:
     /**
      * @brief returns an action id according to the tool bar selected button
      *
-     * @return const unsigned short
+     * @return const EditorDashboard::Action
      *
-     * the returned value is not a reference because we return constant
-     * expressions values and rvalue
-     *
-     * not 'noexcept' because it contains sub-functions that calls SFML methods
+     * not noexcept because it contains sub-functions that calls SFML methods
      * that are not noexcept
      */
-    const unsigned short getActionIdBySelectedButton() const &;
+    const Action getActionIdBySelectedButton() const &;
 
 private:
 

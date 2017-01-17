@@ -1,6 +1,6 @@
 /**
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -50,7 +50,6 @@ FontsManager::FontsManager() :
 {
     loadFontFromFile(impl->titleFont, "crystal_regular.ttf");
     loadFontFromFile(impl->textFont, "hi.otf");
-    loadFontFromFile(impl->tutorialFont, "Limousine.ttf");
 }
 
 /**
@@ -72,14 +71,6 @@ const sf::Font& FontsManager::getTitleFont() const & noexcept
 const sf::Font& FontsManager::getTextFont() const & noexcept
 {
     return impl->textFont;
-}
-
-/**
- *
- */
-const sf::Font& FontsManager::getTutorialFont() const & noexcept
-{
-    return impl->tutorialFont;
 }
 
 /**

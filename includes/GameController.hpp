@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,6 +43,7 @@ namespace controllers
 
 class GameController : public Controller
 {
+    using Level = std::shared_ptr<entities::Level>;
 
 public:
 
@@ -52,12 +53,15 @@ public:
      *
      * @param context constant reference to the current context
      * @param levelPtr shared pointer to the level object to use
+     * @param watchLevel indicates if there is a watching period or not (there
+     * is no watching period if the level is started from the editor)
      *
      * @throw std::invalid_argument the level file cannot be opened
      */
     GameController(
         const utils::Context& context,
-        std::shared_ptr<entities::Level> levelPtr
+        const Level& levelPtr,
+        const bool& watchLevel = true
     );
 
     /**
@@ -78,6 +82,14 @@ public:
     ) & override final;
 
 private:
+
+    static constexpr float CELLS_DEFAULT_TRANSPARENCY {255.f};
+
+    static constexpr unsigned short FIRST_FLOOR_INDEX {0};
+
+    /* use the sf::Int32 type to avoid types conversions (this attribute is
+       only used with sf::Int32 variables) */
+    static constexpr sf::Int32 ONE_SECOND {1000};
 
     /**
      * @brief function that refectors all the management related to the player

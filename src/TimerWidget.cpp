@@ -1,6 +1,6 @@
 /**
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,108 +28,101 @@
 #include "Context.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
+#include "PlayingSerieManager.hpp"
+
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 namespace memoris
 {
 namespace widgets
 {
 
+class TimerWidget::Impl
+{
+
+public:
+
+    Impl(const utils::Context& context)
+    {
+        text.setFont(context.getFontsManager().getTextFont());
+        text.setCharacterSize(fonts::TEXT_SIZE);
+        text.setColor(context.getColorsManager().getColorWhite());
+
+        constexpr float WIDGET_HORIZONTAL_POSITION {295.f};
+        constexpr float WIDGET_VERTICAL_POSITION {10.f};
+        text.setPosition(
+            WIDGET_HORIZONTAL_POSITION,
+            WIDGET_VERTICAL_POSITION
+        );
+    }
+
+    sf::Uint32 lastTimerUpdateTime {0};
+
+    sf::Text text;
+
+    /* NOTE: we do not work with milliseconds, we do not display milliseconds;
+       using milliseconds, the time step is too small and we cannot measure it
+       properly */
+    unsigned short minutes {0};
+    unsigned short seconds {0};
+
+    bool started {false};
+    bool finished {false};
+};
+
 /**
  *
  */
-TimerWidget::TimerWidget(
-    const utils::Context& context,
-    const float& hPosition,
-    const float& vPosition
-)
+TimerWidget::TimerWidget(const utils::Context& context) : 
+    impl(std::make_unique<Impl>(context))
 {
-    /* initialize the timer text SFML surface */
-    text.setFont(context.getFontsManager().getTextFont());
-    text.setCharacterSize(fonts::TEXT_SIZE);
-    text.setColor(context.getColorsManager().getColorWhite());
-    text.setPosition(
-        hPosition,
-        vPosition
-    );
-
-    /* update the displayed timer string */
     updateDisplayedString();
 }
 
 /**
  *
  */
-void TimerWidget::display(const utils::Context& context)
-{
-    /* check if the elapsed time since the last timer update is more than
-       1000 milliseconds; if yes, the timer value is updated; also check if
-       the timer is started */
-    if (
-        started &&
-        (
-            context.getClockMillisecondsTime() -
-            lastTimerUpdateTime > 1000
-        )
-    )
-    {
-        /* call the separated private method to update all the timer values */
-        updateTimerValues();
-
-        /* save the last timer update time at the end of the animation */
-        lastTimerUpdateTime = context.getClockMillisecondsTime();
-    }
-
-    /* display the SFML text surface */
-    context.getSfmlWindow().draw(text);
-}
+TimerWidget::~TimerWidget() = default;
 
 /**
  *
  */
-void TimerWidget::updateTimerValues()
+void TimerWidget::render() const &
 {
-    /* adapt the values of other timer variables */
+    auto& started = impl->started;
+    auto& seconds = impl->seconds;
+    auto& minutes = impl->minutes;
 
-    /* check if the countdown seconds is equal to 0, if yes, switch to the
-       next minute of the countdown */
     if (seconds == 0)
     {
         if (minutes == 0)
         {
-            /* if the amount of seconds and the amount of minutes are both
-               equals to 0, just stop the countdown */
             started = false;
-
-            /* set the finished boolean as true */
-            finished = true;
+            impl->finished = true;
         }
         else
         {
-
-            /* if the amount of minutes is more than 0, just decrement it */
             minutes--;
-
-            /* reset the amount of seconds to 59 in order to countdown the
-               next minute */
-            seconds = 59;
+            seconds = FIRST_SECOND_IN_MINUTE;
         }
     }
     else
     {
-        /* if the amount of seconds is more than 0, just decrement the
-           countdown */
         seconds--;
     }
 
-    /* update the displayed timer string */
     updateDisplayedString();
 }
 
 /**
  *
  */
-void TimerWidget::updateDisplayedString()
+void TimerWidget::updateDisplayedString() const &
 {
+    auto& seconds = impl->seconds;
+    auto& minutes = impl->minutes;
+
     /* declare the SFML strings; call sf::String(const std::string&) for each
        SFML string creation; that's why we convert the unsigned long into
        a std::string in the rvalue, to get a string */
@@ -142,40 +135,33 @@ void TimerWidget::updateDisplayedString()
        ( basic string containing unsigned integers of 32 bits long, std::string
        is a typedef for a specialization of that class template for char ) */
 
-    /* add a 0 prefix if the seconds value is less than 10 for better visual
-       effect */
     if (seconds < 10)
     {
         secondsString.insert(0, "0");
     }
 
-    /* add a 0 prefix if the minutes value is less than 10 for better visual
-       effect */
     if (minutes < 10)
     {
         minutesString.insert(0, "0");
     }
 
-    /* update the SFML surface displayed text */
-    text.setString(minutesString + " : " + secondsString);
+    impl->text.setString(minutesString + " : " + secondsString);
 }
 
 /**
  *
  */
-void TimerWidget::stop()
+void TimerWidget::stop() const & noexcept
 {
-    /* the started boolean is marked as false and the timer is stopped */
-    started = false;
+    impl->started = false;
 }
 
 /**
  *
  */
-void TimerWidget::start()
+void TimerWidget::start() const & noexcept
 {
-    /* set the 'start' boolean to true automatically starts the countdown */
-    started = true;
+    impl->started = true;
 }
 
 /**
@@ -184,22 +170,28 @@ void TimerWidget::start()
 void TimerWidget::setMinutesAndSeconds(
     const unsigned short& minutesAmount,
     const unsigned short& secondsAmount
-)
+) const &
 {
-    minutes = minutesAmount;
-    seconds = secondsAmount;
+    impl->minutes = minutesAmount;
+    impl->seconds = secondsAmount;
 
-    /* force the update of the SFML surfaces that displays the countdown with
-       the new values */
     updateDisplayedString();
 }
 
 /**
  *
  */
-const bool& TimerWidget::isFinished() const
+const bool& TimerWidget::isFinished() const &
 {
-    return finished;
+    return impl->finished;
+}
+
+/**
+ *
+ */
+const sf::Text& TimerWidget::getTextSurface() const & noexcept
+{
+    return impl->text;
 }
 
 }

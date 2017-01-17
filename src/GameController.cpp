@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +34,6 @@
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "GameDashboard.hpp"
-#include "TutorialWidget.hpp"
 #include "TimerWidget.hpp"
 #include "WinLevelEndingScreen.hpp"
 #include "LoseLevelEndingScreen.hpp"
@@ -42,11 +41,16 @@
 #include "PickUpEffectsManager.hpp"
 #include "TexturesManager.hpp"
 #include "Level.hpp"
+#include "EditingLevelManager.hpp"
 
 namespace memoris
 {
 namespace controllers
 {
+
+constexpr float GameController::CELLS_DEFAULT_TRANSPARENCY;
+
+constexpr unsigned short GameController::FIRST_FLOOR_INDEX;
 
 class GameController::Impl
 {
@@ -55,11 +59,15 @@ public:
 
     Impl(
         const utils::Context& context,
-        std::shared_ptr<entities::Level> levelPtr
+        const Level& levelPtr,
+        const bool& watchLevel
     ) :
+        watchingPeriod(watchLevel),
+        watchLevel(watchLevel),
         level(levelPtr),
         watchingTimer(context),
-        dashboard(context)
+        dashboard(context),
+        timerText(dashboard.getTimerWidget().getTextSurface())
     {
     }
 
@@ -70,29 +78,39 @@ public:
 
     unsigned short floor {0};
     unsigned short displayedWatchingTime {0};
+    unsigned short playingTime {0};
 
     bool watchingPeriod {true};
     bool playingPeriod {false};
     bool movePlayerToNextFloor {false};
     bool movePlayerToPreviousFloor {false};
     bool win {false};
+    bool watchLevel;
 
     sf::Uint8 playerCellTransparency {64};
     sf::Uint8 leftLevelsAmountTransparency {255};
 
     sf::Int8 leftLevelsAmountDirection {-17};
 
+    sf::Int32 lastTimerUpdateTime {0};
+
     std::unique_ptr<utils::LevelEndingScreen> endingScreen {nullptr};
     std::unique_ptr<animations::LevelAnimation> animation {nullptr};
-    std::unique_ptr<widgets::TutorialWidget> tutorialWidget {nullptr};
 
-    std::shared_ptr<entities::Level> level;
+    /* use a pointer here for two reasons: this is faster to copy from one
+       method to another, especially after creation into controllers.cpp; we
+       have no other choice that creating the Level object into controllers.cpp
+       and we still want access it into the controller, so we can not use a
+       simple Level reference as the original object would be destroyed */
+    Level level;
 
     widgets::WatchingTimer watchingTimer;
 
     utils::GameDashboard dashboard;
 
     utils::PickUpEffectsManager pickUpEffectsManager;
+
+    const sf::Text& timerText;
 };
 
 /**
@@ -100,36 +118,52 @@ public:
  */
 GameController::GameController(
     const utils::Context& context,
-    std::shared_ptr<entities::Level> levelPtr
+    const Level& levelPtr,
+    const bool& watchLevel
 ) :
     Controller(context),
     impl(
         std::make_unique<Impl>(
             context,
-            levelPtr
+            levelPtr,
+            watchLevel
         )
     )
 {
+    auto& level = impl->level;
+
     /* TODO: #592 this way to do is bad: we got data from one object to
        directly set it as a value of another object, should be refactored */
     impl->dashboard.updateTotalStarsAmountSurface(
-        impl->level->getStarsAmount()
+        level->getStarsAmount()
     );
 
-    impl->displayedWatchingTime =
-        context.getPlayingSerieManager().getWatchingTime();
+    auto& playingSerieManager = context.getPlayingSerieManager();
+
+    impl->displayedWatchingTime = playingSerieManager.getWatchingTime();
 
     impl->watchingTimer.updateDisplayedAmount(impl->displayedWatchingTime);
 
     impl->dashboard.getTimerWidget().setMinutesAndSeconds(
-        impl->level->getMinutes(),
-        impl->level->getSeconds()
+        level->getMinutes(),
+        level->getSeconds()
     );
 
-    if (context.getPlayingSerieManager().getSerieName() == "tutorial")
+    if (not watchLevel)
     {
-        impl->tutorialWidget =
-            std::make_unique<widgets::TutorialWidget>(context);
+        level->hideAllCellsExceptDeparture(context);
+
+        level->setCellsTransparency(
+            context,
+            CELLS_DEFAULT_TRANSPARENCY,
+            FIRST_FLOOR_INDEX
+        );
+
+        impl->playingPeriod = true;
+
+        auto& floor = impl->floor;
+        floor = level->getPlayerFloor();
+        impl->dashboard.updateCurrentFloor(floor);
     }
 }
 
@@ -150,9 +184,31 @@ const unsigned short& GameController::render(
         impl->watchingTimer.display(context);
     }
 
-    impl->dashboard.display(context);
+    auto& dashboard = impl->dashboard;
+    dashboard.display();
 
-    impl->dashboard.getTimerWidget().display(context);
+    auto& timerWidget = dashboard.getTimerWidget();
+    auto& lastTimerUpdateTime = impl->lastTimerUpdateTime;
+
+    if (
+        impl->playingPeriod and
+        (
+            context.getClockMillisecondsTime() -
+            lastTimerUpdateTime > ONE_SECOND
+        )
+    )
+    {
+        if (impl->watchLevel)
+        {
+            timerWidget.render();
+        }
+
+        impl->playingTime++;
+
+        lastTimerUpdateTime = context.getClockMillisecondsTime();
+    }
+
+    context.getSfmlWindow().draw(impl->timerText);
 
     if (impl->level->getAnimateFloorTransition())
     {
@@ -237,16 +293,10 @@ const unsigned short& GameController::render(
         }
     }
 
-    if (impl->tutorialWidget != nullptr)
-    {
-        impl->tutorialWidget->display(context);
-    }
-
     if (
-        impl->watchingPeriod &&
+        impl->watchingPeriod and
         context.getClockMillisecondsTime() -
-        impl->lastWatchingTimeUpdate > 1000 &&
-        impl->tutorialWidget == nullptr
+        impl->lastWatchingTimeUpdate > 1000
     )
     {
         if (impl->displayedWatchingTime == 1)
@@ -264,6 +314,11 @@ const unsigned short& GameController::render(
     }
 
     impl->pickUpEffectsManager.renderAllEffects(context);
+
+    if(impl->dashboard.getTimerWidget().isFinished())
+    {
+        endLevel(context);
+    }
 
     nextControllerId = animateScreenTransition(context);
 
@@ -313,6 +368,13 @@ const unsigned short& GameController::render(
             }
             case sf::Keyboard::Escape:
             {
+                if (context.getEditingLevelManager().getLevel() != nullptr)
+                {
+                    expectedControllerId = LEVEL_EDITOR_CONTROLLER_ID;
+
+                    break;
+                }
+
                 expectedControllerId = MAIN_MENU_CONTROLLER_ID;
 
                 break;
@@ -322,21 +384,7 @@ const unsigned short& GameController::render(
             {
                 expectedControllerId = controllers::GAME_CONTROLLER_ID;
 
-                context.getPlayingSerieManager().incrementLevelIndex();
-
                 break;
-            }
-            case sf::Keyboard::Return:
-            {
-                if (impl->tutorialWidget == nullptr)
-                {
-                    break;
-                }
-
-                if (!impl->tutorialWidget->nextFrame())
-                {
-                    impl->tutorialWidget.reset();
-                }
             }
             default:
             {
@@ -437,12 +485,15 @@ void GameController::executePlayerCellAction(
     {
         context.getSoundsManager().playFoundDeadOrLessTimeSound();
 
-        if (impl->dashboard.getLifesAmount() == 0)
+        if (impl->dashboard.getLifes() == 0)
         {
             endLevel(context);
         }
 
-        impl->dashboard.decrementLifes();
+        if (impl->dashboard.getLifes())
+        {
+            impl->dashboard.decrementLifes();
+        }
 
         break;
     }
@@ -458,7 +509,11 @@ void GameController::executePlayerCellAction(
     {
         context.getSoundsManager().playFoundDeadOrLessTimeSound();
 
-        impl->dashboard.decreaseWatchingTime();
+        constexpr unsigned short MINIMUM_WATCHING_TIME {3};
+        if (impl->dashboard.getWatchingTime() != MINIMUM_WATCHING_TIME)
+        {
+            impl->dashboard.decreaseWatchingTime();
+        }
 
         break;
     }
@@ -510,13 +565,28 @@ void GameController::executePlayerCellAction(
         {
             impl->win = true;
 
-            if (context.getPlayingSerieManager().hasNextLevel())
+            const auto& editingLevelManager = context.getEditingLevelManager();
+            const auto& editedLevel = editingLevelManager.getLevel();
+
+            const auto& playingSerieManager = context.getPlayingSerieManager();
+            playingSerieManager.addSecondsToPlayingSerieTime(
+                impl->playingTime
+            );
+
+            if (editedLevel != nullptr)
+            {
+                expectedControllerId = LEVEL_EDITOR_CONTROLLER_ID;
+
+                return;
+            }
+
+            if (playingSerieManager.hasNextLevel())
             {
                 endLevel(context);
             }
             else
             {
-                expectedControllerId = controllers::MAIN_MENU_CONTROLLER_ID;
+                expectedControllerId = controllers::WIN_SERIE_CONTROLLER_ID;
             }
         }
 
@@ -606,12 +676,20 @@ void GameController::endLevel(const utils::Context& context)
 {
     if (impl->win)
     {
+        // auto -> const managers::PlayingSerieManager&
+        const auto& serieManager = context.getPlayingSerieManager();
+
+        // auto -> const utils::GameDashboard&
+        const auto& dashboard = impl->dashboard;
+
         context.getSoundsManager().playWinLevelSound();
 
         impl->endingScreen =
             std::make_unique<utils::WinLevelEndingScreen>(context);
 
-        context.getPlayingSerieManager().incrementLevelIndex();
+        serieManager.incrementLevelIndex();
+        serieManager.setWatchingTime(dashboard.getWatchingTime());
+        serieManager.setLifesAmount(dashboard.getLifes());
     }
     else
     {

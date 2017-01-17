@@ -1,6 +1,6 @@
 /**
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,43 +39,47 @@ int main()
     unsigned short currentControllerId {controllers::MAIN_MENU_CONTROLLER_ID},
              nextControllerId {0};
 
-    std::string currentMusicPath =
-        musics::getMusicPathById(currentControllerId),
-        nextMusicPath;
-
     utils::Context context;
+
+    auto currentMusicPath = musics::getMusicPathById(currentControllerId);
     context.loadMusicFile(currentMusicPath);
 
     do
     {
+        /* get a std::unique_ptr<controllers::Controller> */
         auto pCurrentController =
             controllers::getControllerById(
                 context,
                 currentControllerId
-            ); // auto -> std::unique_ptr<controllers::Controller>
+            );
 
         do
         {
-            /* NOTE: this instruction generates memory leaks; this error comes
-               from OpenGL libraries; we do not handle this error; the leak is
-               deleted if we delete this line */
+            /* NOTE: this instruction generates memory leaks; as it comes from
+               the external dynamic library and because it is an insignificant
+               amount of memory (63 bytes), I just ignore it; the generated
+               error is (Valgrind) :
+               by 0x527434E: sf::RenderTarget::clear(sf::Color const&)
+               (in /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.1) */
             context.getSfmlWindow().clear();
 
             nextControllerId = pCurrentController->render(context);
 
             context.getSfmlWindow().display();
         }
-        while (!nextControllerId);
+        while (not nextControllerId);
 
         if (currentControllerId == controllers::EXIT)
         {
             continue;
         }
 
-        nextMusicPath =
-            musics::getMusicPathById(nextControllerId);
+        std::string nextMusicPath {musics::getMusicPathById(nextControllerId)};
 
-        if(currentMusicPath != nextMusicPath)
+        if(
+            currentMusicPath != nextMusicPath and
+            currentControllerId != nextControllerId
+        )
         {
             context.loadMusicFile(nextMusicPath);
             currentMusicPath = nextMusicPath;

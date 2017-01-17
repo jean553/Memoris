@@ -1,6 +1,6 @@
 /**
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,7 +41,8 @@ const std::string getMusicPathById(const unsigned short& id)
     {
     case controllers::GAME_CONTROLLER_ID:
     {
-        return "res/musics/Zeropage_-_Void_Sensor.ogg";
+        /* there is multiple std::string copies here, but we allow it anyway */
+        return getRandomGameMusicPath();
     }
     break;
     /* by default, if the controller id does not exist, the main
@@ -53,6 +54,22 @@ const std::string getMusicPathById(const unsigned short& id)
         return "res/musics/Zeropage_-_Ambient_Dance.ogg";
     }
     }
+}
+
+/**
+ *
+ */
+const std::string getRandomGameMusicPath()
+{
+    /* we use int because rand() returns an integer */
+    unsigned int randomNumber = rand() % MAXIMUM_RANDOM_GAME_MUSIC;
+
+    if (randomNumber == 0)
+    {
+        return "res/musics/Zeropage_-_Void_Sensor.ogg";
+    }
+
+    return "res/musics/Zeropage_-_Ambiose.ogg";
 }
 
 }

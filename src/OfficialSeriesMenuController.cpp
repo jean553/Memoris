@@ -1,6 +1,6 @@
 /**
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,7 +37,6 @@
 
 namespace memoris
 {
-
 namespace controllers
 {
 
@@ -66,8 +65,7 @@ public:
        override from AbstractMenuController and does not have any
        utils::Context& parameter; we use a constant reference here instead
        of changing all the declarations/definitions of selectMenuItem()
-       because only one implementation uses it;
-       TODO: #793 do not use this constant reference here */
+       because only one implementation uses it */;
     const utils::Context& contextReference;
 };
 
@@ -80,14 +78,6 @@ OfficialSeriesMenuController::OfficialSeriesMenuController(
     AbstractMenuController(context),
     impl(std::make_unique<Impl>(context))
 {
-    std::unique_ptr<items::MenuItem> tutorial(
-        std::make_unique<items::MenuItem>(
-            context,
-            "Tutorial",
-            200.f
-        )
-    );
-
     std::unique_ptr<items::MenuItem> easy(
         std::make_unique<items::MenuItem>(
             context,
@@ -136,15 +126,16 @@ OfficialSeriesMenuController::OfficialSeriesMenuController(
         )
     );
 
-    tutorial->select(context);
+    easy->select(context);
 
-    addMenuItem(std::move(tutorial));
     addMenuItem(std::move(easy));
     addMenuItem(std::move(medium));
     addMenuItem(std::move(difficult));
     addMenuItem(std::move(hard));
     addMenuItem(std::move(veryHard));
     addMenuItem(std::move(hazardous));
+
+    context.getPlayingSerieManager().reinitialize();
 }
 
 /**
@@ -176,7 +167,7 @@ const unsigned short& OfficialSeriesMenuController::render(
             {
             case sf::Keyboard::Escape:
             {
-                expectedControllerId = MAIN_MENU_CONTROLLER_ID;
+                expectedControllerId = SERIE_MAIN_MENU_CONTROLLER_ID;
 
                 break;
             }
@@ -223,7 +214,7 @@ void OfficialSeriesMenuController::selectMenuItem() & noexcept
 
     /* TODO: #890 the locked list should be loaded from the game file; this
        condition is a temporary solution for tests only; to delete */
-    if (serie == "easy")
+    if (serie == DIFFICULT)
     {
         expectedControllerId = UNLOCKED_SERIE_ERROR_CONTROLLER_ID;
 
@@ -233,7 +224,7 @@ void OfficialSeriesMenuController::selectMenuItem() & noexcept
     try
     {
         impl->contextReference.getPlayingSerieManager().loadSerieFileContent(
-            serie
+            "officials/" + serie
         );
 
         expectedControllerId = GAME_CONTROLLER_ID;
@@ -242,7 +233,7 @@ void OfficialSeriesMenuController::selectMenuItem() & noexcept
     catch(std::invalid_argument&)
     {
         /* TODO: #559 the error controller should display the error message */
-        expectedControllerId = ERROR_CONTROLLER_ID;
+        expectedControllerId = OPEN_FILE_ERROR_CONTROLLER_ID;
     }
 }
 
@@ -254,15 +245,21 @@ noexcept
 {
     switch(getSelectorPosition())
     {
+    case 2:
+    {
+        return DIFFICULT;
+
+        break;
+    }
     case 1:
     {
-        return "easy";
+        return MEDIUM;
 
         break;
     }
     default:
     {
-        return "tutorial";
+        return EASY;
 
         break;
     }

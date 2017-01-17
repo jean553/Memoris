@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2015  Jean LELIEVRE
+ * Copyright (C) 2016  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ namespace animations
  */
 void VerticalMirrorAnimation::renderAnimation(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) &
 {
@@ -142,12 +142,15 @@ void VerticalMirrorAnimation::renderAnimation(
  */
 void VerticalMirrorAnimation::invertSides(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) &
 {
     const unsigned short firstIndex = floor * CELLS_PER_FLOOR;
-    const unsigned short lastIndex = firstIndex + LEFT_SIDE_LAST_CELL_INDEX;
+
+    constexpr unsigned short LAST_FLOOR_CELL_INDEX {255};
+    const unsigned short lastIndex = firstIndex + LAST_FLOOR_CELL_INDEX;
+
     const unsigned short previousPlayerCell = level->getPlayerCellIndex();
 
     unsigned short line {0};
@@ -209,7 +212,11 @@ void VerticalMirrorAnimation::invertSides(
             updatedPlayerIndex = index;
         }
 
-        if (index != 0 && index % CELLS_PER_LINE == 0)
+        constexpr unsigned short CELLS_PER_LINE_OFFSET {7};
+        if (
+            index and
+            (index - CELLS_PER_LINE_OFFSET) % CELLS_PER_LINE_PER_SIDE == 0
+        )
         {
             line++;
         }
@@ -221,7 +228,7 @@ void VerticalMirrorAnimation::invertSides(
  */
 void VerticalMirrorAnimation::updateLeftSideTransparency(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) const &
 {
@@ -250,7 +257,7 @@ void VerticalMirrorAnimation::updateLeftSideTransparency(
  */
 void VerticalMirrorAnimation::updateRightSideTransparency(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) const &
 {
@@ -279,7 +286,7 @@ void VerticalMirrorAnimation::updateRightSideTransparency(
  */
 void VerticalMirrorAnimation::displayLevelAndVerticalSeparator(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level,
+    const Level& level,
     const unsigned short& floor
 ) const &
 {
