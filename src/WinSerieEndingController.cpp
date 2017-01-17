@@ -165,7 +165,7 @@ WinSerieEndingController::~WinSerieEndingController() noexcept = default;
 /**
  *
  */
-const unsigned short& WinSerieEndingController::render(
+const ControllerId& WinSerieEndingController::render(
     const utils::Context& context
 ) &
 {
@@ -249,7 +249,7 @@ const unsigned short& WinSerieEndingController::render(
                     break;
                 }
 
-                expectedControllerId = RANKING_CONTROLLER_ID;
+                expectedControllerId = ControllerId::MainMenu;
 
                 break;
             }

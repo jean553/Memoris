@@ -32,14 +32,14 @@ namespace musics
 /**
  *
  */
-const std::string getMusicPathById(const unsigned short& id)
+const std::string getMusicPathById(const controllers::ControllerId& id)
 {
     /* NOTE: directly set the files paths inside the code, without any
        constant declaration; in fact, this code is explicit enough */
 
     switch(id)
     {
-    case controllers::GAME_CONTROLLER_ID:
+    case controllers::ControllerId::Game:
     {
         /* there is multiple std::string copies here, but we allow it anyway */
         return getRandomGameMusicPath();
@@ -62,6 +62,7 @@ const std::string getMusicPathById(const unsigned short& id)
 const std::string getRandomGameMusicPath()
 {
     /* we use int because rand() returns an integer */
+    constexpr unsigned int MAXIMUM_RANDOM_GAME_MUSIC {2};
     unsigned int randomNumber = rand() % MAXIMUM_RANDOM_GAME_MUSIC;
 
     if (randomNumber == 0)

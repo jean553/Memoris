@@ -59,7 +59,7 @@ public:
      *
      * @param context reference to the current context to use
      *
-     * @return const unsigned short&
+     * @return const ControllerId&
      *
      * not 'const' because this method modifies the value of some attributes
      * like the expected controller id
@@ -68,7 +68,7 @@ public:
      * too many calls to noexcept functions in all the implementation of this
      * method)
      */
-    virtual const unsigned short& render(
+    virtual const ControllerId& render(
         const utils::Context& context
     ) & override;
 

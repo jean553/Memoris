@@ -84,13 +84,16 @@ Controller::~Controller() noexcept = default;
 /**
  *
  */
-const unsigned short Controller::animateScreenTransition(
+const ControllerId Controller::animateScreenTransition(
     const utils::Context& context
 ) &
 {
-    if (!expectedControllerId && !impl->openingScreen)
+    if (
+        expectedControllerId == ControllerId::NoController and 
+        not impl->openingScreen
+    )
     {
-        return 0;
+        return ControllerId::NoController;
     }
 
     impl->transitionSurfaceColor.a = impl->transitionStep * COLOR_UPDATE_STEP;
@@ -125,7 +128,7 @@ const unsigned short Controller::animateScreenTransition(
         impl->openingScreen = false;
     }
 
-    return 0;
+    return ControllerId::NoController;
 }
 
 }

@@ -90,7 +90,7 @@ OpenGameController::~OpenGameController() noexcept = default;
 /**
  *
  */
-const unsigned short& OpenGameController::render(
+const ControllerId& OpenGameController::render(
     const utils::Context& context
 ) &
 {
@@ -133,7 +133,7 @@ const unsigned short& OpenGameController::render(
             {
                 context.getGame().createGame(gameName);
 
-                expectedControllerId = SERIE_ControllerId::MainMenu;
+                expectedControllerId = ControllerId::PersonalSeriesMenu;
 
                 break;
             }

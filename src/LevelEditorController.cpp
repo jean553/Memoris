@@ -191,7 +191,7 @@ LevelEditorController::~LevelEditorController() noexcept = default;
 /**
  *
  */
-const unsigned short& LevelEditorController::render(
+const ControllerId& LevelEditorController::render(
     const utils::Context& context
 ) &
 {
@@ -339,7 +339,7 @@ const unsigned short& LevelEditorController::render(
 
                 levelManager.refreshLevel();
 
-                expectedControllerId = EDITOR_MENU_CONTROLLER_ID;
+                expectedControllerId = ControllerId::EditorMenu;
 
                 break;
             }
@@ -427,7 +427,7 @@ const unsigned short& LevelEditorController::render(
 
                 level->initializeEditedLevel();
 
-                expectedControllerId = GAME_CONTROLLER_ID;
+                expectedControllerId = ControllerId::Game;
 
                 auto& level = impl->level;
                 levelManager.setLevel(level);

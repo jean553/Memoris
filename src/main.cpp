@@ -36,8 +36,10 @@ using namespace memoris;
  */
 int main()
 {
-    unsigned short currentControllerId {controllers::ControllerId::MainMenu},
-             nextControllerId {0};
+    using namespace controllers;
+
+    ControllerId currentControllerId {ControllerId::MainMenu},
+             nextControllerId {ControllerId::NoController};
 
     utils::Context context;
 
@@ -46,9 +48,9 @@ int main()
 
     do
     {
-        /* get a std::unique_ptr<controllers::Controller> */
+        /* get a std::unique_ptr<Controller> */
         auto pCurrentController =
-            controllers::getControllerById(
+            getControllerById(
                 context,
                 currentControllerId
             );
@@ -67,9 +69,9 @@ int main()
 
             context.getSfmlWindow().display();
         }
-        while (not nextControllerId);
+        while (nextControllerId == ControllerId::NoController);
 
-        if (currentControllerId == controllers::EXIT)
+        if (currentControllerId == ControllerId::NoController)
         {
             continue;
         }
@@ -91,7 +93,7 @@ int main()
 
         context.restartClock();
     }
-    while (currentControllerId != controllers::EXIT);
+    while (currentControllerId != ControllerId::NoController);
 
     context.stopMusic();
 

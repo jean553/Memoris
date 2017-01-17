@@ -30,21 +30,25 @@
 
 namespace memoris
 {
+
+namespace controllers
+{
+enum class ControllerId;
+}
+
 namespace musics
 {
-
-constexpr unsigned int MAXIMUM_RANDOM_GAME_MUSIC {2};
 
 /**
  * @brief returns the path of the music according to the controller id;
  * each controller has a specific music, this music is found using
  * this factory function
  *
- * @param id the id of the controller
+ * @param id controller id
  *
  * @return const std::string
  */
-const std::string getMusicPathById(const unsigned short& id);
+const std::string getMusicPathById(const controllers::ControllerId& id);
 
 /**
  * @brief returns the path of one game music; this function is used by

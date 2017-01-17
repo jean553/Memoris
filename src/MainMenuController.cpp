@@ -147,7 +147,7 @@ MainMenuController::~MainMenuController() noexcept = default;
 /**
  *
  */
-const unsigned short& MainMenuController::render(
+const ControllerId& MainMenuController::render(
     const utils::Context& context
 ) &
 {
@@ -293,13 +293,13 @@ void MainMenuController::selectMenuItem() & noexcept
     }
     case 2:
     {
-        expectedControllerId = EDITOR_MENU_CONTROLLER_ID;
+        expectedControllerId = ControllerId::EditorMenu;
 
         break;
     }
     default:
     {
-        nextControllerId = EXIT;
+        nextControllerId = ControllerId::NoController;
 
         break;
     }

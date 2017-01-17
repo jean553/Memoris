@@ -26,7 +26,7 @@
 #ifndef MEMORIS_CONTROLLER_H_
 #define MEMORIS_CONTROLLER_H_
 
-#include "controllers.hpp"
+#include "controllers_ids.hpp"
 
 #include <SFML/Window/Event.hpp>
 
@@ -66,7 +66,7 @@ public:
      *
      * @param context shared pointer to the context to use
      *
-     * @return const unsigned short&
+     * @return const ControllerId&
      *
      * not 'const' because the render() methods contain for sure methods
      * calls that modify the current object
@@ -74,7 +74,7 @@ public:
      * not 'noexcept' because the render() methods contain for sure methods
      * calls that may throw exceptions
      */
-    virtual const unsigned short& render(
+    virtual const ControllerId& render(
         const utils::Context& context
     ) & = 0;
 
@@ -103,7 +103,7 @@ protected:
      *
      * @param context constant reference to the current context to use
      *
-     * @return const unsigned short
+     * @return const controllers::ControllerId
      *
      * does not return a reference because the function can directly return
      * a value using return; in some cases
@@ -113,7 +113,7 @@ protected:
      *
      * not 'noexcept' because it calls SFML methods that are not noexcept
      */
-    const unsigned short animateScreenTransition(
+    const ControllerId animateScreenTransition(
         const utils::Context& context
     ) &;
 

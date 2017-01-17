@@ -105,7 +105,7 @@ EditorMenuController::~EditorMenuController() noexcept = default;
 /**
  *
  */
-const unsigned short& EditorMenuController::render(const utils::Context& context) &
+const ControllerId& EditorMenuController::render(const utils::Context& context) &
 {
     context.getSfmlWindow().draw(impl->title);
 
@@ -162,13 +162,13 @@ void EditorMenuController::selectMenuItem() & noexcept
     {
     case 0:
     {
-        expectedControllerId = LEVEL_EDITOR_CONTROLLER_ID;
+        expectedControllerId = ControllerId::LevelEditor;
 
         break;
     }
     case 1:
     {
-        expectedControllerId = SERIE_EDITOR_CONTROLLER_ID;
+        expectedControllerId = ControllerId::SerieEditor;
 
         break;
     }

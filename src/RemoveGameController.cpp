@@ -79,7 +79,7 @@ RemoveGameController::~RemoveGameController()
 /**
  *
  */
-const unsigned short& RemoveGameController::render(
+const ControllerId& RemoveGameController::render(
     const utils::Context& context
 ) &
 {
@@ -98,7 +98,7 @@ const unsigned short& RemoveGameController::render(
             case sf::Keyboard::Escape:
             case sf::Keyboard::N:
             {
-                expectedControllerId = SERIE_ControllerId::MainMenu;
+                expectedControllerId = ControllerId::MainMenu;
 
                 break;
             }

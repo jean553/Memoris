@@ -64,13 +64,13 @@ public:
      *
      * @param context reference to the current context to use
      *
-     * @return const unsigned short&
+     * @return const ControllerId&
      *
      * not 'const' to match with the parent virtual function
      *
      * not 'noexcept' because it calls SFML functions that are not noexcept
      */
-    virtual const unsigned short& render(
+    virtual const ControllerId& render(
         const utils::Context& context
     ) & override;
 

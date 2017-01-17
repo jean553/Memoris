@@ -37,28 +37,6 @@ namespace memoris
 namespace controllers
 {
 
-enum class ControllerId
-{
-    NoController,
-    MainMenu,
-    NewGame,
-    Game,
-    SerieMainMenu,
-    OfficialSeriesMenu,
-    EditorMenu,
-    LevelEditor,
-    OpenGame,
-    SerieEditor,
-    WinSerie,
-    RemoveGame,
-    PersonalSeriesMenu,
-
-    /* TODO: #894 delete this id when each error
-       controller has his own message */
-    OpenFileError,
-    UnlockedSerieError
-};
-
 /**
  * @brief factory method to create controllers by id, each controller is linked
  * to an unique id; this method returns a pointer to a Controller child object
@@ -70,7 +48,7 @@ enum class ControllerId
  */
 std::unique_ptr<Controller> getControllerById(
     const utils::Context& context,
-    const unsigned short& id
+    const ControllerId& id
 );
 
 /**
