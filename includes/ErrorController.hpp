@@ -67,9 +67,9 @@ public:
      *
      * @param context constant reference to the current context
      *
-     * @return const unsigned short&
+     * @return const ControllerId&
      */
-    virtual const unsigned short& render(
+    virtual const ControllerId& render(
         const utils::Context& context
     ) & override final;
 

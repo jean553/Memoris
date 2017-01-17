@@ -131,7 +131,7 @@ SerieMainMenuController::~SerieMainMenuController() noexcept = default;
 /**
  *
  */
-const unsigned short& SerieMainMenuController::render(
+const ControllerId& SerieMainMenuController::render(
     const utils::Context& context
 ) &
 {
@@ -153,7 +153,7 @@ const unsigned short& SerieMainMenuController::render(
             {
             case sf::Keyboard::Escape:
             {
-                expectedControllerId = MAIN_MENU_CONTROLLER_ID;
+                expectedControllerId = ControllerId::MainMenu;
 
                 break;
             }
@@ -200,25 +200,25 @@ void SerieMainMenuController::selectMenuItem() & noexcept
     {
     case 0:
     {
-        expectedControllerId = OFFICIAL_SERIES_MENU_CONTROLLER_ID;
+        expectedControllerId = ControllerId::OfficialSeriesMenu;
 
         break;
     }
     case 1:
     {
-        expectedControllerId = PERSONAL_SERIES_MENU_CONTROLLER_ID;
+        expectedControllerId = ControllerId::PersonalSeriesMenu;
 
         break;
     }
     case 2:
     {
-        expectedControllerId = MAIN_MENU_CONTROLLER_ID;
+        expectedControllerId = ControllerId::MainMenu;
 
         break;
     }
     case 3:
     {
-        expectedControllerId = REMOVE_GAME_CONTROLLER_ID;
+        expectedControllerId = ControllerId::RemoveGame;
 
         break;
     }

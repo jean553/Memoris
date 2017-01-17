@@ -147,7 +147,7 @@ MainMenuController::~MainMenuController() noexcept = default;
 /**
  *
  */
-const unsigned short& MainMenuController::render(
+const ControllerId& MainMenuController::render(
     const utils::Context& context
 ) &
 {
@@ -281,25 +281,25 @@ void MainMenuController::selectMenuItem() & noexcept
     {
     case 0:
     {
-        expectedControllerId = NEW_GAME_CONTROLLER_ID;
+        expectedControllerId = ControllerId::NewGame;
 
         break;
     }
     case 1:
     {
-        expectedControllerId = OPEN_GAME_CONTROLLER_ID;
+        expectedControllerId = ControllerId::OpenGame;
 
         break;
     }
     case 2:
     {
-        expectedControllerId = EDITOR_MENU_CONTROLLER_ID;
+        expectedControllerId = ControllerId::EditorMenu;
 
         break;
     }
     default:
     {
-        nextControllerId = EXIT;
+        nextControllerId = ControllerId::Exit;
 
         break;
     }

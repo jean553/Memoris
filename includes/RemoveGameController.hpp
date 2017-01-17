@@ -58,11 +58,11 @@ public:
      *
      * @param context constant reference to the current context
      *
-     * @return const unsigned short&
+     * @return const ControllerId&
      *
      * overrides Controller::render
      */
-    const unsigned short& render(const utils::Context& context) & final 
+    const ControllerId& render(const utils::Context& context) & final 
         override;
 
 private:

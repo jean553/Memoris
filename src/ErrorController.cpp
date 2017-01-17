@@ -90,7 +90,7 @@ ErrorController::~ErrorController() noexcept = default;
 /**
  *
  */
-const unsigned short& ErrorController::render(const utils::Context& context) &
+const ControllerId& ErrorController::render(const utils::Context& context) &
 {
     context.getSfmlWindow().draw(impl->text);
 
@@ -110,7 +110,7 @@ const unsigned short& ErrorController::render(const utils::Context& context) &
                    now, the error controller is only accessible from this
                    screen when a level is not found; should go back to the
                    previous controller */
-                expectedControllerId = OFFICIAL_SERIES_MENU_CONTROLLER_ID;
+                expectedControllerId = ControllerId::OfficialSeriesMenu;
 
                 break;
             }

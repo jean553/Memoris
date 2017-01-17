@@ -100,7 +100,7 @@ NewGameController::~NewGameController() noexcept = default;
 /**
  *
  */
-const unsigned short& NewGameController::render(
+const ControllerId& NewGameController::render(
     const utils::Context& context
 ) &
 {
@@ -121,7 +121,7 @@ const unsigned short& NewGameController::render(
             {
             case sf::Keyboard::Escape:
             {
-                expectedControllerId = MAIN_MENU_CONTROLLER_ID;
+                expectedControllerId = ControllerId::MainMenu;
 
                 break;
             }
@@ -137,7 +137,7 @@ const unsigned short& NewGameController::render(
                     impl->inputTextGameName.getText()
                 );
 
-                expectedControllerId = SERIE_MAIN_MENU_CONTROLLER_ID;
+                expectedControllerId = ControllerId::SerieMainMenu;
 
                 break;
             }

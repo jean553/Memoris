@@ -61,7 +61,7 @@ public:
      * the context reference is not constant because this is a virtual method
      * and some definitions have to modify the context attributes
      */
-    virtual const unsigned short& render(
+    virtual const ControllerId& render(
         const utils::Context& context
     ) & override;
 

@@ -160,7 +160,7 @@ SerieEditorController::~SerieEditorController() noexcept = default;
 /**
  *
  */
-const unsigned short& SerieEditorController::render(
+const ControllerId& SerieEditorController::render(
     const utils::Context& context
 ) &
 {
@@ -255,7 +255,7 @@ const unsigned short& SerieEditorController::render(
                     break;
                 }
 
-                expectedControllerId = EDITOR_MENU_CONTROLLER_ID;
+                expectedControllerId = ControllerId::EditorMenu;
 
                 break;
             }
@@ -274,7 +274,7 @@ const unsigned short& SerieEditorController::render(
         {
             if (impl->buttonExit.isMouseHover())
             {
-                expectedControllerId = EDITOR_MENU_CONTROLLER_ID;
+                expectedControllerId = ControllerId::EditorMenu;
             }
             else if (
                 impl->buttonNew.isMouseHover() and

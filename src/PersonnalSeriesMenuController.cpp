@@ -94,7 +94,7 @@ PersonalSeriesMenuController::~PersonalSeriesMenuController() noexcept =
 /**
  *
  */
-const unsigned short& PersonalSeriesMenuController::render(
+const ControllerId& PersonalSeriesMenuController::render(
     const utils::Context& context
 ) &
 {
@@ -116,7 +116,7 @@ const unsigned short& PersonalSeriesMenuController::render(
             {
             case sf::Keyboard::Escape:
             {
-                expectedControllerId = SERIE_MAIN_MENU_CONTROLLER_ID;
+                expectedControllerId = ControllerId::SerieMainMenu;
 
                 break;
             }
@@ -141,14 +141,14 @@ const unsigned short& PersonalSeriesMenuController::render(
                     manager.loadSerieFileContent("personals/" + serieName);
                     manager.setIsOfficialSerie(false);
 
-                    expectedControllerId = GAME_CONTROLLER_ID;
+                    expectedControllerId = ControllerId::Game;
 
                 }
                 catch(std::invalid_argument&)
                 {
                     /* TODO: #559 the error controller
                        should display the error message */
-                    expectedControllerId = OPEN_FILE_ERROR_CONTROLLER_ID;
+                    expectedControllerId = ControllerId::OpenFileError;
                 }
 
                 break;

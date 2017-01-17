@@ -147,7 +147,7 @@ OfficialSeriesMenuController::~OfficialSeriesMenuController() noexcept =
 /**
  *
  */
-const unsigned short& OfficialSeriesMenuController::render(
+const ControllerId& OfficialSeriesMenuController::render(
     const utils::Context& context
 ) &
 {
@@ -167,7 +167,7 @@ const unsigned short& OfficialSeriesMenuController::render(
             {
             case sf::Keyboard::Escape:
             {
-                expectedControllerId = SERIE_MAIN_MENU_CONTROLLER_ID;
+                expectedControllerId = ControllerId::MainMenu;
 
                 break;
             }
@@ -216,7 +216,7 @@ void OfficialSeriesMenuController::selectMenuItem() & noexcept
        condition is a temporary solution for tests only; to delete */
     if (serie == DIFFICULT)
     {
-        expectedControllerId = UNLOCKED_SERIE_ERROR_CONTROLLER_ID;
+        expectedControllerId = ControllerId::UnlockedSerieError;
 
         return;
     }
@@ -227,13 +227,13 @@ void OfficialSeriesMenuController::selectMenuItem() & noexcept
             "officials/" + serie
         );
 
-        expectedControllerId = GAME_CONTROLLER_ID;
+        expectedControllerId = ControllerId::Game;
 
     }
     catch(std::invalid_argument&)
     {
         /* TODO: #559 the error controller should display the error message */
-        expectedControllerId = OPEN_FILE_ERROR_CONTROLLER_ID;
+        expectedControllerId = ControllerId::OpenFileError;
     }
 }
 

@@ -90,7 +90,7 @@ OpenGameController::~OpenGameController() noexcept = default;
 /**
  *
  */
-const unsigned short& OpenGameController::render(
+const ControllerId& OpenGameController::render(
     const utils::Context& context
 ) &
 {
@@ -112,7 +112,7 @@ const unsigned short& OpenGameController::render(
             {
             case sf::Keyboard::Escape:
             {
-                expectedControllerId = MAIN_MENU_CONTROLLER_ID;
+                expectedControllerId = ControllerId::MainMenu;
 
                 break;
             }
@@ -133,7 +133,7 @@ const unsigned short& OpenGameController::render(
             {
                 context.getGame().createGame(gameName);
 
-                expectedControllerId = SERIE_MAIN_MENU_CONTROLLER_ID;
+                expectedControllerId = ControllerId::SerieMainMenu;
 
                 break;
             }

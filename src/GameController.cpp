@@ -175,7 +175,7 @@ GameController::~GameController() noexcept = default;
 /**
  *
  */
-const unsigned short& GameController::render(
+const ControllerId& GameController::render(
     const utils::Context& context
 ) &
 {
@@ -288,8 +288,8 @@ const unsigned short& GameController::render(
         )
         {
             expectedControllerId = impl->win ?
-                                   controllers::GAME_CONTROLLER_ID:
-                                   controllers::MAIN_MENU_CONTROLLER_ID;
+                controllers::ControllerId::Game:
+                controllers::ControllerId::MainMenu;
         }
     }
 
@@ -370,19 +370,19 @@ const unsigned short& GameController::render(
             {
                 if (context.getEditingLevelManager().getLevel() != nullptr)
                 {
-                    expectedControllerId = LEVEL_EDITOR_CONTROLLER_ID;
+                    expectedControllerId = ControllerId::LevelEditor;
 
                     break;
                 }
 
-                expectedControllerId = MAIN_MENU_CONTROLLER_ID;
+                expectedControllerId = ControllerId::MainMenu;
 
                 break;
             }
             /* TODO: #825 for cheating and dev purposes ;) */
             case sf::Keyboard::P:
             {
-                expectedControllerId = controllers::GAME_CONTROLLER_ID;
+                expectedControllerId = controllers::ControllerId::Game;
 
                 break;
             }
@@ -575,7 +575,7 @@ void GameController::executePlayerCellAction(
 
             if (editedLevel != nullptr)
             {
-                expectedControllerId = LEVEL_EDITOR_CONTROLLER_ID;
+                expectedControllerId = ControllerId::LevelEditor;
 
                 return;
             }
@@ -586,7 +586,7 @@ void GameController::executePlayerCellAction(
             }
             else
             {
-                expectedControllerId = controllers::WIN_SERIE_CONTROLLER_ID;
+                expectedControllerId = controllers::ControllerId::WinSerie;
             }
         }
 
