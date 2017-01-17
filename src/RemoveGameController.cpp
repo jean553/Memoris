@@ -98,7 +98,7 @@ const unsigned short& RemoveGameController::render(
             case sf::Keyboard::Escape:
             case sf::Keyboard::N:
             {
-                expectedControllerId = SERIE_MAIN_MENU_CONTROLLER_ID;
+                expectedControllerId = SERIE_ControllerId::MainMenu;
 
                 break;
             }
@@ -106,7 +106,7 @@ const unsigned short& RemoveGameController::render(
             {
                 context.getGame().deleteGameFile();
 
-                expectedControllerId = MAIN_MENU_CONTROLLER_ID;
+                expectedControllerId = ControllerId::MainMenu;
 
                 break;
             }

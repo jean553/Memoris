@@ -36,7 +36,7 @@ using namespace memoris;
  */
 int main()
 {
-    unsigned short currentControllerId {controllers::MAIN_MENU_CONTROLLER_ID},
+    unsigned short currentControllerId {controllers::ControllerId::MainMenu},
              nextControllerId {0};
 
     utils::Context context;

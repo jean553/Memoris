@@ -153,7 +153,7 @@ const unsigned short& SerieMainMenuController::render(
             {
             case sf::Keyboard::Escape:
             {
-                expectedControllerId = MAIN_MENU_CONTROLLER_ID;
+                expectedControllerId = ControllerId::MainMenu;
 
                 break;
             }
@@ -212,7 +212,7 @@ void SerieMainMenuController::selectMenuItem() & noexcept
     }
     case 2:
     {
-        expectedControllerId = MAIN_MENU_CONTROLLER_ID;
+        expectedControllerId = ControllerId::MainMenu;
 
         break;
     }

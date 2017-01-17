@@ -174,7 +174,7 @@ void EditorMenuController::selectMenuItem() & noexcept
     }
     case 2:
     {
-        expectedControllerId = MAIN_MENU_CONTROLLER_ID;
+        expectedControllerId = ControllerId::MainMenu;
 
         break;
     }

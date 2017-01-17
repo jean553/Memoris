@@ -116,7 +116,7 @@ const unsigned short& PersonalSeriesMenuController::render(
             {
             case sf::Keyboard::Escape:
             {
-                expectedControllerId = SERIE_MAIN_MENU_CONTROLLER_ID;
+                expectedControllerId = SERIE_ControllerId::MainMenu;
 
                 break;
             }

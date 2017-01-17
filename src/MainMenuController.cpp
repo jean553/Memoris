@@ -281,13 +281,13 @@ void MainMenuController::selectMenuItem() & noexcept
     {
     case 0:
     {
-        expectedControllerId = NEW_GAME_CONTROLLER_ID;
+        expectedControllerId = ControllerId::NewGame;
 
         break;
     }
     case 1:
     {
-        expectedControllerId = OPEN_GAME_CONTROLLER_ID;
+        expectedControllerId = ControllerId::OpenGame;
 
         break;
     }

@@ -288,8 +288,8 @@ const unsigned short& GameController::render(
         )
         {
             expectedControllerId = impl->win ?
-                                   controllers::GAME_CONTROLLER_ID:
-                                   controllers::MAIN_MENU_CONTROLLER_ID;
+                controllers::ControllerId::Game:
+                controllers::ControllerId::MainMenu;
         }
     }
 
@@ -375,7 +375,7 @@ const unsigned short& GameController::render(
                     break;
                 }
 
-                expectedControllerId = MAIN_MENU_CONTROLLER_ID;
+                expectedControllerId = ControllerId::MainMenu;
 
                 break;
             }
