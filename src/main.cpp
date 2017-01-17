@@ -93,7 +93,7 @@ int main()
 
         context.restartClock();
     }
-    while (currentControllerId != ControllerId::NoController);
+    while (currentControllerId != ControllerId::Exit);
 
     context.stopMusic();
 

@@ -28,6 +28,7 @@ namespace controllers
 enum class ControllerId
 {
     NoController,
+    Exit,
     MainMenu,
     NewGame,
     Game,

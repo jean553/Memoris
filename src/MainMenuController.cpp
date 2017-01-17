@@ -299,7 +299,7 @@ void MainMenuController::selectMenuItem() & noexcept
     }
     default:
     {
-        nextControllerId = ControllerId::NoController;
+        nextControllerId = ControllerId::Exit;
 
         break;
     }

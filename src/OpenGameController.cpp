@@ -133,7 +133,7 @@ const ControllerId& OpenGameController::render(
             {
                 context.getGame().createGame(gameName);
 
-                expectedControllerId = ControllerId::PersonalSeriesMenu;
+                expectedControllerId = ControllerId::SerieMainMenu;
 
                 break;
             }

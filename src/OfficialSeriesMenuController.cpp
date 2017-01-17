@@ -167,7 +167,7 @@ const ControllerId& OfficialSeriesMenuController::render(
             {
             case sf::Keyboard::Escape:
             {
-                expectedControllerId = ControllerId::OfficialSeriesMenu;
+                expectedControllerId = ControllerId::MainMenu;
 
                 break;
             }
