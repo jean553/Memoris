@@ -37,28 +37,27 @@ namespace memoris
 namespace controllers
 {
 
-/* all the controllers ids */
+enum class ControllerId
+{
+    NoController,
+    MainMenu,
+    NewGame,
+    Game,
+    SerieMainMenu,
+    OfficialSeriesMenu,
+    EditorMenu,
+    LevelEditor,
+    OpenGame,
+    SerieEditor,
+    WinSerie,
+    RemoveGame,
+    PersonalSeriesMenu,
 
-/* TODO: #875 no need to store integers here, try to use an enumeration ? */
-constexpr unsigned short EXIT {1};
-constexpr unsigned short MAIN_MENU_CONTROLLER_ID {2};
-constexpr unsigned short NEW_GAME_CONTROLLER_ID {3};
-constexpr unsigned short GAME_CONTROLLER_ID {4};
-constexpr unsigned short SERIE_MAIN_MENU_CONTROLLER_ID {5};
-constexpr unsigned short OFFICIAL_SERIES_MENU_CONTROLLER_ID {6};
-constexpr unsigned short EDITOR_MENU_CONTROLLER_ID {8};
-constexpr unsigned short LEVEL_EDITOR_CONTROLLER_ID {9};
-constexpr unsigned short OPEN_GAME_CONTROLLER_ID {11};
-constexpr unsigned short SERIE_EDITOR_CONTROLLER_ID {12};
-
-/* TODO: #894 delete this id when each error controller has his own message */
-constexpr unsigned short OPEN_FILE_ERROR_CONTROLLER_ID {7};
-constexpr unsigned short UNLOCKED_SERIE_ERROR_CONTROLLER_ID {13};
-
-constexpr unsigned short WIN_SERIE_CONTROLLER_ID {14};
-constexpr unsigned short REMOVE_GAME_CONTROLLER_ID {15};
-constexpr unsigned short PERSONAL_SERIES_MENU_CONTROLLER_ID {16};
-constexpr unsigned short RANKING_CONTROLLER_ID {17};
+    /* TODO: #894 delete this id when each error
+       controller has his own message */
+    OpenFileError,
+    UnlockedSerieError
+};
 
 /**
  * @brief factory method to create controllers by id, each controller is linked

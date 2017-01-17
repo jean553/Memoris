@@ -50,25 +50,24 @@ namespace controllers
  */
 std::unique_ptr<Controller> getControllerById(
     const utils::Context& context,
-    const unsigned short& id
+    const ControllerId& id
 )
 {
-    /* return a unique pointer to the correct controller according to the id */
     switch(id)
     {
-    case NEW_GAME_CONTROLLER_ID:
+    case ControllerId::NewGame:
     {
         return std::make_unique<NewGameController>(context);
     }
-    case SERIE_MAIN_MENU_CONTROLLER_ID:
+    case ControllerId::SerieMainMenu:
     {
         return std::make_unique<SerieMainMenuController>(context);
     }
-    case OFFICIAL_SERIES_MENU_CONTROLLER_ID:
+    case ControllerId::OfficialSeriesMenu:
     {
         return std::make_unique<OfficialSeriesMenuController>(context);
     }
-    case GAME_CONTROLLER_ID:
+    case ControllerId::Game:
     {
         try
         {
@@ -119,18 +118,18 @@ std::unique_ptr<Controller> getControllerById(
     }
     /* TODO: #894 to delete, an empty error controller is never called; it
        always contains a message */
-    case OPEN_FILE_ERROR_CONTROLLER_ID:
+    case ControllerId::OpenFileError:
     {
         return getErrorController(
             context,
             errors::CANNOT_OPEN_LEVEL
         );
     }
-    case EDITOR_MENU_CONTROLLER_ID:
+    case ControllerId::EditorMenu:
     {
         return std::make_unique<EditorMenuController>(context);
     }
-    case LEVEL_EDITOR_CONTROLLER_ID:
+    case ControllerId::LevelEditor:
     {
         const auto& editedLevel = context.getEditingLevelManager().getLevel();
 
@@ -169,40 +168,40 @@ std::unique_ptr<Controller> getControllerById(
             );
         }
     }
-    case OPEN_GAME_CONTROLLER_ID:
+    case ControllerId::OpenGame:
     {
         return std::make_unique<OpenGameController>(context);
     }
-    case SERIE_EDITOR_CONTROLLER_ID:
+    case ControllerId::SerieEditor:
     {
         return std::make_unique<SerieEditorController>(context);
     }
-    case UNLOCKED_SERIE_ERROR_CONTROLLER_ID:
+    case ControllerId::UnlockedSerieError:
     {
         return getErrorController(
             context,
             errors::UNLOCKED_SERIE
         );
     }
-    case WIN_SERIE_CONTROLLER_ID:
+    case ControllerId::WinSerie:
     {
         return std::make_unique<WinSerieEndingController>(context);
     }
-    case REMOVE_GAME_CONTROLLER_ID:
+    case ControllerId::RemoveGame:
     {
         return std::make_unique<RemoveGameController>(context);
     }
-    case PERSONAL_SERIES_MENU_CONTROLLER_ID:
+    case ControllerId::PersonalSeriesMenu:
     {
         return std::make_unique<PersonalSeriesMenuController>(context);
     }
+    default:
+    {
+        /* by default, if the controller id does not exist, the main
+           menu is rendered; it prevents mistakes during screens transitions */
+        return std::make_unique<MainMenuController>(context);
     }
-
-    /* by default, if the controller id does not exist, the main
-       menu is rendered; it avoids mistakes in screens transitions;
-       NOTE: the musics factory also returns the main menu music
-       if an incorrect controller id is specified */
-    return std::make_unique<MainMenuController>(context);
+    }
 }
 
 /**

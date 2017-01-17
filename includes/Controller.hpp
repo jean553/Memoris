@@ -26,9 +26,11 @@
 #ifndef MEMORIS_CONTROLLER_H_
 #define MEMORIS_CONTROLLER_H_
 
-#include <memory>
+#include "controllers.hpp"
 
 #include <SFML/Window/Event.hpp>
+
+#include <memory>
 
 namespace sf
 {
@@ -117,7 +119,8 @@ protected:
 
     /* TODO: #784 not included in the implementation because used by the
        children objects, this should be refactored */
-    unsigned short nextControllerId {0}, expectedControllerId {0};
+    ControllerId nextControllerId {ControllerId::NoController},
+        expectedControllerId {ControllerId::NoController};
 
     sf::Event event;
 
