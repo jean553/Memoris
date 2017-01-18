@@ -24,6 +24,7 @@
 
 #include "SerieMainMenuController.hpp"
 
+#include "controllers_ids.hpp"
 #include "fonts.hpp"
 #include "controllers.hpp"
 #include "FontsManager.hpp"
@@ -139,7 +140,7 @@ const ControllerId& SerieMainMenuController::render() &
 
     context.getSfmlWindow().draw(impl->gameName);
 
-    nextControllerId = animateScreenTransition(context);
+    setNextControllerId(animateScreenTransition(context));
 
     while (context.getSfmlWindow().pollEvent(event))
     {
@@ -151,7 +152,7 @@ const ControllerId& SerieMainMenuController::render() &
             {
             case sf::Keyboard::Escape:
             {
-                expectedControllerId = ControllerId::MainMenu;
+                setExpectedControllerId(ControllerId::MainMenu);
 
                 break;
             }
@@ -186,7 +187,7 @@ const ControllerId& SerieMainMenuController::render() &
         }
     }
 
-    return nextControllerId;
+    return getNextControllerId();
 }
 
 /**
@@ -198,25 +199,25 @@ void SerieMainMenuController::selectMenuItem() & noexcept
     {
     case 0:
     {
-        expectedControllerId = ControllerId::OfficialSeriesMenu;
+        setExpectedControllerId(ControllerId::OfficialSeriesMenu);
 
         break;
     }
     case 1:
     {
-        expectedControllerId = ControllerId::PersonalSeriesMenu;
+        setExpectedControllerId(ControllerId::PersonalSeriesMenu);
 
         break;
     }
     case 2:
     {
-        expectedControllerId = ControllerId::MainMenu;
+        setExpectedControllerId(ControllerId::MainMenu);
 
         break;
     }
     case 3:
     {
-        expectedControllerId = ControllerId::RemoveGame;
+        setExpectedControllerId(ControllerId::RemoveGame);
 
         break;
     }

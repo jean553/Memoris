@@ -24,6 +24,7 @@
 
 #include "OfficialSeriesMenuController.hpp"
 
+#include "controllers_ids.hpp"
 #include "fonts.hpp"
 #include "controllers.hpp"
 #include "FontsManager.hpp"
@@ -144,7 +145,7 @@ const ControllerId& OfficialSeriesMenuController::render() &
 
     renderAllMenuItems();
 
-    nextControllerId = animateScreenTransition(context);
+    setNextControllerId(animateScreenTransition(context));
 
     while(context.getSfmlWindow().pollEvent(event))
     {
@@ -156,7 +157,7 @@ const ControllerId& OfficialSeriesMenuController::render() &
             {
             case sf::Keyboard::Escape:
             {
-                expectedControllerId = ControllerId::MainMenu;
+                setExpectedControllerId(ControllerId::MainMenu);
 
                 break;
             }
@@ -191,7 +192,7 @@ const ControllerId& OfficialSeriesMenuController::render() &
         }
     }
 
-    return nextControllerId;
+    return getNextControllerId();
 }
 
 /**
@@ -205,7 +206,7 @@ void OfficialSeriesMenuController::selectMenuItem() & noexcept
        condition is a temporary solution for tests only; to delete */
     if (serie == DIFFICULT)
     {
-        expectedControllerId = ControllerId::UnlockedSerieError;
+        setExpectedControllerId(ControllerId::UnlockedSerieError);
 
         return;
     }
@@ -216,13 +217,13 @@ void OfficialSeriesMenuController::selectMenuItem() & noexcept
             "officials/" + serie
         );
 
-        expectedControllerId = ControllerId::Game;
+        setExpectedControllerId(ControllerId::Game);
 
     }
     catch(std::invalid_argument&)
     {
         /* TODO: #559 the error controller should display the error message */
-        expectedControllerId = ControllerId::OpenFileError;
+        setExpectedControllerId(ControllerId::OpenFileError);
     }
 }
 

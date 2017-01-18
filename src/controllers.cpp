@@ -23,6 +23,7 @@
 
 #include "controllers.hpp"
 
+#include "controllers_ids.hpp"
 #include "MainMenuController.hpp"
 #include "NewGameController.hpp"
 #include "SerieMainMenuController.hpp"

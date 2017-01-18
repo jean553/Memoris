@@ -24,6 +24,7 @@
 
 #include "WinSerieEndingController.hpp"
 
+#include "controllers_ids.hpp"
 #include "Context.hpp"
 #include "controllers.hpp"
 #include "fonts.hpp"
@@ -228,7 +229,7 @@ const ControllerId& WinSerieEndingController::render() &
         context.getSfmlWindow().draw(impl->time);
     }
 
-    nextControllerId = animateScreenTransition(context);
+    setNextControllerId(animateScreenTransition(context));
 
     while(context.getSfmlWindow().pollEvent(event))
     {
@@ -247,7 +248,7 @@ const ControllerId& WinSerieEndingController::render() &
                     break;
                 }
 
-                expectedControllerId = ControllerId::MainMenu;
+                setExpectedControllerId(ControllerId::MainMenu);
 
                 break;
             }
@@ -262,7 +263,7 @@ const ControllerId& WinSerieEndingController::render() &
         }
     }
 
-    return nextControllerId;
+    return getNextControllerId();
 }
 
 }

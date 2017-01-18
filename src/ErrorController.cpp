@@ -24,6 +24,7 @@
 
 #include "ErrorController.hpp"
 
+#include "controllers_ids.hpp"
 #include "ColorsManager.hpp"
 #include "FontsManager.hpp"
 #include "fonts.hpp"
@@ -94,7 +95,7 @@ const ControllerId& ErrorController::render() &
 {
     context.getSfmlWindow().draw(impl->text);
 
-    nextControllerId = animateScreenTransition(context);
+    setNextControllerId(animateScreenTransition(context));
 
     while(context.getSfmlWindow().pollEvent(event))
     {
@@ -110,7 +111,7 @@ const ControllerId& ErrorController::render() &
                    now, the error controller is only accessible from this
                    screen when a level is not found; should go back to the
                    previous controller */
-                expectedControllerId = ControllerId::OfficialSeriesMenu;
+                setExpectedControllerId(ControllerId::OfficialSeriesMenu);
 
                 break;
             }
@@ -127,7 +128,7 @@ const ControllerId& ErrorController::render() &
         }
     }
 
-    return nextControllerId;
+    return getNextControllerId();
 }
 
 }

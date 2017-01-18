@@ -24,6 +24,7 @@
 
 #include "GameController.hpp"
 
+#include "controllers_ids.hpp"
 #include "cells.hpp"
 #include "window.hpp"
 #include "fonts.hpp"
@@ -285,9 +286,11 @@ const ControllerId& GameController::render() &
             impl->endPeriodStartTime > 5000
         )
         {
-            expectedControllerId = impl->win ?
-                controllers::ControllerId::Game:
-                controllers::ControllerId::MainMenu;
+            setExpectedControllerId(
+                impl->win ?
+                ControllerId::Game:
+                ControllerId::MainMenu
+            );
         }
     }
 
@@ -318,7 +321,7 @@ const ControllerId& GameController::render() &
         endLevel(context);
     }
 
-    nextControllerId = animateScreenTransition(context);
+    setNextControllerId(animateScreenTransition(context));
 
     while(context.getSfmlWindow().pollEvent(event))
     {
@@ -368,19 +371,19 @@ const ControllerId& GameController::render() &
             {
                 if (context.getEditingLevelManager().getLevel() != nullptr)
                 {
-                    expectedControllerId = ControllerId::LevelEditor;
+                    setExpectedControllerId(ControllerId::LevelEditor);
 
                     break;
                 }
 
-                expectedControllerId = ControllerId::MainMenu;
+                setExpectedControllerId(ControllerId::MainMenu);
 
                 break;
             }
             /* TODO: #825 for cheating and dev purposes ;) */
             case sf::Keyboard::P:
             {
-                expectedControllerId = controllers::ControllerId::Game;
+                setExpectedControllerId(ControllerId::Game);
 
                 break;
             }
@@ -397,7 +400,7 @@ const ControllerId& GameController::render() &
         }
     }
 
-    return nextControllerId;
+    return getNextControllerId();
 }
 
 /**
@@ -573,7 +576,7 @@ void GameController::executePlayerCellAction(
 
             if (editedLevel != nullptr)
             {
-                expectedControllerId = ControllerId::LevelEditor;
+                setExpectedControllerId(ControllerId::LevelEditor);
 
                 return;
             }
@@ -584,7 +587,7 @@ void GameController::executePlayerCellAction(
             }
             else
             {
-                expectedControllerId = controllers::ControllerId::WinSerie;
+                setExpectedControllerId(ControllerId::WinSerie);
             }
         }
 

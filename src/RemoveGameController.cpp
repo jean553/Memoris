@@ -23,6 +23,7 @@
 
 #include "RemoveGameController.hpp"
 
+#include "controllers_ids.hpp"
 #include "Context.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
@@ -83,7 +84,7 @@ const ControllerId& RemoveGameController::render() &
 {
     context.getSfmlWindow().draw(impl->message);
 
-    nextControllerId = animateScreenTransition(context);
+    setNextControllerId(animateScreenTransition(context));
 
     while(context.getSfmlWindow().pollEvent(event))
     {
@@ -96,7 +97,7 @@ const ControllerId& RemoveGameController::render() &
             case sf::Keyboard::Escape:
             case sf::Keyboard::N:
             {
-                expectedControllerId = ControllerId::MainMenu;
+                setExpectedControllerId(ControllerId::MainMenu);
 
                 break;
             }
@@ -104,7 +105,7 @@ const ControllerId& RemoveGameController::render() &
             {
                 context.getGame().deleteGameFile();
 
-                expectedControllerId = ControllerId::MainMenu;
+                setExpectedControllerId(ControllerId::MainMenu);
 
                 break;
             }
@@ -119,7 +120,7 @@ const ControllerId& RemoveGameController::render() &
         }
     }
 
-    return nextControllerId;
+    return getNextControllerId();
 }
 
 }

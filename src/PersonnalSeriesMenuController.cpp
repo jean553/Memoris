@@ -24,6 +24,7 @@
 
 #include "PersonalSeriesMenuController.hpp"
 
+#include "controllers_ids.hpp"
 #include "controllers.hpp"
 #include "fonts.hpp"
 #include "FontsManager.hpp"
@@ -102,7 +103,7 @@ const ControllerId& PersonalSeriesMenuController::render() &
 
     impl->cursor.render(context);
 
-    nextControllerId = animateScreenTransition(context);
+    setNextControllerId(animateScreenTransition(context));
 
     while(context.getSfmlWindow().pollEvent(event))
     {
@@ -114,7 +115,7 @@ const ControllerId& PersonalSeriesMenuController::render() &
             {
             case sf::Keyboard::Escape:
             {
-                expectedControllerId = ControllerId::SerieMainMenu;
+                setExpectedControllerId(ControllerId::SerieMainMenu);
 
                 break;
             }
@@ -139,14 +140,14 @@ const ControllerId& PersonalSeriesMenuController::render() &
                     manager.loadSerieFileContent("personals/" + serieName);
                     manager.setIsOfficialSerie(false);
 
-                    expectedControllerId = ControllerId::Game;
+                    setExpectedControllerId(ControllerId::Game);
 
                 }
                 catch(std::invalid_argument&)
                 {
                     /* TODO: #559 the error controller
                        should display the error message */
-                    expectedControllerId = ControllerId::OpenFileError;
+                    setExpectedControllerId(ControllerId::OpenFileError);
                 }
 
                 break;
@@ -163,7 +164,7 @@ const ControllerId& PersonalSeriesMenuController::render() &
         }
     }
 
-    return nextControllerId;
+    return getNextControllerId();
 }
 
 }
