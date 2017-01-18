@@ -26,8 +26,6 @@
 #ifndef MEMORIS_CONTROLLER_H_
 #define MEMORIS_CONTROLLER_H_
 
-#include "controllers_ids.hpp"
-
 #include <SFML/Window/Event.hpp>
 
 #include <memory>
@@ -47,6 +45,8 @@ class Context;
 
 namespace controllers
 {
+
+enum class ControllerId;
 
 class Controller
 {
@@ -106,12 +106,30 @@ protected:
         const utils::Context& context
     ) &;
 
-    const utils::Context& context;
+    /**
+     * @brief returns the next controller id
+     *
+     * @return const ControllerId&
+     */
+    const ControllerId& getNextControllerId() const & noexcept;
 
-    /* TODO: #784 not included in the implementation because used by the
-       children objects, this should be refactored */
-    ControllerId nextControllerId {ControllerId::NoController},
-        expectedControllerId {ControllerId::NoController};
+    /**
+     * @brief sets the next controller id
+     *
+     * @param nextControllerId the next controller id
+     */
+    void setNextControllerId(const ControllerId& nextControllerId) const & 
+        noexcept;
+
+    /**
+     * @brief sets the expected controller id
+     *
+     * @param expectedControllerId the expected controller id
+     */
+    void setExpectedControllerId(const ControllerId& expectedControllerId)
+        const & noexcept;
+
+    const utils::Context& context;
 
     sf::Event event;
 

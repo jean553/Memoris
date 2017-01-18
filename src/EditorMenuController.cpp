@@ -24,6 +24,7 @@
 
 #include "EditorMenuController.hpp"
 
+#include "controllers_ids.hpp"
 #include "fonts.hpp"
 #include "controllers.hpp"
 #include "FontsManager.hpp"
@@ -111,7 +112,7 @@ const ControllerId& EditorMenuController::render() &
 
     renderAllMenuItems();
 
-    nextControllerId = animateScreenTransition(context);
+    setNextControllerId(animateScreenTransition(context));
 
     while(context.getSfmlWindow().pollEvent(event))
     {
@@ -150,7 +151,7 @@ const ControllerId& EditorMenuController::render() &
         }
     }
 
-    return nextControllerId;
+    return getNextControllerId();
 }
 
 /**
@@ -162,19 +163,19 @@ void EditorMenuController::selectMenuItem() & noexcept
     {
     case 0:
     {
-        expectedControllerId = ControllerId::LevelEditor;
+        setExpectedControllerId(ControllerId::LevelEditor);
 
         break;
     }
     case 1:
     {
-        expectedControllerId = ControllerId::SerieEditor;
+        setExpectedControllerId(ControllerId::SerieEditor);
 
         break;
     }
     case 2:
     {
-        expectedControllerId = ControllerId::MainMenu;
+        setExpectedControllerId(ControllerId::MainMenu);
 
         break;
     }

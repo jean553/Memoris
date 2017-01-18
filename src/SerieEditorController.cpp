@@ -24,6 +24,7 @@
 
 #include "SerieEditorController.hpp"
 
+#include "controllers_ids.hpp"
 #include "ColorsManager.hpp"
 #include "FontsManager.hpp"
 #include "TexturesManager.hpp"
@@ -189,7 +190,7 @@ const ControllerId& SerieEditorController::render() &
         impl->cursor.render(context);
     }
 
-    nextControllerId = animateScreenTransition(context);
+    setNextControllerId(animateScreenTransition(context));
 
     while(context.getSfmlWindow().pollEvent(event))
     {
@@ -253,7 +254,7 @@ const ControllerId& SerieEditorController::render() &
                     break;
                 }
 
-                expectedControllerId = ControllerId::EditorMenu;
+                setExpectedControllerId(ControllerId::EditorMenu);
 
                 break;
             }
@@ -272,7 +273,7 @@ const ControllerId& SerieEditorController::render() &
         {
             if (impl->buttonExit.isMouseHover())
             {
-                expectedControllerId = ControllerId::EditorMenu;
+                setExpectedControllerId(ControllerId::EditorMenu);
             }
             else if (
                 impl->buttonNew.isMouseHover() and
@@ -357,7 +358,7 @@ const ControllerId& SerieEditorController::render() &
         }
     }
 
-    return nextControllerId;
+    return getNextControllerId();
 }
 
 /**

@@ -21,6 +21,7 @@
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
+#include "controllers_ids.hpp"
 #include "musics.hpp"
 #include "controllers.hpp"
 

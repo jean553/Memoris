@@ -23,6 +23,7 @@
 
 #include "MainMenuController.hpp"
 
+#include "controllers_ids.hpp"
 #include "fonts.hpp"
 #include "controllers.hpp"
 #include "ColorsManager.hpp"
@@ -168,7 +169,7 @@ const ControllerId& MainMenuController::render() &
 
     renderAllMenuItems();
 
-    nextControllerId = animateScreenTransition(context);
+    setNextControllerId(animateScreenTransition(context));
 
     while(context.getSfmlWindow().pollEvent(event))
     {
@@ -209,7 +210,7 @@ const ControllerId& MainMenuController::render() &
         }
     }
 
-    return nextControllerId;
+    return getNextControllerId();
 }
 
 /**
@@ -280,25 +281,25 @@ void MainMenuController::selectMenuItem() & noexcept
     {
     case 0:
     {
-        expectedControllerId = ControllerId::NewGame;
+        setExpectedControllerId(ControllerId::NewGame);
 
         break;
     }
     case 1:
     {
-        expectedControllerId = ControllerId::OpenGame;
+        setExpectedControllerId(ControllerId::OpenGame);
 
         break;
     }
     case 2:
     {
-        expectedControllerId = ControllerId::EditorMenu;
+        setExpectedControllerId(ControllerId::EditorMenu);
 
         break;
     }
     default:
     {
-        nextControllerId = ControllerId::Exit;
+        setNextControllerId(ControllerId::Exit);
 
         break;
     }

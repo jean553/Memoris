@@ -24,6 +24,7 @@
 
 #include "NewGameController.hpp"
 
+#include "controllers_ids.hpp"
 #include "fonts.hpp"
 #include "controllers.hpp"
 #include "FontsManager.hpp"
@@ -107,7 +108,7 @@ const ControllerId& NewGameController::render() &
 
     impl->inputTextGameName.display(context);
 
-    nextControllerId = animateScreenTransition(context);
+    setNextControllerId(animateScreenTransition(context));
 
     while(context.getSfmlWindow().pollEvent(event))
     {
@@ -119,7 +120,7 @@ const ControllerId& NewGameController::render() &
             {
             case sf::Keyboard::Escape:
             {
-                expectedControllerId = ControllerId::MainMenu;
+                setExpectedControllerId(ControllerId::MainMenu);
 
                 break;
             }
@@ -135,7 +136,7 @@ const ControllerId& NewGameController::render() &
                     impl->inputTextGameName.getText()
                 );
 
-                expectedControllerId = ControllerId::SerieMainMenu;
+                setExpectedControllerId(ControllerId::SerieMainMenu);
 
                 break;
             }
@@ -154,7 +155,7 @@ const ControllerId& NewGameController::render() &
         }
     }
 
-    return nextControllerId;
+    return getNextControllerId();
 }
 
 }

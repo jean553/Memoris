@@ -24,6 +24,7 @@
 
 #include "Controller.hpp"
 
+#include "controllers_ids.hpp"
 #include "window.hpp"
 #include "ColorsManager.hpp"
 #include "Context.hpp"
@@ -66,6 +67,9 @@ public:
     sf::RectangleShape transitionSurface;
 
     bool openingScreen {true};
+
+    ControllerId nextControllerId {ControllerId::NoController},
+        expectedControllerId {ControllerId::NoController};
 };
 
 /**
@@ -89,6 +93,8 @@ const ControllerId Controller::animateScreenTransition(
     const utils::Context& context
 ) &
 {
+    const auto& expectedControllerId = impl->expectedControllerId;
+
     if (
         expectedControllerId == ControllerId::NoController and 
         not impl->openingScreen
@@ -130,6 +136,33 @@ const ControllerId Controller::animateScreenTransition(
     }
 
     return ControllerId::NoController;
+}
+
+/**
+ *
+ */
+const ControllerId& Controller::getNextControllerId() const & noexcept
+{
+    return impl->nextControllerId;
+}
+
+/**
+ *
+ */
+void Controller::setNextControllerId(const ControllerId& nextControllerId)
+    const & noexcept
+{
+    impl->nextControllerId = nextControllerId;
+}
+
+/**
+ *
+ */
+void Controller::setExpectedControllerId(
+    const ControllerId& expectedControllerId
+) const & noexcept
+{
+    impl->expectedControllerId = expectedControllerId;
 }
 
 }

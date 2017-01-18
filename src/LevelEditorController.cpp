@@ -24,6 +24,7 @@
 
 #include "LevelEditorController.hpp"
 
+#include "controllers_ids.hpp"
 #include "controllers.hpp"
 #include "fonts.hpp"
 #include "dialogs.hpp"
@@ -230,7 +231,7 @@ const ControllerId& LevelEditorController::render() &
         impl->cursor.render(context);
     }
 
-    nextControllerId = animateScreenTransition(context);
+    setNextControllerId(animateScreenTransition(context));
 
     while(context.getSfmlWindow().pollEvent(event))
     {
@@ -337,7 +338,7 @@ const ControllerId& LevelEditorController::render() &
 
                 levelManager.refreshLevel();
 
-                expectedControllerId = ControllerId::EditorMenu;
+                setExpectedControllerId(ControllerId::EditorMenu);
 
                 break;
             }
@@ -425,7 +426,7 @@ const ControllerId& LevelEditorController::render() &
 
                 level->initializeEditedLevel();
 
-                expectedControllerId = ControllerId::Game;
+                setExpectedControllerId(ControllerId::Game);
 
                 auto& level = impl->level;
                 levelManager.setLevel(level);
@@ -467,7 +468,7 @@ const ControllerId& LevelEditorController::render() &
         }
     }
 
-    return nextControllerId;
+    return getNextControllerId();
 }
 
 /**

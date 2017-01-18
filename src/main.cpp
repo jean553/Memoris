@@ -24,6 +24,7 @@
 #include "Controller.hpp"
 #include "Context.hpp"
 #include "controllers.hpp"
+#include "controllers_ids.hpp"
 #include "musics.hpp"
 #include "SoundsManager.hpp"
 
