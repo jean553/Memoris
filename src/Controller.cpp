@@ -91,7 +91,7 @@ Controller::~Controller() = default;
  */
 const ControllerId Controller::animateScreenTransition(
     const utils::Context& context
-) &
+) const &
 {
     const auto& expectedControllerId = impl->expectedControllerId;
 
@@ -103,34 +103,42 @@ const ControllerId Controller::animateScreenTransition(
         return ControllerId::NoController;
     }
 
-    impl->transitionSurfaceColor.a = impl->transitionStep * COLOR_UPDATE_STEP;
-    impl->transitionSurface.setFillColor(impl->transitionSurfaceColor);
+    auto& transitionSurfaceColor = impl->transitionSurfaceColor;
+    auto& transitionSurface = impl->transitionSurface;
 
-    context.getSfmlWindow().draw(impl->transitionSurface);
+    constexpr sf::Uint8 COLOR_UPDATE_STEP {51};
+    transitionSurfaceColor.a = impl->transitionStep * COLOR_UPDATE_STEP;
+    transitionSurface.setFillColor(transitionSurfaceColor);
 
-    if (
-        context.getClockMillisecondsTime() -
-        impl->lastScreenTransitionTime > TRANSITION_ANIMATION_INTERVAL
-    )
+    auto& window = context.getSfmlWindow();
+    window.draw(transitionSurface);
+
+    const auto& currentTime = context.getClockMillisecondsTime();
+    auto& lastTime = impl->lastScreenTransitionTime;
+    auto& transitionStep = impl->transitionStep;
+
+    constexpr sf::Uint32 TRANSITION_ANIMATION_INTERVAL {25};
+    if (currentTime - lastTime > TRANSITION_ANIMATION_INTERVAL)
     {
         if (impl->openingScreen)
         {
-            impl->transitionStep--;
+            transitionStep--;
         }
         else
         {
-            impl->transitionStep++;
+            transitionStep++;
         }
 
-        impl->lastScreenTransitionTime = context.getClockMillisecondsTime();
+        lastTime = currentTime;
     }
 
-    if (impl->transitionStep > TRANSITION_STEPS_MAX)
+    constexpr sf::Uint8 TRANSITION_STEPS_MAX {5};
+    if (transitionStep > TRANSITION_STEPS_MAX)
     {
         return expectedControllerId;
     }
 
-    if (impl->transitionStep <= 0)
+    if (transitionStep <= 0)
     {
         impl->openingScreen = false;
     }

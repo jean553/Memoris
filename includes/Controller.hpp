@@ -30,11 +30,6 @@
 
 #include <memory>
 
-namespace sf
-{
-class RenderWindow;
-}
-
 namespace memoris
 {
 
@@ -70,7 +65,7 @@ public:
 protected:
 
     /**
-     * @brief constructor, initializes the implementation
+     * @brief constructor
      *
      * @param context reference to the current context to use
      *
@@ -79,32 +74,17 @@ protected:
     Controller(const utils::Context& context);
 
     /**
-     * @brief render the controller switching animation (the animation that
-     * is rendered when one screen is closed and a new one is opened, also
-     * rendered when the first screen is opened and when the last screen is
-     * closed); starts to animate when the expectedControllerId protected
-     * value is updated inside the current controller (usually when a menu
-     * item is selected, an event occured or a button is pressed); the function
-     * returns 0 as long as no animation is rendering or when the animation is
-     * rendering; the function returns the expectedControllerId when the
-     * animation (opening or closing) is terminated; this id can be stored
-     * in the nextControllerId and the screen can be switched.
+     * @brief plays switch controller (screen) animation
      *
      * @param context constant reference to the current context to use
      *
      * @return const controllers::ControllerId
      *
-     * does not return a reference because the function can directly return
-     * a value using return; in some cases
-     *
-     * not 'const' because it modifies some attributes of the current
-     * controller
-     *
      * not 'noexcept' because it calls SFML methods that are not noexcept
      */
     const ControllerId animateScreenTransition(
         const utils::Context& context
-    ) &;
+    ) const &;
 
     /**
      * @brief returns the next controller id
@@ -134,10 +114,6 @@ protected:
     sf::Event event;
 
 private:
-
-    static constexpr sf::Uint32 TRANSITION_ANIMATION_INTERVAL {25};
-    static constexpr sf::Uint8 COLOR_UPDATE_STEP {51};
-    static constexpr sf::Uint8 TRANSITION_STEPS_MAX {5};
 
     class Impl;
     std::unique_ptr<Impl> impl;
