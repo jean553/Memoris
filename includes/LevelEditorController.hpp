@@ -73,13 +73,9 @@ public:
      * @brief render the level editor controller, returns the id of the next
      * controller to render
      *
-     * @param context reference to the current context to use
-     *
      * @return const ControllerId&
      */
-    virtual const ControllerId& render(
-        const utils::Context& context
-    ) & override final;
+    virtual const ControllerId& render() & override;
 
 private:
 

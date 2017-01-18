@@ -54,11 +54,9 @@ public:
     /**
      * @brief overrides the render() method of the Controller parent class
      *
-     * @param context constant reference to the current context to use
-     *
      * @return const ControllerId&
      */
-    const ControllerId& render(const utils::Context& context) & override;
+    const ControllerId& render() & override;
 
 private:
 

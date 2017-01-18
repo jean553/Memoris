@@ -90,9 +90,7 @@ OpenGameController::~OpenGameController() noexcept = default;
 /**
  *
  */
-const ControllerId& OpenGameController::render(
-    const utils::Context& context
-) &
+const ControllerId& OpenGameController::render() &
 {
     context.getSfmlWindow().draw(impl->title);
 

@@ -165,9 +165,7 @@ WinSerieEndingController::~WinSerieEndingController() noexcept = default;
 /**
  *
  */
-const ControllerId& WinSerieEndingController::render(
-    const utils::Context& context
-) &
+const ControllerId& WinSerieEndingController::render() &
 {
     impl->background.render(context);
     impl->gradient.render(context);

@@ -90,7 +90,7 @@ ErrorController::~ErrorController() noexcept = default;
 /**
  *
  */
-const ControllerId& ErrorController::render(const utils::Context& context) &
+const ControllerId& ErrorController::render() &
 {
     context.getSfmlWindow().draw(impl->text);
 

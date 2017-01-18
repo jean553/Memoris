@@ -56,14 +56,9 @@ public:
     /**
      * @brief render the remove game controller
      *
-     * @param context constant reference to the current context
-     *
      * @return const ControllerId&
-     *
-     * overrides Controller::render
      */
-    const ControllerId& render(const utils::Context& context) & final 
-        override;
+    const ControllerId& render() & override;
 
 private:
 

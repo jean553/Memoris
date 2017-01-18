@@ -72,6 +72,7 @@ public:
  *
  */
 Controller::Controller(const utils::Context& context) :
+    context(context),
     impl(std::make_unique<Impl>(context))
 {
 }
@@ -79,7 +80,7 @@ Controller::Controller(const utils::Context& context) :
 /**
  *
  */
-Controller::~Controller() noexcept = default;
+Controller::~Controller() = default;
 
 /**
  *

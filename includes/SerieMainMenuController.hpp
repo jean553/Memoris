@@ -57,8 +57,6 @@ public:
     /**
      * @brief render the serie editor screen
      *
-     * @param context reference to the current context to use
-     *
      * @return const ControllerId&
      *
      * not 'const' because this method modifies the value of some attributes
@@ -68,9 +66,7 @@ public:
      * too many calls to noexcept functions in all the implementation of this
      * method)
      */
-    virtual const ControllerId& render(
-        const utils::Context& context
-    ) & override;
+    virtual const ControllerId& render() & override;
 
 private:
 

@@ -59,17 +59,13 @@ public:
     /**
      * @brief render the editor menu controller
      *
-     * @param context reference to the current context to use
-     *
      * @return const ControllerId&
      *
      * not 'const' because it modifies the next controller id attribute
      *
      * not 'noexcept' because it calls SFML methods that are not noexcept
      */
-    virtual const ControllerId& render(
-        const utils::Context& context
-    ) & override;
+    virtual const ControllerId& render() & override;
 
 private:
 

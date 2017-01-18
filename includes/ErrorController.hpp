@@ -65,13 +65,9 @@ public:
     /**
      * @brief renders the error message screen
      *
-     * @param context constant reference to the current context
-     *
      * @return const ControllerId&
      */
-    virtual const ControllerId& render(
-        const utils::Context& context
-    ) & override final;
+    virtual const ControllerId& render() & override;
 
 private:
 

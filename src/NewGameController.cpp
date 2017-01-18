@@ -100,9 +100,7 @@ NewGameController::~NewGameController() noexcept = default;
 /**
  *
  */
-const ControllerId& NewGameController::render(
-    const utils::Context& context
-) &
+const ControllerId& NewGameController::render() &
 {
     context.getSfmlWindow().draw(impl->title);
     context.getSfmlWindow().draw(impl->explanation);

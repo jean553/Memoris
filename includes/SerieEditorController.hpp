@@ -54,16 +54,12 @@ public:
     /**
      * @brief render the serie editor controller
      *
-     * @param context reference to the current context to use
-     *
      * @return const unsigned short&
      *
      * the context reference is not constant because this is a virtual method
      * and some definitions have to modify the context attributes
      */
-    virtual const ControllerId& render(
-        const utils::Context& context
-    ) & override;
+    virtual const ControllerId& render() & override;
 
     /**
      * @brief save the current serie file according to the given serie name

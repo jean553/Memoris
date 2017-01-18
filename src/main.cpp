@@ -65,7 +65,7 @@ int main()
                (in /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.1) */
             context.getSfmlWindow().clear();
 
-            nextControllerId = pCurrentController->render(context);
+            nextControllerId = pCurrentController->render();
 
             context.getSfmlWindow().display();
         }

@@ -131,9 +131,7 @@ SerieMainMenuController::~SerieMainMenuController() noexcept = default;
 /**
  *
  */
-const ControllerId& SerieMainMenuController::render(
-    const utils::Context& context
-) &
+const ControllerId& SerieMainMenuController::render() &
 {
     context.getSfmlWindow().draw(impl->title);
 
