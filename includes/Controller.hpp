@@ -54,29 +54,18 @@ class Controller
 public:
 
     /**
-     * @brief default destructor, empty, only declared in order to use
-     * forwarding declaration and virtual to force children objects destructor
-     * call
+     * @brief default destructor defined in order to use forwarding
+     * declaration and marked as virtual to ensure that every destructors
+     * are called during controller destruction as we use polymorphism
      */
-    virtual ~Controller() noexcept;
+    virtual ~Controller();
 
     /**
-     * @brief pure virtual method to render the controller; this function is
-     * called from the main loop to render the current controller
-     *
-     * @param context shared pointer to the context to use
-     *
-     * @return const ControllerId&
-     *
-     * not 'const' because the render() methods contain for sure methods
-     * calls that modify the current object
-     *
-     * not 'noexcept' because the render() methods contain for sure methods
-     * calls that may throw exceptions
+     * TODO: render(const utils::Context&) should be deleted and
+     * replaced only by the current method; after every controller
+     * have defined it, this method should be pure virtual
      */
-    virtual const ControllerId& render(
-        const utils::Context& context
-    ) & = 0;
+    virtual const ControllerId& render() & = 0;
 
 protected:
 
@@ -116,6 +105,8 @@ protected:
     const ControllerId animateScreenTransition(
         const utils::Context& context
     ) &;
+
+    const utils::Context& context;
 
     /* TODO: #784 not included in the implementation because used by the
        children objects, this should be refactored */

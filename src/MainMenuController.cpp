@@ -142,30 +142,29 @@ MainMenuController::MainMenuController(const utils::Context& context) :
 /**
  *
  */
-MainMenuController::~MainMenuController() noexcept = default;
+MainMenuController::~MainMenuController() = default;
 
 /**
  *
  */
-const ControllerId& MainMenuController::render(
-    const utils::Context& context
-) &
+const ControllerId& MainMenuController::render() &
 {
     impl->animatedBackground.render(context);
     impl->menuGradient.display(context);
 
-    if(
-        context.getClockMillisecondsTime() -
-        impl->titleLastAnimationTime > 10
-    )
+    const auto& currentTime = context.getClockMillisecondsTime();
+    auto& lastTime = impl->titleLastAnimationTime; 
+
+    constexpr sf::Int32 TITLE_COLOR_ANIMATION_INTERVAL {10};
+    if (currentTime - lastTime > TITLE_COLOR_ANIMATION_INTERVAL)
     {
         animateTitleColor();
-
-        impl->titleLastAnimationTime = context.getClockMillisecondsTime();
+        lastTime = currentTime;
     }
 
-    context.getSfmlWindow().draw(impl->title);
-    context.getSfmlWindow().draw(impl->spriteGithub);
+    auto& window = context.getSfmlWindow();
+    window.draw(impl->title);
+    window.draw(impl->spriteGithub);
 
     renderAllMenuItems(context);
 

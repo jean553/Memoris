@@ -62,17 +62,13 @@ public:
     /**
      * @brief render the open game screen
      *
-     * @param context reference to the current context to use
-     *
      * @return const ControllerId&
      *
      * not 'const' to match with the parent virtual function
      *
      * not 'noexcept' because it calls SFML functions that are not noexcept
      */
-    virtual const ControllerId& render(
-        const utils::Context& context
-    ) & override;
+    virtual const ControllerId& render() & override;
 
 private:
 

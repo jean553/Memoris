@@ -94,9 +94,7 @@ PersonalSeriesMenuController::~PersonalSeriesMenuController() noexcept =
 /**
  *
  */
-const ControllerId& PersonalSeriesMenuController::render(
-    const utils::Context& context
-) &
+const ControllerId& PersonalSeriesMenuController::render() &
 {
     context.getSfmlWindow().draw(impl->title);
 

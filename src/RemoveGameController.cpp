@@ -79,9 +79,7 @@ RemoveGameController::~RemoveGameController()
 /**
  *
  */
-const ControllerId& RemoveGameController::render(
-    const utils::Context& context
-) &
+const ControllerId& RemoveGameController::render() &
 {
     context.getSfmlWindow().draw(impl->message);
 

@@ -175,9 +175,7 @@ GameController::~GameController() noexcept = default;
 /**
  *
  */
-const ControllerId& GameController::render(
-    const utils::Context& context
-) &
+const ControllerId& GameController::render() &
 {
     if (impl->watchingPeriod)
     {

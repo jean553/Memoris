@@ -50,18 +50,14 @@ public:
      * @brief default destructor, empty, only declared here in order to use
      * forwarding declaration
      */
-    ~MainMenuController() noexcept;
+    ~MainMenuController();
 
     /**
      * @brief render the main menu controller
      *
-     * @param context reference to the current context to use
-     *
      * @return const ControllerId&
      */
-    virtual const ControllerId& render(
-        const utils::Context& context
-    ) & override;
+    virtual const ControllerId& render() & override;
 
 private:
 
