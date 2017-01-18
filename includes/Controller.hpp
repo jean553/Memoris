@@ -61,9 +61,9 @@ public:
     virtual ~Controller();
 
     /**
-     * TODO: render(const utils::Context&) should be deleted and
-     * replaced only by the current method; after every controller
-     * have defined it, this method should be pure virtual
+     * @brief used to render each controller
+     *
+     * @return const ControllerId&
      */
     virtual const ControllerId& render() & = 0;
 

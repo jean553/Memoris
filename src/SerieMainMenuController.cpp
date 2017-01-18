@@ -135,7 +135,7 @@ const ControllerId& SerieMainMenuController::render() &
 {
     context.getSfmlWindow().draw(impl->title);
 
-    renderAllMenuItems(context);
+    renderAllMenuItems();
 
     context.getSfmlWindow().draw(impl->gameName);
 
@@ -157,13 +157,13 @@ const ControllerId& SerieMainMenuController::render() &
             }
             case sf::Keyboard::Up:
             {
-                moveUp(context);
+                moveUp();
 
                 break;
             }
             case sf::Keyboard::Down:
             {
-                moveDown(context);
+                moveDown();
 
                 break;
             }

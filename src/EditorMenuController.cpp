@@ -109,7 +109,7 @@ const ControllerId& EditorMenuController::render() &
 {
     context.getSfmlWindow().draw(impl->title);
 
-    renderAllMenuItems(context);
+    renderAllMenuItems();
 
     nextControllerId = animateScreenTransition(context);
 
@@ -123,13 +123,13 @@ const ControllerId& EditorMenuController::render() &
             {
             case sf::Keyboard::Up:
             {
-                moveUp(context);
+                moveUp();
 
                 break;
             }
             case sf::Keyboard::Down:
             {
-                moveDown(context);
+                moveDown();
 
                 break;
             }
