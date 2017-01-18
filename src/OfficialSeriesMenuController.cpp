@@ -45,8 +45,7 @@ class OfficialSeriesMenuController::Impl
 
 public:
 
-    Impl(const utils::Context& context) :
-        contextReference(context)
+    Impl(const utils::Context& context)
     {
         title.setFont(context.getFontsManager().getTitleFont());
         title.setString("Official series");
@@ -59,14 +58,6 @@ public:
     }
 
     sf::Text title;
-
-    /* we use a constant reference here because we want to be able to access
-       the context in the selectMenuItem() method; but this method is
-       override from AbstractMenuController and does not have any
-       utils::Context& parameter; we use a constant reference here instead
-       of changing all the declarations/definitions of selectMenuItem()
-       because only one implementation uses it */;
-    const utils::Context& contextReference;
 };
 
 /**
@@ -151,7 +142,7 @@ const ControllerId& OfficialSeriesMenuController::render() &
 {
     context.getSfmlWindow().draw(impl->title);
 
-    renderAllMenuItems(context);
+    renderAllMenuItems();
 
     nextControllerId = animateScreenTransition(context);
 
@@ -177,13 +168,13 @@ const ControllerId& OfficialSeriesMenuController::render() &
             }
             case sf::Keyboard::Up:
             {
-                moveUp(context);
+                moveUp();
 
                 break;
             }
             case sf::Keyboard::Down:
             {
-                moveDown(context);
+                moveDown();
 
                 break;
             }
@@ -221,7 +212,7 @@ void OfficialSeriesMenuController::selectMenuItem() & noexcept
 
     try
     {
-        impl->contextReference.getPlayingSerieManager().loadSerieFileContent(
+        context.getPlayingSerieManager().loadSerieFileContent(
             "officials/" + serie
         );
 

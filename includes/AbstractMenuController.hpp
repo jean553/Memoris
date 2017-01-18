@@ -91,13 +91,11 @@ protected:
     /**
      * @brief display all the menu items
      *
-     * @param context shared pointer to the context to use
-     *
      * not 'noexcept' because this method calls the render() method of the
      * menu item and this last function calls SFML functions that are not
      * noexcept
      */
-    void renderAllMenuItems(const utils::Context& context) const &;
+    void renderAllMenuItems() const &;
 
     /**
      * @brief getter of the selector position
@@ -110,27 +108,23 @@ protected:
      * @brief move up the selector, only if the selected item is not the first
      * one
      *
-     * @param context reference to the current context to use
-     *
      * not 'const' because it modifies the selectorPosition value
      *
      * not 'noexcept' because it calls menu item methods that calls SFML
      * functions and these functions are not noexcept
      */
-    void moveUp(const utils::Context& context) &;
+    void moveUp() &;
 
     /**
      * @brief move down the selector, only if the selected item is not the last
      * one
      *
-     * @param context reference to the current context to use
-     *
      * not 'const' because it modifies the selectorPosition value
      *
      * not 'noexcept' because it calls menu item methods that calls SFML
      * functions and these functions are not noexcept
      */
-    void moveDown(const utils::Context& context) &;
+    void moveDown() &;
 
     /**
      * @brief pure virtual method used to make this class abstract; this
@@ -152,14 +146,12 @@ private:
      * @brief update the colors of all the menu items; the current
      * selected item is colored by the red color
      *
-     * @param context reference to the current context
-     *
      * not 'const' because it modifies items inside the items container
      *
      * not 'noexcept' because calls STL and SFML functions that are not
      * noexcept
      */
-    void updateMenuSelection(const utils::Context& context) &;
+    void updateMenuSelection() &;
 
     class Impl;
     std::unique_ptr<Impl> impl;

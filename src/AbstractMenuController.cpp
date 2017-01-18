@@ -76,11 +76,9 @@ void AbstractMenuController::addMenuItem(
 /**
  *
  */
-void AbstractMenuController::renderAllMenuItems(
-    const utils::Context& context
-) const &
+void AbstractMenuController::renderAllMenuItems() const &
 {
-    for (auto& item : impl->items) // item -> std::unique_ptr<items::MenuItem>&
+    for (auto& item : impl->items)
     {
         item->render(context);
     }
@@ -98,9 +96,7 @@ noexcept
 /**
  *
  */
-void AbstractMenuController::moveUp(
-    const utils::Context& context
-) &
+void AbstractMenuController::moveUp() &
 {
     if (impl->selectorPosition == 0)
     {
@@ -109,15 +105,13 @@ void AbstractMenuController::moveUp(
 
     impl->selectorPosition--;
 
-    updateMenuSelection(context);
+    updateMenuSelection();
 }
 
 /**
  *
  */
-void AbstractMenuController::moveDown(
-    const utils::Context& context
-) &
+void AbstractMenuController::moveDown() &
 {
     /* static cast because std::vector::size() returns a size_t and
        selectorPosition is an unsigned short */
@@ -131,15 +125,13 @@ void AbstractMenuController::moveDown(
 
     impl->selectorPosition++;
 
-    updateMenuSelection(context);
+    updateMenuSelection();
 }
 
 /**
  *
  */
-void AbstractMenuController::updateMenuSelection(
-    const utils::Context& context
-) &
+void AbstractMenuController::updateMenuSelection() &
 {
     /* browse all the menu items; use an iterator in order to calculate the
        current index during each iteration */

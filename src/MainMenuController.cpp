@@ -166,7 +166,7 @@ const ControllerId& MainMenuController::render() &
     window.draw(impl->title);
     window.draw(impl->spriteGithub);
 
-    renderAllMenuItems(context);
+    renderAllMenuItems();
 
     nextControllerId = animateScreenTransition(context);
 
@@ -180,13 +180,13 @@ const ControllerId& MainMenuController::render() &
             {
             case sf::Keyboard::Up:
             {
-                moveUp(context);
+                moveUp();
 
                 break;
             }
             case sf::Keyboard::Down:
             {
-                moveDown(context);
+                moveDown();
 
                 break;
             }
