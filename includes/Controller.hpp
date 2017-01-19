@@ -109,9 +109,14 @@ protected:
     void setExpectedControllerId(const ControllerId& expectedControllerId)
         const & noexcept;
 
-    const utils::Context& context;
+    /**
+     * @brief returns a reference to the controller event
+     *
+     * @return sf::Event&
+     */
+    sf::Event& getEvent() const & noexcept;
 
-    sf::Event event;
+    const utils::Context& context;
 
 private:
 

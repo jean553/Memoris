@@ -70,6 +70,8 @@ public:
 
     ControllerId nextControllerId {ControllerId::NoController},
         expectedControllerId {ControllerId::NoController};
+
+    sf::Event event;
 };
 
 /**
@@ -171,6 +173,14 @@ void Controller::setExpectedControllerId(
 ) const & noexcept
 {
     impl->expectedControllerId = expectedControllerId;
+}
+
+/**
+ *
+ */
+sf::Event& Controller::getEvent() const & noexcept
+{
+    return impl->event;
 }
 
 }
