@@ -35,6 +35,7 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/Window/Event.hpp>
 
 namespace memoris
 {
@@ -134,6 +135,8 @@ SerieMainMenuController::~SerieMainMenuController() noexcept = default;
  */
 const ControllerId& SerieMainMenuController::render() &
 {
+    const auto& context = getContext();
+
     context.getSfmlWindow().draw(impl->title);
 
     renderAllMenuItems();

@@ -67,11 +67,6 @@ private:
 
     static constexpr unsigned short SECONDS_IN_ONE_MINUTE {60};
 
-    static constexpr sf::Int32 SWITCH_ANIMATION_INTERVAL {30};
-
-    static constexpr sf::Uint8 OPACITY_UPDATE_INTERVAL {51};
-    static constexpr sf::Uint8 COLOR_WHITE_MAX_OPACITY {255};
-
     class Impl;
     std::unique_ptr<Impl> impl;
 };

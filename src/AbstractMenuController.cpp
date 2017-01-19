@@ -78,6 +78,8 @@ void AbstractMenuController::addMenuItem(
  */
 void AbstractMenuController::renderAllMenuItems() const &
 {
+    const auto& context = getContext();
+
     for (auto& item : impl->items)
     {
         item->render(context);
@@ -133,6 +135,8 @@ void AbstractMenuController::moveDown() &
  */
 void AbstractMenuController::updateMenuSelection() &
 {
+    const auto& context = getContext();
+
     /* browse all the menu items; use an iterator in order to calculate the
        current index during each iteration */
     for(

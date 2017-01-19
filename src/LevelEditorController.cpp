@@ -205,6 +205,8 @@ const ControllerId& LevelEditorController::render() &
 
     auto& newFile = impl->newFile;
 
+    const auto& context = getContext();
+
     if (newLevelForeground != nullptr)
     {
         newLevelForeground->render(context);

@@ -178,6 +178,8 @@ GameController::~GameController() noexcept = default;
  */
 const ControllerId& GameController::render() &
 {
+    const auto& context = getContext();
+
     if (impl->watchingPeriod)
     {
         impl->watchingTimer.display(context);
@@ -189,6 +191,7 @@ const ControllerId& GameController::render() &
     auto& timerWidget = dashboard.getTimerWidget();
     auto& lastTimerUpdateTime = impl->lastTimerUpdateTime;
 
+    constexpr sf::Int32 ONE_SECOND {1000};
     if (
         impl->playingPeriod and
         (

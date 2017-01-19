@@ -37,6 +37,7 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/Window/Event.hpp>
 
 namespace memoris
 {
@@ -97,6 +98,8 @@ PersonalSeriesMenuController::~PersonalSeriesMenuController() noexcept =
  */
 const ControllerId& PersonalSeriesMenuController::render() &
 {
+    const auto& context = getContext();
+
     context.getSfmlWindow().draw(impl->title);
 
     impl->list.display(context);

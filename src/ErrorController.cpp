@@ -33,6 +33,7 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/Window/Event.hpp>
 
 namespace memoris
 {
@@ -93,6 +94,8 @@ ErrorController::~ErrorController() noexcept = default;
  */
 const ControllerId& ErrorController::render() &
 {
+    const auto& context = getContext();
+
     context.getSfmlWindow().draw(impl->text);
 
     setNextControllerId(animateScreenTransition(context));

@@ -38,6 +38,7 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Window/Event.hpp>
 
 namespace memoris
 {
@@ -150,6 +151,8 @@ MainMenuController::~MainMenuController() = default;
  */
 const ControllerId& MainMenuController::render() &
 {
+    const auto& context = getContext();
+
     impl->animatedBackground.render(context);
     impl->menuGradient.display(context);
 

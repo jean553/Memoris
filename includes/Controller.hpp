@@ -26,9 +26,12 @@
 #ifndef MEMORIS_CONTROLLER_H_
 #define MEMORIS_CONTROLLER_H_
 
-#include <SFML/Window/Event.hpp>
-
 #include <memory>
+
+namespace sf
+{
+class Event;
+}
 
 namespace memoris
 {
@@ -116,7 +119,12 @@ protected:
      */
     sf::Event& getEvent() const & noexcept;
 
-    const utils::Context& context;
+    /**
+     * @brief returns a constant reference to the context
+     *
+     * @return const utils::Context&
+     */
+    const utils::Context& getContext() const & noexcept;
 
 private:
 

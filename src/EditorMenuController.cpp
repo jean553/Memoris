@@ -34,6 +34,7 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/Window/Event.hpp>
 
 namespace memoris
 {
@@ -108,6 +109,8 @@ EditorMenuController::~EditorMenuController() noexcept = default;
  */
 const ControllerId& EditorMenuController::render() &
 {
+    const auto& context = getContext();
+
     context.getSfmlWindow().draw(impl->title);
 
     renderAllMenuItems();
