@@ -192,6 +192,7 @@ const ControllerId& SerieEditorController::render() &
 
     setNextControllerId(animateScreenTransition(context));
 
+    auto& event = getEvent();
     while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)

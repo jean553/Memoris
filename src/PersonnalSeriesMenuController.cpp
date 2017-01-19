@@ -105,6 +105,7 @@ const ControllerId& PersonalSeriesMenuController::render() &
 
     setNextControllerId(animateScreenTransition(context));
 
+    auto& event = getEvent();
     while(context.getSfmlWindow().pollEvent(event))
     {
         switch(event.type)
