@@ -26,8 +26,6 @@
 #ifndef MEMORIS_PICKUPEFFECTSMANAGER_H_
 #define MEMORIS_PICKUPEFFECTSMANAGER_H_
 
-#include "NotCopiable.hpp"
-
 #include <memory>
 
 namespace sf
@@ -42,7 +40,7 @@ namespace utils
 
 class Context;
 
-class PickUpEffectsManager : public NotCopiable
+class PickUpEffectsManager
 {
 
 public:
@@ -51,6 +49,9 @@ public:
      * @brief constructor, initializes the implementation
      */
     PickUpEffectsManager() noexcept;
+
+    PickUpEffectsManager(const PickUpEffectsManager&) = delete;
+    PickUpEffectsManager& operator=(const PickUpEffectsManager) = delete;
 
     /**
      * @brief default destructor, empty, only declared here in order to use

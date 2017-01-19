@@ -51,6 +51,9 @@ class Controller
 
 public:
 
+    Controller(const Controller&) = delete;
+    Controller& operator=(const Controller&) = delete;
+
     /**
      * @brief default destructor defined in order to use forwarding
      * declaration and marked as virtual to ensure that every destructors

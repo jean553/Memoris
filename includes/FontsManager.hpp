@@ -25,8 +25,6 @@
 #ifndef MEMORIS_FONTSMANAGER_H_
 #define MEMORIS_FONTSMANAGER_H_
 
-#include "NotCopiable.hpp"
-
 #include <memory>
 
 namespace sf
@@ -39,7 +37,7 @@ namespace memoris
 namespace managers
 {
 
-class FontsManager : public utils::NotCopiable
+class FontsManager
 {
 
 public:
@@ -53,6 +51,9 @@ public:
      * be loaded
      */
     FontsManager();
+
+    FontsManager(const FontsManager&) = delete;
+    FontsManager& operator=(const FontsManager&) = delete;
 
     /**
      * @brief default destructor, empty, declared for forwarding declaration

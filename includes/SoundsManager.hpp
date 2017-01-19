@@ -26,8 +26,6 @@
 #ifndef MEMORIS_SOUNDSMANAGER_H_
 #define MEMORIS_SOUNDSMANAGER_H_
 
-#include "NotCopiable.hpp"
-
 #include <memory>
 
 namespace memoris
@@ -35,7 +33,7 @@ namespace memoris
 namespace managers
 {
 
-class SoundsManager : public utils::NotCopiable
+class SoundsManager
 {
 
 public:
@@ -45,6 +43,9 @@ public:
      * fails if the loading process fail
      */
     SoundsManager() noexcept;
+
+    SoundsManager(const SoundsManager&) = delete;
+    SoundsManager& operator=(const SoundsManager&) = delete;
 
     /**
      *
