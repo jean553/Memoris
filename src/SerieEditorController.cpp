@@ -166,6 +166,8 @@ const ControllerId& SerieEditorController::render() &
     auto& saveSerieForeground = impl->saveSerieForeground;
     auto& newSerieForeground = impl->newSerieForeground;
 
+    const auto& context = getContext();
+
     if (saveSerieForeground != nullptr)
     {
         saveSerieForeground->render(context);

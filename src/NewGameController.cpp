@@ -35,6 +35,7 @@
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Window/Event.hpp>
 
 namespace memoris
 {
@@ -103,6 +104,8 @@ NewGameController::~NewGameController() noexcept = default;
  */
 const ControllerId& NewGameController::render() &
 {
+    const auto& context = getContext();
+
     context.getSfmlWindow().draw(impl->title);
     context.getSfmlWindow().draw(impl->explanation);
 

@@ -31,6 +31,7 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Window/Event.hpp>
 
 namespace memoris
 {
@@ -43,7 +44,8 @@ class Controller::Impl
 
 public:
 
-    Impl(const utils::Context& context)
+    Impl(const utils::Context& context) :
+        context(context)
     {
         transitionSurfaceColor =
             context.getColorsManager().getColorBlackCopy();
@@ -57,6 +59,8 @@ public:
 
         transitionSurface.setFillColor(transitionSurfaceColor);
     }
+
+    const utils::Context& context;
 
     sf::Int32 lastScreenTransitionTime {0};
 
@@ -78,7 +82,6 @@ public:
  *
  */
 Controller::Controller(const utils::Context& context) :
-    context(context),
     impl(std::make_unique<Impl>(context))
 {
 }
@@ -181,6 +184,14 @@ void Controller::setExpectedControllerId(
 sf::Event& Controller::getEvent() const & noexcept
 {
     return impl->event;
+}
+
+/**
+ *
+ */
+const utils::Context& Controller::getContext() const & noexcept
+{
+    return impl->context;
 }
 
 }

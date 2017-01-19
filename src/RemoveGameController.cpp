@@ -34,6 +34,7 @@
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Window/Event.hpp>
 
 namespace memoris
 {
@@ -82,6 +83,8 @@ RemoveGameController::~RemoveGameController()
  */
 const ControllerId& RemoveGameController::render() &
 {
+    const auto& context = getContext();
+
     context.getSfmlWindow().draw(impl->message);
 
     setNextControllerId(animateScreenTransition(context));

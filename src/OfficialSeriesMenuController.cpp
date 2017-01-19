@@ -35,6 +35,7 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/Window/Event.hpp>
 
 namespace memoris
 {
@@ -141,6 +142,8 @@ OfficialSeriesMenuController::~OfficialSeriesMenuController() noexcept =
  */
 const ControllerId& OfficialSeriesMenuController::render() &
 {
+    const auto& context = getContext();
+
     context.getSfmlWindow().draw(impl->title);
 
     renderAllMenuItems();
@@ -214,6 +217,7 @@ void OfficialSeriesMenuController::selectMenuItem() & noexcept
 
     try
     {
+        const auto& context = getContext();
         context.getPlayingSerieManager().loadSerieFileContent(
             "officials/" + serie
         );

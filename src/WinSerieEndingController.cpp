@@ -38,6 +38,7 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/Window/Event.hpp>
 
 #include <array>
 
@@ -168,16 +169,21 @@ WinSerieEndingController::~WinSerieEndingController() noexcept = default;
  */
 const ControllerId& WinSerieEndingController::render() &
 {
+    const auto& context = getContext();
+
     impl->background.render(context);
     impl->gradient.render(context);
 
     sf::Int32 currentTime = context.getClockMillisecondsTime();
 
+    constexpr sf::Int32 SWITCH_ANIMATION_INTERVAL {30};
     if (
         impl->switchingDisplayedContent and
         currentTime - impl->lastAnimationUpdateTime > SWITCH_ANIMATION_INTERVAL
     )
     {
+        constexpr sf::Uint8 OPACITY_UPDATE_INTERVAL {51};
+
         if (!impl->displayRanking)
         {
             /* create a new object and do not use references here; the function
@@ -206,6 +212,7 @@ const ControllerId& WinSerieEndingController::render() &
                 (*resultText).setColor(impl->colorWhite);
             }
 
+            constexpr sf::Uint8 COLOR_WHITE_MAX_OPACITY {255};
             if (impl->colorWhite.a == COLOR_WHITE_MAX_OPACITY)
             {
                 impl->switchingDisplayedContent = false;
