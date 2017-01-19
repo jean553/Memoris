@@ -27,8 +27,6 @@
 #ifndef MEMORIS_MENUGARDIENT_H_
 #define MEMORIS_MENUGARDIENT_H_
 
-#include "NotCopiable.hpp"
-
 #include <SFML/Config.hpp>
 
 #include <memory>
@@ -44,7 +42,7 @@ class Context;
 namespace others
 {
 
-class MenuGradient : public utils::NotCopiable
+class MenuGradient
 {
 
 public:
@@ -57,6 +55,9 @@ public:
      * not 'noexcept' because it calls SFML functions that are not noexcept
      */
     MenuGradient(const utils::Context& context);
+
+    MenuGradient(const MenuGradient&) = delete;
+    MenuGradient& operator=(const MenuGradient&) = delete;
 
     /**
      * @brief default constructor, empty, only declared in order to use the

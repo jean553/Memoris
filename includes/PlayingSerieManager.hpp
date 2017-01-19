@@ -26,8 +26,6 @@
 #ifndef MEMORIS_PLAYINGSERIEMANAGER_H_
 #define MEMORIS_PLAYINGSERIEMANAGER_H_
 
-#include "NotCopiable.hpp"
-
 #include <memory>
 
 namespace sf
@@ -46,7 +44,7 @@ class SerieResult;
 namespace managers
 {
 
-class PlayingSerieManager : public utils::NotCopiable
+class PlayingSerieManager
 {
     /* declared here because used in an alias */
     static constexpr unsigned short RESULTS_PER_SERIE_FILE_AMOUNT {3};
@@ -59,6 +57,9 @@ public:
      * @brief constructor, empty, only used to initialize the implementation
      */
     PlayingSerieManager() noexcept;
+
+    PlayingSerieManager(const PlayingSerieManager&) = delete;
+    PlayingSerieManager& operator=(const PlayingSerieManager&) = delete;
 
     /**
      * @brief default destructor, empty, only used for forwarding declaration

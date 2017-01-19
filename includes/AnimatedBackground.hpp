@@ -26,8 +26,6 @@
 #ifndef MEMORIS_ANIMATEDBACKGROUND_H_
 #define MEMORIS_ANIMATEDBACKGROUND_H_
 
-#include "NotCopiable.hpp"
-
 #include <memory>
 
 namespace memoris
@@ -41,7 +39,7 @@ class Context;
 namespace utils
 {
 
-class AnimatedBackground : public utils::NotCopiable
+class AnimatedBackground
 {
 
 public:
@@ -53,6 +51,9 @@ public:
      * @param context reference to the current context to use
      */
     AnimatedBackground(const utils::Context& context);
+
+    AnimatedBackground(const AnimatedBackground&) = delete;
+    AnimatedBackground& operator=(const AnimatedBackground&) = delete;
 
     /**
      * @brief default destructor, empty, only declared in order to use

@@ -22,8 +22,6 @@
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "NotCopiable.hpp"
-
 #include <SFML/Config.hpp>
 
 #include <memory>
@@ -39,7 +37,7 @@ class Context;
 namespace others
 {
 
-class HorizontalGradient : public utils::NotCopiable
+class HorizontalGradient
 {
 
 public:
@@ -52,6 +50,9 @@ public:
      * not 'noexcept' because it calls SFML methods that are not noexcept
      */
     HorizontalGradient(const utils::Context& context);
+
+    HorizontalGradient(const HorizontalGradient&) = delete;
+    HorizontalGradient& operator=(const HorizontalGradient&) = delete;
 
     /**
      * @brief default destructor, empty, only declared in order to use

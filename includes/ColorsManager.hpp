@@ -28,8 +28,6 @@
 #ifndef MEMORIS_COLORSMANAGER_H_
 #define MEMORIS_COLORSMANAGER_H_
 
-#include "NotCopiable.hpp"
-
 #include <memory>
 
 namespace sf
@@ -42,7 +40,7 @@ namespace memoris
 namespace managers
 {
 
-class ColorsManager : public utils::NotCopiable
+class ColorsManager
 {
 
 public:
@@ -51,6 +49,9 @@ public:
      * @brief constructor, empty, only used to create the implementation object
      */
     ColorsManager() noexcept;
+
+    ColorsManager(const ColorsManager&) = delete;
+    ColorsManager& operator=(const ColorsManager&) = delete;
 
     /**
      * @brief default destructor, empty, only used for forwarding declaration

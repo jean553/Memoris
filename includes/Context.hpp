@@ -26,8 +26,6 @@
 #ifndef MEMORIS_CONTEXT_H_
 #define MEMORIS_CONTEXT_H_
 
-#include "NotCopiable.hpp"
-
 #include <SFML/Config.hpp>
 
 #include <memory>
@@ -60,7 +58,7 @@ class Game;
 namespace utils
 {
 
-class Context : public utils::NotCopiable
+class Context
 {
 
 public:
@@ -72,6 +70,9 @@ public:
      * cannot be loaded; the exception is never caught in order to finish
      */
     Context();
+
+    Context(const Context&) = delete;
+    Context& operator=(const Context&) = delete;
 
     /**
      * @brief default destructor to use declaration forwarding
