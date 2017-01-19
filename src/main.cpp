@@ -47,10 +47,12 @@ int main()
     auto currentMusicPath = musics::getMusicPathById(currentControllerId);
     context.loadMusicFile(currentMusicPath);
 
+    auto& window = context.getSfmlWindow();
+
     do
     {
         /* get a std::unique_ptr<Controller> */
-        auto pCurrentController =
+        auto controller =
             getControllerById(
                 context,
                 currentControllerId
@@ -64,11 +66,11 @@ int main()
                error is (Valgrind) :
                by 0x527434E: sf::RenderTarget::clear(sf::Color const&)
                (in /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.1) */
-            context.getSfmlWindow().clear();
+            window.clear();
 
-            nextControllerId = pCurrentController->render();
+            nextControllerId = controller->render();
 
-            context.getSfmlWindow().display();
+            window.display();
         }
         while (nextControllerId == ControllerId::NoController);
 
@@ -98,7 +100,7 @@ int main()
 
     context.stopMusic();
 
-    context.getSfmlWindow().close();
+    window.close();
 
     return EXIT_SUCCESS;
 }
