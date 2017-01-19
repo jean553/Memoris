@@ -60,8 +60,6 @@ public:
         transitionSurface.setFillColor(transitionSurfaceColor);
     }
 
-    const utils::Context& context;
-
     sf::Int32 lastScreenTransitionTime {0};
 
     sf::Uint8 transitionStep {5};
@@ -70,12 +68,15 @@ public:
 
     sf::RectangleShape transitionSurface;
 
-    bool openingScreen {true};
+    sf::Event event;
+
+    const utils::Context& context;
 
     ControllerId nextControllerId {ControllerId::NoController},
         expectedControllerId {ControllerId::NoController};
 
-    sf::Event event;
+    bool openingScreen {true};
+
 };
 
 /**
@@ -143,7 +144,8 @@ const ControllerId Controller::animateScreenTransition(
         return expectedControllerId;
     }
 
-    if (transitionStep <= 0)
+    constexpr unsigned short OPENED_SCREEN_MINIMUM_STEP {0};
+    if (transitionStep <= OPENED_SCREEN_MINIMUM_STEP)
     {
         impl->openingScreen = false;
     }
