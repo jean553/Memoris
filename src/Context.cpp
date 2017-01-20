@@ -71,18 +71,8 @@ public:
 
     sf::Music music;
 
-    /* unique SFML clock for time management in every controller
-     *
-     * NOTE: we use an unique clock for all the animation and time
-     * management of the game; the clock is restarted everytime the
-     * controller is modified; the maximum time returned in milliseconds
-     * is equal to 49 days... so this is a safe method */
     sf::Clock clock;
 
-    /* we could use a pointer to dynamically creates the game object only
-       when it is really necessary during the program execution; in order to
-       avoid multiple tests on existing pointers, we just create a permanent
-       game object */
     entities::Game game;
 };
 
@@ -91,11 +81,12 @@ public:
  */
 Context::Context() : impl(std::make_unique<Impl>())
 {
-    impl->sfmlWindow.setMouseCursorVisible(false);
+    auto& window = impl->sfmlWindow;
+    window.setMouseCursorVisible(false);
 
     /* prevent the user to keep a key pressed down: the events are only
        triggered one time during the first press down and not continuously */
-    impl->sfmlWindow.setKeyRepeatEnabled(false);
+    window.setKeyRepeatEnabled(false);
 }
 
 /**
@@ -198,10 +189,11 @@ void Context::loadMusicFile(const std::string& path) const &
 
     stopMusic();
 
-    if(impl->music.openFromFile(path))
+    auto& music = impl->music;
+    if(music.openFromFile(path))
     {
-        impl->music.play();
-        impl->music.setLoop(true);
+        music.play();
+        music.setLoop(true);
     }
 }
 
@@ -210,9 +202,10 @@ void Context::loadMusicFile(const std::string& path) const &
  */
 void Context::stopMusic() const &
 {
-    if(impl->music.getStatus() == sf::Sound::Playing)
+    auto& music = impl->music;
+    if(music.getStatus() == sf::Sound::Playing)
     {
-        impl->music.stop();
+        music.stop();
     }
 }
 
