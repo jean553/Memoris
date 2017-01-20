@@ -24,15 +24,10 @@
 
 #include "AbstractMenuController.hpp"
 
-#include "Context.hpp"
-#include "SoundsManager.hpp"
 #include "MenuItem.hpp"
 
 #include <vector>
 #include <cstdlib>
-
-using UniquePtrMenuItemContainer =
-    std::vector<std::unique_ptr<memoris::items::MenuItem>>;
 
 namespace memoris
 {
@@ -46,7 +41,7 @@ public:
 
     unsigned short selectorPosition {0};
 
-    UniquePtrMenuItemContainer items;
+    std::vector<std::unique_ptr<const items::MenuItem>> items;
 };
 
 /**
@@ -61,14 +56,14 @@ AbstractMenuController::AbstractMenuController(const utils::Context& context) :
 /**
  *
  */
-AbstractMenuController::~AbstractMenuController() noexcept = default;
+AbstractMenuController::~AbstractMenuController() = default;
 
 /**
  *
  */
 void AbstractMenuController::addMenuItem(
     std::unique_ptr<items::MenuItem> item
-) &
+) const & noexcept
 {
     impl->items.push_back(std::move(item));
 }
@@ -78,11 +73,9 @@ void AbstractMenuController::addMenuItem(
  */
 void AbstractMenuController::renderAllMenuItems() const &
 {
-    const auto& context = getContext();
-
     for (auto& item : impl->items)
     {
-        item->render(context);
+        item->render(getContext());
     }
 }
 
@@ -90,7 +83,7 @@ void AbstractMenuController::renderAllMenuItems() const &
  *
  */
 const unsigned short& AbstractMenuController::getSelectorPosition() const &
-noexcept
+    noexcept
 {
     return impl->selectorPosition;
 }
@@ -98,78 +91,63 @@ noexcept
 /**
  *
  */
-void AbstractMenuController::moveUp() &
+const unsigned short AbstractMenuController::getLastItemIndex() const &
 {
-    if (impl->selectorPosition == 0)
-    {
-        return;
-    }
+    return static_cast<unsigned short>(impl->items.size()) - 1;
+}
 
+/**
+ *
+ */
+void AbstractMenuController::moveUp() const & noexcept
+{
     impl->selectorPosition--;
-
-    updateMenuSelection();
 }
 
 /**
  *
  */
-void AbstractMenuController::moveDown() &
+void AbstractMenuController::moveDown() const & noexcept
 {
-    /* static cast because std::vector::size() returns a size_t and
-       selectorPosition is an unsigned short */
-    if (
-        impl->selectorPosition ==
-        static_cast<unsigned short>(impl->items.size() - 1)
-    )
-    {
-        return;
-    }
-
     impl->selectorPosition++;
-
-    updateMenuSelection();
 }
 
 /**
  *
  */
-void AbstractMenuController::updateMenuSelection() &
+void AbstractMenuController::updateMenuSelection() const &
 {
-    const auto& context = getContext();
+    const auto& items = impl->items;
+    const auto& itemsStart = items.cbegin();
 
-    /* browse all the menu items; use an iterator in order to calculate the
-       current index during each iteration */
     for(
-        UniquePtrMenuItemContainer::const_iterator iterator =
-            impl->items.cbegin();
-        iterator != impl->items.cend();
+        auto iterator = itemsStart;
+        iterator != items.cend();
         ++iterator
     )
     {
-        /* select the item that has the index equals to the selector
-           position; wrap the std::distance result with an absolute value
-           calculation, in fact std::distance can return a signed value;
-           use a cast to force std::distance to always return an unsigned
-           short for the comparison */
+        const auto& context = getContext();
+        const auto& currentItem = **iterator;
+
+        /* std::distance may be negative,
+           so we use std::abs */
         if (
             static_cast<unsigned short>(
                 std::abs(
                     std::distance(
-                        impl->items.cbegin(),
+                        itemsStart,
                         iterator
                     )
                 )
             ) == impl->selectorPosition
         )
         {
-            (**iterator).select(context);
+            currentItem.select(context);
             continue;
         }
 
-        (**iterator).unselect(context);
+        currentItem.unselect(context);
     }
-
-    context.getSoundsManager().playMoveSelectorSound();
 }
 
 }

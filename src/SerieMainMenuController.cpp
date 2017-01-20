@@ -32,6 +32,7 @@
 #include "MenuItem.hpp"
 #include "window.hpp"
 #include "Game.hpp"
+#include "SoundsManager.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -152,6 +153,14 @@ const ControllerId& SerieMainMenuController::render() &
         {
         case sf::Event::KeyPressed:
         {
+            const auto& selection = getSelectorPosition();
+
+            const auto& soundsManager = context.getSoundsManager();
+
+            using namespace managers;
+            void (SoundsManager::*playSound)() const & =
+                &SoundsManager::playMoveSelectorSound;
+
             switch (event.key.code)
             {
             case sf::Keyboard::Escape:
@@ -162,13 +171,31 @@ const ControllerId& SerieMainMenuController::render() &
             }
             case sf::Keyboard::Up:
             {
+                if (selection == 0)
+                {
+                    break;
+                }
+
                 moveUp();
+
+                updateMenuSelection();
+
+                (soundsManager.*playSound)();
 
                 break;
             }
             case sf::Keyboard::Down:
             {
+                if (selection == getLastItemIndex())
+                {
+                    break;
+                }
+
                 moveDown();
+
+                updateMenuSelection();
+
+                (soundsManager.*playSound)();
 
                 break;
             }
@@ -197,7 +224,7 @@ const ControllerId& SerieMainMenuController::render() &
 /**
  *
  */
-void SerieMainMenuController::selectMenuItem() & noexcept
+void SerieMainMenuController::selectMenuItem() const & noexcept
 {
     switch(getSelectorPosition())
     {

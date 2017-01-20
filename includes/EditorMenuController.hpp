@@ -74,7 +74,7 @@ private:
      *
      * not 'const' because it modifies the expected controller id
      */
-    virtual void selectMenuItem() & noexcept override;
+    virtual void selectMenuItem() const & noexcept override;
 
     class Impl;
     std::unique_ptr<Impl> impl;

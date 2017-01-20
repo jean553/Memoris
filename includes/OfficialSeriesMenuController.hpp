@@ -77,10 +77,8 @@ private:
 
     /**
      * @brief defines what happens when a menu item is selected
-     *
-     * not 'const' because the the expected controller id is modified
      */
-    virtual void selectMenuItem() & noexcept override;
+    virtual void selectMenuItem() const & noexcept override;
 
     /**
      * @brief returns the name of the serie file to open according to the
