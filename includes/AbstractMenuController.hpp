@@ -45,11 +45,9 @@ class AbstractMenuController : public Controller
 protected:
 
     /**
-     * @brief constructor, pass the parameters to the parent object and
-     * initialize the implementation; protected because only called by a
-     * child of this class
+     * @brief constructor
      *
-     * @param context reference to the current context
+     * @param context constant reference to the current context
      *
      * @throw std::bad_alloc cannot initialize the implementation unique
      * pointer; this exception is never caught and the program stops
@@ -57,101 +55,64 @@ protected:
     AbstractMenuController(const utils::Context& context);
 
     /**
-     * @brief default destructor, empty, only declared in order to use
-     * forwarding declaration
+     * @brief default destructor
      */
-    ~AbstractMenuController() noexcept;
+    ~AbstractMenuController();
+
+    /**
+     * @brief defines what happens when an item is selected;
+     * usually sets the next controller id value
+     */
+    virtual void selectMenuItem() const & noexcept = 0;
 
     /**
      * @brief insert one menu item pointer inside the menu items list
      *
-     * @param item unique pointer to the menu item to insert;
-     *
-     * NOTE: we move the unique pointer here from the child object to the
-     * parent object's container instead of using move sementics directly on
-     * the object. In fact, moving a pointer to the object runs faster than
-     * moving a MenuItem object directly (measured). This is because the
-     * menu item object contains a sf::Text object, and this object has no
-     * movement constructor in SFML. So when moving directly the object, the
-     * SFML sf::Text object is copied anyway. This copy is not necessary when
-     * working at the pointer level.
-     *
-     * the item parameters is not 'const' because it is an unique pointer
-     * which is moved inside the method when calling push_back(std::move(item))
-     * this is moved because an unique_ptr cannot be copied anyway
-     *
-     * not 'const' because it adds data into the items container
-     *
-     * not 'noexcept' because even if the std::unique_ptr move constructor
-     * is not supposed to throw exceptions, push_back can still throw
-     * exceptions for other reasons
+     * @param item unique pointer to the menu item to insert
      */
-    void addMenuItem(std::unique_ptr<items::MenuItem> item) &;
+    void addMenuItem(std::unique_ptr<items::MenuItem> item) const & noexcept;
 
     /**
      * @brief display all the menu items
      *
-     * not 'noexcept' because this method calls the render() method of the
-     * menu item and this last function calls SFML functions that are not
-     * noexcept
+     * utils::Context and SFML methods are not noexcept
      */
     void renderAllMenuItems() const &;
 
     /**
-     * @brief getter of the selector position
+     * @brief returns the current position of the selector
      *
      * @return const unsigned short&
      */
     const unsigned short& getSelectorPosition() const & noexcept;
 
     /**
-     * @brief move up the selector, only if the selected item is not the first
-     * one
+     * @brief returns the size of the items list
      *
-     * not 'const' because it modifies the selectorPosition value
+     * @return const unsigned short
      *
-     * not 'noexcept' because it calls menu item methods that calls SFML
-     * functions and these functions are not noexcept
+     * we cannot be sure that static_cast won't throw exception
      */
-    void moveUp() &;
+    const unsigned short getLastItemIndex() const &;
 
     /**
-     * @brief move down the selector, only if the selected item is not the last
-     * one
-     *
-     * not 'const' because it modifies the selectorPosition value
-     *
-     * not 'noexcept' because it calls menu item methods that calls SFML
-     * functions and these functions are not noexcept
+     * @brief move up the selector
      */
-    void moveDown() &;
+    void moveUp() const & noexcept;
 
     /**
-     * @brief pure virtual method used to make this class abstract; this
-     * method is defined in the children objects and describes what happens
-     * when an item of the menu is selected, according to which item has
-     * been selected
-     *
-     * not 'const' because definition usually set nextControllerId and
-     * expectedControllerId attributes
-     *
-     * NOTE: noexcept because each definition is noexcept guarantee (one
-     * method handles exceptions but a try/catch is used there)
+     * @brief move down the selector
      */
-    virtual void selectMenuItem() & noexcept = 0;
+    void moveDown() const & noexcept;
+
+    /**
+     * @brief updates colors of the menu items according to the selection
+     *
+     * items::MenuItem::select() and unselect() may throw exceptions
+     */
+    void updateMenuSelection() const &;
 
 private:
-
-    /**
-     * @brief update the colors of all the menu items; the current
-     * selected item is colored by the red color
-     *
-     * not 'const' because it modifies items inside the items container
-     *
-     * not 'noexcept' because calls STL and SFML functions that are not
-     * noexcept
-     */
-    void updateMenuSelection() &;
 
     class Impl;
     std::unique_ptr<Impl> impl;

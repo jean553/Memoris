@@ -33,6 +33,7 @@
 #include "AnimatedBackground.hpp"
 #include "MenuGradient.hpp"
 #include "window.hpp"
+#include "SoundsManager.hpp"
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -181,17 +182,43 @@ const ControllerId& MainMenuController::render() &
         {
         case sf::Event::KeyPressed:
         {
+            const auto& selection = getSelectorPosition();
+
+            const auto& soundsManager = context.getSoundsManager();
+
+            using namespace managers;
+            void (SoundsManager::*playSound)() const & = 
+                &SoundsManager::playMoveSelectorSound;
+
             switch(event.key.code)
             {
             case sf::Keyboard::Up:
             {
+                if (selection == 0)
+                {
+                    break;
+                }
+
                 moveUp();
+
+                updateMenuSelection();
+
+                (soundsManager.*playSound)();
 
                 break;
             }
             case sf::Keyboard::Down:
             {
+                if (selection == getLastItemIndex())
+                {
+                    break;
+                }
+
                 moveDown();
+
+                updateMenuSelection();
+
+                (soundsManager.*playSound)();
 
                 break;
             }
@@ -279,7 +306,7 @@ void MainMenuController::animateTitleColor() &
 /**
  *
  */
-void MainMenuController::selectMenuItem() & noexcept
+void MainMenuController::selectMenuItem() const & noexcept
 {
     switch(getSelectorPosition())
     {

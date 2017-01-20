@@ -67,8 +67,10 @@ public:
      * @brief constructor
      *
      * @throw std::invalid_argument a texture resource or a font resource
-     * cannot be loaded; the exception is never caught in order to terminate
-     * the program
+     * cannot be loaded; the exception is never caught and the program stops
+     *
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * the exception is never caught and the program stops
      */
     Context();
 

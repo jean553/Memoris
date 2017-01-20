@@ -73,10 +73,8 @@ private:
     /**
      * @brief overwrite the parent method; defines which constroller is called
      * when one menu item is selected
-     *
-     * not 'const' because it modifies the expected controller id attribute
      */
-    virtual void selectMenuItem() & noexcept override;
+    virtual void selectMenuItem() const & noexcept override;
 
     class Impl;
     std::unique_ptr<Impl> impl;
