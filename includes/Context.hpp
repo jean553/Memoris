@@ -67,7 +67,8 @@ public:
      * @brief constructor
      *
      * @throw std::invalid_argument a texture resource or a font resource
-     * cannot be loaded; the exception is never caught in order to finish
+     * cannot be loaded; the exception is never caught in order to terminate
+     * the program
      */
     Context();
 
@@ -158,7 +159,8 @@ public:
      *
      * @return const sf::Int32
      *
-     * some called SFML functions are not noexcept
+     * SFML sf::Clock::getElapsedTime() and sf::Time::asMilliseconds()
+     * are not noexcept
      */
     const sf::Int32 getClockMillisecondsTime() const &;
 
@@ -168,14 +170,15 @@ public:
      *
      * @param path file path of the music to play
      *
-     * some called SFML functions are not noexcept
+     * SFML sf::Music::openFromFile(), sf::Music::play() and
+     * setLoop() are not noexcept
      */
     void loadMusicFile(const std::string& path) const &;
 
     /**
      * @brief stop the playing music
      *
-     * some called SFML functions are not noexcept
+     * SFML sf::Music::getStatus() and sf::Music::stop() are not noexcept
      */
     void stopMusic() const &;
 
@@ -184,7 +187,7 @@ public:
      * everytime the screen is switched from one controller
      * to another
      *
-     * some called SFML functions are not noexcept
+     * SFML sf::Clock::restart() is not noexcept
      */
     void restartClock() const &;
 
