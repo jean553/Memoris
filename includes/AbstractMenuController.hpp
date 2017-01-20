@@ -18,7 +18,7 @@
 
 /**
  * @file AbstractMenuController.hpp
- * @brief abstract class that manages menus selectors movement and animation
+ * @brief handles menu common operations as selector movement and selection
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -49,8 +49,8 @@ protected:
      *
      * @param context constant reference to the current context
      *
-     * @throw std::bad_alloc cannot initialize the implementation unique
-     * pointer; this exception is never caught and the program stops
+     * @throw std::bad_alloc cannot initialize the implementation;
+     * this exception is never caught and the program stops
      */
     AbstractMenuController(const utils::Context& context);
 
