@@ -62,16 +62,12 @@ private:
     /**
      * @brief update the color of the title
      *
-     * not 'noexcept' because it calls the SFML function setColor() which is
-     * not noexcept
+     * SFML sf::Text::setColor() is not noexcept
      */
     void animateTitleColor() const &;
 
     /**
-     * @brief overwrite the parent method, defines which controller
-     * is called when one menu item is selected
-     *
-     * not 'const' because it modifies the expected controller id
+     * @brief updates the next controller id according to the selection
      */
     virtual void selectMenuItem() const & noexcept override;
 

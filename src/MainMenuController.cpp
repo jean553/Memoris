@@ -55,14 +55,31 @@ public:
         animatedBackground(context),
         menuGradient(context)
     {
+        colorTitle = context.getColorsManager().getColorBlueCopy();
+
+        title.setFont(context.getFontsManager().getTitleFont());
+        title.setString("Memoris");
+        title.setCharacterSize(fonts::TITLE_SIZE);
+        title.setColor(colorTitle);
+
+        constexpr float TITLE_VERTICAL_POSITION {100.f};
+        title.setPosition(
+            window::getCenteredSfmlSurfaceHorizontalPosition(title),
+            TITLE_VERTICAL_POSITION
+        );
+
+        spriteGithub.setTexture(
+            context.getTexturesManager().getGithubTexture()
+        );
+        spriteGithub.setPosition(
+            1300.f,
+            0.f
+        );
     }
 
     utils::AnimatedBackground animatedBackground;
     others::MenuGradient menuGradient;
 
-    /* we use SFML 32 bits long integers to save the
-       last updated time of each animation; we use this
-       data type as it is the one used by SFML clock */
     sf::Int32 titleLastAnimationTime {0};
 
     bool incrementTitleRedColor {true};
@@ -83,46 +100,39 @@ MainMenuController::MainMenuController(const utils::Context& context) :
     AbstractMenuController(context),
     impl(std::make_unique<Impl>(context))
 {
-    impl->colorTitle = context.getColorsManager().getColorBlueCopy();
-
-    impl->title.setFont(context.getFontsManager().getTitleFont());
-    impl->title.setString("Memoris");
-    impl->title.setCharacterSize(fonts::TITLE_SIZE);
-    impl->title.setColor(impl->colorTitle);
-    impl->title.setPosition(
-        window::getCenteredSfmlSurfaceHorizontalPosition(impl->title),
-        100.f
-    );
-
+    constexpr float NEW_GAME_VERTICAL_POSITION {320.f};
     std::unique_ptr<items::MenuItem> newGame(
         std::make_unique<items::MenuItem>(
             context,
             "New game",
-            320.f
+            NEW_GAME_VERTICAL_POSITION
         )
     );
 
+    constexpr float LOAD_GAME_VERTICAL_POSITION {450.f};
     std::unique_ptr<items::MenuItem> loadGame(
         std::make_unique<items::MenuItem>(
             context,
             "Load game",
-            450.f
+            LOAD_GAME_VERTICAL_POSITION
         )
     );
 
+    constexpr float EDITOR_VERTICAL_POSITION {580.f};
     std::unique_ptr<items::MenuItem> editor (
         std::make_unique<items::MenuItem>(
             context,
             "Editor",
-            580.f
+            EDITOR_VERTICAL_POSITION
         )
     );
 
+    constexpr float EXIT_VERTICAL_POSITION {710.f};
     std::unique_ptr<items::MenuItem> exit(
         std::make_unique<items::MenuItem>(
             context,
             "Exit",
-            710.f
+            EXIT_VERTICAL_POSITION
         )
     );
 
@@ -132,14 +142,6 @@ MainMenuController::MainMenuController(const utils::Context& context) :
     addMenuItem(std::move(loadGame));
     addMenuItem(std::move(editor));
     addMenuItem(std::move(exit));
-
-    impl->spriteGithub.setTexture(
-        context.getTexturesManager().getGithubTexture()
-    );
-    impl->spriteGithub.setPosition(
-        1300.f,
-        0.f
-    );
 }
 
 /**
@@ -158,7 +160,7 @@ const ControllerId& MainMenuController::render() const &
     impl->menuGradient.display(context);
 
     const auto& currentTime = context.getClockMillisecondsTime();
-    auto& lastTime = impl->titleLastAnimationTime; 
+    auto& lastTime = impl->titleLastAnimationTime;
 
     constexpr sf::Int32 TITLE_COLOR_ANIMATION_INTERVAL {10};
     if (currentTime - lastTime > TITLE_COLOR_ANIMATION_INTERVAL)
@@ -187,7 +189,7 @@ const ControllerId& MainMenuController::render() const &
             const auto& soundsManager = context.getSoundsManager();
 
             using namespace managers;
-            void (SoundsManager::*playSound)() const & = 
+            void (SoundsManager::*playSound)() const & =
                 &SoundsManager::playMoveSelectorSound;
 
             switch(event.key.code)
@@ -249,58 +251,69 @@ const ControllerId& MainMenuController::render() const &
  */
 void MainMenuController::animateTitleColor() const &
 {
-    if (impl->incrementTitleRedColor)
+    auto& colorTitle = impl->colorTitle;
+
+    auto& incrementTitleRedColor = impl->incrementTitleRedColor;
+    auto& colorTitleRed = colorTitle.r;
+    if (incrementTitleRedColor)
     {
-        impl->colorTitle.r++;
+        colorTitleRed++;
     }
     else
     {
-        impl->colorTitle.r--;
+        colorTitleRed--;
     }
 
-    if (impl->incrementTitleGreenColor)
+    auto& incrementTitleGreenColor = impl->incrementTitleGreenColor;
+    auto& colorTitleGreen = colorTitle.g;
+    if (incrementTitleGreenColor)
     {
-        impl->colorTitle.g++;
+        colorTitleGreen++;
     }
     else
     {
-        impl->colorTitle.g--;
+        colorTitleGreen--;
     }
 
-    if (impl->incrementTitleBlueColor)
+    auto& incrementTitleBlueColor = impl->incrementTitleBlueColor;
+    auto& colorTitleBlue = colorTitle.b;
+    if (incrementTitleBlueColor)
     {
-        impl->colorTitle.b++;
+        colorTitleBlue++;
     }
     else
     {
-        impl->colorTitle.b--;
+        colorTitleBlue--;
     }
 
+    constexpr sf::Uint8 TITLE_COLOR_MAXIMUM_RED {255};
     if(
-        impl->colorTitle.r == 255 ||
-        impl->colorTitle.r == 0
+        colorTitleRed == TITLE_COLOR_MAXIMUM_RED or
+        colorTitleRed == 0
     )
     {
-        impl->incrementTitleRedColor = !impl->incrementTitleRedColor;
+        incrementTitleRedColor = not incrementTitleRedColor;
     }
 
+    constexpr sf::Uint8 TITLE_COLOR_MAXIMUM_GREEN {180};
     if(
-        impl->colorTitle.g == 180 ||
-        impl->colorTitle.g == 0
+        colorTitleGreen == TITLE_COLOR_MAXIMUM_GREEN or
+        colorTitleGreen == 0
     )
     {
-        impl->incrementTitleGreenColor = !impl->incrementTitleGreenColor;
+        incrementTitleGreenColor = not incrementTitleGreenColor;
     }
 
+    constexpr sf::Uint8 TITLE_COLOR_MAXIMUM_BLUE {180};
     if(
-        impl->colorTitle.b == 255 ||
-        impl->colorTitle.b == 0
+        colorTitleBlue == TITLE_COLOR_MAXIMUM_BLUE or
+        colorTitleBlue == 0
     )
     {
-        impl->incrementTitleBlueColor = !impl->incrementTitleBlueColor;
+        incrementTitleBlueColor = not incrementTitleBlueColor;
     }
 
-    impl->title.setColor(impl->colorTitle);
+    impl->title.setColor(colorTitle);
 }
 
 /**
