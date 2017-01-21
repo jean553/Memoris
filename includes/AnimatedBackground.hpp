@@ -72,7 +72,7 @@ private:
     /**
      * @brief initialize every cells of the animated background
      *
-     * not 'noexcept' because it calls SFML functions that are not noexcept
+     * entities::Cell constructor is not noexcept as it calls SFML methods
      */
     void initializeCells() const &;
 
