@@ -24,11 +24,8 @@
 
 #include "AnimatedBackground.hpp"
 
-#include "Context.hpp"
 #include "dimensions.hpp"
 #include "cells.hpp"
-
-#include <time.h>
 
 namespace memoris
 {
