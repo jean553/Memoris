@@ -304,7 +304,7 @@ void MainMenuController::animateTitleColor() const &
         incrementTitleGreenColor = not incrementTitleGreenColor;
     }
 
-    constexpr sf::Uint8 TITLE_COLOR_MAXIMUM_BLUE {180};
+    constexpr sf::Uint8 TITLE_COLOR_MAXIMUM_BLUE {255};
     if(
         colorTitleBlue == TITLE_COLOR_MAXIMUM_BLUE or
         colorTitleBlue == 0
