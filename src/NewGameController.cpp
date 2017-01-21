@@ -102,7 +102,7 @@ NewGameController::~NewGameController() noexcept = default;
 /**
  *
  */
-const ControllerId& NewGameController::render() &
+const ControllerId& NewGameController::render() const &
 {
     const auto& context = getContext();
 

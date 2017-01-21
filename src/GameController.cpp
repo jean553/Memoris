@@ -176,7 +176,7 @@ GameController::~GameController() noexcept = default;
 /**
  *
  */
-const ControllerId& GameController::render() &
+const ControllerId& GameController::render() const &
 {
     const auto& context = getContext();
 
@@ -413,7 +413,7 @@ const ControllerId& GameController::render() &
 void GameController::handlePlayerMovement(
     const utils::Context& context,
     const short& movement
-)
+) const &
 {
     if (
         impl->watchingPeriod ||
@@ -458,7 +458,7 @@ void GameController::handlePlayerMovement(
  */
 void GameController::executePlayerCellAction(
     const utils::Context& context
-)
+) const &
 {
     const char& newPlayerCellType = impl->level->getPlayerCellType();
 
@@ -618,7 +618,7 @@ void GameController::executePlayerCellAction(
  */
 void GameController::emptyPlayerCell(
     const utils::Context& context
-)
+) const &
 {
     const char& playerCellType = impl->level->getPlayerCellType();
 
@@ -641,7 +641,7 @@ void GameController::emptyPlayerCell(
  */
 void GameController::watchNextFloorOrHideLevel(
     const utils::Context& context
-)
+) const &
 {
     if (impl->floor != impl->level->getPlayableFloors() - 1)
     {
@@ -677,7 +677,7 @@ void GameController::watchNextFloorOrHideLevel(
 /**
  *
  */
-void GameController::endLevel(const utils::Context& context)
+void GameController::endLevel(const utils::Context& context) const &
 {
     if (impl->win)
     {

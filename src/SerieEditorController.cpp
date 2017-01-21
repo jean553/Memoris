@@ -161,7 +161,7 @@ SerieEditorController::~SerieEditorController() noexcept = default;
 /**
  *
  */
-const ControllerId& SerieEditorController::render() &
+const ControllerId& SerieEditorController::render() const &
 {
     auto& saveSerieForeground = impl->saveSerieForeground;
     auto& newSerieForeground = impl->newSerieForeground;

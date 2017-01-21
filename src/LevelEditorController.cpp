@@ -192,7 +192,7 @@ LevelEditorController::~LevelEditorController() noexcept = default;
 /**
  *
  */
-const ControllerId& LevelEditorController::render() &
+const ControllerId& LevelEditorController::render() const &
 {
     // std::unique_ptr<Level>&
     auto& level = impl->level;

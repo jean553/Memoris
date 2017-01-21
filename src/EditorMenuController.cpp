@@ -108,7 +108,7 @@ EditorMenuController::~EditorMenuController() noexcept = default;
 /**
  *
  */
-const ControllerId& EditorMenuController::render() &
+const ControllerId& EditorMenuController::render() const &
 {
     const auto& context = getContext();
 

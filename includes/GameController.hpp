@@ -75,7 +75,7 @@ public:
      *
      * @return const ControllerId&
      */
-    virtual const ControllerId& render() & override;
+    virtual const ControllerId& render() const & override;
 
 private:
 
@@ -100,7 +100,7 @@ private:
     void handlePlayerMovement(
         const utils::Context& context,
         const short& movement
-    );
+    ) const &;
 
     /**
      * @brief applies the action of the new player cell; this method is called
@@ -108,7 +108,7 @@ private:
      *
      * @param context constant reference to the context to use
      */
-    void executePlayerCellAction(const utils::Context& context);
+    void executePlayerCellAction(const utils::Context& context) const &;
 
     /**
      * @brief empties the player cell (the current player cell is switched to
@@ -118,7 +118,7 @@ private:
      *
      * @param context shared pointer to the context to use
      */
-    void emptyPlayerCell(const utils::Context& context);
+    void emptyPlayerCell(const utils::Context& context) const &;
 
     /**
      * @brief this method is called during the watching mode by the main
@@ -128,7 +128,7 @@ private:
      *
      * @param context shared pointer to the context to use
      */
-    void watchNextFloorOrHideLevel(const utils::Context& context);
+    void watchNextFloorOrHideLevel(const utils::Context& context) const &;
 
     /**
      * @brief this method ends the level, it displays the win or lose screen
@@ -136,7 +136,7 @@ private:
      *
      * @param context constant reference to the current context to use
      */
-    void endLevel(const utils::Context& context);
+    void endLevel(const utils::Context& context) const &;
 
     class Impl;
     std::unique_ptr<Impl> impl;

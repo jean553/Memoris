@@ -81,7 +81,7 @@ RemoveGameController::~RemoveGameController()
 /**
  *
  */
-const ControllerId& RemoveGameController::render() &
+const ControllerId& RemoveGameController::render() const &
 {
     const auto& context = getContext();
 

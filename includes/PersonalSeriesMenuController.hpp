@@ -66,7 +66,7 @@ public:
      *
      * @return const ControllerId&
      */
-    virtual const ControllerId& render() &;
+    virtual const ControllerId& render() const & override;
 
 private:
 

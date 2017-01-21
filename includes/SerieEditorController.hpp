@@ -59,7 +59,7 @@ public:
      * the context reference is not constant because this is a virtual method
      * and some definitions have to modify the context attributes
      */
-    virtual const ControllerId& render() & override;
+    virtual const ControllerId& render() const & override;
 
     /**
      * @brief save the current serie file according to the given serie name
