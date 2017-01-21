@@ -98,7 +98,7 @@ public:
         void (Cell::*display)(
             const utils::Context&,
             aliases::ConstTransformUniquePtrRef
-        )
+        ) const &
     ) const;
 
     /**

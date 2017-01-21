@@ -52,6 +52,13 @@ public:
 
     float originalHorizontalPosition;
     float originalVerticalPosition;
+
+    float horizontalPosition;
+    float verticalPosition;
+
+    sf::Sprite sprite;
+
+    bool highlight;
 };
 
 /**
@@ -96,11 +103,11 @@ Cell::~Cell() noexcept = default;
 /**
  *
  */
-void Cell::moveOnTheRight()
+void Cell::moveOnTheRight() const &
 {
     /* increment the horizontal position of the cell; we do
        it separately to make it clear */
-    horizontalPosition++;
+    impl->horizontalPosition++;
 
     /* if the cell is outside of the screen on the right side, the position
        is reset to -49 because a cell width is 49 pixel; the cell is now
@@ -108,16 +115,17 @@ void Cell::moveOnTheRight()
        during the animation; we considere the cell outside of the screen on
        the right corner when the position is 1649, that means the window
        width and one cell width */
-    if (horizontalPosition == memoris::window::WIDTH)
+    if (impl->horizontalPosition == memoris::window::WIDTH)
     {
         /* note that the cell pixel dimensions is forced to be signed */
-        horizontalPosition = -memoris::dimensions::CELL_PIXELS_DIMENSIONS;
+        impl->horizontalPosition =
+            -memoris::dimensions::CELL_PIXELS_DIMENSIONS;
     }
 
     /* update the horizontal position */
     setPosition(
-        horizontalPosition,
-        verticalPosition
+        impl->horizontalPosition,
+        impl->verticalPosition
     );
 }
 
@@ -130,33 +138,33 @@ void Cell::moveInDirection(const MovementDirection& direction) &
     {
     case MovementDirection::UP:
     {
-        verticalPosition -= POSITION_UPDATE_STEP;
+        impl->verticalPosition -= POSITION_UPDATE_STEP;
 
         break;
     }
     case MovementDirection::DOWN:
     {
-        verticalPosition += POSITION_UPDATE_STEP;
+        impl->verticalPosition += POSITION_UPDATE_STEP;
 
         break;
     }
     case MovementDirection::LEFT:
     {
-        horizontalPosition -= POSITION_UPDATE_STEP;
+        impl->horizontalPosition -= POSITION_UPDATE_STEP;
 
         break;
     }
     case MovementDirection::RIGHT:
     {
-        horizontalPosition += POSITION_UPDATE_STEP;
+        impl->horizontalPosition += POSITION_UPDATE_STEP;
 
         break;
     }
     }
 
     setPosition(
-        horizontalPosition,
-        verticalPosition
+        impl->horizontalPosition,
+        impl->verticalPosition
     );
 }
 
@@ -166,14 +174,14 @@ void Cell::moveInDirection(const MovementDirection& direction) &
 void Cell::setPosition(
     const float& hPosition,
     const float& vPosition
-)
+) const &
 {
-    horizontalPosition = hPosition;
-    verticalPosition = vPosition;
+    impl->horizontalPosition = hPosition;
+    impl->verticalPosition = vPosition;
 
-    sprite.setPosition(
-        horizontalPosition,
-        verticalPosition
+    impl->sprite.setPosition(
+        impl->horizontalPosition,
+        impl->verticalPosition
     );
 }
 
@@ -182,7 +190,7 @@ void Cell::setPosition(
  */
 const float& Cell::getHorizontalPosition() const & noexcept
 {
-    return horizontalPosition;
+    return impl->horizontalPosition;
 }
 
 /**
@@ -190,7 +198,7 @@ const float& Cell::getHorizontalPosition() const & noexcept
  */
 const float& Cell::getVerticalPosition() const & noexcept
 {
-    return verticalPosition;
+    return impl->verticalPosition;
 }
 
 /**
@@ -199,17 +207,17 @@ const float& Cell::getVerticalPosition() const & noexcept
 void Cell::display(
     const utils::Context& context,
     aliases::ConstTransformUniquePtrRef transform
-)
+) const &
 {
     /* display the cell with a transform SFML object if an object is pointed
        by the given unique pointer reference */
     if (transform != nullptr)
     {
-        context.getSfmlWindow().draw(sprite, *transform);
+        context.getSfmlWindow().draw(impl->sprite, *transform);
     }
     else
     {
-        context.getSfmlWindow().draw(sprite);
+        context.getSfmlWindow().draw(impl->sprite);
     }
 }
 
@@ -219,22 +227,22 @@ void Cell::display(
 void Cell::displayWithMouseHover(
     const utils::Context& context,
     aliases::ConstTransformUniquePtrRef transform
-)
+) const &
 {
-    if (isMouseHover() && !highlight)
+    if (isMouseHover() && !impl->highlight)
     {
-        highlight = true;
+        impl->highlight = true;
 
-        sprite.setColor(context.getColorsManager().getColorDarkGrey());
+        impl->sprite.setColor(context.getColorsManager().getColorDarkGrey());
     }
-    else if(!isMouseHover() && highlight)
+    else if(!isMouseHover() && impl->highlight)
     {
-        highlight = false;
+        impl->highlight = false;
 
-        sprite.setColor(context.getColorsManager().getColorWhite());
+        impl->sprite.setColor(context.getColorsManager().getColorWhite());
     }
 
-    context.getSfmlWindow().draw(sprite);
+    context.getSfmlWindow().draw(impl->sprite);
 }
 
 /**
@@ -242,7 +250,7 @@ void Cell::displayWithMouseHover(
  */
 void Cell::hide(const utils::Context& context)
 {
-    sprite.setTexture(
+    impl->sprite.setTexture(
         context.getCellsTexturesManager().getTextureReferenceByCellType(
             cells::HIDDEN_CELL
         )
@@ -259,7 +267,7 @@ void Cell::show(const utils::Context& context)
 {
     /* get the texture from the cells textures manager according to the type
        of cell; set this reference as a texture for the current cell object */
-    sprite.setTexture(
+    impl->sprite.setTexture(
         context.getCellsTexturesManager().getTextureReferenceByCellType(
             type
         )
@@ -297,7 +305,7 @@ void Cell::setCellColorTransparency(
 
     cellColor.a = alpha;
 
-    sprite.setColor(cellColor);
+    impl->sprite.setColor(cellColor);
 }
 
 /**
@@ -305,7 +313,7 @@ void Cell::setCellColorTransparency(
  */
 void Cell::setCellColor(const sf::Color& color)
 {
-    sprite.setColor(color);
+    impl->sprite.setColor(color);
 }
 
 /**
@@ -342,10 +350,10 @@ const bool Cell::isMouseHover() const
     sf::Vector2<int> cursorPosition = sf::Mouse::getPosition();
 
     if (
-        cursorPosition.x > horizontalPosition &&
-        cursorPosition.x < horizontalPosition + CELL_DIMENSION &&
-        cursorPosition.y > verticalPosition &&
-        cursorPosition.y < verticalPosition + CELL_DIMENSION
+        cursorPosition.x > impl->horizontalPosition &&
+        cursorPosition.x < impl->horizontalPosition + CELL_DIMENSION &&
+        cursorPosition.y > impl->verticalPosition &&
+        cursorPosition.y < impl->verticalPosition + CELL_DIMENSION
     )
     {
         return true;

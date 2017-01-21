@@ -89,7 +89,7 @@ public:
      * @brief move the cell to one pixel on the right; this method is used
      * with the animated background
      */
-    void moveOnTheRight();
+    void moveOnTheRight() const &;
 
     /**
      * @brief move the cells into the given direction; used by the quarter
@@ -118,7 +118,7 @@ public:
     void setPosition(
         const float& hPosition,
         const float& vPosition
-    );
+    ) const &;
 
     /**
      * @brief returns the horizontal position of the cell
@@ -146,7 +146,7 @@ public:
     void display(
         const utils::Context& context,
         aliases::ConstTransformUniquePtrRef transform = nullptr
-    );
+    ) const &;
 
     /**
      * @brief displays the cell in the context and enable the mouse hover
@@ -163,7 +163,7 @@ public:
     void displayWithMouseHover(
         const utils::Context& context,
         aliases::ConstTransformUniquePtrRef transform = nullptr
-    );
+    ) const &;
 
     /**
      * @brief hide the cell, the sprite is replaced by the hidden cell texture
@@ -270,18 +270,6 @@ private:
     static constexpr float CELL_DIMENSION {49.f};
     static constexpr float POSITION_UPDATE_STEP {10.f};
 
-    /* the horizontal and vertical positions of the cell on the screen */
-    /* NOTE: we do not initialize the positions here, because they have to
-       be initialized inside the cell constructor; these positions are already
-       saved into the SFML surface object but we save them also into this
-       class object; in fact, we need to access them quickly to calculate the
-       cells movements and also to use the cells selector */
-    float horizontalPosition;
-    float verticalPosition;
-
-    /* the SFML surface of the cell */
-    sf::Sprite sprite;
-
     /* contains the current type of the cell according of the 'cells' types
        list into cells.hpp; this variable is not directly initialized here
        because it is initialized inside the constructor */
@@ -292,10 +280,6 @@ private:
        all the cells are hidden; this value is modified by the hide() and
        show() methods */
     bool visible {false};
-
-    /* used to know if the cell is current highlight or not to avoid
-       superfluous execution when rendering the level editor */
-    bool highlight {false};
 
     class Impl;
     std::unique_ptr<Impl> impl;

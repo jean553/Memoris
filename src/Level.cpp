@@ -183,7 +183,7 @@ void Level::display(
     void (Cell::*display)(
         const utils::Context&,
         aliases::ConstTransformUniquePtrRef
-    )
+    ) const &
 ) const
 {
     const unsigned short firstCellIndex = floor * 256;

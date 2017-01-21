@@ -24,11 +24,8 @@
 
 #include "AnimatedBackground.hpp"
 
-#include "Context.hpp"
 #include "dimensions.hpp"
 #include "cells.hpp"
-
-#include <time.h>
 
 namespace memoris
 {
@@ -40,129 +37,210 @@ class AnimatedBackground::Impl
 
 public:
 
+    Impl(const utils::Context& context) :
+        context(context)
+    {
+    }
+
     std::vector<std::unique_ptr<entities::Cell>> cells;
 
     sf::Uint32 cellsMovementLastAnimation {0};
+
+    const utils::Context& context;
 };
 
 /**
  *
  */
 AnimatedBackground::AnimatedBackground(const utils::Context& context) :
-    impl(std::make_unique<Impl>())
+    impl(std::make_unique<Impl>(context))
 {
-    initializeCells(context);
+    /* this is a complex initialization, 
+       so it is handled by a dedicated method */
+    initializeCells();
 }
 
 /**
  *
  */
-AnimatedBackground::~AnimatedBackground() noexcept = default;
+AnimatedBackground::~AnimatedBackground() = default;
 
 /**
  *
  */
-void AnimatedBackground::render(const utils::Context& context) const &
+void AnimatedBackground::render() const &
 {
-    if(
-        (
-            context.getClockMillisecondsTime() -
-            impl->cellsMovementLastAnimation
-        ) > 10
-    )
+    const auto& context = impl->context;
+
+    const auto& currentTime = context.getClockMillisecondsTime();
+    auto& lastTime = impl->cellsMovementLastAnimation;
+
+    auto& cells = impl->cells;
+
+    auto moveCells = false;
+
+    constexpr sf::Uint32 ANIMATION_INTERVAL {10};
+    if(currentTime - lastTime > ANIMATION_INTERVAL)
     {
-        for(auto& cell : impl->cells) // auto->std::unique_ptr<entities::Cell>&
+        moveCells = true;
+
+        lastTime = currentTime;
+    }
+
+    for(const auto& cell : cells)
+    {
+        const auto& cellObject = *cell;
+
+        if (moveCells)
         {
-            (*cell).moveOnTheRight();
+            cellObject.moveOnTheRight();
         }
 
-        impl->cellsMovementLastAnimation = context.getClockMillisecondsTime();
-    }
-
-    for(auto& cell : impl->cells) // auto->std::unique_ptr<entities::Cell>&
-    {
-        (*cell).display(context);
+        cellObject.display(context);
     }
 }
 
 /**
  *
  */
-void AnimatedBackground::initializeCells(const utils::Context& context) &
+void AnimatedBackground::initializeCells() const &
 {
-    /* TODO: #488 bad idea, we have to update this container manually everytime
-       we add new cells types */
-    const char cellsLib[] =
-    {
-        cells::EMPTY_CELL,
-        cells::DEPARTURE_CELL,
-        cells::ARRIVAL_CELL,
-        cells::STAR_CELL,
-        cells::MORE_LIFE_CELL,
-        cells::LESS_LIFE_CELL,
-        cells::MORE_TIME_CELL,
-        cells::LESS_TIME_CELL,
-        cells::WALL_CELL,
-        cells::STAIRS_UP_CELL,
-        cells::STAIRS_DOWN_CELL,
-        cells::HORIZONTAL_MIRROR_CELL,
-        cells::VERTICAL_MIRROR_CELL,
-        cells::DIAGONAL_CELL,
-        cells::LEFT_ROTATION_CELL,
-        cells::RIGHT_ROTATION_CELL,
-        cells::ELEVATOR_UP_CELL,
-        cells::ELEVATOR_DOWN_CELL
-    };
+    /* used for random value generation */
+    srand(time(NULL));
 
     unsigned short currentLine {0}, currentColumn {0};
 
-    /* the rand() function to generate random numbers return an integer; we
-       use an integer because the rand() function returns an integer; we
-       unsigned the integer because of the comparison between this variable
-       and the available cells array size (unsigned integer) */
-    unsigned int randomNumber {0};
-
-    srand(time(NULL));
+    constexpr unsigned short BACKGROUND_CELLS_AMOUNT {575};
 
     for (
-        unsigned short index = 0;
+        unsigned short index {0};
         index < BACKGROUND_CELLS_AMOUNT;
         index++
     )
     {
-        randomNumber = rand() % MAXIMUM_RANDOM_NUMBER;
-
         currentLine++;
 
+        constexpr unsigned short CELLS_PER_COLUMN {18};
         if (currentLine == CELLS_PER_COLUMN)
         {
             currentLine = 0;
             currentColumn++;
         }
 
-        if(randomNumber >= (sizeof(cellsLib) / sizeof(char)))
+        const auto cellType = getCellByRandomNumber(); 
+
+        if (cellType == 0)
         {
             continue;
         }
 
-        std::unique_ptr<entities::Cell> cell(
-            new entities::Cell(
-                context,
-                currentColumn *
-                (
-                    dimensions::CELL_PIXELS_DIMENSIONS +
-                    dimensions::CELLS_PIXELS_SEPARATION
-                ),
-                currentLine *
-                (
-                    dimensions::CELL_PIXELS_DIMENSIONS +
-                    dimensions::CELLS_PIXELS_SEPARATION
-                ),
-                cellsLib[randomNumber]
-            )
+        auto cell = std::make_unique<entities::Cell>(
+            impl->context,
+            currentColumn *
+            (
+                dimensions::CELL_PIXELS_DIMENSIONS +
+                dimensions::CELLS_PIXELS_SEPARATION
+            ),
+            currentLine *
+            (
+                dimensions::CELL_PIXELS_DIMENSIONS +
+                dimensions::CELLS_PIXELS_SEPARATION
+            ),
+            cellType
         );
 
         impl->cells.push_back(std::move(cell));
+    }
+}
+
+/**
+ *
+ */
+const char AnimatedBackground::getCellByRandomNumber() const & noexcept
+{
+    using namespace cells;
+
+    constexpr unsigned short MAXIMUM_RANDOM_NUMBER {28};
+    const unsigned short random = rand() % MAXIMUM_RANDOM_NUMBER;
+
+    switch(random)
+    {
+    case 0:
+    {
+        return EMPTY_CELL;
+    }
+    case 1:
+    {
+        return DEPARTURE_CELL;
+    }
+    case 2:
+    {
+        return ARRIVAL_CELL;
+    }
+    case 3:
+    {
+        return STAR_CELL;
+    }
+    case 4:
+    {
+        return MORE_LIFE_CELL;
+    }
+    case 5:
+    {
+        return LESS_LIFE_CELL;
+    }
+    case 6:
+    {
+        return MORE_TIME_CELL;
+    }
+    case 7:
+    {
+        return LESS_TIME_CELL;
+    }
+    case 8:
+    {
+        return WALL_CELL;
+    }
+    case 9:
+    {
+        return STAIRS_UP_CELL;
+    }
+    case 10:
+    {
+        return STAIRS_DOWN_CELL;
+    }
+    case 11:
+    {
+        return HORIZONTAL_MIRROR_CELL;
+    }
+    case 12:
+    {
+        return VERTICAL_MIRROR_CELL;
+    }
+    case 13:
+    {
+        return DIAGONAL_CELL;
+    }
+    case 14:
+    {
+        return LEFT_ROTATION_CELL;
+    }
+    case 15:
+    {
+        return RIGHT_ROTATION_CELL;
+    }
+    case 16:
+    {
+        return ELEVATOR_UP_CELL;
+    }
+    case 17:
+    {
+        return ELEVATOR_DOWN_CELL;
+    }
+    default:
+    {
+        return 0;
+    }
     }
 }
 
