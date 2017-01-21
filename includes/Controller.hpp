@@ -68,8 +68,11 @@ public:
      * @brief used to render each controller
      *
      * @return const ControllerId&
+     *
+     * this method is defined by every controller, so we cannot guarantee
+     * that no exception will be thrown
      */
-    virtual const ControllerId& render() & = 0;
+    virtual const ControllerId& render() const & = 0;
 
 protected:
 

@@ -141,7 +141,7 @@ OfficialSeriesMenuController::~OfficialSeriesMenuController() noexcept =
 /**
  *
  */
-const ControllerId& OfficialSeriesMenuController::render() &
+const ControllerId& OfficialSeriesMenuController::render() const &
 {
     const auto& context = getContext();
 

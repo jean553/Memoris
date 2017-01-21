@@ -92,7 +92,7 @@ ErrorController::~ErrorController() noexcept = default;
 /**
  *
  */
-const ControllerId& ErrorController::render() &
+const ControllerId& ErrorController::render() const &
 {
     const auto& context = getContext();
 

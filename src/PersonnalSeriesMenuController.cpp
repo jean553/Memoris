@@ -96,7 +96,7 @@ PersonalSeriesMenuController::~PersonalSeriesMenuController() noexcept =
 /**
  *
  */
-const ControllerId& PersonalSeriesMenuController::render() &
+const ControllerId& PersonalSeriesMenuController::render() const &
 {
     const auto& context = getContext();
 

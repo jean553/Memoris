@@ -61,11 +61,9 @@ public:
      *
      * @return const ControllerId&
      *
-     * not 'const' because it modifies the next controller id attribute
-     *
      * not 'noexcept' because it calls SFML methods that are not noexcept
      */
-    virtual const ControllerId& render() & override;
+    virtual const ControllerId& render() const & override;
 
 private:
 

@@ -167,7 +167,7 @@ WinSerieEndingController::~WinSerieEndingController() noexcept = default;
 /**
  *
  */
-const ControllerId& WinSerieEndingController::render() &
+const ControllerId& WinSerieEndingController::render() const &
 {
     const auto& context = getContext();
 

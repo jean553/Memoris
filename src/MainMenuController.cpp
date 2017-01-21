@@ -150,7 +150,7 @@ MainMenuController::~MainMenuController() = default;
 /**
  *
  */
-const ControllerId& MainMenuController::render() &
+const ControllerId& MainMenuController::render() const &
 {
     const auto& context = getContext();
 
@@ -247,7 +247,7 @@ const ControllerId& MainMenuController::render() &
 /**
  *
  */
-void MainMenuController::animateTitleColor() &
+void MainMenuController::animateTitleColor() const &
 {
     if (impl->incrementTitleRedColor)
     {

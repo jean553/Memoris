@@ -134,7 +134,7 @@ SerieMainMenuController::~SerieMainMenuController() noexcept = default;
 /**
  *
  */
-const ControllerId& SerieMainMenuController::render() &
+const ControllerId& SerieMainMenuController::render() const &
 {
     const auto& context = getContext();
 

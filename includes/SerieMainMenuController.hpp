@@ -59,14 +59,11 @@ public:
      *
      * @return const ControllerId&
      *
-     * not 'const' because this method modifies the value of some attributes
-     * like the expected controller id
-     *
      * not 'noexcept' because the parent function is not noexcept (there are
      * too many calls to noexcept functions in all the implementation of this
      * method)
      */
-    virtual const ControllerId& render() & override;
+    virtual const ControllerId& render() const & override;
 
 private:
 

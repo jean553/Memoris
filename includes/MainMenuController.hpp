@@ -18,8 +18,7 @@
 
 /**
  * @file MainMenuController.hpp
- * @brief render the main menu of the program; this is the
- * first controller which is loaded
+ * @brief main menu, first displayed controller after program starts
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
@@ -42,13 +41,12 @@ public:
     /**
      * @brief constructor
      *
-     * @param context reference to the current context
+     * @param context the current context
      */
     MainMenuController(const utils::Context& context);
 
     /**
-     * @brief default destructor, empty, only declared here in order to use
-     * forwarding declaration
+     * @brief default destructor
      */
     ~MainMenuController();
 
@@ -57,19 +55,17 @@ public:
      *
      * @return const ControllerId&
      */
-    virtual const ControllerId& render() & override;
+    virtual const ControllerId& render() const & override;
 
 private:
 
     /**
      * @brief update the color of the title
      *
-     * not 'const' because the colors attributes are modified
-     *
      * not 'noexcept' because it calls the SFML function setColor() which is
      * not noexcept
      */
-    void animateTitleColor() &;
+    void animateTitleColor() const &;
 
     /**
      * @brief overwrite the parent method, defines which controller

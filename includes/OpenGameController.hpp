@@ -64,11 +64,9 @@ public:
      *
      * @return const ControllerId&
      *
-     * not 'const' to match with the parent virtual function
-     *
      * not 'noexcept' because it calls SFML functions that are not noexcept
      */
-    virtual const ControllerId& render() & override;
+    virtual const ControllerId& render() const & override;
 
 private:
 

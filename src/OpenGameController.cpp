@@ -92,7 +92,7 @@ OpenGameController::~OpenGameController() noexcept = default;
 /**
  *
  */
-const ControllerId& OpenGameController::render() &
+const ControllerId& OpenGameController::render() const &
 {
     const auto& context = getContext();
 
