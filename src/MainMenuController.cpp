@@ -156,7 +156,7 @@ const ControllerId& MainMenuController::render() const &
 {
     const auto& context = getContext();
 
-    impl->animatedBackground.render(context);
+    impl->animatedBackground.render();
     impl->menuGradient.display(context);
 
     const auto& currentTime = context.getClockMillisecondsTime();

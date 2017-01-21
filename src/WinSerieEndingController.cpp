@@ -171,7 +171,7 @@ const ControllerId& WinSerieEndingController::render() const &
 {
     const auto& context = getContext();
 
-    impl->background.render(context);
+    impl->background.render();
     impl->gradient.render(context);
 
     sf::Int32 currentTime = context.getClockMillisecondsTime();

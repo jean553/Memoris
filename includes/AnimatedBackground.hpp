@@ -18,7 +18,7 @@
 
 /**
  * @file AnimatedBackground.hpp
- * @brief manage the menu background animation
+ * @brief main menu background animation
  * @package utils
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -45,10 +45,9 @@ class AnimatedBackground
 public:
 
     /**
-     * @brief constructor, does nothin except calling the function to
-     * initialize the cells of the background
+     * @brief constructor
      *
-     * @param context reference to the current context to use
+     * @param context the current context to use
      */
     AnimatedBackground(const utils::Context& context);
 
@@ -56,39 +55,33 @@ public:
     AnimatedBackground& operator=(const AnimatedBackground&) = delete;
 
     /**
-     * @brief default destructor, empty, only declared in order to use
-     * forwarding declaration
+     * @brief default destructor
      */
-    ~AnimatedBackground() noexcept;
+    ~AnimatedBackground();
 
     /**
      * @brief render the animated background, display all the cells
      *
-     * @param context reference to the current context to use
-     *
-     * not 'noexcept' because it calls some SFML functions that are not
-     * noexcept
+     * utils::Context::getClockMillisecondsTime() and
+     * other SFML methods are not noexcept
      */
-    void render(const utils::Context& context) const &;
+    void render() const &;
 
 private:
 
-    static constexpr unsigned short BACKGROUND_CELLS_AMOUNT {575};
-    static constexpr unsigned short MAXIMUM_RANDOM_NUMBER {28};
-    static constexpr unsigned short CELLS_PER_COLUMN {18};
-
     /**
-     * @brief initialize all the cells of the animated background; this
-     * method is the unique function that is called by the animated background
-     * constructor; the creation of the cells could be done directly into
-     * the constructor, but I prefer separate it into a dedicated function, as
-     * this method requires a lot of internal variables
-     *
-     * @param context reference to the current context to use
+     * @brief initialize every cells of the animated background
      *
      * not 'noexcept' because it calls SFML functions that are not noexcept
      */
-    void initializeCells(const utils::Context& context) &;
+    void initializeCells() const &;
+
+    /**
+     * @brief returns a random cell type or return 0
+     *
+     * @return const char
+     */
+    const char getCellByRandomNumber() const & noexcept;
 
     class Impl;
     std::unique_ptr<Impl> impl;
