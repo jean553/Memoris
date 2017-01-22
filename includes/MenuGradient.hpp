@@ -18,16 +18,13 @@
 
 /**
  * @file MenuGradient.hpp
- * @brief this class manages the rendering of color gradients displayed on
- * both of the two menu sides
+ * @brief renders the two gradient surfaces at both sides of the main menu
  * @package others
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
 #ifndef MEMORIS_MENUGARDIENT_H_
 #define MEMORIS_MENUGARDIENT_H_
-
-#include <SFML/Config.hpp>
 
 #include <memory>
 
@@ -48,11 +45,9 @@ class MenuGradient
 public:
 
     /**
-     * @brief constructor, initializes the implementation
+     * @brief constructor
      *
-     * @param context reference to the current context to use
-     *
-     * not 'noexcept' because it calls SFML functions that are not noexcept
+     * @param context the context to use
      */
     MenuGradient(const utils::Context& context);
 
@@ -60,41 +55,26 @@ public:
     MenuGradient& operator=(const MenuGradient&) = delete;
 
     /**
-     * @brief default constructor, empty, only declared in order to use the
-     * forwarding declarations
+     * @brief default constructor
      */
-    ~MenuGradient() noexcept;
+    ~MenuGradient();
 
     /**
-     * @brief displays all the surfaces of the menu gradient
+     * @brief displays surfaces of the menu gradient
      *
-     * @param context reference to the current context to use
-     *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
+     * sf::RenderWindow::draw() method is not noexcept
      */
-    void display(const utils::Context& context) const &;
+    void display() const &;
 
 private:
 
-    static constexpr unsigned short SURFACES_AMOUNT {1020};
-    static constexpr unsigned short SIDE_SURFACES_AMOUNT {510};
-
-    static constexpr float LEFT_SIDE_HORIZONTAL_POSITION {479.f};
-    static constexpr float RIGHT_SIDE_HORIZONTAL_POSITION {1099.f};
-    static constexpr float BACKGROUND_WIDTH {620.f};
-    static constexpr float BACKGROUND_HORIZONTAL_POSITION {480.f};
-
-    static constexpr sf::Uint8 DEFAULT_EFFECT_COLOR_ALPHA {255};
-
     /**
-     * @brief private method called by the constructor only to create the
-     * background sides lines with the gradient effect
+     * @brief initialize the surfaces that create the gradient effect
      *
-     * @param context reference to the current context to use
-     *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
+     * sf::RectangleShape setPosition(), setSize()
+     * and constructor are not noexcept
      */
-    void initializeGradientRectangles(const utils::Context& context) &;
+    void initializeGradientRectangles() const &;
 
     class Impl;
     std::unique_ptr<Impl> impl;

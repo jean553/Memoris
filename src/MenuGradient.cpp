@@ -41,8 +41,10 @@ class MenuGradient::Impl
 
 public:
 
-    Impl(const utils::Context& context)
+    Impl(const utils::Context& context) :
+        context(context)
     {
+        constexpr float BACKGROUND_WIDTH {620.f};
         menuBackground.setSize(
             sf::Vector2f(
                 BACKGROUND_WIDTH,
@@ -50,6 +52,7 @@ public:
             )
         );
 
+        constexpr float BACKGROUND_HORIZONTAL_POSITION {480.f};
         menuBackground.setPosition(
             BACKGROUND_HORIZONTAL_POSITION,
             0.f
@@ -65,6 +68,8 @@ public:
        we could have used move sementics, but SFML does not provides move
        constructors for rectangle shapes */
     std::vector<std::unique_ptr<sf::RectangleShape>> sidesLines;
+
+    const utils::Context& context;
 };
 
 /**
@@ -73,66 +78,67 @@ public:
 MenuGradient::MenuGradient(const utils::Context& context) :
     impl(std::make_unique<Impl>(context))
 {
-    /** the creation of the rectangles can be done directly inside the
-     * constructor of the class; in fact, there are many local variables
-     * to use to create these surfaces; in order to improve the code
-     * organization and clarity, we create these surfaces into a dedicated
-     * function. */
-    initializeGradientRectangles(context);
+    /* this is a complex initialization,
+       so it is handled by a dedicated method */
+    initializeGradientRectangles();
 }
 
 /**
  *
  */
-MenuGradient::~MenuGradient() noexcept = default;
+MenuGradient::~MenuGradient() = default;
 
 /**
  *
  */
-void MenuGradient::display(const utils::Context& context) const &
+void MenuGradient::display() const &
 {
-    context.getSfmlWindow().draw(impl->menuBackground);
+    auto& window = impl->context.getSfmlWindow();
+    window.draw(impl->menuBackground);
 
-    // auto -> std::unique_ptr<sf::RectangleShape>&
-    for (auto& rectangle : impl->sidesLines)
+    for (const auto& rectangle : impl->sidesLines)
     {
-        context.getSfmlWindow().draw(*rectangle);
+        window.draw(*rectangle);
     }
 }
 
 /**
  *
  */
-void MenuGradient::initializeGradientRectangles(
-    const utils::Context& context
-) &
+void MenuGradient::initializeGradientRectangles() const &
 {
-    float horizontalPosition = LEFT_SIDE_HORIZONTAL_POSITION;
-    sf::Color effectColor = context.getColorsManager().getColorBlackCopy();
+    constexpr float LEFT_SIDE_HORIZONTAL_POSITION {479.f};
+    float horizontalPosition {LEFT_SIDE_HORIZONTAL_POSITION};
 
+    sf::Color effectColor
+        {impl->context.getColorsManager().getColorBlackCopy()};
+
+    constexpr unsigned short SURFACES_AMOUNT {1020};
     for (
-        unsigned short index = SURFACES_AMOUNT;
+        unsigned short index {SURFACES_AMOUNT};
         index > 0;
         index--
     )
     {
-        // auto -> std::unique_ptr<sf::RectangleShape>
         auto rectangle = std::make_unique<sf::RectangleShape>();
 
+        constexpr float RECTANGLES_COMMON_VERTICAL_POSITION {0.f};
         rectangle->setPosition(
             horizontalPosition,
-            0.f
+            RECTANGLES_COMMON_VERTICAL_POSITION
         );
 
+        constexpr float RECTANGLES_COMMON_WIDTH {1.f};
         rectangle->setSize(
             sf::Vector2f(
-                1.f,
+                RECTANGLES_COMMON_WIDTH,
                 window::HEIGHT
             )
         );
 
         rectangle->setFillColor(effectColor);
 
+        constexpr unsigned short SIDE_SURFACES_AMOUNT {510};
         if(index >= SIDE_SURFACES_AMOUNT)
         {
             horizontalPosition--;
@@ -144,11 +150,15 @@ void MenuGradient::initializeGradientRectangles(
 
         if (index == SIDE_SURFACES_AMOUNT)
         {
+            constexpr float RIGHT_SIDE_HORIZONTAL_POSITION {1099.f};
             horizontalPosition = RIGHT_SIDE_HORIZONTAL_POSITION;
+
+            constexpr sf::Uint8 DEFAULT_EFFECT_COLOR_ALPHA {255};
             effectColor.a = DEFAULT_EFFECT_COLOR_ALPHA;
         }
 
-        if (index % 2 == 0)
+        constexpr unsigned short SURFACES_WITH_SAME_ALPHA {2};
+        if (index % SURFACES_WITH_SAME_ALPHA == 0)
         {
             effectColor.a--;
         }
