@@ -41,20 +41,18 @@ class NewGameController : public Controller
 public:
 
     /**
-     * @brief constructor, creates the title surface and the explanation
-     * label surface; creates the input text widget
+     * @brief constructor
      *
-     * @param context constant reference to the current context to use
+     * @param context the current context to use
      *
      * not 'noexcept' because it calls SFML functions that are not noexcept
      */
     NewGameController(const utils::Context& context);
 
     /**
-     * @brief default destructor, empty, only declared here in order to use
-     * forwarding declaration
+     * @brief default destructor
      */
-    ~NewGameController() noexcept;
+    ~NewGameController();
 
     /**
      * @brief render the new game screen

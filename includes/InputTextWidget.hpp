@@ -18,7 +18,7 @@
 
 /**
  * @file InputTextWidget.hpp
- * @brief the input text widget is a text line where the user can type text
+ * @brief handles input text widget
  * @package widgets
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -26,15 +26,10 @@
 #ifndef MEMORIS_INPUTTEXTWIDGET_H_
 #define MEMORIS_INPUTTEXTWIDGET_H_
 
-#include <SFML/Config.hpp>
-
 #include <memory>
-#include <stddef.h>
 
 namespace sf
 {
-class RectangleShape;
-class Text;
 class String;
 class Event;
 }
@@ -56,130 +51,64 @@ class InputTextWidget
 public:
 
     /**
-     * @brief constructor, initializes the implementation
+     * @brief constructor
      *
-     * @param context reference to the current context
-     * @param hPosition horizontal position
-     * @param vPosition vertical position
-     * @param lineWidth the width of the input text widget
-     * @param maxCharacters the maximum amount of characters allowed
+     * @param context the current context
      */
-    InputTextWidget(
-        const utils::Context& context,
-        const float& hPosition,
-        const float& vPosition,
-        const float& lineWidth,
-        const size_t& maxCharacters
-    ) noexcept;
+    InputTextWidget(const utils::Context& context);
 
     /**
-     * @brief default destructor, empty, only declared here in order to use
-     * forwarding declaration
+     * @brief default destructor
      */
-    ~InputTextWidget() noexcept;
-
-    /**
-     * @brief set the displayed text; this function is used to force the
-     * content of the input text widget; this function is used by the
-     * level editor to edit the name of the current edited level
-     *
-     * @param inputTextData reference of a string to display into the input
-     * text widget
-     *
-     * not 'const' because it modifies the displayed text in SFML text
-     *
-     * not 'noexcept' because it calls SFML functions that are not noexcept
-     */
-    void setDisplayedText(const sf::String& inputTextData) &;
+    ~InputTextWidget();
 
     /**
      * @brief render the widget and its content
      *
-     * @param context reference to the current context to use
-     *
-     * not 'const' because it modifies the displayed cursor attribute and
-     * flashing animation cursor
-     *
-     * not 'noexcept' because it calls SFML functions that are not noexcept
+     * sf::RenderWindow::draw() and Context::getClockMillisecondsTime()
+     * are not noexcept
      */
-    void display(const utils::Context& context) &;
+    void display() const &;
 
     /**
      * @brief update the displayed text according to the user input
      *
-     * @param event constant reference to the SFML events manager
+     * @param event SFML event manager
      *
-     * not 'const' because it modifies the displayed text attribute
-     *
-     * not 'noexcept' because it calls SFML functions that are not noexcept
+     * calls sf::String methods that are not noexcept
      */
-    void update(const sf::Event& event) &;
+    void update(const sf::Event& event) const &;
 
     /**
-     * @brief return the current displayed text; return a copy of the string
-     * for manipulation in calling object
+     * @brief return the current displayed text
      *
      * @return const sf::String&
      *
-     * NOTE: the string we return is not an attribute of the widget class
-     * but directly the string contained inside the SFML text object; this
-     * avoid duplication of identical data
-     *
-     * we do not return a std::string object because we would be mandatory to
-     * use the toAnsiString() method of sf::String. This function returns a
-     * copy of the string (not a reference). That means a call to a getter
-     * would generate two copies of the same string: we just avoid it, client
-     * code will call toAnsiString() itself if necessary.
+     * sf::Text::getString() is not noexcept
      */
-    const sf::String& getText() const;
-
-    /**
-     * @brief returns a boolean indicating if the input text widget content
-     * is empty or not; used into the new game controller to save the new
-     * game only if the name is not empty
-     *
-     * @return const bool
-     *
-     * the returned bool is not a reference but a copied value because the
-     * value is got from a function that already returns a copy and not a
-     * reference
-     *
-     * not 'noexcept' because it calls isEmpty() function of the SFML and this
-     * method is not marked as noexcept
-     */
-    const bool isEmpty() const &;
+    const sf::String& getText() const &;
 
 private:
 
-    /**
-     * @brief return a copy of the letter selected by the user on the keyboard;
-     * this function uses the SFML events manager
-     *
-     * @param event constant reference to the SFML events manager
-     *
-     * @return const sf::String
-     */
-    const sf::String getInputLetter(const sf::Event& event) &;
+    static constexpr float HORIZONTAL_POSITION {500.f};
+    static constexpr float VERTICAL_POSITION {450.f};
+    static constexpr float CURSOR_AND_BORDER_DISTANCE {5.f};
 
     /**
-     * @brief check if the keyspace key is pressed down, returns True if
-     * pressed down, False is released
+     * @brief get copy of keyboard selected character (from a to z)
      *
-     * @param event constant reference to the SFML events manager
+     * @param event the SFML events manager
      *
-     * @return const bool
+     * @return const char
      */
-    const bool backspaceIsPressedDown(const sf::Event& event) & noexcept;
+    const char getInputLetter(const sf::Event& event) const & noexcept;
 
     /**
-     * @brief refactor of the action that update the position of the cursor
-     * according of the current widget content graphical width
+     * @brief increments the cursor position
      *
-     * not 'const' because it modifies the cursor attribute
-     *
-     * not 'noexcept' because it calls SFML functions that are not noexcept
+     * sf::RectangleShape::setPosition() is not noexcept
      */
-    void updateCursorPosition() &;
+    void updateCursorPosition() const &;
 
     class Impl;
     std::unique_ptr<Impl> impl;

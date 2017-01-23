@@ -47,14 +47,7 @@ public:
     Impl(
         const utils::Context& context,
         const std::string&& message
-    ) :
-        inputTextLevelName(
-            context,
-            500.f,
-            450.f,
-            600.f,
-            15
-        )
+    ) : inputTextLevelName(context)
     {
         explanation.setFont(context.getFontsManager().getTextFont());
         explanation.setString(message);
@@ -99,7 +92,7 @@ void InputTextForeground::render(const utils::Context& context) const &
 {
     context.getSfmlWindow().draw(impl->explanation);
 
-    impl->inputTextLevelName.display(context);
+    impl->inputTextLevelName.display();
 }
 
 /**
