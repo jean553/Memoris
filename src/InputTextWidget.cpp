@@ -45,102 +45,95 @@ class InputTextWidget::Impl
 
 public:
 
-    Impl(
-        const utils::Context& context,
-        const float& hPosition,
-        const float& vPosition,
-        const float& lineWidth,
-        const size_t& maxCharacters
-    ) :
-        maximumCharacters(maxCharacters),
-        horizontalPosition(hPosition),
-        verticalPosition(vPosition),
-        width(lineWidth)
+    Impl(const utils::Context& context) :
+        context(context)
     {
         displayedText.setFont(context.getFontsManager().getTextFont());
         displayedText.setCharacterSize(fonts::INPUT_TEXT_SIZE);
-        displayedText.setColor(context.getColorsManager().getColorLightBlue());
 
-        cursor.setFillColor(context.getColorsManager().getColorLightBlue());
         cursor.setPosition(
-            horizontalPosition + 5,
-            verticalPosition + 5
+            HORIZONTAL_POSITION + CURSOR_AND_BORDER_DISTANCE,
+            VERTICAL_POSITION + CURSOR_AND_BORDER_DISTANCE
         );
+
+        constexpr float CURSOR_WIDTH {25.f}, CURSOR_HEIGHT {50.f};
         cursor.setSize(
             sf::Vector2f(
-                25,
-                50
+                CURSOR_WIDTH,
+                CURSOR_HEIGHT
             )
         );
 
         displayedText.setPosition(
-            horizontalPosition + 5,
-            verticalPosition
+            HORIZONTAL_POSITION + CURSOR_AND_BORDER_DISTANCE,
+            VERTICAL_POSITION
         );
 
         boxTop.setPosition(
-            horizontalPosition,
-            verticalPosition
+            HORIZONTAL_POSITION,
+            VERTICAL_POSITION
         );
 
+        constexpr float BOX_HEIGHT {60.f};
         boxBottom.setPosition(
-            horizontalPosition,
-            verticalPosition + 60
+            HORIZONTAL_POSITION,
+            VERTICAL_POSITION + BOX_HEIGHT
         );
 
         boxLeft.setPosition(
-            horizontalPosition,
-            verticalPosition
+            HORIZONTAL_POSITION,
+            VERTICAL_POSITION
         );
 
+        constexpr float WIDGET_WIDTH {600.f};
+
         boxRight.setPosition(
-            horizontalPosition + width,
-            verticalPosition
+            HORIZONTAL_POSITION + WIDGET_WIDTH,
+            VERTICAL_POSITION
         );
+
+        constexpr float BORDER_WIDTH {1.f};
 
         boxTop.setSize(
             sf::Vector2f(
-                width,
-                1
+                WIDGET_WIDTH,
+                BORDER_WIDTH
             )
         );
 
         boxBottom.setSize(
             sf::Vector2f(
-                width,
-                1
+                WIDGET_WIDTH,
+                BORDER_WIDTH
             )
         );
 
         boxLeft.setSize(
             sf::Vector2f(
-                1,
-                60
+                BORDER_WIDTH,
+                BOX_HEIGHT
             )
         );
 
         boxRight.setSize(
             sf::Vector2f(
-                1,
-                60
+                BORDER_WIDTH,
+                BOX_HEIGHT
             )
         );
 
-        boxRight.setFillColor(context.getColorsManager().getColorLightBlue());
-        boxTop.setFillColor(context.getColorsManager().getColorLightBlue());
-        boxBottom.setFillColor(context.getColorsManager().getColorLightBlue());
-        boxLeft.setFillColor(context.getColorsManager().getColorLightBlue());
+        const auto& lightBlue = context.getColorsManager().getColorLightBlue();
+        displayedText.setColor(lightBlue);
+        cursor.setFillColor(lightBlue);
+        boxRight.setFillColor(lightBlue);
+        boxTop.setFillColor(lightBlue);
+        boxBottom.setFillColor(lightBlue);
+        boxLeft.setFillColor(lightBlue);
     }
 
     sf::Int32 cursorLastFlashAnimation {0};
 
     bool displayCursor {true};
-
-    size_t maximumCharacters;
-
-    float horizontalPosition;
-    float verticalPosition;
-    float width;
 
     sf::Text displayedText;
 
@@ -149,94 +142,86 @@ public:
     sf::RectangleShape boxLeft;
     sf::RectangleShape boxRight;
     sf::RectangleShape cursor;
+
+    const utils::Context& context;
 };
 
 /**
  *
  */
-InputTextWidget::InputTextWidget(
-    const utils::Context& context,
-    const float& hPosition,
-    const float& vPosition,
-    const float& lineWidth,
-    const size_t& maxCharacters
-) noexcept :
-impl(
-    std::make_unique<Impl>(
-        context,
-        hPosition,
-        vPosition,
-        lineWidth,
-        maxCharacters
-    )
-)
+InputTextWidget::InputTextWidget(const utils::Context& context) 
+    : impl(std::make_unique<Impl>(context))
 {
 }
 
 /**
  *
  */
-InputTextWidget::~InputTextWidget() noexcept = default;
+InputTextWidget::~InputTextWidget() = default;
 
 /**
  *
  */
-void InputTextWidget::setDisplayedText(const sf::String& inputTextData) &
+void InputTextWidget::display() const &
 {
-    impl->displayedText.setString(inputTextData);
-}
+    const auto& context = impl->context;
 
-/**
- *
- */
-void InputTextWidget::display(const utils::Context& context) &
-{
-    context.getSfmlWindow().draw(impl->boxTop);
-    context.getSfmlWindow().draw(impl->boxBottom);
-    context.getSfmlWindow().draw(impl->boxLeft);
-    context.getSfmlWindow().draw(impl->boxRight);
-    context.getSfmlWindow().draw(impl->displayedText);
+    auto& window = context.getSfmlWindow();
+    window.draw(impl->boxTop);
+    window.draw(impl->boxBottom);
+    window.draw(impl->boxLeft);
+    window.draw(impl->boxRight);
+    window.draw(impl->displayedText);
 
-    if(impl->displayCursor)
+    auto& displayCursor = impl->displayCursor;
+
+    if(displayCursor)
     {
-        context.getSfmlWindow().draw(impl->cursor);
+        window.draw(impl->cursor);
     }
 
-    if(
-        (
-            context.getClockMillisecondsTime() -
-            impl->cursorLastFlashAnimation
-        ) > 200
-    )
-    {
-        impl->displayCursor = !impl->displayCursor;
+    const auto& currentTime = context.getClockMillisecondsTime();
+    auto& lastTime = impl->cursorLastFlashAnimation;
 
-        impl->cursorLastFlashAnimation = context.getClockMillisecondsTime();
+    constexpr sf::Int32 CURSOR_ANIMATION_INTERVAL {200};
+    if (currentTime - lastTime > CURSOR_ANIMATION_INTERVAL)
+    {
+        displayCursor = !displayCursor;
+        lastTime = currentTime;
     }
 }
 
 /**
  *
  */
-void InputTextWidget::update(const sf::Event& event) &
+void InputTextWidget::update(const sf::Event& event) const &
 {
-    if (backspaceIsPressedDown(event))
+    auto& text = impl->displayedText;
+
+    if (event.key.code == sf::Keyboard::BackSpace)
     {
-        impl->displayedText.setString("");
+        text.setString("");
 
         updateCursorPosition();
 
         return;
     }
 
-    if ((impl->displayedText.getString()).getSize() == impl->maximumCharacters)
+    /* TODO: should be moved */
+    constexpr size_t MAXIMUM_CHARACTERS_AMOUNT {15};
+    if (text.getString().getSize() == MAXIMUM_CHARACTERS_AMOUNT)
     {
         return;
     }
 
-    impl->displayedText.setString(
-        impl->displayedText.getString() + getInputLetter(event)
-    );
+    const char newCharacter {getInputLetter(event)};
+    if (newCharacter == 0)
+    {
+        return;
+    }
+
+    const sf::String newString {newCharacter};
+    text.setString(text.getString() + newString);
 
     updateCursorPosition();
 }
@@ -244,7 +229,7 @@ void InputTextWidget::update(const sf::Event& event) &
 /**
  *
  */
-const sf::String& InputTextWidget::getText() const
+const sf::String& InputTextWidget::getText() const &
 {
     return impl->displayedText.getString();
 }
@@ -252,183 +237,158 @@ const sf::String& InputTextWidget::getText() const
 /**
  *
  */
-const bool InputTextWidget::isEmpty() const &
+const char InputTextWidget::getInputLetter(const sf::Event& event) const &
+    noexcept
 {
-    return impl->displayedText.getString().isEmpty();
-}
-
-/**
- *
- */
-const sf::String InputTextWidget::getInputLetter(const sf::Event& event) &
-{
-    sf::String character;
-
     switch(event.key.code)
     {
     case sf::Keyboard::A:
     {
-        character = 'a';
+        return 'a';
         break;
     }
     case sf::Keyboard::B:
     {
-        character = 'b';
+        return 'b';
         break;
     }
     case sf::Keyboard::C:
     {
-        character = 'c';
+        return 'c';
         break;
     }
     case sf::Keyboard::D:
     {
-        character = 'd';
+        return 'd';
         break;
     }
     case sf::Keyboard::E:
     {
-        character = 'e';
+        return 'e';
         break;
     }
     case sf::Keyboard::F:
     {
-        character = 'f';
+        return 'f';
         break;
     }
     case sf::Keyboard::G:
     {
-        character = 'g';
+        return 'g';
         break;
     }
     case sf::Keyboard::H:
     {
-        character = 'h';
+        return 'h';
         break;
     }
     case sf::Keyboard::I:
     {
-        character = 'i';
+        return 'i';
         break;
     }
     case sf::Keyboard::J:
     {
-        character = 'j';
+        return 'j';
         break;
     }
     case sf::Keyboard::K:
     {
-        character = 'k';
+        return 'k';
         break;
     }
     case sf::Keyboard::L:
     {
-        character = 'l';
+        return 'l';
         break;
     }
     case sf::Keyboard::M:
     {
-        character = 'm';
+        return 'm';
         break;
     }
     case sf::Keyboard::N:
     {
-        character = 'n';
+        return 'n';
         break;
     }
     case sf::Keyboard::O:
     {
-        character = 'o';
+        return 'o';
         break;
     }
     case sf::Keyboard::P:
     {
-        character = 'p';
+        return 'p';
         break;
     }
     case sf::Keyboard::Q:
     {
-        character = 'q';
+        return 'q';
         break;
     }
     case sf::Keyboard::R:
     {
-        character = 'r';
+        return 'r';
         break;
     }
     case sf::Keyboard::S:
     {
-        character = 's';
+        return 's';
         break;
     }
     case sf::Keyboard::T:
     {
-        character = 't';
+        return 't';
         break;
     }
     case sf::Keyboard::U:
     {
-        character = 'u';
+        return 'u';
         break;
     }
     case sf::Keyboard::V:
     {
-        character = 'v';
+        return 'v';
         break;
     }
     case sf::Keyboard::W:
     {
-        character = 'w';
+        return 'w';
         break;
     }
     case sf::Keyboard::X:
     {
-        character = 'x';
+        return 'x';
         break;
     }
     case sf::Keyboard::Y:
     {
-        character = 'y';
+        return 'y';
         break;
     }
     case sf::Keyboard::Z:
     {
-        character = 'z';
+        return 'z';
         break;
     }
     default:
     {
+        return 0;
         break;
     }
     }
-
-    return character;
 }
 
 /**
  *
  */
-const bool InputTextWidget::backspaceIsPressedDown(const sf::Event& event) &
-noexcept
+void InputTextWidget::updateCursorPosition() const &
 {
-    return event.key.code == sf::Keyboard::BackSpace;
-}
-
-/**
- *
- */
-void InputTextWidget::updateCursorPosition() &
-{
-    /* update the position of the cursor according to the new SFML text surface
-       width; add 5 pixels everytime horizontaly and verticaly; we set the
-       cursor exactly after the last letter; we cannot predict what is one
-       character width, because it is different for all of them, so we use
-       getLocalBounds() to calculate the "real" text surface width and add
-       the cursor directly right after */
     impl->cursor.setPosition(
-        impl->horizontalPosition + 5 +
+        HORIZONTAL_POSITION + CURSOR_AND_BORDER_DISTANCE +
         impl->displayedText.getLocalBounds().width,
-        impl->verticalPosition + 5
+        VERTICAL_POSITION + CURSOR_AND_BORDER_DISTANCE
     );
 }
 

@@ -48,17 +48,8 @@ class NewGameController::Impl
 
 public:
 
-    /* we voluntary do not use the getCenteredSfmlSurfaceHorizontalPosition()
-       refactored method to center the input text line */
-
     Impl(const utils::Context& context) :
-        inputTextGameName(
-            context,
-            500.f,
-            450.f,
-            600.f,
-            15
-        )
+        inputTextGameName(context)
     {
         title.setFont(context.getFontsManager().getTitleFont());
         title.setString("New game");
@@ -97,7 +88,7 @@ NewGameController::NewGameController(const utils::Context& context) :
 /**
  *
  */
-NewGameController::~NewGameController() noexcept = default;
+NewGameController::~NewGameController() = default;
 
 /**
  *
@@ -109,7 +100,7 @@ const ControllerId& NewGameController::render() const &
     context.getSfmlWindow().draw(impl->title);
     context.getSfmlWindow().draw(impl->explanation);
 
-    impl->inputTextGameName.display(context);
+    impl->inputTextGameName.display();
 
     setNextControllerId(animateScreenTransition(context));
 
@@ -131,7 +122,7 @@ const ControllerId& NewGameController::render() const &
             /* TODO: #498 should not be allowed if the name already exists */
             case sf::Keyboard::Return:
             {
-                if (impl->inputTextGameName.isEmpty())
+                if (impl->inputTextGameName.getText().isEmpty())
                 {
                     break;
                 }
