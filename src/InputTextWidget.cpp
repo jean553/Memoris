@@ -149,7 +149,7 @@ public:
 /**
  *
  */
-InputTextWidget::InputTextWidget(const utils::Context& context) 
+InputTextWidget::InputTextWidget(const utils::Context& context)
     : impl(std::make_unique<Impl>(context))
 {
 }
@@ -204,13 +204,6 @@ void InputTextWidget::update(const sf::Event& event) const &
 
         updateCursorPosition();
 
-        return;
-    }
-
-    /* TODO: should be moved */
-    constexpr size_t MAXIMUM_CHARACTERS_AMOUNT {15};
-    if (text.getString().getSize() == MAXIMUM_CHARACTERS_AMOUNT)
-    {
         return;
     }
 
@@ -390,6 +383,16 @@ void InputTextWidget::updateCursorPosition() const &
         impl->displayedText.getLocalBounds().width,
         VERTICAL_POSITION + CURSOR_AND_BORDER_DISTANCE
     );
+}
+
+/**
+ *
+ */
+const bool InputTextWidget::isInputTextLineFull() const &
+{
+    constexpr size_t MAXIMUM_CHARACTERS_AMOUNT {15};
+    return impl->displayedText.getString().getSize() ==
+        MAXIMUM_CHARACTERS_AMOUNT;
 }
 
 }
