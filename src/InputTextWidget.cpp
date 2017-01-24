@@ -201,22 +201,24 @@ void InputTextWidget::update(const sf::Event& event) const &
     if (event.key.code == sf::Keyboard::BackSpace)
     {
         text.setString("");
-
-        updateCursorPosition();
-
-        return;
     }
-
-    const char newCharacter {getInputLetter(event)};
-    if (newCharacter == 0)
+    else
     {
-        return;
+        const char newCharacter {getInputLetter(event)};
+        if (newCharacter == 0)
+        {
+            return;
+        }
+
+        const sf::String newString {newCharacter};
+        text.setString(text.getString() + newString);
     }
 
-    const sf::String newString {newCharacter};
-    text.setString(text.getString() + newString);
-
-    updateCursorPosition();
+    impl->cursor.setPosition(
+        HORIZONTAL_POSITION + CURSOR_AND_BORDER_DISTANCE +
+        impl->displayedText.getLocalBounds().width,
+        VERTICAL_POSITION + CURSOR_AND_BORDER_DISTANCE
+    );
 }
 
 /**
@@ -371,18 +373,6 @@ const char InputTextWidget::getInputLetter(const sf::Event& event) const &
         break;
     }
     }
-}
-
-/**
- *
- */
-void InputTextWidget::updateCursorPosition() const &
-{
-    impl->cursor.setPosition(
-        HORIZONTAL_POSITION + CURSOR_AND_BORDER_DISTANCE +
-        impl->displayedText.getLocalBounds().width,
-        VERTICAL_POSITION + CURSOR_AND_BORDER_DISTANCE
-    );
 }
 
 /**

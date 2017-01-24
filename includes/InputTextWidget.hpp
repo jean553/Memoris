@@ -104,20 +104,14 @@ private:
     static constexpr float CURSOR_AND_BORDER_DISTANCE {5.f};
 
     /**
-     * @brief get copy of keyboard selected character (from a to z)
+     * @brief get copy of keyboard selected character (from a to z);
+     * refactor into a private method for readability
      *
      * @param event the SFML events manager
      *
      * @return const char
      */
     const char getInputLetter(const sf::Event& event) const & noexcept;
-
-    /**
-     * @brief increments the cursor position
-     *
-     * sf::RectangleShape::setPosition() is not noexcept
-     */
-    void updateCursorPosition() const &;
 
     class Impl;
     std::unique_ptr<Impl> impl;
