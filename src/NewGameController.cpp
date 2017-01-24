@@ -137,7 +137,11 @@ const ControllerId& NewGameController::render() const &
             }
             default:
             {
-                impl->inputTextGameName.update(event);
+                const auto& inputText = impl->inputTextGameName;
+                if (not inputText.isInputTextLineFull())
+                {
+                    inputText.update(event);
+                }
 
                 break;
             }

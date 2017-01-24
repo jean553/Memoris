@@ -149,7 +149,7 @@ public:
 /**
  *
  */
-InputTextWidget::InputTextWidget(const utils::Context& context) 
+InputTextWidget::InputTextWidget(const utils::Context& context)
     : impl(std::make_unique<Impl>(context))
 {
 }
@@ -201,29 +201,24 @@ void InputTextWidget::update(const sf::Event& event) const &
     if (event.key.code == sf::Keyboard::BackSpace)
     {
         text.setString("");
-
-        updateCursorPosition();
-
-        return;
     }
-
-    /* TODO: should be moved */
-    constexpr size_t MAXIMUM_CHARACTERS_AMOUNT {15};
-    if (text.getString().getSize() == MAXIMUM_CHARACTERS_AMOUNT)
+    else
     {
-        return;
+        const char newCharacter {getInputLetter(event)};
+        if (newCharacter == 0)
+        {
+            return;
+        }
+
+        const sf::String newString {newCharacter};
+        text.setString(text.getString() + newString);
     }
 
-    const char newCharacter {getInputLetter(event)};
-    if (newCharacter == 0)
-    {
-        return;
-    }
-
-    const sf::String newString {newCharacter};
-    text.setString(text.getString() + newString);
-
-    updateCursorPosition();
+    impl->cursor.setPosition(
+        HORIZONTAL_POSITION + CURSOR_AND_BORDER_DISTANCE +
+        impl->displayedText.getLocalBounds().width,
+        VERTICAL_POSITION + CURSOR_AND_BORDER_DISTANCE
+    );
 }
 
 /**
@@ -383,13 +378,11 @@ const char InputTextWidget::getInputLetter(const sf::Event& event) const &
 /**
  *
  */
-void InputTextWidget::updateCursorPosition() const &
+const bool InputTextWidget::isInputTextLineFull() const &
 {
-    impl->cursor.setPosition(
-        HORIZONTAL_POSITION + CURSOR_AND_BORDER_DISTANCE +
-        impl->displayedText.getLocalBounds().width,
-        VERTICAL_POSITION + CURSOR_AND_BORDER_DISTANCE
-    );
+    constexpr size_t MAXIMUM_CHARACTERS_AMOUNT {15};
+    return impl->displayedText.getString().getSize() ==
+        MAXIMUM_CHARACTERS_AMOUNT;
 }
 
 }

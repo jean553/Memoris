@@ -88,6 +88,15 @@ public:
      */
     const sf::String& getText() const &;
 
+    /**
+     * @brief check if the input text widget is full
+     *
+     * @return const bool
+     *
+     * sf::Text::getString() is not noexcept
+     */
+    const bool isInputTextLineFull() const &;
+
 private:
 
     static constexpr float HORIZONTAL_POSITION {500.f};
@@ -95,20 +104,14 @@ private:
     static constexpr float CURSOR_AND_BORDER_DISTANCE {5.f};
 
     /**
-     * @brief get copy of keyboard selected character (from a to z)
+     * @brief get copy of keyboard selected character (from a to z);
+     * refactor into a private method for readability
      *
      * @param event the SFML events manager
      *
      * @return const char
      */
     const char getInputLetter(const sf::Event& event) const & noexcept;
-
-    /**
-     * @brief increments the cursor position
-     *
-     * sf::RectangleShape::setPosition() is not noexcept
-     */
-    void updateCursorPosition() const &;
 
     class Impl;
     std::unique_ptr<Impl> impl;
