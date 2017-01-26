@@ -18,9 +18,7 @@
 
 /**
  * @file NewGameController.hpp
- * @brief controller that displays the new game screen; this screen contains
- * a title and an input text widget to let the user enter the name of the
- * new game
+ * @brief displays an input text widget to let the user create a new game
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -44,8 +42,6 @@ public:
      * @brief constructor
      *
      * @param context the current context to use
-     *
-     * not 'noexcept' because it calls SFML functions that are not noexcept
      */
     NewGameController(const utils::Context& context);
 
