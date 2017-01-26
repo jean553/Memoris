@@ -97,6 +97,15 @@ public:
      */
     const bool isInputTextLineFull() const &;
 
+    /**
+     * @brief check if the input text widget is empty
+     *
+     * @return const bool
+     *
+     * sf::Text::getString() is not noexcept
+     */
+    const bool isEmpty() const &;
+
 private:
 
     static constexpr float HORIZONTAL_POSITION {500.f};

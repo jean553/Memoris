@@ -51,22 +51,29 @@ public:
     Impl(const utils::Context& context) :
         inputTextGameName(context)
     {
-        title.setFont(context.getFontsManager().getTitleFont());
+        const auto& fontsManager = context.getFontsManager();
+        const auto& colorsManager = context.getColorsManager();
+
+        title.setFont(fontsManager.getTitleFont());
         title.setString("New game");
-        title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
-        title.setColor(context.getColorsManager().getColorLightBlue());
+        title.setCharacterSize(fonts::SUB_TITLE_SIZE);
+        title.setColor(colorsManager.getColorLightBlue());
+
+        constexpr float TITLE_VERTICAL_POSITION {200.f};
         title.setPosition(
             window::getCenteredSfmlSurfaceHorizontalPosition(title),
-            200.f
+            TITLE_VERTICAL_POSITION
         );
 
-        explanation.setFont(context.getFontsManager().getTextFont());
+        explanation.setFont(fontsManager.getTextFont());
         explanation.setString("Your name :");
-        explanation.setCharacterSize(memoris::fonts::TEXT_SIZE);
-        explanation.setColor(context.getColorsManager().getColorWhite());
+        explanation.setCharacterSize(fonts::TEXT_SIZE);
+        explanation.setColor(colorsManager.getColorWhite());
+
+        constexpr float EXPLANATION_VERTICAL_POSITION {380.f};
         explanation.setPosition(
             window::getCenteredSfmlSurfaceHorizontalPosition(explanation),
-            380.f
+            EXPLANATION_VERTICAL_POSITION
         );
     }
 
@@ -97,10 +104,12 @@ const ControllerId& NewGameController::render() const &
 {
     const auto& context = getContext();
 
-    context.getSfmlWindow().draw(impl->title);
-    context.getSfmlWindow().draw(impl->explanation);
+    auto& window = context.getSfmlWindow();
+    window.draw(impl->title);
+    window.draw(impl->explanation);
 
-    impl->inputTextGameName.display();
+    const auto& inputText = impl->inputTextGameName;
+    inputText.display();
 
     setNextControllerId(animateScreenTransition(context));
 
@@ -122,14 +131,12 @@ const ControllerId& NewGameController::render() const &
             /* TODO: #498 should not be allowed if the name already exists */
             case sf::Keyboard::Return:
             {
-                if (impl->inputTextGameName.getText().isEmpty())
+                if (inputText.isEmpty())
                 {
                     break;
                 }
 
-                context.getGame().createGame(
-                    impl->inputTextGameName.getText()
-                );
+                context.getGame().createGame(inputText.getText());
 
                 setExpectedControllerId(ControllerId::SerieMainMenu);
 
@@ -137,7 +144,6 @@ const ControllerId& NewGameController::render() const &
             }
             default:
             {
-                const auto& inputText = impl->inputTextGameName;
                 if (not inputText.isInputTextLineFull())
                 {
                     inputText.update(event);

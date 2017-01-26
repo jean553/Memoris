@@ -385,5 +385,13 @@ const bool InputTextWidget::isInputTextLineFull() const &
         MAXIMUM_CHARACTERS_AMOUNT;
 }
 
+/**
+ *
+ */
+const bool InputTextWidget::isEmpty() const &
+{
+    return impl->displayedText.getString().getSize() == 0;
+}
+
 }
 }
