@@ -58,9 +58,6 @@ public:
      * @brief default destructor defined in order to use forwarding
      * declaration and marked as virtual to ensure that every destructors
      * are called during controller destruction as we use polymorphism
-     *
-     * @throw std::bad_alloc the implementation cannot be initialized;
-     * this exception is never caught and the program terminates
      */
     virtual ~Controller();
 
@@ -81,7 +78,8 @@ protected:
      *
      * @param context reference to the current context to use
      *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
      */
     Controller(const utils::Context& context);
 
