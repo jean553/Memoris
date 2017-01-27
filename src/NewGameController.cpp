@@ -26,12 +26,12 @@
 
 #include "controllers_ids.hpp"
 #include "fonts.hpp"
-#include "controllers.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "InputTextWidget.hpp"
 #include "window.hpp"
 #include "Game.hpp"
+#include "Context.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>

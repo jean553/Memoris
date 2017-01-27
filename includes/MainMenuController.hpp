@@ -57,6 +57,10 @@ public:
      * @brief render the main menu controller
      *
      * @return const ControllerId&
+     *
+     * no one of the controllers overwritten render() method is noexcept;
+     * (check parent declaration for details);
+     * they all use not noexcept SFML methods
      */
     virtual const ControllerId& render() const & override;
 

@@ -26,13 +26,13 @@
 
 #include "controllers_ids.hpp"
 #include "fonts.hpp"
-#include "controllers.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "MenuItem.hpp"
 #include "window.hpp"
 #include "Game.hpp"
 #include "SoundsManager.hpp"
+#include "Context.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -50,27 +50,33 @@ public:
 
     Impl(const utils::Context& context)
     {
-        title.setFont(context.getFontsManager().getTitleFont());
+        const auto& fontsManager = context.getFontsManager();
+        const auto& lightBlue = context.getColorsManager().getColorLightBlue();
+
+        title.setFont(fontsManager.getTitleFont());
         title.setString("Series");
-        title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
-        title.setColor(context.getColorsManager().getColorLightBlue());
+        title.setCharacterSize(fonts::SUB_TITLE_SIZE);
+        title.setColor(lightBlue);
+
+        constexpr float TITLE_VERTICAL_POSITION {50.f};
         title.setPosition(
             window::getCenteredSfmlSurfaceHorizontalPosition(title),
-            50.f
+            TITLE_VERTICAL_POSITION
         );
 
-        gameName.setFont(context.getFontsManager().getTextFont());
+        gameName.setFont(fontsManager.getTextFont());
         gameName.setString(context.getGame().getName());
-        gameName.setCharacterSize(memoris::fonts::TEXT_SIZE);
-        gameName.setColor(context.getColorsManager().getColorLightBlue());
+        gameName.setCharacterSize(fonts::TEXT_SIZE);
+        gameName.setColor(lightBlue);
+
+        constexpr float GAME_NAME_VERTICAL_POSITION {810.f};
+        constexpr float GAME_NAME_RIGHT_PADDING {20.f};
         gameName.setPosition(
             window::WIDTH - gameName.getLocalBounds().width -
                 GAME_NAME_RIGHT_PADDING,
-            810.f
+            GAME_NAME_VERTICAL_POSITION
         );
     }
-
-    static constexpr float GAME_NAME_RIGHT_PADDING {20.f};
 
     sf::Text title;
     sf::Text gameName;
@@ -85,35 +91,39 @@ SerieMainMenuController::SerieMainMenuController(
     AbstractMenuController(context),
     impl(std::make_unique<Impl>(context))
 {
+    constexpr float OFFICIAL_SERIES_ITEM_VERTICAL_POSITION {250.f};
     std::unique_ptr<items::MenuItem> officialSeries(
         std::make_unique<items::MenuItem>(
             context,
             "Official series",
-            250.f
+            OFFICIAL_SERIES_ITEM_VERTICAL_POSITION
         )
     );
 
+    constexpr float PERSONAL_SERIES_ITEM_VERTICAL_POSITION {350.f};
     std::unique_ptr<items::MenuItem> personalSeries(
         std::make_unique<items::MenuItem>(
             context,
             "Personal series",
-            350.f
+            PERSONAL_SERIES_ITEM_VERTICAL_POSITION
         )
     );
 
+    constexpr float BACK_ITEM_VERTICAL_POSITION {650.f};
     std::unique_ptr<items::MenuItem> back(
         std::make_unique<items::MenuItem>(
             context,
             "Back",
-            650.f
+            BACK_ITEM_VERTICAL_POSITION
         )
     );
 
+    constexpr float REMOVE_ITEM_VERTICAL_POSITION {810.f};
     std::unique_ptr<items::MenuItem> remove(
         std::make_unique<items::MenuItem>(
             context,
             "Remove",
-            810.f,
+            REMOVE_ITEM_VERTICAL_POSITION,
             items::MenuItem::HorizontalPosition::Left
         )
     );
@@ -129,7 +139,7 @@ SerieMainMenuController::SerieMainMenuController(
 /**
  *
  */
-SerieMainMenuController::~SerieMainMenuController() noexcept = default;
+SerieMainMenuController::~SerieMainMenuController() = default;
 
 /**
  *
@@ -138,11 +148,11 @@ const ControllerId& SerieMainMenuController::render() const &
 {
     const auto& context = getContext();
 
-    context.getSfmlWindow().draw(impl->title);
+    auto& window = context.getSfmlWindow();
+    window.draw(impl->title);
+    window.draw(impl->gameName);
 
     renderAllMenuItems();
-
-    context.getSfmlWindow().draw(impl->gameName);
 
     setNextControllerId(animateScreenTransition(context));
 
@@ -246,7 +256,7 @@ void SerieMainMenuController::selectMenuItem() const & noexcept
 
         break;
     }
-    case 3:
+    default:
     {
         setExpectedControllerId(ControllerId::RemoveGame);
 
