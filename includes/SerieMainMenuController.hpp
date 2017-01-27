@@ -18,8 +18,7 @@
 
 /**
  * @file SerieMainMenuController.hpp
- * @brief the main menu for the serie selection; the player can choose between
- * the official series and the personal series
+ * @brief main menu to select between official and personal series
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -42,34 +41,33 @@ public:
     /**
      * @brief constructor, initializes the implementation
      *
-     * @param context reference to the current context to use
+     * @param context the current context to use
      *
-     * not 'noexcept' because calls SFML methods that are not noexcept
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
      */
     SerieMainMenuController(const utils::Context& context);
 
     /**
-     * @brief default destructor, empty, only declared in order to use
-     * forwarding declaration
+     * @brief default destructor
      */
-    ~SerieMainMenuController() noexcept;
+    ~SerieMainMenuController();
 
     /**
      * @brief render the serie editor screen
      *
      * @return const ControllerId&
      *
-     * not 'noexcept' because the parent function is not noexcept (there are
-     * too many calls to noexcept functions in all the implementation of this
-     * method)
+     * no one of the controllers overwritten render() method is noexcept;
+     * (check parent declaration for details);
+     * they all use not noexcept SFML methods
      */
     virtual const ControllerId& render() const & override;
 
 private:
 
     /**
-     * @brief overwrite the parent method; defines which constroller is called
-     * when one menu item is selected
+     * @brief updates the expected controller id according to the selection
      */
     virtual void selectMenuItem() const & noexcept override;
 

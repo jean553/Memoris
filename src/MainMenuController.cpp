@@ -25,7 +25,6 @@
 
 #include "controllers_ids.hpp"
 #include "fonts.hpp"
-#include "controllers.hpp"
 #include "ColorsManager.hpp"
 #include "FontsManager.hpp"
 #include "TexturesManager.hpp"
@@ -34,6 +33,7 @@
 #include "MenuGradient.hpp"
 #include "window.hpp"
 #include "SoundsManager.hpp"
+#include "Context.hpp"
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Text.hpp>
