@@ -26,13 +26,13 @@
 
 #include "controllers_ids.hpp"
 #include "fonts.hpp"
-#include "controllers.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "PlayingSerieManager.hpp"
 #include "MenuItem.hpp"
 #include "window.hpp"
 #include "SoundsManager.hpp"
+#include "Context.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -54,9 +54,11 @@ public:
         title.setString("Official series");
         title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
         title.setColor(context.getColorsManager().getColorLightBlue());
+
+        constexpr float TITLE_VERTICAL_POSITION {50.f};
         title.setPosition(
             window::getCenteredSfmlSurfaceHorizontalPosition(title),
-            50.f
+            TITLE_VERTICAL_POSITION
         );
     }
 
@@ -72,51 +74,39 @@ OfficialSeriesMenuController::OfficialSeriesMenuController(
     AbstractMenuController(context),
     impl(std::make_unique<Impl>(context))
 {
+    constexpr float EASY_VERTICAL_POSITION {270.f};
     std::unique_ptr<items::MenuItem> easy(
         std::make_unique<items::MenuItem>(
             context,
             "Easy",
-            270.f
+            EASY_VERTICAL_POSITION
         )
     );
 
+    constexpr float MEDIUM_VERTICAL_POSITION {340.f};
     std::unique_ptr<items::MenuItem> medium(
         std::make_unique<items::MenuItem>(
             context,
             "Medium",
-            340.f
+            MEDIUM_VERTICAL_POSITION
         )
     );
 
+    constexpr float DIFFICULT_VERTICAL_POSITION {410.f};
     std::unique_ptr<items::MenuItem> difficult(
         std::make_unique<items::MenuItem>(
             context,
             "Difficult",
-            410.f
+            DIFFICULT_VERTICAL_POSITION
         )
     );
 
+    constexpr float HARD_VERTICAL_POSITION {480.f};
     std::unique_ptr<items::MenuItem> hard(
         std::make_unique<items::MenuItem>(
             context,
             "Hard",
-            480.f
-        )
-    );
-
-    std::unique_ptr<items::MenuItem> veryHard(
-        std::make_unique<items::MenuItem>(
-            context,
-            "Very Hard",
-            560.f
-        )
-    );
-
-    std::unique_ptr<items::MenuItem> hazardous(
-        std::make_unique<items::MenuItem>(
-            context,
-            "Hazardous",
-            630.f
+            HARD_VERTICAL_POSITION
         )
     );
 
@@ -126,17 +116,16 @@ OfficialSeriesMenuController::OfficialSeriesMenuController(
     addMenuItem(std::move(medium));
     addMenuItem(std::move(difficult));
     addMenuItem(std::move(hard));
-    addMenuItem(std::move(veryHard));
-    addMenuItem(std::move(hazardous));
 
+    /* TODO: #1079 this function should not be part
+       of the menu initialization */
     context.getPlayingSerieManager().reinitialize();
 }
 
 /**
  *
  */
-OfficialSeriesMenuController::~OfficialSeriesMenuController() noexcept =
-    default;
+OfficialSeriesMenuController::~OfficialSeriesMenuController() = default;
 
 /**
  *
@@ -144,22 +133,22 @@ OfficialSeriesMenuController::~OfficialSeriesMenuController() noexcept =
 const ControllerId& OfficialSeriesMenuController::render() const &
 {
     const auto& context = getContext();
+    auto& window = context.getSfmlWindow();
 
-    context.getSfmlWindow().draw(impl->title);
+    window.draw(impl->title);
 
     renderAllMenuItems();
 
     setNextControllerId(animateScreenTransition(context));
 
     auto& event = getEvent();
-    while(context.getSfmlWindow().pollEvent(event))
+    while(window.pollEvent(event))
     {
         switch(event.type)
         {
         case sf::Event::KeyPressed:
         {
             const auto& selection = getSelectorPosition();
-
             const auto& soundsManager = context.getSoundsManager();
 
             using namespace managers;
@@ -234,8 +223,10 @@ void OfficialSeriesMenuController::selectMenuItem() const & noexcept
     const std::string serie = getSerieNameByItemId();
 
     /* TODO: #890 the locked list should be loaded from the game file; this
-       condition is a temporary solution for tests only; to delete */
-    if (serie == DIFFICULT)
+       condition is a temporary solution for tests only; to delete;
+       the 'difficult' name could be refactored into a static constexpr,
+       however I do not do it as this is a temporarily solution */
+    if (serie == "difficult")
     {
         setExpectedControllerId(ControllerId::UnlockedSerieError);
 
@@ -244,13 +235,11 @@ void OfficialSeriesMenuController::selectMenuItem() const & noexcept
 
     try
     {
-        const auto& context = getContext();
-        context.getPlayingSerieManager().loadSerieFileContent(
+        getContext().getPlayingSerieManager().loadSerieFileContent(
             "officials/" + serie
         );
 
         setExpectedControllerId(ControllerId::Game);
-
     }
     catch(std::invalid_argument&)
     {
@@ -269,19 +258,19 @@ noexcept
     {
     case 2:
     {
-        return DIFFICULT;
+        return "difficult";
 
         break;
     }
     case 1:
     {
-        return MEDIUM;
+        return "medium";
 
         break;
     }
     default:
     {
-        return EASY;
+        return "easy";
 
         break;
     }

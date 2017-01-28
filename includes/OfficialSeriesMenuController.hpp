@@ -18,7 +18,7 @@
 
 /**
  * @file OfficialSeriesMenuController.hpp
- * @brief official series menu; display all the official series of the game
+ * @brief displays all the official series of the game
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -29,11 +29,6 @@
 #include "AbstractMenuController.hpp"
 
 #include <memory>
-
-namespace sf
-{
-class Text;
-}
 
 namespace memoris
 {
@@ -47,33 +42,32 @@ class OfficialSeriesMenuController : public AbstractMenuController
 public:
 
     /**
-     * @brief constructor, initializes the implementation
+     * @brief constructor
      *
-     * @param context reference to the context to use
+     * @param context the context to use
      *
-     * not 'noexcept' because the constructor calls SFML functions that are
-     * not noexcept
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
      */
     OfficialSeriesMenuController(const utils::Context& context);
 
     /**
-     * @brief default destructor, empty, declared only in order to use
-     * forwarding declaration
+     * @brief default destructor
      */
-    ~OfficialSeriesMenuController() noexcept;
+    ~OfficialSeriesMenuController();
 
     /**
      * @brief renders the controller
      *
      * @return const ControllerId&
+     *
+     * no one of the controllers overwritten render() method is noexcept;
+     * (check parent declaration for details);
+     * they all use not noexcept SFML methods
      */
     virtual const ControllerId& render() const & override;
 
 private:
-
-    static constexpr const char* EASY {"easy"};
-    static constexpr const char* MEDIUM {"medium"};
-    static constexpr const char* DIFFICULT {"difficult"};
 
     /**
      * @brief defines what happens when a menu item is selected
@@ -85,9 +79,6 @@ private:
      * selected menu item
      *
      * @return const std::string
-     *
-     * does not return a constant because the returned string is a local
-     * literal directly created when return; is called
      */
     const std::string getSerieNameByItemId() const & noexcept;
 
