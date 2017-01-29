@@ -18,7 +18,7 @@
 
 /**
  * @file PersonalSeriesMenuController.hpp
- * @brief personal series menu; displays all the series created by users
+ * @brief displays and selects user's created series
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -27,8 +27,6 @@
 #define MEMORIS_PERSONALSERIESMENUCONTROLLER_H_
 
 #include "Controller.hpp"
-
-#include <memory>
 
 namespace memoris
 {
@@ -47,24 +45,28 @@ class PersonalSeriesMenuController : public Controller
 public:
 
     /**
-     * @brief constructor, initializes the implementation
+     * @brief constructor
      *
-     * @param context constant reference to the current context to use
+     * @param context the context to use
      *
-     * not noexcept because it calls SFML functions that are not noexcept
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
      */
     PersonalSeriesMenuController(const utils::Context& context);
 
     /**
-     * @brief destructor, empty, only declared in order to use forwarding
-     * declaration
+     * @brief default destructor
      */
-    ~PersonalSeriesMenuController() noexcept;
+    ~PersonalSeriesMenuController();
 
     /**
      * @brief renders the controller
      *
      * @return const ControllerId&
+     *
+     * no one of the controllers overwritten render() method is noexcept;
+     * (check parent declaration for details);
+     * they all use not noexcept SFML methods
      */
     virtual const ControllerId& render() const & override;
 

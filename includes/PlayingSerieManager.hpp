@@ -128,10 +128,8 @@ public:
      *
      * @throw std::invalid_argument if the file cannot be loaded, this
      * exception should be caught in order to display the error controller
-     *
-     * no 'const' because it modifies the levels queue attribute
      */
-    void loadSerieFileContent(const std::string& name) &;
+    void loadSerieFileContent(const std::string& name) const &;
 
     /**
      * @brief getter of the current loaded serie name

@@ -207,7 +207,7 @@ SelectionListWidget::~SelectionListWidget() noexcept = default;
 /**
  *
  */
-void SelectionListWidget::display(const utils::Context& context) &
+void SelectionListWidget::display(const utils::Context& context) const &
 {
     impl->window.draw(impl->top);
     impl->window.draw(impl->left);
@@ -300,7 +300,7 @@ void SelectionListWidget::setList(
 /**
  *
  */
-void SelectionListWidget::displaySelector(const utils::Context& context) &
+void SelectionListWidget::displaySelector(const utils::Context& context) const &
 {
     sf::Vector2i mousePosition = sf::Mouse::getPosition();
 
@@ -352,17 +352,26 @@ void SelectionListWidget::displaySelector(const utils::Context& context) &
 /**
  *
  */
-const std::string SelectionListWidget::getCurrentItem() const & noexcept
+const std::string SelectionListWidget::getCurrentItem() const &
 {
+    return impl->texts[impl->selectorIndex + impl->offset].getString();
+}
+
+/**
+ *
+ */
+const bool SelectionListWidget::isAnyItemSelected() const & noexcept
+{
+    const auto& index = impl->selectorIndex;
     if (
-        impl->selectorIndex >= impl->texts.size() or
-        impl->selectorIndex == NO_SELECTION_INDEX
+        index >= impl->texts.size() or
+        index == NO_SELECTION_INDEX
     )
     {
-        return "";
+        return false;
     }
 
-    return impl->texts[impl->selectorIndex + impl->offset].getString();
+    return true;
 }
 
 /**
