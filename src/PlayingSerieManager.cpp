@@ -128,7 +128,7 @@ noexcept
 /**
  *
  */
-void PlayingSerieManager::loadSerieFileContent(const std::string& name) &
+void PlayingSerieManager::loadSerieFileContent(const std::string& name) const &
 {
     /* clear the queue containing the levels of the previous serie */
     impl->levels = std::queue<std::string>();

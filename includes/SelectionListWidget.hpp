@@ -76,11 +76,8 @@ public:
      * @brief displays the widget
      *
      * not 'noexcept' because it calls some SFML method that are not noexcept
-     *
-     * not 'const' because it calls the private method displaySelector()
-     * which modifies the object
      */
-    void display(const utils::Context& context) &;
+    void display(const utils::Context& context) const &;
 
     /**
      * @brief setter of the displayed items list
@@ -145,6 +142,13 @@ public:
      */
     void deleteAllItems() const & noexcept;
 
+    /**
+     * @brief checks if an item is selected or not
+     *
+     * @return const bool
+     */
+    const bool isAnyItemSelected() const & noexcept;
+
 private:
 
     static constexpr float VERTICAL_POSITION {200.f};
@@ -166,7 +170,7 @@ private:
      *
      * not 'noexcept' because it calls SFML functions that are not noexcept
      */
-    void displaySelector(const utils::Context& context) &;
+    void displaySelector(const utils::Context& context) const &;
 
     /**
      * @brief selects an arrow if the mouse is hover

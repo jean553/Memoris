@@ -25,7 +25,6 @@
 #include "PersonalSeriesMenuController.hpp"
 
 #include "controllers_ids.hpp"
-#include "controllers.hpp"
 #include "fonts.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
@@ -34,6 +33,7 @@
 #include "Cursor.hpp"
 #include "DirectoryReader.hpp"
 #include "PlayingSerieManager.hpp"
+#include "Context.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -55,11 +55,13 @@ public:
     {
         title.setFont(context.getFontsManager().getTitleFont());
         title.setString("Personal series");
-        title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
+        title.setCharacterSize(fonts::SUB_TITLE_SIZE);
         title.setColor(context.getColorsManager().getColorLightBlue());
+
+        constexpr float TITLE_VERTICAL_POSITION {50.f};
         title.setPosition(
             window::getCenteredSfmlSurfaceHorizontalPosition(title),
-            50.f
+            TITLE_VERTICAL_POSITION
         );
 
         list.setList(
@@ -84,14 +86,15 @@ PersonalSeriesMenuController::PersonalSeriesMenuController(
     Controller(context),
     impl(std::make_unique<Impl>(context))
 {
+    /* TODO: #1079 this function should not be part
+       of the menu initialization */
     context.getPlayingSerieManager().reinitialize();
 }
 
 /**
  *
  */
-PersonalSeriesMenuController::~PersonalSeriesMenuController() noexcept = 
-    default;
+PersonalSeriesMenuController::~PersonalSeriesMenuController() = default;
 
 /**
  *
@@ -100,16 +103,18 @@ const ControllerId& PersonalSeriesMenuController::render() const &
 {
     const auto& context = getContext();
 
-    context.getSfmlWindow().draw(impl->title);
+    auto& window = context.getSfmlWindow();
+    window.draw(impl->title);
 
-    impl->list.display(context);
+    const auto& list = impl->list;
+    list.display(context);
 
     impl->cursor.render(context);
 
     setNextControllerId(animateScreenTransition(context));
 
     auto& event = getEvent();
-    while(context.getSfmlWindow().pollEvent(event))
+    while(window.pollEvent(event))
     {
         switch(event.type)
         {
@@ -125,21 +130,17 @@ const ControllerId& PersonalSeriesMenuController::render() const &
             }
             default:
             {
-                break;
             }
             }
         }
         case sf::Event::MouseButtonPressed:
         {
-            // const widgets::SelectionListWidget&
-            const auto& list = impl->list;
-            std::string serieName = list.getCurrentItem();
-
-            if (!serieName.empty())
+            if (list.isAnyItemSelected())
             {
                 try
                 {
-                    auto& manager = context.getPlayingSerieManager();
+                    const auto& manager = context.getPlayingSerieManager();
+                    const auto& serieName = list.getCurrentItem();
 
                     manager.loadSerieFileContent("personals/" + serieName);
                     manager.setIsOfficialSerie(false);
@@ -163,7 +164,6 @@ const ControllerId& PersonalSeriesMenuController::render() const &
         }
         default:
         {
-            break;
         }
         }
     }
