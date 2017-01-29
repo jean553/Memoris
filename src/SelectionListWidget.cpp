@@ -352,7 +352,7 @@ void SelectionListWidget::displaySelector(const utils::Context& context) const &
 /**
  *
  */
-const std::string SelectionListWidget::getCurrentItem() const & noexcept
+const std::string SelectionListWidget::getCurrentItem() const &
 {
     return impl->texts[impl->selectorIndex + impl->offset].getString();
 }

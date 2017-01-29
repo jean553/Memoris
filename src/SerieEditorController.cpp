@@ -320,32 +320,28 @@ const ControllerId& SerieEditorController::render() const &
                     );
             }
 
-            // const std::vector<sf::Text>&
             const auto& levelsList = impl->lists.getLevelsList();
             const auto& seriesList = impl->lists.getSerieLevelsList();
 
-            const auto& selectedLevelItem = levelsList.getCurrentItem();
-            const auto& selectedSerieItem = seriesList.getCurrentItem();
-
-            if (!selectedLevelItem.empty())
+            if (levelsList.isAnyItemSelected())
             {
-                levelsList.deleteSelectedItem();
-
                 impl->lists.getSerieLevelsList().addItem(
                     context,
-                    selectedLevelItem
+                    levelsList.getCurrentItem()
                 );
+
+                levelsList.deleteSelectedItem();
 
                 markSerieUnsaved();
             }
-            else if (!selectedSerieItem.empty())
+            else if (seriesList.isAnyItemSelected())
             {
-                seriesList.deleteSelectedItem();
-
                 impl->lists.getLevelsList().addItem(
                     context,
-                    selectedSerieItem
+                    seriesList.getCurrentItem()
                 );
+
+                seriesList.deleteSelectedItem();
 
                 markSerieUnsaved();
             }

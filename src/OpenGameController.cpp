@@ -128,13 +128,10 @@ const ControllerId& OpenGameController::render() const &
         }
         case sf::Event::MouseButtonPressed:
         {
-            // const widgets::SelectionListWidget&
             const auto& list = impl->list;
-            std::string gameName = list.getCurrentItem();
-
-            if (!gameName.empty())
+            if (list.isAnyItemSelected())
             {
-                context.getGame().createGame(gameName);
+                context.getGame().createGame(list.getCurrentItem());
 
                 setExpectedControllerId(ControllerId::SerieMainMenu);
 
