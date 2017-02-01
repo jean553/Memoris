@@ -42,13 +42,17 @@ class Cell::Impl
 public:
 
     Impl(
+        const char cellType,
         const float& hPosition,
         const float& vPosition
-    )
+    ) :
+        type(cellType),
+        originalHorizontalPosition(hPosition),
+        originalVerticalPosition(vPosition)
     {
-        originalHorizontalPosition = hPosition;
-        originalVerticalPosition = vPosition;
     }
+
+    char type;
 
     float originalHorizontalPosition;
     float originalVerticalPosition;
@@ -71,9 +75,9 @@ Cell::Cell(
     const float& vPosition,
     const char& cellType
 ) :
-    type(cellType),
     impl(
         std::make_unique<Impl>(
+            cellType,
             hPosition,
             vPosition
         )
@@ -270,7 +274,7 @@ void Cell::show(const utils::Context& context) const &
        of cell; set this reference as a texture for the current cell object */
     impl->sprite.setTexture(
         context.getCellsTexturesManager().getTextureReferenceByCellType(
-            type
+            impl->type
         )
     );
 
@@ -283,15 +287,15 @@ void Cell::show(const utils::Context& context) const &
  */
 const char& Cell::getType() const & noexcept
 {
-    return type;
+    return impl->type;
 }
 
 /**
  *
  */
-void Cell::setType(const char& typeChar) & noexcept
+void Cell::setType(const char& typeChar) const & noexcept
 {
-    type = typeChar;
+    impl->type = typeChar;
 }
 
 /**
@@ -320,10 +324,10 @@ void Cell::setCellColor(const sf::Color& color)
 /**
  *
  */
-void Cell::empty()
+void Cell::empty() const &
 {
     /* set the cell as empty by changing the type to empty cell */
-    type = cells::EMPTY_CELL;
+    impl->type = cells::EMPTY_CELL;
 }
 
 /**

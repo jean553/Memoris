@@ -199,7 +199,7 @@ public:
      *
      * TODO: should be const after integration of pimpl idiom
      */
-    void setType(const char& typeChar) & noexcept;
+    void setType(const char& typeChar) const & noexcept;
 
     /**
      * @brief get a copy of the white color from the colors manager; apply
@@ -225,7 +225,7 @@ public:
      * @brief changes the cell to an empty cell, this is used by the game
      * controller when the player leaves a cell;
      */
-    void empty();
+    void empty() const &;
 
     /**
      * @brief getter for the visible parameter
@@ -269,11 +269,6 @@ private:
 
     static constexpr float CELL_DIMENSION {49.f};
     static constexpr float POSITION_UPDATE_STEP {10.f};
-
-    /* contains the current type of the cell according of the 'cells' types
-       list into cells.hpp; this variable is not directly initialized here
-       because it is initialized inside the constructor */
-    char type;
 
     class Impl;
     std::unique_ptr<Impl> impl;
