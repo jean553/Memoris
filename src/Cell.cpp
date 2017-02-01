@@ -42,13 +42,17 @@ class Cell::Impl
 public:
 
     Impl(
+        const char cellType,
         const float& hPosition,
         const float& vPosition
-    )
+    ) :
+        type(cellType),
+        originalHorizontalPosition(hPosition),
+        originalVerticalPosition(vPosition)
     {
-        originalHorizontalPosition = hPosition;
-        originalVerticalPosition = vPosition;
     }
+
+    char type;
 
     float originalHorizontalPosition;
     float originalVerticalPosition;
@@ -59,6 +63,7 @@ public:
     sf::Sprite sprite;
 
     bool highlight;
+    bool visible {false};
 };
 
 /**
@@ -70,9 +75,9 @@ Cell::Cell(
     const float& vPosition,
     const char& cellType
 ) :
-    type(cellType),
     impl(
         std::make_unique<Impl>(
+            cellType,
             hPosition,
             vPosition
         )
@@ -134,6 +139,7 @@ void Cell::moveOnTheRight() const &
  */
 void Cell::moveInDirection(const MovementDirection& direction) &
 {
+    constexpr float POSITION_UPDATE_STEP {10.f};
     switch(direction)
     {
     case MovementDirection::UP:
@@ -248,7 +254,7 @@ void Cell::displayWithMouseHover(
 /**
  *
  */
-void Cell::hide(const utils::Context& context)
+void Cell::hide(const utils::Context& context) const &
 {
     impl->sprite.setTexture(
         context.getCellsTexturesManager().getTextureReferenceByCellType(
@@ -257,24 +263,24 @@ void Cell::hide(const utils::Context& context)
     );
 
     /* the cell is hidden, so the boolean of visibility is updated to false */
-    visible = false;
+    impl->visible = false;
 }
 
 /**
  *
  */
-void Cell::show(const utils::Context& context)
+void Cell::show(const utils::Context& context) const &
 {
     /* get the texture from the cells textures manager according to the type
        of cell; set this reference as a texture for the current cell object */
     impl->sprite.setTexture(
         context.getCellsTexturesManager().getTextureReferenceByCellType(
-            type
+            impl->type
         )
     );
 
     /* the cell is shown, so the boolean of visibility is updated to true */
-    visible = true;
+    impl->visible = true;
 }
 
 /**
@@ -282,15 +288,15 @@ void Cell::show(const utils::Context& context)
  */
 const char& Cell::getType() const & noexcept
 {
-    return type;
+    return impl->type;
 }
 
 /**
  *
  */
-void Cell::setType(const char& typeChar) & noexcept
+void Cell::setType(const char& typeChar) const & noexcept
 {
-    type = typeChar;
+    impl->type = typeChar;
 }
 
 /**
@@ -319,10 +325,10 @@ void Cell::setCellColor(const sf::Color& color)
 /**
  *
  */
-void Cell::empty()
+void Cell::empty() const &
 {
     /* set the cell as empty by changing the type to empty cell */
-    type = cells::EMPTY_CELL;
+    impl->type = cells::EMPTY_CELL;
 }
 
 /**
@@ -330,15 +336,15 @@ void Cell::empty()
  */
 const bool& Cell::isVisible() const & noexcept
 {
-    return visible;
+    return impl->visible;
 }
 
 /**
  *
  */
-void Cell::setIsVisible(const bool& visibility) & noexcept
+void Cell::setIsVisible(const bool& visibility) const & noexcept
 {
-    visible = visibility;
+    impl->visible = visibility;
 }
 
 /**
@@ -349,6 +355,7 @@ const bool Cell::isMouseHover() const
     /* get the position of the cursor */
     sf::Vector2<int> cursorPosition = sf::Mouse::getPosition();
 
+    constexpr float CELL_DIMENSION {49.f};
     if (
         cursorPosition.x > impl->horizontalPosition &&
         cursorPosition.x < impl->horizontalPosition + CELL_DIMENSION &&
