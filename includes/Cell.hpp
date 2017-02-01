@@ -267,9 +267,6 @@ public:
 
 private:
 
-    static constexpr float CELL_DIMENSION {49.f};
-    static constexpr float POSITION_UPDATE_STEP {10.f};
-
     class Impl;
     std::unique_ptr<Impl> impl;
 };

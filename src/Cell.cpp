@@ -139,6 +139,7 @@ void Cell::moveOnTheRight() const &
  */
 void Cell::moveInDirection(const MovementDirection& direction) &
 {
+    constexpr float POSITION_UPDATE_STEP {10.f};
     switch(direction)
     {
     case MovementDirection::UP:
@@ -354,6 +355,7 @@ const bool Cell::isMouseHover() const
     /* get the position of the cursor */
     sf::Vector2<int> cursorPosition = sf::Mouse::getPosition();
 
+    constexpr float CELL_DIMENSION {49.f};
     if (
         cursorPosition.x > impl->horizontalPosition &&
         cursorPosition.x < impl->horizontalPosition + CELL_DIMENSION &&
