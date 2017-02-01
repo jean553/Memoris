@@ -170,7 +170,7 @@ public:
      *
      * @param context shared pointer to the context to use
      */
-    void hide(const utils::Context& context);
+    void hide(const utils::Context& context) const &;
 
     /**
      * @brief show the cell, loads a reference of the texture to display
@@ -180,7 +180,7 @@ public:
      *
      * @param context shared pointer to the context to use
      */
-    void show(const utils::Context& context);
+    void show(const utils::Context& context) const &;
 
     /**
      * @brief returns a reference to the current set cell type character; we
@@ -244,7 +244,7 @@ public:
      *
      * TODO: should be const after integration of pimpl idiom
      */
-    void setIsVisible(const bool& visibility) & noexcept;
+    void setIsVisible(const bool& visibility) const & noexcept;
 
     /**
      * @brief indicates if the mouse is currently hover this cell
@@ -274,12 +274,6 @@ private:
        list into cells.hpp; this variable is not directly initialized here
        because it is initialized inside the constructor */
     char type;
-
-    /* this boolean is true if the current cell is visible; false if hidden;
-       used by the animations to transfer visibility of the cells; by default,
-       all the cells are hidden; this value is modified by the hide() and
-       show() methods */
-    bool visible {false};
 
     class Impl;
     std::unique_ptr<Impl> impl;

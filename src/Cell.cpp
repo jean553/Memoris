@@ -59,6 +59,7 @@ public:
     sf::Sprite sprite;
 
     bool highlight;
+    bool visible {false};
 };
 
 /**
@@ -248,7 +249,7 @@ void Cell::displayWithMouseHover(
 /**
  *
  */
-void Cell::hide(const utils::Context& context)
+void Cell::hide(const utils::Context& context) const &
 {
     impl->sprite.setTexture(
         context.getCellsTexturesManager().getTextureReferenceByCellType(
@@ -257,13 +258,13 @@ void Cell::hide(const utils::Context& context)
     );
 
     /* the cell is hidden, so the boolean of visibility is updated to false */
-    visible = false;
+    impl->visible = false;
 }
 
 /**
  *
  */
-void Cell::show(const utils::Context& context)
+void Cell::show(const utils::Context& context) const &
 {
     /* get the texture from the cells textures manager according to the type
        of cell; set this reference as a texture for the current cell object */
@@ -274,7 +275,7 @@ void Cell::show(const utils::Context& context)
     );
 
     /* the cell is shown, so the boolean of visibility is updated to true */
-    visible = true;
+    impl->visible = true;
 }
 
 /**
@@ -330,15 +331,15 @@ void Cell::empty()
  */
 const bool& Cell::isVisible() const & noexcept
 {
-    return visible;
+    return impl->visible;
 }
 
 /**
  *
  */
-void Cell::setIsVisible(const bool& visibility) & noexcept
+void Cell::setIsVisible(const bool& visibility) const & noexcept
 {
-    visible = visibility;
+    impl->visible = visibility;
 }
 
 /**
