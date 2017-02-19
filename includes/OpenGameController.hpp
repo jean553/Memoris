@@ -30,12 +30,6 @@
 
 namespace memoris
 {
-
-namespace utils
-{
-class Context;
-}
-
 namespace controllers
 {
 
