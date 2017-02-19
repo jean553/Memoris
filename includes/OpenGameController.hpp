@@ -18,7 +18,7 @@
 
 /**
  * @file OpenGameController.hpp
- * @brief controller that displays the games list
+ * @brief displays the saved games to be selected
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -45,26 +45,28 @@ class OpenGameController : public Controller
 public:
 
     /**
-     * @brief constructor, initializes the implementation
+     * @brief constructor
      *
-     * @param context constant reference to the current context to use
+     * @param context the context to use
      *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
      */
     OpenGameController(const utils::Context& context);
 
     /**
-     * @brief default destructor, empty, declared here only in order to use
-     * forwarding declaration
+     * @brief default destructor
      */
-    ~OpenGameController() noexcept;
+    ~OpenGameController();
 
     /**
      * @brief render the open game screen
      *
      * @return const ControllerId&
      *
-     * not 'noexcept' because it calls SFML functions that are not noexcept
+     * no one of the controllers overwritten render() method is noexcept;
+     * (check parent declaration for details);
+     * they all use not noexcept SFML methods
      */
     virtual const ControllerId& render() const & override;
 

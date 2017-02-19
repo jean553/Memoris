@@ -57,9 +57,12 @@ public:
         title.setString("Open game");
         title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
         title.setColor(context.getColorsManager().getColorLightBlue());
+
+        constexpr float TITLE_HORIZONTAL_POSITION {620.f};
+        constexpr float TITLE_VERTICAL_POSITION {100.f};
         title.setPosition(
-            620.f,
-            100.f
+            TITLE_HORIZONTAL_POSITION,
+            TITLE_VERTICAL_POSITION
         );
 
         list.setList(
@@ -87,7 +90,7 @@ OpenGameController::OpenGameController(const utils::Context& context) :
 /**
  *
  */
-OpenGameController::~OpenGameController() noexcept = default;
+OpenGameController::~OpenGameController() = default;
 
 /**
  *
@@ -95,8 +98,9 @@ OpenGameController::~OpenGameController() noexcept = default;
 const ControllerId& OpenGameController::render() const &
 {
     const auto& context = getContext();
+    auto& window = context.getSfmlWindow();
 
-    context.getSfmlWindow().draw(impl->title);
+    window.draw(impl->title);
 
     impl->list.display(context);
 
@@ -105,7 +109,7 @@ const ControllerId& OpenGameController::render() const &
     setNextControllerId(animateScreenTransition(context));
 
     auto& event = getEvent();
-    while(context.getSfmlWindow().pollEvent(event))
+    while(window.pollEvent(event))
     {
         switch(event.type)
         {
@@ -121,6 +125,7 @@ const ControllerId& OpenGameController::render() const &
             }
             default:
             {
+                break;
             }
             }
 
@@ -144,6 +149,7 @@ const ControllerId& OpenGameController::render() const &
         }
         default:
         {
+            break;
         }
         }
     }
