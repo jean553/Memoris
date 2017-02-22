@@ -78,19 +78,6 @@ public:
     void display(const utils::Context& context) const &;
 
     /**
-     * @brief initialize every SFML text surface to the list
-     *
-     * @param context the context to use
-     * @param list a list of strings to add into the widget
-     *
-     * calls SFML functions that are not noexcept
-     */
-    void setList(
-        const utils::Context& context,
-        const std::vector<std::string>& list
-    ) const &;
-
-    /**
      * @brief getter of the current pointed item string
      *
      * @return const std::string
@@ -144,6 +131,25 @@ public:
      * @return const bool
      */
     const bool isAnyItemSelected() const & noexcept;
+
+protected:
+
+    /**
+     * @brief getter of the texts list
+     *
+     * @return std::vector<sf::Text>&
+     *
+     * this method has been created in order to let the children objects
+     * modify the list, so, the returned std::vector is not constant
+     */
+    std::vector<sf::Text>& getList() const & noexcept;
+
+    /**
+     * @brief getter of the horizontal position
+     *
+     * @return const float&
+     */
+    const float& getHorizontalPosition() const & noexcept;
 
 private:
 

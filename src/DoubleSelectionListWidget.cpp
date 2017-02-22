@@ -24,15 +24,13 @@
 
 #include "DoubleSelectionListWidget.hpp"
 
-#include "SelectionListWidget.hpp"
+#include "FilesSelectionListWidget.hpp"
 #include "DirectoryReader.hpp"
 
 namespace memoris
 {
 namespace widgets
 {
-
-constexpr char DoubleSelectionListWidget::PERSONAL_LEVELS_PATH[];
 
 class DoubleSelectionListWidget::Impl
 {
@@ -42,6 +40,7 @@ public:
     Impl(const utils::Context& context) :
         allLevelsList(
             context,
+            "data/levels/personals",
             100.f
         ),
         serieLevelsList(
@@ -49,15 +48,9 @@ public:
             890.f
         )
     {
-        /* this class is generic for any kind of double selection list,
-           for organization purposes, we just load the lists content here */
-        allLevelsList.setList(
-            context,
-            utils::getFilesFromDirectory(PERSONAL_LEVELS_PATH)
-        );
     }
 
-    widgets::SelectionListWidget allLevelsList;
+    widgets::FilesSelectionListWidget allLevelsList;
     widgets::SelectionListWidget serieLevelsList;
 };
 
@@ -115,10 +108,7 @@ void DoubleSelectionListWidget::resetLists(const utils::Context& context) const
     impl->serieLevelsList.deleteAllItems();
 
     allLevelsList.deleteAllItems();
-    allLevelsList.setList(
-        context,
-        utils::getFilesFromDirectory(PERSONAL_LEVELS_PATH)
-    );
+    allLevelsList.loadFilesFromDirectory();
 }
 
 }

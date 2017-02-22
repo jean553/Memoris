@@ -29,7 +29,7 @@
 #include "fonts.hpp"
 #include "ColorsManager.hpp"
 #include "controllers.hpp"
-#include "SelectionListWidget.hpp"
+#include "FilesSelectionListWidget.hpp"
 #include "Cursor.hpp"
 #include "DirectoryReader.hpp"
 #include "Game.hpp"
@@ -49,7 +49,10 @@ class OpenGameController::Impl
 public:
 
     Impl(const utils::Context& context) :
-        list(context),
+        list(
+            context,
+            "data/games"
+        ),
         cursor(context)
     {
         title.setFont(context.getFontsManager().getTitleFont());
@@ -63,16 +66,11 @@ public:
             TITLE_HORIZONTAL_POSITION,
             TITLE_VERTICAL_POSITION
         );
-
-        list.setList(
-            context,
-            utils::getFilesFromDirectory("data/games")
-        );
     }
 
     sf::Text title;
 
-    widgets::SelectionListWidget list;
+    widgets::FilesSelectionListWidget list;
 
     widgets::Cursor cursor;
 };
