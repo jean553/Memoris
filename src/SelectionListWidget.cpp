@@ -248,43 +248,6 @@ void SelectionListWidget::display(const utils::Context& context) const &
 /**
  *
  */
-void SelectionListWidget::setList(
-    const utils::Context& context,
-    const std::vector<std::string>& list
-) const &
-{
-    float verticalPosition {VERTICAL_POSITION};
-
-    /* we capture 'this' because a lambda function does not capture anything
-       and we want access the 'impl' attribute */
-
-    std::for_each(
-        list.begin(),
-        list.end(),
-        [this, &context, &verticalPosition](const std::string& item)
-    {
-        sf::Text text(
-            item,
-            context.getFontsManager().getTextFont(),
-            fonts::TEXT_SIZE
-        );
-
-        text.setColor(context.getColorsManager().getColorWhite());
-        text.setPosition(
-            impl->horizontalPosition,
-            verticalPosition
-        );
-
-        impl->texts.push_back(text);
-
-        verticalPosition += ITEMS_SEPARATION;
-    }
-    );
-}
-
-/**
- *
- */
 void SelectionListWidget::displaySelector(const utils::Context& context) const &
 {
     sf::Vector2i mousePosition = sf::Mouse::getPosition();
@@ -357,6 +320,22 @@ const bool SelectionListWidget::isAnyItemSelected() const & noexcept
     }
 
     return true;
+}
+
+/**
+ *
+ */
+std::vector<sf::Text>& SelectionListWidget::getList() const & noexcept
+{
+    return impl->texts;
+}
+
+/**
+ *
+ */
+const float& SelectionListWidget::getHorizontalPosition() const & noexcept
+{
+    return impl->horizontalPosition;
 }
 
 /**

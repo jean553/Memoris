@@ -29,7 +29,7 @@
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "window.hpp"
-#include "SelectionListWidget.hpp"
+#include "FilesSelectionListWidget.hpp"
 #include "Cursor.hpp"
 #include "DirectoryReader.hpp"
 #include "PlayingSerieManager.hpp"
@@ -50,7 +50,10 @@ class PersonalSeriesMenuController::Impl
 public:
 
     Impl(const utils::Context& context) :
-        list(context),
+        list(
+            context,
+            "data/series/personals"
+        ),
         cursor(context)
     {
         title.setFont(context.getFontsManager().getTitleFont());
@@ -63,16 +66,11 @@ public:
             window::getCenteredSfmlSurfaceHorizontalPosition(title),
             TITLE_VERTICAL_POSITION
         );
-
-        list.setList(
-            context,
-            utils::getFilesFromDirectory("data/series/personals")
-        );
     }
 
     sf::Text title;
 
-    widgets::SelectionListWidget list;
+    widgets::FilesSelectionListWidget list;
 
     widgets::Cursor cursor;
 };

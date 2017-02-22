@@ -98,8 +98,6 @@ public:
 
 private:
 
-    static constexpr char PERSONAL_LEVELS_PATH[] {"data/levels/personals"};
-
     class Impl;
     std::unique_ptr<Impl> impl;
 };
