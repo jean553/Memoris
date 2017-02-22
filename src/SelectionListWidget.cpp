@@ -70,75 +70,76 @@ public:
             VERTICAL_POSITION + HEIGHT
         );
 
+        constexpr float BORDERS_WIDTH {1.f};
         top.setSize(
             sf::Vector2f(
                 WIDTH,
-                1.f
+                BORDERS_WIDTH
             )
         );
         left.setSize(
             sf::Vector2f(
-                1.f,
+                BORDERS_WIDTH,
                 HEIGHT
             )
         );
         right.setSize(
             sf::Vector2f(
-                1.f,
+                BORDERS_WIDTH,
                 HEIGHT
             )
         );
         bottom.setSize(
             sf::Vector2f(
                 WIDTH,
-                1.f
+                BORDERS_WIDTH
             )
         );
 
-        top.setFillColor(context.getColorsManager().getColorLightBlue());
-        left.setFillColor(context.getColorsManager().getColorLightBlue());
-        right.setFillColor(context.getColorsManager().getColorLightBlue());
-        bottom.setFillColor(context.getColorsManager().getColorLightBlue());
+        const auto& colorsManager = context.getColorsManager();
 
-        /* we do not set the position of the selector here; it is directly
-           calculated according to the cursor position */
+        const auto& lightBlue = colorsManager.getColorLightBlue();
+        top.setFillColor(lightBlue);
+        left.setFillColor(lightBlue);
+        right.setFillColor(lightBlue);
+        bottom.setFillColor(lightBlue);
+
+        /* the selector position is directly calculated
+           into the render() method according to the cursor position */
+
         selector.setSize(
             sf::Vector2f(
-                WIDTH - 1.f,
+                WIDTH - BORDERS_WIDTH,
                 ITEMS_SEPARATION
             )
         );
-        selector.setFillColor(
-            context.getColorsManager().getColorPartialDarkGrey()
-        );
+        selector.setFillColor(colorsManager.getColorPartialDarkGrey());
 
-        arrowUp.setTexture(
-            context.getTexturesManager().getScrollArrowUpTexture()
-        );
+        const auto& texturesManager = context.getTexturesManager();
+        arrowUp.setTexture(texturesManager.getScrollArrowUpTexture());
+        arrowDown.setTexture(texturesManager.getScrollArrowDownTexture());
 
-        arrowDown.setTexture(
-            context.getTexturesManager().getScrollArrowDownTexture()
-        );
+        const float horizontalPositionCenter =
+            horizontalPosition + WIDTH / 2.f;
 
-        float horizontalPositionBase = horizontalPosition + WIDTH / 2;
+        constexpr float ARROW_WIDTH {64.f};
+        constexpr float ARROWS_SEPARATION {ARROW_WIDTH * 2.f};
 
-        leftArrowHorizontalPosition = horizontalPositionBase - 2 * ARROW_SPACE;
-        rightArrowHorizontalPosition = horizontalPositionBase + ARROW_SPACE;
-
+        leftArrowHorizontalPosition =
+            horizontalPositionCenter - ARROWS_SEPARATION;
+        rightArrowHorizontalPosition = horizontalPositionCenter + ARROW_WIDTH;
         verticalPositionBase = VERTICAL_POSITION + HEIGHT;
 
         arrowUp.setPosition(
-            horizontalPositionBase - 2 * ARROW_SPACE,
+            horizontalPositionCenter - ARROWS_SEPARATION,
             verticalPositionBase
         );
 
         arrowDown.setPosition(
-            horizontalPositionBase + ARROW_SPACE,
+            horizontalPositionCenter + ARROW_WIDTH,
             verticalPositionBase
         );
     }
-
-    static constexpr float ARROW_SPACE {64.f};
 
     sf::RectangleShape top;
     sf::RectangleShape bottom;
@@ -154,8 +155,6 @@ public:
     /* signed because equals to -1 when nothing is selected */
     short selectorIndex {0};
 
-    /* first index to display in the list; changes when the arrows are
-       clicked */
     unsigned short offset {0};
 
     bool mouseHoverLeftArrow {false};
@@ -165,20 +164,6 @@ public:
     float rightArrowHorizontalPosition {0.f};
     float verticalPositionBase {0.f};
     float horizontalPosition;
-
-    sf::Color selectedArrowColor {
-        255,
-        255,
-        255,
-        128
-    };
-
-    sf::Color unselectedArrowColor {
-        255,
-        255,
-        255,
-        255
-    };
 
     sf::RenderWindow& window;
 };
@@ -202,48 +187,48 @@ SelectionListWidget::SelectionListWidget(
 /**
  *
  */
-SelectionListWidget::~SelectionListWidget() noexcept = default;
+SelectionListWidget::~SelectionListWidget() = default;
 
 /**
  *
  */
 void SelectionListWidget::display(const utils::Context& context) const &
 {
-    impl->window.draw(impl->top);
-    impl->window.draw(impl->left);
-    impl->window.draw(impl->right);
-    impl->window.draw(impl->bottom);
-    impl->window.draw(impl->arrowUp);
-    impl->window.draw(impl->arrowDown);
+    auto& window = impl->window;
+    window.draw(impl->top);
+    window.draw(impl->left);
+    window.draw(impl->right);
+    window.draw(impl->bottom);
+    window.draw(impl->arrowUp);
+    window.draw(impl->arrowDown);
 
-    // std::vector<sf::Text>&
-    auto& texts = impl->texts;
+    const auto& texts = impl->texts;
 
-    if (impl->texts.size() == 0)
+    if (texts.size() == 0)
     {
         return;
     }
 
     displaySelector(context);
 
-    for (
-        std::vector<sf::Text>::const_iterator iterator = texts.begin();
-        iterator < texts.end();
-        ++iterator
-    )
-    {
-        const float& itemVerticalPosition = iterator->getPosition().y;
-
-        if (
-            itemVerticalPosition < VERTICAL_POSITION or
-            itemVerticalPosition >= VERTICAL_POSITION + HEIGHT
-        )
+    std::for_each(
+        texts.cbegin(),
+        texts.cend(),
+        [&window] (const auto& text)
         {
-            continue;
-        }
+            const float& itemVerticalPosition = text.getPosition().y;
 
-        impl->window.draw(*iterator);
-    }
+            if (
+                itemVerticalPosition < VERTICAL_POSITION or
+                itemVerticalPosition >= VERTICAL_POSITION + HEIGHT
+            )
+            {
+                return;
+            }
+
+            window.draw(text);
+        }
+    );
 
     selectArrowWhenMouseHover(
         context,
@@ -386,6 +371,8 @@ void SelectionListWidget::selectArrowWhenMouseHover(
 {
     sf::Vector2<int> mousePosition = sf::Mouse::getPosition();
 
+    const auto& colorsManager = context.getColorsManager();
+
     if (
         mousePosition.x > horizontalPosition and
         mousePosition.x < horizontalPosition + ARROW_DIMENSION and
@@ -394,7 +381,7 @@ void SelectionListWidget::selectArrowWhenMouseHover(
         not selected
     )
     {
-        arrowSprite.setColor(impl->selectedArrowColor);
+        arrowSprite.setColor(colorsManager.getColorWhiteLowAlpha());
 
         selected = true;
     }
@@ -407,7 +394,7 @@ void SelectionListWidget::selectArrowWhenMouseHover(
         ) and selected
     )
     {
-        arrowSprite.setColor(impl->unselectedArrowColor);
+        arrowSprite.setColor(colorsManager.getColorWhite());
 
         selected = false;
     }

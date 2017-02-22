@@ -66,6 +66,13 @@ public:
     const sf::Color& getColorWhite() const & noexcept;
 
     /**
+     * @brief returns a reference to the white color with low alpha
+     *
+     * @return const sf::Color&
+     */
+    const sf::Color& getColorWhiteLowAlpha() const & noexcept;
+
+    /**
      * @brief returns a reference to the light blue color
      *
      * @return const sf::Color&

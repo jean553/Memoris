@@ -18,8 +18,7 @@
 
 /**
  * @file SelectionListWidget.hpp
- * @brief used to select a text item, the widget takes the whole screen,
- * the position and dimensions are fixed
+ * @brief widget with textual items to select
  * @package widgets
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -53,13 +52,13 @@ class SelectionListWidget
 public:
 
     /**
-     * @brief constructor, initialize the implementation
+     * @brief constructor
      *
-     * @param context constant reference to the context to use
-     * @param horizontalPosition constant reference to the expected
-     * horizontal position
+     * @param context the context to use
+     * @param horizontalPosition the expected horizontal position of the widget
      *
-     * not 'noexcept' because it calls SFML function that are not noexcept
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
      */
     SelectionListWidget(
         const utils::Context& context,
@@ -67,25 +66,24 @@ public:
     );
 
     /**
-     * @brief default destructor, empty, only declared in order to use
-     * forwarding declaration
+     * @brief default destructor
      */
-    ~SelectionListWidget() noexcept;
+    ~SelectionListWidget();
 
     /**
      * @brief displays the widget
      *
-     * not 'noexcept' because it calls some SFML method that are not noexcept
+     * calls SFML functions that are not noexcept
      */
     void display(const utils::Context& context) const &;
 
     /**
-     * @brief setter of the displayed items list
+     * @brief initialize every SFML text surface to the list
      *
-     * @param context reference to the current context to use
-     * @param list a constant reference to a vector container of std::string
+     * @param context the context to use
+     * @param list a list of strings to add into the widget
      *
-     * not noexcept because it calls SFML functions that are not noexcept
+     * calls SFML functions that are not noexcept
      */
     void setList(
         const utils::Context& context,

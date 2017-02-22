@@ -44,6 +44,14 @@ public:
         255
     };
 
+    const sf::Color colorWhiteLowAlpha
+    {
+        255,
+        255,
+        255,
+        128
+    };
+
     const sf::Color colorBlue
     {
         0,
@@ -144,6 +152,14 @@ ColorsManager::~ColorsManager() noexcept = default;
 const sf::Color& ColorsManager::getColorWhite() const & noexcept
 {
     return impl->colorWhite;
+}
+
+/**
+ *
+ */
+const sf::Color& ColorsManager::getColorWhiteLowAlpha() const & noexcept
+{
+    return impl->colorWhiteLowAlpha;
 }
 
 /**
