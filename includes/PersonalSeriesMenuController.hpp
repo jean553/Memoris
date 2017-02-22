@@ -51,6 +51,10 @@ public:
      *
      * @throw std::bad_alloc the implementation cannot be initialized;
      * this exception is never caught and the program terminates
+     *
+     * @throws std::invalid_argument throws if the files list cannot
+     * be loaded from the personal series directory;
+     * this exception is never caught and the program terminates
      */
     PersonalSeriesMenuController(const utils::Context& context);
 

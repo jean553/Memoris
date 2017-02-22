@@ -52,6 +52,13 @@ public:
      *
      * @param context reference to the context to use
      *
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
+     *
+     * @throws std::invalid_argument throws if the files list cannot
+     * be loaded from the personal levels directory;
+     * this exception is never caught and the program terminates
+     *
      * not 'noexcept' because it calls SFML function that are not noexcept
      */
     DoubleSelectionListWidget(const utils::Context& context);
