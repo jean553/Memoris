@@ -29,7 +29,11 @@
 
 #include <memory>
 
-#include <SFML/System/Vector2.hpp>
+namespace sf
+{
+template<typename T>
+class Vector2;
+}
 
 namespace memoris
 {

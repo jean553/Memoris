@@ -29,12 +29,13 @@
 #include <memory>
 #include <vector>
 
-#include <SFML/System/Vector2.hpp>
-
 namespace sf
 {
 class Sprite;
 class Text;
+
+template<typename T>
+class Vector2;
 }
 
 namespace memoris
