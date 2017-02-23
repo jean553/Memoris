@@ -111,14 +111,9 @@ void Cursor::updateCursorPosition() const &
 /**
  *
  */
-std::pair<const float&, const float&> Cursor::getPosition() const & noexcept
+const sf::Vector2<float>& Cursor::getPosition() const & noexcept
 {
-    const auto& position = impl->position;
-
-    return std::make_pair(
-        position.x,
-        position.y
-    );
+    return impl->position;
 }
 
 }

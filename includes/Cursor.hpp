@@ -28,6 +28,8 @@
 
 #include <memory>
 
+#include <SFML/System/Vector2.hpp>
+
 namespace memoris
 {
 
@@ -67,9 +69,9 @@ public:
     /**
      * @brief getter of the current cursor position
      *
-     * @return std::pair<const float&, const float&>
+     * @return const sf::Vector2<float>&
      */
-    std::pair<const float&, const float&> getPosition() const & noexcept;
+    const sf::Vector2<float>& getPosition() const & noexcept;
 
 private:
 

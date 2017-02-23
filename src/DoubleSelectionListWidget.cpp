@@ -72,11 +72,20 @@ DoubleSelectionListWidget::~DoubleSelectionListWidget() noexcept = default;
 /**
  *
  */
-void DoubleSelectionListWidget::display(const utils::Context& context)
-    const &
+void DoubleSelectionListWidget::display(
+    const utils::Context& context,
+    const sf::Vector2<float>& cursorPosition
+) const &
 {
-    impl->allLevelsList.display(context);
-    impl->serieLevelsList.display(context);
+    impl->allLevelsList.display(
+        context,
+        cursorPosition
+    );
+
+    impl->serieLevelsList.display(
+        context,
+        cursorPosition
+    );
 }
 
 /**

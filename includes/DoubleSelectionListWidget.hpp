@@ -29,6 +29,8 @@
 
 #include <memory>
 
+#include <SFML/System/Vector2.hpp>
+
 namespace memoris
 {
 
@@ -76,7 +78,10 @@ public:
      *
      * not 'noexcept' because it calls some SFML method that are not noexcept
      */
-    void display(const utils::Context& context) const &;
+    void display(
+        const utils::Context& context,
+        const sf::Vector2<float>& cursorPosition
+    ) const &;
 
     /**
      * @brief getter for the list that contains all the levels

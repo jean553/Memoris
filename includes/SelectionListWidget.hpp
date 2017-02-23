@@ -29,6 +29,8 @@
 #include <memory>
 #include <vector>
 
+#include <SFML/System/Vector2.hpp>
+
 namespace sf
 {
 class Sprite;
@@ -75,7 +77,10 @@ public:
      *
      * calls SFML functions that are not noexcept
      */
-    void display(const utils::Context& context) const &;
+    void display(
+        const utils::Context& context,
+        const sf::Vector2<float>& cursorPosition
+    ) const &;
 
     /**
      * @brief getter of the current pointed item string
@@ -168,11 +173,12 @@ private:
      *
      * @param context reference to the context object to use
      *
-     * not 'const' because it modifies the position of the selector
-     *
      * not 'noexcept' because it calls SFML functions that are not noexcept
      */
-    void displaySelector(const utils::Context& context) const &;
+    void displaySelector(
+        const utils::Context& context,
+        const sf::Vector2<float>& cursorPosition
+    ) const &;
 
     /**
      * @brief selects an arrow if the mouse is hover
