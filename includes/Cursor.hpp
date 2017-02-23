@@ -64,6 +64,13 @@ public:
      */
     void render(const utils::Context& context);
 
+    /**
+     * @brief getter of the current cursor position
+     *
+     * @return std::pair<const float&, const float&>
+     */
+    std::pair<const float&, const float&> getPosition() const & noexcept;
+
 private:
 
     /**
