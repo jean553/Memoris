@@ -104,8 +104,14 @@ const ControllerId& PersonalSeriesMenuController::render() const &
     auto& window = context.getSfmlWindow();
     window.draw(impl->title);
 
+    auto& cursor = impl->cursor;
+    const auto& cursorPosition = cursor.getPosition();
+
     const auto& list = impl->list;
-    list.display(context);
+    list.display(
+        context,
+        cursorPosition
+    );
 
     impl->cursor.render(context);
 

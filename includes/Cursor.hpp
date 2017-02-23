@@ -28,6 +28,12 @@
 
 #include <memory>
 
+namespace sf
+{
+template<typename T>
+class Vector2;
+}
+
 namespace memoris
 {
 
@@ -63,6 +69,13 @@ public:
      * @param context reference to the current context
      */
     void render(const utils::Context& context);
+
+    /**
+     * @brief getter of the current cursor position
+     *
+     * @return const sf::Vector2<float>&
+     */
+    const sf::Vector2<float>& getPosition() const & noexcept;
 
 private:
 

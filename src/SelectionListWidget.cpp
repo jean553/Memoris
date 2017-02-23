@@ -192,7 +192,10 @@ SelectionListWidget::~SelectionListWidget() = default;
 /**
  *
  */
-void SelectionListWidget::display(const utils::Context& context) const &
+void SelectionListWidget::display(
+    const utils::Context& context,
+    const sf::Vector2<float>& cursorPosition
+) const &
 {
     auto& window = impl->window;
     window.draw(impl->top);
@@ -209,7 +212,10 @@ void SelectionListWidget::display(const utils::Context& context) const &
         return;
     }
 
-    displaySelector(context);
+    displaySelector(
+        context,
+        cursorPosition
+    );
 
     std::for_each(
         texts.cbegin(),
@@ -248,13 +254,13 @@ void SelectionListWidget::display(const utils::Context& context) const &
 /**
  *
  */
-void SelectionListWidget::displaySelector(const utils::Context& context) const &
+void SelectionListWidget::displaySelector(
+    const utils::Context& context,
+    const sf::Vector2<float>& cursorPosition
+) const &
 {
-    sf::Vector2i mousePosition = sf::Mouse::getPosition();
-
-    /* explicit cast because sf::Mouse::getPosition() returns integers */
-    float mouseHorizontalPosition = static_cast<float>(mousePosition.x);
-    float mouseVerticalPosition = static_cast<float>(mousePosition.y);
+    const auto& mouseHorizontalPosition = cursorPosition.x;
+    const auto& mouseVerticalPosition = cursorPosition.y;
 
     const auto& texts = impl->texts;
 
@@ -277,7 +283,7 @@ void SelectionListWidget::displaySelector(const utils::Context& context) const &
     /* explicit cast to only work with integers in the division; it prevents
        to get decimal results */
     impl->selectorIndex =
-        (mousePosition.y - static_cast<int>(VERTICAL_POSITION)) /
+        (mouseVerticalPosition - static_cast<int>(VERTICAL_POSITION)) /
         static_cast<int>(ITEMS_SEPARATION);
 
     /* do not display the selection surface if there is no item under the

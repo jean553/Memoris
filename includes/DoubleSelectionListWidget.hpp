@@ -29,6 +29,12 @@
 
 #include <memory>
 
+namespace sf
+{
+template<typename T>
+class Vector2;
+}
+
 namespace memoris
 {
 
@@ -73,10 +79,14 @@ public:
      * @brief displays the two lists
      *
      * @param context reference to the context to use
+     * @param cursorPosition current cursor position
      *
      * not 'noexcept' because it calls some SFML method that are not noexcept
      */
-    void display(const utils::Context& context) const &;
+    void display(
+        const utils::Context& context,
+        const sf::Vector2<float>& cursorPosition
+    ) const &;
 
     /**
      * @brief getter for the list that contains all the levels

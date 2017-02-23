@@ -33,6 +33,9 @@ namespace sf
 {
 class Sprite;
 class Text;
+
+template<typename T>
+class Vector2;
 }
 
 namespace memoris
@@ -73,9 +76,15 @@ public:
     /**
      * @brief displays the widget
      *
+     * @param context the current context to use
+     * @param cursorPosition the current position of the cursor
+     *
      * calls SFML functions that are not noexcept
      */
-    void display(const utils::Context& context) const &;
+    void display(
+        const utils::Context& context,
+        const sf::Vector2<float>& cursorPosition
+    ) const &;
 
     /**
      * @brief getter of the current pointed item string
@@ -166,13 +175,15 @@ private:
     /**
      * @brief move the visual selector according to the current cursor position
      *
-     * @param context reference to the context object to use
-     *
-     * not 'const' because it modifies the position of the selector
+     * @param context the current context to use
+     * @param cursorPosition the cursor current position
      *
      * not 'noexcept' because it calls SFML functions that are not noexcept
      */
-    void displaySelector(const utils::Context& context) const &;
+    void displaySelector(
+        const utils::Context& context,
+        const sf::Vector2<float>& cursorPosition
+    ) const &;
 
     /**
      * @brief selects an arrow if the mouse is hover

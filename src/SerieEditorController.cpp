@@ -187,9 +187,15 @@ const ControllerId& SerieEditorController::render() const &
         impl->buttonSave.display(context);
         impl->buttonExit.display(context);
 
-        impl->lists.display(context);
+        auto& cursor = impl->cursor;
+        const auto& cursorPosition = cursor.getPosition();
 
-        impl->cursor.render(context);
+        impl->lists.display(
+            context,
+            cursorPosition
+        );
+
+        cursor.render(context);
     }
 
     setNextControllerId(animateScreenTransition(context));

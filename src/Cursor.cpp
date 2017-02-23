@@ -49,6 +49,8 @@ public:
     sf::Sprite sprite;
 
     sf::Uint32 lastCursorPositionUpdateTime {0};
+
+    sf::Vector2<float> position;
 };
 
 /**
@@ -95,10 +97,26 @@ void Cursor::render(const utils::Context& context)
  */
 void Cursor::updateCursorPosition() const &
 {
-    impl->sprite.setPosition(
-        sf::Mouse::getPosition().x,
-        sf::Mouse::getPosition().y
+    const auto positionIntegers = sf::Mouse::getPosition();
+
+    auto& positionFloats = impl->position;
+
+    /* we get integers and store floats because all surfaces and texts
+       positions manipulations are done with floats */
+    positionFloats = sf::Vector2<float>(
+        static_cast<float>(positionIntegers.x),
+        static_cast<float>(positionIntegers.y)
     );
+
+    impl->sprite.setPosition(positionFloats);
+}
+
+/**
+ *
+ */
+const sf::Vector2<float>& Cursor::getPosition() const & noexcept
+{
+    return impl->position;
 }
 
 }
