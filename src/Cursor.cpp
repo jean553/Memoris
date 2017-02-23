@@ -100,6 +100,9 @@ void Cursor::updateCursorPosition() const &
     const auto positionIntegers = sf::Mouse::getPosition();
 
     auto& positionFloats = impl->position;
+
+    /* we get integers and store floats because all surfaces and texts
+       positions manipulations are done with floats */
     positionFloats = sf::Vector2<float>(
         static_cast<float>(positionIntegers.x),
         static_cast<float>(positionIntegers.y)
