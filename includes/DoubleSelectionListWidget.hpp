@@ -75,6 +75,7 @@ public:
      * @brief displays the two lists
      *
      * @param context reference to the context to use
+     * @param cursorPosition current cursor position
      *
      * not 'noexcept' because it calls some SFML method that are not noexcept
      */

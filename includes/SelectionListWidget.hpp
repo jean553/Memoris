@@ -75,6 +75,9 @@ public:
     /**
      * @brief displays the widget
      *
+     * @param context the current context to use
+     * @param cursorPosition the current position of the cursor
+     *
      * calls SFML functions that are not noexcept
      */
     void display(
@@ -171,7 +174,8 @@ private:
     /**
      * @brief move the visual selector according to the current cursor position
      *
-     * @param context reference to the context object to use
+     * @param context the current context to use
+     * @param cursorPosition the cursor current position
      *
      * not 'noexcept' because it calls SFML functions that are not noexcept
      */
