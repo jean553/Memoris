@@ -212,10 +212,17 @@ void SelectionListWidget::display(
         return;
     }
 
-    displaySelector(
-        context,
-        cursorPosition
-    );
+    if(isMouseOverItem(cursorPosition))
+    {
+        displaySelector(
+            context,
+            cursorPosition
+        );
+    }
+    else
+    {
+        impl->selectorIndex = NO_SELECTION_INDEX;
+    }
 
     std::for_each(
         texts.cbegin(),
@@ -259,31 +266,10 @@ void SelectionListWidget::displaySelector(
     const sf::Vector2<float>& cursorPosition
 ) const &
 {
-    const auto& mouseHorizontalPosition = cursorPosition.x;
-    const auto& mouseVerticalPosition = cursorPosition.y;
-
-    const auto& texts = impl->texts;
-
-    if (
-        mouseHorizontalPosition < impl->horizontalPosition or
-        mouseHorizontalPosition > impl->horizontalPosition + WIDTH or
-        mouseVerticalPosition < VERTICAL_POSITION or
-        (
-            mouseVerticalPosition >
-                texts[texts.size() - 1].getPosition().y + ITEMS_SEPARATION or
-            mouseVerticalPosition > VERTICAL_POSITION + HEIGHT - 1.f
-        )
-    )
-    {
-        impl->selectorIndex = NO_SELECTION_INDEX;
-
-        return;
-    }
-
     /* explicit cast to only work with integers in the division; it prevents
        to get decimal results */
     impl->selectorIndex =
-        (mouseVerticalPosition - static_cast<int>(VERTICAL_POSITION)) /
+        (cursorPosition.y - static_cast<int>(VERTICAL_POSITION)) /
         static_cast<int>(ITEMS_SEPARATION);
 
     /* do not display the selection surface if there is no item under the
@@ -301,6 +287,34 @@ void SelectionListWidget::displaySelector(
     );
 
     impl->window.draw(impl->selector);
+}
+
+/**
+ *
+ */
+const bool SelectionListWidget::isMouseOverItem(
+    const sf::Vector2<float>& cursorPosition
+) const &
+{
+    const auto& cursorHorizontalPosition = cursorPosition.x;
+    const auto& cursorVerticalPosition = cursorPosition.y;
+
+    const auto& rightBorderHorizontalPosition =
+        impl->horizontalPosition + WIDTH;
+    const auto& lastItemVerticalBottom =
+        impl->texts.back().getPosition().y + ITEMS_SEPARATION;
+
+    if (
+        cursorHorizontalPosition < impl->horizontalPosition or
+        cursorHorizontalPosition > rightBorderHorizontalPosition or
+        cursorVerticalPosition < VERTICAL_POSITION or
+        cursorVerticalPosition > lastItemVerticalBottom
+    )
+    {
+        return false;
+    }
+
+    return true;
 }
 
 /**

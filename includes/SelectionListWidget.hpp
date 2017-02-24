@@ -178,12 +178,25 @@ private:
      * @param context the current context to use
      * @param cursorPosition the cursor current position
      *
-     * not 'noexcept' because it calls SFML functions that are not noexcept
+     * not noexcept because it calls SFML functions that are not noexcept
      */
     void displaySelector(
         const utils::Context& context,
         const sf::Vector2<float>& cursorPosition
     ) const &;
+
+    /**
+     * @brief indicates if the mouse is currently on an item of the list
+     *
+     * @param cursorPosition the cursor current position
+     *
+     * @return const bool
+     *
+     * not noexcept because it calls SFML sf::Text::getPosition() method
+     * and this method is not noexcept
+     */
+    const bool isMouseOverItem(const sf::Vector2<float>& cursorPosition) 
+        const &;
 
     /**
      * @brief selects an arrow if the mouse is hover
