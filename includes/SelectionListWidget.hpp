@@ -178,7 +178,7 @@ private:
      * @param context the current context to use
      * @param cursorPosition the cursor current position
      *
-     * not 'noexcept' because it calls SFML functions that are not noexcept
+     * not noexcept because it calls SFML functions that are not noexcept
      */
     void displaySelector(
         const utils::Context& context,
