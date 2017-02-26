@@ -128,16 +128,15 @@ public:
         leftArrowHorizontalPosition =
             horizontalPositionCenter - ARROWS_SEPARATION;
         rightArrowHorizontalPosition = horizontalPositionCenter + ARROW_WIDTH;
-        verticalPositionBase = VERTICAL_POSITION + HEIGHT;
 
         arrowUp.setPosition(
             horizontalPositionCenter - ARROWS_SEPARATION,
-            verticalPositionBase
+            ARROWS_VERTICAL_POSITION
         );
 
         arrowDown.setPosition(
             horizontalPositionCenter + ARROW_WIDTH,
-            verticalPositionBase
+            ARROWS_VERTICAL_POSITION
         );
     }
 
@@ -162,7 +161,6 @@ public:
 
     float leftArrowHorizontalPosition {0.f};
     float rightArrowHorizontalPosition {0.f};
-    float verticalPositionBase {0.f};
     float horizontalPosition;
 
     sf::RenderWindow& window;
@@ -249,6 +247,7 @@ void SelectionListWidget::display(
     selectArrowWhenMouseHover(
         context,
         impl->leftArrowHorizontalPosition,
+        cursorPosition,
         impl->arrowUp,
         impl->mouseHoverLeftArrow
     );
@@ -256,6 +255,7 @@ void SelectionListWidget::display(
     selectArrowWhenMouseHover(
         context,
         impl->rightArrowHorizontalPosition,
+        cursorPosition,
         impl->arrowDown,
         impl->mouseHoverRightArrow
     );
@@ -354,20 +354,21 @@ const float& SelectionListWidget::getHorizontalPosition() const & noexcept
  */
 void SelectionListWidget::selectArrowWhenMouseHover(
     const utils::Context& context,
-    const unsigned short& horizontalPosition,
+    const unsigned short& arrowHorizontalPosition,
+    const sf::Vector2<float>& cursorPosition,
     sf::Sprite& arrowSprite,
     bool& selected
 ) const &
 {
-    sf::Vector2<int> mousePosition = sf::Mouse::getPosition();
-
     const auto& colorsManager = context.getColorsManager();
 
+    constexpr float ARROW_DIMENSION {64.f};
+
     if (
-        mousePosition.x > horizontalPosition and
-        mousePosition.x < horizontalPosition + ARROW_DIMENSION and
-        mousePosition.y > impl->verticalPositionBase and
-        mousePosition.y < impl->verticalPositionBase + ARROW_DIMENSION and
+        cursorPosition.x > arrowHorizontalPosition and
+        cursorPosition.x < arrowHorizontalPosition + ARROW_DIMENSION and
+        cursorPosition.y > ARROWS_VERTICAL_POSITION and
+        cursorPosition.y < ARROWS_VERTICAL_POSITION + ARROW_DIMENSION and
         not selected
     )
     {
@@ -377,10 +378,10 @@ void SelectionListWidget::selectArrowWhenMouseHover(
     }
     else if (
         (
-            mousePosition.x < horizontalPosition or
-            mousePosition.x > horizontalPosition + ARROW_DIMENSION or
-            mousePosition.y < impl->verticalPositionBase or
-            mousePosition.y > impl->verticalPositionBase + ARROW_DIMENSION
+            cursorPosition.x < arrowHorizontalPosition or
+            cursorPosition.x > arrowHorizontalPosition + ARROW_DIMENSION or
+            cursorPosition.y < ARROWS_VERTICAL_POSITION or
+            cursorPosition.y > ARROWS_VERTICAL_POSITION + ARROW_DIMENSION
         ) and selected
     )
     {
@@ -397,6 +398,8 @@ void SelectionListWidget::updateList() const &
 {
     constexpr float DISPLAY_NEXT_ITEM_STEP {-1.f};
     constexpr float DISPLAY_PREVIOUS_ITEM_STEP {1.f};
+
+    constexpr unsigned short VISIBLE_ITEMS {12};
 
     if (
         impl->mouseHoverLeftArrow and
