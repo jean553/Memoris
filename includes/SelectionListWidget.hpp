@@ -176,14 +176,10 @@ private:
      * @brief move the visual selector according to the current cursor position
      *
      * @param context the current context to use
-     * @param cursorPosition the cursor current position
      *
      * not noexcept because it calls SFML functions that are not noexcept
      */
-    void displaySelector(
-        const utils::Context& context,
-        const sf::Vector2<float>& cursorPosition
-    ) const &;
+    void displaySelector(const utils::Context& context) const &;
 
     /**
      * @brief indicates if the mouse is currently on an item of the list
