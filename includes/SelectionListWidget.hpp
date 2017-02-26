@@ -166,9 +166,7 @@ private:
     static constexpr float WIDTH {600.f};
     static constexpr float HEIGHT {600.f};
     static constexpr float ITEMS_SEPARATION {50.f};
-
-    static constexpr unsigned short ARROW_DIMENSION {64};
-    static constexpr unsigned short VISIBLE_ITEMS {12};
+    static constexpr float ARROWS_VERTICAL_POSITION {800.f};
 
     static constexpr short NO_SELECTION_INDEX {-1};
 
@@ -199,6 +197,7 @@ private:
      * 
      * @param context constant reference to the current context
      * @param horizontalPosition horizontal position of the arrow
+     * @param cursorPosition the cursor current position
      * @param arrowSprite reference to the arrow sprite,
      * not constant as the color might be changed
      * @param selected reference to the selection boolean to update
@@ -208,6 +207,7 @@ private:
     void selectArrowWhenMouseHover(
         const utils::Context& context,
         const unsigned short& horizontalPosition,
+        const sf::Vector2<float>& cursorPosition,
         sf::Sprite& arrowSprite,
         bool& selected
     ) const &;
