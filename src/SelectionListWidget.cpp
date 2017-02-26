@@ -212,16 +212,19 @@ void SelectionListWidget::display(
         return;
     }
 
+    auto& selectorIndex = impl->selectorIndex;
     if(isMouseOverItem(cursorPosition))
     {
-        displaySelector(
-            context,
-            cursorPosition
-        );
+        const float selectorPosition =
+            (cursorPosition.y - VERTICAL_POSITION) / ITEMS_SEPARATION;
+
+        selectorIndex = static_cast<short>(selectorPosition);
+
+        displaySelector(context);
     }
     else
     {
-        impl->selectorIndex = NO_SELECTION_INDEX;
+        selectorIndex = NO_SELECTION_INDEX;
     }
 
     std::for_each(
@@ -262,31 +265,19 @@ void SelectionListWidget::display(
  *
  */
 void SelectionListWidget::displaySelector(
-    const utils::Context& context,
-    const sf::Vector2<float>& cursorPosition
+    const utils::Context& context
 ) const &
 {
-    /* explicit cast to only work with integers in the division; it prevents
-       to get decimal results */
-    impl->selectorIndex =
-        (cursorPosition.y - static_cast<int>(VERTICAL_POSITION)) /
-        static_cast<int>(ITEMS_SEPARATION);
+    auto& selector = impl->selector;
 
-    /* do not display the selection surface if there is no item under the
-       cursor; implicit cast from size_t and int */
-    if (impl->selectorIndex >= impl->texts.size())
-    {
-        return;
-    }
-
-    /* set the selector position */
-    impl->selector.setPosition(
-        impl->horizontalPosition + 1.f,
-        VERTICAL_POSITION + 1.f +
+    constexpr float MARGER_BETWEEN_BORDER_AND_SELECTOR {1.f};
+    selector.setPosition(
+        impl->horizontalPosition + MARGER_BETWEEN_BORDER_AND_SELECTOR,
+        VERTICAL_POSITION + MARGER_BETWEEN_BORDER_AND_SELECTOR +
         static_cast<float>(impl->selectorIndex) * ITEMS_SEPARATION
     );
 
-    impl->window.draw(impl->selector);
+    impl->window.draw(selector);
 }
 
 /**
