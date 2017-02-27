@@ -96,6 +96,13 @@ public:
     const std::string getCurrentItem() const &;
 
     /**
+     * @brief getter of the current list items amount
+     *
+     * @return const size_t
+     */
+    const size_t getItemsAmount() const & noexcept;
+
+    /**
      * @brief updates the displayed items list if an arrow is clicked
      *
      * not noexcept because it calls SFML functions that are not noexcept

@@ -319,6 +319,14 @@ const std::string SelectionListWidget::getCurrentItem() const &
 /**
  *
  */
+const size_t SelectionListWidget::getItemsAmount() const & noexcept
+{
+    return impl->texts.size();
+}
+
+/**
+ *
+ */
 const bool SelectionListWidget::isAnyItemSelected() const & noexcept
 {
     const auto& index = impl->selectorIndex;
