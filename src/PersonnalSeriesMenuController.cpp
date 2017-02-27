@@ -139,7 +139,13 @@ const ControllerId& PersonalSeriesMenuController::render() const &
         }
         case sf::Event::MouseButtonPressed:
         {
-            if (list.isAnyItemSelected())
+
+            const auto& index = list.getCurrentIndex();
+
+            if (
+                index < list.getItemsAmount() and
+                index != widgets::SelectionListWidget::NO_SELECTION_INDEX
+            )
             {
                 try
                 {
