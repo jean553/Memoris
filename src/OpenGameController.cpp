@@ -137,7 +137,12 @@ const ControllerId& OpenGameController::render() const &
         case sf::Event::MouseButtonPressed:
         {
             const auto& list = impl->list;
-            if (list.isAnyItemSelected())
+            const auto& index = list.getCurrentIndex();
+
+            if (
+                index < list.getItemsAmount() and
+                index != widgets::SelectionListWidget::NO_SELECTION_INDEX
+            )
             {
                 context.getGame().createGame(list.getCurrentItem());
 

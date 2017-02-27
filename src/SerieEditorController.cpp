@@ -329,7 +329,19 @@ const ControllerId& SerieEditorController::render() const &
             const auto& levelsList = impl->lists.getLevelsList();
             const auto& seriesList = impl->lists.getSerieLevelsList();
 
-            if (levelsList.isAnyItemSelected())
+            const auto& levelsListItemsAmount = levelsList.getItemsAmount();
+            const auto& seriesListItemsAmount = seriesList.getItemsAmount();
+
+            const auto& levelsListCurrentIndex = levelsList.getCurrentIndex();
+            const auto& seriesListCurrentIndex = seriesList.getCurrentIndex();
+
+            constexpr short NO_SELECTION_INDEX =
+                widgets::SelectionListWidget::NO_SELECTION_INDEX;
+
+            if (
+                levelsListCurrentIndex < levelsListItemsAmount and
+                levelsListCurrentIndex != NO_SELECTION_INDEX
+            )
             {
                 impl->lists.getSerieLevelsList().addItem(
                     context,
@@ -340,7 +352,10 @@ const ControllerId& SerieEditorController::render() const &
 
                 markSerieUnsaved();
             }
-            else if (seriesList.isAnyItemSelected())
+            else if (
+                seriesListCurrentIndex < seriesListItemsAmount and
+                seriesListCurrentIndex != NO_SELECTION_INDEX
+            )
             {
                 impl->lists.getLevelsList().addItem(
                     context,

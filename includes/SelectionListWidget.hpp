@@ -54,6 +54,8 @@ class SelectionListWidget
 
 public:
 
+    static constexpr short NO_SELECTION_INDEX {-1};
+
     /**
      * @brief constructor
      *
@@ -96,6 +98,20 @@ public:
     const std::string getCurrentItem() const &;
 
     /**
+     * @brief getter of the current list items amount
+     *
+     * @return const size_t
+     */
+    const size_t getItemsAmount() const & noexcept;
+
+    /**
+     * @brief getter of the current index
+     *
+     * @return const short&
+     */
+    const short& getCurrentIndex() const & noexcept;
+
+    /**
      * @brief updates the displayed items list if an arrow is clicked
      *
      * not noexcept because it calls SFML functions that are not noexcept
@@ -134,13 +150,6 @@ public:
      */
     void deleteAllItems() const & noexcept;
 
-    /**
-     * @brief checks if an item is selected or not
-     *
-     * @return const bool
-     */
-    const bool isAnyItemSelected() const & noexcept;
-
 protected:
 
     /**
@@ -168,7 +177,6 @@ private:
     static constexpr float ITEMS_SEPARATION {50.f};
     static constexpr float ARROWS_VERTICAL_POSITION {800.f};
 
-    static constexpr short NO_SELECTION_INDEX {-1};
 
     /**
      * @brief move the visual selector according to the current cursor position
