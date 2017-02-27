@@ -150,13 +150,6 @@ public:
      */
     void deleteAllItems() const & noexcept;
 
-    /**
-     * @brief checks if an item is selected or not
-     *
-     * @return const bool
-     */
-    const bool isAnyItemSelected() const & noexcept;
-
 protected:
 
     /**

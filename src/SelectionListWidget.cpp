@@ -335,23 +335,6 @@ const short& SelectionListWidget::getCurrentIndex() const & noexcept
 /**
  *
  */
-const bool SelectionListWidget::isAnyItemSelected() const & noexcept
-{
-    const auto& index = impl->selectorIndex;
-    if (
-        index >= impl->texts.size() or
-        index == NO_SELECTION_INDEX
-    )
-    {
-        return false;
-    }
-
-    return true;
-}
-
-/**
- *
- */
 std::vector<sf::Text>& SelectionListWidget::getList() const & noexcept
 {
     return impl->texts;
