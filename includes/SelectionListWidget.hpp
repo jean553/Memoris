@@ -54,6 +54,8 @@ class SelectionListWidget
 
 public:
 
+    static constexpr short NO_SELECTION_INDEX {-1};
+
     /**
      * @brief constructor
      *
@@ -175,7 +177,6 @@ private:
     static constexpr float ITEMS_SEPARATION {50.f};
     static constexpr float ARROWS_VERTICAL_POSITION {800.f};
 
-    static constexpr short NO_SELECTION_INDEX {-1};
 
     /**
      * @brief move the visual selector according to the current cursor position
