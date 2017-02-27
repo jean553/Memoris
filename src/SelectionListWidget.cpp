@@ -327,6 +327,14 @@ const size_t SelectionListWidget::getItemsAmount() const & noexcept
 /**
  *
  */
+const short& SelectionListWidget::getCurrentIndex() const & noexcept
+{
+    return impl->selectorIndex;
+}
+
+/**
+ *
+ */
 const bool SelectionListWidget::isAnyItemSelected() const & noexcept
 {
     const auto& index = impl->selectorIndex;
