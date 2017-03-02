@@ -57,6 +57,14 @@ public:
     static constexpr short NO_SELECTION_INDEX {-1};
 
     /**
+     * @brief indicates the list scroll movement
+     */
+    enum class ListMovement {
+        Up, /** <- the items are moved down and visible index moved up */
+        Down /** <- the items are moved up and visile index moved down */
+    };
+
+    /**
      * @brief constructor
      *
      * @param context the context to use
@@ -112,11 +120,27 @@ public:
     const short& getCurrentIndex() const & noexcept;
 
     /**
-     * @brief updates the displayed items list if an arrow is clicked
+     * @brief indicates if the list can be scrolled up
+     *
+     * @return const bool
+     */
+    const bool canScrollUp() const & noexcept;
+
+    /**
+     * @brief indicates if the list can be scrolled down
+     *
+     * @return const bool
+     */
+    const bool canScrollDown() const & noexcept;
+
+    /**
+     * @brief scroll the list in the given direction (movement)
+     *
+     * @param movement the movement to perform, up or down
      *
      * not noexcept because it calls SFML functions that are not noexcept
      */
-    void updateList() const &;
+    void updateAllItemsPosition(const ListMovement& movement) const &;
 
     /**
      * @brief deletes the selected item
@@ -219,16 +243,6 @@ private:
         sf::Sprite& arrowSprite,
         bool& selected
     ) const &;
-
-    /**
-     * @brief updates the position of all the items on the list according
-     * to the user clicks on the arrow buttons
-     *
-     * @param movement constant reference to the movement (1 or -1)
-     *
-     * not noexcept because it calls SFML functions that are not noexcept
-     */
-    void updateAllItemsPosition(const float& movement) const &;
 
     class Impl;
     std::unique_ptr<Impl> impl;

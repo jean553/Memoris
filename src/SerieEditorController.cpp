@@ -367,8 +367,25 @@ const ControllerId& SerieEditorController::render() const &
                 markSerieUnsaved();
             }
 
-            levelsList.updateList();
-            seriesList.updateList();
+            using ListMovement = widgets::SelectionListWidget::ListMovement;
+
+            if (levelsList.canScrollUp())
+            {
+                levelsList.updateAllItemsPosition(ListMovement::Up);
+            }
+            else if (levelsList.canScrollDown())
+            {
+                levelsList.updateAllItemsPosition(ListMovement::Down);
+            }
+
+            if (seriesList.canScrollUp())
+            {
+                seriesList.updateAllItemsPosition(ListMovement::Up);
+            }
+            else if (seriesList.canScrollDown())
+            {
+                seriesList.updateAllItemsPosition(ListMovement::Down);
+            }
 
             break;
         }

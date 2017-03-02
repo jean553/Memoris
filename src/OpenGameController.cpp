@@ -151,7 +151,16 @@ const ControllerId& OpenGameController::render() const &
                 break;
             }
 
-            list.updateList();
+            using ListMovement = widgets::SelectionListWidget::ListMovement;
+
+            if (list.canScrollUp())
+            {
+                list.updateAllItemsPosition(ListMovement::Up);
+            }
+            else if (list.canScrollDown())
+            {
+                list.updateAllItemsPosition(ListMovement::Down);
+            }
 
             break;
         }
