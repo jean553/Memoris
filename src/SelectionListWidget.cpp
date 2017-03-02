@@ -393,43 +393,46 @@ void SelectionListWidget::selectArrowWhenMouseHover(
 /**
  *
  */
-void SelectionListWidget::updateList() const &
+const bool SelectionListWidget::canScrollUp() const & noexcept
 {
-    constexpr float DISPLAY_NEXT_ITEM_STEP {-1.f};
-    constexpr float DISPLAY_PREVIOUS_ITEM_STEP {1.f};
-
-    constexpr unsigned short VISIBLE_ITEMS {12};
-
-    if (
-        impl->mouseHoverLeftArrow and
-        impl->offset != 0
-    )
-    {
-        impl->offset--;
-
-        updateAllItemsPosition(DISPLAY_PREVIOUS_ITEM_STEP);
-    }
-    else if (
-        impl->mouseHoverRightArrow and
-        impl->offset + VISIBLE_ITEMS != impl->texts.size()
-    )
-    {
-        impl->offset++;
-
-        updateAllItemsPosition(DISPLAY_NEXT_ITEM_STEP);
-    }
+    constexpr unsigned short MIN_OFFSET {0};
+    return impl->mouseHoverLeftArrow and impl->offset != MIN_OFFSET;
 }
 
 /**
  *
  */
-void SelectionListWidget::updateAllItemsPosition(const float& movement) const &
+const bool SelectionListWidget::canScrollDown() const & noexcept
 {
+    constexpr unsigned short VISIBLE_ITEMS_AMOUNT {12};
+
+    return impl->mouseHoverRightArrow and
+        impl->offset + VISIBLE_ITEMS_AMOUNT != impl->texts.size();
+}
+
+/**
+ *
+ */
+void SelectionListWidget::updateAllItemsPosition(const ListMovement& movement)
+    const &
+{
+    short listMovement {-1};
+
+    if (movement == ListMovement::Up)
+    {
+        listMovement = 1;
+    }
+
+    impl->offset += listMovement;
+
+    const auto positionUpdate =
+        ITEMS_SEPARATION * static_cast<float>(listMovement);
+
     for (sf::Text& text : impl->texts)
     {
         text.setPosition(
             impl->horizontalPosition,
-            text.getPosition().y + ITEMS_SEPARATION * movement
+            text.getPosition().y + positionUpdate
         );
     }
 }

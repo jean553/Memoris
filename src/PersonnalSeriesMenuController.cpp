@@ -165,10 +165,19 @@ const ControllerId& PersonalSeriesMenuController::render() const &
                     setExpectedControllerId(ControllerId::OpenFileError);
                 }
 
+                using ListMovement = widgets::SelectionListWidget::ListMovement;
+
+                if (list.canScrollUp())
+                {
+                    list.updateAllItemsPosition(ListMovement::Up);
+                }
+                else if (list.canScrollDown())
+                {
+                    list.updateAllItemsPosition(ListMovement::Down);
+                }
+
                 break;
             }
-
-            list.updateList();
 
             break;
         }
