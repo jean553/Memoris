@@ -442,25 +442,21 @@ void SelectionListWidget::updateAllItemsPosition(const ListMovement& movement)
  */
 void SelectionListWidget::deleteSelectedItem() const &
 {
-    // std::vector<sf::Text>&
     auto& texts = impl->texts;
 
-    /* we can use the operator + here between
-       integers and iterator because it is a random access iterator; we
-       explicitly declare the type to prevent oversights */
+    /* we can use the operator plus here between integers and iterator
+       because it is a random access iterator; we explicitly declare
+       the type to prevent oversights */
     const std::vector<sf::Text>::iterator offsetIndex =
         texts.begin() + impl->selectorIndex + impl->offset;
 
-    /* erase guarantees no exception */
     texts.erase(offsetIndex);
 
-    // const float&
     const auto& horizontalPosition = impl->horizontalPosition;
 
-    /* not a const_iterator because setPosition
-       modifies the iterated objects */
+    /* not a const_iterator as setPosition() modifies the iterated objects */
     for (
-        auto it = offsetIndex; // std::vector<sf::Text>::iterator
+        auto it = offsetIndex;
         it != texts.end();
         ++it
     )

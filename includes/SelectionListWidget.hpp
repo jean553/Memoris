@@ -138,15 +138,14 @@ public:
      *
      * @param movement the movement to perform, up or down
      *
-     * not noexcept because it calls SFML functions that are not noexcept
+     * not noexcept because SFML sf::Text::setPosition() is not noexcept
      */
     void updateAllItemsPosition(const ListMovement& movement) const &;
 
     /**
      * @brief deletes the selected item
      *
-     * not noexcept because it calls SFML methods, STL containers and iterators
-     * methods that are not noexcept
+     * not noexcept because SFML sf::Text::setPosition() is not noexcept
      */
     void deleteSelectedItem() const &;
 
