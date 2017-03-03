@@ -102,13 +102,6 @@ void FilesSelectionListWidget::loadFilesFromDirectory() const & noexcept
         throw std::invalid_argument("Cannot open the given directory");
     }
 
-    auto& texts = getList();
-
-    constexpr float VERTICAL_POSITION_ORIGIN {200.f};
-    constexpr float VERTICAL_ITEMS_SEPARATION {50.f};
-
-    float verticalPosition {VERTICAL_POSITION_ORIGIN};
-
     while((reader = readdir(dir)) != NULL)
     {
         /* std::string operator= accepts const char* types */
@@ -129,23 +122,7 @@ void FilesSelectionListWidget::loadFilesFromDirectory() const & noexcept
             continue;
         }
 
-        const auto& context = impl->context;
-
-        sf::Text text(
-            item,
-            context.getFontsManager().getTextFont(),
-            fonts::TEXT_SIZE
-        );
-
-        text.setColor(context.getColorsManager().getColorWhite());
-        text.setPosition(
-            getHorizontalPosition(),
-            verticalPosition
-        );
-
-        texts.push_back(text);
-
-        verticalPosition += VERTICAL_ITEMS_SEPARATION;
+        addItem(std::move(item));
     }
 
     closedir(dir);
