@@ -473,26 +473,28 @@ void SelectionListWidget::deleteSelectedItem() const &
  */
 void SelectionListWidget::addItem(
     const utils::Context& context,
-    const std::string& item
+    const std::string&& text
 ) const &
 {
-    sf::Text text(
-        item,
+    sf::Text surface(
+        text,
         context.getFontsManager().getTextFont(),
         fonts::TEXT_SIZE
     );
 
-    text.setColor(context.getColorsManager().getColorWhite());
+    surface.setColor(context.getColorsManager().getColorWhite());
 
-    // std::vector<sf::Text>&
     auto& texts = impl->texts;
 
-    text.setPosition(
+    const auto& verticalPosition = VERTICAL_POSITION +
+        ITEMS_SEPARATION * static_cast<float>(texts.size());
+
+    surface.setPosition(
         impl->horizontalPosition,
-        VERTICAL_POSITION + ITEMS_SEPARATION * texts.size()
+        verticalPosition
     );
 
-    texts.push_back(text);
+    texts.push_back(surface);
 }
 
 /**
