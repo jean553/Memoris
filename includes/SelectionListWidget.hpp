@@ -86,15 +86,11 @@ public:
     /**
      * @brief displays the widget
      *
-     * @param context the current context to use
      * @param cursorPosition the current position of the cursor
      *
      * calls SFML functions that are not noexcept
      */
-    void display(
-        const utils::Context& context,
-        const sf::Vector2<float>& cursorPosition
-    ) const &;
+    void display(const sf::Vector2<float>& cursorPosition) const &;
 
     /**
      * @brief getter of the current pointed item string
@@ -152,15 +148,11 @@ public:
     /**
      * @brief add one string into the displayed list
      *
-     * @param context the context to use
      * @param text the text to display for the new item
      *
      * not noexcept because SFML sf::Text methods are not noexcept
      */
-    void addItem(
-        const utils::Context& context,
-        const std::string&& text
-    ) const &;
+    void addItem(const std::string&& text) const &;
 
     /**
      * @brief getter of the stored values in the list
@@ -206,11 +198,9 @@ private:
     /**
      * @brief move the visual selector according to the current cursor position
      *
-     * @param context the current context to use
-     *
      * not noexcept because it calls SFML functions that are not noexcept
      */
-    void displaySelector(const utils::Context& context) const &;
+    void displaySelector() const &;
 
     /**
      * @brief indicates if the mouse is currently on an item of the list
@@ -228,7 +218,6 @@ private:
     /**
      * @brief selects an arrow if the mouse is hover
      *
-     * @param context constant reference to the current context
      * @param horizontalPosition horizontal position of the arrow
      * @param cursorPosition the cursor current position
      * @param arrowSprite reference to the arrow sprite,
@@ -238,7 +227,6 @@ private:
      * not noexcept as it calls SFML functions that are not noexcept
      */
     void selectArrowWhenMouseHover(
-        const utils::Context& context,
         const unsigned short& horizontalPosition,
         const sf::Vector2<float>& cursorPosition,
         sf::Sprite& arrowSprite,

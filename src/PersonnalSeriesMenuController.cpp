@@ -108,10 +108,7 @@ const ControllerId& PersonalSeriesMenuController::render() const &
     const auto& cursorPosition = cursor.getPosition();
 
     const auto& list = impl->list;
-    list.display(
-        context,
-        cursorPosition
-    );
+    list.display(cursorPosition);
 
     impl->cursor.render(context);
 

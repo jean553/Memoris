@@ -77,15 +77,8 @@ void DoubleSelectionListWidget::display(
     const sf::Vector2<float>& cursorPosition
 ) const &
 {
-    impl->allLevelsList.display(
-        context,
-        cursorPosition
-    );
-
-    impl->serieLevelsList.display(
-        context,
-        cursorPosition
-    );
+    impl->allLevelsList.display(cursorPosition);
+    impl->serieLevelsList.display(cursorPosition);
 }
 
 /**

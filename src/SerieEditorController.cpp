@@ -344,7 +344,6 @@ const ControllerId& SerieEditorController::render() const &
             )
             {
                 impl->lists.getSerieLevelsList().addItem(
-                    context,
                     levelsList.getCurrentItem()
                 );
 
@@ -358,7 +357,6 @@ const ControllerId& SerieEditorController::render() const &
             )
             {
                 impl->lists.getLevelsList().addItem(
-                    context,
                     seriesList.getCurrentItem()
                 );
 
