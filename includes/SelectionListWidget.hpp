@@ -152,12 +152,14 @@ public:
     /**
      * @brief add one string into the displayed list
      *
-     * @param context constant reference to the current context to use
-     * @param item constant reference to the string to insert
+     * @param context the context to use
+     * @param text the text to display for the new item
+     *
+     * not noexcept because SFML sf::Text methods are not noexcept
      */
     void addItem(
         const utils::Context& context,
-        const std::string& item
+        const std::string&& text
     ) const &;
 
     /**
@@ -220,12 +222,12 @@ private:
      * not noexcept because it calls SFML sf::Text::getPosition() method
      * and this method is not noexcept
      */
-    const bool isMouseOverItem(const sf::Vector2<float>& cursorPosition) 
+    const bool isMouseOverItem(const sf::Vector2<float>& cursorPosition)
         const &;
 
     /**
      * @brief selects an arrow if the mouse is hover
-     * 
+     *
      * @param context constant reference to the current context
      * @param horizontalPosition horizontal position of the arrow
      * @param cursorPosition the cursor current position
