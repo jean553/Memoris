@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2016  Jean LELIEVRE
+ * Copyright (C) 2017 Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -95,11 +95,14 @@ public:
     /**
      * @brief getter of the current pointed item string
      *
-     * @return const std::string
+     * @return std::string
      *
      * sf::Text::getString() is not noexcept
+     *
+     * returned string is not constant, because the returned object
+     * can be use in the serie editor in order to move rvalues
      */
-    const std::string getCurrentItem() const &;
+    std::string getCurrentItem() const &;
 
     /**
      * @brief getter of the current list items amount
@@ -152,7 +155,7 @@ public:
      *
      * not noexcept because SFML sf::Text methods are not noexcept
      */
-    void addItem(const std::string&& text) const &;
+    void addItem(std::string&& text) const &;
 
     /**
      * @brief getter of the stored values in the list
@@ -162,22 +165,13 @@ public:
     const std::vector<sf::Text>& getTexts() const & noexcept;
 
     /**
-     * @brief deletes all the items from the list; use std::vector<T>::clear()
-     * which does not throw any exception
+     * @brief deletes all the items from the list
+     *
+     * use std::vector<T>::clear() that does not throw any exception
      */
     void deleteAllItems() const & noexcept;
 
 protected:
-
-    /**
-     * @brief getter of the texts list
-     *
-     * @return std::vector<sf::Text>&
-     *
-     * this method has been created in order to let the children objects
-     * modify the list, so, the returned std::vector is not constant
-     */
-    std::vector<sf::Text>& getList() const & noexcept;
 
     /**
      * @brief getter of the horizontal position
@@ -193,7 +187,6 @@ private:
     static constexpr float HEIGHT {600.f};
     static constexpr float ITEMS_SEPARATION {50.f};
     static constexpr float ARROWS_VERTICAL_POSITION {800.f};
-
 
     /**
      * @brief move the visual selector according to the current cursor position

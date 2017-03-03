@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2016  Jean LELIEVRE
+ * Copyright (C) 2017 Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,6 +35,8 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Mouse.hpp>
+
+#include <utility>
 
 namespace memoris
 {
@@ -263,52 +265,7 @@ void SelectionListWidget::display(
 /**
  *
  */
-void SelectionListWidget::displaySelector() const &
-{
-    auto& selector = impl->selector;
-
-    constexpr float MARGER_BETWEEN_BORDER_AND_SELECTOR {1.f};
-    selector.setPosition(
-        impl->horizontalPosition + MARGER_BETWEEN_BORDER_AND_SELECTOR,
-        VERTICAL_POSITION + MARGER_BETWEEN_BORDER_AND_SELECTOR +
-        static_cast<float>(impl->selectorIndex) * ITEMS_SEPARATION
-    );
-
-    impl->context.getSfmlWindow().draw(selector);
-}
-
-/**
- *
- */
-const bool SelectionListWidget::isMouseOverItem(
-    const sf::Vector2<float>& cursorPosition
-) const &
-{
-    const auto& cursorHorizontalPosition = cursorPosition.x;
-    const auto& cursorVerticalPosition = cursorPosition.y;
-
-    const auto& rightBorderHorizontalPosition =
-        impl->horizontalPosition + WIDTH;
-    const auto& lastItemVerticalBottom =
-        impl->texts.back().getPosition().y + ITEMS_SEPARATION;
-
-    if (
-        cursorHorizontalPosition < impl->horizontalPosition or
-        cursorHorizontalPosition > rightBorderHorizontalPosition or
-        cursorVerticalPosition < VERTICAL_POSITION or
-        cursorVerticalPosition > lastItemVerticalBottom
-    )
-    {
-        return false;
-    }
-
-    return true;
-}
-
-/**
- *
- */
-const std::string SelectionListWidget::getCurrentItem() const &
+std::string SelectionListWidget::getCurrentItem() const &
 {
     return impl->texts[impl->selectorIndex + impl->offset].getString();
 }
@@ -327,65 +284,6 @@ const size_t SelectionListWidget::getItemsAmount() const & noexcept
 const short& SelectionListWidget::getCurrentIndex() const & noexcept
 {
     return impl->selectorIndex;
-}
-
-/**
- *
- */
-std::vector<sf::Text>& SelectionListWidget::getList() const & noexcept
-{
-    return impl->texts;
-}
-
-/**
- *
- */
-const float& SelectionListWidget::getHorizontalPosition() const & noexcept
-{
-    return impl->horizontalPosition;
-}
-
-/**
- *
- */
-void SelectionListWidget::selectArrowWhenMouseHover(
-    const unsigned short& arrowHorizontalPosition,
-    const sf::Vector2<float>& cursorPosition,
-    sf::Sprite& arrowSprite,
-    bool& selected
-) const &
-{
-    const auto& context = impl->context;
-
-    const auto& colorsManager = context.getColorsManager();
-
-    constexpr float ARROW_DIMENSION {64.f};
-
-    if (
-        cursorPosition.x > arrowHorizontalPosition and
-        cursorPosition.x < arrowHorizontalPosition + ARROW_DIMENSION and
-        cursorPosition.y > ARROWS_VERTICAL_POSITION and
-        cursorPosition.y < ARROWS_VERTICAL_POSITION + ARROW_DIMENSION and
-        not selected
-    )
-    {
-        arrowSprite.setColor(colorsManager.getColorWhiteLowAlpha());
-
-        selected = true;
-    }
-    else if (
-        (
-            cursorPosition.x < arrowHorizontalPosition or
-            cursorPosition.x > arrowHorizontalPosition + ARROW_DIMENSION or
-            cursorPosition.y < ARROWS_VERTICAL_POSITION or
-            cursorPosition.y > ARROWS_VERTICAL_POSITION + ARROW_DIMENSION
-        ) and selected
-    )
-    {
-        arrowSprite.setColor(colorsManager.getColorWhite());
-
-        selected = false;
-    }
 }
 
 /**
@@ -469,7 +367,7 @@ void SelectionListWidget::deleteSelectedItem() const &
 /**
  *
  */
-void SelectionListWidget::addItem(const std::string&& text) const &
+void SelectionListWidget::addItem(std::string&& text) const &
 {
     const auto& context = impl->context;
 
@@ -508,6 +406,102 @@ const std::vector<sf::Text>& SelectionListWidget::getTexts() const & noexcept
 void SelectionListWidget::deleteAllItems() const & noexcept
 {
     impl->texts.clear();
+}
+
+/**
+ *
+ */
+const float& SelectionListWidget::getHorizontalPosition() const & noexcept
+{
+    return impl->horizontalPosition;
+}
+
+/**
+ *
+ */
+void SelectionListWidget::displaySelector() const &
+{
+    auto& selector = impl->selector;
+
+    constexpr float MARGER_BETWEEN_BORDER_AND_SELECTOR {1.f};
+    selector.setPosition(
+        impl->horizontalPosition + MARGER_BETWEEN_BORDER_AND_SELECTOR,
+        VERTICAL_POSITION + MARGER_BETWEEN_BORDER_AND_SELECTOR +
+        static_cast<float>(impl->selectorIndex) * ITEMS_SEPARATION
+    );
+
+    impl->context.getSfmlWindow().draw(selector);
+}
+
+/**
+ *
+ */
+const bool SelectionListWidget::isMouseOverItem(
+    const sf::Vector2<float>& cursorPosition
+) const &
+{
+    const auto& cursorHorizontalPosition = cursorPosition.x;
+    const auto& cursorVerticalPosition = cursorPosition.y;
+
+    const auto& rightBorderHorizontalPosition =
+        impl->horizontalPosition + WIDTH;
+    const auto& lastItemVerticalBottom =
+        impl->texts.back().getPosition().y + ITEMS_SEPARATION;
+
+    if (
+        cursorHorizontalPosition < impl->horizontalPosition or
+        cursorHorizontalPosition > rightBorderHorizontalPosition or
+        cursorVerticalPosition < VERTICAL_POSITION or
+        cursorVerticalPosition > lastItemVerticalBottom
+    )
+    {
+        return false;
+    }
+
+    return true;
+}
+
+/**
+ *
+ */
+void SelectionListWidget::selectArrowWhenMouseHover(
+    const unsigned short& arrowHorizontalPosition,
+    const sf::Vector2<float>& cursorPosition,
+    sf::Sprite& arrowSprite,
+    bool& selected
+) const &
+{
+    const auto& context = impl->context;
+
+    const auto& colorsManager = context.getColorsManager();
+
+    constexpr float ARROW_DIMENSION {64.f};
+
+    if (
+        cursorPosition.x > arrowHorizontalPosition and
+        cursorPosition.x < arrowHorizontalPosition + ARROW_DIMENSION and
+        cursorPosition.y > ARROWS_VERTICAL_POSITION and
+        cursorPosition.y < ARROWS_VERTICAL_POSITION + ARROW_DIMENSION and
+        not selected
+    )
+    {
+        arrowSprite.setColor(colorsManager.getColorWhiteLowAlpha());
+
+        selected = true;
+    }
+    else if (
+        (
+            cursorPosition.x < arrowHorizontalPosition or
+            cursorPosition.x > arrowHorizontalPosition + ARROW_DIMENSION or
+            cursorPosition.y < ARROWS_VERTICAL_POSITION or
+            cursorPosition.y > ARROWS_VERTICAL_POSITION + ARROW_DIMENSION
+        ) and selected
+    )
+    {
+        arrowSprite.setColor(colorsManager.getColorWhite());
+
+        selected = false;
+    }
 }
 
 }
