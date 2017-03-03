@@ -102,10 +102,7 @@ const ControllerId& OpenGameController::render() const &
     auto& cursor = impl->cursor;
     const auto cursorPosition = cursor.getPosition();
 
-    impl->list.display(
-        context,
-        cursorPosition
-    );
+    impl->list.display(cursorPosition);
 
     cursor.render(context);
 

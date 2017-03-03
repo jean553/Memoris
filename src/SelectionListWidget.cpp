@@ -50,8 +50,8 @@ public:
         const utils::Context& context,
         const float& originHorizontalPosition
     ) :
-        horizontalPosition(originHorizontalPosition),
-        window(context.getSfmlWindow())
+        context(context),
+        horizontalPosition(originHorizontalPosition)
     {
         top.setPosition(
             horizontalPosition,
@@ -140,6 +140,8 @@ public:
         );
     }
 
+    const utils::Context& context;
+
     sf::RectangleShape top;
     sf::RectangleShape bottom;
     sf::RectangleShape left;
@@ -162,8 +164,6 @@ public:
     float leftArrowHorizontalPosition {0.f};
     float rightArrowHorizontalPosition {0.f};
     float horizontalPosition;
-
-    sf::RenderWindow& window;
 };
 
 /**
@@ -191,11 +191,12 @@ SelectionListWidget::~SelectionListWidget() = default;
  *
  */
 void SelectionListWidget::display(
-    const utils::Context& context,
     const sf::Vector2<float>& cursorPosition
 ) const &
 {
-    auto& window = impl->window;
+    const auto& context = impl->context;
+
+    auto& window = context.getSfmlWindow();
     window.draw(impl->top);
     window.draw(impl->left);
     window.draw(impl->right);
@@ -218,7 +219,7 @@ void SelectionListWidget::display(
 
         selectorIndex = static_cast<short>(selectorPosition);
 
-        displaySelector(context);
+        displaySelector();
     }
     else
     {
@@ -245,7 +246,6 @@ void SelectionListWidget::display(
     );
 
     selectArrowWhenMouseHover(
-        context,
         impl->leftArrowHorizontalPosition,
         cursorPosition,
         impl->arrowUp,
@@ -253,7 +253,6 @@ void SelectionListWidget::display(
     );
 
     selectArrowWhenMouseHover(
-        context,
         impl->rightArrowHorizontalPosition,
         cursorPosition,
         impl->arrowDown,
@@ -264,9 +263,7 @@ void SelectionListWidget::display(
 /**
  *
  */
-void SelectionListWidget::displaySelector(
-    const utils::Context& context
-) const &
+void SelectionListWidget::displaySelector() const &
 {
     auto& selector = impl->selector;
 
@@ -277,7 +274,7 @@ void SelectionListWidget::displaySelector(
         static_cast<float>(impl->selectorIndex) * ITEMS_SEPARATION
     );
 
-    impl->window.draw(selector);
+    impl->context.getSfmlWindow().draw(selector);
 }
 
 /**
@@ -352,13 +349,14 @@ const float& SelectionListWidget::getHorizontalPosition() const & noexcept
  *
  */
 void SelectionListWidget::selectArrowWhenMouseHover(
-    const utils::Context& context,
     const unsigned short& arrowHorizontalPosition,
     const sf::Vector2<float>& cursorPosition,
     sf::Sprite& arrowSprite,
     bool& selected
 ) const &
 {
+    const auto& context = impl->context;
+
     const auto& colorsManager = context.getColorsManager();
 
     constexpr float ARROW_DIMENSION {64.f};
@@ -471,11 +469,10 @@ void SelectionListWidget::deleteSelectedItem() const &
 /**
  *
  */
-void SelectionListWidget::addItem(
-    const utils::Context& context,
-    const std::string&& text
-) const &
+void SelectionListWidget::addItem(const std::string&& text) const &
 {
+    const auto& context = impl->context;
+
     sf::Text surface(
         text,
         context.getFontsManager().getTextFont(),
