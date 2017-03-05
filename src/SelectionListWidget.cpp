@@ -34,9 +34,6 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Window/Mouse.hpp>
-
-#include <utility>
 
 namespace memoris
 {
