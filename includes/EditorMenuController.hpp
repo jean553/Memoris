@@ -1,6 +1,6 @@
 /**
  * Memoris
- * Copyright (C) 2016  Jean LELIEVRE
+ * Copyright (C) 2017  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 
 /**
  * @file EditorMenuController.hpp
- * @brief render the editor menu where the user can select to start the level
+ * @brief menu to select between the level or serie editor
  * editor or the serie editor
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -39,38 +39,35 @@ class EditorMenuController : public AbstractMenuController
 public:
 
     /**
-     * @brief constructor, initializes the implementation
+     * @brief constructor
      *
-     * @param context reference to the current context to use
+     * @param context the context to use
      *
-     * context reference is not 'const' because it calls methods that takes
-     * a non-const context reference
-     *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * the exception is never caught and the program fails
      */
     EditorMenuController(const utils::Context& context);
 
     /**
-     * @brief default destructor, empty, only declared in order to use
-     * forwarding declaration
+     * @brief default destructor
      */
-    ~EditorMenuController() noexcept;
+    ~EditorMenuController();
 
     /**
      * @brief render the editor menu controller
      *
      * @return const ControllerId&
      *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
+     * no one of the controllers overwritten render() method is noexcept;
+     * (check parent declaration for details);
+     * they all use SFML methods that are not noexcept
      */
     virtual const ControllerId& render() const & override;
 
 private:
 
     /**
-     * @brief handles menu items selection, declared in the parent class
-     *
-     * not 'const' because it modifies the expected controller id
+     * @brief updates the expected controller id according to the selection
      */
     virtual void selectMenuItem() const & noexcept override;
 
