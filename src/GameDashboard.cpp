@@ -393,7 +393,9 @@ const float GameDashboard::getHorizontalPositionLessWidth(
     const sf::Text& sfmlSurface
 ) const &
 {
-    return rightSideHorizontalPosition - sfmlSurface.getLocalBounds().width;
+    constexpr float MINIMUM_PAGGING {15.f};
+    return rightSideHorizontalPosition - sfmlSurface.getLocalBounds().width -
+        MINIMUM_PAGGING;
 }
 
 /**
