@@ -1,6 +1,6 @@
 /**
  * Memoris
- * Copyright (C) 2016  Jean LELIEVRE
+ * Copyright (C) 2017  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -49,13 +49,14 @@ public:
 
     Impl(const utils::Context& context)
     {
+        constexpr float TITLE_VERTICAL_POSITION {50.f};
         title.setFont(context.getFontsManager().getTitleFont());
         title.setString("Editor");
         title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
         title.setColor(context.getColorsManager().getColorLightBlue());
         title.setPosition(
             window::getCenteredSfmlSurfaceHorizontalPosition(title),
-            50.f
+            TITLE_VERTICAL_POSITION
         );
     }
 
@@ -69,27 +70,30 @@ EditorMenuController::EditorMenuController(const utils::Context& context) :
     AbstractMenuController(context),
     impl(std::make_unique<Impl>(context))
 {
+    constexpr float LEVEL_VERTICAL_POSITION {200.f};
     std::unique_ptr<items::MenuItem> level(
         std::make_unique<items::MenuItem>(
             context,
             "Level",
-            200.f
+            LEVEL_VERTICAL_POSITION
         )
     );
 
+    constexpr float SERIE_VERTICAL_POSITION {350.f};
     std::unique_ptr<items::MenuItem> serie(
         std::make_unique<items::MenuItem>(
             context,
             "Serie",
-            350.f
+            SERIE_VERTICAL_POSITION
         )
     );
 
+    constexpr float EXIT_VERTICAL_POSITION {800.f};
     std::unique_ptr<items::MenuItem> back(
         std::make_unique<items::MenuItem>(
             context,
             "Back",
-            800.f
+            EXIT_VERTICAL_POSITION
         )
     );
 
@@ -103,7 +107,7 @@ EditorMenuController::EditorMenuController(const utils::Context& context) :
 /**
  *
  */
-EditorMenuController::~EditorMenuController() noexcept = default;
+EditorMenuController::~EditorMenuController() = default;
 
 /**
  *
@@ -111,15 +115,16 @@ EditorMenuController::~EditorMenuController() noexcept = default;
 const ControllerId& EditorMenuController::render() const &
 {
     const auto& context = getContext();
+    auto& window = context.getSfmlWindow();
 
-    context.getSfmlWindow().draw(impl->title);
+    window.draw(impl->title);
 
     renderAllMenuItems();
 
     setNextControllerId(animateScreenTransition(context));
 
     auto& event = getEvent();
-    while(context.getSfmlWindow().pollEvent(event))
+    while(window.pollEvent(event))
     {
         switch(event.type)
         {
@@ -173,11 +178,13 @@ const ControllerId& EditorMenuController::render() const &
             }
             default:
             {
+                break;
             }
             }
         }
         default:
         {
+            break;
         }
         }
     }
