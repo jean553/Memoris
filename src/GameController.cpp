@@ -319,7 +319,10 @@ const ControllerId& GameController::render() const &
 
     impl->pickUpEffectsManager.renderAllEffects(context);
 
-    if(impl->dashboard.getTimerWidget().isFinished())
+    if(
+        impl->dashboard.getTimerWidget().isFinished() and
+        !impl->win
+    )
     {
         endLevel(context);
     }
