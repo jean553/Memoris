@@ -53,10 +53,9 @@ public:
     TexturesManager();
 
     /**
-     * @brief default constructor, empty, only declared in order to use
-     * forwarding declaration
+     * @brief default constructor
      */
-    ~TexturesManager() noexcept;
+    ~TexturesManager();
 
     /**
      * @brief getter for the github texture
@@ -182,7 +181,7 @@ private:
      * exception is not caught in order to close the program directly if at
      * least one texture cannot be loaded
      *
-     * not 'const' because modifies the textures of the object
+     * not const because modifies the textures of the object
      */
     void loadTexture(
         sf::Texture& texture,

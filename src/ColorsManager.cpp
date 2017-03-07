@@ -144,7 +144,7 @@ impl(std::make_unique<Impl>())
 /**
  *
  */
-ColorsManager::~ColorsManager() noexcept = default;
+ColorsManager::~ColorsManager() = default;
 
 /**
  *

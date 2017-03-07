@@ -78,6 +78,10 @@ public:
         const float& horizontalPosition = 500.f
     );
 
+    SelectionListWidget(const SelectionListWidget&) = delete;
+
+    SelectionListWidget& operator=(const SelectionListWidget&) = delete;
+
     /**
      * @brief default destructor
      */

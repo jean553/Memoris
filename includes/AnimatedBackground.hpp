@@ -52,6 +52,7 @@ public:
     AnimatedBackground(const utils::Context& context);
 
     AnimatedBackground(const AnimatedBackground&) = delete;
+
     AnimatedBackground& operator=(const AnimatedBackground&) = delete;
 
     /**
@@ -62,8 +63,8 @@ public:
     /**
      * @brief render the animated background, display all the cells
      *
-     * utils::Context::getClockMillisecondsTime() and
-     * other SFML methods are not noexcept
+     * utils::Context::getClockMillisecondsTime() and others SFML methods 
+     * are not noexcept
      */
     void render() const &;
 

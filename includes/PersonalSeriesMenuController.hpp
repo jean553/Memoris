@@ -59,6 +59,11 @@ public:
     PersonalSeriesMenuController(const utils::Context& context);
 
     /**
+     * the copy constructor and copy operator are already deleted
+     * into the parent Controller class
+     */
+
+    /**
      * @brief default destructor
      */
     ~PersonalSeriesMenuController();

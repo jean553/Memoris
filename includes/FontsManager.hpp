@@ -19,6 +19,7 @@
 /**
  * @file FontsManager.hpp
  * @package fonts
+ * @brief loads and provides the fonts
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
@@ -47,18 +48,19 @@ public:
      * if one loading process failed; the exception is not caught and stops
      * the program, an error message is displayed in the console
      *
-     * @throw std::invalid_argument throw an exception if the file cannot
-     * be loaded
+     * @throw std::invalid_argument throw an exception
+     * if the file cannot be loaded
      */
     FontsManager();
 
     FontsManager(const FontsManager&) = delete;
+
     FontsManager& operator=(const FontsManager&) = delete;
 
     /**
-     * @brief default destructor, empty, declared for forwarding declaration
+     * @brief default destructor
      */
-    ~FontsManager() noexcept;
+    ~FontsManager();
 
     /**
      * @brief get title font reference
@@ -83,10 +85,10 @@ private:
      * @param font reference to the font object to set
      * @param path constant string of the path to the file to load
      *
-     * @throw std::invalid_argument throw an exception if the file cannot
-     * be loaded
+     * @throw std::invalid_argument throw an exception
+     * if the file cannot be loaded
      *
-     * not 'const' because it modifies the SFML fonts attributes, the font
+     * not const because it modifies the SFML fonts attributes, the font
      * parameter is not 'const' because it is modified by the function when
      * loading the file
      *

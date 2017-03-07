@@ -27,7 +27,6 @@
 #include "controllers_ids.hpp"
 #include "controllers.hpp"
 #include "fonts.hpp"
-#include "dialogs.hpp"
 #include "files.hpp"
 #include "InputTextWidget.hpp"
 #include "EditorDashboard.hpp"

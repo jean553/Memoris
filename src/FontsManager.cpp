@@ -55,7 +55,7 @@ FontsManager::FontsManager() :
 /**
  *
  */
-FontsManager::~FontsManager() noexcept = default;
+FontsManager::~FontsManager() = default;
 
 /**
  *

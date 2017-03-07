@@ -52,6 +52,7 @@ public:
     MenuGradient(const utils::Context& context);
 
     MenuGradient(const MenuGradient&) = delete;
+
     MenuGradient& operator=(const MenuGradient&) = delete;
 
     /**

@@ -64,16 +64,13 @@ public:
      * @throws std::invalid_argument throws if the files list cannot
      * be loaded from the personal levels directory;
      * this exception is never caught and the program terminates
-     *
-     * not 'noexcept' because it calls SFML function that are not noexcept
      */
     DoubleSelectionListWidget(const utils::Context& context);
 
     /**
-     * @brief default destructor, empty, only declared in order to use
-     * forwarding declaration
+     * @brief default destructor
      */
-    ~DoubleSelectionListWidget() noexcept;
+    ~DoubleSelectionListWidget();
 
     /**
      * @brief displays the two lists
@@ -81,7 +78,7 @@ public:
      * @param context reference to the context to use
      * @param cursorPosition current cursor position
      *
-     * not 'noexcept' because it calls some SFML method that are not noexcept
+     * not noexcept because it calls some SFML method that are not noexcept
      */
     void display(
         const utils::Context& context,

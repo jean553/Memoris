@@ -1,6 +1,6 @@
 /**
  * Memoris
- * Copyright (C) 2016  Jean LELIEVRE
+ * Copyright (C) 2017  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -52,12 +52,11 @@ class Controller
 public:
 
     Controller(const Controller&) = delete;
+
     Controller& operator=(const Controller&) = delete;
 
     /**
-     * @brief default destructor defined in order to use forwarding
-     * declaration and marked as virtual to ensure that every destructors
-     * are called during controller destruction as we use polymorphism
+     * @brief default destructor
      */
     virtual ~Controller();
 
@@ -90,7 +89,7 @@ protected:
      *
      * @return const controllers::ControllerId
      *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
+     * not noexcept because it calls SFML methods that are not noexcept
      */
     const ControllerId animateScreenTransition(
         const utils::Context& context

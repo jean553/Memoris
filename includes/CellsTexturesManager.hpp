@@ -1,6 +1,6 @@
 /**
  * Memoris
- * Copyright (C) 2016  Jean LELIEVRE
+ * Copyright (C) 2017  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 
 /**
  * @file CellsTexturesManager.hpp
- * @brief loads the cells textures
+ * @brief loads and provides the cells textures
  * @package managers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -44,22 +44,24 @@ class CellsTexturesManager
 public:
 
     /**
-     * @brief constructor, loads each texture one by one, stop if one texture
-     * cannot be loaded
+     * @brief constructor, loads each texture one by one,
+     * throws an exception if the texture cannot be loaded
      *
      * @throw std::invalid_argument if one of the image cannot be loaded, an
      * exception is thrown and never caught to let the program stops
-     *
-     * not 'noexcept' because it throws an exception if one file cannot be
-     * loaded
      */
     CellsTexturesManager();
 
+    CellsTexturesManager(const CellsTexturesManager& other) = delete;
+
+    CellsTexturesManager& operator=(
+        const CellsTexturesManager& other
+    ) = delete;
+
     /**
-     * @brief default destructor, empty, declared in order to use forwarding
-     * declaration
+     * @brief default destructor
      */
-    ~CellsTexturesManager() noexcept;
+    ~CellsTexturesManager();
 
     /**
      * @brief returns a texture reference corresponding to the given cell type
@@ -76,14 +78,14 @@ private:
     /**
      * @brief load a texture from the textures folder
      *
-     * @param texture reference to the SFML texture object that has to be set
+     * @param texture the SFML texture object that has to be set
      * @param path file path of the *.png picture to load
      *
      * @throw std::invalid_argument the given file cannot be opened; the
      * exception is not caught in order to close the program directly if at
      * least one texture cannot be loaded
      *
-     * not 'const' because modifies the textures of the object
+     * not const because modifies the textures of the object
      */
     void loadTexture(
         sf::Texture& texture,

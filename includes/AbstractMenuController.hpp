@@ -55,6 +55,11 @@ protected:
     AbstractMenuController(const utils::Context& context);
 
     /**
+     * AbstractMenuController copy constructor and copy operator deletion
+     * are already declared into the parent class
+     */
+
+    /**
      * @brief default destructor
      */
     ~AbstractMenuController();

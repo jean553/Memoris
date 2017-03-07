@@ -67,7 +67,7 @@ DoubleSelectionListWidget::DoubleSelectionListWidget(
 /**
  *
  */
-DoubleSelectionListWidget::~DoubleSelectionListWidget() noexcept = default;
+DoubleSelectionListWidget::~DoubleSelectionListWidget() = default;
 
 /**
  *
