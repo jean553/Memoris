@@ -83,7 +83,7 @@ TexturesManager::TexturesManager() :
 /**
  *
  */
-TexturesManager::~TexturesManager() noexcept = default;
+TexturesManager::~TexturesManager() = default;
 
 /**
  *

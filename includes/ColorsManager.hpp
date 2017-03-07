@@ -1,6 +1,6 @@
 /**
  * Memoris
- * Copyright (C) 2016  Jean LELIEVRE
+ * Copyright (C) 2017  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,9 +18,7 @@
 
 /**
  * @file ColorsManager.hpp
- * @brief a class for the colors manager of the game, all the
- * colors are loaded when the object is created; each controller,
- * through the context, can get the color object it needs
+ * @brief loads and provides the colors
  * @package managers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -46,17 +44,18 @@ class ColorsManager
 public:
 
     /**
-     * @brief constructor, empty, only used to create the implementation object
+     * @brief constructor
      */
     ColorsManager() noexcept;
 
     ColorsManager(const ColorsManager&) = delete;
+
     ColorsManager& operator=(const ColorsManager&) = delete;
 
     /**
-     * @brief default destructor, empty, only used for forwarding declaration
+     * @brief default destructor
      */
-    ~ColorsManager() noexcept;
+    ~ColorsManager();
 
     /**
      * @brief returns a reference to the white color

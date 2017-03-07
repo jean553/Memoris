@@ -45,6 +45,7 @@ public:
     SoundsManager() noexcept;
 
     SoundsManager(const SoundsManager&) = delete;
+
     SoundsManager& operator=(const SoundsManager&) = delete;
 
     /**

@@ -42,7 +42,7 @@ enum class ControllerId
     RemoveGame,
     PersonalSeriesMenu,
 
-    /* TODO: #894 delete this id when each error
+    /* TODO: #894 delete these ids when each error
        controller has his own message */
     OpenFileError,
     UnlockedSerieError

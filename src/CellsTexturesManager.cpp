@@ -96,7 +96,7 @@ CellsTexturesManager::CellsTexturesManager() :
 /**
  *
  */
-CellsTexturesManager::~CellsTexturesManager() noexcept = default;
+CellsTexturesManager::~CellsTexturesManager() = default;
 
 /**
  *

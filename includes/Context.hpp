@@ -1,6 +1,6 @@
 /**
  * Memoris
- * Copyright (C) 2016  Jean LELIEVRE
+ * Copyright (C) 2017  Jean LELIEVRE
  *
  * This program is free software: you can redistdibute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -75,10 +75,11 @@ public:
     Context();
 
     Context(const Context&) = delete;
+
     Context& operator=(const Context&) = delete;
 
     /**
-     * @brief default destructor to use declaration forwarding
+     * @brief default destructor
      */
     ~Context();
 

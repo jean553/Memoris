@@ -43,17 +43,16 @@ class AbstractForeground
 protected:
 
     /**
-     * @brief default destructor, useless, only declared here as virtual
-     * in order to handle polymorphism issues
+     * @brief default destructor
      */
     virtual ~AbstractForeground() = default;
 
     /**
      * @brief renders the foreground in front of the controller screen
      *
-     * @param context constant reference to the context to use
+     * @param context the context to use
      *
-     * not noexcept because it calls SFML methods that are not noexcept
+     * not noexcept because children will use SFML methods for sure
      */
     virtual void render(const utils::Context& context) const & = 0;
 };

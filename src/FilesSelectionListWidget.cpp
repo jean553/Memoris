@@ -111,8 +111,7 @@ void FilesSelectionListWidget::loadFilesFromDirectory() const & noexcept
         size_t extensionPosition = item.find_last_of(".");
         item = item.substr(0, extensionPosition);
 
-        /* do not considere special returned values as the current folder and
-           the parent folder */
+        /* ignore special values */
         if (
             item == ".." ||
             item == "." ||

@@ -52,6 +52,7 @@ public:
     HorizontalGradient(const utils::Context& context);
 
     HorizontalGradient(const HorizontalGradient&) = delete;
+
     HorizontalGradient& operator=(const HorizontalGradient&) = delete;
 
     /**

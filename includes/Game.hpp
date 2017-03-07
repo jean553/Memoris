@@ -45,6 +45,10 @@ public:
      */
     Game();
 
+    Game(const Game&) = delete;
+
+    Game& operator=(const Game&) = delete;
+
     /**
      * @brief game loader function, loads all the parameters in memory
      *
