@@ -28,6 +28,7 @@
 #include "Context.hpp"
 #include "LevelSeparators.hpp"
 #include "Button.hpp"
+#include "Cursor.hpp"
 
 namespace memoris
 {
@@ -106,16 +107,16 @@ EditorDashboard::~EditorDashboard() noexcept = default;
 /**
  *
  */
-void EditorDashboard::display(const utils::Context& context) const &
+void EditorDashboard::display(const sf::Vector2<float>& cursorPosition) const &
 {
     impl->separators.display();
 
-    impl->buttonNew.display();
-    impl->buttonSave.display();
-    impl->buttonExit.display();
-    impl->buttonPlay.display();
-    impl->buttonUp.display();
-    impl->buttonDown.display();
+    impl->buttonNew.display(cursorPosition);
+    impl->buttonSave.display(cursorPosition);
+    impl->buttonExit.display(cursorPosition);
+    impl->buttonPlay.display(cursorPosition);
+    impl->buttonUp.display(cursorPosition);
+    impl->buttonDown.display(cursorPosition);
 }
 
 /**

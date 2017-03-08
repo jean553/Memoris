@@ -183,12 +183,12 @@ const ControllerId& SerieEditorController::render() const &
         context.getSfmlWindow().draw(impl->serieLevels);
         context.getSfmlWindow().draw(impl->explanations);
 
-        impl->buttonNew.display();
-        impl->buttonSave.display();
-        impl->buttonExit.display();
-
         auto& cursor = impl->cursor;
         const auto& cursorPosition = cursor.getPosition();
+
+        impl->buttonNew.display(cursorPosition);
+        impl->buttonSave.display(cursorPosition);
+        impl->buttonExit.display(cursorPosition);
 
         impl->lists.display(
             context,

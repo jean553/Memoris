@@ -28,8 +28,15 @@
 
 #include <memory>
 
+namespace sf
+{
+template<typename T>
+class Vector2;
+}
+
 namespace memoris
 {
+
 namespace utils
 {
 
@@ -76,11 +83,11 @@ public:
     /**
      * @brief display the editor dashboard
      *
-     * @param context constant reference to the current context to use
+     * @param cursorPosition the cursor position
      *
      * not 'noexcept' because it calls SFML methods that are not noexcept
      */
-    void display(const utils::Context& context) const &;
+    void display(const sf::Vector2<float>& cursorPosition) const &;
 
     /**
      * @brief returns an action id according to the tool bar selected button

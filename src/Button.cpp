@@ -157,7 +157,7 @@ impl(
     const auto& colorsManager = context.getColorsManager();
     back.setFillColor(colorsManager.getColorDarkGrey());
 
-    setBordersColor(colorsManager.getColorDarkGrey());
+    setBordersColor(colorsManager.getColorWhite());
 }
 
 Button::~Button() = default;
@@ -165,15 +165,13 @@ Button::~Button() = default;
 /**
  *
  */
-void Button::display()
+void Button::display(const sf::Vector2<float>& cursorPosition)
 {
     const auto& context = impl->context;
     auto& window = context.getSfmlWindow();
 
     window.draw(impl->back);
     window.draw(impl->icon);
-
-    sf::Vector2<int> cursorPosition = sf::Mouse::getPosition();
 
     if (
         cursorPosition.x > impl->horizontalPosition &&
