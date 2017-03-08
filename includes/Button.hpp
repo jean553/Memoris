@@ -66,11 +66,13 @@ public:
     /**
      * @brief display the button
      *
+     * @param cursorPosition the current position of the cursor
+     *
      * NOTE: usually, display() functions are const; not this one because the
      * attributes of the button are modified inside this function if the mouse
      * is hover the widget
      */
-    void display();
+    void display(const sf::Vector2<float>& cursorPosition);
 
     /**
      * @brief boolean that indicates if the mouse is hover the button or not

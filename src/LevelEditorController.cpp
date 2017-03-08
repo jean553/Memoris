@@ -216,7 +216,9 @@ const ControllerId& LevelEditorController::render() const &
     }
     else
     {
-        impl->dashboard.display(context);
+        const auto& cursorPosition = impl->cursor.getPosition();
+        impl->dashboard.display(cursorPosition);
+
         impl->selector.display(context);
 
         level->display(
