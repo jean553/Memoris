@@ -40,13 +40,17 @@ class Button::Impl
 public:
 
     Impl(
+        const utils::Context& context,
         const int& horizontalPosition,
         const int& verticalPosition
     ) :
+        context(context),
         horizontalPosition(horizontalPosition),
         verticalPosition(verticalPosition)
     {
     }
+
+    const utils::Context& context;
 
     sf::RectangleShape back;
 
@@ -74,6 +78,7 @@ Button::Button(
 ) :
 impl(
     std::make_unique<Impl>(
+        context,
         static_cast<int>(hPosition),
         static_cast<int>(vPosition)
     )
@@ -153,18 +158,16 @@ Button::~Button() = default;
 /**
  *
  */
-void Button::display(const utils::Context& context)
+void Button::display()
 {
-    /* draw the button background */
-    context.getSfmlWindow().draw(impl->back);
+    const auto& context = impl->context;
+    auto& window = context.getSfmlWindow();
 
-    /* draw the button icon */
-    context.getSfmlWindow().draw(impl->icon);
+    window.draw(impl->back);
+    window.draw(impl->icon);
 
-    /* get the current cursor position */
     sf::Vector2<int> cursorPosition = sf::Mouse::getPosition();
 
-    /* change the color of the border if the mouse is hover the button */
     if (
         cursorPosition.x > impl->horizontalPosition &&
         cursorPosition.x < impl->horizontalPosition + BUTTON_DIMENSION &&
