@@ -1,6 +1,6 @@
 /*
  * Memoris
- * Copyright (C) 2016  Jean LELIEVRE
+ * Copyright (C) 2017  Jean LELIEVRE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 
 /**
  * @file Button.hpp
- * @brief graphical button with icon inside
+ * @brief handles button widget
  * @package widgets
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -56,6 +56,11 @@ public:
     );
 
     /**
+     * @brief default destructor
+     */
+    ~Button();
+
+    /**
      * @brief display the button
      *
      * @param context reference to the current context to use
@@ -79,37 +84,12 @@ private:
     static constexpr float ICON_POSITION_OFFSET {3.f};
 
     /**
-     * @brief private method to set the color of the borders surfaces; we use
-     * a specific function because the color of the borders change when the
-     * mouse is hover or not
-     *
-     * @param color constant reference to the color to apply
+     * TODO
      */
     void setBordersColor(const sf::Color& color);
 
-    /* SFML surface of the button background */
-    sf::RectangleShape back;
-
-    /* SFML surfaces of the button borders */
-    sf::RectangleShape left;
-    sf::RectangleShape right;
-    sf::RectangleShape bottom;
-    sf::RectangleShape top;
-
-    /* unique pointer to the icon to display */
-    sf::Sprite icon;
-
-    /* store integer for the position (and not float), because we use these
-       positions to check if the mouse is hover the widget, the returned
-       type of SFML is sf::Vector2<int> and not sf::Vector<float>; we improve
-       performances because we only perform a static cast one time (init) and
-       not everytime */
-    int horizontalPosition;
-    int verticalPosition;
-
-    /* boolean used to switch the color and not continually set the color
-       when the mouse stays hover the button or outside of the button */
-    bool mouseHover {false};
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }
