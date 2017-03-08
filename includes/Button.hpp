@@ -63,13 +63,11 @@ public:
     /**
      * @brief display the button
      *
-     * @param context reference to the current context to use
-     *
      * NOTE: usually, display() functions are const; not this one because the
      * attributes of the button are modified inside this function if the mouse
      * is hover the widget
      */
-    void display(const utils::Context& context);
+    void display();
 
     /**
      * @brief boolean that indicates if the mouse is hover the button or not
@@ -81,7 +79,6 @@ public:
 private:
 
     static constexpr float BUTTON_DIMENSION {70.f};
-    static constexpr float ICON_POSITION_OFFSET {3.f};
 
     /**
      * TODO

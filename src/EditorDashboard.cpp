@@ -110,12 +110,12 @@ void EditorDashboard::display(const utils::Context& context) const &
 {
     impl->separators.display();
 
-    impl->buttonNew.display(context);
-    impl->buttonSave.display(context);
-    impl->buttonExit.display(context);
-    impl->buttonPlay.display(context);
-    impl->buttonUp.display(context);
-    impl->buttonDown.display(context);
+    impl->buttonNew.display();
+    impl->buttonSave.display();
+    impl->buttonExit.display();
+    impl->buttonPlay.display();
+    impl->buttonUp.display();
+    impl->buttonDown.display();
 }
 
 /**
