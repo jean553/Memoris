@@ -81,7 +81,6 @@ public:
 private:
 
     static constexpr float BUTTON_DIMENSION {70.f};
-    static constexpr float ICON_POSITION_OFFSET {3.f};
 
     /**
      * TODO

@@ -138,6 +138,8 @@ impl(
     );
 
     impl->icon.setTexture(texture);
+
+    constexpr float ICON_POSITION_OFFSET {3.f};
     impl->icon.setPosition(
         hPosition + ICON_POSITION_OFFSET,
         vPosition + ICON_POSITION_OFFSET
