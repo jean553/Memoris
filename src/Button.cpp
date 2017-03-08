@@ -41,8 +41,8 @@ public:
 
     Impl(
         const utils::Context& context,
-        const int& horizontalPosition,
-        const int& verticalPosition
+        const float& horizontalPosition,
+        const float& verticalPosition
     ) :
         context(context),
         horizontalPosition(horizontalPosition),
@@ -53,7 +53,6 @@ public:
     const utils::Context& context;
 
     sf::RectangleShape back;
-
     sf::RectangleShape left;
     sf::RectangleShape right;
     sf::RectangleShape bottom;
@@ -61,8 +60,8 @@ public:
 
     sf::Sprite icon;
 
-    int horizontalPosition;
-    int verticalPosition;
+    float horizontalPosition;
+    float verticalPosition;
 
     bool mouseHover {false};
 };
@@ -79,78 +78,86 @@ Button::Button(
 impl(
     std::make_unique<Impl>(
         context,
-        static_cast<int>(hPosition),
-        static_cast<int>(vPosition)
+        hPosition,
+        vPosition
     )
 )
 {
-    impl->back.setSize(
+    auto& back = impl->back;
+    back.setSize(
         sf::Vector2f(
             BUTTON_DIMENSION,
             BUTTON_DIMENSION
         )
     );
-
-    impl->back.setFillColor(
-        context.getColorsManager().getColorDarkGrey()
-    );
-
-    impl->back.setPosition(
+    back.setPosition(
         hPosition,
         vPosition
     );
 
-    impl->left.setPosition(
-        hPosition,
-        vPosition
-    );
-    impl->top.setPosition(
-        hPosition,
-        vPosition
-    );
-    impl->right.setPosition(
-        hPosition + BUTTON_DIMENSION - 1.f,
-        vPosition
-    );
-    impl->bottom.setPosition(
-        hPosition,
-        vPosition + BUTTON_DIMENSION - 1.f
-    );
+    constexpr float BUTTON_BORDER_WIDTH {1.f};
 
-    impl->left.setSize(
+    auto& left = impl->left;
+    left.setPosition(
+        hPosition,
+        vPosition
+    );
+    left.setSize(
         sf::Vector2f(
-            1.f,
+            BUTTON_BORDER_WIDTH,
             BUTTON_DIMENSION
         )
     );
-    impl->top.setSize(
+
+    auto& top = impl->top;
+    top.setPosition(
+        hPosition,
+        vPosition
+    );
+    top.setSize(
         sf::Vector2f(
             BUTTON_DIMENSION,
-            1.f
-        )
-    );
-    impl->right.setSize(
-        sf::Vector2f(
-            1.f,
-            BUTTON_DIMENSION
-        )
-    );
-    impl->bottom.setSize(
-        sf::Vector2f(
-            BUTTON_DIMENSION,
-            1.f
+            BUTTON_BORDER_WIDTH
         )
     );
 
-    impl->icon.setTexture(texture);
+    auto& right = impl->right;
+    right.setPosition(
+        hPosition + BUTTON_DIMENSION - BUTTON_BORDER_WIDTH,
+        vPosition
+    );
+    right.setSize(
+        sf::Vector2f(
+            BUTTON_BORDER_WIDTH,
+            BUTTON_DIMENSION
+        )
+    );
+
+    auto& bottom = impl->bottom;
+    bottom.setPosition(
+        hPosition,
+        vPosition + BUTTON_DIMENSION - BUTTON_BORDER_WIDTH
+    );
+    bottom.setSize(
+        sf::Vector2f(
+            BUTTON_DIMENSION,
+            BUTTON_BORDER_WIDTH
+        )
+    );
+
+    auto& icon = impl->icon;
+    icon.setTexture(texture);
 
     constexpr float ICON_POSITION_OFFSET {3.f};
-    impl->icon.setPosition(
+    icon.setPosition(
         hPosition + ICON_POSITION_OFFSET,
         vPosition + ICON_POSITION_OFFSET
     );
 
-    setBordersColor(context.getColorsManager().getColorWhite());
+    const auto& colorsManager = context.getColorsManager();
+    back.setFillColor(colorsManager.getColorDarkGrey());
+
+    setBordersColor(colorsManager.getColorDarkGrey());
 }
 
 Button::~Button() = default;
