@@ -41,12 +41,15 @@ class Button
 public:
 
     /**
-     * @brief constructor, creates the SFML surfaces at the given position
+     * @brief constructor
      *
-     * @param context reference to the current context
+     * @param context the current context
      * @param hPosition horizontal position of the button
      * @param vPosition vertical position of the button
-     * @param texture constant reference to the SFML texture of the icon
+     * @param texture reference to the SFML texture of the icon
+     *
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
      */
     Button(
         const utils::Context& context,
