@@ -34,77 +34,111 @@ namespace widgets
 /**
  *
  */
+class Button::Impl
+{
+
+public:
+
+    Impl(
+        const int& horizontalPosition,
+        const int& verticalPosition
+    ) :
+        horizontalPosition(horizontalPosition),
+        verticalPosition(verticalPosition)
+    {
+    }
+
+    sf::RectangleShape back;
+
+    sf::RectangleShape left;
+    sf::RectangleShape right;
+    sf::RectangleShape bottom;
+    sf::RectangleShape top;
+
+    sf::Sprite icon;
+
+    int horizontalPosition;
+    int verticalPosition;
+
+    bool mouseHover {false};
+};
+
+/**
+ *
+ */
 Button::Button(
     const utils::Context& context,
     const float& hPosition,
     const float& vPosition,
     const sf::Texture& texture
 ) :
-/* integers are saved, but float are applied to the SFML setPosition()
-   functions, as required; check header to know why we save integers */
-    horizontalPosition(static_cast<int>(hPosition)),
-    verticalPosition(static_cast<int>(vPosition))
+impl(
+    std::make_unique<Impl>(
+        static_cast<int>(hPosition),
+        static_cast<int>(vPosition)
+    )
+)
 {
-    back.setSize(
+    impl->back.setSize(
         sf::Vector2f(
             BUTTON_DIMENSION,
             BUTTON_DIMENSION
         )
     );
 
-    back.setFillColor(
+    impl->back.setFillColor(
         context.getColorsManager().getColorDarkGrey()
     );
 
-    back.setPosition(
+    impl->back.setPosition(
         hPosition,
         vPosition
     );
 
-    left.setPosition(
+    impl->left.setPosition(
         hPosition,
         vPosition
     );
-    top.setPosition(
+    impl->top.setPosition(
         hPosition,
         vPosition
     );
-    right.setPosition(
+    impl->right.setPosition(
         hPosition + BUTTON_DIMENSION - 1.f,
         vPosition
     );
-    bottom.setPosition(
+    impl->bottom.setPosition(
         hPosition,
         vPosition + BUTTON_DIMENSION - 1.f
     );
 
-    left.setSize(
+    impl->left.setSize(
         sf::Vector2f(
             1.f,
             BUTTON_DIMENSION
         )
     );
-    top.setSize(
+    impl->top.setSize(
         sf::Vector2f(
             BUTTON_DIMENSION,
             1.f
         )
     );
-    right.setSize(
+    impl->right.setSize(
         sf::Vector2f(
             1.f,
             BUTTON_DIMENSION
         )
     );
-    bottom.setSize(
+    impl->bottom.setSize(
         sf::Vector2f(
             BUTTON_DIMENSION,
             1.f
         )
     );
 
-    icon.setTexture(texture);
-    icon.setPosition(
+    impl->icon.setTexture(texture);
+    impl->icon.setPosition(
         hPosition + ICON_POSITION_OFFSET,
         vPosition + ICON_POSITION_OFFSET
     );
@@ -112,53 +146,55 @@ Button::Button(
     setBordersColor(context.getColorsManager().getColorWhite());
 }
 
+Button::~Button() = default;
+
 /**
  *
  */
 void Button::display(const utils::Context& context)
 {
     /* draw the button background */
-    context.getSfmlWindow().draw(back);
+    context.getSfmlWindow().draw(impl->back);
 
     /* draw the button icon */
-    context.getSfmlWindow().draw(icon);
+    context.getSfmlWindow().draw(impl->icon);
 
     /* get the current cursor position */
     sf::Vector2<int> cursorPosition = sf::Mouse::getPosition();
 
     /* change the color of the border if the mouse is hover the button */
     if (
-        cursorPosition.x > horizontalPosition &&
-        cursorPosition.x < horizontalPosition + BUTTON_DIMENSION &&
-        cursorPosition.y > verticalPosition &&
-        cursorPosition.y < verticalPosition + BUTTON_DIMENSION &&
-        !mouseHover
+        cursorPosition.x > impl->horizontalPosition &&
+        cursorPosition.x < impl->horizontalPosition + BUTTON_DIMENSION &&
+        cursorPosition.y > impl->verticalPosition &&
+        cursorPosition.y < impl->verticalPosition + BUTTON_DIMENSION &&
+        !impl->mouseHover
     )
     {
-        mouseHover = true;
+        impl->mouseHover = true;
 
         setBordersColor(context.getColorsManager().getColorRed());
     }
     else if (
         (
-            cursorPosition.x < horizontalPosition ||
-            cursorPosition.x > horizontalPosition + BUTTON_DIMENSION ||
-            cursorPosition.y < verticalPosition ||
-            cursorPosition.y > verticalPosition + BUTTON_DIMENSION
+            cursorPosition.x < impl->horizontalPosition ||
+            cursorPosition.x > impl->horizontalPosition + BUTTON_DIMENSION ||
+            cursorPosition.y < impl->verticalPosition ||
+            cursorPosition.y > impl->verticalPosition + BUTTON_DIMENSION
         ) &&
-        mouseHover
+        impl->mouseHover
     )
     {
-        mouseHover = false;
+        impl->mouseHover = false;
 
         setBordersColor(context.getColorsManager().getColorWhite());
     }
 
     /* draw the button borders */
-    context.getSfmlWindow().draw(left);
-    context.getSfmlWindow().draw(top);
-    context.getSfmlWindow().draw(right);
-    context.getSfmlWindow().draw(bottom);
+    context.getSfmlWindow().draw(impl->left);
+    context.getSfmlWindow().draw(impl->top);
+    context.getSfmlWindow().draw(impl->right);
+    context.getSfmlWindow().draw(impl->bottom);
 }
 
 /**
@@ -166,10 +202,10 @@ void Button::display(const utils::Context& context)
  */
 void Button::setBordersColor(const sf::Color& color)
 {
-    left.setFillColor(color);
-    right.setFillColor(color);
-    top.setFillColor(color);
-    bottom.setFillColor(color);
+    impl->left.setFillColor(color);
+    impl->right.setFillColor(color);
+    impl->top.setFillColor(color);
+    impl->bottom.setFillColor(color);
 }
 
 /**
@@ -177,7 +213,7 @@ void Button::setBordersColor(const sf::Color& color)
  */
 bool Button::isMouseHover() const
 {
-    return mouseHover;
+    return impl->mouseHover;
 }
 
 }
