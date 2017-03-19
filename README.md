@@ -21,40 +21,47 @@ There are also many events cell on the map that move the disposition of the cell
 
 ### License and credits
 
-The program is open-source, distributed under the GNU General Public License. The game contains many assets ( musics, sounds, pictures, fonts... etc... ), all of them are distributed under various licenses ( CreativeCommons, GNU GPL/LGPL... etc... ). 
+The program is open-source, distributed under the GNU General Public License. The game contains many assets ( musics, sounds, pictures, fonts... etc... ), all of them are distributed under various licenses ( CreativeCommons, GNU GPL/LGPL... etc... ).
 
-After individual verification of each asset license, all of them can be included into the project. Each asset source is specified in the "Credits" section of the README.md file. 
+After individual verification of each asset license, all of them can be included into the project. Each asset source is specified in the "Credits" section of the README.md file.
 
 **If you are the author of some of them and you don't want these resources to be used in Memoris, just let me know. The asset will be deleted immediately.**
 
 ## Compatibility
 
-Successfully compiled on :
- * Ubuntu 14.04 LTS.
-
-Successfully executed on :
+Successfully compiled and executed on :
  * Ubuntu 14.04 LTS
- * Debian 8
+ * Archlinux (2017-03-01)
 
-## Compile and run
+## Installation
+
+### Ubuntu 14.04 LTS
+
+Compile and run:
 ```
 curl -s https://raw.githubusercontent.com/jean553/Memoris/master/install.sh | sudo bash
 ```
 
-## Installation on Ubuntu 14.04 LTS
+### ArchLinux
 
-Requirements to compile C++14 code:
-
+Clone the project:
 ```
-sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-sudo apt-get update
+git clone https://github.com/jean553/Memoris
 ```
 
-Install compilation tools:
+Install required tools:
+```
+pacman -S gcc cmake sfml
+```
 
+Update CMakeList.txt:
 ```
-sudo apt-get install g++-4.9 libsfml-dev cmake clang-3.5
+set(CMAKE_CXX_COMPILER g++)
 ```
+
+NOTE: Got the following error with Arch latest clang version 3.5.2
+(https://gcc.gnu.org/gcc-7/porting_to.html#conversion-op-mangling)
+This problem does not occur when using gcc 6.3.1.
 
 ## Execution
 
@@ -130,7 +137,7 @@ https://www.iconfinder.com/icons/1055053/controller_game_controller_video_game_i
 
 http://code.google.com/u/newmooon/ - GNU GPL
 
-https://www.iconfinder.com/paomedia - CreativeCommons - BY 3.0 - https://creativecommons.org/licenses/by/3.0/ 
+https://www.iconfinder.com/paomedia - CreativeCommons - BY 3.0 - https://creativecommons.org/licenses/by/3.0/
 
 https://www.elegantthemes.com/ - https://www.iconfinder.com/iconsets/circle-icons-1 - GNU GPL
 
