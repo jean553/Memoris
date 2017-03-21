@@ -120,16 +120,6 @@ private:
 
     static constexpr float LEFT_HORIZONTAL_POSITION {10.f};
 
-    /**
-     * @brief display the menu item on the SFML window; this action is
-     * required multiple times, so, it is refactored into this private method
-     *
-     * @param context constant reference to the current context to use
-     *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
-     */
-    void display(const utils::Context& context) const &;
-
     class Impl;
     std::unique_ptr<Impl> impl;
 };
