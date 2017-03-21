@@ -41,16 +41,19 @@ class Cursor::Impl
 
 public:
 
-    Impl(const utils::Context& context)
+    Impl(const utils::Context& context) :
+        context(context)
     {
         sprite.setTexture(context.getTexturesManager().getCursorTexture());
     }
 
     sf::Sprite sprite;
 
-    sf::Uint32 lastCursorPositionUpdateTime {0};
+    sf::Uint32 lastUpdateTime {0};
 
     sf::Vector2<float> position;
+
+    const utils::Context& context;
 };
 
 /**
@@ -59,46 +62,32 @@ public:
 Cursor::Cursor(const utils::Context& context) :
     impl(std::make_unique<Impl>(context))
 {
-    /* we force the position of the cursor surface during the initialization;
-       the surface is visually directly at the same position as the real
-       cursor one */
-    updateCursorPosition();
 }
 
 /**
  *
  */
-Cursor::~Cursor() noexcept = default;
+Cursor::~Cursor() = default;
 
 /**
  *
  */
-void Cursor::render(const utils::Context& context)
+void Cursor::render() const &
 {
-    auto& sprite = impl->sprite;
+    const auto& context = impl->context;
 
-    context.getSfmlWindow().draw(sprite);
+    context.getSfmlWindow().draw(impl->sprite);
 
     const auto& currentTime = context.getClockMillisecondsTime();
-    auto& lastCursorPositionUpdateTime = impl->lastCursorPositionUpdateTime;
+    auto& lastUpdateTime = impl->lastUpdateTime;
 
-    if (currentTime - lastCursorPositionUpdateTime < 30)
+    constexpr sf::Uint32 CURSOR_UPDATE_POSITION_INTERVAL {30};
+    if (currentTime - lastUpdateTime < CURSOR_UPDATE_POSITION_INTERVAL)
     {
         return;
     }
 
-    updateCursorPosition();
-
-    lastCursorPositionUpdateTime = currentTime;
-}
-
-/**
- *
- */
-void Cursor::updateCursorPosition() const &
-{
     const auto positionIntegers = sf::Mouse::getPosition();
-
     auto& positionFloats = impl->position;
 
     /* we get integers and store floats because all surfaces and texts
@@ -109,6 +98,8 @@ void Cursor::updateCursorPosition() const &
     );
 
     impl->sprite.setPosition(positionFloats);
+
+    lastUpdateTime = currentTime;
 }
 
 /**
