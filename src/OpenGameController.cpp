@@ -104,7 +104,7 @@ const ControllerId& OpenGameController::render() const &
 
     impl->list.display(cursorPosition);
 
-    cursor.render(context);
+    cursor.render();
 
     setNextControllerId(animateScreenTransition(context));
 

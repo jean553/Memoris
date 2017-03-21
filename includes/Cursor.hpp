@@ -18,7 +18,7 @@
 
 /**
  * @file Cursor.hpp
- * @brief graphical cursor displayed into the editor
+ * @brief graphical cursor that moves according to the mouse
  * @package widgets
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -51,24 +51,26 @@ class Cursor
 public:
 
     /**
-     * @brief constructor, initializes the implementation
+     * @brief constructor
      *
-     * @param context constant reference to the current context
+     * @param context the context to use
+     *
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
      */
     Cursor(const utils::Context& context);
 
     /**
-     * @brief default destructor, empty, only declared in order to use
-     * forwarding declaration
+     * @brief default destructor
      */
-    ~Cursor() noexcept;
+    ~Cursor();
 
     /**
      * @brief render the cursor on the screen
      *
-     * @param context reference to the current context
+     * not noexcept because it calls SFML functions that are not noexcept
      */
-    void render(const utils::Context& context);
+    void render() const &;
 
     /**
      * @brief getter of the current cursor position
@@ -78,15 +80,6 @@ public:
     const sf::Vector2<float>& getPosition() const & noexcept;
 
 private:
-
-    /**
-     * @brief updates position of the cursor SFML surface according to the
-     * real cursor position; this function has been created for organization
-     * purposes as it is called from two different locations in the code
-     *
-     * not noexcept because it calls SFML functions that are not noexcept
-     */
-    void updateCursorPosition() const &;
 
     class Impl;
     std::unique_ptr<Impl> impl;

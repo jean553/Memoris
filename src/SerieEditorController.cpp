@@ -195,7 +195,7 @@ const ControllerId& SerieEditorController::render() const &
             cursorPosition
         );
 
-        cursor.render(context);
+        cursor.render();
     }
 
     setNextControllerId(animateScreenTransition(context));

@@ -231,7 +231,7 @@ const ControllerId& LevelEditorController::render() const &
         context.getSfmlWindow().draw(impl->floorSurface);
         context.getSfmlWindow().draw(impl->testedTime);
 
-        impl->cursor.render(context);
+        impl->cursor.render();
     }
 
     setNextControllerId(animateScreenTransition(context));

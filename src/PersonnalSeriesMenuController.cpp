@@ -110,7 +110,7 @@ const ControllerId& PersonalSeriesMenuController::render() const &
     const auto& list = impl->list;
     list.display(cursorPosition);
 
-    impl->cursor.render(context);
+    impl->cursor.render();
 
     setNextControllerId(animateScreenTransition(context));
 
