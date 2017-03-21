@@ -136,7 +136,7 @@ MainMenuController::MainMenuController(const utils::Context& context) :
         )
     );
 
-    newGame->select(context);
+    newGame->select();
 
     addMenuItem(std::move(newGame));
     addMenuItem(std::move(loadGame));

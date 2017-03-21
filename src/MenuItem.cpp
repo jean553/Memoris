@@ -47,7 +47,8 @@ public:
         const utils::Context& context,
         const std::string& label,
         const float& verticalPosition
-    )
+    ) :
+        context(context)
     {
         text.setString(label);
         text.setFont(context.getFontsManager().getTextFont());
@@ -56,7 +57,7 @@ public:
 
     sf::Text text;
 
-    bool selected {false};
+    const utils::Context& context;
 };
 
 /**
@@ -76,48 +77,44 @@ MenuItem::MenuItem(
         )
     )
 {
+    constexpr float LEFT_HORIZONTAL_POSITION {10.f};
     impl->text.setPosition(
         position == HorizontalPosition::Center ?
             window::getCenteredSfmlSurfaceHorizontalPosition(impl->text) :
-            LEFT_HORIZONTAL_POSITION
-            ,
+                LEFT_HORIZONTAL_POSITION,
         verticalPosition
     );
 
-    unselect(context);
+    unselect();
 }
 
 /**
  *
  */
-MenuItem::~MenuItem() noexcept = default;
+MenuItem::~MenuItem() = default;
 
 /**
  *
  */
-void MenuItem::unselect(const utils::Context& context) const &
+void MenuItem::render() const &
 {
-    impl->text.setColor(context.getColorsManager().getColorWhite());
-
-    impl->selected = false;
+    impl->context.getSfmlWindow().draw(impl->text);
 }
 
 /**
  *
  */
-void MenuItem::select(const utils::Context& context) const &
+void MenuItem::unselect() const &
 {
-    impl->text.setColor(context.getColorsManager().getColorRed());
-
-    impl->selected = true;
+    impl->text.setColor(impl->context.getColorsManager().getColorWhite());
 }
 
 /**
  *
  */
-void MenuItem::render(const utils::Context& context) const &
+void MenuItem::select() const &
 {
-    context.getSfmlWindow().draw(impl->text);
+    impl->text.setColor(impl->context.getColorsManager().getColorRed());
 }
 
 }

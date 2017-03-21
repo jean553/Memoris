@@ -18,7 +18,7 @@
 
 /**
  * @file MenuItem.hpp
- * @brief represents one menu item in abstract menu controller class
+ * @brief one menu selectable item
  * @package items
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -27,13 +27,6 @@
 #define MEMORIS_MENUITEM_H_
 
 #include <memory>
-
-#include <SFML/Config.hpp>
-
-namespace sf
-{
-class Text;
-}
 
 namespace memoris
 {
@@ -53,8 +46,7 @@ public:
 
     /**
      * @enum MenuItem::HorizontalPosition
-     * @brief used to specify the horizontal position of the menu item, which
-     * can be centered or on the left
+     * @brief menu items can be displayed on the left or at the center
      *
      * public because it may be accessed from menus controllers
      */
@@ -64,61 +56,51 @@ public:
     };
 
     /**
-     * @brief constructor, generates a SFML text object with the given
-     * string label at the specified location; automatically applies the
-     * default color, font and font size ( same for all the menu items )
+     * @brief constructor
      *
-     * @param context reference to the current context
-     * @param label the menu item text label
-     * @param verticalPosition the vertical position of the text
-     * @param position horizontal position of the item (centered by default)
+     * @param context the current context
+     * @param label displayed text
+     * @param verticalPosition text vertical position
+     * @param horizontalPosition defined horizontal position
+     *
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
      */
     MenuItem(
         const utils::Context& context,
         const std::string& label,
         const float& verticalPosition,
-        const HorizontalPosition& position = HorizontalPosition::Center
+        const HorizontalPosition& horizontalPosition =
+            HorizontalPosition::Center
     );
 
     /**
-     * @brief default destructor, empty, only declared in order to use
-     * forwarding declaration
+     * @brief default destructor
      */
-    ~MenuItem() noexcept;
+    ~MenuItem();
 
     /**
-     * @brief display the menu item inside the given context; displays the
-     * item in the correct color and handles the item animation if selected
+     * @brief displays the menu item
      *
-     * @param context shared pointer ot the current context to use
-     *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
+     * not noexcept because it calls SFML window draw() that is not noexcept
      */
-    void render(const utils::Context& context) const &;
+    void render() const &;
 
     /**
      * @brief unselect the menu item, make it white
      *
-     * @param context reference to the current context
-     *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
+     * not noexcept because it calls SFML setColor() that is not noexcept
      */
-    void unselect(const utils::Context& context) const &;
+    void unselect() const &;
 
     /**
      * @brief select the menu item, make it red
      *
-     * @param context reference to the current context
-     *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
+     * not noexcept because it calls SFML setColor() that is not noexcept
      */
-    void select(const utils::Context& context) const &;
+    void select() const &;
 
 private:
-
-    static constexpr sf::Uint32 ANIMATION_INTERVAL {500};
-
-    static constexpr float LEFT_HORIZONTAL_POSITION {10.f};
 
     class Impl;
     std::unique_ptr<Impl> impl;
