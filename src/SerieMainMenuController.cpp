@@ -128,7 +128,7 @@ SerieMainMenuController::SerieMainMenuController(
         )
     );
 
-    officialSeries->select(context);
+    officialSeries->select();
 
     addMenuItem(std::move(officialSeries));
     addMenuItem(std::move(personalSeries));

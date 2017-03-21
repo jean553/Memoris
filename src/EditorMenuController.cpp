@@ -97,7 +97,7 @@ EditorMenuController::EditorMenuController(const utils::Context& context) :
         )
     );
 
-    level->select(context);
+    level->select();
 
     addMenuItem(std::move(level));
     addMenuItem(std::move(serie));

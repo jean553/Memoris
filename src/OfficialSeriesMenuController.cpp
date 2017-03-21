@@ -110,7 +110,7 @@ OfficialSeriesMenuController::OfficialSeriesMenuController(
         )
     );
 
-    easy->select(context);
+    easy->select();
 
     addMenuItem(std::move(easy));
     addMenuItem(std::move(medium));

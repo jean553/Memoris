@@ -75,7 +75,7 @@ void AbstractMenuController::renderAllMenuItems() const &
 {
     for (auto& item : impl->items)
     {
-        item->render(getContext());
+        item->render();
     }
 }
 
@@ -126,7 +126,6 @@ void AbstractMenuController::updateMenuSelection() const &
         ++iterator
     )
     {
-        const auto& context = getContext();
         const auto& currentItem = **iterator;
 
         /* std::distance may be negative,
@@ -142,11 +141,11 @@ void AbstractMenuController::updateMenuSelection() const &
             ) == impl->selectorPosition
         )
         {
-            currentItem.select(context);
+            currentItem.select();
             continue;
         }
 
-        currentItem.unselect(context);
+        currentItem.unselect();
     }
 }
 
