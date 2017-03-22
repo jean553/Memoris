@@ -56,34 +56,36 @@ public:
         background(context),
         gradient(context)
     {
+        const auto& textFont = context.getFontsManager().getTextFont();
+        const auto& colorsManager = context.getColorsManager();
+
         title.setString("Serie finished !");
         title.setCharacterSize(fonts::TITLE_SIZE);
-        title.setFont(context.getFontsManager().getTextFont());
-        title.setColor(context.getColorsManager().getColorLightBlue());
+        title.setFont(textFont);
+        title.setColor(colorsManager.getColorLightBlue());
         title.setPosition(
             window::getCenteredSfmlSurfaceHorizontalPosition(title),
             TITLE_VERTICAL_POSITION
         );
 
-        time.setString(
-            context.getPlayingSerieManager().getPlayingTimeAsString()
-        );
+        const auto& playingSerieManager = context.getPlayingSerieManager();
+
+        time.setString(playingSerieManager.getPlayingTimeAsString());
         time.setCharacterSize(fonts::TITLE_SIZE);
-        time.setFont(context.getFontsManager().getTextFont());
-        time.setColor(context.getColorsManager().getColorWhite());
+        time.setFont(textFont);
+        time.setColor(colorsManager.getColorWhite());
         time.setPosition(
             window::getCenteredSfmlSurfaceHorizontalPosition(time),
             TIME_VERTICAL_POSITION
         );
 
-        // const std::array<entities::SerieResult, N>&
-        auto& results = context.getPlayingSerieManager().getResults();
+        auto& results = playingSerieManager.getResults();
 
-        // const sf::Font&
-        const auto& font = context.getFontsManager().getTextFont();
-
-        sf::Color colorResults =
-            context.getColorsManager().getColorWhiteCopy();
+        /* TODO: we copy because every text item has a white color
+         * that will change when switch from the user serie time
+         * to the previous best results; this should be improved:
+         * one common color should be used by every text surface */
+        sf::Color colorResults = colorsManager.getColorWhiteCopy();
         colorResults.a = 0;
 
         unsigned short index {0};
@@ -92,7 +94,6 @@ public:
         {
             std::string resultString = result.getString();
 
-            /* skip undefined result */
             if (resultString == ".")
             {
                 continue;
@@ -107,10 +108,9 @@ public:
                 ' '
             );
 
-            // std::unique_ptr<sf::Text>
             auto resultText = std::make_unique<sf::Text>(
                 resultString,
-                font,
+                textFont,
                 fonts::TEXT_SIZE
             );
 
@@ -162,7 +162,7 @@ WinSerieEndingController::WinSerieEndingController(
 /**
  *
  */
-WinSerieEndingController::~WinSerieEndingController() noexcept = default;
+WinSerieEndingController::~WinSerieEndingController() = default;
 
 /**
  *

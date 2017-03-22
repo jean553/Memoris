@@ -18,7 +18,7 @@
 
 /**
  * @file WinSerieEndingController.hpp
- * @brief the wining screen that is displayed when the user wins the serie
+ * @brief displayed when the player wins the serie
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -39,22 +39,25 @@ class WinSerieEndingController : public Controller
 public:
 
     /**
-     * @brief constructor, initializes the implementation
+     * @brief constructor
      *
-     * @param constant reference to the current context to use
+     * @param context the context to use
      */
     WinSerieEndingController(const utils::Context& context);
 
     /**
-     * @brief default destructor, empty, only declared in order to use
-     * forwarding declaration
+     * @brief default destructor
      */
-    ~WinSerieEndingController() noexcept;
+    ~WinSerieEndingController();
 
     /**
-     * @brief overrides the render() method of the Controller parent class
+     * @brief renders the controller
      *
      * @return const ControllerId&
+     *
+     * no one of the controllers overwritten render() method is noexcept;
+     * (check parent declaration for details);
+     * they all use not noexcept SFML methods
      */
     const ControllerId& render() const & override;
 
