@@ -44,6 +44,14 @@ public:
         255
     };
 
+    const sf::Color colorWhiteAlpha
+    {
+        255,
+        255,
+        255,
+        0
+    };
+
     const sf::Color colorWhiteLowAlpha
     {
         255,
@@ -264,6 +272,14 @@ sf::Color ColorsManager::getColorRedCopy() const & noexcept
 sf::Color ColorsManager::getColorWhiteCopy() const & noexcept
 {
     return impl->colorWhite;
+}
+
+/**
+ *
+ */
+sf::Color ColorsManager::getColorWhiteAlphaCopy() const & noexcept
+{
+    return impl->colorWhiteAlpha;
 }
 
 /**
