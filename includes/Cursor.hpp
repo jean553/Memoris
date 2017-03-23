@@ -60,6 +60,10 @@ public:
      */
     Cursor(const utils::Context& context);
 
+    Cursor(const Cursor&) = delete;
+
+    Cursor& operator=(const Cursor&) = delete;
+
     /**
      * @brief default destructor
      */
