@@ -81,13 +81,6 @@ public:
 
         auto& results = playingSerieManager.getResults();
 
-        /* TODO: we copy because every text item has a white color
-         * that will change when switch from the user serie time
-         * to the previous best results; this should be improved:
-         * one common color should be used by every text surface */
-        sf::Color colorResults = colorsManager.getColorWhiteCopy();
-        colorResults.a = 0;
-
         unsigned short index {0};
 
         for (const entities::SerieResult& result : results)
@@ -119,14 +112,14 @@ public:
                 RESULTS_FIRST_ITEM_VERTICAL_POSITION + RESULTS_INTERVAL * index
             );
 
-            resultText->setColor(colorResults);
+            resultText->setColor(colorsManager.getColorWhiteAlphaCopy());
 
             resultsTexts.push_back(std::move(resultText));
 
             index++;
         }
 
-        colorWhite = context.getColorsManager().getColorWhiteCopy();
+        colorWhite = colorsManager.getColorWhiteCopy();
     }
 
     sf::Text title;

@@ -167,6 +167,13 @@ public:
     sf::Color getColorWhiteCopy() const & noexcept;
 
     /**
+     * @brief returns a copy of the transparent white color
+     *
+     * @return sf::Color
+     */
+    sf::Color getColorWhiteAlphaCopy() const & noexcept;
+
+    /**
      * @brief returns a copy of the black color
      *
      * @return sf::Color
