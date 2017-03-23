@@ -58,6 +58,10 @@ public:
         const float& horizontalPosition = 500.f
     );
 
+    FilesSelectionListWidget(const FilesSelectionListWidget&) = delete;
+
+    FilesSelectionListWidget& operator=(const FilesSelectionListWidget&) = delete;
+
     /**
      * @brief default destructor
      */

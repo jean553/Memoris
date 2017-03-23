@@ -52,6 +52,10 @@ public:
      */
     TexturesManager();
 
+    TexturesManager(const TexturesManager&) = delete;
+
+    TexturesManager& operator=(const TexturesManager&) = delete;
+
     /**
      * @brief default constructor
      */

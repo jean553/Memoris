@@ -74,6 +74,10 @@ public:
             HorizontalPosition::Center
     );
 
+    MenuItem(const MenuItem&) = delete;
+
+    MenuItem& operator=(const MenuItem&) = delete;
+
     /**
      * @brief default destructor
      */
