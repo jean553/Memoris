@@ -81,11 +81,13 @@ public:
 
         auto& results = playingSerieManager.getResults();
 
-        unsigned short index {0};
-
-        for (const entities::SerieResult& result : results)
+        for (
+            auto result = results.cbegin();
+            result < results.cend();
+            ++result
+        )
         {
-            std::string resultString = result.getString();
+            std::string resultString = result->getString();
 
             if (resultString == ".")
             {
@@ -107,6 +109,11 @@ public:
                 fonts::TEXT_SIZE
             );
 
+            const auto index = std::distance(
+                results.cbegin(),
+                result
+            );
+
             resultText->setPosition(
                 window::getCenteredSfmlSurfaceHorizontalPosition(*resultText),
                 RESULTS_FIRST_ITEM_VERTICAL_POSITION + RESULTS_INTERVAL * index
@@ -115,8 +122,6 @@ public:
             resultText->setColor(colorsManager.getColorWhiteAlphaCopy());
 
             resultsTexts.push_back(std::move(resultText));
-
-            index++;
         }
 
         colorWhite = colorsManager.getColorWhiteCopy();
