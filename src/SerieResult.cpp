@@ -38,23 +38,20 @@ public :
 
     std::string record;
 
-    /* this variable is used to generate the ranking; that's why both of the
-       record string and calculated time are wrapped into this class */
     unsigned short time {0};
 };
 
 /**
  *
  */
-SerieResult::SerieResult() noexcept :
-    impl(std::make_unique<Impl>())
+SerieResult::SerieResult() : impl(std::make_unique<Impl>())
 {
 }
 
 /**
  *
  */
-SerieResult::~SerieResult() noexcept = default;
+SerieResult::~SerieResult() = default;
 
 /**
  *
