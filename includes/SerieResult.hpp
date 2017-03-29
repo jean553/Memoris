@@ -18,7 +18,8 @@
 
 /**
  * @file SerieResult.hpp
- * @brief contains all the serie result properties
+ * @brief one best result for a serie (each serie comes with three results);
+ * there is a numeric time in order to sort the results
  * @package entities
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -39,21 +40,29 @@ class SerieResult
 public:
 
     /**
-     * @brief default constructor, just initializes the implementation
+     * @brief constructor
+     *
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
      */
-    SerieResult() noexcept;
+    SerieResult();
+
+    SerieResult(const SerieResult&) = delete;
+
+    SerieResult& operator=(const SerieResult&) = delete;
 
     /**
-     * @brief default destructor, empty, only declared in order to use
-     * forwarding declaration
+     * @brief default destructor
      */
-    ~SerieResult() noexcept;
+    ~SerieResult();
 
     /**
-     * @brief getter of the serie result string; does not return a constant
-     * reference; this reference is used to modify the value
+     * @brief getter of the serie result string
      *
      * @return std::string&
+     *
+     * TODO: #1117 we do not return a constant reference
+     * as the returned reference is modified when loading a serie
      */
     std::string& getString() const & noexcept;
 
@@ -67,6 +76,9 @@ public:
      * and the time cannot be calculated; the function throws an exception,
      * this exception is caught and an error message is displayed into the
      * error controller
+     *
+     * TODO: #1117 I plane to get rid of this function
+     * so it is not refactored yet
      */
     void calculateTime() const &;
 
