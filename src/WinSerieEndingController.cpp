@@ -87,7 +87,7 @@ public:
             ++result
         )
         {
-            std::string resultString = result->getString();
+            std::string resultString = (*result)->getString();
 
             if (resultString == ".")
             {

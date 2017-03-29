@@ -42,6 +42,14 @@ public:
      * @brief constructor
      *
      * @param context the context to use
+     *
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
+     *
+     * @throws std::invalid_argument the format of serie record is incorrect
+     * and the time cannot be calculated; the function throws an exception,
+     * this exception is caught and an error message is displayed into the
+     * error controller
      */
     WinSerieEndingController(const utils::Context& context);
 

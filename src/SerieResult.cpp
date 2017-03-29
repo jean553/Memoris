@@ -36,6 +36,11 @@ class SerieResult::Impl
 
 public :
 
+    Impl(const std::string& record) :
+        record(record)
+    {
+    }
+
     std::string record;
 
     unsigned short time {0};
@@ -44,8 +49,11 @@ public :
 /**
  *
  */
-SerieResult::SerieResult() : impl(std::make_unique<Impl>())
+SerieResult::SerieResult(const std::string& record) : 
+    impl(std::make_unique<Impl>(record))
 {
+    /* TODO: should be done directly into the constructor */
+    calculateTime();
 }
 
 /**
@@ -56,7 +64,7 @@ SerieResult::~SerieResult() = default;
 /**
  *
  */
-std::string& SerieResult::getString() const & noexcept
+const std::string& SerieResult::getString() const & noexcept
 {
     return impl->record;
 }
