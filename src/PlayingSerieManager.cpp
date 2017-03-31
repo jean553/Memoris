@@ -31,7 +31,6 @@
 #include <fstream>
 #include <stdexcept>
 #include <queue>
-#include <vector>
 
 namespace memoris
 {

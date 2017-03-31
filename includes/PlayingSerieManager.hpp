@@ -27,7 +27,6 @@
 #define MEMORIS_PLAYINGSERIEMANAGER_H_
 
 #include <memory>
-
 #include <vector>
 
 namespace sf
@@ -53,7 +52,6 @@ class PlayingSerieManager
 
 public:
 
-    using Results = std::array<entities::SerieResult, RESULTS_PER_SERIE_FILE_AMOUNT>;
     using SerieResults = std::vector<std::unique_ptr<entities::SerieResult>>;
 
     /**
