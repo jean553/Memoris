@@ -44,7 +44,8 @@ public:
      *
      * @param record the text to set
      *
-     * @throw std::bad_alloc the implementation cannot be initialized;
+     * @throw std::bad_alloc the implementation cannot be initialized or
+     * std::string::substr() threw because of space leak;
      * this exception is never caught and the program terminates
      *
      * @throws std::invalid_argument the format of serie record is incorrect
@@ -66,25 +67,9 @@ public:
     /**
      * @brief getter of the serie result string
      *
-     * @return std::string&
+     * @return const std::string&
      */
     const std::string& getString() const & noexcept;
-
-    /**
-     * @brief calculate the total time from the record string; this is a
-     * separated function as we never set the std::string record, but we
-     * use the std::getline() function instead that just takes a string
-     * reference as a parameter (during the reading serie file process)
-     *
-     * @throws std::invalid_argument the format of serie record is incorrect
-     * and the time cannot be calculated; the function throws an exception,
-     * this exception is caught and an error message is displayed into the
-     * error controller
-     *
-     * TODO: #1117 I plane to get rid of this function
-     * so it is not refactored yet
-     */
-    void calculateTime() const &;
 
 private:
 

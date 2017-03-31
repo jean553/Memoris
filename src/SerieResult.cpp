@@ -49,11 +49,48 @@ public :
 /**
  *
  */
-SerieResult::SerieResult(const std::string& record) : 
+SerieResult::SerieResult(const std::string& record) :
     impl(std::make_unique<Impl>(record))
 {
-    /* TODO: should be done directly into the constructor */
-    calculateTime();
+    constexpr char NAME_AND_TIME_SEPARATOR {','};
+    const size_t nameSeparatorIndex = record.find(NAME_AND_TIME_SEPARATOR);
+
+    if (nameSeparatorIndex == std::string::npos)
+    {
+        /* TODO: #949 we throw std::invalid_argument as it is caught later
+           during serie loading process; this force the error controller to be
+           displayed instead but the error message is always the same; we
+           should use the invalid_argument message we set here in order to
+           give more details to the user */
+        throw std::invalid_argument("Incorrect serie file format.");
+    }
+
+    const auto timeStringBeginning = nameSeparatorIndex + 1;
+    std::string timeString = record.substr(timeStringBeginning);
+
+    constexpr char MINUTES_AND_SECONDS_SEPARATOR {':'};
+    const size_t timeSeparatorIndex = timeString.find(
+        MINUTES_AND_SECONDS_SEPARATOR
+    );
+
+    if (timeSeparatorIndex == std::string::npos)
+    {
+        /* TODO: #949 */
+        throw std::invalid_argument("Incorrect serie file format.");
+    }
+
+    constexpr unsigned short TIME_STRING_BEGINNING {0};
+    std::string minutesString = timeString.substr(
+        TIME_STRING_BEGINNING,
+        timeSeparatorIndex
+    );
+
+    const auto secondsStringBeginning = timeSeparatorIndex + 1;
+    std::string secondsString = timeString.substr(secondsStringBeginning);
+
+    constexpr unsigned short SECONDS_PER_MINUTE {60};
+    impl->time = std::stoi(secondsString) +
+        SECONDS_PER_MINUTE * std::stoi(minutesString);
 }
 
 /**
@@ -67,47 +104,6 @@ SerieResult::~SerieResult() = default;
 const std::string& SerieResult::getString() const & noexcept
 {
     return impl->record;
-}
-
-/**
- *
- */
-void SerieResult::calculateTime() const &
-{
-    const std::string& record = impl->record;
-    const size_t nameTimeSeparatorIndex = record.find(",");
-
-    if (nameTimeSeparatorIndex == std::string::npos)
-    {
-        /* TODO: #949 we throw std::invalid_argument as it is caught later 
-           during serie loading process; this force the error controller to be
-           displayed instead but the error message is always the same; we
-           should use the invalid_argument message we set here in order to
-           give more details to the user */
-        throw std::invalid_argument("Incorrect serie file format.");
-    }
-
-    /* only keep string content after the comma (only time information) */
-    std::string timeString = record.substr(nameTimeSeparatorIndex + 1);
-
-    const size_t minutesSecondsSeparatorIndex = timeString.find(":");
-
-    if (minutesSecondsSeparatorIndex == std::string::npos)
-    {
-        /* TODO: #949 */
-        throw std::invalid_argument("Incorrect serie file format.");
-    }
-
-    std::string minutesString = timeString.substr(
-        0,
-        minutesSecondsSeparatorIndex
-    );
-
-    std::string secondsString = timeString.substr(
-        minutesSecondsSeparatorIndex + 1
-    );
-
-    impl->time = std::stoi(secondsString) + 60 * std::stoi(minutesString);
 }
 
 }
