@@ -31,7 +31,6 @@
 #include <fstream>
 #include <stdexcept>
 #include <queue>
-#include <array>
 
 namespace memoris
 {
@@ -59,7 +58,7 @@ public:
     std::string serieName;
     std::string serieType {OFFICIALS_SERIE_DIRECTORY_NAME};
 
-    std::array<entities::SerieResult, RESULTS_PER_SERIE_FILE_AMOUNT> results;
+    SerieResults results;
 };
 
 /**
@@ -148,25 +147,23 @@ void PlayingSerieManager::loadSerieFileContent(const std::string& name) const &
         throw std::invalid_argument("Cannot open the given serie file.");
     }
 
-    /* get the best results of the serie first */
-    for (entities::SerieResult& result : impl->results)
+    constexpr unsigned short RESULTS_PER_SERIE {3};
+    for (
+        unsigned short i = 0;
+        i < RESULTS_PER_SERIE; 
+        i++
+    )
     {
-        std::string& line = result.getString();
-
+        std::string line;
         std::getline(file, line);
 
-        /* if the line is just a dot that means there is no record yet */
         if (line == ".")
         {
             continue;
         }
 
-        /* generates the total time of the SerieResult
-           object in integer format; not done directly
-           into a setter as we do not use setter to
-           set the std::string record attribute of the
-           SerieResult objects */
-        result.calculateTime();
+        auto result = std::make_unique<entities::SerieResult>(line);
+        impl->results.push_back(std::move(result));
     }
 
     std::string level;
@@ -233,8 +230,8 @@ const unsigned short& PlayingSerieManager::getPlayingTime() const & noexcept
 /**
  *
  */
-const PlayingSerieManager::Results& PlayingSerieManager::getResults() const &
-    noexcept
+const PlayingSerieManager::SerieResults& PlayingSerieManager::getResults()
+    const & noexcept
 {
     return impl->results;
 }

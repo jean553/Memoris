@@ -42,10 +42,17 @@ public:
     /**
      * @brief constructor
      *
+     * @param record the text to set
+     *
      * @throw std::bad_alloc the implementation cannot be initialized;
      * this exception is never caught and the program terminates
+     *
+     * @throws std::invalid_argument the format of serie record is incorrect
+     * and the time cannot be calculated; the function throws an exception,
+     * this exception is caught and an error message is displayed into the
+     * error controller
      */
-    SerieResult();
+    SerieResult(const std::string& record);
 
     SerieResult(const SerieResult&) = delete;
 
@@ -60,11 +67,8 @@ public:
      * @brief getter of the serie result string
      *
      * @return std::string&
-     *
-     * TODO: #1117 we do not return a constant reference
-     * as the returned reference is modified when loading a serie
      */
-    std::string& getString() const & noexcept;
+    const std::string& getString() const & noexcept;
 
     /**
      * @brief calculate the total time from the record string; this is a

@@ -27,6 +27,7 @@
 #define MEMORIS_PLAYINGSERIEMANAGER_H_
 
 #include <memory>
+#include <vector>
 
 namespace sf
 {
@@ -51,7 +52,7 @@ class PlayingSerieManager
 
 public:
 
-    using Results = std::array<entities::SerieResult, RESULTS_PER_SERIE_FILE_AMOUNT>;
+    using SerieResults = std::vector<std::unique_ptr<entities::SerieResult>>;
 
     /**
      * @brief constructor, empty, only used to initialize the implementation
@@ -175,9 +176,9 @@ public:
     /**
      * @brief getter of the results list loaded from the serie file
      *
-     * @return const std::array<std::string, N>&
+     * @return const std::vector<std::unique_ptr<entities::SerieResult>>&
      */
-    const Results& getResults() const & noexcept;
+    const SerieResults& getResults() const & noexcept;
 
     /**
      * @brief setter that specifies if the serie is official or not; we use
