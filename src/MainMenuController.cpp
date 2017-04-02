@@ -60,7 +60,7 @@ public:
         title.setFont(context.getFontsManager().getTitleFont());
         title.setString("Memoris");
         title.setCharacterSize(fonts::TITLE_SIZE);
-        title.setColor(colorTitle);
+        title.setFillColor(colorTitle);
 
         constexpr float TITLE_VERTICAL_POSITION {100.f};
         title.setPosition(
@@ -312,7 +312,7 @@ void MainMenuController::animateTitleColor() const &
         incrementTitleBlueColor = not incrementTitleBlueColor;
     }
 
-    impl->title.setColor(colorTitle);
+    impl->title.setFillColor(colorTitle);
 }
 
 /**

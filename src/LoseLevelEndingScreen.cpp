@@ -40,7 +40,7 @@ LoseLevelEndingScreen::LoseLevelEndingScreen(const Context& context) :
     LevelEndingScreen(context)
 {
     text.setString("You Lose !");
-    text.setColor(context.getColorsManager().getColorRed());
+    text.setFillColor(context.getColorsManager().getColorRed());
 
     /* the position is not set in the parent controller because we need to
        know the surface width before setting the horizontal position */

@@ -51,7 +51,7 @@ public:
     )
     {
         text.setString(message);
-        text.setColor(context.getColorsManager().getColorWhite());
+        text.setFillColor(context.getColorsManager().getColorWhite());
         text.setFont(context.getFontsManager().getTextFont());
         text.setCharacterSize(fonts::TEXT_SIZE);
 

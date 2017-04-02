@@ -106,7 +106,7 @@ void MenuItem::render() const &
  */
 void MenuItem::unselect() const &
 {
-    impl->text.setColor(impl->context.getColorsManager().getColorWhite());
+    impl->text.setFillColor(impl->context.getColorsManager().getColorWhite());
 }
 
 /**
@@ -114,7 +114,7 @@ void MenuItem::unselect() const &
  */
 void MenuItem::select() const &
 {
-    impl->text.setColor(impl->context.getColorsManager().getColorRed());
+    impl->text.setFillColor(impl->context.getColorsManager().getColorRed());
 }
 
 }

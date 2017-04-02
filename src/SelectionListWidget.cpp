@@ -374,7 +374,7 @@ void SelectionListWidget::addItem(std::string&& text) const &
         fonts::TEXT_SIZE
     );
 
-    surface.setColor(context.getColorsManager().getColorWhite());
+    surface.setFillColor(context.getColorsManager().getColorWhite());
 
     auto& texts = impl->texts;
 

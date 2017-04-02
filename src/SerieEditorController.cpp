@@ -84,7 +84,7 @@ public:
     {
         serieNameText.setString(UNTITLED_SERIE);
         serieNameText.setFont(context.getFontsManager().getTextFont());
-        serieNameText.setColor(context.getColorsManager().getColorWhite());
+        serieNameText.setFillColor(context.getColorsManager().getColorWhite());
         serieNameText.setCharacterSize(fonts::TEXT_SIZE);
         serieNameText.setPosition(
             1550.f - serieNameText.getLocalBounds().width,
@@ -93,7 +93,7 @@ public:
 
         allLevels.setString("Available levels");
         allLevels.setFont(context.getFontsManager().getTextFont());
-        allLevels.setColor(context.getColorsManager().getColorWhite());
+        allLevels.setFillColor(context.getColorsManager().getColorWhite());
         allLevels.setCharacterSize(fonts::INFORMATION_SIZE);
         allLevels.setPosition(
             230.f,
@@ -102,7 +102,7 @@ public:
 
         serieLevels.setString("Serie levels");
         serieLevels.setFont(context.getFontsManager().getTextFont());
-        serieLevels.setColor(context.getColorsManager().getColorWhite());
+        serieLevels.setFillColor(context.getColorsManager().getColorWhite());
         serieLevels.setCharacterSize(fonts::INFORMATION_SIZE);
         serieLevels.setPosition(
             1080.f,
@@ -114,7 +114,7 @@ public:
             "another."
         );
         explanations.setFont(context.getFontsManager().getTextFont());
-        explanations.setColor(context.getColorsManager().getColorWhite());
+        explanations.setFillColor(context.getColorsManager().getColorWhite());
         explanations.setCharacterSize(fonts::INFORMATION_SIZE);
         explanations.setPosition(
             window::getCenteredSfmlSurfaceHorizontalPosition(explanations),

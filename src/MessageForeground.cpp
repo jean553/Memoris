@@ -53,7 +53,7 @@ public:
         explanation.setFont(context.getFontsManager().getTextFont());
         explanation.setString(message);
         explanation.setCharacterSize(memoris::fonts::TEXT_SIZE);
-        explanation.setColor(context.getColorsManager().getColorWhite());
+        explanation.setFillColor(context.getColorsManager().getColorWhite());
         explanation.setPosition(
             window::getCenteredSfmlSurfaceHorizontalPosition(explanation),
             EXPLANATION_VERTICAL_POSITION

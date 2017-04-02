@@ -57,7 +57,7 @@ public:
         title.setFont(fontsManager.getTitleFont());
         title.setString("New game");
         title.setCharacterSize(fonts::SUB_TITLE_SIZE);
-        title.setColor(colorsManager.getColorLightBlue());
+        title.setFillColor(colorsManager.getColorLightBlue());
 
         constexpr float TITLE_VERTICAL_POSITION {200.f};
         title.setPosition(
@@ -68,7 +68,7 @@ public:
         explanation.setFont(fontsManager.getTextFont());
         explanation.setString("Your name :");
         explanation.setCharacterSize(fonts::TEXT_SIZE);
-        explanation.setColor(colorsManager.getColorWhite());
+        explanation.setFillColor(colorsManager.getColorWhite());
 
         constexpr float EXPLANATION_VERTICAL_POSITION {380.f};
         explanation.setPosition(
