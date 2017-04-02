@@ -50,15 +50,6 @@ namespace musics
  */
 const std::string getMusicPathById(const controllers::ControllerId& id);
 
-/**
- * @brief returns the path of one game music; this function is used by
- * getMusicPathById() to return a music for the game and also used directly
- * to change the game music when the previous one finished
- *
- * @return const std::string
- */
-const std::string getRandomGameMusicPath();
-
 }
 }
 
