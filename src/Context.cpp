@@ -190,7 +190,10 @@ void Context::loadMusicFile(const std::string& path) const &
     stopMusic();
 
     auto& music = impl->music;
-    if(music.openFromFile(path))
+
+    constexpr char MUSICS_PATH[] {"res/musics/"};
+    constexpr char MUSICS_EXTENSION[] {".ogg"};
+    if(music.openFromFile(MUSICS_PATH + path + MUSICS_EXTENSION))
     {
         music.play();
         music.setLoop(true);
