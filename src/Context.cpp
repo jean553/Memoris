@@ -34,6 +34,7 @@
 #include "EditingLevelManager.hpp"
 #include "window.hpp"
 #include "Game.hpp"
+#include "controllers_ids.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Audio/Music.hpp>
@@ -180,11 +181,50 @@ const sf::Int32 Context::getClockMillisecondsTime() const &
 /**
  *
  */
-void Context::loadMusicFile(const std::string& path) const &
+const Context::MusicId Context::getMusicId(const controllers::ControllerId& id)
+    const & noexcept
 {
-    if(path.empty())
+    if (id != controllers::ControllerId::Game)
     {
-        return;
+        return Context::MusicId::MenuMusic;
+    }
+
+    constexpr unsigned int MAXIMUM_RANDOM_GAME_MUSIC {2};
+    unsigned int randomNumber = rand() % MAXIMUM_RANDOM_GAME_MUSIC;
+
+    if (randomNumber == 0)
+    {
+        return Context::MusicId::FirstGameMusic;
+    }
+
+    return Context::MusicId::SecondGameMusic;
+}
+
+/**
+ *
+ */
+void Context::loadMusicFile(const MusicId& id) const &
+{
+    std::string path;
+
+    switch(id)
+    {
+    case Context::MusicId::FirstGameMusic:
+    {
+        path = "Zeropage_-_Ambiose";
+
+        break;
+    }
+    case Context::MusicId::SecondGameMusic:
+    {
+        path = "Zeropage_-_Void_Sensor";
+
+        break;
+    }
+    default:
+    {
+        path = "Zeropage_-_Ambient_Dance";
+    }
     }
 
     stopMusic();
