@@ -20,7 +20,7 @@ before_script:
     - sudo cp -r SFML-2.4.2/* /usr/
 
     - sudo apt-get update
-    - sudo apt-get install libjpeg62-dev libsndfile1-dev libglew1.5-dev libglew-dev libfreetype6 libjpeg-turbo8 libjpeg8 libopenal-data libopenal1  libxrandr2 libxrender1 libsoil1 cmake -y
+    - sudo apt-get install libopenal1 cmake -y
 script: 
     - mkdir build && cd build/
     - cmake ..
