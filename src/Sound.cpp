@@ -37,34 +37,27 @@ class Sound::Impl
 
 public:
 
-    Impl(const std::string& fileName) :
-        sound(nullptr),
-        buffer(std::make_unique<sf::SoundBuffer>())
+    Impl(const std::string& fileName)
     {
-        if(buffer->loadFromFile("res/sounds/" + fileName + ".wav"))
+        constexpr char SOUNDS_PATH[] {"res/sounds/"};
+        constexpr char SOUNDS_EXTENSION[] {".wav"};
+        if(buffer->loadFromFile(SOUNDS_PATH + fileName + SOUNDS_EXTENSION))
         {
             sound = std::make_unique<sf::Sound>();
+            buffer = std::make_unique<sf::SoundBuffer>();
+
             sound->setBuffer(*buffer);
-        }
-        else
-        {
-            buffer.reset();
         }
     }
 
     /* we use unique pointers to store the SFML sound and sound buffer; it's
        better to use dynamic allocation here because if the objects cannot
-       be created successfully, we just do not use memory for them */
+       be created successfully, we just do not use memory for them
+       and the program can still run */
 
-    /* pointer to the SFML sound to play, initialized to nullptr directly
-       into the constructor; not here because the sf::Sound type is not
-       defined */
-    std::unique_ptr<sf::Sound> sound;
+    std::unique_ptr<sf::Sound> sound {nullptr};
 
-    /* pointer to the SFML buffer for the current sound; not initialized
-       by default because we directly try to initialize it inside the
-       default constructor */
-    std::unique_ptr<sf::SoundBuffer> buffer;
+    std::unique_ptr<sf::SoundBuffer> buffer {nullptr};
 };
 
 /**

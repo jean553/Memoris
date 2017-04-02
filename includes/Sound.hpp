@@ -41,7 +41,10 @@ public:
     /**
      * @brief loads sound with the given file name
      *
-     * @param path location of the sound file
+     * @param fileName sound file name (no path and no extension)
+     *
+     * @throw std::bad_alloc the implementation cannot be initialized,
+     * this exception is never caught and the program terminates
      */
     Sound(const std::string& fileName);
 
