@@ -32,37 +32,61 @@ namespace memoris
 namespace sounds
 {
 
+class Sound::Impl
+{
+
+public:
+
+    Impl(const std::string& fileName) :
+        sound(nullptr),
+        buffer(std::make_unique<sf::SoundBuffer>())
+    {
+        if(buffer->loadFromFile("res/sounds/" + fileName + ".wav"))
+        {
+            sound = std::make_unique<sf::Sound>();
+            sound->setBuffer(*buffer);
+        }
+        else
+        {
+            buffer.reset();
+        }
+    }
+
+    /* we use unique pointers to store the SFML sound and sound buffer; it's
+       better to use dynamic allocation here because if the objects cannot
+       be created successfully, we just do not use memory for them */
+
+    /* pointer to the SFML sound to play, initialized to nullptr directly
+       into the constructor; not here because the sf::Sound type is not
+       defined */
+    std::unique_ptr<sf::Sound> sound;
+
+    /* pointer to the SFML buffer for the current sound; not initialized
+       by default because we directly try to initialize it inside the
+       default constructor */
+    std::unique_ptr<sf::SoundBuffer> buffer;
+};
+
 /**
  *
  */
-Sound::Sound(const std::string& path) noexcept :
-sound(nullptr),
-      buffer(std::make_unique<sf::SoundBuffer>())
+Sound::Sound(const std::string& path) : impl(std::make_unique<Impl>(path))
 {
-    if(buffer->loadFromFile("res/sounds/" + path + ".wav"))
-    {
-        sound = std::make_unique<sf::Sound>();
-        sound->setBuffer(*buffer);
-    }
-    else
-    {
-        buffer.reset();
-    }
 }
 
 /**
  *
  */
-Sound::~Sound() noexcept = default;
+Sound::~Sound() = default;
 
 /**
  *
  */
-void Sound::play() const noexcept
+void Sound::play() const &
 {
-    if (sound != nullptr)
+    if (impl->sound != nullptr)
     {
-        sound->play();
+        impl->sound->play();
     }
 }
 

@@ -18,7 +18,7 @@
 
 /**
  * @file Sound.hpp
- * @brief sound representation, stores the SFML objects
+ * @brief stores a sound
  * @package sounds
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -27,12 +27,6 @@
 #define MEMORIS_SOUND_H_
 
 #include <memory>
-
-namespace sf
-{
-class Sound;
-class SoundBuffer;
-}
 
 namespace memoris
 {
@@ -45,48 +39,30 @@ class Sound
 public:
 
     /**
-     * @brief load the sound in the given file; the SFML sound and buffer
-     * objects are dynamically loaded into the memory if the file can be
-     * loaded; if the loading fails, both of the two pointed objects are
-     * destroyed and the two pointers become null
+     * @brief loads sound with the given file name
      *
      * @param path location of the sound file
-     *
-     * 'noexcept' because we do not handle error if the file cannot be loaded;
-     * each time the sound has to be played, it justs silently fails
      */
-    Sound(const std::string& path) noexcept;
+    Sound(const std::string& fileName);
 
     /**
-     * @brief empty destructor declared here instead of the default one;
-     * by generating the default one, the compiler needs the whole definition
-     * of sf::Sound and sf::SoundBuffer, and they are not defined in this
-     * header
+     * @brief default destructor
      */
-    ~Sound() noexcept;
+    ~Sound();
 
     /**
-     * @brief play the SFML sound if it has been loaded successfully
+     * @brief plays the sound if correctly loaded
      *
-     * declared public because can be called from any controller
+     * NOTE: this method silently does nothing if the sound is not loaded
+     *
+     * no noexcept because sf::Sound::play is not noexcept
      */
-    void play() const noexcept;
+    void play() const &;
 
 private:
 
-    /* we use unique pointers to store the SFML sound and sound buffer; it's
-       better to use dynamic allocation here because if the objects cannot
-       be created successfully, we just do not use memory for them */
-
-    /* pointer to the SFML sound to play, initialized to nullptr directly
-       into the constructor; not here because the sf::Sound type is not
-       defined */
-    std::unique_ptr<sf::Sound> sound;
-
-    /* pointer to the SFML buffer for the current sound; not initialized
-       by default because we directly try to initialize it inside the
-       default constructor */
-    std::unique_ptr<sf::SoundBuffer> buffer;
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }
