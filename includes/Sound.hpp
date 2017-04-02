@@ -48,6 +48,10 @@ public:
      */
     Sound(const std::string& fileName);
 
+    Sound(const Sound&) = delete;
+
+    Sound& operator=(const Sound&) = delete;
+
     /**
      * @brief default destructor
      */
