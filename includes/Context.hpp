@@ -55,13 +55,29 @@ namespace entities
 class Game;
 }
 
+namespace controllers
+{
+enum class ControllerId;
+}
+
 namespace utils
 {
-
 class Context
 {
 
 public:
+
+    /**
+     * @enum Context::MusicId
+     * @brief every id represents a music that can be played
+     * during the game execution; used to handle musics management
+     * on enumeration values instead of strings or sf::Music objects
+     */
+    enum class MusicId {
+        MenuMusic, /** < menus music */
+        FirstGameMusic, /** < first game music (randomly selected) */
+        SecondGameMusic /** < second game music (randomly selected) */
+    };
 
     /**
      * @brief constructor
@@ -168,15 +184,25 @@ public:
     const sf::Int32 getClockMillisecondsTime() const &;
 
     /**
+     * @brief returns the id of the music to play according to the controller
+     *
+     * @param id current controller id
+     *
+     * @return Context::MusicId
+     */
+    const MusicId getMusicId(const controllers::ControllerId& id) const &
+        noexcept;
+
+    /**
      * @brief load a new music file and play it,
      * silently fails if the music cannot be loaded
      *
-     * @param path file path of the music to play
+     * @param id music to load
      *
      * SFML sf::Music::openFromFile(), sf::Music::play() and
      * setLoop() are not noexcept
      */
-    void loadMusicFile(const std::string& path) const &;
+    void loadMusicFile(const MusicId& id) const &;
 
     /**
      * @brief stop the playing music

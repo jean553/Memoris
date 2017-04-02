@@ -25,7 +25,6 @@
 #include "Context.hpp"
 #include "controllers.hpp"
 #include "controllers_ids.hpp"
-#include "musics.hpp"
 #include "SoundsManager.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -38,20 +37,21 @@ using namespace memoris;
 int main()
 {
     using namespace controllers;
+    using namespace utils;
 
     ControllerId currentControllerId {ControllerId::MainMenu},
              nextControllerId {ControllerId::NoController};
 
     utils::Context context;
 
-    auto currentMusicPath = musics::getMusicPathById(currentControllerId);
-    context.loadMusicFile(currentMusicPath);
+    Context::MusicId currentMusicId {Context::MusicId::MenuMusic},
+        nextMusicId {Context::MusicId::MenuMusic};
+    context.loadMusicFile(currentMusicId);
 
     auto& window = context.getSfmlWindow();
 
     do
     {
-        /* get a std::unique_ptr<Controller> */
         auto controller =
             getControllerById(
                 context,
@@ -79,15 +79,15 @@ int main()
             continue;
         }
 
-        std::string nextMusicPath {musics::getMusicPathById(nextControllerId)};
+        nextMusicId = context.getMusicId(nextControllerId);
 
         if(
-            currentMusicPath != nextMusicPath and
-            currentControllerId != nextControllerId
+            currentControllerId != nextControllerId and
+            nextMusicId != currentMusicId
         )
         {
-            context.loadMusicFile(nextMusicPath);
-            currentMusicPath = nextMusicPath;
+            context.loadMusicFile(nextMusicId);
+            currentMusicId = nextMusicId;
         }
 
         currentControllerId = nextControllerId;
