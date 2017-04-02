@@ -84,7 +84,7 @@ public:
 
         levelNameSurface.setString(levelName);
         levelNameSurface.setFont(font);
-        levelNameSurface.setColor(white);
+        levelNameSurface.setFillColor(white);
         levelNameSurface.setCharacterSize(fonts::TEXT_SIZE);
         levelNameSurface.setPosition(
             TITLES_HORIZONTAL_POSITION - 
@@ -93,7 +93,7 @@ public:
         );
 
         floorSurface.setFont(font);
-        floorSurface.setColor(white);
+        floorSurface.setFillColor(white);
         floorSurface.setCharacterSize(fonts::TEXT_SIZE);
         floorSurface.setString("1");
         floorSurface.setPosition(
@@ -103,14 +103,14 @@ public:
 
         if (displayTime)
         {
-            testedTime.setColor(white);
+            testedTime.setFillColor(white);
             testedTime.setString(
                 context.getPlayingSerieManager().getPlayingTimeAsString()
             );
         }
         else
         {
-            testedTime.setColor(colorsManager.getColorRed());
+            testedTime.setFillColor(colorsManager.getColorRed());
             testedTime.setString("Not tested yet");
         }
 

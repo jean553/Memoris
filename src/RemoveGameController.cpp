@@ -51,7 +51,7 @@ public:
         message.setString("Are you sure to delete this game ? Y/N");
         message.setFont(context.getFontsManager().getTextFont());
         message.setCharacterSize(fonts::TEXT_SIZE);
-        message.setColor(context.getColorsManager().getColorWhite());
+        message.setFillColor(context.getColorsManager().getColorWhite());
         message.setPosition(
             window::getCenteredSfmlSurfaceHorizontalPosition(message),
             300.f

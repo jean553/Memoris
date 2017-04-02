@@ -123,7 +123,7 @@ public:
         );
 
         const auto& lightBlue = context.getColorsManager().getColorLightBlue();
-        displayedText.setColor(lightBlue);
+        displayedText.setFillColor(lightBlue);
         cursor.setFillColor(lightBlue);
         boxRight.setFillColor(lightBlue);
         boxTop.setFillColor(lightBlue);

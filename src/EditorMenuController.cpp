@@ -53,7 +53,7 @@ public:
         title.setFont(context.getFontsManager().getTitleFont());
         title.setString("Editor");
         title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
-        title.setColor(context.getColorsManager().getColorLightBlue());
+        title.setFillColor(context.getColorsManager().getColorLightBlue());
         title.setPosition(
             window::getCenteredSfmlSurfaceHorizontalPosition(title),
             TITLE_VERTICAL_POSITION

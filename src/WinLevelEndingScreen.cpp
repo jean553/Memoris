@@ -54,7 +54,7 @@ public:
         leftLevelsAmount.setFont(
             context.getFontsManager().getTextFont()
         );
-        leftLevelsAmount.setColor(
+        leftLevelsAmount.setFillColor(
             context.getColorsManager().getColorWhite()
         );
         leftLevelsAmount.setPosition(
@@ -65,7 +65,7 @@ public:
         leftLevelsSuffix.setString("levels left");
         leftLevelsSuffix.setCharacterSize(fonts::SUB_TITLE_SIZE);
         leftLevelsSuffix.setFont(context.getFontsManager().getTextFont());
-        leftLevelsSuffix.setColor(
+        leftLevelsSuffix.setFillColor(
             context.getColorsManager().getColorWhite()
         );
         leftLevelsSuffix.setPosition(
@@ -92,7 +92,7 @@ WinLevelEndingScreen::WinLevelEndingScreen(const Context& context) :
     impl(std::make_unique<Impl>(context))
 {
     text.setString("You Win !");
-    text.setColor(context.getColorsManager().getColorGreen());
+    text.setFillColor(context.getColorsManager().getColorGreen());
 
     /* the position is not set in the parent controller because we need to
        know the surface width before setting the horizontal position */
@@ -149,7 +149,7 @@ void WinLevelEndingScreen::animateLeftLevelsAmount(const Context& context) &
 
     color.a = impl->leftLevelsAmountTransparency;
 
-    impl->leftLevelsAmount.setColor(color);
+    impl->leftLevelsAmount.setFillColor(color);
 
     impl->lastAnimationUpdateTime = context.getClockMillisecondsTime();
 }

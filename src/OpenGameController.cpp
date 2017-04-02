@@ -58,7 +58,7 @@ public:
         title.setFont(context.getFontsManager().getTitleFont());
         title.setString("Open game");
         title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
-        title.setColor(context.getColorsManager().getColorLightBlue());
+        title.setFillColor(context.getColorsManager().getColorLightBlue());
 
         constexpr float TITLE_HORIZONTAL_POSITION {620.f};
         constexpr float TITLE_VERTICAL_POSITION {100.f};

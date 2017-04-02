@@ -47,7 +47,7 @@ public:
     {
         text.setFont(context.getFontsManager().getTextFont());
         text.setCharacterSize(fonts::TEXT_SIZE);
-        text.setColor(context.getColorsManager().getColorWhite());
+        text.setFillColor(context.getColorsManager().getColorWhite());
 
         constexpr float WIDGET_HORIZONTAL_POSITION {295.f};
         constexpr float WIDGET_VERTICAL_POSITION {10.f};

@@ -45,7 +45,7 @@ public:
     Impl(const utils::Context& context)
     {
         left.setFont(context.getFontsManager().getTextFont());
-        left.setColor(context.getColorsManager().getColorWhite());
+        left.setFillColor(context.getColorsManager().getColorWhite());
         left.setCharacterSize(fonts::TITLE_SIZE);
         left.setPosition(
             90.f,
@@ -53,7 +53,7 @@ public:
         );
 
         right.setFont(context.getFontsManager().getTextFont());
-        right.setColor(context.getColorsManager().getColorWhite());
+        right.setFillColor(context.getColorsManager().getColorWhite());
         right.setCharacterSize(fonts::TITLE_SIZE);
         right.setPosition(
             1400.f,

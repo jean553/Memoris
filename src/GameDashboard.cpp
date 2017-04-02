@@ -57,11 +57,11 @@ public:
         floor.setString("1");
 
         const auto& white = context.getColorsManager().getColorWhite();
-        foundStarsAmount.setColor(white);
-        lifesAmount.setColor(white);
-        target.setColor(white);
-        time.setColor(white);
-        floor.setColor(white);
+        foundStarsAmount.setFillColor(white);
+        lifesAmount.setFillColor(white);
+        target.setFillColor(white);
+        time.setFillColor(white);
+        floor.setFillColor(white);
 
         const auto& fontSize = fonts::TEXT_SIZE;
         foundStarsAmount.setCharacterSize(fontSize);

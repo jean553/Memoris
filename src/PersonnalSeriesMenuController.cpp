@@ -59,7 +59,7 @@ public:
         title.setFont(context.getFontsManager().getTitleFont());
         title.setString("Personal series");
         title.setCharacterSize(fonts::SUB_TITLE_SIZE);
-        title.setColor(context.getColorsManager().getColorLightBlue());
+        title.setFillColor(context.getColorsManager().getColorLightBlue());
 
         constexpr float TITLE_VERTICAL_POSITION {50.f};
         title.setPosition(

@@ -56,7 +56,7 @@ public:
         title.setFont(fontsManager.getTitleFont());
         title.setString("Series");
         title.setCharacterSize(fonts::SUB_TITLE_SIZE);
-        title.setColor(lightBlue);
+        title.setFillColor(lightBlue);
 
         constexpr float TITLE_VERTICAL_POSITION {50.f};
         title.setPosition(
@@ -67,7 +67,7 @@ public:
         gameName.setFont(fontsManager.getTextFont());
         gameName.setString(context.getGame().getName());
         gameName.setCharacterSize(fonts::TEXT_SIZE);
-        gameName.setColor(lightBlue);
+        gameName.setFillColor(lightBlue);
 
         constexpr float GAME_NAME_VERTICAL_POSITION {810.f};
         constexpr float GAME_NAME_RIGHT_PADDING {20.f};

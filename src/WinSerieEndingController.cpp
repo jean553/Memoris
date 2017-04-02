@@ -62,7 +62,7 @@ public:
         title.setString("Serie finished !");
         title.setCharacterSize(fonts::TITLE_SIZE);
         title.setFont(textFont);
-        title.setColor(colorsManager.getColorLightBlue());
+        title.setFillColor(colorsManager.getColorLightBlue());
         title.setPosition(
             window::getCenteredSfmlSurfaceHorizontalPosition(title),
             TITLE_VERTICAL_POSITION
@@ -73,7 +73,7 @@ public:
         time.setString(playingSerieManager.getPlayingTimeAsString());
         time.setCharacterSize(fonts::TITLE_SIZE);
         time.setFont(textFont);
-        time.setColor(colorsManager.getColorWhite());
+        time.setFillColor(colorsManager.getColorWhite());
         time.setPosition(
             window::getCenteredSfmlSurfaceHorizontalPosition(time),
             TIME_VERTICAL_POSITION
@@ -119,7 +119,7 @@ public:
                 RESULTS_FIRST_ITEM_VERTICAL_POSITION + RESULTS_INTERVAL * index
             );
 
-            resultText->setColor(colorsManager.getColorWhiteAlphaCopy());
+            resultText->setFillColor(colorsManager.getColorWhiteAlphaCopy());
 
             resultsTexts.push_back(std::move(resultText));
         }
@@ -187,13 +187,13 @@ const ControllerId& WinSerieEndingController::render() const &
             /* create a new object and do not use references here; the function
                sf::Color::getColor() returns a constant reference but we want
                update the opacity */
-            sf::Color titleColor = impl->title.getColor();
+            sf::Color titleColor = impl->title.getFillColor();
 
             titleColor.a -= OPACITY_UPDATE_INTERVAL;
             impl->colorWhite.a -= OPACITY_UPDATE_INTERVAL;
 
-            impl->title.setColor(titleColor);
-            impl->time.setColor(impl->colorWhite);
+            impl->title.setFillColor(titleColor);
+            impl->time.setFillColor(impl->colorWhite);
 
             if (titleColor.a == 0)
             {
@@ -207,7 +207,7 @@ const ControllerId& WinSerieEndingController::render() const &
             // const std::unique_ptr<sf::Text>&
             for (const auto& resultText : impl->resultsTexts)
             {
-                (*resultText).setColor(impl->colorWhite);
+                (*resultText).setFillColor(impl->colorWhite);
             }
 
             constexpr sf::Uint8 COLOR_WHITE_MAX_OPACITY {255};
