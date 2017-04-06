@@ -89,11 +89,6 @@ public:
         {
             std::string resultString = (*result)->getString();
 
-            if (resultString == ".")
-            {
-                continue;
-            }
-
             /* replace commas by space for graphical reasons; I got some
                problem by adding the space character directly into the file */
             std::replace(
@@ -118,7 +113,6 @@ public:
                 window::getCenteredSfmlSurfaceHorizontalPosition(*resultText),
                 RESULTS_FIRST_ITEM_VERTICAL_POSITION + RESULTS_INTERVAL * index
             );
-
             resultText->setFillColor(colorsManager.getColorWhiteAlphaCopy());
 
             resultsTexts.push_back(std::move(resultText));
