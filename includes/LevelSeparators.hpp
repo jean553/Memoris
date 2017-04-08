@@ -18,9 +18,7 @@
 
 /**
  * @file LevelSeparators.hpp
- * @brief two vertical separators, displayed at each side of the level,
- * handled by this separated class because used in both of the game controller
- * and the level controller
+ * @brief two vertical lines at both sides of the level cells grid
  * @package utils
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -43,20 +41,24 @@ class LevelSeparators
 public:
 
     /**
-     * @brief constructor, initializes the two SFML surfaces
+     * @brief constructor
      *
      * @param context the current context
+     *
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
      */
     LevelSeparators(const utils::Context& context);
 
     /**
-     * @brief destructor, empty, declared
-     * in order to use forwarding declaration
+     * @brief destructor
      */
     ~LevelSeparators();
 
     /**
-     * @brief renders the two SFML surfaces together
+     * @brief renders the separators
+     *
+     * not noexcept as sf::RenderWindow::draw function is not noexcept
      */
     void display() const &;
 

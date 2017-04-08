@@ -45,25 +45,25 @@ public:
         window(context.getSfmlWindow())
     {
         constexpr float SEPARATORS_WIDTH {1.f};
-        const auto separatorsSize = sf::Vector2f(
+        const auto size = sf::Vector2f(
             SEPARATORS_WIDTH,
             window::HEIGHT
         );
-        left.setSize(separatorsSize);
-        right.setSize(separatorsSize);
+        left.setSize(size);
+        right.setSize(size);
 
-        constexpr float SEPARATORS_VERTICAL_POSITION {0.f};
+        constexpr float VERTICAL_POSITION {0.f};
 
-        constexpr float LEFT_SEPARATOR_HORIZONTAL_POSITION {290.f};
+        constexpr float LEFT_LINE_HORIZONTAL_POSITION {290.f};
         left.setPosition(
-            LEFT_SEPARATOR_HORIZONTAL_POSITION,
-            SEPARATORS_VERTICAL_POSITION
+            LEFT_LINE_HORIZONTAL_POSITION,
+            VERTICAL_POSITION
         );
 
-        constexpr float RIGHT_SEPARATOR_HORIZONTAL_POSITION {1308.f};
+        constexpr float RIGHT_LINE_HORIZONTAL_POSITION {1308.f};
         right.setPosition(
-            RIGHT_SEPARATOR_HORIZONTAL_POSITION,
-            SEPARATORS_VERTICAL_POSITION
+            RIGHT_LINE_HORIZONTAL_POSITION,
+            VERTICAL_POSITION
         );
 
         const auto& white = context.getColorsManager().getColorWhite();
@@ -85,9 +85,8 @@ LevelSeparators::~LevelSeparators() = default;
 /**
  *
  */
-LevelSeparators::LevelSeparators(
-    const utils::Context& context
-) : impl(std::make_unique<Impl>(context))
+LevelSeparators::LevelSeparators(const utils::Context& context) :
+    impl(std::make_unique<Impl>(context))
 {
 }
 
