@@ -63,10 +63,6 @@ public:
         title.setCharacterSize(fonts::TITLE_SIZE);
         title.setFont(textFont);
         title.setFillColor(colorsManager.getColorLightBlue());
-        title.setPosition(
-            window::getCenteredSfmlSurfaceHorizontalPosition(title),
-            TITLE_VERTICAL_POSITION
-        );
 
         const auto& playingSerieManager = context.getPlayingSerieManager();
 
@@ -74,6 +70,14 @@ public:
         time.setCharacterSize(fonts::TITLE_SIZE);
         time.setFont(textFont);
         time.setFillColor(colorsManager.getColorWhite());
+
+        constexpr float TITLE_VERTICAL_POSITION {200.f};
+        title.setPosition(
+            window::getCenteredSfmlSurfaceHorizontalPosition(title),
+            TITLE_VERTICAL_POSITION
+        );
+
+        constexpr float TIME_VERTICAL_POSITION {400.f};
         time.setPosition(
             window::getCenteredSfmlSurfaceHorizontalPosition(time),
             TIME_VERTICAL_POSITION
@@ -109,6 +113,8 @@ public:
                 result
             );
 
+            constexpr float RESULTS_FIRST_ITEM_VERTICAL_POSITION {300.f};
+            constexpr float RESULTS_INTERVAL {50.f};
             resultText->setPosition(
                 window::getCenteredSfmlSurfaceHorizontalPosition(*resultText),
                 RESULTS_FIRST_ITEM_VERTICAL_POSITION + RESULTS_INTERVAL * index
@@ -214,24 +220,26 @@ const ControllerId& WinSerieEndingController::render() const &
         impl->lastAnimationUpdateTime = currentTime;
     }
 
+    auto& window = context.getSfmlWindow();
+
     if (impl->displayRanking)
     {
         // const std::unique_ptr<sf::Text>&
         for (const auto& resultText : impl->resultsTexts)
         {
-            context.getSfmlWindow().draw(*resultText);
+            window.draw(*resultText);
         }
     }
     else
     {
-        context.getSfmlWindow().draw(impl->title);
-        context.getSfmlWindow().draw(impl->time);
+        window.draw(impl->title);
+        window.draw(impl->time);
     }
 
     setNextControllerId(animateScreenTransition(context));
 
     auto& event = getEvent();
-    while(context.getSfmlWindow().pollEvent(event))
+    while(window.pollEvent(event))
     {
         switch(event.type)
         {
@@ -254,11 +262,13 @@ const ControllerId& WinSerieEndingController::render() const &
             }
             default:
             {
+                break;
             }
             }
         }
         default:
         {
+            break;
         }
         }
     }

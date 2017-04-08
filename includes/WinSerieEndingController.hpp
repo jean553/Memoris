@@ -71,13 +71,6 @@ public:
 
 private:
 
-    static constexpr float TITLE_VERTICAL_POSITION {200.f};
-    static constexpr float TIME_VERTICAL_POSITION {400.f};
-    static constexpr float RESULTS_FIRST_ITEM_VERTICAL_POSITION {300.f};
-    static constexpr float RESULTS_INTERVAL {50.f};
-
-    static constexpr unsigned short SECONDS_IN_ONE_MINUTE {60};
-
     class Impl;
     std::unique_ptr<Impl> impl;
 };
