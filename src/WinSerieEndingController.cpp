@@ -26,7 +26,6 @@
 
 #include "controllers_ids.hpp"
 #include "Context.hpp"
-#include "controllers.hpp"
 #include "fonts.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
@@ -39,8 +38,6 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Window/Event.hpp>
-
-#include <array>
 
 namespace memoris
 {
