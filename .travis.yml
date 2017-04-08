@@ -23,5 +23,5 @@ before_script:
     - sudo apt-get install libopenal1 cmake -y
 script: 
     - mkdir build && cd build/
-    - cmake ..
+    - cmake -D CMAKE_CXX_COMPILER=clang++-3.5 ..
     - make -j

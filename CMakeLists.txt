@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
 set(CMAKE_BUILD_TYPE Release)
-set(CMAKE_CXX_COMPILER clang++-3.5)
 project(Memoris)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin)
@@ -23,5 +22,5 @@ add_executable(
 )
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules")
-find_package(SFML 2.1 REQUIRED system window graphics network audio)
+find_package(SFML 2.4.2 REQUIRED system window graphics network audio)
 target_link_libraries(${EXECUTABLE} ${SFML_LIBRARIES})

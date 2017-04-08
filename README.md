@@ -54,15 +54,6 @@ Install required tools:
 pacman -S gcc cmake sfml
 ```
 
-Update CMakeList.txt:
-```
-set(CMAKE_CXX_COMPILER g++)
-```
-
-NOTE: Got the following error with Arch latest clang version 3.5.2
-(https://gcc.gnu.org/gcc-7/porting_to.html#conversion-op-mangling)
-This problem does not occur when using gcc 6.3.1.
-
 ## Execution
 
 Execute the game from the root directory :
@@ -80,9 +71,13 @@ To compile the sources manually, just execute :
 
 ```
 mkdir build && cd build/
-cmake ..
+cmake -D CMAKE_CXX_COMPILER=g++ ..
 make
 ```
+
+The compiler is set when executing `cmake` command because the
+CI environment runs on Ubuntu 14.04 (maximum supported version by Travis).
+Clang++-3.5 is used instead (g++ default version not complient with C++14).
 
 ## Documentation
 
