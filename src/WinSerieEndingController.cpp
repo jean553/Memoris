@@ -124,7 +124,7 @@ public:
             resultsTexts.push_back(std::move(resultText));
         }
 
-        colorWhite = colorsManager.getColorWhiteCopy();
+        colorTimeTexts = colorsManager.getColorWhiteCopy();
     }
 
     sf::Text title;
@@ -138,12 +138,11 @@ public:
        process (sf::Text has no move constructor) */
     std::vector<std::unique_ptr<sf::Text>> resultsTexts;
 
-    bool displayRanking {false};
-    bool switchingDisplayedContent {false};
+    bool renderTransitionAnimation {false};
 
     sf::Int32 lastAnimationUpdateTime {0};
 
-    sf::Color colorWhite;
+    sf::Color colorTimeTexts;
 };
 
 /**
@@ -168,57 +167,52 @@ WinSerieEndingController::~WinSerieEndingController() = default;
 const ControllerId& WinSerieEndingController::render() const &
 {
     const auto& context = getContext();
-
-    impl->background.render();
-    impl->gradient.render(context);
-
     auto currentTime = context.getClockMillisecondsTime();
 
-    auto& switchingDisplayedContent = impl->switchingDisplayedContent;
+    auto& renderTransitionAnimation = impl->renderTransitionAnimation;
     auto& lastAnimationUpdateTime = impl->lastAnimationUpdateTime;
-    auto& displayRanking = impl->displayRanking;
 
     auto& title = impl->title;
     auto& time = impl->time;
 
+    impl->background.render();
+    impl->gradient.render(context);
+
+    sf::Color titleColor = title.getFillColor();
+    auto& titleTransparency = titleColor.a;
+
     constexpr sf::Int32 SWITCH_ANIMATION_INTERVAL {30};
     if (
-        switchingDisplayedContent and
+        renderTransitionAnimation and
         currentTime - lastAnimationUpdateTime > SWITCH_ANIMATION_INTERVAL
     )
     {
         constexpr sf::Uint8 OPACITY_UPDATE_INTERVAL {51};
 
-        auto& colorWhite = impl->colorWhite;
+        auto& colorTimeTexts = impl->colorTimeTexts;
+        auto& whiteTransparency = colorTimeTexts.a;
 
-        if (!displayRanking)
+        if (titleTransparency != 0)
         {
-            sf::Color titleColor = title.getFillColor();
-            titleColor.a -= OPACITY_UPDATE_INTERVAL;
-
-            colorWhite.a -= OPACITY_UPDATE_INTERVAL;
+            titleTransparency -= OPACITY_UPDATE_INTERVAL;
+            whiteTransparency -= OPACITY_UPDATE_INTERVAL;
 
             title.setFillColor(titleColor);
-            time.setFillColor(colorWhite);
-
-            if (titleColor.a == 0)
-            {
-                displayRanking = true;
-            }
+            time.setFillColor(colorTimeTexts);
         }
         else
         {
-            colorWhite.a += OPACITY_UPDATE_INTERVAL;
+            whiteTransparency += OPACITY_UPDATE_INTERVAL;
 
             for (const auto& resultText : impl->resultsTexts)
             {
-                (*resultText).setFillColor(colorWhite);
+                (*resultText).setFillColor(colorTimeTexts);
             }
 
             constexpr sf::Uint8 COLOR_WHITE_MAX_OPACITY {255};
-            if (colorWhite.a == COLOR_WHITE_MAX_OPACITY)
+            if (whiteTransparency == COLOR_WHITE_MAX_OPACITY)
             {
-                switchingDisplayedContent = false;
+                renderTransitionAnimation = false;
             }
         }
 
@@ -227,7 +221,7 @@ const ControllerId& WinSerieEndingController::render() const &
 
     auto& window = context.getSfmlWindow();
 
-    if (displayRanking)
+    if (titleTransparency == 0)
     {
         for (const auto& resultText : impl->resultsTexts)
         {
@@ -253,9 +247,9 @@ const ControllerId& WinSerieEndingController::render() const &
             {
             case sf::Keyboard::Return:
             {
-                if (!displayRanking)
+                if (titleTransparency != 0)
                 {
-                    switchingDisplayedContent = true;
+                    renderTransitionAnimation = true;
 
                     break;
                 }
