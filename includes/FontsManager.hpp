@@ -43,6 +43,11 @@ class FontsManager
 
 public:
 
+    /* we only use unsigned integers to store the fonts size
+       because this is the expected data type for SFML methods */
+
+    static constexpr unsigned int TITLE_SIZE {140};
+
     /**
      * @brief constructor, loads each font file one by one, throw an exception
      * if one loading process failed; the exception is not caught and stops

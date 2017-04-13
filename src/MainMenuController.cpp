@@ -59,7 +59,7 @@ public:
 
         title.setFont(context.getFontsManager().getTitleFont());
         title.setString("Memoris");
-        title.setCharacterSize(fonts::TITLE_SIZE);
+        title.setCharacterSize(managers::FontsManager::TITLE_SIZE);
         title.setFillColor(colorTitle);
 
         constexpr float TITLE_VERTICAL_POSITION {100.f};

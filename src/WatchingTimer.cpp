@@ -46,7 +46,7 @@ public:
     {
         left.setFont(context.getFontsManager().getTextFont());
         left.setFillColor(context.getColorsManager().getColorWhite());
-        left.setCharacterSize(fonts::TITLE_SIZE);
+        left.setCharacterSize(managers::FontsManager::TITLE_SIZE);
         left.setPosition(
             90.f,
             TIMERS_VERTICAL_POSITION
@@ -54,7 +54,7 @@ public:
 
         right.setFont(context.getFontsManager().getTextFont());
         right.setFillColor(context.getColorsManager().getColorWhite());
-        right.setCharacterSize(fonts::TITLE_SIZE);
+        right.setCharacterSize(managers::FontsManager::TITLE_SIZE);
         right.setPosition(
             1400.f,
             TIMERS_VERTICAL_POSITION
