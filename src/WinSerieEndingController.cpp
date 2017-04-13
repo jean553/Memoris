@@ -57,14 +57,14 @@ public:
         const auto& colorsManager = context.getColorsManager();
 
         title.setString("Serie finished !");
-        title.setCharacterSize(fonts::TITLE_SIZE);
+        title.setCharacterSize(managers::FontsManager::TITLE_SIZE);
         title.setFont(textFont);
         title.setFillColor(colorsManager.getColorLightBlue());
 
         const auto& playingSerieManager = context.getPlayingSerieManager();
 
         time.setString(playingSerieManager.getPlayingTimeAsString());
-        time.setCharacterSize(fonts::TITLE_SIZE);
+        time.setCharacterSize(managers::FontsManager::TITLE_SIZE);
         time.setFont(textFont);
         time.setFillColor(colorsManager.getColorWhite());
 

@@ -36,30 +36,12 @@ namespace fonts
    SFML requires when we set the font size of a text surface */
 
 /* used for the unique main title in the main menu */
-constexpr unsigned int TITLE_SIZE = 140;
-
-/* used for editors titles, sub-menus titles */
 constexpr unsigned int SUB_TITLE_SIZE = 70;
-
-/* used for all the lists and menus selectable items */
 constexpr unsigned int ITEM_SIZE = 60;
-
-/* used for explanations, game screen items, error screen
-   messages and some specific items in the editors */
 constexpr unsigned int TEXT_SIZE = 50;
-
-/* used for the input text widget */
 constexpr unsigned int INPUT_TEXT_SIZE = 45;
-
-/* used for small information messages displayed inside
-   the editors ( files errors, names errors... ) */
 constexpr unsigned int INFORMATION_SIZE = 30;
-
-/* used for text information displayed into the tutorial frames */
 constexpr unsigned int TUTORIAL_SIZE = 16;
-
-/* used to display the left levels amount in the serie
-   when the player wins */
 constexpr unsigned int LEVELS_COUNTDOWN_SIZE = 400;
 
 };
