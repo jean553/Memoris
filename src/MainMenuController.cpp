@@ -24,7 +24,6 @@
 #include "MainMenuController.hpp"
 
 #include "controllers_ids.hpp"
-#include "fonts_sizes.hpp"
 #include "ColorsManager.hpp"
 #include "FontsManager.hpp"
 #include "TexturesManager.hpp"
@@ -59,8 +58,10 @@ public:
 
         title.setFont(context.getFontsManager().getTitleFont());
         title.setString("Memoris");
-        title.setCharacterSize(managers::FontsManager::TITLE_SIZE);
         title.setFillColor(colorTitle);
+
+        constexpr unsigned int TITLE_TEXT_SIZE {140};
+        title.setCharacterSize(TITLE_TEXT_SIZE);
 
         constexpr float TITLE_VERTICAL_POSITION {100.f};
         title.setPosition(
