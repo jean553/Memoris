@@ -72,9 +72,12 @@ public:
         spriteGithub.setTexture(
             context.getTexturesManager().getGithubTexture()
         );
+
+        constexpr float GITHUB_SPRITE_HORIZONTAL_POSITION {1300.f};
+        constexpr float GITHUB_SPRITE_VERTICAL_POSITION {0.f};
         spriteGithub.setPosition(
-            1300.f,
-            0.f
+            GITHUB_SPRITE_HORIZONTAL_POSITION,
+            GITHUB_SPRITE_VERTICAL_POSITION
         );
     }
 

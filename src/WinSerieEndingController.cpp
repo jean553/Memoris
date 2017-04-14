@@ -57,16 +57,18 @@ public:
         const auto& colorsManager = context.getColorsManager();
 
         title.setString("Serie finished !");
-        title.setCharacterSize(sizes::TITLE_SIZE);
         title.setFont(textFont);
         title.setFillColor(colorsManager.getColorLightBlue());
 
         const auto& playingSerieManager = context.getPlayingSerieManager();
 
         time.setString(playingSerieManager.getPlayingTimeAsString());
-        time.setCharacterSize(sizes::TITLE_SIZE);
         time.setFont(textFont);
         time.setFillColor(colorsManager.getColorWhite());
+
+        constexpr unsigned int TEXTS_SIZE {140};
+        title.setCharacterSize(TEXTS_SIZE);
+        time.setCharacterSize(TEXTS_SIZE);
 
         constexpr float TITLE_VERTICAL_POSITION {200.f};
         title.setPosition(

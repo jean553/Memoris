@@ -115,7 +115,7 @@ public:
         }
 
         testedTime.setFont(font);
-        testedTime.setCharacterSize(sizes::INFORMATION_SIZE);
+        testedTime.setCharacterSize(sizes::TEXT_SIZE);
         testedTime.setPosition(
             TITLES_HORIZONTAL_POSITION - testedTime.getLocalBounds().width,
             50.f

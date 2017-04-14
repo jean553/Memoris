@@ -28,7 +28,6 @@
 #include "Context.hpp"
 #include "ColorsManager.hpp"
 #include "FontsManager.hpp"
-#include "fonts_sizes.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
@@ -52,7 +51,9 @@ LevelEndingScreen::LevelEndingScreen(const Context& context)
         context.getColorsManager().getColorPartialDarkGrey()
     );
 
-    text.setCharacterSize(sizes::TITLE_SIZE);
+    constexpr unsigned int LABELS_SIZE {140};
+    text.setCharacterSize(LABELS_SIZE);
+
     text.setFont(context.getFontsManager().getTextFont());
 }
 

@@ -94,7 +94,7 @@ public:
         allLevels.setString("Available levels");
         allLevels.setFont(context.getFontsManager().getTextFont());
         allLevels.setFillColor(context.getColorsManager().getColorWhite());
-        allLevels.setCharacterSize(sizes::INFORMATION_SIZE);
+        allLevels.setCharacterSize(sizes::TEXT_SIZE);
         allLevels.setPosition(
             230.f,
             INFORMATION_VERTICAL_POSITION
@@ -103,7 +103,7 @@ public:
         serieLevels.setString("Serie levels");
         serieLevels.setFont(context.getFontsManager().getTextFont());
         serieLevels.setFillColor(context.getColorsManager().getColorWhite());
-        serieLevels.setCharacterSize(sizes::INFORMATION_SIZE);
+        serieLevels.setCharacterSize(sizes::TEXT_SIZE);
         serieLevels.setPosition(
             1080.f,
             INFORMATION_VERTICAL_POSITION
@@ -115,7 +115,7 @@ public:
         );
         explanations.setFont(context.getFontsManager().getTextFont());
         explanations.setFillColor(context.getColorsManager().getColorWhite());
-        explanations.setCharacterSize(sizes::INFORMATION_SIZE);
+        explanations.setCharacterSize(sizes::TEXT_SIZE);
         explanations.setPosition(
             window::getCenteredSfmlSurfaceHorizontalPosition(explanations),
             850.f
