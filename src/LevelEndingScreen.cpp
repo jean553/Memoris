@@ -52,7 +52,7 @@ LevelEndingScreen::LevelEndingScreen(const Context& context)
         context.getColorsManager().getColorPartialDarkGrey()
     );
 
-    text.setCharacterSize(managers::FontsManager::TITLE_SIZE);
+    text.setCharacterSize(sizes::TITLE_SIZE);
     text.setFont(context.getFontsManager().getTextFont());
 }
 
