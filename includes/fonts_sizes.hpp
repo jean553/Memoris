@@ -32,6 +32,7 @@ namespace sizes
 /* NOTE: we use unsigned int for every size, as this is the data type
    expected by SFML font size function */
 
+constexpr unsigned int TITLE_SIZE {140};
 constexpr unsigned int SUB_TITLE_SIZE {70};
 constexpr unsigned int ITEM_SIZE {60};
 constexpr unsigned int TEXT_SIZE {50};
