@@ -24,7 +24,7 @@
 
 #include "MenuItem.hpp"
 
-#include "fonts.hpp"
+#include "fonts_sizes.hpp"
 #include "Context.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
@@ -52,7 +52,7 @@ public:
     {
         text.setString(label);
         text.setFont(context.getFontsManager().getTextFont());
-        text.setCharacterSize(fonts::ITEM_SIZE);
+        text.setCharacterSize(sizes::ITEM_SIZE);
     }
 
     sf::Text text;

@@ -24,7 +24,7 @@
 
 #include "WinLevelEndingScreen.hpp"
 
-#include "fonts.hpp"
+#include "fonts_sizes.hpp"
 #include "Context.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
@@ -50,7 +50,7 @@ public:
                 context.getPlayingSerieManager().getRemainingLevelsAmount()
             )
         );
-        leftLevelsAmount.setCharacterSize(fonts::LEVELS_COUNTDOWN_SIZE);
+        leftLevelsAmount.setCharacterSize(sizes::LEVELS_COUNTDOWN_SIZE);
         leftLevelsAmount.setFont(
             context.getFontsManager().getTextFont()
         );
@@ -63,7 +63,7 @@ public:
         );
 
         leftLevelsSuffix.setString("levels left");
-        leftLevelsSuffix.setCharacterSize(fonts::SUB_TITLE_SIZE);
+        leftLevelsSuffix.setCharacterSize(sizes::SUB_TITLE_SIZE);
         leftLevelsSuffix.setFont(context.getFontsManager().getTextFont());
         leftLevelsSuffix.setFillColor(
             context.getColorsManager().getColorWhite()

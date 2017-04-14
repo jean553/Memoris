@@ -26,7 +26,7 @@
 
 #include "controllers_ids.hpp"
 #include "controllers.hpp"
-#include "fonts.hpp"
+#include "fonts_sizes.hpp"
 #include "files.hpp"
 #include "InputTextWidget.hpp"
 #include "EditorDashboard.hpp"
@@ -85,7 +85,7 @@ public:
         levelNameSurface.setString(levelName);
         levelNameSurface.setFont(font);
         levelNameSurface.setFillColor(white);
-        levelNameSurface.setCharacterSize(fonts::TEXT_SIZE);
+        levelNameSurface.setCharacterSize(sizes::TEXT_SIZE);
         levelNameSurface.setPosition(
             TITLES_HORIZONTAL_POSITION - 
                 levelNameSurface.getLocalBounds().width,
@@ -94,7 +94,7 @@ public:
 
         floorSurface.setFont(font);
         floorSurface.setFillColor(white);
-        floorSurface.setCharacterSize(fonts::TEXT_SIZE);
+        floorSurface.setCharacterSize(sizes::TEXT_SIZE);
         floorSurface.setString("1");
         floorSurface.setPosition(
             1240.f,
@@ -115,7 +115,7 @@ public:
         }
 
         testedTime.setFont(font);
-        testedTime.setCharacterSize(fonts::INFORMATION_SIZE);
+        testedTime.setCharacterSize(sizes::INFORMATION_SIZE);
         testedTime.setPosition(
             TITLES_HORIZONTAL_POSITION - testedTime.getLocalBounds().width,
             50.f

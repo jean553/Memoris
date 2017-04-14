@@ -28,7 +28,7 @@
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "controllers.hpp"
-#include "fonts.hpp"
+#include "fonts_sizes.hpp"
 #include "window.hpp"
 #include "Game.hpp"
 
@@ -50,7 +50,7 @@ public:
     {
         message.setString("Are you sure to delete this game ? Y/N");
         message.setFont(context.getFontsManager().getTextFont());
-        message.setCharacterSize(fonts::TEXT_SIZE);
+        message.setCharacterSize(sizes::TEXT_SIZE);
         message.setFillColor(context.getColorsManager().getColorWhite());
         message.setPosition(
             window::getCenteredSfmlSurfaceHorizontalPosition(message),

@@ -25,7 +25,7 @@
 #include "NewGameController.hpp"
 
 #include "controllers_ids.hpp"
-#include "fonts.hpp"
+#include "fonts_sizes.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "InputTextWidget.hpp"
@@ -56,7 +56,7 @@ public:
 
         title.setFont(fontsManager.getTitleFont());
         title.setString("New game");
-        title.setCharacterSize(fonts::SUB_TITLE_SIZE);
+        title.setCharacterSize(sizes::SUB_TITLE_SIZE);
         title.setFillColor(colorsManager.getColorLightBlue());
 
         constexpr float TITLE_VERTICAL_POSITION {200.f};
@@ -67,7 +67,7 @@ public:
 
         explanation.setFont(fontsManager.getTextFont());
         explanation.setString("Your name :");
-        explanation.setCharacterSize(fonts::TEXT_SIZE);
+        explanation.setCharacterSize(sizes::TEXT_SIZE);
         explanation.setFillColor(colorsManager.getColorWhite());
 
         constexpr float EXPLANATION_VERTICAL_POSITION {380.f};

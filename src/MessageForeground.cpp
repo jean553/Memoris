@@ -27,7 +27,7 @@
 #include "Context.hpp"
 #include "ColorsManager.hpp"
 #include "FontsManager.hpp"
-#include "fonts.hpp"
+#include "fonts_sizes.hpp"
 #include "window.hpp"
 
 #include <SFML/Graphics/Text.hpp>
@@ -52,7 +52,7 @@ public:
     {
         explanation.setFont(context.getFontsManager().getTextFont());
         explanation.setString(message);
-        explanation.setCharacterSize(memoris::fonts::TEXT_SIZE);
+        explanation.setCharacterSize(memoris::sizes::TEXT_SIZE);
         explanation.setFillColor(context.getColorsManager().getColorWhite());
         explanation.setPosition(
             window::getCenteredSfmlSurfaceHorizontalPosition(explanation),

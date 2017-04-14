@@ -26,7 +26,7 @@
 
 #include "controllers_ids.hpp"
 #include "FontsManager.hpp"
-#include "fonts.hpp"
+#include "fonts_sizes.hpp"
 #include "ColorsManager.hpp"
 #include "controllers.hpp"
 #include "FilesSelectionListWidget.hpp"
@@ -57,7 +57,7 @@ public:
     {
         title.setFont(context.getFontsManager().getTitleFont());
         title.setString("Open game");
-        title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
+        title.setCharacterSize(memoris::sizes::SUB_TITLE_SIZE);
         title.setFillColor(context.getColorsManager().getColorLightBlue());
 
         constexpr float TITLE_HORIZONTAL_POSITION {620.f};
