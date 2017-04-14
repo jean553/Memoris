@@ -57,7 +57,7 @@ public:
 
         constexpr float TITLE_VERTICAL_POSITION {50.f};
         title.setPosition(
-            window::getCenteredSfmlSurfaceHorizontalPosition(title),
+            window::getCenteredTextHorizontalPosition(title),
             TITLE_VERTICAL_POSITION
         );
     }

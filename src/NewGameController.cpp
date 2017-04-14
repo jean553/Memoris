@@ -61,7 +61,7 @@ public:
 
         constexpr float TITLE_VERTICAL_POSITION {200.f};
         title.setPosition(
-            window::getCenteredSfmlSurfaceHorizontalPosition(title),
+            window::getCenteredTextHorizontalPosition(title),
             TITLE_VERTICAL_POSITION
         );
 
@@ -72,7 +72,7 @@ public:
 
         constexpr float EXPLANATION_VERTICAL_POSITION {380.f};
         explanation.setPosition(
-            window::getCenteredSfmlSurfaceHorizontalPosition(explanation),
+            window::getCenteredTextHorizontalPosition(explanation),
             EXPLANATION_VERTICAL_POSITION
         );
     }

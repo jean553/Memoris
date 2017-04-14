@@ -55,7 +55,7 @@ public:
         title.setCharacterSize(memoris::sizes::SUB_TITLE_SIZE);
         title.setFillColor(context.getColorsManager().getColorLightBlue());
         title.setPosition(
-            window::getCenteredSfmlSurfaceHorizontalPosition(title),
+            window::getCenteredTextHorizontalPosition(title),
             TITLE_VERTICAL_POSITION
         );
     }

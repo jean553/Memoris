@@ -81,7 +81,7 @@ MenuItem::MenuItem(
     constexpr float LEFT_HORIZONTAL_POSITION {10.f};
     impl->text.setPosition(
         position == HorizontalPosition::Center ?
-            window::getCenteredSfmlSurfaceHorizontalPosition(impl->text) :
+            window::getCenteredTextHorizontalPosition(impl->text) :
                 LEFT_HORIZONTAL_POSITION,
         verticalPosition
     );

@@ -60,7 +60,7 @@ public:
             context.getColorsManager().getColorWhite()
         );
         leftLevelsAmount.setPosition(
-            window::getCenteredSfmlSurfaceHorizontalPosition(leftLevelsAmount),
+            window::getCenteredTextHorizontalPosition(leftLevelsAmount),
             LEFT_LEVELS_LABEL_VERTICAL_POSITION
         );
 
@@ -74,7 +74,7 @@ public:
             context.getColorsManager().getColorWhite()
         );
         leftLevelsSuffix.setPosition(
-            window::getCenteredSfmlSurfaceHorizontalPosition(leftLevelsSuffix),
+            window::getCenteredTextHorizontalPosition(leftLevelsSuffix),
             LEFT_LEVELS_SUFFIX_VERTICAL_POSITION
         );
     }
@@ -103,7 +103,7 @@ WinLevelEndingScreen::WinLevelEndingScreen(const Context& context) :
        know the surface width before setting the horizontal position */
 
     text.setPosition(
-        window::getCenteredSfmlSurfaceHorizontalPosition(text),
+        window::getCenteredTextHorizontalPosition(text),
         LEFT_LEVELS_PREFIX_VERTICAL_POSITION
     );
 }

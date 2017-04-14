@@ -53,7 +53,7 @@ public:
         message.setCharacterSize(sizes::TEXT_SIZE);
         message.setFillColor(context.getColorsManager().getColorWhite());
         message.setPosition(
-            window::getCenteredSfmlSurfaceHorizontalPosition(message),
+            window::getCenteredTextHorizontalPosition(message),
             300.f
         );
     }
