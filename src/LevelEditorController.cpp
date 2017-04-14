@@ -116,9 +116,11 @@ public:
 
         testedTime.setFont(font);
         testedTime.setCharacterSize(sizes::TEXT_SIZE);
+
+        constexpr float TESTED_TIME_VERTICAL_POSITION {40.f};
         testedTime.setPosition(
             TITLES_HORIZONTAL_POSITION - testedTime.getLocalBounds().width,
-            50.f
+            TESTED_TIME_VERTICAL_POSITION
         );
 
         /* if the previous controller was the game controller, so some cells

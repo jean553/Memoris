@@ -90,42 +90,9 @@ public:
             1550.f - serieNameText.getLocalBounds().width,
             0.f
         );
-
-        allLevels.setString("Available levels");
-        allLevels.setFont(context.getFontsManager().getTextFont());
-        allLevels.setFillColor(context.getColorsManager().getColorWhite());
-        allLevels.setCharacterSize(sizes::TEXT_SIZE);
-        allLevels.setPosition(
-            230.f,
-            INFORMATION_VERTICAL_POSITION
-        );
-
-        serieLevels.setString("Serie levels");
-        serieLevels.setFont(context.getFontsManager().getTextFont());
-        serieLevels.setFillColor(context.getColorsManager().getColorWhite());
-        serieLevels.setCharacterSize(sizes::TEXT_SIZE);
-        serieLevels.setPosition(
-            1080.f,
-            INFORMATION_VERTICAL_POSITION
-        );
-
-        explanations.setString(
-            "Click on a level name in order to switch it from one list to "
-            "another."
-        );
-        explanations.setFont(context.getFontsManager().getTextFont());
-        explanations.setFillColor(context.getColorsManager().getColorWhite());
-        explanations.setCharacterSize(sizes::TEXT_SIZE);
-        explanations.setPosition(
-            window::getCenteredSfmlSurfaceHorizontalPosition(explanations),
-            850.f
-        );
     }
 
     sf::Text serieNameText;
-    sf::Text allLevels;
-    sf::Text serieLevels;
-    sf::Text explanations;
 
     widgets::Button buttonNew;
     widgets::Button buttonSave;
@@ -179,9 +146,6 @@ const ControllerId& SerieEditorController::render() const &
     else
     {
         context.getSfmlWindow().draw(impl->serieNameText);
-        context.getSfmlWindow().draw(impl->allLevels);
-        context.getSfmlWindow().draw(impl->serieLevels);
-        context.getSfmlWindow().draw(impl->explanations);
 
         auto& cursor = impl->cursor;
         const auto& cursorPosition = cursor.getPosition();
