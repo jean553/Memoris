@@ -18,6 +18,7 @@
 
 /**
  * @file fonts_sizes.hpp
+ * @brief contains commons fonts sizes, used by many different texts
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
@@ -32,14 +33,8 @@ namespace sizes
 /* NOTE: we use unsigned int for every size, as this is the data type
    expected by SFML font size function */
 
-constexpr unsigned int TITLE_SIZE {140};
 constexpr unsigned int SUB_TITLE_SIZE {70};
-constexpr unsigned int ITEM_SIZE {60};
 constexpr unsigned int TEXT_SIZE {50};
-constexpr unsigned int INPUT_TEXT_SIZE {45};
-constexpr unsigned int INFORMATION_SIZE {30};
-constexpr unsigned int TUTORIAL_SIZE {16};
-constexpr unsigned int LEVELS_COUNTDOWN_SIZE {400};
 
 }
 }

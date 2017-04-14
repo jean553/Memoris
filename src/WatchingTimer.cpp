@@ -27,7 +27,6 @@
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "Context.hpp"
-#include "fonts_sizes.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -46,7 +45,6 @@ public:
     {
         left.setFont(context.getFontsManager().getTextFont());
         left.setFillColor(context.getColorsManager().getColorWhite());
-        left.setCharacterSize(sizes::TITLE_SIZE);
         left.setPosition(
             90.f,
             TIMERS_VERTICAL_POSITION
@@ -54,11 +52,14 @@ public:
 
         right.setFont(context.getFontsManager().getTextFont());
         right.setFillColor(context.getColorsManager().getColorWhite());
-        right.setCharacterSize(sizes::TITLE_SIZE);
         right.setPosition(
             1400.f,
             TIMERS_VERTICAL_POSITION
         );
+
+        constexpr unsigned int TIMER_SIZE {140};
+        left.setCharacterSize(TIMER_SIZE);
+        right.setCharacterSize(TIMER_SIZE);
     }
 
     sf::Text left;

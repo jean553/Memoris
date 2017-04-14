@@ -49,7 +49,9 @@ public:
         context(context)
     {
         displayedText.setFont(context.getFontsManager().getTextFont());
-        displayedText.setCharacterSize(sizes::INPUT_TEXT_SIZE);
+
+        constexpr unsigned int WIDGET_TEXT_SIZE {45};
+        displayedText.setCharacterSize(WIDGET_TEXT_SIZE);
 
         cursor.setPosition(
             HORIZONTAL_POSITION + CURSOR_AND_BORDER_DISTANCE,
