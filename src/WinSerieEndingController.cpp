@@ -72,13 +72,13 @@ public:
 
         constexpr float TITLE_VERTICAL_POSITION {200.f};
         title.setPosition(
-            window::getCenteredSfmlSurfaceHorizontalPosition(title),
+            window::getCenteredTextHorizontalPosition(title),
             TITLE_VERTICAL_POSITION
         );
 
         constexpr float TIME_VERTICAL_POSITION {400.f};
         time.setPosition(
-            window::getCenteredSfmlSurfaceHorizontalPosition(time),
+            window::getCenteredTextHorizontalPosition(time),
             TIME_VERTICAL_POSITION
         );
 
@@ -115,7 +115,7 @@ public:
             constexpr float RESULTS_FIRST_ITEM_VERTICAL_POSITION {300.f};
             constexpr float RESULTS_INTERVAL {50.f};
             resultText->setPosition(
-                window::getCenteredSfmlSurfaceHorizontalPosition(*resultText),
+                window::getCenteredTextHorizontalPosition(*resultText),
                 RESULTS_FIRST_ITEM_VERTICAL_POSITION + RESULTS_INTERVAL * index
             );
             resultText->setFillColor(colorsManager.getColorWhiteAlphaCopy());

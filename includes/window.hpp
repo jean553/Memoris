@@ -18,14 +18,12 @@
 
 /**
  * @file window.hpp
- * @brief namespace for SFML window dimensions, resolution and title
+ * @brief provides window dimension and common method to center text
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
 #ifndef MEMORIS_WINDOW_H_
 #define MEMORIS_WINDOW_H_
-
-#include <string>
 
 namespace sf
 {
@@ -37,33 +35,30 @@ namespace memoris
 namespace window
 {
 
-/* unsigned int because the RenderWindow constructor excepts unsigned int */
+/* unsigned integers because the RenderWindow constructor gets unsigned int;
+   we prevent unsigned int to float conversion everytime we get
+   the horizontal position of a centered text; in fact, the SFML window
+   controller takes an unsigned integer and the texts positions
+   are set with floats */
 
-constexpr unsigned int WIDTH = 1600;
-constexpr unsigned int HEIGHT = 900;
-constexpr unsigned int RESOLUTION = 32;
+constexpr float WIDTH {1600.f};
 
-/* extern to be sure that we only declare them one time */
-
-extern const std::string TITLE;
+constexpr unsigned int HEIGHT {900};
 
 /**
- * @brief returns the expected horizontal position for the given surface
- * when this surface has to be centered
+ * @brief returns the expected horizontal position
+ * when a surface must be centered
  *
- * @param text SFML text object constant reference
+ * @param text the text surface to center
  *
  * @return const float
  *
- * not 'noexcept' because it calls SFML functions that are not noexcept
- *
- * does not return a reference because it does not return any instance
- * attribute
+ * not noexcept because it calls SFML functions that are not noexcept
  *
  * this function is declared here because the provided feature is required
- * by many different classes that do not have any relationship between them
+ * by many different classes without any relationship between each others
  */
-const float getCenteredSfmlSurfaceHorizontalPosition(const sf::Text& text);
+const float getCenteredTextHorizontalPosition(const sf::Text& text);
 
 }
 }

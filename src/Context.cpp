@@ -61,12 +61,15 @@ public:
 
     sf::RenderWindow sfmlWindow =
     {
+        /* the float width is only converted once
+           when creating the window and no conversion
+           is necessary when calculating the horizontal
+           position of centered text */
         sf::VideoMode(
-            window::WIDTH,
-            window::HEIGHT,
-            window::RESOLUTION
+            static_cast<unsigned int>(window::WIDTH),
+            window::HEIGHT
         ),
-        window::TITLE,
+        "Memoris",
         sf::Style::Fullscreen
     };
 

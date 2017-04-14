@@ -55,7 +55,7 @@ public:
         explanation.setCharacterSize(memoris::sizes::TEXT_SIZE);
         explanation.setFillColor(context.getColorsManager().getColorWhite());
         explanation.setPosition(
-            window::getCenteredSfmlSurfaceHorizontalPosition(explanation),
+            window::getCenteredTextHorizontalPosition(explanation),
             EXPLANATION_VERTICAL_POSITION
         );
     }

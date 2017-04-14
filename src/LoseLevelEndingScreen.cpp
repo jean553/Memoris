@@ -46,7 +46,7 @@ LoseLevelEndingScreen::LoseLevelEndingScreen(const Context& context) :
        know the surface width before setting the horizontal position */
 
     text.setPosition(
-        window::getCenteredSfmlSurfaceHorizontalPosition(text),
+        window::getCenteredTextHorizontalPosition(text),
         200.f
     );
 }

@@ -18,7 +18,6 @@
 
 /**
  * @file window.cpp
- * @brief namespace for SFML window dimensions, resolution and title
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
@@ -31,17 +30,12 @@ namespace memoris
 namespace window
 {
 
-const std::string TITLE = "Memoris";
-
 /**
  *
  */
-const float getCenteredSfmlSurfaceHorizontalPosition(const sf::Text& text)
+const float getCenteredTextHorizontalPosition(const sf::Text& text)
 {
-    /* the window::WIDTH variable is an unsigned int and this is not
-       guarantee that getLocalBounds().width returns a float */
-    return static_cast<float>(WIDTH) / 2 -
-        static_cast<float>(text.getLocalBounds().width) / 2;
+    return WIDTH / 2 - text.getLocalBounds().width / 2;
 }
 
 }
