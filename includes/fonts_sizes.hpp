@@ -17,34 +17,30 @@
 */
 
 /**
- * @file fonts.hpp
- * @brief contains fonts paths and sizes
+ * @file fonts_sizes.hpp
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef MEMORIS_FONTS_H_
-#define MEMORIS_FONTS_H_
-
-#include <string>
+#ifndef MEMORIS_FONTSSIZE_H_
+#define MEMORIS_FONTSSIZE_H_
 
 namespace memoris
 {
-namespace fonts
+namespace sizes
 {
 
-/* NOTE: we use unsigned int for all the fonts sizes because it is the one
-   SFML requires when we set the font size of a text surface */
+/* NOTE: we use unsigned int for every size, as this is the data type
+   expected by SFML font size function */
 
-/* used for the unique main title in the main menu */
-constexpr unsigned int SUB_TITLE_SIZE = 70;
-constexpr unsigned int ITEM_SIZE = 60;
-constexpr unsigned int TEXT_SIZE = 50;
-constexpr unsigned int INPUT_TEXT_SIZE = 45;
-constexpr unsigned int INFORMATION_SIZE = 30;
-constexpr unsigned int TUTORIAL_SIZE = 16;
-constexpr unsigned int LEVELS_COUNTDOWN_SIZE = 400;
+constexpr unsigned int SUB_TITLE_SIZE {70};
+constexpr unsigned int ITEM_SIZE {60};
+constexpr unsigned int TEXT_SIZE {50};
+constexpr unsigned int INPUT_TEXT_SIZE {45};
+constexpr unsigned int INFORMATION_SIZE {30};
+constexpr unsigned int TUTORIAL_SIZE {16};
+constexpr unsigned int LEVELS_COUNTDOWN_SIZE {400};
 
-};
+}
 }
 
 #endif

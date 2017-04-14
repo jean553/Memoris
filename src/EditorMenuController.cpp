@@ -25,7 +25,7 @@
 #include "EditorMenuController.hpp"
 
 #include "controllers_ids.hpp"
-#include "fonts.hpp"
+#include "fonts_sizes.hpp"
 #include "controllers.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
@@ -52,7 +52,7 @@ public:
         constexpr float TITLE_VERTICAL_POSITION {50.f};
         title.setFont(context.getFontsManager().getTitleFont());
         title.setString("Editor");
-        title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
+        title.setCharacterSize(memoris::sizes::SUB_TITLE_SIZE);
         title.setFillColor(context.getColorsManager().getColorLightBlue());
         title.setPosition(
             window::getCenteredSfmlSurfaceHorizontalPosition(title),

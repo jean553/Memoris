@@ -27,7 +27,7 @@
 #include "Context.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
-#include "fonts.hpp"
+#include "fonts_sizes.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 

@@ -24,7 +24,7 @@
 #include "MainMenuController.hpp"
 
 #include "controllers_ids.hpp"
-#include "fonts.hpp"
+#include "fonts_sizes.hpp"
 #include "ColorsManager.hpp"
 #include "FontsManager.hpp"
 #include "TexturesManager.hpp"

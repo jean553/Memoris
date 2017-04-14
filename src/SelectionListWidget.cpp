@@ -27,7 +27,7 @@
 #include "Context.hpp"
 #include "ColorsManager.hpp"
 #include "FontsManager.hpp"
-#include "fonts.hpp"
+#include "fonts_sizes.hpp"
 #include "TexturesManager.hpp"
 
 #include <SFML/Graphics/RectangleShape.hpp>
@@ -371,7 +371,7 @@ void SelectionListWidget::addItem(std::string&& text) const &
     sf::Text surface(
         text,
         context.getFontsManager().getTextFont(),
-        fonts::TEXT_SIZE
+        sizes::TEXT_SIZE
     );
 
     surface.setFillColor(context.getColorsManager().getColorWhite());

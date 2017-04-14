@@ -27,7 +27,7 @@
 #include "controllers_ids.hpp"
 #include "ColorsManager.hpp"
 #include "FontsManager.hpp"
-#include "fonts.hpp"
+#include "fonts_sizes.hpp"
 #include "controllers.hpp"
 #include "window.hpp"
 
@@ -53,7 +53,7 @@ public:
         text.setString(message);
         text.setFillColor(context.getColorsManager().getColorWhite());
         text.setFont(context.getFontsManager().getTextFont());
-        text.setCharacterSize(fonts::TEXT_SIZE);
+        text.setCharacterSize(sizes::TEXT_SIZE);
 
         /* window::WIDTH is an unsigned int, and there is guarantee about the
            getLocalBounds().width type */

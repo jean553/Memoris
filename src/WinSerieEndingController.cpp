@@ -26,7 +26,7 @@
 
 #include "controllers_ids.hpp"
 #include "Context.hpp"
-#include "fonts.hpp"
+#include "fonts_sizes.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "window.hpp"
@@ -102,7 +102,7 @@ public:
             auto resultText = std::make_unique<sf::Text>(
                 resultString,
                 textFont,
-                fonts::TEXT_SIZE
+                sizes::TEXT_SIZE
             );
 
             const auto index = std::distance(

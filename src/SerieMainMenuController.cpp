@@ -25,7 +25,7 @@
 #include "SerieMainMenuController.hpp"
 
 #include "controllers_ids.hpp"
-#include "fonts.hpp"
+#include "fonts_sizes.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "MenuItem.hpp"
@@ -55,7 +55,7 @@ public:
 
         title.setFont(fontsManager.getTitleFont());
         title.setString("Series");
-        title.setCharacterSize(fonts::SUB_TITLE_SIZE);
+        title.setCharacterSize(sizes::SUB_TITLE_SIZE);
         title.setFillColor(lightBlue);
 
         constexpr float TITLE_VERTICAL_POSITION {50.f};
@@ -66,7 +66,7 @@ public:
 
         gameName.setFont(fontsManager.getTextFont());
         gameName.setString(context.getGame().getName());
-        gameName.setCharacterSize(fonts::TEXT_SIZE);
+        gameName.setCharacterSize(sizes::TEXT_SIZE);
         gameName.setFillColor(lightBlue);
 
         constexpr float GAME_NAME_VERTICAL_POSITION {810.f};

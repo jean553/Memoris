@@ -25,7 +25,7 @@
 #include "GameDashboard.hpp"
 
 #include "Context.hpp"
-#include "fonts.hpp"
+#include "fonts_sizes.hpp"
 #include "PlayingSerieManager.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
@@ -63,7 +63,7 @@ public:
         time.setFillColor(white);
         floor.setFillColor(white);
 
-        const auto& fontSize = fonts::TEXT_SIZE;
+        const auto& fontSize = sizes::TEXT_SIZE;
         foundStarsAmount.setCharacterSize(fontSize);
         lifesAmount.setCharacterSize(fontSize);
         target.setCharacterSize(fontSize);

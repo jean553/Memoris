@@ -27,7 +27,7 @@
 #include "controllers_ids.hpp"
 #include "cells.hpp"
 #include "window.hpp"
-#include "fonts.hpp"
+#include "fonts_sizes.hpp"
 #include "controllers.hpp"
 #include "animations.hpp"
 #include "PlayingSerieManager.hpp"

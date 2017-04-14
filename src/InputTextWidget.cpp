@@ -24,7 +24,7 @@
 
 #include "InputTextWidget.hpp"
 
-#include "fonts.hpp"
+#include "fonts_sizes.hpp"
 #include "Context.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
@@ -49,7 +49,7 @@ public:
         context(context)
     {
         displayedText.setFont(context.getFontsManager().getTextFont());
-        displayedText.setCharacterSize(fonts::INPUT_TEXT_SIZE);
+        displayedText.setCharacterSize(sizes::INPUT_TEXT_SIZE);
 
         cursor.setPosition(
             HORIZONTAL_POSITION + CURSOR_AND_BORDER_DISTANCE,

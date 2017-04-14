@@ -25,7 +25,7 @@
 #include "OfficialSeriesMenuController.hpp"
 
 #include "controllers_ids.hpp"
-#include "fonts.hpp"
+#include "fonts_sizes.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "PlayingSerieManager.hpp"
@@ -52,7 +52,7 @@ public:
     {
         title.setFont(context.getFontsManager().getTitleFont());
         title.setString("Official series");
-        title.setCharacterSize(memoris::fonts::SUB_TITLE_SIZE);
+        title.setCharacterSize(memoris::sizes::SUB_TITLE_SIZE);
         title.setFillColor(context.getColorsManager().getColorLightBlue());
 
         constexpr float TITLE_VERTICAL_POSITION {50.f};

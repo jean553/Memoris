@@ -30,7 +30,7 @@
 #include "TexturesManager.hpp"
 #include "Context.hpp"
 #include "controllers.hpp"
-#include "fonts.hpp"
+#include "fonts_sizes.hpp"
 #include "Button.hpp"
 #include "Cursor.hpp"
 #include "DoubleSelectionListWidget.hpp"
@@ -85,7 +85,7 @@ public:
         serieNameText.setString(UNTITLED_SERIE);
         serieNameText.setFont(context.getFontsManager().getTextFont());
         serieNameText.setFillColor(context.getColorsManager().getColorWhite());
-        serieNameText.setCharacterSize(fonts::TEXT_SIZE);
+        serieNameText.setCharacterSize(sizes::TEXT_SIZE);
         serieNameText.setPosition(
             1550.f - serieNameText.getLocalBounds().width,
             0.f
@@ -94,7 +94,7 @@ public:
         allLevels.setString("Available levels");
         allLevels.setFont(context.getFontsManager().getTextFont());
         allLevels.setFillColor(context.getColorsManager().getColorWhite());
-        allLevels.setCharacterSize(fonts::INFORMATION_SIZE);
+        allLevels.setCharacterSize(sizes::INFORMATION_SIZE);
         allLevels.setPosition(
             230.f,
             INFORMATION_VERTICAL_POSITION
@@ -103,7 +103,7 @@ public:
         serieLevels.setString("Serie levels");
         serieLevels.setFont(context.getFontsManager().getTextFont());
         serieLevels.setFillColor(context.getColorsManager().getColorWhite());
-        serieLevels.setCharacterSize(fonts::INFORMATION_SIZE);
+        serieLevels.setCharacterSize(sizes::INFORMATION_SIZE);
         serieLevels.setPosition(
             1080.f,
             INFORMATION_VERTICAL_POSITION
@@ -115,7 +115,7 @@ public:
         );
         explanations.setFont(context.getFontsManager().getTextFont());
         explanations.setFillColor(context.getColorsManager().getColorWhite());
-        explanations.setCharacterSize(fonts::INFORMATION_SIZE);
+        explanations.setCharacterSize(sizes::INFORMATION_SIZE);
         explanations.setPosition(
             window::getCenteredSfmlSurfaceHorizontalPosition(explanations),
             850.f

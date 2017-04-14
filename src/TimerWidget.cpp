@@ -24,7 +24,7 @@
 
 #include "TimerWidget.hpp"
 
-#include "fonts.hpp"
+#include "fonts_sizes.hpp"
 #include "Context.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
@@ -46,7 +46,7 @@ public:
     Impl(const utils::Context& context)
     {
         text.setFont(context.getFontsManager().getTextFont());
-        text.setCharacterSize(fonts::TEXT_SIZE);
+        text.setCharacterSize(sizes::TEXT_SIZE);
         text.setFillColor(context.getColorsManager().getColorWhite());
 
         constexpr float WIDGET_HORIZONTAL_POSITION {295.f};
