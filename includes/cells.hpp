@@ -18,7 +18,7 @@
 
 /**
  * @file cells.hpp
- * @brief contains the cells factory
+ * @brief contains all the cells
  * @package cells
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -26,16 +26,10 @@
 #ifndef MEMORIS_CELLS_H_
 #define MEMORIS_CELLS_H_
 
-#include "Cell.hpp"
-
 namespace memoris
 {
 namespace cells
 {
-
-constexpr float HORIZONTAL_POSITION_ORIGIN {400.f};
-constexpr float VERTICAL_POSITION_ORIGIN {98.f};
-constexpr float CELL_DIMENSIONS {50.f};
 
 constexpr char EMPTY_CELL {'e'};
 constexpr char DEPARTURE_CELL {'d'};
@@ -58,23 +52,6 @@ constexpr char ELEVATOR_UP_CELL {'U'};
 constexpr char ELEVATOR_DOWN_CELL {'V'};
 constexpr char QUARTER_ROTATION_CELL {'q'};
 constexpr char INVERTED_QUARTER_ROTATION_CELL {'Q'};
-
-/**
- * @brief returns a pointer to the created cell according to the given type
- *
- * @param context the context to use
- * @param horizontalPosition cell horizontal position
- * @param verticalPosition cell vertical position
- * @param type cell type
- *
- * @return std::unique_ptr<entities::Cell>
- */
-std::unique_ptr<entities::Cell> getCellByType(
-    const utils::Context& context,
-    const float& horizontalPosition,
-    const float& verticalPosition,
-    const char type
-);
 
 }
 }

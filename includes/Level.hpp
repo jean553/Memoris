@@ -455,6 +455,23 @@ private:
      */
     void updateCursors() const & noexcept;
 
+    /**
+     * @brief returns a pointer to the created cell according to the given type
+     *
+     * @param context the context to use
+     * @param horizontalPosition cell horizontal position
+     * @param verticalPosition cell vertical position
+     * @param type cell type
+     *
+     * @return std::unique_ptr<Cell>
+     */
+    std::unique_ptr<Cell> getCellByType(
+        const utils::Context& context,
+        const float& horizontalPosition,
+        const float& verticalPosition,
+        const char type
+    ) const &;
+
     class Impl;
     std::unique_ptr<Impl> impl;
 };

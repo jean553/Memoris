@@ -25,6 +25,7 @@
 #include "AnimatedBackground.hpp"
 
 #include "cells.hpp"
+#include "Cell.hpp"
 
 namespace memoris
 {
