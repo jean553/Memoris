@@ -18,11 +18,7 @@
 
 /**
  * @file cells.hpp
- * @brief each cell is represented by one character (value between 0 and 255),
- * we use this data type because it makes loading and manipulations faster
- * when reading, playing and comparing; the character of a cell is always the
- * first letter of its type, in lowercase; if it's a bonus, the character is
- * uppercase, if it is a malus, the character is in lowercase
+ * @brief contains the cells factory
  * @package cells
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -64,24 +60,19 @@ constexpr char QUARTER_ROTATION_CELL {'q'};
 constexpr char INVERTED_QUARTER_ROTATION_CELL {'Q'};
 
 /**
- * @brief create Cell unique pointers, usuable at a given position inside
- * the level; the given positions are the positions of the cell *inside* the
- * level (the level position is the origin of the cells positions); we use
- * a template for the positions types (whatever the type, the position is
- * cast to float)
+ * @brief returns a pointer to the created cell according to the given type
  *
- * @param context reference to the current context to use
- * @param horizontalPosition the horizontal position of the cell
- * @param verticalPosiition the vertical position of the cell
- * @param type the cell type
+ * @param context the context to use
+ * @param horizontalPosition cell horizontal position
+ * @param verticalPosition cell vertical position
+ * @param type cell type
  *
  * @return std::unique_ptr<entities::Cell>
  */
-template<typename T>
 std::unique_ptr<entities::Cell> getCellByType(
     const utils::Context& context,
-    const T& horizontalPosition,
-    const T& verticalPosition,
+    const float& horizontalPosition,
+    const float& verticalPosition,
     const char type
 );
 
