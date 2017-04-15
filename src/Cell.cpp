@@ -45,10 +45,17 @@ public:
         const float& hPosition,
         const float& vPosition
     ) :
-        type(cellType),
-        originalHorizontalPosition(hPosition),
-        originalVerticalPosition(vPosition)
+        type(cellType)
     {
+        constexpr float HORIZONTAL_POSITION_ORIGIN {400.f};
+        constexpr float VERTICAL_POSITION_ORIGIN {98.f};
+        constexpr float CELL_DIMENSIONS {50.f};
+
+        originalHorizontalPosition = HORIZONTAL_POSITION_ORIGIN +
+            CELL_DIMENSIONS * hPosition;
+
+        originalVerticalPosition = VERTICAL_POSITION_ORIGIN +
+            CELL_DIMENSIONS * vPosition;
     }
 
     char type;
