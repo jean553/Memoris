@@ -464,6 +464,9 @@ private:
      * @param type cell type
      *
      * @return std::unique_ptr<Cell>
+     *
+     * @throw std::bad_alloc the pointer cannot be initialized;
+     * the exception is never caught and the program stops
      */
     std::unique_ptr<Cell> getCellByType(
         const utils::Context& context,
