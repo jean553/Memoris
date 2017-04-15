@@ -29,7 +29,6 @@
 #include "window.hpp"
 #include "fonts_sizes.hpp"
 #include "controllers.hpp"
-#include "animations.hpp"
 #include "PlayingSerieManager.hpp"
 #include "SoundsManager.hpp"
 #include "FontsManager.hpp"
@@ -44,6 +43,13 @@
 #include "Level.hpp"
 #include "EditingLevelManager.hpp"
 #include "Cell.hpp"
+
+#include "HorizontalMirrorAnimation.hpp"
+#include "VerticalMirrorAnimation.hpp"
+#include "StairsAnimation.hpp"
+#include "DiagonalAnimation.hpp"
+#include "RotateFloorAnimation.hpp"
+#include "QuarterRotationAnimation.hpp"
 
 namespace memoris
 {
@@ -531,10 +537,10 @@ void GameController::executePlayerCellAction(
     {
         if (impl->level->movePlayerToNextFloor(context))
         {
-            impl->animation = animations::getAnimationByCellType(
-                                  context,
-                                  newPlayerCellType
-                              );
+            impl->animation = getAnimationByCell(
+                context,
+                newPlayerCellType
+            );
 
             impl->movePlayerToNextFloor = true;
         }
@@ -546,10 +552,10 @@ void GameController::executePlayerCellAction(
     {
         if (impl->level->movePlayerToPreviousFloor(context))
         {
-            impl->animation = animations::getAnimationByCellType(
-                                  context,
-                                  newPlayerCellType
-                              );
+            impl->animation = getAnimationByCell(
+                context,
+                newPlayerCellType
+            );
 
             impl->movePlayerToPreviousFloor = true;
         }
@@ -558,7 +564,7 @@ void GameController::executePlayerCellAction(
     }
     case cells::QUARTER_ROTATION_CELL:
     {
-        impl->animation = animations::getAnimationByCellType(
+        impl->animation = getAnimationByCell(
             context,
             newPlayerCellType
         );
@@ -607,10 +613,10 @@ void GameController::executePlayerCellAction(
     case cells::LEFT_ROTATION_CELL:
     case cells::RIGHT_ROTATION_CELL:
     {
-        impl->animation = animations::getAnimationByCellType(
-                              context,
-                              newPlayerCellType
-                          );
+        impl->animation = getAnimationByCell(
+            context,
+            newPlayerCellType
+        );
 
         break;
     }
@@ -713,6 +719,59 @@ void GameController::endLevel(const utils::Context& context) const &
     impl->dashboard.getTimerWidget().stop();
 
     impl->endPeriodStartTime = context.getClockMillisecondsTime();
+}
+
+/**
+ *
+ */
+std::unique_ptr<animations::LevelAnimation> GameController::getAnimationByCell(
+    const utils::Context& context,
+    const char& cellType
+) const &
+{
+    switch(cellType)
+    {
+    case cells::VERTICAL_MIRROR_CELL:
+    {
+        return std::make_unique<animations::VerticalMirrorAnimation>();
+    }
+    case cells::STAIRS_UP_CELL:
+    case cells::ELEVATOR_UP_CELL:
+    {
+        return std::make_unique<animations::StairsAnimation>(
+                   context,
+                   1
+               );
+    }
+    case cells::ELEVATOR_DOWN_CELL:
+    case cells::STAIRS_DOWN_CELL:
+    {
+        return std::make_unique<animations::StairsAnimation>(
+                   context,
+                   -1
+               );
+    }
+    case cells::DIAGONAL_CELL:
+    {
+        return std::make_unique<animations::DiagonalAnimation>();
+    }
+    case cells::LEFT_ROTATION_CELL:
+    {
+        return std::make_unique<animations::RotateFloorAnimation>(-1);
+    }
+    case cells::RIGHT_ROTATION_CELL:
+    {
+        return std::make_unique<animations::RotateFloorAnimation>(1);
+    }
+    case cells::QUARTER_ROTATION_CELL:
+    {
+        return std::make_unique<animations::QuarterRotationAnimation>();
+    }
+    default:
+    {
+        return std::make_unique<animations::HorizontalMirrorAnimation>();
+    }
+    }
 }
 
 }
