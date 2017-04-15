@@ -39,6 +39,10 @@
 #include "WinSerieEndingController.hpp"
 #include "RemoveGameController.hpp"
 #include "PersonalSeriesMenuController.hpp"
+#include "Context.hpp"
+#include "ErrorController.hpp"
+
+#include <SFML/System/String.hpp>
 
 namespace memoris
 {

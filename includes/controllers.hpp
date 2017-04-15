@@ -25,17 +25,27 @@
 #ifndef MEMORIS_CONTROLLERS_H_
 #define MEMORIS_CONTROLLERS_H_
 
-#include "Controller.hpp"
+#include <memory>
 
-#include "ErrorController.hpp"
-#include "Context.hpp"
-
-#include <SFML/System/String.hpp>
+namespace sf
+{
+class String;
+}
 
 namespace memoris
 {
+
+namespace utils
+{
+class Context;
+}
+
 namespace controllers
 {
+
+class Controller;
+enum class ControllerId;
+class ErrorController;
 
 /**
  * @brief factory method to create controllers by id, each controller is linked
