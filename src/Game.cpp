@@ -24,9 +24,8 @@
 
 #include "Game.hpp"
 
-#include "files.hpp"
-
 #include <string>
+#include <fstream>
 
 namespace memoris
 {
@@ -70,7 +69,6 @@ void Game::deleteGameFile() const &
 void Game::createFile() const &
 {
     std::ofstream file;
-    utils::applyFailbitAndBadbitExceptions(file);
 
     file.open(
         GAMES_FILES_DIRECTORY + impl->gameName + GAMES_FILES_EXTENSION,

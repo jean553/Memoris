@@ -39,10 +39,11 @@
 #include "MessageForeground.hpp"
 #include "InputTextWidget.hpp"
 #include "window.hpp"
-#include "files.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
+
+#include <fstream>
 
 namespace memoris
 {
@@ -366,7 +367,6 @@ const ControllerId& SerieEditorController::render() const &
 void SerieEditorController::saveSerieFile(const std::string& name) const &
 {
     std::ofstream file;
-    utils::applyFailbitAndBadbitExceptions(file);
 
     file.open(
         "data/series/personals/" + name + ".serie",
