@@ -28,7 +28,6 @@
 #include "Context.hpp"
 #include "cells.hpp"
 #include "allocators.hpp"
-#include "dimensions.hpp"
 #include "PlayingSerieManager.hpp"
 
 #include <fstream>
@@ -530,10 +529,12 @@ void Level::createTransform()
  */
 void Level::rotateAllCells(const short& degrees)
 {
+    constexpr float FLOOR_CENTER_HORIZONTAL_POSITION {800.f};
+    constexpr float FLOOR_CENTER_VERTICAL_POSITION {498.f};
     impl->transform->rotate(
         degrees,
-        dimensions::FLOOR_CENTER_X,
-        dimensions::FLOOR_CENTER_Y
+        FLOOR_CENTER_HORIZONTAL_POSITION,
+        FLOOR_CENTER_VERTICAL_POSITION
     );
 }
 

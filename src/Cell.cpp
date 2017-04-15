@@ -25,7 +25,6 @@
 
 #include "Cell.hpp"
 
-#include "dimensions.hpp"
 #include "window.hpp"
 #include "cells.hpp"
 #include "ColorsManager.hpp"
@@ -123,8 +122,8 @@ void Cell::moveOnTheRight() const &
     if (impl->horizontalPosition == memoris::window::WIDTH)
     {
         /* note that the cell pixel dimensions is forced to be signed */
-        impl->horizontalPosition =
-            -memoris::dimensions::CELL_PIXELS_DIMENSIONS;
+        constexpr float CELL_DIMENSIONS {49.f};
+        impl->horizontalPosition = -CELL_DIMENSIONS;
     }
 
     /* update the horizontal position */
