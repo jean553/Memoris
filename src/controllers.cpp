@@ -34,7 +34,6 @@
 #include "OpenGameController.hpp"
 #include "SerieEditorController.hpp"
 #include "Level.hpp"
-#include "errors.hpp"
 #include "PlayingSerieManager.hpp"
 #include "EditingLevelManager.hpp"
 #include "WinSerieEndingController.hpp"
@@ -54,6 +53,8 @@ std::unique_ptr<Controller> getControllerById(
     const ControllerId& id
 )
 {
+    const sf::String CANNOT_OPEN_LEVEL {"Cannot open level"};
+
     switch(id)
     {
     case ControllerId::NewGame:
@@ -113,7 +114,7 @@ std::unique_ptr<Controller> getControllerById(
         {
             return getErrorController(
                 context,
-                errors::CANNOT_OPEN_LEVEL
+                CANNOT_OPEN_LEVEL
             );
         }
     }
@@ -123,7 +124,7 @@ std::unique_ptr<Controller> getControllerById(
     {
         return getErrorController(
             context,
-            errors::CANNOT_OPEN_LEVEL
+            CANNOT_OPEN_LEVEL
         );
     }
     case ControllerId::EditorMenu:
@@ -165,7 +166,7 @@ std::unique_ptr<Controller> getControllerById(
         {
             return getErrorController(
                 context,
-                errors::CANNOT_OPEN_LEVEL
+                CANNOT_OPEN_LEVEL
             );
         }
     }
@@ -181,7 +182,7 @@ std::unique_ptr<Controller> getControllerById(
     {
         return getErrorController(
             context,
-            errors::UNLOCKED_SERIE
+            "This serie is locked."
         );
     }
     case ControllerId::WinSerie:
