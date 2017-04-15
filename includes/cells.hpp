@@ -33,6 +33,10 @@ namespace memoris
 namespace cells
 {
 
+constexpr float HORIZONTAL_POSITION_ORIGIN {400.f};
+constexpr float VERTICAL_POSITION_ORIGIN {98.f};
+constexpr float CELL_DIMENSIONS {50.f};
+
 constexpr char EMPTY_CELL {'e'};
 constexpr char DEPARTURE_CELL {'d'};
 constexpr char ARRIVAL_CELL {'a'};
