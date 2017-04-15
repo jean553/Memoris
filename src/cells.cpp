@@ -41,8 +41,10 @@ std::unique_ptr<entities::Cell> getCellByType(
 {
     return std::make_unique<entities::Cell>(
         context,
-        horizontalPosition,
-        verticalPosition,
+        HORIZONTAL_POSITION_ORIGIN +
+        CELL_DIMENSIONS * horizontalPosition,
+        VERTICAL_POSITION_ORIGIN +
+        CELL_DIMENSIONS * verticalPosition,
         type
     );
 }
