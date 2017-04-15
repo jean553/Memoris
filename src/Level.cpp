@@ -79,8 +79,8 @@ Level::Level(const utils::Context& context) :
     {
         std::unique_ptr<Cell> cell = cells::getCellByType(
             context,
-            impl->horizontalPositionCursor,
-            impl->verticalPositionCursor,
+            static_cast<float>(impl->horizontalPositionCursor),
+            static_cast<float>(impl->verticalPositionCursor),
             cells::WALL_CELL
         );
 
@@ -131,8 +131,8 @@ Level::Level(
 
         std::unique_ptr<Cell> cell = cells::getCellByType(
             context,
-            impl->horizontalPositionCursor,
-            impl->verticalPositionCursor,
+            static_cast<float>(impl->horizontalPositionCursor),
+            static_cast<float>(impl->verticalPositionCursor),
             cellType
         );
 

@@ -32,32 +32,22 @@ namespace cells
 /**
  *
  */
-template<typename T>
 std::unique_ptr<entities::Cell> getCellByType(
     const utils::Context& context,
-    const T& horizontalPosition,
-    const T& verticalPosition,
+    const float& horizontalPosition,
+    const float& verticalPosition,
     const char type
 )
 {
     return std::make_unique<entities::Cell>(
         context,
         HORIZONTAL_POSITION_ORIGIN +
-        CELL_DIMENSIONS * static_cast<float>(horizontalPosition),
+        CELL_DIMENSIONS * horizontalPosition,
         VERTICAL_POSITION_ORIGIN +
-        CELL_DIMENSIONS * static_cast<float>(verticalPosition),
+        CELL_DIMENSIONS * verticalPosition,
         type
     );
 }
-
-/* declared here because not specified into the header */
-
-template std::unique_ptr<entities::Cell> getCellByType(
-    const utils::Context& context,
-    const unsigned short& horizontalPosition,
-    const unsigned short& verticalPosition,
-    const char type
-);
 
 }
 }
