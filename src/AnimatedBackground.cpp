@@ -24,7 +24,6 @@
 
 #include "AnimatedBackground.hpp"
 
-#include "dimensions.hpp"
 #include "cells.hpp"
 
 namespace memoris
@@ -134,17 +133,19 @@ void AnimatedBackground::initializeCells() const &
             continue;
         }
 
+        constexpr float CELL_PIXELS_DIMENSIONS {49.f};
+        constexpr float CELLS_PIXELS_SEPARATION {1.f};
         auto cell = std::make_unique<entities::Cell>(
             impl->context,
             currentColumn *
             (
-                dimensions::CELL_PIXELS_DIMENSIONS +
-                dimensions::CELLS_PIXELS_SEPARATION
+                CELL_PIXELS_DIMENSIONS +
+                CELLS_PIXELS_SEPARATION
             ),
             currentLine *
             (
-                dimensions::CELL_PIXELS_DIMENSIONS +
-                dimensions::CELLS_PIXELS_SEPARATION
+                CELL_PIXELS_DIMENSIONS +
+                CELLS_PIXELS_SEPARATION
             ),
             cellType
         );
