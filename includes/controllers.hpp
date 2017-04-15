@@ -17,7 +17,7 @@
 */
 
 /**
- * @brief factory to generate the game screens controllers
+ * @brief factory to generate the controllers by ids
  * @file controllers.hpp
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -25,24 +25,33 @@
 #ifndef MEMORIS_CONTROLLERS_H_
 #define MEMORIS_CONTROLLERS_H_
 
-#include "Controller.hpp"
+#include <memory>
 
-#include "ErrorController.hpp"
-#include "Context.hpp"
-
-#include <SFML/System/String.hpp>
+namespace sf
+{
+class String;
+}
 
 namespace memoris
 {
+
+namespace utils
+{
+class Context;
+}
+
 namespace controllers
 {
 
+class Controller;
+enum class ControllerId;
+class ErrorController;
+
 /**
- * @brief factory method to create controllers by id, each controller is linked
- * to an unique id; this method returns a pointer to a Controller child object
+ * @brief returns a pointer to the created controller according to the given id
  *
- * @param context reference to the current context
- * @param id the id of the controller
+ * @param context the context to use
+ * @param id the controller id
  *
  * @return std::unique_ptr<Controller>
  */
@@ -50,33 +59,6 @@ std::unique_ptr<Controller> getControllerById(
     const utils::Context& context,
     const ControllerId& id
 );
-
-/**
- * @brief refactored function to get a unique pointer to a error controller;
- * this controller is needed in different cases, that's why it is refactored
- * here
- *
- * @param context constant reference to the current context to use
- * @param message constant reference to the SFML string to display
- *
- * @return std::unique_ptr<ErrorController>
- */
-std::unique_ptr<ErrorController> getErrorController(
-    const utils::Context& context,
-    const sf::String& message
-);
-
-/**
- * @brief returns the full path of a level file, including the file extension
- *
- * @param levelName constant reference to the level name
- * IMPORTANT: the level name format is [officials|personals]/name
- *
- * @return const std::string&
- *
- * returns by copy because directly returns the calculated result
- */
-const std::string getLevelFilePath(const std::string& levelName);
 
 }
 }

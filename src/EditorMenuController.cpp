@@ -32,6 +32,7 @@
 #include "MenuItem.hpp"
 #include "window.hpp"
 #include "SoundsManager.hpp"
+#include "Context.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>

@@ -39,6 +39,10 @@
 #include "WinSerieEndingController.hpp"
 #include "RemoveGameController.hpp"
 #include "PersonalSeriesMenuController.hpp"
+#include "Context.hpp"
+#include "ErrorController.hpp"
+
+#include <SFML/System/String.hpp>
 
 namespace memoris
 {
@@ -89,6 +93,10 @@ std::unique_ptr<Controller> getControllerById(
                 );
             }
 
+            std::string levelPath = "data/levels/" +
+                serieManager.getSerieType() + "/" +
+                serieManager.getNextLevelName() + ".level";
+
             /* creates a level object using the next level file path; this path
                is located inside the context object; this part of the code
                throws an exception if an error occures during the file reading
@@ -99,10 +107,7 @@ std::unique_ptr<Controller> getControllerById(
                game controller and also in the LevelAnimation object; */
             auto level = std::make_shared<entities::Level>(
                 context,
-                getLevelFilePath(
-                    serieManager.getSerieType() + "/" +
-                        serieManager.getNextLevelName()
-                )
+                levelPath
             );
 
             return std::make_unique<GameController>(
@@ -112,7 +117,7 @@ std::unique_ptr<Controller> getControllerById(
         }
         catch(std::invalid_argument&)
         {
-            return getErrorController(
+            return std::make_unique<ErrorController>(
                 context,
                 CANNOT_OPEN_LEVEL
             );
@@ -122,7 +127,7 @@ std::unique_ptr<Controller> getControllerById(
        always contains a message */
     case ControllerId::OpenFileError:
     {
-        return getErrorController(
+        return std::make_unique<ErrorController>(
             context,
             CANNOT_OPEN_LEVEL
         );
@@ -164,7 +169,7 @@ std::unique_ptr<Controller> getControllerById(
         }
         catch(std::invalid_argument&)
         {
-            return getErrorController(
+            return std::make_unique<ErrorController>(
                 context,
                 CANNOT_OPEN_LEVEL
             );
@@ -180,7 +185,7 @@ std::unique_ptr<Controller> getControllerById(
     }
     case ControllerId::UnlockedSerieError:
     {
-        return getErrorController(
+        return std::make_unique<ErrorController>(
             context,
             "This serie is locked."
         );
@@ -199,33 +204,9 @@ std::unique_ptr<Controller> getControllerById(
     }
     default:
     {
-        /* by default, if the controller id does not exist, the main
-           menu is rendered; it prevents mistakes during screens transitions */
         return std::make_unique<MainMenuController>(context);
     }
     }
-}
-
-/**
- *
- */
-std::unique_ptr<ErrorController> getErrorController(
-    const utils::Context& context,
-    const sf::String& message
-)
-{
-    return std::make_unique<ErrorController>(
-        context,
-        message
-    );
-}
-
-/**
- *
- */
-const std::string getLevelFilePath(const std::string& levelName)
-{
-    return "data/levels/" + levelName + ".level";
 }
 
 }

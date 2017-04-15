@@ -30,6 +30,7 @@
 #include "fonts_sizes.hpp"
 #include "controllers.hpp"
 #include "window.hpp"
+#include "Context.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
