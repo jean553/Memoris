@@ -29,6 +29,7 @@
 #include "cells.hpp"
 #include "allocators.hpp"
 #include "PlayingSerieManager.hpp"
+#include "Cell.hpp"
 
 #include <fstream>
 #include <algorithm>
@@ -77,7 +78,7 @@ Level::Level(const utils::Context& context) :
         index++
     )
     {
-        std::unique_ptr<Cell> cell = cells::getCellByType(
+        std::unique_ptr<Cell> cell = getCellByType(
             context,
             static_cast<float>(impl->horizontalPositionCursor),
             static_cast<float>(impl->verticalPositionCursor),
@@ -129,7 +130,7 @@ Level::Level(
             cellType = file.get();
         }
 
-        std::unique_ptr<Cell> cell = cells::getCellByType(
+        std::unique_ptr<Cell> cell = getCellByType(
             context,
             static_cast<float>(impl->horizontalPositionCursor),
             static_cast<float>(impl->verticalPositionCursor),
@@ -773,6 +774,30 @@ void Level::setCellsFromCharactersList(const std::vector<char>& characters)
             cells[index]->setType(character);
             index++;
         }
+    );
+}
+
+/**
+ *
+ */
+std::unique_ptr<Cell> Level::getCellByType(
+    const utils::Context& context,
+    const float& horizontalPosition,
+    const float& verticalPosition,
+    const char type
+) const &
+{
+    constexpr float HORIZONTAL_POSITION_ORIGIN {400.f};
+    constexpr float VERTICAL_POSITION_ORIGIN {98.f};
+    constexpr float CELL_DIMENSIONS {50.f};
+
+    return std::make_unique<Cell>(
+        context,
+        HORIZONTAL_POSITION_ORIGIN +
+        CELL_DIMENSIONS * horizontalPosition,
+        VERTICAL_POSITION_ORIGIN +
+        CELL_DIMENSIONS * verticalPosition,
+        type
     );
 }
 
