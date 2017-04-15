@@ -27,7 +27,6 @@
 #include "controllers_ids.hpp"
 #include "controllers.hpp"
 #include "fonts_sizes.hpp"
-#include "files.hpp"
 #include "InputTextWidget.hpp"
 #include "EditorDashboard.hpp"
 #include "CellsSelector.hpp"
@@ -43,6 +42,8 @@
 #include "PlayingSerieManager.hpp"
 
 #include <SFML/Graphics/Text.hpp>
+
+#include <fstream>
 
 namespace memoris
 {
@@ -497,7 +498,6 @@ void LevelEditorController::saveLevelFile(
 ) const &
 {
     std::ofstream file;
-    utils::applyFailbitAndBadbitExceptions(file);
 
     file.open(
         "data/levels/personals/" + name + ".level",
