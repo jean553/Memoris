@@ -43,6 +43,7 @@
 #include "TexturesManager.hpp"
 #include "Level.hpp"
 #include "EditingLevelManager.hpp"
+#include "Cell.hpp"
 
 namespace memoris
 {
