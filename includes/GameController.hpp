@@ -38,6 +38,11 @@ namespace entities
 class Level;
 }
 
+namespace animations
+{
+class LevelAnimation;
+}
+
 namespace controllers
 {
 
@@ -137,6 +142,23 @@ private:
      * @param context constant reference to the current context to use
      */
     void endLevel(const utils::Context& context) const &;
+
+    /**
+     * @brief creates a level animation pointer; the animations
+     * are dynamically created and destroyed during the game
+     *
+     * @param context the context to use
+     * @param cellType the cell type for the animation selection
+     *
+     * @return std::unique_ptr<animations::LevelAnimation>
+     *
+     * @throw std::bad_alloc the pointer cannot be initialized;
+     * the exception is never caught and the program stops
+     */
+    std::unique_ptr<animations::LevelAnimation> getAnimationByCell(
+        const utils::Context& context,
+        const char& cellType
+    ) const &;
 
     class Impl;
     std::unique_ptr<Impl> impl;
