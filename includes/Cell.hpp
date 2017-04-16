@@ -144,7 +144,7 @@ public:
      */
     void display(
         const utils::Context& context,
-        const std::unique_ptr<sf::Transform>& transform
+        const std::unique_ptr<sf::Transform>& transform = nullptr
     ) const &;
 
     /**
@@ -161,7 +161,7 @@ public:
      */
     void displayWithMouseHover(
         const utils::Context& context,
-        const std::unique_ptr<sf::Transform>& transform
+        const std::unique_ptr<sf::Transform>& transform = nullptr
     ) const &;
 
     /**
