@@ -123,8 +123,6 @@ std::unique_ptr<Controller> getControllerById(
             );
         }
     }
-    /* TODO: #894 to delete, an empty error controller is never called; it
-       always contains a message */
     case ControllerId::OpenFileError:
     {
         return std::make_unique<ErrorController>(
