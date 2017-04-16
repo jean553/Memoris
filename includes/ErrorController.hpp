@@ -18,8 +18,7 @@
 
 /**
  * @file ErrorController.hpp
- * @brief display exceptions messages in a dedicated screen (resources cannot
- * be found, level/serie cannot be found... etc...)
+ * @brief controller that displays errors
  * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -45,11 +44,10 @@ class ErrorController : public Controller
 public:
 
     /**
-     * @brief constructor, empty, only declared here in order to call the
-     * parent class constructor
+     * @brief constructor
      *
-     * @param context constant reference to the current context
-     * @param message constant reference to the SFML string to render
+     * @param context the current context
+     * @param message the error message to display
      */
     ErrorController(
         const utils::Context& context,
@@ -57,21 +55,20 @@ public:
     );
 
     /**
-     * @brief default destructor, empty, only declared in order to use
-     * forwarding declaration
+     * @brief default destructor
      */
-    ~ErrorController() noexcept;
+    ~ErrorController();
 
     /**
-     * @brief renders the error message screen
+     * @brief renders the controller with the error message
      *
      * @return const ControllerId&
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
      */
     virtual const ControllerId& render() const & override;
 
 private:
-
-    static constexpr float MESSAGE_VERTICAL_POSITION {300.f};
 
     class Impl;
     std::unique_ptr<Impl> impl;
