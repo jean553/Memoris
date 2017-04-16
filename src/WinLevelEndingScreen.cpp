@@ -33,7 +33,6 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/Config.hpp>
 
 namespace memoris
 {
@@ -50,6 +49,9 @@ public:
         const auto& colorWhite = context.getColorsManager().getColorWhite();
         const auto& textFont = context.getFontsManager().getTextFont();
 
+        /* TODO: #1164 left levels amount should not be loaded
+           into the win level ending screen but directly passed
+           as a parameter */
         leftLevelsAmount.setString(
             std::to_string(
                 context.getPlayingSerieManager().getRemainingLevelsAmount()
@@ -98,14 +100,10 @@ WinLevelEndingScreen::WinLevelEndingScreen(const Context& context) :
     impl(std::make_unique<Impl>(context))
 {
     auto& text = getText();
+    constexpr float LEFT_LEVELS_PREFIX_VERTICAL_POSITION {150.f};
 
     text.setString("You Win !");
     text.setFillColor(context.getColorsManager().getColorGreen());
-
-    /* the position is not set in the parent controller because we need to
-       know the surface width before setting the horizontal position */
-
-    constexpr float LEFT_LEVELS_PREFIX_VERTICAL_POSITION {150.f};
     text.setPosition(
         window::getCenteredTextHorizontalPosition(text),
         LEFT_LEVELS_PREFIX_VERTICAL_POSITION
@@ -128,26 +126,13 @@ void WinLevelEndingScreen::render() &
     window.draw(getFilter());
     window.draw(getText());
     window.draw(impl->leftLevelsSuffix);
-
-    animateLeftLevelsAmount();
-}
-
-/**
- *
- */
-void WinLevelEndingScreen::animateLeftLevelsAmount() &
-{
-    const auto& context = getContext();
-
-    context.getSfmlWindow().draw(impl->leftLevelsAmount);
-
-    auto& lastAnimationUpdateTime = impl->lastAnimationUpdateTime;
+    window.draw(impl->leftLevelsAmount);
 
     constexpr sf::Uint32 ANIMATION_INTERVAL {50};
-    if (
-        context.getClockMillisecondsTime() -
-        lastAnimationUpdateTime < ANIMATION_INTERVAL
-    )
+    auto& lastAnimationUpdateTime = impl->lastAnimationUpdateTime;
+    const auto& currentTime = context.getClockMillisecondsTime();
+
+    if (currentTime - lastAnimationUpdateTime < ANIMATION_INTERVAL)
     {
         return;
     }
@@ -166,11 +151,11 @@ void WinLevelEndingScreen::animateLeftLevelsAmount() &
         leftLevelsAmountDirection *= -1;
     }
 
-    sf::Color color = context.getColorsManager().getColorWhiteCopy();
+    auto color = context.getColorsManager().getColorWhiteCopy();
     color.a = leftLevelsAmountTransparency;
     impl->leftLevelsAmount.setFillColor(color);
 
-    lastAnimationUpdateTime = context.getClockMillisecondsTime();
+    lastAnimationUpdateTime = currentTime;
 }
 
 }

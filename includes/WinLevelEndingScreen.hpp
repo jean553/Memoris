@@ -65,17 +65,6 @@ public:
 
 private:
 
-    /**
-     * @brief renders the flashing animation of the left levels counter
-     *
-     * private because only used for organization purposes
-     *
-     * not const because the object is updated continuously for animations
-     *
-     * not noexcept because it calls SFML functions that are not noexcept
-     */
-    void animateLeftLevelsAmount() &;
-
     class Impl;
     std::unique_ptr<Impl> impl;
 };
