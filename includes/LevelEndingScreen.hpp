@@ -26,10 +26,13 @@
 #ifndef MEMORIS_LEVELENDINGSCREEN_H_
 #define MEMORIS_LEVELENDINGSCREEN_H_
 
-#include <SFML/Graphics/Text.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
-
 #include <memory>
+
+namespace sf
+{
+class Text;
+class RectangleShape;
+}
 
 namespace memoris
 {
@@ -78,11 +81,19 @@ protected:
      */
     const utils::Context& getContext() const & noexcept;
 
-    /* not in the implementation, must be accessible in protected scope */
+    /**
+     * @brief displayed text getter
+     *
+     * @return sf::Text&
+     */
+    sf::Text& getText() const & noexcept;
 
-    sf::Text text;
-
-    sf::RectangleShape filter;
+    /**
+     * @brief displayed filter getter
+     *
+     * @return const sf::RectangleShape&
+     */
+    const sf::RectangleShape& getFilter() const & noexcept;
 
 private:
 
