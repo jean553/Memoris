@@ -46,6 +46,11 @@ class AbstractLevelEndingScreen
 
 public:
 
+    AbstractLevelEndingScreen(const AbstractLevelEndingScreen&) = delete;
+
+    AbstractLevelEndingScreen& operator=(const AbstractLevelEndingScreen&)
+        = delete;
+
     /**
      * @brief default destructor
      */
