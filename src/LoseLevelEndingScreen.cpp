@@ -39,7 +39,7 @@ namespace utils
  *
  */
 LoseLevelEndingScreen::LoseLevelEndingScreen(const Context& context) :
-    LevelEndingScreen(context)
+    AbstractLevelEndingScreen(context)
 {
     auto& text = getText();
     text.setString("You Lose !");

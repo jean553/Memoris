@@ -96,7 +96,7 @@ public:
  *
  */
 WinLevelEndingScreen::WinLevelEndingScreen(const Context& context) :
-    LevelEndingScreen(context),
+    AbstractLevelEndingScreen(context),
     impl(std::make_unique<Impl>(context))
 {
     auto& text = getText();

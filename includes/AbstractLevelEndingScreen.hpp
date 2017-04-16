@@ -17,14 +17,14 @@
 */
 
 /**
- * @file LevelEndingScreen.hpp
+ * @file AbstractLevelEndingScreen.hpp
  * @brief abstract class for level ending screens (win and lose)
  * @package utils
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef MEMORIS_LEVELENDINGSCREEN_H_
-#define MEMORIS_LEVELENDINGSCREEN_H_
+#ifndef MEMORIS_ABSTRACTLEVELENDINGSCREEN_H_
+#define MEMORIS_ABSTRACTLEVELENDINGSCREEN_H_
 
 #include <memory>
 
@@ -41,7 +41,7 @@ namespace utils
 
 class Context;
 
-class LevelEndingScreen
+class AbstractLevelEndingScreen
 {
 
 public:
@@ -49,7 +49,7 @@ public:
     /**
      * @brief default destructor
      */
-    virtual ~LevelEndingScreen();
+    virtual ~AbstractLevelEndingScreen();
 
     /**
      * @brief defines how the win or lose screen has to be displayed
@@ -72,7 +72,7 @@ protected:
      *
      * not noexcept because it calls SFML methods that are not noexcept
      */
-    LevelEndingScreen(const Context& context);
+    AbstractLevelEndingScreen(const Context& context);
 
     /**
      * @brief used context getter
@@ -85,6 +85,9 @@ protected:
      * @brief displayed text getter
      *
      * @return sf::Text&
+     *
+     * does not return a const reference because the child screen
+     * is supposed to modify it according if the level is won or lost
      */
     sf::Text& getText() const & noexcept;
 
