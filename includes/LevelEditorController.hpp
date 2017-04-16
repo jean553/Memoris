@@ -28,7 +28,7 @@
 
 #include "Controller.hpp"
 
-#include "aliases.hpp"
+#include <vector>
 
 namespace memoris
 {
@@ -36,6 +36,7 @@ namespace memoris
 namespace entities
 {
 class Level;
+class Cell;
 }
 
 namespace controllers
@@ -110,7 +111,7 @@ private:
      */
     void saveLevelFile(
         const std::string& name,
-        aliases::ConstUniquePtrCellsContainerRef cells
+        const std::vector<std::unique_ptr<entities::Cell>>& cells
     ) const &;
 
     /**

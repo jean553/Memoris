@@ -28,9 +28,14 @@
 
 #include <memory>
 
-#include "aliases.hpp"
-
 #include <SFML/Config.hpp>
+
+#include <vector>
+
+namespace sf
+{
+class Transform;
+}
 
 namespace memoris
 {
@@ -97,7 +102,7 @@ public:
         const unsigned short& floor,
         void (Cell::*display)(
             const utils::Context&,
-            aliases::ConstTransformUniquePtrRef
+            const std::unique_ptr<sf::Transform>&
         ) const &
     ) const;
 
