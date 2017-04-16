@@ -54,7 +54,7 @@ public:
     /**
      * @brief defines how the win or lose screen has to be displayed
      *
-     * not const because the object is updated continusouly for animations
+     * not const because the object is updated continuously for animations
      *
      * not noexcept because it calls SFML functions that are not noexcept
      */
@@ -86,7 +86,7 @@ protected:
      *
      * @return sf::Text&
      *
-     * does not return a const reference because the child screen
+     * does not return a constant reference because the child screen
      * is supposed to modify it according if the level is won or lost
      */
     sf::Text& getText() const & noexcept;
