@@ -45,14 +45,17 @@ LoseLevelEndingScreen::LoseLevelEndingScreen(const Context& context) :
     text.setString("You Lose !");
     text.setFillColor(context.getColorsManager().getColorRed());
 
-    /* the position is not set in the parent controller because we need to
-       know the surface width before setting the horizontal position */
-
+    constexpr float LOSE_TEXT_VERTICAL_POSITION {200.f};
     text.setPosition(
         window::getCenteredTextHorizontalPosition(text),
-        200.f
+        LOSE_TEXT_VERTICAL_POSITION
     );
 }
+
+/**
+ *
+ */
+LoseLevelEndingScreen::~LoseLevelEndingScreen() = default;
 
 }
 }

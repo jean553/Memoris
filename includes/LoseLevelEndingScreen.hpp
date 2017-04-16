@@ -18,7 +18,7 @@
 
 /**
  * @file LoseLevelEndingScreen.hpp
- * @brief the losing screen that is displayed when the user loses the level
+ * @brief screen displayed when the user loses the game
  * @package utils
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -39,13 +39,16 @@ class LoseLevelEndingScreen : public AbstractLevelEndingScreen
 public:
 
     /**
-     * @brief constructor, initializes the implementation
+     * @brief constructor
      *
-     * @param context constant reference to the context to use
+     * @param context the context to use
      */
     LoseLevelEndingScreen(const Context& context);
 
-    /* this class use the default definition of render(context) */
+    /**
+     * @brief default destructor
+     */
+    ~LoseLevelEndingScreen();
 };
 
 }
