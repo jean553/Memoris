@@ -18,7 +18,7 @@
 
 /**
  * @file WinLevelEndingScreen.hpp
- * @brief the wining screen that is displayed when the user wins the level
+ * @brief foreground displayed when a level is won
  * @package utils
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -58,14 +58,12 @@ public:
      * @brief overrite the render(context) function because additional
      * information and animated text have to be displayed for the win screen
      *
-     * @param context constant reference to the current context to use
-     *
      * not 'const' because the flashing text animation updates the object
      * time attributes
      *
      * not 'noexcept' because it calls SFML functions that are not noexcept
      */
-    virtual void render(const Context& context) & override;
+    virtual void render() & override;
 
 private:
 

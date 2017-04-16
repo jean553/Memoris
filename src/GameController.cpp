@@ -289,7 +289,7 @@ const ControllerId& GameController::render() const &
 
     if (impl->endingScreen != nullptr)
     {
-        impl->endingScreen->render(context);
+        impl->endingScreen->render();
 
         if (
             context.getClockMillisecondsTime() -
