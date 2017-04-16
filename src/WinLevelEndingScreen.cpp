@@ -62,6 +62,8 @@ public:
         leftLevelsAmount.setFillColor(
             context.getColorsManager().getColorWhite()
         );
+
+        constexpr float LEFT_LEVELS_LABEL_VERTICAL_POSITION {200.f};
         leftLevelsAmount.setPosition(
             window::getCenteredTextHorizontalPosition(leftLevelsAmount),
             LEFT_LEVELS_LABEL_VERTICAL_POSITION
@@ -76,6 +78,8 @@ public:
         leftLevelsSuffix.setFillColor(
             context.getColorsManager().getColorWhite()
         );
+
+        constexpr float LEFT_LEVELS_SUFFIX_VERTICAL_POSITION {650.f};
         leftLevelsSuffix.setPosition(
             window::getCenteredTextHorizontalPosition(leftLevelsSuffix),
             LEFT_LEVELS_SUFFIX_VERTICAL_POSITION
@@ -107,6 +111,7 @@ WinLevelEndingScreen::WinLevelEndingScreen(const Context& context) :
     /* the position is not set in the parent controller because we need to
        know the surface width before setting the horizontal position */
 
+    constexpr float LEFT_LEVELS_PREFIX_VERTICAL_POSITION {150.f};
     text.setPosition(
         window::getCenteredTextHorizontalPosition(text),
         LEFT_LEVELS_PREFIX_VERTICAL_POSITION
@@ -116,7 +121,7 @@ WinLevelEndingScreen::WinLevelEndingScreen(const Context& context) :
 /**
  *
  */
-WinLevelEndingScreen::~WinLevelEndingScreen() noexcept = default;
+WinLevelEndingScreen::~WinLevelEndingScreen() = default;
 
 /**
  *
@@ -130,14 +135,16 @@ void WinLevelEndingScreen::render() &
     window.draw(getText());
     window.draw(impl->leftLevelsSuffix);
 
-    animateLeftLevelsAmount(context);
+    animateLeftLevelsAmount();
 }
 
 /**
  *
  */
-void WinLevelEndingScreen::animateLeftLevelsAmount(const Context& context) &
+void WinLevelEndingScreen::animateLeftLevelsAmount() &
 {
+    const auto& context = getContext();
+
     context.getSfmlWindow().draw(impl->leftLevelsAmount);
 
     constexpr sf::Uint32 ANIMATION_INTERVAL {50};
