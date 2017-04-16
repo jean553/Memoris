@@ -42,6 +42,9 @@ public:
      * @brief constructor
      *
      * @param context the context to use
+     *
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
      */
     WinLevelEndingScreen(const Context& context);
 
@@ -66,6 +69,10 @@ private:
      * @brief renders the flashing animation of the left levels counter
      *
      * private because only used for organization purposes
+     *
+     * not const because the object is updated continuously for animations
+     *
+     * not noexcept because it calls SFML functions that are not noexcept
      */
     void animateLeftLevelsAmount() &;
 

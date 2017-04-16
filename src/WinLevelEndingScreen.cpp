@@ -47,6 +47,9 @@ public:
 
     Impl(const Context& context)
     {
+        const auto& colorWhite = context.getColorsManager().getColorWhite();
+        const auto& textFont = context.getFontsManager().getTextFont();
+
         leftLevelsAmount.setString(
             std::to_string(
                 context.getPlayingSerieManager().getRemainingLevelsAmount()
@@ -54,32 +57,23 @@ public:
         );
 
         constexpr unsigned int LEVELS_AMOUNT_TEXT_SIZE {400};
-        leftLevelsAmount.setCharacterSize(LEVELS_AMOUNT_TEXT_SIZE);
-
-        leftLevelsAmount.setFont(
-            context.getFontsManager().getTextFont()
-        );
-        leftLevelsAmount.setFillColor(
-            context.getColorsManager().getColorWhite()
-        );
-
         constexpr float LEFT_LEVELS_LABEL_VERTICAL_POSITION {200.f};
+
+        leftLevelsAmount.setCharacterSize(LEVELS_AMOUNT_TEXT_SIZE);
+        leftLevelsAmount.setFont(textFont);
+        leftLevelsAmount.setFillColor(colorWhite);
         leftLevelsAmount.setPosition(
             window::getCenteredTextHorizontalPosition(leftLevelsAmount),
             LEFT_LEVELS_LABEL_VERTICAL_POSITION
         );
 
-        leftLevelsSuffix.setString("levels left");
-
         constexpr unsigned int TEXT_SIZE {70};
-        leftLevelsSuffix.setCharacterSize(TEXT_SIZE);
-
-        leftLevelsSuffix.setFont(context.getFontsManager().getTextFont());
-        leftLevelsSuffix.setFillColor(
-            context.getColorsManager().getColorWhite()
-        );
-
         constexpr float LEFT_LEVELS_SUFFIX_VERTICAL_POSITION {650.f};
+
+        leftLevelsSuffix.setString("levels left");
+        leftLevelsSuffix.setCharacterSize(TEXT_SIZE);
+        leftLevelsSuffix.setFont(textFont);
+        leftLevelsSuffix.setFillColor(colorWhite);
         leftLevelsSuffix.setPosition(
             window::getCenteredTextHorizontalPosition(leftLevelsSuffix),
             LEFT_LEVELS_SUFFIX_VERTICAL_POSITION
@@ -147,33 +141,36 @@ void WinLevelEndingScreen::animateLeftLevelsAmount() &
 
     context.getSfmlWindow().draw(impl->leftLevelsAmount);
 
+    auto& lastAnimationUpdateTime = impl->lastAnimationUpdateTime;
+
     constexpr sf::Uint32 ANIMATION_INTERVAL {50};
     if (
         context.getClockMillisecondsTime() -
-        impl->lastAnimationUpdateTime < ANIMATION_INTERVAL
+        lastAnimationUpdateTime < ANIMATION_INTERVAL
     )
     {
         return;
     }
 
-    impl->leftLevelsAmountTransparency += impl->leftLevelsAmountDirection;
+    auto& leftLevelsAmountTransparency = impl->leftLevelsAmountTransparency;
+    auto& leftLevelsAmountDirection = impl->leftLevelsAmountDirection;
+
+    leftLevelsAmountTransparency += leftLevelsAmountDirection;
 
     constexpr sf::Uint8 MAXIMUM_TRANSPARENCY {255};
     if (
-        impl->leftLevelsAmountTransparency == 0 ||
-        impl->leftLevelsAmountTransparency == MAXIMUM_TRANSPARENCY
+        leftLevelsAmountTransparency == 0 or
+        leftLevelsAmountTransparency == MAXIMUM_TRANSPARENCY
     )
     {
-        impl->leftLevelsAmountDirection *= -1;
+        leftLevelsAmountDirection *= -1;
     }
 
     sf::Color color = context.getColorsManager().getColorWhiteCopy();
-
-    color.a = impl->leftLevelsAmountTransparency;
-
+    color.a = leftLevelsAmountTransparency;
     impl->leftLevelsAmount.setFillColor(color);
 
-    impl->lastAnimationUpdateTime = context.getClockMillisecondsTime();
+    lastAnimationUpdateTime = context.getClockMillisecondsTime();
 }
 
 }
