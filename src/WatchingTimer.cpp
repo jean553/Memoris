@@ -41,19 +41,24 @@ class WatchingTimer::Impl
 
 public:
 
-    Impl(const utils::Context& context)
+    Impl(const utils::Context& context) :
+        context(context)
     {
+        constexpr float TIMERS_VERTICAL_POSITION {300.f};
+
+        constexpr float LEFT_TIMER_HORIZONTAL_POSITION {90.f};
         left.setFont(context.getFontsManager().getTextFont());
         left.setFillColor(context.getColorsManager().getColorWhite());
         left.setPosition(
-            90.f,
+            LEFT_TIMER_HORIZONTAL_POSITION,
             TIMERS_VERTICAL_POSITION
         );
 
+        constexpr float RIGHT_TIMER_HORIZONTAL_POSITION {1400.f};
         right.setFont(context.getFontsManager().getTextFont());
         right.setFillColor(context.getColorsManager().getColorWhite());
         right.setPosition(
-            1400.f,
+            RIGHT_TIMER_HORIZONTAL_POSITION,
             TIMERS_VERTICAL_POSITION
         );
 
@@ -64,6 +69,8 @@ public:
 
     sf::Text left;
     sf::Text right;
+
+    const utils::Context& context;
 };
 
 /**
@@ -77,25 +84,28 @@ WatchingTimer::WatchingTimer(const utils::Context& context) :
 /**
  *
  */
-WatchingTimer::~WatchingTimer() noexcept = default;
+WatchingTimer::~WatchingTimer() = default;
 
 /**
  *
  */
-void WatchingTimer::updateDisplayedAmount(const unsigned short& amount) &
+void WatchingTimer::setValue(const unsigned short& amount) &
 {
     /* setString function only accepts std::string or sf::String */
-    impl->left.setString(std::to_string(amount));
-    impl->right.setString(std::to_string(amount));
+    std::string value = std::to_string(amount);
+
+    impl->left.setString(value);
+    impl->right.setString(value);
 }
 
 /**
  *
  */
-void WatchingTimer::display(const utils::Context& context) const &
+void WatchingTimer::display() const &
 {
-    context.getSfmlWindow().draw(impl->left);
-    context.getSfmlWindow().draw(impl->right);
+    auto& window = impl->context.getSfmlWindow();
+    window.draw(impl->left);
+    window.draw(impl->right);
 }
 
 }
