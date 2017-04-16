@@ -18,7 +18,7 @@
 
 /**
  * @file WinLevelEndingScreen.hpp
- * @brief foreground displayed when a level is won
+ * @brief screen displayed when the user wins the game
  * @package utils
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -39,49 +39,35 @@ class WinLevelEndingScreen : public AbstractLevelEndingScreen
 public:
 
     /**
-     * @brief constructor, initializes the implementation
+     * @brief constructor
      *
-     * @param context constant reference to the current context to use
-     *
-     * not 'noexcept' because it calls the SFML functions that are not noexcept
+     * @param context the context to use
      */
     WinLevelEndingScreen(const Context& context);
 
     /**
-     * @brief default destructor, empty, only declared in order to use
-     * forwarding declaration and to ensure correct destructors calls when
-     * using polymorphism
+     * @brief default destructor
      */
-    virtual ~WinLevelEndingScreen() noexcept;
+    ~WinLevelEndingScreen();
 
     /**
-     * @brief overrite the render(context) function because additional
+     * @brief overrites the rendering function because additional
      * information and animated text have to be displayed for the win screen
      *
-     * not 'const' because the flashing text animation updates the object
-     * time attributes
+     * not const because the object is updated continuously for animations
      *
-     * not 'noexcept' because it calls SFML functions that are not noexcept
+     * not noexcept because it calls SFML functions that are not noexcept
      */
     virtual void render() & override;
 
 private:
 
-    static constexpr float LEFT_LEVELS_LABEL_VERTICAL_POSITION {200.f};
-    static constexpr float LEFT_LEVELS_PREFIX_VERTICAL_POSITION {150.f};
-    static constexpr float LEFT_LEVELS_SUFFIX_HORIZONTAL_POSITION {560.f};
-    static constexpr float LEFT_LEVELS_SUFFIX_VERTICAL_POSITION {650.f};
-
     /**
-     * @brief render the flashing animation of the left levels amount text
+     * @brief renders the flashing animation of the left levels counter
      *
-     * @param context constant reference to the current context to use
-     *
-     * private because it is simply a refactored of what could be directly
-     * done into the render() method; we put this logic here for organization
-     * purposes
+     * private because only used for organization purposes
      */
-    void animateLeftLevelsAmount(const Context& context) &;
+    void animateLeftLevelsAmount() &;
 
     class Impl;
     std::unique_ptr<Impl> impl;
