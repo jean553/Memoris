@@ -30,6 +30,8 @@
 #include "FontsManager.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 namespace memoris
 {
@@ -44,9 +46,27 @@ public:
     Impl(const utils::Context& context) :
         context(context)
     {
+        filter.setSize(
+            sf::Vector2f(
+                window::WIDTH,
+                window::HEIGHT
+            )
+        );
+
+        filter.setFillColor(
+            context.getColorsManager().getColorPartialDarkGrey()
+        );
+
+        constexpr unsigned int LABELS_SIZE {140};
+        text.setCharacterSize(LABELS_SIZE);
+        text.setFont(context.getFontsManager().getTextFont());
     }
 
     const utils::Context& context;
+
+    sf::Text text;
+
+    sf::RectangleShape filter;
 };
 
 /**
@@ -55,20 +75,6 @@ public:
 LevelEndingScreen::LevelEndingScreen(const Context& context) :
     impl(std::make_unique<Impl>(context))
 {
-    filter.setSize(
-        sf::Vector2f(
-            window::WIDTH,
-            window::HEIGHT
-        )
-    );
-    filter.setFillColor(
-        context.getColorsManager().getColorPartialDarkGrey()
-    );
-
-    constexpr unsigned int LABELS_SIZE {140};
-    text.setCharacterSize(LABELS_SIZE);
-
-    text.setFont(context.getFontsManager().getTextFont());
 }
 
 /**
@@ -87,11 +93,27 @@ const utils::Context& LevelEndingScreen::getContext() const & noexcept
 /**
  *
  */
+sf::Text& LevelEndingScreen::getText() const & noexcept
+{
+    return impl->text;
+}
+
+/**
+ *
+ */
+const sf::RectangleShape& LevelEndingScreen::getFilter() const & noexcept
+{
+    return impl->filter;
+}
+
+/**
+ *
+ */
 void LevelEndingScreen::render() &
 {
     auto& window = impl->context.getSfmlWindow();
-    window.draw(filter);
-    window.draw(text);
+    window.draw(impl->filter);
+    window.draw(impl->text);
 }
 
 }

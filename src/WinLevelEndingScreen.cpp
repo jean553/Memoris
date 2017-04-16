@@ -31,6 +31,9 @@
 #include "window.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Config.hpp>
 
 namespace memoris
 {
@@ -96,6 +99,8 @@ WinLevelEndingScreen::WinLevelEndingScreen(const Context& context) :
     LevelEndingScreen(context),
     impl(std::make_unique<Impl>(context))
 {
+    auto& text = getText();
+
     text.setString("You Win !");
     text.setFillColor(context.getColorsManager().getColorGreen());
 
@@ -121,8 +126,8 @@ void WinLevelEndingScreen::render() &
     const auto& context = getContext();
     auto& window = context.getSfmlWindow();
 
-    window.draw(filter);
-    window.draw(text);
+    window.draw(getFilter());
+    window.draw(getText());
     window.draw(impl->leftLevelsSuffix);
 
     animateLeftLevelsAmount(context);
@@ -135,6 +140,7 @@ void WinLevelEndingScreen::animateLeftLevelsAmount(const Context& context) &
 {
     context.getSfmlWindow().draw(impl->leftLevelsAmount);
 
+    constexpr sf::Uint32 ANIMATION_INTERVAL {50};
     if (
         context.getClockMillisecondsTime() -
         impl->lastAnimationUpdateTime < ANIMATION_INTERVAL
@@ -145,6 +151,7 @@ void WinLevelEndingScreen::animateLeftLevelsAmount(const Context& context) &
 
     impl->leftLevelsAmountTransparency += impl->leftLevelsAmountDirection;
 
+    constexpr sf::Uint8 MAXIMUM_TRANSPARENCY {255};
     if (
         impl->leftLevelsAmountTransparency == 0 ||
         impl->leftLevelsAmountTransparency == MAXIMUM_TRANSPARENCY

@@ -28,6 +28,8 @@
 #include "ColorsManager.hpp"
 #include "window.hpp"
 
+#include <SFML/Graphics/Text.hpp>
+
 namespace memoris
 {
 namespace utils
@@ -39,6 +41,7 @@ namespace utils
 LoseLevelEndingScreen::LoseLevelEndingScreen(const Context& context) :
     LevelEndingScreen(context)
 {
+    auto& text = getText();
     text.setString("You Lose !");
     text.setFillColor(context.getColorsManager().getColorRed());
 
