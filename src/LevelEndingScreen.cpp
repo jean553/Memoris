@@ -36,10 +36,24 @@ namespace memoris
 namespace utils
 {
 
+class LevelEndingScreen::Impl
+{
+
+public:
+
+    Impl(const utils::Context& context) :
+        context(context)
+    {
+    }
+
+    const utils::Context& context;
+};
+
 /**
  *
  */
-LevelEndingScreen::LevelEndingScreen(const Context& context)
+LevelEndingScreen::LevelEndingScreen(const Context& context) :
+    impl(std::make_unique<Impl>(context))
 {
     filter.setSize(
         sf::Vector2f(
@@ -65,10 +79,19 @@ LevelEndingScreen::~LevelEndingScreen() noexcept = default;
 /**
  *
  */
-void LevelEndingScreen::render(const Context& context) &
+const utils::Context& LevelEndingScreen::getContext() const & noexcept
 {
-    context.getSfmlWindow().draw(filter);
-    context.getSfmlWindow().draw(text);
+    return impl->context;
+}
+
+/**
+ *
+ */
+void LevelEndingScreen::render() &
+{
+    auto& window = impl->context.getSfmlWindow();
+    window.draw(filter);
+    window.draw(text);
 }
 
 }

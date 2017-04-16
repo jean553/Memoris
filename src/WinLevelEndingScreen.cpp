@@ -116,11 +116,14 @@ WinLevelEndingScreen::~WinLevelEndingScreen() noexcept = default;
 /**
  *
  */
-void WinLevelEndingScreen::render(const Context& context) &
+void WinLevelEndingScreen::render() &
 {
-    context.getSfmlWindow().draw(filter);
-    context.getSfmlWindow().draw(text);
-    context.getSfmlWindow().draw(impl->leftLevelsSuffix);
+    const auto& context = getContext();
+    auto& window = context.getSfmlWindow();
+
+    window.draw(filter);
+    window.draw(text);
+    window.draw(impl->leftLevelsSuffix);
 
     animateLeftLevelsAmount(context);
 }

@@ -51,37 +51,43 @@ public:
     /**
      * @brief defines how the win or lose screen has to be displayed
      *
-     * @param context constant reference to the current context
+     * not const because the object is updated continusouly for animations
      *
-     * public because it has to be accessed by the game controller
-     *
-     * not 'const' because the function cannot be const inside the win screen
-     * definition as there is an animation there and the attributes of the
-     * object are updated continuously in order to render the animation
-     *
-     * not 'noexcept' because it calls SFML functions that are not noexcept
+     * not noexcept because it calls SFML functions that are not noexcept
      */
-    virtual void render(const Context& context) &;
+    virtual void render() &;
 
 protected:
 
     /**
-     * @brief constructor, initializes the implementation
+     * @brief constructor
      *
-     * @param context constant reference to the context to use
+     * @param context the context to use
      *
-     * protected because the class is abstract, so the constructor is only
-     * called by child objects
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
      *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
+     * not noexcept because it calls SFML methods that are not noexcept
      */
     LevelEndingScreen(const Context& context);
+
+    /**
+     * @brief used context getter
+     *
+     * @return const utils::Context&
+     */
+    const utils::Context& getContext() const & noexcept;
 
     /* not in the implementation, must be accessible in protected scope */
 
     sf::Text text;
 
     sf::RectangleShape filter;
+
+private:
+
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }
