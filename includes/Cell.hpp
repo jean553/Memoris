@@ -27,7 +27,6 @@
 #define MEMORIS_CELL_H_
 
 #include "Context.hpp"
-#include "aliases.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -145,7 +144,7 @@ public:
      */
     void display(
         const utils::Context& context,
-        aliases::ConstTransformUniquePtrRef transform = nullptr
+        const std::unique_ptr<sf::Transform>& transform
     ) const &;
 
     /**
@@ -162,7 +161,7 @@ public:
      */
     void displayWithMouseHover(
         const utils::Context& context,
-        aliases::ConstTransformUniquePtrRef transform = nullptr
+        const std::unique_ptr<sf::Transform>& transform
     ) const &;
 
     /**

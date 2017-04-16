@@ -211,7 +211,7 @@ const float& Cell::getVerticalPosition() const & noexcept
  */
 void Cell::display(
     const utils::Context& context,
-    aliases::ConstTransformUniquePtrRef transform
+    const std::unique_ptr<sf::Transform>& transform
 ) const &
 {
     /* display the cell with a transform SFML object if an object is pointed
@@ -231,7 +231,7 @@ void Cell::display(
  */
 void Cell::displayWithMouseHover(
     const utils::Context& context,
-    aliases::ConstTransformUniquePtrRef transform
+    const std::unique_ptr<sf::Transform>& transform
 ) const &
 {
     if (isMouseHover() && !impl->highlight)

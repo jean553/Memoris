@@ -494,7 +494,7 @@ void LevelEditorController::updateLevelNameSurfacePosition() const &
  */
 void LevelEditorController::saveLevelFile(
     const std::string& name,
-    aliases::ConstUniquePtrCellsContainerRef cells
+    const std::vector<std::unique_ptr<entities::Cell>>& cells
 ) const &
 {
     std::ofstream file;

@@ -181,7 +181,7 @@ void Level::display(
     const unsigned short& floor,
     void (Cell::*display)(
         const utils::Context&,
-        aliases::ConstTransformUniquePtrRef
+        const std::unique_ptr<sf::Transform>&
     ) const &
 ) const
 {
