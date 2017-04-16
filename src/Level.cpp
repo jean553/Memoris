@@ -27,7 +27,6 @@
 
 #include "Context.hpp"
 #include "cells.hpp"
-#include "allocators.hpp"
 #include "PlayingSerieManager.hpp"
 #include "Cell.hpp"
 
@@ -522,7 +521,7 @@ const std::vector<std::unique_ptr<Cell>>& Level::getCells() const & noexcept
  */
 void Level::createTransform()
 {
-    allocators::createDynamicObject(impl->transform);
+    impl->transform.reset(new sf::Transform);
 }
 
 /**
@@ -544,7 +543,7 @@ void Level::rotateAllCells(const short& degrees)
  */
 void Level::deleteTransform()
 {
-    allocators::deleteDynamicObject(impl->transform);
+    impl->transform.reset();
 }
 
 /**
