@@ -18,7 +18,7 @@
 
 /**
  * @file WinLevelEndingScreen.hpp
- * @brief the wining screen that is displayed when the user wins the level
+ * @brief foreground displayed when a level is won
  * @package utils
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */

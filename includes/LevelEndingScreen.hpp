@@ -18,8 +18,7 @@
 
 /**
  * @file LevelEndingScreen.hpp
- * @brief abstract class used to initialize and renders the win/lose level
- * ending screens
+ * @brief abstract class for level ending screens (win and lose)
  * @package utils
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -45,21 +44,12 @@ class LevelEndingScreen
 public:
 
     /**
-     * @brief default destructor, empty, declared only in order to use
-     * forwarding declaration
-     *
-     * public because the parent destructor has to be public when using
-     * polymorphism
-     *
-     * virtual to ensure correct destructor calls when using polymorphism
+     * @brief default destructor
      */
-    virtual ~LevelEndingScreen() noexcept;
+    virtual ~LevelEndingScreen();
 
     /**
-     * @brief virtual method that contains the rendering logic of the
-     * screen; this method has to be called when the lose/win screen are
-     * rendered; the default implementation is used by the win screen: it
-     * displays the main message and the grey filter
+     * @brief defines how the win or lose screen has to be displayed
      *
      * @param context constant reference to the current context
      *
