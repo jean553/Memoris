@@ -28,7 +28,6 @@
 #include "ColorsManager.hpp"
 #include "FontsManager.hpp"
 #include "fonts_sizes.hpp"
-#include "controllers.hpp"
 #include "window.hpp"
 #include "Context.hpp"
 
@@ -56,11 +55,9 @@ public:
         text.setFont(context.getFontsManager().getTextFont());
         text.setCharacterSize(sizes::TEXT_SIZE);
 
-        /* window::WIDTH is an unsigned int, and there is guarantee about the
-           getLocalBounds().width type */
+        constexpr float MESSAGE_VERTICAL_POSITION {300.f};
         text.setPosition(
-            static_cast<float>(window::WIDTH) / 2 - 
-            static_cast<float>(text.getLocalBounds().width) / 2,
+            window::getCenteredTextHorizontalPosition(text),
             MESSAGE_VERTICAL_POSITION
         );
     }
@@ -88,7 +85,7 @@ ErrorController::ErrorController(
 /**
  *
  */
-ErrorController::~ErrorController() noexcept = default;
+ErrorController::~ErrorController() = default;
 
 /**
  *
@@ -96,13 +93,14 @@ ErrorController::~ErrorController() noexcept = default;
 const ControllerId& ErrorController::render() const &
 {
     const auto& context = getContext();
+    auto& window = context.getSfmlWindow();
 
-    context.getSfmlWindow().draw(impl->text);
+    window.draw(impl->text);
 
     setNextControllerId(animateScreenTransition(context));
 
     auto& event = getEvent();
-    while(context.getSfmlWindow().pollEvent(event))
+    while(window.pollEvent(event))
     {
         switch(event.type)
         {
