@@ -26,14 +26,14 @@
 #ifndef MEMORIS_WINLEVELENDINGSCREEN_H_
 #define MEMORIS_WINLEVELENDINGSCREEN_H_
 
-#include "LevelEndingScreen.hpp"
+#include "AbstractLevelEndingScreen.hpp"
 
 namespace memoris
 {
 namespace utils
 {
 
-class WinLevelEndingScreen : public LevelEndingScreen
+class WinLevelEndingScreen : public AbstractLevelEndingScreen
 {
 
 public:

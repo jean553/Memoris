@@ -102,7 +102,7 @@ public:
 
     sf::Int32 lastTimerUpdateTime {0};
 
-    std::unique_ptr<utils::LevelEndingScreen> endingScreen {nullptr};
+    std::unique_ptr<utils::AbstractLevelEndingScreen> endingScreen {nullptr};
     std::unique_ptr<animations::LevelAnimation> animation {nullptr};
 
     /* use a pointer here for two reasons: this is faster to copy from one

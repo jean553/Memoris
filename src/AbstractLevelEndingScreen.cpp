@@ -17,12 +17,12 @@
 */
 
 /**
- * @file LevelEndingScreen.cpp
+ * @file AbstractLevelEndingScreen.cpp
  * @package utils
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include "LevelEndingScreen.hpp"
+#include "AbstractLevelEndingScreen.hpp"
 
 #include "window.hpp"
 #include "Context.hpp"
@@ -38,7 +38,7 @@ namespace memoris
 namespace utils
 {
 
-class LevelEndingScreen::Impl
+class AbstractLevelEndingScreen::Impl
 {
 
 public:
@@ -72,7 +72,7 @@ public:
 /**
  *
  */
-LevelEndingScreen::LevelEndingScreen(const Context& context) :
+AbstractLevelEndingScreen::AbstractLevelEndingScreen(const Context& context) :
     impl(std::make_unique<Impl>(context))
 {
 }
@@ -80,12 +80,12 @@ LevelEndingScreen::LevelEndingScreen(const Context& context) :
 /**
  *
  */
-LevelEndingScreen::~LevelEndingScreen() noexcept = default;
+AbstractLevelEndingScreen::~AbstractLevelEndingScreen() = default;
 
 /**
  *
  */
-const utils::Context& LevelEndingScreen::getContext() const & noexcept
+const utils::Context& AbstractLevelEndingScreen::getContext() const & noexcept
 {
     return impl->context;
 }
@@ -93,7 +93,7 @@ const utils::Context& LevelEndingScreen::getContext() const & noexcept
 /**
  *
  */
-sf::Text& LevelEndingScreen::getText() const & noexcept
+sf::Text& AbstractLevelEndingScreen::getText() const & noexcept
 {
     return impl->text;
 }
@@ -101,7 +101,8 @@ sf::Text& LevelEndingScreen::getText() const & noexcept
 /**
  *
  */
-const sf::RectangleShape& LevelEndingScreen::getFilter() const & noexcept
+const sf::RectangleShape& AbstractLevelEndingScreen::getFilter() const &
+    noexcept
 {
     return impl->filter;
 }
@@ -109,7 +110,7 @@ const sf::RectangleShape& LevelEndingScreen::getFilter() const & noexcept
 /**
  *
  */
-void LevelEndingScreen::render() &
+void AbstractLevelEndingScreen::render() &
 {
     auto& window = impl->context.getSfmlWindow();
     window.draw(impl->filter);
