@@ -150,7 +150,7 @@ GameController::GameController(
 
     impl->displayedWatchingTime = playingSerieManager.getWatchingTime();
 
-    impl->watchingTimer.updateDisplayedAmount(impl->displayedWatchingTime);
+    impl->watchingTimer.setValue(impl->displayedWatchingTime);
 
     impl->dashboard.getTimerWidget().setMinutesAndSeconds(
         level->getMinutes(),
@@ -189,7 +189,7 @@ const ControllerId& GameController::render() const &
 
     if (impl->watchingPeriod)
     {
-        impl->watchingTimer.display(context);
+        impl->watchingTimer.display();
     }
 
     auto& dashboard = impl->dashboard;
@@ -319,7 +319,7 @@ const ControllerId& GameController::render() const &
             impl->displayedWatchingTime--;
         }
 
-        impl->watchingTimer.updateDisplayedAmount(impl->displayedWatchingTime);
+        impl->watchingTimer.setValue(impl->displayedWatchingTime);
 
         impl->lastWatchingTimeUpdate = context.getClockMillisecondsTime();
     }

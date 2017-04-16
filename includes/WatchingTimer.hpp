@@ -18,8 +18,7 @@
 
 /**
  * @file WatchingTimer.hpp
- * @brief renders the two digits displayed on both side of the game screen
- * during the watching period
+ * @brief countdown on both side of the level during the watching period
  * @package widgets
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -46,48 +45,42 @@ class WatchingTimer
 public:
 
     /**
-     * @brief constructor, initializes the implementation
+     * @brief constructor
      *
-     * @param context constant reference to the current context to use
+     * @param context the current context
      *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
+     * not noexcept because it calls SFML methods that are not noexcept
      */
     WatchingTimer(const utils::Context& context);
 
-    /**
-     * @brief default destructor, empty, declared here only in order to use
-     * forwarding declaration
-     */
-    ~WatchingTimer() noexcept;
+    WatchingTimer(const WatchingTimer&) = delete;
+
+    WatchingTimer operator=(const WatchingTimer&) = delete;
 
     /**
-     * @brief updates the displayed digit in the timer
-     *
-     * @param amount the left seconds amount
-     *
-     * public because called by the game controller to continually update
-     * the displayed amount during the watching period
-     *
-     * not 'const' because it modifies the current object SFML surfaces
-     *
-     * not 'noexcept' because it calls SFML functions that are not noexcept
+     * @brief default destructor
      */
-    void updateDisplayedAmount(const unsigned short& amount) &;
+    ~WatchingTimer();
+
+    /**
+     * @brief set the displayed value
+     *
+     * @param amount the amount to display
+     *
+     * not const because it modifies the counters SFML surfaces
+     *
+     * not noexcept because it calls SFML functions that are not noexcept
+     */
+    void setValue(const unsigned short& amount) &;
 
     /**
      * @brief displays the timer at both sides of the level
      *
-     * @param context constant reference to the current context to use
-     *
-     * public because called by the game controller to render the timer
-     *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
+     * not noexcept because it calls SFML methods that are not noexcept
      */
-    void display(const utils::Context& context) const &;
+    void display() const &;
 
 private:
-
-    static constexpr float TIMERS_VERTICAL_POSITION {300.f};
 
     class Impl;
     std::unique_ptr<Impl> impl;
