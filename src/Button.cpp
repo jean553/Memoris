@@ -31,6 +31,8 @@ namespace memoris
 namespace widgets
 {
 
+constexpr float BUTTON_DIMENSION {70.f};
+
 /**
  *
  */
