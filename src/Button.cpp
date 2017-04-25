@@ -170,43 +170,36 @@ Button::~Button() = default;
 /**
  *
  */
-void Button::display(const sf::Vector2<float>& cursorPosition)
+void Button::display(const sf::Vector2<float>& cursorPosition) &
 {
     const auto& context = impl->context;
     auto& window = context.getSfmlWindow();
 
-    auto& isMouseHover = impl->mouseHover;
+    window.draw(impl->back);
+    window.draw(impl->icon);
 
     const auto& cursorHorizontalPosition = cursorPosition.x;
     const auto& cursorVerticalPosition = cursorPosition.y;
     const auto& horizontalPosition = impl->horizontalPosition;
     const auto& verticalPosition = impl->verticalPosition;
 
-    const auto& colorsManager = context.getColorsManager();
-
-    window.draw(impl->back);
-    window.draw(impl->icon);
-
-    if (
+    const auto isCursorHoverButton = (
         cursorHorizontalPosition > horizontalPosition and
         cursorHorizontalPosition < horizontalPosition + BUTTON_DIMENSION and
         cursorVerticalPosition > verticalPosition and
-        cursorVerticalPosition < verticalPosition + BUTTON_DIMENSION and
-        !isMouseHover
-    )
+        cursorVerticalPosition < verticalPosition + BUTTON_DIMENSION
+    );
+
+    const auto& colorsManager = context.getColorsManager();
+    auto& isMouseHover = impl->mouseHover;
+
+    if (isCursorHoverButton and !isMouseHover)
     {
         isMouseHover = true;
 
         setBordersColor(colorsManager.getColorRed());
     }
-    else if (
-        (
-            cursorHorizontalPosition < horizontalPosition or
-            cursorHorizontalPosition > horizontalPosition + BUTTON_DIMENSION or
-            cursorVerticalPosition < verticalPosition or
-            cursorVerticalPosition > verticalPosition + BUTTON_DIMENSION
-        ) and isMouseHover
-    )
+    else if (not isCursorHoverButton and isMouseHover)
     {
         isMouseHover = false;
 

@@ -76,7 +76,7 @@ public:
      * attributes of the button are modified inside this function if the mouse
      * is hover the widget
      */
-    void display(const sf::Vector2<float>& cursorPosition);
+    void display(const sf::Vector2<float>& cursorPosition) &;
 
     /**
      * @brief boolean that indicates if the mouse is hover the button or not
