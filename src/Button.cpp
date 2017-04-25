@@ -193,7 +193,10 @@ void Button::display(const sf::Vector2<float>& cursorPosition) &
     const auto& colorsManager = context.getColorsManager();
     auto& isMouseHover = impl->mouseHover;
 
-    if (isCursorHoverButton and !isMouseHover)
+    /* we use a second boolean impl->isMouseHover in order to prevent
+       identical color updates if the mouse is still over the button */
+
+    if (isCursorHoverButton and not isMouseHover)
     {
         isMouseHover = true;
 
@@ -226,7 +229,7 @@ void Button::setBordersColor(const sf::Color& color) &
 /**
  *
  */
-bool Button::isMouseHover() const &
+bool Button::isMouseHover() const & noexcept
 {
     return impl->mouseHover;
 }

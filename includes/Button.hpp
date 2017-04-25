@@ -72,9 +72,10 @@ public:
      *
      * @param cursorPosition the current position of the cursor
      *
-     * NOTE: usually, display() functions are const; not this one because the
-     * attributes of the button are modified inside this function if the mouse
-     * is hover the widget
+     * not const because the attributes of the button may be modified
+     * by the method when the mouse goes hover and unhover
+     *
+     * not noexcept because it calls SFML draw() method that is not noexcept
      */
     void display(const sf::Vector2<float>& cursorPosition) &;
 
@@ -83,12 +84,18 @@ public:
      *
      * @return bool
      */
-    bool isMouseHover() const &;
+    bool isMouseHover() const & noexcept;
 
 private:
 
     /**
-     * TODO
+     * @brief updates the colors of the four button borders surfaces
+     *
+     * @param color the SFML color to use
+     *
+     * not const because it modifies the color of the four SFML border surfaces
+     *
+     * not noexcept because it calls SFML setFillColor method (not noexcept)
      */
     void setBordersColor(const sf::Color& color) &;
 
