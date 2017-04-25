@@ -58,6 +58,10 @@ public:
         const sf::Texture& texture
     );
 
+    Button(const Button&) = delete;
+
+    Button& operator=(const Button&) = delete;
+
     /**
      * @brief default destructor
      */

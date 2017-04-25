@@ -160,6 +160,9 @@ impl(
     setBordersColor(colorsManager.getColorWhite());
 }
 
+/**
+ *
+ */
 Button::~Button() = default;
 
 /**
@@ -170,41 +173,48 @@ void Button::display(const sf::Vector2<float>& cursorPosition)
     const auto& context = impl->context;
     auto& window = context.getSfmlWindow();
 
+    auto& isMouseHover = impl->mouseHover;
+
+    const auto& cursorHorizontalPosition = cursorPosition.x;
+    const auto& cursorVerticalPosition = cursorPosition.y;
+    const auto& horizontalPosition = impl->horizontalPosition;
+    const auto& verticalPosition = impl->verticalPosition;
+
+    const auto& colorsManager = context.getColorsManager();
+
     window.draw(impl->back);
     window.draw(impl->icon);
 
     if (
-        cursorPosition.x > impl->horizontalPosition &&
-        cursorPosition.x < impl->horizontalPosition + BUTTON_DIMENSION &&
-        cursorPosition.y > impl->verticalPosition &&
-        cursorPosition.y < impl->verticalPosition + BUTTON_DIMENSION &&
-        !impl->mouseHover
+        cursorHorizontalPosition > horizontalPosition and
+        cursorHorizontalPosition < horizontalPosition + BUTTON_DIMENSION and
+        cursorVerticalPosition > verticalPosition and
+        cursorVerticalPosition < verticalPosition + BUTTON_DIMENSION and
+        !isMouseHover
     )
     {
-        impl->mouseHover = true;
+        isMouseHover = true;
 
-        setBordersColor(context.getColorsManager().getColorRed());
+        setBordersColor(colorsManager.getColorRed());
     }
     else if (
         (
-            cursorPosition.x < impl->horizontalPosition ||
-            cursorPosition.x > impl->horizontalPosition + BUTTON_DIMENSION ||
-            cursorPosition.y < impl->verticalPosition ||
-            cursorPosition.y > impl->verticalPosition + BUTTON_DIMENSION
-        ) &&
-        impl->mouseHover
+            cursorHorizontalPosition < horizontalPosition or
+            cursorHorizontalPosition > horizontalPosition + BUTTON_DIMENSION or
+            cursorVerticalPosition < verticalPosition or
+            cursorVerticalPosition > verticalPosition + BUTTON_DIMENSION
+        ) and isMouseHover
     )
     {
-        impl->mouseHover = false;
+        isMouseHover = false;
 
-        setBordersColor(context.getColorsManager().getColorWhite());
+        setBordersColor(colorsManager.getColorWhite());
     }
 
-    /* draw the button borders */
-    context.getSfmlWindow().draw(impl->left);
-    context.getSfmlWindow().draw(impl->top);
-    context.getSfmlWindow().draw(impl->right);
-    context.getSfmlWindow().draw(impl->bottom);
+    window.draw(impl->left);
+    window.draw(impl->top);
+    window.draw(impl->right);
+    window.draw(impl->bottom);
 }
 
 /**
