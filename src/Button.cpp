@@ -25,6 +25,12 @@
 #include "Button.hpp"
 
 #include "ColorsManager.hpp"
+#include "Context.hpp"
+
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/System/Vector2.hpp>
 
 namespace memoris
 {
@@ -170,7 +176,7 @@ Button::~Button() = default;
 /**
  *
  */
-void Button::display(const sf::Vector2<float>& cursorPosition) &
+void Button::display(const sf::Vector2f& cursorPosition) &
 {
     const auto& context = impl->context;
     auto& window = context.getSfmlWindow();
@@ -218,20 +224,20 @@ void Button::display(const sf::Vector2<float>& cursorPosition) &
 /**
  *
  */
+const bool Button::isMouseHover() const & noexcept
+{
+    return impl->mouseHover;
+}
+
+/**
+ *
+ */
 void Button::setBordersColor(const sf::Color& color) &
 {
     impl->left.setFillColor(color);
     impl->right.setFillColor(color);
     impl->top.setFillColor(color);
     impl->bottom.setFillColor(color);
-}
-
-/**
- *
- */
-const bool Button::isMouseHover() const & noexcept
-{
-    return impl->mouseHover;
 }
 
 }

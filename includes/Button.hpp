@@ -26,12 +26,30 @@
 #ifndef MEMORIS_WIDGETS_H_
 #define MEMORIS_WIDGETS_H_
 
-#include "Context.hpp"
+#include <memory>
 
-#include <SFML/Graphics.hpp>
+namespace sf
+{
+class Texture;
+class Color;
+
+template<typename T>
+class Vector2;
+
+/* 'typedef Vector2<float> Vector2f' in Vector2.hpp, we declare exactly
+   the same type here in order to both use declaration forwarding and
+   prevent conflicting declaration */
+typedef Vector2<float> Vector2f;
+}
 
 namespace memoris
 {
+
+namespace utils
+{
+class Context;
+}
+
 namespace widgets
 {
 
@@ -77,7 +95,7 @@ public:
      *
      * not noexcept because it calls SFML draw() method that is not noexcept
      */
-    void display(const sf::Vector2<float>& cursorPosition) &;
+    void display(const sf::Vector2f& cursorPosition) &;
 
     /**
      * @brief indicates if the mouse is currently hover the button
