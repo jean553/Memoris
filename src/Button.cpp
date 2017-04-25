@@ -215,7 +215,7 @@ void Button::display(const sf::Vector2<float>& cursorPosition) &
 /**
  *
  */
-void Button::setBordersColor(const sf::Color& color)
+void Button::setBordersColor(const sf::Color& color) &
 {
     impl->left.setFillColor(color);
     impl->right.setFillColor(color);
@@ -226,7 +226,7 @@ void Button::setBordersColor(const sf::Color& color)
 /**
  *
  */
-bool Button::isMouseHover() const
+bool Button::isMouseHover() const &
 {
     return impl->mouseHover;
 }

@@ -83,14 +83,14 @@ public:
      *
      * @return bool
      */
-    bool isMouseHover() const;
+    bool isMouseHover() const &;
 
 private:
 
     /**
      * TODO
      */
-    void setBordersColor(const sf::Color& color);
+    void setBordersColor(const sf::Color& color) &;
 
     class Impl;
     std::unique_ptr<Impl> impl;
