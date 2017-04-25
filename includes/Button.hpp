@@ -26,12 +26,30 @@
 #ifndef MEMORIS_WIDGETS_H_
 #define MEMORIS_WIDGETS_H_
 
-#include "Context.hpp"
+#include <memory>
 
-#include <SFML/Graphics.hpp>
+namespace sf
+{
+class Texture;
+class Color;
+
+template<typename T>
+class Vector2;
+
+/* 'typedef Vector2<float> Vector2f' in Vector2.hpp, we declare exactly
+   the same type here in order to both use declaration forwarding and
+   prevent conflicting declaration */
+typedef Vector2<float> Vector2f;
+}
 
 namespace memoris
 {
+
+namespace utils
+{
+class Context;
+}
+
 namespace widgets
 {
 
@@ -72,27 +90,32 @@ public:
      *
      * @param cursorPosition the current position of the cursor
      *
-     * NOTE: usually, display() functions are const; not this one because the
-     * attributes of the button are modified inside this function if the mouse
-     * is hover the widget
+     * not const because the attributes of the button may be modified
+     * by the method when the mouse goes hover and unhover
+     *
+     * not noexcept because it calls SFML draw() method that is not noexcept
      */
-    void display(const sf::Vector2<float>& cursorPosition);
+    void display(const sf::Vector2f& cursorPosition) &;
 
     /**
-     * @brief boolean that indicates if the mouse is hover the button or not
+     * @brief indicates if the mouse is currently hover the button
      *
-     * @return bool
+     * @return const bool
      */
-    bool isMouseHover() const;
+    const bool isMouseHover() const & noexcept;
 
 private:
 
-    static constexpr float BUTTON_DIMENSION {70.f};
-
     /**
-     * TODO
+     * @brief updates the colors of the four button borders surfaces
+     *
+     * @param color the SFML color to use
+     *
+     * not const because it modifies the color of the four SFML border surfaces
+     *
+     * not noexcept because it calls SFML setFillColor method (not noexcept)
      */
-    void setBordersColor(const sf::Color& color);
+    void setBordersColor(const sf::Color& color) &;
 
     class Impl;
     std::unique_ptr<Impl> impl;
