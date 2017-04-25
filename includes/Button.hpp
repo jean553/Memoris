@@ -80,11 +80,11 @@ public:
     void display(const sf::Vector2<float>& cursorPosition) &;
 
     /**
-     * @brief boolean that indicates if the mouse is hover the button or not
+     * @brief indicates if the mouse is currently hover the button
      *
-     * @return bool
+     * @return const bool
      */
-    bool isMouseHover() const & noexcept;
+    const bool isMouseHover() const & noexcept;
 
 private:
 

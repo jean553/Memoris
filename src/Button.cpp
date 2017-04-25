@@ -229,7 +229,7 @@ void Button::setBordersColor(const sf::Color& color) &
 /**
  *
  */
-bool Button::isMouseHover() const & noexcept
+const bool Button::isMouseHover() const & noexcept
 {
     return impl->mouseHover;
 }
