@@ -18,8 +18,7 @@
 
 /**
  * @file RemoveGameController.hpp
- * @brief displayed when the user wants to delete one game, displays the
- * confirmation message and handles the file deletion
+ * @brief ask confirmation before user deletes a game
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
@@ -39,22 +38,20 @@ class RemoveGameController : public Controller
 public:
 
     /**
-     * @brief constructor, intializes the implementation
+     * @brief constructor
      *
-     * @param context constant reference to the current context to use
-     *
-     * not noexcept because it calls SFML methods that are not noexcept
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
      */
     RemoveGameController(const utils::Context& context);
 
     /**
-     * @brief default destructor, only declared in order to use the forwarding
-     * declaration
+     * @brief default destructor
      */
-    ~RemoveGameController() noexcept;
+    ~RemoveGameController();
 
     /**
-     * @brief render the remove game controller
+     * @brief renders the controller
      *
      * @return const ControllerId&
      */
