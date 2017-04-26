@@ -36,6 +36,7 @@ namespace memoris
 namespace others
 {
 
+constexpr float BACKGROUND_HORIZONTAL_POSITION {0.f};
 constexpr float BACKGROUND_VERTICAL_POSITION {250.f};
 constexpr float BACKGROUND_HEIGHT {300.f};
 
@@ -55,7 +56,7 @@ public:
         );
 
         background.setPosition(
-            0.f,
+            BACKGROUND_HORIZONTAL_POSITION,
             BACKGROUND_VERTICAL_POSITION
         );
 
@@ -121,7 +122,7 @@ void HorizontalGradient::initializeGradientRectangles() const &
         auto rectangle = std::make_unique<sf::RectangleShape>();
 
         rectangle->setPosition(
-            0.f,
+            BACKGROUND_HORIZONTAL_POSITION,
             verticalPosition
         );
 
