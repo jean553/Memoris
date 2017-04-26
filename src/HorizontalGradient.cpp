@@ -41,8 +41,10 @@ class HorizontalGradient::Impl
 
 public:
 
-    Impl(const utils::Context& context)
+    Impl(const utils::Context& context) :
+        context(context)
     {
+        constexpr float BACKGROUND_HEIGHT {300.f};
         background.setSize(
             sf::Vector2f(
                 window::WIDTH,
@@ -50,22 +52,80 @@ public:
             )
         );
 
+        constexpr float BACKGROUND_HORIZONTAL_POSITION {0.f};
+        constexpr float BACKGROUND_VERTICAL_POSITION {250.f};
         background.setPosition(
-            0.f,
+            BACKGROUND_HORIZONTAL_POSITION,
             BACKGROUND_VERTICAL_POSITION
         );
 
-        background.setFillColor(
-            context.getColorsManager().getColorBlack()
-        );
+        const auto& colorsManager = context.getColorsManager();
+
+        background.setFillColor(colorsManager.getColorBlack());
+
+        float verticalPosition = BACKGROUND_VERTICAL_POSITION;
+        auto effectColor = colorsManager.getColorBlackCopy();
+
+        constexpr unsigned short SURFACES_AMOUNT {1020};
+        for (
+            unsigned short index = 0;
+            index < SURFACES_AMOUNT;
+            index++
+        )
+        {
+            auto rectangle = std::make_unique<sf::RectangleShape>();
+
+            rectangle->setPosition(
+                BACKGROUND_HORIZONTAL_POSITION,
+                verticalPosition
+            );
+
+            constexpr float GRADIENT_LINE_HEIGHT {1.f};
+            rectangle->setSize(
+                sf::Vector2f(
+                    window::WIDTH,
+                    GRADIENT_LINE_HEIGHT
+                )
+            );
+
+            rectangle->setFillColor(effectColor);
+
+            constexpr unsigned short SIDE_SURFACES_AMOUNT {510};
+            if(index < SIDE_SURFACES_AMOUNT)
+            {
+                verticalPosition--;
+            }
+            else
+            {
+                verticalPosition++;
+            }
+
+            if (index == SIDE_SURFACES_AMOUNT)
+            {
+                verticalPosition =
+                    BACKGROUND_VERTICAL_POSITION + BACKGROUND_HEIGHT;
+
+                constexpr sf::Uint8 DEFAULT_EFFECT_COLOR_ALPHA {255};
+                effectColor.a = DEFAULT_EFFECT_COLOR_ALPHA;
+            }
+
+            if (index % 2 == 0)
+            {
+                effectColor.a--;
+            }
+
+            lines.push_back(std::move(rectangle));
+        }
     }
+
+    const utils::Context& context;
 
     sf::RectangleShape background;
 
     /* we use pointers in order to accelerate the execution (no object copy); 
        we could have used move sementics, but SFML does not provides move 
        constructors for rectangle shapes */
-    std::vector<std::unique_ptr<sf::RectangleShape>> sidesLines;
+    std::vector<std::unique_ptr<sf::RectangleShape>> lines;
 };
 
 /**
@@ -74,83 +134,25 @@ public:
 HorizontalGradient::HorizontalGradient(const utils::Context& context) :
     impl(std::make_unique<Impl>(context))
 {
-    initializeGradientRectangles(context);
 }
 
 /**
  *
  */
-HorizontalGradient::~HorizontalGradient() noexcept = default;
+HorizontalGradient::~HorizontalGradient() = default;
 
 /**
  *
  */
-void HorizontalGradient::render(const utils::Context& context) const &
+void HorizontalGradient::render() const &
 {
-    context.getSfmlWindow().draw(impl->background);
+    auto& window = impl->context.getSfmlWindow();
 
-    // auto -> std::unique_ptr<sf::RectangleShape>&
-    for (auto& rectangle : impl->sidesLines)
+    window.draw(impl->background);
+
+    for (const auto& line : impl->lines)
     {
-        context.getSfmlWindow().draw(*rectangle);
-    }
-}
-
-/**
- *
- */
-void HorizontalGradient::initializeGradientRectangles(
-    const utils::Context& context
-) const &
-{
-    float verticalPosition = BACKGROUND_VERTICAL_POSITION;
-    sf::Color effectColor = context.getColorsManager().getColorBlackCopy();
-
-    for (
-        unsigned short index = 0;
-        index < SURFACES_AMOUNT;
-        index++
-    )
-    {
-        // auto -> std::unique_ptr<sf::RectangleShape>
-        auto rectangle = std::make_unique<sf::RectangleShape>();
-
-        rectangle->setPosition(
-            0.f,
-            verticalPosition
-        );
-
-        rectangle->setSize(
-            sf::Vector2f(
-                window::WIDTH,
-                1.f
-            )
-        );
-
-        rectangle->setFillColor(effectColor);
-
-        if(index < SIDE_SURFACES_AMOUNT)
-        {
-            verticalPosition--;
-        }
-        else
-        {
-            verticalPosition++;
-        }
-
-        if (index == SIDE_SURFACES_AMOUNT)
-        {
-            verticalPosition = 
-                BACKGROUND_VERTICAL_POSITION + BACKGROUND_HEIGHT;
-            effectColor.a = DEFAULT_EFFECT_COLOR_ALPHA;
-        }
-
-        if (index % 2 == 0)
-        {
-            effectColor.a--;
-        }
-
-        impl->sidesLines.push_back(std::move(rectangle));
+        window.draw(*line);
     }
 }
 

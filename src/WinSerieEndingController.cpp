@@ -175,7 +175,7 @@ const ControllerId& WinSerieEndingController::render() const &
     auto& time = impl->time;
 
     impl->background.render();
-    impl->gradient.render(context);
+    impl->gradient.render();
 
     sf::Color titleColor = title.getFillColor();
     auto& titleTransparency = titleColor.a;
