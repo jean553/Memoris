@@ -50,6 +50,10 @@ public:
      */
     LevelSeparators(const utils::Context& context);
 
+    LevelSeparators(const LevelSeparators&) = delete;
+
+    LevelSeparators& operator=(const LevelSeparators&) = delete;
+
     /**
      * @brief destructor
      */
