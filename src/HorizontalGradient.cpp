@@ -36,6 +36,9 @@ namespace memoris
 namespace others
 {
 
+constexpr float BACKGROUND_VERTICAL_POSITION {250.f};
+constexpr float BACKGROUND_HEIGHT {300.f};
+
 class HorizontalGradient::Impl
 {
 
@@ -108,6 +111,7 @@ void HorizontalGradient::initializeGradientRectangles() const &
     float verticalPosition = BACKGROUND_VERTICAL_POSITION;
     auto effectColor = impl->context.getColorsManager().getColorBlackCopy();
 
+    constexpr unsigned short SURFACES_AMOUNT {1020};
     for (
         unsigned short index = 0;
         index < SURFACES_AMOUNT;
@@ -130,6 +134,7 @@ void HorizontalGradient::initializeGradientRectangles() const &
 
         rectangle->setFillColor(effectColor);
 
+        constexpr unsigned short SIDE_SURFACES_AMOUNT {510};
         if(index < SIDE_SURFACES_AMOUNT)
         {
             verticalPosition--;
@@ -143,6 +148,8 @@ void HorizontalGradient::initializeGradientRectangles() const &
         {
             verticalPosition = 
                 BACKGROUND_VERTICAL_POSITION + BACKGROUND_HEIGHT;
+
+            constexpr sf::Uint8 DEFAULT_EFFECT_COLOR_ALPHA {255};
             effectColor.a = DEFAULT_EFFECT_COLOR_ALPHA;
         }
 

@@ -24,8 +24,6 @@
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#include <SFML/Config.hpp>
-
 #include <memory>
 
 namespace memoris
@@ -76,14 +74,6 @@ private:
      * not noexcept because it calls SFML methods that are not noexcept
      */
     void initializeGradientRectangles() const &; 
-
-    static constexpr float BACKGROUND_VERTICAL_POSITION {250.f};
-    static constexpr float BACKGROUND_HEIGHT {300.f};
-
-    static constexpr unsigned short SURFACES_AMOUNT {1020};
-    static constexpr unsigned short SIDE_SURFACES_AMOUNT {510};
-
-    static constexpr sf::Uint8 DEFAULT_EFFECT_COLOR_ALPHA {255};
 
     class Impl;
     std::unique_ptr<Impl> impl;
