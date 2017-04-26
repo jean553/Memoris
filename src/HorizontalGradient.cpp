@@ -66,10 +66,12 @@ public:
         float verticalPosition = BACKGROUND_VERTICAL_POSITION;
         auto effectColor = colorsManager.getColorBlackCopy();
 
-        constexpr unsigned short SURFACES_AMOUNT {1020};
+        float verticalPositionDirection {-1.f};
+
+        constexpr unsigned short LINES_AMOUNT {1020};
         for (
             unsigned short index = 0;
-            index < SURFACES_AMOUNT;
+            index < LINES_AMOUNT;
             index++
         )
         {
@@ -90,31 +92,26 @@ public:
 
             rectangle->setFillColor(effectColor);
 
-            constexpr unsigned short SIDE_SURFACES_AMOUNT {510};
-            if(index < SIDE_SURFACES_AMOUNT)
-            {
-                verticalPosition--;
-            }
-            else
-            {
-                verticalPosition++;
-            }
+            lines.push_back(std::move(rectangle));
 
-            if (index == SIDE_SURFACES_AMOUNT)
+            verticalPosition += verticalPositionDirection;
+
+            constexpr unsigned short LINES_PER_SIDE {510};
+            if (index == LINES_PER_SIDE)
             {
                 verticalPosition =
                     BACKGROUND_VERTICAL_POSITION + BACKGROUND_HEIGHT;
 
                 constexpr sf::Uint8 DEFAULT_EFFECT_COLOR_ALPHA {255};
                 effectColor.a = DEFAULT_EFFECT_COLOR_ALPHA;
+
+                verticalPositionDirection = 1;
             }
 
             if (index % 2 == 0)
             {
                 effectColor.a--;
             }
-
-            lines.push_back(std::move(rectangle));
         }
     }
 
