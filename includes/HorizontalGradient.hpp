@@ -46,6 +46,9 @@ public:
      * @brief constructor
      *
      * @param context the context to use
+     *
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
      */
     HorizontalGradient(const utils::Context& context);
 

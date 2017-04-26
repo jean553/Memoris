@@ -24,9 +24,6 @@
 
 #include "ShapesManager.hpp"
 
-#include "Context.hpp"
-#include "ColorsManager.hpp"
-
 #include <SFML/Graphics/RectangleShape.hpp>
 
 namespace memoris
@@ -41,20 +38,22 @@ public:
 
     Impl()
     {
+        constexpr float HORIZONTAL_SEPARATOR_HORIZONTAL_POSITION {400.f};
+        constexpr float HORIZONTAL_SEPARATOR_VERTICAL_POSITION {495.f};
         horizontalSeparator.setPosition(
-            400.f, 
-            495.f
+            HORIZONTAL_SEPARATOR_HORIZONTAL_POSITION,
+            HORIZONTAL_SEPARATOR_VERTICAL_POSITION
         );
 
+        constexpr float VERTICAL_SEPARATOR_HORIZONTAL_POSITION {798.f};
+        constexpr float VERTICAL_SEPARATOR_VERTICAL_POSITION {98.f};
         verticalSeparator.setPosition(
-            798.f,
-            98.f
+            VERTICAL_SEPARATOR_HORIZONTAL_POSITION,
+            VERTICAL_SEPARATOR_VERTICAL_POSITION
         );
 
-        /* we directly set the color instead of using the colors manager; in
-           fact, the context object has not totally finished to build the
-           context object when this constructor is executed, so it cannot be
-           used */
+        /* we do not load the color from the colors manager 
+           because we do not pass the context to only load one color */
 
         sf::Color redColor = sf::Color(
             255.f,
@@ -66,17 +65,20 @@ public:
         horizontalSeparator.setFillColor(redColor);
         verticalSeparator.setFillColor(redColor);
 
+        constexpr float LEVEL_WIDTH_AND_HEIGHT {800.f};
+        constexpr float SEPARATORS_WIDTH {4.f};
+
         horizontalSeparator.setSize(
             sf::Vector2f(
-                800.f, 
-                4.f
+                LEVEL_WIDTH_AND_HEIGHT,
+                SEPARATORS_WIDTH
             )
         );
 
         verticalSeparator.setSize(
             sf::Vector2f(
-                4.f,
-                800.f
+                SEPARATORS_WIDTH,
+                LEVEL_WIDTH_AND_HEIGHT
             )
         );
     }
@@ -88,15 +90,14 @@ public:
 /**
  *
  */
-ShapesManager::ShapesManager() :
-    impl(std::make_unique<Impl>())
+ShapesManager::ShapesManager() : impl(std::make_unique<Impl>())
 {
 }
 
 /**
  *
  */
-ShapesManager::~ShapesManager() noexcept = default;
+ShapesManager::~ShapesManager() = default;
 
 /**
  *

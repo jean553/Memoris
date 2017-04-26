@@ -18,9 +18,12 @@
 
 /**
  * @file ShapesManager.hpp
- * @brief loads and provides sprites assets
+ * @brief loads and provides separators for level animations
  * @package managers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
+ *
+ * TODO: #1173 the shape manager is only used for level animations separators,
+ * maybe we can simply delete it and handle those separator elsewhere
  */
 
 #ifndef MEMORIS_SHAPESMANAGER_H_
@@ -35,12 +38,6 @@ class RectangleShape;
 
 namespace memoris
 {
-
-namespace utils
-{
-class Context;
-}
-
 namespace managers
 {
 
@@ -50,19 +47,21 @@ class ShapesManager
 public:
 
     /**
-     * @brief constructor, loads each texture/sprite one by one, stop if one
-     * texture cannot be loaded and throw an exception
+     * @brief constructor
      *
-     * @throw std::invalid_argument thrown if the texture cannot be loaded,
-     * the exception is never caught to voluntary stop the program
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
      */
     ShapesManager();
 
+    ShapesManager(const ShapesManager&) = delete;
+
+    ShapesManager& operator=(const ShapesManager) = delete;
+
     /**
-     * @brief default destructor, empty, only declared in order to use
-     * forwarding declaration
+     * @brief default destructor
      */
-    ~ShapesManager() noexcept;
+    ~ShapesManager();
 
     /**
      * @brief getter for the horizontal mirror animation separator shape
