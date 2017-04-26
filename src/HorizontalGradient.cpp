@@ -41,7 +41,8 @@ class HorizontalGradient::Impl
 
 public:
 
-    Impl(const utils::Context& context)
+    Impl(const utils::Context& context) :
+        context(context)
     {
         background.setSize(
             sf::Vector2f(
@@ -60,6 +61,8 @@ public:
         );
     }
 
+    const utils::Context& context;
+
     sf::RectangleShape background;
 
     /* we use pointers in order to accelerate the execution (no object copy); 
@@ -74,37 +77,36 @@ public:
 HorizontalGradient::HorizontalGradient(const utils::Context& context) :
     impl(std::make_unique<Impl>(context))
 {
-    initializeGradientRectangles(context);
+    initializeGradientRectangles();
 }
 
 /**
  *
  */
-HorizontalGradient::~HorizontalGradient() noexcept = default;
+HorizontalGradient::~HorizontalGradient() = default;
 
 /**
  *
  */
-void HorizontalGradient::render(const utils::Context& context) const &
+void HorizontalGradient::render() const &
 {
-    context.getSfmlWindow().draw(impl->background);
+    auto& window = impl->context.getSfmlWindow();
 
-    // auto -> std::unique_ptr<sf::RectangleShape>&
+    window.draw(impl->background);
+
     for (auto& rectangle : impl->sidesLines)
     {
-        context.getSfmlWindow().draw(*rectangle);
+        window.draw(*rectangle);
     }
 }
 
 /**
  *
  */
-void HorizontalGradient::initializeGradientRectangles(
-    const utils::Context& context
-) const &
+void HorizontalGradient::initializeGradientRectangles() const &
 {
     float verticalPosition = BACKGROUND_VERTICAL_POSITION;
-    sf::Color effectColor = context.getColorsManager().getColorBlackCopy();
+    auto effectColor = impl->context.getColorsManager().getColorBlackCopy();
 
     for (
         unsigned short index = 0;
@@ -112,7 +114,6 @@ void HorizontalGradient::initializeGradientRectangles(
         index++
     )
     {
-        // auto -> std::unique_ptr<sf::RectangleShape>
         auto rectangle = std::make_unique<sf::RectangleShape>();
 
         rectangle->setPosition(

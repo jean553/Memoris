@@ -18,6 +18,8 @@
 
 /**
  * @file HorizontalGradient.hpp
+ * @brief renders gradients effects horizontally; this effect is used
+ * by the serie ending level
  * @package others
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -43,11 +45,9 @@ class HorizontalGradient
 public:
 
     /**
-     * @brief constructor, initializes the implementation
+     * @brief constructor
      *
-     * @param context constant reference to the current context to use
-     *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
+     * @param context the context to use
      */
     HorizontalGradient(const utils::Context& context);
 
@@ -56,31 +56,26 @@ public:
     HorizontalGradient& operator=(const HorizontalGradient&) = delete;
 
     /**
-     * @brief default destructor, empty, only declared in order to use
-     * forwarding declaration
+     * @brief default destructor
      */
-    ~HorizontalGradient() noexcept;
+    ~HorizontalGradient();
 
     /**
-     * @brief renders the gradient background
-     *
-     * @param context constant reference to the current context to use
+     * @brief renders the gradient effect surfaces
      *
      * not noexcept because it calls SFML functions that are not noexcept
      */
-    void render(const utils::Context& context) const &;
+    void render() const &;
 
 private:
 
     /**
-     * @brief refactored method (for organization purposes), generates the
-     * top and bottom sides surfaces
-     *
-     * @param context constant reference to the current context to use
+     * @brief refactored method (for organization purposes),
+     * generates the top and bottom sides surfaces
      *
      * not noexcept because it calls SFML methods that are not noexcept
      */
-    void initializeGradientRectangles(const utils::Context& context) const &; 
+    void initializeGradientRectangles() const &; 
 
     static constexpr float BACKGROUND_VERTICAL_POSITION {250.f};
     static constexpr float BACKGROUND_HEIGHT {300.f};
