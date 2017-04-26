@@ -27,7 +27,6 @@
 #include "Context.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
-#include "controllers.hpp"
 #include "fonts_sizes.hpp"
 #include "window.hpp"
 #include "Game.hpp"
@@ -52,9 +51,11 @@ public:
         message.setFont(context.getFontsManager().getTextFont());
         message.setCharacterSize(sizes::TEXT_SIZE);
         message.setFillColor(context.getColorsManager().getColorWhite());
+
+        constexpr float MESSAGE_VERTICAL_POSITION {300.f};
         message.setPosition(
             window::getCenteredTextHorizontalPosition(message),
-            300.f
+            MESSAGE_VERTICAL_POSITION
         );
     }
 
@@ -75,8 +76,7 @@ RemoveGameController::RemoveGameController(
 /**
  *
  */
-RemoveGameController::~RemoveGameController()
-    noexcept = default;
+RemoveGameController::~RemoveGameController() = default;
 
 /**
  *
@@ -84,13 +84,14 @@ RemoveGameController::~RemoveGameController()
 const ControllerId& RemoveGameController::render() const &
 {
     const auto& context = getContext();
+    auto& window = context.getSfmlWindow();
 
-    context.getSfmlWindow().draw(impl->message);
+    window.draw(impl->message);
 
     setNextControllerId(animateScreenTransition(context));
 
     auto& event = getEvent();
-    while(context.getSfmlWindow().pollEvent(event))
+    while(window.pollEvent(event))
     {
         switch(event.type)
         {
@@ -115,11 +116,13 @@ const ControllerId& RemoveGameController::render() const &
             }
             default:
             {
+                break;
             }
             }
         }
         default:
         {
+            break;
         }
         }
     }
