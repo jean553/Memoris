@@ -67,14 +67,6 @@ public:
 
 private:
 
-    /**
-     * @brief refactored method (for organization purposes),
-     * generates the top and bottom sides surfaces
-     *
-     * not noexcept because it calls SFML methods that are not noexcept
-     */
-    void initializeGradientRectangles() const &; 
-
     class Impl;
     std::unique_ptr<Impl> impl;
 };
