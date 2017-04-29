@@ -54,6 +54,9 @@ public:
      * @brief constructor
      *
      * @param context the current context
+     *
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
      */
     InputTextWidget(const utils::Context& context);
 
