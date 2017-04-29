@@ -39,108 +39,105 @@ class SoundsManager
 public:
 
     /**
-     * @brief constructor, loads each sound file one by one, silently
-     * fails if the loading process fail
+     * @brief constructor
+     *
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
      */
-    SoundsManager() noexcept;
+    SoundsManager();
 
     SoundsManager(const SoundsManager&) = delete;
 
     SoundsManager& operator=(const SoundsManager&) = delete;
 
     /**
-     *
+     * @brief default destructor
      */
-    ~SoundsManager() noexcept;
-
-    /* all the sounds playters return constant references to improve
-       performances and prevent objects modification; each method is
-       constant as it does not modify the current object instance; no one
-       of the method throw an exception */
+    ~SoundsManager();
 
     /**
      * @brief plays the move selector sound
      *
-     * @return void
+     * not noexcept because it uses sf::Sound::play()
      */
-    void playMoveSelectorSound() const & noexcept;
+    void playMoveSelectorSound() const &;
 
     /**
      * @brief plays the screen transition sound
      *
-     * @return void
+     * not noexcept because it uses sf::Sound::play()
      */
-    void playScreenTransitionSound() const & noexcept;
+    void playScreenTransitionSound() const &;
 
     /**
      * @brief plays the hide level sound
      *
-     * @return void
+     * not noexcept because it uses sf::Sound::play()
      */
-    void playHideLevelSound() const & noexcept;
+    void playHideLevelSound() const &;
 
     /**
      * @brief plays the found star cell sound
      *
-     * @return void
+     * not noexcept because it uses sf::Sound::play()
      */
-    void playFoundStarSound() const & noexcept;
+    void playFoundStarSound() const &;
 
     /**
      * @brief plays the found life/time sound
      *
-     * @return void
+     * not noexcept because it uses sf::Sound::play()
      */
-    void playFoundLifeOrTimeSound() const & noexcept;
+    void playFoundLifeOrTimeSound() const &;
 
     /**
      * @brief plays the found dead or less time sound
      *
-     * @return void
+     * not noexcept because it uses sf::Sound::play()
      */
-    void playFoundDeadOrLessTimeSound() const & noexcept;
+    void playFoundDeadOrLessTimeSound() const &;
 
     /**
      * @brief plays the collision sound
      *
-     * @return void
+     * not noexcept because it uses sf::Sound::play()
      */
-    void playCollisionSound() const & noexcept;
+    void playCollisionSound() const &;
 
     /**
      * @brief plays the floor switch animation sound
      *
-     * @return void
+     * not noexcept because it uses sf::Sound::play()
      */
-    void playFloorSwitchSound() const & noexcept;
+    void playFloorSwitchSound() const &;
 
     /**
      * @brief plays the time over sound
      *
-     * @return void
+     * not noexcept because it uses sf::Sound::play()
      */
-    void playTimeOverSound() const & noexcept;
+    void playTimeOverSound() const &;
 
     /**
      * @brief plays the mirror animation sound
      *
-     * @return void
+     * not noexcept because it uses sf::Sound::play()
      */
-    void playMirrorAnimationSound() const & noexcept;
+    void playMirrorAnimationSound() const &;
 
     /**
      * @brief plays the win level sound
      *
-     * @return void
+     * not noexcept because it uses sf::Sound::play()
      */
-    void playWinLevelSound() const & noexcept;
+    void playWinLevelSound() const &;
 
     /**
      * @brief plays the diagonal animation sound
      *
-     * @return void
+     * not noexcept because it uses sf::Sound::play()
      */
-    void playFloorMovementAnimationSound() const & noexcept;
+    void playFloorMovementAnimationSound() const &;
 
 private:
 
