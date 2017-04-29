@@ -56,20 +56,19 @@ public:
 /**
  *
  */
-SoundsManager::SoundsManager() noexcept :
-impl(std::make_unique<Impl>())
+SoundsManager::SoundsManager() : impl(std::make_unique<Impl>())
 {
 }
 
 /**
  *
  */
-SoundsManager::~SoundsManager() noexcept = default;
+SoundsManager::~SoundsManager() = default;
 
 /**
  *
  */
-void SoundsManager::playMoveSelectorSound() const & noexcept
+void SoundsManager::playMoveSelectorSound() const &
 {
     impl->moveSelectorSound.play();
 }
@@ -77,7 +76,7 @@ void SoundsManager::playMoveSelectorSound() const & noexcept
 /**
  *
  */
-void SoundsManager::playScreenTransitionSound() const & noexcept
+void SoundsManager::playScreenTransitionSound() const &
 {
     impl->screenTransitionSound.play();
 }
@@ -85,7 +84,7 @@ void SoundsManager::playScreenTransitionSound() const & noexcept
 /**
  *
  */
-void SoundsManager::playHideLevelSound() const & noexcept
+void SoundsManager::playHideLevelSound() const &
 {
     impl->hideLevelSound.play();
 }
@@ -93,7 +92,7 @@ void SoundsManager::playHideLevelSound() const & noexcept
 /**
  *
  */
-void SoundsManager::playFoundStarSound() const & noexcept
+void SoundsManager::playFoundStarSound() const &
 {
     impl->foundStarSound.play();
 }
@@ -101,7 +100,7 @@ void SoundsManager::playFoundStarSound() const & noexcept
 /**
  *
  */
-void SoundsManager::playFoundLifeOrTimeSound() const & noexcept
+void SoundsManager::playFoundLifeOrTimeSound() const &
 {
     impl->foundLifeOrTimeSound.play();
 }
@@ -109,7 +108,7 @@ void SoundsManager::playFoundLifeOrTimeSound() const & noexcept
 /**
  *
  */
-void SoundsManager::playFoundDeadOrLessTimeSound() const & noexcept
+void SoundsManager::playFoundDeadOrLessTimeSound() const &
 {
     impl->foundDeadOrLessTimeSound.play();
 }
@@ -117,7 +116,7 @@ void SoundsManager::playFoundDeadOrLessTimeSound() const & noexcept
 /**
  *
  */
-void SoundsManager::playCollisionSound() const & noexcept
+void SoundsManager::playCollisionSound() const &
 {
     impl->collisionSound.play();
 }
@@ -125,7 +124,7 @@ void SoundsManager::playCollisionSound() const & noexcept
 /**
  *
  */
-void SoundsManager::playFloorSwitchSound() const & noexcept
+void SoundsManager::playFloorSwitchSound() const &
 {
     impl->floorSwitchSound.play();
 }
@@ -133,7 +132,7 @@ void SoundsManager::playFloorSwitchSound() const & noexcept
 /**
  *
  */
-void SoundsManager::playTimeOverSound() const & noexcept
+void SoundsManager::playTimeOverSound() const &
 {
     impl->timeOverSound.play();
 }
@@ -141,7 +140,7 @@ void SoundsManager::playTimeOverSound() const & noexcept
 /**
  *
  */
-void SoundsManager::playMirrorAnimationSound() const & noexcept
+void SoundsManager::playMirrorAnimationSound() const &
 {
     impl->mirrorAnimationSound.play();
 }
@@ -149,7 +148,7 @@ void SoundsManager::playMirrorAnimationSound() const & noexcept
 /**
  *
  */
-void SoundsManager::playWinLevelSound() const & noexcept
+void SoundsManager::playWinLevelSound() const &
 {
     impl->winLevelSound.play();
 }
@@ -158,7 +157,6 @@ void SoundsManager::playWinLevelSound() const & noexcept
  *
  */
 void SoundsManager::playFloorMovementAnimationSound() const &
-noexcept
 {
     impl->floorMovementAnimationSound.play();
 }
