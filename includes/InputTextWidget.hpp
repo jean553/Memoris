@@ -108,10 +108,6 @@ public:
 
 private:
 
-    static constexpr float HORIZONTAL_POSITION {500.f};
-    static constexpr float VERTICAL_POSITION {450.f};
-    static constexpr float CURSOR_AND_BORDER_DISTANCE {5.f};
-
     /**
      * @brief get copy of keyboard selected character (from a to z);
      * refactor into a private method for readability
