@@ -33,7 +33,7 @@
 #include "fonts_sizes.hpp"
 #include "Button.hpp"
 #include "Cursor.hpp"
-#include "DoubleSelectionListWidget.hpp"
+#include "FilesSelectionListWidget.hpp"
 #include "SelectionListWidget.hpp"
 #include "InputTextForeground.hpp"
 #include "MessageForeground.hpp"
@@ -82,7 +82,15 @@ public:
             context.getTexturesManager().getExitTexture()
         ),
         cursor(context),
-        lists(context)
+        filesLevelsList(
+            context,
+            "data/levels/personals",
+            100.f
+        ),
+        serieLevelsList(
+            context,
+            890.f
+        )
     {
         serieNameText.setString(UNTITLED_SERIE);
         serieNameText.setFont(context.getFontsManager().getTextFont());
@@ -102,7 +110,8 @@ public:
 
     widgets::Cursor cursor;
 
-    widgets::DoubleSelectionListWidget lists;
+    widgets::FilesSelectionListWidget filesLevelsList;
+    widgets::SelectionListWidget serieLevelsList;
 
     std::unique_ptr<foregrounds::InputTextForeground> saveSerieForeground
         {nullptr};
@@ -156,10 +165,8 @@ const ControllerId& SerieEditorController::render() const &
         impl->buttonSave.display(cursorPosition);
         impl->buttonExit.display(cursorPosition);
 
-        impl->lists.display(
-            context,
-            cursorPosition
-        );
+        impl->filesLevelsList.display(cursorPosition);
+        impl->serieLevelsList.display(cursorPosition);
 
         cursor.render();
     }
@@ -179,7 +186,9 @@ const ControllerId& SerieEditorController::render() const &
             {
                 if (newSerieForeground != nullptr)
                 {
-                    impl->lists.resetLists(context);
+                    impl->serieLevelsList.deleteAllItems();
+                    impl->filesLevelsList.deleteAllItems();
+                    impl->filesLevelsList.loadFilesFromDirectory();
 
                     impl->serieNameText.setString(UNTITLED_SERIE);
 
@@ -307,8 +316,8 @@ const ControllerId& SerieEditorController::render() const &
                     );
             }
 
-            const auto& levelsList = impl->lists.getLevelsList();
-            const auto& seriesList = impl->lists.getSerieLevelsList();
+            const auto& levelsList = impl->filesLevelsList;
+            const auto& seriesList = impl->serieLevelsList;
 
             const auto& levelsListItemsAmount = levelsList.getItemsAmount();
             const auto& seriesListItemsAmount = seriesList.getItemsAmount();
@@ -324,9 +333,7 @@ const ControllerId& SerieEditorController::render() const &
                 levelsListCurrentIndex != NO_SELECTION_INDEX
             )
             {
-                impl->lists.getSerieLevelsList().addItem(
-                    levelsList.getCurrentItem()
-                );
+                seriesList.addItem(levelsList.getCurrentItem());
 
                 levelsList.deleteSelectedItem();
 
@@ -337,9 +344,7 @@ const ControllerId& SerieEditorController::render() const &
                 seriesListCurrentIndex != NO_SELECTION_INDEX
             )
             {
-                impl->lists.getLevelsList().addItem(
-                    seriesList.getCurrentItem()
-                );
+                levelsList.addItem(seriesList.getCurrentItem());
 
                 seriesList.deleteSelectedItem();
 
@@ -392,8 +397,7 @@ void SerieEditorController::saveSerieFile(const std::string& name) const &
     /* write three empty best scores */
     file << "." << std::endl << "." << std::endl << "." << std::endl;
 
-    // const std::vector<sf::Text>&
-    const auto& texts = impl->lists.getSerieLevelsList().getTexts();
+    const auto& texts = impl->serieLevelsList.getTexts();
 
     for (const auto& text : texts)
     {
