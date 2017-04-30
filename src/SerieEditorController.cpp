@@ -235,9 +235,19 @@ const ControllerId& SerieEditorController::render() const &
             }
             default:
             {
-                if (saveSerieForeground != nullptr)
+                auto& textInput = saveSerieForeground->getInputTextWidget();
+
+                if (
+                    saveSerieForeground != nullptr and
+                    not textInput.isInputTextLineFull()
+                )
                 {
-                    saveSerieForeground->getInputTextWidget().update(event);
+                    const char character = textInput.getInputLetter(event);
+
+                    saveSerieForeground->getInputTextWidget().update(
+                        event,
+                        character
+                    );
                 }
             }
             }

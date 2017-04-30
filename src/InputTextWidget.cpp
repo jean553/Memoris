@@ -200,7 +200,10 @@ void InputTextWidget::display() const &
 /**
  *
  */
-void InputTextWidget::update(const sf::Event& event) const &
+void InputTextWidget::update(
+    const sf::Event& event,
+    const char& newCharacter
+) const &
 {
     auto& text = impl->displayedText;
 
@@ -210,12 +213,6 @@ void InputTextWidget::update(const sf::Event& event) const &
     }
     else
     {
-        const char newCharacter {getInputLetter(event)};
-        if (newCharacter == 0)
-        {
-            return;
-        }
-
         const sf::String newString {newCharacter};
         text.setString(text.getString() + newString);
     }
