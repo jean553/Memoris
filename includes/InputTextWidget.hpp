@@ -54,6 +54,9 @@ public:
      * @brief constructor
      *
      * @param context the current context
+     *
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
      */
     InputTextWidget(const utils::Context& context);
 
@@ -74,10 +77,14 @@ public:
      * @brief update the displayed text according to the user input
      *
      * @param event SFML event manager
+     * @param newCharacter the new character to add to the displayed string
      *
      * calls sf::String methods that are not noexcept
      */
-    void update(const sf::Event& event) const &;
+    void update(
+        const sf::Event& event,
+        const char& newCharacter
+    ) const &;
 
     /**
      * @brief return the current displayed text
@@ -106,12 +113,6 @@ public:
      */
     const bool isEmpty() const &;
 
-private:
-
-    static constexpr float HORIZONTAL_POSITION {500.f};
-    static constexpr float VERTICAL_POSITION {450.f};
-    static constexpr float CURSOR_AND_BORDER_DISTANCE {5.f};
-
     /**
      * @brief get copy of keyboard selected character (from a to z);
      * refactor into a private method for readability
@@ -121,6 +122,9 @@ private:
      * @return const char
      */
     const char getInputLetter(const sf::Event& event) const & noexcept;
+
+
+private:
 
     class Impl;
     std::unique_ptr<Impl> impl;

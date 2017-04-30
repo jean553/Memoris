@@ -304,9 +304,19 @@ const ControllerId& LevelEditorController::render() const &
             }
             default:
             {
-                if (saveLevelForeground != nullptr)
+                auto& textInput = saveLevelForeground->getInputTextWidget();
+
+                if (
+                    saveLevelForeground != nullptr and
+                    not textInput.isInputTextLineFull()
+                )
                 {
-                    saveLevelForeground->getInputTextWidget().update(event);
+                    const char character = textInput.getInputLetter(event);
+
+                    saveLevelForeground->getInputTextWidget().update(
+                        event,
+                        character
+                    );
                 }
             }
             }

@@ -40,6 +40,10 @@ namespace memoris
 namespace widgets
 {
 
+constexpr float HORIZONTAL_POSITION {500.f};
+constexpr float VERTICAL_POSITION {450.f};
+constexpr float CURSOR_AND_BORDER_DISTANCE {5.f};
+
 class InputTextWidget::Impl
 {
 
@@ -196,7 +200,10 @@ void InputTextWidget::display() const &
 /**
  *
  */
-void InputTextWidget::update(const sf::Event& event) const &
+void InputTextWidget::update(
+    const sf::Event& event,
+    const char& newCharacter
+) const &
 {
     auto& text = impl->displayedText;
 
@@ -206,12 +213,6 @@ void InputTextWidget::update(const sf::Event& event) const &
     }
     else
     {
-        const char newCharacter {getInputLetter(event)};
-        if (newCharacter == 0)
-        {
-            return;
-        }
-
         const sf::String newString {newCharacter};
         text.setString(text.getString() + newString);
     }

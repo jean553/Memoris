@@ -114,7 +114,7 @@ const ControllerId& NewGameController::render() const &
     setNextControllerId(animateScreenTransition(context));
 
     auto& event = getEvent();
-    while(context.getSfmlWindow().pollEvent(event))
+    while(window.pollEvent(event))
     {
         switch(event.type)
         {
@@ -146,7 +146,15 @@ const ControllerId& NewGameController::render() const &
             {
                 if (not inputText.isInputTextLineFull())
                 {
-                    inputText.update(event);
+                    const char character = inputText.getInputLetter(event);
+
+                    if (character != 0)
+                    {
+                        inputText.update(
+                            event,
+                            character
+                        );
+                    }
                 }
 
                 break;
