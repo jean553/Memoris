@@ -81,10 +81,7 @@ public:
      *
      * calls sf::String methods that are not noexcept
      */
-    void update(
-        const sf::Event& event,
-        const char& newCharacter
-    ) const &;
+    void update(const char& newCharacter) const &;
 
     /**
      * @brief return the current displayed text
@@ -102,7 +99,7 @@ public:
      *
      * sf::Text::getString() is not noexcept
      */
-    const bool isInputTextLineFull() const &;
+    const bool isFull() const &;
 
     /**
      * @brief check if the input text widget is empty
@@ -123,8 +120,22 @@ public:
      */
     const char getInputLetter(const sf::Event& event) const & noexcept;
 
+    /**
+     * @brief empty the displayed string
+     */
+    void empty() const & noexcept;
 
 private:
+
+    /**
+     * @brief updates the position of the cursor according to the string size
+     *
+     * this method is called when the widget content is empty and
+     * when a new character is appended to the displayed string
+     *
+     * not noexcept because it calls the SFML setPosition method
+     */
+    void updateCursorPosition() const &;
 
     class Impl;
     std::unique_ptr<Impl> impl;

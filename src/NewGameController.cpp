@@ -144,16 +144,18 @@ const ControllerId& NewGameController::render() const &
             }
             default:
             {
-                if (not inputText.isInputTextLineFull())
+                if (not inputText.isFull())
                 {
+                    if(event.key.code == sf::Keyboard::BackSpace)
+                    {
+                        inputText.empty();
+                    }
+
                     const char character = inputText.getInputLetter(event);
 
                     if (character != 0)
                     {
-                        inputText.update(
-                            event,
-                            character
-                        );
+                        inputText.update(character);
                     }
                 }
 

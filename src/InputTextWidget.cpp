@@ -200,28 +200,14 @@ void InputTextWidget::display() const &
 /**
  *
  */
-void InputTextWidget::update(
-    const sf::Event& event,
-    const char& newCharacter
-) const &
+void InputTextWidget::update(const char& newCharacter) const &
 {
     auto& text = impl->displayedText;
 
-    if (event.key.code == sf::Keyboard::BackSpace)
-    {
-        text.setString("");
-    }
-    else
-    {
-        const sf::String newString {newCharacter};
-        text.setString(text.getString() + newString);
-    }
+    const sf::String newString {newCharacter};
+    text.setString(text.getString() + newString);
 
-    impl->cursor.setPosition(
-        HORIZONTAL_POSITION + CURSOR_AND_BORDER_DISTANCE +
-        impl->displayedText.getLocalBounds().width,
-        VERTICAL_POSITION + CURSOR_AND_BORDER_DISTANCE
-    );
+    updateCursorPosition();
 }
 
 /**
@@ -381,11 +367,10 @@ const char InputTextWidget::getInputLetter(const sf::Event& event) const &
 /**
  *
  */
-const bool InputTextWidget::isInputTextLineFull() const &
+const bool InputTextWidget::isFull() const &
 {
     constexpr size_t MAXIMUM_CHARACTERS_AMOUNT {15};
-    return impl->displayedText.getString().getSize() ==
-        MAXIMUM_CHARACTERS_AMOUNT;
+    return getText().getSize() == MAXIMUM_CHARACTERS_AMOUNT;
 }
 
 /**
@@ -394,6 +379,28 @@ const bool InputTextWidget::isInputTextLineFull() const &
 const bool InputTextWidget::isEmpty() const &
 {
     return impl->displayedText.getString().getSize() == 0;
+}
+
+/**
+ *
+ */
+void InputTextWidget::empty() const & noexcept
+{
+    impl->displayedText.setString("");
+
+    updateCursorPosition();
+}
+
+/**
+ *
+ */
+void InputTextWidget::updateCursorPosition() const &
+{
+    impl->cursor.setPosition(
+        HORIZONTAL_POSITION + CURSOR_AND_BORDER_DISTANCE +
+        impl->displayedText.getLocalBounds().width,
+        VERTICAL_POSITION + CURSOR_AND_BORDER_DISTANCE
+    );
 }
 
 }
