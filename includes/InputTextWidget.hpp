@@ -18,7 +18,7 @@
 
 /**
  * @file InputTextWidget.hpp
- * @brief handles input text widget
+ * @brief displays and handles the input text widget
  * @package widgets
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -59,6 +59,10 @@ public:
      * this exception is never caught and the program terminates
      */
     InputTextWidget(const utils::Context& context);
+
+    InputTextWidget(const InputTextWidget&) = delete;
+
+    InputTextWidget& operator=(const InputTextWidget&) = delete;
 
     /**
      * @brief default destructor
@@ -102,15 +106,6 @@ public:
     const bool isFull() const &;
 
     /**
-     * @brief check if the input text widget is empty
-     *
-     * @return const bool
-     *
-     * sf::Text::getString() is not noexcept
-     */
-    const bool isEmpty() const &;
-
-    /**
      * @brief get copy of keyboard selected character (from a to z);
      * refactor into a private method for readability
      *
@@ -119,6 +114,15 @@ public:
      * @return const char
      */
     const char getInputLetter(const sf::Event& event) const & noexcept;
+
+    /**
+     * @brief check if the input text widget is empty
+     *
+     * @return const bool
+     *
+     * sf::Text::getString() is not noexcept
+     */
+    const bool isEmpty() const &;
 
     /**
      * @brief empty the displayed string

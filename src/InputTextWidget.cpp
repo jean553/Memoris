@@ -24,8 +24,6 @@
 
 #include "InputTextWidget.hpp"
 
-#include "fonts_sizes.hpp"
-#include "Context.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "Context.hpp"
@@ -203,7 +201,6 @@ void InputTextWidget::display() const &
 void InputTextWidget::update(const char& newCharacter) const &
 {
     auto& text = impl->displayedText;
-
     const sf::String newString {newCharacter};
     text.setString(text.getString() + newString);
 
@@ -221,6 +218,15 @@ const sf::String& InputTextWidget::getText() const &
 /**
  *
  */
+const bool InputTextWidget::isFull() const &
+{
+    constexpr size_t MAXIMUM_CHARACTERS_AMOUNT {15};
+    return getText().getSize() == MAXIMUM_CHARACTERS_AMOUNT;
+}
+
+/**
+ *
+ */
 const char InputTextWidget::getInputLetter(const sf::Event& event) const &
     noexcept
 {
@@ -229,148 +235,166 @@ const char InputTextWidget::getInputLetter(const sf::Event& event) const &
     case sf::Keyboard::A:
     {
         return 'a';
+
         break;
     }
     case sf::Keyboard::B:
     {
         return 'b';
+
         break;
     }
     case sf::Keyboard::C:
     {
         return 'c';
+
         break;
     }
     case sf::Keyboard::D:
     {
         return 'd';
+
         break;
     }
     case sf::Keyboard::E:
     {
         return 'e';
+
         break;
     }
     case sf::Keyboard::F:
     {
         return 'f';
+
         break;
     }
     case sf::Keyboard::G:
     {
         return 'g';
+
         break;
     }
     case sf::Keyboard::H:
     {
         return 'h';
+
         break;
     }
     case sf::Keyboard::I:
     {
         return 'i';
+
         break;
     }
     case sf::Keyboard::J:
     {
         return 'j';
+
         break;
     }
     case sf::Keyboard::K:
     {
         return 'k';
+
         break;
     }
     case sf::Keyboard::L:
     {
         return 'l';
+
         break;
     }
     case sf::Keyboard::M:
     {
         return 'm';
+
         break;
     }
     case sf::Keyboard::N:
     {
         return 'n';
+
         break;
     }
     case sf::Keyboard::O:
     {
         return 'o';
+
         break;
     }
     case sf::Keyboard::P:
     {
         return 'p';
+
         break;
     }
     case sf::Keyboard::Q:
     {
         return 'q';
+
         break;
     }
     case sf::Keyboard::R:
     {
         return 'r';
+
         break;
     }
     case sf::Keyboard::S:
     {
         return 's';
+
         break;
     }
     case sf::Keyboard::T:
     {
         return 't';
+
         break;
     }
     case sf::Keyboard::U:
     {
         return 'u';
+
         break;
     }
     case sf::Keyboard::V:
     {
         return 'v';
+
         break;
     }
     case sf::Keyboard::W:
     {
         return 'w';
+
         break;
     }
     case sf::Keyboard::X:
     {
         return 'x';
+
         break;
     }
     case sf::Keyboard::Y:
     {
         return 'y';
+
         break;
     }
     case sf::Keyboard::Z:
     {
         return 'z';
+
         break;
     }
     default:
     {
         return 0;
+
         break;
     }
     }
-}
-
-/**
- *
- */
-const bool InputTextWidget::isFull() const &
-{
-    constexpr size_t MAXIMUM_CHARACTERS_AMOUNT {15};
-    return getText().getSize() == MAXIMUM_CHARACTERS_AMOUNT;
 }
 
 /**
