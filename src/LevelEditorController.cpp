@@ -308,15 +308,20 @@ const ControllerId& LevelEditorController::render() const &
 
                 if (
                     saveLevelForeground != nullptr and
-                    not textInput.isInputTextLineFull()
+                    not textInput.isFull()
                 )
                 {
+                    if(event.key.code == sf::Keyboard::BackSpace)
+                    {
+                        textInput.empty();
+                    }
+
                     const char character = textInput.getInputLetter(event);
 
-                    saveLevelForeground->getInputTextWidget().update(
-                        event,
-                        character
-                    );
+                    if(character != 0)
+                    {
+                        textInput.update(character);
+                    }
                 }
             }
             }
