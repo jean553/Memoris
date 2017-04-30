@@ -60,6 +60,10 @@ public:
      */
     InputTextWidget(const utils::Context& context);
 
+    InputTextWidget(const InputTextWidget&) = delete;
+
+    InputTextWidget& operator=(const InputTextWidget&) = delete;
+
     /**
      * @brief default destructor
      */
