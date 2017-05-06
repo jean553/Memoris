@@ -47,6 +47,13 @@ class AbstractMirrorAnimation : public LevelAnimation
 public:
 
     /**
+     * @brief constructor
+     *
+     * @param context the context to use
+     */
+    AbstractMirrorAnimation(const utils::Context& context);
+
+    /**
      * @brief default destructor, empty, only used for forwarding declaration
      */
     ~AbstractMirrorAnimation() noexcept;
@@ -92,13 +99,11 @@ protected:
     /**
      * @brief applies the current animated side transparency on the given cell
      *
-     * @param context constant reference to the current context to use
      * @param level constant reference to a shared pointer on the level
      *
      * not 'noexcept' because it calls SFML methods that are not noexcept
      */
     void applyTransparencyOnOneCell(
-        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& index
     ) const &;

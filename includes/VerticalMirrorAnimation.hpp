@@ -36,14 +36,17 @@ class VerticalMirrorAnimation : public AbstractMirrorAnimation
 public:
 
     /**
+     * @brief constructor
+     */
+    VerticalMirrorAnimation(const utils::Context& context);
+
+    /**
      * @brief renders the animation
      *
-     * @param context constant reference to the current context to use
      * @param level constant reference on shared pointer to the concerned level
      * @param floor constant unsigned integer to the level floor to render
      */
     void renderAnimation(
-        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) & override;
@@ -57,12 +60,10 @@ private:
     /**
      * @brief replace the left side cells by the right side cells
      *
-     * @param context constant reference to the current context to use
      * @param level shared pointer to the level to use
      * @param floor the current floor to display in the animation
      */
     void invertSides(
-        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) &;
@@ -70,14 +71,12 @@ private:
     /**
      * @brief changes the transparency of the left side of the level
      *
-     * @param context constant reference to the current context to use
      * @param level constant reference to a shared pointer on the level
      * @param floor constant reference indicating which floor to animate
      *
      * not 'noexcept' because it calls SFML methods that are not noexcept
      */
     void updateLeftSideTransparency(
-        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) const &;
@@ -85,14 +84,12 @@ private:
     /**
      * @brief changes the transparency of the right side of the level
      *
-     * @param context constant reference to the current context to use
      * @param level constant reference to a shared pointer on the level
      * @param floor constant reference indicating which floor to animate
      *
      * not 'noexcept' because it calls SFML methods that are not noexcept
      */
     void updateRightSideTransparency(
-        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) const &;
@@ -100,14 +97,12 @@ private:
     /**
      * @brief displays the level and the vertical separator surface
      *
-     * @param context constant reference to the current context to use
      * @param level constant reference to a shared pointer on the level
      * @param floor constant reference indicating which floor to animate
      *
      * not 'noexcept' because it calls SFML methods that are not noexcept
      */
     void displayLevelAndVerticalSeparator(
-        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) const &;

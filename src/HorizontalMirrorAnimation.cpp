@@ -39,12 +39,22 @@ namespace animations
 /**
  *
  */
+HorizontalMirrorAnimation::HorizontalMirrorAnimation(
+    const utils::Context& context
+) : AbstractMirrorAnimation(context)
+{
+}
+
+/**
+ *
+ */
 void HorizontalMirrorAnimation::renderAnimation(
-    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 ) &
 {
+    const auto& context = getContext();
+
     constexpr sf::Uint32 ANIMATION_STEPS_INTERVAL {50};
     if (
         context.getClockMillisecondsTime() -
@@ -52,7 +62,6 @@ void HorizontalMirrorAnimation::renderAnimation(
     )
     {
         displayLevelAndHorizontalSeparator(
-            context,
             level,
             floor
         );
@@ -77,7 +86,6 @@ void HorizontalMirrorAnimation::renderAnimation(
         decreaseTransparency();
 
         updateBottomSideTransparency(
-            context,
             level,
             floor
         );
@@ -91,7 +99,6 @@ void HorizontalMirrorAnimation::renderAnimation(
         decreaseTransparency();
 
         updateTopSideTransparency(
-            context,
             level,
             floor
         );
@@ -99,7 +106,6 @@ void HorizontalMirrorAnimation::renderAnimation(
     else if (animationSteps == 21)
     {
         invertSides(
-            context,
             level,
             floor
         );
@@ -111,7 +117,6 @@ void HorizontalMirrorAnimation::renderAnimation(
         increaseTransparency();
 
         updateTopSideTransparency(
-            context,
             level,
             floor
         );
@@ -125,35 +130,29 @@ void HorizontalMirrorAnimation::renderAnimation(
         increaseTransparency();
 
         updateBottomSideTransparency(
-            context,
             level,
             floor
         );
     }
     else if (animationSteps == 33)
     {
-        movePlayer(
-            context,
-            level
-        );
+        movePlayer(level);
 
         endsAnimation();
     }
 
     displayLevelAndHorizontalSeparator(
-        context,
         level,
         floor
     );
 
-    incrementAnimationStep(context);
+    incrementAnimationStep();
 }
 
 /**
  *
  */
 void HorizontalMirrorAnimation::invertSides(
-    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 ) &
@@ -183,7 +182,6 @@ void HorizontalMirrorAnimation::invertSides(
         );
 
         showOrHideCell(
-            context,
             level,
             index,
             level->getCells()[invertedIndex]->isVisible()
@@ -192,7 +190,6 @@ void HorizontalMirrorAnimation::invertSides(
         level->getCells()[invertedIndex]->setType(type);
 
         showOrHideCell(
-            context,
             level,
             invertedIndex,
             visible
@@ -228,7 +225,6 @@ void HorizontalMirrorAnimation::invertSides(
  *
  */
 void HorizontalMirrorAnimation::updateTopSideTransparency(
-    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 ) const &
@@ -244,7 +240,6 @@ void HorizontalMirrorAnimation::updateTopSideTransparency(
     )
     {
         applyTransparencyOnOneCell(
-            context,
             level,
             index
         );
@@ -255,7 +250,6 @@ void HorizontalMirrorAnimation::updateTopSideTransparency(
  *
  */
 void HorizontalMirrorAnimation::updateBottomSideTransparency(
-    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 ) const &
@@ -272,7 +266,6 @@ void HorizontalMirrorAnimation::updateBottomSideTransparency(
     )
     {
         applyTransparencyOnOneCell(
-            context,
             level,
             index
         );
@@ -283,11 +276,12 @@ void HorizontalMirrorAnimation::updateBottomSideTransparency(
  *
  */
 void HorizontalMirrorAnimation::displayLevelAndHorizontalSeparator(
-    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 ) const &
 {
+    const auto& context = getContext();
+
     level->display(
         context,
         floor,
