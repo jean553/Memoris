@@ -29,6 +29,7 @@
 #include "Level.hpp"
 #include "Context.hpp"
 #include "Cell.hpp"
+#include "dimensions.hpp"
 
 namespace memoris
 {
@@ -157,8 +158,8 @@ void HorizontalMirrorAnimation::invertSides(
     const unsigned short& floor
 ) &
 {
-    const unsigned short firstIndex = floor * CELLS_PER_FLOOR;
-    const unsigned short lastIndex = firstIndex + TOP_SIDE_LAST_CELL_INDEX;
+    const unsigned short firstIndex = floor * dimensions::CELLS_PER_FLOOR;
+    const unsigned short lastIndex = firstIndex + dimensions::TOP_SIDE_LAST_CELL_INDEX;
     const unsigned short previousPlayerCell = level->getPlayerCellIndex();
 
     unsigned short line {0};
@@ -216,7 +217,7 @@ void HorizontalMirrorAnimation::invertSides(
             setUpdatedPlayerIndex(index);
         }
 
-        if (index != 0 && index % CELLS_PER_LINE == 0)
+        if (index != 0 && index % dimensions::CELLS_PER_LINE == 0)
         {
             line++;
         }
@@ -232,9 +233,9 @@ void HorizontalMirrorAnimation::updateTopSideTransparency(
     const unsigned short& floor
 ) const &
 {
-    const unsigned short floorFirstCellIndex = floor * CELLS_PER_FLOOR;
+    const unsigned short floorFirstCellIndex = floor * dimensions::CELLS_PER_FLOOR;
     const unsigned short floorLastCellIndex =
-        floorFirstCellIndex + TOP_SIDE_LAST_CELL_INDEX;
+        floorFirstCellIndex + dimensions::TOP_SIDE_LAST_CELL_INDEX;
 
     for (
         unsigned short index = floorFirstCellIndex;
@@ -260,9 +261,9 @@ void HorizontalMirrorAnimation::updateBottomSideTransparency(
 ) const &
 {
     const unsigned short floorSideFirstCellIndex =
-        floor * CELLS_PER_FLOOR + TOP_SIDE_LAST_CELL_INDEX;
+        floor * dimensions::CELLS_PER_FLOOR + dimensions::TOP_SIDE_LAST_CELL_INDEX;
     const unsigned short floorSideLastCellIndex =
-        (floor + 1) * CELLS_PER_FLOOR;
+        (floor + 1) * dimensions::CELLS_PER_FLOOR;
 
     for (
         unsigned short index = floorSideFirstCellIndex;
