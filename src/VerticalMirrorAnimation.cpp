@@ -44,9 +44,10 @@ void VerticalMirrorAnimation::renderAnimation(
     const unsigned short& floor
 ) &
 {
+    constexpr sf::Uint32 ANIMATION_STEPS_INTERVAL {50};
     if (
         context.getClockMillisecondsTime() -
-        lastAnimationUpdateTime < ANIMATION_STEPS_INTERVAL
+        getAnimationLastUpdateTime() < ANIMATION_STEPS_INTERVAL
     )
     {
         displayLevelAndVerticalSeparator(
@@ -57,6 +58,8 @@ void VerticalMirrorAnimation::renderAnimation(
 
         return;
     }
+
+    const auto animationSteps = getAnimationSteps();
 
     if (animationSteps == 0)
     {
@@ -122,10 +125,12 @@ void VerticalMirrorAnimation::renderAnimation(
     }
     else if (animationSteps == 33)
     {
+        const auto updatedPlayerIndex = getUpdatedPlayerIndex();
+
         level->setPlayerCellIndex(updatedPlayerIndex);
         level->getCells()[updatedPlayerIndex]->show(context);
 
-        finished = true;
+        endsAnimation();
     }
 
     displayLevelAndVerticalSeparator(
@@ -196,11 +201,12 @@ void VerticalMirrorAnimation::invertSides(
 
         if (previousPlayerCell == index)
         {
-            updatedPlayerIndex =
+            setUpdatedPlayerIndex(
                 findInvertedIndex(
                     line,
                     index
-                );
+                )
+            );
         } else if (
             previousPlayerCell ==
                 findInvertedIndex(
@@ -209,7 +215,7 @@ void VerticalMirrorAnimation::invertSides(
                 )
         )
         {
-            updatedPlayerIndex = index;
+            setUpdatedPlayerIndex(index);
         }
 
         constexpr unsigned short CELLS_PER_LINE_OFFSET {7};

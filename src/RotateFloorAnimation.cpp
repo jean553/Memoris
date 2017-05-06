@@ -70,7 +70,7 @@ void RotateFloorAnimation::playNextAnimationStep(
     const unsigned short& floor
 ) &
 {
-    if (animationSteps == 0)
+    if (getAnimationSteps() == 0)
     {
         context.getSoundsManager().playFloorMovementAnimationSound();
 
@@ -95,7 +95,10 @@ void RotateFloorAnimation::renderAnimation(
         &entities::Cell::display
     );
 
-    if (context.getClockMillisecondsTime() - lastAnimationUpdateTime < 50)
+    if (
+        context.getClockMillisecondsTime() - 
+        getAnimationLastUpdateTime() < 50
+    )
     {
         return;
     }
@@ -106,11 +109,11 @@ void RotateFloorAnimation::renderAnimation(
         floor
     );
 
-    if (animationSteps == 18)
+    if (getAnimationSteps() == 18)
     {
         level->deleteTransform();
 
-        finished = true;
+        endsAnimation();
 
         rotateCells(
             context,

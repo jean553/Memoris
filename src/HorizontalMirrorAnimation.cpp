@@ -44,9 +44,10 @@ void HorizontalMirrorAnimation::renderAnimation(
     const unsigned short& floor
 ) &
 {
+    constexpr sf::Uint32 ANIMATION_STEPS_INTERVAL {50};
     if (
         context.getClockMillisecondsTime() -
-        lastAnimationUpdateTime < ANIMATION_STEPS_INTERVAL
+        getAnimationLastUpdateTime() < ANIMATION_STEPS_INTERVAL
     )
     {
         displayLevelAndHorizontalSeparator(
@@ -63,6 +64,8 @@ void HorizontalMirrorAnimation::renderAnimation(
 
     /* during the 10 first steps, the animation does nothing except
        displaying the level with the red separator */
+
+    const auto animationSteps = getAnimationSteps();
 
     if (animationSteps == 0)
     {
@@ -133,7 +136,7 @@ void HorizontalMirrorAnimation::renderAnimation(
             level
         );
 
-        finished = true;
+        endsAnimation();
     }
 
     displayLevelAndHorizontalSeparator(
@@ -196,11 +199,12 @@ void HorizontalMirrorAnimation::invertSides(
 
         if (previousPlayerCell == index)
         {
-            updatedPlayerIndex =
+            setUpdatedPlayerIndex(
                 findInvertedIndex(
                     line,
                     index
-                );
+                )
+            );
         } else if (
             previousPlayerCell ==
                 findInvertedIndex(
@@ -209,7 +213,7 @@ void HorizontalMirrorAnimation::invertSides(
                 )
         )
         {
-            updatedPlayerIndex = index;
+            setUpdatedPlayerIndex(index);
         }
 
         if (index != 0 && index % CELLS_PER_LINE == 0)

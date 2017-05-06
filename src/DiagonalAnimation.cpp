@@ -44,7 +44,7 @@ void DiagonalAnimation::renderAnimation(
     const unsigned short& floor
 ) &
 {
-    if (context.getClockMillisecondsTime() - lastAnimationUpdateTime < 100)
+    if (context.getClockMillisecondsTime() - getAnimationLastUpdateTime() < 100)
     {
         displayLevelAndSeparator(
             context,
@@ -82,6 +82,8 @@ void DiagonalAnimation::playNextAnimationStep(
     /* declare a SFML color object; we use this object to create the flashing
        effect on the different parts of the cells */
     sf::Color color;
+
+    const auto animationSteps = getAnimationSteps();
 
     if (animationSteps == 0)
     {
@@ -128,11 +130,9 @@ void DiagonalAnimation::playNextAnimationStep(
     }
     case 11:
     {
-        /* ends the animation after 11 steps */
-        finished = true;
+        endsAnimation();
 
-        /* put the player on his new cell */
-        level->setPlayerCellIndex(updatedPlayerIndex);
+        level->setPlayerCellIndex(getUpdatedPlayerIndex());
 
         break;
     }
@@ -178,6 +178,8 @@ void DiagonalAnimation::applyPurpleColorOnCellsQuarters(
         index++
     )
     {
+        const auto animationSteps = getAnimationSteps();
+
         /* use the purple color if the cell is located in the top left
            corner or the if the cell is located in the bottom right corner */
         if (
@@ -308,11 +310,11 @@ void DiagonalAnimation::invertCells(
 
     if (source == level->getPlayerCellIndex())
     {
-        updatedPlayerIndex = source + difference;
+        setUpdatedPlayerIndex(source + difference);
     }
     else if (source + difference == level->getPlayerCellIndex())
     {
-        updatedPlayerIndex = source;
+        setUpdatedPlayerIndex(source);
     }
 }
 

@@ -26,9 +26,15 @@
 #ifndef MEMORIS_LEVELANIMATION_H_
 #define MEMORIS_LEVELANIMATION_H_
 
-#include <SFML/Config.hpp>
-
 #include <memory>
+
+namespace sf
+{
+/* 'typedef unsigned int Uint32' in SFML/Config.hpp, we declare exactly
+   the same type here in order to both use declaration forwarding and
+   prevent conflicting declaration */
+typedef unsigned int Uint32;
+}
 
 namespace memoris
 {
@@ -50,6 +56,11 @@ class LevelAnimation
 {
 
 public:
+
+    /**
+     * @brief constructor
+     */
+    LevelAnimation();
 
     /**
      * @brief destructor, only declared here to be virtual and ensure correct
@@ -136,16 +147,49 @@ protected:
         const Level& level
     ) const &;
 
-    /* these attributes are protected, so we do not set them into an
-       implementation */
+    /**
+     * @brief getter of the last animation update time
+     *
+     * @return const sf::Uint32&
+     */
+    const sf::Uint32& getAnimationLastUpdateTime() const & noexcept;
 
-    sf::Uint32 lastAnimationUpdateTime {0};
+    /**
+     * @brief setter of the last animation update time;
+     * used by the stairs animation
+     */
+    void setAnimationLastUpdateTime(const sf::Uint32& time) const & noexcept;
 
-    unsigned short animationSteps {0};
+    /**
+     * @brief getter of the animation steps
+     *
+     * @return const unsigned short&
+     */
+    const unsigned short& getAnimationSteps() const & noexcept;
 
-    bool finished {false};
+    /**
+     * @brief set the animation as finished
+     */
+    void endsAnimation() const & noexcept;
 
-    short updatedPlayerIndex {-1};
+    /**
+     * @brief getter of the new player index after animation
+     *
+     * @return const short&
+     */
+    const short& getUpdatedPlayerIndex() const & noexcept;
+
+    /**
+     * @brief setter of the new player index after animation
+     *
+     * @param index the new player index after animation
+     */
+    void setUpdatedPlayerIndex(const short& index) const & noexcept;
+
+private:
+
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }

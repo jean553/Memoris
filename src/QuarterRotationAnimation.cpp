@@ -82,7 +82,7 @@ void QuarterRotationAnimation::renderAnimation(
 {
     if (
         context.getClockMillisecondsTime() -
-        lastAnimationUpdateTime < ANIMATION_STEPS_INTERVAL
+        getAnimationLastUpdateTime() < ANIMATION_STEPS_INTERVAL
     )
     {
         level->display(
@@ -94,7 +94,7 @@ void QuarterRotationAnimation::renderAnimation(
         return;
     }
 
-    if (animationSteps == 0)
+    if (getAnimationSteps() == 0)
     {
         context.getSoundsManager().playFloorMovementAnimationSound();
     }
@@ -115,7 +115,7 @@ void QuarterRotationAnimation::renderAnimation(
             floor
         );
 
-        finished = true;
+        endsAnimation();
     }
 
     level->display(
@@ -279,7 +279,7 @@ void QuarterRotationAnimation::updateCells(
 
         if (index == level->getPlayerCellIndex())
         {
-            updatedPlayerIndex = newIndex;
+            setUpdatedPlayerIndex(newIndex);
         }
 
         showOrHideCell(
@@ -337,7 +337,7 @@ void QuarterRotationAnimation::invertCells(
 
     if (index == level->getPlayerCellIndex())
     {
-        updatedPlayerIndex = newIndex;
+        setUpdatedPlayerIndex(newIndex);
     }
 
     destinationCell->setType(sourceCell->getType());
