@@ -63,7 +63,7 @@ public:
      */
     void renderAnimation(
         const utils::Context& context,
-        const Level& level,
+        const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) & override;
 
@@ -76,7 +76,7 @@ public:
      */
     void playNextAnimationStep(
         const utils::Context& context,
-        const Level& level,
+        const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) &;
 

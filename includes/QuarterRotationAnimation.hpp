@@ -58,7 +58,7 @@ public:
      */
     void renderAnimation(
         const utils::Context& context,
-        const Level& level,
+        const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) & override;
 
@@ -80,7 +80,7 @@ private:
      */
     void moveAllQuarters(
         const utils::Context& context,
-        const Level& level,
+        const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) const &;
 
@@ -95,7 +95,7 @@ private:
      */
     void updateCells(
         const utils::Context& context,
-        const Level& level,
+        const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) & noexcept;
 
@@ -108,7 +108,7 @@ private:
      */
     void invertCells(
         const utils::Context& context,
-        const Level& level,
+        const std::shared_ptr<entities::Level>& level,
         const unsigned short& index,
         const unsigned short& modification,
         const unsigned short& floor

@@ -59,7 +59,7 @@ LevelAnimation::LevelAnimation() : impl(std::make_unique<Impl>())
 /**
  *
  */
-LevelAnimation::~LevelAnimation() noexcept = default;
+LevelAnimation::~LevelAnimation() = default;
 
 /**
  *
@@ -74,7 +74,7 @@ const bool& LevelAnimation::isFinished() const & noexcept
  */
 void LevelAnimation::showOrHideCell(
     const utils::Context& context,
-    const Level& level,
+    const std::shared_ptr<entities::Level>& level,
     const unsigned short& index,
     const bool& visible
 ) const &
@@ -104,7 +104,7 @@ void LevelAnimation::incrementAnimationStep(const utils::Context& context) &
  */
 void LevelAnimation::movePlayer(
     const utils::Context& context,
-    const Level& level
+    const std::shared_ptr<entities::Level>& level
 ) const &
 {
     level->setPlayerCellIndex(impl->updatedPlayerIndex);
