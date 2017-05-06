@@ -47,8 +47,13 @@ StairsAnimation::StairsAnimation(
        appropriated time, we just save the current time once before the
        waiting period; if the animation just started, the last animation
        update time is equal to 0 */
-    lastAnimationUpdateTime = context.getClockMillisecondsTime();
+    setAnimationLastUpdateTime(context.getClockMillisecondsTime());
 }
+
+/**
+ *
+ */
+StairsAnimation::~StairsAnimation() = default;
 
 /**
  *
@@ -65,9 +70,9 @@ void StairsAnimation::renderAnimation(
         &entities::Cell::display
     );
 
-    /* the waiting time is 2 seconds; this is enough to let the player see
-       which cell he's just found */
-    if (context.getClockMillisecondsTime() - lastAnimationUpdateTime < 50)
+    auto& lastUpdateTime = getAnimationLastUpdateTime();
+
+    if (context.getClockMillisecondsTime() - lastUpdateTime < 50)
     {
         return;
     }
@@ -78,7 +83,7 @@ void StairsAnimation::renderAnimation(
         floor
     );
 
-    lastAnimationUpdateTime = context.getClockMillisecondsTime();
+    setAnimationLastUpdateTime(context.getClockMillisecondsTime());
 }
 
 /**
@@ -93,6 +98,9 @@ void StairsAnimation::playNextAnimationStep(
     /* the animation does nothing during the 10 first steps (first second) */
 
     /* play the stop sound when the player just arrived on the cell */
+    
+    const auto& animationSteps = getAnimationSteps();
+
     if (animationSteps == 0)
     {
         context.getSoundsManager().playCollisionSound();
@@ -154,10 +162,10 @@ void StairsAnimation::playNextAnimationStep(
             floor
         );
 
-        finished = true;
+        endsAnimation();
     }
 
-    animationSteps++;
+    incrementAnimationStep(context);
 }
 
 }

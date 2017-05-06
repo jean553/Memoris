@@ -34,6 +34,8 @@ namespace memoris
 namespace animations
 {
 
+constexpr sf::Uint32 ANIMATION_STEPS_INTERVAL {50};
+
 class AbstractMirrorAnimation::Impl
 {
 

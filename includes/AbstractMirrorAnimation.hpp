@@ -28,6 +28,14 @@
 
 #include "LevelAnimation.hpp"
 
+namespace sf
+{
+/* 'typedef unsigned int Uint8' in SFML/Config.hpp, we declare exactly
+   the same type here in order to both use declaration forwarding and
+   prevent conflicting declaration */
+typedef unsigned char Uint8;
+}
+
 namespace memoris
 {
 namespace animations
@@ -44,8 +52,6 @@ public:
     ~AbstractMirrorAnimation() noexcept;
 
 protected:
-
-    static constexpr sf::Uint32 ANIMATION_STEPS_INTERVAL {50};
 
     /**
      * @brief constructor, empty, only declared in order to initialize the

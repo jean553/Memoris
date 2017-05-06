@@ -28,10 +28,33 @@
 #include "Cell.hpp"
 #include "Level.hpp"
 
+#include <SFML/Config.hpp>
+
 namespace memoris
 {
 namespace animations
 {
+
+class LevelAnimation::Impl
+{
+
+public:
+
+    sf::Uint32 lastAnimationUpdateTime {0};
+
+    unsigned short animationSteps {0};
+
+    bool finished {false};
+
+    short updatedPlayerIndex {-1};
+};
+
+/**
+ *
+ */
+LevelAnimation::LevelAnimation() : impl(std::make_unique<Impl>())
+{
+}
 
 /**
  *
@@ -43,7 +66,7 @@ LevelAnimation::~LevelAnimation() noexcept = default;
  */
 const bool& LevelAnimation::isFinished() const & noexcept
 {
-    return finished;
+    return impl->finished;
 }
 
 /**
@@ -71,9 +94,9 @@ void LevelAnimation::showOrHideCell(
  */
 void LevelAnimation::incrementAnimationStep(const utils::Context& context) &
 {
-    animationSteps++;
+    impl->animationSteps++;
 
-    lastAnimationUpdateTime = context.getClockMillisecondsTime();
+    impl->lastAnimationUpdateTime = context.getClockMillisecondsTime();
 }
 
 /**
@@ -84,8 +107,57 @@ void LevelAnimation::movePlayer(
     const Level& level
 ) const &
 {
-    level->setPlayerCellIndex(updatedPlayerIndex);
-    level->getCells()[updatedPlayerIndex]->show(context);
+    level->setPlayerCellIndex(impl->updatedPlayerIndex);
+    level->getCells()[impl->updatedPlayerIndex]->show(context);
+}
+
+/**
+ *
+ */
+const sf::Uint32& LevelAnimation::getAnimationLastUpdateTime() const & noexcept
+{
+    return impl->lastAnimationUpdateTime;
+}
+
+/**
+ *
+ */
+void LevelAnimation::setAnimationLastUpdateTime(const sf::Uint32& time) const
+    & noexcept
+{
+    impl->lastAnimationUpdateTime = time;
+}
+
+/**
+ *
+ */
+const unsigned short& LevelAnimation::getAnimationSteps() const & noexcept
+{
+    return impl->animationSteps;
+}
+
+/**
+ *
+ */
+void LevelAnimation::endsAnimation() const & noexcept
+{
+    impl->finished = true;
+}
+
+/**
+ *
+ */
+const short& LevelAnimation::getUpdatedPlayerIndex() const & noexcept
+{
+    return impl->updatedPlayerIndex;
+}
+
+/**
+ *
+ */
+void LevelAnimation::setUpdatedPlayerIndex(const short& index) const & noexcept
+{
+    impl->updatedPlayerIndex = index;
 }
 
 }

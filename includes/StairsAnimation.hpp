@@ -52,6 +52,8 @@ public:
         const short& dir
     );
 
+    ~StairsAnimation();
+
     /**
      * @brief render the animation
      *
