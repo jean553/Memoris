@@ -47,7 +47,7 @@ public:
      */
     void renderAnimation(
         const utils::Context& context,
-        const Level& level,
+        const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) & override;
 
@@ -66,7 +66,7 @@ private:
      */
     void invertSides(
         const utils::Context& context,
-        const Level& level,
+        const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) &;
 
@@ -81,7 +81,7 @@ private:
      */
     void updateTopSideTransparency(
         const utils::Context& context,
-        const Level& level,
+        const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) const &;
 
@@ -96,7 +96,7 @@ private:
      */
     void updateBottomSideTransparency(
         const utils::Context& context,
-        const Level& level,
+        const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) const &;
 
@@ -113,7 +113,7 @@ private:
      */
     void displayLevelAndHorizontalSeparator(
         const utils::Context& context,
-        const Level& level,
+        const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) const &;
 

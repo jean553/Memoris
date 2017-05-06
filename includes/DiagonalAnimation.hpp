@@ -56,7 +56,7 @@ public:
      */
     void renderAnimation(
         const utils::Context& context,
-        const Level& level,
+        const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) & override;
 
@@ -72,7 +72,7 @@ private:
      */
     void playNextAnimationStep(
         const utils::Context& context,
-        const Level& level,
+        const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) &;
 
@@ -86,7 +86,7 @@ private:
      */
     void displayLevelAndSeparator(
         const utils::Context& context,
-        const Level& level,
+        const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) &;
 
@@ -101,7 +101,7 @@ private:
      */
     void applyPurpleColorOnCellsQuarters(
         const utils::Context& context,
-        const Level& level,
+        const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor,
         const sf::Color& color
     ) &;
@@ -116,7 +116,7 @@ private:
      */
     void invertTopLeftWithBottomRight(
         const utils::Context& context,
-        const Level& level,
+        const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) &;
 
@@ -130,7 +130,7 @@ private:
      */
     void invertBottomLeftWithTopRight(
         const utils::Context& context,
-        const Level& level,
+        const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) &;
 
@@ -146,7 +146,7 @@ private:
      */
     void invertCells(
         const utils::Context& context,
-        const Level& level,
+        const std::shared_ptr<entities::Level>& level,
         const unsigned short& source,
         const short& difference
     ) &;

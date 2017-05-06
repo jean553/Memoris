@@ -60,7 +60,7 @@ StairsAnimation::~StairsAnimation() = default;
  */
 void StairsAnimation::renderAnimation(
     const utils::Context& context,
-    const Level& level,
+    const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 ) &
 {
@@ -91,7 +91,7 @@ void StairsAnimation::renderAnimation(
  */
 void StairsAnimation::playNextAnimationStep(
     const utils::Context& context,
-    const Level& level,
+    const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 ) &
 {
