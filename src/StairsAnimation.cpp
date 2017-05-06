@@ -41,6 +41,7 @@ StairsAnimation::StairsAnimation(
     const utils::Context& context,
     const short& dir
 ) :
+    LevelAnimation(context),
     direction(dir)
 {
     /* this animation is a simple waiting period; in order to wait the
@@ -59,11 +60,12 @@ StairsAnimation::~StairsAnimation() = default;
  *
  */
 void StairsAnimation::renderAnimation(
-    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 ) &
 {
+    const auto& context = getContext();
+
     level->display(
         context,
         floor + transformation,
@@ -78,7 +80,6 @@ void StairsAnimation::renderAnimation(
     }
 
     playNextAnimationStep(
-        context,
         level,
         floor
     );
@@ -90,7 +91,6 @@ void StairsAnimation::renderAnimation(
  *
  */
 void StairsAnimation::playNextAnimationStep(
-    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 ) &
@@ -100,6 +100,7 @@ void StairsAnimation::playNextAnimationStep(
     /* play the stop sound when the player just arrived on the cell */
     
     const auto& animationSteps = getAnimationSteps();
+    const auto& context = getContext();
 
     if (animationSteps == 0)
     {
@@ -165,7 +166,7 @@ void StairsAnimation::playNextAnimationStep(
         endsAnimation();
     }
 
-    incrementAnimationStep(context);
+    incrementAnimationStep();
 }
 
 }

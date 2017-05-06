@@ -40,8 +40,10 @@ public:
 
     /**
      * @brief constructor, initializes the implementation
+     *
+     * @param context the context to use
      */
-    QuarterRotationAnimation() noexcept;
+    QuarterRotationAnimation(const utils::Context& context) noexcept;
 
     /**
      * @brief default destructor, empty, only declared in order to use
@@ -52,12 +54,10 @@ public:
     /**
      * @brief renders the animation
      *
-     * @param context constant reference to the current context to use
      * @param level constant reference on shared pointer to the concerned level
      * @param floor constant unsigned integer to the level floor to render
      */
     void renderAnimation(
-        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) & override;
@@ -72,14 +72,12 @@ private:
     /**
      * @brief move all the quarters at the same time in the expected direction
      *
-     * @param context constant reference to the current context to use
      * @param level constant reference on shared pointer to the concerned level
      * @param floor constant unsigned integer to the level floor to render
      *
      * not 'noexcept' because it calls SFML methods that are not noexcept
      */
     void moveAllQuarters(
-        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) const &;
@@ -94,7 +92,6 @@ private:
      * not const because it modifies the current player cell
      */
     void updateCells(
-        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) & noexcept;
@@ -107,13 +104,11 @@ private:
      * not const because it modifies the current player cell
      */
     void invertCells(
-        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& index,
         const unsigned short& modification,
         const unsigned short& floor
     ) & noexcept;
-
 
     class Impl;
     std::unique_ptr<Impl> impl;

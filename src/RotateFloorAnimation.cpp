@@ -51,8 +51,11 @@ public:
  *
  */
 RotateFloorAnimation::RotateFloorAnimation(
+    const utils::Context& context,
     const short& movementDirection
-) noexcept : impl(std::make_unique<Impl>(movementDirection))
+) noexcept : 
+    LevelAnimation(context),
+    impl(std::make_unique<Impl>(movementDirection))
 {
 }
 
@@ -84,11 +87,12 @@ void RotateFloorAnimation::playNextAnimationStep(
  *
  */
 void RotateFloorAnimation::renderAnimation(
-    const utils::Context& context,
     const Level& level,
     const unsigned short& floor
 ) &
 {
+    const auto& context = getContext();
+
     level->display(
         context,
         floor,
@@ -122,7 +126,7 @@ void RotateFloorAnimation::renderAnimation(
         );
     }
 
-    incrementAnimationStep(context);
+    incrementAnimationStep();
 }
 
 /**

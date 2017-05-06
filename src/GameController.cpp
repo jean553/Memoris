@@ -226,7 +226,6 @@ const ControllerId& GameController::render() const &
     else if (impl->animation != nullptr)
     {
         impl->animation->renderAnimation(
-            context,
             impl->level,
             impl->floor
         );
@@ -733,7 +732,7 @@ std::unique_ptr<animations::LevelAnimation> GameController::getAnimationByCell(
     {
     case cells::VERTICAL_MIRROR_CELL:
     {
-        return std::make_unique<animations::VerticalMirrorAnimation>();
+        return std::make_unique<animations::VerticalMirrorAnimation>(context);
     }
     case cells::STAIRS_UP_CELL:
     case cells::ELEVATOR_UP_CELL:
@@ -753,23 +752,23 @@ std::unique_ptr<animations::LevelAnimation> GameController::getAnimationByCell(
     }
     case cells::DIAGONAL_CELL:
     {
-        return std::make_unique<animations::DiagonalAnimation>();
+        return std::make_unique<animations::DiagonalAnimation>(context);
     }
     case cells::LEFT_ROTATION_CELL:
     {
-        return std::make_unique<animations::RotateFloorAnimation>(-1);
+        return std::make_unique<animations::RotateFloorAnimation>(context, -1);
     }
     case cells::RIGHT_ROTATION_CELL:
     {
-        return std::make_unique<animations::RotateFloorAnimation>(1);
+        return std::make_unique<animations::RotateFloorAnimation>(context, 1);
     }
     case cells::QUARTER_ROTATION_CELL:
     {
-        return std::make_unique<animations::QuarterRotationAnimation>();
+        return std::make_unique<animations::QuarterRotationAnimation>(context);
     }
     default:
     {
-        return std::make_unique<animations::HorizontalMirrorAnimation>();
+        return std::make_unique<animations::HorizontalMirrorAnimation>(context);
     }
     }
 }

@@ -47,7 +47,10 @@ public:
 /**
  *
  */
-AbstractMirrorAnimation::AbstractMirrorAnimation() :
+AbstractMirrorAnimation::AbstractMirrorAnimation(
+    const utils::Context& context
+) :
+    LevelAnimation(context),
     impl(std::make_unique<Impl>())
 {
 }
@@ -93,13 +96,12 @@ void AbstractMirrorAnimation::setNoTransparent() & noexcept
  *
  */
 void AbstractMirrorAnimation::applyTransparencyOnOneCell(
-    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& index
 ) const &
 {
     level->getCells()[index]->setCellColorTransparency(
-        context,
+        getContext(),
         impl->animatedSideTransparency
     );
 }

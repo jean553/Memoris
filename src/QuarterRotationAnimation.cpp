@@ -59,7 +59,10 @@ public:
 /**
  *
  */
-QuarterRotationAnimation::QuarterRotationAnimation() noexcept :
+QuarterRotationAnimation::QuarterRotationAnimation(
+    const utils::Context& context
+) noexcept :
+    LevelAnimation(context),
     impl(std::make_unique<Impl>())
 {
 }
@@ -73,11 +76,12 @@ QuarterRotationAnimation::~QuarterRotationAnimation() noexcept = default;
  *
  */
 void QuarterRotationAnimation::renderAnimation(
-    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 ) &
 {
+    const auto& context = getContext();
+
     if (
         context.getClockMillisecondsTime() -
         getAnimationLastUpdateTime() < ANIMATION_STEPS_INTERVAL
@@ -98,7 +102,6 @@ void QuarterRotationAnimation::renderAnimation(
     }
 
     moveAllQuarters(
-        context,
         level,
         floor
     );
@@ -108,7 +111,6 @@ void QuarterRotationAnimation::renderAnimation(
     if (impl->translationSteps == ANIMATION_STEPS)
     {
         updateCells(
-            context,
             level,
             floor
         );
@@ -122,14 +124,13 @@ void QuarterRotationAnimation::renderAnimation(
         &entities::Cell::display
     );
 
-    incrementAnimationStep(context);
+    incrementAnimationStep();
 }
 
 /**
  *
  */
 void QuarterRotationAnimation::moveAllQuarters(
-    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 ) const &
@@ -188,7 +189,6 @@ void QuarterRotationAnimation::moveAllQuarters(
  *
  */
 void QuarterRotationAnimation::updateCells(
-    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 ) & noexcept
@@ -208,7 +208,6 @@ void QuarterRotationAnimation::updateCells(
         if (horizontalSide >= HALF_CELLS_PER_LINE)
         {
             invertCells(
-                context,
                 level,
                 index,
                 -HALF_CELLS_PER_LINE,
@@ -230,7 +229,6 @@ void QuarterRotationAnimation::updateCells(
         if (horizontalSide >= HALF_CELLS_PER_LINE)
         {
             invertCells(
-                context,
                 level,
                 index,
                 dimensions::TOP_SIDE_LAST_CELL_INDEX,
@@ -250,7 +248,6 @@ void QuarterRotationAnimation::updateCells(
         if (horizontalSide < HALF_CELLS_PER_LINE)
         {
             invertCells(
-                context,
                 level,
                 index,
                 HALF_CELLS_PER_LINE,
@@ -281,7 +278,6 @@ void QuarterRotationAnimation::updateCells(
         }
 
         showOrHideCell(
-            context,
             level,
             newIndex,
             cell.isVisible()
@@ -295,17 +291,13 @@ void QuarterRotationAnimation::updateCells(
         }
     }
 
-    movePlayer(
-        context,
-        level
-    );
+    movePlayer(level);
 }
 
 /**
  *
  */
 void QuarterRotationAnimation::invertCells(
-    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& index,
     const unsigned short& modification,
@@ -344,7 +336,6 @@ void QuarterRotationAnimation::invertCells(
     sourceCell->resetPosition();
 
     showOrHideCell(
-        context,
         level,
         newIndex,
         sourceCell->isVisible()

@@ -59,8 +59,10 @@ public:
 
     /**
      * @brief constructor
+     *
+     * @param context the context to use
      */
-    LevelAnimation();
+    LevelAnimation(const utils::Context& context);
 
     /**
      * @brief default destructor
@@ -70,7 +72,6 @@ public:
     /**
      * @brief renders the animation, called by the game controller
      *
-     * @param context the context to use
      * @param level the level to animate
      * @param floor the current floor to display
      *
@@ -80,7 +81,6 @@ public:
      * noexcept
      */
     virtual void renderAnimation(
-        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor
     ) & = 0;
@@ -95,9 +95,13 @@ public:
 protected:
 
     /**
+     * @brief getter of the context
+     */
+    const utils::Context& getContext() const & noexcept;
+
+    /**
      * @brief hides or shows the given cell at the given index
      *
-     * @param context the context to use
      * @param level shared pointer to the concerned level object
      * @param index the index of the cell to display or to hide
      * @param visible boolean that indicates if the cell has to be hide or not
@@ -105,7 +109,6 @@ protected:
      * not noexcept because it calls SFML functions
      */
     void showOrHideCell(
-        const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& index,
         const bool& visible
@@ -114,27 +117,21 @@ protected:
     /**
      * @brief increments the animation step
      *
-     * @param context the context to use
-     *
      * not const because it modifies the animation step attribute
      *
      * not noexcept because it calls SFML functions that are not noexcept
      */
-    void incrementAnimationStep(const utils::Context& context) &;
+    void incrementAnimationStep() &;
 
     /**
      * @brief moves the player on a new cell according to the updated player
      * cell index value
 
-     * @param context the context to use
      * @param level the concerned level
      *
      * not noexcept because it calls SFML methods that are not noexcept
      */
-    void movePlayer(
-        const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level
-    ) const &;
+    void movePlayer(const std::shared_ptr<entities::Level>& level) const &;
 
     /**
      * @brief getter of the last animation update time

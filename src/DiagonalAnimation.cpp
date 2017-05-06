@@ -38,16 +38,25 @@ namespace animations
 /**
  *
  */
+DiagonalAnimation::DiagonalAnimation(const utils::Context& context) :
+    LevelAnimation(context)
+{
+}
+
+/**
+ *
+ */
 void DiagonalAnimation::renderAnimation(
-    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 ) &
 {
-    if (context.getClockMillisecondsTime() - getAnimationLastUpdateTime() < 100)
+    if (
+        getContext().getClockMillisecondsTime() - 
+        getAnimationLastUpdateTime() < 100
+    )
     {
         displayLevelAndSeparator(
-            context,
             level,
             floor
         );
@@ -56,25 +65,22 @@ void DiagonalAnimation::renderAnimation(
     }
 
     playNextAnimationStep(
-        context,
         level,
         floor
     );
 
     displayLevelAndSeparator(
-        context,
         level,
         floor
     );
 
-    incrementAnimationStep(context);
+    incrementAnimationStep();
 }
 
 /**
  *
  */
 void DiagonalAnimation::playNextAnimationStep(
-    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 ) &
@@ -84,6 +90,7 @@ void DiagonalAnimation::playNextAnimationStep(
     sf::Color color;
 
     const auto animationSteps = getAnimationSteps();
+    const auto& context = getContext();
 
     if (animationSteps == 0)
     {
@@ -100,7 +107,6 @@ void DiagonalAnimation::playNextAnimationStep(
     }
 
     applyPurpleColorOnCellsQuarters(
-        context,
         level,
         floor,
         color
@@ -111,7 +117,6 @@ void DiagonalAnimation::playNextAnimationStep(
     case 3:
     {
         invertTopLeftWithBottomRight(
-            context,
             level,
             floor
         );
@@ -121,7 +126,6 @@ void DiagonalAnimation::playNextAnimationStep(
     case 9:
     {
         invertBottomLeftWithTopRight(
-            context,
             level,
             floor
         );
@@ -143,11 +147,12 @@ void DiagonalAnimation::playNextAnimationStep(
  *
  */
 void DiagonalAnimation::displayLevelAndSeparator(
-    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 ) &
 {
+    const auto& context = getContext();
+
     level->display(
         context,
         floor,
@@ -166,7 +171,6 @@ void DiagonalAnimation::displayLevelAndSeparator(
  *
  */
 void DiagonalAnimation::applyPurpleColorOnCellsQuarters(
-    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor,
     const sf::Color& color
@@ -219,7 +223,6 @@ void DiagonalAnimation::applyPurpleColorOnCellsQuarters(
  *
  */
 void DiagonalAnimation::invertTopLeftWithBottomRight(
-    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 ) &
@@ -234,7 +237,6 @@ void DiagonalAnimation::invertTopLeftWithBottomRight(
         )
         {
             invertCells(
-                context,
                 level,
                 index,
                 136
@@ -249,7 +251,6 @@ void DiagonalAnimation::invertTopLeftWithBottomRight(
  *
  */
 void DiagonalAnimation::invertBottomLeftWithTopRight(
-    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 ) &
@@ -264,7 +265,6 @@ void DiagonalAnimation::invertBottomLeftWithTopRight(
         )
         {
             invertCells(
-                context,
                 level,
                 index,
                 -120
@@ -279,7 +279,6 @@ void DiagonalAnimation::invertBottomLeftWithTopRight(
  *
  */
 void DiagonalAnimation::invertCells(
-    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& source,
     const short& difference
@@ -295,14 +294,12 @@ void DiagonalAnimation::invertCells(
     level->getCells()[source]->setType(type);
 
     showOrHideCell(
-        context,
         level,
         source + difference,
         level->getCells()[source]->isVisible()
     );
 
     showOrHideCell(
-        context,
         level,
         source,
         visible

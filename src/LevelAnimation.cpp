@@ -40,6 +40,11 @@ class LevelAnimation::Impl
 
 public:
 
+    Impl(const utils::Context& context) :
+        context(context)
+    {
+    }
+
     sf::Uint32 lastAnimationUpdateTime {0};
 
     unsigned short animationSteps {0};
@@ -47,12 +52,15 @@ public:
     bool finished {false};
 
     short updatedPlayerIndex {-1};
+
+    const utils::Context& context;
 };
 
 /**
  *
  */
-LevelAnimation::LevelAnimation() : impl(std::make_unique<Impl>())
+LevelAnimation::LevelAnimation(const utils::Context& context) : 
+    impl(std::make_unique<Impl>(context))
 {
 }
 
@@ -72,13 +80,22 @@ const bool& LevelAnimation::isFinished() const & noexcept
 /**
  *
  */
+const utils::Context& LevelAnimation::getContext() const & noexcept
+{
+    return impl->context;
+}
+
+/**
+ *
+ */
 void LevelAnimation::showOrHideCell(
-    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& index,
     const bool& visible
 ) const &
 {
+    const auto& context = impl->context;
+
     if (visible)
     {
         level->getCells()[index]->show(context);
@@ -92,23 +109,22 @@ void LevelAnimation::showOrHideCell(
 /**
  *
  */
-void LevelAnimation::incrementAnimationStep(const utils::Context& context) &
+void LevelAnimation::incrementAnimationStep() &
 {
     impl->animationSteps++;
 
-    impl->lastAnimationUpdateTime = context.getClockMillisecondsTime();
+    impl->lastAnimationUpdateTime = impl->context.getClockMillisecondsTime();
 }
 
 /**
  *
  */
 void LevelAnimation::movePlayer(
-    const utils::Context& context,
     const std::shared_ptr<entities::Level>& level
 ) const &
 {
     level->setPlayerCellIndex(impl->updatedPlayerIndex);
-    level->getCells()[impl->updatedPlayerIndex]->show(context);
+    level->getCells()[impl->updatedPlayerIndex]->show(impl->context);
 }
 
 /**

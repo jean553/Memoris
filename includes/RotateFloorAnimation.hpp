@@ -44,10 +44,14 @@ public:
     /**
      * @brief constructor, called by the animations factory
      *
+     * @param context the context to use
      * @param movementDirection indicates if the movement is clockwise or not;
      * usually contains 1 or -1
      */
-    RotateFloorAnimation(const short& movementDirection) noexcept;
+    RotateFloorAnimation(
+        const utils::Context& context,
+        const short& movementDirection
+    ) noexcept;
 
     /**
      * @brief default destructor, empty, only declared in order to use
@@ -62,12 +66,10 @@ public:
      * public because this is the only interface accessible from the game
      * controller
      *
-     * @param context reference to the current context to use
      * @param level shared pointer to the level to animate
      * @param floor the current floor to display in the animation
      */
     void renderAnimation(
-        const utils::Context& context,
         const Level& level,
         const unsigned short& floor
     ) & override;
