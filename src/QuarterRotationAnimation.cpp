@@ -29,14 +29,12 @@
 #include "Level.hpp"
 #include "Cell.hpp"
 #include "ColorsManager.hpp"
+#include "dimensions.hpp"
 
 namespace memoris
 {
 namespace animations
 {
-
-constexpr unsigned short LevelAnimation::TOP_SIDE_LAST_CELL_INDEX;
-constexpr unsigned short LevelAnimation::CELLS_PER_LINE;
 
 constexpr sf::Uint32 QuarterRotationAnimation::ANIMATION_STEPS_INTERVAL;
 
@@ -138,10 +136,10 @@ void QuarterRotationAnimation::moveAllQuarters(
 {
     using MovementDirection = entities::Cell::MovementDirection;
 
-    const unsigned short firstIndex = CELLS_PER_FLOOR * floor;
-    const unsigned short lastIndex = firstIndex + CELLS_PER_FLOOR;
+    const unsigned short firstIndex = dimensions::CELLS_PER_FLOOR * floor;
+    const unsigned short lastIndex = firstIndex + dimensions::CELLS_PER_FLOOR;
     const unsigned short topSideLastIndex =
-        firstIndex + TOP_SIDE_LAST_CELL_INDEX;
+        firstIndex + dimensions::TOP_SIDE_LAST_CELL_INDEX;
 
     for (
         unsigned short index = firstIndex;
@@ -149,7 +147,7 @@ void QuarterRotationAnimation::moveAllQuarters(
         index++
     )
     {
-        const unsigned short horizontalSide = index % CELLS_PER_LINE;
+        const unsigned short horizontalSide = index % dimensions::CELLS_PER_LINE;
         MovementDirection direction {MovementDirection::LEFT};
 
         if (
@@ -195,9 +193,9 @@ void QuarterRotationAnimation::updateCells(
     const unsigned short& floor
 ) & noexcept
 {
-    const unsigned short firstIndex = floor * CELLS_PER_FLOOR;
+    const unsigned short firstIndex = floor * dimensions::CELLS_PER_FLOOR;
     const unsigned short topSideLastIndex =
-        firstIndex + TOP_SIDE_LAST_CELL_INDEX;
+        firstIndex + dimensions::TOP_SIDE_LAST_CELL_INDEX;
 
     for (
         unsigned short index = firstIndex;
@@ -205,7 +203,7 @@ void QuarterRotationAnimation::updateCells(
         index++
     )
     {
-        const unsigned short horizontalSide = index % CELLS_PER_LINE;
+        const unsigned short horizontalSide = index % dimensions::CELLS_PER_LINE;
 
         if (horizontalSide >= HALF_CELLS_PER_LINE)
         {
@@ -219,7 +217,7 @@ void QuarterRotationAnimation::updateCells(
         }
     }
 
-    const unsigned short floorLastIndex = firstIndex + CELLS_PER_FLOOR;
+    const unsigned short floorLastIndex = firstIndex + dimensions::CELLS_PER_FLOOR;
 
     for (
         unsigned short index = topSideLastIndex;
@@ -227,7 +225,7 @@ void QuarterRotationAnimation::updateCells(
         index++
     )
     {
-        const unsigned short horizontalSide = index % CELLS_PER_LINE;
+        const unsigned short horizontalSide = index % dimensions::CELLS_PER_LINE;
 
         if (horizontalSide >= HALF_CELLS_PER_LINE)
         {
@@ -235,7 +233,7 @@ void QuarterRotationAnimation::updateCells(
                 context,
                 level,
                 index,
-                -TOP_SIDE_LAST_CELL_INDEX,
+                dimensions::TOP_SIDE_LAST_CELL_INDEX,
                 floor
             );
         }
@@ -247,7 +245,7 @@ void QuarterRotationAnimation::updateCells(
         index++
     )
     {
-        const unsigned short horizontalSide = index % CELLS_PER_LINE;
+        const unsigned short horizontalSide = index % dimensions::CELLS_PER_LINE;
 
         if (horizontalSide < HALF_CELLS_PER_LINE)
         {
@@ -261,11 +259,11 @@ void QuarterRotationAnimation::updateCells(
         }
     }
 
-    unsigned short index = floor * CELLS_PER_FLOOR;
+    unsigned short index = floor * dimensions::CELLS_PER_FLOOR;
 
     for (const entities::Cell& cell : impl->temporaryCells)
     {
-        const unsigned short newIndex = index + TOP_SIDE_LAST_CELL_INDEX;
+        const unsigned short newIndex = index + dimensions::TOP_SIDE_LAST_CELL_INDEX;
 
         level->getCells()[index]->resetPosition();
 
@@ -291,7 +289,7 @@ void QuarterRotationAnimation::updateCells(
 
         index++;
 
-        if (index % CELLS_PER_LINE >= HALF_CELLS_PER_LINE)
+        if (index % dimensions::CELLS_PER_LINE >= HALF_CELLS_PER_LINE)
         {
             index += HALF_CELLS_PER_LINE;
         }
@@ -328,8 +326,8 @@ void QuarterRotationAnimation::invertCells(
     /* if the destination quarter is the top left one,
        save the old cells of this quarter */
     if (
-        newIndex < floor * CELLS_PER_FLOOR + TOP_SIDE_LAST_CELL_INDEX and
-        newIndex % CELLS_PER_LINE < HALF_CELLS_PER_LINE
+        newIndex < floor * dimensions::CELLS_PER_FLOOR + dimensions::TOP_SIDE_LAST_CELL_INDEX and
+        newIndex % dimensions::CELLS_PER_LINE < HALF_CELLS_PER_LINE
     )
     {
         impl->temporaryCells.push_back(*destinationCell);

@@ -94,10 +94,6 @@ public:
 
 protected:
 
-    static constexpr unsigned short TOP_SIDE_LAST_CELL_INDEX {128};
-    static constexpr unsigned short CELLS_PER_LINE {16};
-    static constexpr unsigned short CELLS_PER_FLOOR {256};
-
     /**
      * @brief hides or shows the given cell at the given index
      *

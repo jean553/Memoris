@@ -29,6 +29,7 @@
 #include "Level.hpp"
 #include "Context.hpp"
 #include "Cell.hpp"
+#include "dimensions.hpp"
 
 namespace memoris
 {
@@ -151,7 +152,7 @@ void VerticalMirrorAnimation::invertSides(
     const unsigned short& floor
 ) &
 {
-    const unsigned short firstIndex = floor * CELLS_PER_FLOOR;
+    const unsigned short firstIndex = floor * dimensions::CELLS_PER_FLOOR;
 
     constexpr unsigned short LAST_FLOOR_CELL_INDEX {255};
     const unsigned short lastIndex = firstIndex + LAST_FLOOR_CELL_INDEX;
@@ -166,7 +167,7 @@ void VerticalMirrorAnimation::invertSides(
         index++
     )
     {
-        if (index % CELLS_PER_LINE >= CELLS_PER_LINE_PER_SIDE)
+        if (index % dimensions::CELLS_PER_LINE >= CELLS_PER_LINE_PER_SIDE)
         {
             continue;
         }
@@ -238,8 +239,8 @@ void VerticalMirrorAnimation::updateLeftSideTransparency(
     const unsigned short& floor
 ) const &
 {
-    const unsigned short firstIndex = CELLS_PER_FLOOR * floor;
-    const unsigned short lastIndex = firstIndex + CELLS_PER_FLOOR;
+    const unsigned short firstIndex = dimensions::CELLS_PER_FLOOR * floor;
+    const unsigned short lastIndex = firstIndex + dimensions::CELLS_PER_FLOOR;
 
     for(
         unsigned short index = firstIndex;
@@ -247,7 +248,7 @@ void VerticalMirrorAnimation::updateLeftSideTransparency(
         index++
     )
     {
-        if (index % CELLS_PER_LINE < CELLS_PER_LINE_PER_SIDE)
+        if (index % dimensions::CELLS_PER_LINE < CELLS_PER_LINE_PER_SIDE)
         {
             applyTransparencyOnOneCell(
                 context,
@@ -267,8 +268,8 @@ void VerticalMirrorAnimation::updateRightSideTransparency(
     const unsigned short& floor
 ) const &
 {
-    const unsigned short firstIndex = CELLS_PER_FLOOR * floor;
-    const unsigned short lastIndex = firstIndex + CELLS_PER_FLOOR;
+    const unsigned short firstIndex = dimensions::CELLS_PER_FLOOR * floor;
+    const unsigned short lastIndex = firstIndex + dimensions::CELLS_PER_FLOOR;
 
     for(
         unsigned short index = firstIndex;
@@ -276,7 +277,7 @@ void VerticalMirrorAnimation::updateRightSideTransparency(
         index++
     )
     {
-        if (index % CELLS_PER_LINE >= CELLS_PER_LINE_PER_SIDE)
+        if (index % dimensions::CELLS_PER_LINE >= CELLS_PER_LINE_PER_SIDE)
         {
             applyTransparencyOnOneCell(
                 context,
@@ -315,8 +316,8 @@ const unsigned short VerticalMirrorAnimation::findInvertedIndex(
     const unsigned short& index
 ) const & noexcept
 {
-    return CELLS_PER_LINE * line +
-        (LINE_LAST_CELL_INDEX - index % CELLS_PER_LINE);
+    return dimensions::CELLS_PER_LINE * line +
+        (LINE_LAST_CELL_INDEX - index % dimensions::CELLS_PER_LINE);
 }
 
 }
