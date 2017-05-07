@@ -24,11 +24,8 @@
 
 #include "LevelAnimation.hpp"
 
-#include "Context.hpp"
 #include "Cell.hpp"
 #include "Level.hpp"
-
-#include <SFML/Config.hpp>
 
 namespace memoris
 {
