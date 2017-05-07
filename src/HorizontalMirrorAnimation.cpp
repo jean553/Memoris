@@ -13,7 +13,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- Â* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 /**
@@ -27,7 +27,6 @@
 #include "SoundsManager.hpp"
 #include "ShapesManager.hpp"
 #include "Level.hpp"
-#include "Context.hpp"
 #include "Cell.hpp"
 #include "dimensions.hpp"
 
@@ -56,7 +55,6 @@ HorizontalMirrorAnimation::HorizontalMirrorAnimation(
 void HorizontalMirrorAnimation::renderAnimation(const unsigned short& floor) &
 {
     const auto& context = getContext();
-    const auto& level = getLevel();
 
     constexpr sf::Uint32 ANIMATION_STEPS_INTERVAL {50};
     if (
@@ -64,19 +62,10 @@ void HorizontalMirrorAnimation::renderAnimation(const unsigned short& floor) &
         getAnimationLastUpdateTime() < ANIMATION_STEPS_INTERVAL
     )
     {
-        displayLevelAndHorizontalSeparator(
-            level,
-            floor
-        );
+        displayLevelAndHorizontalSeparator(floor);
 
         return;
     }
-
-    /* we do not use a switch/case here because we create conditions on
-       ranges of steps, which is not handled by switch/case instructions */
-
-    /* during the 10 first steps, the animation does nothing except
-       displaying the level with the red separator */
 
     const auto animationSteps = getAnimationSteps();
 
@@ -88,10 +77,7 @@ void HorizontalMirrorAnimation::renderAnimation(const unsigned short& floor) &
     {
         decreaseTransparency();
 
-        updateBottomSideTransparency(
-            level,
-            floor
-        );
+        updateBottomSideTransparency(floor);
     }
     else if (animationSteps == 15)
     {
@@ -101,17 +87,11 @@ void HorizontalMirrorAnimation::renderAnimation(const unsigned short& floor) &
     {
         decreaseTransparency();
 
-        updateTopSideTransparency(
-            level,
-            floor
-        );
+        updateTopSideTransparency(floor);
     }
     else if (animationSteps == 21)
     {
-        invertSides(
-            level,
-            floor
-        );
+        invertSides(floor);
 
         setFullTransparent();
     }
@@ -119,10 +99,7 @@ void HorizontalMirrorAnimation::renderAnimation(const unsigned short& floor) &
     {
         increaseTransparency();
 
-        updateTopSideTransparency(
-            level,
-            floor
-        );
+        updateTopSideTransparency(floor);
     }
     else if (animationSteps == 27)
     {
@@ -132,10 +109,7 @@ void HorizontalMirrorAnimation::renderAnimation(const unsigned short& floor) &
     {
         increaseTransparency();
 
-        updateBottomSideTransparency(
-            level,
-            floor
-        );
+        updateBottomSideTransparency(floor);
     }
     else if (animationSteps == 33)
     {
@@ -144,10 +118,7 @@ void HorizontalMirrorAnimation::renderAnimation(const unsigned short& floor) &
         endsAnimation();
     }
 
-    displayLevelAndHorizontalSeparator(
-        level,
-        floor
-    );
+    displayLevelAndHorizontalSeparator(floor);
 
     incrementAnimationStep();
 }
@@ -155,13 +126,14 @@ void HorizontalMirrorAnimation::renderAnimation(const unsigned short& floor) &
 /**
  *
  */
-void HorizontalMirrorAnimation::invertSides(
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& floor
-) &
+void HorizontalMirrorAnimation::invertSides(const unsigned short& floor)
+    const &
 {
+    const auto& level = getLevel();
+
     const unsigned short firstIndex = floor * dimensions::CELLS_PER_FLOOR;
-    const unsigned short lastIndex = firstIndex + dimensions::TOP_SIDE_LAST_CELL_INDEX;
+    const unsigned short lastIndex = firstIndex +
+        dimensions::TOP_SIDE_LAST_CELL_INDEX;
     const unsigned short previousPlayerCell = level->getPlayerCellIndex();
 
     unsigned short line {0};
@@ -226,11 +198,11 @@ void HorizontalMirrorAnimation::invertSides(
  *
  */
 void HorizontalMirrorAnimation::updateTopSideTransparency(
-    const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 ) const &
 {
-    const unsigned short floorFirstCellIndex = floor * dimensions::CELLS_PER_FLOOR;
+    const unsigned short floorFirstCellIndex =
+        floor * dimensions::CELLS_PER_FLOOR;
     const unsigned short floorLastCellIndex =
         floorFirstCellIndex + dimensions::TOP_SIDE_LAST_CELL_INDEX;
 
@@ -248,12 +220,12 @@ void HorizontalMirrorAnimation::updateTopSideTransparency(
  *
  */
 void HorizontalMirrorAnimation::updateBottomSideTransparency(
-    const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 ) const &
 {
     const unsigned short floorSideFirstCellIndex =
-        floor * dimensions::CELLS_PER_FLOOR + dimensions::TOP_SIDE_LAST_CELL_INDEX;
+        floor * dimensions::CELLS_PER_FLOOR +
+            dimensions::TOP_SIDE_LAST_CELL_INDEX;
     const unsigned short floorSideLastCellIndex =
         (floor + 1) * dimensions::CELLS_PER_FLOOR;
 
@@ -271,13 +243,12 @@ void HorizontalMirrorAnimation::updateBottomSideTransparency(
  *
  */
 void HorizontalMirrorAnimation::displayLevelAndHorizontalSeparator(
-    const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
 ) const &
 {
     const auto& context = getContext();
 
-    level->display(
+    getLevel()->display(
         context,
         floor,
         &entities::Cell::display
@@ -296,6 +267,9 @@ const unsigned short HorizontalMirrorAnimation::findInvertedIndex(
     const unsigned short& index
 ) const & noexcept
 {
+    constexpr unsigned short INVERTED_CELL_INDEX_OFFSET {240};
+    constexpr unsigned short LINE_CELLS_FACTOR {32};
+
     /* this calculation can work with negative value, but at the end,
        the result should always be more than 0 to prevent seg fault */
     return INVERTED_CELL_INDEX_OFFSET - LINE_CELLS_FACTOR * line + index;

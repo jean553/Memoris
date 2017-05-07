@@ -23,8 +23,8 @@
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef MEMORIS_ABSTRACTLEVELANIMATIONS_H_
-#define MEMORIS_ABSTRACTLEVELANIMATIONS_H_
+#ifndef MEMORIS_HORIZONTALMIRRORANIMATION_H_
+#define MEMORIS_HORIZONTALMIRRORANIMATION_H_
 
 #include "AbstractMirrorAnimation.hpp"
 
@@ -52,67 +52,50 @@ public:
     /**
      * @brief renders the animation
      *
-     * @param floor constant unsigned integer to the level floor to render
+     * @param floor the level floor to render
      */
     void renderAnimation(const unsigned short& floor) & override;
 
 private:
 
-    static constexpr unsigned short TOP_SIDE_FIRST_CELL_INDEX {0};
-    static constexpr unsigned short INVERTED_CELL_INDEX_OFFSET {240};
-    static constexpr unsigned short LINE_CELLS_FACTOR {32};
-
     /**
      * @brief invert the top side cells with the bottom side cells
      *
-     * @param level constant reference to shared pointer on the level to use
-     * @param floor the current floor to display in the animation
+     * @param floor the current floor where the animation is rendered
+     *
+     * not noexcept because it calls SFML methods
      */
-    void invertSides(
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) &;
+    void invertSides(const unsigned short& floor) const &;
 
     /**
      * @brief changes the transparency of the top side of the level
      *
-     * @param level constant reference to a shared pointer on the level
-     * @param floor constant reference indicating which floor to animate
+     * @param floor the current floor where the animation is rendered
      *
-     * not 'noexcept' because it calls SFML methods
+     * not noexcept because it calls SFML methods
      */
-    void updateTopSideTransparency(
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) const &;
+    void updateTopSideTransparency(const unsigned short& floor) const &;
 
     /**
      * @brief changes the transparency of the bottom side of the level
      *
-     * @param level constant reference to a shared pointer on the level
-     * @param floor constant reference indicating which floor to animate
+     * @param floor the current floor where the animation is rendered
      *
-     * not 'noexcept' because it calls SFML methods
+     * not noexcept because it calls SFML methods
      */
-    void updateBottomSideTransparency(
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) const &;
+    void updateBottomSideTransparency(const unsigned short& floor) const &;
 
     /**
      * @brief displays the level and the horizontal separator; method created
      * only for refactor purposes as it is called two times at two different
      * moments in the script
      *
-     * @param level constant reference to a shared pointer on the level
      * @param floor constant reference indicating which floor to animate
      *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
+     * not noexcept because it calls SFML methods that are not noexcept
      */
-    void displayLevelAndHorizontalSeparator(
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) const &;
+    void displayLevelAndHorizontalSeparator(const unsigned short& floor)
+        const &;
 
     /**
      * @brief calculates the interved index of the horizontal mirror for the
@@ -123,9 +106,6 @@ private:
      * (0...255) (considere the current floor factor)
      *
      * @return const unsigned short
-     *
-     * does not return a reference because it directly returns the result of
-     * the calculation without storing it
      */
     const unsigned short findInvertedIndex(
         const unsigned short& line,
