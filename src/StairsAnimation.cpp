@@ -39,9 +39,13 @@ namespace animations
  */
 StairsAnimation::StairsAnimation(
     const utils::Context& context,
+    const std::shared_ptr<entities::Level>& level,
     const short& dir
 ) :
-    LevelAnimation(context),
+    LevelAnimation(
+        context,
+        level
+    ),
     direction(dir)
 {
     /* this animation is a simple waiting period; in order to wait the

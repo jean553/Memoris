@@ -61,8 +61,12 @@ public:
      * @brief constructor
      *
      * @param context the context to use
+     * @param level the level of the animation
      */
-    LevelAnimation(const utils::Context& context);
+    LevelAnimation(
+        const utils::Context& context,
+        const std::shared_ptr<entities::Level>& level
+    );
 
     LevelAnimation(const LevelAnimation&) = delete;
 

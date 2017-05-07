@@ -42,8 +42,12 @@ public:
      * @brief constructor, initializes the implementation
      *
      * @param context the context to use
+     * @param level the level of the animation
      */
-    QuarterRotationAnimation(const utils::Context& context) noexcept;
+    QuarterRotationAnimation(
+        const utils::Context& context,
+        const std::shared_ptr<entities::Level>& level
+    ) noexcept;
 
     /**
      * @brief default destructor, empty, only declared in order to use

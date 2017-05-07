@@ -37,8 +37,14 @@ public:
 
     /**
      * @brief constructor
+     *
+     * @param context the context to use
+     * @param level the level of the animation
      */
-    VerticalMirrorAnimation(const utils::Context& context);
+    VerticalMirrorAnimation(
+        const utils::Context& context,
+        const std::shared_ptr<entities::Level>& level
+    );
 
     /**
      * @brief renders the animation

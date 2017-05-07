@@ -50,8 +50,12 @@ public:
      * @brief constructor
      *
      * @param context the context to use
+     * @param level the level of the animation
      */
-    AbstractMirrorAnimation(const utils::Context& context);
+    AbstractMirrorAnimation(
+        const utils::Context& context,
+        const std::shared_ptr<entities::Level>& level
+    );
 
     /**
      * @brief default destructor, empty, only used for forwarding declaration

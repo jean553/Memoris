@@ -60,9 +60,13 @@ public:
  *
  */
 QuarterRotationAnimation::QuarterRotationAnimation(
-    const utils::Context& context
+    const utils::Context& context,
+    const std::shared_ptr<entities::Level>& level
 ) noexcept :
-    LevelAnimation(context),
+    LevelAnimation(
+        context,
+        level
+    ),
     impl(std::make_unique<Impl>())
 {
 }

@@ -40,8 +40,13 @@ namespace animations
  *
  */
 HorizontalMirrorAnimation::HorizontalMirrorAnimation(
-    const utils::Context& context
-) : AbstractMirrorAnimation(context)
+    const utils::Context& context,
+    const std::shared_ptr<entities::Level>& level
+) :
+    AbstractMirrorAnimation(
+        context,
+        level
+    )
 {
 }
 

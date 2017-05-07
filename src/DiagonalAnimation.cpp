@@ -38,8 +38,14 @@ namespace animations
 /**
  *
  */
-DiagonalAnimation::DiagonalAnimation(const utils::Context& context) :
-    LevelAnimation(context)
+DiagonalAnimation::DiagonalAnimation(
+    const utils::Context& context,
+    const std::shared_ptr<entities::Level>& level
+) :
+    LevelAnimation(
+        context,
+        level
+    )
 {
 }
 
