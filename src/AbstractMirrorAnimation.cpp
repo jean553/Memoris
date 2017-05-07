@@ -27,14 +27,12 @@
 #include "Level.hpp"
 #include "Cell.hpp"
 
-#include <SFML/Config.hpp>
-
 namespace memoris
 {
 namespace animations
 {
 
-constexpr sf::Uint32 ANIMATION_STEPS_INTERVAL {50};
+constexpr float TRANSPARENCY_INTERVAL {51.f};
 
 class AbstractMirrorAnimation::Impl
 {
@@ -62,12 +60,12 @@ AbstractMirrorAnimation::AbstractMirrorAnimation(
 /**
  *
  */
-AbstractMirrorAnimation::~AbstractMirrorAnimation() noexcept = default;
+AbstractMirrorAnimation::~AbstractMirrorAnimation() = default;
 
 /**
  *
  */
-void AbstractMirrorAnimation::increaseTransparency() & noexcept
+void AbstractMirrorAnimation::increaseTransparency() const & noexcept
 {
     impl->animatedSideTransparency += TRANSPARENCY_INTERVAL;
 }
@@ -75,7 +73,7 @@ void AbstractMirrorAnimation::increaseTransparency() & noexcept
 /**
  *
  */
-void AbstractMirrorAnimation::decreaseTransparency() & noexcept
+void AbstractMirrorAnimation::decreaseTransparency() const & noexcept
 {
     impl->animatedSideTransparency -= TRANSPARENCY_INTERVAL;
 }
@@ -83,7 +81,7 @@ void AbstractMirrorAnimation::decreaseTransparency() & noexcept
 /**
  *
  */
-void AbstractMirrorAnimation::setFullTransparent() & noexcept
+void AbstractMirrorAnimation::setFullTransparent() const & noexcept
 {
     impl->animatedSideTransparency = 0.f;
 }
@@ -91,8 +89,9 @@ void AbstractMirrorAnimation::setFullTransparent() & noexcept
 /**
  *
  */
-void AbstractMirrorAnimation::setNoTransparent() & noexcept
+void AbstractMirrorAnimation::setNoTransparent() const & noexcept
 {
+    constexpr sf::Uint8 MAXIMUM_TRANSPARENCY {255};
     impl->animatedSideTransparency = MAXIMUM_TRANSPARENCY;
 }
 
@@ -100,11 +99,10 @@ void AbstractMirrorAnimation::setNoTransparent() & noexcept
  *
  */
 void AbstractMirrorAnimation::applyTransparencyOnOneCell(
-    const std::shared_ptr<entities::Level>& level,
     const unsigned short& index
 ) const &
 {
-    level->getCells()[index]->setCellColorTransparency(
+    getLevel()->getCells()[index]->setCellColorTransparency(
         getContext(),
         impl->animatedSideTransparency
     );

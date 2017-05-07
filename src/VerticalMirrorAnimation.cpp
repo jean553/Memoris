@@ -250,10 +250,7 @@ void VerticalMirrorAnimation::updateLeftSideTransparency(
     {
         if (index % dimensions::CELLS_PER_LINE < CELLS_PER_LINE_PER_SIDE)
         {
-            applyTransparencyOnOneCell(
-                level,
-                index
-            );
+            applyTransparencyOnOneCell(index);
         }
     }
 }
@@ -277,10 +274,7 @@ void VerticalMirrorAnimation::updateRightSideTransparency(
     {
         if (index % dimensions::CELLS_PER_LINE >= CELLS_PER_LINE_PER_SIDE)
         {
-            applyTransparencyOnOneCell(
-                level,
-                index
-            );
+            applyTransparencyOnOneCell(index);
         }
     }
 }
