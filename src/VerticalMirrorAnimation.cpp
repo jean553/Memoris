@@ -40,21 +40,23 @@ namespace animations
  *
  */
 VerticalMirrorAnimation::VerticalMirrorAnimation(
-    const utils::Context& context
+    const utils::Context& context,
+    const std::shared_ptr<entities::Level>& level
 ) :
-    AbstractMirrorAnimation(context)
+    AbstractMirrorAnimation(
+        context,
+        level
+    )
 {
 }
 
 /**
  *
  */
-void VerticalMirrorAnimation::renderAnimation(
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& floor
-) &
+void VerticalMirrorAnimation::renderAnimation(const unsigned short& floor) &
 {
     const auto& context = getContext();
+    const auto& level = getLevel();
 
     constexpr sf::Uint32 ANIMATION_STEPS_INTERVAL {50};
     if (
@@ -188,7 +190,6 @@ void VerticalMirrorAnimation::invertSides(
         );
 
         showOrHideCell(
-            level,
             index,
             level->getCells()[invertedIndex]->isVisible()
         );
@@ -196,7 +197,6 @@ void VerticalMirrorAnimation::invertSides(
         level->getCells()[invertedIndex]->setType(type);
 
         showOrHideCell(
-            level,
             invertedIndex,
             visible
         );

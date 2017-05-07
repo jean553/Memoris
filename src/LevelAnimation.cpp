@@ -24,11 +24,8 @@
 
 #include "LevelAnimation.hpp"
 
-#include "Context.hpp"
 #include "Cell.hpp"
 #include "Level.hpp"
-
-#include <SFML/Config.hpp>
 
 namespace memoris
 {
@@ -40,8 +37,12 @@ class LevelAnimation::Impl
 
 public:
 
-    Impl(const utils::Context& context) :
-        context(context)
+    Impl(
+        const utils::Context& context,
+        const std::shared_ptr<entities::Level>& level
+    ) :
+        context(context),
+        level(level)
     {
     }
 
@@ -54,13 +55,25 @@ public:
     short updatedPlayerIndex {-1};
 
     const utils::Context& context;
+
+    /* TODO: #1186 the level in game controller, controllers factory
+       and level animation should not be a pointer but only a reference */
+    const std::shared_ptr<entities::Level> level;
 };
 
 /**
  *
  */
-LevelAnimation::LevelAnimation(const utils::Context& context) : 
-    impl(std::make_unique<Impl>(context))
+LevelAnimation::LevelAnimation(
+    const utils::Context& context,
+    const std::shared_ptr<entities::Level>& level
+) : 
+    impl(
+        std::make_unique<Impl>(
+            context,
+            level
+        )
+    )
 {
 }
 
@@ -88,13 +101,22 @@ const utils::Context& LevelAnimation::getContext() const & noexcept
 /**
  *
  */
+const std::shared_ptr<entities::Level>& LevelAnimation::getLevel() const &
+    noexcept
+{
+    return impl->level;
+}
+
+/**
+ *
+ */
 void LevelAnimation::showOrHideCell(
-    const std::shared_ptr<entities::Level>& level,
     const unsigned short& index,
     const bool& visible
 ) const &
 {
     const auto& context = impl->context;
+    const auto& level = impl->level;
 
     if (visible)
     {
@@ -119,10 +141,10 @@ void LevelAnimation::incrementAnimationStep() &
 /**
  *
  */
-void LevelAnimation::movePlayer(
-    const std::shared_ptr<entities::Level>& level
-) const &
+void LevelAnimation::movePlayer() const &
 {
+    const auto& level = impl->level;
+
     level->setPlayerCellIndex(impl->updatedPlayerIndex);
     level->getCells()[impl->updatedPlayerIndex]->show(impl->context);
 }

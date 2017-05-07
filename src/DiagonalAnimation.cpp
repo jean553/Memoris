@@ -38,19 +38,24 @@ namespace animations
 /**
  *
  */
-DiagonalAnimation::DiagonalAnimation(const utils::Context& context) :
-    LevelAnimation(context)
+DiagonalAnimation::DiagonalAnimation(
+    const utils::Context& context,
+    const std::shared_ptr<entities::Level>& level
+) :
+    LevelAnimation(
+        context,
+        level
+    )
 {
 }
 
 /**
  *
  */
-void DiagonalAnimation::renderAnimation(
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& floor
-) &
+void DiagonalAnimation::renderAnimation(const unsigned short& floor) &
 {
+    const auto& level = getLevel();
+
     if (
         getContext().getClockMillisecondsTime() - 
         getAnimationLastUpdateTime() < 100
@@ -294,13 +299,11 @@ void DiagonalAnimation::invertCells(
     level->getCells()[source]->setType(type);
 
     showOrHideCell(
-        level,
         source + difference,
         level->getCells()[source]->isVisible()
     );
 
     showOrHideCell(
-        level,
         source,
         visible
     );

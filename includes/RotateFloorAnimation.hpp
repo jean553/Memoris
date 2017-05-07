@@ -45,11 +45,13 @@ public:
      * @brief constructor, called by the animations factory
      *
      * @param context the context to use
+     * @param level the level of the animation
      * @param movementDirection indicates if the movement is clockwise or not;
      * usually contains 1 or -1
      */
     RotateFloorAnimation(
         const utils::Context& context,
+        const std::shared_ptr<entities::Level>& level,
         const short& movementDirection
     ) noexcept;
 
@@ -66,13 +68,9 @@ public:
      * public because this is the only interface accessible from the game
      * controller
      *
-     * @param level shared pointer to the level to animate
      * @param floor the current floor to display in the animation
      */
-    void renderAnimation(
-        const Level& level,
-        const unsigned short& floor
-    ) & override;
+    void renderAnimation(const unsigned short& floor) & override;
 
 private:
 

@@ -52,9 +52,13 @@ public:
  */
 RotateFloorAnimation::RotateFloorAnimation(
     const utils::Context& context,
+    const std::shared_ptr<entities::Level>& level,
     const short& movementDirection
 ) noexcept : 
-    LevelAnimation(context),
+    LevelAnimation(
+        context,
+        level
+    ),
     impl(std::make_unique<Impl>(movementDirection))
 {
 }
@@ -86,12 +90,10 @@ void RotateFloorAnimation::playNextAnimationStep(
 /**
  *
  */
-void RotateFloorAnimation::renderAnimation(
-    const Level& level,
-    const unsigned short& floor
-) &
+void RotateFloorAnimation::renderAnimation(const unsigned short& floor) &
 {
     const auto& context = getContext();
+    const auto& level = getLevel();
 
     level->display(
         context,

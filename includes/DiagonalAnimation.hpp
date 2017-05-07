@@ -51,19 +51,19 @@ public:
      * @brief constructor
      *
      * @param context the context to use
+     * @param level the level of the animation
      */
-    DiagonalAnimation(const utils::Context& context);
+    DiagonalAnimation(
+        const utils::Context& context,
+        const std::shared_ptr<entities::Level>& level
+    );
 
     /**
      * @brief renders the animation, overrided from the parent class
      *
-     * @param level shared pointer to the level to animate
      * @param floor the current floor to display in the animation
      */
-    void renderAnimation(
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) & override;
+    void renderAnimation(const unsigned short& floor) & override;
 
 private:
 

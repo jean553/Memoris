@@ -40,20 +40,23 @@ namespace animations
  *
  */
 HorizontalMirrorAnimation::HorizontalMirrorAnimation(
-    const utils::Context& context
-) : AbstractMirrorAnimation(context)
+    const utils::Context& context,
+    const std::shared_ptr<entities::Level>& level
+) :
+    AbstractMirrorAnimation(
+        context,
+        level
+    )
 {
 }
 
 /**
  *
  */
-void HorizontalMirrorAnimation::renderAnimation(
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& floor
-) &
+void HorizontalMirrorAnimation::renderAnimation(const unsigned short& floor) &
 {
     const auto& context = getContext();
+    const auto& level = getLevel();
 
     constexpr sf::Uint32 ANIMATION_STEPS_INTERVAL {50};
     if (
@@ -136,7 +139,7 @@ void HorizontalMirrorAnimation::renderAnimation(
     }
     else if (animationSteps == 33)
     {
-        movePlayer(level);
+        movePlayer();
 
         endsAnimation();
     }
@@ -182,7 +185,6 @@ void HorizontalMirrorAnimation::invertSides(
         );
 
         showOrHideCell(
-            level,
             index,
             level->getCells()[invertedIndex]->isVisible()
         );
@@ -190,7 +192,6 @@ void HorizontalMirrorAnimation::invertSides(
         level->getCells()[invertedIndex]->setType(type);
 
         showOrHideCell(
-            level,
             invertedIndex,
             visible
         );

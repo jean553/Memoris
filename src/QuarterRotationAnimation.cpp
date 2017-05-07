@@ -60,9 +60,13 @@ public:
  *
  */
 QuarterRotationAnimation::QuarterRotationAnimation(
-    const utils::Context& context
+    const utils::Context& context,
+    const std::shared_ptr<entities::Level>& level
 ) noexcept :
-    LevelAnimation(context),
+    LevelAnimation(
+        context,
+        level
+    ),
     impl(std::make_unique<Impl>())
 {
 }
@@ -75,12 +79,10 @@ QuarterRotationAnimation::~QuarterRotationAnimation() noexcept = default;
 /**
  *
  */
-void QuarterRotationAnimation::renderAnimation(
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& floor
-) &
+void QuarterRotationAnimation::renderAnimation(const unsigned short& floor) &
 {
     const auto& context = getContext();
+    const auto& level = getLevel();
 
     if (
         context.getClockMillisecondsTime() -
@@ -278,7 +280,6 @@ void QuarterRotationAnimation::updateCells(
         }
 
         showOrHideCell(
-            level,
             newIndex,
             cell.isVisible()
         );
@@ -291,7 +292,7 @@ void QuarterRotationAnimation::updateCells(
         }
     }
 
-    movePlayer(level);
+    movePlayer();
 }
 
 /**
@@ -336,7 +337,6 @@ void QuarterRotationAnimation::invertCells(
     sourceCell->resetPosition();
 
     showOrHideCell(
-        level,
         newIndex,
         sourceCell->isVisible()
     );

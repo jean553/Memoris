@@ -37,19 +37,21 @@ public:
 
     /**
      * @brief constructor
+     *
+     * @param context the context to use
+     * @param level the level of the animation
      */
-    VerticalMirrorAnimation(const utils::Context& context);
+    VerticalMirrorAnimation(
+        const utils::Context& context,
+        const std::shared_ptr<entities::Level>& level
+    );
 
     /**
      * @brief renders the animation
      *
-     * @param level constant reference on shared pointer to the concerned level
      * @param floor constant unsigned integer to the level floor to render
      */
-    void renderAnimation(
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) & override;
+    void renderAnimation(const unsigned short& floor) & override;
 
 private:
 

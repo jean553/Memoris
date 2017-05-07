@@ -48,9 +48,13 @@ public:
  *
  */
 AbstractMirrorAnimation::AbstractMirrorAnimation(
-    const utils::Context& context
+    const utils::Context& context,
+    const std::shared_ptr<entities::Level>& level
 ) :
-    LevelAnimation(context),
+    LevelAnimation(
+        context,
+        level
+    ),
     impl(std::make_unique<Impl>())
 {
 }

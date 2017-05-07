@@ -44,11 +44,13 @@ public:
      * know when the waiting time of the animation is terminated
      *
      * @param context reference to the current context to use
+     * @param level the level of the animation
      * @param dir indicates in which direction is made the transition
      * (up/down), only equals to -1 or 1;
      */
     StairsAnimation(
         const utils::Context& context,
+        const std::shared_ptr<entities::Level>& level,
         const short& dir
     );
 
@@ -57,13 +59,9 @@ public:
     /**
      * @brief render the animation
      *
-     * @param level shared pointer to the level to animate
      * @param floor the current floor to display in the animation
      */
-    void renderAnimation(
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) & override;
+    void renderAnimation(const unsigned short& floor) & override;
 
     /**
      * @brief execute action by jumping to the next animation step
