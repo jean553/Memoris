@@ -282,7 +282,6 @@ void QuarterRotationAnimation::updateCells(
         }
 
         showOrHideCell(
-            level,
             newIndex,
             cell.isVisible()
         );
@@ -295,7 +294,7 @@ void QuarterRotationAnimation::updateCells(
         }
     }
 
-    movePlayer(level);
+    movePlayer();
 }
 
 /**
@@ -340,7 +339,6 @@ void QuarterRotationAnimation::invertCells(
     sourceCell->resetPosition();
 
     showOrHideCell(
-        level,
         newIndex,
         sourceCell->isVisible()
     );

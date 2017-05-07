@@ -105,12 +105,12 @@ const utils::Context& LevelAnimation::getContext() const & noexcept
  *
  */
 void LevelAnimation::showOrHideCell(
-    const std::shared_ptr<entities::Level>& level,
     const unsigned short& index,
     const bool& visible
 ) const &
 {
     const auto& context = impl->context;
+    const auto& level = impl->level;
 
     if (visible)
     {
@@ -135,10 +135,10 @@ void LevelAnimation::incrementAnimationStep() &
 /**
  *
  */
-void LevelAnimation::movePlayer(
-    const std::shared_ptr<entities::Level>& level
-) const &
+void LevelAnimation::movePlayer() const &
 {
+    const auto& level = impl->level;
+
     level->setPlayerCellIndex(impl->updatedPlayerIndex);
     level->getCells()[impl->updatedPlayerIndex]->show(impl->context);
 }

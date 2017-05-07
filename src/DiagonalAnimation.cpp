@@ -300,13 +300,11 @@ void DiagonalAnimation::invertCells(
     level->getCells()[source]->setType(type);
 
     showOrHideCell(
-        level,
         source + difference,
         level->getCells()[source]->isVisible()
     );
 
     showOrHideCell(
-        level,
         source,
         visible
     );

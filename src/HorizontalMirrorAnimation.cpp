@@ -141,7 +141,7 @@ void HorizontalMirrorAnimation::renderAnimation(
     }
     else if (animationSteps == 33)
     {
-        movePlayer(level);
+        movePlayer();
 
         endsAnimation();
     }
@@ -187,7 +187,6 @@ void HorizontalMirrorAnimation::invertSides(
         );
 
         showOrHideCell(
-            level,
             index,
             level->getCells()[invertedIndex]->isVisible()
         );
@@ -195,7 +194,6 @@ void HorizontalMirrorAnimation::invertSides(
         level->getCells()[invertedIndex]->setType(type);
 
         showOrHideCell(
-            level,
             invertedIndex,
             visible
         );

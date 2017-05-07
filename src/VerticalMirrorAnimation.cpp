@@ -192,7 +192,6 @@ void VerticalMirrorAnimation::invertSides(
         );
 
         showOrHideCell(
-            level,
             index,
             level->getCells()[invertedIndex]->isVisible()
         );
@@ -200,7 +199,6 @@ void VerticalMirrorAnimation::invertSides(
         level->getCells()[invertedIndex]->setType(type);
 
         showOrHideCell(
-            level,
             invertedIndex,
             visible
         );
