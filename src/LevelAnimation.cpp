@@ -104,6 +104,15 @@ const utils::Context& LevelAnimation::getContext() const & noexcept
 /**
  *
  */
+const std::shared_ptr<entities::Level>& LevelAnimation::getLevel() const &
+    noexcept
+{
+    return impl->level;
+}
+
+/**
+ *
+ */
 void LevelAnimation::showOrHideCell(
     const unsigned short& index,
     const bool& visible
