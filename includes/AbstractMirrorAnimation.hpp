@@ -28,14 +28,6 @@
 
 #include "LevelAnimation.hpp"
 
-namespace sf
-{
-/* 'typedef unsigned int Uint8' in SFML/Config.hpp, we declare exactly
-   the same type here in order to both use declaration forwarding and
-   prevent conflicting declaration */
-typedef unsigned char Uint8;
-}
-
 namespace memoris
 {
 namespace animations
