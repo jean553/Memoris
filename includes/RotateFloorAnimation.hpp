@@ -68,13 +68,9 @@ public:
      * public because this is the only interface accessible from the game
      * controller
      *
-     * @param level shared pointer to the level to animate
      * @param floor the current floor to display in the animation
      */
-    void renderAnimation(
-        const Level& level,
-        const unsigned short& floor
-    ) & override;
+    void renderAnimation(const unsigned short& floor) & override;
 
 private:
 

@@ -52,13 +52,9 @@ public:
     /**
      * @brief renders the animation
      *
-     * @param level constant reference on shared pointer to the concerned level
      * @param floor constant unsigned integer to the level floor to render
      */
-    void renderAnimation(
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) & override;
+    void renderAnimation(const unsigned short& floor) & override;
 
 private:
 

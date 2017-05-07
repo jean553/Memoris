@@ -79,12 +79,10 @@ QuarterRotationAnimation::~QuarterRotationAnimation() noexcept = default;
 /**
  *
  */
-void QuarterRotationAnimation::renderAnimation(
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& floor
-) &
+void QuarterRotationAnimation::renderAnimation(const unsigned short& floor) &
 {
     const auto& context = getContext();
+    const auto& level = getLevel();
 
     if (
         context.getClockMillisecondsTime() -

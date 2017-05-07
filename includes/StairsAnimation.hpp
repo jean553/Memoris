@@ -59,13 +59,9 @@ public:
     /**
      * @brief render the animation
      *
-     * @param level shared pointer to the level to animate
      * @param floor the current floor to display in the animation
      */
-    void renderAnimation(
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) & override;
+    void renderAnimation(const unsigned short& floor) & override;
 
     /**
      * @brief execute action by jumping to the next animation step

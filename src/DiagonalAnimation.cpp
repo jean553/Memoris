@@ -52,11 +52,10 @@ DiagonalAnimation::DiagonalAnimation(
 /**
  *
  */
-void DiagonalAnimation::renderAnimation(
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& floor
-) &
+void DiagonalAnimation::renderAnimation(const unsigned short& floor) &
 {
+    const auto& level = getLevel();
+
     if (
         getContext().getClockMillisecondsTime() - 
         getAnimationLastUpdateTime() < 100

@@ -53,12 +53,10 @@ HorizontalMirrorAnimation::HorizontalMirrorAnimation(
 /**
  *
  */
-void HorizontalMirrorAnimation::renderAnimation(
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& floor
-) &
+void HorizontalMirrorAnimation::renderAnimation(const unsigned short& floor) &
 {
     const auto& context = getContext();
+    const auto& level = getLevel();
 
     constexpr sf::Uint32 ANIMATION_STEPS_INTERVAL {50};
     if (
