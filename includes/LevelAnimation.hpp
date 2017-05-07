@@ -64,6 +64,10 @@ public:
      */
     LevelAnimation(const utils::Context& context);
 
+    LevelAnimation(const LevelAnimation&) = delete;
+
+    LevelAnimation& operator=(const LevelAnimation&) = delete;
+
     /**
      * @brief default destructor
      */
