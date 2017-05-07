@@ -23,8 +23,8 @@
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef MEMORIS_ABSTRACTMIRRORANIMATION
-#define MEMORIS_ABSTRACTMIRRORANIMATION
+#ifndef MEMORIS_ABSTRACTMIRRORANIMATION_H_
+#define MEMORIS_ABSTRACTMIRRORANIMATION_H_
 
 #include "LevelAnimation.hpp"
 
@@ -47,6 +47,13 @@ class AbstractMirrorAnimation : public LevelAnimation
 public:
 
     /**
+     * @brief default destructor
+     */
+    ~AbstractMirrorAnimation();
+
+protected:
+
+    /**
      * @brief constructor
      *
      * @param context the context to use
@@ -58,65 +65,33 @@ public:
     );
 
     /**
-     * @brief default destructor, empty, only used for forwarding declaration
+     * @brief increases the transparency
      */
-    ~AbstractMirrorAnimation() noexcept;
-
-protected:
-
-    /**
-     * @brief constructor, empty, only declared in order to initialize the
-     * implementation
-     *
-     * protected because this class is abstract
-     */
-    AbstractMirrorAnimation();
+    void increaseTransparency() const & noexcept;
 
     /**
      * @brief increases the transparency
-     *
-     * not 'const' because it modifies the animated side transparency
      */
-    void increaseTransparency() & noexcept;
-
-    /**
-     * @brief increases the transparency
-     *
-     * not 'const' because it modifies the animated side transparency
-     */
-    void decreaseTransparency() & noexcept;
+    void decreaseTransparency() const & noexcept;
 
     /**
      * @brief set the transparency to fully transparent
-     *
-     * not 'const' because it modifies the animated side transparency
      */
-    void setFullTransparent() & noexcept;
+    void setFullTransparent() const & noexcept;
 
     /**
      * @brief set the transparency to no transparent
-     *
-     * not 'const' because it modifies the animated side transparency
      */
-    void setNoTransparent() & noexcept;
+    void setNoTransparent() const & noexcept;
 
     /**
      * @brief applies the current animated side transparency on the given cell
      *
-     * @param level constant reference to a shared pointer on the level
-     *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
+     * not noexcept because it calls SFML methods that are not noexcept
      */
-    void applyTransparencyOnOneCell(
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& index
-    ) const &;
+    void applyTransparencyOnOneCell(const unsigned short& index) const &;
 
 private:
-
-    static constexpr float TRANSPARENCY_INTERVAL {51.f};
-
-    static constexpr sf::Uint8 MAXIMUM_TRANSPARENCY {255};
 
     class Impl;
     std::unique_ptr<Impl> impl;

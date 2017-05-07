@@ -240,10 +240,7 @@ void HorizontalMirrorAnimation::updateTopSideTransparency(
         index++
     )
     {
-        applyTransparencyOnOneCell(
-            level,
-            index
-        );
+        applyTransparencyOnOneCell(index);
     }
 }
 
@@ -266,10 +263,7 @@ void HorizontalMirrorAnimation::updateBottomSideTransparency(
         index++
     )
     {
-        applyTransparencyOnOneCell(
-            level,
-            index
-        );
+        applyTransparencyOnOneCell(index);
     }
 }
 
