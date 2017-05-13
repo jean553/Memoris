@@ -55,70 +55,41 @@ public:
 
 private:
 
-    static constexpr unsigned short CELLS_PER_LINE_PER_SIDE {8};
-    static constexpr unsigned short LEFT_SIDE_LAST_CELL_INDEX {247};
-    static constexpr unsigned short LINE_LAST_CELL_INDEX {15};
-
     /**
      * @brief replace the left side cells by the right side cells
      *
-     * @param level shared pointer to the level to use
-     * @param floor the current floor to display in the animation
+     * not noexcept because it calls SFML methods that are not noexcept
      */
-    void invertSides(
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) &;
+    void invertSides() const &;
 
     /**
      * @brief changes the transparency of the left side of the level
      *
-     * @param level constant reference to a shared pointer on the level
-     * @param floor constant reference indicating which floor to animate
-     *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
+     * not noexcept because it calls SFML methods that are not noexcept
      */
-    void updateLeftSideTransparency(
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) const &;
+    void updateLeftSideTransparency() const &;
 
     /**
      * @brief changes the transparency of the right side of the level
      *
-     * @param level constant reference to a shared pointer on the level
-     * @param floor constant reference indicating which floor to animate
-     *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
+     * not noexcept because it calls SFML methods that are not noexcept
      */
-    void updateRightSideTransparency(
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) const &;
+    void updateRightSideTransparency() const &;
 
     /**
      * @brief displays the level and the vertical separator surface
      *
-     * @param level constant reference to a shared pointer on the level
-     * @param floor constant reference indicating which floor to animate
-     *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
+     * not noexcept because it calls SFML methods that are not noexcept
      */
-    void displayLevelAndVerticalSeparator(
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) const &;
+    void displayLevelAndVerticalSeparator() const &;
 
     /**
      * @brief returns the inverted index of the vertical mirror animation
      *
-     * @param line constant reference to the current line
-     * @param index constant reference to the current index
+     * @param line the current line
+     * @param index the current index
      *
      * @return const unsigned short
-     *
-     * does not return a constant reference because the method directly returns
-     * the calculated value and not an object attribute
      */
     const unsigned short findInvertedIndex(
         const unsigned short& line,
