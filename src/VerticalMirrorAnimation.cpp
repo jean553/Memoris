@@ -41,11 +41,13 @@ namespace animations
  */
 VerticalMirrorAnimation::VerticalMirrorAnimation(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level
+    const std::shared_ptr<entities::Level>& level,
+    const unsigned short& floor
 ) :
     AbstractMirrorAnimation(
         context,
-        level
+        level,
+        floor
     )
 {
 }

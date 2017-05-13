@@ -39,10 +39,12 @@ public:
 
     Impl(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level
+        const std::shared_ptr<entities::Level>& level,
+        const unsigned short& floor
     ) :
         context(context),
-        level(level)
+        level(level),
+        floor(floor)
     {
     }
 
@@ -59,6 +61,8 @@ public:
     /* TODO: #1186 the level in game controller, controllers factory
        and level animation should not be a pointer but only a reference */
     const std::shared_ptr<entities::Level> level;
+
+    const unsigned short floor;
 };
 
 /**
@@ -66,12 +70,14 @@ public:
  */
 LevelAnimation::LevelAnimation(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level
+    const std::shared_ptr<entities::Level>& level,
+    const unsigned short& floor
 ) : 
     impl(
         std::make_unique<Impl>(
             context,
-            level
+            level,
+            floor
         )
     )
 {
