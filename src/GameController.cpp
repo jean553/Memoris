@@ -726,6 +726,7 @@ std::unique_ptr<animations::LevelAnimation> GameController::getAnimationByCell(
 ) const &
 {
     const auto& level = impl->level;
+    const auto& floor = impl->floor;
 
     switch(cellType)
     {
@@ -733,7 +734,8 @@ std::unique_ptr<animations::LevelAnimation> GameController::getAnimationByCell(
     {
         return std::make_unique<animations::VerticalMirrorAnimation>(
             context,
-            level
+            level,
+            floor
         );
     }
     case cells::STAIRS_UP_CELL:
@@ -742,6 +744,7 @@ std::unique_ptr<animations::LevelAnimation> GameController::getAnimationByCell(
         return std::make_unique<animations::StairsAnimation>(
                    context,
                    level,
+                   floor,
                    1
                );
     }
@@ -751,6 +754,7 @@ std::unique_ptr<animations::LevelAnimation> GameController::getAnimationByCell(
         return std::make_unique<animations::StairsAnimation>(
                    context,
                    level,
+                   floor,
                    -1
                );
     }
@@ -758,7 +762,8 @@ std::unique_ptr<animations::LevelAnimation> GameController::getAnimationByCell(
     {
         return std::make_unique<animations::DiagonalAnimation>(
             context,
-            level
+            level,
+            floor
         );
     }
     case cells::LEFT_ROTATION_CELL:
@@ -766,6 +771,7 @@ std::unique_ptr<animations::LevelAnimation> GameController::getAnimationByCell(
         return std::make_unique<animations::RotateFloorAnimation>(
             context,
             level,
+            floor,
             -1
         );
     }
@@ -774,6 +780,7 @@ std::unique_ptr<animations::LevelAnimation> GameController::getAnimationByCell(
         return std::make_unique<animations::RotateFloorAnimation>(
             context,
             level,
+            floor,
             1
         );
     }
@@ -781,14 +788,16 @@ std::unique_ptr<animations::LevelAnimation> GameController::getAnimationByCell(
     {
         return std::make_unique<animations::QuarterRotationAnimation>(
             context,
-            level
+            level,
+            floor
         );
     }
     default:
     {
         return std::make_unique<animations::HorizontalMirrorAnimation>(
             context,
-            level
+            level,
+            floor
         );
     }
     }

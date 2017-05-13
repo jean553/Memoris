@@ -43,10 +43,12 @@ public:
      *
      * @param context the context to use
      * @param level the level of the animation
+     * @param floor the floor index of the level
      */
     HorizontalMirrorAnimation(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level
+        const std::shared_ptr<entities::Level>& level,
+        const unsigned short& floor
     );
 
     /**

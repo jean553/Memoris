@@ -53,11 +53,13 @@ public:
 RotateFloorAnimation::RotateFloorAnimation(
     const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
+    const unsigned short& floor,
     const short& movementDirection
 ) noexcept : 
     LevelAnimation(
         context,
-        level
+        level,
+        floor
     ),
     impl(std::make_unique<Impl>(movementDirection))
 {

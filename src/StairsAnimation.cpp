@@ -40,11 +40,13 @@ namespace animations
 StairsAnimation::StairsAnimation(
     const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
+    const unsigned short& floor,
     const short& dir
 ) :
     LevelAnimation(
         context,
-        level
+        level,
+        floor
     ),
     direction(dir)
 {

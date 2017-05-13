@@ -45,12 +45,14 @@ public:
      *
      * @param context reference to the current context to use
      * @param level the level of the animation
+     * @param floor the floor index of the animation
      * @param dir indicates in which direction is made the transition
      * (up/down), only equals to -1 or 1;
      */
     StairsAnimation(
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
+        const unsigned short& floor,
         const short& dir
     );
 
