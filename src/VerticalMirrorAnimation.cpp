@@ -121,7 +121,6 @@ void VerticalMirrorAnimation::renderAnimation() &
     else if (animationSteps == 33)
     {
         const auto updatedPlayerIndex = getUpdatedPlayerIndex();
-
         level->setPlayerCellIndex(updatedPlayerIndex);
         level->getCells()[updatedPlayerIndex]->show(context);
 
@@ -138,13 +137,12 @@ void VerticalMirrorAnimation::renderAnimation() &
  */
 void VerticalMirrorAnimation::invertSides() const &
 {
-    const auto& level = getLevel();
-
     const unsigned short firstIndex = getFloor() * dimensions::CELLS_PER_FLOOR;
 
     constexpr unsigned short LAST_FLOOR_CELL_INDEX {255};
     const unsigned short lastIndex = firstIndex + LAST_FLOOR_CELL_INDEX;
 
+    const auto& level = getLevel();
     const unsigned short previousPlayerCell = level->getPlayerCellIndex();
 
     unsigned short line {0};
