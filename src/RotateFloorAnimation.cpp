@@ -25,7 +25,6 @@
 #include "RotateFloorAnimation.hpp"
 
 #include "SoundsManager.hpp"
-#include "Context.hpp"
 #include "Cell.hpp"
 #include "Level.hpp"
 
@@ -39,8 +38,8 @@ class RotateFloorAnimation::Impl
 
 public:
 
-    Impl(const short& movementDirection) :
-        direction(movementDirection)
+    Impl(const short& direction) :
+        direction(direction)
     {
     }
 
@@ -54,40 +53,21 @@ RotateFloorAnimation::RotateFloorAnimation(
     const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor,
-    const short& movementDirection
-) noexcept : 
+    const short& direction
+) : 
     LevelAnimation(
         context,
         level,
         floor
     ),
-    impl(std::make_unique<Impl>(movementDirection))
+    impl(std::make_unique<Impl>(direction))
 {
 }
 
 /**
  *
  */
-RotateFloorAnimation::~RotateFloorAnimation() noexcept = default;
-
-/**
- *
- */
-void RotateFloorAnimation::playNextAnimationStep(
-    const utils::Context& context,
-    const Level& level,
-    const unsigned short& floor
-) &
-{
-    if (getAnimationSteps() == 0)
-    {
-        context.getSoundsManager().playFloorMovementAnimationSound();
-
-        level->createTransform();
-    }
-
-    level->rotateAllCells(5 * impl->direction);
-}
+RotateFloorAnimation::~RotateFloorAnimation() = default;
 
 /**
  *
@@ -104,19 +84,16 @@ void RotateFloorAnimation::renderAnimation() &
         &entities::Cell::display
     );
 
+    constexpr sf::Uint32 ANIMATION_INTERVAL {50};
     if (
         context.getClockMillisecondsTime() - 
-        getAnimationLastUpdateTime() < 50
+        getAnimationLastUpdateTime() < ANIMATION_INTERVAL
     )
     {
         return;
     }
 
-    playNextAnimationStep(
-        context,
-        level,
-        floor
-    );
+    playNextAnimationStep();
 
     if (getAnimationSteps() == 18)
     {
@@ -124,11 +101,7 @@ void RotateFloorAnimation::renderAnimation() &
 
         endsAnimation();
 
-        rotateCells(
-            context,
-            level,
-            floor
-        );
+        rotateCells();
     }
 
     incrementAnimationStep();
@@ -137,16 +110,36 @@ void RotateFloorAnimation::renderAnimation() &
 /**
  *
  */
-void RotateFloorAnimation::rotateCells(
-    const utils::Context& context,
-    const Level& level,
-    const unsigned short& floor
-) &
+void RotateFloorAnimation::playNextAnimationStep() const &
 {
+    const auto& level = getLevel();
+
+    if (getAnimationSteps() == 0)
+    {
+        getContext().getSoundsManager().playFloorMovementAnimationSound();
+
+        level->createTransform();
+    }
+
+    constexpr unsigned short ROTATION_STEP {5};
+    level->rotateAllCells(ROTATION_STEP * impl->direction);
+}
+
+/**
+ *
+ */
+void RotateFloorAnimation::rotateCells() const &
+{
+    /* TODO: #1194 numbers literals should be constant expressions */
+
     std::vector<std::vector<entities::Cell>> horizontalLines;
 
-    unsigned short playerColumn = 0,
-                   playerIndex = 0;
+    unsigned short playerColumn {0};
+    unsigned short playerIndex {0};
+
+    const auto& level = getLevel();
+    const auto& context = getContext();
+    const auto& floor = getFloor();
 
     unsigned short destination = floor * 256 + 255;
 
