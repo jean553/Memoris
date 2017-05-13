@@ -18,13 +18,13 @@
 
 /**
  * @file StairsAnimation.hpp
- * @brief animation that is played when the player finds a stairs cell
+ * @brief switch floor animation
  * @package animations
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
-#ifndef MEMORIS_STAIRSABSTRACT_H_
-#define MEMORIS_STAIRSABSTRACT_H_
+#ifndef MEMORIS_STAIRSANIMATION_H_
+#define MEMORIS_STAIRSANIMATION_H_
 
 #include "LevelAnimation.hpp"
 
@@ -39,61 +39,46 @@ class StairsAnimation : public LevelAnimation
 public:
 
     /**
-     * @brief constructor, we define it because we have to save the time
-     * just before the animation starts; we use this saved value later to
-     * know when the waiting time of the animation is terminated
+     * @brief constructor
      *
      * @param context reference to the current context to use
      * @param level the level of the animation
      * @param floor the floor index of the animation
-     * @param dir indicates in which direction is made the transition
+     * @param direction indicates in what direction the transition is made
      * (up/down), only equals to -1 or 1;
+     *
+     * NOTE: we use a signed integer for the direction and not an enumeration;
+     * it's more convenient as we directly use the integer value
+     * in order to update the transparency effect values
      */
     StairsAnimation(
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor,
-        const short& dir
+        const short& direction
     );
 
+    /**
+     * @brief default destructor
+     */
     ~StairsAnimation();
 
     /**
-     * @brief render the animation
+     * @brief renders the animation
      */
     void renderAnimation() & override;
 
     /**
-     * @brief execute action by jumping to the next animation step
+     * @brief executes action by jumping to the next animation step
      *
-     * @param level shared pointer to the level to animate
-     * @param floor the current floor to display in the animation
+     * not noexcept because it calls SFML methods that are not noexcept
      */
-    void playNextAnimationStep(
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) &;
+    void playNextAnimationStep() const &;
 
 private:
 
-    /* during the animation, the transparency of the cells is modified
-       progressively; the amount of transparency value update at each iteration
-       is always the same and equal to 17.f, so we just refactor it in the
-       code segment */
-    static constexpr float TRANSPARENCY_UPDATE_AMOUNT {17.f};
-
-    /* the direction of the movement; can be set to 1 or -1; not initialized
-       here because this variable can be specified in the constructor of the
-       animation */
-    short direction;
-
-    /* the update to apply on the current floor index according to the
-       animation progression; first the current floor is displayed, and then
-       we switch to next/previous one */
-    short transformation {0};
-
-    /* the transparency value to apply on all the cells of the same floor */
-    float cellsTransparency {255.f};
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }
