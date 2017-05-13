@@ -35,6 +35,15 @@ namespace memoris
 namespace animations
 {
 
+class DiagonalAnimation::Impl
+{
+
+public:
+
+    sf::RectangleShape verticalSeparator;
+    sf::RectangleShape horizontalSeparator;
+};
+
 /**
  *
  */
@@ -54,33 +63,27 @@ DiagonalAnimation::DiagonalAnimation(
 /**
  *
  */
+DiagonalAnimation::~DiagonalAnimation() = default;
+
+/**
+ *
+ */
 void DiagonalAnimation::renderAnimation() &
 {
-    const auto& level = getLevel();
-    const auto& floor = getFloor();
-
+    constexpr sf::Uint32 ANIMATION_INTERVAL {100};
     if (
         getContext().getClockMillisecondsTime() - 
-        getAnimationLastUpdateTime() < 100
+        getAnimationLastUpdateTime() < ANIMATION_INTERVAL
     )
     {
-        displayLevelAndSeparator(
-            level,
-            floor
-        );
+        displayLevelAndSeparator();
 
         return;
     }
 
-    playNextAnimationStep(
-        level,
-        floor
-    );
+    playNextAnimationStep();
 
-    displayLevelAndSeparator(
-        level,
-        floor
-    );
+    displayLevelAndSeparator();
 
     incrementAnimationStep();
 }
@@ -88,10 +91,7 @@ void DiagonalAnimation::renderAnimation() &
 /**
  *
  */
-void DiagonalAnimation::playNextAnimationStep(
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& floor
-) &
+void DiagonalAnimation::playNextAnimationStep() const &
 {
     /* declare a SFML color object; we use this object to create the flashing
        effect on the different parts of the cells */
@@ -99,6 +99,7 @@ void DiagonalAnimation::playNextAnimationStep(
 
     const auto animationSteps = getAnimationSteps();
     const auto& context = getContext();
+    const auto& colorsManager = context.getColorsManager();
 
     if (animationSteps == 0)
     {
@@ -107,36 +108,26 @@ void DiagonalAnimation::playNextAnimationStep(
 
     if (animationSteps % 2 == 0)
     {
-        color = context.getColorsManager().getColorPurpleLowAlpha();
+        color = colorsManager.getColorPurpleLowAlpha();
     }
     else
     {
-        color = context.getColorsManager().getColorWhite();
+        color = colorsManager.getColorWhite();
     }
 
-    applyPurpleColorOnCellsQuarters(
-        level,
-        floor,
-        color
-    );
+    applyPurpleColorOnCellsQuarters(color);
 
     switch(animationSteps)
     {
     case 3:
     {
-        invertTopLeftWithBottomRight(
-            level,
-            floor
-        );
+        invertTopLeftWithBottomRight();
 
         break;
     }
     case 9:
     {
-        invertBottomLeftWithTopRight(
-            level,
-            floor
-        );
+        invertBottomLeftWithTopRight();
 
         break;
     }
@@ -144,7 +135,7 @@ void DiagonalAnimation::playNextAnimationStep(
     {
         endsAnimation();
 
-        level->setPlayerCellIndex(getUpdatedPlayerIndex());
+        getLevel()->setPlayerCellIndex(getUpdatedPlayerIndex());
 
         break;
     }
@@ -154,16 +145,13 @@ void DiagonalAnimation::playNextAnimationStep(
 /**
  *
  */
-void DiagonalAnimation::displayLevelAndSeparator(
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& floor
-) &
+void DiagonalAnimation::displayLevelAndSeparator() const &
 {
     const auto& context = getContext();
 
-    level->display(
+    getLevel()->display(
         context,
-        floor,
+        getFloor(),
         &entities::Cell::display
     );
 
@@ -178,12 +166,11 @@ void DiagonalAnimation::displayLevelAndSeparator(
 /**
  *
  */
-void DiagonalAnimation::applyPurpleColorOnCellsQuarters(
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& floor,
-    const sf::Color& color
-) &
+void DiagonalAnimation::applyPurpleColorOnCellsQuarters(const sf::Color& color) 
+    const &
 {
+    const auto& floor = getFloor();
+
     for(
         unsigned short index = 256 * floor;
         index < 256 * (floor + 1);
@@ -222,7 +209,7 @@ void DiagonalAnimation::applyPurpleColorOnCellsQuarters(
             )
         )
         {
-            level->getCells()[index]->setCellColor(color);
+            getLevel()->getCells()[index]->setCellColor(color);
         }
     }
 }
@@ -230,11 +217,10 @@ void DiagonalAnimation::applyPurpleColorOnCellsQuarters(
 /**
  *
  */
-void DiagonalAnimation::invertTopLeftWithBottomRight(
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& floor
-) &
+void DiagonalAnimation::invertTopLeftWithBottomRight() const &
 {
+    const auto& floor = getFloor();
+
     unsigned short index = floor * 256;
 
     while(index != floor * 256 + 128)
@@ -245,7 +231,6 @@ void DiagonalAnimation::invertTopLeftWithBottomRight(
         )
         {
             invertCells(
-                level,
                 index,
                 136
             );
@@ -258,11 +243,9 @@ void DiagonalAnimation::invertTopLeftWithBottomRight(
 /**
  *
  */
-void DiagonalAnimation::invertBottomLeftWithTopRight(
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& floor
-) &
+void DiagonalAnimation::invertBottomLeftWithTopRight() const &
 {
+    const auto& floor = getFloor();
     unsigned short index = floor * 256 + 128;
 
     while(index < (floor + 1) * 256)
@@ -273,7 +256,6 @@ void DiagonalAnimation::invertBottomLeftWithTopRight(
         )
         {
             invertCells(
-                level,
                 index,
                 -120
             );
@@ -287,11 +269,12 @@ void DiagonalAnimation::invertBottomLeftWithTopRight(
  *
  */
 void DiagonalAnimation::invertCells(
-    const std::shared_ptr<entities::Level>& level,
     const unsigned short& source,
     const short& difference
-) &
+) const &
 {
+    const auto& level = getLevel();
+
     char type = level->getCells()[source + difference]->getType();
     bool visible = level->getCells()[source + difference]->isVisible();
 
