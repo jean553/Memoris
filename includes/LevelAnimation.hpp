@@ -82,14 +82,12 @@ public:
     /**
      * @brief renders the animation, called by the game controller
      *
-     * @param floor the current floor to display
-     *
      * not const because definitions updates object attributes
      *
      * not noexcept because definitions calls SFML functions that are not
      * noexcept
      */
-    virtual void renderAnimation(const unsigned short& floor) & = 0;
+    virtual void renderAnimation() & = 0;
 
     /**
      * @brief true if the animation is finished
@@ -109,6 +107,11 @@ protected:
      * @brief getter of the level
      */
     const std::shared_ptr<entities::Level>& getLevel() const & noexcept;
+
+    /**
+     * @brief getter of the floor
+     */
+    const unsigned short& getFloor() const & noexcept;
 
     /**
      * @brief hides or shows the given cell at the given index

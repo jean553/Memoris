@@ -81,10 +81,11 @@ QuarterRotationAnimation::~QuarterRotationAnimation() noexcept = default;
 /**
  *
  */
-void QuarterRotationAnimation::renderAnimation(const unsigned short& floor) &
+void QuarterRotationAnimation::renderAnimation() &
 {
     const auto& context = getContext();
     const auto& level = getLevel();
+    const auto& floor = getFloor();
 
     if (
         context.getClockMillisecondsTime() -

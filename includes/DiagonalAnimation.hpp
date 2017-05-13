@@ -62,10 +62,8 @@ public:
 
     /**
      * @brief renders the animation, overrided from the parent class
-     *
-     * @param floor the current floor to display in the animation
      */
-    void renderAnimation(const unsigned short& floor) & override;
+    void renderAnimation() & override;
 
 private:
 

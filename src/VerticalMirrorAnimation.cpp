@@ -55,10 +55,11 @@ VerticalMirrorAnimation::VerticalMirrorAnimation(
 /**
  *
  */
-void VerticalMirrorAnimation::renderAnimation(const unsigned short& floor) &
+void VerticalMirrorAnimation::renderAnimation() &
 {
     const auto& context = getContext();
     const auto& level = getLevel();
+    const auto& floor = getFloor();
 
     constexpr sf::Uint32 ANIMATION_STEPS_INTERVAL {50};
     if (

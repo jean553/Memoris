@@ -116,6 +116,14 @@ const std::shared_ptr<entities::Level>& LevelAnimation::getLevel() const &
 /**
  *
  */
+const unsigned short& LevelAnimation::getFloor() const & noexcept
+{
+    return impl->floor;
+}
+
+/**
+ *
+ */
 void LevelAnimation::showOrHideCell(
     const unsigned short& index,
     const bool& visible

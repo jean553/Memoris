@@ -69,10 +69,8 @@ public:
      * animation step incrementation method at each interval. This function is
      * public because this is the only interface accessible from the game
      * controller
-     *
-     * @param floor the current floor to display in the animation
      */
-    void renderAnimation(const unsigned short& floor) & override;
+    void renderAnimation() & override;
 
 private:
 
