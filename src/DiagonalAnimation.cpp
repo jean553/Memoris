@@ -93,8 +93,6 @@ void DiagonalAnimation::renderAnimation() &
  */
 void DiagonalAnimation::playNextAnimationStep() const &
 {
-    /* declare a SFML color object; we use this object to create the flashing
-       effect on the different parts of the cells */
     sf::Color color;
 
     const auto animationSteps = getAnimationSteps();
@@ -155,12 +153,10 @@ void DiagonalAnimation::displayLevelAndSeparator() const &
         &entities::Cell::display
     );
 
-    context.getSfmlWindow().draw(
-        context.getShapesManager().getHorizontalSeparator()
-    );
-    context.getSfmlWindow().draw(
-        context.getShapesManager().getVerticalSeparator()
-    );
+    auto& window = context.getSfmlWindow();
+    const auto& shapesManager = context.getShapesManager();
+    window.draw(shapesManager.getHorizontalSeparator());
+    window.draw(shapesManager.getVerticalSeparator());
 }
 
 /**
@@ -169,6 +165,8 @@ void DiagonalAnimation::displayLevelAndSeparator() const &
 void DiagonalAnimation::applyPurpleColorOnCellsQuarters(const sf::Color& color) 
     const &
 {
+    /* TODO: #1194 numbers should be constant expressions */
+
     const auto& floor = getFloor();
 
     for(
@@ -179,8 +177,6 @@ void DiagonalAnimation::applyPurpleColorOnCellsQuarters(const sf::Color& color)
     {
         const auto animationSteps = getAnimationSteps();
 
-        /* use the purple color if the cell is located in the top left
-           corner or the if the cell is located in the bottom right corner */
         if (
             (
                 (
