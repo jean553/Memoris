@@ -27,7 +27,6 @@
 #include "SoundsManager.hpp"
 #include "ShapesManager.hpp"
 #include "Level.hpp"
-#include "Context.hpp"
 #include "Cell.hpp"
 #include "dimensions.hpp"
 
@@ -137,7 +136,7 @@ void VerticalMirrorAnimation::renderAnimation() &
 /**
  *
  */
-void VerticalMirrorAnimation::invertSides() &
+void VerticalMirrorAnimation::invertSides() const &
 {
     const auto& level = getLevel();
 

@@ -57,40 +57,39 @@ private:
 
     /**
      * @brief replace the left side cells by the right side cells
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
      */
-    void invertSides() &;
+    void invertSides() const &;
 
     /**
      * @brief changes the transparency of the left side of the level
      *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
+     * not noexcept because it calls SFML methods that are not noexcept
      */
     void updateLeftSideTransparency() const &;
 
     /**
      * @brief changes the transparency of the right side of the level
      *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
+     * not noexcept because it calls SFML methods that are not noexcept
      */
     void updateRightSideTransparency() const &;
 
     /**
      * @brief displays the level and the vertical separator surface
      *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
+     * not noexcept because it calls SFML methods that are not noexcept
      */
     void displayLevelAndVerticalSeparator() const &;
 
     /**
      * @brief returns the inverted index of the vertical mirror animation
      *
-     * @param line constant reference to the current line
-     * @param index constant reference to the current index
+     * @param line the current line
+     * @param index the current index
      *
      * @return const unsigned short
-     *
-     * does not return a constant reference because the method directly returns
-     * the calculated value and not an object attribute
      */
     const unsigned short findInvertedIndex(
         const unsigned short& line,
