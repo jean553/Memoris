@@ -28,7 +28,6 @@
 #include "SoundsManager.hpp"
 #include "Level.hpp"
 #include "Cell.hpp"
-#include "ColorsManager.hpp"
 #include "dimensions.hpp"
 
 namespace memoris
@@ -36,10 +35,10 @@ namespace memoris
 namespace animations
 {
 
-constexpr sf::Uint32 QuarterRotationAnimation::ANIMATION_STEPS_INTERVAL;
+constexpr sf::Uint32 ANIMATION_STEPS_INTERVAL {50};
 
-constexpr unsigned short QuarterRotationAnimation::HALF_CELLS_PER_LINE;
-constexpr unsigned short QuarterRotationAnimation::ANIMATION_STEPS;
+constexpr unsigned short ANIMATION_STEPS {40};
+constexpr unsigned short HALF_CELLS_PER_LINE {8};
 
 class QuarterRotationAnimation::Impl
 {
@@ -63,7 +62,7 @@ QuarterRotationAnimation::QuarterRotationAnimation(
     const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor
-) noexcept :
+) :
     LevelAnimation(
         context,
         level,
@@ -76,7 +75,7 @@ QuarterRotationAnimation::QuarterRotationAnimation(
 /**
  *
  */
-QuarterRotationAnimation::~QuarterRotationAnimation() noexcept = default;
+QuarterRotationAnimation::~QuarterRotationAnimation() = default;
 
 /**
  *
@@ -106,19 +105,13 @@ void QuarterRotationAnimation::renderAnimation() &
         context.getSoundsManager().playFloorMovementAnimationSound();
     }
 
-    moveAllQuarters(
-        level,
-        floor
-    );
+    moveAllQuarters();
 
     impl->translationSteps++;
 
     if (impl->translationSteps == ANIMATION_STEPS)
     {
-        updateCells(
-            level,
-            floor
-        );
+        updateCells();
 
         endsAnimation();
     }
@@ -135,12 +128,12 @@ void QuarterRotationAnimation::renderAnimation() &
 /**
  *
  */
-void QuarterRotationAnimation::moveAllQuarters(
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& floor
-) const &
+void QuarterRotationAnimation::moveAllQuarters() const &
 {
     using MovementDirection = entities::Cell::MovementDirection;
+
+    const auto& floor = getFloor();
+    const auto& level = getLevel();
 
     const unsigned short firstIndex = dimensions::CELLS_PER_FLOOR * floor;
     const unsigned short lastIndex = firstIndex + dimensions::CELLS_PER_FLOOR;
@@ -153,7 +146,8 @@ void QuarterRotationAnimation::moveAllQuarters(
         index++
     )
     {
-        const unsigned short horizontalSide = index % dimensions::CELLS_PER_LINE;
+        const unsigned short horizontalSide =
+            index % dimensions::CELLS_PER_LINE;
         MovementDirection direction {MovementDirection::LEFT};
 
         if (
@@ -193,11 +187,11 @@ void QuarterRotationAnimation::moveAllQuarters(
 /**
  *
  */
-void QuarterRotationAnimation::updateCells(
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& floor
-) & noexcept
+void QuarterRotationAnimation::updateCells() const &
 {
+    const auto& floor = getFloor();
+    const auto& level = getLevel();
+
     const unsigned short firstIndex = floor * dimensions::CELLS_PER_FLOOR;
     const unsigned short topSideLastIndex =
         firstIndex + dimensions::TOP_SIDE_LAST_CELL_INDEX;
@@ -208,20 +202,20 @@ void QuarterRotationAnimation::updateCells(
         index++
     )
     {
-        const unsigned short horizontalSide = index % dimensions::CELLS_PER_LINE;
+        const unsigned short horizontalSide =
+            index % dimensions::CELLS_PER_LINE;
 
         if (horizontalSide >= HALF_CELLS_PER_LINE)
         {
             invertCells(
-                level,
                 index,
-                -HALF_CELLS_PER_LINE,
-                floor
+                -HALF_CELLS_PER_LINE
             );
         }
     }
 
-    const unsigned short floorLastIndex = firstIndex + dimensions::CELLS_PER_FLOOR;
+    const unsigned short floorLastIndex =
+        firstIndex + dimensions::CELLS_PER_FLOOR;
 
     for (
         unsigned short index = topSideLastIndex;
@@ -229,15 +223,14 @@ void QuarterRotationAnimation::updateCells(
         index++
     )
     {
-        const unsigned short horizontalSide = index % dimensions::CELLS_PER_LINE;
+        const unsigned short horizontalSide =
+            index % dimensions::CELLS_PER_LINE;
 
         if (horizontalSide >= HALF_CELLS_PER_LINE)
         {
             invertCells(
-                level,
                 index,
-                dimensions::TOP_SIDE_LAST_CELL_INDEX,
-                floor
+                dimensions::TOP_SIDE_LAST_CELL_INDEX
             );
         }
     }
@@ -248,15 +241,14 @@ void QuarterRotationAnimation::updateCells(
         index++
     )
     {
-        const unsigned short horizontalSide = index % dimensions::CELLS_PER_LINE;
+        const unsigned short horizontalSide =
+            index % dimensions::CELLS_PER_LINE;
 
         if (horizontalSide < HALF_CELLS_PER_LINE)
         {
             invertCells(
-                level,
                 index,
-                HALF_CELLS_PER_LINE,
-                floor
+                HALF_CELLS_PER_LINE
             );
         }
     }
@@ -265,7 +257,8 @@ void QuarterRotationAnimation::updateCells(
 
     for (const entities::Cell& cell : impl->temporaryCells)
     {
-        const unsigned short newIndex = index + dimensions::TOP_SIDE_LAST_CELL_INDEX;
+        const unsigned short newIndex =
+            index + dimensions::TOP_SIDE_LAST_CELL_INDEX;
 
         level->getCells()[index]->resetPosition();
 
@@ -302,13 +295,14 @@ void QuarterRotationAnimation::updateCells(
  *
  */
 void QuarterRotationAnimation::invertCells(
-    const std::shared_ptr<entities::Level>& level,
     const unsigned short& index,
-    const unsigned short& modification,
-    const unsigned short& floor
-) & noexcept
+    const unsigned short& modification
+) const &
 {
     const unsigned short newIndex = index + modification;
+
+    const auto& level = getLevel();
+    const auto& floor = getFloor();
 
     /* TODO: this pointer declaration is bad regarding to C++14 specifications;
        the problem is that level->getCells() is an array of unique pointers
@@ -319,10 +313,12 @@ void QuarterRotationAnimation::invertCells(
     entities::Cell* sourceCell = level->getCells().at(index).get();
     entities::Cell* destinationCell = level->getCells().at(newIndex).get();
 
-    /* if the destination quarter is the top left one,
-       save the old cells of this quarter */
+    const unsigned short topSideLastCellIndex =
+        newIndex < floor * dimensions::CELLS_PER_FLOOR + 
+            dimensions::TOP_SIDE_LAST_CELL_INDEX;
+
     if (
-        newIndex < floor * dimensions::CELLS_PER_FLOOR + dimensions::TOP_SIDE_LAST_CELL_INDEX and
+        newIndex < floor * topSideLastCellIndex and
         newIndex % dimensions::CELLS_PER_LINE < HALF_CELLS_PER_LINE
     )
     {
