@@ -36,6 +36,10 @@ namespace memoris
 namespace animations
 {
 
+constexpr unsigned short CELLS_PER_LINE_PER_SIDE {8};
+constexpr unsigned short LEFT_SIDE_LAST_CELL_INDEX {247};
+constexpr unsigned short LINE_LAST_CELL_INDEX {15};
+
 /**
  *
  */
@@ -59,7 +63,6 @@ void VerticalMirrorAnimation::renderAnimation() &
 {
     const auto& context = getContext();
     const auto& level = getLevel();
-    const auto& floor = getFloor();
 
     constexpr sf::Uint32 ANIMATION_STEPS_INTERVAL {50};
     if (
@@ -67,10 +70,7 @@ void VerticalMirrorAnimation::renderAnimation() &
         getAnimationLastUpdateTime() < ANIMATION_STEPS_INTERVAL
     )
     {
-        displayLevelAndVerticalSeparator(
-            level,
-            floor
-        );
+        displayLevelAndVerticalSeparator();
 
         return;
     }
@@ -85,10 +85,7 @@ void VerticalMirrorAnimation::renderAnimation() &
     {
         decreaseTransparency();
 
-        updateLeftSideTransparency(
-            level,
-            floor
-        );
+        updateLeftSideTransparency();
     }
     else if (animationSteps == 15)
     {
@@ -98,17 +95,11 @@ void VerticalMirrorAnimation::renderAnimation() &
     {
         decreaseTransparency();
 
-        updateRightSideTransparency(
-            level,
-            floor
-        );
+        updateRightSideTransparency();
     }
     else if (animationSteps == 21)
     {
-        invertSides(
-            level,
-            floor
-        );
+        invertSides();
 
         setFullTransparent();
     }
@@ -116,10 +107,7 @@ void VerticalMirrorAnimation::renderAnimation() &
     {
         increaseTransparency();
 
-        updateLeftSideTransparency(
-            level,
-            floor
-        );
+        updateLeftSideTransparency();
     }
     else if (animationSteps == 27)
     {
@@ -129,10 +117,7 @@ void VerticalMirrorAnimation::renderAnimation() &
     {
         increaseTransparency();
 
-        updateRightSideTransparency(
-            level,
-            floor
-        );
+        updateRightSideTransparency();
     }
     else if (animationSteps == 33)
     {
@@ -144,10 +129,7 @@ void VerticalMirrorAnimation::renderAnimation() &
         endsAnimation();
     }
 
-    displayLevelAndVerticalSeparator(
-        level,
-        floor
-    );
+    displayLevelAndVerticalSeparator();
 
     incrementAnimationStep();
 }
@@ -155,12 +137,11 @@ void VerticalMirrorAnimation::renderAnimation() &
 /**
  *
  */
-void VerticalMirrorAnimation::invertSides(
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& floor
-) &
+void VerticalMirrorAnimation::invertSides() &
 {
-    const unsigned short firstIndex = floor * dimensions::CELLS_PER_FLOOR;
+    const auto& level = getLevel();
+
+    const unsigned short firstIndex = getFloor() * dimensions::CELLS_PER_FLOOR;
 
     constexpr unsigned short LAST_FLOOR_CELL_INDEX {255};
     const unsigned short lastIndex = firstIndex + LAST_FLOOR_CELL_INDEX;
@@ -237,12 +218,9 @@ void VerticalMirrorAnimation::invertSides(
 /**
  *
  */
-void VerticalMirrorAnimation::updateLeftSideTransparency(
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& floor
-) const &
+void VerticalMirrorAnimation::updateLeftSideTransparency() const &
 {
-    const unsigned short firstIndex = dimensions::CELLS_PER_FLOOR * floor;
+    const unsigned short firstIndex = dimensions::CELLS_PER_FLOOR * getFloor();
     const unsigned short lastIndex = firstIndex + dimensions::CELLS_PER_FLOOR;
 
     for(
@@ -261,12 +239,9 @@ void VerticalMirrorAnimation::updateLeftSideTransparency(
 /**
  *
  */
-void VerticalMirrorAnimation::updateRightSideTransparency(
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& floor
-) const &
+void VerticalMirrorAnimation::updateRightSideTransparency() const &
 {
-    const unsigned short firstIndex = dimensions::CELLS_PER_FLOOR * floor;
+    const unsigned short firstIndex = dimensions::CELLS_PER_FLOOR * getFloor();
     const unsigned short lastIndex = firstIndex + dimensions::CELLS_PER_FLOOR;
 
     for(
@@ -285,16 +260,13 @@ void VerticalMirrorAnimation::updateRightSideTransparency(
 /**
  *
  */
-void VerticalMirrorAnimation::displayLevelAndVerticalSeparator(
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& floor
-) const &
+void VerticalMirrorAnimation::displayLevelAndVerticalSeparator() const &
 {
     const auto& context = getContext();
 
-    level->display(
+    getLevel()->display(
         context,
-        floor,
+        getFloor(),
         &entities::Cell::display
     );
 
