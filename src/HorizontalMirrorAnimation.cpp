@@ -54,7 +54,7 @@ HorizontalMirrorAnimation::HorizontalMirrorAnimation(
 /**
  *
  */
-void HorizontalMirrorAnimation::renderAnimation(const unsigned short& floor) &
+void HorizontalMirrorAnimation::renderAnimation() &
 {
     const auto& context = getContext();
 
@@ -64,7 +64,7 @@ void HorizontalMirrorAnimation::renderAnimation(const unsigned short& floor) &
         getAnimationLastUpdateTime() < ANIMATION_STEPS_INTERVAL
     )
     {
-        displayLevelAndHorizontalSeparator(floor);
+        displayLevelAndHorizontalSeparator();
 
         return;
     }
@@ -79,7 +79,7 @@ void HorizontalMirrorAnimation::renderAnimation(const unsigned short& floor) &
     {
         decreaseTransparency();
 
-        updateBottomSideTransparency(floor);
+        updateBottomSideTransparency();
     }
     else if (animationSteps == 15)
     {
@@ -89,11 +89,11 @@ void HorizontalMirrorAnimation::renderAnimation(const unsigned short& floor) &
     {
         decreaseTransparency();
 
-        updateTopSideTransparency(floor);
+        updateTopSideTransparency();
     }
     else if (animationSteps == 21)
     {
-        invertSides(floor);
+        invertSides();
 
         setFullTransparent();
     }
@@ -101,7 +101,7 @@ void HorizontalMirrorAnimation::renderAnimation(const unsigned short& floor) &
     {
         increaseTransparency();
 
-        updateTopSideTransparency(floor);
+        updateTopSideTransparency();
     }
     else if (animationSteps == 27)
     {
@@ -111,7 +111,7 @@ void HorizontalMirrorAnimation::renderAnimation(const unsigned short& floor) &
     {
         increaseTransparency();
 
-        updateBottomSideTransparency(floor);
+        updateBottomSideTransparency();
     }
     else if (animationSteps == 33)
     {
@@ -120,7 +120,7 @@ void HorizontalMirrorAnimation::renderAnimation(const unsigned short& floor) &
         endsAnimation();
     }
 
-    displayLevelAndHorizontalSeparator(floor);
+    displayLevelAndHorizontalSeparator();
 
     incrementAnimationStep();
 }
@@ -128,12 +128,11 @@ void HorizontalMirrorAnimation::renderAnimation(const unsigned short& floor) &
 /**
  *
  */
-void HorizontalMirrorAnimation::invertSides(const unsigned short& floor)
-    const &
+void HorizontalMirrorAnimation::invertSides() const &
 {
     const auto& level = getLevel();
 
-    const unsigned short firstIndex = floor * dimensions::CELLS_PER_FLOOR;
+    const unsigned short firstIndex = getFloor() * dimensions::CELLS_PER_FLOOR;
     const unsigned short lastIndex = firstIndex +
         dimensions::TOP_SIDE_LAST_CELL_INDEX;
     const unsigned short previousPlayerCell = level->getPlayerCellIndex();
@@ -199,12 +198,10 @@ void HorizontalMirrorAnimation::invertSides(const unsigned short& floor)
 /**
  *
  */
-void HorizontalMirrorAnimation::updateTopSideTransparency(
-    const unsigned short& floor
-) const &
+void HorizontalMirrorAnimation::updateTopSideTransparency() const &
 {
     const unsigned short floorFirstCellIndex =
-        floor * dimensions::CELLS_PER_FLOOR;
+        getFloor() * dimensions::CELLS_PER_FLOOR;
     const unsigned short floorLastCellIndex =
         floorFirstCellIndex + dimensions::TOP_SIDE_LAST_CELL_INDEX;
 
@@ -221,10 +218,10 @@ void HorizontalMirrorAnimation::updateTopSideTransparency(
 /**
  *
  */
-void HorizontalMirrorAnimation::updateBottomSideTransparency(
-    const unsigned short& floor
-) const &
+void HorizontalMirrorAnimation::updateBottomSideTransparency() const &
 {
+    const auto& floor = getFloor();
+
     const unsigned short floorSideFirstCellIndex =
         floor * dimensions::CELLS_PER_FLOOR +
             dimensions::TOP_SIDE_LAST_CELL_INDEX;
@@ -244,11 +241,10 @@ void HorizontalMirrorAnimation::updateBottomSideTransparency(
 /**
  *
  */
-void HorizontalMirrorAnimation::displayLevelAndHorizontalSeparator(
-    const unsigned short& floor
-) const &
+void HorizontalMirrorAnimation::displayLevelAndHorizontalSeparator() const &
 {
     const auto& context = getContext();
+    const auto& floor = getFloor();
 
     getLevel()->display(
         context,

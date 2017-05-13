@@ -53,51 +53,40 @@ public:
 
     /**
      * @brief renders the animation
-     *
-     * @param floor the level floor to render
      */
-    void renderAnimation(const unsigned short& floor) & override;
+    void renderAnimation() & override;
 
 private:
 
     /**
      * @brief invert the top side cells with the bottom side cells
      *
-     * @param floor the current floor where the animation is rendered
-     *
      * not noexcept because it calls SFML methods
      */
-    void invertSides(const unsigned short& floor) const &;
+    void invertSides() const &;
 
     /**
      * @brief changes the transparency of the top side of the level
      *
-     * @param floor the current floor where the animation is rendered
-     *
      * not noexcept because it calls SFML methods
      */
-    void updateTopSideTransparency(const unsigned short& floor) const &;
+    void updateTopSideTransparency() const &;
 
     /**
      * @brief changes the transparency of the bottom side of the level
      *
-     * @param floor the current floor where the animation is rendered
-     *
      * not noexcept because it calls SFML methods
      */
-    void updateBottomSideTransparency(const unsigned short& floor) const &;
+    void updateBottomSideTransparency() const &;
 
     /**
      * @brief displays the level and the horizontal separator; method created
      * only for refactor purposes as it is called two times at two different
      * moments in the script
      *
-     * @param floor constant reference indicating which floor to animate
-     *
      * not noexcept because it calls SFML methods that are not noexcept
      */
-    void displayLevelAndHorizontalSeparator(const unsigned short& floor)
-        const &;
+    void displayLevelAndHorizontalSeparator() const &;
 
     /**
      * @brief calculates the interved index of the horizontal mirror for the

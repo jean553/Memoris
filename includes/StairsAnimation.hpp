@@ -60,10 +60,8 @@ public:
 
     /**
      * @brief render the animation
-     *
-     * @param floor the current floor to display in the animation
      */
-    void renderAnimation(const unsigned short& floor) & override;
+    void renderAnimation() & override;
 
     /**
      * @brief execute action by jumping to the next animation step

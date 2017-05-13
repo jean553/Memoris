@@ -59,10 +59,8 @@ public:
 
     /**
      * @brief renders the animation
-     *
-     * @param floor constant unsigned integer to the level floor to render
      */
-    void renderAnimation(const unsigned short& floor) & override;
+    void renderAnimation() & override;
 
 private:
 

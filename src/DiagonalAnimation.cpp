@@ -54,9 +54,10 @@ DiagonalAnimation::DiagonalAnimation(
 /**
  *
  */
-void DiagonalAnimation::renderAnimation(const unsigned short& floor) &
+void DiagonalAnimation::renderAnimation() &
 {
     const auto& level = getLevel();
+    const auto& floor = getFloor();
 
     if (
         getContext().getClockMillisecondsTime() - 

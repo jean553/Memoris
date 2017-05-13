@@ -225,7 +225,7 @@ const ControllerId& GameController::render() const &
     }
     else if (impl->animation != nullptr)
     {
-        impl->animation->renderAnimation(impl->floor);
+        impl->animation->renderAnimation();
 
         if (impl->animation->isFinished())
         {

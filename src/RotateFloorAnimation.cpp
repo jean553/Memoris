@@ -92,10 +92,11 @@ void RotateFloorAnimation::playNextAnimationStep(
 /**
  *
  */
-void RotateFloorAnimation::renderAnimation(const unsigned short& floor) &
+void RotateFloorAnimation::renderAnimation() &
 {
     const auto& context = getContext();
     const auto& level = getLevel();
+    const auto& floor = getFloor();
 
     level->display(
         context,

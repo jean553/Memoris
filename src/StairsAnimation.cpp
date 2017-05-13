@@ -65,10 +65,11 @@ StairsAnimation::~StairsAnimation() = default;
 /**
  *
  */
-void StairsAnimation::renderAnimation(const unsigned short& floor) &
+void StairsAnimation::renderAnimation() &
 {
     const auto& context = getContext();
     const auto& level = getLevel();
+    const auto& floor = getFloor();
 
     level->display(
         context,
