@@ -46,10 +46,7 @@ class QuarterRotationAnimation::Impl
 public:
 
     /* store one quarter of the cells floor that has to be saved when the
-       quarters rotation is applied; we could use a std::queue to automatically
-       free the space when the cells are written back on the floor, but the
-       container is directly deleted by the animation destructor when the
-       animation is finished */
+       quarters rotation is applied */
     std::vector<entities::Cell> temporaryCells;
 
     unsigned short translationSteps {0};
@@ -304,7 +301,7 @@ void QuarterRotationAnimation::invertCells(
     const auto& level = getLevel();
     const auto& floor = getFloor();
 
-    /* TODO: this pointer declaration is bad regarding to C++14 specifications;
+    /* TODO: #1198 bad regarding to C++14 specifications;
        the problem is that level->getCells() is an array of unique pointers
        that we cannot copy, and we do not want move the ownership either; as
        we do not want do multiple calls like level->getCells()[newIndex] in the
