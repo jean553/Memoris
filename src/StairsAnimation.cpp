@@ -25,7 +25,6 @@
 #include "StairsAnimation.hpp"
 
 #include "SoundsManager.hpp"
-#include "Context.hpp"
 #include "Cell.hpp"
 #include "Level.hpp"
 
@@ -34,6 +33,25 @@ namespace memoris
 namespace animations
 {
 
+constexpr float TRANSPARENCY_UPDATE_AMOUNT {17.f};
+
+class StairsAnimation::Impl
+{
+
+public:
+
+    Impl(const short& direction) :
+        direction(direction)
+    {
+    }
+
+    short direction;
+
+    short transformation {0};
+
+    float cellsTransparency {255.f};
+};
+
 /**
  *
  */
@@ -41,14 +59,14 @@ StairsAnimation::StairsAnimation(
     const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor,
-    const short& dir
+    const short& direction
 ) :
     LevelAnimation(
         context,
         level,
         floor
     ),
-    direction(dir)
+    impl(std::make_unique<Impl>(direction))
 {
     /* this animation is a simple waiting period; in order to wait the
        appropriated time, we just save the current time once before the
@@ -73,46 +91,45 @@ void StairsAnimation::renderAnimation() &
 
     level->display(
         context,
-        floor + transformation,
+        floor + impl->transformation,
         &entities::Cell::display
     );
 
     auto& lastUpdateTime = getAnimationLastUpdateTime();
 
-    if (context.getClockMillisecondsTime() - lastUpdateTime < 50)
+    const auto& currentTime = context.getClockMillisecondsTime();
+
+    constexpr sf::Uint32 ANIMATION_INTERVAL {50};
+    if (currentTime - lastUpdateTime < ANIMATION_INTERVAL)
     {
         return;
     }
 
-    playNextAnimationStep(
-        level,
-        floor
-    );
+    playNextAnimationStep();
 
-    setAnimationLastUpdateTime(context.getClockMillisecondsTime());
+    setAnimationLastUpdateTime(currentTime);
 }
 
 /**
  *
  */
-void StairsAnimation::playNextAnimationStep(
-    const std::shared_ptr<entities::Level>& level,
-    const unsigned short& floor
-) &
+void StairsAnimation::playNextAnimationStep() const &
 {
-    /* the animation does nothing during the 10 first steps (first second) */
-
-    /* play the stop sound when the player just arrived on the cell */
-    
     const auto& animationSteps = getAnimationSteps();
     const auto& context = getContext();
+    const auto& level = getLevel();
+    const auto& floor = getFloor();
+
+    const auto& direction = impl->direction;
+
+    auto& transformation = impl->transformation;
+    auto& cellsTransparency = impl->cellsTransparency;
 
     if (animationSteps == 0)
     {
         context.getSoundsManager().playCollisionSound();
     }
 
-    /* play the floor switch sound when the floor starts to change */
     if (animationSteps == 10)
     {
         context.getSoundsManager().playFloorSwitchSound();
@@ -120,11 +137,8 @@ void StairsAnimation::playNextAnimationStep(
 
     if (animationSteps >= 10 && animationSteps < 25)
     {
-        /* change the transparency amount */
         cellsTransparency -= TRANSPARENCY_UPDATE_AMOUNT;
 
-        /* update the transparency of all the cells to create a smooth floor
-           closing effect */
         level->setCellsTransparency(
             context,
             cellsTransparency,
@@ -133,25 +147,18 @@ void StairsAnimation::playNextAnimationStep(
     }
     else if (animationSteps == 25)
     {
-        /* in order to animate the transition, we have to make all the next
-           floor cells not visible first */
         level->setCellsTransparency(
             context,
             0.f,
             floor + direction
         );
 
-        /* set the transformation variable, the next floor has to be displayed
-           now instead of the original one */
         transformation = direction;
     }
     else if (animationSteps >= 26 && animationSteps < 41)
     {
-        /* change the transparency amount */
         cellsTransparency += TRANSPARENCY_UPDATE_AMOUNT;
 
-        /* displays the cells of the next floor and progressively apply the
-           transparency */
         level->setCellsTransparency(
             context,
             cellsTransparency,
@@ -160,8 +167,6 @@ void StairsAnimation::playNextAnimationStep(
     }
     else if (animationSteps == 41)
     {
-        /* the cells of the previous floor have to be visible, even if we are
-           not on this floor anymore */
         level->setCellsTransparency(
             context,
             255.f,

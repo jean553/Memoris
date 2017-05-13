@@ -18,7 +18,7 @@
 
 /**
  * @file RotateFloorAnimation.hpp
- * @brief animation that rotates the floor on the left
+ * @brief rotates the floor on the left or on the right
  * @package animations
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -28,8 +28,6 @@
 
 #include "LevelAnimation.hpp"
 
-#include <memory>
-
 namespace memoris
 {
 namespace animations
@@ -37,71 +35,54 @@ namespace animations
 
 class RotateFloorAnimation : public LevelAnimation
 {
-    using Level = std::shared_ptr<entities::Level>;
 
 public:
 
     /**
-     * @brief constructor, called by the animations factory
+     * @brief constructor
      *
      * @param context the context to use
      * @param level the level of the animation
      * @param floor the floor index of the level
-     * @param movementDirection indicates if the movement is clockwise or not;
+     * @param direction indicates if the movement is clockwise or not;
      * usually contains 1 or -1
+     *
+     * NOTE: we use a signed integer for the direction and not an enumeration;
+     * it's more convenient as we directly use the integer value
+     * in order to update the transparency effect values
      */
     RotateFloorAnimation(
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor,
-        const short& movementDirection
-    ) noexcept;
+        const short& direction
+    );
 
     /**
-     * @brief default destructor, empty, only declared in order to use
-     * forwarding declaration
+     * @brief default destructor
      */
-    ~RotateFloorAnimation() noexcept;
+    ~RotateFloorAnimation();
 
     /**
-     * @brief public function called from the game controller; this function
-     * handles the time management (interval) of the animation and call the
-     * animation step incrementation method at each interval. This function is
-     * public because this is the only interface accessible from the game
-     * controller
+     * @brief renders the animation
      */
     void renderAnimation() & override;
 
 private:
 
     /**
-     * @brief protected virtual method that contains the animation flow with
-     * the different animation steps; it defines what does the animation
-     * according to the current animationSteps value; this method is protected
-     * because called by the renderAnimation function
+     * @brief executes action by jumping to the next animation step
      *
-     * @param context reference to the current context to use
-     * @param level shared pointer to the level to animate
-     * @param floor the current floor to display in the animation
+     * not noexcept because it calls SFML methods that are not noexcept
      */
-    void playNextAnimationStep(
-        const utils::Context& context,
-        const Level& level,
-        const unsigned short& floor
-    ) &;
+    void playNextAnimationStep() const &;
 
     /**
      * @brief rotate the cells of the floor on the left
      *
-     * @param context reference to the current context to use
-     * @param level shared pointer to the level to animate
-     * @param floor the current floor to display in the animation
+     * not noexcept because it calls SFML methods that are not noexcept
      */
-    void rotateCells(
-        const utils::Context& context,
-        const Level& level,
-        const unsigned short& floor
-    ) &;
+    void rotateCells() const &;
 
     class Impl;
     std::unique_ptr<Impl> impl;

@@ -129,11 +129,9 @@ protected:
     /**
      * @brief increments the animation step
      *
-     * not const because it modifies the animation step attribute
-     *
      * not noexcept because it calls SFML functions that are not noexcept
      */
-    void incrementAnimationStep() &;
+    void incrementAnimationStep() const &;
 
     /**
      * @brief moves the player on a new cell according to the updated player

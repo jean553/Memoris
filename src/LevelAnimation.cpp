@@ -145,7 +145,7 @@ void LevelAnimation::showOrHideCell(
 /**
  *
  */
-void LevelAnimation::incrementAnimationStep() &
+void LevelAnimation::incrementAnimationStep() const &
 {
     impl->animationSteps++;
 
