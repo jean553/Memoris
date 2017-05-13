@@ -18,9 +18,7 @@
 
 /**
  * @file DiagonalAnimation.hpp
- * @brief this animation inverts the top left corner cells with the
- * bottom right corner cells, and the bottom left corner cells with the top
- * right corner cells
+ * @brief animation that inverts corners
  * @package animations
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -29,8 +27,6 @@
 #define MEMORIS_DIAGONALANIMATION_H_
 
 #include "LevelAnimation.hpp"
-
-#include <SFML/Graphics/RectangleShape.hpp>
 
 namespace sf
 {
@@ -61,92 +57,69 @@ public:
     );
 
     /**
-     * @brief renders the animation, overrided from the parent class
+     * @brief default destructor
+     */
+    ~DiagonalAnimation();
+
+    /**
+     * @brief renders the animation
      */
     void renderAnimation() & override;
 
 private:
 
     /**
-     * @brief switch to the next step of the animation, overrided from the
-     * parent class
+     * @brief switch to the next step of the animation
      *
-     * @param level shared pointer to the level to animate
-     * @param floor the current floor to display in the animation
+     * not noexcept because it calls SFML methods that are not noexcept
      */
-    void playNextAnimationStep(
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) &;
+    void playNextAnimationStep() const &;
 
     /**
      * @brief display the given floor of the level and the two separators
-     * (both horizontal and vertical separators)
      *
-     * @param level shared pointer to the level to animate
-     * @param floor the current floor to display in the animation
+     * not noexcept because it calls SFML methods that are not noexcept
      */
-    void displayLevelAndSeparator(
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) &;
+    void displayLevelAndSeparator() const &;
 
     /**
-     * @brief applies the purple flashing on each side that will be inversed
-     * by the animation
+     * @brief applies the purple flashing on each side
      *
-     * @param level shared pointer to the level to animate
-     * @param floor the current floor to display in the animation
      * @param color the SFML color object to apply on the cells
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
      */
-    void applyPurpleColorOnCellsQuarters(
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor,
-        const sf::Color& color
-    ) &;
+    void applyPurpleColorOnCellsQuarters(const sf::Color& color) const &;
 
     /**
-     * @bried invert the cells of the top left corner with the cells of the
-     * bottom right corner
+     * @bried invert top left cells with bottom right cells
      *
-     * @param level shared pointer to the level to animate
-     * @param floor the current floor to display in the animation
+     * not noexcept because it calls SFML methods that are not noexcept
      */
-    void invertTopLeftWithBottomRight(
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) &;
+    void invertTopLeftWithBottomRight() const &;
 
     /**
-     * @brief invert the cells of the top right corner with the cells of the
-     * bottom left corner
+     * @brief invert bottom left cells with top right cells
      *
-     * @param level shared pointer to the level to animate
-     * @param floor the current floor to display in the animation
+     * not noexcept because it calls SFML methods that are not noexcept
      */
-    void invertBottomLeftWithTopRight(
-        const std::shared_ptr<entities::Level>& level,
-        const unsigned short& floor
-    ) &;
+    void invertBottomLeftWithTopRight() const &;
 
     /**
-     * @brief invert the cells of the top right corner with the cells of the
-     * bottom left corner
+     * @brief invert top right cells with bottom left cells
      *
-     * @param level shared pointer to the level to animate
-     * @param source the source cell index
-     * @param destination the difference to apply on the source cell to get
-     * the destination cell
+     * @param destination the delta to apply on the source cell
+     * in order to get the destination cell
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
      */
     void invertCells(
-        const std::shared_ptr<entities::Level>& level,
         const unsigned short& source,
         const short& difference
-    ) &;
+    ) const &;
 
-    /* the vertical and horizontal separators */
-    sf::RectangleShape verticalSeparator;
-    sf::RectangleShape horizontalSeparator;
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }
