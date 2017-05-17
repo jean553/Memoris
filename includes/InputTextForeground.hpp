@@ -77,6 +77,10 @@ public:
      * @return widgets::InputTextWidget&
      *
      * reference is not constant as it is updated in the main event loop
+     *
+     * this reference is used by client code to get the string contained
+     * into the widget; we work at the widget level and not at the string level
+     * because we use directly some useful methods of the widget (as isFull).
      */
     widgets::InputTextWidget& getInputTextWidget() const & noexcept;
 
