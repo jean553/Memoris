@@ -47,12 +47,10 @@ class MessageForeground : public AbstractForeground
 public:
 
     /**
-     * @brief constructor, initializes the implementation
+     * @brief constructor
      *
-     * @param context context to use
-     * @param message message to display
-     *
-     * not noexcept because it calls SFML methods that are not noexcept
+     * @param context the context to use
+     * @param message the message to display
      */
     MessageForeground(
         const utils::Context& context,
@@ -60,8 +58,7 @@ public:
     );
 
     /**
-     * @brief default destructor, declared in order to use forwarding
-     * declaration
+     * @brief default destructor
      */
     ~MessageForeground();
 
@@ -73,8 +70,6 @@ public:
     virtual void render() const & override final;
 
 private:
-
-    static constexpr float EXPLANATION_VERTICAL_POSITION {380.f};
 
     class Impl;
     std::unique_ptr<Impl> impl;
