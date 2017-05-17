@@ -148,11 +148,11 @@ const ControllerId& SerieEditorController::render() const &
 
     if (saveSerieForeground != nullptr)
     {
-        saveSerieForeground->render(context);
+        saveSerieForeground->render();
     }
     else if (newSerieForeground != nullptr)
     {
-        newSerieForeground->render(context);
+        newSerieForeground->render();
     }
     else
     {

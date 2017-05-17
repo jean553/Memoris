@@ -71,6 +71,7 @@ InputTextForeground::InputTextForeground(
     const utils::Context& context,
     const std::string&& message
 ) :
+    AbstractForeground(context),
     impl(
         std::make_unique<Impl>(
             context,
@@ -88,9 +89,9 @@ InputTextForeground::~InputTextForeground() noexcept = default;
 /**
  *
  */
-void InputTextForeground::render(const utils::Context& context) const &
+void InputTextForeground::render() const &
 {
-    context.getSfmlWindow().draw(impl->explanation);
+    getContext().getSfmlWindow().draw(impl->explanation);
 
     impl->inputTextLevelName.display();
 }

@@ -68,11 +68,9 @@ public:
     /**
      * @brief renders the foreground in front of the controller screen
      *
-     * @param context constant reference to the context to use
-     *
      * not noexcept because it calls SFML methods that are not noexcept
      */
-    void render(const utils::Context& context) const & override final;
+    void render() const & override final;
 
     /**
      * @brief getter of the input text widget that contains the level name

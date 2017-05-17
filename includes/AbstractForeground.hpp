@@ -26,6 +26,8 @@
 #ifndef MEMORIS_ABSTRACTFOREGROUND_H_
 #define MEMORIS_ABSTRACTFOREGROUND_H_
 
+#include <memory>
+
 namespace memoris
 {
 
@@ -43,18 +45,35 @@ class AbstractForeground
 protected:
 
     /**
+     * @brief constructor
+     *
+     * @param context the context to use
+     */
+    AbstractForeground(const utils::Context& context);
+
+    /**
      * @brief default destructor
      */
-    virtual ~AbstractForeground() = default;
+    virtual ~AbstractForeground();
+
+    /**
+     * @brief context getter
+     *
+     * @return const utils::Context&
+     */
+    const utils::Context& getContext() const & noexcept;
 
     /**
      * @brief renders the foreground in front of the controller screen
      *
-     * @param context the context to use
-     *
      * not noexcept because children will use SFML methods for sure
      */
-    virtual void render(const utils::Context& context) const & = 0;
+    virtual void render() const & = 0;
+
+private:
+
+    class Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 }

@@ -68,11 +68,9 @@ public:
     /**
      * @brief renders the foreground in front of the controller screen
      *
-     * @param context context to use
-     *
      * not noexcept because it calls SFML methods that are not noexcept
      */
-    virtual void render(const utils::Context& context) const & override final;
+    virtual void render() const & override final;
 
 private:
 
