@@ -18,7 +18,7 @@
 
 /**
  * @file InputTextForeground.hpp
- * @brief contains one text line widget to let the user inputs one level name
+ * @brief foreground with one input text widget
  * @package foregrounds
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -47,10 +47,10 @@ class InputTextForeground : public AbstractForeground
 public:
 
     /**
-     * @brief constructor, initializes the implementation
+     * @brief constructor
      *
-     * @param context constant reference to the context to use
-     * @param message constant rvalue reference to the message to display
+     * @param context the context to use
+     * @param message the message to display
      *
      * not noexcept because it calls SFML methods that are not noexcept
      */
@@ -60,10 +60,9 @@ public:
     );
 
     /**
-     * @brief default destructor, declared in order to use forwarding
-     * declaration
+     * @brief default destructor
      */
-    ~InputTextForeground() noexcept;
+    ~InputTextForeground();
 
     /**
      * @brief renders the foreground in front of the controller screen
@@ -77,8 +76,7 @@ public:
      *
      * @return widgets::InputTextWidget&
      *
-     * returned reference is not constant as it is updated in the main event
-     * loop
+     * reference is not constant as it is updated in the main event loop
      */
     widgets::InputTextWidget& getInputTextWidget() const & noexcept;
 

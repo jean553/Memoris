@@ -84,7 +84,7 @@ InputTextForeground::InputTextForeground(
 /**
  *
  */
-InputTextForeground::~InputTextForeground() noexcept = default;
+InputTextForeground::~InputTextForeground() = default;
 
 /**
  *
