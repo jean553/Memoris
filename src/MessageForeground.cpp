@@ -70,7 +70,7 @@ MessageForeground::MessageForeground(
     const utils::Context& context,
     const std::string&& message
 ) :
-    AbstractForeground(context),
+    AbstractForeground(context.getSfmlWindow()),
     impl(
         std::make_unique<Impl>(
             context,
@@ -90,7 +90,7 @@ MessageForeground::~MessageForeground() = default;
  */
 void MessageForeground::render() const &
 {
-    getContext().getSfmlWindow().draw(impl->explanation);
+    getWindow().draw(impl->explanation);
 }
 
 }
