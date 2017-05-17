@@ -211,11 +211,11 @@ const ControllerId& LevelEditorController::render() const &
 
     if (newLevelForeground != nullptr)
     {
-        newLevelForeground->render(context);
+        newLevelForeground->render();
     }
     else if (saveLevelForeground != nullptr)
     {
-        saveLevelForeground->render(context);
+        saveLevelForeground->render();
     }
     else
     {
