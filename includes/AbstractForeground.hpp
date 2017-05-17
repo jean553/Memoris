@@ -28,6 +28,11 @@
 
 #include <memory>
 
+namespace sf
+{
+class RenderWindow;
+}
+
 namespace memoris
 {
 
@@ -47,9 +52,9 @@ protected:
     /**
      * @brief constructor
      *
-     * @param context the context to use
+     * @param window the SFML window to use
      */
-    AbstractForeground(const utils::Context& context);
+    AbstractForeground(sf::RenderWindow& window);
 
     AbstractForeground(const AbstractForeground&) = delete;
 
@@ -63,9 +68,9 @@ protected:
     /**
      * @brief context getter
      *
-     * @return const utils::Context&
+     * @return sf::RenderWindow&
      */
-    const utils::Context& getContext() const & noexcept;
+    sf::RenderWindow& getWindow() const & noexcept;
 
     /**
      * @brief renders the foreground in front of the controller screen

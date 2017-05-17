@@ -34,19 +34,19 @@ class AbstractForeground::Impl
 
 public:
 
-    Impl(const utils::Context& context) :
-        context(context)
+    Impl(sf::RenderWindow& window) :
+        window(window)
     {
     }
 
-    const utils::Context& context;
+    sf::RenderWindow& window;
 };
 
 /**
  *
  */
-AbstractForeground::AbstractForeground(const utils::Context& context) :
-    impl(std::make_unique<Impl>(context))
+AbstractForeground::AbstractForeground(sf::RenderWindow& window) :
+    impl(std::make_unique<Impl>(window))
 {
 }
 
@@ -58,9 +58,9 @@ AbstractForeground::~AbstractForeground() = default;
 /**
  *
  */
-const utils::Context& AbstractForeground::getContext() const & noexcept
+sf::RenderWindow& AbstractForeground::getWindow() const & noexcept
 {
-    return impl->context;
+    return impl->window;
 }
 
 }
