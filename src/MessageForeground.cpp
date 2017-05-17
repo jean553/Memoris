@@ -38,8 +38,6 @@ namespace memoris
 namespace foregrounds
 {
 
-constexpr float MessageForeground::EXPLANATION_VERTICAL_POSITION;
-
 class MessageForeground::Impl
 {
 
@@ -54,6 +52,8 @@ public:
         explanation.setString(message);
         explanation.setCharacterSize(memoris::sizes::TEXT_SIZE);
         explanation.setFillColor(context.getColorsManager().getColorWhite());
+
+        constexpr float EXPLANATION_VERTICAL_POSITION {380.f};
         explanation.setPosition(
             window::getCenteredTextHorizontalPosition(explanation),
             EXPLANATION_VERTICAL_POSITION

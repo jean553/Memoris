@@ -51,6 +51,10 @@ protected:
      */
     AbstractForeground(const utils::Context& context);
 
+    AbstractForeground(const AbstractForeground&) = delete;
+
+    AbstractForeground& operator=(const AbstractForeground&) = delete;
+
     /**
      * @brief default destructor
      */
