@@ -27,7 +27,6 @@
 #include "Context.hpp"
 
 #include <SFML/Graphics/Sprite.hpp>
-#include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
 namespace memoris
@@ -42,14 +41,14 @@ public:
 
     Impl(
         const sf::Texture& texture,
-        const float& hPosition,
-        const float& vPosition
+        const float& horizontalPosition,
+        const float& verticalPosition
     )
     {
         sprite.setTexture(texture);
         sprite.setPosition(
-            hPosition,
-            vPosition
+            horizontalPosition,
+            verticalPosition
         );
     }
 
@@ -65,14 +64,14 @@ public:
  */
 PickUpEffect::PickUpEffect(
     const sf::Texture& texture,
-    const float& hPosition,
-    const float& vPosition
+    const float& horizontalPosition,
+    const float& verticalPosition
 ) :
     impl(
         std::make_unique<Impl>(
             texture,
-            hPosition,
-            vPosition
+            horizontalPosition,
+            verticalPosition
         )
     )
 {
@@ -81,31 +80,34 @@ PickUpEffect::PickUpEffect(
 /**
  *
  */
-PickUpEffect::~PickUpEffect() noexcept = default;
+PickUpEffect::~PickUpEffect() = default;
 
 /**
  *
  */
-void PickUpEffect::render(const utils::Context& context) &
+void PickUpEffect::render(const utils::Context& context) const &
 {
     context.getSfmlWindow().draw(impl->sprite);
 
+    constexpr sf::Uint32 ANIMATION_INTERVAL {50};
     if (
         context.getClockMillisecondsTime() -
-        impl->animationLastUpdateTime < 50
+        impl->animationLastUpdateTime < ANIMATION_INTERVAL
     )
     {
         return;
     }
 
+    constexpr float MOVEMENT_STEP {-1.f};
     impl->sprite.move(
-        -1.f,
-        -1.f
+        MOVEMENT_STEP,
+        MOVEMENT_STEP
     );
 
+    constexpr float SCALE_STEP {1.05f};
     impl->sprite.scale(
-        1.05f,
-        1.05f
+        SCALE_STEP,
+        SCALE_STEP
     );
 
     impl->sprite.setColor(
@@ -117,7 +119,8 @@ void PickUpEffect::render(const utils::Context& context) &
         )
     );
 
-    impl->alpha -= 17;
+    constexpr sf::Uint8 ALPHA_STEP {17};
+    impl->alpha -= ALPHA_STEP;
 
     impl->animationLastUpdateTime = context.getClockMillisecondsTime();
 }
