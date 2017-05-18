@@ -38,11 +38,11 @@
 #include "WinLevelEndingScreen.hpp"
 #include "LoseLevelEndingScreen.hpp"
 #include "WatchingTimer.hpp"
-#include "PickUpEffectsManager.hpp"
 #include "TexturesManager.hpp"
 #include "Level.hpp"
 #include "EditingLevelManager.hpp"
 #include "Cell.hpp"
+#include "PickUpEffect.hpp"
 
 #include "HorizontalMirrorAnimation.hpp"
 #include "VerticalMirrorAnimation.hpp"
@@ -116,7 +116,7 @@ public:
 
     utils::GameDashboard dashboard;
 
-    utils::PickUpEffectsManager pickUpEffectsManager;
+    std::vector<std::unique_ptr<utils::PickUpEffect>> effects;
 
     const sf::Text& timerText;
 };
@@ -320,7 +320,15 @@ const ControllerId& GameController::render() const &
         impl->lastWatchingTimeUpdate = context.getClockMillisecondsTime();
     }
 
-    impl->pickUpEffectsManager.renderAllEffects(context);
+    for (auto& effect : impl->effects)
+    {
+        if (effect->isFinished())
+        {
+            continue;
+        }
+
+        effect->render(context);
+    }
 
     if(
         impl->dashboard.getTimerWidget().isFinished() and
@@ -476,10 +484,12 @@ void GameController::executePlayerCellAction(
 
         impl->dashboard.incrementFoundStars();
 
-        impl->pickUpEffectsManager.addPickUpEffect(
-            context.getTexturesManager().getStarTexture(),
-            impl->level->getPlayerCellHorizontalPosition(),
-            impl->level->getPlayerCellVerticalPosition()
+        impl->effects.push_back(
+            std::make_unique<utils::PickUpEffect>(
+                context.getTexturesManager().getStarTexture(),
+                impl->level->getPlayerCellHorizontalPosition(),
+                impl->level->getPlayerCellVerticalPosition()
+            )
         );
 
         break;
