@@ -18,8 +18,7 @@
 
 /**
  * @file PickUpEffect.hpp
- * @brief animated effect that is rendered during the game when an item is
- * found (star, bonus... etc...)
+ * @brief animation of a cell when the player moves to it
  * @package utils
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -47,38 +46,38 @@ class PickUpEffect
 public:
 
     /**
-     * @brief constructor, initializes the implementation
+     * @brief constructor
      *
-     * @param texture constant reference to the texture to display
-     * @param hPosition horizontal position of the animation
-     * @param vPosition vertical position of the animation
+     * @param texture the texture to animate
+     * @param horizontalPosition the horizontal position of the animation
+     * @param verticalPosition the vertical position of the animation
      *
-     * @throw std::bad_alloc the implementation unique pointer cannot be
-     * created
+     * @throw std::bad_alloc cannot initialize the implementation;
+     * this exception is never caught and the program stops
      */
     PickUpEffect(
         const sf::Texture& texture,
-        const float& hPosition,
-        const float& vPosition
+        const float& horizontalPosition,
+        const float& verticalPosition
     );
 
+    PickUpEffect(const PickUpEffect&) = delete;
+
+    PickUpEffect& operator=(const PickUpEffect&) = delete;
+
     /**
-     * @brief default destructor, empty, only declared in order to use
-     * forwarding declaration
+     * @brief default destructor
      */
-    ~PickUpEffect() noexcept;
+    ~PickUpEffect();
 
     /**
      * @brief renders the current pick up effect
      *
-     * @param context constant reference to the current context to use
+     * @param context the context to use
      *
-     * not 'const' because it modifies the animation properties (position,
-     * size and transparency)
-     *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
+     * not noexcept because it calls SFML methods that are not noexcept
      */
-    void render(const utils::Context& context) &;
+    void render(const utils::Context& context) const &;
 
     /**
      * @brief getter of the current effect animation status
