@@ -40,6 +40,7 @@
 #include "InputTextForeground.hpp"
 #include "SelectionListWidget.hpp"
 #include "PlayingSerieManager.hpp"
+#include "cells.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 
@@ -222,7 +223,7 @@ const ControllerId& LevelEditorController::render() const &
         const auto& cursorPosition = impl->cursor.getPosition();
         impl->dashboard.display(cursorPosition);
 
-        impl->selector.display(context);
+        impl->selector.display();
 
         level->display(
             context,
@@ -465,7 +466,16 @@ const ControllerId& LevelEditorController::render() const &
             }
             }
 
-            impl->selector.selectCell(context);
+            const auto& selector = impl->selector;
+            const auto mouseHoverCellType = selector.getMouseHoverCellType();
+
+            if (
+                selector.getSelectedCellType() != mouseHoverCellType and
+                mouseHoverCellType != cells::NO_CELL
+            )
+            {
+                impl->selector.selectCell(mouseHoverCellType);
+            }
 
             if(
                 level->updateSelectedCellType(
