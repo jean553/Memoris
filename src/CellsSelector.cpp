@@ -39,6 +39,7 @@ class CellsSelector::Impl
 public:
 
     Impl(const utils::Context& context) :
+        context(context),
         emptyCell(
             context,
             150.f,
@@ -159,7 +160,16 @@ public:
                 cells::EMPTY_CELL
             )
         );
+
+        constexpr float SELECTED_CELL_IMAGE_HORIZONTAL_POSITION {150.f};
+        constexpr float SELECTED_CELL_IMAGE_VERTICAL_POSITION {10.f};
+        selectedCellImage.setPosition(
+            SELECTED_CELL_IMAGE_HORIZONTAL_POSITION,
+            SELECTED_CELL_IMAGE_VERTICAL_POSITION
+        );
     }
+
+    const utils::Context& context;
 
     entities::Cell emptyCell;
     entities::Cell departureCell;
@@ -192,22 +202,20 @@ public:
 CellsSelector::CellsSelector(const utils::Context& context) :
     impl(std::make_unique<Impl>(context))
 {
-    impl->selectedCellImage.setPosition(
-        150.f,
-        10.f
-    );
 }
 
 /**
  *
  */
-CellsSelector::~CellsSelector() noexcept = default;
+CellsSelector::~CellsSelector() = default;
 
 /**
  *
  */
-void CellsSelector::display(const utils::Context& context) &
+void CellsSelector::display() const &
 {
+    const auto& context = impl->context;
+
     impl->emptyCell.displayWithMouseHover(context);
     impl->departureCell.displayWithMouseHover(context);
     impl->arrivalCell.displayWithMouseHover(context);
@@ -234,198 +242,15 @@ void CellsSelector::display(const utils::Context& context) &
 /**
  *
  */
-void CellsSelector::selectCell(const utils::Context& context) &
+void CellsSelector::selectCell(const char& selectedCellType) const &
 {
-    if (impl->emptyCell.isMouseHover())
-    {
-        impl->selectedCellImage.setTexture(
-            context.getCellsTexturesManager().getTextureReferenceByCellType(
-                cells::EMPTY_CELL
-            )
-        );
+    impl->selectedCellImage.setTexture(
+        impl->context.getCellsTexturesManager().getTextureReferenceByCellType(
+            selectedCellType
+        )
+    );
 
-        impl->selectedCellType = cells::EMPTY_CELL;
-    }
-    else if (impl->departureCell.isMouseHover())
-    {
-        impl->selectedCellImage.setTexture(
-            context.getCellsTexturesManager().getTextureReferenceByCellType(
-                cells::DEPARTURE_CELL
-            )
-        );
-
-        impl->selectedCellType = cells::DEPARTURE_CELL;
-    }
-    else if (impl->arrivalCell.isMouseHover())
-    {
-        impl->selectedCellImage.setTexture(
-            context.getCellsTexturesManager().getTextureReferenceByCellType(
-                cells::ARRIVAL_CELL
-            )
-        );
-
-        impl->selectedCellType = cells::ARRIVAL_CELL;
-    }
-    else if (impl->starCell.isMouseHover())
-    {
-        impl->selectedCellImage.setTexture(
-            context.getCellsTexturesManager().getTextureReferenceByCellType(
-                cells::STAR_CELL
-            )
-        );
-
-        impl->selectedCellType = cells::STAR_CELL;
-    }
-    else if (impl->moreLifeCell.isMouseHover())
-    {
-        impl->selectedCellImage.setTexture(
-            context.getCellsTexturesManager().getTextureReferenceByCellType(
-                cells::MORE_LIFE_CELL
-            )
-        );
-
-        impl->selectedCellType = cells::MORE_LIFE_CELL;
-    }
-    else if (impl->lessLifeCell.isMouseHover())
-    {
-        impl->selectedCellImage.setTexture(
-            context.getCellsTexturesManager().getTextureReferenceByCellType(
-                cells::LESS_LIFE_CELL
-            )
-        );
-
-        impl->selectedCellType = cells::LESS_LIFE_CELL;
-    }
-    else if (impl->moreTimeCell.isMouseHover())
-    {
-        impl->selectedCellImage.setTexture(
-            context.getCellsTexturesManager().getTextureReferenceByCellType(
-                cells::MORE_TIME_CELL
-            )
-        );
-
-        impl->selectedCellType = cells::MORE_TIME_CELL;
-    }
-    else if (impl->lessTimeCell.isMouseHover())
-    {
-        impl->selectedCellImage.setTexture(
-            context.getCellsTexturesManager().getTextureReferenceByCellType(
-                cells::LESS_TIME_CELL
-            )
-        );
-
-        impl->selectedCellType = cells::LESS_TIME_CELL;
-    }
-    else if (impl->wallCell.isMouseHover())
-    {
-        impl->selectedCellImage.setTexture(
-            context.getCellsTexturesManager().getTextureReferenceByCellType(
-                cells::WALL_CELL
-            )
-        );
-
-        impl->selectedCellType = cells::WALL_CELL;
-    }
-    else if (impl->stairsUpCell.isMouseHover())
-    {
-        impl->selectedCellImage.setTexture(
-            context.getCellsTexturesManager().getTextureReferenceByCellType(
-                cells::STAIRS_UP_CELL
-            )
-        );
-
-        impl->selectedCellType = cells::STAIRS_UP_CELL;
-    }
-    else if (impl->stairsDownCell.isMouseHover())
-    {
-        impl->selectedCellImage.setTexture(
-            context.getCellsTexturesManager().getTextureReferenceByCellType(
-                cells::STAIRS_DOWN_CELL
-            )
-        );
-
-        impl->selectedCellType = cells::STAIRS_DOWN_CELL;
-    }
-    else if (impl->horizontalMirrorCell.isMouseHover())
-    {
-        impl->selectedCellImage.setTexture(
-            context.getCellsTexturesManager().getTextureReferenceByCellType(
-                cells::HORIZONTAL_MIRROR_CELL
-            )
-        );
-
-        impl->selectedCellType = cells::HORIZONTAL_MIRROR_CELL;
-    }
-    else if (impl->verticalMirrorCell.isMouseHover())
-    {
-        impl->selectedCellImage.setTexture(
-            context.getCellsTexturesManager().getTextureReferenceByCellType(
-                cells::VERTICAL_MIRROR_CELL
-            )
-        );
-
-        impl->selectedCellType = cells::VERTICAL_MIRROR_CELL;
-    }
-    else if (impl->leftRotationCell.isMouseHover())
-    {
-        impl->selectedCellImage.setTexture(
-            context.getCellsTexturesManager().getTextureReferenceByCellType(
-                cells::LEFT_ROTATION_CELL
-            )
-        );
-
-        impl->selectedCellType = cells::LEFT_ROTATION_CELL;
-    }
-    else if (impl->rightRotationCell.isMouseHover())
-    {
-        impl->selectedCellImage.setTexture(
-            context.getCellsTexturesManager().getTextureReferenceByCellType(
-                cells::RIGHT_ROTATION_CELL
-            )
-        );
-
-        impl->selectedCellType = cells::RIGHT_ROTATION_CELL;
-    }
-    else if (impl->elevatorUpCell.isMouseHover())
-    {
-        impl->selectedCellImage.setTexture(
-            context.getCellsTexturesManager().getTextureReferenceByCellType(
-                cells::ELEVATOR_UP_CELL
-            )
-        );
-
-        impl->selectedCellType = cells::ELEVATOR_UP_CELL;
-    }
-    else if (impl->elevatorDownCell.isMouseHover())
-    {
-        impl->selectedCellImage.setTexture(
-            context.getCellsTexturesManager().getTextureReferenceByCellType(
-                cells::ELEVATOR_DOWN_CELL
-            )
-        );
-
-        impl->selectedCellType = cells::ELEVATOR_DOWN_CELL;
-    }
-    else if (impl->diagonalCell.isMouseHover())
-    {
-        impl->selectedCellImage.setTexture(
-            context.getCellsTexturesManager().getTextureReferenceByCellType(
-                cells::DIAGONAL_CELL
-            )
-        );
-
-        impl->selectedCellType = cells::DIAGONAL_CELL;
-    }
-    else if (impl->quarterRotationCell.isMouseHover())
-    {
-        impl->selectedCellImage.setTexture(
-            context.getCellsTexturesManager().getTextureReferenceByCellType(
-                cells::QUARTER_ROTATION_CELL
-            )
-        );
-
-        impl->selectedCellType = cells::QUARTER_ROTATION_CELL;
-    }
+    impl->selectedCellType = selectedCellType;
 }
 
 /**
@@ -434,6 +259,91 @@ void CellsSelector::selectCell(const utils::Context& context) &
 const char& CellsSelector::getSelectedCellType() const & noexcept
 {
     return impl->selectedCellType;
+}
+
+/**
+ *
+ */
+const char CellsSelector::getMouseHoverCellType() const &
+{
+    if (impl->emptyCell.isMouseHover())
+    {
+        return cells::EMPTY_CELL;
+    }
+    else if (impl->departureCell.isMouseHover())
+    {
+        return cells::DEPARTURE_CELL;
+    }
+    else if (impl->arrivalCell.isMouseHover())
+    {
+        return cells::ARRIVAL_CELL;
+    }
+    else if (impl->starCell.isMouseHover())
+    {
+        return cells::STAR_CELL;
+    }
+    else if (impl->moreLifeCell.isMouseHover())
+    {
+        return cells::MORE_LIFE_CELL;
+    }
+    else if (impl->lessLifeCell.isMouseHover())
+    {
+        return cells::LESS_LIFE_CELL;
+    }
+    else if (impl->moreTimeCell.isMouseHover())
+    {
+        return cells::MORE_TIME_CELL;
+    }
+    else if (impl->lessTimeCell.isMouseHover())
+    {
+        return cells::LESS_TIME_CELL;
+    }
+    else if (impl->wallCell.isMouseHover())
+    {
+        return cells::WALL_CELL;
+    }
+    else if (impl->stairsUpCell.isMouseHover())
+    {
+        return cells::STAIRS_UP_CELL;
+    }
+    else if (impl->stairsDownCell.isMouseHover())
+    {
+        return cells::STAIRS_DOWN_CELL;
+    }
+    else if (impl->horizontalMirrorCell.isMouseHover())
+    {
+        return cells::HORIZONTAL_MIRROR_CELL;
+    }
+    else if (impl->verticalMirrorCell.isMouseHover())
+    {
+        return cells::VERTICAL_MIRROR_CELL;
+    }
+    else if (impl->leftRotationCell.isMouseHover())
+    {
+        return cells::LEFT_ROTATION_CELL;
+    }
+    else if (impl->rightRotationCell.isMouseHover())
+    {
+        return cells::RIGHT_ROTATION_CELL;
+    }
+    else if (impl->elevatorUpCell.isMouseHover())
+    {
+        return cells::ELEVATOR_UP_CELL;
+    }
+    else if (impl->elevatorDownCell.isMouseHover())
+    {
+        return cells::ELEVATOR_DOWN_CELL;
+    }
+    else if (impl->diagonalCell.isMouseHover())
+    {
+        return cells::DIAGONAL_CELL;
+    }
+    else if (impl->quarterRotationCell.isMouseHover())
+    {
+        return cells::QUARTER_ROTATION_CELL;
+    }
+
+    return cells::NO_CELL;
 }
 
 }

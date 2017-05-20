@@ -41,45 +41,32 @@ class CellsSelector
 public:
 
     /**
-     * @brief constructor, loads the textures from the textures manager to
-     * create the sprites (this is done by the initialized implementation)
+     * @brief constructor
      *
-     * @param context reference to the current context to use
-     *
-     * not 'noexcept' because it calls SFML functions that are not noexcept
+     * @param context the context to use
      */
     CellsSelector(const utils::Context& context);
 
     /**
-     * @brief default destructor, empty, only used in order to use forwarding
-     * declaration
+     * @brief default destructor
      */
-    ~CellsSelector() noexcept;
+    ~CellsSelector();
 
     /**
      * @brief displays the cells selector
      *
-     * @param context constant reference to the current context to use
-     *
-     * not 'const' because it modifies the cells color if the mouse is hover
-     *
-     * not 'noexcept' because it calls SFML functions that are not noexcept
+     * not noexcept because it calls SFML functions that are not noexcept
      */
-    void display(const utils::Context& context) &;
+    void display() const &;
 
     /**
-     * @brief check if the mouse is hover a cell and set the current selected
-     * type with this cell type; optimized because the research stops when the
-     * concerned cell is found; this method should be called by the level
-     * editor
+     * @brief checks if the mouse is hover a cell and selects it
      *
-     * @param context reference to the current context to use
+     * @param selectedCellType the selected cell type to apply
      *
-     * not 'const' because it modifies the selected cell type and image
-     *
-     * not 'noexcept' because it calls SFML functions that are not noexcept
+     * not noexcept because it calls SFML functions that are not noexcept
      */
-    void selectCell(const utils::Context& context) &;
+    void selectCell(const char& selectedCellType) const &;
 
     /**
      * @brief getter of the selected cell type
@@ -87,6 +74,13 @@ public:
      * @return const char&
      */
     const char& getSelectedCellType() const & noexcept;
+
+    /**
+     * @brief getter of the mouse hover cell type
+     *
+     * @return const char
+     */
+    const char getMouseHoverCellType() const &;
 
 private:
 

@@ -53,6 +53,8 @@ constexpr char ELEVATOR_DOWN_CELL {'V'};
 constexpr char QUARTER_ROTATION_CELL {'q'};
 constexpr char INVERTED_QUARTER_ROTATION_CELL {'Q'};
 
+constexpr char NO_CELL {' '};
+
 }
 }
 
