@@ -47,10 +47,18 @@ class GameDashboard::Impl
 
 public:
 
-    Impl(const utils::Context& context) :
+    Impl(
+        const utils::Context& context,
+        const unsigned short& minutes,
+        const unsigned short& seconds
+    ) :
         window(context.getSfmlWindow()),
         separators(context),
-        timer(context)
+        timer(
+            context,
+            minutes,
+            seconds
+        )
     {
         foundStarsAmount.setString("0");
         target.setString("0");
@@ -152,8 +160,18 @@ public:
 /**
  *
  */
-GameDashboard::GameDashboard(const utils::Context& context) :
-    impl(std::make_unique<Impl>(context))
+GameDashboard::GameDashboard(
+    const utils::Context& context,
+    const unsigned short& minutes,
+    const unsigned short& seconds
+) :
+    impl(
+        std::make_unique<Impl>(
+            context,
+            minutes,
+            seconds
+        )
+    )
 {
     /* we set the positions of the text surfaces in this class constructor
        and not in the implementation constructor; in fact, the method

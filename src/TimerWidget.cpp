@@ -28,7 +28,6 @@
 #include "Context.hpp"
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
-#include "PlayingSerieManager.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -43,7 +42,14 @@ class TimerWidget::Impl
 
 public:
 
-    Impl(const utils::Context& context)
+    Impl(
+        const utils::Context& context,
+        const unsigned short& minutes,
+        const unsigned short& seconds
+    ) :
+        window(context.getSfmlWindow()),
+        minutes(minutes),
+        seconds(seconds)
     {
         text.setFont(context.getFontsManager().getTextFont());
         text.setCharacterSize(sizes::TEXT_SIZE);
@@ -57,15 +63,14 @@ public:
         );
     }
 
+    sf::RenderWindow& window;
+
     sf::Uint32 lastTimerUpdateTime {0};
 
     sf::Text text;
 
-    /* NOTE: we do not work with milliseconds, we do not display milliseconds;
-       using milliseconds, the time step is too small and we cannot measure it
-       properly */
-    unsigned short minutes {0};
-    unsigned short seconds {0};
+    unsigned short minutes;
+    unsigned short seconds;
 
     bool started {false};
     bool finished {false};
@@ -74,8 +79,18 @@ public:
 /**
  *
  */
-TimerWidget::TimerWidget(const utils::Context& context) : 
-    impl(std::make_unique<Impl>(context))
+TimerWidget::TimerWidget(
+    const utils::Context& context,
+    const unsigned short& minutes,
+    const unsigned short& seconds
+) : 
+    impl(
+        std::make_unique<Impl>(
+            context,
+            minutes,
+            seconds
+        )
+    )
 {
     updateDisplayedString();
 }
@@ -104,6 +119,8 @@ void TimerWidget::render() const &
         else
         {
             minutes--;
+
+            constexpr unsigned short FIRST_SECOND_IN_MINUTE {59};
             seconds = FIRST_SECOND_IN_MINUTE;
         }
     }
@@ -118,22 +135,39 @@ void TimerWidget::render() const &
 /**
  *
  */
+void TimerWidget::display() const &
+{
+    impl->window.draw(impl->text);
+}
+
+/**
+ *
+ */
+void TimerWidget::setStarted(const bool& started) const & noexcept
+{
+    impl->started = started;
+}
+
+/**
+ *
+ */
+const bool& TimerWidget::isFinished() const & noexcept
+{
+    return impl->finished;
+}
+
+/**
+ *
+ */
 void TimerWidget::updateDisplayedString() const &
 {
     auto& seconds = impl->seconds;
     auto& minutes = impl->minutes;
 
-    /* declare the SFML strings; call sf::String(const std::string&) for each
-       SFML string creation; that's why we convert the unsigned long into
-       a std::string in the rvalue, to get a string */
-    sf::String secondsString = std::to_string(seconds),
-               minutesString = std::to_string(minutes);
-
-    /* NOTE: sf::String also define a insert() method that applies the
-       std::string insert() function on m_string; m_string is the internal
-       string of the wrapper sf::String, type is std::basic_string<Uint32>
-       ( basic string containing unsigned integers of 32 bits long, std::string
-       is a typedef for a specialization of that class template for char ) */
+    /* conversion of the numeric values
+       to std::string and then to sf::String */
+    sf::String secondsString = std::to_string(seconds);
+    sf::String minutesString = std::to_string(minutes);
 
     if (seconds < 10)
     {
@@ -146,52 +180,6 @@ void TimerWidget::updateDisplayedString() const &
     }
 
     impl->text.setString(minutesString + " : " + secondsString);
-}
-
-/**
- *
- */
-void TimerWidget::stop() const & noexcept
-{
-    impl->started = false;
-}
-
-/**
- *
- */
-void TimerWidget::start() const & noexcept
-{
-    impl->started = true;
-}
-
-/**
- *
- */
-void TimerWidget::setMinutesAndSeconds(
-    const unsigned short& minutesAmount,
-    const unsigned short& secondsAmount
-) const &
-{
-    impl->minutes = minutesAmount;
-    impl->seconds = secondsAmount;
-
-    updateDisplayedString();
-}
-
-/**
- *
- */
-const bool& TimerWidget::isFinished() const &
-{
-    return impl->finished;
-}
-
-/**
- *
- */
-const sf::Text& TimerWidget::getTextSurface() const & noexcept
-{
-    return impl->text;
 }
 
 }

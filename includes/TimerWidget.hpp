@@ -18,8 +18,7 @@
 
 /**
  * @file TimerWidget.hpp
- * @brief a graphical timer widget; used inside the game controller to display
- * the time
+ * @brief displays the time during the game
  * @package widgets
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -28,11 +27,6 @@
 #define MEMORIS_TIMERWIDGET_H_
 
 #include <memory>
-
-namespace sf
-{
-class Text;
-}
 
 namespace memoris
 {
@@ -51,81 +45,61 @@ class TimerWidget
 public:
 
     /**
-     * @brief constructor, set the timer positions
+     * @brief constructor
      *
-     * @param context reference to the current context
+     * @param context the current context
+     * @param minutes default displayed minutes value
+     * @param seconds default displayed seconds value
      */
-    TimerWidget(const utils::Context& context);
+    TimerWidget(
+        const utils::Context& context,
+        const unsigned short& minutes,
+        const unsigned short& seconds
+    );
+
+    TimerWidget(const TimerWidget&) = delete;
+
+    TimerWidget& operator=(const TimerWidget&) = delete;
 
     /**
-     * @brief default destructor, empty, only declared in order to use
-     * forwarding declaration
-     *
-     * a destructor cannot be const
-     *
-     * no noexcept here, default destructors are noexcept
+     * @brief default destructor
      */
     ~TimerWidget();
 
     /**
-     * @brief changes the value of the timer widget; this method is executed
-     * only if the played level is not an edited one
+     * @brief updates the value of the timer widget
+     *
+     * not noexcept because this method uses SFML methods that are not noexcept
      */
     void render() const &;
 
     /**
-     * @brief public method to stop the timer, used by the game controller to
-     * stop the timer when the lose period starts
-     */
-    void stop() const & noexcept;
-
-    /**
-     * @brief public method to start the timer, used by the game controller to
-     * start the timer when the watching period is finished
-     */
-    void start() const & noexcept;
-
-    /**
-     * @brief setter of the minutes and seconds amount to display; the function
-     * is a setter for the minutes and seconds attributes but also updates the
-     * SFML surfaces that displays the countdown
+     * @brief displays the timer widget string
      *
-     * @param minutesAmount the amount of minutes to set
-     * @param secondsAmount the amount of seconds to set
+     * not noexcept because this method uses SFML methods that are not noexcept
      */
-    void setMinutesAndSeconds(
-        const unsigned short& minutesAmount,
-        const unsigned short& secondsAmount
-    ) const &;
+    void display() const &;
 
     /**
-     * @brief getter used by the game controller to know if the countdown
-     * is finished
+     * @brief setter to start or stop the timer
+     *
+     * @param bool true to start, false to stop
+     */
+    void setStarted(const bool& started) const & noexcept;
+
+    /**
+     * @brief getter to know if the countdown is finished
      *
      * @return const bool&
      */
-    const bool& isFinished() const &;
-
-    /**
-     * @brief the SFML surface that displays the text is the only displayed
-     * attribute of the widget; so we provides a direct access to its
-     * reference in order to save a reference in a controller (it avoids
-     * to create a functions call tree)
-     *
-     * @return const sf::Text&
-     */
-    const sf::Text& getTextSurface() const & noexcept;
+    const bool& isFinished() const & noexcept;
 
 private:
 
-    static constexpr unsigned short ONE_SECOND {1000};
-    static constexpr unsigned short FIRST_SECOND_IN_MINUTE {59};
-
     /**
-     * @brief update the displayed timer string; add a 0 to second or minute
-     * value if it contains only one digit to make a better graphical effect
+     * @brief formats the time displayed string (MM:SS format)
      *
-     * not noexcept because some SFML methods are not noexcept
+     * not noexcept because it calls some SFML methods that are not noexcept
      */
     void updateDisplayedString() const &;
 

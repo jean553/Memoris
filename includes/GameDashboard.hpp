@@ -56,8 +56,14 @@ public:
      * @brief constructor
      *
      * @param context the current context
+     * @param minutes the default minutes amount of the countdown
+     * @param seconds the default seconds amount of the countdown
      */
-    GameDashboard(const utils::Context& context);
+    GameDashboard(
+        const utils::Context& context,
+        const unsigned short& minutes,
+        const unsigned short& seconds
+    );
 
     /**
      * @brief default destructor, empty, only declared 
