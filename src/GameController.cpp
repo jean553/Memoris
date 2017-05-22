@@ -74,8 +74,11 @@ public:
         watchLevel(watchLevel),
         level(levelPtr),
         watchingTimer(context),
-        dashboard(context),
-        timerText(dashboard.getTimerWidget().getTextSurface())
+        dashboard(
+            context,
+            levelPtr->getMinutes(),
+            levelPtr->getSeconds()
+        )
     {
     }
 
@@ -117,8 +120,6 @@ public:
     utils::GameDashboard dashboard;
 
     std::vector<std::unique_ptr<utils::PickUpEffect>> effects;
-
-    const sf::Text& timerText;
 };
 
 /**
@@ -151,11 +152,6 @@ GameController::GameController(
     impl->displayedWatchingTime = playingSerieManager.getWatchingTime();
 
     impl->watchingTimer.setValue(impl->displayedWatchingTime);
-
-    impl->dashboard.getTimerWidget().setMinutesAndSeconds(
-        level->getMinutes(),
-        level->getSeconds()
-    );
 
     if (not watchLevel)
     {
@@ -217,7 +213,7 @@ const ControllerId& GameController::render() const &
         lastTimerUpdateTime = context.getClockMillisecondsTime();
     }
 
-    context.getSfmlWindow().draw(impl->timerText);
+    timerWidget.display();
 
     if (impl->level->getAnimateFloorTransition())
     {
@@ -691,7 +687,7 @@ void GameController::watchNextFloorOrHideLevel(
 
     impl->dashboard.updateCurrentFloor(impl->floor);
 
-    impl->dashboard.getTimerWidget().start();
+    impl->dashboard.getTimerWidget().setStarted(true);
 }
 
 /**
@@ -726,7 +722,7 @@ void GameController::endLevel(const utils::Context& context) const &
             std::make_unique<utils::LoseLevelEndingScreen>(context);
     }
 
-    impl->dashboard.getTimerWidget().stop();
+    impl->dashboard.getTimerWidget().setStarted(false);
 
     impl->endPeriodStartTime = context.getClockMillisecondsTime();
 }
