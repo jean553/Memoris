@@ -56,14 +56,10 @@ public:
      * @brief constructor
      *
      * @param context the current context
-     * @param minutes the default minutes amount of the countdown
-     * @param seconds the default seconds amount of the countdown
      * @param totalStarsAmount the total stars amount to display
      */
     GameDashboard(
         const utils::Context& context,
-        const unsigned short& minutes,
-        const unsigned short& seconds,
         const unsigned short& totalStarsAmount
     );
 
@@ -147,17 +143,6 @@ public:
      * call SFML functions that are not noexcept
      */
     void updateCurrentFloor(const unsigned short& floorIndex) const &;
-
-    /**
-     * @brief getter for the timer widget
-     *
-     * @return widgets::TimerWidget&
-     *
-     * the returned value is not constant as the game controller modifies it
-     *
-     * TODO: the timer widget should not be part of the dashboard
-     */
-    widgets::TimerWidget& getTimerWidget() const & noexcept;
 
 private:
 
