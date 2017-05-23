@@ -42,6 +42,8 @@ namespace memoris
 namespace utils
 {
 
+constexpr unsigned short WATCHING_TIME_UPDATE_STEP {3};
+
 class GameDashboard::Impl
 {
 
@@ -163,7 +165,8 @@ public:
 GameDashboard::GameDashboard(
     const utils::Context& context,
     const unsigned short& minutes,
-    const unsigned short& seconds
+    const unsigned short& seconds,
+    const unsigned short& totalStarsAmount
 ) :
     impl(
         std::make_unique<Impl>(
@@ -175,41 +178,41 @@ GameDashboard::GameDashboard(
 {
     /* we set the positions of the text surfaces in this class constructor
        and not in the implementation constructor; in fact, the method
-       getHorizontalPositionLessWidth() is necessary for this horizontal
+       getHorizontalPositionMinusWidth() is necessary for this horizontal
        position calculation; this method is also necessary as a class method
        in order to be used when the content of the surface changes */
 
     auto& foundStarsAmount = impl->foundStarsAmount;
     constexpr float FOUND_STARS_HORIZONTAL_POSITION {1230.f};
-    const auto foundStarsHorizontalPosition = getHorizontalPositionLessWidth(
+    const auto foundStarsHorizontalPosition = getHorizontalPositionMinusWidth(
         FOUND_STARS_HORIZONTAL_POSITION,
         foundStarsAmount
     );
 
     auto& target = impl->target;
     constexpr float TARGET_STARS_HORIZONTAL_POSITION {1080.f};
-    const auto targetHorizontalPosition = getHorizontalPositionLessWidth(
+    const auto targetHorizontalPosition = getHorizontalPositionMinusWidth(
         TARGET_STARS_HORIZONTAL_POSITION,
         target
     );
 
     auto& floor = impl->floor;
     constexpr float FLOOR_HORIZONTAL_POSITION {900.f};
-    const auto floorHorizontalPosition = getHorizontalPositionLessWidth(
+    const auto floorHorizontalPosition = getHorizontalPositionMinusWidth(
         FLOOR_HORIZONTAL_POSITION,
         floor
     );
 
     auto& lifesAmount = impl->lifesAmount;
     constexpr float LIFES_AMOUNT_HORIZONTAL_POSITION {1230.f};
-    const auto lifesAmountHorizontalPosition = getHorizontalPositionLessWidth(
+    const auto lifesAmountHorizontalPosition = getHorizontalPositionMinusWidth(
         LIFES_AMOUNT_HORIZONTAL_POSITION,
         lifesAmount
     );
 
     auto& time = impl->time;
     constexpr float TIME_HORIZONTAL_POSITION {1080.f};
-    const auto timeHorizontalPosition = getHorizontalPositionLessWidth(
+    const auto timeHorizontalPosition = getHorizontalPositionMinusWidth(
         TIME_HORIZONTAL_POSITION,
         time
     );
@@ -241,6 +244,11 @@ GameDashboard::GameDashboard(
     time.setPosition(
         timeHorizontalPosition,
         SECOND_LINE_TEXTS_VERTICAL_POSITION
+    );
+
+    updateSfmlTextByNumericValue(
+        impl->target,
+        totalStarsAmount
     );
 }
 
@@ -303,9 +311,8 @@ void GameDashboard::incrementFoundStars() const &
     auto& foundStars = impl->foundStars;
     foundStars++;
 
-    auto& foundStarsAmount = impl->foundStarsAmount;
     updateSfmlTextByNumericValue(
-        foundStarsAmount,
+        impl->foundStarsAmount,
         foundStars
     );
 }
@@ -318,9 +325,8 @@ void GameDashboard::incrementLifes() const &
     auto& lifes = impl->lifes;
     lifes++;
 
-    auto& lifesAmount = impl->lifesAmount;
     updateSfmlTextByNumericValue(
-        lifesAmount,
+        impl->lifesAmount,
         lifes
     );
 }
@@ -333,9 +339,8 @@ void GameDashboard::decrementLifes() const &
     auto& lifes = impl->lifes;
     lifes--;
 
-    auto& lifesAmount = impl->lifesAmount;
     updateSfmlTextByNumericValue(
-        lifesAmount,
+        impl->lifesAmount,
         lifes
     );
 }
@@ -348,9 +353,8 @@ void GameDashboard::increaseWatchingTime() const &
     auto& watchingTime = impl->watchingTime;
     watchingTime += WATCHING_TIME_UPDATE_STEP;
 
-    auto& time = impl->time;
     updateSfmlTextByNumericValue(
-        time,
+        impl->time,
         watchingTime
     );
 }
@@ -363,22 +367,9 @@ void GameDashboard::decreaseWatchingTime() const &
     auto& watchingTime = impl->watchingTime;
     watchingTime -= WATCHING_TIME_UPDATE_STEP;
 
-    auto& time = impl->time;
     updateSfmlTextByNumericValue(
-        time,
+        impl->time,
         watchingTime
-    );
-}
-
-/**
- *
- */
-void GameDashboard::updateTotalStarsAmountSurface(const unsigned short& amount)
-    const &
-{
-    updateSfmlTextByNumericValue(
-        impl->target,
-        amount
     );
 }
 
@@ -406,7 +397,7 @@ widgets::TimerWidget& GameDashboard::getTimerWidget() const & noexcept
 /**
  *
  */
-const float GameDashboard::getHorizontalPositionLessWidth(
+const float GameDashboard::getHorizontalPositionMinusWidth(
     const float& rightSideHorizontalPosition,
     const sf::Text& sfmlSurface
 ) const &
