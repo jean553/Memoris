@@ -58,27 +58,30 @@ public:
      * @param context the current context
      * @param minutes the default minutes amount of the countdown
      * @param seconds the default seconds amount of the countdown
+     * @param totalStarsAmount the total stars amount to display
      */
     GameDashboard(
         const utils::Context& context,
         const unsigned short& minutes,
-        const unsigned short& seconds
+        const unsigned short& seconds,
+        const unsigned short& totalStarsAmount
     );
 
+    GameDashboard(const GameDashboard&) = delete;
+
+    GameDashboard& operator=(const GameDashboard) = delete;
+
     /**
-     * @brief default destructor, empty, only declared 
-     * in order to use forwarding declaration
+     * @brief default destructor 
      */
     ~GameDashboard();
 
     /**
-     * @brief overwritte the method to display the dashboard
+     * @brief displays the dashboard
      *
-     * call SFML functions that are not noexcept
+     * not noexcept as it calls SFML methods that are not noexcept
      */
     void display() const &;
-
-    /* all the following public methods are used by the game controller */
 
     /**
      * @brief returns the current amount of lifes
@@ -137,15 +140,6 @@ public:
     void decreaseWatchingTime() const &;
 
     /**
-     * @brief updates the SFML surface that displays the total amount of cells
-     *
-     * @param amount the amount to display in the dashboard
-     *
-     * call SFML functions that are not noexcept
-     */
-    void updateTotalStarsAmountSurface(const unsigned short& amount) const &;
-
-    /**
      * @brief updates the SFML surface that displays the current floor index
      *
      * @param amount the amount to display in the dashboard
@@ -160,24 +154,17 @@ public:
      * @return widgets::TimerWidget&
      *
      * the returned value is not constant as the game controller modifies it
+     *
+     * TODO: the timer widget should not be part of the dashboard
      */
     widgets::TimerWidget& getTimerWidget() const & noexcept;
 
-    /**
-     * @brief getter of the watching period timer
-     *
-     * @return utils::WatchingPeriodTimer&
-     *
-     * the returned value is not constant as the game controller modifies it
-     */
-    utils::WatchingPeriodTimer& getWatchingPeriodTimer() const & noexcept;
-
 private:
 
-    static constexpr unsigned short WATCHING_TIME_UPDATE_STEP {3};
-
     /**
-     * @brief returns the horizontal position less the surface width
+     * @brief returns the horizontal position minus the surface width;
+     * this method is used by the game dashboard numeric items
+     * to get a correct horizontal position according to their width
      *
      * @param rightSideHorizontalPosition horizontal position of the surface
      * @param sfmlSurface SFML texture
@@ -186,13 +173,16 @@ private:
      *
      * call sf::Rect::getLocalBounds() method which is not noexcept
      */
-    const float getHorizontalPositionLessWidth(
+    const float getHorizontalPositionMinusWidth(
         const float& rightSideHorizontalPosition,
         const sf::Text& sfmlSurface
     ) const &;
 
     /**
-     * @brief replace SFML text surface content by numeric content
+     * @brief replace SFML text surface content by numeric content;
+     * this is a common requirement from public methods that update
+     * the displayed values of the dashboard, so we simply refactor
+     * the std::to_string(number) into the function
      *
      * @param sfmlText SFML text surface to update
      * @param numericValue the numeric value
