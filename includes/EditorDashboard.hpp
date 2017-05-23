@@ -18,7 +18,7 @@
 
 /**
  * @file EditorDashboard.hpp
- * @brief dashboard displayed into the level editor
+ * @brief level editor dashboard
  * @package utils
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -36,7 +36,6 @@ class Vector2;
 
 namespace memoris
 {
-
 namespace utils
 {
 
@@ -50,8 +49,6 @@ public:
     /**
      * @enum EditorDashboard::Action
      * @brief the action selected by the user from the editor dashboard
-     *
-     * public because accessed from the level editor controller
      */
     enum class Action
     {
@@ -66,36 +63,36 @@ public:
     };
 
     /**
-     * @brief constructor, initializes the implementation
+     * @brief constructor
      *
      * @param context constant reference to the context object to use
-     *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
      */
     EditorDashboard(const utils::Context& context);
 
-    /**
-     * @brief default destructor, empty, only declared here in order to use
-     * forwarding declaration
-     */
-    ~EditorDashboard() noexcept;
+    EditorDashboard(const EditorDashboard&) = delete;
+
+    EditorDashboard& operator=(const EditorDashboard&) = delete;
 
     /**
-     * @brief display the editor dashboard
+     * @brief default destructor
+     */
+    ~EditorDashboard();
+
+    /**
+     * @brief displays the editor dashboard
      *
      * @param cursorPosition the cursor position
      *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
+     * not noexcept because it calls SFML methods that are not noexcept
      */
     void display(const sf::Vector2<float>& cursorPosition) const &;
 
     /**
-     * @brief returns an action id according to the tool bar selected button
+     * @brief returns the selected action from the dashboard
      *
      * @return const EditorDashboard::Action
      *
      * not noexcept because it contains sub-functions that calls SFML methods
-     * that are not noexcept
      */
     const Action getActionIdBySelectedButton() const &;
 
