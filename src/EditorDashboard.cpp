@@ -28,7 +28,6 @@
 #include "Context.hpp"
 #include "LevelSeparators.hpp"
 #include "Button.hpp"
-#include "Cursor.hpp"
 
 namespace memoris
 {
@@ -102,7 +101,7 @@ EditorDashboard::EditorDashboard(const utils::Context& context) :
 /**
  *
  */
-EditorDashboard::~EditorDashboard() noexcept = default;
+EditorDashboard::~EditorDashboard() = default;
 
 /**
  *
