@@ -76,6 +76,10 @@ public:
         watchingTimer(context),
         dashboard(
             context,
+            level->getStarsAmount()
+        ),
+        timerWidget(
+            context,
             levelPtr->getMinutes(),
             levelPtr->getSeconds()
         )
@@ -119,6 +123,8 @@ public:
 
     utils::GameDashboard dashboard;
 
+    widgets::TimerWidget timerWidget;
+
     std::vector<std::unique_ptr<utils::PickUpEffect>> effects;
 };
 
@@ -140,12 +146,6 @@ GameController::GameController(
     )
 {
     auto& level = impl->level;
-
-    /* TODO: #592 this way to do is bad: we got data from one object to
-       directly set it as a value of another object, should be refactored */
-    impl->dashboard.updateTotalStarsAmountSurface(
-        level->getStarsAmount()
-    );
 
     auto& playingSerieManager = context.getPlayingSerieManager();
 
@@ -191,7 +191,7 @@ const ControllerId& GameController::render() const &
     auto& dashboard = impl->dashboard;
     dashboard.display();
 
-    auto& timerWidget = dashboard.getTimerWidget();
+    auto& timerWidget = impl->timerWidget;
     auto& lastTimerUpdateTime = impl->lastTimerUpdateTime;
 
     constexpr sf::Int32 ONE_SECOND {1000};
@@ -331,7 +331,7 @@ const ControllerId& GameController::render() const &
     }
 
     if(
-        impl->dashboard.getTimerWidget().isFinished() and
+        timerWidget.isFinished() and
         !impl->win
     )
     {
@@ -687,7 +687,7 @@ void GameController::watchNextFloorOrHideLevel(
 
     impl->dashboard.updateCurrentFloor(impl->floor);
 
-    impl->dashboard.getTimerWidget().setStarted(true);
+    impl->timerWidget.setStarted(true);
 }
 
 /**
@@ -722,7 +722,7 @@ void GameController::endLevel(const utils::Context& context) const &
             std::make_unique<utils::LoseLevelEndingScreen>(context);
     }
 
-    impl->dashboard.getTimerWidget().setStarted(false);
+    impl->timerWidget.setStarted(false);
 
     impl->endPeriodStartTime = context.getClockMillisecondsTime();
 }

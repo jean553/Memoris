@@ -49,18 +49,9 @@ class GameDashboard::Impl
 
 public:
 
-    Impl(
-        const utils::Context& context,
-        const unsigned short& minutes,
-        const unsigned short& seconds
-    ) :
+    Impl(const utils::Context& context) :
         window(context.getSfmlWindow()),
-        separators(context),
-        timer(
-            context,
-            minutes,
-            seconds
-        )
+        separators(context)
     {
         foundStarsAmount.setString("0");
         target.setString("0");
@@ -152,8 +143,6 @@ public:
 
     utils::LevelSeparators separators;
 
-    widgets::TimerWidget timer;
-
     unsigned short lifes {0};
     unsigned short watchingTime {0};
     unsigned short foundStars {0};
@@ -164,17 +153,9 @@ public:
  */
 GameDashboard::GameDashboard(
     const utils::Context& context,
-    const unsigned short& minutes,
-    const unsigned short& seconds,
     const unsigned short& totalStarsAmount
 ) :
-    impl(
-        std::make_unique<Impl>(
-            context,
-            minutes,
-            seconds
-        )
-    )
+    impl(std::make_unique<Impl>(context))
 {
     /* we set the positions of the text surfaces in this class constructor
        and not in the implementation constructor; in fact, the method
@@ -384,14 +365,6 @@ void GameDashboard::updateCurrentFloor(const unsigned short& floorIndex)
         impl->floor,
         floorIndex + DISPLAYED_FLOOR_OFFSET
     );
-}
-
-/**
- *
- */
-widgets::TimerWidget& GameDashboard::getTimerWidget() const & noexcept
-{
-    return impl->timer;
 }
 
 /**
