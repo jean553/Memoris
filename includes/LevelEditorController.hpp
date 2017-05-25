@@ -73,8 +73,7 @@ public:
     ~LevelEditorController();
 
     /**
-     * @brief render the level editor controller, returns the id of the next
-     * controller to render
+     * @brief renders the level editor controller
      *
      * @return const ControllerId&
      */

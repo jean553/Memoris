@@ -195,18 +195,14 @@ LevelEditorController::~LevelEditorController() = default;
  */
 const ControllerId& LevelEditorController::render() const &
 {
-    // std::unique_ptr<Level>&
     auto& level = impl->level;
-
-    // std::unique_ptr<NewLevelForeground>&
     auto& newLevelForeground = impl->newLevelForeground;
     auto& saveLevelForeground = impl->saveLevelForeground;
-
     auto& levelNameSurface = impl->levelNameSurface;
-
     auto& newFile = impl->newFile;
 
     const auto& context = getContext();
+    auto& window = context.getSfmlWindow();
 
     if (newLevelForeground != nullptr)
     {
@@ -229,9 +225,9 @@ const ControllerId& LevelEditorController::render() const &
             &entities::Cell::displayWithMouseHover
         );
 
-        context.getSfmlWindow().draw(levelNameSurface);
-        context.getSfmlWindow().draw(impl->floorSurface);
-        context.getSfmlWindow().draw(impl->testedTime);
+        window.draw(levelNameSurface);
+        window.draw(impl->floorSurface);
+        window.draw(impl->testedTime);
 
         impl->cursor.render();
     }
@@ -239,7 +235,7 @@ const ControllerId& LevelEditorController::render() const &
     setNextControllerId(animateScreenTransition(context));
 
     auto& event = getEvent();
-    while(context.getSfmlWindow().pollEvent(event))
+    while(window.pollEvent(event))
     {
         switch(event.type)
         {
@@ -278,7 +274,6 @@ const ControllerId& LevelEditorController::render() const &
 
                 else if (saveLevelForeground != nullptr)
                 {
-                    // const std::string&
                     const auto& levelName =
                         saveLevelForeground->getInputTextWidget().getText()
                             .toAnsiString();
