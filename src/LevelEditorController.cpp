@@ -18,14 +18,13 @@
 
 /**
  * @file LevelEditorController.cpp
- * @brief render the level editor
+ * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
 #include "LevelEditorController.hpp"
 
 #include "controllers_ids.hpp"
-#include "controllers.hpp"
 #include "fonts_sizes.hpp"
 #include "InputTextWidget.hpp"
 #include "EditorDashboard.hpp"
@@ -38,11 +37,8 @@
 #include "Cell.hpp"
 #include "MessageForeground.hpp"
 #include "InputTextForeground.hpp"
-#include "SelectionListWidget.hpp"
 #include "PlayingSerieManager.hpp"
 #include "cells.hpp"
-
-#include <SFML/Graphics/Text.hpp>
 
 #include <fstream>
 
@@ -54,8 +50,6 @@ namespace controllers
 constexpr const char* UNNAMED_LEVEL {"unnamed"};
 
 constexpr float TITLES_HORIZONTAL_POSITION {1200.f};
-
-using Action = utils::EditorDashboard::Action;
 
 class LevelEditorController::Impl
 {
@@ -80,6 +74,7 @@ public:
 
         std::string levelName = name.empty() ? UNNAMED_LEVEL : name;
 
+        constexpr float LEVEL_NAME_SURFACE_VERTICAL_POSITION {0.f};
         levelNameSurface.setString(levelName);
         levelNameSurface.setFont(font);
         levelNameSurface.setFillColor(white);
@@ -87,16 +82,18 @@ public:
         levelNameSurface.setPosition(
             TITLES_HORIZONTAL_POSITION -
                 levelNameSurface.getLocalBounds().width,
-            0.f
+            LEVEL_NAME_SURFACE_VERTICAL_POSITION
         );
 
+        constexpr float FLOOR_SURFACE_HORIZONTAL_POSITION {1240.f};
+        constexpr float FLOOR_SURFACE_VERTICAL_POSITION {450.f};
         floorSurface.setFont(font);
         floorSurface.setFillColor(white);
         floorSurface.setCharacterSize(sizes::TEXT_SIZE);
         floorSurface.setString("1");
         floorSurface.setPosition(
-            1240.f,
-            450.f
+            FLOOR_SURFACE_HORIZONTAL_POSITION,
+            FLOOR_SURFACE_VERTICAL_POSITION
         );
 
         if (tested)
@@ -161,7 +158,7 @@ public:
         saveLevelForeground {nullptr};
 
     bool newFile {false};
-    bool tested;
+    bool tested {false};
 };
 
 /**
@@ -227,9 +224,12 @@ const ControllerId& LevelEditorController::render() const &
  */
 void LevelEditorController::updateLevelNameSurfacePosition() const &
 {
+    constexpr float LEVEL_NAME_SURFACE_BASE_HORIZONTAL_POSITION {1200.f};
+    constexpr float LEVEL_NAME_SURFACE_VERTICAL_POSITION {0.f};
     impl->levelNameSurface.setPosition(
-        1200.f - impl->levelNameSurface.getLocalBounds().width,
-        0.f
+        LEVEL_NAME_SURFACE_BASE_HORIZONTAL_POSITION - 
+            impl->levelNameSurface.getLocalBounds().width,
+        LEVEL_NAME_SURFACE_VERTICAL_POSITION
     );
 }
 
@@ -343,11 +343,13 @@ void LevelEditorController::handleNewLevelForegroundEvents() const &
             }
             default:
             {
+                break;
             }
             }
         }
         default:
         {
+            break;
         }
         }
     }
@@ -421,11 +423,14 @@ void LevelEditorController::handleSaveLevelForegroundEvents() const &
                 {
                     textInput.update(character);
                 }
+
+                break;
             }
             }
         }
         default:
         {
+            break;
         }
         }
     }
@@ -452,6 +457,8 @@ void LevelEditorController::handleControllerEvents() const &
         {
             const auto displayedName =
                 levelNameSurface.getString().toAnsiString();
+
+            using Action = utils::EditorDashboard::Action;
 
             switch(impl->dashboard.getActionIdBySelectedButton())
             {
@@ -531,6 +538,7 @@ void LevelEditorController::handleControllerEvents() const &
             }
             default:
             {
+                break;
             }
             }
 
@@ -546,6 +554,7 @@ void LevelEditorController::handleControllerEvents() const &
         }
         default:
         {
+            break;
         }
         }
     }

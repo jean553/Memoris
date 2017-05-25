@@ -19,7 +19,7 @@
 /**
  * @file LevelEditorController.hpp
  * @package controllers
- * @brief render the level editor
+ * @brief renders the level editor
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
@@ -224,6 +224,8 @@ private:
     /**
      * @brief updates the level name with an asterisk
      * to indicate it has to be saved
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
      */
     void markLevelHasToBeSaved() const &;
 
