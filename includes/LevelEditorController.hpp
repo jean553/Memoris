@@ -48,19 +48,23 @@ class LevelEditorController : public Controller
 public:
 
     /**
-     * @brief constructor, empty for now, just used to transfer parameter
+     * @brief constructor
      *
-     * @param context reference to the current context
-     * @param level constant reference to the shared pointer that contains
-     * a level to use
-     * @param displayTime boolean that indicates if the tested time must
-     * be displayed; this boolean is false by default and true if the level
-     * has just been tested
+     * @param context the context to use
+     * @param level the level to load and display by default
+     * @param displayTime indicates if the level test time has to be displayed
+     *
+     * a level pointer is passed to the constructor because a being edited
+     * level can be loaded directly when the controller is started,
+     * this happens after a test of the current edited level
+     *
+     * a level time is passed to the constructor because this time
+     * is displayed in the editor after a test of the being edited level
      */
     LevelEditorController(
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
-        const bool& displayTime = false
+        const bool& displayTime
     );
 
     /**
