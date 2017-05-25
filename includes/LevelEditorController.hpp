@@ -172,6 +172,13 @@ private:
     void openNewLevelForeground() const &;
 
     /**
+     * @brief loads the save level foreground for display
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    void openSaveLevelForeground() const &;
+
+    /**
      * @brief resets the level pointer for future usage
      * (before leaving the controller)
      *

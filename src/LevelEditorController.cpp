@@ -439,7 +439,6 @@ void LevelEditorController::handleControllerEvents() const &
     auto& level = impl->level;
     auto& newFile = impl->newFile;
     auto& levelNameSurface = impl->levelNameSurface;
-    auto& saveLevelForeground = impl->saveLevelForeground;
 
     const auto& context = getContext();
     auto& window = context.getSfmlWindow();
@@ -493,12 +492,7 @@ void LevelEditorController::handleControllerEvents() const &
                     break;
                 }
 
-                constexpr const char* SAVE_LEVEL_NAME_MESSAGE {"Level name"};
-                saveLevelForeground =
-                    std::make_unique<foregrounds::InputTextForeground>(
-                        context,
-                        SAVE_LEVEL_NAME_MESSAGE
-                    );
+                openSaveLevelForeground();
 
                 newFile = true;
 
@@ -602,6 +596,20 @@ void LevelEditorController::openNewLevelForeground() const &
         std::make_unique<foregrounds::MessageForeground>(
             getContext(),
             ERASE_LEVEL_MESSAGE
+        );
+}
+
+/**
+ *
+ */
+void LevelEditorController::openSaveLevelForeground() const &
+{
+    constexpr const char* SAVE_LEVEL_NAME_MESSAGE {"Level name"};
+
+    impl->saveLevelForeground =
+        std::make_unique<foregrounds::InputTextForeground>(
+            getContext(),
+            SAVE_LEVEL_NAME_MESSAGE
         );
 }
 
