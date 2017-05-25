@@ -453,7 +453,6 @@ void LevelEditorController::handleControllerEvents() const &
         {
             const auto displayedName =
                 levelNameSurface.getString().toAnsiString();
-            const auto& levelManager = context.getEditingLevelManager();
 
             switch(impl->dashboard.getActionIdBySelectedButton())
             {
@@ -530,17 +529,9 @@ void LevelEditorController::handleControllerEvents() const &
                     break;
                 }
 
-                level->initializeEditedLevel();
+                testLevel();
 
                 setExpectedControllerId(ControllerId::Game);
-
-                auto& level = impl->level;
-                levelManager.setLevel(level);
-                levelManager.setCellsBackup(
-                    level->getCharactersList()
-                );
-
-                context.getPlayingSerieManager().reinitialize();
 
                 break;
             }
@@ -640,6 +631,24 @@ void LevelEditorController::saveLevel(const std::string& levelName) const &
     updateLevelNameSurfacePosition();
 }
 
+/**
+ *
+ */
+void LevelEditorController::testLevel() const &
+{
+    auto& level = impl->level;
+    const auto& context = getContext();
+    auto& levelManager = getContext().getEditingLevelManager();
+
+    level->initializeEditedLevel();
+
+    levelManager.setLevel(level);
+    levelManager.setCellsBackup(
+        level->getCharactersList()
+    );
+
+    context.getPlayingSerieManager().reinitialize();
+}
 
 }
 }

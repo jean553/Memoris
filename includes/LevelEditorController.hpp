@@ -189,6 +189,13 @@ private:
      */
     void saveLevel(const std::string& levelName) const &;
 
+    /**
+     * @brief prepares the level for test
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    void testLevel() const &;
+
     class Impl;
     std::unique_ptr<Impl> impl;
 };
