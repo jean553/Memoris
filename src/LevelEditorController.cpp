@@ -534,15 +534,9 @@ void LevelEditorController::handleControllerEvents() const &
             }
             }
 
-            const auto& selector = impl->selector;
-            const auto mouseHoverCellType = selector.getMouseHoverCellType();
-
-            if (
-                selector.getSelectedCellType() != mouseHoverCellType and
-                mouseHoverCellType != cells::NO_CELL
-            )
+            if(cellIsSelectedFromCellsSelector())
             {
-                impl->selector.selectCell(mouseHoverCellType);
+                impl->selector.selectMouseHoverCell();
             }
 
             if(
@@ -656,6 +650,25 @@ void LevelEditorController::testLevel() const &
     );
 
     context.getPlayingSerieManager().reinitialize();
+}
+
+/**
+ *
+ */
+const bool LevelEditorController::cellIsSelectedFromCellsSelector() const &
+{
+    const auto& selector = impl->selector;
+    const auto mouseHoverCellType = selector.getMouseHoverCellType();
+
+    if (
+        selector.getSelectedCellType() != mouseHoverCellType and
+        mouseHoverCellType != cells::NO_CELL
+    )
+    {
+        return true;
+    }
+
+    return false;
 }
 
 }

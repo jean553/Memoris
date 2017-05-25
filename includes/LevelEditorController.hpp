@@ -203,6 +203,15 @@ private:
      */
     void testLevel() const &;
 
+    /**
+     * @brief indicates if a cell is selected into the cells selector
+     *
+     * @return const bool
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    const bool cellIsSelectedFromCellsSelector() const &;
+
     class Impl;
     std::unique_ptr<Impl> impl;
 };
