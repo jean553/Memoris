@@ -119,6 +119,22 @@ private:
         const std::string& levelName
     ) const &;
 
+    /**
+     * @brief renders the controller components only, without foregrounds
+     *
+     * @param context the context to use
+     * @param level the level to load and display by default
+     *
+     * this code part has been refactored into the function
+     * only for organization purposes
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    void renderControllerMainComponents(
+        const utils::Context& context,
+        const std::shared_ptr<entities::Level>& level
+    ) const &;
+
     class Impl;
     std::unique_ptr<Impl> impl;
 };

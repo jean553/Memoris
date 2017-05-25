@@ -198,8 +198,8 @@ const ControllerId& LevelEditorController::render() const &
     auto& level = impl->level;
     auto& newLevelForeground = impl->newLevelForeground;
     auto& saveLevelForeground = impl->saveLevelForeground;
-    auto& levelNameSurface = impl->levelNameSurface;
     auto& newFile = impl->newFile;
+    auto& levelNameSurface = impl->levelNameSurface;
 
     const auto& context = getContext();
     auto& window = context.getSfmlWindow();
@@ -214,22 +214,10 @@ const ControllerId& LevelEditorController::render() const &
     }
     else
     {
-        const auto& cursorPosition = impl->cursor.getPosition();
-        impl->dashboard.display(cursorPosition);
-
-        impl->selector.display();
-
-        level->display(
+        renderControllerMainComponents(
             context,
-            impl->floor,
-            &entities::Cell::displayWithMouseHover
+            level
         );
-
-        window.draw(levelNameSurface);
-        window.draw(impl->floorSurface);
-        window.draw(impl->testedTime);
-
-        impl->cursor.render();
     }
 
     setNextControllerId(animateScreenTransition(context));
@@ -559,6 +547,33 @@ void LevelEditorController::changeLevelName(
     );
 
     updateLevelNameSurfacePosition();
+}
+
+/**
+ *
+ */
+void LevelEditorController::renderControllerMainComponents(
+    const utils::Context& context,
+    const std::shared_ptr<entities::Level>& level
+) const &
+{
+    const auto& cursorPosition = impl->cursor.getPosition();
+    impl->dashboard.display(cursorPosition);
+
+    impl->selector.display();
+
+    level->display(
+        context,
+        impl->floor,
+        &entities::Cell::displayWithMouseHover
+    );
+
+    auto& window = context.getSfmlWindow();
+    window.draw(impl->levelNameSurface);
+    window.draw(impl->floorSurface);
+    window.draw(impl->testedTime);
+
+    impl->cursor.render();
 }
 
 }
