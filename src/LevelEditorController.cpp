@@ -65,13 +65,13 @@ public:
     Impl(
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& levelPtr,
-        const bool& displayTime
+        const bool& tested
     ) :
         dashboard(context),
         selector(context),
         level(levelPtr),
         cursor(context),
-        displayTime(displayTime)
+        tested(tested)
     {
         const auto& name = context.getEditingLevelManager().getLevelName();
         const auto& font = context.getFontsManager().getTextFont();
@@ -85,7 +85,7 @@ public:
         levelNameSurface.setFillColor(white);
         levelNameSurface.setCharacterSize(sizes::TEXT_SIZE);
         levelNameSurface.setPosition(
-            TITLES_HORIZONTAL_POSITION - 
+            TITLES_HORIZONTAL_POSITION -
                 levelNameSurface.getLocalBounds().width,
             0.f
         );
@@ -99,7 +99,7 @@ public:
             450.f
         );
 
-        if (displayTime)
+        if (tested)
         {
             testedTime.setFillColor(white);
             testedTime.setString(
@@ -163,7 +163,7 @@ public:
         saveLevelForeground {nullptr};
 
     bool newFile {false};
-    bool displayTime;
+    bool tested;
 };
 
 /**
@@ -172,14 +172,14 @@ public:
 LevelEditorController::LevelEditorController(
     const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
-    const bool& displayTime
+    const bool& tested
 ) :
     Controller(context),
     impl(
         std::make_unique<Impl>(
             context,
             level,
-            displayTime
+            tested
         )
     )
 {
@@ -271,7 +271,7 @@ void LevelEditorController::saveLevelFile(
 /**
  *
  */
-void LevelEditorController::changeLevelName(const std::string& levelName) 
+void LevelEditorController::changeLevelName(const std::string& levelName)
     const &
 {
     impl->levelNameSurface.setString(levelName);
@@ -475,7 +475,7 @@ void LevelEditorController::handleControllerEvents() const &
             }
             case Action::SAVE:
             {
-                if (not impl->displayTime)
+                if (not impl->tested)
                 {
                     break;
                 }
@@ -486,19 +486,12 @@ void LevelEditorController::handleControllerEvents() const &
                 if (
                     newFile or
                     (
-                        not levelName.empty() and 
+                        not levelName.empty() and
                         displayedName.back() == '*'
                     )
                 )
                 {
-                    saveLevelFile(
-                        levelName,
-                        level->getCells()
-                    );
-
-                    levelNameSurface.setString(levelName);
-
-                    updateLevelNameSurfacePosition();
+                    saveLevel(levelName);
 
                     break;
                 }
@@ -635,6 +628,22 @@ void LevelEditorController::resetLevel() const &
     levelManager.setLevel(nullptr);
     levelManager.refreshLevel();
 }
+
+/**
+ *
+ */
+void LevelEditorController::saveLevel(const std::string& levelName) const &
+{
+    saveLevelFile(
+        levelName,
+        impl->level->getCells()
+    );
+
+    impl->levelNameSurface.setString(levelName);
+
+    updateLevelNameSurfacePosition();
+}
+
 
 }
 }

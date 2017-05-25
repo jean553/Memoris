@@ -52,7 +52,7 @@ public:
      *
      * @param context the context to use
      * @param level the level to load and display by default
-     * @param displayTime indicates if the level test time has to be displayed
+     * @param tested indicates if the level test time has to be displayed
      *
      * a level pointer is passed to the constructor because a being edited
      * level can be loaded directly when the controller is started,
@@ -64,7 +64,7 @@ public:
     LevelEditorController(
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
-        const bool& displayTime
+        const bool& tested
     );
 
     /**
@@ -178,6 +178,16 @@ private:
      * not noexcept as it calls SFML methods that are not noexcept
      */
     void resetLevel() const &;
+
+    /**
+     * @brief saves the level into the dedicated file and
+     * updates the level name displayed in the dashboard
+     *
+     * @param levelName the name of the level
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    void saveLevel(const std::string& levelName) const &;
 
     class Impl;
     std::unique_ptr<Impl> impl;
