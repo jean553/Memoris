@@ -19,7 +19,7 @@
 /**
  * @file LevelEditorController.hpp
  * @package controllers
- * @brief render the level editor
+ * @brief renders the level editor
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
@@ -44,51 +44,42 @@ namespace controllers
 
 class LevelEditorController : public Controller
 {
-    using Level = std::shared_ptr<entities::Level>;
 
 public:
 
     /**
-     * @brief constructor, empty for now, just used to transfer parameter
+     * @brief constructor
      *
-     * @param context reference to the current context
-     * @param level constant reference to the shared pointer that contains
-     * a level to use
-     * @param displayTime boolean that indicates if the tested time must
-     * be displayed; this boolean is false by default and true if the level
-     * has just been tested
+     * @param context the context to use
+     * @param level the level to load and display by default
+     * @param tested indicates if the level test time has to be displayed
+     *
+     * a level pointer is passed to the constructor because a being edited
+     * level can be loaded directly when the controller is started,
+     * this happens after a test of the current edited level
+     *
+     * a level time is passed to the constructor because this time
+     * is displayed in the editor after a test of the being edited level
      */
     LevelEditorController(
         const utils::Context& context,
-        const Level& level,
-        const bool& displayTime = false
+        const std::shared_ptr<entities::Level>& level,
+        const bool& tested
     );
 
     /**
-     * @brief default destructor, empty, declared in order to use forwarding
-     * declaration
+     * @brief default destructor
      */
-    ~LevelEditorController() noexcept;
+    ~LevelEditorController();
 
     /**
-     * @brief render the level editor controller, returns the id of the next
-     * controller to render
+     * @brief renders the level editor controller
      *
      * @return const ControllerId&
      */
     virtual const ControllerId& render() const & override;
 
 private:
-
-    static constexpr const char* UNNAMED_LEVEL {"unnamed"};
-    static constexpr const char* SAVE_LEVEL_NAME_MESSAGE {"Level name"};
-    static constexpr const char* ERASE_LEVEL_MESSAGE
-        {"Erase the current level ? y / n"};
-
-    static constexpr float CELLS_DEFAULT_TRANSPARENCY {255.f};
-    static constexpr float TITLES_HORIZONTAL_POSITION {1200.f};
-
-    static constexpr unsigned short FIRST_FLOOR_INDEX {0};
 
     /**
      * @brief update the level name surface position; the position of this
@@ -118,15 +109,125 @@ private:
      * @brief updates the name of the level in the editing level context
      * manager and also updates the level name surface in the level editor
      *
-     * @param context constant reference to the current context to use
      * @param levelName constant reference to the actuel level name
      *
      * not 'noexcept' because it calls SFML functions that are not noexcept
      */
-    void changeLevelName(
-        const utils::Context& context,
-        const std::string& levelName
-    ) const &;
+    void changeLevelName(const std::string& levelName) const &;
+
+    /**
+     * @brief renders the controller components only, without foregrounds
+     *
+     * this code part has been refactored into the function
+     * only for organization purposes
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    void renderControllerMainComponents() const &;
+
+    /**
+     * @brief handles the events of the new level foreground
+     *
+     * this code part has been refactored into the function
+     * only for organization purposes
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    void handleNewLevelForegroundEvents() const &;
+
+    /**
+     * @brief handles the events of the save level foreground
+     *
+     * this code part has been refactored into the function
+     * only for organization purposes
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    void handleSaveLevelForegroundEvents() const &;
+
+    /**
+     * @brief handles the events of the controller without foreground
+     *
+     * this code part has been refactored into the function
+     * only for organization purposes
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    void handleControllerEvents() const &;
+
+    /**
+     * @brief updates the level displayed floor and floor surface
+     *
+     * @param movement 1 or -1 to move up or down
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    void updateFloor(const short& movement) const &;
+
+    /**
+     * @brief loads the new level foreground for display
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    void openNewLevelForeground() const &;
+
+    /**
+     * @brief loads the save level foreground for display
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    void openSaveLevelForeground() const &;
+
+    /**
+     * @brief resets the level pointer for future usage
+     * (before leaving the controller)
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    void resetLevel() const &;
+
+    /**
+     * @brief saves the level into the dedicated file and
+     * updates the level name displayed in the dashboard
+     *
+     * @param levelName the name of the level
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    void saveLevel(const std::string& levelName) const &;
+
+    /**
+     * @brief prepares the level for test
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    void testLevel() const &;
+
+    /**
+     * @brief indicates if a cell is selected into the cells selector
+     *
+     * @return const bool
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    const bool cellIsSelectedFromCellsSelector() const &;
+
+    /**
+     * @brief indicates if the last saved level version has been updated
+     *
+     * @return const bool
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    const bool lastLevelVersionUpdated() const &;
+
+    /**
+     * @brief updates the level name with an asterisk
+     * to indicate it has to be saved
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    void markLevelHasToBeSaved() const &;
 
     class Impl;
     std::unique_ptr<Impl> impl;

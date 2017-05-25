@@ -60,13 +60,11 @@ public:
     void display() const &;
 
     /**
-     * @brief checks if the mouse is hover a cell and selects it
-     *
-     * @param selectedCellType the selected cell type to apply
+     * @brief select the cell where the mouse is currently pointing
      *
      * not noexcept because it calls SFML functions that are not noexcept
      */
-    void selectCell(const char& selectedCellType) const &;
+    void selectMouseHoverCell() const &;
 
     /**
      * @brief getter of the selected cell type

@@ -242,8 +242,10 @@ void CellsSelector::display() const &
 /**
  *
  */
-void CellsSelector::selectCell(const char& selectedCellType) const &
+void CellsSelector::selectMouseHoverCell() const &
 {
+    const auto& selectedCellType = getMouseHoverCellType();
+
     impl->selectedCellImage.setTexture(
         impl->context.getCellsTexturesManager().getTextureReferenceByCellType(
             selectedCellType

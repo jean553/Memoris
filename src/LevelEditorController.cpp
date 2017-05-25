@@ -18,14 +18,13 @@
 
 /**
  * @file LevelEditorController.cpp
- * @brief render the level editor
+ * @package controllers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
 #include "LevelEditorController.hpp"
 
 #include "controllers_ids.hpp"
-#include "controllers.hpp"
 #include "fonts_sizes.hpp"
 #include "InputTextWidget.hpp"
 #include "EditorDashboard.hpp"
@@ -38,11 +37,8 @@
 #include "Cell.hpp"
 #include "MessageForeground.hpp"
 #include "InputTextForeground.hpp"
-#include "SelectionListWidget.hpp"
 #include "PlayingSerieManager.hpp"
 #include "cells.hpp"
-
-#include <SFML/Graphics/Text.hpp>
 
 #include <fstream>
 
@@ -51,15 +47,9 @@ namespace memoris
 namespace controllers
 {
 
-using Action = utils::EditorDashboard::Action;
+constexpr const char* UNNAMED_LEVEL {"unnamed"};
 
-constexpr const char* LevelEditorController::UNNAMED_LEVEL;
-constexpr const char* LevelEditorController::SAVE_LEVEL_NAME_MESSAGE;
-constexpr const char* LevelEditorController::ERASE_LEVEL_MESSAGE;
-
-constexpr float LevelEditorController::CELLS_DEFAULT_TRANSPARENCY;
-
-constexpr unsigned short LevelEditorController::FIRST_FLOOR_INDEX;
+constexpr float TITLES_HORIZONTAL_POSITION {1200.f};
 
 class LevelEditorController::Impl
 {
@@ -68,14 +58,14 @@ public:
 
     Impl(
         const utils::Context& context,
-        const Level& levelPtr,
-        const bool& displayTime
+        const std::shared_ptr<entities::Level>& levelPtr,
+        const bool& tested
     ) :
         dashboard(context),
         selector(context),
         level(levelPtr),
         cursor(context),
-        displayTime(displayTime)
+        tested(tested)
     {
         const auto& name = context.getEditingLevelManager().getLevelName();
         const auto& font = context.getFontsManager().getTextFont();
@@ -84,26 +74,29 @@ public:
 
         std::string levelName = name.empty() ? UNNAMED_LEVEL : name;
 
+        constexpr float LEVEL_NAME_SURFACE_VERTICAL_POSITION {0.f};
         levelNameSurface.setString(levelName);
         levelNameSurface.setFont(font);
         levelNameSurface.setFillColor(white);
         levelNameSurface.setCharacterSize(sizes::TEXT_SIZE);
         levelNameSurface.setPosition(
-            TITLES_HORIZONTAL_POSITION - 
+            TITLES_HORIZONTAL_POSITION -
                 levelNameSurface.getLocalBounds().width,
-            0.f
+            LEVEL_NAME_SURFACE_VERTICAL_POSITION
         );
 
+        constexpr float FLOOR_SURFACE_HORIZONTAL_POSITION {1240.f};
+        constexpr float FLOOR_SURFACE_VERTICAL_POSITION {450.f};
         floorSurface.setFont(font);
         floorSurface.setFillColor(white);
         floorSurface.setCharacterSize(sizes::TEXT_SIZE);
         floorSurface.setString("1");
         floorSurface.setPosition(
-            1240.f,
-            450.f
+            FLOOR_SURFACE_HORIZONTAL_POSITION,
+            FLOOR_SURFACE_VERTICAL_POSITION
         );
 
-        if (displayTime)
+        if (tested)
         {
             testedTime.setFillColor(white);
             testedTime.setString(
@@ -130,6 +123,8 @@ public:
            the editor is loaded from the menu */
         level->showAllCells(context);
 
+        constexpr float CELLS_DEFAULT_TRANSPARENCY {255.f};
+        constexpr unsigned short FIRST_FLOOR_INDEX {0};
         level->setCellsTransparency(
             context,
             CELLS_DEFAULT_TRANSPARENCY,
@@ -150,8 +145,6 @@ public:
 
     unsigned short floor {0};
 
-    Action currentActionId {Action::EXIT};
-
     widgets::Cursor cursor;
 
     sf::Text levelNameSurface;
@@ -165,7 +158,7 @@ public:
         saveLevelForeground {nullptr};
 
     bool newFile {false};
-    bool displayTime;
+    bool tested {false};
 };
 
 /**
@@ -173,15 +166,15 @@ public:
  */
 LevelEditorController::LevelEditorController(
     const utils::Context& context,
-    const Level& level,
-    const bool& displayTime
+    const std::shared_ptr<entities::Level>& level,
+    const bool& tested
 ) :
     Controller(context),
     impl(
         std::make_unique<Impl>(
             context,
             level,
-            displayTime
+            tested
         )
     )
 {
@@ -190,314 +183,37 @@ LevelEditorController::LevelEditorController(
 /**
  *
  */
-LevelEditorController::~LevelEditorController() noexcept = default;
+LevelEditorController::~LevelEditorController() = default;
 
 /**
  *
  */
 const ControllerId& LevelEditorController::render() const &
 {
-    // std::unique_ptr<Level>&
-    auto& level = impl->level;
-
-    // std::unique_ptr<NewLevelForeground>&
     auto& newLevelForeground = impl->newLevelForeground;
     auto& saveLevelForeground = impl->saveLevelForeground;
-
-    auto& levelNameSurface = impl->levelNameSurface;
-
-    auto& newFile = impl->newFile;
 
     const auto& context = getContext();
 
     if (newLevelForeground != nullptr)
     {
         newLevelForeground->render();
+
+        handleNewLevelForegroundEvents();
     }
     else if (saveLevelForeground != nullptr)
     {
         saveLevelForeground->render();
+
+        handleSaveLevelForegroundEvents();
     }
     else
     {
-        const auto& cursorPosition = impl->cursor.getPosition();
-        impl->dashboard.display(cursorPosition);
+        renderControllerMainComponents();
 
-        impl->selector.display();
+        setNextControllerId(animateScreenTransition(context));
 
-        level->display(
-            context,
-            impl->floor,
-            &entities::Cell::displayWithMouseHover
-        );
-
-        context.getSfmlWindow().draw(levelNameSurface);
-        context.getSfmlWindow().draw(impl->floorSurface);
-        context.getSfmlWindow().draw(impl->testedTime);
-
-        impl->cursor.render();
-    }
-
-    setNextControllerId(animateScreenTransition(context));
-
-    auto& event = getEvent();
-    while(context.getSfmlWindow().pollEvent(event))
-    {
-        switch(event.type)
-        {
-        case sf::Event::KeyPressed:
-        {
-            switch(event.key.code)
-            {
-            case sf::Keyboard::Escape:
-            {
-                if (newLevelForeground != nullptr)
-                {
-                    newLevelForeground.reset();
-                }
-                else if (saveLevelForeground != nullptr)
-                {
-                    saveLevelForeground.reset();
-                }
-
-                break;
-            }
-            case sf::Keyboard::Return:
-            {
-                if (newLevelForeground != nullptr)
-                {
-                    level->refresh(context);
-
-                    newLevelForeground.reset();
-
-                    changeLevelName(
-                        context,
-                        UNNAMED_LEVEL
-                    );
-
-                    newFile = false;
-                }
-
-                else if (saveLevelForeground != nullptr)
-                {
-                    // const std::string&
-                    const auto& levelName =
-                        saveLevelForeground->getInputTextWidget().getText()
-                            .toAnsiString();
-
-                    if (levelName.empty())
-                    {
-                        break;
-                    }
-
-                    saveLevelFile(
-                        levelName,
-                        level->getCells()
-                    );
-
-                    changeLevelName(
-                        context,
-                        levelName
-                    );
-
-                    saveLevelForeground.reset();
-                }
-            }
-            default:
-            {
-                auto& textInput = saveLevelForeground->getInputTextWidget();
-
-                if (
-                    saveLevelForeground != nullptr and
-                    not textInput.isFull()
-                )
-                {
-                    if(event.key.code == sf::Keyboard::BackSpace)
-                    {
-                        textInput.empty();
-                    }
-
-                    const char character = textInput.getInputLetter(event);
-
-                    if(character != 0)
-                    {
-                        textInput.update(character);
-                    }
-                }
-            }
-            }
-
-            break;
-        }
-        case sf::Event::MouseButtonPressed:
-        {
-            /* the mouse is not used if a foreground is displayed */
-            if (newLevelForeground != nullptr)
-            {
-                break;
-            }
-
-            const auto displayedName =
-                levelNameSurface.getString().toAnsiString();
-
-            const auto& levelManager = context.getEditingLevelManager();
-
-            switch(impl->dashboard.getActionIdBySelectedButton())
-            {
-            case Action::NEW:
-            {
-                impl->newLevelForeground =
-                    std::make_unique<foregrounds::MessageForeground>(
-                        context,
-                        ERASE_LEVEL_MESSAGE
-                    );
-
-                break;
-            }
-            case Action::EXIT:
-            {
-                levelManager.setLevelName("");
-                levelManager.setLevel(nullptr);
-
-                levelManager.refreshLevel();
-
-                setExpectedControllerId(ControllerId::EditorMenu);
-
-                break;
-            }
-            case Action::SAVE:
-            {
-                if (not impl->displayTime)
-                {
-                    break;
-                }
-
-                std::string levelName =
-                    context.getEditingLevelManager().getLevelName();
-
-                if (displayedName != UNNAMED_LEVEL)
-                {
-                    const bool updatedLevel = displayedName.back() == '*';
-
-                    /* if the level is not saved yet,
-                       a star is displayed after the name */
-                    if ((not levelName.empty() and updatedLevel) or newFile)
-                    {
-                        saveLevelFile(
-                            levelName,
-                            level->getCells()
-                        );
-
-                        /* remove the asterisk at the end
-                           of the displayed level name */
-                        levelNameSurface.setString(levelName);
-
-                        updateLevelNameSurfacePosition();
-                    }
-
-                    break;
-                }
-
-                saveLevelForeground =
-                    std::make_unique<foregrounds::InputTextForeground>(
-                        context,
-                        SAVE_LEVEL_NAME_MESSAGE
-                    );
-
-                newFile = true;
-
-                impl->currentActionId = Action::SAVE;
-
-                break;
-            }
-            case Action::UP:
-            {
-                if (impl->floor != entities::Level::MAX_FLOOR)
-                {
-                    impl->floor++;
-
-                    impl->floorSurface.setString(
-                        std::to_string(
-                            impl->floor + 1
-                        )
-                    );
-                }
-
-                break;
-            }
-            case Action::DOWN:
-            {
-                if (impl->floor != entities::Level::MIN_FLOOR)
-                {
-                    impl->floor--;
-
-                    impl->floorSurface.setString(
-                        std::to_string(
-                            impl->floor + 1
-                        )
-                    );
-                }
-
-                break;
-            }
-            case Action::PLAY:
-            {
-                if (not level->hasOneDepartureAndOneArrival())
-                {
-                    break;
-                }
-
-                level->initializeEditedLevel();
-
-                setExpectedControllerId(ControllerId::Game);
-
-                auto& level = impl->level;
-                levelManager.setLevel(level);
-                levelManager.setCellsBackup(
-                    level->getCharactersList()
-                );
-
-                context.getPlayingSerieManager().reinitialize();
-
-                break;
-            }
-            default:
-            {
-            }
-            }
-
-            const auto& selector = impl->selector;
-            const auto mouseHoverCellType = selector.getMouseHoverCellType();
-
-            if (
-                selector.getSelectedCellType() != mouseHoverCellType and
-                mouseHoverCellType != cells::NO_CELL
-            )
-            {
-                impl->selector.selectCell(mouseHoverCellType);
-            }
-
-            if(
-                level->updateSelectedCellType(
-                    context,
-                    impl->floor,
-                    impl->selector.getSelectedCellType()
-                ) and
-                displayedName.back() != '*' and
-                displayedName != UNNAMED_LEVEL
-            )
-            {
-                levelNameSurface.setString(
-                    levelNameSurface.getString() + "*"
-                );
-
-                updateLevelNameSurfacePosition();
-            }
-        }
-        default:
-        {
-        }
-        }
+        handleControllerEvents();
     }
 
     return getNextControllerId();
@@ -508,9 +224,12 @@ const ControllerId& LevelEditorController::render() const &
  */
 void LevelEditorController::updateLevelNameSurfacePosition() const &
 {
+    constexpr float LEVEL_NAME_SURFACE_BASE_HORIZONTAL_POSITION {1200.f};
+    constexpr float LEVEL_NAME_SURFACE_VERTICAL_POSITION {0.f};
     impl->levelNameSurface.setPosition(
-        1200.f - impl->levelNameSurface.getLocalBounds().width,
-        0.f
+        LEVEL_NAME_SURFACE_BASE_HORIZONTAL_POSITION - 
+            impl->levelNameSurface.getLocalBounds().width,
+        LEVEL_NAME_SURFACE_VERTICAL_POSITION
     );
 }
 
@@ -550,15 +269,446 @@ void LevelEditorController::saveLevelFile(
 /**
  *
  */
-void LevelEditorController::changeLevelName(
-    const utils::Context& context,
-    const std::string& levelName
-) const &
+void LevelEditorController::changeLevelName(const std::string& levelName)
+    const &
 {
     impl->levelNameSurface.setString(levelName);
 
-    context.getEditingLevelManager().setLevelName(
+    getContext().getEditingLevelManager().setLevelName(
         levelName
+    );
+
+    updateLevelNameSurfacePosition();
+}
+
+/**
+ *
+ */
+void LevelEditorController::renderControllerMainComponents() const &
+{
+    const auto& cursorPosition = impl->cursor.getPosition();
+    impl->dashboard.display(cursorPosition);
+
+    impl->selector.display();
+
+    const auto& context = getContext();
+
+    impl->level->display(
+        context,
+        impl->floor,
+        &entities::Cell::displayWithMouseHover
+    );
+
+    auto& window = context.getSfmlWindow();
+    window.draw(impl->levelNameSurface);
+    window.draw(impl->floorSurface);
+    window.draw(impl->testedTime);
+
+    impl->cursor.render();
+}
+
+/**
+ *
+ */
+void LevelEditorController::handleNewLevelForegroundEvents() const &
+{
+    const auto& context = getContext();
+    auto& window = context.getSfmlWindow();
+    auto& event = getEvent();
+    auto& newLevelForeground = impl->newLevelForeground;
+
+    while(window.pollEvent(event))
+    {
+        switch(event.type)
+        {
+        case sf::Event::KeyPressed:
+        {
+            switch(event.key.code)
+            {
+            case sf::Keyboard::Escape:
+            {
+                newLevelForeground.reset();
+
+                break;
+            }
+            case sf::Keyboard::Return:
+            {
+                impl->level->refresh(context);
+
+                changeLevelName(UNNAMED_LEVEL);
+
+                newLevelForeground.reset();
+
+                break;
+            }
+            default:
+            {
+                break;
+            }
+            }
+        }
+        default:
+        {
+            break;
+        }
+        }
+    }
+}
+
+/**
+ *
+ */
+void LevelEditorController::handleSaveLevelForegroundEvents() const &
+{
+    const auto& context = getContext();
+    auto& window = context.getSfmlWindow();
+    auto& event = getEvent();
+    auto& saveLevelForeground = impl->saveLevelForeground;
+
+    while(window.pollEvent(event))
+    {
+        switch(event.type)
+        {
+        case sf::Event::KeyPressed:
+        {
+            switch(event.key.code)
+            {
+            case sf::Keyboard::Escape:
+            {
+                saveLevelForeground.reset();
+
+                break;
+            }
+            case sf::Keyboard::Return:
+            {
+                const auto& levelName =
+                    saveLevelForeground->getInputTextWidget().getText()
+                        .toAnsiString();
+
+                if (levelName.empty())
+                {
+                    break;
+                }
+
+                saveLevelFile(
+                    levelName,
+                    impl->level->getCells()
+                );
+
+                changeLevelName(levelName);
+
+                saveLevelForeground.reset();
+
+                break;
+            }
+            default:
+            {
+                auto& textInput = saveLevelForeground->getInputTextWidget();
+
+                if (textInput.isFull())
+                {
+                    break;
+                }
+
+                if(event.key.code == sf::Keyboard::BackSpace)
+                {
+                    textInput.empty();
+
+                    break;
+                }
+
+                const char character = textInput.getInputLetter(event);
+
+                if(character != 0)
+                {
+                    textInput.update(character);
+                }
+
+                break;
+            }
+            }
+        }
+        default:
+        {
+            break;
+        }
+        }
+    }
+}
+
+/**
+ *
+ */
+void LevelEditorController::handleControllerEvents() const &
+{
+    auto& level = impl->level;
+    auto& newFile = impl->newFile;
+    auto& levelNameSurface = impl->levelNameSurface;
+
+    const auto& context = getContext();
+    auto& window = context.getSfmlWindow();
+    auto& event = getEvent();
+
+    while(window.pollEvent(event))
+    {
+        switch(event.type)
+        {
+        case sf::Event::MouseButtonPressed:
+        {
+            const auto displayedName =
+                levelNameSurface.getString().toAnsiString();
+
+            using Action = utils::EditorDashboard::Action;
+
+            switch(impl->dashboard.getActionIdBySelectedButton())
+            {
+            case Action::NEW:
+            {
+                openNewLevelForeground();
+
+                break;
+            }
+            case Action::EXIT:
+            {
+                resetLevel();
+
+                setExpectedControllerId(ControllerId::EditorMenu);
+
+                break;
+            }
+            case Action::SAVE:
+            {
+                if (not impl->tested)
+                {
+                    break;
+                }
+
+                std::string levelName =
+                    context.getEditingLevelManager().getLevelName();
+
+                if (
+                    newFile or
+                    (
+                        not levelName.empty() and
+                        displayedName.back() == '*'
+                    )
+                )
+                {
+                    saveLevel(levelName);
+
+                    break;
+                }
+
+                openSaveLevelForeground();
+
+                newFile = true;
+
+                break;
+            }
+            case Action::UP:
+            {
+                if (impl->floor != entities::Level::MAX_FLOOR)
+                {
+                    updateFloor(1);
+                }
+
+                break;
+            }
+            case Action::DOWN:
+            {
+                if (impl->floor != entities::Level::MIN_FLOOR)
+                {
+                    updateFloor(-1);
+                }
+
+                break;
+            }
+            case Action::PLAY:
+            {
+                if (not level->hasOneDepartureAndOneArrival())
+                {
+                    break;
+                }
+
+                testLevel();
+
+                setExpectedControllerId(ControllerId::Game);
+
+                break;
+            }
+            default:
+            {
+                break;
+            }
+            }
+
+            if(cellIsSelectedFromCellsSelector())
+            {
+                impl->selector.selectMouseHoverCell();
+            }
+
+            if(lastLevelVersionUpdated())
+            {
+                markLevelHasToBeSaved();
+            }
+        }
+        default:
+        {
+            break;
+        }
+        }
+    }
+}
+
+/**
+ *
+ */
+void LevelEditorController::updateFloor(const short& movement) const &
+{
+    auto& floor = impl->floor;
+    floor += movement;
+
+    impl->floorSurface.setString(
+        std::to_string(
+            floor + 1
+        )
+    );
+}
+
+/**
+ *
+ */
+void LevelEditorController::openNewLevelForeground() const &
+{
+    constexpr const char* ERASE_LEVEL_MESSAGE
+        {"Erase the current level ? y / n"};
+
+    impl->newLevelForeground =
+        std::make_unique<foregrounds::MessageForeground>(
+            getContext(),
+            ERASE_LEVEL_MESSAGE
+        );
+}
+
+/**
+ *
+ */
+void LevelEditorController::openSaveLevelForeground() const &
+{
+    constexpr const char* SAVE_LEVEL_NAME_MESSAGE {"Level name"};
+
+    impl->saveLevelForeground =
+        std::make_unique<foregrounds::InputTextForeground>(
+            getContext(),
+            SAVE_LEVEL_NAME_MESSAGE
+        );
+}
+
+/**
+ *
+ */
+void LevelEditorController::resetLevel() const &
+{
+    auto& levelManager = getContext().getEditingLevelManager();
+    levelManager.setLevelName("");
+    levelManager.setLevel(nullptr);
+    levelManager.refreshLevel();
+}
+
+/**
+ *
+ */
+void LevelEditorController::saveLevel(const std::string& levelName) const &
+{
+    saveLevelFile(
+        levelName,
+        impl->level->getCells()
+    );
+
+    impl->levelNameSurface.setString(levelName);
+
+    updateLevelNameSurfacePosition();
+}
+
+/**
+ *
+ */
+void LevelEditorController::testLevel() const &
+{
+    auto& level = impl->level;
+    const auto& context = getContext();
+    auto& levelManager = getContext().getEditingLevelManager();
+
+    level->initializeEditedLevel();
+
+    levelManager.setLevel(level);
+    levelManager.setCellsBackup(
+        level->getCharactersList()
+    );
+
+    context.getPlayingSerieManager().reinitialize();
+}
+
+/**
+ *
+ */
+const bool LevelEditorController::cellIsSelectedFromCellsSelector() const &
+{
+    const auto& selector = impl->selector;
+    const auto mouseHoverCellType = selector.getMouseHoverCellType();
+
+    if (
+        selector.getSelectedCellType() != mouseHoverCellType and
+        mouseHoverCellType != cells::NO_CELL
+    )
+    {
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ *
+ */
+const bool LevelEditorController::lastLevelVersionUpdated() const &
+{
+    if(
+        not impl->level->updateSelectedCellType(
+            getContext(),
+            impl->floor,
+            impl->selector.getSelectedCellType()
+        )
+    )
+    {
+        return false;
+    }
+
+    const auto displayedName =
+        impl->levelNameSurface.getString().toAnsiString();
+
+    /* two ifs in order to prevent expensive string copy;
+       this method is called everytime the mouse moves */
+    if (
+        displayedName.back() != '*' and
+        displayedName != UNNAMED_LEVEL
+    )
+    {
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ *
+ */
+void LevelEditorController::markLevelHasToBeSaved() const &
+{
+    auto& levelNameSurface = impl->levelNameSurface;
+
+    levelNameSurface.setString(
+        levelNameSurface.getString() + "*"
     );
 
     updateLevelNameSurfacePosition();

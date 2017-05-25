@@ -162,7 +162,8 @@ std::unique_ptr<Controller> getControllerById(
 
             return std::make_unique<LevelEditorController>(
                 context,
-                level
+                level,
+                false
             );
         }
         catch(std::invalid_argument&)
