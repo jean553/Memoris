@@ -64,7 +64,7 @@ public:
 
     Impl(
         const utils::Context& context,
-        const Level& levelPtr,
+        const std::shared_ptr<entities::Level>& levelPtr,
         const bool& displayTime
     ) :
         dashboard(context),
@@ -171,7 +171,7 @@ public:
  */
 LevelEditorController::LevelEditorController(
     const utils::Context& context,
-    const Level& level,
+    const std::shared_ptr<entities::Level>& level,
     const bool& displayTime
 ) :
     Controller(context),

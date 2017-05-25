@@ -44,7 +44,6 @@ namespace controllers
 
 class LevelEditorController : public Controller
 {
-    using Level = std::shared_ptr<entities::Level>;
 
 public:
 
@@ -60,7 +59,7 @@ public:
      */
     LevelEditorController(
         const utils::Context& context,
-        const Level& level,
+        const std::shared_ptr<entities::Level>& level,
         const bool& displayTime = false
     );
 
