@@ -164,6 +164,21 @@ private:
      */
     void updateFloor(const short& movement) const &;
 
+    /**
+     * @brief loads the new level foreground for display
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    void openNewLevelForeground() const &;
+
+    /**
+     * @brief resets the level pointer for future usage
+     * (before leaving the controller)
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    void resetLevel() const &;
+
     class Impl;
     std::unique_ptr<Impl> impl;
 };

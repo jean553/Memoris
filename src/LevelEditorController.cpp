@@ -441,7 +441,6 @@ void LevelEditorController::handleControllerEvents() const &
     auto& level = impl->level;
     auto& newFile = impl->newFile;
     auto& levelNameSurface = impl->levelNameSurface;
-    auto& newLevelForeground = impl->newLevelForeground;
     auto& saveLevelForeground = impl->saveLevelForeground;
 
     const auto& context = getContext();
@@ -462,23 +461,13 @@ void LevelEditorController::handleControllerEvents() const &
             {
             case Action::NEW:
             {
-                constexpr const char* ERASE_LEVEL_MESSAGE
-                    {"Erase the current level ? y / n"};
-
-                newLevelForeground =
-                    std::make_unique<foregrounds::MessageForeground>(
-                        context,
-                        ERASE_LEVEL_MESSAGE
-                    );
+                openNewLevelForeground();
 
                 break;
             }
             case Action::EXIT:
             {
-                levelManager.setLevelName("");
-                levelManager.setLevel(nullptr);
-
-                levelManager.refreshLevel();
+                resetLevel();
 
                 setExpectedControllerId(ControllerId::EditorMenu);
 
@@ -494,25 +483,22 @@ void LevelEditorController::handleControllerEvents() const &
                 std::string levelName =
                     context.getEditingLevelManager().getLevelName();
 
-                if (displayedName != UNNAMED_LEVEL)
+                if (
+                    newFile or
+                    (
+                        not levelName.empty() and 
+                        displayedName.back() == '*'
+                    )
+                )
                 {
-                    const bool updatedLevel = displayedName.back() == '*';
+                    saveLevelFile(
+                        levelName,
+                        level->getCells()
+                    );
 
-                    /* if the level is not saved yet,
-                       a star is displayed after the name */
-                    if ((not levelName.empty() and updatedLevel) or newFile)
-                    {
-                        saveLevelFile(
-                            levelName,
-                            level->getCells()
-                        );
+                    levelNameSurface.setString(levelName);
 
-                        /* remove the asterisk at the end
-                           of the displayed level name */
-                        levelNameSurface.setString(levelName);
-
-                        updateLevelNameSurfacePosition();
-                    }
+                    updateLevelNameSurfacePosition();
 
                     break;
                 }
@@ -622,6 +608,32 @@ void LevelEditorController::updateFloor(const short& movement) const &
             floor + 1
         )
     );
+}
+
+/**
+ *
+ */
+void LevelEditorController::openNewLevelForeground() const &
+{
+    constexpr const char* ERASE_LEVEL_MESSAGE
+        {"Erase the current level ? y / n"};
+
+    impl->newLevelForeground =
+        std::make_unique<foregrounds::MessageForeground>(
+            getContext(),
+            ERASE_LEVEL_MESSAGE
+        );
+}
+
+/**
+ *
+ */
+void LevelEditorController::resetLevel() const &
+{
+    auto& levelManager = getContext().getEditingLevelManager();
+    levelManager.setLevelName("");
+    levelManager.setLevel(nullptr);
+    levelManager.refreshLevel();
 }
 
 }
