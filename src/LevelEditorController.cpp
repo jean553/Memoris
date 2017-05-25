@@ -214,10 +214,7 @@ const ControllerId& LevelEditorController::render() const &
     }
     else
     {
-        renderControllerMainComponents(
-            context,
-            level
-        );
+        renderControllerMainComponents();
     }
 
     setNextControllerId(animateScreenTransition(context));
@@ -252,10 +249,7 @@ const ControllerId& LevelEditorController::render() const &
 
                     newLevelForeground.reset();
 
-                    changeLevelName(
-                        context,
-                        UNNAMED_LEVEL
-                    );
+                    changeLevelName(UNNAMED_LEVEL);
 
                     newFile = false;
                 }
@@ -276,10 +270,7 @@ const ControllerId& LevelEditorController::render() const &
                         level->getCells()
                     );
 
-                    changeLevelName(
-                        context,
-                        levelName
-                    );
+                    changeLevelName(levelName);
 
                     saveLevelForeground.reset();
                 }
@@ -535,14 +526,12 @@ void LevelEditorController::saveLevelFile(
 /**
  *
  */
-void LevelEditorController::changeLevelName(
-    const utils::Context& context,
-    const std::string& levelName
-) const &
+void LevelEditorController::changeLevelName(const std::string& levelName) 
+    const &
 {
     impl->levelNameSurface.setString(levelName);
 
-    context.getEditingLevelManager().setLevelName(
+    getContext().getEditingLevelManager().setLevelName(
         levelName
     );
 
@@ -552,17 +541,16 @@ void LevelEditorController::changeLevelName(
 /**
  *
  */
-void LevelEditorController::renderControllerMainComponents(
-    const utils::Context& context,
-    const std::shared_ptr<entities::Level>& level
-) const &
+void LevelEditorController::renderControllerMainComponents() const &
 {
     const auto& cursorPosition = impl->cursor.getPosition();
     impl->dashboard.display(cursorPosition);
 
     impl->selector.display();
 
-    level->display(
+    const auto& context = getContext();
+
+    impl->level->display(
         context,
         impl->floor,
         &entities::Cell::displayWithMouseHover

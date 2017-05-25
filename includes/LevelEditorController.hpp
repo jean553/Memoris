@@ -109,31 +109,21 @@ private:
      * @brief updates the name of the level in the editing level context
      * manager and also updates the level name surface in the level editor
      *
-     * @param context constant reference to the current context to use
      * @param levelName constant reference to the actuel level name
      *
      * not 'noexcept' because it calls SFML functions that are not noexcept
      */
-    void changeLevelName(
-        const utils::Context& context,
-        const std::string& levelName
-    ) const &;
+    void changeLevelName(const std::string& levelName) const &;
 
     /**
      * @brief renders the controller components only, without foregrounds
-     *
-     * @param context the context to use
-     * @param level the level to load and display by default
      *
      * this code part has been refactored into the function
      * only for organization purposes
      *
      * not noexcept as it calls SFML methods that are not noexcept
      */
-    void renderControllerMainComponents(
-        const utils::Context& context,
-        const std::shared_ptr<entities::Level>& level
-    ) const &;
+    void renderControllerMainComponents() const &;
 
     class Impl;
     std::unique_ptr<Impl> impl;
