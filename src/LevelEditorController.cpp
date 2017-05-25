@@ -148,8 +148,6 @@ public:
 
     unsigned short floor {0};
 
-    Action currentActionId {Action::EXIT};
-
     widgets::Cursor cursor;
 
     sf::Text levelNameSurface;
@@ -504,8 +502,6 @@ void LevelEditorController::handleControllerEvents() const &
                     );
 
                 newFile = true;
-
-                impl->currentActionId = Action::SAVE;
 
                 break;
             }
