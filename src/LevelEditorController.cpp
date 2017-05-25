@@ -51,15 +51,11 @@ namespace memoris
 namespace controllers
 {
 
+constexpr const char* UNNAMED_LEVEL {"unnamed"};
+
+constexpr float TITLES_HORIZONTAL_POSITION {1200.f};
+
 using Action = utils::EditorDashboard::Action;
-
-constexpr const char* LevelEditorController::UNNAMED_LEVEL;
-constexpr const char* LevelEditorController::SAVE_LEVEL_NAME_MESSAGE;
-constexpr const char* LevelEditorController::ERASE_LEVEL_MESSAGE;
-
-constexpr float LevelEditorController::CELLS_DEFAULT_TRANSPARENCY;
-
-constexpr unsigned short LevelEditorController::FIRST_FLOOR_INDEX;
 
 class LevelEditorController::Impl
 {
@@ -130,6 +126,8 @@ public:
            the editor is loaded from the menu */
         level->showAllCells(context);
 
+        constexpr float CELLS_DEFAULT_TRANSPARENCY {255.f};
+        constexpr unsigned short FIRST_FLOOR_INDEX {0};
         level->setCellsTransparency(
             context,
             CELLS_DEFAULT_TRANSPARENCY,
@@ -346,6 +344,9 @@ const ControllerId& LevelEditorController::render() const &
             {
             case Action::NEW:
             {
+                constexpr const char* ERASE_LEVEL_MESSAGE
+                    {"Erase the current level ? y / n"};
+
                 impl->newLevelForeground =
                     std::make_unique<foregrounds::MessageForeground>(
                         context,
@@ -398,6 +399,7 @@ const ControllerId& LevelEditorController::render() const &
                     break;
                 }
 
+                constexpr const char* SAVE_LEVEL_NAME_MESSAGE {"Level name"};
                 saveLevelForeground =
                     std::make_unique<foregrounds::InputTextForeground>(
                         context,

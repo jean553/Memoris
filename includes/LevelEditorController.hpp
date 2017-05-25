@@ -80,16 +80,6 @@ public:
 
 private:
 
-    static constexpr const char* UNNAMED_LEVEL {"unnamed"};
-    static constexpr const char* SAVE_LEVEL_NAME_MESSAGE {"Level name"};
-    static constexpr const char* ERASE_LEVEL_MESSAGE
-        {"Erase the current level ? y / n"};
-
-    static constexpr float CELLS_DEFAULT_TRANSPARENCY {255.f};
-    static constexpr float TITLES_HORIZONTAL_POSITION {1200.f};
-
-    static constexpr unsigned short FIRST_FLOOR_INDEX {0};
-
     /**
      * @brief update the level name surface position; the position of this
      * surface is calculated according to its width
