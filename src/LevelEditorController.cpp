@@ -539,21 +539,9 @@ void LevelEditorController::handleControllerEvents() const &
                 impl->selector.selectMouseHoverCell();
             }
 
-            if(
-                level->updateSelectedCellType(
-                    context,
-                    impl->floor,
-                    impl->selector.getSelectedCellType()
-                ) and
-                displayedName.back() != '*' and
-                displayedName != UNNAMED_LEVEL
-            )
+            if(lastLevelVersionUpdated())
             {
-                levelNameSurface.setString(
-                    levelNameSurface.getString() + "*"
-                );
-
-                updateLevelNameSurfacePosition();
+                markLevelHasToBeSaved();
             }
         }
         default:
@@ -669,6 +657,52 @@ const bool LevelEditorController::cellIsSelectedFromCellsSelector() const &
     }
 
     return false;
+}
+
+/**
+ *
+ */
+const bool LevelEditorController::lastLevelVersionUpdated() const &
+{
+    if(
+        not impl->level->updateSelectedCellType(
+            getContext(),
+            impl->floor,
+            impl->selector.getSelectedCellType()
+        )
+    )
+    {
+        return false;
+    }
+
+    const auto displayedName =
+        impl->levelNameSurface.getString().toAnsiString();
+
+    /* two ifs in order to prevent expensive string copy;
+       this method is called everytime the mouse moves */
+    if (
+        displayedName.back() != '*' and
+        displayedName != UNNAMED_LEVEL
+    )
+    {
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ *
+ */
+void LevelEditorController::markLevelHasToBeSaved() const &
+{
+    auto& levelNameSurface = impl->levelNameSurface;
+
+    levelNameSurface.setString(
+        levelNameSurface.getString() + "*"
+    );
+
+    updateLevelNameSurfacePosition();
 }
 
 }

@@ -212,6 +212,21 @@ private:
      */
     const bool cellIsSelectedFromCellsSelector() const &;
 
+    /**
+     * @brief indicates if the last saved level version has been updated
+     *
+     * @return const bool
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    const bool lastLevelVersionUpdated() const &;
+
+    /**
+     * @brief updates the level name with an asterisk
+     * to indicate it has to be saved
+     */
+    void markLevelHasToBeSaved() const &;
+
     class Impl;
     std::unique_ptr<Impl> impl;
 };
