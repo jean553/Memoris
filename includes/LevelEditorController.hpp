@@ -125,6 +125,26 @@ private:
      */
     void renderControllerMainComponents() const &;
 
+    /**
+     * @brief handles the events of the new level foreground
+     *
+     * this code part has been refactored into the function
+     * only for organization purposes
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    void handleNewLevelForegroundEvents() const &;
+
+    /**
+     * @brief handles the events of the save level foreground
+     *
+     * this code part has been refactored into the function
+     * only for organization purposes
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    void handleSaveLevelForegroundEvents() const &;
+
     class Impl;
     std::unique_ptr<Impl> impl;
 };

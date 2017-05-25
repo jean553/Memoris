@@ -207,100 +207,27 @@ const ControllerId& LevelEditorController::render() const &
     if (newLevelForeground != nullptr)
     {
         newLevelForeground->render();
+
+        handleNewLevelForegroundEvents();
     }
     else if (saveLevelForeground != nullptr)
     {
         saveLevelForeground->render();
+
+        handleSaveLevelForegroundEvents();
     }
     else
     {
         renderControllerMainComponents();
-    }
 
-    setNextControllerId(animateScreenTransition(context));
+        setNextControllerId(animateScreenTransition(context));
+    }
 
     auto& event = getEvent();
     while(window.pollEvent(event))
     {
         switch(event.type)
         {
-        case sf::Event::KeyPressed:
-        {
-            switch(event.key.code)
-            {
-            case sf::Keyboard::Escape:
-            {
-                if (newLevelForeground != nullptr)
-                {
-                    newLevelForeground.reset();
-                }
-                else if (saveLevelForeground != nullptr)
-                {
-                    saveLevelForeground.reset();
-                }
-
-                break;
-            }
-            case sf::Keyboard::Return:
-            {
-                if (newLevelForeground != nullptr)
-                {
-                    level->refresh(context);
-
-                    newLevelForeground.reset();
-
-                    changeLevelName(UNNAMED_LEVEL);
-
-                    newFile = false;
-                }
-
-                else if (saveLevelForeground != nullptr)
-                {
-                    const auto& levelName =
-                        saveLevelForeground->getInputTextWidget().getText()
-                            .toAnsiString();
-
-                    if (levelName.empty())
-                    {
-                        break;
-                    }
-
-                    saveLevelFile(
-                        levelName,
-                        level->getCells()
-                    );
-
-                    changeLevelName(levelName);
-
-                    saveLevelForeground.reset();
-                }
-            }
-            default:
-            {
-                auto& textInput = saveLevelForeground->getInputTextWidget();
-
-                if (
-                    saveLevelForeground != nullptr and
-                    not textInput.isFull()
-                )
-                {
-                    if(event.key.code == sf::Keyboard::BackSpace)
-                    {
-                        textInput.empty();
-                    }
-
-                    const char character = textInput.getInputLetter(event);
-
-                    if(character != 0)
-                    {
-                        textInput.update(character);
-                    }
-                }
-            }
-            }
-
-            break;
-        }
         case sf::Event::MouseButtonPressed:
         {
             /* the mouse is not used if a foreground is displayed */
@@ -321,7 +248,7 @@ const ControllerId& LevelEditorController::render() const &
                 constexpr const char* ERASE_LEVEL_MESSAGE
                     {"Erase the current level ? y / n"};
 
-                impl->newLevelForeground =
+                newLevelForeground =
                     std::make_unique<foregrounds::MessageForeground>(
                         context,
                         ERASE_LEVEL_MESSAGE
@@ -562,6 +489,130 @@ void LevelEditorController::renderControllerMainComponents() const &
     window.draw(impl->testedTime);
 
     impl->cursor.render();
+}
+
+/**
+ *
+ */
+void LevelEditorController::handleNewLevelForegroundEvents() const &
+{
+    const auto& context = getContext();
+    auto& window = context.getSfmlWindow();
+    auto& event = getEvent();
+    auto& newLevelForeground = impl->newLevelForeground;
+
+    while(window.pollEvent(event))
+    {
+        switch(event.type)
+        {
+        case sf::Event::KeyPressed:
+        {
+            switch(event.key.code)
+            {
+            case sf::Keyboard::Escape:
+            {
+                newLevelForeground.reset();
+
+                break;
+            }
+            case sf::Keyboard::Return:
+            {
+                impl->level->refresh(context);
+
+                changeLevelName(UNNAMED_LEVEL);
+
+                newLevelForeground.reset();
+
+                break;
+            }
+            default:
+            {
+            }
+            }
+        }
+        default:
+        {
+        }
+        }
+    }
+}
+
+/**
+ *
+ */
+void LevelEditorController::handleSaveLevelForegroundEvents() const &
+{
+    const auto& context = getContext();
+    auto& window = context.getSfmlWindow();
+    auto& event = getEvent();
+    auto& saveLevelForeground = impl->saveLevelForeground;
+
+    while(window.pollEvent(event))
+    {
+        switch(event.type)
+        {
+        case sf::Event::KeyPressed:
+        {
+            switch(event.key.code)
+            {
+            case sf::Keyboard::Escape:
+            {
+                saveLevelForeground.reset();
+
+                break;
+            }
+            case sf::Keyboard::Return:
+            {
+                const auto& levelName =
+                    saveLevelForeground->getInputTextWidget().getText()
+                        .toAnsiString();
+
+                if (levelName.empty())
+                {
+                    break;
+                }
+
+                saveLevelFile(
+                    levelName,
+                    impl->level->getCells()
+                );
+
+                changeLevelName(levelName);
+
+                saveLevelForeground.reset();
+
+                break;
+            }
+            default:
+            {
+                auto& textInput = saveLevelForeground->getInputTextWidget();
+
+                if (textInput.isFull())
+                {
+                    break;
+                }
+
+                if(event.key.code == sf::Keyboard::BackSpace)
+                {
+                    textInput.empty();
+
+                    break;
+                }
+
+                const char character = textInput.getInputLetter(event);
+
+                if(character != 0)
+                {
+                    textInput.update(character);
+                }
+            }
+            }
+        }
+        default:
+        {
+        }
+        }
+    }
 }
 
 }
