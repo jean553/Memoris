@@ -68,10 +68,9 @@ public:
     );
 
     /**
-     * @brief default destructor, empty, declared in order to use forwarding
-     * declaration
+     * @brief default destructor
      */
-    ~LevelEditorController() noexcept;
+    ~LevelEditorController();
 
     /**
      * @brief render the level editor controller, returns the id of the next

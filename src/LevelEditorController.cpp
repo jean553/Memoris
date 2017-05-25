@@ -188,7 +188,7 @@ LevelEditorController::LevelEditorController(
 /**
  *
  */
-LevelEditorController::~LevelEditorController() noexcept = default;
+LevelEditorController::~LevelEditorController() = default;
 
 /**
  *
