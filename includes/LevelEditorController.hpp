@@ -145,6 +145,25 @@ private:
      */
     void handleSaveLevelForegroundEvents() const &;
 
+    /**
+     * @brief handles the events of the controller without foreground
+     *
+     * this code part has been refactored into the function
+     * only for organization purposes
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    void handleControllerEvents() const &;
+
+    /**
+     * @brief updates the level displayed floor and floor surface
+     *
+     * @param movement 1 or -1 to move up or down
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    void updateFloor(const short& movement) const &;
+
     class Impl;
     std::unique_ptr<Impl> impl;
 };

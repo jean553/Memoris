@@ -195,14 +195,10 @@ LevelEditorController::~LevelEditorController() = default;
  */
 const ControllerId& LevelEditorController::render() const &
 {
-    auto& level = impl->level;
     auto& newLevelForeground = impl->newLevelForeground;
     auto& saveLevelForeground = impl->saveLevelForeground;
-    auto& newFile = impl->newFile;
-    auto& levelNameSurface = impl->levelNameSurface;
 
     const auto& context = getContext();
-    auto& window = context.getSfmlWindow();
 
     if (newLevelForeground != nullptr)
     {
@@ -221,186 +217,8 @@ const ControllerId& LevelEditorController::render() const &
         renderControllerMainComponents();
 
         setNextControllerId(animateScreenTransition(context));
-    }
 
-    auto& event = getEvent();
-    while(window.pollEvent(event))
-    {
-        switch(event.type)
-        {
-        case sf::Event::MouseButtonPressed:
-        {
-            /* the mouse is not used if a foreground is displayed */
-            if (newLevelForeground != nullptr)
-            {
-                break;
-            }
-
-            const auto displayedName =
-                levelNameSurface.getString().toAnsiString();
-
-            const auto& levelManager = context.getEditingLevelManager();
-
-            switch(impl->dashboard.getActionIdBySelectedButton())
-            {
-            case Action::NEW:
-            {
-                constexpr const char* ERASE_LEVEL_MESSAGE
-                    {"Erase the current level ? y / n"};
-
-                newLevelForeground =
-                    std::make_unique<foregrounds::MessageForeground>(
-                        context,
-                        ERASE_LEVEL_MESSAGE
-                    );
-
-                break;
-            }
-            case Action::EXIT:
-            {
-                levelManager.setLevelName("");
-                levelManager.setLevel(nullptr);
-
-                levelManager.refreshLevel();
-
-                setExpectedControllerId(ControllerId::EditorMenu);
-
-                break;
-            }
-            case Action::SAVE:
-            {
-                if (not impl->displayTime)
-                {
-                    break;
-                }
-
-                std::string levelName =
-                    context.getEditingLevelManager().getLevelName();
-
-                if (displayedName != UNNAMED_LEVEL)
-                {
-                    const bool updatedLevel = displayedName.back() == '*';
-
-                    /* if the level is not saved yet,
-                       a star is displayed after the name */
-                    if ((not levelName.empty() and updatedLevel) or newFile)
-                    {
-                        saveLevelFile(
-                            levelName,
-                            level->getCells()
-                        );
-
-                        /* remove the asterisk at the end
-                           of the displayed level name */
-                        levelNameSurface.setString(levelName);
-
-                        updateLevelNameSurfacePosition();
-                    }
-
-                    break;
-                }
-
-                constexpr const char* SAVE_LEVEL_NAME_MESSAGE {"Level name"};
-                saveLevelForeground =
-                    std::make_unique<foregrounds::InputTextForeground>(
-                        context,
-                        SAVE_LEVEL_NAME_MESSAGE
-                    );
-
-                newFile = true;
-
-                impl->currentActionId = Action::SAVE;
-
-                break;
-            }
-            case Action::UP:
-            {
-                if (impl->floor != entities::Level::MAX_FLOOR)
-                {
-                    impl->floor++;
-
-                    impl->floorSurface.setString(
-                        std::to_string(
-                            impl->floor + 1
-                        )
-                    );
-                }
-
-                break;
-            }
-            case Action::DOWN:
-            {
-                if (impl->floor != entities::Level::MIN_FLOOR)
-                {
-                    impl->floor--;
-
-                    impl->floorSurface.setString(
-                        std::to_string(
-                            impl->floor + 1
-                        )
-                    );
-                }
-
-                break;
-            }
-            case Action::PLAY:
-            {
-                if (not level->hasOneDepartureAndOneArrival())
-                {
-                    break;
-                }
-
-                level->initializeEditedLevel();
-
-                setExpectedControllerId(ControllerId::Game);
-
-                auto& level = impl->level;
-                levelManager.setLevel(level);
-                levelManager.setCellsBackup(
-                    level->getCharactersList()
-                );
-
-                context.getPlayingSerieManager().reinitialize();
-
-                break;
-            }
-            default:
-            {
-            }
-            }
-
-            const auto& selector = impl->selector;
-            const auto mouseHoverCellType = selector.getMouseHoverCellType();
-
-            if (
-                selector.getSelectedCellType() != mouseHoverCellType and
-                mouseHoverCellType != cells::NO_CELL
-            )
-            {
-                impl->selector.selectCell(mouseHoverCellType);
-            }
-
-            if(
-                level->updateSelectedCellType(
-                    context,
-                    impl->floor,
-                    impl->selector.getSelectedCellType()
-                ) and
-                displayedName.back() != '*' and
-                displayedName != UNNAMED_LEVEL
-            )
-            {
-                levelNameSurface.setString(
-                    levelNameSurface.getString() + "*"
-                );
-
-                updateLevelNameSurfacePosition();
-            }
-        }
-        default:
-        {
-        }
-        }
+        handleControllerEvents();
     }
 
     return getNextControllerId();
@@ -613,6 +431,197 @@ void LevelEditorController::handleSaveLevelForegroundEvents() const &
         }
         }
     }
+}
+
+/**
+ *
+ */
+void LevelEditorController::handleControllerEvents() const &
+{
+    auto& level = impl->level;
+    auto& newFile = impl->newFile;
+    auto& levelNameSurface = impl->levelNameSurface;
+    auto& newLevelForeground = impl->newLevelForeground;
+    auto& saveLevelForeground = impl->saveLevelForeground;
+
+    const auto& context = getContext();
+    auto& window = context.getSfmlWindow();
+    auto& event = getEvent();
+
+    while(window.pollEvent(event))
+    {
+        switch(event.type)
+        {
+        case sf::Event::MouseButtonPressed:
+        {
+            const auto displayedName =
+                levelNameSurface.getString().toAnsiString();
+            const auto& levelManager = context.getEditingLevelManager();
+
+            switch(impl->dashboard.getActionIdBySelectedButton())
+            {
+            case Action::NEW:
+            {
+                constexpr const char* ERASE_LEVEL_MESSAGE
+                    {"Erase the current level ? y / n"};
+
+                newLevelForeground =
+                    std::make_unique<foregrounds::MessageForeground>(
+                        context,
+                        ERASE_LEVEL_MESSAGE
+                    );
+
+                break;
+            }
+            case Action::EXIT:
+            {
+                levelManager.setLevelName("");
+                levelManager.setLevel(nullptr);
+
+                levelManager.refreshLevel();
+
+                setExpectedControllerId(ControllerId::EditorMenu);
+
+                break;
+            }
+            case Action::SAVE:
+            {
+                if (not impl->displayTime)
+                {
+                    break;
+                }
+
+                std::string levelName =
+                    context.getEditingLevelManager().getLevelName();
+
+                if (displayedName != UNNAMED_LEVEL)
+                {
+                    const bool updatedLevel = displayedName.back() == '*';
+
+                    /* if the level is not saved yet,
+                       a star is displayed after the name */
+                    if ((not levelName.empty() and updatedLevel) or newFile)
+                    {
+                        saveLevelFile(
+                            levelName,
+                            level->getCells()
+                        );
+
+                        /* remove the asterisk at the end
+                           of the displayed level name */
+                        levelNameSurface.setString(levelName);
+
+                        updateLevelNameSurfacePosition();
+                    }
+
+                    break;
+                }
+
+                constexpr const char* SAVE_LEVEL_NAME_MESSAGE {"Level name"};
+                saveLevelForeground =
+                    std::make_unique<foregrounds::InputTextForeground>(
+                        context,
+                        SAVE_LEVEL_NAME_MESSAGE
+                    );
+
+                newFile = true;
+
+                impl->currentActionId = Action::SAVE;
+
+                break;
+            }
+            case Action::UP:
+            {
+                if (impl->floor != entities::Level::MAX_FLOOR)
+                {
+                    updateFloor(1);
+                }
+
+                break;
+            }
+            case Action::DOWN:
+            {
+                if (impl->floor != entities::Level::MIN_FLOOR)
+                {
+                    updateFloor(-1);
+                }
+
+                break;
+            }
+            case Action::PLAY:
+            {
+                if (not level->hasOneDepartureAndOneArrival())
+                {
+                    break;
+                }
+
+                level->initializeEditedLevel();
+
+                setExpectedControllerId(ControllerId::Game);
+
+                auto& level = impl->level;
+                levelManager.setLevel(level);
+                levelManager.setCellsBackup(
+                    level->getCharactersList()
+                );
+
+                context.getPlayingSerieManager().reinitialize();
+
+                break;
+            }
+            default:
+            {
+            }
+            }
+
+            const auto& selector = impl->selector;
+            const auto mouseHoverCellType = selector.getMouseHoverCellType();
+
+            if (
+                selector.getSelectedCellType() != mouseHoverCellType and
+                mouseHoverCellType != cells::NO_CELL
+            )
+            {
+                impl->selector.selectCell(mouseHoverCellType);
+            }
+
+            if(
+                level->updateSelectedCellType(
+                    context,
+                    impl->floor,
+                    impl->selector.getSelectedCellType()
+                ) and
+                displayedName.back() != '*' and
+                displayedName != UNNAMED_LEVEL
+            )
+            {
+                levelNameSurface.setString(
+                    levelNameSurface.getString() + "*"
+                );
+
+                updateLevelNameSurfacePosition();
+            }
+        }
+        default:
+        {
+        }
+        }
+    }
+}
+
+/**
+ *
+ */
+void LevelEditorController::updateFloor(const short& movement) const &
+{
+    auto& floor = impl->floor;
+    floor += movement;
+
+    impl->floorSurface.setString(
+        std::to_string(
+            floor + 1
+        )
+    );
 }
 
 }
