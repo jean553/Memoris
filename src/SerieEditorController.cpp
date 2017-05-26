@@ -146,29 +146,21 @@ const ControllerId& SerieEditorController::render() const &
     if (saveSerieForeground != nullptr)
     {
         saveSerieForeground->render();
+
+        handleSaveSerieForegroundEvents();
     }
     else if (newSerieForeground != nullptr)
     {
         newSerieForeground->render();
+
+        handleNewSerieForegroundEvents();
     }
     else
     {
-        context.getSfmlWindow().draw(impl->serieNameText);
+        renderControllerMainComponents();
 
-        auto& cursor = impl->cursor;
-        const auto& cursorPosition = cursor.getPosition();
-
-        impl->buttonNew.display(cursorPosition);
-        impl->buttonSave.display(cursorPosition);
-        impl->buttonExit.display(cursorPosition);
-
-        impl->filesLevelsList.display(cursorPosition);
-        impl->serieLevelsList.display(cursorPosition);
-
-        cursor.render();
+        setNextControllerId(animateScreenTransition(context));
     }
-
-    setNextControllerId(animateScreenTransition(context));
 
     auto& event = getEvent();
     while(context.getSfmlWindow().pollEvent(event))
@@ -179,62 +171,8 @@ const ControllerId& SerieEditorController::render() const &
         {
             switch(event.key.code)
             {
-            case sf::Keyboard::Return:
-            {
-                if (newSerieForeground != nullptr)
-                {
-                    impl->serieLevelsList.deleteAllItems();
-                    impl->filesLevelsList.deleteAllItems();
-                    impl->filesLevelsList.loadFilesFromDirectory();
-
-                    impl->serieNameText.setString(UNTITLED_SERIE);
-
-                    updateSerieNamePosition();
-                }
-                else if (saveSerieForeground != nullptr)
-                {
-                    // const std::string&
-                    const auto& serieNameText =
-                        saveSerieForeground->getInputTextWidget().getText()
-                            .toAnsiString();
-
-                    if (
-                        serieNameText.empty() or
-                        serieNameText == UNTITLED_SERIE
-                    )
-                    {
-                        break;
-                    }
-
-                    saveSerieFile(serieNameText);
-
-                    impl->serieNameText.setString(serieNameText);
-
-                    updateSerieNamePosition();
-
-                    impl->serieName = serieNameText;
-
-                    saveSerieForeground.reset();
-
-                    break;
-                }
-            }
             case sf::Keyboard::Escape:
             {
-                if (newSerieForeground != nullptr)
-                {
-                    newSerieForeground.reset();
-
-                    break;
-                }
-
-                if (saveSerieForeground != nullptr)
-                {
-                    saveSerieForeground.reset();
-
-                    break;
-                }
-
                 setExpectedControllerId(ControllerId::EditorMenu);
 
                 break;
@@ -382,6 +320,139 @@ const ControllerId& SerieEditorController::render() const &
     }
 
     return getNextControllerId();
+}
+
+/**
+ *
+ */
+void SerieEditorController::renderControllerMainComponents() const &
+{
+    getContext().getSfmlWindow().draw(impl->serieNameText);
+
+    auto& cursor = impl->cursor;
+    const auto& cursorPosition = cursor.getPosition();
+
+    impl->buttonNew.display(cursorPosition);
+    impl->buttonSave.display(cursorPosition);
+    impl->buttonExit.display(cursorPosition);
+
+    impl->filesLevelsList.display(cursorPosition);
+    impl->serieLevelsList.display(cursorPosition);
+
+    cursor.render();
+}
+
+/**
+ *
+ */
+void SerieEditorController::handleNewSerieForegroundEvents() const &
+{
+    auto& event = getEvent();
+    auto& window = getContext().getSfmlWindow();
+
+    while(window.pollEvent(event))
+    {
+        switch(event.type)
+        {
+        case sf::Event::KeyPressed:
+        {
+            switch(event.key.code)
+            {
+            case sf::Keyboard::Return:
+            {
+                impl->serieLevelsList.deleteAllItems();
+
+                const auto& filesLevelsList = impl->filesLevelsList;
+                filesLevelsList.deleteAllItems();
+                filesLevelsList.loadFilesFromDirectory();
+
+                impl->serieNameText.setString(UNTITLED_SERIE);
+
+                updateSerieNamePosition();
+
+                break;
+            }
+            case sf::Keyboard::Escape:
+            {
+                impl->newSerieForeground.reset();
+
+                break;
+            }
+            default:
+            {
+                break;
+            }
+            }
+        }
+        default:
+        {
+            break;
+        }
+        }
+    }
+}
+
+/**
+ *
+ */
+void SerieEditorController::handleSaveSerieForegroundEvents() const &
+{
+    auto& saveSerieForeground = impl->saveSerieForeground;
+    auto& event = getEvent();
+    auto& window = getContext().getSfmlWindow();
+
+    while(window.pollEvent(event))
+    {
+        switch(event.type)
+        {
+        case sf::Event::KeyPressed:
+        {
+            switch(event.key.code)
+            {
+            case sf::Keyboard::Return:
+            {
+                const auto& serieNameText =
+                    saveSerieForeground->getInputTextWidget().getText()
+                        .toAnsiString();
+
+                if (
+                    serieNameText.empty() or
+                    serieNameText == UNTITLED_SERIE
+                )
+                {
+                    break;
+                }
+
+                saveSerieFile(serieNameText);
+
+                impl->serieNameText.setString(serieNameText);
+
+                updateSerieNamePosition();
+
+                impl->serieName = serieNameText;
+
+                saveSerieForeground.reset();
+
+                break;
+            }
+            case sf::Keyboard::Escape:
+            {
+                saveSerieForeground.reset();
+
+                break;
+            }
+            default:
+            {
+                break;
+            }
+            }
+        }
+        default:
+        {
+            break;
+        }
+        }
+    }
 }
 
 /**

@@ -74,7 +74,28 @@ public:
 private:
 
     /**
-     * @brief mark the serie as unsaved by adding an asterisk after the name
+     * @brief renders the main components of the controller without foregrounds
+     *
+     * not noexcept because it calls SFML functions that are not noexcept
+     */
+    void renderControllerMainComponents() const &;
+
+    /**
+     * @brief handles the events of the new serie foreground
+     *
+     * not noexcept because it calls SFML functions that are not noexcept
+     */
+    void handleNewSerieForegroundEvents() const &;
+
+    /**
+     * @brief handles the events of the save serie foreground
+     *
+     * not noexcept because it calls SFML functions that are not noexcept
+     */
+    void handleSaveSerieForegroundEvents() const &;
+
+    /**
+     * @brief marks the serie as unsaved by adding an asterisk after the name
      *
      * not noexcept because it calls SFML functions that are not noexcept
      */
