@@ -111,9 +111,9 @@ public:
     /**
      * @brief getter of the current list items amount
      *
-     * @return const size_t
+     * @return const unsigned short
      */
-    const size_t getItemsAmount() const & noexcept;
+    const unsigned short getItemsAmount() const & noexcept;
 
     /**
      * @brief getter of the current index

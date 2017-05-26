@@ -270,9 +270,11 @@ std::string SelectionListWidget::getCurrentItem() const &
 /**
  *
  */
-const size_t SelectionListWidget::getItemsAmount() const & noexcept
+const unsigned short SelectionListWidget::getItemsAmount() const & noexcept
 {
-    return impl->texts.size();
+    /* everywhere this value is required,
+       a comparison with unsigned variable is performed */
+    return static_cast<unsigned short>(impl->texts.size());
 }
 
 /**
