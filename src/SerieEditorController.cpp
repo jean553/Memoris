@@ -151,25 +151,23 @@ const ControllerId& SerieEditorController::render() const &
     auto& saveSerieForeground = impl->saveSerieForeground;
     auto& newSerieForeground = impl->newSerieForeground;
 
-    const auto& context = getContext();
-
-    if (saveSerieForeground != nullptr)
-    {
-        saveSerieForeground->render();
-
-        handleSaveSerieForegroundEvents();
-    }
-    else if (newSerieForeground != nullptr)
+    if (newSerieForeground != nullptr)
     {
         newSerieForeground->render();
 
         handleNewSerieForegroundEvents();
     }
+    else if (saveSerieForeground != nullptr)
+    {
+        saveSerieForeground->render();
+
+        handleSaveSerieForegroundEvents();
+    }
     else
     {
         renderControllerMainComponents();
 
-        setNextControllerId(animateScreenTransition(context));
+        setNextControllerId(animateScreenTransition(getContext()));
 
         handleControllerEvents();
     }
@@ -184,13 +182,12 @@ void SerieEditorController::renderControllerMainComponents() const &
 {
     getContext().getSfmlWindow().draw(impl->serieNameText);
 
-    auto& cursor = impl->cursor;
+    const auto& cursor = impl->cursor;
     const auto& cursorPosition = cursor.getPosition();
 
     impl->buttonNew.display(cursorPosition);
     impl->buttonSave.display(cursorPosition);
     impl->buttonExit.display(cursorPosition);
-
     impl->filesLevelsList.display(cursorPosition);
     impl->serieLevelsList.display(cursorPosition);
 
@@ -522,10 +519,11 @@ void SerieEditorController::updateSerieNamePosition() const &
 {
     auto& serieNameText = impl->serieNameText;
 
+    constexpr float SERIE_NAME_TEXT_VERTICAL_POSITION {0.f};
     serieNameText.setPosition(
         window::WIDTH -
             serieNameText.getLocalBounds().width,
-        0.f
+        SERIE_NAME_TEXT_VERTICAL_POSITION
     );
 }
 
