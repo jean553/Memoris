@@ -52,6 +52,12 @@ namespace controllers
 {
 
 constexpr float BUTTONS_VERTICAL_POSITION {10.f};
+constexpr float NEW_BUTTON_HORIZONTAL_POSITION {10.f};
+constexpr float SAVE_BUTTON_HORIZONTAL_POSITION {90.f};
+constexpr float EXIT_BUTTON_HORIZONTAL_POSITION {170.f};
+constexpr float ALL_LEVELS_LIST_HORIZONTAL_POSITION {100.f};
+constexpr float SERIE_LEVELS_LIST_HORIZONTAL_POSITION {890.f};
+
 constexpr const char* UNTITLED_SERIE {"untitled"};
 
 class SerieEditorController::Impl
@@ -62,19 +68,19 @@ public:
     Impl(const utils::Context& context) : 
         buttonNew(
             context,
-            10.f,
+            NEW_BUTTON_HORIZONTAL_POSITION,
             BUTTONS_VERTICAL_POSITION,
             context.getTexturesManager().getNewTexture()
         ),
         buttonSave(
             context,
-            90.f,
+            SAVE_BUTTON_HORIZONTAL_POSITION,
             BUTTONS_VERTICAL_POSITION,
             context.getTexturesManager().getSaveTexture()
         ),
         buttonExit(
             context,
-            170.f,
+            EXIT_BUTTON_HORIZONTAL_POSITION,
             BUTTONS_VERTICAL_POSITION,
             context.getTexturesManager().getExitTexture()
         ),
@@ -82,20 +88,24 @@ public:
         filesLevelsList(
             context,
             "data/levels/personals",
-            100.f
+            ALL_LEVELS_LIST_HORIZONTAL_POSITION
         ),
         serieLevelsList(
             context,
-            890.f
+            SERIE_LEVELS_LIST_HORIZONTAL_POSITION
         )
     {
         serieNameText.setString(UNTITLED_SERIE);
         serieNameText.setFont(context.getFontsManager().getTextFont());
         serieNameText.setFillColor(context.getColorsManager().getColorWhite());
         serieNameText.setCharacterSize(sizes::TEXT_SIZE);
+
+        constexpr float SERIE_NAME_TEXT_HORIZONTAL_BASE {1550.f};
+        constexpr float SERIE_NAME_TEXT_VERTICAL_POSITION {0.f};
         serieNameText.setPosition(
-            1550.f - serieNameText.getLocalBounds().width,
-            0.f
+            SERIE_NAME_TEXT_HORIZONTAL_BASE -
+                serieNameText.getLocalBounds().width,
+            SERIE_NAME_TEXT_VERTICAL_POSITION
         );
     }
 
