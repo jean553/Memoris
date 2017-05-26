@@ -29,12 +29,10 @@
 #include "FontsManager.hpp"
 #include "TexturesManager.hpp"
 #include "Context.hpp"
-#include "controllers.hpp"
 #include "fonts_sizes.hpp"
 #include "Button.hpp"
 #include "Cursor.hpp"
 #include "FilesSelectionListWidget.hpp"
-#include "SelectionListWidget.hpp"
 #include "InputTextForeground.hpp"
 #include "MessageForeground.hpp"
 #include "InputTextWidget.hpp"
@@ -51,11 +49,14 @@ namespace memoris
 namespace controllers
 {
 
-constexpr float SerieEditorController::BUTTONS_VERTICAL_POSITION;
+constexpr float BUTTONS_VERTICAL_POSITION {10.f};
+constexpr float NEW_BUTTON_HORIZONTAL_POSITION {10.f};
+constexpr float SAVE_BUTTON_HORIZONTAL_POSITION {90.f};
+constexpr float EXIT_BUTTON_HORIZONTAL_POSITION {170.f};
+constexpr float ALL_LEVELS_LIST_HORIZONTAL_POSITION {100.f};
+constexpr float SERIE_LEVELS_LIST_HORIZONTAL_POSITION {890.f};
 
-constexpr const char* SerieEditorController::SAVE_SERIE_MESSAGE;
-constexpr const char* SerieEditorController::UNTITLED_SERIE;
-constexpr const char* SerieEditorController::ERASE_SERIE_MESSAGE;
+constexpr const char* UNTITLED_SERIE {"untitled"};
 
 class SerieEditorController::Impl
 {
@@ -65,19 +66,19 @@ public:
     Impl(const utils::Context& context) : 
         buttonNew(
             context,
-            10.f,
+            NEW_BUTTON_HORIZONTAL_POSITION,
             BUTTONS_VERTICAL_POSITION,
             context.getTexturesManager().getNewTexture()
         ),
         buttonSave(
             context,
-            90.f,
+            SAVE_BUTTON_HORIZONTAL_POSITION,
             BUTTONS_VERTICAL_POSITION,
             context.getTexturesManager().getSaveTexture()
         ),
         buttonExit(
             context,
-            170.f,
+            EXIT_BUTTON_HORIZONTAL_POSITION,
             BUTTONS_VERTICAL_POSITION,
             context.getTexturesManager().getExitTexture()
         ),
@@ -85,20 +86,24 @@ public:
         filesLevelsList(
             context,
             "data/levels/personals",
-            100.f
+            ALL_LEVELS_LIST_HORIZONTAL_POSITION
         ),
         serieLevelsList(
             context,
-            890.f
+            SERIE_LEVELS_LIST_HORIZONTAL_POSITION
         )
     {
         serieNameText.setString(UNTITLED_SERIE);
         serieNameText.setFont(context.getFontsManager().getTextFont());
         serieNameText.setFillColor(context.getColorsManager().getColorWhite());
         serieNameText.setCharacterSize(sizes::TEXT_SIZE);
+
+        constexpr float SERIE_NAME_TEXT_HORIZONTAL_BASE {1550.f};
+        constexpr float SERIE_NAME_TEXT_VERTICAL_POSITION {0.f};
         serieNameText.setPosition(
-            1550.f - serieNameText.getLocalBounds().width,
-            0.f
+            SERIE_NAME_TEXT_HORIZONTAL_BASE -
+                serieNameText.getLocalBounds().width,
+            SERIE_NAME_TEXT_VERTICAL_POSITION
         );
     }
 
@@ -134,7 +139,7 @@ SerieEditorController::SerieEditorController(const utils::Context& context) :
 /**
  *
  */
-SerieEditorController::~SerieEditorController() noexcept = default;
+SerieEditorController::~SerieEditorController() = default;
 
 /**
  *
@@ -144,37 +149,58 @@ const ControllerId& SerieEditorController::render() const &
     auto& saveSerieForeground = impl->saveSerieForeground;
     auto& newSerieForeground = impl->newSerieForeground;
 
-    const auto& context = getContext();
-
-    if (saveSerieForeground != nullptr)
-    {
-        saveSerieForeground->render();
-    }
-    else if (newSerieForeground != nullptr)
+    if (newSerieForeground != nullptr)
     {
         newSerieForeground->render();
+
+        handleNewSerieForegroundEvents();
+    }
+    else if (saveSerieForeground != nullptr)
+    {
+        saveSerieForeground->render();
+
+        handleSaveSerieForegroundEvents();
     }
     else
     {
-        context.getSfmlWindow().draw(impl->serieNameText);
+        renderControllerMainComponents();
 
-        auto& cursor = impl->cursor;
-        const auto& cursorPosition = cursor.getPosition();
+        setNextControllerId(animateScreenTransition(getContext()));
 
-        impl->buttonNew.display(cursorPosition);
-        impl->buttonSave.display(cursorPosition);
-        impl->buttonExit.display(cursorPosition);
-
-        impl->filesLevelsList.display(cursorPosition);
-        impl->serieLevelsList.display(cursorPosition);
-
-        cursor.render();
+        handleControllerEvents();
     }
 
-    setNextControllerId(animateScreenTransition(context));
+    return getNextControllerId();
+}
 
+/**
+ *
+ */
+void SerieEditorController::renderControllerMainComponents() const &
+{
+    getContext().getSfmlWindow().draw(impl->serieNameText);
+
+    const auto& cursor = impl->cursor;
+    const auto& cursorPosition = cursor.getPosition();
+
+    impl->buttonNew.display(cursorPosition);
+    impl->buttonSave.display(cursorPosition);
+    impl->buttonExit.display(cursorPosition);
+    impl->filesLevelsList.display(cursorPosition);
+    impl->serieLevelsList.display(cursorPosition);
+
+    cursor.render();
+}
+
+/**
+ *
+ */
+void SerieEditorController::handleNewSerieForegroundEvents() const &
+{
     auto& event = getEvent();
-    while(context.getSfmlWindow().pollEvent(event))
+    auto& window = getContext().getSfmlWindow();
+
+    while(window.pollEvent(event))
     {
         switch(event.type)
         {
@@ -184,85 +210,139 @@ const ControllerId& SerieEditorController::render() const &
             {
             case sf::Keyboard::Return:
             {
-                if (newSerieForeground != nullptr)
-                {
-                    impl->serieLevelsList.deleteAllItems();
-                    impl->filesLevelsList.deleteAllItems();
-                    impl->filesLevelsList.loadFilesFromDirectory();
+                resetLevelsLists();
 
-                    impl->serieNameText.setString(UNTITLED_SERIE);
+                updateSerieName(UNTITLED_SERIE);
 
-                    updateSerieNamePosition();
-                }
-                else if (saveSerieForeground != nullptr)
-                {
-                    // const std::string&
-                    const auto& serieNameText =
-                        saveSerieForeground->getInputTextWidget().getText()
-                            .toAnsiString();
-
-                    if (
-                        serieNameText.empty() or
-                        serieNameText == UNTITLED_SERIE
-                    )
-                    {
-                        break;
-                    }
-
-                    saveSerieFile(serieNameText);
-
-                    impl->serieNameText.setString(serieNameText);
-
-                    updateSerieNamePosition();
-
-                    impl->serieName = serieNameText;
-
-                    saveSerieForeground.reset();
-
-                    break;
-                }
+                break;
             }
             case sf::Keyboard::Escape:
             {
-                if (newSerieForeground != nullptr)
-                {
-                    newSerieForeground.reset();
+                impl->newSerieForeground.reset();
 
+                break;
+            }
+            default:
+            {
+                break;
+            }
+            }
+        }
+        default:
+        {
+            break;
+        }
+        }
+    }
+}
+
+/**
+ *
+ */
+void SerieEditorController::handleSaveSerieForegroundEvents() const &
+{
+    auto& saveSerieForeground = impl->saveSerieForeground;
+    auto& event = getEvent();
+    auto& window = getContext().getSfmlWindow();
+
+    while(window.pollEvent(event))
+    {
+        switch(event.type)
+        {
+        case sf::Event::KeyPressed:
+        {
+            switch(event.key.code)
+            {
+            case sf::Keyboard::Return:
+            {
+                const auto& serieName =
+                    saveSerieForeground->getInputTextWidget().getText()
+                        .toAnsiString();
+
+                if (
+                    serieName.empty() or
+                    serieName == UNTITLED_SERIE
+                )
+                {
                     break;
                 }
 
-                if (saveSerieForeground != nullptr)
-                {
-                    saveSerieForeground.reset();
+                saveSerieFile(serieName);
 
+                updateSerieName(serieName);
+
+                impl->serieName = serieName;
+
+                saveSerieForeground.reset();
+
+                break;
+            }
+            case sf::Keyboard::Escape:
+            {
+                saveSerieForeground.reset();
+
+                break;
+            }
+            default:
+            {
+                const auto& textInput = 
+                    saveSerieForeground->getInputTextWidget();
+
+                if(event.key.code == sf::Keyboard::BackSpace)
+                {
+                    textInput.empty();
+                }
+
+                if(textInput.isFull())
+                {
                     break;
                 }
 
+                const char character = textInput.getInputLetter(event);
+
+                if(character != 0)
+                {
+                    textInput.update(character);
+                }
+
+                break;
+            }
+            }
+        }
+        default:
+        {
+            break;
+        }
+        }
+    }
+}
+
+/**
+ *
+ */
+void SerieEditorController::handleControllerEvents() const &
+{
+    const auto& context = getContext();
+    auto& window = context.getSfmlWindow();
+    auto& event = getEvent();
+
+    while(window.pollEvent(event))
+    {
+        switch(event.type)
+        {
+        case sf::Event::KeyPressed:
+        {
+            switch(event.key.code)
+            {
+            case sf::Keyboard::Escape:
+            {
                 setExpectedControllerId(ControllerId::EditorMenu);
 
                 break;
             }
             default:
             {
-                auto& textInput = saveSerieForeground->getInputTextWidget();
-
-                if (
-                    saveSerieForeground != nullptr and
-                    not textInput.isFull()
-                )
-                {
-                    if(event.key.code == sf::Keyboard::BackSpace)
-                    {
-                        textInput.empty();
-                    }
-
-                    const char character = textInput.getInputLetter(event);
-
-                    if(character != 0)
-                    {
-                        textInput.update(character);
-                    }
-                }
+                break;
             }
             }
 
@@ -274,112 +354,91 @@ const ControllerId& SerieEditorController::render() const &
             {
                 setExpectedControllerId(ControllerId::EditorMenu);
             }
-            else if (
-                impl->buttonNew.isMouseHover() and
-                newSerieForeground == nullptr
-            )
+            else if (impl->buttonNew.isMouseHover())
             {
-                newSerieForeground =
-                    std::make_unique<foregrounds::MessageForeground>(
-                        context,
-                        ERASE_SERIE_MESSAGE
-                    );
+                openNewSerieForeground();
             }
-            else if (
-                impl->buttonSave.isMouseHover() and
-                saveSerieForeground == nullptr
-            )
+            else if (impl->buttonSave.isMouseHover())
             {
                 auto serieNameText =
                     impl->serieNameText.getString().toAnsiString();
 
-                if (serieNameText != UNTITLED_SERIE)
+                if (
+                    serieNameText != UNTITLED_SERIE and
+                    serieNameText.back() == '*'
+                )
                 {
-                    if (serieNameText.back() == '*')
-                    {
-                        const auto& serieName = impl->serieName;
+                    const auto& serieName = impl->serieName;
 
-                        saveSerieFile(serieName);
+                    saveSerieFile(serieName);
 
-                        impl->serieNameText.setString(serieName);
-
-                        updateSerieNamePosition();
-                    }
+                    updateSerieName(serieName);
 
                     break;
                 }
 
-                saveSerieForeground =
-                    std::make_unique<foregrounds::InputTextForeground>(
-                        context,
-                        SAVE_SERIE_MESSAGE
-                    );
+                openSaveSerieForeground();
             }
 
-            const auto& levelsList = impl->filesLevelsList;
-            const auto& seriesList = impl->serieLevelsList;
+            const auto& allLevelsList = impl->filesLevelsList;
+            const auto& serieLevelsList = impl->serieLevelsList;
 
-            const auto& levelsListItemsAmount = levelsList.getItemsAmount();
-            const auto& seriesListItemsAmount = seriesList.getItemsAmount();
+            const auto& allLevelsIndex = allLevelsList.getCurrentIndex();
+            const auto& serieLevelsIndex = serieLevelsList.getCurrentIndex();
 
-            const auto& levelsListCurrentIndex = levelsList.getCurrentIndex();
-            const auto& seriesListCurrentIndex = seriesList.getCurrentIndex();
-
-            constexpr short NO_SELECTION_INDEX =
-                widgets::SelectionListWidget::NO_SELECTION_INDEX;
+            constexpr short NO_SELECTION_INDEX {-1};
 
             if (
-                levelsListCurrentIndex < levelsListItemsAmount and
-                levelsListCurrentIndex != NO_SELECTION_INDEX
+                allLevelsIndex < allLevelsList.getItemsAmount() and
+                allLevelsIndex != NO_SELECTION_INDEX
             )
             {
-                seriesList.addItem(levelsList.getCurrentItem());
+                serieLevelsList.addItem(allLevelsList.getCurrentItem());
 
-                levelsList.deleteSelectedItem();
+                allLevelsList.deleteSelectedItem();
 
                 markSerieUnsaved();
             }
             else if (
-                seriesListCurrentIndex < seriesListItemsAmount and
-                seriesListCurrentIndex != NO_SELECTION_INDEX
+                serieLevelsIndex < serieLevelsList.getItemsAmount() and
+                serieLevelsIndex != NO_SELECTION_INDEX
             )
             {
-                levelsList.addItem(seriesList.getCurrentItem());
+                allLevelsList.addItem(serieLevelsList.getCurrentItem());
 
-                seriesList.deleteSelectedItem();
+                serieLevelsList.deleteSelectedItem();
 
                 markSerieUnsaved();
             }
 
             using ListMovement = widgets::SelectionListWidget::ListMovement;
 
-            if (levelsList.canScrollUp())
+            if (allLevelsList.canScrollUp())
             {
-                levelsList.updateAllItemsPosition(ListMovement::Up);
+                allLevelsList.updateAllItemsPosition(ListMovement::Up);
             }
-            else if (levelsList.canScrollDown())
+            else if (allLevelsList.canScrollDown())
             {
-                levelsList.updateAllItemsPosition(ListMovement::Down);
+                allLevelsList.updateAllItemsPosition(ListMovement::Down);
             }
 
-            if (seriesList.canScrollUp())
+            if (serieLevelsList.canScrollUp())
             {
-                seriesList.updateAllItemsPosition(ListMovement::Up);
+                serieLevelsList.updateAllItemsPosition(ListMovement::Up);
             }
-            else if (seriesList.canScrollDown())
+            else if (serieLevelsList.canScrollDown())
             {
-                seriesList.updateAllItemsPosition(ListMovement::Down);
+                serieLevelsList.updateAllItemsPosition(ListMovement::Down);
             }
 
             break;
         }
         default:
         {
+            break;
         }
         }
     }
-
-    return getNextControllerId();
 }
 
 /**
@@ -434,11 +493,62 @@ void SerieEditorController::updateSerieNamePosition() const &
 {
     auto& serieNameText = impl->serieNameText;
 
+    constexpr float SERIE_NAME_TEXT_VERTICAL_POSITION {0.f};
     serieNameText.setPosition(
         window::WIDTH -
             serieNameText.getLocalBounds().width,
-        0.f
+        SERIE_NAME_TEXT_VERTICAL_POSITION
     );
+}
+
+/**
+ *
+ */
+void SerieEditorController::resetLevelsLists() const &
+{
+    impl->serieLevelsList.deleteAllItems();
+
+    const auto& filesLevelsList = impl->filesLevelsList;
+    filesLevelsList.deleteAllItems();
+    filesLevelsList.loadFilesFromDirectory();
+}
+
+/**
+ *
+ */
+void SerieEditorController::updateSerieName(const std::string& name) const &
+{
+    impl->serieNameText.setString(UNTITLED_SERIE);
+
+    updateSerieNamePosition();
+}
+
+/**
+ *
+ */
+void SerieEditorController::openNewSerieForeground() const &
+{
+    constexpr const char* ERASE_SERIE_MESSAGE
+        {"Erase the current serie ? y / n"};
+
+    impl->newSerieForeground =
+        std::make_unique<foregrounds::MessageForeground>(
+            getContext(),
+            ERASE_SERIE_MESSAGE
+        );
+}
+
+/**
+ *
+ */
+void SerieEditorController::openSaveSerieForeground() const &
+{
+    constexpr const char* SAVE_SERIE_MESSAGE {"Save serie"};
+    impl->saveSerieForeground =
+        std::make_unique<foregrounds::InputTextForeground>(
+            getContext(),
+            SAVE_SERIE_MESSAGE
+        );
 }
 
 }

@@ -139,9 +139,10 @@ const ControllerId& PersonalSeriesMenuController::render() const &
 
             const auto& index = list.getCurrentIndex();
 
+            constexpr short NO_SELECTION_INDEX {-1};
             if (
                 index < list.getItemsAmount() and
-                index != widgets::SelectionListWidget::NO_SELECTION_INDEX
+                index != NO_SELECTION_INDEX
             )
             {
                 try

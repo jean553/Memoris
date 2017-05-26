@@ -40,6 +40,12 @@ namespace memoris
 namespace widgets
 {
 
+constexpr float VERTICAL_POSITION {200.f};
+constexpr float WIDTH {600.f};
+constexpr float HEIGHT {600.f};
+constexpr float ITEMS_SEPARATION {50.f};
+constexpr float ARROWS_VERTICAL_POSITION {800.f};
+
 class SelectionListWidget::Impl
 {
 
@@ -222,6 +228,7 @@ void SelectionListWidget::display(
     }
     else
     {
+        constexpr short NO_SELECTION_INDEX {-1};
         selectorIndex = NO_SELECTION_INDEX;
     }
 
@@ -270,9 +277,11 @@ std::string SelectionListWidget::getCurrentItem() const &
 /**
  *
  */
-const size_t SelectionListWidget::getItemsAmount() const & noexcept
+const unsigned short SelectionListWidget::getItemsAmount() const & noexcept
 {
-    return impl->texts.size();
+    /* everywhere this value is required,
+       a comparison with unsigned variable is performed */
+    return static_cast<unsigned short>(impl->texts.size());
 }
 
 /**
@@ -299,8 +308,11 @@ const bool SelectionListWidget::canScrollDown() const & noexcept
 {
     constexpr unsigned short VISIBLE_ITEMS_AMOUNT {12};
 
+    /* prevent comparison between signed and unsigned variables */
+    const auto& itemsAmount = static_cast<unsigned short>(impl->texts.size());
+
     return impl->mouseHoverRightArrow and
-        impl->offset + VISIBLE_ITEMS_AMOUNT != impl->texts.size();
+        impl->offset + VISIBLE_ITEMS_AMOUNT != itemsAmount;
 }
 
 /**
