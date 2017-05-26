@@ -386,8 +386,7 @@ void SerieEditorController::handleControllerEvents() const &
             const auto& allLevelsIndex = allLevelsList.getCurrentIndex();
             const auto& serieLevelsIndex = serieLevelsList.getCurrentIndex();
 
-            constexpr short NO_SELECTION_INDEX =
-                widgets::SelectionListWidget::NO_SELECTION_INDEX;
+            constexpr short NO_SELECTION_INDEX {-1};
 
             if (
                 allLevelsIndex < allLevelsList.getItemsAmount() and
