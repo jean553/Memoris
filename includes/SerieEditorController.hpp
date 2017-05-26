@@ -138,6 +138,26 @@ private:
      */
     void updateSerieName(const std::string& name) const &;
 
+    /**
+     * @brief loads the new serie foreground
+     *
+     * this code part has been refactored into the function
+     * only for organization purposes
+     *
+     * not noexcept because it calls SFML functions that are not noexcept
+     */
+    void openNewSerieForeground() const &;
+
+    /**
+     * @brief loads the save serie foreground
+     *
+     * this code part has been refactored into the function
+     * only for organization purposes
+     *
+     * not noexcept because it calls SFML functions that are not noexcept
+     */
+    void openSaveSerieForeground() const &;
+
     class Impl;
     std::unique_ptr<Impl> impl;
 };

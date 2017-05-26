@@ -327,7 +327,6 @@ void SerieEditorController::handleControllerEvents() const &
     const auto& context = getContext();
     auto& event = getEvent();
     auto& window = context.getSfmlWindow();
-    auto& newSerieForeground = impl->newSerieForeground;
     auto& saveSerieForeground = impl->saveSerieForeground;
 
     while(window.pollEvent(event))
@@ -360,43 +359,28 @@ void SerieEditorController::handleControllerEvents() const &
             }
             else if (impl->buttonNew.isMouseHover())
             {
-
-                constexpr const char* ERASE_SERIE_MESSAGE
-                    {"Erase the current serie ? y / n"};
-
-                newSerieForeground =
-                    std::make_unique<foregrounds::MessageForeground>(
-                        context,
-                        ERASE_SERIE_MESSAGE
-                    );
+                openNewSerieForeground();
             }
             else if (impl->buttonSave.isMouseHover())
             {
                 auto serieNameText =
                     impl->serieNameText.getString().toAnsiString();
 
-                if (serieNameText != UNTITLED_SERIE)
+                if (
+                    serieNameText != UNTITLED_SERIE and
+                    serieNameText.back() == '*'
+                )
                 {
-                    if (serieNameText.back() == '*')
-                    {
-                        const auto& serieName = impl->serieName;
+                    const auto& serieName = impl->serieName;
 
-                        saveSerieFile(serieName);
+                    saveSerieFile(serieName);
 
-                        impl->serieNameText.setString(serieName);
-
-                        updateSerieNamePosition();
-                    }
+                    updateSerieName(serieName);
 
                     break;
                 }
 
-                constexpr const char* SAVE_SERIE_MESSAGE {"Save serie"};
-                saveSerieForeground =
-                    std::make_unique<foregrounds::InputTextForeground>(
-                        context,
-                        SAVE_SERIE_MESSAGE
-                    );
+                openSaveSerieForeground();
             }
 
             const auto& levelsList = impl->filesLevelsList;
@@ -544,6 +528,34 @@ void SerieEditorController::updateSerieName(const std::string& name) const &
     impl->serieNameText.setString(UNTITLED_SERIE);
 
     updateSerieNamePosition();
+}
+
+/**
+ *
+ */
+void SerieEditorController::openNewSerieForeground() const &
+{
+    constexpr const char* ERASE_SERIE_MESSAGE
+        {"Erase the current serie ? y / n"};
+
+    impl->newSerieForeground =
+        std::make_unique<foregrounds::MessageForeground>(
+            getContext(),
+            ERASE_SERIE_MESSAGE
+        );
+}
+
+/**
+ *
+ */
+void SerieEditorController::openSaveSerieForeground() const &
+{
+    constexpr const char* SAVE_SERIE_MESSAGE {"Save serie"};
+    impl->saveSerieForeground =
+        std::make_unique<foregrounds::InputTextForeground>(
+            getContext(),
+            SAVE_SERIE_MESSAGE
+        );
 }
 
 }
