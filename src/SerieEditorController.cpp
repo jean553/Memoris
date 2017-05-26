@@ -325,9 +325,8 @@ void SerieEditorController::handleSaveSerieForegroundEvents() const &
 void SerieEditorController::handleControllerEvents() const &
 {
     const auto& context = getContext();
-    auto& event = getEvent();
     auto& window = context.getSfmlWindow();
-    auto& saveSerieForeground = impl->saveSerieForeground;
+    auto& event = getEvent();
 
     while(window.pollEvent(event))
     {
@@ -383,59 +382,56 @@ void SerieEditorController::handleControllerEvents() const &
                 openSaveSerieForeground();
             }
 
-            const auto& levelsList = impl->filesLevelsList;
-            const auto& seriesList = impl->serieLevelsList;
+            const auto& allLevelsList = impl->filesLevelsList;
+            const auto& serieLevelsList = impl->serieLevelsList;
 
-            const auto& levelsListItemsAmount = levelsList.getItemsAmount();
-            const auto& seriesListItemsAmount = seriesList.getItemsAmount();
-
-            const auto& levelsListCurrentIndex = levelsList.getCurrentIndex();
-            const auto& seriesListCurrentIndex = seriesList.getCurrentIndex();
+            const auto& allLevelsIndex = allLevelsList.getCurrentIndex();
+            const auto& serieLevelsIndex = serieLevelsList.getCurrentIndex();
 
             constexpr short NO_SELECTION_INDEX =
                 widgets::SelectionListWidget::NO_SELECTION_INDEX;
 
             if (
-                levelsListCurrentIndex < levelsListItemsAmount and
-                levelsListCurrentIndex != NO_SELECTION_INDEX
+                allLevelsIndex < allLevelsList.getItemsAmount() and
+                allLevelsIndex != NO_SELECTION_INDEX
             )
             {
-                seriesList.addItem(levelsList.getCurrentItem());
+                serieLevelsList.addItem(allLevelsList.getCurrentItem());
 
-                levelsList.deleteSelectedItem();
+                allLevelsList.deleteSelectedItem();
 
                 markSerieUnsaved();
             }
             else if (
-                seriesListCurrentIndex < seriesListItemsAmount and
-                seriesListCurrentIndex != NO_SELECTION_INDEX
+                serieLevelsIndex < serieLevelsList.getItemsAmount() and
+                serieLevelsIndex != NO_SELECTION_INDEX
             )
             {
-                levelsList.addItem(seriesList.getCurrentItem());
+                allLevelsList.addItem(serieLevelsList.getCurrentItem());
 
-                seriesList.deleteSelectedItem();
+                serieLevelsList.deleteSelectedItem();
 
                 markSerieUnsaved();
             }
 
             using ListMovement = widgets::SelectionListWidget::ListMovement;
 
-            if (levelsList.canScrollUp())
+            if (allLevelsList.canScrollUp())
             {
-                levelsList.updateAllItemsPosition(ListMovement::Up);
+                allLevelsList.updateAllItemsPosition(ListMovement::Up);
             }
-            else if (levelsList.canScrollDown())
+            else if (allLevelsList.canScrollDown())
             {
-                levelsList.updateAllItemsPosition(ListMovement::Down);
+                allLevelsList.updateAllItemsPosition(ListMovement::Down);
             }
 
-            if (seriesList.canScrollUp())
+            if (serieLevelsList.canScrollUp())
             {
-                seriesList.updateAllItemsPosition(ListMovement::Up);
+                serieLevelsList.updateAllItemsPosition(ListMovement::Up);
             }
-            else if (seriesList.canScrollDown())
+            else if (serieLevelsList.canScrollDown())
             {
-                seriesList.updateAllItemsPosition(ListMovement::Down);
+                serieLevelsList.updateAllItemsPosition(ListMovement::Down);
             }
 
             break;
