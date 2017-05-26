@@ -131,7 +131,7 @@ SerieEditorController::SerieEditorController(const utils::Context& context) :
 /**
  *
  */
-SerieEditorController::~SerieEditorController() noexcept = default;
+SerieEditorController::~SerieEditorController() = default;
 
 /**
  *

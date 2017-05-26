@@ -39,33 +39,31 @@ class SerieEditorController : public Controller
 public:
 
     /**
-     * @brief constructor, just used to transfer parameter
+     * @brief constructor
      *
-     * @param context constant reference to the current context to use
+     * @param context the context to use
+     *
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
      */
     SerieEditorController(const utils::Context& context);
 
     /**
-     * @bried default destructor, empty, only declared in order to use
-     * forwarding declaration
+     * @bried default destructor
      */
-    ~SerieEditorController() noexcept;
+    ~SerieEditorController();
 
     /**
      * @brief render the serie editor controller
      *
      * @return const unsigned short&
-     *
-     * the context reference is not constant because this is a virtual method
-     * and some definitions have to modify the context attributes
      */
     virtual const ControllerId& render() const & override;
 
     /**
-     * @brief save the current serie file according to the given serie name
-     * and the levels of the serie levels list
+     * @brief save the selected levels into a dedicated serie file
      *
-     * @param name the name of the level to create
+     * @param name the name of the serie to create
      *
      * @throw std::ios_base::failure thrown if the file manipulation failed;
      * this exception is never caught by the program and the game directly
@@ -76,18 +74,14 @@ public:
 private:
 
     /**
-     * @brief add a star at the end of the serie name; we created this method
-     * in order to refactor this feature code, required at different locations
-     * into the script
+     * @brief mark the serie as unsaved by adding an asterisk after the name
      *
      * not noexcept because it calls SFML functions that are not noexcept
      */
     void markSerieUnsaved() const &;
 
     /**
-     * @brief updates the serie name position according to the width of the
-     * surface; this method has been created in order to handle the same
-     * feature at different locations in the script
+     * @brief updates the serie name position according to the text width
      *
      * not noexcept because it calls SFML functions that are not noexcept
      */
