@@ -115,6 +115,29 @@ private:
      */
     void updateSerieNamePosition() const &;
 
+    /**
+     * @brief empty the serie levels list, reload all the available levels
+     * into the levels list
+     *
+     * this code part has been refactored into the function
+     * only for organization purposes
+     *
+     * not noexcept because it calls SFML functions that are not noexcept
+     */
+    void resetLevelsLists() const &;
+
+    /**
+     * @brief set the displayed serie name
+     *
+     * @param name the name of the serie
+     *
+     * this code part has been refactored into the function
+     * only for organization purposes
+     *
+     * not noexcept because it calls SFML functions that are not noexcept
+     */
+    void updateSerieName(const std::string& name) const &;
+
     class Impl;
     std::unique_ptr<Impl> impl;
 };

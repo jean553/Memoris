@@ -405,15 +405,15 @@ void LevelEditorController::handleSaveLevelForegroundEvents() const &
             {
                 auto& textInput = saveLevelForeground->getInputTextWidget();
 
-                if (textInput.isFull())
-                {
-                    break;
-                }
-
                 if(event.key.code == sf::Keyboard::BackSpace)
                 {
                     textInput.empty();
 
+                    break;
+                }
+
+                if (textInput.isFull())
+                {
                     break;
                 }
 

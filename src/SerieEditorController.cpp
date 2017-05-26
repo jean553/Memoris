@@ -212,15 +212,9 @@ void SerieEditorController::handleNewSerieForegroundEvents() const &
             {
             case sf::Keyboard::Return:
             {
-                impl->serieLevelsList.deleteAllItems();
+                resetLevelsLists();
 
-                const auto& filesLevelsList = impl->filesLevelsList;
-                filesLevelsList.deleteAllItems();
-                filesLevelsList.loadFilesFromDirectory();
-
-                impl->serieNameText.setString(UNTITLED_SERIE);
-
-                updateSerieNamePosition();
+                updateSerieName(UNTITLED_SERIE);
 
                 break;
             }
@@ -263,25 +257,23 @@ void SerieEditorController::handleSaveSerieForegroundEvents() const &
             {
             case sf::Keyboard::Return:
             {
-                const auto& serieNameText =
+                const auto& serieName =
                     saveSerieForeground->getInputTextWidget().getText()
                         .toAnsiString();
 
                 if (
-                    serieNameText.empty() or
-                    serieNameText == UNTITLED_SERIE
+                    serieName.empty() or
+                    serieName == UNTITLED_SERIE
                 )
                 {
                     break;
                 }
 
-                saveSerieFile(serieNameText);
+                saveSerieFile(serieName);
 
-                impl->serieNameText.setString(serieNameText);
+                updateSerieName(serieName);
 
-                updateSerieNamePosition();
-
-                impl->serieName = serieNameText;
+                impl->serieName = serieName;
 
                 saveSerieForeground.reset();
 
@@ -301,6 +293,11 @@ void SerieEditorController::handleSaveSerieForegroundEvents() const &
                 if(event.key.code == sf::Keyboard::BackSpace)
                 {
                     textInput.empty();
+                }
+
+                if(textInput.isFull())
+                {
+                    break;
                 }
 
                 const char character = textInput.getInputLetter(event);
@@ -525,6 +522,28 @@ void SerieEditorController::updateSerieNamePosition() const &
             serieNameText.getLocalBounds().width,
         SERIE_NAME_TEXT_VERTICAL_POSITION
     );
+}
+
+/**
+ *
+ */
+void SerieEditorController::resetLevelsLists() const &
+{
+    impl->serieLevelsList.deleteAllItems();
+
+    const auto& filesLevelsList = impl->filesLevelsList;
+    filesLevelsList.deleteAllItems();
+    filesLevelsList.loadFilesFromDirectory();
+}
+
+/**
+ *
+ */
+void SerieEditorController::updateSerieName(const std::string& name) const &
+{
+    impl->serieNameText.setString(UNTITLED_SERIE);
+
+    updateSerieNamePosition();
 }
 
 }
