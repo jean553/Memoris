@@ -95,6 +95,13 @@ private:
     void handleSaveSerieForegroundEvents() const &;
 
     /**
+     * @brief handles the controller main components events without foregrounds
+     *
+     * not noexcept because it calls SFML functions that are not noexcept
+     */
+    void handleControllerEvents() const &;
+
+    /**
      * @brief marks the serie as unsaved by adding an asterisk after the name
      *
      * not noexcept because it calls SFML functions that are not noexcept

@@ -160,163 +160,8 @@ const ControllerId& SerieEditorController::render() const &
         renderControllerMainComponents();
 
         setNextControllerId(animateScreenTransition(context));
-    }
 
-    auto& event = getEvent();
-    while(context.getSfmlWindow().pollEvent(event))
-    {
-        switch(event.type)
-        {
-        case sf::Event::KeyPressed:
-        {
-            switch(event.key.code)
-            {
-            case sf::Keyboard::Escape:
-            {
-                setExpectedControllerId(ControllerId::EditorMenu);
-
-                break;
-            }
-            default:
-            {
-                auto& textInput = saveSerieForeground->getInputTextWidget();
-
-                if (
-                    saveSerieForeground != nullptr and
-                    not textInput.isFull()
-                )
-                {
-                    if(event.key.code == sf::Keyboard::BackSpace)
-                    {
-                        textInput.empty();
-                    }
-
-                    const char character = textInput.getInputLetter(event);
-
-                    if(character != 0)
-                    {
-                        textInput.update(character);
-                    }
-                }
-            }
-            }
-
-            break;
-        }
-        case sf::Event::MouseButtonPressed:
-        {
-            if (impl->buttonExit.isMouseHover())
-            {
-                setExpectedControllerId(ControllerId::EditorMenu);
-            }
-            else if (
-                impl->buttonNew.isMouseHover() and
-                newSerieForeground == nullptr
-            )
-            {
-
-                constexpr const char* ERASE_SERIE_MESSAGE
-                    {"Erase the current serie ? y / n"};
-
-                newSerieForeground =
-                    std::make_unique<foregrounds::MessageForeground>(
-                        context,
-                        ERASE_SERIE_MESSAGE
-                    );
-            }
-            else if (
-                impl->buttonSave.isMouseHover() and
-                saveSerieForeground == nullptr
-            )
-            {
-                auto serieNameText =
-                    impl->serieNameText.getString().toAnsiString();
-
-                if (serieNameText != UNTITLED_SERIE)
-                {
-                    if (serieNameText.back() == '*')
-                    {
-                        const auto& serieName = impl->serieName;
-
-                        saveSerieFile(serieName);
-
-                        impl->serieNameText.setString(serieName);
-
-                        updateSerieNamePosition();
-                    }
-
-                    break;
-                }
-
-                constexpr const char* SAVE_SERIE_MESSAGE {"Save serie"};
-                saveSerieForeground =
-                    std::make_unique<foregrounds::InputTextForeground>(
-                        context,
-                        SAVE_SERIE_MESSAGE
-                    );
-            }
-
-            const auto& levelsList = impl->filesLevelsList;
-            const auto& seriesList = impl->serieLevelsList;
-
-            const auto& levelsListItemsAmount = levelsList.getItemsAmount();
-            const auto& seriesListItemsAmount = seriesList.getItemsAmount();
-
-            const auto& levelsListCurrentIndex = levelsList.getCurrentIndex();
-            const auto& seriesListCurrentIndex = seriesList.getCurrentIndex();
-
-            constexpr short NO_SELECTION_INDEX =
-                widgets::SelectionListWidget::NO_SELECTION_INDEX;
-
-            if (
-                levelsListCurrentIndex < levelsListItemsAmount and
-                levelsListCurrentIndex != NO_SELECTION_INDEX
-            )
-            {
-                seriesList.addItem(levelsList.getCurrentItem());
-
-                levelsList.deleteSelectedItem();
-
-                markSerieUnsaved();
-            }
-            else if (
-                seriesListCurrentIndex < seriesListItemsAmount and
-                seriesListCurrentIndex != NO_SELECTION_INDEX
-            )
-            {
-                levelsList.addItem(seriesList.getCurrentItem());
-
-                seriesList.deleteSelectedItem();
-
-                markSerieUnsaved();
-            }
-
-            using ListMovement = widgets::SelectionListWidget::ListMovement;
-
-            if (levelsList.canScrollUp())
-            {
-                levelsList.updateAllItemsPosition(ListMovement::Up);
-            }
-            else if (levelsList.canScrollDown())
-            {
-                levelsList.updateAllItemsPosition(ListMovement::Down);
-            }
-
-            if (seriesList.canScrollUp())
-            {
-                seriesList.updateAllItemsPosition(ListMovement::Up);
-            }
-            else if (seriesList.canScrollDown())
-            {
-                seriesList.updateAllItemsPosition(ListMovement::Down);
-            }
-
-            break;
-        }
-        default:
-        {
-        }
-        }
+        handleControllerEvents();
     }
 
     return getNextControllerId();
@@ -443,9 +288,169 @@ void SerieEditorController::handleSaveSerieForegroundEvents() const &
             }
             default:
             {
+                const auto& textInput = 
+                    saveSerieForeground->getInputTextWidget();
+
+                if(event.key.code == sf::Keyboard::BackSpace)
+                {
+                    textInput.empty();
+                }
+
+                const char character = textInput.getInputLetter(event);
+
+                if(character != 0)
+                {
+                    textInput.update(character);
+                }
+
                 break;
             }
             }
+        }
+        default:
+        {
+            break;
+        }
+        }
+    }
+}
+
+/**
+ *
+ */
+void SerieEditorController::handleControllerEvents() const &
+{
+    const auto& context = getContext();
+    auto& event = getEvent();
+    auto& window = context.getSfmlWindow();
+    auto& newSerieForeground = impl->newSerieForeground;
+    auto& saveSerieForeground = impl->saveSerieForeground;
+
+    while(window.pollEvent(event))
+    {
+        switch(event.type)
+        {
+        case sf::Event::KeyPressed:
+        {
+            switch(event.key.code)
+            {
+            case sf::Keyboard::Escape:
+            {
+                setExpectedControllerId(ControllerId::EditorMenu);
+
+                break;
+            }
+            default:
+            {
+                break;
+            }
+            }
+
+            break;
+        }
+        case sf::Event::MouseButtonPressed:
+        {
+            if (impl->buttonExit.isMouseHover())
+            {
+                setExpectedControllerId(ControllerId::EditorMenu);
+            }
+            else if (impl->buttonNew.isMouseHover())
+            {
+
+                constexpr const char* ERASE_SERIE_MESSAGE
+                    {"Erase the current serie ? y / n"};
+
+                newSerieForeground =
+                    std::make_unique<foregrounds::MessageForeground>(
+                        context,
+                        ERASE_SERIE_MESSAGE
+                    );
+            }
+            else if (impl->buttonSave.isMouseHover())
+            {
+                auto serieNameText =
+                    impl->serieNameText.getString().toAnsiString();
+
+                if (serieNameText != UNTITLED_SERIE)
+                {
+                    if (serieNameText.back() == '*')
+                    {
+                        const auto& serieName = impl->serieName;
+
+                        saveSerieFile(serieName);
+
+                        impl->serieNameText.setString(serieName);
+
+                        updateSerieNamePosition();
+                    }
+
+                    break;
+                }
+
+                constexpr const char* SAVE_SERIE_MESSAGE {"Save serie"};
+                saveSerieForeground =
+                    std::make_unique<foregrounds::InputTextForeground>(
+                        context,
+                        SAVE_SERIE_MESSAGE
+                    );
+            }
+
+            const auto& levelsList = impl->filesLevelsList;
+            const auto& seriesList = impl->serieLevelsList;
+
+            const auto& levelsListItemsAmount = levelsList.getItemsAmount();
+            const auto& seriesListItemsAmount = seriesList.getItemsAmount();
+
+            const auto& levelsListCurrentIndex = levelsList.getCurrentIndex();
+            const auto& seriesListCurrentIndex = seriesList.getCurrentIndex();
+
+            constexpr short NO_SELECTION_INDEX =
+                widgets::SelectionListWidget::NO_SELECTION_INDEX;
+
+            if (
+                levelsListCurrentIndex < levelsListItemsAmount and
+                levelsListCurrentIndex != NO_SELECTION_INDEX
+            )
+            {
+                seriesList.addItem(levelsList.getCurrentItem());
+
+                levelsList.deleteSelectedItem();
+
+                markSerieUnsaved();
+            }
+            else if (
+                seriesListCurrentIndex < seriesListItemsAmount and
+                seriesListCurrentIndex != NO_SELECTION_INDEX
+            )
+            {
+                levelsList.addItem(seriesList.getCurrentItem());
+
+                seriesList.deleteSelectedItem();
+
+                markSerieUnsaved();
+            }
+
+            using ListMovement = widgets::SelectionListWidget::ListMovement;
+
+            if (levelsList.canScrollUp())
+            {
+                levelsList.updateAllItemsPosition(ListMovement::Up);
+            }
+            else if (levelsList.canScrollDown())
+            {
+                levelsList.updateAllItemsPosition(ListMovement::Down);
+            }
+
+            if (seriesList.canScrollUp())
+            {
+                seriesList.updateAllItemsPosition(ListMovement::Up);
+            }
+            else if (seriesList.canScrollDown())
+            {
+                seriesList.updateAllItemsPosition(ListMovement::Down);
+            }
+
+            break;
         }
         default:
         {
