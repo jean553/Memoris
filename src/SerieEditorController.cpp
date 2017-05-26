@@ -51,11 +51,8 @@ namespace memoris
 namespace controllers
 {
 
-constexpr float SerieEditorController::BUTTONS_VERTICAL_POSITION;
-
-constexpr const char* SerieEditorController::SAVE_SERIE_MESSAGE;
-constexpr const char* SerieEditorController::UNTITLED_SERIE;
-constexpr const char* SerieEditorController::ERASE_SERIE_MESSAGE;
+constexpr float BUTTONS_VERTICAL_POSITION {10.f};
+constexpr const char* UNTITLED_SERIE {"untitled"};
 
 class SerieEditorController::Impl
 {
@@ -279,6 +276,10 @@ const ControllerId& SerieEditorController::render() const &
                 newSerieForeground == nullptr
             )
             {
+
+                constexpr const char* ERASE_SERIE_MESSAGE
+                    {"Erase the current serie ? y / n"};
+
                 newSerieForeground =
                     std::make_unique<foregrounds::MessageForeground>(
                         context,
@@ -309,6 +310,7 @@ const ControllerId& SerieEditorController::render() const &
                     break;
                 }
 
+                constexpr const char* SAVE_SERIE_MESSAGE {"Save serie"};
                 saveSerieForeground =
                     std::make_unique<foregrounds::InputTextForeground>(
                         context,
