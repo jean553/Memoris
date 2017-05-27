@@ -29,7 +29,6 @@
 #include <SFML/System/String.hpp>
 
 #include <fstream>
-#include <stdexcept>
 #include <queue>
 
 namespace memoris
@@ -75,19 +74,14 @@ PlayingSerieManager::PlayingSerieManager() : impl(std::make_unique<Impl>())
 /**
  *
  */
-PlayingSerieManager::~PlayingSerieManager() noexcept = default;
+PlayingSerieManager::~PlayingSerieManager() = default;
 
 /**
  *
  */
 const bool PlayingSerieManager::hasNextLevel() const & noexcept
 {
-    if (impl->levels.empty())
-    {
-        return false;
-    }
-
-    return true;
+    return !impl->levels.empty();
 }
 
 /**
@@ -109,11 +103,13 @@ const size_t PlayingSerieManager::getRemainingLevelsAmount() const & noexcept
 /**
  *
  */
-const std::string PlayingSerieManager::getNextLevelName() & noexcept
+const std::string PlayingSerieManager::getNextLevelName() const &
 {
-    /* get the front item of the queue and delete it from the container */
-    std::string level = impl->levels.front();
-    impl->levels.pop();
+    /* get the front item of the queue and
+       delete it from the container */
+    auto& levels = impl->levels;
+    std::string level = levels.front();
+    levels.pop();
 
     return level;
 }
@@ -178,7 +174,7 @@ void PlayingSerieManager::loadSerieFileContent(const std::string& name) const &
 
     impl->serieName = name;
 
-    /* std::ifstream object is automatically closed at the end of the scope */
+    file.close();
 }
 
 /**
@@ -298,6 +294,16 @@ const sf::String PlayingSerieManager::getPlayingTimeAsString() const &
 /**
  *
  */
+void PlayingSerieManager::addSecondsToPlayingSerieTime(
+    const unsigned short& levelPlayingTime
+) const & noexcept
+{
+    impl->totalSeriePlayingTime += levelPlayingTime;
+}
+
+/**
+ *
+ */
 const sf::String PlayingSerieManager::fillMissingTimeDigits(
     const unsigned short& numericValue
 ) const &
@@ -310,16 +316,6 @@ const sf::String PlayingSerieManager::fillMissingTimeDigits(
     }
 
     return timeNumber;
-}
-
-/**
- *
- */
-void PlayingSerieManager::addSecondsToPlayingSerieTime(
-    const unsigned short& levelPlayingTime
-) const & noexcept
-{
-    impl->totalSeriePlayingTime += levelPlayingTime;
 }
 
 }
