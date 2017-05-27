@@ -236,7 +236,8 @@ void OfficialSeriesMenuController::selectMenuItem() const & noexcept
     try
     {
         getContext().getPlayingSerieManager().loadSerieFileContent(
-            "officials/" + serie
+            serie,
+            managers::PlayingSerieManager::SerieType::Official
         );
 
         setExpectedControllerId(ControllerId::Game);

@@ -37,6 +37,7 @@ namespace managers
 {
 
 constexpr const char* OFFICIALS_SERIE_DIRECTORY_NAME {"officials"};
+constexpr const char* PERSONALS_SERIE_DIRECTORY_NAME {"personals"};
 
 constexpr unsigned short DEFAULT_WATCHING_TIME {6};
 constexpr unsigned short DEFAULT_LIFES {0};
@@ -126,15 +127,30 @@ noexcept
 /**
  *
  */
-void PlayingSerieManager::loadSerieFileContent(const std::string& name) const &
+void PlayingSerieManager::loadSerieFileContent(
+    const std::string& name,
+    const SerieType& type
+) const &
 {
     /* clear the queue containing the levels of the previous serie */
     impl->levels = std::queue<std::string>();
 
     impl->levelIndex = 0;
 
-    /* the name parameter is in the [personals|officials]/name format */
-    std::ifstream file("data/series/" + name + ".serie");
+    std::string filePath = "data/series/";
+
+    if (type == SerieType::Official)
+    {
+        filePath += OFFICIALS_SERIE_DIRECTORY_NAME;
+    }
+    else
+    {
+        filePath += PERSONALS_SERIE_DIRECTORY_NAME;
+    }
+
+    filePath += "/" + name + ".serie";
+
+    std::ifstream file(filePath);
     if (!file.is_open())
     {
         /* TODO: #561 throw std::invalid_argument if the file cannot be opened;
@@ -235,7 +251,6 @@ void PlayingSerieManager::setIsOfficialSerie(const bool& official) const &
         return;
     }
 
-    constexpr const char* PERSONALS_SERIE_DIRECTORY_NAME {"personals"};
     serieType = PERSONALS_SERIE_DIRECTORY_NAME;
 }
 

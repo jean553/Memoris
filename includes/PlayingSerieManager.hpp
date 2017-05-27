@@ -50,6 +50,14 @@ class PlayingSerieManager
 
 public:
 
+    /**
+     * @enum PlayingSerieManager::SerieType
+     * @brief a serie can be official or personal
+     */
+    enum class SerieType {
+        Official, /** < available with the game */
+        Personal /** < created by the user */
+    };
 
     /**
      * @brief constructor
@@ -109,12 +117,15 @@ public:
      * of the serie if the file loading process succeeds
      *
      * @param name the name of the serie to open (not the full path)
-     * IMPORTANT: the format of the string must be [personals|officials]/name
+     * @param type the type of the serie (official or personal)
      *
      * @throw std::invalid_argument if the file cannot be loaded, this
      * exception should be caught in order to display the error controller
      */
-    void loadSerieFileContent(const std::string& name) const &;
+    void loadSerieFileContent(
+        const std::string& name,
+        const SerieType& type
+    ) const &;
 
     /**
      * @brief increments the current level index
