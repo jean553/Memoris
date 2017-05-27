@@ -37,7 +37,11 @@ namespace memoris
 namespace managers
 {
 
-constexpr unsigned short PlayingSerieManager::SECONDS_IN_ONE_MINUTE;
+constexpr const char* OFFICIALS_SERIE_DIRECTORY_NAME {"officials"};
+
+constexpr unsigned short DEFAULT_WATCHING_TIME {6};
+constexpr unsigned short DEFAULT_LIFES {0};
+constexpr unsigned short DEFAULT_SERIE_PLAYING_TIME {0};
 
 class PlayingSerieManager::Impl
 {
@@ -58,14 +62,13 @@ public:
     std::string serieName;
     std::string serieType {OFFICIALS_SERIE_DIRECTORY_NAME};
 
-    SerieResults results;
+    std::vector<std::unique_ptr<entities::SerieResult>> results;
 };
 
 /**
  *
  */
-PlayingSerieManager::PlayingSerieManager() noexcept :
-    impl(std::make_unique<Impl>())
+PlayingSerieManager::PlayingSerieManager() : impl(std::make_unique<Impl>())
 {
 }
 
@@ -230,7 +233,8 @@ const unsigned short& PlayingSerieManager::getPlayingTime() const & noexcept
 /**
  *
  */
-const PlayingSerieManager::SerieResults& PlayingSerieManager::getResults()
+using SerieResults = std::vector<std::unique_ptr<entities::SerieResult>>;
+const SerieResults& PlayingSerieManager::getResults()
     const & noexcept
 {
     return impl->results;
@@ -251,6 +255,7 @@ void PlayingSerieManager::setIsOfficialSerie(const bool& official) const &
         return;
     }
 
+    constexpr const char* PERSONALS_SERIE_DIRECTORY_NAME {"personals"};
     serieType = PERSONALS_SERIE_DIRECTORY_NAME;
 }
 
@@ -277,6 +282,8 @@ void PlayingSerieManager::reinitialize() const & noexcept
  */
 const sf::String PlayingSerieManager::getPlayingTimeAsString() const &
 {
+    constexpr unsigned short SECONDS_IN_ONE_MINUTE {60};
+
     sf::String secondsString = fillMissingTimeDigits(
         impl->totalSeriePlayingTime % SECONDS_IN_ONE_MINUTE
     );

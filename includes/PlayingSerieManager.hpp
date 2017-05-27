@@ -47,19 +47,17 @@ namespace managers
 
 class PlayingSerieManager
 {
-    /* declared here because used in an alias */
-    static constexpr unsigned short RESULTS_PER_SERIE_FILE_AMOUNT {3};
 
 public:
 
-    using SerieResults = std::vector<std::unique_ptr<entities::SerieResult>>;
 
     /**
-     * @brief constructor, empty, only used to initialize the implementation
+     * @brief constructor
      */
-    PlayingSerieManager() noexcept;
+    PlayingSerieManager();
 
     PlayingSerieManager(const PlayingSerieManager&) = delete;
+
     PlayingSerieManager& operator=(const PlayingSerieManager&) = delete;
 
     /**
@@ -178,7 +176,8 @@ public:
      *
      * @return const std::vector<std::unique_ptr<entities::SerieResult>>&
      */
-    const SerieResults& getResults() const & noexcept;
+    const std::vector<std::unique_ptr<entities::SerieResult>>& getResults()
+        const & noexcept;
 
     /**
      * @brief setter that specifies if the serie is official or not; we use
@@ -230,13 +229,6 @@ public:
 
 private:
 
-    static constexpr const char* OFFICIALS_SERIE_DIRECTORY_NAME {"officials"};
-    static constexpr const char* PERSONALS_SERIE_DIRECTORY_NAME {"personals"};
-
-    static constexpr unsigned short DEFAULT_WATCHING_TIME {6};
-    static constexpr unsigned short DEFAULT_LIFES {0};
-    static constexpr unsigned short DEFAULT_SERIE_PLAYING_TIME {0};
-    static constexpr unsigned short SECONDS_IN_ONE_MINUTE {60};
 
     /**
      * @brief add a 0 into a time number string if the number is less than 0
