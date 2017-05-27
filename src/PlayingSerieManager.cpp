@@ -29,7 +29,6 @@
 #include <SFML/System/String.hpp>
 
 #include <fstream>
-#include <stdexcept>
 #include <queue>
 
 namespace memoris
@@ -37,7 +36,12 @@ namespace memoris
 namespace managers
 {
 
-constexpr unsigned short PlayingSerieManager::SECONDS_IN_ONE_MINUTE;
+constexpr const char* OFFICIALS_SERIE_DIRECTORY_NAME {"officials"};
+constexpr const char* PERSONALS_SERIE_DIRECTORY_NAME {"personals"};
+
+constexpr unsigned short DEFAULT_WATCHING_TIME {6};
+constexpr unsigned short DEFAULT_LIFES {0};
+constexpr unsigned short DEFAULT_SERIE_PLAYING_TIME {0};
 
 class PlayingSerieManager::Impl
 {
@@ -58,33 +62,27 @@ public:
     std::string serieName;
     std::string serieType {OFFICIALS_SERIE_DIRECTORY_NAME};
 
-    SerieResults results;
+    std::vector<std::unique_ptr<entities::SerieResult>> results;
 };
 
 /**
  *
  */
-PlayingSerieManager::PlayingSerieManager() noexcept :
-    impl(std::make_unique<Impl>())
+PlayingSerieManager::PlayingSerieManager() : impl(std::make_unique<Impl>())
 {
 }
 
 /**
  *
  */
-PlayingSerieManager::~PlayingSerieManager() noexcept = default;
+PlayingSerieManager::~PlayingSerieManager() = default;
 
 /**
  *
  */
 const bool PlayingSerieManager::hasNextLevel() const & noexcept
 {
-    if (impl->levels.empty())
-    {
-        return false;
-    }
-
-    return true;
+    return !impl->levels.empty();
 }
 
 /**
@@ -106,11 +104,13 @@ const size_t PlayingSerieManager::getRemainingLevelsAmount() const & noexcept
 /**
  *
  */
-const std::string PlayingSerieManager::getNextLevelName() & noexcept
+const std::string PlayingSerieManager::getNextLevelName() const &
 {
-    /* get the front item of the queue and delete it from the container */
-    std::string level = impl->levels.front();
-    impl->levels.pop();
+    /* get the front item of the queue and
+       delete it from the container */
+    auto& levels = impl->levels;
+    std::string level = levels.front();
+    levels.pop();
 
     return level;
 }
@@ -127,15 +127,30 @@ noexcept
 /**
  *
  */
-void PlayingSerieManager::loadSerieFileContent(const std::string& name) const &
+void PlayingSerieManager::loadSerieFileContent(
+    const std::string& name,
+    const SerieType& type
+) const &
 {
     /* clear the queue containing the levels of the previous serie */
     impl->levels = std::queue<std::string>();
 
     impl->levelIndex = 0;
 
-    /* the name parameter is in the [personals|officials]/name format */
-    std::ifstream file("data/series/" + name + ".serie");
+    std::string filePath = "data/series/";
+
+    if (type == SerieType::Official)
+    {
+        filePath += OFFICIALS_SERIE_DIRECTORY_NAME;
+    }
+    else
+    {
+        filePath += PERSONALS_SERIE_DIRECTORY_NAME;
+    }
+
+    filePath += "/" + name + ".serie";
+
+    std::ifstream file(filePath);
     if (!file.is_open())
     {
         /* TODO: #561 throw std::invalid_argument if the file cannot be opened;
@@ -175,23 +190,7 @@ void PlayingSerieManager::loadSerieFileContent(const std::string& name) const &
 
     impl->serieName = name;
 
-    /* std::ifstream object is automatically closed at the end of the scope */
-}
-
-/**
- *
- */
-const std::string& PlayingSerieManager::getSerieName() const & noexcept
-{
-    return impl->serieName;
-}
-
-/**
- *
- */
-const unsigned short& PlayingSerieManager::getLevelIndex() const & noexcept
-{
-    return impl->levelIndex;
+    file.close();
 }
 
 /**
@@ -230,7 +229,8 @@ const unsigned short& PlayingSerieManager::getPlayingTime() const & noexcept
 /**
  *
  */
-const PlayingSerieManager::SerieResults& PlayingSerieManager::getResults()
+using SerieResults = std::vector<std::unique_ptr<entities::SerieResult>>;
+const SerieResults& PlayingSerieManager::getResults()
     const & noexcept
 {
     return impl->results;
@@ -277,6 +277,8 @@ void PlayingSerieManager::reinitialize() const & noexcept
  */
 const sf::String PlayingSerieManager::getPlayingTimeAsString() const &
 {
+    constexpr unsigned short SECONDS_IN_ONE_MINUTE {60};
+
     sf::String secondsString = fillMissingTimeDigits(
         impl->totalSeriePlayingTime % SECONDS_IN_ONE_MINUTE
     );
@@ -286,6 +288,16 @@ const sf::String PlayingSerieManager::getPlayingTimeAsString() const &
     );
 
     return minutesString + ":" + secondsString;
+}
+
+/**
+ *
+ */
+void PlayingSerieManager::addSecondsToPlayingSerieTime(
+    const unsigned short& levelPlayingTime
+) const & noexcept
+{
+    impl->totalSeriePlayingTime += levelPlayingTime;
 }
 
 /**
@@ -303,16 +315,6 @@ const sf::String PlayingSerieManager::fillMissingTimeDigits(
     }
 
     return timeNumber;
-}
-
-/**
- *
- */
-void PlayingSerieManager::addSecondsToPlayingSerieTime(
-    const unsigned short& levelPlayingTime
-) const & noexcept
-{
-    impl->totalSeriePlayingTime += levelPlayingTime;
 }
 
 }

@@ -150,7 +150,10 @@ const ControllerId& PersonalSeriesMenuController::render() const &
                     const auto& manager = context.getPlayingSerieManager();
                     const auto& serieName = list.getCurrentItem();
 
-                    manager.loadSerieFileContent("personals/" + serieName);
+                    manager.loadSerieFileContent(
+                        serieName,
+                        managers::PlayingSerieManager::SerieType::Personal
+                    );
                     manager.setIsOfficialSerie(false);
 
                     setExpectedControllerId(ControllerId::Game);
