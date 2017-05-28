@@ -54,6 +54,10 @@ public:
      */
     EditingLevelManager();
 
+    EditingLevelManager(const EditingLevelManager&) = delete;
+
+    EditingLevelManager& operator=(const EditingLevelManager&) = delete;
+
     /**
      * @brief default destructor
      */
