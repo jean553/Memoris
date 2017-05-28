@@ -18,8 +18,8 @@
 
 /**
  * @file EditingLevelManager.hpp
- * @brief manager dynamically created into the context to store data that have
- * to be passed between controllers of level edition
+ * @brief manager handles data transfers between editing level controllers
+ * (game controller and level editor controller)
  * @package managers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -43,8 +43,6 @@ namespace managers
 
 class EditingLevelManager
 {
-
-using Level = std::shared_ptr<entities::Level>;
 
 public:
 
@@ -86,14 +84,15 @@ public:
      * @param levelPointer constant reference to a shared pointer pointing
      * to the current level to save
      */
-    void setLevel(const Level& levelPointer) const & noexcept;
+    void setLevel(const std::shared_ptr<entities::Level>& levelPointer) const &
+        noexcept;
 
     /**
      * @brief getter of the shared pointer to the level
      *
      * @return const std::shared_ptr<entities::Level>&
      */
-    const Level& getLevel() const & noexcept;
+    const std::shared_ptr<entities::Level>& getLevel() const & noexcept;
 
     /**
      * @brief refresh the level pointer; used by the game controller when

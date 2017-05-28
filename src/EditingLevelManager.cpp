@@ -39,7 +39,7 @@ public:
 
     std::string levelName;
 
-    Level level {nullptr};
+    std::shared_ptr<entities::Level> level {nullptr};
 
     std::vector<char> cells;
 };
@@ -76,8 +76,9 @@ const std::string& EditingLevelManager::getLevelName() const & noexcept
 /**
  *
  */
-void EditingLevelManager::setLevel(const Level& levelPointer)
-    const & noexcept
+void EditingLevelManager::setLevel(
+    const std::shared_ptr<entities::Level>& levelPointer
+) const & noexcept
 {
     impl->level = levelPointer;
 }
@@ -85,7 +86,7 @@ void EditingLevelManager::setLevel(const Level& levelPointer)
 /**
  *
  */
-const EditingLevelManager::Level& EditingLevelManager::getLevel()
+const std::shared_ptr<entities::Level>& EditingLevelManager::getLevel()
     const & noexcept
 {
     return impl->level;
