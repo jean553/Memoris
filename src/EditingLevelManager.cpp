@@ -55,7 +55,7 @@ EditingLevelManager::EditingLevelManager() :
 /**
  *
  */
-EditingLevelManager::~EditingLevelManager() noexcept = default;
+EditingLevelManager::~EditingLevelManager() = default;
 
 /**
  *
@@ -77,10 +77,10 @@ const std::string& EditingLevelManager::getLevelName() const & noexcept
  *
  */
 void EditingLevelManager::setLevel(
-    const std::shared_ptr<entities::Level>& levelPointer
+    const std::shared_ptr<entities::Level>& level
 ) const & noexcept
 {
-    impl->level = levelPointer;
+    impl->level = level;
 }
 
 /**

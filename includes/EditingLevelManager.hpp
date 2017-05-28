@@ -47,7 +47,7 @@ class EditingLevelManager
 public:
 
     /**
-     * @brief constructor, initializes the implementation
+     * @brief constructor
      *
      * @throw std::bad_alloc|std::length_error the string allocation failed;
      * those exceptions are never caught and the program immeidately stops
@@ -55,14 +55,12 @@ public:
     EditingLevelManager();
 
     /**
-     * @brief default destructor, empty, only declared in order to use
-     * forwarding declaration
+     * @brief default destructor
      */
-    ~EditingLevelManager() noexcept;
+    ~EditingLevelManager();
 
     /**
-     * @brief setter of the level name string; not in constructor because this
-     * attribute is empty when the manager is created
+     * @brief setter of the level name
      *
      * @param name the name of the level to save into the manager
      *
@@ -78,13 +76,12 @@ public:
     const std::string& getLevelName() const & noexcept;
 
     /**
-     * @brief setter of the Level shared pointer; used in order to switch
-     * between the level editor and the game controller
+     * @brief setter of the Level shared pointer;
+     * used in order to switch between the level editor and the game controller
      *
-     * @param levelPointer constant reference to a shared pointer pointing
-     * to the current level to save
+     * @param level the current level to save
      */
-    void setLevel(const std::shared_ptr<entities::Level>& levelPointer) const &
+    void setLevel(const std::shared_ptr<entities::Level>& level) const &
         noexcept;
 
     /**
@@ -95,16 +92,16 @@ public:
     const std::shared_ptr<entities::Level>& getLevel() const & noexcept;
 
     /**
-     * @brief refresh the level pointer; used by the game controller when
-     * a tested level is finished
+     * @brief refresh the level pointer;
+     * used by the game controller when a tested level is finished
      */
     void refreshLevel() const & noexcept;
 
     /**
-     * @brief make a copy of an array of cells (used after level test in order
-     * to restablish initial level)
+     * @brief make a copy of an array of cells;
+     * used after level test in order to restablish initial level
      *
-     * @param cells array of characters (list of cells types)
+     * @param cells list of cells types
      */
     void setCellsBackup(const std::vector<char>& cells) const & noexcept;
 
