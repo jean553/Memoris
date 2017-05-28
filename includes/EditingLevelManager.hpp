@@ -18,8 +18,8 @@
 
 /**
  * @file EditingLevelManager.hpp
- * @brief manager dynamically created into the context to store data that have
- * to be passed between controllers of level edition
+ * @brief manager handles data transfers between editing level controllers
+ * (game controller and level editor controller)
  * @package managers
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -44,27 +44,27 @@ namespace managers
 class EditingLevelManager
 {
 
-using Level = std::shared_ptr<entities::Level>;
-
 public:
 
     /**
-     * @brief constructor, initializes the implementation
+     * @brief constructor
      *
      * @throw std::bad_alloc|std::length_error the string allocation failed;
      * those exceptions are never caught and the program immeidately stops
      */
     EditingLevelManager();
 
-    /**
-     * @brief default destructor, empty, only declared in order to use
-     * forwarding declaration
-     */
-    ~EditingLevelManager() noexcept;
+    EditingLevelManager(const EditingLevelManager&) = delete;
+
+    EditingLevelManager& operator=(const EditingLevelManager&) = delete;
 
     /**
-     * @brief setter of the level name string; not in constructor because this
-     * attribute is empty when the manager is created
+     * @brief default destructor
+     */
+    ~EditingLevelManager();
+
+    /**
+     * @brief setter of the level name
      *
      * @param name the name of the level to save into the manager
      *
@@ -80,32 +80,32 @@ public:
     const std::string& getLevelName() const & noexcept;
 
     /**
-     * @brief setter of the Level shared pointer; used in order to switch
-     * between the level editor and the game controller
+     * @brief setter of the Level shared pointer;
+     * used in order to switch between the level editor and the game controller
      *
-     * @param levelPointer constant reference to a shared pointer pointing
-     * to the current level to save
+     * @param level the current level to save
      */
-    void setLevel(const Level& levelPointer) const & noexcept;
+    void setLevel(const std::shared_ptr<entities::Level>& level) const &
+        noexcept;
 
     /**
      * @brief getter of the shared pointer to the level
      *
      * @return const std::shared_ptr<entities::Level>&
      */
-    const Level& getLevel() const & noexcept;
+    const std::shared_ptr<entities::Level>& getLevel() const & noexcept;
 
     /**
-     * @brief refresh the level pointer; used by the game controller when
-     * a tested level is finished
+     * @brief refresh the level pointer;
+     * used by the game controller when a tested level is finished
      */
     void refreshLevel() const & noexcept;
 
     /**
-     * @brief make a copy of an array of cells (used after level test in order
-     * to restablish initial level)
+     * @brief make a copy of an array of cells;
+     * used after level test in order to restablish initial level
      *
-     * @param cells array of characters (list of cells types)
+     * @param cells list of cells types
      */
     void setCellsBackup(const std::vector<char>& cells) const & noexcept;
 
