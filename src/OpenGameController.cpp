@@ -31,7 +31,6 @@
 #include "controllers.hpp"
 #include "FilesSelectionListWidget.hpp"
 #include "Cursor.hpp"
-#include "DirectoryReader.hpp"
 #include "Game.hpp"
 #include "Context.hpp"
 

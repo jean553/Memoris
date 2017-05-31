@@ -31,7 +31,6 @@
 #include "window.hpp"
 #include "FilesSelectionListWidget.hpp"
 #include "Cursor.hpp"
-#include "DirectoryReader.hpp"
 #include "PlayingSerieManager.hpp"
 #include "Context.hpp"
 
