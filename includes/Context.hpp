@@ -234,6 +234,13 @@ public:
      */
     void setGameName(const std::string& gameName) const & noexcept;
 
+    /**
+     * @brief getter of the game name
+     *
+     * @return const std::string&
+     */
+    const std::string& getGameName() const & noexcept;
+
 private:
 
     class Impl;

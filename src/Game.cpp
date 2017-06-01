@@ -58,18 +58,6 @@ Game::~Game() = default;
 /**
  *
  */
-void Game::deleteGameFile() const &
-{
-    std::string filePath =
-        GAMES_FILES_DIRECTORY + impl->gameName + GAMES_FILES_EXTENSION;
-
-    /* TODO: #931 check if the file deletion succeeds */
-    std::remove(filePath.c_str());
-}
-
-/**
- *
- */
 const std::string& Game::getName() const & noexcept
 {
     return impl->gameName;

@@ -53,11 +53,6 @@ public:
     ~Game();
 
     /**
-     * @brief deletes the game file
-     */
-    void deleteGameFile() const &;
-
-    /**
      * @brief getter of the game name
      *
      * @return const std::string&

@@ -282,5 +282,13 @@ void Context::setGameName(const std::string& gameName) const & noexcept
     impl->gameName = gameName;
 }
 
+/**
+ *
+ */
+const std::string& Context::getGameName() const & noexcept
+{
+    return impl->gameName;
+}
+
 }
 }

@@ -108,7 +108,8 @@ const ControllerId& RemoveGameController::render() const &
             }
             case sf::Keyboard::Y:
             {
-                context.getGame().deleteGameFile();
+                /* TODO: #931 check if the file deletion succeeds */
+                std::remove(context.getGameName().c_str());
 
                 setExpectedControllerId(ControllerId::MainMenu);
 
