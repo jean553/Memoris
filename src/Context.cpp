@@ -33,7 +33,6 @@
 #include "PlayingSerieManager.hpp"
 #include "EditingLevelManager.hpp"
 #include "window.hpp"
-#include "Game.hpp"
 #include "controllers_ids.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -76,9 +75,6 @@ public:
     sf::Music music;
 
     sf::Clock clock;
-
-    /* TODO: to delete */
-    entities::Game game;
 
     std::string gameName;
 };
@@ -264,14 +260,6 @@ void Context::stopMusic() const &
 void Context::restartClock() const &
 {
     impl->clock.restart();
-}
-
-/**
- *
- */
-const entities::Game& Context::getGame() const & noexcept
-{
-    return impl->game;
 }
 
 /**

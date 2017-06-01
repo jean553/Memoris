@@ -30,7 +30,6 @@
 #include "ColorsManager.hpp"
 #include "InputTextWidget.hpp"
 #include "window.hpp"
-#include "Game.hpp"
 #include "Context.hpp"
 
 #include <SFML/Graphics/Text.hpp>

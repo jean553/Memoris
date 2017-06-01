@@ -29,7 +29,6 @@
 #include "ColorsManager.hpp"
 #include "fonts_sizes.hpp"
 #include "window.hpp"
-#include "Game.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>

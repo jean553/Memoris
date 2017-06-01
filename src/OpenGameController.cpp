@@ -31,7 +31,6 @@
 #include "controllers.hpp"
 #include "FilesSelectionListWidget.hpp"
 #include "Cursor.hpp"
-#include "Game.hpp"
 #include "Context.hpp"
 
 #include <SFML/Graphics/Text.hpp>
