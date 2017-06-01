@@ -61,15 +61,12 @@ void Game::createGame(const std::string& gameName) const &
 {
     impl->gameName = gameName;
 
-    createFile();
-}
+    std::ofstream file;
 
-/**
- *
- */
-void Game::loadGameFromFile(const std::string& gameName) const & noexcept
-{
-    impl->gameName = gameName;
+    file.open(
+        GAMES_FILES_DIRECTORY + impl->gameName + GAMES_FILES_EXTENSION,
+        std::fstream::out
+    );
 }
 
 /**
@@ -82,21 +79,6 @@ void Game::deleteGameFile() const &
 
     /* TODO: #931 check if the file deletion succeeds */
     std::remove(filePath.c_str());
-}
-
-/**
- *
- */
-void Game::createFile() const &
-{
-    std::ofstream file;
-
-    file.open(
-        GAMES_FILES_DIRECTORY + impl->gameName + GAMES_FILES_EXTENSION,
-        std::fstream::out
-    );
-
-    /* std::ofstream is automatically closed at the end of the context */
 }
 
 /**

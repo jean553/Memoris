@@ -41,7 +41,7 @@ class Game
 public:
 
     /**
-     * @brief game entity constructor
+     * @brief constructor
      */
     Game();
 
@@ -53,14 +53,6 @@ public:
      * @brief default destructor
      */
     ~Game();
-
-    /**
-     * @brief game loader function, loads all the parameters in memory
-     *
-     * @param constant reference to a string containing the file name (not
-     * the full path)
-     */
-    void loadGameFromFile(const std::string& fileName) const & noexcept;
 
     /**
      * @brief deletes the game file
@@ -88,15 +80,6 @@ public:
     const std::string& getName() const & noexcept;
 
 private:
-
-    /**
-     * @brief open the file using the given file name; only used internally
-     * by the two definitions of createGame()
-     *
-     * @throw std::ios_base::failure the file cannot be written; the exception
-     * is never caught and the program stops
-     */
-    void createFile() const &;
 
     class Impl;
     std::unique_ptr<Impl> impl;
