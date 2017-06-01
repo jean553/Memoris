@@ -50,6 +50,11 @@ public:
     Game& operator=(const Game&) = delete;
 
     /**
+     * @brief default destructor
+     */
+    ~Game();
+
+    /**
      * @brief game loader function, loads all the parameters in memory
      *
      * @param constant reference to a string containing the file name (not
@@ -73,15 +78,7 @@ public:
      * not defined inside the source file as it is a function template that
      * has universal references as parameters
      */
-    template<typename T>
-    void createGame(T&& gameName) const &
-    {
-        /* call std::string& operator=(std::string&&) or
-           std::string& operator=(std::string&) */
-        impl->gameName = std::forward<T>(gameName);
-
-        createFile();
-    }
+    void createGame(const std::string& gameName) const &;
 
     /**
      * @brief getter of the game name
@@ -101,19 +98,7 @@ private:
      */
     void createFile() const &;
 
-    static constexpr char GAMES_FILES_DIRECTORY[] {"data/games/"};
-    static constexpr char GAMES_FILES_EXTENSION[] {".game"};
-
-    /* the implementation definition is inside the header instead of the
-       source file because createGame() needs it and createGame() cannot
-       be defined inside the source file */
-    class Impl
-    {
-    public:
-
-        std::string gameName;
-    };
-
+    class Impl;
     std::unique_ptr<Impl> impl;
 };
 

@@ -32,15 +32,36 @@ namespace memoris
 namespace entities
 {
 
-constexpr char Game::GAMES_FILES_DIRECTORY[];
-constexpr char Game::GAMES_FILES_EXTENSION[];
+constexpr char GAMES_FILES_DIRECTORY[] {"data/games/"};
+constexpr char GAMES_FILES_EXTENSION[] {".game"};
+
+class Game::Impl
+{
+public:
+
+    std::string gameName;
+};
 
 /**
  *
  */
-Game::Game() :
-    impl(std::make_unique<Impl>())
+Game::Game() : impl(std::make_unique<Impl>())
 {
+}
+
+/**
+ *
+ */
+Game::~Game() = default;
+
+/**
+ *
+ */
+void Game::createGame(const std::string& gameName) const &
+{
+    impl->gameName = gameName;
+
+    createFile();
 }
 
 /**
