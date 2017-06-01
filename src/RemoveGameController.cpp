@@ -29,7 +29,6 @@
 #include "ColorsManager.hpp"
 #include "fonts_sizes.hpp"
 #include "window.hpp"
-#include "Game.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -108,7 +107,8 @@ const ControllerId& RemoveGameController::render() const &
             }
             case sf::Keyboard::Y:
             {
-                context.getGame().deleteGameFile();
+                /* TODO: #931 check if the file deletion succeeds */
+                std::remove(context.getGameName().c_str());
 
                 setExpectedControllerId(ControllerId::MainMenu);
 

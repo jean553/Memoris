@@ -33,7 +33,6 @@
 #include "PlayingSerieManager.hpp"
 #include "EditingLevelManager.hpp"
 #include "window.hpp"
-#include "Game.hpp"
 #include "controllers_ids.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -77,7 +76,7 @@ public:
 
     sf::Clock clock;
 
-    entities::Game game;
+    std::string gameName;
 };
 
 /**
@@ -266,9 +265,17 @@ void Context::restartClock() const &
 /**
  *
  */
-const entities::Game& Context::getGame() const & noexcept
+void Context::setGameName(const std::string& gameName) const & noexcept
 {
-    return impl->game;
+    impl->gameName = gameName;
+}
+
+/**
+ *
+ */
+const std::string& Context::getGameName() const & noexcept
+{
+    return impl->gameName;
 }
 
 }

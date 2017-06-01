@@ -49,11 +49,6 @@ public:
     NewGameController(const utils::Context& context);
 
     /**
-     * the copy constructor and copy operator are already deleted
-     * into the parent Controller class
-     */
-
-    /**
      * @brief default destructor
      */
     ~NewGameController();
@@ -62,6 +57,9 @@ public:
      * @brief render the new game screen
      *
      * @return const ControllerId&
+     *
+     * @throw std::ios_base::failure error when the new game file is created
+     * the exception is never caught and the program simply terminates
      *
      * no one of the controllers overwritten render() method is noexcept;
      * (check parent declaration for details);

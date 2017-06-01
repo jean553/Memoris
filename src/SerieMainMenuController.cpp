@@ -30,7 +30,6 @@
 #include "ColorsManager.hpp"
 #include "MenuItem.hpp"
 #include "window.hpp"
-#include "Game.hpp"
 #include "SoundsManager.hpp"
 #include "Context.hpp"
 
@@ -65,7 +64,7 @@ public:
         );
 
         gameName.setFont(fontsManager.getTextFont());
-        gameName.setString(context.getGame().getName());
+        gameName.setString(context.getGameName());
         gameName.setCharacterSize(sizes::TEXT_SIZE);
         gameName.setFillColor(lightBlue);
 

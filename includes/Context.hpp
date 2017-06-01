@@ -221,11 +221,18 @@ public:
     void restartClock() const &;
 
     /**
-     * @brief getter of the game entity
+     * @brief setter of the game name
      *
-     * @return const entities::Game&
+     * @param gameName the name of the game
      */
-    const entities::Game& getGame() const & noexcept;
+    void setGameName(const std::string& gameName) const & noexcept;
+
+    /**
+     * @brief getter of the game name
+     *
+     * @return const std::string&
+     */
+    const std::string& getGameName() const & noexcept;
 
 private:
 
