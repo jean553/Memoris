@@ -32,23 +32,41 @@ namespace memoris
 namespace entities
 {
 
-constexpr char Game::GAMES_FILES_DIRECTORY[];
-constexpr char Game::GAMES_FILES_EXTENSION[];
+constexpr char GAMES_FILES_DIRECTORY[] {"data/games/"};
+constexpr char GAMES_FILES_EXTENSION[] {".game"};
+
+class Game::Impl
+{
+public:
+
+    std::string gameName;
+};
 
 /**
  *
  */
-Game::Game() :
-    impl(std::make_unique<Impl>())
+Game::Game() : impl(std::make_unique<Impl>())
 {
 }
 
 /**
  *
  */
-void Game::loadGameFromFile(const std::string& gameName) const & noexcept
+Game::~Game() = default;
+
+/**
+ *
+ */
+void Game::createGame(const std::string& gameName) const &
 {
     impl->gameName = gameName;
+
+    std::ofstream file;
+
+    file.open(
+        GAMES_FILES_DIRECTORY + impl->gameName + GAMES_FILES_EXTENSION,
+        std::fstream::out
+    );
 }
 
 /**
@@ -61,21 +79,6 @@ void Game::deleteGameFile() const &
 
     /* TODO: #931 check if the file deletion succeeds */
     std::remove(filePath.c_str());
-}
-
-/**
- *
- */
-void Game::createFile() const &
-{
-    std::ofstream file;
-
-    file.open(
-        GAMES_FILES_DIRECTORY + impl->gameName + GAMES_FILES_EXTENSION,
-        std::fstream::out
-    );
-
-    /* std::ofstream is automatically closed at the end of the context */
 }
 
 /**

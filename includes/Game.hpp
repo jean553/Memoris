@@ -19,7 +19,7 @@
 /**
  * @file Game.hpp
  * @package entities
- * @brief contains the current loaded game and game file information
+ * @brief handles game file creation and deletion
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
@@ -27,8 +27,6 @@
 #define MEMORIS_GAME_H_
 
 #include <memory>
-
-#include <string>
 
 namespace memoris
 {
@@ -41,7 +39,7 @@ class Game
 public:
 
     /**
-     * @brief game entity constructor
+     * @brief constructor
      */
     Game();
 
@@ -50,12 +48,19 @@ public:
     Game& operator=(const Game&) = delete;
 
     /**
-     * @brief game loader function, loads all the parameters in memory
-     *
-     * @param constant reference to a string containing the file name (not
-     * the full path)
+     * @brief default destructor
      */
-    void loadGameFromFile(const std::string& fileName) const & noexcept;
+    ~Game();
+
+    /**
+     * @brief creates a new file for a new game
+     *
+     * @param gameName the name of the file to create
+     *
+     * @throw std::ios_base::failure the file cannot be written; the exception
+     * is never caught and the program stops
+     */
+    void createGame(const std::string& gameName) const &;
 
     /**
      * @brief deletes the game file
@@ -63,57 +68,15 @@ public:
     void deleteGameFile() const &;
 
     /**
-     * @brief creates a new file for a new game
-     *
-     * @param gameName universal reference to the name of the game string
-     *
-     * @throw std::ios_base::failure the file cannot be written; the exception
-     * is never caught and the program stops
-     *
-     * not defined inside the source file as it is a function template that
-     * has universal references as parameters
-     */
-    template<typename T>
-    void createGame(T&& gameName) const &
-    {
-        /* call std::string& operator=(std::string&&) or
-           std::string& operator=(std::string&) */
-        impl->gameName = std::forward<T>(gameName);
-
-        createFile();
-    }
-
-    /**
      * @brief getter of the game name
      *
-     * @return the name of the current loaded game
+     * @return const std::string&
      */
     const std::string& getName() const & noexcept;
 
 private:
 
-    /**
-     * @brief open the file using the given file name; only used internally
-     * by the two definitions of createGame()
-     *
-     * @throw std::ios_base::failure the file cannot be written; the exception
-     * is never caught and the program stops
-     */
-    void createFile() const &;
-
-    static constexpr char GAMES_FILES_DIRECTORY[] {"data/games/"};
-    static constexpr char GAMES_FILES_EXTENSION[] {".game"};
-
-    /* the implementation definition is inside the header instead of the
-       source file because createGame() needs it and createGame() cannot
-       be defined inside the source file */
-    class Impl
-    {
-    public:
-
-        std::string gameName;
-    };
-
+    class Impl;
     std::unique_ptr<Impl> impl;
 };
 
