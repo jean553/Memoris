@@ -19,7 +19,7 @@
 /**
  * @file Game.hpp
  * @package entities
- * @brief contains the current loaded game and game file information
+ * @brief handles game file creation and deletion
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
@@ -27,8 +27,6 @@
 #define MEMORIS_GAME_H_
 
 #include <memory>
-
-#include <string>
 
 namespace memoris
 {
@@ -55,27 +53,24 @@ public:
     ~Game();
 
     /**
+     * @brief creates a new file for a new game
+     *
+     * @param gameName the name of the file to create
+     *
+     * @throw std::ios_base::failure the file cannot be written; the exception
+     * is never caught and the program stops
+     */
+    void createGame(const std::string& gameName) const &;
+
+    /**
      * @brief deletes the game file
      */
     void deleteGameFile() const &;
 
     /**
-     * @brief creates a new file for a new game
-     *
-     * @param gameName universal reference to the name of the game string
-     *
-     * @throw std::ios_base::failure the file cannot be written; the exception
-     * is never caught and the program stops
-     *
-     * not defined inside the source file as it is a function template that
-     * has universal references as parameters
-     */
-    void createGame(const std::string& gameName) const &;
-
-    /**
      * @brief getter of the game name
      *
-     * @return the name of the current loaded game
+     * @return const std::string&
      */
     const std::string& getName() const & noexcept;
 
