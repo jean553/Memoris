@@ -77,7 +77,10 @@ public:
 
     sf::Clock clock;
 
+    /* TODO: to delete */
     entities::Game game;
+
+    std::string gameName;
 };
 
 /**
@@ -269,6 +272,14 @@ void Context::restartClock() const &
 const entities::Game& Context::getGame() const & noexcept
 {
     return impl->game;
+}
+
+/**
+ *
+ */
+void Context::setGameName(const std::string& gameName) const & noexcept
+{
+    impl->gameName = gameName;
 }
 
 }

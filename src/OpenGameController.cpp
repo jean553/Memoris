@@ -38,10 +38,15 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 
+#include <fstream>
+
 namespace memoris
 {
 namespace controllers
 {
+
+constexpr char GAMES_FILES_DIRECTORY[] {"data/games/"};
+constexpr char GAMES_FILES_EXTENSION[] {".game"};
 
 class OpenGameController::Impl
 {
@@ -142,7 +147,9 @@ const ControllerId& OpenGameController::render() const &
                 index != NO_SELECTION_INDEX
             )
             {
-                context.getGame().createGame(list.getCurrentItem());
+                const auto& gameName = list.getCurrentItem();
+
+                context.setGameName(gameName);
 
                 setExpectedControllerId(ControllerId::SerieMainMenu);
 

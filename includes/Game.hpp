@@ -53,16 +53,6 @@ public:
     ~Game();
 
     /**
-     * @brief creates a new file for a new game
-     *
-     * @param gameName the name of the file to create
-     *
-     * @throw std::ios_base::failure the file cannot be written; the exception
-     * is never caught and the program stops
-     */
-    void createGame(const std::string& gameName) const &;
-
-    /**
      * @brief deletes the game file
      */
     void deleteGameFile() const &;

@@ -227,6 +227,13 @@ public:
      */
     const entities::Game& getGame() const & noexcept;
 
+    /**
+     * @brief setter of the game name
+     *
+     * @param gameName the name of the game
+     */
+    void setGameName(const std::string& gameName) const & noexcept;
+
 private:
 
     class Impl;

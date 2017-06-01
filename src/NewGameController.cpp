@@ -37,11 +37,16 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 
+#include <fstream>
+
 namespace memoris
 {
 
 namespace controllers
 {
+
+constexpr char GAMES_FILES_DIRECTORY[] {"data/games/"};
+constexpr char GAMES_FILES_EXTENSION[] {".game"};
 
 class NewGameController::Impl
 {
@@ -136,7 +141,15 @@ const ControllerId& NewGameController::render() const &
                     break;
                 }
 
-                context.getGame().createGame(inputText.getText());
+                const auto& gameName = inputText.getText();
+                context.setGameName(gameName);
+
+                std::ofstream file;
+
+                file.open(
+                    GAMES_FILES_DIRECTORY + gameName + GAMES_FILES_EXTENSION,
+                    std::fstream::out
+                );
 
                 setExpectedControllerId(ControllerId::SerieMainMenu);
 
