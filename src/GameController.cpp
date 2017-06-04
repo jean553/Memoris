@@ -56,10 +56,6 @@ namespace memoris
 namespace controllers
 {
 
-constexpr float GameController::CELLS_DEFAULT_TRANSPARENCY;
-
-constexpr unsigned short GameController::FIRST_FLOOR_INDEX;
-
 class GameController::Impl
 {
 
@@ -157,6 +153,8 @@ GameController::GameController(
     {
         level->hideAllCellsExceptDeparture(context);
 
+        constexpr float CELLS_DEFAULT_TRANSPARENCY {255.f};
+        constexpr unsigned short FIRST_FLOOR_INDEX {0};
         level->setCellsTransparency(
             context,
             CELLS_DEFAULT_TRANSPARENCY,
