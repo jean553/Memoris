@@ -63,12 +63,12 @@ public:
 
     Impl(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& levelPtr,
+        const std::shared_ptr<entities::Level>& level,
         const bool& watchLevel
     ) :
         watchingPeriod(watchLevel),
         watchLevel(watchLevel),
-        level(levelPtr),
+        level(level),
         watchingTimer(context),
         dashboard(
             context,
@@ -76,8 +76,8 @@ public:
         ),
         timerWidget(
             context,
-            levelPtr->getMinutes(),
-            levelPtr->getSeconds()
+            level->getMinutes(),
+            level->getSeconds()
         )
     {
     }
@@ -129,20 +129,18 @@ public:
  */
 GameController::GameController(
     const utils::Context& context,
-    const std::shared_ptr<entities::Level>& levelPtr,
+    const std::shared_ptr<entities::Level>& level,
     const bool& watchLevel
 ) :
     Controller(context),
     impl(
         std::make_unique<Impl>(
             context,
-            levelPtr,
+            level,
             watchLevel
         )
     )
 {
-    auto& level = impl->level;
-
     auto& playingSerieManager = context.getPlayingSerieManager();
 
     impl->displayedWatchingTime = playingSerieManager.getWatchingTime();

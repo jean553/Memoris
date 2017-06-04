@@ -56,7 +56,7 @@ public:
      * the game level; initialize the watching time of the game
      *
      * @param context constant reference to the current context
-     * @param levelPtr shared pointer to the level object to use
+     * @param level shared pointer to the level object to use
      * @param watchLevel indicates if there is a watching period or not (there
      * is no watching period if the level is started from the editor)
      *
@@ -64,7 +64,7 @@ public:
      */
     GameController(
         const utils::Context& context,
-        const std::shared_ptr<entities::Level>& levelPtr,
+        const std::shared_ptr<entities::Level>& level,
         const bool& watchLevel = true
     );
 
