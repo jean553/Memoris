@@ -84,10 +84,6 @@ public:
 
 private:
 
-    static constexpr float CELLS_DEFAULT_TRANSPARENCY {255.f};
-
-    static constexpr unsigned short FIRST_FLOOR_INDEX {0};
-
     /**
      * @brief function that refectors all the management related to the player
      * movement; this action is called everytime the player makes a move on
