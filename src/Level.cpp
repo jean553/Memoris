@@ -43,6 +43,11 @@ class Level::Impl
 
 public:
 
+    Impl(const utils::Context& context) :
+        context(context)
+    {
+    }
+
     std::vector<std::unique_ptr<Cell>> cells;
 
     unsigned short playerIndex {0};
@@ -63,13 +68,15 @@ public:
     std::unique_ptr<sf::Transform> transform {nullptr};
 
     bool emptyFloor {true};
+
+    const utils::Context& context;
 };
 
 /**
  *
  */
 Level::Level(const utils::Context& context) :
-    impl(std::make_unique<Impl>())
+    impl(std::make_unique<Impl>(context))
 {
     for(
         unsigned short index {0};
@@ -97,7 +104,7 @@ Level::Level(
     const utils::Context& context,
     const std::string& fileName
 ) :
-    impl(std::make_unique<Impl>())
+    impl(std::make_unique<Impl>(context))
 {
     std::ifstream file(fileName);
 
@@ -202,10 +209,10 @@ void Level::display(
 /**
  *
  */
-void Level::hideAllCellsExceptDeparture(
-    const utils::Context& context
-)
+void Level::hideAllCellsExceptDeparture()
 {
+    const auto& context = impl->context;
+
     std::for_each(
         impl->cells.begin(),
         impl->cells.end(),

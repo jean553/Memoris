@@ -655,7 +655,7 @@ void GameController::watchNextFloorOrHideLevel(
         return;
     }
 
-    impl->level->hideAllCellsExceptDeparture(context);
+    impl->level->hideAllCellsExceptDeparture();
 
     context.getSoundsManager().playHideLevelSound();
 
@@ -799,13 +799,13 @@ std::unique_ptr<animations::LevelAnimation> GameController::getAnimationByCell(
 void GameController::startGame() const &
 {
     const auto& level = impl->level;
-    level->hideAllCellsExceptDeparture(getContext());
-
-    impl->playingPeriod = true;
+    level->hideAllCellsExceptDeparture();
 
     auto& floor = impl->floor;
     floor = level->getPlayerFloor();
     impl->dashboard.updateCurrentFloor(floor);
+
+    impl->playingPeriod = true;
 }
 
 /**
