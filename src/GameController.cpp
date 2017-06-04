@@ -141,29 +141,13 @@ GameController::GameController(
         )
     )
 {
-    auto& playingSerieManager = context.getPlayingSerieManager();
-
-    impl->displayedWatchingTime = playingSerieManager.getWatchingTime();
-
-    impl->watchingTimer.setValue(impl->displayedWatchingTime);
-
-    if (not watchLevel)
+    if (watchLevel)
     {
-        level->hideAllCellsExceptDeparture(context);
-
-        constexpr float CELLS_DEFAULT_TRANSPARENCY {255.f};
-        constexpr unsigned short FIRST_FLOOR_INDEX {0};
-        level->setCellsTransparency(
-            context,
-            CELLS_DEFAULT_TRANSPARENCY,
-            FIRST_FLOOR_INDEX
-        );
-
-        impl->playingPeriod = true;
-
-        auto& floor = impl->floor;
-        floor = level->getPlayerFloor();
-        impl->dashboard.updateCurrentFloor(floor);
+        startWatchingPeriod();
+    }
+    else
+    {
+        startGame();
     }
 }
 
@@ -807,6 +791,33 @@ std::unique_ptr<animations::LevelAnimation> GameController::getAnimationByCell(
         );
     }
     }
+}
+
+/**
+ *
+ */
+void GameController::startGame() const &
+{
+    const auto& level = impl->level;
+    level->hideAllCellsExceptDeparture(getContext());
+
+    impl->playingPeriod = true;
+
+    auto& floor = impl->floor;
+    floor = level->getPlayerFloor();
+    impl->dashboard.updateCurrentFloor(floor);
+}
+
+/**
+ *
+ */
+void GameController::startWatchingPeriod() const &
+{
+    auto& displayedWatchingTime = impl->displayedWatchingTime;
+    displayedWatchingTime =
+        getContext().getPlayingSerieManager().getWatchingTime();
+
+    impl->watchingTimer.setValue(displayedWatchingTime);
 }
 
 }
