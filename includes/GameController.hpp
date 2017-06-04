@@ -48,7 +48,6 @@ namespace controllers
 
 class GameController : public Controller
 {
-    using Level = std::shared_ptr<entities::Level>;
 
 public:
 
@@ -65,7 +64,7 @@ public:
      */
     GameController(
         const utils::Context& context,
-        const Level& levelPtr,
+        const std::shared_ptr<entities::Level>& levelPtr,
         const bool& watchLevel = true
     );
 

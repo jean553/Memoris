@@ -63,7 +63,7 @@ public:
 
     Impl(
         const utils::Context& context,
-        const Level& levelPtr,
+        const std::shared_ptr<entities::Level>& levelPtr,
         const bool& watchLevel
     ) :
         watchingPeriod(watchLevel),
@@ -113,7 +113,7 @@ public:
        have no other choice that creating the Level object into controllers.cpp
        and we still want access it into the controller, so we can not use a
        simple Level reference as the original object would be destroyed */
-    Level level;
+    std::shared_ptr<entities::Level> level;
 
     widgets::WatchingTimer watchingTimer;
 
@@ -129,7 +129,7 @@ public:
  */
 GameController::GameController(
     const utils::Context& context,
-    const Level& levelPtr,
+    const std::shared_ptr<entities::Level>& levelPtr,
     const bool& watchLevel
 ) :
     Controller(context),
