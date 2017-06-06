@@ -92,7 +92,6 @@ private:
      * the level; it checks if the movement is allowed, move the player on
      * the level and executes the player's new cell action
      *
-     * @param context reference to the current context to use
      * @param the numeric representation of the movement's direction,
      * the delta between the current player cell and the destination cell
      *
@@ -100,52 +99,40 @@ private:
      * why the only possible values here are -20, 20, -1 and 1. These values
      * are not checked when the function is executed.
      */
-    void handlePlayerMovement(
-        const utils::Context& context,
-        const short& movement
-    ) const &;
+    void handlePlayerMovement(const short& movement) const &;
 
     /**
      * @brief applies the action of the new player cell; this method is called
      * immediately after the player moved
-     *
-     * @param context constant reference to the context to use
      */
-    void executePlayerCellAction(const utils::Context& context) const &;
+    void executePlayerCellAction() const &;
 
     /**
      * @brief empties the player cell (the current player cell is switched to
      * an empty cell); this action is triggered everytime the player leaves
      * a cell; some types are never deleted from their original cell, this
      * function also checks that
-     *
-     * @param context shared pointer to the context to use
      */
-    void emptyPlayerCell(const utils::Context& context) const &;
+    void emptyPlayerCell() const &;
 
     /**
      * @brief this method is called during the watching mode by the main
      * display method to jump to the next floor if the next floor is a playable
      * floor or to stop the watching period if there is no playable floor
      * anymore; this function is called at each 'watching time interval'
-     *
-     * @param context shared pointer to the context to use
      */
-    void watchNextFloorOrHideLevel(const utils::Context& context) const &;
+    void watchNextFloorOrHideLevel() const &;
 
     /**
      * @brief this method ends the level, it displays the win or lose screen
      * according if the player has just won or lost the current level
-     *
-     * @param context constant reference to the current context to use
      */
-    void endLevel(const utils::Context& context) const &;
+    void endLevel() const &;
 
     /**
      * @brief creates a level animation pointer; the animations
      * are dynamically created and destroyed during the game
      *
-     * @param context the context to use
      * @param cellType the cell type for the animation selection
      *
      * @return std::unique_ptr<animations::LevelAnimation>
@@ -154,7 +141,6 @@ private:
      * the exception is never caught and the program stops
      */
     std::unique_ptr<animations::LevelAnimation> getAnimationByCell(
-        const utils::Context& context,
         const char& cellType
     ) const &;
 

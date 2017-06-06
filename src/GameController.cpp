@@ -154,7 +154,7 @@ GameController::GameController(
 /**
  *
  */
-GameController::~GameController() noexcept = default;
+GameController::~GameController() = default;
 
 /**
  *
@@ -284,7 +284,7 @@ const ControllerId& GameController::render() const &
     {
         if (impl->displayedWatchingTime == 1)
         {
-            watchNextFloorOrHideLevel(context);
+            watchNextFloorOrHideLevel();
         }
         else
         {
@@ -315,7 +315,7 @@ const ControllerId& GameController::render() const &
         !impl->win
     )
     {
-        endLevel(context);
+        endLevel();
     }
 
     setNextControllerId(animateScreenTransition(context));
@@ -331,37 +331,25 @@ const ControllerId& GameController::render() const &
             {
             case sf::Keyboard::Up:
             {
-                handlePlayerMovement(
-                    context,
-                    -16
-                );
+                handlePlayerMovement(-16);
 
                 break;
             }
             case sf::Keyboard::Down:
             {
-                handlePlayerMovement(
-                    context,
-                    16
-                );
+                handlePlayerMovement(16);
 
                 break;
             }
             case sf::Keyboard::Left:
             {
-                handlePlayerMovement(
-                    context,
-                    -1
-                );
+                handlePlayerMovement(-1);
 
                 break;
             }
             case sf::Keyboard::Right:
             {
-                handlePlayerMovement(
-                    context,
-                    1
-                );
+                handlePlayerMovement(1);
 
                 break;
             }
@@ -404,10 +392,7 @@ const ControllerId& GameController::render() const &
 /**
  *
  */
-void GameController::handlePlayerMovement(
-    const utils::Context& context,
-    const short& movement
-) const &
+void GameController::handlePlayerMovement(const short& movement) const &
 {
     if (
         impl->watchingPeriod ||
@@ -417,6 +402,8 @@ void GameController::handlePlayerMovement(
     {
         return;
     }
+
+    const auto& context = getContext();
 
     if (
         !impl->level->allowPlayerMovement(
@@ -437,24 +424,23 @@ void GameController::handlePlayerMovement(
         return;
     }
 
-    emptyPlayerCell(context);
+    emptyPlayerCell();
 
     impl->level->movePlayer(
         context,
         movement
     );
 
-    executePlayerCellAction(context);
+    executePlayerCellAction();
 }
 
 /**
  *
  */
-void GameController::executePlayerCellAction(
-    const utils::Context& context
-) const &
+void GameController::executePlayerCellAction() const &
 {
     const char& newPlayerCellType = impl->level->getPlayerCellType();
+    const auto& context = getContext();
 
     switch(newPlayerCellType)
     {
@@ -488,7 +474,7 @@ void GameController::executePlayerCellAction(
 
         if (impl->dashboard.getLifes() == 0)
         {
-            endLevel(context);
+            endLevel();
         }
 
         if (impl->dashboard.getLifes())
@@ -523,10 +509,7 @@ void GameController::executePlayerCellAction(
     {
         if (impl->level->movePlayerToNextFloor(context))
         {
-            impl->animation = getAnimationByCell(
-                context,
-                newPlayerCellType
-            );
+            impl->animation = getAnimationByCell(newPlayerCellType);
 
             impl->movePlayerToNextFloor = true;
         }
@@ -538,10 +521,7 @@ void GameController::executePlayerCellAction(
     {
         if (impl->level->movePlayerToPreviousFloor(context))
         {
-            impl->animation = getAnimationByCell(
-                context,
-                newPlayerCellType
-            );
+            impl->animation = getAnimationByCell(newPlayerCellType);
 
             impl->movePlayerToPreviousFloor = true;
         }
@@ -550,10 +530,7 @@ void GameController::executePlayerCellAction(
     }
     case cells::QUARTER_ROTATION_CELL:
     {
-        impl->animation = getAnimationByCell(
-            context,
-            newPlayerCellType
-        );
+        impl->animation = getAnimationByCell(newPlayerCellType);
 
         break;
     }
@@ -583,7 +560,7 @@ void GameController::executePlayerCellAction(
 
             if (playingSerieManager.hasNextLevel())
             {
-                endLevel(context);
+                endLevel();
             }
             else
             {
@@ -599,10 +576,7 @@ void GameController::executePlayerCellAction(
     case cells::LEFT_ROTATION_CELL:
     case cells::RIGHT_ROTATION_CELL:
     {
-        impl->animation = getAnimationByCell(
-            context,
-            newPlayerCellType
-        );
+        impl->animation = getAnimationByCell(newPlayerCellType);
 
         break;
     }
@@ -612,9 +586,7 @@ void GameController::executePlayerCellAction(
 /**
  *
  */
-void GameController::emptyPlayerCell(
-    const utils::Context& context
-) const &
+void GameController::emptyPlayerCell() const &
 {
     const char& playerCellType = impl->level->getPlayerCellType();
 
@@ -629,16 +601,16 @@ void GameController::emptyPlayerCell(
         return;
     }
 
-    impl->level->emptyPlayerCell(context);
+    impl->level->emptyPlayerCell();
 }
 
 /**
  *
  */
-void GameController::watchNextFloorOrHideLevel(
-    const utils::Context& context
-) const &
+void GameController::watchNextFloorOrHideLevel() const &
 {
+    const auto& context = getContext();
+
     if (impl->floor != impl->level->getPlayableFloors() - 1)
     {
         impl->floor++;
@@ -673,8 +645,10 @@ void GameController::watchNextFloorOrHideLevel(
 /**
  *
  */
-void GameController::endLevel(const utils::Context& context) const &
+void GameController::endLevel() const &
 {
+    const auto& context = getContext();
+
     if (impl->win)
     {
         // auto -> const managers::PlayingSerieManager&
@@ -711,10 +685,10 @@ void GameController::endLevel(const utils::Context& context) const &
  *
  */
 std::unique_ptr<animations::LevelAnimation> GameController::getAnimationByCell(
-    const utils::Context& context,
     const char& cellType
 ) const &
 {
+    const auto& context = getContext();
     const auto& level = impl->level;
     const auto& floor = impl->floor;
 

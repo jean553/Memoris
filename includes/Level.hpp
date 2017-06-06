@@ -184,12 +184,8 @@ public:
      * previous type; this method is called by the game controller to empty
      * a cell when the player leaves it; this method automatically forces the
      * load of a new texture for the player cell
-     *
-     * @param context reference to the current context
      */
-    void emptyPlayerCell(
-        const utils::Context& context
-    );
+    void emptyPlayerCell();
 
     /**
      * @brief moves the current player to the next floor if possible,
