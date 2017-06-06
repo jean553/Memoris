@@ -126,10 +126,8 @@ private:
     /**
      * @brief this method ends the level, it displays the win or lose screen
      * according if the player has just won or lost the current level
-     *
-     * @param context constant reference to the current context to use
      */
-    void endLevel(const utils::Context& context) const &;
+    void endLevel() const &;
 
     /**
      * @brief creates a level animation pointer; the animations

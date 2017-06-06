@@ -315,7 +315,7 @@ const ControllerId& GameController::render() const &
         !impl->win
     )
     {
-        endLevel(context);
+        endLevel();
     }
 
     setNextControllerId(animateScreenTransition(context));
@@ -474,7 +474,7 @@ void GameController::executePlayerCellAction() const &
 
         if (impl->dashboard.getLifes() == 0)
         {
-            endLevel(context);
+            endLevel();
         }
 
         if (impl->dashboard.getLifes())
@@ -569,7 +569,7 @@ void GameController::executePlayerCellAction() const &
 
             if (playingSerieManager.hasNextLevel())
             {
-                endLevel(context);
+                endLevel();
             }
             else
             {
@@ -657,8 +657,10 @@ void GameController::watchNextFloorOrHideLevel() const &
 /**
  *
  */
-void GameController::endLevel(const utils::Context& context) const &
+void GameController::endLevel() const &
 {
+    const auto& context = getContext();
+
     if (impl->win)
     {
         // auto -> const managers::PlayingSerieManager&
