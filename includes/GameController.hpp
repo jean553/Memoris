@@ -133,7 +133,6 @@ private:
      * @brief creates a level animation pointer; the animations
      * are dynamically created and destroyed during the game
      *
-     * @param context the context to use
      * @param cellType the cell type for the animation selection
      *
      * @return std::unique_ptr<animations::LevelAnimation>
@@ -142,7 +141,6 @@ private:
      * the exception is never caught and the program stops
      */
     std::unique_ptr<animations::LevelAnimation> getAnimationByCell(
-        const utils::Context& context,
         const char& cellType
     ) const &;
 

@@ -509,10 +509,7 @@ void GameController::executePlayerCellAction() const &
     {
         if (impl->level->movePlayerToNextFloor(context))
         {
-            impl->animation = getAnimationByCell(
-                context,
-                newPlayerCellType
-            );
+            impl->animation = getAnimationByCell(newPlayerCellType);
 
             impl->movePlayerToNextFloor = true;
         }
@@ -524,10 +521,7 @@ void GameController::executePlayerCellAction() const &
     {
         if (impl->level->movePlayerToPreviousFloor(context))
         {
-            impl->animation = getAnimationByCell(
-                context,
-                newPlayerCellType
-            );
+            impl->animation = getAnimationByCell(newPlayerCellType);
 
             impl->movePlayerToPreviousFloor = true;
         }
@@ -536,10 +530,7 @@ void GameController::executePlayerCellAction() const &
     }
     case cells::QUARTER_ROTATION_CELL:
     {
-        impl->animation = getAnimationByCell(
-            context,
-            newPlayerCellType
-        );
+        impl->animation = getAnimationByCell(newPlayerCellType);
 
         break;
     }
@@ -585,10 +576,7 @@ void GameController::executePlayerCellAction() const &
     case cells::LEFT_ROTATION_CELL:
     case cells::RIGHT_ROTATION_CELL:
     {
-        impl->animation = getAnimationByCell(
-            context,
-            newPlayerCellType
-        );
+        impl->animation = getAnimationByCell(newPlayerCellType);
 
         break;
     }
@@ -697,10 +685,10 @@ void GameController::endLevel() const &
  *
  */
 std::unique_ptr<animations::LevelAnimation> GameController::getAnimationByCell(
-    const utils::Context& context,
     const char& cellType
 ) const &
 {
+    const auto& context = getContext();
     const auto& level = impl->level;
     const auto& floor = impl->floor;
 
