@@ -104,10 +104,8 @@ private:
     /**
      * @brief applies the action of the new player cell; this method is called
      * immediately after the player moved
-     *
-     * @param context constant reference to the context to use
      */
-    void executePlayerCellAction(const utils::Context& context) const &;
+    void executePlayerCellAction() const &;
 
     /**
      * @brief empties the player cell (the current player cell is switched to

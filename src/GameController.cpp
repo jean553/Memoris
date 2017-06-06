@@ -431,17 +431,16 @@ void GameController::handlePlayerMovement(const short& movement) const &
         movement
     );
 
-    executePlayerCellAction(context);
+    executePlayerCellAction();
 }
 
 /**
  *
  */
-void GameController::executePlayerCellAction(
-    const utils::Context& context
-) const &
+void GameController::executePlayerCellAction() const &
 {
     const char& newPlayerCellType = impl->level->getPlayerCellType();
+    const auto& context = getContext();
 
     switch(newPlayerCellType)
     {
