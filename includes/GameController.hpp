@@ -48,32 +48,34 @@ namespace controllers
 
 class GameController : public Controller
 {
-    using Level = std::shared_ptr<entities::Level>;
 
 public:
 
     /**
-     * @brief constructor, call the Level constructor that loads and create
-     * the game level; initialize the watching time of the game
+     * @brief constructor
      *
-     * @param context constant reference to the current context
-     * @param levelPtr shared pointer to the level object to use
-     * @param watchLevel indicates if there is a watching period or not (there
-     * is no watching period if the level is started from the editor)
+     * @param context the context to use
+     * @param level the level object to load
+     * @param watchLevel specifies if there is a watching period or not
+     * (there is this period during the game, not the test of the editor )
      *
      * @throw std::invalid_argument the level file cannot be opened
+     * this exception is caught by the controllers factory
+     * in order to display an error message
+     *
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
      */
     GameController(
         const utils::Context& context,
-        const Level& levelPtr,
+        const std::shared_ptr<entities::Level>& level,
         const bool& watchLevel = true
     );
 
     /**
-     * @brief default destructor, empty, only declared here in order to use
-     * forwarding declaration
+     * @brief default destructor
      */
-    ~GameController() noexcept;
+    ~GameController();
 
     /**
      * @brief renders the game main screen
@@ -155,6 +157,20 @@ private:
         const utils::Context& context,
         const char& cellType
     ) const &;
+
+    /**
+     * @brief starts the game (eventually right after the watching period)
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
+     */
+    void startGame() const &;
+
+    /**
+     * @brief starts the watching period (when start a level during the game)
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
+     */
+    void startWatchingPeriod() const &;
 
     class Impl;
     std::unique_ptr<Impl> impl;

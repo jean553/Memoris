@@ -63,12 +63,12 @@ public:
 
     Impl(
         const utils::Context& context,
-        const Level& levelPtr,
+        const std::shared_ptr<entities::Level>& level,
         const bool& watchLevel
     ) :
         watchingPeriod(watchLevel),
         watchLevel(watchLevel),
-        level(levelPtr),
+        level(level),
         watchingTimer(context),
         dashboard(
             context,
@@ -76,8 +76,8 @@ public:
         ),
         timerWidget(
             context,
-            levelPtr->getMinutes(),
-            levelPtr->getSeconds()
+            level->getMinutes(),
+            level->getSeconds()
         )
     {
     }
@@ -113,7 +113,7 @@ public:
        have no other choice that creating the Level object into controllers.cpp
        and we still want access it into the controller, so we can not use a
        simple Level reference as the original object would be destroyed */
-    Level level;
+    std::shared_ptr<entities::Level> level;
 
     widgets::WatchingTimer watchingTimer;
 
@@ -129,43 +129,25 @@ public:
  */
 GameController::GameController(
     const utils::Context& context,
-    const Level& levelPtr,
+    const std::shared_ptr<entities::Level>& level,
     const bool& watchLevel
 ) :
     Controller(context),
     impl(
         std::make_unique<Impl>(
             context,
-            levelPtr,
+            level,
             watchLevel
         )
     )
 {
-    auto& level = impl->level;
-
-    auto& playingSerieManager = context.getPlayingSerieManager();
-
-    impl->displayedWatchingTime = playingSerieManager.getWatchingTime();
-
-    impl->watchingTimer.setValue(impl->displayedWatchingTime);
-
-    if (not watchLevel)
+    if (watchLevel)
     {
-        level->hideAllCellsExceptDeparture(context);
-
-        constexpr float CELLS_DEFAULT_TRANSPARENCY {255.f};
-        constexpr unsigned short FIRST_FLOOR_INDEX {0};
-        level->setCellsTransparency(
-            context,
-            CELLS_DEFAULT_TRANSPARENCY,
-            FIRST_FLOOR_INDEX
-        );
-
-        impl->playingPeriod = true;
-
-        auto& floor = impl->floor;
-        floor = level->getPlayerFloor();
-        impl->dashboard.updateCurrentFloor(floor);
+        startWatchingPeriod();
+    }
+    else
+    {
+        startGame();
     }
 }
 
@@ -673,7 +655,7 @@ void GameController::watchNextFloorOrHideLevel(
         return;
     }
 
-    impl->level->hideAllCellsExceptDeparture(context);
+    impl->level->hideAllCellsExceptDeparture();
 
     context.getSoundsManager().playHideLevelSound();
 
@@ -809,6 +791,33 @@ std::unique_ptr<animations::LevelAnimation> GameController::getAnimationByCell(
         );
     }
     }
+}
+
+/**
+ *
+ */
+void GameController::startGame() const &
+{
+    const auto& level = impl->level;
+    level->hideAllCellsExceptDeparture();
+
+    auto& floor = impl->floor;
+    floor = level->getPlayerFloor();
+    impl->dashboard.updateCurrentFloor(floor);
+
+    impl->playingPeriod = true;
+}
+
+/**
+ *
+ */
+void GameController::startWatchingPeriod() const &
+{
+    auto& displayedWatchingTime = impl->displayedWatchingTime;
+    displayedWatchingTime =
+        getContext().getPlayingSerieManager().getWatchingTime();
+
+    impl->watchingTimer.setValue(displayedWatchingTime);
 }
 
 }

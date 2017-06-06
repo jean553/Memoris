@@ -109,12 +109,8 @@ public:
     /**
      * @brief hides all the cells of the level, call the method (hide()) for
      * all of them except for departure cell(s)
-     *
-     * @param context reference to the current context to use
      */
-    void hideAllCellsExceptDeparture(
-        const utils::Context& context
-    );
+    void hideAllCellsExceptDeparture();
 
     /**
      * @brief update the transparency value of the current player color
