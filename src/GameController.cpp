@@ -284,7 +284,7 @@ const ControllerId& GameController::render() const &
     {
         if (impl->displayedWatchingTime == 1)
         {
-            watchNextFloorOrHideLevel(context);
+            watchNextFloorOrHideLevel();
         }
         else
         {
@@ -619,10 +619,10 @@ void GameController::emptyPlayerCell() const &
 /**
  *
  */
-void GameController::watchNextFloorOrHideLevel(
-    const utils::Context& context
-) const &
+void GameController::watchNextFloorOrHideLevel() const &
 {
+    const auto& context = getContext();
+
     if (impl->floor != impl->level->getPlayableFloors() - 1)
     {
         impl->floor++;

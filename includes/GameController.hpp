@@ -120,10 +120,8 @@ private:
      * display method to jump to the next floor if the next floor is a playable
      * floor or to stop the watching period if there is no playable floor
      * anymore; this function is called at each 'watching time interval'
-     *
-     * @param context shared pointer to the context to use
      */
-    void watchNextFloorOrHideLevel(const utils::Context& context) const &;
+    void watchNextFloorOrHideLevel() const &;
 
     /**
      * @brief this method ends the level, it displays the win or lose screen
