@@ -154,7 +154,7 @@ GameController::GameController(
 /**
  *
  */
-GameController::~GameController() noexcept = default;
+GameController::~GameController() = default;
 
 /**
  *
@@ -331,37 +331,25 @@ const ControllerId& GameController::render() const &
             {
             case sf::Keyboard::Up:
             {
-                handlePlayerMovement(
-                    context,
-                    -16
-                );
+                handlePlayerMovement(-16);
 
                 break;
             }
             case sf::Keyboard::Down:
             {
-                handlePlayerMovement(
-                    context,
-                    16
-                );
+                handlePlayerMovement(16);
 
                 break;
             }
             case sf::Keyboard::Left:
             {
-                handlePlayerMovement(
-                    context,
-                    -1
-                );
+                handlePlayerMovement(-1);
 
                 break;
             }
             case sf::Keyboard::Right:
             {
-                handlePlayerMovement(
-                    context,
-                    1
-                );
+                handlePlayerMovement(1);
 
                 break;
             }
@@ -404,10 +392,7 @@ const ControllerId& GameController::render() const &
 /**
  *
  */
-void GameController::handlePlayerMovement(
-    const utils::Context& context,
-    const short& movement
-) const &
+void GameController::handlePlayerMovement(const short& movement) const &
 {
     if (
         impl->watchingPeriod ||
@@ -417,6 +402,8 @@ void GameController::handlePlayerMovement(
     {
         return;
     }
+
+    const auto& context = getContext();
 
     if (
         !impl->level->allowPlayerMovement(

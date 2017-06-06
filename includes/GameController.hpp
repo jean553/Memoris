@@ -92,7 +92,6 @@ private:
      * the level; it checks if the movement is allowed, move the player on
      * the level and executes the player's new cell action
      *
-     * @param context reference to the current context to use
      * @param the numeric representation of the movement's direction,
      * the delta between the current player cell and the destination cell
      *
@@ -100,10 +99,7 @@ private:
      * why the only possible values here are -20, 20, -1 and 1. These values
      * are not checked when the function is executed.
      */
-    void handlePlayerMovement(
-        const utils::Context& context,
-        const short& movement
-    ) const &;
+    void handlePlayerMovement(const short& movement) const &;
 
     /**
      * @brief applies the action of the new player cell; this method is called
