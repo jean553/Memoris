@@ -320,10 +320,10 @@ const char& Level::getPlayerCellType() const
 /**
  *
  */
-void Level::emptyPlayerCell(const utils::Context& context)
+void Level::emptyPlayerCell()
 {
     (*impl->cells[impl->playerIndex]).empty();
-    (*impl->cells[impl->playerIndex]).show(context);
+    (*impl->cells[impl->playerIndex]).show(impl->context);
 }
 
 /**

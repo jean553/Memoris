@@ -112,10 +112,8 @@ private:
      * an empty cell); this action is triggered everytime the player leaves
      * a cell; some types are never deleted from their original cell, this
      * function also checks that
-     *
-     * @param context shared pointer to the context to use
      */
-    void emptyPlayerCell(const utils::Context& context) const &;
+    void emptyPlayerCell() const &;
 
     /**
      * @brief this method is called during the watching mode by the main

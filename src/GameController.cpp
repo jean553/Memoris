@@ -424,7 +424,7 @@ void GameController::handlePlayerMovement(const short& movement) const &
         return;
     }
 
-    emptyPlayerCell(context);
+    emptyPlayerCell();
 
     impl->level->movePlayer(
         context,
@@ -598,9 +598,7 @@ void GameController::executePlayerCellAction() const &
 /**
  *
  */
-void GameController::emptyPlayerCell(
-    const utils::Context& context
-) const &
+void GameController::emptyPlayerCell() const &
 {
     const char& playerCellType = impl->level->getPlayerCellType();
 
@@ -615,7 +613,7 @@ void GameController::emptyPlayerCell(
         return;
     }
 
-    impl->level->emptyPlayerCell(context);
+    impl->level->emptyPlayerCell();
 }
 
 /**
