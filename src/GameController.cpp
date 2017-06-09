@@ -234,23 +234,26 @@ const ControllerId& GameController::render() const &
         );
     }
 
+    constexpr sf::Int32 PLAYER_CELL_ANIMATION_INTERVAL {100};
     if (
         impl->playingPeriod &&
         impl->animation == nullptr &&
         (
             context.getClockMillisecondsTime() -
-            impl->playerCellAnimationTime > 100
+            impl->playerCellAnimationTime > PLAYER_CELL_ANIMATION_INTERVAL
         )
     )
     {
-        impl->playerCellTransparency += 64;
+        constexpr sf::Uint32 PLAYER_CELL_TRANSPARENCY_INTERVAL {64};
+        impl->playerCellTransparency += PLAYER_CELL_TRANSPARENCY_INTERVAL;
 
         impl->level->setPlayerCellTransparency(
             context,
             impl->playerCellTransparency
         );
 
-        if (impl->playerCellTransparency > 128)
+        constexpr sf::Uint32 PLAYER_CELL_TRANSPARENCY_MAXIMUM {128};
+        if (impl->playerCellTransparency > PLAYER_CELL_TRANSPARENCY_MAXIMUM)
         {
             impl->playerCellTransparency = 0;
         }
@@ -263,9 +266,10 @@ const ControllerId& GameController::render() const &
     {
         impl->endingScreen->render();
 
+        constexpr sf::Int32 END_SCREEN_DISPLAY_DURATION {5000};
         if (
             context.getClockMillisecondsTime() -
-            impl->endPeriodStartTime > 5000
+            impl->endPeriodStartTime > END_SCREEN_DISPLAY_DURATION
         )
         {
             setExpectedControllerId(
@@ -276,13 +280,15 @@ const ControllerId& GameController::render() const &
         }
     }
 
+    constexpr sf::Int32 WATCHING_PERIOD_SECOND {1000};
     if (
         impl->watchingPeriod and
         context.getClockMillisecondsTime() -
-        impl->lastWatchingTimeUpdate > 1000
+        impl->lastWatchingTimeUpdate > WATCHING_PERIOD_SECOND
     )
     {
-        if (impl->displayedWatchingTime == 1)
+        constexpr unsigned short WATCHING_TIME_LAST_SECOND {1};
+        if (impl->displayedWatchingTime == WATCHING_TIME_LAST_SECOND)
         {
             watchNextFloorOrHideLevel();
         }
@@ -327,29 +333,35 @@ const ControllerId& GameController::render() const &
         {
         case sf::Event::KeyPressed:
         {
+            /* TODO: use explicit methods names instead */
+            constexpr short LEFT_MOVEMENT {-1};
+            constexpr short RIGHT_MOVEMENT {1};
+            constexpr short UP_MOVEMENT {-16};
+            constexpr short DOWN_MOVEMENT {16};
+
             switch(event.key.code)
             {
             case sf::Keyboard::Up:
             {
-                handlePlayerMovement(-16);
+                handlePlayerMovement(UP_MOVEMENT);
 
                 break;
             }
             case sf::Keyboard::Down:
             {
-                handlePlayerMovement(16);
+                handlePlayerMovement(DOWN_MOVEMENT);
 
                 break;
             }
             case sf::Keyboard::Left:
             {
-                handlePlayerMovement(-1);
+                handlePlayerMovement(LEFT_MOVEMENT);
 
                 break;
             }
             case sf::Keyboard::Right:
             {
-                handlePlayerMovement(1);
+                handlePlayerMovement(RIGHT_MOVEMENT);
 
                 break;
             }
