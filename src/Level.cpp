@@ -100,11 +100,11 @@ Level::Level(const utils::Context& context) :
  */
 Level::Level(
     const utils::Context& context,
-    const std::string& fileName
+    const std::string& filePath
 ) :
     impl(std::make_unique<Impl>(context))
 {
-    std::ifstream file(fileName);
+    std::ifstream file(filePath);
 
     if (!file.is_open())
     {
@@ -170,7 +170,7 @@ Level::Level(
 /**
  *
  */
-Level::~Level() noexcept = default;
+Level::~Level() = default;
 
 /**
  *

@@ -61,31 +61,37 @@ class Level
 public:
 
     /**
-     * @brief constructor that initializes a level full of wall cells
+     * @brief constructor that creates a blank level (level editor)
      *
-     * @param context constant reference to the current context
+     * @param context the context to use
+
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
      */
     Level(const utils::Context& context);
 
     /**
-     * @brief constructor that initializes a level from a specific file
+     * @brief constructor that creates a level from a level file (game)
      *
-     * @param context constant reference to the current context
-     * @param fileName constant reference to a string that contains the file
-     * name
+     * @param context the context to use
+     * @param filePath the level file to load (full path)
      *
-     * @throw std::invalid_argument the level file cannot be opened
+     * @throw std::invalid_argument the level file cannot be opened;
+     * this exception is caught into the controllers factory
+     * and display an error message to the screen
+     *
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
      */
     Level(
         const utils::Context& context,
-        const std::string& fileName
+        const std::string& filePath
     );
 
     /**
-     * @brief default destructor, empty, only declared in order to use
-     * forwarding declaration
+     * @brief default destructor
      */
-    ~Level() noexcept;
+    ~Level();
 
     /**
      * @brief returns the floor index with the last cell on it (not a wall one)
