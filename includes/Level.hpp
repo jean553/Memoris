@@ -99,12 +99,10 @@ public:
      * method is optimized and only calculate/render/display the cells of
      * the given floor; the other cells are totally ignored
      *
-     * @param context reference to the current context to use
      * @param floor the floor to render
      * @param Cell object method pointer to the cell display() method to use
      */
     void display(
-        const utils::Context& context,
         const unsigned short& floor,
         void (Cell::*display)(
             const utils::Context&,
@@ -121,27 +119,19 @@ public:
     /**
      * @brief update the transparency value of the current player color
      *
-     * @param context reference to the current context
      * @param alpha the current player cell transparency value; we use a
      * sf::Uint8 value as this is the type used to set the colors of a
      * sf::Color object
      */
-    void setPlayerCellTransparency(
-        const utils::Context& context,
-        const sf::Uint8& alpha
-    );
+    void setPlayerCellTransparency(const sf::Uint8& alpha);
 
     /**
      * @brief move the player down if possible
      *
      * @param move the value (positive or negative) to apply on the current
      * player index; defines the mouvement of the player
-     * @param context reference to the current context to use
      */
-    void movePlayer(
-        const utils::Context& context,
-        const short& movement
-    );
+    void movePlayer(const short& movement);
 
     /**
      * @brief check if the player is allowed to perform the given movement;
@@ -175,15 +165,11 @@ public:
      * check if the user is currently in collision with a wall; if there is
      * a collision, the wall is shown
      *
-     * @param context reference to the current context
      * @param movement the movement direction, the same as movePlayer()
      *
      * @return bool
      */
-    bool detectWalls(
-        const utils::Context& context,
-        const short& movement
-    ) const;
+    bool detectWalls(const short& movement) const;
 
     /**
      * @brief updates the current player cell to an empty cell, whatever the
@@ -198,24 +184,18 @@ public:
      * returns true if the action has been executed, false if it is not
      * possible to move to the next floor
      *
-     * @param context reference to the current context
-     *
      * @bool true if the player moved to the next floor
      */
-    bool movePlayerToNextFloor(const utils::Context& context);
+    bool movePlayerToNextFloor();
 
     /**
      * @brief moves the current player to the previous floor if possible,
      * returns true if the action has been executed, false if it is not
      * possible to move to the previous floor
      *
-     * @param context reference to the current context to use
-     *
      * @bool true if the player moved to the previous floor
      */
-    bool movePlayerToPreviousFloor(
-        const utils::Context& context
-    );
+    bool movePlayerToPreviousFloor();
 
     /**
      * @brief getter of the total stars amount in the level; this is used by
@@ -239,12 +219,10 @@ public:
      * animation renders a verical column that scroll the whole floor and
      * displays the next floor;
      *
-     * @param context reference to the current context
-     *
      * NOTE: this method must be called instead of 'display()' during the
      * animation
      */
-    void playFloorTransitionAnimation(const utils::Context& context);
+    void playFloorTransitionAnimation();
 
     /**
      * @brief setter for the animation boolean
@@ -292,12 +270,10 @@ public:
     /**
      * @brief set the transparency of all the cells of the given floor
      *
-     * @param context shared pointer to the context to use
      * @param transparency the value of SFML transparency
      * @param floor the concerned floor index
      */
     void setCellsTransparency(
-        const utils::Context& context,
         const float& transparency,
         const unsigned short& floor
     ) &;
@@ -341,7 +317,6 @@ public:
      * the level and replace it with the given type; returns a boolean that
      * indicates if the level has been modified or not
      *
-     * @param context current context
      * @param floor the current level floor displayed
      * @param type the type to apply on the 'mouse hover cell'
      *
@@ -351,15 +326,12 @@ public:
      * a local variable of the method
      */
     const bool updateSelectedCellType(
-        const utils::Context& context,
         const unsigned short& floor,
         const char& type
     );
 
     /**
      * @brief refresh all the cells and reset them to wall cells
-     *
-     * @param context reference to the current context to use
      *
      * @throws std::terminate something wrong happened in the for_each
      * algorithm (functions that are called there may throw exceptions as
@@ -371,7 +343,7 @@ public:
      * not 'noexcept' because it could throw exceptions; those exceptions are
      * never caught and the program just stops if it happens
      */
-    void refresh(const utils::Context& context) &;
+    void refresh() &;
 
     /**
      * @brief getter of the player cell horizontal position
@@ -392,11 +364,9 @@ public:
      * after a level has been tested; in fact, the level object is the same,
      * so some cells have been hidden during the game)
      *
-     * @param context constant reference to the current context to use
-     *
      * not noexcept because it calls SFML functions that are not noexcept
      */
-    void showAllCells(const utils::Context& context) const &;
+    void showAllCells() const &;
 
     /**
      * @brief checks if the level has exactly one departure and one arrival;
@@ -446,7 +416,6 @@ private:
     /**
      * @brief returns a pointer to the created cell according to the given type
      *
-     * @param context the context to use
      * @param horizontalPosition cell horizontal position
      * @param verticalPosition cell vertical position
      * @param type cell type
@@ -457,7 +426,6 @@ private:
      * the exception is never caught and the program stops
      */
     std::unique_ptr<Cell> getCellByType(
-        const utils::Context& context,
         const float& horizontalPosition,
         const float& verticalPosition,
         const char type

@@ -84,7 +84,6 @@ Level::Level(const utils::Context& context) :
     )
     {
         std::unique_ptr<Cell> cell = getCellByType(
-            context,
             static_cast<float>(impl->horizontalPositionCursor),
             static_cast<float>(impl->verticalPositionCursor),
             cells::WALL_CELL
@@ -136,7 +135,6 @@ Level::Level(
         }
 
         std::unique_ptr<Cell> cell = getCellByType(
-            context,
             static_cast<float>(impl->horizontalPositionCursor),
             static_cast<float>(impl->verticalPositionCursor),
             cellType
@@ -186,7 +184,6 @@ const unsigned short Level::getLastPlayableFloor() const & noexcept
  *
  */
 void Level::display(
-    const utils::Context& context,
     const unsigned short& floor,
     void (Cell::*display)(
         const utils::Context&,
@@ -204,7 +201,10 @@ void Level::display(
         index++
     )
     {
-        ((*impl->cells[index]).*display)(context, impl->transform);
+        ((*impl->cells[index]).*display)(
+            impl->context,
+            impl->transform
+        );
     }
 }
 
@@ -235,13 +235,10 @@ void Level::hideAllCellsExceptDeparture()
 /**
  *
  */
-void Level::setPlayerCellTransparency(
-    const utils::Context& context,
-    const sf::Uint8& alpha
-)
+void Level::setPlayerCellTransparency(const sf::Uint8& alpha)
 {
     (*impl->cells[impl->playerIndex]).setCellColorTransparency(
-        context,
+        impl->context,
         alpha
     );
 }
@@ -249,19 +246,13 @@ void Level::setPlayerCellTransparency(
 /**
  *
  */
-void Level::movePlayer(
-    const utils::Context& context,
-    const short& movement
-)
+void Level::movePlayer(const short& movement)
 {
-    setPlayerCellTransparency(
-        context,
-        255
-    );
+    setPlayerCellTransparency(255);
 
     impl->playerIndex += movement;
 
-    (*impl->cells[impl->playerIndex]).show(context);
+    (*impl->cells[impl->playerIndex]).show(impl->context);
 }
 
 /**
@@ -293,17 +284,14 @@ bool Level::allowPlayerMovement(
 /**
  *
  */
-bool Level::detectWalls(
-    const utils::Context& context,
-    const short& movement
-) const
+bool Level::detectWalls(const short& movement) const
 {
     if(
         (*impl->cells[impl->playerIndex + movement]).getType() ==
         cells::WALL_CELL
     )
     {
-        (*impl->cells[impl->playerIndex + movement]).show(context);
+        (*impl->cells[impl->playerIndex + movement]).show(impl->context);
 
         return true;
     }
@@ -331,9 +319,7 @@ void Level::emptyPlayerCell()
 /**
  *
  */
-bool Level::movePlayerToNextFloor(
-    const utils::Context& context
-)
+bool Level::movePlayerToNextFloor()
 {
     unsigned short newIndex = impl->playerIndex + 256;
 
@@ -344,7 +330,7 @@ bool Level::movePlayerToNextFloor(
 
     impl->playerIndex = newIndex;
 
-    (*impl->cells[impl->playerIndex]).show(context);
+    (*impl->cells[impl->playerIndex]).show(impl->context);
 
     return true;
 }
@@ -352,9 +338,7 @@ bool Level::movePlayerToNextFloor(
 /**
  *
  */
-bool Level::movePlayerToPreviousFloor(
-    const utils::Context& context
-)
+bool Level::movePlayerToPreviousFloor()
 {
     short newIndex = impl->playerIndex - 256;
 
@@ -365,7 +349,7 @@ bool Level::movePlayerToPreviousFloor(
 
     impl->playerIndex = static_cast<unsigned short>(newIndex);
 
-    (*impl->cells[impl->playerIndex]).show(context);
+    (*impl->cells[impl->playerIndex]).show(impl->context);
 
     return true;
 }
@@ -389,9 +373,7 @@ const unsigned short Level::getPlayerFloor()
 /**
  *
  */
-void Level::playFloorTransitionAnimation(
-    const utils::Context& context
-)
+void Level::playFloorTransitionAnimation()
 {
     for(
         unsigned short i = 0;
@@ -402,7 +384,7 @@ void Level::playFloorTransitionAnimation(
         if (i % 16 < impl->animationColumn)
         {
             (*impl->cells[impl->animationFloor * 256 + i + 256]).display(
-                context
+                impl->context
             );
 
             continue;
@@ -410,14 +392,14 @@ void Level::playFloorTransitionAnimation(
 
         if (i % 16 == impl->animationColumn)
         {
-            (*impl->cells[impl->animationFloor * 256 + i]).hide(context);
+            (*impl->cells[impl->animationFloor * 256 + i]).hide(impl->context);
         }
 
-        (*impl->cells[impl->animationFloor * 256 + i]).display(context);
+        (*impl->cells[impl->animationFloor * 256 + i]).display(impl->context);
     }
 
     if (
-        context.getClockMillisecondsTime() -
+        impl->context.getClockMillisecondsTime() -
         impl->lastAnimationTime > 25
     )
     {
@@ -432,7 +414,7 @@ void Level::playFloorTransitionAnimation(
             impl->animationFloor++;
         }
 
-        impl->lastAnimationTime = context.getClockMillisecondsTime();
+        impl->lastAnimationTime = impl->context.getClockMillisecondsTime();
     }
 }
 
@@ -488,7 +470,6 @@ void Level::setPlayerCellIndex(const unsigned short& index)
  *
  */
 void Level::setCellsTransparency(
-    const utils::Context& context,
     const float& transparency,
     const unsigned short& floor
 ) &
@@ -503,7 +484,7 @@ void Level::setCellsTransparency(
     )
     {
         impl->cells[index]->setCellColorTransparency(
-            context,
+            impl->context,
             transparency
         );
     }
@@ -571,7 +552,6 @@ void Level::updateCursors() const & noexcept
  *
  */
 const bool Level::updateSelectedCellType(
-    const utils::Context& context,
     const unsigned short& floor,
     const char& type
 )
@@ -607,7 +587,7 @@ const bool Level::updateSelectedCellType(
         }
 
         (*iterator)->setType(type);
-        (*iterator)->show(context);
+        (*iterator)->show(impl->context);
 
         updated = true;
 
@@ -620,15 +600,15 @@ const bool Level::updateSelectedCellType(
 /**
  *
  */
-void Level::refresh(const utils::Context& context) &
+void Level::refresh() &
 {
     std::for_each(
         impl->cells.begin(),
         impl->cells.end(),
-        [&context](const auto& cell) // auto -> std::unique_ptr<entities::Cell>
+        [this](const auto& cell)
     {
         cell->setType(cells::WALL_CELL);
-        cell->show(context);
+        cell->show(impl->context);
     }
     );
 }
@@ -652,13 +632,13 @@ const float& Level::getPlayerCellVerticalPosition() const & noexcept
 /**
  *
  */
-void Level::showAllCells(const utils::Context& context) const &
+void Level::showAllCells() const &
 {
     auto& cells = impl->cells;
 
     for (auto& cell : cells)
     {
-        cell->show(context);
+        cell->show(impl->context);
     }
 }
 
@@ -774,7 +754,6 @@ void Level::setCellsFromCharactersList(const std::vector<char>& characters)
  *
  */
 std::unique_ptr<Cell> Level::getCellByType(
-    const utils::Context& context,
     const float& horizontalPosition,
     const float& verticalPosition,
     const char type
@@ -785,7 +764,7 @@ std::unique_ptr<Cell> Level::getCellByType(
     constexpr float CELL_DIMENSIONS {50.f};
 
     return std::make_unique<Cell>(
-        context,
+        impl->context,
         HORIZONTAL_POSITION_ORIGIN +
         CELL_DIMENSIONS * horizontalPosition,
         VERTICAL_POSITION_ORIGIN +

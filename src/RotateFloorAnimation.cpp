@@ -79,7 +79,6 @@ void RotateFloorAnimation::renderAnimation() &
     const auto& floor = getFloor();
 
     level->display(
-        context,
         floor,
         &entities::Cell::display
     );

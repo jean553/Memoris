@@ -247,7 +247,6 @@ void HorizontalMirrorAnimation::displayLevelAndHorizontalSeparator() const &
     const auto& floor = getFloor();
 
     getLevel()->display(
-        context,
         floor,
         &entities::Cell::display
     );
