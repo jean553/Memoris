@@ -27,14 +27,16 @@
 #define MEMORIS_LEVEL_H_
 
 #include <memory>
-
-#include <SFML/Config.hpp>
-
 #include <vector>
 
 namespace sf
 {
 class Transform;
+
+/* 'typedef unsigned char Uint8' in SFML/Config.hpp, we declare exactly
+   the same type here in order to both use declaration forwarding and
+   prevent conflicting declaration */
+typedef unsigned char Uint8;
 }
 
 namespace memoris
