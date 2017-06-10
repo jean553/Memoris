@@ -623,7 +623,7 @@ void GameController::watchNextFloorOrHideLevel() const &
 {
     const auto& context = getContext();
 
-    if (impl->floor != impl->level->getPlayableFloors() - 1)
+    if (impl->floor != impl->level->getLastPlayableFloor())
     {
         impl->floor++;
 
