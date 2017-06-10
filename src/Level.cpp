@@ -64,6 +64,7 @@ public:
     unsigned short animationFloor {0};
     unsigned short horizontalPositionCursor {0};
     unsigned short verticalPositionCursor {0};
+    unsigned short lastPlayableCell {0};
 
     std::unique_ptr<sf::Transform> transform {nullptr};
 
@@ -155,6 +156,11 @@ Level::Level(
 
             break;
         }
+        }
+
+        if (cellType != cells::WALL_CELL)
+        {
+            impl->lastPlayableCell = index;
         }
 
         updateCursors();
