@@ -262,7 +262,6 @@ void VerticalMirrorAnimation::displayLevelAndVerticalSeparator() const &
     const auto& context = getContext();
 
     getLevel()->display(
-        context,
         getFloor(),
         &entities::Cell::display
     );

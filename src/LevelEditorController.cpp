@@ -124,12 +124,11 @@ public:
         /* if the previous controller was the game controller, so some cells
            have been hidden during the game; this function is useless when
            the editor is loaded from the menu */
-        level->showAllCells(context);
+        level->showAllCells();
 
         constexpr float CELLS_DEFAULT_TRANSPARENCY {255.f};
         constexpr unsigned short FIRST_FLOOR_INDEX {0};
         level->setCellsTransparency(
-            context,
             CELLS_DEFAULT_TRANSPARENCY,
             FIRST_FLOOR_INDEX
         );
@@ -297,7 +296,6 @@ void LevelEditorController::renderControllerMainComponents() const &
     const auto& context = getContext();
 
     impl->level->display(
-        context,
         impl->floor,
         &entities::Cell::displayWithMouseHover
     );
@@ -336,7 +334,7 @@ void LevelEditorController::handleNewLevelForegroundEvents() const &
             }
             case sf::Keyboard::Return:
             {
-                impl->level->refresh(context);
+                impl->level->refresh();
 
                 changeLevelName(UNNAMED_LEVEL);
 
@@ -678,7 +676,6 @@ const bool LevelEditorController::lastLevelVersionUpdated() const &
 {
     if(
         not impl->level->updateSelectedCellType(
-            getContext(),
             impl->floor,
             impl->selector.getSelectedCellType()
         )

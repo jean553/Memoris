@@ -89,7 +89,6 @@ void QuarterRotationAnimation::renderAnimation() &
     )
     {
         level->display(
-            context,
             floor,
             &entities::Cell::display
         );
@@ -114,7 +113,6 @@ void QuarterRotationAnimation::renderAnimation() &
     }
 
     level->display(
-        context,
         floor,
         &entities::Cell::display
     );

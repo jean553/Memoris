@@ -197,7 +197,7 @@ const ControllerId& GameController::render() const &
 
     if (impl->level->getAnimateFloorTransition())
     {
-        impl->level->playFloorTransitionAnimation(context);
+        impl->level->playFloorTransitionAnimation();
     }
     else if (impl->animation != nullptr)
     {
@@ -228,7 +228,6 @@ const ControllerId& GameController::render() const &
     else
     {
         impl->level->display(
-            context,
             impl->floor,
             &entities::Cell::display
         );
@@ -247,10 +246,7 @@ const ControllerId& GameController::render() const &
         constexpr sf::Uint32 PLAYER_CELL_TRANSPARENCY_INTERVAL {64};
         impl->playerCellTransparency += PLAYER_CELL_TRANSPARENCY_INTERVAL;
 
-        impl->level->setPlayerCellTransparency(
-            context,
-            impl->playerCellTransparency
-        );
+        impl->level->setPlayerCellTransparency(impl->playerCellTransparency);
 
         constexpr sf::Uint32 PLAYER_CELL_TRANSPARENCY_MAXIMUM {128};
         if (impl->playerCellTransparency > PLAYER_CELL_TRANSPARENCY_MAXIMUM)
@@ -429,7 +425,7 @@ void GameController::handlePlayerMovement(const short& movement) const &
         return;
     }
 
-    if (impl->level->detectWalls(context, movement))
+    if (impl->level->detectWalls(movement))
     {
         context.getSoundsManager().playCollisionSound();
 
@@ -438,10 +434,7 @@ void GameController::handlePlayerMovement(const short& movement) const &
 
     emptyPlayerCell();
 
-    impl->level->movePlayer(
-        context,
-        movement
-    );
+    impl->level->movePlayer(movement);
 
     executePlayerCellAction();
 }
@@ -519,7 +512,7 @@ void GameController::executePlayerCellAction() const &
     case cells::STAIRS_UP_CELL:
     case cells::ELEVATOR_UP_CELL:
     {
-        if (impl->level->movePlayerToNextFloor(context))
+        if (impl->level->movePlayerToNextFloor())
         {
             impl->animation = getAnimationByCell(newPlayerCellType);
 
@@ -531,7 +524,7 @@ void GameController::executePlayerCellAction() const &
     case cells::STAIRS_DOWN_CELL:
     case cells::ELEVATOR_DOWN_CELL:
     {
-        if (impl->level->movePlayerToPreviousFloor(context))
+        if (impl->level->movePlayerToPreviousFloor())
         {
             impl->animation = getAnimationByCell(newPlayerCellType);
 

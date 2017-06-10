@@ -90,7 +90,6 @@ void StairsAnimation::renderAnimation() &
     const auto& floor = getFloor();
 
     level->display(
-        context,
         floor + impl->transformation,
         &entities::Cell::display
     );
@@ -140,7 +139,6 @@ void StairsAnimation::playNextAnimationStep() const &
         cellsTransparency -= TRANSPARENCY_UPDATE_AMOUNT;
 
         level->setCellsTransparency(
-            context,
             cellsTransparency,
             floor
         );
@@ -148,7 +146,6 @@ void StairsAnimation::playNextAnimationStep() const &
     else if (animationSteps == 25)
     {
         level->setCellsTransparency(
-            context,
             0.f,
             floor + direction
         );
@@ -160,7 +157,6 @@ void StairsAnimation::playNextAnimationStep() const &
         cellsTransparency += TRANSPARENCY_UPDATE_AMOUNT;
 
         level->setCellsTransparency(
-            context,
             cellsTransparency,
             floor + direction
         );
@@ -168,7 +164,6 @@ void StairsAnimation::playNextAnimationStep() const &
     else if (animationSteps == 41)
     {
         level->setCellsTransparency(
-            context,
             255.f,
             floor
         );
