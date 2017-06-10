@@ -25,13 +25,10 @@
 
 #include "Level.hpp"
 
-#include "Context.hpp"
 #include "cells.hpp"
-#include "PlayingSerieManager.hpp"
 #include "Cell.hpp"
 
 #include <fstream>
-#include <algorithm>
 
 namespace memoris
 {
