@@ -53,7 +53,6 @@ public:
 
     unsigned short playerIndex {0};
     unsigned short starsAmount {0};
-    unsigned short playableFloors {0};
     unsigned short minutes {0};
     unsigned short seconds {0};
 
@@ -65,10 +64,9 @@ public:
     unsigned short animationFloor {0};
     unsigned short horizontalPositionCursor {0};
     unsigned short verticalPositionCursor {0};
+    unsigned short lastPlayableCell {0};
 
     std::unique_ptr<sf::Transform> transform {nullptr};
-
-    bool emptyFloor {true};
 
     const utils::Context& context;
 };
@@ -160,14 +158,9 @@ Level::Level(
         }
         }
 
-        if (
-            (
-                cellType != cells::EMPTY_CELL &&
-                cellType != cells::WALL_CELL
-            ) && impl->emptyFloor
-        )
+        if (cellType != cells::WALL_CELL)
         {
-            impl->emptyFloor = false;
+            impl->lastPlayableCell = index;
         }
 
         updateCursors();
@@ -180,6 +173,14 @@ Level::Level(
  *
  */
 Level::~Level() noexcept = default;
+
+/**
+ *
+ */
+const unsigned short Level::getLastPlayableFloor() const & noexcept
+{
+    return impl->lastPlayableCell / CELLS_PER_FLOOR;
+}
 
 /**
  *
@@ -380,14 +381,6 @@ const unsigned short& Level::getStarsAmount()
 /**
  *
  */
-const unsigned short& Level::getPlayableFloors()
-{
-    return impl->playableFloors;
-}
-
-/**
- *
- */
 const unsigned short Level::getPlayerFloor()
 {
     return impl->playerIndex / 256;
@@ -570,13 +563,6 @@ void Level::updateCursors() const & noexcept
         if (impl->verticalPositionCursor % CELLS_PER_LINE == 0)
         {
             impl->verticalPositionCursor = 0;
-
-            if (!impl->emptyFloor)
-            {
-                impl->playableFloors++;
-
-                impl->emptyFloor = true;
-            }
         }
     }
 }

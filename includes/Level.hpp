@@ -88,6 +88,13 @@ public:
     ~Level() noexcept;
 
     /**
+     * @brief returns the floor index with the last cell on it (not a wall one)
+     *
+     * @return const unsigned short
+     */
+    const unsigned short getLastPlayableFloor() const & noexcept;
+
+    /**
      * @brief render the level and all the cells of the given floor; this
      * method is optimized and only calculate/render/display the cells of
      * the given floor; the other cells are totally ignored
@@ -218,17 +225,6 @@ public:
      * @return const unsigned short&
      */
     const unsigned short& getStarsAmount();
-
-    /**
-     * @brief getter for the amount of playable floors; this is used to select
-     * which floors have to be displayed during the watching period; this
-     * amount is generated during the loading process of the level; it contains
-     * the amount of floors (from the first one included) that contains at
-     * least one non-empty cell
-     *
-     * @return const unsigned short&
-     */
-    const unsigned short& getPlayableFloors();
 
     /**
      * @brief getter for the current player floor index; we do not return
