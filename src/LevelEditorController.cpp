@@ -51,6 +51,9 @@ constexpr const char* UNNAMED_LEVEL {"unnamed"};
 
 constexpr float TITLES_HORIZONTAL_POSITION {1200.f};
 
+constexpr unsigned short MIN_FLOOR {0};
+constexpr unsigned short MAX_FLOOR {9};
+
 class LevelEditorController::Impl
 {
 
@@ -507,7 +510,7 @@ void LevelEditorController::handleControllerEvents() const &
             }
             case Action::UP:
             {
-                if (impl->floor != entities::Level::MAX_FLOOR)
+                if (impl->floor != MAX_FLOOR)
                 {
                     updateFloor(1);
                 }
@@ -516,7 +519,7 @@ void LevelEditorController::handleControllerEvents() const &
             }
             case Action::DOWN:
             {
-                if (impl->floor != entities::Level::MIN_FLOOR)
+                if (impl->floor != MIN_FLOOR)
                 {
                     updateFloor(-1);
                 }

@@ -58,9 +58,6 @@ class Level
 
 public:
 
-    static constexpr unsigned short MIN_FLOOR {0};
-    static constexpr unsigned short MAX_FLOOR {9};
-
     /**
      * @brief constructor that initializes a level full of wall cells
      *
@@ -441,10 +438,6 @@ public:
         const &;
 
 private:
-
-    static constexpr unsigned short CELLS_PER_FLOOR {256};
-    static constexpr unsigned short CELLS_PER_LINE {16};
-    static constexpr unsigned short CELLS_PER_LEVEL {2560};
 
     /**
      * @brief called by the constructor to update the cursor position during
