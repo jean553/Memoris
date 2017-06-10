@@ -88,6 +88,13 @@ public:
     ~Level() noexcept;
 
     /**
+     * @brief returns the floor index with the last cell on it (not a wall one)
+     *
+     * @return const unsigned short
+     */
+    const unsigned short getLastPlayableFloor() const & noexcept;
+
+    /**
      * @brief render the level and all the cells of the given floor; this
      * method is optimized and only calculate/render/display the cells of
      * the given floor; the other cells are totally ignored

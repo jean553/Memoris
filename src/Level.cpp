@@ -171,6 +171,14 @@ Level::~Level() noexcept = default;
 /**
  *
  */
+const unsigned short Level::getLastPlayableFloor() const & noexcept
+{
+    return impl->lastPlayableCell / CELLS_PER_FLOOR;
+}
+
+/**
+ *
+ */
 void Level::display(
     const utils::Context& context,
     const unsigned short& floor,
