@@ -632,19 +632,9 @@ void GameController::watchNextFloorOrHideLevel() const &
         return;
     }
 
-    impl->level->hideAllCellsExceptDeparture();
+    startGame();
 
     context.getSoundsManager().playHideLevelSound();
-
-    impl->watchingPeriod = false;
-
-    impl->playingPeriod = true;
-
-    impl->floor = impl->level->getPlayerFloor();
-
-    impl->dashboard.updateCurrentFloor(impl->floor);
-
-    impl->timerWidget.setStarted(true);
 }
 
 /**
@@ -785,6 +775,8 @@ void GameController::startGame() const &
     impl->dashboard.updateCurrentFloor(floor);
 
     impl->playingPeriod = true;
+    impl->watchingPeriod = false;
+    impl->timerWidget.setStarted(true);
 }
 
 /**
