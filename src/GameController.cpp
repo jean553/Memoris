@@ -159,6 +159,24 @@ GameController::~GameController() = default;
 /**
  *
  */
+void GameController::startGame() const &
+{
+    const auto& level = impl->level;
+    level->hideAllCells();
+    level->showPlayerCell();
+
+    auto& floor = impl->floor;
+    floor = level->getPlayerFloor();
+    impl->dashboard.updateCurrentFloor(floor);
+
+    impl->playingPeriod = true;
+    impl->watchingPeriod = false;
+    impl->timerWidget.setStarted(true);
+}
+
+/**
+ *
+ */
 const ControllerId& GameController::render() const &
 {
     const auto& context = getContext();
@@ -632,19 +650,9 @@ void GameController::watchNextFloorOrHideLevel() const &
         return;
     }
 
-    impl->level->hideAllCellsExceptDeparture();
+    startGame();
 
     context.getSoundsManager().playHideLevelSound();
-
-    impl->watchingPeriod = false;
-
-    impl->playingPeriod = true;
-
-    impl->floor = impl->level->getPlayerFloor();
-
-    impl->dashboard.updateCurrentFloor(impl->floor);
-
-    impl->timerWidget.setStarted(true);
 }
 
 /**
@@ -770,21 +778,6 @@ std::unique_ptr<animations::LevelAnimation> GameController::getAnimationByCell(
         );
     }
     }
-}
-
-/**
- *
- */
-void GameController::startGame() const &
-{
-    const auto& level = impl->level;
-    level->hideAllCellsExceptDeparture();
-
-    auto& floor = impl->floor;
-    floor = level->getPlayerFloor();
-    impl->dashboard.updateCurrentFloor(floor);
-
-    impl->playingPeriod = true;
 }
 
 /**

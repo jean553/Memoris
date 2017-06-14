@@ -87,6 +87,15 @@ public:
 private:
 
     /**
+     * @brief starts the game (eventually right after the watching period)
+     * hides all the cells except the departure, set the current floor,
+     * start the playing period, ends the watching period, start the timer
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
+     */
+    void startGame() const &;
+
+    /**
      * @brief function that refectors all the management related to the player
      * movement; this action is called everytime the player makes a move on
      * the level; it checks if the movement is allowed, move the player on
@@ -143,13 +152,6 @@ private:
     std::unique_ptr<animations::LevelAnimation> getAnimationByCell(
         const char& cellType
     ) const &;
-
-    /**
-     * @brief starts the game (eventually right after the watching period)
-     *
-     * not noexcept because it calls SFML methods that are not noexcept
-     */
-    void startGame() const &;
 
     /**
      * @brief starts the watching period (when start a level during the game)

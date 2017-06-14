@@ -183,6 +183,31 @@ const unsigned short Level::getLastPlayableFloor() const & noexcept
 /**
  *
  */
+void Level::showPlayerCell() const &
+{
+    (*impl->cells[impl->playerIndex]).show(impl->context);
+}
+
+/**
+ *
+ */
+void Level::hideAllCells() const &
+{
+    const auto& context = impl->context;
+
+    std::for_each(
+        impl->cells.begin(),
+        impl->cells.end(),
+        [&context](const std::unique_ptr<Cell>& cell)
+    {
+        cell->hide(context);
+    }
+    );
+}
+
+/**
+ *
+ */
 void Level::display(
     const unsigned short& floor,
     void (Cell::*display)(
@@ -211,30 +236,6 @@ void Level::display(
 /**
  *
  */
-void Level::hideAllCellsExceptDeparture()
-{
-    const auto& context = impl->context;
-
-    std::for_each(
-        impl->cells.begin(),
-        impl->cells.end(),
-        [&context](const std::unique_ptr<Cell>& cell)
-    {
-        if (cell->getType() == cells::DEPARTURE_CELL)
-        {
-            cell->show(context);
-
-            return;
-        }
-
-        cell->hide(context);
-    }
-    );
-}
-
-/**
- *
- */
 void Level::setPlayerCellTransparency(const sf::Uint8& alpha)
 {
     (*impl->cells[impl->playerIndex]).setCellColorTransparency(
@@ -252,7 +253,7 @@ void Level::movePlayer(const short& movement)
 
     impl->playerIndex += movement;
 
-    (*impl->cells[impl->playerIndex]).show(impl->context);
+    showPlayerCell();
 }
 
 /**

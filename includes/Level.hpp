@@ -101,6 +101,20 @@ public:
     const unsigned short getLastPlayableFloor() const & noexcept;
 
     /**
+     * @brief marks the player cell as visible and shows it
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
+     */
+    void showPlayerCell() const &;
+
+    /**
+     * @brief hides all the cells of the level
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
+     */
+    void hideAllCells() const &;
+
+    /**
      * @brief render the level and all the cells of the given floor; this
      * method is optimized and only calculate/render/display the cells of
      * the given floor; the other cells are totally ignored
@@ -115,12 +129,6 @@ public:
             const std::unique_ptr<sf::Transform>&
         ) const &
     ) const;
-
-    /**
-     * @brief hides all the cells of the level, call the method (hide()) for
-     * all of them except for departure cell(s)
-     */
-    void hideAllCellsExceptDeparture();
 
     /**
      * @brief update the transparency value of the current player color
