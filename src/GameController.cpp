@@ -347,35 +347,23 @@ const ControllerId& GameController::render() const &
         {
         case sf::Event::KeyPressed:
         {
-            /* TODO: use explicit methods names instead */
-            constexpr short LEFT_MOVEMENT {-1};
-            constexpr short RIGHT_MOVEMENT {1};
-            constexpr short UP_MOVEMENT {-16};
-            constexpr short DOWN_MOVEMENT {16};
-
             switch(event.key.code)
             {
             case sf::Keyboard::Up:
-            {
-                handlePlayerMovement(UP_MOVEMENT);
-
-                break;
-            }
             case sf::Keyboard::Down:
-            {
-                handlePlayerMovement(DOWN_MOVEMENT);
-
-                break;
-            }
             case sf::Keyboard::Left:
-            {
-                handlePlayerMovement(LEFT_MOVEMENT);
-
-                break;
-            }
             case sf::Keyboard::Right:
             {
-                handlePlayerMovement(RIGHT_MOVEMENT);
+                if (
+                    impl->watchingPeriod ||
+                    impl->endPeriodStartTime ||
+                    impl->animation != nullptr
+                )
+                {
+                    break;
+                }
+
+                handlePlayerMovement(event);
 
                 break;
             }
@@ -418,18 +406,45 @@ const ControllerId& GameController::render() const &
 /**
  *
  */
-void GameController::handlePlayerMovement(const short& movement) const &
+void GameController::handlePlayerMovement(const sf::Event& event) const &
 {
-    if (
-        impl->watchingPeriod ||
-        impl->endPeriodStartTime ||
-        impl->animation != nullptr
-    )
-    {
-        return;
-    }
-
     const auto& context = getContext();
+
+    /* TODO: use explicit methods names instead */
+    constexpr short LEFT_MOVEMENT {-1};
+    constexpr short RIGHT_MOVEMENT {1};
+    constexpr short UP_MOVEMENT {-16};
+    constexpr short DOWN_MOVEMENT {16};
+
+    unsigned short movement {0};
+
+    switch(event.key.code)
+    {
+    case sf::Keyboard::Up:
+    {
+        movement = UP_MOVEMENT;
+
+        break;
+    }
+    case sf::Keyboard::Down:
+    {
+        movement = DOWN_MOVEMENT;
+
+        break;
+    }
+    case sf::Keyboard::Left:
+    {
+        movement = LEFT_MOVEMENT;
+
+        break;
+    }
+    default:
+    {
+        movement = RIGHT_MOVEMENT;
+
+        break;
+    }
+    }
 
     if (
         !impl->level->allowPlayerMovement(

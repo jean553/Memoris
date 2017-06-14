@@ -108,7 +108,7 @@ private:
      * why the only possible values here are -20, 20, -1 and 1. These values
      * are not checked when the function is executed.
      */
-    void handlePlayerMovement(const short& movement) const &;
+    void handlePlayerMovement(const sf::Event& event) const &;
 
     /**
      * @brief applies the action of the new player cell; this method is called
