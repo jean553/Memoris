@@ -177,6 +177,61 @@ void GameController::startGame() const &
 /**
  *
  */
+void GameController::handlePlayerMovement(const sf::Event& event) const &
+{
+    const auto& level = impl->level;
+
+    level->showPlayerCell();
+
+    const auto& playerCellType = level->getPlayerCellType();
+
+    if (
+        playerCellType != cells::EMPTY_CELL and
+        playerCellType != cells::DEPARTURE_CELL and
+        playerCellType != cells::STAIRS_UP_CELL and
+        playerCellType != cells::STAIRS_DOWN_CELL and
+        playerCellType != cells::ARRIVAL_CELL
+    )
+    {
+        level->emptyPlayerCell();
+    }
+
+    switch(event.key.code)
+    {
+    case sf::Keyboard::Up:
+    {
+        level->makeTopMovement();
+
+        break;
+    }
+    case sf::Keyboard::Down:
+    {
+        level->makeBottomMovement();
+
+        break;
+    }
+    case sf::Keyboard::Left:
+    {
+        level->makeLeftMovement();
+
+        break;
+    }
+    default:
+    {
+        level->makeRightMovement();
+
+        break;
+    }
+    }
+
+    level->showPlayerCell();
+
+    executePlayerCellAction();
+}
+
+/**
+ *
+ */
 const ControllerId& GameController::render() const &
 {
     const auto& context = getContext();
@@ -191,6 +246,8 @@ const ControllerId& GameController::render() const &
 
     auto& timerWidget = impl->timerWidget;
     auto& lastTimerUpdateTime = impl->lastTimerUpdateTime;
+
+    const auto& level = impl->level;
 
     constexpr sf::Int32 ONE_SECOND {1000};
     if (
@@ -355,11 +412,23 @@ const ControllerId& GameController::render() const &
             case sf::Keyboard::Right:
             {
                 if (
-                    impl->watchingPeriod ||
-                    impl->endPeriodStartTime ||
+                    impl->watchingPeriod or
+                    impl->endPeriodStartTime or
                     impl->animation != nullptr
                 )
                 {
+                    break;
+                }
+
+                if (
+                    not level->isPlayerMovementAllowed(
+                        event,
+                        impl->floor
+                    )
+                )
+                {
+                    context.getSoundsManager().playCollisionSound();
+
                     break;
                 }
 
@@ -401,75 +470,6 @@ const ControllerId& GameController::render() const &
     }
 
     return getNextControllerId();
-}
-
-/**
- *
- */
-void GameController::handlePlayerMovement(const sf::Event& event) const &
-{
-    const auto& context = getContext();
-
-    /* TODO: use explicit methods names instead */
-    constexpr short LEFT_MOVEMENT {-1};
-    constexpr short RIGHT_MOVEMENT {1};
-    constexpr short UP_MOVEMENT {-16};
-    constexpr short DOWN_MOVEMENT {16};
-
-    unsigned short movement {0};
-
-    switch(event.key.code)
-    {
-    case sf::Keyboard::Up:
-    {
-        movement = UP_MOVEMENT;
-
-        break;
-    }
-    case sf::Keyboard::Down:
-    {
-        movement = DOWN_MOVEMENT;
-
-        break;
-    }
-    case sf::Keyboard::Left:
-    {
-        movement = LEFT_MOVEMENT;
-
-        break;
-    }
-    default:
-    {
-        movement = RIGHT_MOVEMENT;
-
-        break;
-    }
-    }
-
-    if (
-        !impl->level->allowPlayerMovement(
-            movement,
-            impl->floor
-        )
-    )
-    {
-        context.getSoundsManager().playCollisionSound();
-
-        return;
-    }
-
-    if (impl->level->detectWalls(movement))
-    {
-        context.getSoundsManager().playCollisionSound();
-
-        return;
-    }
-
-    emptyPlayerCell();
-
-    impl->level->movePlayer(movement);
-
-    executePlayerCellAction();
 }
 
 /**
@@ -619,27 +619,6 @@ void GameController::executePlayerCellAction() const &
         break;
     }
     }
-}
-
-/**
- *
- */
-void GameController::emptyPlayerCell() const &
-{
-    const char& playerCellType = impl->level->getPlayerCellType();
-
-    if (
-        playerCellType == cells::EMPTY_CELL ||
-        playerCellType == cells::DEPARTURE_CELL ||
-        playerCellType == cells::STAIRS_UP_CELL ||
-        playerCellType == cells::STAIRS_DOWN_CELL ||
-        playerCellType == cells::ARRIVAL_CELL
-    )
-    {
-        return;
-    }
-
-    impl->level->emptyPlayerCell();
 }
 
 /**

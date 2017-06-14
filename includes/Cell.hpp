@@ -211,7 +211,7 @@ public:
     void setCellColorTransparency(
         const utils::Context& context,
         const sf::Uint8& alpha
-    ) &;
+    ) const &;
 
     /**
      * @brief color to apply on the cell

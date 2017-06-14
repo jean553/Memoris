@@ -96,17 +96,12 @@ private:
     void startGame() const &;
 
     /**
-     * @brief function that refectors all the management related to the player
-     * movement; this action is called everytime the player makes a move on
-     * the level; it checks if the movement is allowed, move the player on
-     * the level and executes the player's new cell action
+     * @brief moves the player (it is mandatory to check first if the player
+     * can actually move to its expected destination)
      *
-     * @param the numeric representation of the movement's direction,
-     * the delta between the current player cell and the destination cell
+     * @param event the current event, contains the expected movement
      *
-     * NOTE: the user can only moves to the left, right, top or bottom; that's
-     * why the only possible values here are -20, 20, -1 and 1. These values
-     * are not checked when the function is executed.
+     * not noexcept because it calls SFML methods that are not noexcept
      */
     void handlePlayerMovement(const sf::Event& event) const &;
 
@@ -115,14 +110,6 @@ private:
      * immediately after the player moved
      */
     void executePlayerCellAction() const &;
-
-    /**
-     * @brief empties the player cell (the current player cell is switched to
-     * an empty cell); this action is triggered everytime the player leaves
-     * a cell; some types are never deleted from their original cell, this
-     * function also checks that
-     */
-    void emptyPlayerCell() const &;
 
     /**
      * @brief this method is called during the watching mode by the main

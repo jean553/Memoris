@@ -32,6 +32,7 @@
 namespace sf
 {
 class Transform;
+class Event;
 
 /* 'typedef unsigned char Uint8' in SFML/Config.hpp, we declare exactly
    the same type here in order to both use declaration forwarding and
@@ -115,6 +116,40 @@ public:
     void hideAllCells() const &;
 
     /**
+     * @brief updates the player position to the top cell
+     */
+    void makeTopMovement() const & noexcept;
+
+    /**
+     * @brief updates the player position to the bottom cell
+     */
+    void makeBottomMovement() const & noexcept;
+
+    /**
+     * @brief updates the player position to the left cell
+     */
+    void makeLeftMovement() const & noexcept;
+
+    /**
+     * @brief updates the player position to the right cell
+     */
+    void makeRightMovement() const & noexcept;
+
+    /**
+     * @brief checks if the player is allowed to go in the expected direction
+     * (does not leave the level or colide with a wall)
+     *
+     * @param event the current event, contains the expected direction
+     * @param floor the current displayed floor
+     *
+     * @return const bool
+     */
+    const bool isPlayerMovementAllowed(
+        const sf::Event& event,
+        const unsigned short& floor
+    ) const &;
+
+    /**
      * @brief render the level and all the cells of the given floor; this
      * method is optimized and only calculate/render/display the cells of
      * the given floor; the other cells are totally ignored
@@ -140,50 +175,12 @@ public:
     void setPlayerCellTransparency(const sf::Uint8& alpha);
 
     /**
-     * @brief move the player down if possible
-     *
-     * @param move the value (positive or negative) to apply on the current
-     * player index; defines the mouvement of the player
-     */
-    void movePlayer(const short& movement);
-
-    /**
-     * @brief check if the player is allowed to perform the given movement;
-     * this function is called from the game controller each time the player
-     * trigger an event to move on the level
-     *
-     * @param move the value (positive or negative) to apply on the current
-     * player index; defines the mouvement of the player; this check is
-     * separated into a dedicated method for better code organisation
-     * @param floor the current player floor number
-     *
-     * @return bool
-     */
-    bool allowPlayerMovement(
-        const short& movement,
-        const unsigned short& floor
-    ) const;
-
-    /**
      * @brief get the current player cell type; this getter is used into the
      * game controller to execute the correct current player cell event action
      *
      * @return const char&
      */
     const char& getPlayerCellType() const;
-
-    /**
-     * @brief check if the expected cell after the movement is a wall cell,
-     * if yes, show the wall cell and forbid the movement; this function is
-     * called by the game controller when the player is allowed to move, we
-     * check if the user is currently in collision with a wall; if there is
-     * a collision, the wall is shown
-     *
-     * @param movement the movement direction, the same as movePlayer()
-     *
-     * @return bool
-     */
-    bool detectWalls(const short& movement) const;
 
     /**
      * @brief updates the current player cell to an empty cell, whatever the

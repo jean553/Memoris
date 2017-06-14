@@ -208,6 +208,113 @@ void Level::hideAllCells() const &
 /**
  *
  */
+void Level::makeTopMovement() const & noexcept
+{
+    const short TOP_MOVE {-16};
+    impl->playerIndex += TOP_MOVE;
+}
+
+/**
+ *
+ */
+void Level::makeBottomMovement() const & noexcept
+{
+    const short BOTTOM_MOVE {16};
+    impl->playerIndex += BOTTOM_MOVE;
+}
+
+/**
+ *
+ */
+void Level::makeLeftMovement() const & noexcept
+{
+    const short LEFT_MOVE {-1};
+    impl->playerIndex += LEFT_MOVE;
+}
+
+/**
+ *
+ */
+void Level::makeRightMovement() const & noexcept
+{
+    const short RIGHT_MOVE {1};
+    impl->playerIndex += RIGHT_MOVE;
+}
+
+/**
+ *
+ */
+const bool Level::isPlayerMovementAllowed(
+    const sf::Event& event,
+    const unsigned short& floor
+) const &
+{
+    unsigned short expectedIndex = impl->playerIndex;
+    short movement {0};
+
+    switch(event.key.code)
+    {
+    case sf::Keyboard::Up:
+    {
+        constexpr float TOP_MOVE {-16};
+        expectedIndex += TOP_MOVE;
+        movement = TOP_MOVE;
+
+        break;
+    }
+    case sf::Keyboard::Down:
+    {
+        constexpr float BOTTOM_MOVE {16};
+        expectedIndex += BOTTOM_MOVE;
+        movement = BOTTOM_MOVE;
+
+        break;
+    }
+    case sf::Keyboard::Left:
+    {
+        constexpr float LEFT_MOVE {-1};
+        expectedIndex += LEFT_MOVE;
+        movement = LEFT_MOVE;
+
+        break;
+    }
+    default:
+    {
+        constexpr float RIGHT_MOVE {1};
+        expectedIndex += RIGHT_MOVE;
+        movement = RIGHT_MOVE;
+
+        break;
+    }
+    }
+
+    if (
+        expectedIndex < CELLS_PER_FLOOR * floor or
+        expectedIndex >= CELLS_PER_FLOOR * (floor + 1) or
+        (
+            impl->playerIndex % CELLS_PER_LINE == CELLS_PER_LINE - 1 and
+            movement == 1
+        ) or
+        (impl->playerIndex % CELLS_PER_LINE == 0 && movement == -1)
+    )
+    {
+        return false;
+    }
+
+    const auto& nextCell = *impl->cells[expectedIndex];
+    if(nextCell.getType() == cells::WALL_CELL)
+    {
+        nextCell.show(impl->context);
+
+        return false;
+    }
+
+    return true;
+}
+
+/**
+ *
+ */
 void Level::display(
     const unsigned short& floor,
     void (Cell::*display)(
@@ -242,62 +349,6 @@ void Level::setPlayerCellTransparency(const sf::Uint8& alpha)
         impl->context,
         alpha
     );
-}
-
-/**
- *
- */
-void Level::movePlayer(const short& movement)
-{
-    setPlayerCellTransparency(255);
-
-    impl->playerIndex += movement;
-
-    showPlayerCell();
-}
-
-/**
- *
- */
-bool Level::allowPlayerMovement(
-    const short& movement,
-    const unsigned short& floor
-) const
-{
-    short expectedIndex = impl->playerIndex + movement;
-
-    if (
-        expectedIndex < CELLS_PER_FLOOR * floor or
-        expectedIndex >= CELLS_PER_FLOOR * (floor + 1) or
-        (
-            impl->playerIndex % CELLS_PER_LINE == CELLS_PER_LINE - 1 and
-            movement == 1
-        ) or
-        (impl->playerIndex % CELLS_PER_LINE == 0 && movement == -1)
-    )
-    {
-        return false;
-    }
-
-    return true;
-}
-
-/**
- *
- */
-bool Level::detectWalls(const short& movement) const
-{
-    if(
-        (*impl->cells[impl->playerIndex + movement]).getType() ==
-        cells::WALL_CELL
-    )
-    {
-        (*impl->cells[impl->playerIndex + movement]).show(impl->context);
-
-        return true;
-    }
-
-    return false;
 }
 
 /**
