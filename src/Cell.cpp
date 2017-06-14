@@ -280,6 +280,11 @@ void Cell::show(const utils::Context& context) const &
 
     /* the cell is shown, so the boolean of visibility is updated to true */
     impl->visible = true;
+
+    setCellColorTransparency(
+        context,
+        255
+    );
 }
 
 /**
@@ -304,7 +309,7 @@ void Cell::setType(const char& typeChar) const & noexcept
 void Cell::setCellColorTransparency(
     const utils::Context& context,
     const sf::Uint8& alpha
-) &
+) const &
 {
     sf::Color cellColor = context.getColorsManager().getColorWhiteCopy();
 
