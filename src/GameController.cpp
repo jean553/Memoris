@@ -386,7 +386,8 @@ const ControllerId& GameController::render() const &
 
     if(
         timerWidget.isFinished() and
-        !impl->win
+        !impl->win and
+        impl->watchLevel
     )
     {
         endLevel();
