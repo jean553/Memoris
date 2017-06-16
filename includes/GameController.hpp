@@ -56,7 +56,7 @@ public:
      *
      * @param context the context to use
      * @param level the level object to load
-     * @param watchLevel specifies if there is a watching period or not
+     * @param enableWatchingPeriod set if there is a watching period or not
      * (there is this period during the game, not the test of the editor )
      *
      * @throw std::invalid_argument the level file cannot be opened
@@ -69,7 +69,7 @@ public:
     GameController(
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
-        const bool& watchLevel = true
+        const bool& enableWatchingPeriod = true
     );
 
     /**

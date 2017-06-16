@@ -64,10 +64,10 @@ public:
     Impl(
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
-        const bool& watchLevel
+        const bool& enableWatchingPeriod
     ) :
-        watchingPeriod(watchLevel),
-        watchLevel(watchLevel),
+        watchingPeriod(enableWatchingPeriod),
+        enableWatchingPeriod(enableWatchingPeriod),
         level(level),
         watchingTimer(context),
         dashboard(
@@ -96,7 +96,7 @@ public:
     bool movePlayerToNextFloor {false};
     bool movePlayerToPreviousFloor {false};
     bool win {false};
-    bool watchLevel;
+    bool enableWatchingPeriod;
 
     sf::Uint8 playerCellTransparency {64};
     sf::Uint8 leftLevelsAmountTransparency {255};
@@ -130,18 +130,18 @@ public:
 GameController::GameController(
     const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
-    const bool& watchLevel
+    const bool& enableWatchingPeriod
 ) :
     Controller(context),
     impl(
         std::make_unique<Impl>(
             context,
             level,
-            watchLevel
+            enableWatchingPeriod
         )
     )
 {
-    if (watchLevel)
+    if (enableWatchingPeriod)
     {
         startWatchingPeriod();
     }
@@ -387,7 +387,7 @@ const ControllerId& GameController::render() const &
     if(
         timerWidget.isFinished() and
         !impl->win and
-        impl->watchLevel
+        impl->enableWatchingPeriod
     )
     {
         endLevel();
