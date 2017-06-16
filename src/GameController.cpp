@@ -258,10 +258,7 @@ const ControllerId& GameController::render() const &
         )
     )
     {
-        if (impl->watchLevel)
-        {
-            timerWidget.render();
-        }
+        timerWidget.render();
 
         impl->playingTime++;
 
