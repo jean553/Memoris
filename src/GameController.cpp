@@ -82,6 +82,7 @@ public:
             watchingTime
         )
     {
+        hasWatchingPeriod = (watchingTime != 0);
     }
 
     sf::Uint32 playerCellAnimationTime {0};
@@ -98,6 +99,7 @@ public:
     bool movePlayerToNextFloor {false};
     bool movePlayerToPreviousFloor {false};
     bool win {false};
+    bool hasWatchingPeriod;
 
     sf::Uint8 playerCellTransparency {64};
     sf::Uint8 leftLevelsAmountTransparency {255};
@@ -381,7 +383,8 @@ const ControllerId& GameController::render() const &
 
     if(
         timerWidget.isFinished() and
-        !impl->win
+        !impl->win and
+        impl->hasWatchingPeriod
     )
     {
         endLevel();
