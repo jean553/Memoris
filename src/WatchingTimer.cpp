@@ -41,12 +41,19 @@ class WatchingTimer::Impl
 
 public:
 
-    Impl(const utils::Context& context) :
+    Impl(
+        const utils::Context& context,
+        const unsigned short& displayedTime
+    ) :
+        displayedTime(displayedTime),
         context(context)
     {
         constexpr float TIMERS_VERTICAL_POSITION {300.f};
 
+        const auto time = std::to_string(displayedTime);
+
         constexpr float LEFT_TIMER_HORIZONTAL_POSITION {90.f};
+        left.setString(time);
         left.setFont(context.getFontsManager().getTextFont());
         left.setFillColor(context.getColorsManager().getColorWhite());
         left.setPosition(
@@ -55,6 +62,7 @@ public:
         );
 
         constexpr float RIGHT_TIMER_HORIZONTAL_POSITION {1400.f};
+        right.setString(time);
         right.setFont(context.getFontsManager().getTextFont());
         right.setFillColor(context.getColorsManager().getColorWhite());
         right.setPosition(
@@ -78,8 +86,16 @@ public:
 /**
  *
  */
-WatchingTimer::WatchingTimer(const utils::Context& context) :
-    impl(std::make_unique<Impl>(context))
+WatchingTimer::WatchingTimer(
+    const utils::Context& context,
+    const unsigned short& displayedTime
+) :
+    impl(
+        std::make_unique<Impl>(
+            context,
+            displayedTime
+        )
+    )
 {
 }
 
@@ -104,6 +120,18 @@ void WatchingTimer::display() const &
 void WatchingTimer::decrementWatchingTimer() const & noexcept
 {
     impl->displayedTime--;
+
+    const auto time = std::to_string(impl->displayedTime);
+    impl->left.setString(time);
+    impl->right.setString(time);
+}
+
+/**
+ *
+ */
+const unsigned short WatchingTimer::getWatchingTimerValue() const & noexcept
+{
+    return impl->displayedTime;
 }
 
 }

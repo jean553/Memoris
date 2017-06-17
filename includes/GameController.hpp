@@ -70,7 +70,6 @@ public:
     GameController(
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
-        const bool& enableWatchingPeriod = true,
         const unsigned short& displayedWatchingTime = 0
     );
 

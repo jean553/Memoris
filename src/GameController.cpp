@@ -64,14 +64,10 @@ public:
     Impl(
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
-        const bool& enableWatchingPeriod,
         const unsigned short& watchingTime
     ) :
         displayedWatchingTime(watchingTime),
-        watchingPeriod(enableWatchingPeriod),
-        enableWatchingPeriod(enableWatchingPeriod),
         level(level),
-        watchingTimer(context),
         dashboard(
             context,
             level->getStarsAmount()
@@ -80,6 +76,10 @@ public:
             context,
             level->getMinutes(),
             level->getSeconds()
+        ),
+        watchingTimer(
+            context,
+            watchingTime
         )
     {
     }
@@ -98,7 +98,6 @@ public:
     bool movePlayerToNextFloor {false};
     bool movePlayerToPreviousFloor {false};
     bool win {false};
-    bool enableWatchingPeriod;
 
     sf::Uint8 playerCellTransparency {64};
     sf::Uint8 leftLevelsAmountTransparency {255};
@@ -118,11 +117,11 @@ public:
        simple Level reference as the original object would be destroyed */
     std::shared_ptr<entities::Level> level;
 
-    widgets::WatchingTimer watchingTimer;
-
     utils::GameDashboard dashboard;
 
     widgets::TimerWidget timerWidget;
+
+    widgets::WatchingTimer watchingTimer;
 
     std::vector<std::unique_ptr<utils::PickUpEffect>> effects;
 };
@@ -133,7 +132,6 @@ public:
 GameController::GameController(
     const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
-    const bool& enableWatchingPeriod,
     const unsigned short& watchingTime
 ) :
     Controller(context),
@@ -141,12 +139,11 @@ GameController::GameController(
         std::make_unique<Impl>(
             context,
             level,
-            enableWatchingPeriod,
             watchingTime
         )
     )
 {
-    if (not enableWatchingPeriod)
+    if (not watchingTime)
     {
         startGame();
     }
@@ -237,19 +234,24 @@ const ControllerId& GameController::render() const &
 {
     const auto& context = getContext();
 
-    const auto& watchingPeriod = impl->watchingPeriod;
     const auto& watchingTimer = impl->watchingTimer;
-
-    if (watchingPeriod)
+    const auto& watchingTimerValue = watchingTimer.getWatchingTimerValue();
+    if (watchingTimerValue)
     {
         watchingTimer.display();
     }
 
     constexpr sf::Int32 ONE_SECOND {1000};
     const auto time = context.getClockMillisecondsTime();
-    if (time > ONE_SECOND)
+    auto& lastTime = impl->lastTime;
+    if (time - lastTime > ONE_SECOND)
     {
-        impl->lastTime = time;
+        if (watchingTimerValue)
+        {
+            watchingTimer.decrementWatchingTimer();
+        }
+
+        lastTime = time;
     }
 
     auto& dashboard = impl->dashboard;
@@ -358,28 +360,6 @@ const ControllerId& GameController::render() const &
         }
     }
 
-    constexpr sf::Int32 WATCHING_PERIOD_SECOND {1000};
-    if (
-        impl->watchingPeriod and
-        context.getClockMillisecondsTime() -
-        impl->lastWatchingTimeUpdate > WATCHING_PERIOD_SECOND
-    )
-    {
-        constexpr unsigned short WATCHING_TIME_LAST_SECOND {1};
-        if (impl->displayedWatchingTime == WATCHING_TIME_LAST_SECOND)
-        {
-            watchNextFloorOrHideLevel();
-        }
-        else
-        {
-            impl->displayedWatchingTime--;
-        }
-
-        watchingTimer.decrementWatchingTimer();
-
-        impl->lastWatchingTimeUpdate = context.getClockMillisecondsTime();
-    }
-
     for (auto& effect : impl->effects)
     {
         /* TODO: #1204 we never destroy the allocated finished effects,
@@ -396,8 +376,7 @@ const ControllerId& GameController::render() const &
 
     if(
         timerWidget.isFinished() and
-        !impl->win and
-        impl->enableWatchingPeriod
+        !impl->win
     )
     {
         endLevel();
