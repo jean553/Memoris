@@ -237,16 +237,19 @@ const ControllerId& GameController::render() const &
 {
     const auto& context = getContext();
 
+    const auto& watchingPeriod = impl->watchingPeriod;
+    const auto& watchingTimer = impl->watchingTimer;
+
+    if (watchingPeriod)
+    {
+        watchingTimer.display();
+    }
+
     constexpr sf::Int32 ONE_SECOND {1000};
     const auto time = context.getClockMillisecondsTime();
     if (time > ONE_SECOND)
     {
         impl->lastTime = time;
-    }
-
-    if (impl->watchingPeriod)
-    {
-        impl->watchingTimer.display();
     }
 
     auto& dashboard = impl->dashboard;
