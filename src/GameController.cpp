@@ -249,6 +249,11 @@ const ControllerId& GameController::render() const &
         if (watchingTimerValue)
         {
             watchingTimer.decrementWatchingTimer();
+
+            if (watchingTimer.getWatchingTimerValue() == 0)
+            {
+                startGame();
+            }
         }
 
         lastTime = time;

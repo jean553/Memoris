@@ -82,9 +82,9 @@ public:
     /**
      * @brief getter of the watching timer
      *
-     * @return const unsigned short
+     * @return const unsigned short&
      */
-    const unsigned short getWatchingTimerValue() const & noexcept;
+    const unsigned short& getWatchingTimerValue() const & noexcept;
 
 private:
 

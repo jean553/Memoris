@@ -129,7 +129,7 @@ void WatchingTimer::decrementWatchingTimer() const & noexcept
 /**
  *
  */
-const unsigned short WatchingTimer::getWatchingTimerValue() const & noexcept
+const unsigned short& WatchingTimer::getWatchingTimerValue() const & noexcept
 {
     return impl->displayedTime;
 }
