@@ -63,22 +63,17 @@ public:
     ~WatchingTimer();
 
     /**
-     * @brief set the displayed value
-     *
-     * @param amount the amount to display
-     *
-     * not const because it modifies the counters SFML surfaces
-     *
-     * not noexcept because it calls SFML functions that are not noexcept
-     */
-    void setValue(const unsigned short& amount) &;
-
-    /**
      * @brief displays the timer at both sides of the level
      *
      * not noexcept because it calls SFML methods that are not noexcept
      */
     void display() const &;
+
+    /**
+     * @brief decrement the watching timer (the time is not handled
+     * by this function individually in order to regroup time management)
+     */
+    void decrementWatchingTimer() const & noexcept;
 
 private:
 

@@ -70,6 +70,8 @@ public:
     sf::Text left;
     sf::Text right;
 
+    unsigned short displayedTime;
+
     const utils::Context& context;
 };
 
@@ -89,23 +91,19 @@ WatchingTimer::~WatchingTimer() = default;
 /**
  *
  */
-void WatchingTimer::setValue(const unsigned short& amount) &
-{
-    /* setString function only accepts std::string or sf::String */
-    std::string value = std::to_string(amount);
-
-    impl->left.setString(value);
-    impl->right.setString(value);
-}
-
-/**
- *
- */
 void WatchingTimer::display() const &
 {
     auto& window = impl->context.getSfmlWindow();
     window.draw(impl->left);
     window.draw(impl->right);
+}
+
+/**
+ *
+ */
+void WatchingTimer::decrementWatchingTimer() const & noexcept
+{
+    impl->displayedTime--;
 }
 
 }
