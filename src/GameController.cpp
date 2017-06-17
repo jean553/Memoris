@@ -104,6 +104,7 @@ public:
     sf::Int8 leftLevelsAmountDirection {-17};
 
     sf::Int32 lastTimerUpdateTime {0};
+    sf::Int32 lastTime {0};
 
     std::unique_ptr<utils::AbstractLevelEndingScreen> endingScreen {nullptr};
     std::unique_ptr<animations::LevelAnimation> animation {nullptr};
@@ -236,6 +237,13 @@ const ControllerId& GameController::render() const &
 {
     const auto& context = getContext();
 
+    constexpr sf::Int32 ONE_SECOND {1000};
+    const auto time = context.getClockMillisecondsTime();
+    if (time > ONE_SECOND)
+    {
+        impl->lastTime = time;
+    }
+
     if (impl->watchingPeriod)
     {
         impl->watchingTimer.display();
@@ -249,7 +257,6 @@ const ControllerId& GameController::render() const &
 
     const auto& level = impl->level;
 
-    constexpr sf::Int32 ONE_SECOND {1000};
     if (
         impl->playingPeriod and
         (
