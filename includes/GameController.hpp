@@ -58,6 +58,7 @@ public:
      * @param level the level object to load
      * @param enableWatchingPeriod set if there is a watching period or not
      * (there is this period during the game, not the test of the editor )
+     * @param the default watching time to display when the game starts
      *
      * @throw std::invalid_argument the level file cannot be opened
      * this exception is caught by the controllers factory
@@ -69,7 +70,8 @@ public:
     GameController(
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
-        const bool& enableWatchingPeriod = true
+        const bool& enableWatchingPeriod = true,
+        const unsigned short& displayedWatchingTime = 0
     );
 
     /**

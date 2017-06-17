@@ -64,8 +64,10 @@ public:
     Impl(
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
-        const bool& enableWatchingPeriod
+        const bool& enableWatchingPeriod,
+        const unsigned short& watchingTime
     ) :
+        displayedWatchingTime(watchingTime),
         watchingPeriod(enableWatchingPeriod),
         enableWatchingPeriod(enableWatchingPeriod),
         level(level),
@@ -131,22 +133,20 @@ public:
 GameController::GameController(
     const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
-    const bool& enableWatchingPeriod
+    const bool& enableWatchingPeriod,
+    const unsigned short& watchingTime
 ) :
     Controller(context),
     impl(
         std::make_unique<Impl>(
             context,
             level,
-            enableWatchingPeriod
+            enableWatchingPeriod,
+            watchingTime
         )
     )
 {
-    if (enableWatchingPeriod)
-    {
-        startWatchingPeriod();
-    }
-    else
+    if (not enableWatchingPeriod)
     {
         startGame();
     }
@@ -375,7 +375,7 @@ const ControllerId& GameController::render() const &
             impl->displayedWatchingTime--;
         }
 
-        impl->watchingTimer.setValue(impl->displayedWatchingTime);
+        watchingTimer.decrementWatchingTimer();
 
         impl->lastWatchingTimeUpdate = context.getClockMillisecondsTime();
     }
@@ -780,18 +780,6 @@ std::unique_ptr<animations::LevelAnimation> GameController::getAnimationByCell(
         );
     }
     }
-}
-
-/**
- *
- */
-void GameController::startWatchingPeriod() const &
-{
-    auto& displayedWatchingTime = impl->displayedWatchingTime;
-    displayedWatchingTime =
-        getContext().getPlayingSerieManager().getWatchingTime();
-
-    impl->watchingTimer.setValue(displayedWatchingTime);
 }
 
 }
