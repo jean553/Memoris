@@ -48,10 +48,14 @@ public:
      * @brief constructor
      *
      * @param context the current context
+     * @param displayedTime default time displayed by the timer
      *
      * not noexcept because it calls SFML methods that are not noexcept
      */
-    WatchingTimer(const utils::Context& context);
+    WatchingTimer(
+        const utils::Context& context,
+        const unsigned short& displayedTime
+    );
 
     WatchingTimer(const WatchingTimer&) = delete;
 
@@ -63,22 +67,24 @@ public:
     ~WatchingTimer();
 
     /**
-     * @brief set the displayed value
-     *
-     * @param amount the amount to display
-     *
-     * not const because it modifies the counters SFML surfaces
-     *
-     * not noexcept because it calls SFML functions that are not noexcept
-     */
-    void setValue(const unsigned short& amount) &;
-
-    /**
      * @brief displays the timer at both sides of the level
      *
      * not noexcept because it calls SFML methods that are not noexcept
      */
     void display() const &;
+
+    /**
+     * @brief decrement the watching timer (the time is not handled
+     * by this function individually in order to regroup time management)
+     */
+    void decrementWatchingTimer() const & noexcept;
+
+    /**
+     * @brief getter of the watching timer
+     *
+     * @return const unsigned short&
+     */
+    const unsigned short& getWatchingTimerValue() const & noexcept;
 
 private:
 

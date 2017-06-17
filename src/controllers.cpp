@@ -88,8 +88,7 @@ std::unique_ptr<Controller> getControllerById(
 
                 return std::make_unique<GameController>(
                     context,
-                    editedLevel,
-                    false
+                    editedLevel
                 );
             }
 
@@ -112,7 +111,8 @@ std::unique_ptr<Controller> getControllerById(
 
             return std::make_unique<GameController>(
                 context,
-                level
+                level,
+                serieManager.getWatchingTime()
             );
         }
         catch(std::invalid_argument&)
