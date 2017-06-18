@@ -171,7 +171,7 @@ void GameController::startGame() const &
 
     impl->playingPeriod = true;
     impl->watchingPeriod = false;
-    impl->timerWidget.setStarted(true);
+    impl->timerWidget.start();
 }
 
 /**
