@@ -60,8 +60,6 @@ public:
 
     sf::Uint32 lastAnimationTime {0};
 
-    unsigned short animationColumn {0};
-    unsigned short animationFloor {0};
     unsigned short horizontalPositionCursor {0};
     unsigned short verticalPositionCursor {0};
     unsigned short lastPlayableCell {0};
@@ -420,70 +418,6 @@ const unsigned short& Level::getStarsAmount()
 const unsigned short Level::getPlayerFloor()
 {
     return impl->playerIndex / 256;
-}
-
-/**
- *
- */
-void Level::playFloorTransitionAnimation()
-{
-    for(
-        unsigned short i = 0;
-        impl->animationFloor * 256 + i < impl->animationFloor * 256 + 256;
-        i++
-    )
-    {
-        if (i % 16 < impl->animationColumn)
-        {
-            (*impl->cells[impl->animationFloor * 256 + i + 256]).display(
-                impl->context
-            );
-
-            continue;
-        }
-
-        if (i % 16 == impl->animationColumn)
-        {
-            (*impl->cells[impl->animationFloor * 256 + i]).hide(impl->context);
-        }
-
-        (*impl->cells[impl->animationFloor * 256 + i]).display(impl->context);
-    }
-
-    if (
-        impl->context.getClockMillisecondsTime() -
-        impl->lastAnimationTime > 25
-    )
-    {
-        impl->animationColumn++;
-
-        if (impl->animationColumn == 16)
-        {
-            impl->animateFloorTransition = false;
-
-            impl->animationColumn = 0;
-
-            impl->animationFloor++;
-        }
-
-        impl->lastAnimationTime = impl->context.getClockMillisecondsTime();
-    }
-}
-
-/**
- *
- */
-void Level::setAnimateFloorTransition(const bool& animate)
-{
-    impl->animateFloorTransition = animate;
-}
-
-/**
- *
- */
-const bool& Level::getAnimateFloorTransition()
-{
-    return impl->animateFloorTransition;
 }
 
 /**

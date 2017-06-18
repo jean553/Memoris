@@ -226,31 +226,6 @@ public:
     const unsigned short getPlayerFloor();
 
     /**
-     * @brief plays the floor transition animation; for now, the unique
-     * animation renders a verical column that scroll the whole floor and
-     * displays the next floor;
-     *
-     * NOTE: this method must be called instead of 'display()' during the
-     * animation
-     */
-    void playFloorTransitionAnimation();
-
-    /**
-     * @brief setter for the animation boolean
-     *
-     * @param animate true if the animation must be rendered; the animation
-     * can be displayed using the method playFloorTransitionAnimation()
-     */
-    void setAnimateFloorTransition(const bool& animate);
-
-    /**
-     * @brief getter for the animation boolean
-     *
-     * @return const bool&
-     */
-    const bool& getAnimateFloorTransition();
-
-    /**
      * @brief getter for the minutes amount loaded from the level file
      *
      * @return const unsigned short&

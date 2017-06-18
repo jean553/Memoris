@@ -251,6 +251,7 @@ const ControllerId& GameController::render() const &
     constexpr sf::Int32 ONE_SECOND {1000};
     const auto time = context.getClockMillisecondsTime();
     const auto& level = impl->level;
+    const auto& floor = impl->floor;
     auto& lastTime = impl->lastTime;
     if (time - lastTime > ONE_SECOND)
     {
@@ -260,11 +261,19 @@ const ControllerId& GameController::render() const &
 
             if (watchingTimer.getWatchingTimerValue() == 0)
             {
-                if (impl->floor != level->getLastPlayableFloor())
+                if (floor != level->getLastPlayableFloor())
                 {
-                    level->setAnimateFloorTransition(true);
-
                     watchingTimer.reset();
+
+                    impl->animation =
+                        std::make_unique<animations::StairsAnimation>(
+                            context,
+                            level,
+                            floor,
+                            1
+                        );
+
+                    impl->movePlayerToNextFloor = true;
                 }
                 else
                 {
@@ -289,16 +298,6 @@ const ControllerId& GameController::render() const &
         }
 
         lastTime = time;
-    }
-
-    if (level->getAnimateFloorTransition())
-    {
-        level->playFloorTransitionAnimation();
-
-        if (not level->getAnimateFloorTransition())
-        {
-            impl->floor++;
-        }
     }
 
     auto& dashboard = impl->dashboard;
@@ -631,8 +630,6 @@ void GameController::watchNextFloorOrHideLevel() const &
     if (impl->floor != impl->level->getLastPlayableFloor())
     {
         impl->floor++;
-
-        impl->level->setAnimateFloorTransition(true);
 
         context.getSoundsManager().playFloorSwitchSound();
 
