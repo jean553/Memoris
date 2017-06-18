@@ -74,11 +74,21 @@ public:
     void display() const &;
 
     /**
-     * @brief setter to start or stop the timer
-     *
-     * @param bool true to start, false to stop
+     * @brief starts the timer
      */
-    void setStarted(const bool& started) const & noexcept;
+    void start() const & noexcept;
+
+    /**
+     * @brief stops the timer
+     */
+    void stop() const & noexcept;
+
+    /**
+     * @brief indicates if the timer is running or not
+     *
+     * @return const bool&
+     */
+    const bool& isStarted() const & noexcept;
 
     /**
      * @brief getter to know if the countdown is finished

@@ -110,9 +110,25 @@ void TimerWidget::display() const &
 /**
  *
  */
-void TimerWidget::setStarted(const bool& started) const & noexcept
+void TimerWidget::start() const & noexcept
 {
-    impl->started = started;
+    impl->started = true;
+}
+
+/**
+ *
+ */
+void TimerWidget::stop() const & noexcept
+{
+    impl->started = false;
+}
+
+/**
+ *
+ */
+const bool& TimerWidget::isStarted() const & noexcept
+{
+    return impl->started;
 }
 
 /**
