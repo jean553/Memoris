@@ -84,6 +84,13 @@ public:
     void stop() const & noexcept;
 
     /**
+     * @brief indicates if the timer is running or not
+     *
+     * @return const bool&
+     */
+    const bool& isStarted() const & noexcept;
+
+    /**
      * @brief getter to know if the countdown is finished
      *
      * @return const bool

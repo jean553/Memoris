@@ -126,6 +126,14 @@ void TimerWidget::stop() const & noexcept
 /**
  *
  */
+const bool& TimerWidget::isStarted() const & noexcept
+{
+    return impl->started;
+}
+
+/**
+ *
+ */
 const bool TimerWidget::isTimeOver() const & noexcept
 {
     return impl->seconds == 0 and impl->minutes == 0;

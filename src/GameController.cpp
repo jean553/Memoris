@@ -95,7 +95,6 @@ public:
     unsigned short playingTime {0};
 
     bool watchingPeriod {true};
-    bool playingPeriod {false};
     bool movePlayerToNextFloor {false};
     bool movePlayerToPreviousFloor {false};
     bool win {false};
@@ -169,7 +168,6 @@ void GameController::startGame() const &
     floor = level->getPlayerFloor();
     impl->dashboard.updateCurrentFloor(floor);
 
-    impl->playingPeriod = true;
     impl->watchingPeriod = false;
     impl->timerWidget.start();
 }
@@ -246,8 +244,6 @@ const ControllerId& GameController::render() const &
     const auto& timerWidget = impl->timerWidget;
     timerWidget.display();
 
-    const auto& playingPeriod = impl->playingPeriod;
-
     constexpr sf::Int32 ONE_SECOND {1000};
     const auto time = context.getClockMillisecondsTime();
     const auto& level = impl->level;
@@ -282,7 +278,7 @@ const ControllerId& GameController::render() const &
             }
         }
 
-        if (playingPeriod)
+        if (timerWidget.isStarted())
         {
             timerWidget.decrementPlayingTimer();
 
@@ -339,7 +335,7 @@ const ControllerId& GameController::render() const &
 
     constexpr sf::Int32 PLAYER_CELL_ANIMATION_INTERVAL {100};
     if (
-        impl->playingPeriod &&
+        timerWidget.isStarted() &&
         impl->animation == nullptr &&
         (
             context.getClockMillisecondsTime() -
@@ -679,8 +675,6 @@ void GameController::endLevel() const &
         impl->endingScreen =
             std::make_unique<utils::LoseLevelEndingScreen>(context);
     }
-
-    impl->playingPeriod = false;
 
     impl->timerWidget.stop();
 
