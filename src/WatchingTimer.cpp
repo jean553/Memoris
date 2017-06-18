@@ -46,6 +46,7 @@ public:
         const unsigned short& displayedTime
     ) :
         displayedTime(displayedTime),
+        originalTime(displayedTime),
         context(context)
     {
         constexpr float TIMERS_VERTICAL_POSITION {300.f};
@@ -79,6 +80,7 @@ public:
     sf::Text right;
 
     unsigned short displayedTime;
+    unsigned short originalTime;
 
     const utils::Context& context;
 };
@@ -132,6 +134,14 @@ void WatchingTimer::decrementWatchingTimer() const &
 const unsigned short& WatchingTimer::getWatchingTimerValue() const & noexcept
 {
     return impl->displayedTime;
+}
+
+/**
+ *
+ */
+void WatchingTimer::reset() const & noexcept
+{
+    impl->displayedTime = impl->originalTime;
 }
 
 }

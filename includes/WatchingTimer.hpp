@@ -88,6 +88,11 @@ public:
      */
     const unsigned short& getWatchingTimerValue() const & noexcept;
 
+    /**
+     * @brief reset the displayed time to its original value
+     */
+    void reset() const & noexcept;
+
 private:
 
     class Impl;

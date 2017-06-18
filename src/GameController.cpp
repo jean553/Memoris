@@ -250,6 +250,7 @@ const ControllerId& GameController::render() const &
 
     constexpr sf::Int32 ONE_SECOND {1000};
     const auto time = context.getClockMillisecondsTime();
+    const auto& level = impl->level;
     auto& lastTime = impl->lastTime;
     if (time - lastTime > ONE_SECOND)
     {
@@ -259,7 +260,16 @@ const ControllerId& GameController::render() const &
 
             if (watchingTimer.getWatchingTimerValue() == 0)
             {
-                startGame();
+                if (impl->floor != level->getLastPlayableFloor())
+                {
+                    level->setAnimateFloorTransition(true);
+
+                    watchingTimer.reset();
+                }
+                else
+                {
+                    startGame();
+                }
             }
         }
 
@@ -281,16 +291,20 @@ const ControllerId& GameController::render() const &
         lastTime = time;
     }
 
+    if (level->getAnimateFloorTransition())
+    {
+        level->playFloorTransitionAnimation();
+
+        if (not level->getAnimateFloorTransition())
+        {
+            impl->floor++;
+        }
+    }
+
     auto& dashboard = impl->dashboard;
     dashboard.display();
 
-    const auto& level = impl->level;
-
-    if (impl->level->getAnimateFloorTransition())
-    {
-        impl->level->playFloorTransitionAnimation();
-    }
-    else if (impl->animation != nullptr)
+    if (impl->animation != nullptr)
     {
         impl->animation->renderAnimation();
 
