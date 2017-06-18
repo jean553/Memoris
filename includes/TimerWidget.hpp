@@ -83,9 +83,9 @@ public:
     /**
      * @brief getter to know if the countdown is finished
      *
-     * @return const bool&
+     * @return const bool
      */
-    const bool& isFinished() const & noexcept;
+    const bool isTimeOver() const & noexcept;
 
     /**
      * @brief decrement the timer value

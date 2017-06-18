@@ -268,6 +268,14 @@ const ControllerId& GameController::render() const &
             timerWidget.decrementPlayingTimer();
 
             impl->playingTime++;
+
+            if(
+                timerWidget.isTimeOver() and
+                impl->hasWatchingPeriod
+            )
+            {
+                endLevel();
+            }
         }
 
         lastTime = time;
@@ -371,15 +379,6 @@ const ControllerId& GameController::render() const &
         }
 
         effect->render(context);
-    }
-
-    if(
-        timerWidget.isFinished() and
-        !impl->win and
-        impl->hasWatchingPeriod
-    )
-    {
-        endLevel();
     }
 
     setNextControllerId(animateScreenTransition(context));
@@ -669,6 +668,8 @@ void GameController::endLevel() const &
         impl->endingScreen =
             std::make_unique<utils::LoseLevelEndingScreen>(context);
     }
+
+    impl->playingPeriod = false;
 
     impl->timerWidget.setStarted(false);
 
