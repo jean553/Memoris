@@ -81,6 +81,11 @@ public:
     void setStarted(const bool& started) const & noexcept;
 
     /**
+     * @brief starts the timer
+     */
+    void start() const & noexcept;
+
+    /**
      * @brief getter to know if the countdown is finished
      *
      * @return const bool
