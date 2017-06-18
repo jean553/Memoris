@@ -73,7 +73,6 @@ public:
     unsigned short seconds;
 
     bool started {false};
-    bool finished {false};
 };
 
 /**
@@ -119,9 +118,9 @@ void TimerWidget::setStarted(const bool& started) const & noexcept
 /**
  *
  */
-const bool& TimerWidget::isFinished() const & noexcept
+const bool TimerWidget::isTimeOver() const & noexcept
 {
-    return impl->finished;
+    return impl->seconds == 0 and impl->minutes == 0;
 }
 
 /**
@@ -164,7 +163,6 @@ void TimerWidget::decrementPlayingTimer() const &
         if (minutes == 0)
         {
             started = false;
-            impl->finished = true;
         }
         else
         {

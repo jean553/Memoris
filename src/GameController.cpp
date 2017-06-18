@@ -374,7 +374,7 @@ const ControllerId& GameController::render() const &
     }
 
     if(
-        timerWidget.isFinished() and
+        timerWidget.isTimeOver() and
         !impl->win and
         impl->hasWatchingPeriod
     )
