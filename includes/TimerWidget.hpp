@@ -67,13 +67,6 @@ public:
     ~TimerWidget();
 
     /**
-     * @brief updates the value of the timer widget
-     *
-     * not noexcept because this method uses SFML methods that are not noexcept
-     */
-    void render() const &;
-
-    /**
      * @brief displays the timer widget string
      *
      * not noexcept because this method uses SFML methods that are not noexcept
@@ -93,6 +86,13 @@ public:
      * @return const bool&
      */
     const bool& isFinished() const & noexcept;
+
+    /**
+     * @brief decrement the timer value
+     *
+     * not noexcept because this method uses SFML methods that are not noexcept
+     */
+    void decrementPlayingTimer() const &;
 
 private:
 

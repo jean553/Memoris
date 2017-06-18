@@ -243,6 +243,11 @@ const ControllerId& GameController::render() const &
         watchingTimer.display();
     }
 
+    const auto& timerWidget = impl->timerWidget;
+    timerWidget.display();
+
+    const auto& playingPeriod = impl->playingPeriod;
+
     constexpr sf::Int32 ONE_SECOND {1000};
     const auto time = context.getClockMillisecondsTime();
     auto& lastTime = impl->lastTime;
@@ -258,33 +263,20 @@ const ControllerId& GameController::render() const &
             }
         }
 
+        if (playingPeriod)
+        {
+            timerWidget.decrementPlayingTimer();
+
+            impl->playingTime++;
+        }
+
         lastTime = time;
     }
 
     auto& dashboard = impl->dashboard;
     dashboard.display();
 
-    auto& timerWidget = impl->timerWidget;
-    auto& lastTimerUpdateTime = impl->lastTimerUpdateTime;
-
     const auto& level = impl->level;
-
-    if (
-        impl->playingPeriod and
-        (
-            context.getClockMillisecondsTime() -
-            lastTimerUpdateTime > ONE_SECOND
-        )
-    )
-    {
-        timerWidget.render();
-
-        impl->playingTime++;
-
-        lastTimerUpdateTime = context.getClockMillisecondsTime();
-    }
-
-    timerWidget.display();
 
     if (impl->level->getAnimateFloorTransition())
     {
