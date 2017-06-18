@@ -682,7 +682,7 @@ void GameController::endLevel() const &
 
     impl->playingPeriod = false;
 
-    impl->timerWidget.setStarted(false);
+    impl->timerWidget.stop();
 
     impl->endPeriodStartTime = context.getClockMillisecondsTime();
 }
