@@ -74,13 +74,6 @@ public:
     void display() const &;
 
     /**
-     * @brief setter to start or stop the timer
-     *
-     * @param bool true to start, false to stop
-     */
-    void setStarted(const bool& started) const & noexcept;
-
-    /**
      * @brief starts the timer
      */
     void start() const & noexcept;
