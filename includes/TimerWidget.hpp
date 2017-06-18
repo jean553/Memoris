@@ -86,6 +86,11 @@ public:
     void start() const & noexcept;
 
     /**
+     * @brief stops the timer
+     */
+    void stop() const & noexcept;
+
+    /**
      * @brief getter to know if the countdown is finished
      *
      * @return const bool
