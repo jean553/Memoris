@@ -117,7 +117,7 @@ void WatchingTimer::display() const &
 /**
  *
  */
-void WatchingTimer::decrementWatchingTimer() const & noexcept
+void WatchingTimer::decrementWatchingTimer() const &
 {
     impl->displayedTime--;
 

@@ -103,38 +103,6 @@ TimerWidget::~TimerWidget() = default;
 /**
  *
  */
-void TimerWidget::render() const &
-{
-    auto& started = impl->started;
-    auto& seconds = impl->seconds;
-    auto& minutes = impl->minutes;
-
-    if (seconds == 0)
-    {
-        if (minutes == 0)
-        {
-            started = false;
-            impl->finished = true;
-        }
-        else
-        {
-            minutes--;
-
-            constexpr unsigned short FIRST_SECOND_IN_MINUTE {59};
-            seconds = FIRST_SECOND_IN_MINUTE;
-        }
-    }
-    else
-    {
-        seconds--;
-    }
-
-    updateDisplayedString();
-}
-
-/**
- *
- */
 void TimerWidget::display() const &
 {
     impl->window.draw(impl->text);
@@ -180,6 +148,38 @@ void TimerWidget::updateDisplayedString() const &
     }
 
     impl->text.setString(minutesString + " : " + secondsString);
+}
+
+/**
+ *
+ */
+void TimerWidget::decrementPlayingTimer() const &
+{
+    auto& started = impl->started;
+    auto& seconds = impl->seconds;
+    auto& minutes = impl->minutes;
+
+    if (seconds == 0)
+    {
+        if (minutes == 0)
+        {
+            started = false;
+            impl->finished = true;
+        }
+        else
+        {
+            minutes--;
+
+            constexpr unsigned short FIRST_SECOND_IN_MINUTE {59};
+            seconds = FIRST_SECOND_IN_MINUTE;
+        }
+    }
+    else
+    {
+        seconds--;
+    }
+
+    updateDisplayedString();
 }
 
 }

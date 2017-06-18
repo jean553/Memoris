@@ -76,8 +76,10 @@ public:
     /**
      * @brief decrement the watching timer (the time is not handled
      * by this function individually in order to regroup time management)
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
      */
-    void decrementWatchingTimer() const & noexcept;
+    void decrementWatchingTimer() const &;
 
     /**
      * @brief getter of the watching timer
