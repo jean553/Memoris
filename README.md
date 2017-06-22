@@ -10,22 +10,19 @@ Taiga taskboard : https://tree.taiga.io/project/jean553-memoris/
 
 Memoris is a C++ 14 video game developed using the SFML. The main goal is to move a pin on a grid of cells, from the departure to the arrival.
 The player has to find all the stars on the map before going to the arrival cell. The whole map is only visible a few seconds before the game
-starts and all the cells are suddently hidden. The player has to "memorize" the cells disposition before playing.
+starts. Then, all the cells are hidden. The player has to "memorize" the cells disposition before playing.
 
-The map is full of bonus, lifes, additional time... but also malus ! The player has to find all the stars and the arrival before the countdown
-finishes.
-
-There are also many events cell on the map that move the disposition of the cells : symmetry effects, teleportation, walls, floors switch... etc...
+The map is full of special cells, including `one life more`, `additional time`... but also `one life less`, `less time`... !
+The player has to find all the stars and the arrival before the available time is over.
 
 **NOTE: this work is in progress. Some features are not implemented yet, some of them are partially implemented.**
 
 ### License and credits
 
-The program is open-source, distributed under the GNU General Public License. The game contains many assets ( musics, sounds, pictures, fonts... etc... ), all of them are distributed under various licenses ( CreativeCommons, GNU GPL/LGPL... etc... ).
+The program is open-source, distributed under the GNU General Public License.
 
-After individual verification of each asset license, all of them can be included into the project. Each asset source is specified in the "Credits" section of the README.md file.
-
-**If you are the author of some of them and you don't want these resources to be used in Memoris, just let me know. The asset will be deleted immediately.**
+The game contains many assets (musics, sounds, pictures, fonts... etc...), all of them are distributed under various licenses ( CreativeCommons, GNU GPL/LGPL... etc... ).
+(check the `Credits` section for details).
 
 ## Compatibility
 
@@ -74,10 +71,6 @@ mkdir build && cd build/
 cmake -D CMAKE_CXX_COMPILER=g++ ..
 make
 ```
-
-The compiler is set when executing `cmake` command because the
-CI environment runs on Ubuntu 14.04 (maximum supported version by Travis).
-Clang++-3.5 is used instead (g++ default version not complient with C++14).
 
 ## Documentation
 
