@@ -261,10 +261,7 @@ void VerticalMirrorAnimation::displayLevelAndVerticalSeparator() const &
 {
     const auto& context = getContext();
 
-    getLevel()->display(
-        getFloor(),
-        &entities::Cell::display
-    );
+    getLevel()->display(getFloor());
 
     context.getSfmlWindow().draw(
         context.getShapesManager().getVerticalSeparator()

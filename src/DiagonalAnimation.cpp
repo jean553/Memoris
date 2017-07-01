@@ -147,10 +147,7 @@ void DiagonalAnimation::displayLevelAndSeparator() const &
 {
     const auto& context = getContext();
 
-    getLevel()->display(
-        getFloor(),
-        &entities::Cell::display
-    );
+    getLevel()->display(getFloor());
 
     auto& window = context.getSfmlWindow();
     const auto& shapesManager = context.getShapesManager();
