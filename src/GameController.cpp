@@ -234,8 +234,12 @@ const ControllerId& GameController::render() const &
 {
     const auto& context = getContext();
 
+    auto& dashboard = impl->dashboard;
+    dashboard.display();
+
     const auto& watchingTimer = impl->watchingTimer;
     const auto& watchingTimerValue = watchingTimer.getWatchingTimerValue();
+
     if (watchingTimerValue)
     {
         watchingTimer.display();
@@ -249,6 +253,9 @@ const ControllerId& GameController::render() const &
     const auto& level = impl->level;
     const auto& floor = impl->floor;
     auto& lastTime = impl->lastTime;
+
+    auto& animation = impl->animation;
+
     if (time - lastTime > ONE_SECOND)
     {
         if (watchingTimerValue)
@@ -261,7 +268,7 @@ const ControllerId& GameController::render() const &
                 {
                     watchingTimer.reset();
 
-                    impl->animation =
+                    animation =
                         std::make_unique<animations::StairsAnimation>(
                             context,
                             level,
@@ -296,14 +303,11 @@ const ControllerId& GameController::render() const &
         lastTime = time;
     }
 
-    auto& dashboard = impl->dashboard;
-    dashboard.display();
-
-    if (impl->animation != nullptr)
+    if (animation != nullptr)
     {
-        impl->animation->renderAnimation();
+        animation->renderAnimation();
 
-        if (impl->animation->isFinished())
+        if (animation->isFinished())
         {
             if (impl->movePlayerToNextFloor)
             {
@@ -322,7 +326,7 @@ const ControllerId& GameController::render() const &
                 impl->movePlayerToPreviousFloor = false;
             }
 
-            impl->animation.reset();
+            animation.reset();
         }
     }
     else
@@ -336,7 +340,7 @@ const ControllerId& GameController::render() const &
     constexpr sf::Int32 PLAYER_CELL_ANIMATION_INTERVAL {100};
     if (
         timerWidget.isStarted() &&
-        impl->animation == nullptr &&
+        animation == nullptr &&
         (
             context.getClockMillisecondsTime() -
             impl->playerCellAnimationTime > PLAYER_CELL_ANIMATION_INTERVAL
@@ -409,7 +413,7 @@ const ControllerId& GameController::render() const &
                 if (
                     impl->watchingPeriod or
                     impl->endPeriodStartTime or
-                    impl->animation != nullptr
+                    animation != nullptr
                 )
                 {
                     break;
@@ -474,6 +478,8 @@ void GameController::executePlayerCellAction() const &
 {
     const char& newPlayerCellType = impl->level->getPlayerCellType();
     const auto& context = getContext();
+
+    auto& animation = impl->animation;
 
     switch(newPlayerCellType)
     {
@@ -542,7 +548,7 @@ void GameController::executePlayerCellAction() const &
     {
         if (impl->level->movePlayerToNextFloor())
         {
-            impl->animation = getAnimationByCell(newPlayerCellType);
+            animation = getAnimationByCell(newPlayerCellType);
 
             impl->movePlayerToNextFloor = true;
         }
@@ -554,7 +560,7 @@ void GameController::executePlayerCellAction() const &
     {
         if (impl->level->movePlayerToPreviousFloor())
         {
-            impl->animation = getAnimationByCell(newPlayerCellType);
+            animation = getAnimationByCell(newPlayerCellType);
 
             impl->movePlayerToPreviousFloor = true;
         }
@@ -563,7 +569,7 @@ void GameController::executePlayerCellAction() const &
     }
     case cells::QUARTER_ROTATION_CELL:
     {
-        impl->animation = getAnimationByCell(newPlayerCellType);
+        animation = getAnimationByCell(newPlayerCellType);
 
         break;
     }
@@ -609,7 +615,7 @@ void GameController::executePlayerCellAction() const &
     case cells::LEFT_ROTATION_CELL:
     case cells::RIGHT_ROTATION_CELL:
     {
-        impl->animation = getAnimationByCell(newPlayerCellType);
+        animation = getAnimationByCell(newPlayerCellType);
 
         break;
     }
