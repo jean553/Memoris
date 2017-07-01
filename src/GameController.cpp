@@ -200,6 +200,23 @@ void GameController::handleAnimation() const &
 /**
  *
  */
+void GameController::handlePlayerCellAnimation() const &
+{
+    auto& playerCellTransparency = impl->playerCellTransparency;
+    constexpr sf::Uint32 PLAYER_CELL_TRANSPARENCY_INTERVAL {64};
+    playerCellTransparency += PLAYER_CELL_TRANSPARENCY_INTERVAL;
+    impl->level->setPlayerCellTransparency(playerCellTransparency);
+
+    constexpr sf::Uint32 PLAYER_CELL_TRANSPARENCY_MAXIMUM {128};
+    if (impl->playerCellTransparency > PLAYER_CELL_TRANSPARENCY_MAXIMUM)
+    {
+        playerCellTransparency = 0;
+    }
+}
+
+/**
+ *
+ */
 void GameController::handlePlayerMovement(const sf::Event& event) const &
 {
     const auto& level = impl->level;
@@ -337,28 +354,16 @@ const ControllerId& GameController::render() const &
     }
 
     constexpr sf::Int32 PLAYER_CELL_ANIMATION_INTERVAL {100};
+    auto& lastTimePlayerAnimation = impl->playerCellAnimationTime;
     if (
         timerWidget.isStarted() &&
         animation == nullptr &&
-        (
-            context.getClockMillisecondsTime() -
-            impl->playerCellAnimationTime > PLAYER_CELL_ANIMATION_INTERVAL
-        )
+        time - lastTimePlayerAnimation > PLAYER_CELL_ANIMATION_INTERVAL
     )
     {
-        constexpr sf::Uint32 PLAYER_CELL_TRANSPARENCY_INTERVAL {64};
-        impl->playerCellTransparency += PLAYER_CELL_TRANSPARENCY_INTERVAL;
+        handlePlayerCellAnimation();
 
-        impl->level->setPlayerCellTransparency(impl->playerCellTransparency);
-
-        constexpr sf::Uint32 PLAYER_CELL_TRANSPARENCY_MAXIMUM {128};
-        if (impl->playerCellTransparency > PLAYER_CELL_TRANSPARENCY_MAXIMUM)
-        {
-            impl->playerCellTransparency = 0;
-        }
-
-        impl->playerCellAnimationTime =
-            context.getClockMillisecondsTime();
+        lastTimePlayerAnimation = context.getClockMillisecondsTime();
     }
 
     if (impl->endingScreen != nullptr)
