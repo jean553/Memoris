@@ -217,6 +217,28 @@ void GameController::handlePlayerCellAnimation() const &
 /**
  *
  */
+void GameController::handlePickupEffects() const &
+{
+    auto& effects = impl->effects;
+    auto iterator = effects.begin();
+
+    while (iterator != effects.end())
+    {
+        if ((*iterator)->isFinished())
+        {
+            iterator = effects.erase(iterator);
+        }
+        else
+        {
+            (*iterator)->render(getContext());
+            ++iterator;
+        }
+    }
+}
+
+/**
+ *
+ */
 void GameController::handlePlayerMovement(const sf::Event& event) const &
 {
     const auto& level = impl->level;
@@ -384,19 +406,7 @@ const ControllerId& GameController::render() const &
         }
     }
 
-    for (auto& effect : impl->effects)
-    {
-        /* TODO: #1204 we never destroy the allocated finished effects,
-           the whole container is simply destroyed at the end of the game;
-           this behavior should be improved, effects should be directly destroyed
-           when the animation has finished */
-        if (effect->isFinished())
-        {
-            continue;
-        }
-
-        effect->render(context);
-    }
+    handlePickupEffects();
 
     setNextControllerId(animateScreenTransition(context));
 

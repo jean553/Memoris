@@ -111,6 +111,13 @@ private:
     void handlePlayerCellAnimation() const &;
 
     /**
+     * @brief displays and dynamically deletes the running pickup effects
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
+     */
+    void handlePickupEffects() const &;
+
+    /**
      * @brief moves the player (it is mandatory to check first if the player
      * can actually move to its expected destination)
      *
