@@ -104,6 +104,13 @@ private:
     void handleAnimation() const &;
 
     /**
+     * @brief renders the animation of the player cell
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
+     */
+    void handlePlayerCellAnimation() const &;
+
+    /**
      * @brief moves the player (it is mandatory to check first if the player
      * can actually move to its expected destination)
      *
