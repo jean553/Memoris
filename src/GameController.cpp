@@ -337,28 +337,25 @@ const ControllerId& GameController::render() const &
     }
 
     constexpr sf::Int32 PLAYER_CELL_ANIMATION_INTERVAL {100};
+    auto& lastTimePlayerAnimation = impl->playerCellAnimationTime;
     if (
         timerWidget.isStarted() &&
         animation == nullptr &&
-        (
-            context.getClockMillisecondsTime() -
-            impl->playerCellAnimationTime > PLAYER_CELL_ANIMATION_INTERVAL
-        )
+        time - lastTimePlayerAnimation > PLAYER_CELL_ANIMATION_INTERVAL
     )
     {
+        auto& playerCellTransparency = impl->playerCellTransparency;
         constexpr sf::Uint32 PLAYER_CELL_TRANSPARENCY_INTERVAL {64};
-        impl->playerCellTransparency += PLAYER_CELL_TRANSPARENCY_INTERVAL;
-
-        impl->level->setPlayerCellTransparency(impl->playerCellTransparency);
+        playerCellTransparency += PLAYER_CELL_TRANSPARENCY_INTERVAL;
+        impl->level->setPlayerCellTransparency(playerCellTransparency);
 
         constexpr sf::Uint32 PLAYER_CELL_TRANSPARENCY_MAXIMUM {128};
         if (impl->playerCellTransparency > PLAYER_CELL_TRANSPARENCY_MAXIMUM)
         {
-            impl->playerCellTransparency = 0;
+            playerCellTransparency = 0;
         }
 
-        impl->playerCellAnimationTime =
-            context.getClockMillisecondsTime();
+        lastTimePlayerAnimation = context.getClockMillisecondsTime();
     }
 
     if (impl->endingScreen != nullptr)
