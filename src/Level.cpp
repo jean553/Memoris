@@ -313,17 +313,11 @@ const bool Level::isPlayerMovementAllowed(
 /**
  *
  */
-void Level::display(
-    const unsigned short& floor,
-    void (Cell::*display)(
-        const utils::Context&,
-        const std::unique_ptr<sf::Transform>&
-    ) const &
-) const
+void Level::display(const unsigned short& floor) const
 {
-    const unsigned short firstCellIndex = floor * 256;
-
-    const unsigned short lastCellIndex = floor * 256 + 256;
+    constexpr unsigned short CELLS_PER_FLOOR {256};
+    const unsigned short firstCellIndex = floor * CELLS_PER_FLOOR;
+    const unsigned short lastCellIndex = (floor + 1) * CELLS_PER_FLOOR;
 
     for(
         unsigned short index = firstCellIndex;
@@ -331,7 +325,7 @@ void Level::display(
         index++
     )
     {
-        ((*impl->cells[index]).*display)(
+        (*impl->cells[index]).display(
             impl->context,
             impl->transform
         );
