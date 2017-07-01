@@ -95,6 +95,7 @@ public:
     unsigned short floor {0};
     unsigned short displayedWatchingTime {0};
     unsigned short playingTime {0};
+    unsigned short endingScreenSeconds {0};
 
     bool watchingPeriod {true};
     bool win {false};
@@ -105,7 +106,6 @@ public:
 
     sf::Int8 leftLevelsAmountDirection {-17};
 
-    sf::Int32 lastTimerUpdateTime {0};
     sf::Int32 lastTime {0};
 
     std::unique_ptr<utils::AbstractLevelEndingScreen> endingScreen {nullptr};
@@ -316,12 +316,29 @@ const ControllerId& GameController::render() const &
     const auto time = context.getClockMillisecondsTime();
     const auto& level = impl->level;
     const auto& floor = impl->floor;
-    auto& lastTime = impl->lastTime;
+    const auto& endingScreen = impl->endingScreen;
 
+    auto& lastTime = impl->lastTime;
     auto& animation = impl->animation;
 
     if (time - lastTime > ONE_SECOND)
     {
+        if (endingScreen != nullptr)
+        {
+            auto& endingScreenSeconds = impl->endingScreenSeconds;
+            endingScreenSeconds += 1;
+
+            constexpr unsigned short ENDING_SCREEN_SECONDS_DURATION {5};
+            if (endingScreenSeconds == ENDING_SCREEN_SECONDS_DURATION)
+            {
+                setExpectedControllerId(
+                    impl->win ?
+                    ControllerId::Game:
+                    ControllerId::MainMenu
+                );
+            }
+        }
+
         if (watchingTimerValue)
         {
             watchingTimer.decrementWatchingTimer();
@@ -388,22 +405,9 @@ const ControllerId& GameController::render() const &
         lastTimePlayerAnimation = context.getClockMillisecondsTime();
     }
 
-    if (impl->endingScreen != nullptr)
+    if (endingScreen != nullptr)
     {
-        impl->endingScreen->render();
-
-        constexpr sf::Int32 END_SCREEN_DISPLAY_DURATION {5000};
-        if (
-            context.getClockMillisecondsTime() -
-            impl->endPeriodStartTime > END_SCREEN_DISPLAY_DURATION
-        )
-        {
-            setExpectedControllerId(
-                impl->win ?
-                ControllerId::Game:
-                ControllerId::MainMenu
-            );
-        }
+        endingScreen->render();
     }
 
     handlePickupEffects();
