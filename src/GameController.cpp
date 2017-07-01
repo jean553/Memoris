@@ -333,8 +333,8 @@ const ControllerId& GameController::render() const &
     }
     else
     {
-        impl->level->display(
-            impl->floor,
+        level->display(
+            floor,
             &entities::Cell::display
         );
     }
