@@ -97,6 +97,13 @@ private:
     void startGame() const &;
 
     /**
+     * @brief renders the current animation, resets it if finished
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
+     */
+    void handleAnimation() const &;
+
+    /**
      * @brief moves the player (it is mandatory to check first if the player
      * can actually move to its expected destination)
      *

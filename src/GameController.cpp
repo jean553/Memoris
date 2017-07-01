@@ -90,13 +90,13 @@ public:
     sf::Uint32 endPeriodStartTime {0};
     sf::Uint32 lastWatchingTimeUpdate {0};
 
+    short floorMovement {0};
+
     unsigned short floor {0};
     unsigned short displayedWatchingTime {0};
     unsigned short playingTime {0};
 
     bool watchingPeriod {true};
-    bool movePlayerToNextFloor {false};
-    bool movePlayerToPreviousFloor {false};
     bool win {false};
     bool hasWatchingPeriod;
 
@@ -170,6 +170,31 @@ void GameController::startGame() const &
 
     impl->watchingPeriod = false;
     impl->timerWidget.start();
+}
+
+/**
+ *
+ */
+void GameController::handleAnimation() const &
+{
+    auto& animation = impl->animation;
+
+    animation->renderAnimation();
+
+    if (animation->isFinished())
+    {
+        auto& floorMovement = impl->floorMovement;
+
+        if (floorMovement != 0) {
+
+            auto& floor = impl->floor;
+
+            floor += floorMovement;
+            impl->dashboard.updateCurrentFloor(floor);
+        }
+
+        animation.reset();
+    }
 }
 
 /**
@@ -275,7 +300,7 @@ const ControllerId& GameController::render() const &
                         animations::StairsAnimation::FloorMoveDirection::Up
                     );
 
-                    impl->movePlayerToNextFloor = true;
+                    impl->floorMovement = 1;
                 }
                 else
                 {
@@ -304,29 +329,7 @@ const ControllerId& GameController::render() const &
 
     if (animation != nullptr)
     {
-        animation->renderAnimation();
-
-        if (animation->isFinished())
-        {
-            if (impl->movePlayerToNextFloor)
-            {
-                impl->floor++;
-
-                impl->dashboard.updateCurrentFloor(impl->floor);
-
-                impl->movePlayerToNextFloor = false;
-            }
-            else if (impl->movePlayerToPreviousFloor)
-            {
-                impl->floor--;
-
-                impl->dashboard.updateCurrentFloor(impl->floor);
-
-                impl->movePlayerToPreviousFloor = false;
-            }
-
-            animation.reset();
-        }
+        handleAnimation();
     }
     else
     {
@@ -479,6 +482,7 @@ void GameController::executePlayerCellAction() const &
     const auto& context = getContext();
 
     auto& animation = impl->animation;
+    auto& floorMovement = impl->floorMovement;
 
     switch(newPlayerCellType)
     {
@@ -549,7 +553,7 @@ void GameController::executePlayerCellAction() const &
         {
             animation = getAnimationByCell(newPlayerCellType);
 
-            impl->movePlayerToNextFloor = true;
+            floorMovement = 1;
         }
 
         break;
@@ -561,7 +565,7 @@ void GameController::executePlayerCellAction() const &
         {
             animation = getAnimationByCell(newPlayerCellType);
 
-            impl->movePlayerToPreviousFloor = true;
+            floorMovement = -1;
         }
 
         break;

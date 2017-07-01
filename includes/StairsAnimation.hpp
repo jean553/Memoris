@@ -55,6 +55,9 @@ public:
      * @param floor the floor index of the animation
      * @param moveDirection indicates if the animation moves to the floor
      * before or after the current one
+     *
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
      */
     StairsAnimation(
         const utils::Context& context,
