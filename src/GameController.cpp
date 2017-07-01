@@ -175,6 +175,38 @@ void GameController::startGame() const &
 /**
  *
  */
+void GameController::handleAnimation() const &
+{
+    auto& animation = impl->animation;
+
+    animation->renderAnimation();
+
+    if (animation->isFinished())
+    {
+        if (impl->movePlayerToNextFloor)
+        {
+            impl->floor++;
+
+            impl->dashboard.updateCurrentFloor(impl->floor);
+
+            impl->movePlayerToNextFloor = false;
+        }
+        else if (impl->movePlayerToPreviousFloor)
+        {
+            impl->floor--;
+
+            impl->dashboard.updateCurrentFloor(impl->floor);
+
+            impl->movePlayerToPreviousFloor = false;
+        }
+
+        animation.reset();
+    }
+}
+
+/**
+ *
+ */
 void GameController::handlePlayerMovement(const sf::Event& event) const &
 {
     const auto& level = impl->level;
@@ -304,29 +336,7 @@ const ControllerId& GameController::render() const &
 
     if (animation != nullptr)
     {
-        animation->renderAnimation();
-
-        if (animation->isFinished())
-        {
-            if (impl->movePlayerToNextFloor)
-            {
-                impl->floor++;
-
-                impl->dashboard.updateCurrentFloor(impl->floor);
-
-                impl->movePlayerToNextFloor = false;
-            }
-            else if (impl->movePlayerToPreviousFloor)
-            {
-                impl->floor--;
-
-                impl->dashboard.updateCurrentFloor(impl->floor);
-
-                impl->movePlayerToPreviousFloor = false;
-            }
-
-            animation.reset();
-        }
+        handleAnimation();
     }
     else
     {
