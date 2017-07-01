@@ -217,6 +217,28 @@ void GameController::handlePlayerCellAnimation() const &
 /**
  *
  */
+void GameController::handlePickupEffects() const &
+{
+    auto& effects = impl->effects;
+    auto iterator = effects.begin();
+
+    while (iterator != effects.end())
+    {
+        if ((*iterator)->isFinished())
+        {
+            iterator = effects.erase(iterator);
+        }
+        else
+        {
+            (*iterator)->render(getContext());
+            ++iterator;
+        }
+    }
+}
+
+/**
+ *
+ */
 void GameController::handlePlayerMovement(const sf::Event& event) const &
 {
     const auto& level = impl->level;
@@ -384,21 +406,7 @@ const ControllerId& GameController::render() const &
         }
     }
 
-    auto& effects = impl->effects;
-    auto iterator = effects.begin();
-
-    while (iterator != effects.end())
-    {
-        if ((*iterator)->isFinished())
-        {
-            iterator = effects.erase(iterator);
-        }
-        else
-        {
-            (*iterator)->render(context);
-            ++iterator;
-        }
-    }
+    handlePickupEffects();
 
     setNextControllerId(animateScreenTransition(context));
 
