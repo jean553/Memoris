@@ -39,6 +39,15 @@ class StairsAnimation : public LevelAnimation
 public:
 
     /**
+     * @enum StairsAnimation::AnimationDirection
+     * @brief the direction of the animation (up or down)
+     */
+    enum class AnimationDirection {
+        Up, /** < move to the next floor */
+        Down /** < move to the previous floor */
+    };
+
+    /**
      * @brief constructor
      *
      * @param context reference to the current context to use
