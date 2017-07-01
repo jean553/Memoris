@@ -295,10 +295,7 @@ void LevelEditorController::renderControllerMainComponents() const &
 
     const auto& context = getContext();
 
-    impl->level->display(
-        impl->floor,
-        &entities::Cell::displayWithMouseHover
-    );
+    impl->level->display(impl->floor);
 
     auto& window = context.getSfmlWindow();
     window.draw(impl->levelNameSurface);

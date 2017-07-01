@@ -155,15 +155,8 @@ public:
      * the given floor; the other cells are totally ignored
      *
      * @param floor the floor to render
-     * @param Cell object method pointer to the cell display() method to use
      */
-    void display(
-        const unsigned short& floor,
-        void (Cell::*display)(
-            const utils::Context&,
-            const std::unique_ptr<sf::Transform>&
-        ) const &
-    ) const;
+    void display(const unsigned short& floor) const;
 
     /**
      * @brief update the transparency value of the current player color

@@ -88,10 +88,7 @@ void QuarterRotationAnimation::renderAnimation() &
         getAnimationLastUpdateTime() < ANIMATION_STEPS_INTERVAL
     )
     {
-        level->display(
-            floor,
-            &entities::Cell::display
-        );
+        level->display(floor);
 
         return;
     }
@@ -112,10 +109,7 @@ void QuarterRotationAnimation::renderAnimation() &
         endsAnimation();
     }
 
-    level->display(
-        floor,
-        &entities::Cell::display
-    );
+    level->display(floor);
 
     incrementAnimationStep();
 }

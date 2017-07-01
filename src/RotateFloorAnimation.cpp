@@ -78,10 +78,7 @@ void RotateFloorAnimation::renderAnimation() &
     const auto& level = getLevel();
     const auto& floor = getFloor();
 
-    level->display(
-        floor,
-        &entities::Cell::display
-    );
+    level->display(floor);
 
     constexpr sf::Uint32 ANIMATION_INTERVAL {50};
     if (

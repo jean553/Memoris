@@ -244,12 +244,8 @@ void HorizontalMirrorAnimation::updateBottomSideTransparency() const &
 void HorizontalMirrorAnimation::displayLevelAndHorizontalSeparator() const &
 {
     const auto& context = getContext();
-    const auto& floor = getFloor();
 
-    getLevel()->display(
-        floor,
-        &entities::Cell::display
-    );
+    getLevel()->display(getFloor());
 
     context.getSfmlWindow().draw(
         context.getShapesManager().getHorizontalSeparator()

@@ -333,10 +333,7 @@ const ControllerId& GameController::render() const &
     }
     else
     {
-        impl->level->display(
-            impl->floor,
-            &entities::Cell::display
-        );
+        level->display(floor);
     }
 
     constexpr sf::Int32 PLAYER_CELL_ANIMATION_INTERVAL {100};

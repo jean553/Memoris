@@ -96,10 +96,7 @@ void StairsAnimation::renderAnimation() &
     const auto& level = getLevel();
     const auto& floor = getFloor();
 
-    level->display(
-        floor + impl->transformation,
-        &entities::Cell::display
-    );
+    level->display(floor + impl->transformation);
 
     auto& lastUpdateTime = getAnimationLastUpdateTime();
 
