@@ -268,13 +268,12 @@ const ControllerId& GameController::render() const &
                 {
                     watchingTimer.reset();
 
-                    animation =
-                        std::make_unique<animations::StairsAnimation>(
-                            context,
-                            level,
-                            floor,
-                            1
-                        );
+                    animation = std::make_unique<animations::StairsAnimation>(
+                        context,
+                        level,
+                        floor,
+                        1
+                    );
 
                     impl->movePlayerToNextFloor = true;
                 }
