@@ -268,13 +268,12 @@ const ControllerId& GameController::render() const &
                 {
                     watchingTimer.reset();
 
-                    animation =
-                        std::make_unique<animations::StairsAnimation>(
-                            context,
-                            level,
-                            floor,
-                            1
-                        );
+                    animation = std::make_unique<animations::StairsAnimation>(
+                        context,
+                        level,
+                        floor,
+                        animations::StairsAnimation::FloorMoveDirection::Up
+                    );
 
                     impl->movePlayerToNextFloor = true;
                 }
@@ -715,7 +714,7 @@ std::unique_ptr<animations::LevelAnimation> GameController::getAnimationByCell(
                    context,
                    level,
                    floor,
-                   1
+                   animations::StairsAnimation::FloorMoveDirection::Up
                );
     }
     case cells::ELEVATOR_DOWN_CELL:
@@ -725,7 +724,7 @@ std::unique_ptr<animations::LevelAnimation> GameController::getAnimationByCell(
                    context,
                    level,
                    floor,
-                   -1
+                   animations::StairsAnimation::FloorMoveDirection::Down
                );
     }
     case cells::DIAGONAL_CELL:

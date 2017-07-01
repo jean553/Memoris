@@ -40,9 +40,16 @@ class StairsAnimation::Impl
 
 public:
 
-    Impl(const short& direction) :
-        direction(direction)
+    Impl(const FloorMoveDirection& moveDirection)
     {
+        if (moveDirection == FloorMoveDirection::Up)
+        {
+            direction = 1;
+        }
+        else
+        {
+            direction = -1;
+        }
     }
 
     short direction;
@@ -59,7 +66,7 @@ StairsAnimation::StairsAnimation(
     const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor,
-    const short& direction
+    const FloorMoveDirection& direction
 ) :
     LevelAnimation(
         context,

@@ -39,23 +39,28 @@ class StairsAnimation : public LevelAnimation
 public:
 
     /**
+     * @enum StairsAnimation::FloorMoveDirection
+     * @brief the direction of the animation (up or down)
+     */
+    enum class FloorMoveDirection {
+        Up, /** < move to the next floor */
+        Down /** < move to the previous floor */
+    };
+
+    /**
      * @brief constructor
      *
      * @param context reference to the current context to use
      * @param level the level of the animation
      * @param floor the floor index of the animation
-     * @param direction indicates in what direction the transition is made
-     * (up/down), only equals to -1 or 1;
-     *
-     * NOTE: we use a signed integer for the direction and not an enumeration;
-     * it's more convenient as we directly use the integer value
-     * in order to update the transparency effect values
+     * @param moveDirection indicates if the animation moves to the floor
+     * before or after the current one
      */
     StairsAnimation(
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor,
-        const short& direction
+        const FloorMoveDirection& moveDirection
     );
 
     /**
