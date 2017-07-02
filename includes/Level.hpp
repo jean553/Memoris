@@ -192,24 +192,6 @@ public:
     void emptyPlayerCell();
 
     /**
-     * @brief moves the current player to the next floor if possible,
-     * returns true if the action has been executed, false if it is not
-     * possible to move to the next floor
-     *
-     * @bool true if the player moved to the next floor
-     */
-    bool movePlayerToNextFloor();
-
-    /**
-     * @brief moves the current player to the previous floor if possible,
-     * returns true if the action has been executed, false if it is not
-     * possible to move to the previous floor
-     *
-     * @bool true if the player moved to the previous floor
-     */
-    bool movePlayerToPreviousFloor();
-
-    /**
      * @brief getter of the total stars amount in the level; this is used by
      * the game controller to check when the user got all the stars of the
      * current played level

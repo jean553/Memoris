@@ -494,9 +494,9 @@ const ControllerId& GameController::render() const &
  */
 void GameController::executePlayerCellAction() const &
 {
-    const auto& newPlayerCellType = impl->level->getPlayerCellType();
-    const auto& context = getContext();
     const auto& level = impl->level;
+    const auto& newPlayerCellType = level->getPlayerCellType();
+    const auto& context = getContext();
     const auto& dashboard = impl->dashboard;
     const auto& soundsManager = context.getSoundsManager();
 
@@ -537,12 +537,11 @@ void GameController::executePlayerCellAction() const &
         if (dashboard.getLifes() == 0)
         {
             endLevel();
+
+            break;
         }
 
-        if (dashboard.getLifes())
-        {
-            dashboard.decrementLifes();
-        }
+        dashboard.decrementLifes();
 
         break;
     }
@@ -569,24 +568,42 @@ void GameController::executePlayerCellAction() const &
     case cells::STAIRS_UP_CELL:
     case cells::ELEVATOR_UP_CELL:
     {
-        if (impl->level->movePlayerToNextFloor())
-        {
-            animation = getAnimationByCell(newPlayerCellType);
+        unsigned short index = level->getPlayerCellIndex();
+        const unsigned short nextFloorIndex = index + 256;
 
-            floorMovement = 1;
+        if (nextFloorIndex > 2560)
+        {
+            break;
         }
+
+        level->setPlayerCellIndex(nextFloorIndex);
+
+        level->showPlayerCell();
+
+        animation = getAnimationByCell(newPlayerCellType);
+
+        floorMovement = 1;
 
         break;
     }
     case cells::STAIRS_DOWN_CELL:
     case cells::ELEVATOR_DOWN_CELL:
     {
-        if (impl->level->movePlayerToPreviousFloor())
-        {
-            animation = getAnimationByCell(newPlayerCellType);
+        unsigned short index = level->getPlayerCellIndex();
+        const unsigned short previousFloorIndex = index - 256;
 
-            floorMovement = -1;
+        if (previousFloorIndex < 0)
+        {
+            break;
         }
+
+        level->setPlayerCellIndex(previousFloorIndex);
+
+        level->showPlayerCell();
+
+        animation = getAnimationByCell(newPlayerCellType);
+
+        floorMovement = -1;
 
         break;
     }
