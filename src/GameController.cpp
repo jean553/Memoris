@@ -466,7 +466,7 @@ const ControllerId& GameController::render() const &
 
                 break;
             }
-            /* TODO: #825 for cheating and dev purposes ;) */
+            /* TODO: #825 for dev purposes only, should be deleted */
             case sf::Keyboard::P:
             {
                 setExpectedControllerId(ControllerId::Game);
