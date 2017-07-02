@@ -643,17 +643,12 @@ void GameController::executePlayerCellAction() const &
 
         break;
     }
-    case cells::QUARTER_ROTATION_CELL:
-    {
-        animation = getAnimationByCell(newPlayerCellType);
-
-        break;
-    }
     case cells::HORIZONTAL_MIRROR_CELL:
     case cells::VERTICAL_MIRROR_CELL:
     case cells::DIAGONAL_CELL:
     case cells::LEFT_ROTATION_CELL:
     case cells::RIGHT_ROTATION_CELL:
+    case cells::QUARTER_ROTATION_CELL:
     {
         animation = getAnimationByCell(newPlayerCellType);
 
