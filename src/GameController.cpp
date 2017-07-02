@@ -437,12 +437,12 @@ const ControllerId& GameController::render() const &
                     break;
                 }
 
-                if (
-                    not level->isPlayerMovementAllowed(
-                        event,
-                        impl->floor
-                    )
-                )
+                const bool movementAllowed = level->isPlayerMovementAllowed(
+                    event,
+                    floor
+                );
+
+                if (not movementAllowed)
                 {
                     context.getSoundsManager().playCollisionSound();
 
@@ -466,7 +466,7 @@ const ControllerId& GameController::render() const &
 
                 break;
             }
-            /* TODO: #825 for cheating and dev purposes ;) */
+            /* TODO: #825 for dev purposes only, should be deleted */
             case sf::Keyboard::P:
             {
                 setExpectedControllerId(ControllerId::Game);
@@ -494,8 +494,10 @@ const ControllerId& GameController::render() const &
  */
 void GameController::executePlayerCellAction() const &
 {
-    const char& newPlayerCellType = impl->level->getPlayerCellType();
+    const auto& newPlayerCellType = impl->level->getPlayerCellType();
     const auto& context = getContext();
+    const auto& level = impl->level;
+    const auto& dashboard = impl->dashboard;
 
     auto& animation = impl->animation;
     auto& floorMovement = impl->floorMovement;
@@ -506,13 +508,13 @@ void GameController::executePlayerCellAction() const &
     {
         context.getSoundsManager().playFoundStarSound();
 
-        impl->dashboard.incrementFoundStars();
+        dashboard.incrementFoundStars();
 
         impl->effects.push_back(
             std::make_unique<utils::PickUpEffect>(
                 context.getTexturesManager().getStarTexture(),
-                impl->level->getPlayerCellHorizontalPosition(),
-                impl->level->getPlayerCellVerticalPosition()
+                level->getPlayerCellHorizontalPosition(),
+                level->getPlayerCellVerticalPosition()
             )
         );
 
@@ -522,7 +524,7 @@ void GameController::executePlayerCellAction() const &
     {
         context.getSoundsManager().playFoundLifeOrTimeSound();
 
-        impl->dashboard.incrementLifes();
+        dashboard.incrementLifes();
 
         break;
     }
@@ -530,14 +532,14 @@ void GameController::executePlayerCellAction() const &
     {
         context.getSoundsManager().playFoundDeadOrLessTimeSound();
 
-        if (impl->dashboard.getLifes() == 0)
+        if (dashboard.getLifes() == 0)
         {
             endLevel();
         }
 
-        if (impl->dashboard.getLifes())
+        if (dashboard.getLifes())
         {
-            impl->dashboard.decrementLifes();
+            dashboard.decrementLifes();
         }
 
         break;
@@ -546,7 +548,7 @@ void GameController::executePlayerCellAction() const &
     {
         context.getSoundsManager().playFoundLifeOrTimeSound();
 
-        impl->dashboard.increaseWatchingTime();
+        dashboard.increaseWatchingTime();
 
         break;
     }
@@ -555,9 +557,9 @@ void GameController::executePlayerCellAction() const &
         context.getSoundsManager().playFoundDeadOrLessTimeSound();
 
         constexpr unsigned short MINIMUM_WATCHING_TIME {3};
-        if (impl->dashboard.getWatchingTime() != MINIMUM_WATCHING_TIME)
+        if (dashboard.getWatchingTime() != MINIMUM_WATCHING_TIME)
         {
-            impl->dashboard.decreaseWatchingTime();
+            dashboard.decreaseWatchingTime();
         }
 
         break;
@@ -595,8 +597,8 @@ void GameController::executePlayerCellAction() const &
     case cells::ARRIVAL_CELL:
     {
         if (
-            impl->dashboard.getFoundStarsAmount() ==
-            impl->level->getStarsAmount()
+            dashboard.getFoundStarsAmount() ==
+            level->getStarsAmount()
         )
         {
             impl->win = true;
