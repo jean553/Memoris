@@ -516,8 +516,7 @@ void GameController::executePlayerCellAction() const &
         impl->effects.push_back(
             std::make_unique<utils::PickUpEffect>(
                 context.getTexturesManager().getStarTexture(),
-                positions.first,
-                positions.second
+                positions
             )
         );
 

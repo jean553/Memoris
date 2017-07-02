@@ -41,14 +41,13 @@ public:
 
     Impl(
         const sf::Texture& texture,
-        const float& horizontalPosition,
-        const float& verticalPosition
+        const std::pair<float, float>& positions
     )
     {
         sprite.setTexture(texture);
         sprite.setPosition(
-            horizontalPosition,
-            verticalPosition
+            positions.first,
+            positions.second
         );
     }
 
@@ -64,14 +63,12 @@ public:
  */
 PickUpEffect::PickUpEffect(
     const sf::Texture& texture,
-    const float& horizontalPosition,
-    const float& verticalPosition
+    const std::pair<float, float>& positions
 ) :
     impl(
         std::make_unique<Impl>(
             texture,
-            horizontalPosition,
-            verticalPosition
+            positions
         )
     )
 {
