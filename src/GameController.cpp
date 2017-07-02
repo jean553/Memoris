@@ -494,9 +494,9 @@ const ControllerId& GameController::render() const &
  */
 void GameController::executePlayerCellAction() const &
 {
-    const auto& newPlayerCellType = impl->level->getPlayerCellType();
-    const auto& context = getContext();
     const auto& level = impl->level;
+    const auto& newPlayerCellType = level->getPlayerCellType();
+    const auto& context = getContext();
     const auto& dashboard = impl->dashboard;
     const auto& soundsManager = context.getSoundsManager();
 
@@ -537,12 +537,11 @@ void GameController::executePlayerCellAction() const &
         if (dashboard.getLifes() == 0)
         {
             endLevel();
+
+            break;
         }
 
-        if (dashboard.getLifes())
-        {
-            dashboard.decrementLifes();
-        }
+        dashboard.decrementLifes();
 
         break;
     }
