@@ -511,11 +511,13 @@ void GameController::executePlayerCellAction() const &
 
         dashboard.incrementFoundStars();
 
+        const auto& positions = level->getPlayerPosition();
+
         impl->effects.push_back(
             std::make_unique<utils::PickUpEffect>(
                 context.getTexturesManager().getStarTexture(),
-                level->getPlayerCellHorizontalPosition(),
-                level->getPlayerCellVerticalPosition()
+                positions.first,
+                positions.second
             )
         );
 
