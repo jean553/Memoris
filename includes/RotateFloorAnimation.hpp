@@ -39,13 +39,21 @@ class RotateFloorAnimation : public LevelAnimation
 public:
 
     /**
+     * @brief RotateFloorAnimation::MovementDirection
+     * @brief the rotate floor animation can rotate to the left or to the right
+     */
+    enum class MovementDirection {
+        Left, /** < move to the left */
+        Right /** < move to the right */
+    };
+
+    /**
      * @brief constructor
      *
      * @param context the context to use
      * @param level the level of the animation
      * @param floor the floor index of the level
-     * @param direction indicates if the movement is clockwise or not;
-     * usually contains 1 or -1
+     * @param moveDirection indicates if the movement is clockwise or not
      *
      * NOTE: we use a signed integer for the direction and not an enumeration;
      * it's more convenient as we directly use the integer value
@@ -55,7 +63,7 @@ public:
         const utils::Context& context,
         const std::shared_ptr<entities::Level>& level,
         const unsigned short& floor,
-        const short& direction
+        const MovementDirection& moveDirection
     );
 
     /**

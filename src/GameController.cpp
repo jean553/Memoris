@@ -693,7 +693,7 @@ void GameController::executePlayerCellAction() const &
             context,
             level,
             floor,
-            -1
+            animations::RotateFloorAnimation::MovementDirection::Left
         );
 
         break;
@@ -704,7 +704,7 @@ void GameController::executePlayerCellAction() const &
             context,
             level,
             floor,
-            1
+            animations::RotateFloorAnimation::MovementDirection::Right
         );
 
         break;

@@ -38,9 +38,18 @@ class RotateFloorAnimation::Impl
 
 public:
 
-    Impl(const short& direction) :
-        direction(direction)
+    Impl(const MovementDirection& moveDirection)
     {
+        /* TODO: #1250 check if the direction variable can be deleted and
+           if only the enumeration can be used */
+        if (moveDirection == MovementDirection::Left)
+        {
+            direction = -1;
+        }
+        else
+        {
+            direction = 1;
+        }
     }
 
     short direction;
@@ -53,14 +62,14 @@ RotateFloorAnimation::RotateFloorAnimation(
     const utils::Context& context,
     const std::shared_ptr<entities::Level>& level,
     const unsigned short& floor,
-    const short& direction
+    const MovementDirection& moveDirection
 ) : 
     LevelAnimation(
         context,
         level,
         floor
     ),
-    impl(std::make_unique<Impl>(direction))
+    impl(std::make_unique<Impl>(moveDirection))
 {
 }
 
