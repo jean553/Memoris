@@ -504,6 +504,8 @@ void GameController::executePlayerCellAction() const &
     auto& animation = impl->animation;
     auto& floorMovement = impl->floorMovement;
 
+    constexpr unsigned short CELLS_PER_FLOOR {256};
+
     switch(newPlayerCellType)
     {
     case cells::STAR_CELL:
@@ -606,9 +608,10 @@ void GameController::executePlayerCellAction() const &
     case cells::ELEVATOR_UP_CELL:
     {
         unsigned short index = level->getPlayerCellIndex();
-        const unsigned short nextFloorIndex = index + 256;
+        const unsigned short nextFloorIndex = index + CELLS_PER_FLOOR;
 
-        if (nextFloorIndex > 2560)
+        constexpr unsigned short CELLS_PER_LEVEL {2560};
+        if (nextFloorIndex > CELLS_PER_LEVEL)
         {
             break;
         }
@@ -632,7 +635,7 @@ void GameController::executePlayerCellAction() const &
     case cells::ELEVATOR_DOWN_CELL:
     {
         unsigned short index = level->getPlayerCellIndex();
-        const unsigned short previousFloorIndex = index - 256;
+        const unsigned short previousFloorIndex = index - CELLS_PER_FLOOR;
 
         if (previousFloorIndex < 0)
         {
