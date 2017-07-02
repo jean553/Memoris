@@ -568,24 +568,42 @@ void GameController::executePlayerCellAction() const &
     case cells::STAIRS_UP_CELL:
     case cells::ELEVATOR_UP_CELL:
     {
-        if (level->canMovePlayerToNextFloor())
-        {
-            animation = getAnimationByCell(newPlayerCellType);
+        unsigned short index = level->getPlayerCellIndex();
+        const unsigned short nextFloorIndex = index + 256;
 
-            floorMovement = 1;
+        if (nextFloorIndex > 2560)
+        {
+            break;
         }
+
+        level->setPlayerCellIndex(nextFloorIndex);
+
+        level->showPlayerCell();
+
+        animation = getAnimationByCell(newPlayerCellType);
+
+        floorMovement = 1;
 
         break;
     }
     case cells::STAIRS_DOWN_CELL:
     case cells::ELEVATOR_DOWN_CELL:
     {
-        if (level->canMovePlayerToPreviousFloor())
-        {
-            animation = getAnimationByCell(newPlayerCellType);
+        unsigned short index = level->getPlayerCellIndex();
+        const unsigned short previousFloorIndex = index - 256;
 
-            floorMovement = -1;
+        if (previousFloorIndex < 0)
+        {
+            break;
         }
+
+        level->setPlayerCellIndex(previousFloorIndex);
+
+        level->showPlayerCell();
+
+        animation = getAnimationByCell(newPlayerCellType);
+
+        floorMovement = -1;
 
         break;
     }

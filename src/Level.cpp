@@ -375,44 +375,6 @@ void Level::emptyPlayerCell()
 /**
  *
  */
-bool Level::canMovePlayerToNextFloor()
-{
-    unsigned short newIndex = impl->playerIndex + 256;
-
-    if (newIndex > 2560)
-    {
-        return false;
-    }
-
-    impl->playerIndex = newIndex;
-
-    (*impl->cells[impl->playerIndex]).show(impl->context);
-
-    return true;
-}
-
-/**
- *
- */
-bool Level::canMovePlayerToPreviousFloor()
-{
-    short newIndex = impl->playerIndex - 256;
-
-    if (newIndex < 0)
-    {
-        return false;
-    }
-
-    impl->playerIndex = static_cast<unsigned short>(newIndex);
-
-    (*impl->cells[impl->playerIndex]).show(impl->context);
-
-    return true;
-}
-
-/**
- *
- */
 const unsigned short& Level::getStarsAmount()
 {
     return impl->starsAmount;
