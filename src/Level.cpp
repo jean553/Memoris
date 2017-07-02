@@ -375,7 +375,7 @@ void Level::emptyPlayerCell()
 /**
  *
  */
-bool Level::movePlayerToNextFloor()
+bool Level::canMovePlayerToNextFloor()
 {
     unsigned short newIndex = impl->playerIndex + 256;
 
@@ -394,7 +394,7 @@ bool Level::movePlayerToNextFloor()
 /**
  *
  */
-bool Level::movePlayerToPreviousFloor()
+bool Level::canMovePlayerToPreviousFloor()
 {
     short newIndex = impl->playerIndex - 256;
 

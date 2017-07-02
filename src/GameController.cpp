@@ -569,7 +569,7 @@ void GameController::executePlayerCellAction() const &
     case cells::STAIRS_UP_CELL:
     case cells::ELEVATOR_UP_CELL:
     {
-        if (impl->level->movePlayerToNextFloor())
+        if (level->canMovePlayerToNextFloor())
         {
             animation = getAnimationByCell(newPlayerCellType);
 
@@ -581,7 +581,7 @@ void GameController::executePlayerCellAction() const &
     case cells::STAIRS_DOWN_CELL:
     case cells::ELEVATOR_DOWN_CELL:
     {
-        if (impl->level->movePlayerToPreviousFloor())
+        if (level->canMovePlayerToPreviousFloor())
         {
             animation = getAnimationByCell(newPlayerCellType);
 

@@ -198,7 +198,7 @@ public:
      *
      * @bool true if the player moved to the next floor
      */
-    bool movePlayerToNextFloor();
+    bool canMovePlayerToNextFloor();
 
     /**
      * @brief moves the current player to the previous floor if possible,
@@ -207,7 +207,7 @@ public:
      *
      * @bool true if the player moved to the previous floor
      */
-    bool movePlayerToPreviousFloor();
+    bool canMovePlayerToPreviousFloor();
 
     /**
      * @brief getter of the total stars amount in the level; this is used by
