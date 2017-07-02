@@ -136,6 +136,14 @@ public:
     void makeRightMovement() const & noexcept;
 
     /**
+     * @brief returns the position (both horizontal and vertical)
+     * of the current player cell
+     *
+     * @return const std::pair<float, float>
+     */
+    const std::pair<float, float> getPlayerPosition() const & noexcept;
+
+    /**
      * @brief checks if the player is allowed to go in the expected direction
      * (does not leave the level or colide with a wall)
      *
@@ -323,20 +331,6 @@ public:
      * never caught and the program just stops if it happens
      */
     void refresh() &;
-
-    /**
-     * @brief getter of the player cell horizontal position
-     *
-     * @return const float&
-     */
-    const float& getPlayerCellHorizontalPosition() const & noexcept;
-
-    /**
-     * @brief getter of the player cell vertical position
-     *
-     * @return const float&
-     */
-    const float& getPlayerCellVerticalPosition() const & noexcept;
 
     /**
      * @brief show all the cells (this is used by the level editor, just

@@ -242,6 +242,18 @@ void Level::makeRightMovement() const & noexcept
 /**
  *
  */
+const std::pair<float, float> Level::getPlayerPosition() const & noexcept
+{
+    const auto& cell = (*impl->cells[impl->playerIndex]);
+    return std::make_pair(
+        cell.getHorizontalPosition(),
+        cell.getVerticalPosition()
+    );
+}
+
+/**
+ *
+ */
 const bool Level::isPlayerMovementAllowed(
     const sf::Event& event,
     const unsigned short& floor
@@ -591,22 +603,6 @@ void Level::refresh() &
         cell->show(impl->context);
     }
     );
-}
-
-/**
- *
- */
-const float& Level::getPlayerCellHorizontalPosition() const & noexcept
-{
-    return (*impl->cells[impl->playerIndex]).getHorizontalPosition();
-}
-
-/**
- *
- */
-const float& Level::getPlayerCellVerticalPosition() const & noexcept
-{
-    return (*impl->cells[impl->playerIndex]).getVerticalPosition();
 }
 
 /**

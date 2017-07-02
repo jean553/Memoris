@@ -49,16 +49,14 @@ public:
      * @brief constructor
      *
      * @param texture the texture to animate
-     * @param horizontalPosition the horizontal position of the animation
-     * @param verticalPosition the vertical position of the animation
+     * @param positions horizontal and vertical positions
      *
      * @throw std::bad_alloc cannot initialize the implementation;
      * this exception is never caught and the program stops
      */
     PickUpEffect(
         const sf::Texture& texture,
-        const float& horizontalPosition,
-        const float& verticalPosition
+        const std::pair<float, float>& positions
     );
 
     PickUpEffect(const PickUpEffect&) = delete;
