@@ -565,6 +565,42 @@ void GameController::executePlayerCellAction() const &
 
         break;
     }
+    case cells::ARRIVAL_CELL:
+    {
+        if (
+            dashboard.getFoundStarsAmount() ==
+            level->getStarsAmount()
+        )
+        {
+            impl->win = true;
+
+            const auto& editingLevelManager = context.getEditingLevelManager();
+            const auto& editedLevel = editingLevelManager.getLevel();
+
+            const auto& playingSerieManager = context.getPlayingSerieManager();
+            playingSerieManager.addSecondsToPlayingSerieTime(
+                impl->playingTime
+            );
+
+            if (editedLevel != nullptr)
+            {
+                setExpectedControllerId(ControllerId::LevelEditor);
+
+                return;
+            }
+
+            if (playingSerieManager.hasNextLevel())
+            {
+                endLevel();
+            }
+            else
+            {
+                setExpectedControllerId(ControllerId::WinSerie);
+            }
+        }
+
+        break;
+    }
     case cells::STAIRS_UP_CELL:
     case cells::ELEVATOR_UP_CELL:
     {
@@ -610,42 +646,6 @@ void GameController::executePlayerCellAction() const &
     case cells::QUARTER_ROTATION_CELL:
     {
         animation = getAnimationByCell(newPlayerCellType);
-
-        break;
-    }
-    case cells::ARRIVAL_CELL:
-    {
-        if (
-            dashboard.getFoundStarsAmount() ==
-            level->getStarsAmount()
-        )
-        {
-            impl->win = true;
-
-            const auto& editingLevelManager = context.getEditingLevelManager();
-            const auto& editedLevel = editingLevelManager.getLevel();
-
-            const auto& playingSerieManager = context.getPlayingSerieManager();
-            playingSerieManager.addSecondsToPlayingSerieTime(
-                impl->playingTime
-            );
-
-            if (editedLevel != nullptr)
-            {
-                setExpectedControllerId(ControllerId::LevelEditor);
-
-                return;
-            }
-
-            if (playingSerieManager.hasNextLevel())
-            {
-                endLevel();
-            }
-            else
-            {
-                setExpectedControllerId(ControllerId::WinSerie);
-            }
-        }
 
         break;
     }
