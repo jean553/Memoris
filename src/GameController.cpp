@@ -437,12 +437,12 @@ const ControllerId& GameController::render() const &
                     break;
                 }
 
-                if (
-                    not level->isPlayerMovementAllowed(
-                        event,
-                        impl->floor
-                    )
-                )
+                const bool movementAllowed = level->isPlayerMovementAllowed(
+                    event,
+                    floor
+                );
+
+                if (not movementAllowed)
                 {
                     context.getSoundsManager().playCollisionSound();
 
