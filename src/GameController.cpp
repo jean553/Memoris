@@ -655,13 +655,64 @@ void GameController::executePlayerCellAction() const &
         break;
     }
     case cells::HORIZONTAL_MIRROR_CELL:
+    {
+        animation = std::make_unique<animations::HorizontalMirrorAnimation>(
+            context,
+            level,
+            floor
+        );
+
+        break;
+    }
     case cells::VERTICAL_MIRROR_CELL:
+    {
+        animation = std::make_unique<animations::VerticalMirrorAnimation>(
+            context,
+            level,
+            floor
+        );
+
+        break;
+    }
     case cells::DIAGONAL_CELL:
+    {
+        animation = std::make_unique<animations::DiagonalAnimation>(
+            context,
+            level,
+            floor
+        );
+
+        break;
+    }
     case cells::LEFT_ROTATION_CELL:
+    {
+        animation = std::make_unique<animations::RotateFloorAnimation>(
+            context,
+            level,
+            floor,
+            -1
+        );
+
+        break;
+    }
     case cells::RIGHT_ROTATION_CELL:
+    {
+        animation = std::make_unique<animations::RotateFloorAnimation>(
+            context,
+            level,
+            floor,
+            1
+        );
+
+        break;
+    }
     case cells::QUARTER_ROTATION_CELL:
     {
-        animation = getAnimationByCell(newPlayerCellType);
+        animation = std::make_unique<animations::QuarterRotationAnimation>(
+            context,
+            level,
+            floor
+        );
 
         break;
     }
@@ -731,72 +782,6 @@ void GameController::endLevel() const &
     impl->timerWidget.stop();
 
     impl->endPeriodStartTime = context.getClockMillisecondsTime();
-}
-
-/**
- *
- */
-std::unique_ptr<animations::LevelAnimation> GameController::getAnimationByCell(
-    const char& cellType
-) const &
-{
-    const auto& context = getContext();
-    const auto& level = impl->level;
-    const auto& floor = impl->floor;
-
-    switch(cellType)
-    {
-    case cells::VERTICAL_MIRROR_CELL:
-    {
-        return std::make_unique<animations::VerticalMirrorAnimation>(
-            context,
-            level,
-            floor
-        );
-    }
-    case cells::DIAGONAL_CELL:
-    {
-        return std::make_unique<animations::DiagonalAnimation>(
-            context,
-            level,
-            floor
-        );
-    }
-    case cells::LEFT_ROTATION_CELL:
-    {
-        return std::make_unique<animations::RotateFloorAnimation>(
-            context,
-            level,
-            floor,
-            -1
-        );
-    }
-    case cells::RIGHT_ROTATION_CELL:
-    {
-        return std::make_unique<animations::RotateFloorAnimation>(
-            context,
-            level,
-            floor,
-            1
-        );
-    }
-    case cells::QUARTER_ROTATION_CELL:
-    {
-        return std::make_unique<animations::QuarterRotationAnimation>(
-            context,
-            level,
-            floor
-        );
-    }
-    default:
-    {
-        return std::make_unique<animations::HorizontalMirrorAnimation>(
-            context,
-            level,
-            floor
-        );
-    }
-    }
 }
 
 }

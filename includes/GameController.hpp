@@ -148,21 +148,6 @@ private:
     void endLevel() const &;
 
     /**
-     * @brief creates a level animation pointer; the animations
-     * are dynamically created and destroyed during the game
-     *
-     * @param cellType the cell type for the animation selection
-     *
-     * @return std::unique_ptr<animations::LevelAnimation>
-     *
-     * @throw std::bad_alloc the pointer cannot be initialized;
-     * the exception is never caught and the program stops
-     */
-    std::unique_ptr<animations::LevelAnimation> getAnimationByCell(
-        const char& cellType
-    ) const &;
-
-    /**
      * @brief starts the watching period (when start a level during the game)
      *
      * not noexcept because it calls SFML methods that are not noexcept
