@@ -498,6 +498,7 @@ void GameController::executePlayerCellAction() const &
     const auto& context = getContext();
     const auto& level = impl->level;
     const auto& dashboard = impl->dashboard;
+    const auto& soundsManager = context.getSoundsManager();
 
     auto& animation = impl->animation;
     auto& floorMovement = impl->floorMovement;
@@ -506,7 +507,7 @@ void GameController::executePlayerCellAction() const &
     {
     case cells::STAR_CELL:
     {
-        context.getSoundsManager().playFoundStarSound();
+        soundsManager.playFoundStarSound();
 
         dashboard.incrementFoundStars();
 
@@ -522,7 +523,7 @@ void GameController::executePlayerCellAction() const &
     }
     case cells::MORE_LIFE_CELL:
     {
-        context.getSoundsManager().playFoundLifeOrTimeSound();
+        soundsManager.playFoundLifeOrTimeSound();
 
         dashboard.incrementLifes();
 
@@ -530,7 +531,7 @@ void GameController::executePlayerCellAction() const &
     }
     case cells::LESS_LIFE_CELL:
     {
-        context.getSoundsManager().playFoundDeadOrLessTimeSound();
+        soundsManager.playFoundDeadOrLessTimeSound();
 
         if (dashboard.getLifes() == 0)
         {
@@ -546,7 +547,7 @@ void GameController::executePlayerCellAction() const &
     }
     case cells::MORE_TIME_CELL:
     {
-        context.getSoundsManager().playFoundLifeOrTimeSound();
+        soundsManager.playFoundLifeOrTimeSound();
 
         dashboard.increaseWatchingTime();
 
@@ -554,7 +555,7 @@ void GameController::executePlayerCellAction() const &
     }
     case cells::LESS_TIME_CELL:
     {
-        context.getSoundsManager().playFoundDeadOrLessTimeSound();
+        soundsManager.playFoundDeadOrLessTimeSound();
 
         constexpr unsigned short MINIMUM_WATCHING_TIME {3};
         if (dashboard.getWatchingTime() != MINIMUM_WATCHING_TIME)
