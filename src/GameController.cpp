@@ -499,6 +499,7 @@ void GameController::executePlayerCellAction() const &
     const auto& context = getContext();
     const auto& dashboard = impl->dashboard;
     const auto& soundsManager = context.getSoundsManager();
+    const auto& floor = impl->floor;
 
     auto& animation = impl->animation;
     auto& floorMovement = impl->floorMovement;
@@ -616,7 +617,12 @@ void GameController::executePlayerCellAction() const &
 
         level->showPlayerCell();
 
-        animation = getAnimationByCell(newPlayerCellType);
+        animation = std::make_unique<animations::StairsAnimation>(
+            context,
+            level,
+            floor,
+            animations::StairsAnimation::FloorMoveDirection::Up
+        );
 
         floorMovement = 1;
 
@@ -637,7 +643,12 @@ void GameController::executePlayerCellAction() const &
 
         level->showPlayerCell();
 
-        animation = getAnimationByCell(newPlayerCellType);
+        animation = std::make_unique<animations::StairsAnimation>(
+            context,
+            level,
+            floor,
+            animations::StairsAnimation::FloorMoveDirection::Down
+        );
 
         floorMovement = -1;
 
@@ -742,26 +753,6 @@ std::unique_ptr<animations::LevelAnimation> GameController::getAnimationByCell(
             level,
             floor
         );
-    }
-    case cells::STAIRS_UP_CELL:
-    case cells::ELEVATOR_UP_CELL:
-    {
-        return std::make_unique<animations::StairsAnimation>(
-                   context,
-                   level,
-                   floor,
-                   animations::StairsAnimation::FloorMoveDirection::Up
-               );
-    }
-    case cells::ELEVATOR_DOWN_CELL:
-    case cells::STAIRS_DOWN_CELL:
-    {
-        return std::make_unique<animations::StairsAnimation>(
-                   context,
-                   level,
-                   floor,
-                   animations::StairsAnimation::FloorMoveDirection::Down
-               );
     }
     case cells::DIAGONAL_CELL:
     {
