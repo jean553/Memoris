@@ -137,7 +137,7 @@ private:
      * @brief this method ends the level, it displays the win or lose screen
      * according if the player has just won or lost the current level
      */
-    void endLevel() const &;
+    void endGame() const &;
 
     /**
      * @brief starts the watching period (when start a level during the game)
