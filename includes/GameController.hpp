@@ -134,14 +134,6 @@ private:
     void executePlayerCellAction() const &;
 
     /**
-     * @brief this method is called during the watching mode by the main
-     * display method to jump to the next floor if the next floor is a playable
-     * floor or to stop the watching period if there is no playable floor
-     * anymore; this function is called at each 'watching time interval'
-     */
-    void watchNextFloorOrHideLevel() const &;
-
-    /**
      * @brief this method ends the level, it displays the win or lose screen
      * according if the player has just won or lost the current level
      */

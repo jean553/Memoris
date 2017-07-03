@@ -725,32 +725,6 @@ void GameController::executePlayerCellAction() const &
 /**
  *
  */
-void GameController::watchNextFloorOrHideLevel() const &
-{
-    const auto& context = getContext();
-
-    if (impl->floor != impl->level->getLastPlayableFloor())
-    {
-        impl->floor++;
-
-        context.getSoundsManager().playFloorSwitchSound();
-
-        impl->dashboard.updateCurrentFloor(impl->floor);
-
-        impl->displayedWatchingTime =
-            context.getPlayingSerieManager().getWatchingTime();
-
-        return;
-    }
-
-    startGame();
-
-    context.getSoundsManager().playHideLevelSound();
-}
-
-/**
- *
- */
 void GameController::endLevel() const &
 {
     const auto& context = getContext();
