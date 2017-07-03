@@ -56,8 +56,6 @@ public:
      *
      * @param context the context to use
      * @param level the level object to load
-     * @param enableWatchingPeriod set if there is a watching period or not
-     * (there is this period during the game, not the test of the editor )
      * @param the default watching time to display when the game starts
      *
      * @throw std::invalid_argument the level file cannot be opened
@@ -130,12 +128,16 @@ private:
     /**
      * @brief applies the action of the new player cell; this method is called
      * immediately after the player moved
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
      */
     void executePlayerCellAction() const &;
 
     /**
      * @brief this method ends the level, it displays the win or lose screen
      * according if the player has just won or lost the current level
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
      */
     void endGame() const &;
 

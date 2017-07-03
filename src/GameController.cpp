@@ -26,13 +26,8 @@
 
 #include "controllers_ids.hpp"
 #include "cells.hpp"
-#include "window.hpp"
-#include "fonts_sizes.hpp"
-#include "controllers.hpp"
 #include "PlayingSerieManager.hpp"
 #include "SoundsManager.hpp"
-#include "FontsManager.hpp"
-#include "ColorsManager.hpp"
 #include "GameDashboard.hpp"
 #include "TimerWidget.hpp"
 #include "WinLevelEndingScreen.hpp"
@@ -86,9 +81,7 @@ public:
     }
 
     sf::Uint32 playerCellAnimationTime {0};
-    sf::Uint32 leftLevelsAmountLastAnimationTime {0};
     sf::Uint32 endPeriodStartTime {0};
-    sf::Uint32 lastWatchingTimeUpdate {0};
 
     short floorMovement {0};
 
@@ -102,9 +95,6 @@ public:
     bool hasWatchingPeriod;
 
     sf::Uint8 playerCellTransparency {64};
-    sf::Uint8 leftLevelsAmountTransparency {255};
-
-    sf::Int8 leftLevelsAmountDirection {-17};
 
     sf::Int32 lastTime {0};
 
@@ -231,7 +221,7 @@ void GameController::handlePickupEffects() const &
         else
         {
             (*iterator)->render(getContext());
-            ++iterator;
+            iterator += 1;
         }
     }
 }
@@ -369,7 +359,7 @@ const ControllerId& GameController::render() const &
         {
             timerWidget.decrementPlayingTimer();
 
-            impl->playingTime++;
+            impl->playingTime += 1;
 
             if(
                 timerWidget.isTimeOver() and
