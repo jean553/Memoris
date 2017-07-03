@@ -376,7 +376,7 @@ const ControllerId& GameController::render() const &
                 impl->hasWatchingPeriod
             )
             {
-                endLevel();
+                endGame();
             }
         }
 
@@ -539,7 +539,7 @@ void GameController::executePlayerCellAction() const &
 
         if (dashboard.getLifes() == 0)
         {
-            endLevel();
+            endGame();
 
             break;
         }
@@ -594,7 +594,7 @@ void GameController::executePlayerCellAction() const &
 
             if (playingSerieManager.hasNextLevel())
             {
-                endLevel();
+                endGame();
             }
             else
             {
@@ -725,22 +725,20 @@ void GameController::executePlayerCellAction() const &
 /**
  *
  */
-void GameController::endLevel() const &
+void GameController::endGame() const &
 {
     const auto& context = getContext();
+    const auto& soundsManager = context.getSoundsManager();
+    auto& endingScreen = impl->endingScreen;
 
     if (impl->win)
     {
-        // auto -> const managers::PlayingSerieManager&
         const auto& serieManager = context.getPlayingSerieManager();
-
-        // auto -> const utils::GameDashboard&
         const auto& dashboard = impl->dashboard;
 
-        context.getSoundsManager().playWinLevelSound();
+        soundsManager.playWinLevelSound();
 
-        impl->endingScreen =
-            std::make_unique<utils::WinLevelEndingScreen>(context);
+        endingScreen = std::make_unique<utils::WinLevelEndingScreen>(context);
 
         serieManager.incrementLevelIndex();
         serieManager.setWatchingTime(dashboard.getWatchingTime());
@@ -750,10 +748,9 @@ void GameController::endLevel() const &
     {
         context.stopMusic();
 
-        context.getSoundsManager().playTimeOverSound();
+        soundsManager.playTimeOverSound();
 
-        impl->endingScreen =
-            std::make_unique<utils::LoseLevelEndingScreen>(context);
+        endingScreen = std::make_unique<utils::LoseLevelEndingScreen>(context);
     }
 
     impl->timerWidget.stop();

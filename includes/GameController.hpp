@@ -137,14 +137,7 @@ private:
      * @brief this method ends the level, it displays the win or lose screen
      * according if the player has just won or lost the current level
      */
-    void endLevel() const &;
-
-    /**
-     * @brief starts the watching period (when start a level during the game)
-     *
-     * not noexcept because it calls SFML methods that are not noexcept
-     */
-    void startWatchingPeriod() const &;
+    void endGame() const &;
 
     class Impl;
     std::unique_ptr<Impl> impl;
