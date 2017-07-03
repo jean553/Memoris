@@ -139,13 +139,6 @@ private:
      */
     void endGame() const &;
 
-    /**
-     * @brief starts the watching period (when start a level during the game)
-     *
-     * not noexcept because it calls SFML methods that are not noexcept
-     */
-    void startWatchingPeriod() const &;
-
     class Impl;
     std::unique_ptr<Impl> impl;
 };
