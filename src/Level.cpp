@@ -55,14 +55,11 @@ public:
     unsigned short starsAmount {0};
     unsigned short minutes {0};
     unsigned short seconds {0};
+    unsigned short lastPlayableCell {0};
 
     bool animateFloorTransition {false};
 
     sf::Uint32 lastAnimationTime {0};
-
-    unsigned short horizontalPositionCursor {0};
-    unsigned short verticalPositionCursor {0};
-    unsigned short lastPlayableCell {0};
 
     std::unique_ptr<sf::Transform> transform {nullptr};
 
@@ -75,6 +72,8 @@ public:
 Level::Level(const utils::Context& context) :
     impl(std::make_unique<Impl>(context))
 {
+    unsigned short row {0}, column {0};
+
     for(
         unsigned short index {0};
         index < CELLS_PER_LEVEL;
@@ -82,12 +81,15 @@ Level::Level(const utils::Context& context) :
     )
     {
         std::unique_ptr<Cell> cell = getCellByType(
-            static_cast<float>(impl->horizontalPositionCursor),
-            static_cast<float>(impl->verticalPositionCursor),
+            static_cast<float>(column),
+            static_cast<float>(row),
             cells::WALL_CELL
         );
 
-        updateCursors();
+        incrementRowAndColumnIndexes(
+            row,
+            column
+        );
 
         impl->cells.push_back(std::move(cell));
     }
@@ -119,6 +121,8 @@ Level::Level(
     impl->minutes = static_cast<unsigned short>(std::stoi(min));
     impl->seconds = static_cast<unsigned short>(std::stoi(sec));
 
+    unsigned short row {0}, column {0};
+
     for(
         unsigned short index {0}; 
         index < CELLS_PER_LEVEL; 
@@ -133,9 +137,14 @@ Level::Level(
         }
 
         std::unique_ptr<Cell> cell = getCellByType(
-            static_cast<float>(impl->horizontalPositionCursor),
-            static_cast<float>(impl->verticalPositionCursor),
+            static_cast<float>(column),
+            static_cast<float>(row),
             cellType
+        );
+
+        incrementRowAndColumnIndexes(
+            row,
+            column
         );
 
         switch(cellType)
@@ -159,8 +168,6 @@ Level::Level(
             impl->lastPlayableCell = index;
         }
 
-        updateCursors();
-
         impl->cells.push_back(std::move(cell));
     }
 }
@@ -169,6 +176,27 @@ Level::Level(
  *
  */
 Level::~Level() = default;
+
+/**
+ *
+ */
+void Level::incrementRowAndColumnIndexes(
+    unsigned short& row,
+    unsigned short& column
+) const & noexcept
+{
+    column += 1;
+    if (column % CELLS_PER_LINE == 0)
+    {
+        column = 0;
+        row += 1;
+
+        if (row % CELLS_PER_LINE == 0)
+        {
+            row = 0;
+        }
+    }
+}
 
 /**
  *
@@ -480,26 +508,6 @@ void Level::rotateAllCells(const short& degrees)
 void Level::deleteTransform()
 {
     impl->transform.reset();
-}
-
-/**
- *
- */
-void Level::updateCursors() const & noexcept
-{
-    impl->horizontalPositionCursor++;
-
-    if (impl->horizontalPositionCursor % CELLS_PER_LINE == 0)
-    {
-        impl->horizontalPositionCursor = 0;
-
-        impl->verticalPositionCursor++;
-
-        if (impl->verticalPositionCursor % CELLS_PER_LINE == 0)
-        {
-            impl->verticalPositionCursor = 0;
-        }
-    }
 }
 
 /**
