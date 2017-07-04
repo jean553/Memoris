@@ -55,14 +55,11 @@ public:
     unsigned short starsAmount {0};
     unsigned short minutes {0};
     unsigned short seconds {0};
+    unsigned short lastPlayableCell {0};
 
     bool animateFloorTransition {false};
 
     sf::Uint32 lastAnimationTime {0};
-
-    unsigned short horizontalPositionCursor {0};
-    unsigned short verticalPositionCursor {0};
-    unsigned short lastPlayableCell {0};
 
     std::unique_ptr<sf::Transform> transform {nullptr};
 
