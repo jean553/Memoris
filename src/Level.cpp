@@ -84,22 +84,15 @@ Level::Level(const utils::Context& context) :
     )
     {
         std::unique_ptr<Cell> cell = getCellByType(
-            static_cast<float>(row),
             static_cast<float>(column),
+            static_cast<float>(row),
             cells::WALL_CELL
         );
 
-        row += 1;
-        if (row % CELLS_PER_LINE == 0)
-        {
-            row = 0;
-            column += 1;
-
-            if (column % CELLS_PER_LINE == 0)
-            {
-                column = 0;
-            }
-        }
+        incrementRowAndColumnIndexes(
+            row,
+            column
+        );
 
         impl->cells.push_back(std::move(cell));
     }
@@ -147,22 +140,15 @@ Level::Level(
         }
 
         std::unique_ptr<Cell> cell = getCellByType(
-            static_cast<float>(row),
             static_cast<float>(column),
+            static_cast<float>(row),
             cellType
         );
 
-        row += 1;
-        if (row % CELLS_PER_LINE == 0)
-        {
-            row = 0;
-            column += 1;
-
-            if (column % CELLS_PER_LINE == 0)
-            {
-                column = 0;
-            }
-        }
+        incrementRowAndColumnIndexes(
+            row,
+            column
+        );
 
         switch(cellType)
         {
@@ -193,6 +179,27 @@ Level::Level(
  *
  */
 Level::~Level() = default;
+
+/**
+ *
+ */
+void Level::incrementRowAndColumnIndexes(
+    unsigned short& row,
+    unsigned short& column
+) const & noexcept
+{
+    column += 1;
+    if (column % CELLS_PER_LINE == 0)
+    {
+        column = 0;
+        row += 1;
+
+        if (row % CELLS_PER_LINE == 0)
+        {
+            row = 0;
+        }
+    }
+}
 
 /**
  *

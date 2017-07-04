@@ -95,6 +95,18 @@ public:
     ~Level();
 
     /**
+     * @brief increment the column index including the row index
+     * if the column index gets its maximum value
+     *
+     * @param row the row to increment
+     * @param column the column to increment
+     */
+    void incrementRowAndColumnIndexes(
+        unsigned short& row,
+        unsigned short& column
+    ) const & noexcept;
+
+    /**
      * @brief returns the floor index with the last cell on it (not a wall one)
      *
      * @return const unsigned short
