@@ -18,7 +18,7 @@
 
 /**
  * @file Level.hpp
- * @brief level entity, contains all the cells
+ * @brief manages the level
  * @package entities
  * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
@@ -361,12 +361,6 @@ public:
         const &;
 
 private:
-
-    /**
-     * @brief called by the constructor to update the cursor position during
-     * the level creation
-     */
-    void updateCursors() const & noexcept;
 
     /**
      * @brief returns a pointer to the created cell according to the given type
