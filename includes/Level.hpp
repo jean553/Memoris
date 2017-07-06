@@ -337,11 +337,12 @@ public:
     const bool hasOneDepartureAndOneArrival() const & noexcept;
 
     /**
-     * @brief set the player on the departure cell if it exists; counts the
-     * total amount of stars on the level; this method is used by the game
-     * controller in order to initialize a level that is edited
+     * @brief set the player on the departure cell if it exists;
+     * counts the amount of stars on the whole level and saves it
+     *
+     * not noexcept because it calls SFML functions that are not noexcept
      */
-    void initializeEditedLevel() const & noexcept;
+    void initializeEditedLevel() const &;
 
     /**
      * @brief creates and returns an array of characters representing the level
