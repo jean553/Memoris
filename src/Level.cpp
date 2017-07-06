@@ -586,9 +586,9 @@ void Level::allCellsAsWalls() const &
  */
 void Level::showAllCells() const &
 {
-    auto& cells = impl->cells;
+    const auto& cells = impl->cells;
 
-    for (auto& cell : cells)
+    for (const auto& cell : cells)
     {
         cell->show(impl->context);
     }

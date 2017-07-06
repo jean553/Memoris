@@ -122,8 +122,9 @@ public:
         );
 
         /* if the previous controller was the game controller, so some cells
-           have been hidden during the game; this function is useless when
-           the editor is loaded from the menu */
+           have been hidden during the game; this function call is only
+           necessary when the editor is opened right after an edited level
+           game */
         level->showAllCells();
 
         constexpr float CELLS_DEFAULT_TRANSPARENCY {255.f};
