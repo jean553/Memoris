@@ -151,6 +151,8 @@ public:
      * @param floor the current displayed floor
      *
      * @return const bool
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
      */
     const bool isPlayerMovementAllowed(
         const sf::Event& event,
@@ -158,13 +160,13 @@ public:
     ) const &;
 
     /**
-     * @brief render the level and all the cells of the given floor; this
-     * method is optimized and only calculate/render/display the cells of
-     * the given floor; the other cells are totally ignored
+     * @brief render all the cells of the given floor
      *
      * @param floor the floor to render
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
      */
-    void display(const unsigned short& floor) const;
+    void display(const unsigned short& floor) const &;
 
     /**
      * @brief update the transparency value of the current player color

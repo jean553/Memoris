@@ -356,7 +356,7 @@ const bool Level::isPlayerMovementAllowed(
 /**
  *
  */
-void Level::display(const unsigned short& floor) const
+void Level::display(const unsigned short& floor) const &
 {
     constexpr unsigned short CELLS_PER_FLOOR {256};
     const unsigned short firstCellIndex = floor * CELLS_PER_FLOOR;
