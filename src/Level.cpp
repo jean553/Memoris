@@ -602,6 +602,12 @@ const bool Level::hasOneDepartureAndOneArrival() const & noexcept
     unsigned short departureCellsAmount {0};
     unsigned short arrivalCellsAmount {0};
 
+    /* this method browses the whole cells list of the level;
+       we could have created two booleans indicating if the departure cell
+       and the arrival cell exists; however this feature is only required
+       for the level editor, so we would have created two useless attributes
+       in case of the level is used into the game (and not into the editor) */
+
     const auto& cells = impl->cells;
     for (const auto& cell : cells)
     {
