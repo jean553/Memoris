@@ -502,7 +502,7 @@ void Level::deleteTransform() const & noexcept
 /**
  *
  */
-void Level::rotateAllCells(const short& degrees)
+void Level::rotateAllCells(const short& degrees) const &
 {
     constexpr float FLOOR_CENTER_HORIZONTAL_POSITION {800.f};
     constexpr float FLOOR_CENTER_VERTICAL_POSITION {498.f};

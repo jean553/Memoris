@@ -275,21 +275,20 @@ public:
      * @brief dynamically delete the SFML transform object
      *
      * TODO: #1261 transform seems useless, check if it is really necessary
-     *
-     * not noexcept because it calls SFML methods that are not noexcept
      */
     void deleteTransform() const & noexcept;
 
     /**
-     * @brief rotate all the cells with the given amount of degrees; the
-     * center of the rotation is the level floor center
+     * @brief rotate all the cells with the given amount of degrees
      *
      * @param degrees amount of degrees for the rotation
      *
      * NOTE: the function createTransform() has to be called AFTER the
      * dynamic creation of a SFML transform object (createTransform()).
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
      */
-    void rotateAllCells(const short& degrees);
+    void rotateAllCells(const short& degrees) const &;
 
     /**
      * @brief check if the mouse is hover a cell on the current floor of the
