@@ -326,24 +326,27 @@ const bool Level::isPlayerMovementAllowed(
     }
     }
 
-    if (
-        expectedIndex < CELLS_PER_FLOOR * floor or
-        expectedIndex >= CELLS_PER_FLOOR * (floor + 1) or
-        (
-            impl->playerIndex % CELLS_PER_LINE == CELLS_PER_LINE - 1 and
-            movement == 1
-        ) or
-        (impl->playerIndex % CELLS_PER_LINE == 0 && movement == -1)
-    )
-    {
-        return false;
-    }
-
     const auto& nextCell = *impl->cells[expectedIndex];
     if(nextCell.getType() == cells::WALL_CELL)
     {
         nextCell.show(impl->context);
 
+        return false;
+    }
+
+    if (
+        expectedIndex < CELLS_PER_FLOOR * floor or
+        expectedIndex >= CELLS_PER_FLOOR * (floor + 1) or
+        (
+            expectedIndex % CELLS_PER_LINE == CELLS_PER_LINE - 1 and
+            movement == 1
+        ) or
+        (
+            expectedIndex % CELLS_PER_LINE == 0 and
+            movement == -1
+        )
+    )
+    {
         return false;
     }
 
