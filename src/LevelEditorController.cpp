@@ -540,6 +540,9 @@ void LevelEditorController::handleControllerEvents() const &
             }
             }
 
+            /* TODO: #1264 these two method names are not explicit enough;
+               these two conditions have to be reworked */
+
             if(cellIsSelectedFromCellsSelector())
             {
                 impl->selector.selectMouseHoverCell();

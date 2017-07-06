@@ -291,22 +291,21 @@ public:
     void rotateAllCells(const short& degrees) const &;
 
     /**
-     * @brief check if the mouse is hover a cell on the current floor of the
-     * the level and replace it with the given type; returns a boolean that
+     * @brief checks if the mouse is hover a cell on the current floor and
+     * replaces it with the given type; returns a boolean that
      * indicates if the level has been modified or not
      *
      * @param floor the current level floor displayed
-     * @param type the type to apply on the 'mouse hover cell'
+     * @param type the type to apply on the 'mouse hover' cell
      *
      * @return const bool
      *
-     * does not return a reference to a bool because the returned boolean is
-     * a local variable of the method
+     * not noexcept because it calls SFML methods that are not noexcept
      */
     const bool updateSelectedCellType(
         const unsigned short& floor,
         const char& type
-    );
+    ) const &;
 
     /**
      * @brief refresh all the cells and reset them to wall cells
