@@ -519,26 +519,27 @@ void Level::rotateAllCells(const short& degrees) const &
 const bool Level::updateSelectedCellType(
     const unsigned short& floor,
     const char& type
-)
+) const &
 {
-    const unsigned short firstCellIndex = floor * 256,
-                         lastCellIndex = floor * 256 + 256;
+    const unsigned short firstCellIndex = floor * CELLS_PER_FLOOR;
+    const unsigned short lastCellIndex = (floor + 1) * CELLS_PER_FLOOR;
 
-    bool updated = false;
+    auto updated {false};
 
     for(
-        std::vector<std::unique_ptr<entities::Cell>>::const_iterator iterator =
-            impl->cells.cbegin() + firstCellIndex;
+        auto iterator = impl->cells.cbegin() + firstCellIndex;
         iterator != impl->cells.cbegin() + lastCellIndex;
         iterator++
     )
     {
-        if (!(*iterator)->isMouseHover())
+        const auto& cell = **iterator;
+
+        if (!cell.isMouseHover())
         {
             continue;
         }
 
-        if ((*iterator)->getType() == type)
+        if (cell.getType() == type)
         {
             break;
         }
@@ -551,8 +552,8 @@ const bool Level::updateSelectedCellType(
             );
         }
 
-        (*iterator)->setType(type);
-        (*iterator)->show(impl->context);
+        cell.setType(type);
+        cell.show(impl->context);
 
         updated = true;
 
