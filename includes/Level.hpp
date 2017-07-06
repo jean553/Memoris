@@ -195,67 +195,68 @@ public:
     void emptyPlayerCell() const &;
 
     /**
-     * @brief getter of the total stars amount in the level; this is used by
-     * the game controller to check when the user got all the stars of the
-     * current played level
+     * @brief getter of the total stars amount in the level
      *
      * @return const unsigned short&
      */
-    const unsigned short& getStarsAmount();
+    const unsigned short& getStarsAmount() const & noexcept;
 
     /**
-     * @brief getter for the current player floor index; we do not return
-     * a reference because there is no attribute to store the player floor
+     * @brief getter for the current player floor index
      *
      * @return const unsigned short
      */
-    const unsigned short getPlayerFloor();
+    const unsigned short getPlayerFloor() const & noexcept;
 
     /**
      * @brief getter for the minutes amount loaded from the level file
      *
      * @return const unsigned short&
      */
-    const unsigned short& getMinutes() const;
+    const unsigned short& getMinutes() const & noexcept;
 
     /**
      * @brief getter for the seconds amount loaded from the level file
      *
      * @return const unsigned short&
      */
-    const unsigned short& getSeconds() const;
+    const unsigned short& getSeconds() const & noexcept;
 
     /**
      * @brief getter of the player cell index
      *
      * @return const unsigned short&
      */
-    const unsigned short& getPlayerCellIndex() const;
+    const unsigned short& getPlayerCellIndex() const & noexcept;
 
     /**
      * @brief setter of the player cell index
      *
      * @param index the value to set for the player cell index
      */
-    void setPlayerCellIndex(const unsigned short& index);
+    void setPlayerCellIndex(const unsigned short& index) const & noexcept;
 
     /**
      * @brief set the transparency of all the cells of the given floor
      *
      * @param transparency the value of SFML transparency
      * @param floor the concerned floor index
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
      */
     void setCellsTransparency(
         const float& transparency,
         const unsigned short& floor
-    ) &;
+    ) const &;
 
     /**
-     * @brief getter of the cells container; returns a reference to the
-     * container; we return a constant reference to the container; in that
+     * @brief getter of the cells container;
+     *
+     * NOTE: we return a constant reference to the container; in that
      * case, the elements of the container cannot be modified (that means
      * each pointer into the container cannot be replaced by another one)
-     * but the objects pointed by those pointers can be modified
+     * but the objects pointed by those pointers can be modified;
+     * this function is used by animations that modify cells disposition
      *
      * @return const std::vector<std::unique_ptr<Cell>>&
      */
