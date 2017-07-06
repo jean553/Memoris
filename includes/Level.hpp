@@ -339,18 +339,13 @@ public:
     /**
      * @brief set the player on the departure cell if it exists;
      * counts the amount of stars on the whole level and saves it
-     *
-     * not noexcept because it calls SFML functions that are not noexcept
      */
-    void initializeEditedLevel() const &;
+    void initializeEditedLevel() const & noexcept;
 
     /**
      * @brief creates and returns an array of characters representing the level
      *
      * @return const std::vector<char>
-     *
-     * the returned value is directly created into the method, so the function
-     * does not return a reference
      */
     const std::vector<char> getCharactersList() const & noexcept;
 
