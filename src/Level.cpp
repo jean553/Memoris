@@ -157,7 +157,7 @@ Level::Level(
         }
         case cells::STAR_CELL:
         {
-            impl->starsAmount++;
+            impl->starsAmount += 1;
 
             break;
         }
@@ -176,27 +176,6 @@ Level::Level(
  *
  */
 Level::~Level() = default;
-
-/**
- *
- */
-void Level::incrementRowAndColumnIndexes(
-    unsigned short& row,
-    unsigned short& column
-) const & noexcept
-{
-    column += 1;
-    if (column % CELLS_PER_LINE == 0)
-    {
-        column = 0;
-        row += 1;
-
-        if (row % CELLS_PER_LINE == 0)
-        {
-            row = 0;
-        }
-    }
-}
 
 /**
  *
@@ -632,7 +611,7 @@ const bool Level::hasOneDepartureAndOneArrival() const & noexcept
 /**
  *
  */
-void Level::initializeEditedLevel() const &
+void Level::initializeEditedLevel() const & noexcept
 {
     auto& starsAmount = impl->starsAmount;
     starsAmount = 0;
@@ -697,16 +676,37 @@ void Level::setCellsFromCharactersList(const std::vector<char>& characters)
 {
     unsigned short index {0};
 
-    auto& cells = impl->cells;
+    const auto& cells = impl->cells;
     std::for_each(
         characters.cbegin(),
         characters.cend(),
         [&index, &cells](const char& character)
         {
             cells[index]->setType(character);
-            index++;
+            index += 1;
         }
     );
+}
+
+/**
+ *
+ */
+void Level::incrementRowAndColumnIndexes(
+    unsigned short& row,
+    unsigned short& column
+) const & noexcept
+{
+    column += 1;
+    if (column % CELLS_PER_LINE == 0)
+    {
+        column = 0;
+        row += 1;
+
+        if (row % CELLS_PER_LINE == 0)
+        {
+            row = 0;
+        }
+    }
 }
 
 /**
