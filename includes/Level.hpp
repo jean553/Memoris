@@ -187,12 +187,12 @@ public:
     const char& getPlayerCellType() const &;
 
     /**
-     * @brief updates the current player cell to an empty cell, whatever the
-     * previous type; this method is called by the game controller to empty
-     * a cell when the player leaves it; this method automatically forces the
-     * load of a new texture for the player cell
+     * @brief updates the current player cell to an empty cell;
+     * used when the player leaves a cell
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
      */
-    void emptyPlayerCell();
+    void emptyPlayerCell() const &;
 
     /**
      * @brief getter of the total stars amount in the level; this is used by

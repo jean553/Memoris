@@ -397,7 +397,7 @@ const char& Level::getPlayerCellType() const &
 /**
  *
  */
-void Level::emptyPlayerCell()
+void Level::emptyPlayerCell() const &
 {
     (*impl->cells[impl->playerIndex]).empty();
     (*impl->cells[impl->playerIndex]).show(impl->context);
