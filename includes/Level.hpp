@@ -263,16 +263,22 @@ public:
     const std::vector<std::unique_ptr<Cell>>& getCells() const & noexcept;
 
     /**
-     * @brief dynamically create a SFML transform object pointed by the
-     * 'transform' pointer, member of this class
+     * @brief dynamically creates a SFML Tranform object
+     *
+     * TODO: #1261 transform seems useless, check if it is really necessary
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
      */
-    void createTransform();
+    void createTransform() const &;
 
     /**
-     * @brief dynamically delete the SFML transform object pointed by the
-     * 'transform' pointer, member of this class
+     * @brief dynamically delete the SFML transform object
+     *
+     * TODO: #1261 transform seems useless, check if it is really necessary
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
      */
-    void deleteTransform();
+    void deleteTransform() const & noexcept;
 
     /**
      * @brief rotate all the cells with the given amount of degrees; the

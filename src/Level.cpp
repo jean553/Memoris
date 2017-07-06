@@ -486,9 +486,17 @@ const std::vector<std::unique_ptr<Cell>>& Level::getCells() const & noexcept
 /**
  *
  */
-void Level::createTransform()
+void Level::createTransform() const &
 {
     impl->transform.reset(new sf::Transform);
+}
+
+/**
+ *
+ */
+void Level::deleteTransform() const & noexcept
+{
+    impl->transform.reset();
 }
 
 /**
@@ -503,14 +511,6 @@ void Level::rotateAllCells(const short& degrees)
         FLOOR_CENTER_HORIZONTAL_POSITION,
         FLOOR_CENTER_VERTICAL_POSITION
     );
-}
-
-/**
- *
- */
-void Level::deleteTransform()
-{
-    impl->transform.reset();
 }
 
 /**
