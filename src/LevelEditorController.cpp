@@ -331,7 +331,7 @@ void LevelEditorController::handleNewLevelForegroundEvents() const &
             }
             case sf::Keyboard::Return:
             {
-                impl->level->refresh();
+                impl->level->allCellsAsWalls();
 
                 changeLevelName(UNNAMED_LEVEL);
 

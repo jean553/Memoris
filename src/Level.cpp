@@ -566,11 +566,13 @@ const bool Level::updateSelectedCellType(
 /**
  *
  */
-void Level::refresh() &
+void Level::allCellsAsWalls() const &
 {
+    const auto& cells = impl->cells;
+
     std::for_each(
-        impl->cells.begin(),
-        impl->cells.end(),
+        cells.begin(),
+        cells.end(),
         [this](const auto& cell)
     {
         cell->setType(cells::WALL_CELL);
