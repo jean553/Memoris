@@ -524,7 +524,7 @@ const bool Level::updateSelectedCellType(
     const unsigned short firstCellIndex = floor * CELLS_PER_FLOOR;
     const unsigned short lastCellIndex = (floor + 1) * CELLS_PER_FLOOR;
 
-    auto updated {false};
+    auto updated = false;
 
     for(
         auto iterator = impl->cells.cbegin() + firstCellIndex;
