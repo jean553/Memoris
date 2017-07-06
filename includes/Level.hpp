@@ -319,9 +319,7 @@ public:
     void allCellsAsWalls() const &;
 
     /**
-     * @brief show all the cells (this is used by the level editor, just
-     * after a level has been tested; in fact, the level object is the same,
-     * so some cells have been hidden during the game)
+     * @brief show all the cells of the level
      *
      * not noexcept because it calls SFML functions that are not noexcept
      */
