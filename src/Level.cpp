@@ -615,11 +615,11 @@ const bool Level::hasOneDepartureAndOneArrival() const & noexcept
 
         if (type == cells::DEPARTURE_CELL)
         {
-            departureCellsAmount++;
+            departureCellsAmount += 1;
         }
         else if (type == cells::ARRIVAL_CELL)
         {
-            arrivalCellsAmount++;
+            arrivalCellsAmount += 1;
         }
     }
 
@@ -632,15 +632,15 @@ const bool Level::hasOneDepartureAndOneArrival() const & noexcept
 /**
  *
  */
-void Level::initializeEditedLevel() const & noexcept
+void Level::initializeEditedLevel() const &
 {
-    using CellsIterator =
-        std::vector<std::unique_ptr<entities::Cell>>::const_iterator;
-
     auto& starsAmount = impl->starsAmount;
     starsAmount = 0;
 
-    auto& cells = impl->cells;
+    const auto& cells = impl->cells;
+
+    using CellsIterator =
+        std::vector<std::unique_ptr<entities::Cell>>::const_iterator;
 
     for (
         CellsIterator iterator = cells.cbegin();
@@ -661,12 +661,13 @@ void Level::initializeEditedLevel() const & noexcept
         }
         case cells::STAR_CELL:
         {
-            starsAmount++;
+            starsAmount += 1;
 
             break;
         }
         default:
         {
+            break;
         }
         }
     }
