@@ -389,7 +389,7 @@ void Level::setPlayerCellTransparency(const sf::Uint8& alpha) const &
 /**
  *
  */
-const char& Level::getPlayerCellType() const
+const char& Level::getPlayerCellType() const &
 {
     return (*impl->cells[impl->playerIndex]).getType();
 }

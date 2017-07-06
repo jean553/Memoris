@@ -172,16 +172,19 @@ public:
      * @brief update the transparency value of the current player cell
      *
      * @param alpha the player cell transparency to set
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
      */
     void setPlayerCellTransparency(const sf::Uint8& alpha) const &;
 
     /**
-     * @brief get the current player cell type; this getter is used into the
-     * game controller to execute the correct current player cell event action
+     * @brief get the current player cell type
      *
      * @return const char&
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
      */
-    const char& getPlayerCellType() const;
+    const char& getPlayerCellType() const &;
 
     /**
      * @brief updates the current player cell to an empty cell, whatever the
