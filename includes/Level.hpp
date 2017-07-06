@@ -169,13 +169,11 @@ public:
     void display(const unsigned short& floor) const &;
 
     /**
-     * @brief update the transparency value of the current player color
+     * @brief update the transparency value of the current player cell
      *
-     * @param alpha the current player cell transparency value; we use a
-     * sf::Uint8 value as this is the type used to set the colors of a
-     * sf::Color object
+     * @param alpha the player cell transparency to set
      */
-    void setPlayerCellTransparency(const sf::Uint8& alpha);
+    void setPlayerCellTransparency(const sf::Uint8& alpha) const &;
 
     /**
      * @brief get the current player cell type; this getter is used into the

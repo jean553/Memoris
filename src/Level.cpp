@@ -378,7 +378,7 @@ void Level::display(const unsigned short& floor) const &
 /**
  *
  */
-void Level::setPlayerCellTransparency(const sf::Uint8& alpha)
+void Level::setPlayerCellTransparency(const sf::Uint8& alpha) const &
 {
     (*impl->cells[impl->playerIndex]).setCellColorTransparency(
         impl->context,
