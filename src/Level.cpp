@@ -406,7 +406,7 @@ void Level::emptyPlayerCell() const &
 /**
  *
  */
-const unsigned short& Level::getStarsAmount()
+const unsigned short& Level::getStarsAmount() const & noexcept
 {
     return impl->starsAmount;
 }
@@ -414,7 +414,7 @@ const unsigned short& Level::getStarsAmount()
 /**
  *
  */
-const unsigned short Level::getPlayerFloor()
+const unsigned short Level::getPlayerFloor() const & noexcept
 {
     return impl->playerIndex / 256;
 }
@@ -422,7 +422,7 @@ const unsigned short Level::getPlayerFloor()
 /**
  *
  */
-const unsigned short& Level::getMinutes() const
+const unsigned short& Level::getMinutes() const & noexcept
 {
     return impl->minutes;
 }
@@ -430,7 +430,7 @@ const unsigned short& Level::getMinutes() const
 /**
  *
  */
-const unsigned short& Level::getSeconds() const
+const unsigned short& Level::getSeconds() const & noexcept
 {
     return impl->seconds;
 }
@@ -438,7 +438,7 @@ const unsigned short& Level::getSeconds() const
 /**
  *
  */
-const unsigned short& Level::getPlayerCellIndex() const
+const unsigned short& Level::getPlayerCellIndex() const & noexcept
 {
     return impl->playerIndex;
 }
@@ -446,7 +446,7 @@ const unsigned short& Level::getPlayerCellIndex() const
 /**
  *
  */
-void Level::setPlayerCellIndex(const unsigned short& index)
+void Level::setPlayerCellIndex(const unsigned short& index) const & noexcept
 {
     impl->playerIndex = index;
 }
@@ -457,7 +457,7 @@ void Level::setPlayerCellIndex(const unsigned short& index)
 void Level::setCellsTransparency(
     const float& transparency,
     const unsigned short& floor
-) &
+) const &
 {
     const unsigned short firstCellIndex = floor * 256;
     const unsigned short lastCellIndex = firstCellIndex + 256;
