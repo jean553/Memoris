@@ -308,19 +308,15 @@ public:
     ) const &;
 
     /**
-     * @brief refresh all the cells and reset them to wall cells
+     * @brief reset all cells to wall cells
      *
      * @throws std::terminate something wrong happened in the for_each
      * algorithm (functions that are called there may throw exceptions as
      * they are not declared noexcept)
+     *
      * @throws std::bad_alloc for_each algorithm failed to allocate memory
-     *
-     * not 'const' because it modifies the cells inside the cells container
-     *
-     * not 'noexcept' because it could throw exceptions; those exceptions are
-     * never caught and the program just stops if it happens
      */
-    void refresh() &;
+    void allCellsAsWalls() const &;
 
     /**
      * @brief show all the cells (this is used by the level editor, just
