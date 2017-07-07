@@ -39,6 +39,11 @@
 #include "InputTextForeground.hpp"
 #include "PlayingSerieManager.hpp"
 #include "cells.hpp"
+#include "Context.hpp"
+
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Window/Event.hpp>
 
 #include <fstream>
 

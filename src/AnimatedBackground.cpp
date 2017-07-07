@@ -26,6 +26,12 @@
 
 #include "cells.hpp"
 #include "Cell.hpp"
+#include "Context.hpp"
+
+#include <SFML/Graphics/Transform.hpp>
+#include <SFML/System.hpp>
+
+#include <vector>
 
 namespace memoris
 {

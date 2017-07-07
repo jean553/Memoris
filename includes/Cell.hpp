@@ -26,14 +26,27 @@
 #ifndef MEMORIS_CELL_H_
 #define MEMORIS_CELL_H_
 
-#include "Context.hpp"
+#include <memory>
 
-#include <SFML/Graphics.hpp>
+namespace sf
+{
+class Transform;
+class Color;
 
-#include <string>
+/* 'typedef unsigned char Uint8' in SFML/Config.hpp, we declare exactly
+   the same type here in order to both use declaration forwarding and
+   prevent conflicting declaration */
+typedef unsigned char Uint8;
+}
 
 namespace memoris
 {
+
+namespace utils
+{
+class Context;
+}
+
 namespace entities
 {
 

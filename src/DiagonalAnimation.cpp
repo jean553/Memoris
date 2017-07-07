@@ -29,6 +29,10 @@
 #include "ShapesManager.hpp"
 #include "Cell.hpp"
 #include "Level.hpp"
+#include "Context.hpp"
+
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 namespace memoris
 {

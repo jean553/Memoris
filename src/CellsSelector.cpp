@@ -27,6 +27,10 @@
 #include "CellsTexturesManager.hpp"
 #include "Cell.hpp"
 #include "cells.hpp"
+#include "Context.hpp"
+
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 namespace memoris
 {
