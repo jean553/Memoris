@@ -98,7 +98,7 @@ Cell::Cell(
 /**
  *
  */
-Cell::Cell(const Cell& cell)
+Cell::Cell(const Cell& cell) : impl(std::make_unique<Impl>(*cell.impl))
 {
     setType(cell.getType());
     setIsVisible(cell.isVisible());
