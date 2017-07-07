@@ -28,6 +28,10 @@
 #include "cells.hpp"
 #include "Cell.hpp"
 
+#include <SFML/Window/Keyboard.hpp>
+#include <SFML/Window/Event.hpp>
+#include <SFML/Graphics/Transform.hpp>
+
 #include <fstream>
 
 namespace memoris

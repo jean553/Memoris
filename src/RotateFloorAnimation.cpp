@@ -27,6 +27,7 @@
 #include "SoundsManager.hpp"
 #include "Cell.hpp"
 #include "Level.hpp"
+#include "Context.hpp"
 
 namespace memoris
 {

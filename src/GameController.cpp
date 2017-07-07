@@ -38,6 +38,7 @@
 #include "EditingLevelManager.hpp"
 #include "Cell.hpp"
 #include "PickUpEffect.hpp"
+#include "Context.hpp"
 
 #include "HorizontalMirrorAnimation.hpp"
 #include "VerticalMirrorAnimation.hpp"
@@ -45,6 +46,10 @@
 #include "DiagonalAnimation.hpp"
 #include "RotateFloorAnimation.hpp"
 #include "QuarterRotationAnimation.hpp"
+
+#include <SFML/Window/Keyboard.hpp>
+#include <SFML/Window/Event.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 namespace memoris
 {
