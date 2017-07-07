@@ -65,7 +65,7 @@ public:
      * @brief constructor that creates a blank level (level editor)
      *
      * @param context the context to use
-
+     *
      * @throw std::bad_alloc the implementation cannot be initialized;
      * this exception is never caught and the program terminates
      */

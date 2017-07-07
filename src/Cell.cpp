@@ -107,7 +107,7 @@ Cell::Cell(const Cell& cell)
 /**
  *
  */
-Cell::~Cell() noexcept = default;
+Cell::~Cell() = default;
 
 /**
  *

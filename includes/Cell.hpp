@@ -56,25 +56,26 @@ class Cell
 public:
 
     /**
-     * public because used by the quarter rotation animation
+     * @brief use to indicates the cell movement direction (for animations) 
      */
     enum class MovementDirection
     {
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT
+        UP, /** < move up */
+        DOWN, /** < move down */
+        LEFT, /** < move to the left */
+        RIGHT /** < move to the right */
     };
 
     /**
-     * @brief cell constructor, get the horizontal and vertical position of
-     * the cell, get the type of the cell. Set the cell at the given
-     * position, set the cell type
+     * @brief cell constructor from position and cell type
      *
-     * @param context reference to the current context
+     * @param context the current context
      * @param hPosition the horizontal position of the cell
      * @param vPosition the vertical position of the cell
-     * @param cellType the type of the cell, represented by a unique character
+     * @param cellType a character indicating the cell type
+     *
+     * @throw std::bad_alloc the implementation cannot be initialized;
+     * this exception is never caught and the program terminates
      */
     Cell(
         const utils::Context& context,
@@ -84,18 +85,16 @@ public:
     );
 
     /**
-     * @brief copy constructor, used to copy cells during the rotation floor
-     * animation
+     * @brief copy constructor, copy cells during the rotation floor animation
      *
      * @param cell constant reference to a cell object
      */
     Cell(const Cell& cell);
 
     /**
-     * @brief default destructor, empty, only declared here in order to use
-     * the forwarding declaration
+     * @brief default destructor
      */
-    ~Cell() noexcept;
+    ~Cell();
 
     /**
      * @brief move the cell to one pixel on the right; this method is used
