@@ -97,10 +97,11 @@ public:
     ~Cell();
 
     /**
-     * @brief move the cell to one pixel on the right; this method is used
-     * with the animated background
+     * @brief move the cell to one pixel on the right (used by menu animation)
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
      */
-    void moveOnTheRight() const &;
+    void moveHorizontally() const &;
 
     /**
      * @brief move the cells into the given direction; used by the quarter
