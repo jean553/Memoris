@@ -197,6 +197,7 @@ void Cell::setPosition(
  */
 const std::pair<float, float> Cell::getPosition() const & noexcept
 {
+    /* TODO: should not create a new pair every time the function is called */
     return std::make_pair(
         impl->horizontalPosition,
         impl->verticalPosition
@@ -211,16 +212,20 @@ void Cell::display(
     const std::unique_ptr<sf::Transform>& transform
 ) const &
 {
-    /* display the cell with a transform SFML object if an object is pointed
-       by the given unique pointer reference */
+    auto& window = context.getSfmlWindow();
+    const auto& sprite = impl->sprite;
+
     if (transform != nullptr)
     {
-        context.getSfmlWindow().draw(impl->sprite, *transform);
+        window.draw(
+            sprite,
+            *transform
+        );
+
+        return;
     }
-    else
-    {
-        context.getSfmlWindow().draw(impl->sprite);
-    }
+
+    window.draw(sprite);
 }
 
 /**

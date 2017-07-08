@@ -144,11 +144,10 @@ public:
     /**
      * @brief displays the cell according to the context
      *
-     * @param context shared pointer to the context to use
-     * @param transform unique pointer to the transform to use, nullptr if no
-     * transform to use; the transform is a SFML object used for the animation
-     * of all the cells; if the transform is not null, the modification defined
-     * in this transform object is applied to every cell
+     * @param context the context to use
+     * @param transform SFML transform to use (for animation)
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
      */
     void display(
         const utils::Context& context,
