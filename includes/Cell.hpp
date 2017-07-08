@@ -155,21 +155,13 @@ public:
     ) const &;
 
     /**
-     * @brief displays the cell in the context and enable the mouse hover
-     * feature that highlight the cell when the mouse is hover; this function
-     * is used when rendering the level inside the level editor; we use a
-     * separated function to avoid adding logic just to choose if the cell
-     * must be highlighted
+     * @brief displays the cell and highlights it when the mouse is hover
      *
-     * @param context shared pointer to the context to use
-     * @param transform unique pointer reference to a transform
+     * @param context the context to use
      *
-     * TODO: #691 the transform is not used at all in this function
+     * not noexcept because it calls SFML methods that are not noexcept
      */
-    void displayWithMouseHover(
-        const utils::Context& context,
-        const std::unique_ptr<sf::Transform>& transform = nullptr
-    ) const &;
+    void displayWithMouseHover(const utils::Context& context) const &;
 
     /**
      * @brief hide the cell, the sprite is replaced by the hidden cell texture
@@ -257,7 +249,7 @@ public:
      *
      * @return const bool
      */
-    const bool isMouseHover() const;
+    const bool isMouseHover() const &;
 
     /**
      * @brief reset the graphical position of the cell to the original one
