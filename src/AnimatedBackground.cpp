@@ -88,6 +88,8 @@ void AnimatedBackground::render() const &
     constexpr sf::Uint32 ANIMATION_INTERVAL {10};
     if(currentTime - lastTime > ANIMATION_INTERVAL)
     {
+        /* use an intermediate boolean in order
+           to avoid two browsing procedures */
         moveCells = true;
 
         lastTime = currentTime;
@@ -99,7 +101,7 @@ void AnimatedBackground::render() const &
 
         if (moveCells)
         {
-            cellObject.moveOnTheRight();
+            cellObject.moveHorizontally();
         }
 
         cellObject.display(context);

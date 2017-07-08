@@ -60,14 +60,13 @@ public:
 
     float originalHorizontalPosition;
     float originalVerticalPosition;
+    float horizontalPosition {0.f};
+    float verticalPosition {0.f};
 
-    float horizontalPosition;
-    float verticalPosition;
+    bool highlight {false};
+    bool visible {false};
 
     sf::Sprite sprite;
-
-    bool highlight;
-    bool visible {false};
 };
 
 /**
@@ -112,28 +111,20 @@ Cell::~Cell() = default;
 /**
  *
  */
-void Cell::moveOnTheRight() const &
+void Cell::moveHorizontally() const &
 {
-    /* increment the horizontal position of the cell; we do
-       it separately to make it clear */
-    impl->horizontalPosition++;
+    auto& horizontalPosition = impl->horizontalPosition;
 
-    /* if the cell is outside of the screen on the right side, the position
-       is reset to -49 because a cell width is 49 pixel; the cell is now
-       outside of the screen, on the left corner and will be displayed soon
-       during the animation; we considere the cell outside of the screen on
-       the right corner when the position is 1649, that means the window
-       width and one cell width */
-    if (impl->horizontalPosition == memoris::window::WIDTH)
+    horizontalPosition += 1;
+
+    if (horizontalPosition > memoris::window::WIDTH)
     {
-        /* note that the cell pixel dimensions is forced to be signed */
-        constexpr float CELL_DIMENSIONS {49.f};
-        impl->horizontalPosition = -CELL_DIMENSIONS;
+        constexpr float ANIMATED_CELL_HORIZONTAL_POSITION {-50.f};
+        horizontalPosition = ANIMATED_CELL_HORIZONTAL_POSITION;
     }
 
-    /* update the horizontal position */
     setPosition(
-        impl->horizontalPosition,
+        horizontalPosition,
         impl->verticalPosition
     );
 }
