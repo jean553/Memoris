@@ -207,7 +207,7 @@ public:
      *
      * @param color reference to the SFML color to use
      */
-    void setCellColor(const sf::Color& color);
+    void setCellColor(const sf::Color& color) const &;
 
     /**
      * @brief set the cell to empty cell
@@ -232,20 +232,17 @@ public:
      * @brief indicates if the mouse is currently hover this cell
      *
      * @return const bool
+     *
+     * not noexcept because it calls SFML functions that are not noexcept
      */
     const bool isMouseHover() const &;
 
     /**
      * @brief reset the graphical position of the cell to the original one
      *
-     * not const because it mofifies the current position of the cell
-     *
      * not noexcept because it calls SFML functions that are not noexcept
-     *
-     * public because it is called by the quarter rotation animations in order
-     * to graphically refresh the positions of the cells
      */
-    void resetPosition() &;
+    void resetPosition() const &;
 
 private:
 

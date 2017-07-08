@@ -327,7 +327,7 @@ void Cell::setCellColorTransparency(
 /**
  *
  */
-void Cell::setCellColor(const sf::Color& color)
+void Cell::setCellColor(const sf::Color& color) const &
 {
     impl->sprite.setColor(color);
 }
@@ -361,15 +361,17 @@ void Cell::setIsVisible(const bool& visibility) const & noexcept
  */
 const bool Cell::isMouseHover() const &
 {
-    /* get the position of the cursor */
     sf::Vector2<int> cursorPosition = sf::Mouse::getPosition();
+
+    const auto& horizontal = static_cast<int>(impl->horizontalPosition);
+    const auto& vertical = static_cast<int>(impl->verticalPosition);
 
     constexpr float CELL_DIMENSION {49.f};
     if (
-        cursorPosition.x > impl->horizontalPosition &&
-        cursorPosition.x < impl->horizontalPosition + CELL_DIMENSION &&
-        cursorPosition.y > impl->verticalPosition &&
-        cursorPosition.y < impl->verticalPosition + CELL_DIMENSION
+        cursorPosition.x > horizontal &&
+        cursorPosition.x < horizontal + CELL_DIMENSION &&
+        cursorPosition.y > vertical &&
+        cursorPosition.y < vertical + CELL_DIMENSION
     )
     {
         return true;
@@ -381,7 +383,7 @@ const bool Cell::isMouseHover() const &
 /**
  *
  */
-void Cell::resetPosition() &
+void Cell::resetPosition() const &
 {
     setPosition(
         impl->originalHorizontalPosition,
