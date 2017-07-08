@@ -91,6 +91,8 @@ public:
      */
     Cell(const Cell& cell);
 
+    Cell& operator=(const Cell&) = delete;
+
     /**
      * @brief default destructor
      */
