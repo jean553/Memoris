@@ -89,6 +89,10 @@ public:
         const std::string& filePath
     );
 
+    Level(const Level&) = delete;
+
+    Level& operator=(const Level&) = delete;
+
     /**
      * @brief default destructor
      */
