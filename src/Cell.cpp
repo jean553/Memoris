@@ -319,7 +319,6 @@ void Cell::setCellColorTransparency(
 ) const &
 {
     sf::Color cellColor = context.getColorsManager().getColorWhiteCopy();
-
     cellColor.a = alpha;
 
     impl->sprite.setColor(cellColor);
@@ -336,9 +335,8 @@ void Cell::setCellColor(const sf::Color& color)
 /**
  *
  */
-void Cell::empty() const &
+void Cell::empty() const & noexcept
 {
-    /* set the cell as empty by changing the type to empty cell */
     impl->type = cells::EMPTY_CELL;
 }
 
