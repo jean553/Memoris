@@ -180,12 +180,15 @@ void Cell::setPosition(
     const float& vPosition
 ) const &
 {
-    impl->horizontalPosition = hPosition;
-    impl->verticalPosition = vPosition;
+    auto& horizontalPosition = impl->horizontalPosition;
+    auto& verticalPosition = impl->verticalPosition;
+
+    horizontalPosition = hPosition;
+    verticalPosition = vPosition;
 
     impl->sprite.setPosition(
-        impl->horizontalPosition,
-        impl->verticalPosition
+        horizontalPosition,
+        verticalPosition
     );
 }
 
