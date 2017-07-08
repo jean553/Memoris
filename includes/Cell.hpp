@@ -122,6 +122,8 @@ public:
      * @param hPosition horizontal position
      * @param vPosition vertical position
      *
+     * not noexcept because it calls SFML methods that are not noexcept
+     *
      * NOTE: we use a separated method to set the horizontal and vertical
      * position, because this is a code called by the constructor but also
      * by the methods that update the cells position (like the animated
