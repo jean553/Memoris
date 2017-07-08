@@ -166,17 +166,18 @@ public:
     /**
      * @brief hide the cell, the sprite is replaced by the hidden cell texture
      *
-     * @param context shared pointer to the context to use
+     * @param context the context to use
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
      */
     void hide(const utils::Context& context) const &;
 
     /**
-     * @brief show the cell, loads a reference of the texture to display
-     * according to the current set type character; this method can be called
-     * from the level object but is also called automatically by the Cell
-     * constructor when the object is built
+     * @brief show the cell
      *
-     * @param context shared pointer to the context to use
+     * @param context the context to use
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
      */
     void show(const utils::Context& context) const &;
 

@@ -271,7 +271,6 @@ void Cell::hide(const utils::Context& context) const &
         )
     );
 
-    /* the cell is hidden, so the boolean of visibility is updated to false */
     impl->visible = false;
 }
 
@@ -280,20 +279,18 @@ void Cell::hide(const utils::Context& context) const &
  */
 void Cell::show(const utils::Context& context) const &
 {
-    /* get the texture from the cells textures manager according to the type
-       of cell; set this reference as a texture for the current cell object */
     impl->sprite.setTexture(
         context.getCellsTexturesManager().getTextureReferenceByCellType(
             impl->type
         )
     );
 
-    /* the cell is shown, so the boolean of visibility is updated to true */
     impl->visible = true;
 
+    constexpr sf::Uint8 FULL_VISIBLE {255};
     setCellColorTransparency(
         context,
-        255
+        FULL_VISIBLE
     );
 }
 
