@@ -231,25 +231,33 @@ void Cell::display(
 /**
  *
  */
-void Cell::displayWithMouseHover(
-    const utils::Context& context,
-    const std::unique_ptr<sf::Transform>& transform
-) const &
+void Cell::displayWithMouseHover(const utils::Context& context) const &
 {
-    if (isMouseHover() && !impl->highlight)
+    auto& highlight = impl->highlight;
+    auto& sprite = impl->sprite;
+    const auto& colorsManager = context.getColorsManager();
+    const bool isMouseHover = this->isMouseHover();
+
+    if (
+        isMouseHover and
+        not highlight
+    )
     {
-        impl->highlight = true;
+        highlight = true;
 
-        impl->sprite.setColor(context.getColorsManager().getColorDarkGrey());
+        sprite.setColor(colorsManager.getColorDarkGrey());
     }
-    else if(!isMouseHover() && impl->highlight)
+    else if(
+        not isMouseHover and
+        highlight
+    )
     {
-        impl->highlight = false;
+        highlight = false;
 
-        impl->sprite.setColor(context.getColorsManager().getColorWhite());
+        sprite.setColor(colorsManager.getColorWhite());
     }
 
-    context.getSfmlWindow().draw(impl->sprite);
+    context.getSfmlWindow().draw(sprite);
 }
 
 /**
@@ -356,7 +364,7 @@ void Cell::setIsVisible(const bool& visibility) const & noexcept
 /**
  *
  */
-const bool Cell::isMouseHover() const
+const bool Cell::isMouseHover() const &
 {
     /* get the position of the cursor */
     sf::Vector2<int> cursorPosition = sf::Mouse::getPosition();
