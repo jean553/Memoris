@@ -100,8 +100,6 @@ public:
      * @brief move the cell to one pixel on the right (used by menu animation)
      *
      * not noexcept because it calls SFML methods that are not noexcept
-     *
-     * TODO: should only be part of the animated background
      */
     void moveHorizontally() const &;
 
@@ -111,8 +109,6 @@ public:
      * @param direction the expected direction of the movement
      *
      * not noexcept because it calls SFML methods that are not noexcept
-     *
-     * TODO: should only be part of the quarter rotate animation
      */
     void moveInDirection(const MovementDirection& direction) const &;
 
@@ -182,10 +178,7 @@ public:
     void show(const utils::Context& context) const &;
 
     /**
-     * @brief returns a reference to the current set cell type character; we
-     * return a constant because this attribute should not be modified from
-     * the outside in that way; this function is only a getter; we return
-     * a reference to optimize and avoid copy;
+     * @brief cell type getter
      *
      * @return const char&
      */
@@ -195,17 +188,13 @@ public:
      * @brief setter for the type of the cell
      *
      * @param typeChar character representation of the type
-     *
-     * TODO: should be const after integration of pimpl idiom
      */
     void setType(const char& typeChar) const & noexcept;
 
     /**
-     * @brief get a copy of the white color from the colors manager; apply
-     * the given transparency to this color and set it as the cell current
-     * color
+     * @brief apply the given transparency on the cell
      *
-     * @param context reference to the current context to use
+     * @param context the context to use
      * @param alpha the SFML sf::Color oject transparency value
      */
     void setCellColorTransparency(
@@ -221,10 +210,9 @@ public:
     void setCellColor(const sf::Color& color);
 
     /**
-     * @brief changes the cell to an empty cell, this is used by the game
-     * controller when the player leaves a cell;
+     * @brief set the cell to empty cell
      */
-    void empty() const &;
+    void empty() const & noexcept;
 
     /**
      * @brief getter for the visible parameter
@@ -237,11 +225,6 @@ public:
      * @brief setter for the visibility boolean of the cell
      *
      * @param visibility is the cell visible
-     *
-     * the method is not 'const' because it is a setter that modifies an
-     * attribute
-     *
-     * TODO: should be const after integration of pimpl idiom
      */
     void setIsVisible(const bool& visibility) const & noexcept;
 
