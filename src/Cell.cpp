@@ -195,17 +195,12 @@ void Cell::setPosition(
 /**
  *
  */
-const float& Cell::getHorizontalPosition() const & noexcept
+const std::pair<float, float> Cell::getPosition() const & noexcept
 {
-    return impl->horizontalPosition;
-}
-
-/**
- *
- */
-const float& Cell::getVerticalPosition() const & noexcept
-{
-    return impl->verticalPosition;
+    return std::make_pair(
+        impl->horizontalPosition,
+        impl->verticalPosition
+    );
 }
 
 /**
