@@ -132,40 +132,43 @@ void Cell::moveHorizontally() const &
 /**
  *
  */
-void Cell::moveInDirection(const MovementDirection& direction) &
+void Cell::moveInDirection(const MovementDirection& direction) const &
 {
+    auto& horizontalPosition = impl->horizontalPosition;
+    auto& verticalPosition = impl->verticalPosition;
+
     constexpr float POSITION_UPDATE_STEP {10.f};
     switch(direction)
     {
     case MovementDirection::UP:
     {
-        impl->verticalPosition -= POSITION_UPDATE_STEP;
+        verticalPosition -= POSITION_UPDATE_STEP;
 
         break;
     }
     case MovementDirection::DOWN:
     {
-        impl->verticalPosition += POSITION_UPDATE_STEP;
+        verticalPosition += POSITION_UPDATE_STEP;
 
         break;
     }
     case MovementDirection::LEFT:
     {
-        impl->horizontalPosition -= POSITION_UPDATE_STEP;
+        horizontalPosition -= POSITION_UPDATE_STEP;
 
         break;
     }
     case MovementDirection::RIGHT:
     {
-        impl->horizontalPosition += POSITION_UPDATE_STEP;
+        horizontalPosition += POSITION_UPDATE_STEP;
 
         break;
     }
     }
 
     setPosition(
-        impl->horizontalPosition,
-        impl->verticalPosition
+        horizontalPosition,
+        verticalPosition
     );
 }
 

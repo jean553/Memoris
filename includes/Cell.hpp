@@ -100,21 +100,21 @@ public:
      * @brief move the cell to one pixel on the right (used by menu animation)
      *
      * not noexcept because it calls SFML methods that are not noexcept
+     *
+     * TODO: should only be part of the animated background
      */
     void moveHorizontally() const &;
 
     /**
-     * @brief move the cells into the given direction; used by the quarter
-     * rotate animation
+     * @brief move the cells into the given direction (used by animation)
      *
      * @param direction the expected direction of the movement
      *
-     * not 'const' because modifies the position
-     * TODO: this const should be added when adding impl idiom in the class
+     * not noexcept because it calls SFML methods that are not noexcept
      *
-     * not 'noexcept' because it calls SFML methods that are not noexcept
+     * TODO: should only be part of the quarter rotate animation
      */
-    void moveInDirection(const MovementDirection& direction) &;
+    void moveInDirection(const MovementDirection& direction) const &;
 
     /**
      * @brief setter for the position
