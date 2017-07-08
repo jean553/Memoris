@@ -135,18 +135,11 @@ public:
     ) const &;
 
     /**
-     * @brief returns the horizontal position of the cell
+     * @brief returns the horizontal and vertical position of the cell
      *
-     * @return const float&
+     * @return const std::pair<float, float>
      */
-    const float& getHorizontalPosition() const & noexcept;
-
-    /**
-     * @brief returns the vertical position of the cell
-     *
-     * @return const float&
-     */
-    const float& getVerticalPosition() const & noexcept;
+    const std::pair<float, float> getPosition() const & noexcept;
 
     /**
      * @brief displays the cell according to the context

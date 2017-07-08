@@ -255,11 +255,7 @@ void Level::makeRightMovement() const & noexcept
  */
 const std::pair<float, float> Level::getPlayerPosition() const & noexcept
 {
-    const auto& cell = (*impl->cells[impl->playerIndex]);
-    return std::make_pair(
-        cell.getHorizontalPosition(),
-        cell.getVerticalPosition()
-    );
+    return (*impl->cells[impl->playerIndex]).getPosition();
 }
 
 /**
