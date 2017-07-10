@@ -445,23 +445,23 @@ void SelectionListWidget::displaySelector() const &
 /**
  *
  */
-const bool SelectionListWidget::isMouseOverItem(
+const bool SelectionListWidget::isMouseHoverItem(
     const sf::Vector2<float>& cursorPosition
 ) const &
 {
     const auto& cursorHorizontalPosition = cursorPosition.x;
-    const auto& cursorVerticalPosition = cursorPosition.y;
+    const auto& cursorVerticalPosition = cursorPosition.y + 1.f;
 
     const auto& rightBorderHorizontalPosition =
         impl->horizontalPosition + WIDTH;
-    const auto& lastItemVerticalBottom =
-        impl->texts.back().getPosition().y + ITEMS_SEPARATION;
+    constexpr float BOTTOM_BORDER_VERTICAL_POSITION =
+        VERTICAL_POSITION + HEIGHT;
 
     if (
         cursorHorizontalPosition < impl->horizontalPosition or
         cursorHorizontalPosition > rightBorderHorizontalPosition or
         cursorVerticalPosition < VERTICAL_POSITION or
-        cursorVerticalPosition > lastItemVerticalBottom
+        cursorVerticalPosition > BOTTOM_BORDER_VERTICAL_POSITION
     )
     {
         return false;
