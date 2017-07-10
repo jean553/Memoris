@@ -201,7 +201,7 @@ private:
      * not noexcept because it calls SFML sf::Text::getPosition() method
      * and this method is not noexcept
      */
-    const bool isMouseOverItem(const sf::Vector2<float>& cursorPosition)
+    const bool isMouseHoverItem(const sf::Vector2<float>& cursorPosition)
         const &;
 
     /**
