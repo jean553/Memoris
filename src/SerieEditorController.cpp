@@ -518,7 +518,7 @@ void SerieEditorController::resetLevelsLists() const &
  */
 void SerieEditorController::updateSerieName(const std::string& name) const &
 {
-    impl->serieNameText.setString(UNTITLED_SERIE);
+    impl->serieNameText.setString(name);
 
     updateSerieNamePosition();
 }
