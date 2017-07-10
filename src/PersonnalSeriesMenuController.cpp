@@ -130,12 +130,14 @@ const ControllerId& PersonalSeriesMenuController::render() const &
             }
             default:
             {
+                break;
             }
             }
+
+            break;
         }
         case sf::Event::MouseButtonPressed:
         {
-
             const auto& index = list.getCurrentIndex();
 
             constexpr short NO_SELECTION_INDEX {-1};
@@ -183,6 +185,7 @@ const ControllerId& PersonalSeriesMenuController::render() const &
         }
         default:
         {
+            break;
         }
         }
     }
