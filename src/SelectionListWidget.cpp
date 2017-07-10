@@ -311,8 +311,8 @@ const bool SelectionListWidget::canScrollDown() const & noexcept
     /* prevent comparison between signed and unsigned variables */
     const auto& itemsAmount = static_cast<unsigned short>(impl->texts.size());
 
-    return impl->mouseHoverRightArrow and
-        impl->offset + VISIBLE_ITEMS_AMOUNT != itemsAmount;
+    /* TODO: #1288 it is possible to scroll for ever with this condition */
+    return impl->mouseHoverRightArrow and itemsAmount >= VISIBLE_ITEMS_AMOUNT;
 }
 
 /**
