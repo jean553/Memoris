@@ -217,7 +217,7 @@ void SelectionListWidget::display(
     }
 
     auto& selectorIndex = impl->selectorIndex;
-    if(isMouseOverItem(cursorPosition))
+    if(isMouseHoverItem(cursorPosition))
     {
         const float selectorPosition =
             (cursorPosition.y - VERTICAL_POSITION) / ITEMS_SEPARATION;
