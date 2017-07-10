@@ -160,8 +160,7 @@ public:
 
     /* signed because equals to -1 when nothing is selected */
     short selectorIndex {0};
-
-    unsigned short offset {0};
+    short offset {0};
 
     bool mouseHoverLeftArrow {false};
     bool mouseHoverRightArrow {false};
@@ -311,8 +310,11 @@ const bool SelectionListWidget::canScrollDown() const & noexcept
     /* prevent comparison between signed and unsigned variables */
     const auto& itemsAmount = static_cast<unsigned short>(impl->texts.size());
 
-    /* TODO: #1288 it is possible to scroll for ever with this condition */
-    return impl->mouseHoverRightArrow and itemsAmount >= VISIBLE_ITEMS_AMOUNT;
+    return (
+        impl->mouseHoverRightArrow and
+        itemsAmount >= VISIBLE_ITEMS_AMOUNT and
+        impl->offset * -1 + VISIBLE_ITEMS_AMOUNT != itemsAmount
+    );
 }
 
 /**
