@@ -23,9 +23,6 @@
  */
 
 #include "EditingLevelManager.hpp"
-#include "Level.hpp"
-
-#include <string>
 
 namespace memoris
 {
