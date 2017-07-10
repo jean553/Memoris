@@ -270,7 +270,7 @@ void SelectionListWidget::display(
  */
 std::string SelectionListWidget::getCurrentItem() const &
 {
-    return impl->texts[impl->selectorIndex + impl->offset].getString();
+    return impl->texts[impl->selectorIndex + impl->offset * -1].getString();
 }
 
 /**
