@@ -52,7 +52,7 @@ int main()
 
     do
     {
-        auto controller =
+        const auto controller =
             getControllerById(
                 context,
                 currentControllerId

@@ -80,7 +80,7 @@ std::unique_ptr<Controller> getControllerById(
             const auto& editedLevel =
                 context.getEditingLevelManager().getLevel();
 
-            auto& serieManager = context.getPlayingSerieManager();
+            const auto& serieManager = context.getPlayingSerieManager();
 
             if (editedLevel != nullptr)
             {
@@ -96,15 +96,7 @@ std::unique_ptr<Controller> getControllerById(
                 serieManager.getSerieType() + "/" +
                 serieManager.getNextLevelName() + ".level";
 
-            /* creates a level object using the next level file path; this path
-               is located inside the context object; this part of the code
-               throws an exception if an error occures during the file reading
-               process; we use auto, the generates type is
-               std::shared_ptr<entities::Level>; create this pointer here
-               instead of directly creating it inside the game controller makes
-               the code easier to maintain; the level pointer is used in the
-               game controller and also in the LevelAnimation object; */
-            auto level = std::make_shared<entities::Level>(
+            const auto level = std::make_shared<entities::Level>(
                 context,
                 levelPath
             );
@@ -122,6 +114,8 @@ std::unique_ptr<Controller> getControllerById(
                 CANNOT_OPEN_LEVEL
             );
         }
+
+        break;
     }
     case ControllerId::OpenFileError:
     {
@@ -158,7 +152,7 @@ std::unique_ptr<Controller> getControllerById(
 
         try
         {
-            auto level = std::make_shared<entities::Level>(context);
+            const auto level = std::make_shared<entities::Level>(context);
 
             return std::make_unique<LevelEditorController>(
                 context,
@@ -173,6 +167,8 @@ std::unique_ptr<Controller> getControllerById(
                 CANNOT_OPEN_LEVEL
             );
         }
+
+        break;
     }
     case ControllerId::OpenGame:
     {
@@ -203,9 +199,11 @@ std::unique_ptr<Controller> getControllerById(
     }
     default:
     {
-        return std::make_unique<MainMenuController>(context);
+        break;
     }
     }
+
+    return std::make_unique<MainMenuController>(context);
 }
 
 }
