@@ -27,11 +27,6 @@
 
 #include <memory>
 
-namespace sf
-{
-class String;
-}
-
 namespace memoris
 {
 
@@ -45,7 +40,6 @@ namespace controllers
 
 class Controller;
 enum class ControllerId;
-class ErrorController;
 
 /**
  * @brief returns a pointer to the created controller according to the given id
@@ -54,6 +48,9 @@ class ErrorController;
  * @param id the controller id
  *
  * @return std::unique_ptr<Controller>
+ *
+ * TODO: #1292 check why I cannot return a const pointer ?
+ * https://stackoverflow.com/questions/45279783/c-return-const-unique-ptr
  */
 std::unique_ptr<Controller> getControllerById(
     const utils::Context& context,
