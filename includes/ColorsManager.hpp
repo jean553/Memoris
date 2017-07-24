@@ -45,8 +45,11 @@ public:
 
     /**
      * @brief constructor
+     *
+     * @throw std::bad_alloc|std::length_error the string allocation failed;
+     * those exceptions are never caught and the program immeidately stops
      */
-    ColorsManager() noexcept;
+    ColorsManager();
 
     ColorsManager(const ColorsManager&) = delete;
 
