@@ -48,9 +48,6 @@ enum class ControllerId;
  * @param id the controller id
  *
  * @return std::unique_ptr<Controller>
- *
- * TODO: #1292 check why I cannot return a const pointer ?
- * https://stackoverflow.com/questions/45279783/c-return-const-unique-ptr
  */
 std::unique_ptr<Controller> getControllerById(
     const utils::Context& context,
