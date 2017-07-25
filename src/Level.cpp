@@ -310,7 +310,7 @@ const bool Level::isPlayerMovementAllowed(
         expectedIndex < CELLS_PER_FLOOR * floor or
         expectedIndex >= CELLS_PER_FLOOR * (floor + 1) or
         (
-            expectedIndex % CELLS_PER_LINE == CELLS_PER_LINE - 1 and
+            expectedIndex % CELLS_PER_LINE == 0 and
             movement == 1
         ) or
         (
