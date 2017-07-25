@@ -390,7 +390,7 @@ const ControllerId& GameController::render() const &
     constexpr sf::Int32 PLAYER_CELL_ANIMATION_INTERVAL {100};
     auto& lastTimePlayerAnimation = impl->playerCellAnimationTime;
     if (
-        timerWidget.isStarted() &&
+        not impl->watchingPeriod &&
         animation == nullptr &&
         time - lastTimePlayerAnimation > PLAYER_CELL_ANIMATION_INTERVAL
     )
