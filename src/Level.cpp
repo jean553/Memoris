@@ -81,7 +81,7 @@ Level::Level(const utils::Context& context) :
     for(
         unsigned short index {0};
         index < CELLS_PER_LEVEL;
-        index++
+        index += 1
     )
     {
         std::unique_ptr<Cell> cell = getCellByType(
@@ -130,7 +130,7 @@ Level::Level(
     for(
         unsigned short index {0}; 
         index < CELLS_PER_LEVEL; 
-        index++
+        index += 1
     )
     {
         char cellType = cells::EMPTY_CELL;
@@ -345,7 +345,7 @@ void Level::display(const unsigned short& floor) const &
     for(
         unsigned short index = firstCellIndex;
         index < lastCellIndex;
-        index++
+        index += 1
     )
     {
         (*impl->cells[index]).display(
@@ -445,7 +445,7 @@ void Level::setCellsTransparency(
     for (
         unsigned short index = firstCellIndex;
         index < lastCellIndex;
-        index++
+        index += 1
     )
     {
         impl->cells[index]->setCellColorTransparency(
@@ -509,7 +509,7 @@ const bool Level::updateSelectedCellType(
     for(
         auto iterator = impl->cells.cbegin() + firstCellIndex;
         iterator != impl->cells.cbegin() + lastCellIndex;
-        iterator++
+        iterator += 1
     )
     {
         const auto& cell = **iterator;
