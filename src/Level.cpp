@@ -81,7 +81,7 @@ Level::Level(const utils::Context& context) :
     for(
         unsigned short index {0};
         index < CELLS_PER_LEVEL;
-        index++
+        index += 1
     )
     {
         std::unique_ptr<Cell> cell = getCellByType(
@@ -130,7 +130,7 @@ Level::Level(
     for(
         unsigned short index {0}; 
         index < CELLS_PER_LEVEL; 
-        index++
+        index += 1
     )
     {
         char cellType = cells::EMPTY_CELL;
@@ -266,7 +266,8 @@ const bool Level::isPlayerMovementAllowed(
     const unsigned short& floor
 ) const &
 {
-    unsigned short expectedIndex = impl->playerIndex;
+    const auto& playerIndex = impl->playerIndex;
+    unsigned short expectedIndex = playerIndex;
     short movement {0};
 
     switch(event.key.code)
@@ -305,27 +306,27 @@ const bool Level::isPlayerMovementAllowed(
     }
     }
 
+    if (
+        expectedIndex < CELLS_PER_FLOOR * floor or
+        expectedIndex >= CELLS_PER_FLOOR * (floor + 1) or
+        (
+            expectedIndex % CELLS_PER_LINE == 0 and
+            movement == 1
+        ) or
+        (
+            playerIndex % CELLS_PER_LINE == 0 and
+            movement == -1
+        )
+    )
+    {
+        return false;
+    }
+
     const auto& nextCell = *impl->cells[expectedIndex];
     if(nextCell.getType() == cells::WALL_CELL)
     {
         nextCell.show(impl->context);
 
-        return false;
-    }
-
-    if (
-        expectedIndex < CELLS_PER_FLOOR * floor or
-        expectedIndex >= CELLS_PER_FLOOR * (floor + 1) or
-        (
-            expectedIndex % CELLS_PER_LINE == CELLS_PER_LINE - 1 and
-            movement == 1
-        ) or
-        (
-            expectedIndex % CELLS_PER_LINE == 0 and
-            movement == -1
-        )
-    )
-    {
         return false;
     }
 
@@ -344,7 +345,7 @@ void Level::display(const unsigned short& floor) const &
     for(
         unsigned short index = firstCellIndex;
         index < lastCellIndex;
-        index++
+        index += 1
     )
     {
         (*impl->cells[index]).display(
@@ -444,7 +445,7 @@ void Level::setCellsTransparency(
     for (
         unsigned short index = firstCellIndex;
         index < lastCellIndex;
-        index++
+        index += 1
     )
     {
         impl->cells[index]->setCellColorTransparency(
@@ -508,7 +509,7 @@ const bool Level::updateSelectedCellType(
     for(
         auto iterator = impl->cells.cbegin() + firstCellIndex;
         iterator != impl->cells.cbegin() + lastCellIndex;
-        iterator++
+        iterator += 1
     )
     {
         const auto& cell = **iterator;
