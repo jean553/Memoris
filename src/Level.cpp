@@ -266,7 +266,8 @@ const bool Level::isPlayerMovementAllowed(
     const unsigned short& floor
 ) const &
 {
-    unsigned short expectedIndex = impl->playerIndex;
+    const auto& playerIndex = impl->playerIndex;
+    unsigned short expectedIndex = playerIndex;
     short movement {0};
 
     switch(event.key.code)
@@ -305,14 +306,6 @@ const bool Level::isPlayerMovementAllowed(
     }
     }
 
-    const auto& nextCell = *impl->cells[expectedIndex];
-    if(nextCell.getType() == cells::WALL_CELL)
-    {
-        nextCell.show(impl->context);
-
-        return false;
-    }
-
     if (
         expectedIndex < CELLS_PER_FLOOR * floor or
         expectedIndex >= CELLS_PER_FLOOR * (floor + 1) or
@@ -321,11 +314,19 @@ const bool Level::isPlayerMovementAllowed(
             movement == 1
         ) or
         (
-            expectedIndex % CELLS_PER_LINE == 0 and
+            playerIndex % CELLS_PER_LINE == 0 and
             movement == -1
         )
     )
     {
+        return false;
+    }
+
+    const auto& nextCell = *impl->cells[expectedIndex];
+    if(nextCell.getType() == cells::WALL_CELL)
+    {
+        nextCell.show(impl->context);
+
         return false;
     }
 
