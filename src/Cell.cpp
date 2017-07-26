@@ -277,7 +277,10 @@ void Cell::hide(const utils::Context& context) const &
 /**
  *
  */
-void Cell::show(const utils::Context& context) const &
+void Cell::show(
+    const utils::Context& context,
+    const sf::Uint8& transparency
+) const &
 {
     impl->sprite.setTexture(
         context.getCellsTexturesManager().getTextureReferenceByCellType(
@@ -287,10 +290,9 @@ void Cell::show(const utils::Context& context) const &
 
     impl->visible = true;
 
-    constexpr sf::Uint8 FULL_VISIBLE {255};
     setCellColorTransparency(
         context,
-        FULL_VISIBLE
+        transparency
     );
 }
 

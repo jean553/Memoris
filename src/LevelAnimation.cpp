@@ -127,7 +127,8 @@ const unsigned short& LevelAnimation::getFloor() const & noexcept
  */
 void LevelAnimation::showOrHideCell(
     const unsigned short& index,
-    const bool& visible
+    const bool& visible,
+    const sf::Uint8& transparency
 ) const &
 {
     const auto& context = impl->context;
@@ -135,7 +136,10 @@ void LevelAnimation::showOrHideCell(
 
     if (visible)
     {
-        level->getCells()[index]->show(context);
+        level->getCells()[index]->show(
+            context,
+            transparency
+        );
     }
     else
     {
