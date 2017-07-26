@@ -79,7 +79,10 @@ void HorizontalMirrorAnimation::renderAnimation() &
     {
         context.getSoundsManager().playMirrorAnimationSound();
     }
-    else if (animationSteps >= 10 && animationSteps < 15)
+    else if (
+        animationSteps >= 10 and
+        animationSteps < 15
+    )
     {
         decreaseTransparency();
 
@@ -89,7 +92,10 @@ void HorizontalMirrorAnimation::renderAnimation() &
     {
         setNoTransparent();
     }
-    else if (animationSteps >= 16 && animationSteps < 21)
+    else if (
+        animationSteps >= 16 and
+        animationSteps < 21
+    )
     {
         decreaseTransparency();
 
@@ -101,7 +107,10 @@ void HorizontalMirrorAnimation::renderAnimation() &
 
         setFullTransparent();
     }
-    else if (animationSteps >= 22 && animationSteps < 27)
+    else if (
+        animationSteps >= 22 and
+        animationSteps < 27
+    )
     {
         increaseTransparency();
 
@@ -111,7 +120,10 @@ void HorizontalMirrorAnimation::renderAnimation() &
     {
         setFullTransparent();
     }
-    else if (animationSteps >= 28 && animationSteps < 33)
+    else if (
+        animationSteps >= 28 and
+        animationSteps < 33
+    )
     {
         increaseTransparency();
 
@@ -146,7 +158,7 @@ void HorizontalMirrorAnimation::invertSides() const &
     for (
         unsigned short index = firstIndex;
         index < lastIndex;
-        index++
+        index += 1
     )
     {
         const char type = level->getCells()[index]->getType();
@@ -192,9 +204,12 @@ void HorizontalMirrorAnimation::invertSides() const &
             setUpdatedPlayerIndex(index);
         }
 
-        if (index != 0 && index % dimensions::CELLS_PER_LINE == 0)
+        if (
+            index != 0 and
+            index % (dimensions::CELLS_PER_LINE - 1) == 0
+        )
         {
-            line++;
+            line += 1;
         }
     }
 }
@@ -212,7 +227,7 @@ void HorizontalMirrorAnimation::updateTopSideTransparency() const &
     for (
         unsigned short index = floorFirstCellIndex;
         index < floorLastCellIndex;
-        index++
+        index += 1
     )
     {
         applyTransparencyOnOneCell(index);
@@ -235,7 +250,7 @@ void HorizontalMirrorAnimation::updateBottomSideTransparency() const &
     for (
         unsigned short index = floorSideFirstCellIndex;
         index < floorSideLastCellIndex;
-        index++
+        index += 1
     )
     {
         applyTransparencyOnOneCell(index);
