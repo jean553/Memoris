@@ -173,16 +173,20 @@ void HorizontalMirrorAnimation::invertSides() const &
             level->getCells()[invertedIndex]->getType()
         );
 
+        constexpr sf::Uint8 NOT_DISPLAYED_TRANSPARENCY {0};
+
         showOrHideCell(
             index,
-            level->getCells()[invertedIndex]->isVisible()
+            level->getCells()[invertedIndex]->isVisible(),
+            NOT_DISPLAYED_TRANSPARENCY
         );
 
         level->getCells()[invertedIndex]->setType(type);
 
         showOrHideCell(
             invertedIndex,
-            visible
+            visible,
+            NOT_DISPLAYED_TRANSPARENCY
         );
 
         if (previousPlayerCell == index)

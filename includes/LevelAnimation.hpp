@@ -34,6 +34,7 @@ namespace sf
    the same type here in order to both use declaration forwarding and
    prevent conflicting declaration */
 typedef unsigned int Uint32;
+typedef unsigned char Uint8;
 }
 
 namespace memoris
@@ -118,12 +119,18 @@ protected:
      *
      * @param index the index of the cell to display or to hide
      * @param visible boolean that indicates if the cell has to be hide or not
+     * @param transparency optional transparency of the cell
+     *
+     * NOTE: the transparency is used by some animations when updating
+     * the cells textures without immediately displaying it (horizontal
+     * mirror animation, vertical mirror animation)
      *
      * not noexcept because it calls SFML functions
      */
     void showOrHideCell(
         const unsigned short& index,
-        const bool& visible
+        const bool& visible,
+        const sf::Uint8& transparency = 255
     ) const &;
 
     /**

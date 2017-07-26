@@ -85,7 +85,7 @@ void AbstractMirrorAnimation::decreaseTransparency() const & noexcept
  */
 void AbstractMirrorAnimation::setFullTransparent() const & noexcept
 {
-    impl->animatedSideTransparency = 0.f;
+    impl->animatedSideTransparency = 0;
 }
 
 /**

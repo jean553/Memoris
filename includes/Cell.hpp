@@ -174,10 +174,18 @@ public:
      * @brief show the cell
      *
      * @param context the context to use
+     * @param transparency optional transparency of the cell
+     *
+     * NOTE: the transparency is used by some animations when updating
+     * the cells textures without immediately displaying it (horizontal
+     * mirror animation, vertical mirror animation)
      *
      * not noexcept because it calls SFML methods that are not noexcept
      */
-    void show(const utils::Context& context) const &;
+    void show(
+        const utils::Context& context,
+        const sf::Uint8& transparency = 255
+    ) const &;
 
     /**
      * @brief cell type getter
