@@ -154,14 +154,6 @@ public:
     const unsigned short& getPlayingTime() const & noexcept;
 
     /**
-     * @brief getter of the results list loaded from the serie file
-     *
-     * @return const std::vector<std::unique_ptr<entities::SerieResult>>&
-     */
-    const std::vector<std::unique_ptr<entities::SerieResult>>& getResults()
-        const & noexcept;
-
-    /**
      * @brief setter that specifies if the serie is official or not
      *
      * @param official indicates if the serie is official or not

@@ -61,8 +61,6 @@ public:
 
     std::string serieName;
     std::string serieType {OFFICIALS_SERIE_DIRECTORY_NAME};
-
-    std::vector<std::unique_ptr<entities::SerieResult>> results;
 };
 
 /**
@@ -162,25 +160,6 @@ void PlayingSerieManager::loadSerieFileContent(
         throw std::invalid_argument("Cannot open the given serie file.");
     }
 
-    constexpr unsigned short RESULTS_PER_SERIE {3};
-    for (
-        unsigned short i = 0;
-        i < RESULTS_PER_SERIE; 
-        i++
-    )
-    {
-        std::string line;
-        std::getline(file, line);
-
-        if (line == ".")
-        {
-            continue;
-        }
-
-        auto result = std::make_unique<entities::SerieResult>(line);
-        impl->results.push_back(std::move(result));
-    }
-
     std::string level;
 
     while(std::getline(file, level))
@@ -224,16 +203,6 @@ const unsigned short& PlayingSerieManager::getLifesAmount() const & noexcept
 const unsigned short& PlayingSerieManager::getPlayingTime() const & noexcept
 {
     return impl->totalSeriePlayingTime;
-}
-
-/**
- *
- */
-using SerieResults = std::vector<std::unique_ptr<entities::SerieResult>>;
-const SerieResults& PlayingSerieManager::getResults()
-    const & noexcept
-{
-    return impl->results;
 }
 
 /**

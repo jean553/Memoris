@@ -33,7 +33,6 @@
 #include "AnimatedBackground.hpp"
 #include "HorizontalGradient.hpp"
 #include "PlayingSerieManager.hpp"
-#include "SerieResult.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -81,49 +80,6 @@ public:
             window::getCenteredTextHorizontalPosition(time),
             TIME_VERTICAL_POSITION
         );
-
-        const auto& results = playingSerieManager.getResults();
-
-        for (
-            auto result = results.cbegin();
-            result < results.cend();
-            ++result
-        )
-        {
-            std::string resultString = (*result)->getString();
-
-            /* replace commas by space for graphical reasons; I got some
-               problem by adding the space character directly into the file */
-            std::replace(
-                resultString.begin(),
-                resultString.end(),
-                ',',
-                ' '
-            );
-
-            auto resultText = std::make_unique<sf::Text>(
-                resultString,
-                textFont,
-                sizes::TEXT_SIZE
-            );
-
-            const auto index = std::distance(
-                results.cbegin(),
-                result
-            );
-
-            constexpr float RESULTS_FIRST_ITEM_VERTICAL_POSITION {300.f};
-            constexpr float RESULTS_INTERVAL {50.f};
-            resultText->setPosition(
-                window::getCenteredTextHorizontalPosition(*resultText),
-                RESULTS_FIRST_ITEM_VERTICAL_POSITION + RESULTS_INTERVAL * index
-            );
-            resultText->setFillColor(colorsManager.getColorWhiteAlphaCopy());
-
-            resultsTexts.push_back(std::move(resultText));
-        }
-
-        colorTimeTexts = colorsManager.getColorWhiteCopy();
     }
 
     sf::Text title;
@@ -132,16 +88,6 @@ public:
     utils::AnimatedBackground background;
 
     others::HorizontalGradient gradient;
-
-    /* use pointers instead of plain objects in order to accelerate the copy
-       process (sf::Text has no move constructor) */
-    std::vector<std::unique_ptr<sf::Text>> resultsTexts;
-
-    bool renderTransitionAnimation {false};
-
-    sf::Int32 lastAnimationUpdateTime {0};
-
-    sf::Color colorTimeTexts;
 };
 
 /**
@@ -166,10 +112,6 @@ WinSerieEndingController::~WinSerieEndingController() = default;
 const ControllerId& WinSerieEndingController::render() const &
 {
     const auto& context = getContext();
-    auto currentTime = context.getClockMillisecondsTime();
-
-    auto& renderTransitionAnimation = impl->renderTransitionAnimation;
-    auto& lastAnimationUpdateTime = impl->lastAnimationUpdateTime;
 
     auto& title = impl->title;
     auto& time = impl->time;
@@ -177,61 +119,9 @@ const ControllerId& WinSerieEndingController::render() const &
     impl->background.render();
     impl->gradient.render();
 
-    sf::Color titleColor = title.getFillColor();
-    auto& titleTransparency = titleColor.a;
-
-    constexpr sf::Int32 SWITCH_ANIMATION_INTERVAL {30};
-    if (
-        renderTransitionAnimation and
-        currentTime - lastAnimationUpdateTime > SWITCH_ANIMATION_INTERVAL
-    )
-    {
-        constexpr sf::Uint8 OPACITY_UPDATE_INTERVAL {51};
-
-        auto& colorTimeTexts = impl->colorTimeTexts;
-        auto& whiteTransparency = colorTimeTexts.a;
-
-        if (titleTransparency != 0)
-        {
-            titleTransparency -= OPACITY_UPDATE_INTERVAL;
-            whiteTransparency -= OPACITY_UPDATE_INTERVAL;
-
-            title.setFillColor(titleColor);
-            time.setFillColor(colorTimeTexts);
-        }
-        else
-        {
-            whiteTransparency += OPACITY_UPDATE_INTERVAL;
-
-            for (const auto& resultText : impl->resultsTexts)
-            {
-                (*resultText).setFillColor(colorTimeTexts);
-            }
-
-            constexpr sf::Uint8 COLOR_WHITE_MAX_OPACITY {255};
-            if (whiteTransparency == COLOR_WHITE_MAX_OPACITY)
-            {
-                renderTransitionAnimation = false;
-            }
-        }
-
-        lastAnimationUpdateTime = currentTime;
-    }
-
     auto& window = context.getSfmlWindow();
-
-    if (titleTransparency == 0)
-    {
-        for (const auto& resultText : impl->resultsTexts)
-        {
-            window.draw(*resultText);
-        }
-    }
-    else
-    {
-        window.draw(title);
-        window.draw(time);
-    }
+    window.draw(title);
+    window.draw(time);
 
     setNextControllerId(animateScreenTransition(context));
 
@@ -246,13 +136,6 @@ const ControllerId& WinSerieEndingController::render() const &
             {
             case sf::Keyboard::Return:
             {
-                if (titleTransparency != 0)
-                {
-                    renderTransitionAnimation = true;
-
-                    break;
-                }
-
                 setExpectedControllerId(ControllerId::MainMenu);
 
                 break;
