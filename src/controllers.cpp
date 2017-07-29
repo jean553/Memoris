@@ -37,7 +37,6 @@
 #include "PlayingSerieManager.hpp"
 #include "EditingLevelManager.hpp"
 #include "WinSerieEndingController.hpp"
-#include "RemoveGameController.hpp"
 #include "PersonalSeriesMenuController.hpp"
 #include "Context.hpp"
 #include "ErrorController.hpp"
@@ -188,10 +187,6 @@ std::unique_ptr<Controller> getControllerById(
     case ControllerId::WinSerie:
     {
         return std::make_unique<WinSerieEndingController>(context);
-    }
-    case ControllerId::RemoveGame:
-    {
-        return std::make_unique<RemoveGameController>(context);
     }
     case ControllerId::PersonalSeriesMenu:
     {

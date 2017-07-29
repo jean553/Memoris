@@ -117,22 +117,11 @@ SerieMainMenuController::SerieMainMenuController(
         )
     );
 
-    constexpr float REMOVE_ITEM_VERTICAL_POSITION {810.f};
-    std::unique_ptr<items::MenuItem> remove(
-        std::make_unique<items::MenuItem>(
-            context,
-            "Remove",
-            REMOVE_ITEM_VERTICAL_POSITION,
-            items::MenuItem::HorizontalPosition::Left
-        )
-    );
-
     officialSeries->select();
 
     addMenuItem(std::move(officialSeries));
     addMenuItem(std::move(personalSeries));
     addMenuItem(std::move(back));
-    addMenuItem(std::move(remove));
 }
 
 /**
@@ -257,8 +246,6 @@ void SerieMainMenuController::selectMenuItem() const & noexcept
     }
     default:
     {
-        setExpectedControllerId(ControllerId::RemoveGame);
-
         break;
     }
     }
