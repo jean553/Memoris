@@ -45,7 +45,6 @@
 #include "StairsAnimation.hpp"
 #include "DiagonalAnimation.hpp"
 #include "RotateFloorAnimation.hpp"
-#include "QuarterRotationAnimation.hpp"
 
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Event.hpp>
@@ -700,16 +699,6 @@ void GameController::executePlayerCellAction() const &
             level,
             floor,
             animations::RotateFloorAnimation::MovementDirection::Right
-        );
-
-        break;
-    }
-    case cells::QUARTER_ROTATION_CELL:
-    {
-        animation = std::make_unique<animations::QuarterRotationAnimation>(
-            context,
-            level,
-            floor
         );
 
         break;

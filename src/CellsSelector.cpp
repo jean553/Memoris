@@ -151,12 +151,6 @@ public:
             200.f,
             198.f,
             cells::DIAGONAL_CELL
-        ),
-        quarterRotationCell(
-            context,
-            200.f,
-            248.f,
-            cells::QUARTER_ROTATION_CELL
         )
     {
         selectedCellImage.setTexture(
@@ -193,7 +187,6 @@ public:
     entities::Cell elevatorUpCell;
     entities::Cell elevatorDownCell;
     entities::Cell diagonalCell;
-    entities::Cell quarterRotationCell;
 
     char selectedCellType {'e'};
 
@@ -238,7 +231,6 @@ void CellsSelector::display() const &
     impl->elevatorUpCell.displayWithMouseHover(context);
     impl->elevatorDownCell.displayWithMouseHover(context);
     impl->diagonalCell.displayWithMouseHover(context);
-    impl->quarterRotationCell.displayWithMouseHover(context);
 
     context.getSfmlWindow().draw(impl->selectedCellImage);
 }
@@ -343,10 +335,6 @@ const char CellsSelector::getMouseHoverCellType() const &
     else if (impl->diagonalCell.isMouseHover())
     {
         return cells::DIAGONAL_CELL;
-    }
-    else if (impl->quarterRotationCell.isMouseHover())
-    {
-        return cells::QUARTER_ROTATION_CELL;
     }
 
     return cells::NO_CELL;
