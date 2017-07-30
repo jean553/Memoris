@@ -185,6 +185,8 @@ void GameController::handleAnimation() const &
 
             floor += floorMovement;
             impl->dashboard.updateCurrentFloor(floor);
+
+            floorMovement = 0;
         }
 
         animation.reset();

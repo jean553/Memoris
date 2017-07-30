@@ -232,7 +232,6 @@ void HorizontalMirrorAnimation::invertSides() const &
         {
             line += 1;
         }
-
     }
 }
 
