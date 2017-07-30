@@ -39,6 +39,7 @@
 #include "Cell.hpp"
 #include "PickUpEffect.hpp"
 #include "Context.hpp"
+#include "dimensions.hpp"
 
 #include "HorizontalMirrorAnimation.hpp"
 #include "VerticalMirrorAnimation.hpp"
@@ -490,6 +491,8 @@ const ControllerId& GameController::render() const &
  */
 void GameController::executePlayerCellAction() const &
 {
+    using namespace dimensions;
+
     const auto& level = impl->level;
     const auto& newPlayerCellType = level->getPlayerCellType();
     const auto& context = getContext();
@@ -499,8 +502,6 @@ void GameController::executePlayerCellAction() const &
 
     auto& animation = impl->animation;
     auto& floorMovement = impl->floorMovement;
-
-    constexpr unsigned short CELLS_PER_FLOOR {256};
 
     switch(newPlayerCellType)
     {
@@ -606,7 +607,6 @@ void GameController::executePlayerCellAction() const &
         unsigned short index = level->getPlayerCellIndex();
         const unsigned short nextFloorIndex = index + CELLS_PER_FLOOR;
 
-        constexpr unsigned short CELLS_PER_LEVEL {2560};
         if (nextFloorIndex > CELLS_PER_LEVEL)
         {
             break;

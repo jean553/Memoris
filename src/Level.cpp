@@ -27,6 +27,7 @@
 
 #include "cells.hpp"
 #include "Cell.hpp"
+#include "dimensions.hpp"
 
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Event.hpp>
@@ -41,7 +42,6 @@ namespace entities
 
 constexpr unsigned short CELLS_PER_FLOOR {256};
 constexpr unsigned short CELLS_PER_LINE {16};
-constexpr unsigned short CELLS_PER_LEVEL {2560};
 
 class Level::Impl
 {
@@ -80,7 +80,7 @@ Level::Level(const utils::Context& context) :
 
     for(
         unsigned short index {0};
-        index < CELLS_PER_LEVEL;
+        index < dimensions::CELLS_PER_LEVEL;
         index += 1
     )
     {
@@ -128,8 +128,8 @@ Level::Level(
     unsigned short row {0}, column {0};
 
     for(
-        unsigned short index {0}; 
-        index < CELLS_PER_LEVEL; 
+        unsigned short index {0};
+        index < dimensions::CELLS_PER_LEVEL;
         index += 1
     )
     {
