@@ -148,23 +148,36 @@ void HorizontalMirrorAnimation::invertSides() const &
 {
     const auto& level = getLevel();
 
-    const unsigned short firstIndex = getFloor() * dimensions::CELLS_PER_FLOOR;
-    const unsigned short lastIndex = firstIndex +
-        dimensions::TOP_SIDE_LAST_CELL_INDEX;
     const unsigned short previousPlayerCell = level->getPlayerCellIndex();
 
     unsigned short line {0};
+    unsigned short floor {0};
 
     for (
-        unsigned short index = firstIndex;
-        index < lastIndex;
+        unsigned short index {0};
+        index < dimensions::CELLS_PER_LEVEL;
         index += 1
     )
     {
+        if (
+            index >= dimensions::TOP_SIDE_LAST_CELL_INDEX * (floor + 1) and
+            index < dimensions::CELLS_PER_FLOOR * (floor + 1)
+        )
+        {
+            if ((index + 1) % dimensions::CELLS_PER_FLOOR == 0)
+            {
+                floor += 1;
+                line = 0;
+            }
+
+            continue;
+        }
+
         const char type = level->getCells()[index]->getType();
         const bool visible = level->getCells()[index]->isVisible();
         const unsigned short invertedIndex =
             findInvertedIndex(
+                floor,
                 line,
                 index
             );
@@ -193,6 +206,7 @@ void HorizontalMirrorAnimation::invertSides() const &
         {
             setUpdatedPlayerIndex(
                 findInvertedIndex(
+                    floor,
                     line,
                     index
                 )
@@ -200,6 +214,7 @@ void HorizontalMirrorAnimation::invertSides() const &
         } else if (
             previousPlayerCell ==
                 findInvertedIndex(
+                    floor,
                     line,
                     index
                 )
@@ -215,6 +230,7 @@ void HorizontalMirrorAnimation::invertSides() const &
         {
             line += 1;
         }
+
     }
 }
 
@@ -279,16 +295,20 @@ void HorizontalMirrorAnimation::displayLevelAndHorizontalSeparator() const &
  *
  */
 const unsigned short HorizontalMirrorAnimation::findInvertedIndex(
+    const unsigned short& floor,
     const unsigned short& line,
     const unsigned short& index
 ) const & noexcept
 {
-    constexpr unsigned short INVERTED_CELL_INDEX_OFFSET {240};
+    using namespace dimensions;
+    const unsigned short offset = 240 + (CELLS_PER_FLOOR * floor);
     constexpr unsigned short LINE_CELLS_FACTOR {32};
 
     /* this calculation can work with negative value, but at the end,
        the result should always be more than 0 to prevent seg fault */
-    return INVERTED_CELL_INDEX_OFFSET - LINE_CELLS_FACTOR * line + index;
+    return offset - LINE_CELLS_FACTOR * line + (
+        index - CELLS_PER_FLOOR * floor
+    );
 }
 
 }

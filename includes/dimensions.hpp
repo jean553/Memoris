@@ -34,6 +34,7 @@ constexpr float TOP_SIDE_LAST_CELL_INDEX {128};
 
 constexpr unsigned short CELLS_PER_LINE {16};
 constexpr unsigned short CELLS_PER_FLOOR {256};
+constexpr unsigned short CELLS_PER_LEVEL {2560};
 
 }
 }
