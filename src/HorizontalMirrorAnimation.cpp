@@ -159,12 +159,14 @@ void HorizontalMirrorAnimation::invertSides() const &
         index += 1
     )
     {
+        using namespace dimensions;
+
         if (
-            index >= dimensions::TOP_SIDE_LAST_CELL_INDEX * (floor + 1) and
-            index < dimensions::CELLS_PER_FLOOR * (floor + 1)
+            index >= TOP_SIDE_LAST_CELL_INDEX + (CELLS_PER_FLOOR * floor) and
+            index < CELLS_PER_FLOOR * (floor + 1)
         )
         {
-            if ((index + 1) % dimensions::CELLS_PER_FLOOR == 0)
+            if ((index + 1) % CELLS_PER_FLOOR == 0)
             {
                 floor += 1;
                 line = 0;
@@ -225,7 +227,7 @@ void HorizontalMirrorAnimation::invertSides() const &
 
         if (
             index != 0 and
-            (index + 1) % dimensions::CELLS_PER_LINE == 0
+            (index + 1) % CELLS_PER_LINE == 0
         )
         {
             line += 1;
