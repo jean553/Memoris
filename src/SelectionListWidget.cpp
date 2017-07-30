@@ -459,11 +459,19 @@ const bool SelectionListWidget::isMouseHoverItem(
     constexpr float BOTTOM_BORDER_VERTICAL_POSITION =
         VERTICAL_POSITION + HEIGHT;
 
+    auto bottomPosition = VERTICAL_POSITION +
+        static_cast<float>(impl->texts.size()) * ITEMS_SEPARATION;
+
+    if (bottomPosition > BOTTOM_BORDER_VERTICAL_POSITION)
+    {
+        bottomPosition = BOTTOM_BORDER_VERTICAL_POSITION;
+    }
+
     if (
         cursorHorizontalPosition < impl->horizontalPosition or
         cursorHorizontalPosition > rightBorderHorizontalPosition or
         cursorVerticalPosition < VERTICAL_POSITION or
-        cursorVerticalPosition > BOTTOM_BORDER_VERTICAL_POSITION
+        cursorVerticalPosition > bottomPosition
     )
     {
         return false;
