@@ -92,13 +92,15 @@ private:
      * @brief calculates the interved index of the horizontal mirror for the
      * given index
      *
-     * @param line constant reference to the current line of the cell (0...15)
-     * @param index constant reference to the current index of the cell
+     * @param floor the current floor
+     * @param line the current line of the cell (0...15)
+     * @param index the current index of the cell
      * (0...255) (considere the current floor factor)
      *
      * @return const unsigned short
      */
     const unsigned short findInvertedIndex(
+        const unsigned short& floor,
         const unsigned short& line,
         const unsigned short& index
     ) const & noexcept;
