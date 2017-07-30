@@ -210,7 +210,7 @@ void HorizontalMirrorAnimation::invertSides() const &
 
         if (
             index != 0 and
-            index % (dimensions::CELLS_PER_LINE - 1) == 0
+            (index + 1) % dimensions::CELLS_PER_LINE == 0
         )
         {
             line += 1;
