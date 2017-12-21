@@ -27,6 +27,7 @@
 #include "FontsManager.hpp"
 #include "ColorsManager.hpp"
 #include "Context.hpp"
+#include "window.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -35,6 +36,8 @@ namespace memoris
 {
 namespace widgets
 {
+
+constexpr float TIMERS_VERTICAL_POSITION {300.f};
 
 class WatchingTimer::Impl
 {
@@ -49,8 +52,6 @@ public:
         originalTime(displayedTime),
         context(context)
     {
-        constexpr float TIMERS_VERTICAL_POSITION {300.f};
-
         const auto time = std::to_string(displayedTime);
 
         constexpr float LEFT_TIMER_HORIZONTAL_POSITION {90.f};
@@ -121,11 +122,33 @@ void WatchingTimer::display() const &
  */
 void WatchingTimer::decrementWatchingTimer() const &
 {
-    impl->displayedTime--;
+    impl->displayedTime -= 1;
 
     const auto time = std::to_string(impl->displayedTime);
-    impl->left.setString(time);
-    impl->right.setString(time);
+
+    auto& left = impl->left;
+    auto& right = impl->right;
+
+    left.setString(time);
+    right.setString(time);
+
+    constexpr float LEFT_SEPARATOR_POSITION {290.f};
+    constexpr float LEFT_AREA_CENTER {LEFT_SEPARATOR_POSITION / 2};
+    left.setPosition(
+        LEFT_AREA_CENTER - left.getLocalBounds().width / 2,
+        TIMERS_VERTICAL_POSITION
+    );
+
+    constexpr float RIGHT_SEPARATOR_POSITION {1308.f};
+    constexpr float RIGHT_AREA_CENTER {
+        RIGHT_SEPARATOR_POSITION + (
+            window::WIDTH - RIGHT_SEPARATOR_POSITION
+        ) / 2
+    };
+    right.setPosition(
+        RIGHT_AREA_CENTER - right.getLocalBounds().width / 2,
+        TIMERS_VERTICAL_POSITION
+    );
 }
 
 /**
