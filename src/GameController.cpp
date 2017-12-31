@@ -80,7 +80,8 @@ public:
         watchingTimer(
             context,
             watchingTime
-        )
+        ),
+        editedLevel(context.getEditingLevelManager().getLevel())
     {
         hasWatchingPeriod = (watchingTime != 0);
     }
@@ -120,6 +121,8 @@ public:
     widgets::WatchingTimer watchingTimer;
 
     std::vector<std::unique_ptr<utils::PickUpEffect>> effects;
+
+    const std::shared_ptr<entities::Level>& editedLevel;
 };
 
 /**
@@ -328,11 +331,16 @@ const ControllerId& GameController::render() const &
             constexpr unsigned short ENDING_SCREEN_SECONDS_DURATION {5};
             if (endingScreenSeconds == ENDING_SCREEN_SECONDS_DURATION)
             {
-                setExpectedControllerId(
-                    impl->win ?
-                    ControllerId::Game:
-                    ControllerId::MainMenu
-                );
+                if (impl->editedLevel != nullptr)
+                {
+                    setExpectedControllerId(ControllerId::LevelEditor);
+                } else {
+                    setExpectedControllerId(
+                        impl->win ?
+                        ControllerId::Game:
+                        ControllerId::MainMenu
+                    );
+                }
             }
         }
 
@@ -574,15 +582,12 @@ void GameController::executePlayerCellAction() const &
         {
             impl->win = true;
 
-            const auto& editingLevelManager = context.getEditingLevelManager();
-            const auto& editedLevel = editingLevelManager.getLevel();
-
             const auto& playingSerieManager = context.getPlayingSerieManager();
             playingSerieManager.addSecondsToPlayingSerieTime(
                 impl->playingTime
             );
 
-            if (editedLevel != nullptr)
+            if (impl->editedLevel != nullptr)
             {
                 setExpectedControllerId(ControllerId::LevelEditor);
 
