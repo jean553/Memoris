@@ -331,11 +331,16 @@ const ControllerId& GameController::render() const &
             constexpr unsigned short ENDING_SCREEN_SECONDS_DURATION {5};
             if (endingScreenSeconds == ENDING_SCREEN_SECONDS_DURATION)
             {
-                setExpectedControllerId(
-                    impl->win ?
-                    ControllerId::Game:
-                    ControllerId::MainMenu
-                );
+                if (impl->editedLevel != nullptr)
+                {
+                    setExpectedControllerId(ControllerId::LevelEditor);
+                } else {
+                    setExpectedControllerId(
+                        impl->win ?
+                        ControllerId::Game:
+                        ControllerId::MainMenu
+                    );
+                }
             }
         }
 
