@@ -299,6 +299,10 @@ public:
      * replaces it with the given type; returns a boolean that
      * indicates if the level has been modified or not
      *
+     * NOTE: this method also automatically inserts a stairs up
+     * or stairs down cell if the currently inserted cell is a stair
+     * and there is a floor available above or below the current floor
+     *
      * @param floor the current level floor displayed
      * @param type the type to apply on the 'mouse hover' cell
      *
