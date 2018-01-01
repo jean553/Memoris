@@ -306,11 +306,11 @@ public:
      * @param floor the current level floor displayed
      * @param type the type to apply on the 'mouse hover' cell
      *
-     * @return const bool
+     * @return bool
      *
      * not noexcept because it calls SFML methods that are not noexcept
      */
-    const bool updateSelectedCellType(
+    bool updateSelectedCellType(
         const unsigned short& floor,
         const char& type
     ) const &;

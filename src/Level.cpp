@@ -496,7 +496,7 @@ void Level::rotateAllCells(const short& degrees) const &
 /**
  *
  */
-const bool Level::updateSelectedCellType(
+bool Level::updateSelectedCellType(
     const unsigned short& floor,
     const char& type
 ) const &
