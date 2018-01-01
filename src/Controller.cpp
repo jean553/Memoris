@@ -123,7 +123,7 @@ const ControllerId Controller::animateScreenTransition(
     auto& lastTime = impl->lastScreenTransitionTime;
     auto& transitionStep = impl->transitionStep;
 
-    constexpr sf::Uint32 TRANSITION_ANIMATION_INTERVAL {25};
+    constexpr sf::Int32 TRANSITION_ANIMATION_INTERVAL {25};
     if (currentTime - lastTime > TRANSITION_ANIMATION_INTERVAL)
     {
         if (impl->openingScreen)
