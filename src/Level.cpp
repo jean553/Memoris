@@ -496,7 +496,7 @@ void Level::rotateAllCells(const short& degrees) const &
 /**
  *
  */
-const bool Level::updateSelectedCellType(
+bool Level::updateSelectedCellType(
     const unsigned short& floor,
     const char& type
 ) const &
@@ -506,9 +506,11 @@ const bool Level::updateSelectedCellType(
 
     auto updated = false;
 
+    const auto& cells = impl->cells;
+
     for(
-        auto iterator = impl->cells.cbegin() + firstCellIndex;
-        iterator != impl->cells.cbegin() + lastCellIndex;
+        auto iterator = cells.cbegin() + firstCellIndex;
+        iterator != cells.cbegin() + lastCellIndex;
         iterator += 1
     )
     {
@@ -519,21 +521,57 @@ const bool Level::updateSelectedCellType(
             continue;
         }
 
-        if (cell.getType() == type)
+        const auto index = std::distance(
+            cells.cbegin(),
+            iterator
+        );
+
+        if (
+            cell.getType() == type or
+            (
+                type == cells::STAIRS_UP_CELL and
+                index >= dimensions::CELLS_PER_LEVEL - CELLS_PER_FLOOR
+            ) or
+            (
+                type == cells::STAIRS_DOWN_CELL and
+                index < CELLS_PER_FLOOR
+            )
+        )
         {
             break;
         }
 
         if (type == cells::DEPARTURE_CELL)
         {
-            impl->playerIndex = std::distance(
-                impl->cells.cbegin(),
-                iterator
-            );
+            impl->playerIndex = index;
         }
 
         cell.setType(type);
-        cell.show(impl->context);
+
+        const auto& context = impl->context;
+        cell.show(context);
+
+        const auto stairsDownIndex = index + CELLS_PER_FLOOR;
+        auto& nextFloorCell = cells[stairsDownIndex];
+        if (
+            type == cells::STAIRS_UP_CELL and
+            stairsDownIndex <= dimensions::CELLS_PER_LEVEL
+        )
+        {
+            nextFloorCell->setType(cells::STAIRS_DOWN_CELL);
+            nextFloorCell->show(context);
+        }
+
+        const auto stairsUpIndex = index - CELLS_PER_FLOOR;
+        auto& previousFloorCell = cells[stairsUpIndex];
+        if (
+            type == cells::STAIRS_DOWN_CELL and
+            stairsUpIndex >= 0
+        )
+        {
+            previousFloorCell->setType(cells::STAIRS_UP_CELL);
+            previousFloorCell->show(context);
+        }
 
         updated = true;
 

@@ -547,7 +547,9 @@ void LevelEditorController::handleControllerEvents() const &
             }
 
             /* TODO: #1264 these two method names are not explicit enough;
-               these two conditions have to be reworked */
+               these two conditions have to be reworked;
+               furthermore, there is no explicit indication saying
+               that the second condition function updates the level cells */
 
             if(cellIsSelectedFromCellsSelector())
             {
