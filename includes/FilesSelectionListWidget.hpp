@@ -47,10 +47,6 @@ public:
      *
      * @throw std::bad_alloc the implementation cannot be initialized;
      * this exception is never caught and the program terminates
-     *
-     * @throws std::invalid_argument throws an exception if the directory cannot
-     * be open or if an error occures (no matter what the error is); this
-     * exception is never caught and the program just stops
      */
     FilesSelectionListWidget(
         const utils::Context& context,
@@ -75,9 +71,9 @@ public:
      * - empty names 
      * the names are loaded into the sf::Text lists from the parent class
      *
-     * @throws std::invalid_argument throws an exception if the directory cannot
-     * be open or if an error occures (no matter what the error is); this
-     * exception is never caught and the program just stops
+     * NOTE: the code here segfault if the directory cannot be open;
+     * we voluntary do not handle any exception in order to let
+     * the program stops
      *
      * this method is called directly from the constructor
      * but not directly defined within it;

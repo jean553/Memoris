@@ -97,10 +97,9 @@ void FilesSelectionListWidget::loadFilesFromDirectory() const & noexcept
     /* pointer to the object managing the directory reading */
     DIR* dir = opendir(impl->directoryPath);
 
-    if (dir == NULL)
-    {
-        throw std::invalid_argument("Cannot open the given directory");
-    }
+    /* NOTE: the code here segfault if the directory cannot be open;
+       we voluntary do not handle any exception in order to let
+       the program stops */
 
     while((reader = readdir(dir)) != NULL)
     {
