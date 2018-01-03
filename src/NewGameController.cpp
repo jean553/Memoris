@@ -38,6 +38,8 @@
 
 #include <fstream>
 
+#include <unistd.h> // C library
+
 namespace memoris
 {
 
