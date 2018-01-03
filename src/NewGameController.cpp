@@ -137,18 +137,29 @@ const ControllerId& NewGameController::render() const &
             /* TODO: #498 should not be allowed if the name already exists */
             case sf::Keyboard::Return:
             {
-                if (inputText.isEmpty())
+                const auto& gameName = inputText.getText();
+                const auto fullPath =
+                    GAMES_FILES_DIRECTORY + gameName + GAMES_FILES_EXTENSION;
+
+                if (
+                    inputText.isEmpty() or
+                    /* F_OK is used to check the existance
+                       of a file at the given path */
+                    access(
+                        fullPath.toAnsiString().c_str(),
+                        F_OK
+                    ) == 0
+                )
                 {
                     break;
                 }
 
-                const auto& gameName = inputText.getText();
                 context.setGameName(gameName);
 
                 std::ofstream file;
 
                 file.open(
-                    GAMES_FILES_DIRECTORY + gameName + GAMES_FILES_EXTENSION,
+                    fullPath,
                     std::fstream::out
                 );
 
