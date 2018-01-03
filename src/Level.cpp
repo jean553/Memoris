@@ -529,11 +529,17 @@ bool Level::updateSelectedCellType(
         if (
             cell.getType() == type or
             (
-                type == cells::STAIRS_UP_CELL and
+                (
+                    type == cells::STAIRS_UP_CELL or
+                    type == cells::ELEVATOR_UP_CELL
+                ) and
                 index >= dimensions::CELLS_PER_LEVEL - CELLS_PER_FLOOR
             ) or
             (
-                type == cells::STAIRS_DOWN_CELL and
+                (
+                    type == cells::STAIRS_DOWN_CELL or
+                    type == cells::ELEVATOR_DOWN_CELL
+                ) and
                 index < CELLS_PER_FLOOR
             )
         )
