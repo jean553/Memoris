@@ -28,6 +28,7 @@
 #include "Cell.hpp"
 #include "Level.hpp"
 #include "Context.hpp"
+#include "dimensions.hpp"
 
 namespace memoris
 {
@@ -303,6 +304,33 @@ void RotateFloorAnimation::rotateCells() const &
             }
         }
     }
+}
+
+/**
+ *
+ */
+std::pair<unsigned short, unsigned short>
+RotateFloorAnimation::getCoordinatesFromIndex(const unsigned short& index)
+const & noexcept
+{
+    /* every line contains 16 cells, so the middle is at index 8 */
+    unsigned short x = (index % dimensions::CELLS_PER_LINE) - 8;
+    unsigned short y = (index / dimensions::CELLS_PER_LINE) - 8;
+
+    /* we increment the coordinates in order
+       to have orthogonal coordinates rotable around the origin */
+
+    if (x >= 0)
+    {
+        x += 1;
+    }
+
+    if (y >= 0)
+    {
+        y += 1;
+    }
+
+    return std::pair<unsigned short, unsigned short>(x, y);
 }
 
 }

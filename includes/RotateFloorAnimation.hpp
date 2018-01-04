@@ -92,6 +92,16 @@ private:
      */
     void rotateCells() const &;
 
+    /**
+     * @brief converts the given index into orthogonal coordinates
+     *
+     * @param index the index to convert
+     *
+     * @return std::pair<unsigned short, unsigned short>
+     */
+    std::pair<unsigned short, unsigned short>
+    getCoordinatesFromIndex(const unsigned short& index) const & noexcept;
+
     class Impl;
     std::unique_ptr<Impl> impl;
 };
