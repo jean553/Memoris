@@ -93,6 +93,13 @@ private:
     void rotateCells() const &;
 
     /**
+     * @brief rotates one specific given cell at the given index
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
+     */
+    void rotateCell(const unsigned short& index) const &;
+
+    /**
      * @brief converts the given index into orthogonal coordinates
      *
      * @param index the index to convert

@@ -137,9 +137,6 @@ void RotateFloorAnimation::playNextAnimationStep() const &
  */
 void RotateFloorAnimation::rotateCells() const &
 {
-    const auto& level = getLevel();
-    const auto& cells = level->getCells(); 
-
     constexpr unsigned short CELLS_PER_SIDE = dimensions::CELLS_PER_FLOOR / 2;
     for (
         unsigned short index = 0;
@@ -152,17 +149,26 @@ void RotateFloorAnimation::rotateCells() const &
             continue;
         }
 
-        const auto type = cells[index]->getType();
-        const std::pair<short, short> coordinates =
-            getCoordinatesFromIndex(index);
-
-        /* rotate (x,y) around the origin (0, 0) results into (-y, x) */
-        const short x = coordinates.second * -1;
-        const short y = coordinates.first;
-
-        const auto destinationIndex = getIndexFromCoordinates(x, y);
-        cells[destinationIndex]->setType(type);
+        rotateCell(index);
     }
+}
+
+/**
+ *
+ */
+void RotateFloorAnimation::rotateCell(const unsigned short& index) const &
+{
+    const auto& cells = getLevel()->getCells();
+    const auto type = cells[index]->getType();
+    const std::pair<short, short> coordinates =
+        getCoordinatesFromIndex(index);
+
+    /* rotate (x,y) around the origin (0, 0) results into (-y, x) */
+    const short x = coordinates.second * -1;
+    const short y = coordinates.first;
+
+    const auto destinationIndex = getIndexFromCoordinates(x, y);
+    cells[destinationIndex]->setType(type);
 }
 
 /**
