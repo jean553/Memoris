@@ -320,6 +320,7 @@ const ControllerId& GameController::render() const &
 
     auto& lastTime = impl->lastTime;
     auto& animation = impl->animation;
+    auto& editedLevel = impl->editedLevel;
 
     if (time - lastTime > ONE_SECOND)
     {
@@ -331,7 +332,7 @@ const ControllerId& GameController::render() const &
             constexpr unsigned short ENDING_SCREEN_SECONDS_DURATION {5};
             if (endingScreenSeconds == ENDING_SCREEN_SECONDS_DURATION)
             {
-                if (impl->editedLevel != nullptr)
+                if (editedLevel != nullptr)
                 {
                     setExpectedControllerId(ControllerId::LevelEditor);
                 } else {
@@ -370,11 +371,20 @@ const ControllerId& GameController::render() const &
             }
         }
 
-        if (timerWidget.isStarted())
+        const auto timerStarted = timerWidget.isStarted();
+
+        auto& playingTime = impl->playingTime;
+        if (
+            editedLevel != nullptr or
+            timerStarted
+        )
+        {
+            playingTime += 1;
+        }
+
+        if (timerStarted)
         {
             timerWidget.decrementPlayingTimer();
-
-            impl->playingTime += 1;
 
             if(
                 timerWidget.isTimeOver() and
