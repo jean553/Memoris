@@ -39,6 +39,8 @@ namespace memoris
 namespace animations
 {
 
+constexpr unsigned short FLOORS_PER_LEVEL {10};
+
 class DiagonalAnimation::Impl
 {
 
@@ -215,24 +217,31 @@ void DiagonalAnimation::applyPurpleColorOnCellsQuarters(const sf::Color& color)
  */
 void DiagonalAnimation::invertTopLeftWithBottomRight() const &
 {
-    const auto& floor = getFloor();
 
-    unsigned short index = floor * 256;
-
-    while(index != floor * 256 + 128)
+    for(
+        unsigned short floor = 0;
+        floor < FLOORS_PER_LEVEL;
+        floor += 1
+    )
     {
-        if (
-            index < floor * 256 + 128 &&
-            ((index - floor * 256) % 16) < 8
-        )
-        {
-            invertCells(
-                index,
-                136
-            );
-        }
 
-        index++;
+        unsigned short index = floor * 256;
+
+        while(index != floor * 256 + 128)
+        {
+            if (
+                index < floor * 256 + 128 &&
+                ((index - floor * 256) % 16) < 8
+            )
+            {
+                invertCells(
+                    index,
+                    136
+                );
+            }
+
+            index += 1;
+        }
     }
 }
 
@@ -241,23 +250,30 @@ void DiagonalAnimation::invertTopLeftWithBottomRight() const &
  */
 void DiagonalAnimation::invertBottomLeftWithTopRight() const &
 {
-    const auto& floor = getFloor();
-    unsigned short index = floor * 256 + 128;
-
-    while(index < (floor + 1) * 256)
+    for(
+        unsigned short floor = 0;
+        floor < FLOORS_PER_LEVEL;
+        floor += 1
+    )
     {
-        if (
-            index >= floor * 256 + 128 &&
-            ((index - floor * 256) % 16) < 8
-        )
-        {
-            invertCells(
-                index,
-                -120
-            );
-        }
 
-        index++;
+        unsigned short index = floor * 256 + 128;
+
+        while(index < (floor + 1) * 256)
+        {
+            if (
+                index >= floor * 256 + 128 &&
+                ((index - floor * 256) % 16) < 8
+            )
+            {
+                invertCells(
+                    index,
+                    -120
+                );
+            }
+
+            index++;
+        }
     }
 }
 
