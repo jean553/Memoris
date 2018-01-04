@@ -516,7 +516,7 @@ bool Level::updateSelectedCellType(
     {
         const auto& cell = **iterator;
 
-        if (!cell.isMouseHover())
+        if (not cell.isMouseHover())
         {
             continue;
         }
@@ -547,17 +547,36 @@ bool Level::updateSelectedCellType(
             break;
         }
 
+        const auto& context = impl->context;
+        const auto stairsDownIndex = index + CELLS_PER_FLOOR;
+        const auto stairsUpIndex = index - CELLS_PER_FLOOR;
+
         if (type == cells::DEPARTURE_CELL)
         {
             impl->playerIndex = index;
         }
+        else if (
+            type == cells::EMPTY_CELL and
+            cell.getType() == cells::STAIRS_UP_CELL
+        )
+        {
+            const auto& nextFloorCell = cells[stairsDownIndex];
+            nextFloorCell->setType(cells::EMPTY_CELL);
+            nextFloorCell->show(context);
+        }
+        else if (
+            type == cells::EMPTY_CELL and
+            cell.getType() == cells::STAIRS_DOWN_CELL
+        )
+        {
+            const auto& previousFloorCell = cells[stairsUpIndex];
+            previousFloorCell->setType(cells::EMPTY_CELL);
+            previousFloorCell->show(context);
+        }
 
         cell.setType(type);
-
-        const auto& context = impl->context;
         cell.show(context);
 
-        const auto stairsDownIndex = index + CELLS_PER_FLOOR;
         auto& nextFloorCell = cells[stairsDownIndex];
         if (
             type == cells::STAIRS_UP_CELL and
@@ -568,7 +587,6 @@ bool Level::updateSelectedCellType(
             nextFloorCell->show(context);
         }
 
-        const auto stairsUpIndex = index - CELLS_PER_FLOOR;
         auto& previousFloorCell = cells[stairsUpIndex];
         if (
             type == cells::STAIRS_DOWN_CELL and
