@@ -151,6 +151,20 @@ void RotateFloorAnimation::rotateCells() const &
 
         rotateCell(index);
     }
+
+    for (
+        unsigned short index = 126;
+        index < dimensions::CELLS_PER_FLOOR;
+        index += 1
+    )
+    {
+        if (index % dimensions::CELLS_PER_LINE < 8)
+        {
+            continue;
+        }
+
+        rotateCell(index);
+    }
 }
 
 /**
