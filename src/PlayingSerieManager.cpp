@@ -247,13 +247,14 @@ void PlayingSerieManager::reinitialize() const & noexcept
 const sf::String PlayingSerieManager::getPlayingTimeAsString() const &
 {
     constexpr unsigned short SECONDS_IN_ONE_MINUTE {60};
+    const auto& totalSeriePlayingTime = impl->totalSeriePlayingTime;
 
     sf::String secondsString = fillMissingTimeDigits(
-        impl->totalSeriePlayingTime % SECONDS_IN_ONE_MINUTE
+        totalSeriePlayingTime % SECONDS_IN_ONE_MINUTE
     );
 
     sf::String minutesString = fillMissingTimeDigits(
-        impl->totalSeriePlayingTime / SECONDS_IN_ONE_MINUTE
+        totalSeriePlayingTime / SECONDS_IN_ONE_MINUTE
     );
 
     return minutesString + ":" + secondsString;
