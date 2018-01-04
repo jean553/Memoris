@@ -97,10 +97,26 @@ private:
      *
      * @param index the index to convert
      *
-     * @return std::pair<unsigned short, unsigned short>
+     * @return std::pair<short, short>
      */
-    std::pair<unsigned short, unsigned short>
+    std::pair<short, short>
     getCoordinatesFromIndex(const unsigned short& index) const & noexcept;
+
+    /**
+     * @brief converts the given coordinates into index
+     *
+     * @param x the horizontal coordinate
+     * @param y the vertical coordinate
+     *
+     * @return unsigned short
+     * 
+     * parameters are passed by copy, we directly modifies the coordinates
+     * for index calculation without creating new variables within the function
+     */
+    unsigned short getIndexFromCoordinates(
+        short x,
+        short y
+    ) const & noexcept;
 
     class Impl;
     std::unique_ptr<Impl> impl;

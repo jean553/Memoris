@@ -309,13 +309,13 @@ void RotateFloorAnimation::rotateCells() const &
 /**
  *
  */
-std::pair<unsigned short, unsigned short>
+std::pair<short, short>
 RotateFloorAnimation::getCoordinatesFromIndex(const unsigned short& index)
 const & noexcept
 {
     /* every line contains 16 cells, so the middle is at index 8 */
-    unsigned short x = (index % dimensions::CELLS_PER_LINE) - 8;
-    unsigned short y = (index / dimensions::CELLS_PER_LINE) - 8;
+    short x = (index % dimensions::CELLS_PER_LINE) - 8;
+    short y = (index / dimensions::CELLS_PER_LINE) - 8;
 
     /* we increment the coordinates in order
        to have orthogonal coordinates rotable around the origin */
@@ -330,7 +330,31 @@ const & noexcept
         y += 1;
     }
 
-    return std::pair<unsigned short, unsigned short>(x, y);
+    return std::pair<short, short>(x, y);
+}
+
+/**
+ *
+ */
+unsigned short RotateFloorAnimation::getIndexFromCoordinates(
+    short x,
+    short y
+) const & noexcept
+{
+    if (x > 0)
+    {
+        x -= 1;
+    }
+
+    if (y > 0)
+    {
+        y -= 1;
+    }
+
+    x += 8;
+    y += 8;
+
+    return y * dimensions::CELLS_PER_LINE + x;
 }
 
 }
