@@ -203,6 +203,7 @@ void RotateFloorAnimation::rotateCells() const &
     }
 
     constexpr unsigned short CELLS_PER_QUARTER = CELLS_PER_SIDE / 2;
+
     for (
         unsigned short index = 0;
         index < CELLS_PER_QUARTER;
@@ -220,6 +221,31 @@ void RotateFloorAnimation::rotateCells() const &
             ),
             rightQuarterCells
         );
+    }
+
+    unsigned short convertedIndex = CELLS_PER_SIDE;
+
+    for (
+        unsigned short index = 0;
+        index < CELLS_PER_QUARTER;
+        index += 1
+    )
+    {
+        if (
+            index % HALF_CELLS_PER_LINE == 0 and
+            index != 0
+        )
+        {
+            convertedIndex += HALF_CELLS_PER_LINE;
+        }
+
+        rotateCellFromQuarter(
+            index,
+            convertedIndex,
+            leftBottomQuarterCells
+        );
+
+        convertedIndex += 1;
     }
 }
 
