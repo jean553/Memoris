@@ -267,6 +267,26 @@ void RotateFloorAnimation::rotateCells() const &
 
         convertedIndex += 1;
     }
+
+    const auto& level = getLevel();
+    const unsigned short currentPlayerIndex = level->getPlayerCellIndex();
+    const std::pair<short, short> coordinates =
+        getCoordinatesFromIndex(currentPlayerIndex);
+
+    short x = coordinates.second;
+    short y = coordinates.first;
+
+    if (impl->direction == -1)
+    {
+        y *= -1;
+    }
+    else
+    {
+        x *= -1;
+    }
+
+    const auto destinationPlayerIndex = getIndexFromCoordinates(x, y);
+    level->setPlayerCellIndex(destinationPlayerIndex);
 }
 
 /**
