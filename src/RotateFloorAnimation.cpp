@@ -138,6 +138,23 @@ void RotateFloorAnimation::playNextAnimationStep() const &
 void RotateFloorAnimation::rotateCells() const &
 {
     constexpr unsigned short CELLS_PER_SIDE = dimensions::CELLS_PER_FLOOR / 2;
+    const auto& cells = getLevel()->getCells();
+
+    std::vector<char> rightQuarterCells;
+
+    for (
+        unsigned short index = 0;
+        index < CELLS_PER_SIDE;
+        index += 1
+    )
+    {
+        if (index % dimensions::CELLS_PER_LINE < 8)
+        {
+            continue;
+        }
+
+        rightQuarterCells.push_back(cells[index]->getType());
+    }
 
     for (
         unsigned short index = 0;
