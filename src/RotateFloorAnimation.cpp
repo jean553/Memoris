@@ -138,6 +138,8 @@ void RotateFloorAnimation::playNextAnimationStep() const &
 void RotateFloorAnimation::rotateCells() const &
 {
     constexpr unsigned short CELLS_PER_SIDE = dimensions::CELLS_PER_FLOOR / 2;
+    constexpr unsigned short HALF_CELLS_PER_LINE =
+        dimensions::CELLS_PER_LINE / 2;
     const auto& cells = getLevel()->getCells();
 
     std::vector<char> rightQuarterCells;
@@ -148,7 +150,7 @@ void RotateFloorAnimation::rotateCells() const &
         index += 1
     )
     {
-        if (index % dimensions::CELLS_PER_LINE < 8)
+        if (index % dimensions::CELLS_PER_LINE < HALF_CELLS_PER_LINE)
         {
             continue;
         }
@@ -162,7 +164,7 @@ void RotateFloorAnimation::rotateCells() const &
         index += 1
     )
     {
-        if (index % dimensions::CELLS_PER_LINE >= 8)
+        if (index % dimensions::CELLS_PER_LINE >= HALF_CELLS_PER_LINE)
         {
             continue;
         }
@@ -176,7 +178,7 @@ void RotateFloorAnimation::rotateCells() const &
         index += 1
     )
     {
-        if (index % dimensions::CELLS_PER_LINE < 8)
+        if (index % dimensions::CELLS_PER_LINE < HALF_CELLS_PER_LINE)
         {
             continue;
         }
