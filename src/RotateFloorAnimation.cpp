@@ -228,6 +228,28 @@ void RotateFloorAnimation::rotateCell(const unsigned short& index) const &
 /**
  *
  */
+void RotateFloorAnimation::rotateCellFromQuarter(
+    const unsigned short& index,
+    const unsigned short& convertedIndex,
+    const std::vector<char>& types
+) const &
+{
+    const auto type = types[index];
+    const std::pair<short, short> coordinates =
+        getCoordinatesFromIndex(convertedIndex);
+
+    /* rotate (x,y) around the origin (0, 0) results into (-y, x) */
+    const short x = coordinates.second * -1;
+    const short y = coordinates.first;
+
+    const auto& cells = getLevel()->getCells();
+    const auto destinationIndex = getIndexFromCoordinates(x, y);
+    cells[destinationIndex]->setType(type);
+}
+
+/**
+ *
+ */
 std::pair<short, short>
 RotateFloorAnimation::getCoordinatesFromIndex(const unsigned short& index)
 const & noexcept
