@@ -97,9 +97,26 @@ private:
     /**
      * @brief rotates one specific given cell at the given index
      *
+     * @param index the index of the cell to rotate
+     *
      * not noexcept because it calls SFML methods that are not noexcept
      */
     void rotateCell(const unsigned short& index) const &;
+
+    /**
+     * @brief rotates one specific given cell from a specific quarter array
+     *
+     * @param index the index of the cell to rotate (quarter array index)
+     * @param convertedIndex the index of the cell to rotate (level index)
+     * @param types array of types used to store temporarily the quarter cells
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
+     */
+    void rotateCellFromQuarter(
+        const unsigned short& index,
+        const unsigned short& convertedIndex,
+        const std::vector<char>& types
+    ) const &;
 
     /**
      * @brief converts the given index into orthogonal coordinates
