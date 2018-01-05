@@ -32,6 +32,12 @@
 
 namespace memoris
 {
+
+namespace entities
+{
+class Cell;
+}
+
 namespace animations
 {
 
