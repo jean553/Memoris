@@ -142,7 +142,7 @@ void RotateFloorAnimation::rotateCells() const &
         dimensions::CELLS_PER_LINE / 2;
     const auto& cells = getLevel()->getCells();
 
-    std::vector<char> rightQuarterCells;
+    std::vector<std::unique_ptr<entities::Cell>> rightQuarterCells;
 
     for (
         unsigned short index = 0;
@@ -155,10 +155,17 @@ void RotateFloorAnimation::rotateCells() const &
             continue;
         }
 
-        rightQuarterCells.push_back(cells[index]->getType());
+        rightQuarterCells.push_back(
+            std::make_unique<entities::Cell>(
+                getContext(),
+                0,
+                0,
+                cells[index]->getType()
+            )
+        );
     }
 
-    std::vector<char> leftBottomQuarterCells;
+    std::vector<std::unique_ptr<entities::Cell>> leftBottomQuarterCells;
 
     for (
         unsigned short index = 128;
@@ -171,7 +178,14 @@ void RotateFloorAnimation::rotateCells() const &
             continue;
         }
 
-        leftBottomQuarterCells.push_back(cells[index]->getType());
+        leftBottomQuarterCells.push_back(
+            std::make_unique<entities::Cell>(
+                getContext(),
+                0,
+                0,
+                cells[index]->getType()
+            )
+        );
     }
 
     for (
@@ -282,10 +296,10 @@ void RotateFloorAnimation::rotateCell(const unsigned short& index) const &
 void RotateFloorAnimation::rotateCellFromQuarter(
     const unsigned short& index,
     const unsigned short& convertedIndex,
-    const std::vector<char>& types
+    const std::vector<std::unique_ptr<entities::Cell>>& cellsCopy
 ) const &
 {
-    const auto type = types[index];
+    const auto type = cellsCopy[index]->getType();
     const std::pair<short, short> coordinates =
         getCoordinatesFromIndex(convertedIndex);
 

@@ -114,14 +114,16 @@ private:
      *
      * @param index the index of the cell to rotate (quarter array index)
      * @param convertedIndex the index of the cell to rotate (level index)
-     * @param types array of types used to store temporarily the quarter cells
+     * @param cellsCopy array used to store temporarily the quarter of cells
+     *
+     * TODO: check if an array of cells is enough
      *
      * not noexcept because it calls SFML methods that are not noexcept
      */
     void rotateCellFromQuarter(
         const unsigned short& index,
         const unsigned short& convertedIndex,
-        const std::vector<char>& types
+        const std::vector<std::unique_ptr<entities::Cell>>& cellsCopy
     ) const &;
 
     /**
