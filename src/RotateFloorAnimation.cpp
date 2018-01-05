@@ -260,8 +260,17 @@ void RotateFloorAnimation::rotateCell(const unsigned short& index) const &
         getCoordinatesFromIndex(index);
 
     /* rotate (x,y) around the origin (0, 0) results into (-y, x) */
-    const short x = coordinates.second * -1;
-    const short y = coordinates.first;
+    short x = coordinates.second;
+    short y = coordinates.first;
+
+    if (impl->direction == -1)
+    {
+        y *= -1;
+    }
+    else
+    {
+        x *= -1;
+    }
 
     const auto destinationIndex = getIndexFromCoordinates(x, y);
     cells[destinationIndex]->setType(type);
@@ -281,8 +290,17 @@ void RotateFloorAnimation::rotateCellFromQuarter(
         getCoordinatesFromIndex(convertedIndex);
 
     /* rotate (x,y) around the origin (0, 0) results into (-y, x) */
-    const short x = coordinates.second * -1;
-    const short y = coordinates.first;
+    short x = coordinates.second;
+    short y = coordinates.first;
+
+    if (impl->direction == -1)
+    {
+        y *= -1;
+    }
+    else
+    {
+        x *= -1;
+    }
 
     const auto& cells = getLevel()->getCells();
     const auto destinationIndex = getIndexFromCoordinates(x, y);
