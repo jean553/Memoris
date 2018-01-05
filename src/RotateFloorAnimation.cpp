@@ -269,7 +269,8 @@ void RotateFloorAnimation::rotateCells() const &
 void RotateFloorAnimation::rotateCell(const unsigned short& index) const &
 {
     const auto& cells = getLevel()->getCells();
-    const auto type = cells[index]->getType();
+    const auto& cell = cells[index];
+    const auto type = cell->getType();
     const std::pair<short, short> coordinates =
         getCoordinatesFromIndex(index);
 
@@ -287,7 +288,18 @@ void RotateFloorAnimation::rotateCell(const unsigned short& index) const &
     }
 
     const auto destinationIndex = getIndexFromCoordinates(x, y);
-    cells[destinationIndex]->setType(type);
+    const auto& destinationCell = cells[destinationIndex];
+    destinationCell->setType(type);
+
+    const auto& context = getContext();
+    if (cell->isVisible())
+    {
+        destinationCell->show(context);
+    }
+    else
+    {
+        destinationCell->hide(context);
+    }
 }
 
 /**
