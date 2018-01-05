@@ -28,6 +28,8 @@
 
 #include "LevelAnimation.hpp"
 
+#include <vector>
+
 namespace memoris
 {
 namespace animations
