@@ -138,6 +138,7 @@ void RotateFloorAnimation::playNextAnimationStep() const &
 void RotateFloorAnimation::rotateCells() const &
 {
     constexpr unsigned short CELLS_PER_SIDE = dimensions::CELLS_PER_FLOOR / 2;
+
     for (
         unsigned short index = 0;
         index < CELLS_PER_SIDE;
@@ -153,7 +154,7 @@ void RotateFloorAnimation::rotateCells() const &
     }
 
     for (
-        unsigned short index = 126;
+        unsigned short index = CELLS_PER_SIDE;
         index < dimensions::CELLS_PER_FLOOR;
         index += 1
     )
