@@ -183,6 +183,26 @@ void RotateFloorAnimation::rotateCells() const &
 
         rotateCell(index);
     }
+
+    constexpr unsigned short CELLS_PER_QUARTER = CELLS_PER_SIDE / 2;
+    for (
+        unsigned short index = 0;
+        index < CELLS_PER_QUARTER;
+        index += 1
+    )
+    {
+        rotateCellFromQuarter(
+            index,
+            (
+                dimensions::CELLS_PER_LINE * (
+                    index / HALF_CELLS_PER_LINE
+                ) + HALF_CELLS_PER_LINE + (
+                    index % HALF_CELLS_PER_LINE
+                )
+            ),
+            rightQuarterCells
+        );
+    }
 }
 
 /**
