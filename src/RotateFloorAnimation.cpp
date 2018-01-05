@@ -155,14 +155,17 @@ void RotateFloorAnimation::rotateCells() const &
             continue;
         }
 
-        rightQuarterCells.push_back(
+        std::unique_ptr<entities::Cell> cell =
             std::make_unique<entities::Cell>(
                 getContext(),
                 0,
                 0,
                 cells[index]->getType()
-            )
-        );
+            );
+
+        cell->setIsVisible(cells[index]->isVisible());
+
+        rightQuarterCells.push_back(std::move(cell));
     }
 
     std::vector<std::unique_ptr<entities::Cell>> leftBottomQuarterCells;
@@ -178,14 +181,17 @@ void RotateFloorAnimation::rotateCells() const &
             continue;
         }
 
-        leftBottomQuarterCells.push_back(
+        std::unique_ptr<entities::Cell> cell =
             std::make_unique<entities::Cell>(
                 getContext(),
                 0,
                 0,
                 cells[index]->getType()
-            )
-        );
+            );
+
+        cell->setIsVisible(cells[index]->isVisible());
+
+        leftBottomQuarterCells.push_back(std::move(cell));
     }
 
     for (
@@ -311,7 +317,8 @@ void RotateFloorAnimation::rotateCellFromQuarter(
     const std::vector<std::unique_ptr<entities::Cell>>& cellsCopy
 ) const &
 {
-    const auto type = cellsCopy[index]->getType();
+    const auto& cell = cellsCopy[index];
+    const auto type = cell->getType();
     const std::pair<short, short> coordinates =
         getCoordinatesFromIndex(convertedIndex);
 
@@ -330,7 +337,19 @@ void RotateFloorAnimation::rotateCellFromQuarter(
 
     const auto& cells = getLevel()->getCells();
     const auto destinationIndex = getIndexFromCoordinates(x, y);
-    cells[destinationIndex]->setType(type);
+    const auto& destinationCell = cells[destinationIndex];
+
+    destinationCell->setType(type);
+
+    const auto& context = getContext();
+    if (cell->isVisible())
+    {
+        destinationCell->show(context);
+    }
+    else
+    {
+        destinationCell->hide(context);
+    }
 }
 
 /**
