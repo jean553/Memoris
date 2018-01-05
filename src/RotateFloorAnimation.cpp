@@ -158,6 +158,22 @@ void RotateFloorAnimation::rotateCells() const &
         rightQuarterCells.push_back(cells[index]->getType());
     }
 
+    std::vector<char> leftBottomQuarterCells;
+
+    for (
+        unsigned short index = 128;
+        index < dimensions::CELLS_PER_FLOOR;
+        index += 1
+    )
+    {
+        if (index % dimensions::CELLS_PER_LINE >= HALF_CELLS_PER_LINE)
+        {
+            continue;
+        }
+
+        leftBottomQuarterCells.push_back(cells[index]->getType());
+    }
+
     for (
         unsigned short index = 0;
         index < CELLS_PER_SIDE;
