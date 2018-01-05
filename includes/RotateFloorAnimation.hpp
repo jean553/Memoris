@@ -28,8 +28,16 @@
 
 #include "LevelAnimation.hpp"
 
+#include <vector>
+
 namespace memoris
 {
+
+namespace entities
+{
+class Cell;
+}
+
 namespace animations
 {
 
@@ -92,8 +100,60 @@ private:
      */
     void rotateCells() const &;
 
+    /**
+     * @brief rotates one specific given cell at the given index
+     *
+     * @param index the index of the cell to rotate
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
+     */
+    void rotateCell(const unsigned short& index) const &;
+
+    /**
+     * @brief rotates one specific given cell from a specific quarter array
+     *
+     * @param index the index of the cell to rotate (quarter array index)
+     * @param convertedIndex the index of the cell to rotate (level index)
+     * @param cellsCopy array used to store temporarily the quarter of cells
+     *
+     * TODO: check if an array of cells is enough
+     *
+     * not noexcept because it calls SFML methods that are not noexcept
+     */
+    void rotateCellFromQuarter(
+        const unsigned short& index,
+        const unsigned short& convertedIndex,
+        const std::vector<std::unique_ptr<entities::Cell>>& cellsCopy
+    ) const &;
+
+    /**
+     * @brief converts the given index into orthogonal coordinates
+     *
+     * @param index the index to convert
+     *
+     * @return std::pair<short, short>
+     */
+    std::pair<short, short>
+    getCoordinatesFromIndex(const unsigned short& index) const & noexcept;
+
+    /**
+     * @brief converts the given coordinates into index
+     *
+     * @param x the horizontal coordinate
+     * @param y the vertical coordinate
+     *
+     * @return unsigned short
+     * 
+     * parameters are passed by copy, we directly modifies the coordinates
+     * for index calculation without creating new variables within the function
+     */
+    unsigned short getIndexFromCoordinates(
+        short x,
+        short y
+    ) const & noexcept;
+
     class Impl;
-    std::unique_ptr<Impl> impl;
+    const std::unique_ptr<Impl> impl;
 };
 
 }

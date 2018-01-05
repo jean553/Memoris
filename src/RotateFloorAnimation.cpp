@@ -28,6 +28,7 @@
 #include "Cell.hpp"
 #include "Level.hpp"
 #include "Context.hpp"
+#include "dimensions.hpp"
 
 namespace memoris
 {
@@ -136,173 +137,290 @@ void RotateFloorAnimation::playNextAnimationStep() const &
  */
 void RotateFloorAnimation::rotateCells() const &
 {
-    /* TODO: #1194 numbers literals should be constant expressions */
+    constexpr unsigned short CELLS_PER_SIDE = dimensions::CELLS_PER_FLOOR / 2;
+    constexpr unsigned short HALF_CELLS_PER_LINE =
+        dimensions::CELLS_PER_LINE / 2;
+    const auto& cells = getLevel()->getCells();
 
-    std::vector<std::vector<entities::Cell>> horizontalLines;
+    std::vector<std::unique_ptr<entities::Cell>> rightQuarterCells;
 
-    unsigned short playerColumn {0};
-    unsigned short playerIndex {0};
-
-    const auto& level = getLevel();
-    const auto& context = getContext();
-    const auto& floor = getFloor();
-
-    unsigned short destination = floor * 256 + 255;
-
-    if(impl->direction == -1)
+    for (
+        unsigned short index = 0;
+        index < CELLS_PER_SIDE;
+        index += 1
+    )
     {
-        destination = floor * 256 + 240;
+        if (index % dimensions::CELLS_PER_LINE < HALF_CELLS_PER_LINE)
+        {
+            continue;
+        }
 
-        for (
-            unsigned short lines = 0;
-            lines < 16;
-            lines++
+        std::unique_ptr<entities::Cell> cell =
+            std::make_unique<entities::Cell>(
+                getContext(),
+                0,
+                0,
+                cells[index]->getType()
+            );
+
+        cell->setIsVisible(cells[index]->isVisible());
+
+        rightQuarterCells.push_back(std::move(cell));
+    }
+
+    std::vector<std::unique_ptr<entities::Cell>> leftBottomQuarterCells;
+
+    for (
+        unsigned short index = 128;
+        index < dimensions::CELLS_PER_FLOOR;
+        index += 1
+    )
+    {
+        if (index % dimensions::CELLS_PER_LINE >= HALF_CELLS_PER_LINE)
+        {
+            continue;
+        }
+
+        std::unique_ptr<entities::Cell> cell =
+            std::make_unique<entities::Cell>(
+                getContext(),
+                0,
+                0,
+                cells[index]->getType()
+            );
+
+        cell->setIsVisible(cells[index]->isVisible());
+
+        leftBottomQuarterCells.push_back(std::move(cell));
+    }
+
+    for (
+        unsigned short index = 0;
+        index < CELLS_PER_SIDE;
+        index += 1
+    )
+    {
+        if (index % dimensions::CELLS_PER_LINE >= HALF_CELLS_PER_LINE)
+        {
+            continue;
+        }
+
+        rotateCell(index);
+    }
+
+    for (
+        unsigned short index = CELLS_PER_SIDE;
+        index < dimensions::CELLS_PER_FLOOR;
+        index += 1
+    )
+    {
+        if (index % dimensions::CELLS_PER_LINE < HALF_CELLS_PER_LINE)
+        {
+            continue;
+        }
+
+        rotateCell(index);
+    }
+
+    constexpr unsigned short CELLS_PER_QUARTER = CELLS_PER_SIDE / 2;
+
+    for (
+        unsigned short index = 0;
+        index < CELLS_PER_QUARTER;
+        index += 1
+    )
+    {
+        rotateCellFromQuarter(
+            index,
+            (
+                dimensions::CELLS_PER_LINE * (
+                    index / HALF_CELLS_PER_LINE
+                ) + HALF_CELLS_PER_LINE + (
+                    index % HALF_CELLS_PER_LINE
+                )
+            ),
+            rightQuarterCells
+        );
+    }
+
+    unsigned short convertedIndex = CELLS_PER_SIDE;
+
+    for (
+        unsigned short index = 0;
+        index < CELLS_PER_QUARTER;
+        index += 1
+    )
+    {
+        if (
+            index % HALF_CELLS_PER_LINE == 0 and
+            index != 0
         )
         {
-            std::vector<entities::Cell> line;
-
-            for (
-                unsigned short index = 0;
-                index < 16;
-                index++
-            )
-            {
-                entities::Cell cell(
-                    context,
-                    0.f,
-                    0.f,
-                    level->getCells()[lines * 16 + index]->getType()
-                );
-
-                cell.setIsVisible(
-                    level->getCells()[lines * 16 + index]->isVisible()
-                );
-
-                line.push_back((*level->getCells()[lines * 16 + index]));
-
-                if (lines * 16 + index == level->getPlayerCellIndex())
-                {
-                    playerColumn = lines;
-                    playerIndex = index;
-                }
-            }
-
-            horizontalLines.push_back(line);
+            convertedIndex += HALF_CELLS_PER_LINE;
         }
 
-        for (unsigned short column = 0; column < 16; column++)
-        {
-            for (unsigned short index = 0; index < 16; index++)
-            {
-                level->getCells()[destination]->setType(
-                    horizontalLines[column][index].getType()
-                );
+        rotateCellFromQuarter(
+            index,
+            convertedIndex,
+            leftBottomQuarterCells
+        );
 
-                if (horizontalLines[column][index].isVisible())
-                {
-                    level->getCells()[destination]->show(context);
-                }
-                else
-                {
-                    level->getCells()[destination]->hide(context);
-                }
+        convertedIndex += 1;
+    }
 
-                if (column == playerColumn && index == playerIndex)
-                {
-                    level->setPlayerCellIndex(destination);
-                }
+    const auto& level = getLevel();
+    const unsigned short currentPlayerIndex = level->getPlayerCellIndex();
+    const std::pair<short, short> coordinates =
+        getCoordinatesFromIndex(currentPlayerIndex);
 
-                if (destination >= 16)
-                {
-                    destination -= 16;
-                }
-            }
+    short x = coordinates.second;
+    short y = coordinates.first;
 
-            if (destination != 15)
-            {
-                destination += 241;
-            }
-        }
+    if (impl->direction == -1)
+    {
+        y *= -1;
     }
     else
     {
-        destination = floor * 256 + 255;
-
-        for (
-            unsigned short lines = 0;
-            lines < 16;
-            lines++
-        )
-        {
-            unsigned short offset = 0;
-
-            std::vector<entities::Cell> line;
-
-            for (
-                short index = 15;
-                index >= 0;
-                index--
-            )
-            {
-                entities::Cell cell(
-                    context,
-                    0.f,
-                    0.f,
-                    level->getCells()[lines * 16 + index]->getType()
-                );
-
-                cell.setIsVisible(
-                    level->getCells()[lines * 16 + index]->isVisible()
-                );
-
-                line.push_back((*level->getCells()[lines * 16 + index]));
-
-                if (lines * 16 + index == level->getPlayerCellIndex())
-                {
-                    playerColumn = lines;
-                    playerIndex = offset;
-                }
-
-                offset++;
-            }
-
-            horizontalLines.push_back(line);
-        }
-
-        for (short column = 0; column < 16; column++)
-        {
-            for (unsigned short index = 0; index < 16; index++)
-            {
-                level->getCells()[destination]->setType(
-                    horizontalLines[column][index].getType()
-                );
-
-                if (horizontalLines[column][index].isVisible())
-                {
-                    level->getCells()[destination]->show(context);
-                }
-                else
-                {
-                    level->getCells()[destination]->hide(context);
-                }
-
-                if (column == playerColumn && index == playerIndex)
-                {
-                    level->setPlayerCellIndex(destination);
-                }
-
-                if (destination >= 16)
-                {
-                    destination -= 16;
-                }
-            }
-
-            if (destination != 0)
-            {
-                destination += 239;
-            }
-        }
+        x *= -1;
     }
+
+    const auto destinationPlayerIndex = getIndexFromCoordinates(x, y);
+    level->setPlayerCellIndex(destinationPlayerIndex);
+}
+
+/**
+ *
+ */
+void RotateFloorAnimation::rotateCell(const unsigned short& index) const &
+{
+    const auto& cells = getLevel()->getCells();
+    const auto& cell = cells[index];
+    const auto type = cell->getType();
+    const std::pair<short, short> coordinates =
+        getCoordinatesFromIndex(index);
+
+    /* rotate (x,y) around the origin (0, 0) results into (-y, x) */
+    short x = coordinates.second;
+    short y = coordinates.first;
+
+    if (impl->direction == -1)
+    {
+        y *= -1;
+    }
+    else
+    {
+        x *= -1;
+    }
+
+    const auto destinationIndex = getIndexFromCoordinates(x, y);
+    const auto& destinationCell = cells[destinationIndex];
+    destinationCell->setType(type);
+
+    const auto& context = getContext();
+    if (cell->isVisible())
+    {
+        destinationCell->show(context);
+    }
+    else
+    {
+        destinationCell->hide(context);
+    }
+}
+
+/**
+ *
+ */
+void RotateFloorAnimation::rotateCellFromQuarter(
+    const unsigned short& index,
+    const unsigned short& convertedIndex,
+    const std::vector<std::unique_ptr<entities::Cell>>& cellsCopy
+) const &
+{
+    const auto& cell = cellsCopy[index];
+    const auto type = cell->getType();
+    const std::pair<short, short> coordinates =
+        getCoordinatesFromIndex(convertedIndex);
+
+    /* rotate (x,y) around the origin (0, 0) results into (-y, x) */
+    short x = coordinates.second;
+    short y = coordinates.first;
+
+    if (impl->direction == -1)
+    {
+        y *= -1;
+    }
+    else
+    {
+        x *= -1;
+    }
+
+    const auto& cells = getLevel()->getCells();
+    const auto destinationIndex = getIndexFromCoordinates(x, y);
+    const auto& destinationCell = cells[destinationIndex];
+
+    destinationCell->setType(type);
+
+    const auto& context = getContext();
+    if (cell->isVisible())
+    {
+        destinationCell->show(context);
+    }
+    else
+    {
+        destinationCell->hide(context);
+    }
+}
+
+/**
+ *
+ */
+std::pair<short, short>
+RotateFloorAnimation::getCoordinatesFromIndex(const unsigned short& index)
+const & noexcept
+{
+    /* every line contains 16 cells, so the middle is at index 8 */
+    short x = (index % dimensions::CELLS_PER_LINE) - 8;
+    short y = (index / dimensions::CELLS_PER_LINE) - 8;
+
+    /* we increment the coordinates in order
+       to have orthogonal coordinates rotable around the origin */
+
+    if (x >= 0)
+    {
+        x += 1;
+    }
+
+    if (y >= 0)
+    {
+        y += 1;
+    }
+
+    return std::pair<short, short>(x, y);
+}
+
+/**
+ *
+ */
+unsigned short RotateFloorAnimation::getIndexFromCoordinates(
+    short x,
+    short y
+) const & noexcept
+{
+    if (x > 0)
+    {
+        x -= 1;
+    }
+
+    if (y > 0)
+    {
+        y -= 1;
+    }
+
+    x += 8;
+    y += 8;
+
+    return y * dimensions::CELLS_PER_LINE + x;
 }
 
 }
