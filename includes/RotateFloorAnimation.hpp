@@ -104,16 +104,21 @@ private:
      * @brief rotates one specific given cell at the given index
      *
      * @param index the index of the cell to rotate
+     * @param floor the current index floor
      *
      * not noexcept because it calls SFML methods that are not noexcept
      */
-    void rotateCell(const unsigned short& index) const &;
+    void rotateCell(
+        const unsigned short& index,
+        const unsigned short& floor
+    ) const &;
 
     /**
      * @brief rotates one specific given cell from a specific quarter array
      *
      * @param index the index of the cell to rotate (quarter array index)
      * @param convertedIndex the index of the cell to rotate (level index)
+     * @param floor the current index floor
      * @param cellsCopy array used to store temporarily the quarter of cells
      *
      * TODO: check if an array of cells is enough
@@ -123,6 +128,7 @@ private:
     void rotateCellFromQuarter(
         const unsigned short& index,
         const unsigned short& convertedIndex,
+        const unsigned short& floor,
         const std::vector<std::unique_ptr<entities::Cell>>& cellsCopy
     ) const &;
 
@@ -130,11 +136,15 @@ private:
      * @brief converts the given index into orthogonal coordinates
      *
      * @param index the index to convert
+     * @param floor the current index floor
      *
      * @return std::pair<short, short>
      */
     std::pair<short, short>
-    getCoordinatesFromIndex(const unsigned short& index) const & noexcept;
+    getCoordinatesFromIndex(
+        const unsigned short& index,
+        const unsigned short& floor
+    ) const & noexcept;
 
     /**
      * @brief converts the given coordinates into index
