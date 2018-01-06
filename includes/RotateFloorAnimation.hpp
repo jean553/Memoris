@@ -152,6 +152,54 @@ private:
         short y
     ) const & noexcept;
 
+    /**
+     * @brief updates the destination cell visibility
+     * according to the source cell visibility
+     *
+     * @param source the source cell
+     * @param destination the destination cell
+     *
+     * not noexcept as some functions call the SFML methods
+     */
+    void updateDestinationCellVisibility(
+        const entities::Cell& source,
+        const entities::Cell& destination
+    ) const &;
+
+    /**
+     * @brief generates a copy of a given cell in order to be stored
+     * into a container that stores a quarter of cell (for rotation);
+     * it only copies the type and the visibility, the only two elements
+     * that are necessary to be known in order to copy the cell
+     * for rotation purposes; positions are set to 0 as they are useless;
+     *
+     * @param cell the source cell to copy
+     *
+     * @return std::unique_ptr<entities::Cell>
+     *
+     * not noexcept as the function calls some SFML functions
+     *
+     * the returned unique_ptr is not constant as it has to be moved by client
+     */
+    std::unique_ptr<entities::Cell> getCellCopy(
+        const entities::Cell& source
+    ) const &;
+
+    /**
+     * @brief updates the horizontal or vertical coordinates
+     * according to the rotation direction
+     *
+     * @param x the orthogonal x coordinate
+     * @param y the orthogonal y coordinate
+     *
+     * the passed references are supposed to modify
+     * their values within the function
+     */
+    void updateCoordinates(
+        short& x,
+        short& y
+    ) const & noexcept;
+
     class Impl;
     const std::unique_ptr<Impl> impl;
 };

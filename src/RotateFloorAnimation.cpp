@@ -155,23 +155,14 @@ void RotateFloorAnimation::rotateCells() const &
             continue;
         }
 
-        std::unique_ptr<entities::Cell> cell =
-            std::make_unique<entities::Cell>(
-                getContext(),
-                0,
-                0,
-                cells[index]->getType()
-            );
-
-        cell->setIsVisible(cells[index]->isVisible());
-
+        auto cell = getCellCopy(*cells[index]);
         rightQuarterCells.push_back(std::move(cell));
     }
 
     std::vector<std::unique_ptr<entities::Cell>> leftBottomQuarterCells;
 
     for (
-        unsigned short index = 128;
+        unsigned short index = CELLS_PER_SIDE;
         index < dimensions::CELLS_PER_FLOOR;
         index += 1
     )
@@ -181,16 +172,7 @@ void RotateFloorAnimation::rotateCells() const &
             continue;
         }
 
-        std::unique_ptr<entities::Cell> cell =
-            std::make_unique<entities::Cell>(
-                getContext(),
-                0,
-                0,
-                cells[index]->getType()
-            );
-
-        cell->setIsVisible(cells[index]->isVisible());
-
+        auto cell = getCellCopy(*cells[index]);
         leftBottomQuarterCells.push_back(std::move(cell));
     }
 
@@ -275,15 +257,7 @@ void RotateFloorAnimation::rotateCells() const &
 
     short x = coordinates.second;
     short y = coordinates.first;
-
-    if (impl->direction == -1)
-    {
-        y *= -1;
-    }
-    else
-    {
-        x *= -1;
-    }
+    updateCoordinates(x, y);
 
     const auto destinationPlayerIndex = getIndexFromCoordinates(x, y);
     level->setPlayerCellIndex(destinationPlayerIndex);
@@ -303,29 +277,16 @@ void RotateFloorAnimation::rotateCell(const unsigned short& index) const &
     /* rotate (x,y) around the origin (0, 0) results into (-y, x) */
     short x = coordinates.second;
     short y = coordinates.first;
-
-    if (impl->direction == -1)
-    {
-        y *= -1;
-    }
-    else
-    {
-        x *= -1;
-    }
+    updateCoordinates(x, y);
 
     const auto destinationIndex = getIndexFromCoordinates(x, y);
     const auto& destinationCell = cells[destinationIndex];
     destinationCell->setType(type);
 
-    const auto& context = getContext();
-    if (cell->isVisible())
-    {
-        destinationCell->show(context);
-    }
-    else
-    {
-        destinationCell->hide(context);
-    }
+    updateDestinationCellVisibility(
+        *cell,
+        *destinationCell
+    );
 }
 
 /**
@@ -345,15 +306,7 @@ void RotateFloorAnimation::rotateCellFromQuarter(
     /* rotate (x,y) around the origin (0, 0) results into (-y, x) */
     short x = coordinates.second;
     short y = coordinates.first;
-
-    if (impl->direction == -1)
-    {
-        y *= -1;
-    }
-    else
-    {
-        x *= -1;
-    }
+    updateCoordinates(x, y);
 
     const auto& cells = getLevel()->getCells();
     const auto destinationIndex = getIndexFromCoordinates(x, y);
@@ -361,15 +314,10 @@ void RotateFloorAnimation::rotateCellFromQuarter(
 
     destinationCell->setType(type);
 
-    const auto& context = getContext();
-    if (cell->isVisible())
-    {
-        destinationCell->show(context);
-    }
-    else
-    {
-        destinationCell->hide(context);
-    }
+    updateDestinationCellVisibility(
+        *cell,
+        *destinationCell
+    );
 }
 
 /**
@@ -421,6 +369,65 @@ unsigned short RotateFloorAnimation::getIndexFromCoordinates(
     y += 8;
 
     return y * dimensions::CELLS_PER_LINE + x;
+}
+
+/**
+ *
+ */
+void RotateFloorAnimation::updateDestinationCellVisibility(
+    const entities::Cell& source,
+    const entities::Cell& destination
+) const &
+{
+    const auto& context = getContext();
+    if (source.isVisible())
+    {
+        destination.show(context);
+    }
+    else
+    {
+        destination.hide(context);
+    }
+}
+
+/**
+ *
+ */
+std::unique_ptr<entities::Cell> RotateFloorAnimation::getCellCopy(
+    const entities::Cell& source
+) const &
+{
+    std::unique_ptr<entities::Cell> cell =
+        std::make_unique<entities::Cell>(
+            getContext(),
+            /* there is no need to have a specific cell position;
+               this container is used to store the cell type and visibility */
+            0,
+            0,
+            source.getType()
+        );
+
+    cell->setIsVisible(source.isVisible());
+
+    return cell;
+}
+
+/**
+ *
+ */
+void RotateFloorAnimation::updateCoordinates(
+    short& x,
+    short& y
+) const & noexcept
+{
+    if (impl->direction == -1)
+    {
+        y *= -1;
+    }
+    else
+    {
+        x *= -1;
+    }
 }
 
 }
