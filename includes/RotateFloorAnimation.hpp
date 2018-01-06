@@ -152,6 +152,20 @@ private:
         short y
     ) const & noexcept;
 
+    /**
+     * @brief updates the destination cell visibility
+     * according to the source cell visibility
+     *
+     * @param source the source cell
+     * @param destination the destination cell
+     *
+     * not noexcept as some functions call the SFML methods
+     */
+    void updateDestinationCellVisibility(
+        const entities::Cell& source,
+        const entities::Cell& destination
+    ) const &;
+
     class Impl;
     const std::unique_ptr<Impl> impl;
 };
