@@ -432,5 +432,24 @@ unsigned short RotateFloorAnimation::getIndexFromCoordinates(
     return y * dimensions::CELLS_PER_LINE + x;
 }
 
+/**
+ *
+ */
+void RotateFloorAnimation::updateDestinationCellVisibility(
+    const entities::Cell& source,
+    const entities::Cell& destination
+) const &
+{
+    const auto& context = getContext();
+    if (source.isVisible())
+    {
+        destination.show(context);
+    }
+    else
+    {
+        destination.hide(context);
+    }
+}
+
 }
 }
