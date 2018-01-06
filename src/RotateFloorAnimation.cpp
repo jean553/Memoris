@@ -141,6 +141,7 @@ void RotateFloorAnimation::rotateCells() const &
     constexpr unsigned short HALF_CELLS_PER_LINE =
         dimensions::CELLS_PER_LINE / 2;
     const auto& cells = getLevel()->getCells();
+    const auto& context = getContext();
 
     std::vector<std::unique_ptr<entities::Cell>> rightQuarterCells;
 
@@ -155,17 +156,19 @@ void RotateFloorAnimation::rotateCells() const &
             continue;
         }
 
+        const auto& sourceCell = cells[index];
+
         /* there is no need to have a specific cell position;
            this container is only used to store the cell type and visibility */
         std::unique_ptr<entities::Cell> cell =
             std::make_unique<entities::Cell>(
-                getContext(),
+                context,
                 0,
                 0,
-                cells[index]->getType()
+                sourceCell->getType()
             );
 
-        cell->setIsVisible(cells[index]->isVisible());
+        cell->setIsVisible(sourceCell->isVisible());
 
         rightQuarterCells.push_back(std::move(cell));
     }
@@ -173,7 +176,7 @@ void RotateFloorAnimation::rotateCells() const &
     std::vector<std::unique_ptr<entities::Cell>> leftBottomQuarterCells;
 
     for (
-        unsigned short index = 128;
+        unsigned short index = CELLS_PER_SIDE;
         index < dimensions::CELLS_PER_FLOOR;
         index += 1
     )
@@ -183,17 +186,19 @@ void RotateFloorAnimation::rotateCells() const &
             continue;
         }
 
+        const auto& sourceCell = cells[index];
+
         /* there is no need to have a specific cell position;
            this container is only used to store the cell type and visibility */
         std::unique_ptr<entities::Cell> cell =
             std::make_unique<entities::Cell>(
-                getContext(),
+                context,
                 0,
                 0,
-                cells[index]->getType()
+                sourceCell->getType()
             );
 
-        cell->setIsVisible(cells[index]->isVisible());
+        cell->setIsVisible(sourceCell->isVisible());
 
         leftBottomQuarterCells.push_back(std::move(cell));
     }
