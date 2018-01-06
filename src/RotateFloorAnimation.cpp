@@ -144,6 +144,10 @@ void RotateFloorAnimation::rotateCells() const &
 
     std::vector<std::unique_ptr<entities::Cell>> rightQuarterCells;
 
+    /* TODO: the animation is only performed on the first floor for now,
+       all the floors should be rotated */
+    const unsigned short floor = 0;
+
     for (
         unsigned short index = 0;
         index < CELLS_PER_SIDE;
@@ -187,7 +191,10 @@ void RotateFloorAnimation::rotateCells() const &
             continue;
         }
 
-        rotateCell(index);
+        rotateCell(
+            index,
+            floor
+        );
     }
 
     for (
@@ -201,7 +208,10 @@ void RotateFloorAnimation::rotateCells() const &
             continue;
         }
 
-        rotateCell(index);
+        rotateCell(
+            index,
+            floor
+        );
     }
 
     constexpr unsigned short CELLS_PER_QUARTER = CELLS_PER_SIDE / 2;
@@ -221,6 +231,7 @@ void RotateFloorAnimation::rotateCells() const &
                     index % HALF_CELLS_PER_LINE
                 )
             ),
+            floor,
             rightQuarterCells
         );
     }
@@ -244,6 +255,7 @@ void RotateFloorAnimation::rotateCells() const &
         rotateCellFromQuarter(
             index,
             convertedIndex,
+            floor,
             leftBottomQuarterCells
         );
 
@@ -253,7 +265,10 @@ void RotateFloorAnimation::rotateCells() const &
     const auto& level = getLevel();
     const unsigned short currentPlayerIndex = level->getPlayerCellIndex();
     const std::pair<short, short> coordinates =
-        getCoordinatesFromIndex(currentPlayerIndex);
+        getCoordinatesFromIndex(
+            currentPlayerIndex,
+            floor
+        );
 
     short x = coordinates.second;
     short y = coordinates.first;
@@ -266,13 +281,19 @@ void RotateFloorAnimation::rotateCells() const &
 /**
  *
  */
-void RotateFloorAnimation::rotateCell(const unsigned short& index) const &
+void RotateFloorAnimation::rotateCell(
+    const unsigned short& index,
+    const unsigned short& floor
+) const &
 {
     const auto& cells = getLevel()->getCells();
     const auto& cell = cells[index];
     const auto type = cell->getType();
     const std::pair<short, short> coordinates =
-        getCoordinatesFromIndex(index);
+        getCoordinatesFromIndex(
+            index,
+            floor
+        );
 
     /* rotate (x,y) around the origin (0, 0) results into (-y, x) */
     short x = coordinates.second;
@@ -295,13 +316,17 @@ void RotateFloorAnimation::rotateCell(const unsigned short& index) const &
 void RotateFloorAnimation::rotateCellFromQuarter(
     const unsigned short& index,
     const unsigned short& convertedIndex,
+    const unsigned short& floor,
     const std::vector<std::unique_ptr<entities::Cell>>& cellsCopy
 ) const &
 {
     const auto& cell = cellsCopy[index];
     const auto type = cell->getType();
     const std::pair<short, short> coordinates =
-        getCoordinatesFromIndex(convertedIndex);
+        getCoordinatesFromIndex(
+            convertedIndex,
+            floor
+        );
 
     /* rotate (x,y) around the origin (0, 0) results into (-y, x) */
     short x = coordinates.second;
@@ -324,12 +349,19 @@ void RotateFloorAnimation::rotateCellFromQuarter(
  *
  */
 std::pair<short, short>
-RotateFloorAnimation::getCoordinatesFromIndex(const unsigned short& index)
+RotateFloorAnimation::getCoordinatesFromIndex(
+    const unsigned short& index,
+    const unsigned short& floor
+)
 const & noexcept
 {
     /* every line contains 16 cells, so the middle is at index 8 */
     short x = (index % dimensions::CELLS_PER_LINE) - 8;
-    short y = (index / dimensions::CELLS_PER_LINE) - 8;
+    short y = (
+        (
+            index - floor * dimensions::CELLS_PER_FLOOR
+        ) / dimensions::CELLS_PER_LINE
+    ) - 8;
 
     /* we increment the coordinates in order
        to have orthogonal coordinates rotable around the origin */
