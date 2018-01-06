@@ -257,15 +257,7 @@ void RotateFloorAnimation::rotateCells() const &
 
     short x = coordinates.second;
     short y = coordinates.first;
-
-    if (impl->direction == -1)
-    {
-        y *= -1;
-    }
-    else
-    {
-        x *= -1;
-    }
+    updateCoordinates(x, y);
 
     const auto destinationPlayerIndex = getIndexFromCoordinates(x, y);
     level->setPlayerCellIndex(destinationPlayerIndex);
@@ -285,15 +277,7 @@ void RotateFloorAnimation::rotateCell(const unsigned short& index) const &
     /* rotate (x,y) around the origin (0, 0) results into (-y, x) */
     short x = coordinates.second;
     short y = coordinates.first;
-
-    if (impl->direction == -1)
-    {
-        y *= -1;
-    }
-    else
-    {
-        x *= -1;
-    }
+    updateCoordinates(x, y);
 
     const auto destinationIndex = getIndexFromCoordinates(x, y);
     const auto& destinationCell = cells[destinationIndex];
@@ -322,15 +306,7 @@ void RotateFloorAnimation::rotateCellFromQuarter(
     /* rotate (x,y) around the origin (0, 0) results into (-y, x) */
     short x = coordinates.second;
     short y = coordinates.first;
-
-    if (impl->direction == -1)
-    {
-        y *= -1;
-    }
-    else
-    {
-        x *= -1;
-    }
+    updateCoordinates(x, y);
 
     const auto& cells = getLevel()->getCells();
     const auto destinationIndex = getIndexFromCoordinates(x, y);
@@ -434,6 +410,24 @@ std::unique_ptr<entities::Cell> RotateFloorAnimation::getCellCopy(
     cell->setIsVisible(source.isVisible());
 
     return cell;
+}
+
+/**
+ *
+ */
+void RotateFloorAnimation::updateCoordinates(
+    short& x,
+    short& y
+) const & noexcept
+{
+    if (impl->direction == -1)
+    {
+        y *= -1;
+    }
+    else
+    {
+        x *= -1;
+    }
 }
 
 }

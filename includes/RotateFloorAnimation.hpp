@@ -185,6 +185,21 @@ private:
         const entities::Cell& source
     ) const &;
 
+    /**
+     * @brief updates the horizontal or vertical coordinates
+     * according to the rotation direction
+     *
+     * @param x the orthogonal x coordinate
+     * @param y the orthogonal y coordinate
+     *
+     * the passed references are supposed to modify
+     * their values within the function
+     */
+    void updateCoordinates(
+        short& x,
+        short& y
+    ) const & noexcept;
+
     class Impl;
     const std::unique_ptr<Impl> impl;
 };
