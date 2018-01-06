@@ -271,21 +271,21 @@ void RotateFloorAnimation::rotateCells() const &
     }
 
     const auto& level = getLevel();
-    const unsigned short currentPlayerIndex = level->getPlayerCellIndex();
+    const auto currentPlayerIndex = level->getPlayerCellIndex();
+    const auto playerFloor = level->getPlayerFloor();
 
-    /* TODO: handle level position update on any floor,
-       not only the first one */
     const std::pair<short, short> coordinates =
         getCoordinatesFromIndex(
             currentPlayerIndex,
-            0
+            playerFloor
         );
 
     short x = coordinates.second;
     short y = coordinates.first;
     updateCoordinates(x, y);
 
-    const auto destinationPlayerIndex = getIndexFromCoordinates(x, y);
+    auto destinationPlayerIndex = getIndexFromCoordinates(x, y);
+    destinationPlayerIndex += playerFloor * dimensions::CELLS_PER_FLOOR;
     level->setPlayerCellIndex(destinationPlayerIndex);
 }
 
