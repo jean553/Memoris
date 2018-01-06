@@ -166,6 +166,25 @@ private:
         const entities::Cell& destination
     ) const &;
 
+    /**
+     * @brief generates a copy of a given cell in order to be stored
+     * into a container that stores a quarter of cell (for rotation);
+     * it only copies the type and the visibility, the only two elements
+     * that are necessary to be known in order to copy the cell
+     * for rotation purposes; positions are set to 0 as they are useless;
+     *
+     * @param cell the source cell to copy
+     *
+     * @return std::unique_ptr<entities::Cell>
+     *
+     * not noexcept as the function calls some SFML functions
+     *
+     * the returned unique_ptr is not constant as it has to be moved by client
+     */
+    std::unique_ptr<entities::Cell> getCellCopy(
+        const entities::Cell& source
+    ) const &;
+
     class Impl;
     const std::unique_ptr<Impl> impl;
 };

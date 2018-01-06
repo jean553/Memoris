@@ -141,7 +141,6 @@ void RotateFloorAnimation::rotateCells() const &
     constexpr unsigned short HALF_CELLS_PER_LINE =
         dimensions::CELLS_PER_LINE / 2;
     const auto& cells = getLevel()->getCells();
-    const auto& context = getContext();
 
     std::vector<std::unique_ptr<entities::Cell>> rightQuarterCells;
 
@@ -156,20 +155,7 @@ void RotateFloorAnimation::rotateCells() const &
             continue;
         }
 
-        const auto& sourceCell = cells[index];
-
-        /* there is no need to have a specific cell position;
-           this container is only used to store the cell type and visibility */
-        std::unique_ptr<entities::Cell> cell =
-            std::make_unique<entities::Cell>(
-                context,
-                0,
-                0,
-                sourceCell->getType()
-            );
-
-        cell->setIsVisible(sourceCell->isVisible());
-
+        auto cell = getCellCopy(*cells[index]);
         rightQuarterCells.push_back(std::move(cell));
     }
 
@@ -186,20 +172,7 @@ void RotateFloorAnimation::rotateCells() const &
             continue;
         }
 
-        const auto& sourceCell = cells[index];
-
-        /* there is no need to have a specific cell position;
-           this container is only used to store the cell type and visibility */
-        std::unique_ptr<entities::Cell> cell =
-            std::make_unique<entities::Cell>(
-                context,
-                0,
-                0,
-                sourceCell->getType()
-            );
-
-        cell->setIsVisible(sourceCell->isVisible());
-
+        auto cell = getCellCopy(*cells[index]);
         leftBottomQuarterCells.push_back(std::move(cell));
     }
 
@@ -439,6 +412,28 @@ void RotateFloorAnimation::updateDestinationCellVisibility(
     {
         destination.hide(context);
     }
+}
+
+/**
+ *
+ */
+std::unique_ptr<entities::Cell> RotateFloorAnimation::getCellCopy(
+    const entities::Cell& source
+) const &
+{
+    std::unique_ptr<entities::Cell> cell =
+        std::make_unique<entities::Cell>(
+            getContext(),
+            /* there is no need to have a specific cell position;
+               this container is used to store the cell type and visibility */
+            0,
+            0,
+            source.getType()
+        );
+
+    cell->setIsVisible(source.isVisible());
+
+    return cell;
 }
 
 }
