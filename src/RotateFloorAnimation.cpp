@@ -155,6 +155,8 @@ void RotateFloorAnimation::rotateCells() const &
             continue;
         }
 
+        /* there is no need to have a specific cell position;
+           this container is only used to store the cell type and visibility */
         std::unique_ptr<entities::Cell> cell =
             std::make_unique<entities::Cell>(
                 getContext(),
@@ -181,6 +183,8 @@ void RotateFloorAnimation::rotateCells() const &
             continue;
         }
 
+        /* there is no need to have a specific cell position;
+           this container is only used to store the cell type and visibility */
         std::unique_ptr<entities::Cell> cell =
             std::make_unique<entities::Cell>(
                 getContext(),
