@@ -326,15 +326,10 @@ void RotateFloorAnimation::rotateCell(const unsigned short& index) const &
     const auto& destinationCell = cells[destinationIndex];
     destinationCell->setType(type);
 
-    const auto& context = getContext();
-    if (cell->isVisible())
-    {
-        destinationCell->show(context);
-    }
-    else
-    {
-        destinationCell->hide(context);
-    }
+    updateDestinationCellVisibility(
+        *cell,
+        *destinationCell
+    );
 }
 
 /**
@@ -370,15 +365,10 @@ void RotateFloorAnimation::rotateCellFromQuarter(
 
     destinationCell->setType(type);
 
-    const auto& context = getContext();
-    if (cell->isVisible())
-    {
-        destinationCell->show(context);
-    }
-    else
-    {
-        destinationCell->hide(context);
-    }
+    updateDestinationCellVisibility(
+        *cell,
+        *destinationCell
+    );
 }
 
 /**
