@@ -142,132 +142,143 @@ void RotateFloorAnimation::rotateCells() const &
         dimensions::CELLS_PER_LINE / 2;
     const auto& cells = getLevel()->getCells();
 
-    std::vector<std::unique_ptr<entities::Cell>> rightQuarterCells;
-
-    /* TODO: the animation is only performed on the first floor for now,
-       all the floors should be rotated */
-    const unsigned short floor = 0;
-
+    constexpr unsigned short FLOORS_PER_LEVEL {10};
     for (
-        unsigned short index = 0;
-        index < CELLS_PER_SIDE;
-        index += 1
+        unsigned short floor = 0;
+        floor < FLOORS_PER_LEVEL;
+        floor += 1
     )
     {
-        if (index % dimensions::CELLS_PER_LINE < HALF_CELLS_PER_LINE)
-        {
-            continue;
-        }
+        std::vector<std::unique_ptr<entities::Cell>> rightQuarterCells;
 
-        auto cell = getCellCopy(*cells[index]);
-        rightQuarterCells.push_back(std::move(cell));
-    }
-
-    std::vector<std::unique_ptr<entities::Cell>> leftBottomQuarterCells;
-
-    for (
-        unsigned short index = CELLS_PER_SIDE;
-        index < dimensions::CELLS_PER_FLOOR;
-        index += 1
-    )
-    {
-        if (index % dimensions::CELLS_PER_LINE >= HALF_CELLS_PER_LINE)
-        {
-            continue;
-        }
-
-        auto cell = getCellCopy(*cells[index]);
-        leftBottomQuarterCells.push_back(std::move(cell));
-    }
-
-    for (
-        unsigned short index = 0;
-        index < CELLS_PER_SIDE;
-        index += 1
-    )
-    {
-        if (index % dimensions::CELLS_PER_LINE >= HALF_CELLS_PER_LINE)
-        {
-            continue;
-        }
-
-        rotateCell(
-            index,
-            floor
-        );
-    }
-
-    for (
-        unsigned short index = CELLS_PER_SIDE;
-        index < dimensions::CELLS_PER_FLOOR;
-        index += 1
-    )
-    {
-        if (index % dimensions::CELLS_PER_LINE < HALF_CELLS_PER_LINE)
-        {
-            continue;
-        }
-
-        rotateCell(
-            index,
-            floor
-        );
-    }
-
-    constexpr unsigned short CELLS_PER_QUARTER = CELLS_PER_SIDE / 2;
-
-    for (
-        unsigned short index = 0;
-        index < CELLS_PER_QUARTER;
-        index += 1
-    )
-    {
-        rotateCellFromQuarter(
-            index,
-            (
-                dimensions::CELLS_PER_LINE * (
-                    index / HALF_CELLS_PER_LINE
-                ) + HALF_CELLS_PER_LINE + (
-                    index % HALF_CELLS_PER_LINE
-                )
-            ),
-            floor,
-            rightQuarterCells
-        );
-    }
-
-    unsigned short convertedIndex = CELLS_PER_SIDE;
-
-    for (
-        unsigned short index = 0;
-        index < CELLS_PER_QUARTER;
-        index += 1
-    )
-    {
-        if (
-            index % HALF_CELLS_PER_LINE == 0 and
-            index != 0
+        for (
+            unsigned short index = floor * dimensions::CELLS_PER_FLOOR;
+            index < floor * dimensions::CELLS_PER_FLOOR + CELLS_PER_SIDE;
+            index += 1
         )
         {
-            convertedIndex += HALF_CELLS_PER_LINE;
+            if (index % dimensions::CELLS_PER_LINE < HALF_CELLS_PER_LINE)
+            {
+                continue;
+            }
+
+            auto cell = getCellCopy(*cells[index]);
+            rightQuarterCells.push_back(std::move(cell));
         }
 
-        rotateCellFromQuarter(
-            index,
-            convertedIndex,
-            floor,
-            leftBottomQuarterCells
-        );
+        std::vector<std::unique_ptr<entities::Cell>> leftBottomQuarterCells;
 
-        convertedIndex += 1;
+        for (
+            unsigned short index =
+                floor * dimensions::CELLS_PER_FLOOR + CELLS_PER_SIDE;
+            index < (floor + 1) * dimensions::CELLS_PER_FLOOR;
+            index += 1
+        )
+        {
+            if (index % dimensions::CELLS_PER_LINE >= HALF_CELLS_PER_LINE)
+            {
+                continue;
+            }
+
+            auto cell = getCellCopy(*cells[index]);
+            leftBottomQuarterCells.push_back(std::move(cell));
+        }
+
+        for (
+            unsigned short index = floor * dimensions::CELLS_PER_FLOOR;
+            index < floor * dimensions::CELLS_PER_FLOOR + CELLS_PER_SIDE;
+            index += 1
+        )
+        {
+            if (index % dimensions::CELLS_PER_LINE >= HALF_CELLS_PER_LINE)
+            {
+                continue;
+            }
+
+            rotateCell(
+                index,
+                floor
+            );
+        }
+
+        for (
+            unsigned short index =
+                floor * dimensions::CELLS_PER_FLOOR + CELLS_PER_SIDE;
+            index < (floor + 1) * dimensions::CELLS_PER_FLOOR;
+            index += 1
+        )
+        {
+            if (index % dimensions::CELLS_PER_LINE < HALF_CELLS_PER_LINE)
+            {
+                continue;
+            }
+
+            rotateCell(
+                index,
+                floor
+            );
+        }
+
+        constexpr unsigned short CELLS_PER_QUARTER = CELLS_PER_SIDE / 2;
+
+        for (
+            unsigned short index = 0;
+            index < CELLS_PER_QUARTER;
+            index += 1
+        )
+        {
+            rotateCellFromQuarter(
+                index,
+                (
+                    floor * dimensions::CELLS_PER_FLOOR +
+                    dimensions::CELLS_PER_LINE * (
+                        index / HALF_CELLS_PER_LINE
+                    ) + HALF_CELLS_PER_LINE + (
+                        index % HALF_CELLS_PER_LINE
+                    )
+                ),
+                floor,
+                rightQuarterCells
+            );
+        }
+
+        unsigned short convertedIndex =
+            floor * dimensions::CELLS_PER_FLOOR + CELLS_PER_SIDE;
+
+        for (
+            unsigned short index = 0;
+            index < CELLS_PER_QUARTER;
+            index += 1
+        )
+        {
+            if (
+                index % HALF_CELLS_PER_LINE == 0 and
+                index != 0
+            )
+            {
+                convertedIndex += HALF_CELLS_PER_LINE;
+            }
+
+            rotateCellFromQuarter(
+                index,
+                convertedIndex,
+                floor,
+                leftBottomQuarterCells
+            );
+
+            convertedIndex += 1;
+        }
     }
 
     const auto& level = getLevel();
     const unsigned short currentPlayerIndex = level->getPlayerCellIndex();
+
+    /* TODO: handle level position update on any floor,
+       not only the first one */
     const std::pair<short, short> coordinates =
         getCoordinatesFromIndex(
             currentPlayerIndex,
-            floor
+            0
         );
 
     short x = coordinates.second;
@@ -300,7 +311,9 @@ void RotateFloorAnimation::rotateCell(
     short y = coordinates.first;
     updateCoordinates(x, y);
 
-    const auto destinationIndex = getIndexFromCoordinates(x, y);
+    auto destinationIndex = getIndexFromCoordinates(x, y);
+    destinationIndex += floor * dimensions::CELLS_PER_FLOOR;
+
     const auto& destinationCell = cells[destinationIndex];
     destinationCell->setType(type);
 
@@ -334,7 +347,10 @@ void RotateFloorAnimation::rotateCellFromQuarter(
     updateCoordinates(x, y);
 
     const auto& cells = getLevel()->getCells();
-    const auto destinationIndex = getIndexFromCoordinates(x, y);
+
+    auto destinationIndex = getIndexFromCoordinates(x, y);
+    destinationIndex += floor * dimensions::CELLS_PER_FLOOR;
+
     const auto& destinationCell = cells[destinationIndex];
 
     destinationCell->setType(type);
@@ -352,8 +368,7 @@ std::pair<short, short>
 RotateFloorAnimation::getCoordinatesFromIndex(
     const unsigned short& index,
     const unsigned short& floor
-)
-const & noexcept
+) const & noexcept
 {
     /* every line contains 16 cells, so the middle is at index 8 */
     short x = (index % dimensions::CELLS_PER_LINE) - 8;
