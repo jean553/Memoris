@@ -241,7 +241,7 @@ void LevelEditorController::updateLevelNameSurfacePosition() const &
     constexpr float LEVEL_NAME_SURFACE_BASE_HORIZONTAL_POSITION {1200.f};
     constexpr float LEVEL_NAME_SURFACE_VERTICAL_POSITION {0.f};
     impl->levelNameSurface.setPosition(
-        LEVEL_NAME_SURFACE_BASE_HORIZONTAL_POSITION - 
+        LEVEL_NAME_SURFACE_BASE_HORIZONTAL_POSITION -
             impl->levelNameSurface.getLocalBounds().width,
         LEVEL_NAME_SURFACE_VERTICAL_POSITION
     );
