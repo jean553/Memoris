@@ -132,6 +132,12 @@ public:
            game */
         level->showAllCells();
 
+        /* if the previous controller was the game controller,
+           some animations modifying the cells positions (even rotating them)
+           was maybe in progress when leaving; so we systematically
+           reset the transform */
+        level->deleteTransform();
+
         constexpr float CELLS_DEFAULT_TRANSPARENCY {255.f};
         constexpr unsigned short FIRST_FLOOR_INDEX {0};
         level->setCellsTransparency(
