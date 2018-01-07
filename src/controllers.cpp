@@ -53,7 +53,8 @@ namespace controllers
  */
 std::unique_ptr<Controller> getControllerById(
     const utils::Context& context,
-    const ControllerId& id
+    const ControllerId& id,
+    const ControllerId& previousControllerId
 )
 {
     const sf::String CANNOT_OPEN_LEVEL {"Cannot open level"};
@@ -110,7 +111,8 @@ std::unique_ptr<Controller> getControllerById(
         {
             return std::make_unique<ErrorController>(
                 context,
-                CANNOT_OPEN_LEVEL
+                CANNOT_OPEN_LEVEL,
+                previousControllerId
             );
         }
 
@@ -120,7 +122,8 @@ std::unique_ptr<Controller> getControllerById(
     {
         return std::make_unique<ErrorController>(
             context,
-            CANNOT_OPEN_LEVEL
+            CANNOT_OPEN_LEVEL,
+            previousControllerId
         );
     }
     case ControllerId::EditorMenu:
@@ -163,7 +166,8 @@ std::unique_ptr<Controller> getControllerById(
         {
             return std::make_unique<ErrorController>(
                 context,
-                CANNOT_OPEN_LEVEL
+                CANNOT_OPEN_LEVEL,
+                previousControllerId
             );
         }
 
@@ -181,7 +185,8 @@ std::unique_ptr<Controller> getControllerById(
     {
         return std::make_unique<ErrorController>(
             context,
-            "This serie is locked."
+            "This serie is locked.",
+            previousControllerId
         );
     }
     case ControllerId::WinSerie:

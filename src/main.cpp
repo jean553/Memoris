@@ -40,7 +40,7 @@ int main()
     using namespace utils;
 
     ControllerId currentControllerId {ControllerId::MainMenu},
-             nextControllerId {ControllerId::NoController};
+             nextControllerId {ControllerId::MainMenu};
 
     utils::Context context;
 
@@ -55,8 +55,11 @@ int main()
         const auto controller =
             getControllerById(
                 context,
+                nextControllerId,
                 currentControllerId
             );
+
+        currentControllerId = nextControllerId;
 
         do
         {
@@ -81,7 +84,7 @@ int main()
 
         nextMusicId = context.getMusicId(nextControllerId);
 
-        if(
+        if (
             currentControllerId != nextControllerId and
             nextMusicId != currentMusicId
         )
@@ -90,13 +93,11 @@ int main()
             currentMusicId = nextMusicId;
         }
 
-        currentControllerId = nextControllerId;
-
         context.getSoundsManager().playScreenTransitionSound();
 
         context.restartClock();
     }
-    while (currentControllerId != ControllerId::Exit);
+    while (nextControllerId != ControllerId::Exit);
 
     context.stopMusic();
 

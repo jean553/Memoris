@@ -48,10 +48,12 @@ public:
      *
      * @param context the current context
      * @param message the error message to display
+     * @param previousControllerId the previous controller id (to go back)
      */
     ErrorController(
         const utils::Context& context,
-        const sf::String& message
+        const sf::String& message,
+        const ControllerId& previousControllerId
     );
 
     /**

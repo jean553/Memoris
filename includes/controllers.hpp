@@ -46,12 +46,14 @@ enum class ControllerId;
  *
  * @param context the context to use
  * @param id the controller id
+ * @param previousControllerId previous controller id (for error controller)
  *
  * @return std::unique_ptr<Controller>
  */
 std::unique_ptr<Controller> getControllerById(
     const utils::Context& context,
-    const ControllerId& id
+    const ControllerId& id,
+    const ControllerId& previousControllerId
 );
 
 }
