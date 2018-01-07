@@ -47,8 +47,10 @@ public:
 
     Impl(
         const utils::Context& context,
-        const sf::String& message
-    )
+        const sf::String& message,
+        const ControllerId& previousControllerId
+    ) :
+        previousControllerId(previousControllerId)
     {
         text.setString(message);
         text.setFillColor(context.getColorsManager().getColorWhite());
@@ -63,6 +65,8 @@ public:
     }
 
     sf::Text text;
+
+    const ControllerId previousControllerId;
 };
 
 /**
@@ -70,13 +74,15 @@ public:
  */
 ErrorController::ErrorController(
     const utils::Context& context,
-    const sf::String& message
+    const sf::String& message,
+    const ControllerId& previousControllerId
 ) :
     Controller(context),
     impl(
         std::make_unique<Impl>(
             context,
-            message
+            message,
+            previousControllerId
         )
     )
 {
@@ -110,11 +116,7 @@ const ControllerId& ErrorController::render() const &
             {
             case sf::Keyboard::Escape:
             {
-                /* TODO: #532 return to the official series menu screen for
-                   now, the error controller is only accessible from this
-                   screen when a level is not found; should go back to the
-                   previous controller */
-                setExpectedControllerId(ControllerId::OfficialSeriesMenu);
+                setExpectedControllerId(impl->previousControllerId);
 
                 break;
             }
