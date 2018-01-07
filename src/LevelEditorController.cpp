@@ -132,6 +132,12 @@ public:
            game */
         level->showAllCells();
 
+        /* if the previous controller was the game controller,
+           some animations modifying the cells positions (even rotating them)
+           was maybe in progress when leaving; so we systematically
+           reset the transform */
+        level->deleteTransform();
+
         constexpr float CELLS_DEFAULT_TRANSPARENCY {255.f};
         constexpr unsigned short FIRST_FLOOR_INDEX {0};
         level->setCellsTransparency(
@@ -235,7 +241,7 @@ void LevelEditorController::updateLevelNameSurfacePosition() const &
     constexpr float LEVEL_NAME_SURFACE_BASE_HORIZONTAL_POSITION {1200.f};
     constexpr float LEVEL_NAME_SURFACE_VERTICAL_POSITION {0.f};
     impl->levelNameSurface.setPosition(
-        LEVEL_NAME_SURFACE_BASE_HORIZONTAL_POSITION - 
+        LEVEL_NAME_SURFACE_BASE_HORIZONTAL_POSITION -
             impl->levelNameSurface.getLocalBounds().width,
         LEVEL_NAME_SURFACE_VERTICAL_POSITION
     );
