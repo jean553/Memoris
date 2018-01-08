@@ -88,7 +88,7 @@ private:
     const std::string getSerieNameByItemId() const & noexcept;
 
     class Impl;
-    std::unique_ptr<Impl> impl;
+    const std::unique_ptr<Impl> impl;
 };
 
 }
