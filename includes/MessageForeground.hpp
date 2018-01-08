@@ -72,7 +72,7 @@ public:
 private:
 
     class Impl;
-    std::unique_ptr<Impl> impl;
+    const std::unique_ptr<Impl> impl;
 };
 
 }
