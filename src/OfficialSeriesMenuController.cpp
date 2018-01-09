@@ -220,18 +220,16 @@ const ControllerId& OfficialSeriesMenuController::render() const &
  */
 void OfficialSeriesMenuController::selectMenuItem() const & noexcept
 {
-    const std::string serie = getSerieNameByItemId();
+    const auto selectedSerie = getSelectorPosition();
 
-    /* TODO: #890 the locked list should be loaded from the game file; this
-       condition is a temporary solution for tests only; to delete;
-       the 'difficult' name could be refactored into a static constexpr,
-       however I do not do it as this is a temporarily solution */
-    if (serie == "difficult")
+    if (selectedSerie > impl->lastUnlockedSerie)
     {
         setExpectedControllerId(ControllerId::UnlockedSerieError);
 
         return;
     }
+
+    const std::string serie = getSerieNameByItemId(selectedSerie);
 
     try
     {
@@ -252,10 +250,11 @@ void OfficialSeriesMenuController::selectMenuItem() const & noexcept
 /**
  *
  */
-const std::string OfficialSeriesMenuController::getSerieNameByItemId() const &
-noexcept
+const std::string OfficialSeriesMenuController::getSerieNameByItemId(
+    const unsigned short& itemId
+) const & noexcept
 {
-    switch(getSelectorPosition())
+    switch(itemId)
     {
     case 2:
     {

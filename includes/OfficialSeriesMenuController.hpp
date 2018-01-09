@@ -83,9 +83,13 @@ private:
      * @brief returns the name of the serie file to open according to the
      * selected menu item
      *
+     * @param itemId the current selector position item id
+     *
      * @return const std::string
      */
-    const std::string getSerieNameByItemId() const & noexcept;
+    const std::string getSerieNameByItemId(
+        const unsigned short& itemId
+    ) const & noexcept;
 
     class Impl;
     const std::unique_ptr<Impl> impl;
