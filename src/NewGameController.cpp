@@ -163,8 +163,9 @@ const ControllerId& NewGameController::render() const &
                     std::fstream::out
                 );
 
-                constexpr unsigned short FIRST_SERIE_IDENTIFIER {0};
-                file << FIRST_SERIE_IDENTIFIER;
+                /* first serie index is 0,
+                   inserted into the file as a character */
+                file << '0';
 
                 file.close();
 

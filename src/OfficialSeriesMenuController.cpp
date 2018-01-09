@@ -38,10 +38,15 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Window/Event.hpp>
 
+#include <fstream>
+
 namespace memoris
 {
 namespace controllers
 {
+
+constexpr char GAMES_FILES_DIRECTORY[] {"data/games/"};
+constexpr char GAMES_FILES_EXTENSION[] {".game"};
 
 class OfficialSeriesMenuController::Impl
 {
@@ -63,6 +68,14 @@ public:
     }
 
     sf::Text title;
+
+    /* not set into the implementation constructor as it needs
+       a call to the Controller parent method getContext(),
+       not set directly into the required function
+       as this is a virtual function marked as noexcept:
+       opening the file there would force us to remove "noexcept"
+       from all the others definitions */
+    unsigned short lastUnlockedSerie;
 };
 
 /**
@@ -74,6 +87,19 @@ OfficialSeriesMenuController::OfficialSeriesMenuController(
     AbstractMenuController(context),
     impl(std::make_unique<Impl>(context))
 {
+    std::ifstream file;
+    file.open(
+        GAMES_FILES_DIRECTORY +
+        getContext().getGameName() +
+        GAMES_FILES_EXTENSION
+    );
+
+    /* get a character from file, substract the value of 48
+       in order to find numeric value from character */
+    char serieCharacter;
+    file.get(serieCharacter);
+    impl->lastUnlockedSerie = serieCharacter - '0';
+
     constexpr float EASY_VERTICAL_POSITION {270.f};
     std::unique_ptr<items::MenuItem> easy(
         std::make_unique<items::MenuItem>(
