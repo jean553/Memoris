@@ -104,7 +104,10 @@ WinSerieEndingController::WinSerieEndingController(
     Controller(context),
     impl(std::make_unique<Impl>(context))
 {
-    unlockNextSerieFromGameFile();
+    if (context.getPlayingSerieManager().isUnlockable())
+    {
+        unlockNextSerieFromGameFile();
+    }
 }
 
 /**
