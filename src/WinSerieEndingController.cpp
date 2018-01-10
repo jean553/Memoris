@@ -38,10 +38,15 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Window/Event.hpp>
 
+#include <fstream>
+
 namespace memoris
 {
 namespace controllers
 {
+
+constexpr char GAMES_FILES_DIRECTORY[] {"data/games/"};
+constexpr char GAMES_FILES_EXTENSION[] {".game"};
 
 class WinSerieEndingController::Impl
 {
@@ -99,6 +104,10 @@ WinSerieEndingController::WinSerieEndingController(
     Controller(context),
     impl(std::make_unique<Impl>(context))
 {
+    if (context.getPlayingSerieManager().isUnlockable())
+    {
+        unlockNextSerieFromGameFile();
+    }
 }
 
 /**
@@ -154,6 +163,39 @@ const ControllerId& WinSerieEndingController::render() const &
     }
 
     return getNextControllerId();
+}
+
+/**
+ *
+ */
+inline void WinSerieEndingController::unlockNextSerieFromGameFile() const &
+{
+    /* we cannot read, clear, write a file, the only solution
+       is to first open it for reading and then open it again
+       for clear its content and write into it */
+
+    const std::string fileName = GAMES_FILES_DIRECTORY +
+        getContext().getGameName() +
+        GAMES_FILES_EXTENSION;
+
+    std::fstream file;
+    file.open(
+        fileName,
+        std::ios::in
+    );
+
+    char serieCharacter;
+    file.get(serieCharacter);
+    file.close();
+
+    unsigned short lastUnlockedSerie = serieCharacter - '0';
+    lastUnlockedSerie += 1;
+
+    file.open(
+        fileName,
+        std::ios::trunc | std::ios::out
+    );
+    file << lastUnlockedSerie;
 }
 
 }

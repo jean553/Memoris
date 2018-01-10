@@ -247,8 +247,9 @@ const ControllerId& OfficialSeriesMenuController::render() const &
 void OfficialSeriesMenuController::selectMenuItem() const & noexcept
 {
     const auto selectedSerie = getSelectorPosition();
+    const auto& lastUnlockedSerie = impl->lastUnlockedSerie;
 
-    if (selectedSerie > impl->lastUnlockedSerie)
+    if (selectedSerie > lastUnlockedSerie)
     {
         setExpectedControllerId(ControllerId::UnlockedSerieError);
 
@@ -259,10 +260,14 @@ void OfficialSeriesMenuController::selectMenuItem() const & noexcept
 
     try
     {
-        getContext().getPlayingSerieManager().loadSerieFileContent(
+        const auto& serieManager = getContext().getPlayingSerieManager();
+
+        serieManager.loadSerieFileContent(
             serie,
             managers::PlayingSerieManager::SerieType::Official
         );
+
+        serieManager.setIsUnlockable(selectedSerie == lastUnlockedSerie);
 
         setExpectedControllerId(ControllerId::Game);
     }
