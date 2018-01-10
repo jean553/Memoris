@@ -71,6 +71,13 @@ public:
 
 private:
 
+    /**
+     * @brief updates the current game file in order to unlock the next serie
+     *
+     * not noexcept as manipulating std::fstream may throw exceptions
+     */
+    inline void unlockNextSerieFromGameFile() const &;
+
     class Impl;
     const std::unique_ptr<Impl> impl;
 };
