@@ -193,6 +193,22 @@ public:
     void addSecondsToPlayingSerieTime(const unsigned short& levelPlayingTime)
         const & noexcept;
 
+    /**
+     * @brief setter that determines if win the current serie
+     * would unlock the next one
+     *
+     * @param unlockable true if the serie is unlockable
+     */
+    void setIsUnlockable(const bool& unlockable) const & noexcept;
+
+    /**
+     * @brief getter that indicates if win the current serie
+     * would unlock the next one
+     *
+     * @return const bool&
+     */
+    const bool& isUnlockable() const & noexcept;
+
 private:
 
     /**

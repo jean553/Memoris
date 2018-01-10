@@ -61,6 +61,14 @@ public:
 
     std::string serieName;
     std::string serieType {OFFICIALS_SERIE_DIRECTORY_NAME};
+
+    /**
+     * determines if win this serie would update the game
+     * file last unlocked serie value; in fact, this value is set
+     * by the official serie menu and we only want to unlock the next
+     * serie if the current playing serie is the last unlocked one
+     */
+    bool unlockable {false};
 };
 
 /**
@@ -268,6 +276,23 @@ void PlayingSerieManager::addSecondsToPlayingSerieTime(
 ) const & noexcept
 {
     impl->totalSeriePlayingTime += levelPlayingTime;
+}
+
+/**
+ *
+ */
+void PlayingSerieManager::setIsUnlockable(const bool& unlockable)
+    const & noexcept
+{
+    impl->unlockable = unlockable;
+}
+
+/**
+ *
+ */
+const bool& PlayingSerieManager::isUnlockable() const & noexcept
+{
+    return impl->unlockable;
 }
 
 /**
