@@ -174,7 +174,7 @@ void DiagonalAnimation::applyPurpleColorOnCellsQuarters(const sf::Color& color)
     for(
         unsigned short index = 256 * floor;
         index < 256 * (floor + 1);
-        index++
+        index += 1
     )
     {
         const auto animationSteps = getAnimationSteps();
@@ -272,7 +272,7 @@ void DiagonalAnimation::invertBottomLeftWithTopRight() const &
                 );
             }
 
-            index++;
+            index += 1;
         }
     }
 }

@@ -260,33 +260,33 @@ void MainMenuController::animateTitleColor() const &
     auto& colorTitleRed = colorTitle.r;
     if (incrementTitleRedColor)
     {
-        colorTitleRed++;
+        colorTitleRed += 1;
     }
     else
     {
-        colorTitleRed--;
+        colorTitleRed -= 1;
     }
 
     auto& incrementTitleGreenColor = impl->incrementTitleGreenColor;
     auto& colorTitleGreen = colorTitle.g;
     if (incrementTitleGreenColor)
     {
-        colorTitleGreen++;
+        colorTitleGreen += 1;
     }
     else
     {
-        colorTitleGreen--;
+        colorTitleGreen -= 1;
     }
 
     auto& incrementTitleBlueColor = impl->incrementTitleBlueColor;
     auto& colorTitleBlue = colorTitle.b;
     if (incrementTitleBlueColor)
     {
-        colorTitleBlue++;
+        colorTitleBlue += 1;
     }
     else
     {
-        colorTitleBlue--;
+        colorTitleBlue -= 1;
     }
 
     constexpr sf::Uint8 TITLE_COLOR_MAXIMUM_RED {255};

@@ -290,7 +290,7 @@ const unsigned short& GameDashboard::getFoundStarsAmount() const & noexcept
 void GameDashboard::incrementFoundStars() const &
 {
     auto& foundStars = impl->foundStars;
-    foundStars++;
+    foundStars += 1;
 
     updateSfmlTextByNumericValue(
         impl->foundStarsAmount,
@@ -304,7 +304,7 @@ void GameDashboard::incrementFoundStars() const &
 void GameDashboard::incrementLifes() const &
 {
     auto& lifes = impl->lifes;
-    lifes++;
+    lifes += 1;
 
     updateSfmlTextByNumericValue(
         impl->lifesAmount,
@@ -318,7 +318,7 @@ void GameDashboard::incrementLifes() const &
 void GameDashboard::decrementLifes() const &
 {
     auto& lifes = impl->lifes;
-    lifes--;
+    lifes -= 1;
 
     updateSfmlTextByNumericValue(
         impl->lifesAmount,

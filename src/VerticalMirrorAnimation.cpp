@@ -154,7 +154,7 @@ void VerticalMirrorAnimation::invertSides() const &
     for (
         unsigned short index = firstIndex;
         index < lastIndex;
-        index++
+        index += 1
     )
     {
         if (index % dimensions::CELLS_PER_LINE >= CELLS_PER_LINE_PER_SIDE)
@@ -211,7 +211,7 @@ void VerticalMirrorAnimation::invertSides() const &
             (index - CELLS_PER_LINE_OFFSET) % CELLS_PER_LINE_PER_SIDE == 0
         )
         {
-            line++;
+            line += 1;
         }
     }
 }
@@ -227,7 +227,7 @@ void VerticalMirrorAnimation::updateLeftSideTransparency() const &
     for(
         unsigned short index = firstIndex;
         index < lastIndex;
-        index++
+        index += 1
     )
     {
         if (index % dimensions::CELLS_PER_LINE < CELLS_PER_LINE_PER_SIDE)
@@ -248,7 +248,7 @@ void VerticalMirrorAnimation::updateRightSideTransparency() const &
     for(
         unsigned short index = firstIndex;
         index < lastIndex;
-        index++
+        index += 1
     )
     {
         if (index % dimensions::CELLS_PER_LINE >= CELLS_PER_LINE_PER_SIDE)

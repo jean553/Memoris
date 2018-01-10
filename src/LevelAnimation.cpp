@@ -152,7 +152,7 @@ void LevelAnimation::showOrHideCell(
  */
 void LevelAnimation::incrementAnimationStep() const &
 {
-    impl->animationSteps++;
+    impl->animationSteps += 1;
 
     impl->lastAnimationUpdateTime = impl->context.getClockMillisecondsTime();
 }

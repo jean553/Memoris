@@ -117,7 +117,7 @@ void MenuGradient::initializeGradientRectangles() const &
     for (
         unsigned short index {SURFACES_AMOUNT};
         index > 0;
-        index--
+        index -= 1
     )
     {
         auto rectangle = std::make_unique<sf::RectangleShape>();
@@ -141,11 +141,11 @@ void MenuGradient::initializeGradientRectangles() const &
         constexpr unsigned short SIDE_SURFACES_AMOUNT {510};
         if(index >= SIDE_SURFACES_AMOUNT)
         {
-            horizontalPosition--;
+            horizontalPosition -= 1;
         }
         else
         {
-            horizontalPosition++;
+            horizontalPosition += 1;
         }
 
         if (index == SIDE_SURFACES_AMOUNT)
@@ -160,7 +160,7 @@ void MenuGradient::initializeGradientRectangles() const &
         constexpr unsigned short SURFACES_WITH_SAME_ALPHA {2};
         if (index % SURFACES_WITH_SAME_ALPHA == 0)
         {
-            effectColor.a--;
+            effectColor.a -= 1;
         }
 
         impl->sidesLines.push_back(std::move(rectangle));
