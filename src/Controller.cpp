@@ -128,11 +128,11 @@ const ControllerId Controller::animateScreenTransition(
     {
         if (impl->openingScreen)
         {
-            transitionStep--;
+            transitionStep -= 1;
         }
         else
         {
-            transitionStep++;
+            transitionStep += 1;
         }
 
         lastTime = currentTime;

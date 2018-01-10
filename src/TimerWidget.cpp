@@ -182,7 +182,7 @@ void TimerWidget::decrementPlayingTimer() const &
         }
         else
         {
-            minutes--;
+            minutes -= 1;
 
             constexpr unsigned short FIRST_SECOND_IN_MINUTE {59};
             seconds = FIRST_SECOND_IN_MINUTE;
@@ -190,7 +190,7 @@ void TimerWidget::decrementPlayingTimer() const &
     }
     else
     {
-        seconds--;
+        seconds -= 1;
     }
 
     updateDisplayedString();

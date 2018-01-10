@@ -123,16 +123,16 @@ void AnimatedBackground::initializeCells() const &
     for (
         unsigned short index {0};
         index < BACKGROUND_CELLS_AMOUNT;
-        index++
+        index += 1
     )
     {
-        currentLine++;
+        currentLine += 1;
 
         constexpr unsigned short CELLS_PER_COLUMN {18};
         if (currentLine == CELLS_PER_COLUMN)
         {
             currentLine = 0;
-            currentColumn++;
+            currentColumn += 1;
         }
 
         const auto cellType = getCellByRandomNumber(); 

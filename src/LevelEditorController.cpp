@@ -271,7 +271,7 @@ void LevelEditorController::saveLevelFile(
         std::vector<std::unique_ptr<entities::Cell>>::const_iterator iterator =
             cells.cbegin();
         iterator != cells.cend();
-        iterator++
+        ++iterator
     )
     {
         cellsStr += (*iterator)->getType();

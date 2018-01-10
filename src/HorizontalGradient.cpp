@@ -72,7 +72,7 @@ public:
         for (
             unsigned short index = 0;
             index < LINES_AMOUNT;
-            index++
+            index += 1
         )
         {
             auto rectangle = std::make_unique<sf::RectangleShape>();
@@ -110,7 +110,7 @@ public:
 
             if (index % 2 == 0)
             {
-                effectColor.a--;
+                effectColor.a -= 1;
             }
         }
     }

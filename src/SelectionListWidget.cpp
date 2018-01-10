@@ -363,14 +363,14 @@ void SelectionListWidget::deleteSelectedItem() const &
 
     /* not a const_iterator as setPosition() modifies the iterated objects */
     for (
-        auto it = offsetIndex;
-        it != texts.end();
-        ++it
+        auto iterator = offsetIndex;
+        iterator != texts.end();
+        ++iterator
     )
     {
-        it->setPosition(
+        iterator->setPosition(
             horizontalPosition,
-            it->getPosition().y - ITEMS_SEPARATION
+            iterator->getPosition().y - ITEMS_SEPARATION
         );
     }
 }

@@ -177,7 +177,7 @@ void PlayingSerieManager::loadSerieFileContent(
  */
 void PlayingSerieManager::incrementLevelIndex() const & noexcept
 {
-    impl->levelIndex++;
+    impl->levelIndex += 1;
 }
 
 /**

@@ -101,7 +101,7 @@ const unsigned short AbstractMenuController::getLastItemIndex() const &
  */
 void AbstractMenuController::moveUp() const & noexcept
 {
-    impl->selectorPosition--;
+    impl->selectorPosition -= 1;
 }
 
 /**
@@ -109,7 +109,7 @@ void AbstractMenuController::moveUp() const & noexcept
  */
 void AbstractMenuController::moveDown() const & noexcept
 {
-    impl->selectorPosition++;
+    impl->selectorPosition += 1;
 }
 
 /**
