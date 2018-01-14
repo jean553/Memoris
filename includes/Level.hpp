@@ -269,16 +269,12 @@ public:
     /**
      * @brief dynamically creates a SFML Tranform object
      *
-     * TODO: #1261 transform seems useless, check if it is really necessary
-     *
      * not noexcept because it calls SFML methods that are not noexcept
      */
     void createTransform() const &;
 
     /**
      * @brief dynamically delete the SFML transform object
-     *
-     * TODO: #1261 transform seems useless, check if it is really necessary
      */
     void deleteTransform() const & noexcept;
 
