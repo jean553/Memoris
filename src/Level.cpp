@@ -754,6 +754,22 @@ void Level::setCellsFromCharactersList(const std::vector<char>& characters)
 /**
  *
  */
+void Level::setSeconds(const unsigned short& seconds) const & noexcept
+{
+    impl->seconds = seconds;
+}
+
+/**
+ *
+ */
+void Level::setMinutes(const unsigned short& minutes) const & noexcept
+{
+    impl->minutes = minutes;
+}
+
+/**
+ *
+ */
 void Level::incrementRowAndColumnIndexes(
     unsigned short& row,
     unsigned short& column

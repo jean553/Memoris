@@ -362,6 +362,20 @@ public:
     void setCellsFromCharactersList(const std::vector<char>& characters)
         const &;
 
+    /**
+     * @brief setter of the seconds amount
+     *
+     * @param seconds the amount of seconds to set into the level
+     */
+    void setSeconds(const unsigned short& seconds) const & noexcept;
+
+    /**
+     * @brief setter of the minutes amount
+     *
+     * @param minutes the amount of minutes to set into the level
+     */
+    void setMinutes(const unsigned short& minutes) const & noexcept;
+
 private:
 
     /**
