@@ -648,7 +648,7 @@ void LevelEditorController::saveLevel(const std::string& levelName) const &
 /**
  *
  */
-void LevelEditorController::testLevel() const &
+inline void LevelEditorController::testLevel() const &
 {
     auto& level = impl->level;
     const auto& context = getContext();

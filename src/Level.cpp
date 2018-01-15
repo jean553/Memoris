@@ -679,6 +679,10 @@ void Level::initializeEditedLevel() const & noexcept
     auto& starsAmount = impl->starsAmount;
     starsAmount = 0;
 
+    constexpr unsigned short EDITED_LEVEL_TIME {0};
+    impl->seconds = EDITED_LEVEL_TIME;
+    impl->minutes = EDITED_LEVEL_TIME;
+
     const auto& cells = impl->cells;
 
     using CellsIterator =
@@ -749,6 +753,22 @@ void Level::setCellsFromCharactersList(const std::vector<char>& characters)
             index += 1;
         }
     );
+}
+
+/**
+ *
+ */
+void Level::setSeconds(const unsigned short& seconds) const & noexcept
+{
+    impl->seconds = seconds;
+}
+
+/**
+ *
+ */
+void Level::setMinutes(const unsigned short& minutes) const & noexcept
+{
+    impl->minutes = minutes;
 }
 
 /**

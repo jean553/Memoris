@@ -593,12 +593,16 @@ void GameController::executePlayerCellAction() const &
             impl->win = true;
 
             const auto& playingSerieManager = context.getPlayingSerieManager();
-            playingSerieManager.addSecondsToPlayingSerieTime(
-                impl->playingTime
-            );
+            const auto& playingTime = impl->playingTime;
+
+            playingSerieManager.addSecondsToPlayingSerieTime(playingTime);
 
             if (impl->editedLevel != nullptr)
             {
+                constexpr unsigned short SECONDS_PER_MINUTE {60};
+                level->setSeconds(playingTime % SECONDS_PER_MINUTE);
+                level->setMinutes(playingTime / SECONDS_PER_MINUTE);
+
                 setExpectedControllerId(ControllerId::LevelEditor);
 
                 return;

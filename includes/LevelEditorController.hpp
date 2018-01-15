@@ -201,7 +201,7 @@ private:
      *
      * not noexcept as it calls SFML methods that are not noexcept
      */
-    void testLevel() const &;
+    inline void testLevel() const &;
 
     /**
      * @brief indicates if a cell is selected into the cells selector
