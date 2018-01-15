@@ -679,6 +679,10 @@ void Level::initializeEditedLevel() const & noexcept
     auto& starsAmount = impl->starsAmount;
     starsAmount = 0;
 
+    constexpr unsigned short EDITED_LEVEL_TIME {0};
+    impl->seconds = EDITED_LEVEL_TIME;
+    impl->minutes = EDITED_LEVEL_TIME;
+
     const auto& cells = impl->cells;
 
     using CellsIterator =
