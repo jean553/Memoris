@@ -453,11 +453,7 @@ void SerieEditorController::saveSerieFile(const std::string& name) const &
         std::fstream::out
     );
 
-    /* write three empty best scores */
-    file << "." << std::endl << "." << std::endl << "." << std::endl;
-
     const auto& texts = impl->serieLevelsList.getTexts();
-
     for (const auto& text : texts)
     {
         file << text.getString().toAnsiString() << std::endl;
