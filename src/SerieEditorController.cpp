@@ -208,15 +208,17 @@ void SerieEditorController::handleNewSerieForegroundEvents() const &
         {
             switch(event.key.code)
             {
-            case sf::Keyboard::Return:
+            case sf::Keyboard::Y:
             {
                 resetLevelsLists();
 
                 updateSerieName(UNTITLED_SERIE);
 
+                impl->newSerieForeground.reset();
+
                 break;
             }
-            case sf::Keyboard::Escape:
+            case sf::Keyboard::N:
             {
                 impl->newSerieForeground.reset();
 
