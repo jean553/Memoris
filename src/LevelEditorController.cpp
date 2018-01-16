@@ -335,13 +335,13 @@ void LevelEditorController::handleNewLevelForegroundEvents() const &
         {
             switch(event.key.code)
             {
-            case sf::Keyboard::Escape:
+            case sf::Keyboard::N:
             {
                 newLevelForeground.reset();
 
                 break;
             }
-            case sf::Keyboard::Return:
+            case sf::Keyboard::Y:
             {
                 impl->level->allCellsAsWalls();
 
