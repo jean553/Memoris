@@ -147,7 +147,7 @@ https://www.iconfinder.com/icons/1054960/bullseye_target_icon#size=128 - by Nick
 (target image)
 
 https://www.iconfinder.com/paomedia - CreativeCommons - BY 3.0 - https://creativecommons.org/licenses/by/3.0/
-(new button image, quit button image)
+(new button image, save button image, quit button image)
 
 https://www.iconfinder.com/icons/186411/arrow_down_icon#size=64 - Free for commercial use
 (items list up image, items list down image)
