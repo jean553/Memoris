@@ -102,29 +102,52 @@ Music files have been converted from MP3 to OGG format. This is the only modific
 ### Icons
 
 https://www.iconfinder.com/recepkutuk - Free for commercial use
+(departure cell image, arrival cell image)
 
 https://www.iconfinder.com/iconsets/aiga-symbol-signs - Public domain
+(stairs up cell image, stairs down cell image)
 
-https://www.iconfinder.com/andromina - CreativeCommons 3.0 BY http://creativecommons.org/licenses/by/3.0/ - No changes have been made
+https://www.iconfinder.com/icons/2792947/christmas_star_xmas_icon - by Smashicons - CreativeCommons 3.0 BY (http://creativecommons.org/licenses/by/3.0/) - Resized
+(star cell, star image)
 
-http://www.webdesignerdepot.com/2009/03/200-free-exclusive-icons-siena/ - Free for commercial use with link to author website
+https://www.iconfinder.com/icons/3547/favourite_heart_love_icon#size=128 - by Everaldo Coelho - LGPL
+(life cell, life image)
 
-http://www.danilodemarco.com/100-pictograms-icons/ - Free for commercial use with link to author website
+https://www.iconfinder.com/icons/1493282/cancel_cross_exit_remove_icon#size=128 - by GlyphLab - Free for commercial use
+(dead cell)
 
-http://www.icons-gallery.com - GNU GPL / GNU LGPL
+https://www.iconfinder.com/icons/2123964/app_essential_time_ui_icon#size=128 - by Just Icon - Free for commercial use
+(more time cell, less time cell)
 
-https://www.iconfinder.com/snipicons - CreativeCommons - BY-NC 3.0 - http://creativecommons.org/licenses/by-nc/3.0/ ( images have been resized and integrated in others )
+https://www.iconfinder.com/icons/173117/timer_icon#size=128 - by Snip Master - CreativeCommons 3.0 BY-NC (https://creativecommons.org/licenses/by-nc/3.0/) - Resized
+(timer image)
 
-http://appercuts.blogspot.fr/ - Free for commercial use with link to author website
+https://www.iconfinder.com/icons/10576/wall_icon#size=128 - by Webdesigner Depot - Free for commercial use (author website: https://www.webdesignerdepot.com/)
+(wall cell)
 
-https://www.iconfinder.com/Squid.ink / http://thesquid.ink/flat-icons/ - CreativeCommons - BY 3.0 - http://creativecommons.org/licenses/by/3.0/
+https://www.iconfinder.com/icons/352908/horizontal_mirror_icon#size=128 - by Appercuts Apps - Free for commercial use (author website: https://www.iconfinder.com/appercuts)
+(horizontal mirror cell and vertical mirror cell)
 
-https://www.iconfinder.com/icons/1055053/controller_game_controller_video_game_icon#size=128 / http://www.elegantthemes.com/ - GNU GPL
+https://www.iconfinder.com/icons/2561283/cw_rotate_icon#size=128 - by Cole Bemis - MIT License
+(left rotation cell and right rotation cell)
 
-http://code.google.com/u/newmooon/ - GNU GPL
+https://www.iconfinder.com/icons/1055119/arrow_up_icon#size=128 - by Nick Roach - GPL
+(editor up button and editor down button)
+
+https://www.iconfinder.com/icons/1094176/code_elevator_emergency_sign_sos_icon#size=128 - by beguima - CreativeCommons 3.0 BY (https://creativecommons.org/licenses/by/3.0/) - Resized
+(game elevator image)
+
+https://www.iconfinder.com/icons/308945/arrow_up_icon#size=128 - by Ivan Boyko - CreativeCommons 3.0 BY (https://creativecommons.org/licenses/by/3.0/) - Resized
+(elevator up cell and elevator down cell)
+
+https://www.iconfinder.com/icons/216359/test_icon#size=128 - by Greepit - Free for commercial use
+(test button)
+
+https://www.iconfinder.com/icons/1054960/bullseye_target_icon#size=128 - by Nick Roach - GPL
+(target image)
 
 https://www.iconfinder.com/paomedia - CreativeCommons - BY 3.0 - https://creativecommons.org/licenses/by/3.0/
-
-https://www.elegantthemes.com/ - https://www.iconfinder.com/iconsets/circle-icons-1 - GNU GPL
+(new button image, quit button image)
 
 https://www.iconfinder.com/icons/186411/arrow_down_icon#size=64 - Free for commercial use
+(items list up image, items list down image)
