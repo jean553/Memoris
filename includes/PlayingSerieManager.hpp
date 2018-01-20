@@ -209,6 +209,13 @@ public:
      */
     const bool& isUnlockable() const & noexcept;
 
+    /**
+     * @brief returns the type of the serie
+     *
+     * @return const SerieType&
+     */
+    const SerieType& getSerieType() const & noexcept;
+
 private:
 
     /**

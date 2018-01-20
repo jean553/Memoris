@@ -298,6 +298,15 @@ const bool& PlayingSerieManager::isUnlockable() const & noexcept
 /**
  *
  */
+const PlayingSerieManager::SerieType& PlayingSerieManager::getSerieType()
+    const & noexcept
+{
+    return impl->type;
+}
+
+/**
+ *
+ */
 const sf::String PlayingSerieManager::fillMissingTimeDigits(
     const unsigned short& numericValue
 ) const &
