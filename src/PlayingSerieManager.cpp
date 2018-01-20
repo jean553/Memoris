@@ -60,7 +60,9 @@ public:
     unsigned short levelIndex {0};
 
     std::string serieName;
-    std::string serieType {OFFICIALS_SERIE_DIRECTORY_NAME};
+    std::string serieTypeAsString {OFFICIALS_SERIE_DIRECTORY_NAME};
+
+    SerieType type {SerieType::Official};
 
     /**
      * determines if win this serie would update the game
@@ -138,6 +140,8 @@ void PlayingSerieManager::loadSerieFileContent(
     const SerieType& type
 ) const &
 {
+    impl->type = type;
+
     /* clear the queue containing the levels of the previous serie */
     impl->levels = std::queue<std::string>();
 
@@ -219,16 +223,16 @@ const unsigned short& PlayingSerieManager::getPlayingTime() const & noexcept
 void PlayingSerieManager::setIsOfficialSerie(const bool& official) const &
     noexcept
 {
-    auto& serieType = impl->serieType;
+    auto& serieTypeAsString = impl->serieTypeAsString;
 
     if (official)
     {
-        serieType = OFFICIALS_SERIE_DIRECTORY_NAME;
+        serieTypeAsString = OFFICIALS_SERIE_DIRECTORY_NAME;
 
         return;
     }
 
-    serieType = PERSONALS_SERIE_DIRECTORY_NAME;
+    serieTypeAsString = PERSONALS_SERIE_DIRECTORY_NAME;
 }
 
 /**
@@ -236,7 +240,7 @@ void PlayingSerieManager::setIsOfficialSerie(const bool& official) const &
  */
 const std::string& PlayingSerieManager::getSerieTypeAsString() const & noexcept
 {
-    return impl->serieType;
+    return impl->serieTypeAsString;
 }
 
 /**
