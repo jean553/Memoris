@@ -145,7 +145,17 @@ const ControllerId& WinSerieEndingController::render() const &
             {
             case sf::Keyboard::Return:
             {
-                setExpectedControllerId(ControllerId::MainMenu);
+                const auto& serieType =
+                    context.getPlayingSerieManager().getSerieType();
+
+                if (serieType == managers::PlayingSerieManager::SerieType::Official)
+                {
+                    setExpectedControllerId(ControllerId::OfficialSeriesMenu);
+
+                    break;
+                }
+
+                setExpectedControllerId(ControllerId::PersonalSeriesMenu);
 
                 break;
             }
