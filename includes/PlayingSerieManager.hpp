@@ -165,7 +165,7 @@ public:
      *
      * @return const std::string&
      */
-    const std::string& getSerieType() const & noexcept;
+    const std::string& getSerieTypeAsString() const & noexcept;
 
     /**
      * @brief reinitializes the manager, used when switch from one serie

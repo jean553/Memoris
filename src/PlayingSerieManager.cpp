@@ -234,7 +234,7 @@ void PlayingSerieManager::setIsOfficialSerie(const bool& official) const &
 /**
  *
  */
-const std::string& PlayingSerieManager::getSerieType() const & noexcept
+const std::string& PlayingSerieManager::getSerieTypeAsString() const & noexcept
 {
     return impl->serieType;
 }
