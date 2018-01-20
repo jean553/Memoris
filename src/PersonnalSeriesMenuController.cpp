@@ -155,7 +155,9 @@ const ControllerId& PersonalSeriesMenuController::render() const &
                         serieName,
                         managers::PlayingSerieManager::SerieType::Personal
                     );
-                    manager.setIsOfficialSerie(false);
+                    manager.setSerieType(
+                        managers::PlayingSerieManager::SerieType::Personal
+                    );
 
                     setExpectedControllerId(ControllerId::Game);
 

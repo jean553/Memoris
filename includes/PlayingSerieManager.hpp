@@ -154,18 +154,11 @@ public:
     const unsigned short& getPlayingTime() const & noexcept;
 
     /**
-     * @brief setter that specifies if the serie is official or not
-     *
-     * @param official indicates if the serie is official or not
-     */
-    void setIsOfficialSerie(const bool& official) const & noexcept;
-
-    /**
      * @brief getter that specifies if the serie is official or not
      *
-     * @return const std::string&
+     * @return const std::string
      */
-    const std::string& getSerieTypeAsString() const & noexcept;
+    const std::string getSerieTypeAsString() const & noexcept;
 
     /**
      * @brief reinitializes the manager, used when switch from one serie
@@ -208,6 +201,13 @@ public:
      * @return const bool&
      */
     const bool& isUnlockable() const & noexcept;
+
+    /**
+     * @brief setter of the serie type
+     *
+     * @param type the type of the serie
+     */
+    void setSerieType(const SerieType& type) const & noexcept;
 
     /**
      * @brief returns the type of the serie

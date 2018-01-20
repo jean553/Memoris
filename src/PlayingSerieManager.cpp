@@ -60,7 +60,6 @@ public:
     unsigned short levelIndex {0};
 
     std::string serieName;
-    std::string serieTypeAsString {OFFICIALS_SERIE_DIRECTORY_NAME};
 
     SerieType type {SerieType::Official};
 
@@ -220,27 +219,14 @@ const unsigned short& PlayingSerieManager::getPlayingTime() const & noexcept
 /**
  *
  */
-void PlayingSerieManager::setIsOfficialSerie(const bool& official) const &
-    noexcept
+const std::string PlayingSerieManager::getSerieTypeAsString() const & noexcept
 {
-    auto& serieTypeAsString = impl->serieTypeAsString;
-
-    if (official)
+    if (impl->type == SerieType::Official)
     {
-        serieTypeAsString = OFFICIALS_SERIE_DIRECTORY_NAME;
-
-        return;
+        return OFFICIALS_SERIE_DIRECTORY_NAME;
     }
 
-    serieTypeAsString = PERSONALS_SERIE_DIRECTORY_NAME;
-}
-
-/**
- *
- */
-const std::string& PlayingSerieManager::getSerieTypeAsString() const & noexcept
-{
-    return impl->serieTypeAsString;
+    return PERSONALS_SERIE_DIRECTORY_NAME;
 }
 
 /**
@@ -297,6 +283,14 @@ void PlayingSerieManager::setIsUnlockable(const bool& unlockable)
 const bool& PlayingSerieManager::isUnlockable() const & noexcept
 {
     return impl->unlockable;
+}
+
+/**
+ *
+ */
+void PlayingSerieManager::setSerieType(const SerieType& type) const & noexcept
+{
+    impl->type = type;
 }
 
 /**
