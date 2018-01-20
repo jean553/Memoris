@@ -93,7 +93,7 @@ std::unique_ptr<Controller> getControllerById(
             }
 
             std::string levelPath = "data/levels/" +
-                serieManager.getSerieType() + "/" +
+                serieManager.getSerieTypeAsString() + "/" +
                 serieManager.getNextLevelName() + ".level";
 
             const auto level = std::make_shared<entities::Level>(
