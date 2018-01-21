@@ -39,7 +39,6 @@ class TexturesManager::Impl
 public:
 
     sf::Texture cursorTexture;
-    sf::Texture githubTexture;
     sf::Texture starTexture;
     sf::Texture lifeTexture;
     sf::Texture targetTexture;
@@ -62,7 +61,6 @@ public:
 TexturesManager::TexturesManager() :
     impl(std::make_unique<Impl>())
 {
-    loadTexture(impl->githubTexture, "fork-me");
     loadTexture(impl->starTexture, "star");
     loadTexture(impl->lifeTexture, "life");
     loadTexture(impl->targetTexture, "target");
