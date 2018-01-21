@@ -141,6 +141,14 @@ private:
      */
     void endGame() const &;
 
+    /**
+     * @brief select the official series or personal series controller
+     * as the next controller; this function is called everytime
+     * the game is exit; this feature is required at multiple places
+     * so that's why it is refactored into a dedicated function
+     */
+    void selectMenuControllerForExit() const & noexcept;
+
     class Impl;
     const std::unique_ptr<Impl> impl;
 };

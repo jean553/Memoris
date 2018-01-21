@@ -335,12 +335,14 @@ const ControllerId& GameController::render() const &
                 if (editedLevel != nullptr)
                 {
                     setExpectedControllerId(ControllerId::LevelEditor);
-                } else {
-                    setExpectedControllerId(
-                        impl->win ?
-                        ControllerId::Game:
-                        ControllerId::MainMenu
-                    );
+                }
+                else if (impl->win)
+                {
+                    setExpectedControllerId(ControllerId::Game);
+                }
+                else
+                {
+                    selectMenuControllerForExit();
                 }
             }
         }
@@ -477,7 +479,7 @@ const ControllerId& GameController::render() const &
                     break;
                 }
 
-                setExpectedControllerId(ControllerId::MainMenu);
+                selectMenuControllerForExit();
 
                 break;
             }
@@ -761,6 +763,24 @@ void GameController::endGame() const &
     impl->timerWidget.stop();
 
     impl->endPeriodStartTime = context.getClockMillisecondsTime();
+}
+
+/**
+ *
+ */
+void GameController::selectMenuControllerForExit() const & noexcept
+{
+    const auto& serieType =
+        getContext().getPlayingSerieManager().getSerieType();
+
+    if (serieType == managers::PlayingSerieManager::SerieType::Official)
+    {
+        setExpectedControllerId(ControllerId::OfficialSeriesMenu);
+
+        return;
+    }
+
+    setExpectedControllerId(ControllerId::PersonalSeriesMenu);
 }
 
 }
