@@ -88,14 +88,6 @@ TexturesManager::~TexturesManager() = default;
 /**
  *
  */
-const sf::Texture& TexturesManager::getGithubTexture() const & noexcept
-{
-    return impl->githubTexture;
-}
-
-/**
- *
- */
 const sf::Texture& TexturesManager::getStarTexture() const & noexcept
 {
     return impl->starTexture;

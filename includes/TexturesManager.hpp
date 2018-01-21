@@ -62,13 +62,6 @@ public:
     ~TexturesManager();
 
     /**
-     * @brief getter for the github texture
-     *
-     * @return const sf::Texture&
-     */
-    const sf::Texture& getGithubTexture() const & noexcept;
-
-    /**
      * @brief getter for the star texture
      *
      * @return const sf::Texture&
