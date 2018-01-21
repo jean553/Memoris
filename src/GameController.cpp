@@ -483,10 +483,17 @@ const ControllerId& GameController::render() const &
 
                 break;
             }
-            /* TODO: #825 for dev purposes only, should be deleted */
+            /* TODO: #825 the two following keys are for dev purposes only;
+               they must be deleted at the end of the development */
             case sf::Keyboard::P:
             {
                 setExpectedControllerId(ControllerId::Game);
+
+                break;
+            }
+            case sf::Keyboard::O:
+            {
+                dashboard.incrementLifes();
 
                 break;
             }
