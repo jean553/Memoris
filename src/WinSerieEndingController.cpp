@@ -148,7 +148,8 @@ const ControllerId& WinSerieEndingController::render() const &
                 const auto& serieType =
                     context.getPlayingSerieManager().getSerieType();
 
-                if (serieType == managers::PlayingSerieManager::SerieType::Official)
+                using namespace managers;
+                if (serieType == PlayingSerieManager::SerieType::Official)
                 {
                     setExpectedControllerId(ControllerId::OfficialSeriesMenu);
 
