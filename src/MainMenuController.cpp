@@ -68,17 +68,6 @@ public:
             window::getCenteredTextHorizontalPosition(title),
             TITLE_VERTICAL_POSITION
         );
-
-        spriteGithub.setTexture(
-            context.getTexturesManager().getGithubTexture()
-        );
-
-        constexpr float GITHUB_SPRITE_HORIZONTAL_POSITION {1300.f};
-        constexpr float GITHUB_SPRITE_VERTICAL_POSITION {0.f};
-        spriteGithub.setPosition(
-            GITHUB_SPRITE_HORIZONTAL_POSITION,
-            GITHUB_SPRITE_VERTICAL_POSITION
-        );
     }
 
     utils::AnimatedBackground animatedBackground;
@@ -93,8 +82,6 @@ public:
     sf::Color colorTitle;
 
     sf::Text title;
-
-    sf::Sprite spriteGithub;
 };
 
 /**
@@ -172,9 +159,7 @@ const ControllerId& MainMenuController::render() const &
         lastTime = currentTime;
     }
 
-    auto& window = context.getSfmlWindow();
-    window.draw(impl->title);
-    window.draw(impl->spriteGithub);
+    context.getSfmlWindow().draw(impl->title);
 
     renderAllMenuItems();
 
