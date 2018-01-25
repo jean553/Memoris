@@ -17,7 +17,10 @@
 */
 
 /**
+ * @file controllers_ids.hpp
  * @brief enumeration with all the controllers
+ * @package controllers
+ * @author Jean LELIEVRE <Jean.LELIEVRE@supinfo.com>
  */
 
 namespace memoris
