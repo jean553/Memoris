@@ -45,7 +45,6 @@ namespace controllers
 {
 
 constexpr char GAMES_FILES_DIRECTORY[] {"data/games/"};
-constexpr char GAMES_FILES_EXTENSION[] {".game"};
 
 class OpenGameController::Impl
 {
@@ -55,7 +54,7 @@ public:
     Impl(const utils::Context& context) :
         list(
             context,
-            "data/games"
+            GAMES_FILES_DIRECTORY
         ),
         cursor(context)
     {
