@@ -108,6 +108,8 @@ Level::Level(
 ) :
     impl(std::make_unique<Impl>(context))
 {
+    /* FIXME: #1358 std::ifstream should not be used within the constructor */
+
     std::ifstream file(filePath);
 
     if (!file.is_open())
