@@ -5,7 +5,6 @@ errors.log
 data/games/*
 !data/games/fake.game
 *.swp
-latex/
 html/
 doxygen_sqlite3.db
 core
