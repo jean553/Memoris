@@ -229,6 +229,15 @@ private:
      */
     void markLevelHasToBeSaved() const &;
 
+    /**
+     * @brief selects the tested time surface to display;
+     * if the level has been tested, the tested time is displayed, else,
+     * an indication saying the level has not been tested yet is displayed
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    void setTestedTimeSurface() const &;
+
     class Impl;
     const std::unique_ptr<Impl> impl;
 };
