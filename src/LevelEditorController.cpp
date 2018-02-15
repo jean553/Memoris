@@ -104,27 +104,8 @@ public:
             FLOOR_SURFACE_VERTICAL_POSITION
         );
 
-        if (tested)
-        {
-            testedTime.setFillColor(white);
-            testedTime.setString(
-                context.getPlayingSerieManager().getPlayingTimeAsString()
-            );
-        }
-        else
-        {
-            testedTime.setFillColor(colorsManager.getColorRed());
-            testedTime.setString("Not tested yet");
-        }
-
         testedTime.setFont(font);
         testedTime.setCharacterSize(sizes::TEXT_SIZE);
-
-        constexpr float TESTED_TIME_VERTICAL_POSITION {40.f};
-        testedTime.setPosition(
-            TITLES_HORIZONTAL_POSITION - testedTime.getLocalBounds().width,
-            TESTED_TIME_VERTICAL_POSITION
-        );
 
         /* if the previous controller was the game controller, so some cells
            have been hidden during the game; this function call is only
@@ -192,6 +173,10 @@ LevelEditorController::LevelEditorController(
         )
     )
 {
+    /* the job of this method is required at multiple places,
+       so this is why it is wrapped into one function,
+       not callable from the implementation constructor */
+    setTestedTimeSurface();
 }
 
 /**
@@ -348,6 +333,10 @@ void LevelEditorController::handleNewLevelForegroundEvents() const &
                 changeLevelName(UNNAMED_LEVEL);
 
                 newLevelForeground.reset();
+
+                impl->tested = false;
+
+                setTestedTimeSurface();
 
                 break;
             }
@@ -726,6 +715,37 @@ void LevelEditorController::markLevelHasToBeSaved() const &
     );
 
     updateLevelNameSurfacePosition();
+}
+
+/**
+ *
+ */
+void LevelEditorController::setTestedTimeSurface() const &
+{
+    const auto& context = getContext();
+    const auto& colorsManager = context.getColorsManager();
+    const auto& white = colorsManager.getColorWhite();
+
+    auto& testedTime = impl->testedTime;
+
+    if (impl->tested)
+    {
+        testedTime.setFillColor(white);
+        testedTime.setString(
+            context.getPlayingSerieManager().getPlayingTimeAsString()
+        );
+    }
+    else
+    {
+        testedTime.setFillColor(colorsManager.getColorRed());
+        testedTime.setString("Not tested yet");
+    }
+
+    constexpr float TESTED_TIME_VERTICAL_POSITION {40.f};
+    testedTime.setPosition(
+        TITLES_HORIZONTAL_POSITION - testedTime.getLocalBounds().width,
+        TESTED_TIME_VERTICAL_POSITION
+    );
 }
 
 }
