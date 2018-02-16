@@ -152,6 +152,9 @@ public:
     std::unique_ptr<foregrounds::InputTextForeground>
         saveLevelForeground {nullptr};
 
+    std::unique_ptr<foregrounds::MessageForeground>
+        cannotSaveLevelForeground {nullptr};
+
     bool newFile {false};
     bool tested {false};
 };
@@ -191,6 +194,7 @@ const ControllerId& LevelEditorController::render() const &
 {
     auto& newLevelForeground = impl->newLevelForeground;
     auto& saveLevelForeground = impl->saveLevelForeground;
+    auto& cannotSaveLevelForeground = impl->cannotSaveLevelForeground;
 
     const auto& context = getContext();
 
@@ -205,6 +209,12 @@ const ControllerId& LevelEditorController::render() const &
         saveLevelForeground->render();
 
         handleSaveLevelForegroundEvents();
+    }
+    else if (cannotSaveLevelForeground != nullptr)
+    {
+        cannotSaveLevelForeground->render();
+
+        handleCannotSaveLevelForegroundEvents();
     }
     else
     {
@@ -438,6 +448,44 @@ void LevelEditorController::handleSaveLevelForegroundEvents() const &
 /**
  *
  */
+void LevelEditorController::handleCannotSaveLevelForegroundEvents()
+    const &
+{
+    const auto& context = getContext();
+    auto& window = context.getSfmlWindow();
+    auto& event = getEvent();
+
+    while (window.pollEvent(event))
+    {
+        switch(event.type)
+        {
+        case sf::Event::KeyPressed:
+        {
+            switch(event.key.code)
+            {
+            case sf::Keyboard::Return:
+            {
+                impl->cannotSaveLevelForeground.reset();
+
+                break;
+            }
+            default:
+            {
+                break;
+            }
+            }
+        }
+        default:
+        {
+            break;
+        }
+        }
+    }
+}
+
+/**
+ *
+ */
 void LevelEditorController::handleControllerEvents() const &
 {
     auto& level = impl->level;
@@ -479,6 +527,8 @@ void LevelEditorController::handleControllerEvents() const &
             {
                 if (not impl->tested)
                 {
+                    openCannotSaveLevelForeground();
+
                     break;
                 }
 
@@ -605,6 +655,20 @@ void LevelEditorController::openSaveLevelForeground() const &
         std::make_unique<foregrounds::InputTextForeground>(
             getContext(),
             SAVE_LEVEL_NAME_MESSAGE
+        );
+}
+
+/**
+ *
+ */
+void LevelEditorController::openCannotSaveLevelForeground() const &
+{
+    constexpr const char* ERROR_MESSAGE {"The level must be tested first."};
+
+    impl->cannotSaveLevelForeground =
+        std::make_unique<foregrounds::MessageForeground>(
+            getContext(),
+            ERROR_MESSAGE
         );
 }
 
