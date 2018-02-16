@@ -146,6 +146,16 @@ private:
     void handleSaveLevelForegroundEvents() const &;
 
     /**
+     * @brief handles the events of the save level error foreground
+     *
+     * this code part has been refactored into the function
+     * only for organization purposes
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    void handleCannotSaveLevelForegroundEvents() const &;
+
+    /**
      * @brief handles the events of the controller without foreground
      *
      * this code part has been refactored into the function
@@ -177,6 +187,13 @@ private:
      * not noexcept as it calls SFML methods that are not noexcept
      */
     void openSaveLevelForeground() const &;
+
+    /**
+     * @brief loads the save level error foreground for display
+     *
+     * not noexcept as it calls SFML methods that are not noexcept
+     */
+    void openCannotSaveLevelForeground() const &;
 
     /**
      * @brief resets the level pointer for future usage
