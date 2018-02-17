@@ -176,6 +176,11 @@ LevelEditorController::LevelEditorController(
         )
     )
 {
+    if (tested)
+    {
+        markLevelHasToBeSaved();
+    }
+
     /* the job of this method is required at multiple places,
        so this is why it is wrapped into one function,
        not callable from the implementation constructor */
@@ -496,6 +501,8 @@ void LevelEditorController::handleControllerEvents() const &
     auto& window = context.getSfmlWindow();
     auto& event = getEvent();
 
+    auto& tested = impl->tested;
+
     while(window.pollEvent(event))
     {
         switch(event.type)
@@ -525,7 +532,7 @@ void LevelEditorController::handleControllerEvents() const &
             }
             case Action::SAVE:
             {
-                if (not impl->tested)
+                if (not tested)
                 {
                     openCannotSaveLevelForeground();
 
@@ -604,6 +611,8 @@ void LevelEditorController::handleControllerEvents() const &
             if(lastLevelVersionUpdated())
             {
                 markLevelHasToBeSaved();
+
+                tested = false;
             }
         }
         default:
