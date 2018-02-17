@@ -176,6 +176,11 @@ LevelEditorController::LevelEditorController(
         )
     )
 {
+    if (tested)
+    {
+        markLevelHasToBeSaved();
+    }
+
     /* the job of this method is required at multiple places,
        so this is why it is wrapped into one function,
        not callable from the implementation constructor */
