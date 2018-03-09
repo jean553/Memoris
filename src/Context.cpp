@@ -90,6 +90,10 @@ Context::Context() : impl(std::make_unique<Impl>())
     /* prevent the user to keep a key pressed down: the events are only
        triggered one time during the first press down and not continuously */
     window.setKeyRepeatEnabled(false);
+
+    /* prevent intensive CPU usage */
+    constexpr unsigned int FPS_LIMIT {60};
+    window.setFramerateLimit(FPS_LIMIT);
 }
 
 /**
