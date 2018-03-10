@@ -109,7 +109,7 @@ OfficialSeriesMenuController::OfficialSeriesMenuController(
         )
     );
 
-    constexpr float MEDIUM_VERTICAL_POSITION {340.f};
+    constexpr float MEDIUM_VERTICAL_POSITION {400.f};
     std::unique_ptr<items::MenuItem> medium(
         std::make_unique<items::MenuItem>(
             context,
@@ -118,30 +118,10 @@ OfficialSeriesMenuController::OfficialSeriesMenuController(
         )
     );
 
-    constexpr float DIFFICULT_VERTICAL_POSITION {410.f};
-    std::unique_ptr<items::MenuItem> difficult(
-        std::make_unique<items::MenuItem>(
-            context,
-            "Difficult",
-            DIFFICULT_VERTICAL_POSITION
-        )
-    );
-
-    constexpr float HARD_VERTICAL_POSITION {480.f};
-    std::unique_ptr<items::MenuItem> hard(
-        std::make_unique<items::MenuItem>(
-            context,
-            "Hard",
-            HARD_VERTICAL_POSITION
-        )
-    );
-
     easy->select();
 
     addMenuItem(std::move(easy));
     addMenuItem(std::move(medium));
-    addMenuItem(std::move(difficult));
-    addMenuItem(std::move(hard));
 
     /* TODO: #1079 this function should not be part
        of the menu initialization */
@@ -273,7 +253,6 @@ void OfficialSeriesMenuController::selectMenuItem() const & noexcept
     }
     catch(std::invalid_argument&)
     {
-        /* TODO: #559 the error controller should display the error message */
         setExpectedControllerId(ControllerId::OpenFileError);
     }
 }
@@ -287,12 +266,6 @@ const std::string OfficialSeriesMenuController::getSerieNameByItemId(
 {
     switch(itemId)
     {
-    case 2:
-    {
-        return "difficult";
-
-        break;
-    }
     case 1:
     {
         return "medium";
